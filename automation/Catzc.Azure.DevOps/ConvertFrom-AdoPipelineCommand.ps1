@@ -5,7 +5,7 @@
     When ADO passes a command string through YAML template parameters, task
     arguments, and into PowerShell, the string accumulates escaping artifacts:
     carriage returns from Windows line endings, mixed newlines depending on
-    whether the YAML source used folding (>) or literal (|) block scalars,
+    whether the source YAML used folding (>) or literal (|) block scalars,
     and trailing whitespace from YAML indentation. By the time the string
     reaches PowerShell, YAML has already been parsed — this function only
     deals with the resulting plain string, not YAML syntax.

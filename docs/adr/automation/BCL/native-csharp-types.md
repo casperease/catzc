@@ -96,9 +96,9 @@ is a type.
 
 A type publishes a PowerShell type-accelerator by carrying `[Catzc.Base.Objects.PSTypeAlias("Name")]`; `Import-CSharpTypes` registers each
 after loading the assembly, so `[Name]` resolves to that type (`[Catzc.Module.Depm]::Puml`). Names carry a `Catzc.` prefix — a registration
-reclaims only our own accelerator — and the alias literal is authored in the decorated source, so a search for it lands on the type. This is
-registration, not compilation: `Add-Type` stays the sole compiler, and the decoration's cross-module edge is governed by the dependency
-graph (Rule ADR-AUTO-TYPES#4) like any other.
+reclaims only our own accelerator — and the alias literal is authored in the source of the type it decorates, so a search for it lands on
+the type. This is registration, not compilation: `Add-Type` stays the sole compiler, and the decoration's cross-module edge is governed by
+the dependency graph (Rule ADR-AUTO-TYPES#4) like any other.
 
 - [Type-accelerator aliases](#type-accelerator-aliases)
 
@@ -158,9 +158,9 @@ layering discipline is policed by the dependency checker rather than structurall
 `Why one assembly, not one per module`
 
 The blocker for cross-module references under a per-module design is `Add-Type`: it assigns a **random** assembly name (verified —
-`Add-Type -OutputAssembly` produces e.g. `khuvslfy.cez`, and a rebuild of identical source produces a _different_ random name). A dependent
-assembly bakes that random name at compile time and dangles when the base is rebuilt under a new name. There is no `Add-Type` knob for a
-stable assembly name, and no NuGet to reach the Roslyn API cleanly.
+`Add-Type -OutputAssembly` produces e.g. `khuvslfy.cez`, and a rebuild of a source that is unchanged produces a _different_ random name). A
+dependent assembly bakes that random name at compile time and dangles when the base is rebuilt under a new name. There is no `Add-Type` knob
+for a stable assembly name, and no NuGet to reach the Roslyn API cleanly.
 
 One combined assembly dissolves the problem entirely rather than working around it:
 
@@ -220,7 +220,7 @@ editor's feedback equals the runtime's: real namespaces (no `CA1050`), with two 
 (snake_case config-mirroring props, Rule ADR-AUTO-TYPES#8) and `IDE0130` (the namespace mirrors the module, not the project's physical
 folder path, Rule ADR-AUTO-TYPES#2). The runtime never builds the project; `Add-Type` stays the compiler, and `Invoke-BuildForVSCode` builds
 the IDE project on demand for the editor (see below). The [poka-yoke](../../principles/poka-yoke.md) is preserved because the namespace is
-folder-derived by `Format-Types` and checked by `Test-Formatting`, not a second hand-maintained source of truth that could drift.
+folder-derived by `Format-Types` and checked by `Test-Formatting`, not a second source of truth, maintained by hand, that could drift.
 
 To keep that IDE artifact honest, the project **stamps its version from the committed `Catzc.Types.<hash>.dll`** — the runtime assembly's
 own identity (Rule ADR-AUTO-TYPES#6) — so its build metadata (the `deps.json` project entry) reads `Catzc.Types/1.0.0-<hash>`, not the
@@ -261,16 +261,16 @@ call site; the `Catzc.`-namespaced, source-authored literal is what keeps it dis
 
 ### The cache-state contract
 
-Because the DLL filename _is_ the combined source hash, there is no "present but stale" state — a changed source has a different filename,
-so the current-hash DLL is simply absent until built. The loader resolves every state:
+Because the DLL filename _is_ the combined source hash, there is no "present but stale" state — a source that changes has a different
+filename, so the current-hash DLL is simply absent until built. The loader resolves every state:
 
 | current-hash DLL                       | types loaded this session | Outcome                                                                                                                                                                                                                                                                   |
 | -------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | present                                | no                        | **Skip compile, load it.** CI / fresh-checkout hot path (no Roslyn).                                                                                                                                                                                                      |
 | present                                | yes                       | **No-op.** Types already in the AppDomain.                                                                                                                                                                                                                                |
-| absent (new/changed/deleted source)    | no                        | **Compile** all sources → the hash-named DLL, load, verify every type.                                                                                                                                                                                                    |
+| absent (source added/changed/deleted)  | no                        | **Compile** all sources → the hash-named DLL, load, verify every type.                                                                                                                                                                                                    |
 | absent (DLL deleted, source unchanged) | yes                       | **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.                                                                                                                                                              |
-| absent because source CHANGED          | yes                       | **Devbox: warn (orange) + keep the old types** this session (return, don't record the new hash) — unless a type was added, which throws "restart PowerShell". **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped. |
+| absent because the source CHANGED      | yes                       | **Devbox: warn (orange) + keep the old types** this session (return, don't record the new hash) — unless a type was added, which throws "restart PowerShell". **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped. |
 
 A superseded-hash DLL (the old build after a source edit) is pruned by the loader on rebuild and by the post-import janitor
 `Clear-ModuleTypeCache` (which deletes on a devbox only; CI makes no source-control changes). Editing any `types/*.cs` re-keys the whole
@@ -407,7 +407,7 @@ The module-dependency graph that governs cross-module C# type edges (ADR-AUTO-TY
   maintains and `Test-Formatting` checks. Moving a `.cs` to another module stays a safe refactor — re-run `Format-Types` and the line
   follows the folder (and `Test-Formatting`/the loader fail loudly if it didn't).
 
-- The editor compiles and analyzes the exact sources the runtime does: with C# Dev Kit enabled, `Catzc.Types.csproj`/`catzc.sln` give real
+- The editor compiles and analyzes exactly the sources the runtime does: with C# Dev Kit enabled, `Catzc.Types.csproj`/`catzc.sln` give real
   in-IDE analysis (no false `CA1050`, no "No solution file") that equals the `Add-Type` compile — the rules live as code, not as a disabled
   analyzer.
 

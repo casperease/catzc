@@ -128,7 +128,7 @@ state means dealing with this cross-platform inconsistency in every consumer. Mo
 
 `The correct alternative for internal state`
 
-Internal state belongs in the mechanisms the language scopes and cleans up automatically: pass values between functions as parameters and
+Internal state belongs in the mechanisms whose scope and cleanup the language manages automatically: pass values between functions as parameters and
 return values, and keep shared state in module scope. None of these leak to child processes, pollute tests, or persist beyond their natural
 lifetime. The PowerShell mechanism table and idioms are the language layer,
 [environment-variable-mechanics](powershell/environment-variable-mechanics.md) (`ADR-AUTO-PSENV`).

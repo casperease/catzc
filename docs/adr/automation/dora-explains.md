@@ -672,8 +672,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 [ADR-AUTO-USEPS](powershell/use-ps1-not-psm1.md)
 
 > DORA research shows that aligning code structure with established community patterns improves maintainability and reduces onboarding
-> friction. Using .ps1 files for module functions eliminates scope isolation and boilerplate, letting developers focus on logic rather than
-> module plumbing; `.psm1` is kept for genuine module or standalone files, so a file's extension tells a reader what kind of thing it is.
+> friction. Using .ps1 files for module functions eliminates the scope isolation and boilerplate, letting developers focus on logic rather
+> than module plumbing; `.psm1` is kept for genuine module or standalone files, so a file's extension tells a reader what kind of thing it
+> is.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — shared scope eliminates boilerplate and scope
   isolation overhead.

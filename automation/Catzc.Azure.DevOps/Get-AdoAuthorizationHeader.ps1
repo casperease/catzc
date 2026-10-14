@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns an Authorization header for Azure DevOps REST API calls.
 .DESCRIPTION
-    Authentication sources, in priority order. Each is proven to target the configured org/tenant
+    The sources of authentication, in priority order. Each is proven to target the configured org/tenant
     (ado.yml) before a header is returned — a credential alone never establishes "the right thing".
     1. Pipeline: $env:SYSTEM_ACCESSTOKEN — Bearer token, after asserting $env:SYSTEM_COLLECTIONURI
        matches ado.yml organization (the agent token is scoped to the org the pipeline runs in).

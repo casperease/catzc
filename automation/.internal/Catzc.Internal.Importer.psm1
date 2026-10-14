@@ -260,7 +260,7 @@ function Invoke-Importer {
         }
 
         # Keep the managed .gitkeep files current (Catzc.Base.Docs). Every .gitkeep is a committed copy of the
-        # one generic source, pointing at its folder's generated README — reproduced here so a source change
+        # one shared template, pointing at its folder's generated README — reproduced here so a source change
         # propagates, and a fast no-op on a clean tree. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
         if (-not $SkipJanitors -and (Get-Command Build-GitKeep -ErrorAction Ignore)) {
             Build-GitKeep -Silent | Out-Null

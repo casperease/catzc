@@ -47,7 +47,7 @@ That pattern — scripts dot-sourcing their own dependencies — works for small
 - **Fragile paths.** Every script must know the relative path to every script it depends on. Move a file and every consumer breaks. Add an
   indirect dependency and every intermediate script must forward it.
 
-- **Duplicate loading.** If `A.ps1` sources `C.ps1` and `B.ps1` also sources `C.ps1`, the file is parsed and executed twice. With deep
+- **Duplicate loading.** If `A.ps1` dot-sources `C.ps1` and `B.ps1` also dot-sources `C.ps1`, the file is parsed and executed twice. With deep
   dependency trees this multiplies. There is no built-in deduplication.
 
 - **No scope isolation.** Dot-sourcing runs in the caller's scope. A helper that sets `$ErrorActionPreference` or defines a variable with a

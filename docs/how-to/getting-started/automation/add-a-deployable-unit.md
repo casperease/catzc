@@ -38,7 +38,7 @@ Get-GlobSetTrigger -Name my-unit   # the native ADO / GitHub path-filter project
 
 `Get-GlobSetTrigger` renders the globset into each vendor's native path-filter dialect: `.AdoInclude`/`.AdoExclude` (order-independent) for
 an ADO `trigger.paths` block, and `.GitHub` (ordered, `!`-negation) for a GitHub `on.*.paths` list. Both are generated from `globs.yml` —
-put the generated `paths:` block into the pipeline/workflow, never a hand-picked source path:
+put the generated `paths:` block into the pipeline/workflow, never a source path picked by hand:
 
 ```powershell
 $t = Get-GlobSetTrigger -Name my-unit
