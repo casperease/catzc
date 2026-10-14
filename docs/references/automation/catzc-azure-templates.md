@@ -40,9 +40,10 @@ deployment modes and targets a deploy can use. These are the allowed-value sets 
 
 ### responsibility:4 — Build
 
-Turning a template plus a chosen environment and slot into a deployable artifact: resolving the build context, running the template's
-build-time preparation hook, rendering the per-slot parameter file, and compiling the Bicep into the output directory. Build is
-mode-agnostic — it produces artifacts, it does not touch Azure. The deployment's identifying name is derived here too.
+Turning a template plus a chosen environment and slot into a deployable artifact: resolving the build context, resolving every
+config-addressed parameter into the value its config address names, running the template's build-time preparation hook, rendering the
+per-slot parameter file, and compiling the Bicep into the output directory. Build is mode-agnostic — it produces artifacts, it does not
+touch Azure. The deployment's identifying name is derived here too.
 
 ### responsibility:5 — Deploy and resource-group provisioning
 
@@ -70,8 +71,12 @@ Build (responsibility 4) and deploy (responsibility 5) are the two execution pha
 immutable artifact and never touches the cloud, while deploy is the only place state changes. Both phases call the template's optional
 extension hooks at the right moments — preparation merges global configuration into the parameter set at build time, and the pre/post-deploy
 hooks bracket the deployment — which is how a template injects a secret reference or provisions a queue without that logic leaking into the
-engine (see [prepost-extension-modules](../../adr/automation/powershell/prepost-extension-modules.md)). Deploy leans on the
-session-verification checks before it acts, so a deployment can never run against the wrong subscription.
+engine (see [prepost-extension-modules](../../adr/automation/powershell/prepost-extension-modules.md)). A value that belongs to the
+repository rather than to one template, such as the policy enforcement mode, needs no hook: a template's configuration names it by its
+config address, and build renders the addressed value into the parameter file (see
+[data-model](../../adr/azure/azure-data-model.md#rule-adr-az-datamod10) and
+[config-value-addressing](../../adr/configuration/config-value-addressing.md)). Deploy leans on the session-verification checks before it
+acts, so a deployment can never run against the wrong subscription.
 
 The classification vocabularies (responsibility 3) are the small enumerations that keep options and deploys honest, and integrity validation
 (responsibility 6) is the safety net: it binds to the _set_ of shipped templates and asserts the invariants that must hold for every one of

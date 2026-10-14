@@ -45,7 +45,8 @@ function Resolve-ConfigKeyPath {
         }
 
         if ($current -is [System.Collections.IDictionary]) {
-            if (-not $current.Contains($key)) {
+            # Through the interface: a generic or read-only dictionary (a typed config's map) has no public Contains.
+            if (-not ([System.Collections.IDictionary] $current).Contains($key)) {
                 throw "Config address '$Address': key '$key' does not exist in the config node."
             }
             $current = $current[$key]

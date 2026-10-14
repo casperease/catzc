@@ -206,23 +206,37 @@ shorten. Never truncate silently (truncation collides on globally-unique types).
 types carry their own per-type `limit` (the Azure max for that type); `kv`/`storage`/`vm` take their cap from the pattern (24/24/15) and
 declare no `limit`. A type may also declare `omit` — components it drops from its render because they are encoded elsewhere (only `vm` does
 so, dropping org/customer/role). The set is extended in code as consuming repos need; this table mirrors the shipped registry
-(`Get-AzureResourceTypeSet`):
+(`Get-AzureResourceTypeSet`). The **unique in** column is where Azure requires the name to be unique; the registry does not carry it,
+because a deterministic name differs wherever its components differ.
 
-| Type                     | abbr    | pattern | limit / cap | omit                |
-| ------------------------ | ------- | ------- | ----------- | ------------------- |
-| Resource group           | `rg`    | long    | 90          | —                   |
-| Storage account          | `st`    | storage | 24 (cap)    | —                   |
-| Key Vault                | `kv`    | kv      | 24 (cap)    | —                   |
-| Web application firewall | `waf`   | long    | 128         | —                   |
-| Virtual network          | `vnet`  | long    | 64          | —                   |
-| SQL logical server       | `sql`   | long    | 63          | —                   |
-| SQL database             | `sqldb` | long    | 128         | —                   |
-| Virtual machine          | `vm`    | vm      | 15 (cap)    | org, customer, role |
-| Synapse workspace        | `synw`  | long    | 50          | —                   |
-| Data Factory (V2)        | `adf`   | long    | 63          | —                   |
-| Log Analytics workspace  | `log`   | long    | 63          | —                   |
-| Network interface        | `nic`   | long    | 80          | —                   |
-| Public IP address        | `pip`   | long    | 80          | —                   |
+| Type                     | abbr    | pattern | limit / cap | omit                | unique in       |
+| ------------------------ | ------- | ------- | ----------- | ------------------- | --------------- |
+| Resource group           | `rg`    | long    | 90          | —                   | subscription    |
+| Storage account          | `st`    | storage | 24 (cap)    | —                   | global          |
+| Key Vault                | `kv`    | kv      | 24 (cap)    | —                   | global          |
+| Web application firewall | `waf`   | long    | 128         | —                   | resource group  |
+| Virtual network          | `vnet`  | long    | 64          | —                   | resource group  |
+| SQL logical server       | `sql`   | long    | 63          | —                   | global          |
+| SQL database             | `sqldb` | long    | 128         | —                   | SQL server      |
+| Virtual machine          | `vm`    | vm      | 15 (cap)    | org, customer, role | resource group  |
+| Synapse workspace        | `synw`  | long    | 50          | —                   | global          |
+| Data Factory (V2)        | `adf`   | long    | 63          | —                   | global          |
+| Log Analytics workspace  | `log`   | long    | 63          | —                   | resource group  |
+| Network interface        | `nic`   | long    | 80          | —                   | resource group  |
+| Public IP address        | `pip`   | long    | 80          | —                   | resource group  |
+| Network security group   | `nsg`   | long    | 80          | —                   | resource group  |
+| Subnet                   | `snet`  | long    | 80          | —                   | virtual network |
+| Route table              | `rt`    | long    | 80          | —                   | resource group  |
+| Virtual network peering  | `peer`  | long    | 80          | —                   | virtual network |
+| Private endpoint         | `pep`   | long    | 64          | —                   | resource group  |
+| Budget                   | `budg`  | long    | 63          | —                   | subscription    |
+| Policy assignment        | `pa`    | long    | 64          | —                   | subscription    |
+
+Every type above accepts the characters a render can produce. The `long` render is lowercase letters, digits, and hyphens, starting with a
+letter and ending with a letter or digit, which the most restrictive of these types (the budget: letters, digits, underscores, and hyphens;
+the network types: start with a letter or digit, end with a letter, digit, or underscore) all allow. So the registry carries only the
+length. The budget abbreviation is `budg` because a `type` is at most 5 letters. A policy assignment at the management-group level would be
+capped at 24; the templates assign policies at the subscription only, so `pa` carries the subscription limit, 64.
 
 ### Worked examples
 

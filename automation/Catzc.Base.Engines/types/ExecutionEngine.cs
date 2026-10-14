@@ -3,7 +3,7 @@
 // here, once, so no caller restates a flag, a quote rule, or a file name: how the engine's executable is named and
 // located, which script files it runs, how it is started non-interactively, how it loads an entry script and runs a
 // command, its strict mode, its time safeguard, the line endings and executable bit its scripts need, and its importer
-// entry. The two instances live in ExecutionEngines; this type has no public constructor, so no caller invents a third.
+// entry. The three instances live in ExecutionEngines; this type has no public constructor, so no caller invents a fourth.
 //
 // A model type, so its properties are PascalCase
 // ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
@@ -21,10 +21,10 @@ public sealed class ExecutionEngine
     public const string LocateByPsHome = "ps-home";
     public const string LocateByTool = "tool";
 
-    // The engine's name, as config keys and fixture columns spell it (pwsh, bash).
+    // The engine's name, as config keys and fixture columns spell it (pwsh, bash, zsh).
     public string Name { get; }
 
-    // The executable's name without extension (pwsh, bash).
+    // The executable's name without extension (pwsh, bash, zsh).
     public string Command { get; }
 
     // How the executable is located: LocateByPsHome or LocateByTool.
@@ -61,8 +61,9 @@ public sealed class ExecutionEngine
     // The repository-root script that loads the engine's entry points into a session (importer.ps1, importer.sh).
     public string ImporterEntry { get; }
 
-    // What goes before a catzc command in this engine: nothing in pwsh, where the commands are native; "cats " in bash,
-    // the dispatcher importer.sh defines, which runs the command through pwsh. A command's text is the same in both.
+    // What goes before a catzc command in this engine: nothing in pwsh, where the commands are native; "cats " in bash
+    // and zsh, the dispatcher importer.sh defines, which runs the command through pwsh. A command's text is the same in
+    // every engine.
     public string CommandPrefix { get; }
 
     private readonly Func<string, string> quote;
@@ -97,7 +98,7 @@ public sealed class ExecutionEngine
     }
 
     // The text as one literal string in the engine's own quoting: single quotes, with an embedded single quote written
-    // the engine's way ('' in pwsh, '\'' in bash).
+    // the engine's way ('' in pwsh, '\'' in bash and zsh).
     public string Quote(string text)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }

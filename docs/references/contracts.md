@@ -22,3 +22,5 @@ declared version, so a change that would break a published contract fails CI her
 The governing decisions are [api-contracts](../adr/repository/api-contracts.md) (the surface, immutability, and testing discipline) and
 [conventional-folders](../adr/repository/conventional-folders.md) (the `contracts/<unit>/<version>/<module>/` layout and its `.gitkeep`
 marker).
+
+Each unit's assets, with what each pins, are listed on a generated page per unit: [catzc](contracts/catzc.md).

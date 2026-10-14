@@ -115,3 +115,47 @@ concepts:
       root file:
         A root file is a tracked file outside every track; an unlisted file is a tracked file outside every file language, whatever its
         track.
+  world map:
+    key: world_map
+    domain: design
+    defined_by: ADR-DSGN-TRACK#9
+    short:
+      The repository drawn as tracks crossed with file languages, plus a row for the root files and a column for the unlisted files — every
+      tracked file in exactly one cell.
+    realized_by: { kind: prose-only }
+    contrasts:
+      cell:
+        A cell is one row crossed with one column; the world map is the whole grid of them, computed from the registries and the git index.
+  cell:
+    key: cell
+    domain: design
+    defined_by: ADR-DSGN-TRACK#10
+    short: One row crossed with one column of the world map — the tracked files of one track in one file language, and their count.
+    realized_by: { kind: prose-only }
+    contrasts:
+      world map: The world map is the whole grid; a cell is one intersection of it, holding the files of one track in one file language.
+      stack violation:
+        A stack violation is a cell holding a live file outside its track's file languages; a cell is any intersection, allowed or not.
+      lit cell: A lit cell is a cell a highlight selects; a cell is any intersection, lit or not.
+  stack violation:
+    key: stack_violation
+    domain: design
+    defined_by: ADR-DSGN-TRACK#11
+    short:
+      A world-map cell holding a live file whose file language its track does not declare — the second tech-stack ADR-DSGN-TRACK#3 forbids.
+    realized_by: { kind: prose-only }
+    contrasts:
+      cell: A cell is any intersection of the world map; a stack violation is a cell that breaks its track's tech-stack.
+      lit cell:
+        A lit cell is selected by a highlight and says nothing about the stack; a stack violation is a finding, marked whatever the
+        highlight.
+  lit cell:
+    key: lit_cell
+    domain: design
+    defined_by: ADR-DSGN-TRACK#12
+    short: A world-map cell a highlight selects — an ADR code or a set of files names the files it concerns, and their cells light.
+    realized_by: { kind: prose-only }
+    contrasts:
+      cell: A cell is any intersection of the world map; a lit cell is one a highlight selects.
+      stack violation:
+        A stack violation is a finding about a cell's files; a lit cell is a selection, made by a highlight, that never judges the cell.

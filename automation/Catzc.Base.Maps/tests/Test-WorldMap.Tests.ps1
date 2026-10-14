@@ -78,16 +78,16 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
         )
     }
 
-    It 'reports a maps.yml label whose head names no glossary term' {
+    It 'reports a maps.yml label whose head names no glossary term' -Tag 'ADR-DSGN-TRACK#13' {
         $script:labels = [pscustomobject]@{ row_axis = 'Widgets'; legend_files = 'Gizmos per widget'; column_axis = 'Sprocket: gadget boxes' }
         $issues = @((Test-WorldMap -OutputFolder $script:out -PassThru).Issues)
         $issues | Should -Be @(
-            "unregistered label: maps.yml labels.column_axis 'Sprocket: gadget boxes' names no glossary term in its head (ADR-REPO-VOCAB#1)"
-            "unregistered label: maps.yml labels.legend_files 'Gizmos per widget' names no glossary term in its head (ADR-REPO-VOCAB#1)"
+            "unregistered label: maps.yml labels.column_axis 'Sprocket: gadget boxes' names no glossary term in its head (ADR-DSGN-TRACK#13)"
+            "unregistered label: maps.yml labels.legend_files 'Gizmos per widget' names no glossary term in its head (ADR-DSGN-TRACK#13)"
         )
     }
 
-    It 'reports the track and file-language names when the glossary lacks their axis term' {
+    It 'reports the track and file-language names when the glossary lacks their axis term' -Tag 'ADR-DSGN-TRACK#13' {
         $script:glossary = @($script:fullGlossary | Where-Object { $_.Concept.term -in 'widget', 'gadget box' })
         $issues = @((Test-WorldMap -OutputFolder $script:out -PassThru).Issues)
         $issues | Should -Be @(
@@ -113,7 +113,7 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
 # The repository's own world map, through the quality gate. It reads only the git index and the registries, so its
 # answer cannot differ between the run modes (source-only).
 Describe 'Test-WorldMap on the repository' -Tag 'L1', 'integrity', 'source-only' {
-    It 'Test-WorldMap passes over the repository' -Tag 'ADR-DSGN-TRACK#1', 'ADR-DSGN-TRACK#3', 'ADR-AUTO-TEST#35' {
+    It 'Test-WorldMap passes over the repository' -Tag 'ADR-DSGN-TRACK#1', 'ADR-DSGN-TRACK#3', 'ADR-DSGN-TRACK#13', 'ADR-AUTO-TEST#35' {
         $result = Test-WorldMap -PassThru -OutputFolder (Join-Path $TestDrive 'world-map')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

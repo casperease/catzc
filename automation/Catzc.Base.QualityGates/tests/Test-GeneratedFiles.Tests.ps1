@@ -8,6 +8,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         Mock Build-AdrIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/index.md'; Changed = $false; DryRun = $true } }
         Mock Build-Glossary -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/glossary.md'; Changed = $false; DryRun = $true; ConceptCount = 2 } }
         Mock Build-Readme -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Folder = 'widget'; Source = 'docs/widget.md'; Readme = 'widget/README.md'; Changed = $false; DryRun = $true } }
+        Mock Build-ContractReference -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/contracts/widget.md'; Changed = $false; DryRun = $true } }
         Mock Build-GitKeep -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'widget/.gitkeep'; Changed = $false; DryRun = $true } }
         Mock Build-TerminologyDictionary -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Category = 'widget'; Path = '.cspell/widget.txt'; WordCount = 3; Changed = $false; DryRun = $true } }
         Mock Get-ConfigValue -ModuleName Catzc.Base.QualityGates { '10' }
@@ -46,7 +47,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $result.Subject | Should -Be 'generated-files'
         $result.IssueCount | Should -Be 1
         $result.Issues[0] | Should -Be 'widget/README.md: stale — Build-Readme would change it; regenerate with: Build-Readme'
-        $result.Generators | Should -Be 14
+        $result.Generators | Should -Be 15
     }
 
     It 'attributes a rendered root file to its generator and a copied one to Build-RootConfig' {

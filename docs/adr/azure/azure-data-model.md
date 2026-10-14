@@ -81,6 +81,23 @@ Key Vault reference, never a literal value.
 
 - [Validation](#validation)
 
+### Rule ADR-AZ-DATAMOD:10
+
+A template config parameter may name its value by config address, `{ address: global.<config>.<key>… }`, instead of a literal `value` or a
+Key Vault `reference`. The build resolves it through `Get-ConfigValue` into `{ value: <resolved> }`, for any template. An address reaches
+only version-controlled config, so it never carries a secret; an address set together with `value` or `reference`, or one that does not
+resolve, fails the build, naming the config file and the parameter.
+
+- [Config-addressed parameters](#config-addressed-parameters)
+
+### Rule ADR-AZ-DATAMOD:11
+
+`azure.yml` carries the repository's policy enforcement mode, `policy_enforcement: { production, nonproduction }`, each `Default` or
+`DoNotEnforce`. The setting is optional; its sensible default, `{ production: Default, nonproduction: DoNotEnforce }`, is declared once on
+`AzureConfig`, which fills every key the file omits and rejects an unknown key or mode. Templates read it by config address.
+
+- [Policy enforcement](#policy-enforcement)
+
 ## Context
 
 `Catzc.Azure.Templates` is configured by **two layers**:
@@ -132,6 +149,7 @@ erDiagram
     AZURE_CONFIG {
         string org "2-3 alnum, required (name component)"
         string bicep_min_version "required; MAJOR.MINOR.PATCH — min Bicep CLI, asserted before every build"
+        map    policy_enforcement "optional; production/nonproduction -> Default | DoNotEnforce, defaulted on AzureConfig"
     }
     TENANT {
         string name PK "map key"
@@ -176,6 +194,23 @@ environment (e.g. `shared_nonprod` and a customer's `apex_nonprod` both serve `d
 is the resolution within one coordinate: no two subscriptions of one customer serve the same env (`AzureConfig`, plus the normalized
 integrity test), and a root config's env must be served by exactly one non-customer subscription (asserted per config file at discovery —
 the "every file resolves to ONE subscription id" rule). Which subscription a deploy targets is the az session's — never an argument.
+
+### Policy enforcement
+
+`One repository-wide mode, defaulted on the type`
+
+Whether the policies a template assigns are enforced or only audited is a property of the repository, not of one template: a stricter
+repository enforces them everywhere, a looser one audits them outside production. `azure.yml` holds it once, as `policy_enforcement`, with
+one key per environment class — `production` and `nonproduction` — each set to the Azure policy assignment's `enforcementMode`, `Default`
+(enforce) or `DoNotEnforce` (audit only).
+
+The setting resolves in the one fixed order of a configurable setting
+([sensible-defaults](../automation/sensible-defaults.md#rule-adr-auto-default6)): the value in `azure.yml`, else the sensible default
+`{ production: Default, nonproduction: DoNotEnforce }`. The default is declared once, on `AzureConfig`, so an omitted map, a partial map,
+and a fresh checkout behave alike: the type fills each key the file omits, and every reader sees a complete map. An unknown key or mode is
+rejected at load, with every other violation of the file, in one error. A template reads the mode by config address
+(`global.azure.policy_enforcement.production`, see [Config-addressed parameters](#config-addressed-parameters)), so no template restates it
+and changing it is one edit to `azure.yml`.
 
 ### Layer 2 — Templating
 
@@ -277,6 +312,32 @@ Resource names for a template's own parameters are written **statically** in
 through unchanged — it does not generate or validate them. (Automated generation/validation of in-template names against the builder is
 intentionally deferred; the resource-group name above is the only name the system derives.)
 
+### Config-addressed parameters
+
+`A parameter that names its value by config address`
+
+A parameter in `ParametersFile.parameters` takes one of three forms: a literal `value`, an ARM Key Vault `reference`, or a config address.
+The address form names a node of a version-controlled config ([config-value-addressing](../configuration/config-value-addressing.md))
+instead of copying its value:
+
+```yaml
+ParametersFile:
+  parameters:
+    enforcementMode:
+      address: global.azure.policy_enforcement.production
+```
+
+`Build-Bicep` resolves every address through `Get-ConfigValue` before the PrePost hook runs and renders it as `{ "value": <resolved> }`, so
+the hook, the parameters file, and the parameter contract (ADR-AZ-DATAMOD#9) see only ARM entries. The resolution is generic: it serves any
+template and any config, with no per-template code, which is why a repository-wide value needs no PrePost hook to reach a template. A config
+value keeps one owner, and every template that needs it reads it there rather than holding a copy that drifts.
+
+An address reaches only committed config, so nothing it names is a secret
+([config-value-addressing](../configuration/config-value-addressing.md#rule-adr-conf-addressing3)); a secure parameter takes a Key Vault
+`reference`, and the parameter contract rejects any literal for it, addressed or not. The build fails fast, with every violation of a config
+file in one error that names the file and each parameter: an `address` set together with `value`, `reference`, or any other key, an address
+that is not a string, and an address that does not resolve — an unknown config, a missing key, or a malformed address.
+
 ### Runtime resolution (the joins)
 
 The config is resolved into runtime objects on demand — where the "complex joins in PowerShell" deliberately live:
@@ -314,9 +375,9 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
 
 - **Per-record shape** (identifiers, GUIDs, enums, formats) is schema-expressible.
 - **Cross-record integrity** (FKs, env name/shortcode uniqueness, ≤1 per-subscription env per subscription, per-customer environment
-  disjointness by raw token) is owned by the `AzureConfig` config type, checked at load; the `customer` reference into `customer.yml`, the
-  normalized (key-vs-shortcode) per-customer grouping, and the non-customer set's disjointness are shipped-asset integrity tests (see
-  [`customer-model`](azure-customer-model.md#rule-adr-az-customer3)).
+  disjointness by raw token) and the `policy_enforcement` keys and modes are owned by the `AzureConfig` config type, checked at load; the
+  `customer` reference into `customer.yml`, the normalized (key-vs-shortcode) per-customer grouping, and the non-customer set's disjointness
+  are shipped-asset integrity tests (see [`customer-model`](azure-customer-model.md#rule-adr-az-customer3)).
 - The **cross-layer** link is enforced at **discovery** (`Get-BicepTemplates`) and collected by `Assert-BicepTemplate`, sharing the
   per-config rule `Get-BicepSubscriptionConfigViolations`: a configuration subfolder is a **defined customer key**, and every config's
   (customer?, env) coordinate resolves to **exactly one subscription id** (`Get-BicepConfigSubscriptionCandidates`).

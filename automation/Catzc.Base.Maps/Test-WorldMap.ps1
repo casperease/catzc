@@ -14,8 +14,8 @@
       gitignored output ([ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1),
       [ADR-REPO-OUTDIR](/docs/adr/repository/dedicated-output-directory.md)). The map places the files of any other
       root folder no track names among the root files: one issue per such folder, with its file count.
-    - Printed labels. The world map prints only defined terms
-      ([ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)): each label of
+    - Printed labels. Every label the world map prints names a defined term
+      ([ADR-DSGN-TRACK#13](/docs/adr/design/tracks.md#rule-adr-dsgn-track13)): each label of
       maps.yml (Get-Config -Config maps) names a glossary term (Get-Glossary) in its head, the text before its first
       ':' (Resolve-WorldMapLabelTerm). A row prints a track's name and a column a file language's name, so the
       names resolve through their axis's term: the glossary holds 'track'
@@ -95,7 +95,7 @@ function Test-WorldMap {
     foreach ($name in $labelNames) {
         $text = [string] $labels.$name
         if ($null -eq (Resolve-WorldMapLabelTerm -Label $text -Term $terms)) {
-            $issues.Add("unregistered label: maps.yml labels.$name '$text' names no glossary term in its head (ADR-REPO-VOCAB#1)")
+            $issues.Add("unregistered label: maps.yml labels.$name '$text' names no glossary term in its head (ADR-DSGN-TRACK#13)")
         }
     }
     $axes = @(

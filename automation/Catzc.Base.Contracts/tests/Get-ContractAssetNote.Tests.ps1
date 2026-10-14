@@ -4,6 +4,12 @@
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
     BeforeAll {
+        # The lines of a fixture file, each ended by LF.
+        function Join-Line {
+            param([AllowEmptyString()] [string[]] $Line)
+            ($Line -join "`n") + "`n"
+        }
+
         function Get-Note {
             param([string] $Path, [string] $Content)
             $file = Join-Path $script:root "contracts/widget/0.0.0/Catzc.Widget/$Path"
@@ -23,17 +29,17 @@ Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
     }
 
     It 'joins the leading comment lines of a YAML fragment into one line' {
-        $note = Get-Note '.widget/flows/build.yml' "# The keys the gadget host reads:`n#   the ``widget`` root.`n#`nwidget:`n  gadget:`n"
+        $note = Get-Note '.widget/flows/build.yml' (Join-Line -Line '# The keys the gadget host reads:', '#   the `widget` root.', '#', 'widget:', '  gadget:')
         $note | Should -BeExactly 'The keys the gadget host reads: the `widget` root.'
     }
 
     It 'ends the note at the first line that is not a comment, a blank line included' {
-        $note = Get-Note '.widget/flows/build.yml' "# The widget note.`n`n# Not the note.`nwidget:`n"
+        $note = Get-Note '.widget/flows/build.yml' (Join-Line -Line '# The widget note.', '', '# Not the note.', 'widget:')
         $note | Should -BeExactly 'The widget note.'
     }
 
     It 'reads the note of a YAML sample payload' {
-        Get-Note 'gadget.sample.yml' "# A gadget the widget produces.`nwidget: gadget`n" | Should -BeExactly 'A gadget the widget produces.'
+        Get-Note 'gadget.sample.yml' (Join-Line -Line '# A gadget the widget produces.', 'widget: gadget') | Should -BeExactly 'A gadget the widget produces.'
     }
 
     It 'gives nothing for a YAML asset that opens with no comment' {

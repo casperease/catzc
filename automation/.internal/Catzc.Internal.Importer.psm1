@@ -251,6 +251,12 @@ function Invoke-Importer {
             Build-Glossary -Silent | Out-Null
         }
 
+        # Keep the generated contract pages current (Catzc.Base.Contracts): docs/references/contracts/<unit>.md from the
+        # contract assets' header comments — committed so GitHub has them. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+        if (-not $SkipJanitors -and (Get-Command Build-ContractReference -ErrorAction Ignore)) {
+            Build-ContractReference -Silent | Out-Null
+        }
+
         # Keep the generated README copy-ins current (Catzc.Base.Docs). Fast no-op when nothing changed — Build-Readme
         # rewrites a README only when its composed content differs (compared EOL-insensitively), so a clean tree costs
         # only a few small file reads. Guarded: absent in the bootstrap sandbox, like Clear-ModuleTypeCache.

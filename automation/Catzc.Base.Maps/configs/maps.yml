@@ -21,14 +21,15 @@
 #     min_font_size: 6              #   the smallest a label may shrink to
 #     max_row_label: 24             #   characters a track name prints (whole number)
 #     max_column_label: 16          #   characters a file-language name prints (whole number)
-#   labels:                         # WinAnsi text only: the base-14 PDF fonts show nothing else
+#   labels:                         # WinAnsi text only: the base-14 PDF fonts show nothing else; each names a defined
+#                                   #   term in its head, the text before its first ':' (ADR-DSGN-TRACK#13)
 #     grid_title: 'World map: tracks × file languages'
 #     tree_title: 'World map: repository tree'
 #     row_axis: Track               #   at most max_row_label characters
 #     column_axis: File language    #   at most max_column_label characters
 #     root_files: Root files        #   the row of the root files (ADR-DSGN-TRACK#7); at most max_row_label
 #     unlisted_files: Unlisted files #  the column of the unlisted files (ADR-DSGN-TRACK#8); at most max_column_label
-#     legend_files: Files per cell
+#     legend_files: 'Cell: files'
 #     legend_violation: Stack violation
 #     legend_highlight: Lit cell
 #   highlight:                      # reviewed overrides of the derived highlight

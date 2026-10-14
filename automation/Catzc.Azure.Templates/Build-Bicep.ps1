@@ -5,11 +5,16 @@
     For each target slot (one per configuration/[<customer>/]<config>.yml):
     1. Loads the slot's config via Get-BicepTemplateConfiguration.
     2. Runs the UNDEFINED guard (throws if any flattened leaf is the literal string 'UNDEFINED').
-    3. If the template ships `infrastructure/templates/<name>/PrePost.psm1` exporting
+    3. Resolves every config-addressed parameter, `{ address: global.<config>.<key>… }`, into `{ value: … }`
+       through Get-ConfigValue (Resolve-BicepParameterAddresses). An address reaches only version-controlled
+       config, so no secret can be addressed: a secure parameter takes a Key Vault `reference`. An address that
+       does not resolve, or one set together with `value` or `reference`, fails the build, naming the config file
+       and the parameter.
+    4. If the template ships `infrastructure/templates/<name>/PrePost.psm1` exporting
        Invoke-BicepPrepareParameterSet, runs it — the merge seam between per-slot config and the
        global asset configs in `Catzc.Azure.Templates/assets/*.yml`. With no such hook the step is a no-op
        (the per-slot config is used unchanged).
-    4. Renders the resulting `.ParametersFile` to
+    5. Renders the resulting `.ParametersFile` to
        `out/template/<name>/parameters.[<customer>.]<config>.json` — one per config file; the name
        comes from Get-BicepParametersFileName (config name = `<env>[-<slot>]`).
 
@@ -111,6 +116,20 @@ function Build-Bicep {
             if ($flat[$key] -eq 'UNDEFINED') {
                 throw "Undefined config key '$key' for slot '$($slot.name)' in template '$Template'"
             }
+        }
+
+        # A config-addressed parameter `{ address: global.<config>.<key>… }` renders as the value it addresses
+        # ([ADR-AZ-DATAMOD#10](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10)), before the PrePost hook,
+        # so the hook and the parameters file see only ARM entries.
+        if ($configurationDescriptor.Contains('ParametersFile') -and $configurationDescriptor.ParametersFile -is [System.Collections.IDictionary] -and
+            $configurationDescriptor.ParametersFile.Contains('parameters') -and $configurationDescriptor.ParametersFile.parameters -is [System.Collections.IDictionary]) {
+            $configFolder = if ([string]::IsNullOrEmpty($slot.customer)) {
+                $templateDescriptor.configuration_folder
+            }
+            else {
+                Join-Path $templateDescriptor.configuration_folder $slot.customer
+            }
+            $configurationDescriptor.ParametersFile.parameters = Resolve-BicepParameterAddresses -Parameters $configurationDescriptor.ParametersFile.parameters -ConfigFile (Join-Path $configFolder "$($slot.name).yml")
         }
 
         # The build invocation for this slot — the arguments Build-Bicep is acting on. Hooks read what

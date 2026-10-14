@@ -20,6 +20,27 @@ Describe 'Get-AzureResourceTypeSet' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'exposes the landing-zone resource types (nsg, snet, rt, peer, pep, budg, pa)' {
+        $types = Get-AzureResourceTypeSet
+        foreach ($t in 'nsg', 'snet', 'rt', 'peer', 'pep', 'budg', 'pa') {
+            $types.Contains($t) | Should -BeTrue
+        }
+    }
+
+    It 'the landing-zone types are long types carrying the Azure name limit (<type> -> <limit>)' -ForEach @(
+        @{ type = 'nsg'; limit = 80 }
+        @{ type = 'snet'; limit = 80 }
+        @{ type = 'rt'; limit = 80 }
+        @{ type = 'peer'; limit = 80 }
+        @{ type = 'pep'; limit = 64 }
+        @{ type = 'budg'; limit = 63 }
+        @{ type = 'pa'; limit = 64 }
+    ) {
+        $entry = (Get-AzureResourceTypeSet)[$type]
+        $entry.pattern | Should -Be 'long'
+        $entry.limit | Should -Be $limit
+    }
+
     It 'vm omits org/customer/role from its render (so a slotted per-customer name fits 15)' {
         (Get-AzureResourceTypeSet).vm.omit | Should -Be @('org', 'customer', 'role')
     }

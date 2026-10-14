@@ -83,6 +83,15 @@ mode says what to match — nothing is enumerated speculatively.
 
 - [Addressing many files](#addressing-many-files)
 
+### Rule ADR-REPO-CONTRACT:9
+
+An asset says what it pins in its own header comment — the leading `#` lines of a YAML asset, the `$comment` of a schema — and `contracts/`
+holds only assets. `Build-ContractReference` generates one committed page per unit, `docs/references/contracts/<unit>.md`, listing every
+asset of every version folder with its module, target, direction, kind, and note. An asset whose check compares every byte or key — a
+presence asset, a text fragment, a JSON fragment or sample payload — carries no note.
+
+- [How this is enforced](#how-this-is-enforced)
+
 ## Context
 
 The [one-living-version](../principles/one-living-version.md) principle holds for the **inside** of the repository: every internal caller is
@@ -255,6 +264,9 @@ follows one living version.
 
 - **The frozen-folder test** compares each released version folder with the `.frozen` record `Publish-ContractRelease` wrote at release, and
   fails on any file changed, added, or removed (ADR-REPO-CONTRACT#5).
+
+- **`Build-ContractReference`** writes the per-unit reference pages from the assets' header comments, and `Test-GeneratedFiles` fails when
+  one is stale (ADR-REPO-CONTRACT#9).
 
 - **`.gitattributes`** marks every file in a version folder `catzc-contract`
   ([ADR-REPO-ROOTCFG#1](generated-root-configs.md#rule-adr-repo-rootcfg1)), so the link and Markdown-title tools leave an asset as written:

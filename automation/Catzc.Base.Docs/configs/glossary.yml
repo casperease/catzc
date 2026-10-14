@@ -46,7 +46,8 @@ concepts:
     defined_by: ADR-REPO-LANG#1
     short: One of the three registers — design, test, live — each with its own terminology and identities; a token belongs to exactly one.
     realized_by: { kind: prose-only }
-    forms: [language, design, test, live]
+    # landing and dns are Azure's own terms (a CAF landing zone, a private DNS zone), not language zones.
+    forms: [language, design, test, live, landing, dns]
     contrasts:
       domain: An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.
       file language:

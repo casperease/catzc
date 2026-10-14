@@ -10,8 +10,8 @@
     - a bare https:// or http:// address becomes an autolink, <address>, so it renders as a link and is not a bare URL;
     - a '<' that opens no autolink is escaped, so it is never read as inline HTML;
     - every '|' is escaped, so it never ends the table cell.
-    Code spans keep their text (only their '|' is escaped, as a table cell requires); other links and autolinks are left
-    as written.
+    Code spans keep their text (only their '|' is escaped, as a table cell requires); every other link and autolink is
+    left as written.
 .PARAMETER Note
     The note, one line.
 .PARAMETER PageFolder

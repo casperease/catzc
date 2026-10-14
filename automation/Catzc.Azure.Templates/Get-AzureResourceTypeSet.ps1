@@ -40,5 +40,12 @@ function Get-AzureResourceTypeSet {
         log   = @{ pattern = 'long'; limit = 63 }   # Log Analytics workspace (4-63)
         nic   = @{ pattern = 'long'; limit = 80 }   # network interface
         pip   = @{ pattern = 'long'; limit = 80 }   # public IP address
+        nsg   = @{ pattern = 'long'; limit = 80 }   # network security group — 1-80, unique in the resource group
+        snet  = @{ pattern = 'long'; limit = 80 }   # subnet — 1-80, unique in the virtual network
+        rt    = @{ pattern = 'long'; limit = 80 }   # route table — 1-80, unique in the resource group
+        peer  = @{ pattern = 'long'; limit = 80 }   # virtual network peering — 1-80, unique in the virtual network
+        pep   = @{ pattern = 'long'; limit = 64 }   # private endpoint — 2-64, unique in the resource group
+        budg  = @{ pattern = 'long'; limit = 63 }   # budget — 1-63 (letters, digits, _ and -), unique in the subscription
+        pa    = @{ pattern = 'long'; limit = 64 }   # policy assignment — 1-64 at the subscription, unique there
     }
 }

@@ -1,35 +1,85 @@
-// Reusable bicep module: a SQL logical server (SQL authentication) with the "allow Azure services"
-// firewall rule. Databases are separate (../../modules/sql-database.bicep). Templates reference it with
-// a relative `module` declaration; `az bicep build` inlines it.
+// Reusable bicep module: a SQL logical server with the Well-Architected defaults — an Entra ID
+// administrator (a group by default), Entra-only authentication, no public network access, TLS 1.2
+// minimum, and a system-assigned managed identity. Reach it through a private endpoint
+// (../../modules/private-endpoint.bicep, group id `sqlServer`). Databases are separate
+// (../../modules/sql-database.bicep). Templates reference it with a relative `module` declaration;
+// `az bicep build` inlines it.
+//
+// A break-glass SQL login is opt-in: pass `entraOnlyAuthentication: false` together with
+// `administratorLogin` and `administratorLoginPassword` (the password as a Key Vault reference).
 
-@description('SQL logical server name (3-63 lowercase, globally unique).')
+@description('SQL logical server name (1-63 lowercase, globally unique).')
 param name string
 
 @description('Azure region. Defaults to the enclosing resource group location.')
 param location string = resourceGroup().location
 
-@description('SQL administrator login name.')
-param administratorLogin string
+@description('Display name of the Entra ID administrator (the group name when the administrator is a group).')
+param entraAdminLogin string
 
-@description('SQL administrator password.')
+@description('Object id of the Entra ID administrator.')
+param entraAdminObjectId string
+
+@description('Principal type of the Entra ID administrator.')
+@allowed([
+  'Group'
+  'User'
+  'Application'
+])
+param entraAdminPrincipalType string = 'Group'
+
+@description('Entra tenant GUID of the administrator. Defaults to the deployment subscription tenant.')
+param tenantId string = subscription().tenantId
+
+@description('Allow Entra ID authentication only. Turn it off only to enable the break-glass SQL login.')
+param entraOnlyAuthentication bool = true
+
+@description('Break-glass SQL administrator login. Empty means no SQL login; required when entraOnlyAuthentication is false.')
+param administratorLogin string = ''
+
+@description('Break-glass SQL administrator password (supplied from a Key Vault reference).')
 @secure()
-param administratorLoginPassword string
+param administratorLoginPassword string = ''
 
-resource server 'Microsoft.Sql/servers@2023-08-01-preview' = {
+@description('Public network access. Disabled by default: the server is reached through a private endpoint.')
+@allowed([
+  'Enabled'
+  'Disabled'
+])
+param publicNetworkAccess string = 'Disabled'
+
+@description('Add the "allow Azure services" firewall rule. Takes effect only with public network access enabled.')
+param allowAzureServices bool = false
+
+@description('Resource tags.')
+param tags object = {}
+
+resource server 'Microsoft.Sql/servers@2023-08-01' = {
   name: name
   location: location
+  tags: tags
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
-    administratorLogin: administratorLogin
-    administratorLoginPassword: administratorLoginPassword
+    administratorLogin: empty(administratorLogin) ? null : administratorLogin
+    administratorLoginPassword: empty(administratorLogin) ? null : administratorLoginPassword
+    administrators: {
+      administratorType: 'ActiveDirectory'
+      azureADOnlyAuthentication: entraOnlyAuthentication
+      login: entraAdminLogin
+      sid: entraAdminObjectId
+      principalType: entraAdminPrincipalType
+      tenantId: tenantId
+    }
     version: '12.0'
     minimalTlsVersion: '1.2'
-    publicNetworkAccess: 'Enabled'
+    publicNetworkAccess: publicNetworkAccess
   }
 }
 
-// Allow other Azure services to reach the server. The 0.0.0.0 rule is the
-// special "Allow Azure services and resources to access this server" toggle.
-resource allowAzure 'Microsoft.Sql/servers/firewallRules@2023-08-01-preview' = {
+// The 0.0.0.0 rule is the special "Allow Azure services and resources to access this server" toggle.
+resource allowAzure 'Microsoft.Sql/servers/firewallRules@2023-08-01' = if (allowAzureServices && publicNetworkAccess == 'Enabled') {
   parent: server
   name: 'AllowAllWindowsAzureIps'
   properties: {
@@ -40,4 +90,5 @@ resource allowAzure 'Microsoft.Sql/servers/firewallRules@2023-08-01-preview' = {
 
 output id string = server.id
 output name string = server.name
+output principalId string = server.identity.principalId
 output fullyQualifiedDomainName string = server.properties.fullyQualifiedDomainName

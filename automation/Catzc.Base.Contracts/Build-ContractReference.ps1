@@ -11,8 +11,8 @@
     contract.yml sets it), its kind, and its note.
 
     The note is the asset's header comment (Get-ContractAssetNote), so what an asset is for is written once, in the
-    asset, and contracts/ holds only assets. A note's code links become relative markdown links and its addresses
-    autolinks (ConvertTo-ContractNoteCell). An asset that carries no comment shows none.
+    asset, and contracts/ holds only assets. A note's code links become relative markdown links and each address an
+    autolink (ConvertTo-ContractNoteCell). An asset that carries no comment shows none.
 
     The pages are derived artifacts like the [glossary](/docs/adr/glossary.md): committed so GitHub has them and rebuilt
     by this writer, while their inputs (the assets) are what is reviewed and checked

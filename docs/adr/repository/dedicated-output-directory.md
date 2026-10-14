@@ -78,6 +78,13 @@ The plan files `out/plan-*.md` are authored working notes, not output: the white
 
 - [Plan files](#plan-files)
 
+### Rule ADR-REPO-OUTDIR:11
+
+A PDF is output: it is rendered from a source, so it belongs under the output root. Git ignores `*.pdf` everywhere in the repository, and a
+PDF that must be committed opts out with its own `!` line, and a note saying why, in the gitignore registry (`gitignore.yml`).
+
+- [Decision](#decision)
+
 ## Context
 
 Automation functions produce files — reports, exports, generated configs, build artifacts, test results. When each function chooses its own
@@ -117,6 +124,10 @@ Two classes of generated file live in the source tree rather than under `out/`. 
 exception to ADR-REPO-OUTDIR#4. The other is gitignored and regenerated on import — the `.psd1` module manifests, the generated READMEs, and
 the spell-checker dictionaries (ADR-REPO-OUTDIR#8) — cheap to reproduce, so they are never committed and the authored source stays the
 single source of truth.
+
+A PDF is output by its nature: every PDF here is rendered from a source, such as a diagram, a world map or a review bundle. So the ignore
+rule is by file type, not by folder: `*.pdf` is ignored everywhere (ADR-REPO-OUTDIR#11). Committing a PDF is a deliberate exception, made
+visible as its own opt-out line in the gitignore registry.
 
 ### The toolset's build
 

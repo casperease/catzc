@@ -19,7 +19,7 @@ public sealed class MapsLabels
     public const string DefaultColumnAxis = "File language";
     public const string DefaultRootFiles = "Root files";
     public const string DefaultUnlistedFiles = "Unlisted files";
-    public const string DefaultLegendFiles = "Files per cell";
+    public const string DefaultLegendFiles = "Cell: files";
     public const string DefaultLegendViolation = "Stack violation";
     public const string DefaultLegendHighlight = "Lit cell";
 

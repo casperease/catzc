@@ -1,4 +1,4 @@
-// The repository's execution engines — exactly two, pwsh and bash, declared once
+// The repository's execution engines — exactly three, pwsh, bash and zsh, declared once
 // ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)). Every list of engines in the codebase — config keys
 // per shell, per-engine fixture columns, an engine argument's allowed values — is Names, so adding or changing an
 // engine is one edit here.
@@ -49,11 +49,31 @@ public static class ExecutionEngines
         quote: text => "'" + text.Replace("'", "'\\''") + "'",
         sourceFormat: "source {0} >/dev/null 2>&1");
 
+    // zsh: the third engine, the default login shell on macOS, located through its tools.yml entry. It shares bash's
+    // POSIX quoting and its importer entry, importer.sh, which runs under both.
+    public static readonly ExecutionEngine Zsh = new ExecutionEngine(
+        name: "zsh",
+        command: "zsh",
+        locate: ExecutionEngine.LocateByTool,
+        toolKey: "zsh",
+        scriptExtensions: new[] { ".zsh" },
+        shebang: "#!/usr/bin/env zsh",
+        nonInteractiveArguments: new[] { "-f" },
+        commandFlag: "-c",
+        strictMode: "setopt ERR_EXIT NO_UNSET PIPE_FAIL",
+        timeSafeguard: "timeout",
+        requiresLf: true,
+        requiresExecutableBit: true,
+        importerEntry: "importer.sh",
+        commandPrefix: "cats ",
+        quote: text => "'" + text.Replace("'", "'\\''") + "'",
+        sourceFormat: "source {0} >/dev/null 2>&1");
+
     // Every engine, pwsh first.
-    public static readonly IReadOnlyList<ExecutionEngine> All = Array.AsReadOnly(new[] { Pwsh, Bash });
+    public static readonly IReadOnlyList<ExecutionEngine> All = Array.AsReadOnly(new[] { Pwsh, Bash, Zsh });
 
     // Every engine's name, in the order of All.
-    public static readonly IReadOnlyList<string> Names = Array.AsReadOnly(new[] { Pwsh.Name, Bash.Name });
+    public static readonly IReadOnlyList<string> Names = Array.AsReadOnly(new[] { Pwsh.Name, Bash.Name, Zsh.Name });
 
     // The engine of that name; throws, naming the engines, for any other name.
     public static ExecutionEngine Get(string name)

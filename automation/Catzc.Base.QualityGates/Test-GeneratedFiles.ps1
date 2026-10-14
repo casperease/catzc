@@ -11,7 +11,8 @@
       Build-AdrIndex               [index](/docs/adr/index.md) from adrs.yml
       Build-Glossary               [glossary](/docs/adr/glossary.md) from the configs/glossary.yml sources
       Build-Readme                 the READMEs generated from their docs/references articles (readme.yml)
-      Build-GitKeep                every managed .gitkeep from the shipped assets/gitkeep
+      Build-ContractReference      the per-unit contract pages docs/references/contracts/<unit>.md from the contract assets
+      Build-GitKeep               every managed .gitkeep from the shipped assets/gitkeep
       Build-TerminologyDictionary  the .cspell/<category>.txt lists from terminology.yml
       Build-EnglishDictionary      the committed english.txt.gz, checked from its stamp (Get-EnglishDictionaryDrift)
                                    — its -DryRun re-flattens cspell's tries through node, so the stamp is the
@@ -43,7 +44,7 @@ function Test-GeneratedFiles {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [ValidateSet('Build-AdrIndex', 'Build-Glossary', 'Build-Readme', 'Build-GitKeep', 'Build-TerminologyDictionary',
+        [ValidateSet('Build-AdrIndex', 'Build-Glossary', 'Build-Readme', 'Build-ContractReference', 'Build-GitKeep', 'Build-TerminologyDictionary',
             'Build-EnglishDictionary', 'Build-RootConfig', 'New-Importer', 'New-GitIgnore', 'New-VSCodeSettings',
             'New-VSCodeExtensions', 'New-VSCodeLaunch', 'New-VSCodePipelineSchema', 'New-GoWorkspace')]
         [string[]] $Generator,
@@ -61,7 +62,7 @@ function Test-GeneratedFiles {
             $Generator
         }
         else {
-            @('Build-AdrIndex', 'Build-Glossary', 'Build-Readme', 'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-EnglishDictionary', 'Build-RootConfig') + $rootConfigGenerators
+            @('Build-AdrIndex', 'Build-Glossary', 'Build-Readme', 'Build-ContractReference', 'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-EnglishDictionary', 'Build-RootConfig') + $rootConfigGenerators
         })
 
     $issues = [System.Collections.Generic.List[string]]::new()
@@ -92,6 +93,13 @@ function Test-GeneratedFiles {
         foreach ($result in @(Build-Readme -DryRun -PassThru -Silent)) {
             if ($result.Changed) {
                 & $addStale $result.Readme 'Build-Readme' 'Build-Readme'
+            }
+        }
+    }
+    if ('Build-ContractReference' -in $selected) {
+        foreach ($result in @(Build-ContractReference -DryRun -PassThru -Silent)) {
+            if ($result.Changed) {
+                & $addStale $result.Path 'Build-ContractReference' 'Build-ContractReference'
             }
         }
     }

@@ -81,6 +81,47 @@ file sits in its own column of the track-by-file-language map, never in a file l
 
 - [Root files and unlisted files](#root-files-and-unlisted-files)
 
+### Rule ADR-DSGN-TRACK:9
+
+A **world map** is the repository drawn as its tracks crossed with its file languages: one row per track (ADR-DSGN-TRACK#1) and one for the
+root files (ADR-DSGN-TRACK#7), one column per file language (ADR-DSGN-TRACK#6) and one for the unlisted files (ADR-DSGN-TRACK#8), and every
+tracked file counted in exactly one cell. It is computed from the track and file-language registries and the git index, never drawn by hand,
+so it is the same picture on every run of the same commit.
+
+- [The world map](#the-world-map)
+
+### Rule ADR-DSGN-TRACK:10
+
+A **cell** is one row crossed with one column of the world map: it holds the tracked files whose root folder names its row and whose
+extension names its column, and its file count is how many there are. Every row meets every column, so an empty cell is still a cell of the
+map.
+
+- [The world map](#the-world-map)
+
+### Rule ADR-DSGN-TRACK:11
+
+A **stack violation** is a cell that holds a live file whose file language its track does not declare: the second tech-stack
+ADR-DSGN-TRACK#3 forbids, made visible. Test files, vendored files, and the files of a verification track are never live, so they never make
+one, and the root files' row has no track, so none of its cells is one.
+
+- [The world map](#the-world-map)
+
+### Rule ADR-DSGN-TRACK:12
+
+A **lit cell** is a cell a highlight selects: an ADR code, or a set of files, names the files it concerns, and every cell holding one of
+them is lit. A lit cell answers "where does this decision, or this change, sit"; lighting a cell never changes its file count.
+
+- [The world map](#the-world-map)
+
+### Rule ADR-DSGN-TRACK:13
+
+Every label the world map prints names a defined term (ADR-REPO-VOCAB#1) in its head, the text before its first colon: each title, each axis
+header, the header of each catch-all row or column, and each legend entry; the row and column names are tracks and file languages. A concept
+the map prints gets its defining rule and its glossary entry before the map prints it, and a label is never reworded to slip past the check.
+The `Test-WorldMap` quality gate checks it.
+
+- [The world map](#the-world-map)
+
 ## Context
 
 A mono repository holds several concerns that differ in everything but their home: language, delivery target, cadence, and blast radius.
@@ -159,12 +200,24 @@ no entry of the file-language registry lists yet. The root files get one row of 
 is both sits where they cross, so the map's file count equals the tracked file count. An unlisted file in a track's live aspect is still a
 second tech-stack (ADR-DSGN-TRACK#3) when it has an extension: an extension nobody registered is a language nobody declared.
 
+### The world map
+
+The rules above make the repository countable, and the world map is the count drawn. Its rows are the tracks and its columns the file
+languages, so a reader sees at a glance which track holds which kinds of text and how much of each. A cell is where one track meets one file
+language, and its shade says how many files sit there. A stack violation is marked on its cell, because the place is the finding: it says
+which track holds the second stack and in which language. A highlight lights the cells an ADR governs or a change touches, so the same
+picture answers "where does this decision apply" and "where does my change sit". The map prints only defined terms: a label that names an
+undefined concept would teach its reader a word the repository never fixed, so every printed concept carries a rule here and a glossary
+entry, and the quality gate fails a label that names none.
+
 ## Decision
 
 Name the concept: repository root concerns are **tracks** — folder-named (ADR-DSGN-TRACK#1), classified core/port/adapter/verification
 (ADR-DSGN-TRACK#2), one tech-stack each (ADR-DSGN-TRACK#3), subscribable only via depms and globset projections (ADR-DSGN-TRACK#4), and
 shipped through deployable-units that bind pipelines 1-1 (ADR-DSGN-TRACK#5). A tech-stack is a set of file languages, each named by its
-extension (ADR-DSGN-TRACK#6).
+extension (ADR-DSGN-TRACK#6). The world map crosses the tracks with the file languages (ADR-DSGN-TRACK#9), with a row for the root files and
+a column for the unlisted files (ADR-DSGN-TRACK#7, ADR-DSGN-TRACK#8); its cells (ADR-DSGN-TRACK#10) mark the stack violations
+(ADR-DSGN-TRACK#11) and light for a highlight (ADR-DSGN-TRACK#12), and every label it prints names a defined term (ADR-DSGN-TRACK#13).
 
 ### How this is enforced
 
@@ -175,6 +228,8 @@ extension (ADR-DSGN-TRACK#6).
   touches.
 - **depms and the dependency-graph quality gates** (`ADR-AUTO-DEPM`) enforce the declared subscription edges, including the one-directional
   core ← adapter/port dependency.
+- **The `Test-WorldMap` quality gate** reads the world map and fails on a stack violation (ADR-DSGN-TRACK#11), a root folder with tracked
+  files that no track names (ADR-DSGN-TRACK#1), and a printed label that names no defined term (ADR-DSGN-TRACK#13).
 - **Code review** applies the taxonomy: a new root must name its classification and tech-stack; a cross-cutting need becomes a scope
   globset, not a root.
 

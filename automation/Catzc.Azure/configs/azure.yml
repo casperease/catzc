@@ -18,6 +18,13 @@ org: zct
 # install`, rather than silently emitting no main.json. MAJOR.MINOR.PATCH.
 bicep_min_version: "0.43.8"
 
+# policy_enforcement — the enforcementMode of the policy assignments the templates make, per environment class:
+# Default (enforce) or DoNotEnforce (audit only). Optional; omitted keys take the default declared on
+# AzureConfig, { production: Default, nonproduction: DoNotEnforce }. A stricter repository sets
+# nonproduction: Default. Templates read it by config address (global.azure.policy_enforcement.<key>),
+# [ADR-AZ-DATAMOD#11](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11).
+# policy_enforcement: { production: Default, nonproduction: Default }
+
 tenants:
   placeholder:
     id: fa0e0000-7e0a-0700-1d00-000000000000

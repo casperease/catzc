@@ -62,7 +62,7 @@ concepts:
     defined_by: ADR-FLOW-CD#13
     short: A check whose verdict decides whether work may proceed — automated (a quality gate, the CI gate) or human (RC, RBC).
     realized_by: { kind: prose-only }
-    forms: [quality, CI, AT, RC, RBC, release, manual, PR, merge, commit, approval, production, push]
+    forms: [quality, CI, AT, RC, RBC, BVT, release, manual, PR, merge, commit, approval, production, push]
     contrasts:
       quality gate: A quality gate is one automated check of the repository; a gate is any decision point, human or automated.
   quality gate:

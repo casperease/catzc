@@ -54,9 +54,9 @@ repository-rooted `/` targets are left as written. A line under the title links 
 Authored sources live under `docs/references/` — automation modules as the responsibilities-first reference articles in
 `docs/references/automation/<kebab>.md`, and other folders (pipelines, infrastructure, `out/`, `.cspell/`, `contracts/`) under
 `docs/references/`. The one mapping outside it is `docs/adr/`, whose README is generated from the folder's own generated index,
-`docs/adr/index.md`. That index and the generated glossary are committed, unlike the READMEs — every ADR citation links the index, so GitHub
-must have it — and marked `linguist-generated` so their diffs collapse. The source is the reviewed artifact the quality gates check; the
-README is outside the markdown quality gate's scope.
+`docs/adr/index.md`. That index, the generated glossary, and the per-unit contract pages (`docs/references/contracts/<unit>.md`) are
+committed, unlike the READMEs — every ADR citation links the index, so GitHub must have it — and marked `linguist-generated` so their diffs
+collapse. The source is the reviewed artifact the quality gates check; the README is outside the markdown quality gate's scope.
 
 - [Derived, not committed](#derived-not-committed)
 

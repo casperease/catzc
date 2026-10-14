@@ -61,7 +61,8 @@ automation/.vendor/** linguist-vendored
 # in pull-request diffs so review lands on their sources (the New-Importer shim, the managed root-config copies,
 # and the generated ADR pages; see docs/adr/repository/generated-root-configs.md). The ADR index and glossary are
 # committed so GitHub has them — every ADR citation links the index — and Build-AdrIndex / Build-Glossary rewrite
-# them on import from adrs.yml and the glossary sources.
+# them on import from adrs.yml and the glossary sources; Build-ContractReference rewrites the per-unit contract
+# pages from the contract assets.
 automation/.compiled/** linguist-generated
 /importer.ps1   linguist-generated
 /importer.sh    linguist-generated
@@ -69,6 +70,7 @@ automation/.compiled/** linguist-generated
 /.gitignore     linguist-generated
 /docs/adr/index.md    linguist-generated
 /docs/adr/glossary.md linguist-generated
+/docs/references/contracts/*.md linguist-generated
 
 # catzc: test fixture trees are data on purpose — the link and Markdown-title tools leave them as written.
 **/tests/assets/** catzc-fixture

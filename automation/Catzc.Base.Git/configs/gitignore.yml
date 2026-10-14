@@ -32,6 +32,14 @@ sections:
       - out/*
       - { pattern: "!out/.gitkeep", note: "keep the folder, ignore its contents" }
 
+  - id: pdfs
+    title: Rendered PDFs
+    why: >
+      A PDF is rendered from a source, so it is output (docs/adr/repository/dedicated-output-directory.md, rule 11): ignored everywhere. A
+      PDF that must be committed opts out here with its own '!' line and a note saying why.
+    patterns:
+      - "*.pdf"
+
   - id: manifests
     title: Generated module manifests
     why: >

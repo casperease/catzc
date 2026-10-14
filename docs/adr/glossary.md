@@ -83,6 +83,20 @@ with all its consumers.
 
 ## design
 
+### cell
+
+One row crossed with one column of the world map — the tracked files of one track in one file language, and their count.
+
+- **Defined by:** [ADR-DSGN-TRACK#10](design/tracks.md#rule-adr-dsgn-track10)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [lit cell](#lit-cell): A lit cell is a cell a highlight selects; a cell is any intersection, lit or not.
+  - [stack violation](#stack-violation): A stack violation is a cell holding a live file outside its track's file languages; a cell is any
+    intersection, allowed or not.
+  - [world map](#world-map): The world map is the whole grid; a cell is one intersection of it, holding the files of one track in one file
+    language.
+
 ### deployable-unit
 
 What ships — a whole track or a reduced composition — bound one-to-one to its pipeline.
@@ -112,6 +126,18 @@ set of them.
   - [unlisted file](#unlisted-file): An unlisted file is a tracked file no file language names — no extension, or one no entry lists; a file
     language is a registered kind of text, named by its extensions.
 
+### lit cell
+
+A world-map cell a highlight selects — an ADR code or a set of files names the files it concerns, and their cells light.
+
+- **Defined by:** [ADR-DSGN-TRACK#12](design/tracks.md#rule-adr-dsgn-track12)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [cell](#cell): A cell is any intersection of the world map; a lit cell is one a highlight selects.
+  - [stack violation](#stack-violation): A stack violation is a finding about a cell's files; a lit cell is a selection, made by a
+    highlight, that never judges the cell.
+
 ### occupant
 
 The one commit an always-on environment holds, deployed there as its release candidate — named by its environment.
@@ -140,6 +166,18 @@ A tracked file no track holds — at the repository root itself, or under out/ �
   - [track](#track): A track is a root folder and every file under it; a root file is a tracked file outside every track.
   - [unlisted file](#unlisted-file): An unlisted file is a tracked file outside every file language, whatever its track; a root file is one
     outside every track, whatever its file language.
+
+### stack violation
+
+A world-map cell holding a live file whose file language its track does not declare — the second tech-stack ADR-DSGN-TRACK#3 forbids.
+
+- **Defined by:** [ADR-DSGN-TRACK#11](design/tracks.md#rule-adr-dsgn-track11)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [cell](#cell): A cell is any intersection of the world map; a stack violation is a cell that breaks its track's tech-stack.
+  - [lit cell](#lit-cell): A lit cell is selected by a highlight and says nothing about the stack; a stack violation is a finding, marked
+    whatever the highlight.
 
 ### track
 
@@ -182,6 +220,18 @@ A test-only track — it verifies the core from outside, ships nothing, and is o
 - **Contrasts:**
   - [track](#track): A track is any root concern; a verification track is the test-only class that ships nothing.
 
+### world map
+
+The repository drawn as tracks crossed with file languages, plus a row for the root files and a column for the unlisted files — every
+tracked file in exactly one cell.
+
+- **Defined by:** [ADR-DSGN-TRACK#9](design/tracks.md#rule-adr-dsgn-track9)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
+- **Contrasts:**
+  - [cell](#cell): A cell is one row crossed with one column; the world map is the whole grid of them, computed from the registries and the
+    git index.
+
 ## flow
 
 ### gate
@@ -191,8 +241,8 @@ A check whose verdict decides whether work may proceed — automated (a quality 
 - **Defined by:** [ADR-FLOW-CD#13](flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
-- **Forms:** `quality gate`, `CI gate`, `AT gate`, `RC gate`, `RBC gate`, `release gate`, `manual gate`, `PR gate`, `merge gate`,
-  `commit gate`, `approval gate`, `production gate`, `push gate`, and the bare `gate`
+- **Forms:** `quality gate`, `CI gate`, `AT gate`, `RC gate`, `RBC gate`, `BVT gate`, `release gate`, `manual gate`, `PR gate`,
+  `merge gate`, `commit gate`, `approval gate`, `production gate`, `push gate`, and the bare `gate`
 - **Contrasts:**
   - [quality gate](#quality-gate): A quality gate is one automated check of the repository; a gate is any decision point, human or
     automated.
@@ -568,7 +618,7 @@ One of the three registers — design, test, live — each with its own terminol
 - **Defined by:** [ADR-REPO-LANG#1](repository/domain-language-separation.md#rule-adr-repo-lang1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
-- **Forms:** `language zone`, `design zone`, `test zone`, `live zone`, and the bare `zone`
+- **Forms:** `language zone`, `design zone`, `test zone`, `live zone`, `landing zone`, `dns zone`, and the bare `zone`
 - **Contrasts:**
   - [domain](#domain): An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.
   - [file language](#file-language): A file language is the kind of text one file holds, named by its extension; a language zone is a
