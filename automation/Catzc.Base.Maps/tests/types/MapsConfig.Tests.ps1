@@ -62,7 +62,7 @@ Describe 'MapsConfig' -Tag 'L0' {
                     limits        = [ordered]@{ page_width = 595.5; page_height = 842; min_font_size = 4.5; max_row_label = 12; max_column_label = 8 }
                     labels        = [ordered]@{
                         grid_title = "Widgets $script:times gadgets"; tree_title = 'Widget tree'; row_axis = 'Widget'; column_axis = 'Gadget'
-                        root_files = 'Loose widgets'; unlisted_files = 'Gizmos'; legend_files = 'Widgets per cell'
+                        root_files = 'Top widgets'; unlisted_files = 'Gizmos'; legend_files = 'Widgets per cell'
                         legend_violation = 'Gadget clash'; legend_highlight = 'Lit widget'
                     }
                     highlight     = [ordered]@{ pins = @(& $script:pin); exceptions = @(& $script:pin) }
@@ -77,7 +77,7 @@ Describe 'MapsConfig' -Tag 'L0' {
             $config.limits.max_column_label | Should -Be 8
             $config.labels.grid_title | Should -Be "Widgets $script:times gadgets"
             $config.labels.column_axis | Should -Be 'Gadget'
-            $config.labels.root_files | Should -Be 'Loose widgets'
+            $config.labels.root_files | Should -Be 'Top widgets'
             $config.labels.unlisted_files | Should -Be 'Gizmos'
             $config.labels.legend_highlight | Should -Be 'Lit widget'
             $config.highlight.pins[0] | Should -BeOfType [Catzc.Base.Maps.MapsPin]

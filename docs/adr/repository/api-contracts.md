@@ -148,7 +148,8 @@ contracts/
 
 Backwards compatibility buys a grace period for consumers who cannot change in lockstep with the producer. Internally there are none, so
 internally it is rejected. At the provided boundary there genuinely are, so a released provided contract stays live while a consumer pins
-that version of its unit. The cost (a maintained old version folder) buys something real: it is the difference between an external consumer
+that version of its unit. There is no separate pin list: a released folder in the tree is pinned, and deleting it is the reviewed
+retirement. The cost (a maintained old version folder) buys something real: it is the difference between an external consumer
 that keeps working and one that breaks. Retirement is deliberate and evidence-based — a version folder goes away when no consumer pins it —
 not on a guessed-at calendar.
 
@@ -247,10 +248,12 @@ follows one living version.
 ### How this is enforced
 
 - **`Catzc.Base.Contracts`** owns the mechanism: it enumerates `contracts/<unit>/<version>/**`, derives each asset's kind, direction, owning
-  module, and target from the name and `contract.yml`, and runs the kind's check against the real tree as a quality gate. Each owning
-  module's L1 test per asset is generated from the same enumeration, so `Test-Automation` covers every contract with no hand-written test.
+  module, and target from the name and `contract.yml`, and runs the kind's check against the real tree as a quality gate
+  (`Test-Contracts`). One data-driven L1 test file generates a test per binding asset from the same enumeration, so `Test-Automation`
+  covers every contract with no hand-written test.
 
-- **The frozen-folder test** fails on any change to a version folder other than its unit's `0.0.0` (ADR-REPO-CONTRACT#5).
+- **The frozen-folder test** compares each released version folder with the `.frozen` record `Publish-ContractRelease` wrote at release,
+  and fails on any file changed, added, or removed (ADR-REPO-CONTRACT#5).
 
 - **`.gitattributes`** marks every file in a version folder `catzc-contract`
   ([ADR-REPO-ROOTCFG#1](generated-root-configs.md#rule-adr-repo-rootcfg1)), so the link and Markdown-title tools leave an asset as written:
