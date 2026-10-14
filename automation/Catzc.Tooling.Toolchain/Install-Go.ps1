@@ -63,8 +63,11 @@ function Install-Go {
     }
 
     if ($needsInstall) {
-        Assert-Command tar -ErrorText 'Install-Go extracts the Go archive with tar, which is not on PATH (Windows 10 and later ship it in System32).'
         $release = Get-GoRelease -Version $Version
+        $isZip = $release.filename.EndsWith('.zip', [System.StringComparison]::OrdinalIgnoreCase)
+        if (-not $isZip) {
+            Assert-Command tar -ErrorText 'Install-Go extracts the Go archive with tar, which is not on PATH.'
+        }
 
         # Download and extract beside the home (same volume), then swap the extracted go/ folder in, so a failed
         # download or extraction never leaves a half-written home.
@@ -77,7 +80,15 @@ function Install-Go {
         Save-VerifiedDownload -Uri "https://go.dev/dl/$($release.filename)" -OutFile $archive -Sha256 $release.sha256 | Out-Null
 
         Write-Message "Extracting $($release.version) to '$installDir'"
-        Invoke-Executable "tar -xf `"$archive`" -C `"$staging`"" -Silent
+        # The Windows archive is a .zip, extracted in-process: the tar first on PATH there is often Git's GNU tar,
+        # which reads no zip and takes a drive letter's colon for a remote host. The Unix .tar.gz goes to tar, run
+        # inside the staging folder with a relative name so no path carries a colon.
+        if ($isZip) {
+            [System.IO.Compression.ZipFile]::ExtractToDirectory($archive, $staging)
+        }
+        else {
+            Invoke-Executable "tar -xzf `"$($release.filename)`"" -WorkingDirectory $staging -Silent
+        }
         $extracted = Join-Path $staging 'go'
         Assert-PathExist $extracted
 

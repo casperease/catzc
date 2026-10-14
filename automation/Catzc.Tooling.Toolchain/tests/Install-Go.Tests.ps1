@@ -1,6 +1,7 @@
 # Hermetic logic (L1): the release feed (Get-GoRelease), the verified download, the version and tar runs
 # (Invoke-Executable), the persistent PATH seam and the final check (Test-Tool) are mocked; the managed home is a
-# fixture folder under $TestDrive, and the mocked tar writes the archive's go/ tree into the staging folder.
+# fixture folder under $TestDrive. The mocked download writes a real fixture .zip (extracted in-process), and the
+# mocked tar writes the .tar.gz archive's go/ tree into the staging folder.
 Describe 'Install-Go' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:goHome = Join-Path $TestDrive 'go-home'
@@ -27,6 +28,12 @@ Describe 'Install-Go' -Tag 'L1', 'logic' {
             }
             [Catzc.Base.Execution.ExecutableProbe]::new('go', $Path, $method, $Version, '1.27', [bool]$Version, 1, 1, 'Person')
         }
+
+        # A real archive holding the go/ tree, as the go.dev .zip does.
+        $script:fixtureZip = Join-Path $TestDrive 'go-widget.zip'
+        $tree = Join-Path $TestDrive 'zip-tree'
+        New-GoHome (Join-Path $tree 'go')
+        [System.IO.Compression.ZipFile]::CreateFromDirectory($tree, $script:fixtureZip)
     }
     BeforeEach {
         if (Test-Path $script:goHome) {
@@ -39,7 +46,7 @@ Describe 'Install-Go' -Tag 'L1', 'logic' {
         Mock Invoke-Executable { New-GoHome (Join-Path "$($script:goHome).staging" 'go') } -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $Command -like 'tar *' }
         Mock Assert-Command { } -ModuleName Catzc.Tooling.Toolchain
         Mock Get-GoRelease { [pscustomobject]@{ version = 'go1.27.2'; filename = 'go1.27.2.widget-amd64.zip'; sha256 = 'abc123' } } -ModuleName Catzc.Tooling.Toolchain
-        Mock Save-VerifiedDownload { $OutFile } -ModuleName Catzc.Tooling.Toolchain
+        Mock Save-VerifiedDownload { Copy-Item -LiteralPath $script:fixtureZip -Destination $OutFile; $OutFile } -ModuleName Catzc.Tooling.Toolchain
         Mock Add-PermanentPath { } -ModuleName Catzc.Tooling.Toolchain
         Mock Test-Tool { New-Probe '1.27.2' } -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $PassThru }
         Mock Write-Message { } -ModuleName Catzc.Tooling.Toolchain
@@ -70,6 +77,26 @@ Describe 'Install-Go' -Tag 'L1', 'logic' {
             $Path -eq (Join-Path $script:goHome 'bin') -and $Prepend
         }
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $Message -like 'Go 1.27.2 installed successfully*' }
+    }
+
+    It 'extracts a .zip in-process, never through tar' {
+        Mock Test-Tool { New-Probe $null $null } -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $PassThru -and -not (Test-Path $script:binary) }
+        Install-Go
+        Test-Path $script:binary | Should -BeTrue
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -Times 0 -Exactly -ParameterFilter { $Command -like 'tar *' }
+        Should -Invoke Assert-Command -ModuleName Catzc.Tooling.Toolchain -Times 0 -Exactly
+    }
+
+    It 'extracts a .tar.gz with tar inside the staging folder, by its relative name' {
+        Mock Get-GoRelease { [pscustomobject]@{ version = 'go1.27.2'; filename = 'go1.27.2.widget-amd64.tar.gz'; sha256 = 'abc123' } } -ModuleName Catzc.Tooling.Toolchain
+        Mock Save-VerifiedDownload { $OutFile } -ModuleName Catzc.Tooling.Toolchain
+        Mock Test-Tool { New-Probe $null $null } -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $PassThru -and -not (Test-Path $script:binary) }
+        Install-Go
+        Test-Path $script:binary | Should -BeTrue
+        Should -Invoke Assert-Command -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter {
+            $Command -eq 'tar -xzf "go1.27.2.widget-amd64.tar.gz"' -and $WorkingDirectory -eq "$($script:goHome).staging"
+        }
     }
 
     It 'skips the download when the managed home holds the locked version, and still converges PATH' {
