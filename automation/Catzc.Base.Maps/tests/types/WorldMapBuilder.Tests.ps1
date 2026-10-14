@@ -193,6 +193,18 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
         It 'reads no citation from a file kind that does not cite' {
             $script:map.Placement('widgets/Alpha/configs/alpha.json').Basis | Should -Be 'none'
         }
+
+        It 'reads no citation from a file a citation_exclude glob matches, and still places the file' {
+            $map = [Catzc.Base.Maps.WorldMapBuilder]::Build($script:tracks, $script:languages, $script:paths, $script:aspects, $script:index,
+                $script:texts, [ordered]@{ 'importer.ps1' = 'widgets/Alpha' }, $script:globSets, @('docs/*.md', 'widgets/Alpha/tests/**'))
+            $guide = $map.Placement('docs/guide.md')
+            "$($guide.Track) x $($guide.FileLanguage) $($guide.Basis)" | Should -Be 'docs x notes none'
+            $guide.Citations | Should -BeNullOrEmpty
+            $guide.Sites | Should -BeNullOrEmpty
+            $map.Placement('docs/adr/index.md').Citations | Should -Be @('ADR-WIDGET-SPROCKET')
+            $map.Placement('importer.ps1').Citations | Should -Be @('ADR-WIDGET-GADGET#2')
+            $map.Placement('docs/adr/widgetry/widget-gadget.md').Basis | Should -Be 'adr-file'
+        }
     }
 
     Context 'data form' {

@@ -46,6 +46,7 @@ Describe 'MapsConfig' -Tag 'L0' {
                 $config.labels.value_chain_legend_highlight | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainLegendHighlight)
                 $config.highlight.pins.Count | Should -Be 0
                 $config.highlight.exceptions.Count | Should -Be 0
+                $config.highlight.citation_exclude | Should -Be @([Catzc.Base.Maps.MapsHighlight]::DefaultCitationExclude)
                 $config.output_folder | Should -Be ([Catzc.Base.Maps.MapsConfig]::DefaultOutputFolder)
             }
         }
@@ -73,7 +74,7 @@ Describe 'MapsConfig' -Tag 'L0' {
                         value_chain_column_axis = 'Gadget step, longer than any world-map limit'; value_chain_legend_adrs = 'Gadget: widgets'
                         value_chain_legend_highlight = 'Lit gadget'
                     }
-                    highlight     = [ordered]@{ pins = @(& $script:pin); exceptions = @(& $script:pin) }
+                    highlight     = [ordered]@{ pins = @(& $script:pin); exceptions = @(& $script:pin); citation_exclude = @('widgets/**/*.md') }
                     output_folder = 'widget-map'
                 })
             $config.palette.highlight | Should -Be '#ABCDEF'
@@ -98,6 +99,7 @@ Describe 'MapsConfig' -Tag 'L0' {
             $config.highlight.pins[0].track | Should -Be 'widgets'
             $config.highlight.pins[0].file_language | Should -Be 'gadget-script'
             $config.highlight.exceptions[0].reason | Should -Be 'reviewed widget mention'
+            $config.highlight.citation_exclude | Should -Be @('widgets/**/*.md')
             $config.output_folder | Should -Be 'widget-map'
         }
 
@@ -114,6 +116,13 @@ Describe 'MapsConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*limits: unknown key 'page_depth'*"
             $err.Exception.Message | Should -BeLike "*labels: unknown key 'subtitle'*"
             $err.Exception.Message | Should -BeLike "*highlight: unknown key 'pinned'*"
+        }
+
+        It 'throws on a citation_exclude that is not a list of repository-relative globs' {
+            { & $script:make ([ordered]@{ highlight = [ordered]@{ citation_exclude = 'widgets/**' } }) } |
+                Should -Throw '*highlight.citation_exclude must be a list of globs*'
+            { & $script:make ([ordered]@{ highlight = [ordered]@{ citation_exclude = @('/widgets/**', 'gadgets\notes.md') } }) } |
+                Should -Throw "*citation_exclude[[]0]: '/widgets/**' is not a repository-relative glob*citation_exclude[[]1]*"
         }
 
         It 'throws on a section that is not a mapping' {
