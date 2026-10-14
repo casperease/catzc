@@ -58,17 +58,27 @@ function Build-Modules {
 
         [string] $Bundle = "$((Get-Config -Config exporter).default_bundle)",
 
-        # The bundle's profile, unless -Module names the selection (resolved below, once the bundle is known).
-        [string] $ModuleProfile,
+        # The bundle's profile, unless -Module names the selection. Read only when the bundle exists; an unknown
+        # bundle is rejected in the body with the list of bundles.
+        [string] $ModuleProfile = $(
+            $bundles = (Get-Config -Config exporter).bundles
+            if (-not $Module -and $bundles.ContainsKey($Bundle)) {
+                "$($bundles[$Bundle].profile)"
+            }
+        ),
 
-        # The bundle's vendor policy unless given (resolved below).
+        # The bundle's vendor policy.
         [ValidateSet('runtime', 'full')]
-        [string] $VendorPolicy,
+        [string] $VendorPolicy = $(
+            $bundles = (Get-Config -Config exporter).bundles
+            if ($bundles.ContainsKey($Bundle)) {
+                "$($bundles[$Bundle].vendor_policy)"
+            }
+        ),
 
         [string] $Version = 'auto',
 
-        # <Get-OutputRoot>/automation/built/<bundle> unless given (resolved below).
-        [string] $Destination,
+        [string] $Destination = (Join-Path (Get-OutputRoot) "automation/built/$Bundle"),
 
         [switch] $DryRun,
 
@@ -77,16 +87,6 @@ function Build-Modules {
 
     $config = Get-Config -Config exporter
     Assert-True ($config.bundles.ContainsKey($Bundle)) -ErrorText "Unknown bundle '$Bundle': exporter.yml declares $(@($config.bundles.Keys) -join ', ')."
-    $bundleConfig = $config.bundles[$Bundle]
-    if (-not $Module -and -not $ModuleProfile) {
-        $ModuleProfile = "$($bundleConfig.profile)"
-    }
-    if (-not $VendorPolicy) {
-        $VendorPolicy = "$($bundleConfig.vendor_policy)"
-    }
-    if (-not $Destination) {
-        $Destination = Join-Path (Get-OutputRoot) "automation/built/$Bundle"
-    }
     $resolvedVersion = Resolve-CatzcBuildVersion -Version $Version -Bundle $Bundle -Silent:$Silent
 
     $package = $config.package

@@ -65,8 +65,8 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
         { Test-Markdownlint -OutputFolder $script:reportBase } | Should -Throw '*markdownlint-cli2 failed*'
     }
 
-    It 'passes the requested globs to markdownlint-cli2' {
-        Test-Markdownlint -Glob '**/*.md' -OutputFolder $script:reportBase | Out-Null
+    It 'passes the requested paths to markdownlint-cli2' {
+        Test-Markdownlint -Path '**/*.md' -OutputFolder $script:reportBase | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
             $Command -match 'markdownlint-cli2' -and $Command -match '\*\*/\*\.md'
         }
@@ -93,14 +93,13 @@ Describe 'Test-Markdownlint (real markdownlint-cli2)' -Tag 'L2', 'logic' {
         }
         $file = Join-Path $TestDrive 'clean.md'
         Set-Content -Path $file -Value @('# Title', '', 'A short compliant paragraph.') -Encoding utf8
-        $glob = $file -replace '\\', '/'
-        $result = Test-Markdownlint -Glob $glob -OutputFolder (Join-Path $TestDrive 'reports') -PassThru
+        $result = Test-Markdownlint -Path ($file -replace '\\', '/') -OutputFolder (Join-Path $TestDrive 'reports') -PassThru
         $result.IssueCount | Should -Be 0
     }
 }
 
 # Integrity: the ACTUAL repository markdown is lint-clean. Unlike the logic test above (real markdownlint over
-# a fixture file), this binds to the real repo — Test-Markdownlint with no -Glob scans its default content
+# a fixture file), this binds to the real repo — Test-Markdownlint with no -Path scans its default content
 # scope ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)). L2 because it drives the
 # markdownlint-cli2 CLI; self-skips when absent
 # ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)/9).

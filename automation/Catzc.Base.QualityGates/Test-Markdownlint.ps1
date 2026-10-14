@@ -16,9 +16,9 @@
 
     markdownlint-cli2 must be on PATH — install it once with Install-Markdownlint (or: npm install -g
     markdownlint-cli2).
-.PARAMETER Glob
-    Globs/paths to lint. Defaults to the repository's in-scope Markdown, with the out-of-scope trees excluded
-    via '!'-negation globs.
+.PARAMETER Path
+    Repository-relative paths or globs to lint (markdownlint-cli2 expands a glob). Defaults to the repository's
+    in-scope Markdown, with the out-of-scope trees excluded via '!'-negation globs.
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-markdownlint.
 .PARAMETER PassThru
@@ -32,7 +32,7 @@
 function Test-Markdownlint {
     [CmdletBinding()]
     param(
-        [string[]] $Glob = @(
+        [string[]] $Path = @(
             '**/*.md'
             '!out'
             '!automation/.vendor'
@@ -68,10 +68,10 @@ function Test-Markdownlint {
         )
     }
 
-    $quotedGlobs = foreach ($g in $Glob) {
-        "'$g'"
+    $quotedPaths = foreach ($p in $Path) {
+        "'$p'"
     }
-    $command = "markdownlint-cli2 $($quotedGlobs -join ' ')"
+    $command = "markdownlint-cli2 $($quotedPaths -join ' ')"
 
     # -Silent: capture markdownlint-cli2's output instead of streaming it to the console; the report prints the issues.
     $result = Invoke-Executable $command -PassThru -NoAssert -Silent

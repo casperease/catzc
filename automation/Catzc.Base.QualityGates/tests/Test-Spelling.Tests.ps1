@@ -68,8 +68,8 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         { Test-Spelling -OutputFolder $script:reportBase } | Should -Throw '*cspell failed*'
     }
 
-    It 'passes the repo config and the requested globs to cspell' {
-        Test-Spelling -Glob '**/*.md' -OutputFolder $script:reportBase | Out-Null
+    It 'passes the repo config and the requested paths to cspell' {
+        Test-Spelling -Path '**/*.md' -OutputFolder $script:reportBase | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
             $Command -match 'lint' -and $Command -match 'cspell\.yml' -and $Command -match '\*\*/\*\.md'
         }
@@ -103,15 +103,15 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
         }
         # cspell globs are relative to the repo root (Test-Spelling's working directory), so use the
         # committed clean fixture by its repo-relative path.
-        $glob = 'automation/Catzc.Base.QualityGates/tests/assets/spelling/clean.md'
-        $result = Test-Spelling -Glob $glob -OutputFolder (Join-Path $TestDrive 'reports') -PassThru
+        $fixture = 'automation/Catzc.Base.QualityGates/tests/assets/spelling/clean.md'
+        $result = Test-Spelling -Path $fixture -OutputFolder (Join-Path $TestDrive 'reports') -PassThru
         $result.IssueCount | Should -Be 0
         (Join-Path $result.ReportPath 'spelling.md') | Should -Exist
     }
 }
 
 # Integrity: the ACTUAL repository content is spell-clean. Unlike the logic test above (real cspell over a
-# fixture file), this binds to the real repo — Test-Spelling with no -Glob scans its default content scope
+# fixture file), this binds to the real repo — Test-Spelling with no -Path scans its default content scope
 # ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)). L2 because it drives the cspell
 # CLI; self-skips when cspell is absent
 # ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)/9).
