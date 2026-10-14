@@ -378,23 +378,6 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   replace invisible coupling via shared global mutable state.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Az CLI session verification
-
-`Az CLI session verification — three layers, and verify is not connect`
-
-[ADR-AZ-SESSION](az-session-verification.md)
-
-> DORA's research links robust authentication and authorization practices to reliable, secure deployments. Layering session verification and
-> keeping concerns separate enables safe, auditable automation while maintaining module independence.
-
-- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — layered verification ensures sessions are authenticated
-  to the correct subscription before any deployment automation proceeds.
-- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — separating by-args and config-aware verification
-  allows modules to verify session state without depending on templating configuration.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — clean session verification functions enable safe,
-  automated deployments with proper auth checks at each layer.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
 ## Path representation
 
 `Path representation — relative across boundaries, absolute only at the bind`
@@ -486,109 +469,15 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   never hand-kept.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Vendor toolset dependencies
-
-[ADR-AUTO-VENDOR](powershell/vendor-toolset-dependencies.md)
-
-> DORA research shows that vendored dependencies and version pinning reduce deployment variability and enable reproducible builds. Checking
-> modules into git guarantees every developer and CI run uses identical code, eliminating version-skew bugs and network brittleness.
-
-- [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — eliminates network dependency, enables offline
-  work.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — version pinning and explicit diffs prevent
-  version-skew surprises.
-- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — fast disk loading and no version skew accelerate
-  cycles.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## Az CLI over Az PowerShell
-
-`Prefer Az CLI over Az PowerShell modules`
-
-[ADR-AUTO-AZCLI](powershell/prefer-az-cli.md)
-
-> DORA research links tool standardization and process isolation to faster deployments and fewer failures. Using a single executable tool
-> across all environments removes version skew and assembly conflicts.
-
-- [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — single tool, process isolation, no hidden
-  dependencies.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — single tool eliminates environment-specific
-  failures.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — explicit dependencies and simple return types reduce
-  risk.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## One function per file
-
-[ADR-AUTO-ONEFUNC](powershell/one-function-per-file.md)
-
-> DORA's research on code maintainability emphasizes modularity and navigability—and one-function-per-file encoding that into file
-> structure. Matching file name to function name eliminates both AST parsing and merge conflicts, makes the module's surface area visible at
-> a glance, and creates natural test-file pairing.
-
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — file name equals function name eliminates search
-  friction and serves as self-documenting structure.
-- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — one-function-per-file prevents merge conflicts when
-  developers add functions in parallel.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — test files pair naturally with function files, improving test
-  coverage and organization.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## PrePost extension modules
-
-[ADR-AUTO-PREPOST](powershell/prepost-extension-modules.md)
-
-> DORA's research connects loosely coupled architectures to faster delivery and better team autonomy. A single, clearly-defined extension
-> point for per-template hooks allows teams to customize deployments without scattered code or central orchestration.
-
-- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — clear extension points enable independent template
-  customization.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — grouped hooks in one .psm1 avoid scattered,
-  duplicated code.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## Error handling
-
-`Error handling — fail immediately, no warnings`
-
-[ADR-AUTO-ERROR](powershell/error-handling.md)
-
-> DORA's research links fail-fast patterns to deployment reliability—and PowerShell's complex error model tempts silent failures. Using
-> terminating errors with `throw` and self-contained assertions eliminates the "maybe wrong" middle ground, surfaces problems immediately,
-> and enables CI to fail clearly instead of succeeding with warnings.
-
-- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — fail-fast patterns prevent silent failures and
-  corrupted state.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — two-state error handling (success or throw) is
-  simpler than distinguishing warnings from errors.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — deterministic error behavior makes test assertions reliable and
-  failures easy to diagnose.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## No semicolons
-
-`Avoid using semicolons`
-
-[ADR-AUTO-NOSEMI](powershell/avoid-using-semicolons.md)
-
-> DORA's research on code maintainability shows that reducing syntactic noise and following language idioms correlates with faster code
-> review cycles and fewer defects. Semicolon-free PowerShell code reads as idiomatic, lowers cognitive load, and improves team velocity.
-
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — idiomatic syntax reduces cognitive load and review
-  friction.
-- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — clear, consistent code patterns serve as
-  self-documentation.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
 ## Console output
 
 `Console output matters`
 
-[ADR-AUTO-CONSOLE](powershell/console-output-matters.md)
+[ADR-AUTO-CONSOLE](console-output-matters.md)
 
 > DORA's research links monitoring and observability to deployment frequency and change failure rates—and console output is the automation's
-> sole window into what is happening. Structured, meaningful logging that announces long operations and stays silent on success enables fast
-> troubleshooting without re-running, reducing mean time to recovery.
+> sole window into what is happening. Structured, meaningful logging that announces long operations, stays silent on success, and records
+> every lasting change made to the session enables fast troubleshooting without re-running, reducing mean time to recovery.
 
 - [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — clear logging enables quick diagnosis
   of failures without re-running operations.
@@ -598,63 +487,11 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   easy to reason about and review.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Announce state changes
-
-`Announce every state change on the information stream`
-
-[ADR-AUTO-ANNOUNCE](powershell/announce-state-changes.md)
-
-> DORA treats observability as the ability to explain a system's behaviour from what it emits, without changing it to ask a new question. A
-> console session that announces every change made to it, from the binaries and modules it loads to the `PATH` entries it moves and the
-> variables it sets, explains its own state from its scrollback. A wrong tool resolution or a stale types build is diagnosed by reading, not
-> by re-running with diagnostics, which shortens the time to restore a broken environment.
-
-- [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — every state change is a recorded
-  event, so the session's state can be explained from its output alone.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — one writer chokepoint keeps every line out of test output, so
-  test results stay readable and no test needs its own output guard.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — an analyzer rule names any unannounced change, so the
-  rule holds as code is added rather than depending on review alone.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## foreach over ForEach-Object
-
-`Prefer foreach over ForEach-Object`
-
-[ADR-AUTO-FOREACH](powershell/prefer-foreach-over-foreach-object.md)
-
-> DORA research shows that correct language semantics and predictable control flow reduce debugging time and test failures. Using foreach
-> for iteration eliminates entire classes of bugs where control flow keywords behave unexpectedly in scriptblock contexts.
-
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — correct control flow semantics reduce cognitive load
-  and bugs.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — predictable iteration behavior enables reliable, non-flaky
-  tests.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## Approved verbs
-
-`Respect PowerShell approved verbs`
-
-[ADR-AUTO-VERBS](powershell/respect-pwsh-verb-rules.md)
-
-> DORA research shows that consistent naming conventions improve code maintainability and enable teams to understand unfamiliar code by name
-> alone. Using PowerShell's approved verbs as the shared vocabulary transforms function names into behavioral contracts every team member
-> recognizes.
-
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — consistent verbs reduce cognitive load, enable
-  behavior prediction.
-- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — verbs encode contracts that document behavior in
-  names.
-- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — shared verbs enable independent navigation of
-  unfamiliar code.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
 ## Spell out names
 
 `Spell out names — no invented abbreviations`
 
-[ADR-AUTO-SPELL](powershell/spell-out-names.md)
+[ADR-AUTO-SPELL](spell-out-names.md)
 
 > DORA research shows that consistent naming conventions improve code readability and enable reliable refactoring. Full, spelled-out
 > identifiers are self-documenting, searchable by grep, and shared across the team, eliminating the translation cost of invented
@@ -665,197 +502,14 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   translation.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## `.ps1` function files
+## Dry run
 
-`Use .ps1 for function files, not .psm1`
+`An explicit dry-run parameter on every side-effecting function`
 
-[ADR-AUTO-USEPS](powershell/use-ps1-not-psm1.md)
+[ADR-AUTO-DRYRUN](dry-run.md)
 
-> DORA research shows that aligning code structure with established community patterns improves maintainability and reduces onboarding
-> friction. Using .ps1 files for module functions eliminates the scope isolation and boilerplate, letting developers focus on logic rather
-> than module plumbing; `.psm1` is kept for genuine module or standalone files, so a file's extension tells a reader what kind of thing it
-> is.
-
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — shared scope eliminates boilerplate and scope
-  isolation overhead.
-- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — established patterns reduce onboarding friction.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## Automatic variable pitfalls
-
-[ADR-AUTO-AUTOVAR](powershell/automatic-variable-pitfalls.md)
-
-> DORA's research links code maintainability to delivery performance—and automatic-variable pitfalls are a major class of silent bugs that
-> slip through code review. Handling automatic variables safely (read immediately, capture in locals, prefer wrappers) builds the robust
-> error handling that enables high-frequency deployment.
-
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — avoiding subtle variable-scoping bugs that slip past
-  code review.
-- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — robust error handling and consistent patterns enable
-  safe automation at scale.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — proper error handling patterns surface failures early in
-  testing.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## PowerShell formatting
-
-`PowerShell formatting — the language layer over uniform-formatting`
-
-[ADR-AUTO-PSFORMAT](powershell/powershell-formatting.md)
-
-> DORA research links consistent code formatting to improved code maintainability. Mechanical enforcement of uniform standards removes
-> variation and lets teams focus on logic rather than style.
-
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — consistent conventions enable faster code review.
-- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — clear structure serves as living documentation.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## Environment-variable mechanics
-
-`Environment-variable mechanics — the PowerShell layer over environment-variables`
-
-[ADR-AUTO-PSENV](powershell/environment-variable-mechanics.md)
-
-> DORA's research on test automation and deployment reliability emphasizes isolation and predictability—and process-wide environment
-> variables violate both. Using scoped mechanisms (parameters, return values, `$script:` state) instead of `$env:` for internal coordination
-> provides automatic cleanup, prevents test leakage, and enables confident concurrent execution.
-
-- [Test automation](../../references/dora/capabilities.md#test-automation) — scoped, isolated state prevents order-dependent test failures
-  and race conditions.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — proper scoping bounds state lifetime and surfaces
-  contracts at the call site.
-- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — predictable state isolation enables safe parallelism
-  and reduces deployment friction.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## Module-path hygiene
-
-`Module-path hygiene — the PowerShell layer over effective-in-enterprises`
-
-[ADR-AUTO-MODPATH](powershell/module-path-hygiene.md)
-
-> DORA's research on flexible infrastructure emphasizes deterministic dependencies—and network module paths destroy performance in
-> enterprise environments. Vendoring PowerShell modules and keeping the module path local by default eliminates network round-trips, makes
-> module loading predictable, and enables fast automation everywhere.
-
-- [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — running reliably in enterprise environments
-  without network delays.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — deterministic, local dependencies enable consistent
-  automation across machines.
-- [Version control](../../references/dora/capabilities.md#version-control) — vendored modules are reproducible and tracked without gallery
-  access.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## Parameter design
-
-`Parameter design — the PowerShell layer over sensible-defaults`
-
-[ADR-AUTO-PSPARAM](powershell/parameter-design.md)
-
-> DORA's research on code maintainability shows that clear interfaces reduce cognitive load—and well-designed parameters make call sites
-> self-documenting. Positional primaries and switches for opt-in behavior surface intent at the call site, eliminating named-parameter noise
-> and making functions easier to understand and reuse.
-
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — clear parameter surfaces reduce the burden of
-  understanding what each call does.
-- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — self-documenting call sites serve as examples;
-  positional and switch conventions are widely understood.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## Working-directory mechanics
-
-`Working-directory mechanics — the PowerShell layer over never-depend-on-pwd`
-
-[ADR-AUTO-PSPWD](powershell/working-directory-mechanics.md)
-
-> DORA research shows that eliminating implicit dependencies on environmental state improves code reliability and team velocity. Anchoring
-> paths to fixed locations and restoring working directory in try/finally guarantees functions compose correctly and never pollute session
-> state.
-
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — explicit anchors eliminate hidden state pollution and
-  failures.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — location-independent functions compose and work
-  everywhere.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## Cross-platform PowerShell
-
-`Cross-platform PowerShell — the language layer over cross-platform`
-
-[ADR-AUTO-PSXPLAT](powershell/cross-platform-powershell.md)
-
-> DORA's research on flexible infrastructure links platform-agnostic code to deployment reliability—and PowerShell's cross-platform support
-> enables one codebase on Windows and Linux. Catching platform incompatibilities at analysis time rather than at runtime reduces the
-> friction of multi-platform deployment and enables confident automation across all environments.
-
-- [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — running on Windows and Linux from one codebase.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — platform-agnostic patterns centralize business logic
-  away from environment-specific concerns.
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — analyzer catches platform breaks at analysis
-  time, before code runs on different OSes.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## Dynamic module manifests
-
-`Dynamic module manifests — the PowerShell layer over open-closed-architecture`
-
-[ADR-AUTO-MANIFEST](powershell/dynamic-module-manifests.md)
-
-> DORA's research links loosely coupled architecture to deployment frequency—and dynamic manifests enable teams to add functions without
-> editing shared files or resolving merge conflicts. Convention-based discovery (filesystem-as-manifest) eliminates the "add function, edit
-> manifest, update export list" ceremony, reducing onboarding overhead and merge conflict friction.
-
-- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — module-based architecture where new functions never
-  require edits to shared infrastructure files.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — convention-based discovery (one file = one function =
-  one export) is simpler and cheaper than hand-maintained lists.
-- [Version control](../../references/dora/capabilities.md#version-control) — avoiding manifest edits prevents merge conflicts when
-  developers add functions in parallel.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## Script-scope caching
-
-`Script-scope caching — the PowerShell layer over caching`
-
-[ADR-AUTO-PSCACHE](powershell/script-scope-caching.md)
-
-> DORA research shows that caching frequently-recomputed data improves deployment speed and reliability. Tying cache lifetime to module
-> import creates a predictable, testable contract: the same data for the entire session, with one invalidation knob.
-
-- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — caching eliminates redundant parsing, accelerating
-  operations.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — consistent cache lifetime ensures predictable
-  automation behavior.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — simple, isolated idiom follows one repeatable
-  pattern.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## Pester testing
-
-`Pester testing — the language layer over test-automation`
-
-[ADR-AUTO-PESTER](powershell/pester-testing.md)
-
-> DORA's research on test automation emphasizes isolation and reproducibility—and Pester's gotchas tempt tightly coupled tests that fail
-> mysteriously or mock so broadly they test nothing. Isolating logic through seams (template roots, config discovery), mocking whole
-> functions only, and splitting logic from integrity tests ensures fast, reliable test feedback.
-
-- [Test automation](../../references/dora/capabilities.md#test-automation) — hermetic logic tests with seam mocks catch regressions fast
-  without process-global state leakage.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — seam-based mocking keeps tests decoupled from
-  implementation so refactors do not rewrite the tests.
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — splitting logic and integrity tests provides both
-  fast feedback and real-world coverage.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
-## `-DryRun` over ShouldProcess
-
-`Prefer an explicit -DryRun switch over the ShouldProcess subsystem`
-
-[ADR-AUTO-DRYRUN](powershell/prefer-dryrun-over-shouldprocess.md)
-
-> DORA research shows that explicit, observable test data and return values improve test effectiveness and deployment safety. Capturable
-> dry-run values enable tests to verify plans without side effects, eliminating both hidden failures and test noise.
+> DORA research shows that explicit, observable return values improve test effectiveness and deployment safety. A dry run that returns the
+> planned action lets tests verify plans without side effects, eliminating both hidden failures and test noise.
 
 - [Test automation](../../references/dora/capabilities.md#test-automation) — capturable return values enable testable assertions without
   side effects.

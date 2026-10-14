@@ -7,10 +7,9 @@
 // Constructing an instance validates the file, collecting every violation into one ArgumentException. Every key
 // is required, and an unknown key throws (a typo fails fast at load):
 //   direct_install_version  numeric MAJOR.MINOR.PATCH (a valid module version) — the devbox build placeholder
-//   version                 numeric MAJOR.MINOR — a pipeline build's version prefix (PATCH is calculated)
-//   default_profile         a lowercase profile token (a profiles.yml key; not cross-checked here, so loading
-//                           stays self-contained)
-//   vendor_policy           'runtime' or 'full'
+//   bundles                 a non-empty map of lowercase bundle name -> a well-formed ExporterBundle (its profile, its
+//                           own version line, its vendor policy); each bundle versions on its own
+//   default_bundle          the bundle built when none is named; one of the bundles
 //   module_guid             a GUID — the Catzc module's stable identity (a registered managed GUID)
 //   package                 a well-formed ExporterPackage
 
@@ -24,19 +23,18 @@ namespace Catzc.Base.Exporter;
 public sealed class ExporterConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys =
-        { "direct_install_version", "version", "default_profile", "vendor_policy", "module_guid", "package" };
+        { "direct_install_version", "bundles", "default_bundle", "module_guid", "package" };
+
+    private static readonly Regex BundleName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
     // The numeric MAJOR.MINOR.PATCH placeholder every devbox build carries.
     public string direct_install_version { get; }
 
-    // The numeric MAJOR.MINOR of a pipeline build; PATCH is the first-parent commit count of the built commit.
-    public string version { get; }
+    // The named bundles, keyed by name, in file order.
+    public IReadOnlyDictionary<string, ExporterBundle> bundles { get; }
 
-    // The module set built when neither -Module nor -ModuleProfile is given (a profiles.yml key).
-    public string default_profile { get; }
-
-    // 'runtime' ships only the runtime-required vendored module; 'full' also ships the test toolset.
-    public string vendor_policy { get; }
+    // The bundle built when none is named (a key of bundles).
+    public string default_bundle { get; }
 
     // The module's stable identity across versions (a GUID string).
     public string module_guid { get; }
@@ -61,10 +59,34 @@ public sealed class ExporterConfig : Catzc.Base.Objects.DictionaryRecord
 
         direct_install_version = Checked(d, "direct_install_version", "^[0-9]+\\.[0-9]+\\.[0-9]+$",
             "must be numeric MAJOR.MINOR.PATCH", errors);
-        version = Checked(d, "version", "^[0-9]+\\.[0-9]+$",
-            "must be numeric MAJOR.MINOR, quoted; PATCH is calculated by the pipeline", errors);
-        default_profile = Checked(d, "default_profile", "^[a-z][a-z0-9]*(-[a-z0-9]+)*$", "a lowercase profile token", errors);
-        vendor_policy = Checked(d, "vendor_policy", "^(runtime|full)$", "valid: runtime, full", errors);
+
+        Dictionary<string, ExporterBundle> bundleMap = new Dictionary<string, ExporterBundle>(StringComparer.Ordinal);
+        IDictionary rawBundles = Present(d, "bundles") ? d["bundles"] as IDictionary : null;
+        if (rawBundles == null || rawBundles.Count == 0)
+        {
+            errors.Add("bundles is required and must be a non-empty map of bundle name -> { profile, version, vendor_policy }");
+        }
+        else
+        {
+            foreach (object k in rawBundles.Keys)
+            {
+                string bundleName = k == null ? "" : k.ToString();
+                if (!BundleName.IsMatch(bundleName))
+                {
+                    errors.Add(string.Format("invalid bundle name '{0}' (a lowercase token)", bundleName));
+                    continue;
+                }
+                try { bundleMap[bundleName] = new ExporterBundle(bundleName, rawBundles[k] as IDictionary); }
+                catch (ArgumentException ex) { errors.Add(ex.Message); }
+            }
+        }
+        bundles = bundleMap;
+
+        default_bundle = Checked(d, "default_bundle", "^[a-z][a-z0-9]*(-[a-z0-9]+)*$", "a lowercase bundle name", errors);
+        if (default_bundle != null && rawBundles != null && !rawBundles.Contains(default_bundle))
+        {
+            errors.Add(string.Format("default_bundle '{0}' is not one of the bundles", default_bundle));
+        }
 
         if (!Present(d, "module_guid")) { errors.Add("missing required key 'module_guid'"); }
         else

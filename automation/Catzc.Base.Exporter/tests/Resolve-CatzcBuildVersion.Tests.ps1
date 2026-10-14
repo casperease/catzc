@@ -1,7 +1,12 @@
 Describe 'Resolve-CatzcBuildVersion' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config {
-            [ordered]@{ direct_install_version = '6.6.666'; version = '3.4' }
+            # Two bundles on their own version lines (a mono repo: no bundle's version moves another's).
+            [ordered]@{
+                direct_install_version = '6.6.666'
+                default_bundle         = 'widgets'
+                bundles                = @{ widgets = @{ version = '3.4' }; gadgets = @{ version = '7.1' } }
+            }
         } -ModuleName Catzc.Base.Exporter -ParameterFilter { $Config -eq 'exporter' }
         Mock Write-Message { } -ModuleName Catzc.Base.Exporter
         Mock Invoke-Executable {
@@ -50,9 +55,17 @@ Describe 'Resolve-CatzcBuildVersion' -Tag 'L0', 'logic' {
             Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Base.Exporter
         }
 
-        It 'auto resolves to MAJOR.MINOR from exporter.yml plus the first-parent commit count, without a notice' {
+        It 'auto resolves to the default bundle''s MAJOR.MINOR plus the first-parent commit count, without a notice' {
             Resolve-CatzcBuildVersion | Should -Be '3.4.427'
             Should -Invoke Write-Message -ModuleName Catzc.Base.Exporter -Times 0
+        }
+
+        It 'follows the named bundle''s own version line' {
+            Resolve-CatzcBuildVersion -Bundle gadgets | Should -Be '7.1.427'
+        }
+
+        It 'rejects a bundle exporter.yml does not declare' {
+            { Resolve-CatzcBuildVersion -Bundle sprockets } | Should -Throw -ExpectedMessage "*Unknown bundle 'sprockets'*"
         }
 
         It 'throws on a shallow clone rather than miscounting' {

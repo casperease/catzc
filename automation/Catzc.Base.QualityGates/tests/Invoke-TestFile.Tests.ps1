@@ -45,6 +45,26 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
             "$($ExcludeTag -join ',')" -eq "$($expectedTags -join ',')"
         }
     }
+
+    It 'stamps run.json crashed when the run fails before its worker starts' {
+        $testFile = Join-Path $TestDrive 'gizmo.Tests.ps1'
+        [System.IO.File]::WriteAllText($testFile, '')
+        $outputRoot = Join-Path $TestDrive 'crashed-run'
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $outputRoot }
+        Mock Enter-TestRunLocation -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Mode = 'in-place' } }
+        Mock Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-TestRunLocationEntry -ModuleName Catzc.Base.QualityGates { @{} }
+        Mock Get-LanguageTestExecutable -ModuleName Catzc.Base.QualityGates { @{} }
+        Mock Resolve-TestRunMaxLevel -ModuleName Catzc.Base.QualityGates { 3 }
+        Mock Convert-TestRunLocationPath -ModuleName Catzc.Base.QualityGates { $Path }
+        Mock New-TestAutomationShardScript -ModuleName Catzc.Base.QualityGates { throw 'stop before spawning' }
+
+        { Invoke-TestFile $testFile } | Should -Throw '*stop before spawning*'
+
+        $manifests = @([System.IO.Directory]::GetFiles((Join-Path $outputRoot 'test-file'), 'run.json', 'AllDirectories'))
+        $manifests | Should -HaveCount 1
+        ([System.IO.File]::ReadAllText($manifests[0]) | ConvertFrom-Json).status | Should -Be 'crashed'
+    }
 }
 
 # L2: drives a real child pwsh worker through the same generator + runner chain as the harness.
@@ -100,6 +120,7 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
         $run.Result | Should -Be 'Failed'
         $run.ExitCode | Should -Be 1
         @($run.Rows) | Should -HaveCount 0
+        ([System.IO.File]::ReadAllText((Join-Path $run.RunDirectory 'run.json')) | ConvertFrom-Json).status | Should -Be 'failed'
     }
 
     # The walking skeleton of the snapshot path
@@ -140,6 +161,11 @@ Describe 'SystemProbe' -Tag 'L3', 'logic' {
         $observation.Root | Should -BeLike '*catzc-run-*'
         $observation.ModuleBase | Should -BeLike "$($observation.Root)*" -Because 'the worker loads the snapshot''s modules, not the working folder''s'
         [System.IO.Directory]::Exists($observation.Root) | Should -BeFalse -Because 'the snapshot is removed after the run'
+        $manifest = [System.IO.File]::ReadAllText((Join-Path $run.RunDirectory 'run.json')) | ConvertFrom-Json
+        $manifest.status | Should -Be 'passed'
+        $manifest.location | Should -Be 'snapshot' -Because 'the run.json a reader finds at home names where the run executed'
+        $manifest.snapshot.path | Should -Be $observation.Root
+        $manifest.snapshot.kept | Should -BeFalse
         [System.IO.File]::Exists($systemProbe) | Should -BeFalse -Because 'a snapshot run skips the L3 system tests'
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like 'Skipping L3:*' }
         @($run.Rows | Where-Object File -EQ $repositoryTest).Count | Should -BeGreaterThan 0 -Because 'row paths map back to the working folder'

@@ -85,7 +85,8 @@ with all its consumers.
 
 ### cell
 
-One row crossed with one column of the world map — the tracked files of one track in one file language, and their count.
+One row crossed with one column of a map — the world map's tracked files of one track in one file language, or the value-chain map's ADRs of
+one row of the value-chain stack in one value-chain concern.
 
 - **Defined by:** [ADR-DSGN-TRACK#10](design/tracks.md#rule-adr-dsgn-track10)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -94,7 +95,9 @@ One row crossed with one column of the world map — the tracked files of one tr
   - [lit cell](#lit-cell): A lit cell is a cell a highlight selects; a cell is any intersection, lit or not.
   - [stack violation](#stack-violation): A stack violation is a cell holding a live file outside its track's file languages; a cell is any
     intersection, allowed or not.
-  - [world map](#world-map): The world map is the whole grid; a cell is one intersection of it, holding the files of one track in one file
+  - [value-chain map](#value-chain-map): The value-chain map is a whole grid; a cell is one intersection of it, holding the ADRs of one row
+    in one value-chain concern.
+  - [world map](#world-map): The world map is a whole grid; a cell is one intersection of it, holding the files of one track in one file
     language.
 
 ### deployable-unit
@@ -128,13 +131,14 @@ set of them.
 
 ### lit cell
 
-A world-map cell a highlight selects — an ADR code or a set of files names the files it concerns, and their cells light.
+A cell a highlight selects — on the world map the cells of the files an ADR code or a file set names, on the value-chain map the cells an
+ADR sits in.
 
 - **Defined by:** [ADR-DSGN-TRACK#12](design/tracks.md#rule-adr-dsgn-track12)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [cell](#cell): A cell is any intersection of the world map; a lit cell is one a highlight selects.
+  - [cell](#cell): A cell is any intersection of a map; a lit cell is one a highlight selects.
   - [stack violation](#stack-violation): A stack violation is a finding about a cell's files; a lit cell is a selection, made by a
     highlight, that never judges the cell.
 
@@ -236,6 +240,8 @@ chain.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
+  - [cell](#cell): A cell is one intersection of the value-chain map, holding the ADRs of one row in one value-chain concern; the map is the
+    grid.
   - [world map](#world-map): The world map crosses tracks with file languages and says where a decision's files sit; the value-chain map
     says where along delivery the decision acts.
 
@@ -439,32 +445,22 @@ Write-QualityGateReport and throws once with every issue.
 
 ### test
 
-One Pester It — the smallest unit that passes or fails, counted by every report row, rule citation, and timing.
+The smallest unit of verification that passes or fails on its own — counted by every report row, rule citation, skip, and timing; in pwsh
+one Pester It.
 
-- **Defined by:** `ADR-AUTO-PESTER#8`
+- **Defined by:** [ADR-AUTO-TEST#42](automation/test-automation.md#rule-adr-auto-test42)
 - **Realized by:** function `It`
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Part of:** [test block](#test-block)
 - **Contrasts:**
   - [test block](#test-block): A test block groups tests and carries their shared tags and setup; a test is one It that passes or fails.
 
-### test block
-
-A Describe or Context in a test file — a named group of tests whose tags and setup apply to everything inside it.
-
-- **Defined by:** `ADR-AUTO-PESTER#8`
-- **Realized by:** function `Describe|Context`
-- **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
-- **Part of:** [test file](#test-file)
-- **Contrasts:**
-  - [test](#test): A test is one It that passes or fails; a test block groups tests and carries their shared tags and setup.
-  - [test file](#test-file): A test file is the *.Tests.ps1 file; a test block is a Describe or Context inside it.
-
 ### test file
 
-One *.Tests.ps1 file under a module's tests/ — one per function, named Verb-Noun.Tests.ps1 (or for a C# type under tests/types/).
+One file of tests that discovery maps to one catzc module — the unit a test run schedules, never split; in pwsh a Verb-Noun.Tests.ps1 under
+tests/.
 
-- **Defined by:** `ADR-AUTO-PESTER#5`
+- **Defined by:** [ADR-AUTO-TEST#43](automation/test-automation.md#rule-adr-auto-test43)
 - **Realized by:** file-pattern `automation/*/tests/**/*.Tests.ps1`
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
@@ -553,6 +549,20 @@ An L2 or L3 test that cuts from an outer ring of the test onion (local tools; ou
     crosses a ring around the code.
   - [tier](#tier): A tier names a test's outermost ring and every test has one; a vertical test is an L2 or L3 test, one that crosses a
     ring.
+
+## pwsh
+
+### test block
+
+A Describe or Context in a test file — a named group of tests whose tags and setup apply to everything inside it.
+
+- **Defined by:** [ADR-PWSH-PESTER#8](pwsh/pester-testing.md#rule-adr-pwsh-pester8)
+- **Realized by:** function `Describe|Context`
+- **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
+- **Part of:** [test file](#test-file)
+- **Contrasts:**
+  - [test](#test): A test is one It that passes or fails; a test block groups tests and carries their shared tags and setup.
+  - [test file](#test-file): A test file is the *.Tests.ps1 file; a test block is a Describe or Context inside it.
 
 ## azure
 
@@ -655,8 +665,8 @@ A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its 
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Forms:** `ADR domain`, `thesis domain`, `principles domain`, `process domain`, `design domain`, `flow domain`, `automation domain`,
-  `configuration domain`, `pipelines domain`, `github domain`, `azure domain`, `repository domain`, `research domain`, `axioms domain`,
-  `architecture domain`, `implementation domain`, `optimisable domain`, `owning domain`, and the bare `domain`
+  `pwsh domain`, `configuration domain`, `pipelines domain`, `github domain`, `azure domain`, `repository domain`, `research domain`,
+  `axioms domain`, `architecture domain`, `implementation domain`, `optimisable domain`, `owning domain`, and the bare `domain`
 - **Contrasts:**
   - [language zone](#language-zone): A language zone is one of the design, test, and live registers of identities; an ADR domain groups
     ADRs.

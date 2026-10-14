@@ -12,18 +12,24 @@
                                     Write-Message notice — never Write-Warning, which terminates under the catzc
                                     session's preferences
                                     ([ADR-AUTO-ERROR#2](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error2)). A rebuild overwrites it in place.
-      -Version auto, in a pipeline  <MAJOR.MINOR from exporter.yml version>.<first-parent commit count of HEAD>,
-                                    so the same commit always gets the same version and versions rise along main.
-                                    Needs the full history; a shallow clone throws instead of miscounting.
+      -Version auto, in a pipeline  <the bundle's MAJOR.MINOR (exporter.yml bundles.<name>.version)>.<first-parent
+                                    commit count of HEAD>, so the same commit always gets the same version and
+                                    versions rise along main. Each bundle has its own MAJOR.MINOR line. Needs the full
+                                    history; a shallow clone throws instead of miscounting.
       -Version <x.y.z>              honoured as given once asserted numeric MAJOR.MINOR.PATCH (a valid module
                                     version); a pipeline build naming the placeholder throws — it never leaves a
                                     devbox.
 .PARAMETER Version
     'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH.
+.PARAMETER Bundle
+    The bundle whose version line a pipeline build follows (an exporter.yml bundles key). Defaults to
+    default_bundle.
 .PARAMETER Silent
     Suppress the local-build notice.
 .EXAMPLE
     Resolve-CatzcBuildVersion                  # devbox -> 6.6.666 (with the notice); pipeline -> e.g. 0.1.427
+.EXAMPLE
+    Resolve-CatzcBuildVersion -Bundle azure    # pipeline -> azure's MAJOR.MINOR plus the commit count
 .EXAMPLE
     Resolve-CatzcBuildVersion -Version 1.2.3   # -> 1.2.3
 #>
@@ -34,10 +40,13 @@ function Resolve-CatzcBuildVersion {
         [Parameter(Position = 0)]
         [string] $Version = 'auto',
 
+        [string] $Bundle = "$((Get-Config -Config exporter).default_bundle)",
+
         [switch] $Silent
     )
 
     $config = Get-Config -Config exporter
+    Assert-True ($config.bundles.ContainsKey($Bundle)) -ErrorText "Unknown bundle '$Bundle': exporter.yml declares $(@($config.bundles.Keys) -join ', ')."
     $placeholder = "$($config.direct_install_version)"
     $inPipeline = Test-IsRunningInPipeline
 
@@ -63,5 +72,5 @@ function Resolve-CatzcBuildVersion {
     $count = (Invoke-Executable 'git rev-list --first-parent --count HEAD' -PassThru -Silent).Output.Trim()
     Assert-True ($count -match '^\d+$') -ErrorText "Cannot calculate the build version: 'git rev-list --first-parent --count HEAD' returned '$count', not a commit count."
 
-    "$($config.version).$count"
+    "$($config.bundles[$Bundle].version).$count"
 }

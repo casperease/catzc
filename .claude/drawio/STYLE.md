@@ -169,10 +169,11 @@ doesn't need. It never adds claims the source or its sources don't support.
   `uv run -q --with pillow python .claude/drawio/contact_sheet.py out/diagrams/lenses/<name>`, which writes `<name>.sheet.png`: five rows in
   lens order, with a "skipped" row for any missing lens.
 
-## Fan-out: ADR-support drawings with two minimaps
+## Fan-out: ADR-support drawings with three minimaps
 
-Every lens drawing is republished to `out/diagrams/fan-out/` as an **explanation that supports its ADR(s)**. A sidebar carries two minimaps
-showing where the drawing sits in the world.
+Every lens drawing is republished to `out/diagrams/fan-out/` as an **explanation that supports its ADR(s)**. A sidebar carries three
+minimaps showing where the drawing sits: two views of the world map (where its files are) and the value-chain map (where its ADRs sit in the
+value chain).
 
 ### The world map (two views, both always shown)
 
@@ -187,6 +188,17 @@ that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRAC
 2. **Repository tree map** (`.tree.png`). A treemap of the files of the world map, with area set by file count and grouped by top-level
    folder (`automation/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<folder>`, `.github/`, root scripts). The files the highlight
    lights are lit; a lit ADR file is framed.
+
+### The value-chain map (always shown)
+
+**Value-chain grid** (`.chain.png`). The **value-chain map** of `Get-ValueChainMap` (ADR-DSGN-TRACK#16), lit by
+`Get-ValueChainHighlight -Adr <the slide's ADR codes>`: rows are the **value-chain stack** (`PRIN`, `DSGN`, `AUTO`, `PIPE`, `CLOUD`,
+ADR-DSGN-TRACK#14) and columns the **value-chain concerns** (`automation`, `build`, `quality-control`, `release`, `deploy`, `access`,
+ADR-DSGN-TRACK#15), both closed sets in their declared order and always all named; the lit rows and columns are named in ink with a tick,
+the others in the label grey. Each cell holding ADRs is shaded by its ADR count, from `palette.cell` towards `palette.shade` at most half
+strength (so a lit cell always stands out); an empty cell stays open; a lit cell is filled and outlined as on the grid. The top-left corner
+prints `value_chain_column_axis`, and `value_chain_row_axis` runs upright along the left edge (`maps.yml` labels). The file is named `chain`
+for the value chain: short, and distinct from `stack`, which is the world-map grid's file name.
 
 ### Colours (minimaps only; drawings keep the palettes above)
 
@@ -205,8 +217,8 @@ that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRAC
   `out/diagrams/fan-out/_flowB/render.py` (the PNGs).
 - Every minimap PNG has a **sister `.md`** with the same stem, next to it (`_minimaps/<id>.<view>.md` and `minimap-<stem>.<view>.md`).
   `render.py` writes it in the same run, from the same data (`_flowB/describe.py`): the slide and the view, the lit cells or groups with
-  their file counts in the printed terms, a link to every ADR the highlight is built from and to every lit file, and the keywords linked
-  to the glossary. A view adds its own section in `describe.py`'s `VIEWS`; the sister files are never edited by hand.
+  their file counts in the printed terms, a link to every ADR the highlight is built from and to every lit file, and the keywords linked to
+  the glossary. A view adds its own section in `describe.py`'s `VIEWS`; the sister files are never edited by hand.
 
 ### Limits
 
@@ -215,15 +227,18 @@ that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRAC
 - **Sidebar** (x 1300–1572; exact geometry, ids fixed):
   - `minimap-stack` image at x 1316, y 16, 240 × 150;
   - `minimap-tree` image at x 1316, y 182, 240 × 180;
-  - `lens-badge` at x 1316, y 378, 240 × 24;
-  - `supports` (the ADR chips) at x 1316, y 410, 240 × ≤ 46: with the map key fixed at y 460 this holds the bold "Supports" line plus at
+  - `minimap-chain` image at x 1316, y 378, 240 × 150;
+  - `lens-badge` at x 1316, y 544, 240 × 24;
+  - `supports` (the ADR chips) at x 1316, y 576, 240 × ≤ 46: with the map key fixed at y 626 this holds the bold "Supports" line plus at
     most 2 lines, so pack several ADR codes per line (`ADR-A · ADR-B`) and leave the rest to the `.md`. With more than 4 codes, put the
     first code inline after "Supports" and set the cell at 10.5 px;
-  - `mapkey` (the minimap legend: a lit cell, a lit file, a lit ADR file) at x 1316, y 460, 240 × 122.
-- **Minimap PNGs** are rendered at 2× (480 × 300 and 480 × 360) and placed at 1×. Text is ≥ 9 px at 1×. The grid names a lit row by its
-  track and a lit column by its file language, in full; the column names are turned upright. Lit tree groups are labelled with their full
-  names, most lit files first; a label may run past its tile (the white halo keeps it legible) and is cut only at the image edge, never to a
-  stub like "Module…"; a label that would cover one already printed is left out.
+  - `mapkey` (the minimap legend: a lit cell, a lit file, a lit ADR file, a cell's ADR shading) at x 1316, y 626, 240 × 122.
+  - `_join.py` places the sidebar at fan-in (`lay_out_sidebar`): it adds the `minimap-chain` cell to a slide that lacks it and sets every
+    sidebar cell above to its slot, so a slide is at least 640 px tall.
+- **Minimap PNGs** are rendered at 2× (480 × 300, 480 × 360 and 480 × 300) and placed at 1×. Text is ≥ 9 px at 1×. The grid names a lit row
+  by its track and a lit column by its file language, in full; the column names are turned upright. Lit tree groups are labelled with their
+  full names, most lit files first; a label may run past its tile (the white halo keeps it legible) and is cut only at the image edge, never
+  to a stub like "Module…"; a label that would cover one already printed is left out.
 - **Title:** ≤ 100 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, in the form
   `Supports <ADR-CODE>:<rules> · <lens> lens`.
 - **Boxes:**
@@ -236,26 +251,27 @@ that `Get-WorldMapHighlight -Adr <the slide's ADR codes>` returns (ADR-DSGN-TRAC
 - **Names:**
   - The drawing is `<adr>--<explanation>--<lens>.drawio.png`. `<adr>` is the main ADR code in lower case (`adr-flow-cd`). `<explanation>` is
     3–7 kebab words, ≤ 48 chars. `<lens>` is one of the five. The whole name is ≤ 90 chars.
-  - The minimaps are `minimap-<same stem>.stack.png` and `minimap-<same stem>.tree.png`.
+  - The minimaps are `minimap-<same stem>.stack.png`, `minimap-<same stem>.tree.png` and `minimap-<same stem>.chain.png`.
 
 ### Who does what
 
 - Flow A **conforms and renames**: it keeps the content, cuts it to the limits, adds the sidebar placeholders, and picks the explanation
   slug.
-- Flow B **reads the highlight and renders** both minimaps: `highlights.ps1` asks the world-map processor, `render.py` draws.
+- Flow B **reads the highlights and renders** the three minimaps: `highlights.ps1` asks the map processors, `render.py` draws.
 - Both flows key their work by the manifest id `<diagram>.<lens>` in `out/diagrams/fan-out/_manifest.json`.
-- The lead joins them at fan-in: renames the minimaps to the slug, embeds both PNGs as data URIs in the image cells, and rebuilds.
+- The lead joins them at fan-in: lays out the sidebar, renames the minimaps to the slug, embeds the three PNGs as data URIs in the image
+  cells, and rebuilds.
 
 ## Slides and their companions
 
 A fan-out drawing is a **slide**: glyphs on the picture, words in prose. Every slide ships as four files with one stem, side by side:
 
-| File                | Reader                                | Holds                                                                                                 |
-| ------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `<stem>.drawio.png` | everyone                              | the slide: glyphs, names, markers, chips, the legend, and the sidebar (both minimaps and the map key) |
-| `<stem>.md`         | a newcomer                            | the **article**: what the slide shows and why it holds, as well-written prose                         |
-| `<stem>.visual.md`  | anyone who can't see it, or checks it | the **visual description**: what is drawn, in this kit's terms, with no meaning                       |
-| `<stem>.verify.md`  | the lead and reviewers                | the claim → `file:line` → status table, the corrections, and the drift                                |
+| File                | Reader                                | Holds                                                                                                  |
+| ------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `<stem>.drawio.png` | everyone                              | the slide: glyphs, names, markers, chips, the legend, and the sidebar (three minimaps and the map key) |
+| `<stem>.md`         | a newcomer                            | the **article**: what the slide shows and why it holds, as well-written prose                          |
+| `<stem>.visual.md`  | anyone who can't see it, or checks it | the **visual description**: what is drawn, in this kit's terms, with no meaning                        |
+| `<stem>.verify.md`  | the lead and reviewers                | the claim → `file:line` → status table, the corrections, and the drift                                 |
 
 The article and the visual description are read by people, so they carry no audit trail: no line numbers in the prose, no claim tables, no
 "corrected from wave N", no notes about how the slide was made. All of that lives in `<stem>.verify.md`.

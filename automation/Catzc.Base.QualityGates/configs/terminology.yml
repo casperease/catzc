@@ -575,11 +575,11 @@ terms:
     - term: observewip
       meaning: "body of the ADR-PROC-OBSERVEWIP code (observe-work)"
     - term: azcli
-      meaning: "body of the ADR-AUTO-AZCLI code (prefer-az-cli); also 'az cli'"
+      meaning: "'az cli' as one token (Invoke-AzCli, the prefer-az-cli decision of ADR-AZ-CLI)"
     - term: prelog
       meaning: "body of the ADR-AUTO-PRELOG code (log-before-invoke)"
     - term: onefunc
-      meaning: "body of the ADR-AUTO-ONEFUNC code (one-function-per-file)"
+      meaning: "body of the ADR-PWSH-ONEFUNC code (one-function-per-file)"
     - term: nopwd
       meaning: "body of the ADR-AUTO-NOPWD code (never-depend-on-pwd)"
     - term: assetdep
@@ -589,7 +589,7 @@ terms:
     - term: nonest
       meaning: "body of the ADR-AUTO-NONEST code (avoid-deep-nesting)"
     - term: xplat
-      meaning: "body of the ADR-AUTO-XPLAT code (cross-platform)"
+      meaning: "body of the ADR-AUTO-XPLAT and ADR-PWSH-XPLAT codes (cross-platform, cross-platform-powershell)"
     - term: onejob
       meaning: "body of the ADR-AUTO-ONEJOB code (single-responsibility-functions)"
     - term: failfast
@@ -600,18 +600,8 @@ terms:
       meaning: "body of the ADR-AUTO-ENTERP code (effective-in-enterprises)"
     - term: envvar
       meaning: "body of the ADR-AUTO-ENVVAR code (environment-variables)"
-    - term: psenv
-      meaning: "body of the ADR-AUTO-PSENV code (environment-variable-mechanics)"
     - term: modpath
-      meaning: "body of the ADR-AUTO-MODPATH code (module-path-hygiene)"
-    - term: psparam
-      meaning: "body of the ADR-AUTO-PSPARAM code (parameter-design)"
-    - term: pspwd
-      meaning: "body of the ADR-AUTO-PSPWD code (working-directory-mechanics)"
-    - term: psxplat
-      meaning: "body of the ADR-AUTO-PSXPLAT code (cross-platform-powershell)"
-    - term: pscache
-      meaning: "body of the ADR-AUTO-PSCACHE code (script-scope-caching)"
+      meaning: "body of the ADR-PWSH-MODPATH code (module-path-hygiene)"
     - term: protglob
       meaning: "body of the ADR-REPO-PROTGLOB code (protected-globs)"
     - term: rootcfg
@@ -619,13 +609,11 @@ terms:
     - term: uvpy
       meaning: "body of the ADR-AUTO-UVPY code (uv-python-handler)"
     - term: nosemi
-      meaning: "body of the ADR-AUTO-NOSEMI code (avoid-using-semicolons)"
+      meaning: "body of the ADR-PWSH-NOSEMI code (avoid-using-semicolons)"
     - term: useps
-      meaning: "body of the ADR-AUTO-USEPS code (use-ps1-not-psm1)"
+      meaning: "body of the ADR-PWSH-USEPS code (use-ps1-not-psm1)"
     - term: autovar
-      meaning: "body of the ADR-AUTO-AUTOVAR code (automatic-variable-pitfalls)"
-    - term: psformat
-      meaning: "body of the ADR-AUTO-PSFORMAT code (powershell-formatting)"
+      meaning: "body of the ADR-PWSH-AUTOVAR code (automatic-variable-pitfalls)"
     - term: datamod
       meaning: "body of the ADR-AZ-DATAMOD code (data-model)"
     - term: outdir
@@ -649,7 +637,7 @@ terms:
     - term: onetruth
       meaning: "body of the ADR-THES-ONETRUTH code (one-source-of-truth)"
     - term: sesverify
-      meaning: "body of the ADR-AZ-SESVERIFY code (az-session-verification)"
+      meaning: "'session verification', the az-session-verification decision of ADR-AZ-SESSION"
     - term: aidata
       meaning: "body of the ADR-DORA-AIDATA code (research/ai-accessible-internal-data)"
     - term: aistance
@@ -1104,7 +1092,7 @@ terms:
     - term: psscriptroot
       meaning: "PowerShell $PSScriptRoot automatic variable"
     - term: pwsh
-      meaning: "PowerShell 7+ executable (pwsh)"
+      meaning: "PowerShell 7+ executable (pwsh); also the PWSH ADR domain code (composes ADR-PWSH-<NAME>)"
     - term: runspace
       meaning: "PowerShell runspace"
     - term: runspaces

@@ -18,7 +18,11 @@
     Use it for the manual single-check flow in docs/how-to/automation/manual-test-plan.md: pass the row's
     test file and (optionally) its FullNameFilter. No category exclusion is applied — a hand-run of a named
     check should run exactly that check. The run's artifacts (worker script, results-shard-0.xml,
-    rows-shard-0.json) land in a timestamped folder under out/test-file/.
+    rows-shard-0.json, run.json) land in a timestamped folder under out/test-file/. run.json is the same state record
+    Test-Automation writes (Write-TestRunManifest): 'running' when the worker starts, then 'passed', 'failed' or
+    'crashed' on every exit path, with where the run executed (in place, or a snapshot with its provenance) — so every
+    test run of [ADR-AUTO-TEST#34](/docs/adr/automation/test-automation.md#rule-adr-auto-test34) leaves one record shape.
+    An earlier run in out/test-file/ whose process died is marked 'abandoned' first (Set-AbandonedTestRun).
 
     It never waits for another test run's use of the working folder
     ([ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32), Enter-TestRunLocation):
@@ -52,7 +56,7 @@
     Return a result object ({ Result, ExitCode, Rows, RunDirectory, Location }) instead of nothing. Rows are
     the worker's per-test rows (the same shape Test-Automation aggregates; File paths are working-folder
     paths even for a snapshot run) — the live Pester object cannot cross the process boundary. Location is
-    the run's location as run.json records it: 'in-place' or 'snapshot'.
+    the run's location as the run directory's run.json records it: 'in-place' or 'snapshot'.
 .OUTPUTS
     None by default; the result object with -PassThru. The worker's Pester output streams either way.
 .EXAMPLE
@@ -103,9 +107,11 @@ function Invoke-TestFile {
             [System.IO.Path]::GetFullPath($full)
         })
 
-    # A timestamped run folder under out/test-file/, like the harness's out/test-automation/<stamp>/.
-    $runDirectory = Join-Path (Join-Path (Get-OutputRoot -EnsureExists) 'test-file') `
-    ((Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0, 6))
+    # A timestamped run folder under out/test-file/, like the harness's out/test-automation/<stamp>/. Earlier runs whose
+    # process died never stamped their run.json: mark them 'abandoned' first, as Test-Automation does.
+    $reportBase = Join-Path (Get-OutputRoot -EnsureExists) 'test-file'
+    Set-AbandonedTestRun -OutputFolder $reportBase | Out-Null
+    $runDirectory = Join-Path $reportBase ((Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0, 6))
     New-Item -ItemType Directory -Path $runDirectory -Force | Out-Null
 
     # Claim where the run executes — in place, or in a snapshot when another run holds the working folder
@@ -113,58 +119,94 @@ function Invoke-TestFile {
     # workers do, so a test that drives Invoke-TestFile for real inside this run runs in place in this run's
     # root rather than claiming a location of its own.
     $location = Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -RunDirectory $runDirectory -Isolated:$Isolated -KeepSandbox:$KeepSandbox
+    $runStartedAt = [DateTimeOffset]::UtcNow.ToString('o')
+    $manifestStatus = 'crashed'
+    $workerRun = $null
+    $failedCount = 0
+    $failedShardLabels = @()
+    $effectiveMaxLevel = $MaxLevel
+    # try/finally: the terminal run.json is stamped on every exit path — pass, fail, or crash.
     try {
-        # The worker loads from the root the run executes in (Get-TestRunLocationEntry); the test files map to it alike.
-        $entry = Get-TestRunLocationEntry -Location $location
-        # Every tier asked for that the location allows: in place that includes the L3 system tests; a snapshot skips
-        # them and says so (Resolve-TestRunMaxLevel owns the why). L4 only when asked for.
-        $excludeTag = @(Get-TestExcludeTag -MinLevel 0 -MaxLevel (Resolve-TestRunMaxLevel -Location $location -Requested $MaxLevel))
-        $shard = New-TestAutomationShardScript -ShardIndex 0 -TestPath @(Convert-TestRunLocationPath -Location $location -Path $resolved) `
-            -RunDirectory $runDirectory -Verbosity $Output -FullNameFilter $FullNameFilter -ExcludeTag $excludeTag `
-            -LanguageExecutable (Get-LanguageTestExecutable) @entry
+        try {
+            # The worker loads from the root the run executes in (Get-TestRunLocationEntry); the test files map to it alike.
+            $entry = Get-TestRunLocationEntry -Location $location
+            # Every tier asked for that the location allows: in place that includes the L3 system tests; a snapshot skips
+            # them and says so (Resolve-TestRunMaxLevel owns the why). L4 only when asked for.
+            $effectiveMaxLevel = Resolve-TestRunMaxLevel -Location $location -Requested $MaxLevel
+            $excludeTag = @(Get-TestExcludeTag -MinLevel 0 -MaxLevel $effectiveMaxLevel)
+            $shard = New-TestAutomationShardScript -ShardIndex 0 -TestPath @(Convert-TestRunLocationPath -Location $location -Path $resolved) `
+                -RunDirectory $runDirectory -Verbosity $Output -FullNameFilter $FullNameFilter -ExcludeTag $excludeTag `
+                -LanguageExecutable (Get-LanguageTestExecutable) @entry
 
-        $workerEnvironment = @{ CATZC_TEST_RUN_LOCATION_HELD = '1' }
-        $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-            [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $workerEnvironment, $TimeoutSeconds, $true)
-    }
-    finally {
-        Exit-TestRunLocation -Location $location
-    }
-    $exitCode = $runner.Results[0].ExitCode
+            Write-TestRunManifest -RunDirectory $runDirectory -Manifest ([ordered]@{
+                    status     = 'running'
+                    startedAt  = $runStartedAt
+                    ownerPid   = $PID
+                    ownerStart = [Catzc.Base.QualityGates.WorkerParentWatch]::CurrentStartTicks()
+                    minLevel   = 0
+                    maxLevel   = $effectiveMaxLevel
+                }) | Out-Null
 
-    # 0 = green, 1 = the run did not pass; anything else (or a missing rows sidecar) is a worker crash.
-    if ($exitCode -notin 0, 1 -or -not (Test-Path $shard.RowsPath)) {
-        $stderrTail = "$($runner.Results[0].Stderr)".Trim()
-        throw ("Invoke-TestFile worker crashed (exit $exitCode) without completing its run." +
-            $(if ($stderrTail) {
-                    " Stderr:`n$stderrTail"
-                }))
-    }
+            $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+            $workerEnvironment = @{ CATZC_TEST_RUN_LOCATION_HELD = '1' }
+            $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
+                [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $workerEnvironment, $TimeoutSeconds, $true)
+            # The worker run as New-TestRunFinalManifest reads it: exit code per shard, duration, and location.
+            $workerRun = [pscustomobject]@{
+                ShardExitCodes  = [ordered]@{ $shard.Label = $runner.Results[0].ExitCode }
+                DurationSeconds = $stopwatch.Elapsed.TotalSeconds
+                Location        = $location
+            }
+        }
+        finally {
+            Exit-TestRunLocation -Location $location
+        }
+        $exitCode = $runner.Results[0].ExitCode
 
-    $result = if ($exitCode -eq 0) {
-        'Passed'
-    }
-    else {
-        'Failed'
-    }
-    Write-Message "$result ($($location.Mode)) — artifacts in $runDirectory" -ForegroundColor $(if ($exitCode -eq 0) {
-            'Green'
+        # 0 = green, 1 = the run did not pass; anything else (or a missing rows sidecar) is a worker crash.
+        if ($exitCode -notin 0, 1 -or -not (Test-Path $shard.RowsPath)) {
+            $stderrTail = "$($runner.Results[0].Stderr)".Trim()
+            throw ("Invoke-TestFile worker crashed (exit $exitCode) without completing its run." +
+                $(if ($stderrTail) {
+                        " Stderr:`n$stderrTail"
+                    }))
+        }
+
+        $rows = @([System.IO.File]::ReadAllText($shard.RowsPath) | ConvertFrom-Json)
+        $failedCount = @($rows | Where-Object { $_.Result -eq 'Failed' }).Count
+        $result = if ($exitCode -eq 0) {
+            'Passed'
         }
         else {
-            'Red'
-        })
+            'Failed'
+        }
+        $manifestStatus = $result.ToLowerInvariant()
+        if ($exitCode -ne 0) {
+            $failedShardLabels = @($shard.Label)
+        }
+        Write-Message "$result ($($location.Mode)) — artifacts in $runDirectory" -ForegroundColor $(if ($exitCode -eq 0) {
+                'Green'
+            }
+            else {
+                'Red'
+            })
 
-    if ($PassThru) {
-        $rows = @([System.IO.File]::ReadAllText($shard.RowsPath) | ConvertFrom-Json)
-        foreach ($row in $rows) {
-            $row.File = Convert-TestRunLocationPath -Location $location -Path $row.File -ToSource
+        if ($PassThru) {
+            foreach ($row in $rows) {
+                $row.File = Convert-TestRunLocationPath -Location $location -Path $row.File -ToSource
+            }
+            [pscustomobject]@{
+                Result       = $result
+                ExitCode     = $exitCode
+                Rows         = $rows
+                RunDirectory = $runDirectory
+                Location     = $location.Mode
+            }
         }
-        [pscustomobject]@{
-            Result       = $result
-            ExitCode     = $exitCode
-            Rows         = $rows
-            RunDirectory = $runDirectory
-            Location     = $location.Mode
-        }
+    }
+    finally {
+        $finalManifest = New-TestRunFinalManifest -Status $manifestStatus -StartedAt $runStartedAt -MaxLevel $effectiveMaxLevel `
+            -FailedCount $failedCount -FailedShardLabels $failedShardLabels -WorkerRun $workerRun
+        Write-TestRunManifest -RunDirectory $runDirectory -Manifest $finalManifest | Out-Null
     }
 }

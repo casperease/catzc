@@ -88,3 +88,37 @@ the ADRs themselves; this file carries only their DORA rationale.
 - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — foundation, landing zone, and workload deploy in a
   fixed order through the CD pipelines.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Az CLI over Az PowerShell
+
+`Prefer Az CLI over Az PowerShell modules`
+
+[ADR-AZ-CLI](prefer-az-cli.md)
+
+> DORA research links tool standardization and process isolation to faster deployments and fewer failures. Using a single executable tool
+> across all environments removes version skew and assembly conflicts.
+
+- [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — single tool, process isolation, no hidden
+  dependencies.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — single tool eliminates environment-specific
+  failures.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — explicit dependencies and simple return types reduce
+  risk.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Az CLI session verification
+
+`Az CLI session verification — three layers, and verify is not connect`
+
+[ADR-AZ-SESSION](az-session-verification.md)
+
+> DORA's research links robust authentication and authorization practices to reliable, secure deployments. Layering session verification and
+> keeping concerns separate enables safe, auditable automation while maintaining module independence.
+
+- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — layered verification ensures sessions are authenticated
+  to the correct subscription before any deployment automation proceeds.
+- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — separating by-args and config-aware verification
+  allows modules to verify session state without depending on templating configuration.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — clean session verification functions enable safe,
+  automated deployments with proper auth checks at each layer.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

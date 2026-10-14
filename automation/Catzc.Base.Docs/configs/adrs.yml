@@ -198,12 +198,12 @@ domains:
       respect-pwsh-verb-rules: { external: ADR-PWSH-VERBS }
       prefer-dryrun-over-shouldprocess: { external: ADR-PWSH-DRYRUN }
       identifier-names: { external: ADR-PWSH-NAMES }
-      powershell-formatting: { external: ADR-PWSH-FORMAT, terminology: psformat, concern: [quality-control] }
-      environment-variable-mechanics: { external: ADR-PWSH-ENV, terminology: psenv }
-      parameter-design: { external: ADR-PWSH-PARAM, terminology: psparam }
-      working-directory-mechanics: { external: ADR-PWSH-PWD, terminology: pspwd }
-      cross-platform-powershell: { external: ADR-PWSH-XPLAT, terminology: psxplat }
-      script-scope-caching: { external: ADR-PWSH-CACHE, terminology: pscache }
+      powershell-formatting: { external: ADR-PWSH-FORMAT, concern: [quality-control] }
+      environment-variable-mechanics: { external: ADR-PWSH-ENV }
+      parameter-design: { external: ADR-PWSH-PARAM }
+      working-directory-mechanics: { external: ADR-PWSH-PWD }
+      cross-platform-powershell: { external: ADR-PWSH-XPLAT }
+      script-scope-caching: { external: ADR-PWSH-CACHE }
       pester-testing: { external: ADR-PWSH-PESTER, concern: [quality-control] }
       hosting-csharp-types: { external: ADR-PWSH-TYPES, concern: [automation, build] }
 
@@ -265,7 +265,7 @@ domains:
       azure-data-model: { external: ADR-AZ-DATAMOD, terminology: datamod, concern: [deploy, access] }
       azure-network-model: { external: ADR-AZ-NETWORK }
       azure-naming-standard: { external: ADR-AZ-NAMING }
-      prefer-az-cli: { external: ADR-AZ-CLI, terminology: azcli, concern: [deploy, access] }
+      prefer-az-cli: { external: ADR-AZ-CLI, concern: [deploy, access] }
       az-session-verification: { external: ADR-AZ-SESSION, terminology: sesverify, concern: [access] }
       azure-customer-model: { external: ADR-AZ-CUSTOMER }
       landing-zones: { external: ADR-AZ-LZ }

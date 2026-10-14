@@ -6,22 +6,30 @@
 # repo keeps exactly one real export config. Validated on load by the ExporterConfig type.
 # See [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md).
 
-# Versions (Resolve-CatzcBuildVersion turns -Version auto into one of these):
-#   direct_install_version — numeric MAJOR.MINOR.PATCH placeholder every devbox build carries
-#                            (out/automation/build/Catzc/<v>/); obviously not a real number, and a rebuild
-#                            overwrites it in place. A pipeline build never uses it.
-#   version                — numeric MAJOR.MINOR of a pipeline build; its PATCH is the first-parent commit count
-#                            of the built commit, so the same commit always gets the same version.
+# direct_install_version — the numeric MAJOR.MINOR.PATCH placeholder every devbox build carries
+# (out/automation/built/<bundle>/Catzc/<v>/); obviously not a real number, and a rebuild overwrites it in place. A
+# pipeline build never uses it (Resolve-CatzcBuildVersion).
 direct_install_version: 6.6.666
-version: "0.1"
 
-# The default build shape:
-#   default_profile — the module set to build when neither -Module nor -ModuleProfile is given (a profiles.yml
-#                     key: full builds everything).
-#   vendor_policy   — runtime ships only the runtime-required vendored module (powershell-yaml); full also
-#                     ships Pester/PSScriptAnalyzer for a build that runs the tests.
-default_profile: full
-vendor_policy: runtime
+# The named bundles. Each is a release identity of its own — this is a mono repo, so every bundle versions on its
+# own and no bundle's version moves another's:
+#   profile        — the module set (a profiles.yml key), closure-expanded by the build
+#   version        — numeric MAJOR.MINOR of a pipeline build of this bundle; its PATCH is the first-parent commit
+#                    count of the built commit, so the same commit always gets the same version
+#   vendor_policy  — runtime (the default) ships only the runtime-required vendored module (powershell-yaml); full
+#                    also ships Pester/PSScriptAnalyzer for a bundle that runs tests
+# A build lands in out/automation/built/<bundle>/Catzc/<version>/. default_bundle is built when none is named.
+bundles:
+  full:
+    profile: full
+    version: "0.1"
+  azure:
+    profile: azure
+    version: "0.1"
+  minimal:
+    profile: minimal
+    version: "0.1"
+default_bundle: full
 
 # Package identity and metadata — Build-Modules hands these to the build engine, which writes them into the
 # build's top-level Catzc.psd1 (the manifest Install-PSResource and the PowerShell Gallery read). module_guid is

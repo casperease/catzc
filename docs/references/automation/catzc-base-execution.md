@@ -40,7 +40,7 @@ command, once per executable file per session (a lazy cache entry keyed by its p
 one record: found, path, method, version against the required one, the two timings, and the session actor. For a tool declared in
 `tools.yml`, the module reads the entry itself — the candidates for the running platform and run environment, the exclusions, the version
 command and pin, and the devbox version lever outside a pipeline — so a Base module locates a managed tool without depending on the tooling
-modules. The module owns `tools.yml` and its `ToolsConfig`/`ToolConfig` types: the lowest layer that reads the lock file owns it, so every
+modules. The module owns `tools.yml` and its `ToolsConfig`/`ToolConfig` types: the module furthest down the stack that reads the lock file owns it, so every
 bundle that can run a process can also resolve the tools it runs. An execution engine's executable is located the way the engine model says
 ([ADR-AUTO-ENGINE](../../adr/automation/execution-engines.md)): pwsh beside the running PowerShell, never through PATH, and bash through its
 `tools.yml` entry.
