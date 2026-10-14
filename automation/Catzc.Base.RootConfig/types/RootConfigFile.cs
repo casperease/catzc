@@ -6,9 +6,12 @@
 // generated-file header style and is meaningful only for `source` entries — a generator owns its whole output,
 // header included. `copyAsLink` (default false) materialises the target as a filesystem link to the source
 // instead of a generated copy: it requires `source`, requires committed false, and forbids a declared
-// `comment` (a link carries no generated content). Paths are repository-root-relative, '/'-separated
-// communication-form values (see [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)). Mirrors a rootconfig.yml files
-// entry (snake_case keys).
+// `comment` (a link carries no generated content). A `target` holding a wildcard (`*`, `?`, `[`, e.g.
+// go/tests/*/go.mod) names a set of files and is allowed only on a `generator` entry: the generator returns one
+// { Target; Content } record per file, and each record's path must match the pattern. Paths are
+// repository-root-relative, '/'-separated communication-form values (see
+// [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)). Mirrors a rootconfig.yml files entry (snake_case
+// keys).
 //
 // Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
 // over its own properties and its constructor uses the base's extraction helpers.
@@ -20,7 +23,10 @@ namespace Catzc.Base.RootConfig;
 
 public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
 {
-    // Repository-root-relative path of the managed file (e.g. ".editorconfig"). Required.
+    private static readonly char[] WildcardCharacters = { '*', '?', '[' };
+
+    // Repository-root-relative path of the managed file (e.g. ".editorconfig"), or a wildcard pattern over the
+    // files a generator renders (e.g. "go/tests/*/go.mod"). Required.
     public string target { get; }
 
     // Authored source file copied out to the target (repo-relative). Exactly one of source/generator.
@@ -59,6 +65,11 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
         {
             throw new ArgumentException(string.Format(
                 "root config entry '{0}' must declare exactly one of 'source' or 'generator'", target));
+        }
+        if (target.IndexOfAny(WildcardCharacters) >= 0 && generator == null)
+        {
+            throw new ArgumentException(string.Format(
+                "root config entry '{0}' has a wildcard target but no 'generator' — only a generator renders a set of files", target));
         }
         if (comment != "hash" && comment != "none")
         {

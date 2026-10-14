@@ -47,6 +47,18 @@ Describe 'RootConfigFile' -Tag 'L0', 'logic' {
             Should -Throw '*must not declare*'
     }
 
+    It 'constructs a generator entry with a wildcard target' {
+        $f = [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 'widgets/*/gadget.txt'; generator = 'New-Widget' })
+        $f.target | Should -Be 'widgets/*/gadget.txt'
+    }
+
+    It 'throws when a source entry has a wildcard target' {
+        foreach ($target in 'widgets/*/gadget.txt', 'widget?.txt', 'widget[0].txt') {
+            { [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = $target; source = 's' }) } |
+                Should -Throw '*wildcard target but no ''generator''*'
+        }
+    }
+
     It 'constructs a copyAsLink source entry' {
         $f = [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = '.editorconfig'; source = 'a/b/.editorconfig'; copyAsLink = $true; optIn = $true })
         $f.copyAsLink | Should -BeTrue

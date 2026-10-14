@@ -43,6 +43,8 @@ configs:
     type: Catzc.Base.Vendor.VendorConfig
   timeouts:
     type: Catzc.Base.Timeouts.TimeoutsConfig
+  timeout-exemptions:
+    type: Catzc.Base.Timeouts.TimeoutExemptionsConfig
   guids:
     type: Catzc.Base.QualityGates.GuidsConfig
   exporter:

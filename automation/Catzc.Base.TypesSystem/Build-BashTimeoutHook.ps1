@@ -45,7 +45,7 @@ function Build-BashTimeoutHook {
     # compiles in), so a change to any of them republishes the hook.
     $sources = @(Get-ChildItem -LiteralPath $project -File | Where-Object Extension -In '.cs', '.csproj' | Sort-Object Name)
     Assert-True ($sources.Count -gt 0) -ErrorText "No hook files (*.cs, *.csproj) in $project"
-    $linked = @($projectXml.Project.ItemGroup.Compile.Include | Where-Object { $_ } | Sort-Object)
+    $linked = @($projectXml.SelectNodes('//Compile/@Include') | ForEach-Object Value | Sort-Object)
     $hashLines = @($sources | ForEach-Object { "$($_.Name):$((Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash)" })
     foreach ($include in $linked) {
         $linkedPath = Join-Path $project $include

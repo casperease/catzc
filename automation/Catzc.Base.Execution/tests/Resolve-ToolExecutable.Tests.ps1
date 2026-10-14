@@ -48,11 +48,7 @@ Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'hands a devbox actor <actor> the devbox list and the devbox_version lever' -ForEach @(
-        @{ actor = 'Person' }
-        @{ actor = 'Agent' }
-    ) {
-        Mock Get-SessionActor { $actor } -ModuleName Catzc.Base.Execution
+    It 'hands a devbox the devbox list and the devbox_version lever' {
         $expected = if ($script:windows) {
             'C:\widget\user.exe|C:\widget\machine.exe'
         }
@@ -61,12 +57,12 @@ Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
         }
         Resolve-ToolExecutable -Tool widget | Out-Null
         Should -Invoke Find-Executable -ModuleName Catzc.Base.Execution -Times 1 -Exactly -ParameterFilter {
-            ($Candidate -join '|') -eq $expected -and ($AcceptVersion -join '|') -eq '4.4' -and $Actor -eq $actor
+            ($Candidate -join '|') -eq $expected -and ($AcceptVersion -join '|') -eq '4.4'
         }
     }
 
     It 'hands a pipeline the pipeline list, without the devbox_version lever' {
-        Mock Get-SessionActor { 'Pipeline' } -ModuleName Catzc.Base.Execution
+        Mock Get-RunEnvironment { 'Pipeline' } -ModuleName Catzc.Base.Execution
         $expected = if ($script:windows) {
             'C:\widget\agent.exe'
         }
@@ -75,7 +71,7 @@ Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
         }
         Resolve-ToolExecutable -Tool widget | Out-Null
         Should -Invoke Find-Executable -ModuleName Catzc.Base.Execution -Times 1 -Exactly -ParameterFilter {
-            ($Candidate -join '|') -eq $expected -and $AcceptVersion.Count -eq 0 -and $Actor -eq 'Pipeline'
+            ($Candidate -join '|') -eq $expected -and $AcceptVersion.Count -eq 0
         }
     }
 
@@ -95,7 +91,7 @@ Describe 'Resolve-ToolExecutable on the shipped bash entry' -Tag 'L0', 'integrit
     # The shipped tools.yml bash entry, read for real: the WSL launcher never counts as bash.
     BeforeEach {
         InModuleScope Catzc.Base.Execution { $script:executableVersionCache = $null }
-        Mock Get-SessionActor { 'Person' } -ModuleName Catzc.Base.Execution
+        Mock Get-RunEnvironment { 'Devbox' } -ModuleName Catzc.Base.Execution
         Mock Get-ExecutableVersion { '5.2.37' } -ModuleName Catzc.Base.Execution
     }
 

@@ -8,7 +8,7 @@
 
     A tool whose entry declares candidate paths (windows_probes, unix_probes and their pipeline lists, or
     probe_excludes) is located by the executable probe (Resolve-ToolExecutable, in Catzc.Base.Execution): the
-    candidates for this platform and session actor first, then PATH, with no process start; its version runs once
+    candidates for this platform and run environment first, then PATH, with no process start; its version runs once
     per executable per session. Any other tool is checked by its command name on PATH.
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml.

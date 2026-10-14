@@ -25,7 +25,8 @@ How an external process is run. One wrapper owns the whole invocation lifecycle:
 [log-before-invoke](../../adr/automation/log-before-invoke.md)), captures separated standard output and error via the native `CliRunner`
 type, resets and re-checks the exit code so a stale code can never leak across a call boundary, and supports a dry-run mode that returns the
 command string instead of executing it — giving callers a testable, side-effect-free path through the same code. When a call is expected to
-run long, a companion function wraps it with a liveness indicator. The `-PassThru` switch returns a `CliResult` object that separates stdout
+run long, a companion function wraps it with a liveness indicator, and a wait on a mutex announces itself the same way once it becomes
+noticeable. The `-PassThru` switch returns a `CliResult` object that separates stdout
 from stderr for callers that need to inspect output programmatically.
 
 ### responsibility:2 — Executable location
@@ -35,7 +36,7 @@ path wins, then PATH, and an excluded path never counts (for bash on Windows, th
 command, once per executable file per session (a lazy cache entry keyed by its path and last write time, see
 [script-scope-caching](../../adr/automation/powershell/script-scope-caching.md)), so a reinstall is seen on the next check. The answer is
 one record: found, path, method, version against the required one, the two timings, and the session actor. For a tool declared in
-`tools.yml`, the module reads the entry itself — the candidates for the running platform and session actor, the exclusions, the version
+`tools.yml`, the module reads the entry itself — the candidates for the running platform and run environment, the exclusions, the version
 command and pin, and the devbox version lever outside a pipeline — so a Base module locates a managed tool without depending on the tooling
 modules.
 
@@ -72,7 +73,7 @@ sequence of external commands — explicit control over that boundary. `Invoke-E
 callers that compose multiple calls can use the same primitives to do the same.
 
 The module depends on [Catzc.Base.Writers](catzc-base-writers.md) for the pre-invocation log line,
-[Catzc.Base.Repository](catzc-base-repository.md) for the session actor, and [Catzc.Base.Asserts](catzc-base-asserts.md) for argument
+[Catzc.Base.Repository](catzc-base-repository.md) for the run environment and the session actor, and [Catzc.Base.Asserts](catzc-base-asserts.md) for argument
 validation. It exposes no configuration files.
 
 ## Division
@@ -83,6 +84,7 @@ The module's public functions, sorted into the responsibilities above.
 | --------------------------------------------- | ------------------------ |
 | responsibility:1 — External process execution | `Invoke-Executable`      |
 |                                               | `Invoke-WithProgress`    |
+|                                               | `Wait-Mutex`             |
 | responsibility:2 — Executable location        | `Find-Executable`        |
 |                                               | `Resolve-ToolExecutable` |
 | responsibility:3 — Exit-code lifecycle        | `Get-LastExitCode`       |

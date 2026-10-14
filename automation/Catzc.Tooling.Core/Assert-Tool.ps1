@@ -7,7 +7,7 @@
     devbox_version lever also passes — see Assert-ToolVersion). Does NOT check
     DependsOn — those are install-time dependencies, not runtime requirements.
     A tool whose entry declares candidate paths is located by the executable probe instead
-    (Resolve-ToolExecutable): its candidates for this platform and session actor, then PATH.
+    (Resolve-ToolExecutable): its candidates for this platform and run environment, then PATH.
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (e.g., 'python', 'az_cli').
 .PARAMETER SkipVersionCheck

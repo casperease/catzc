@@ -29,7 +29,7 @@ function Get-TimeoutSeconds {
     [CmdletBinding(DefaultParameterSetName = 'Shell')]
     [OutputType([int])]
     param(
-        [Parameter(Mandatory, ParameterSetName = 'Executable')]
+        [Parameter(Mandatory, Position = 0, ParameterSetName = 'Executable')]
         [AllowEmptyString()]
         [string] $Executable,
         [Parameter(ParameterSetName = 'Shell')]

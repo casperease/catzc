@@ -5,7 +5,7 @@
     Renders the probe records from Test-Tool -PassThru as one plain-text table through Write-Message -NoHeader
     ([ADR-AUTO-CONSOLE#2](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console2)): one
     row per tool with Found, Method (probe | path | none), Version against Required, VersionOk, ProbeMs and
-    VersionMs, then the path. The header line names the session actor whose candidate list was used. Writes
+    VersionMs, then the path. The header line names the session actor the checks ran as. Writes
     nothing for no records. With no -Probe it checks every tool in tools.yml.
 .PARAMETER Probe
     The probe records to render (Catzc.Base.Execution.ExecutableProbe, from Test-Tool -PassThru or

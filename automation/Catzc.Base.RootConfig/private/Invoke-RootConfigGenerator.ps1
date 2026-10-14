@@ -1,22 +1,32 @@
 <#
 .SYNOPSIS
-    Renders the full content of a generator-produced managed root file — the registry's generator dispatch.
+    Renders the content of a generator-produced managed root file — the registry's generator dispatch.
 .DESCRIPTION
     A rootconfig entry with a `generator` names a function that renders the target's whole content (header
     included) rather than an authored source file to copy. This dispatch is the one place a generator name is
     bound to its invocation, so Build-RootConfig stays generic and an unknown name fails loudly instead of
     invoking an arbitrary command. Each generator is called in its content-returning form (never its writing
     form) — Build-RootConfig owns the write, through the same Write-FileIfChanged path as every copy-in.
+
+    A generator returns either one string (the content of the entry's single target) or one { Target; Content }
+    record per file it renders (a multi-file generator, e.g. New-GoWorkspace with its
+    Catzc.Base.Languages.GoWorkspaceFile records). The entry's target is passed on, so a multi-file generator
+    renders only the files the entry names; a wildcard target (e.g. go/tests/*/go.mod) selects a set of files.
 .PARAMETER Name
     The generator function name from the registry entry (e.g. 'New-Importer').
+.PARAMETER Target
+    The entry's target: a repository-relative path, or a wildcard pattern over a multi-file generator's files.
 .OUTPUTS
-    [string] The rendered target content.
+    [string] The rendered target content, or [object[]] one { Target; Content } record per rendered file.
 #>
 function Invoke-RootConfigGenerator {
-    [OutputType([string])]
+    [OutputType([string], [object[]])]
     param(
         [Parameter(Mandatory)]
-        [string] $Name
+        [string] $Name,
+
+        [Parameter(Mandatory)]
+        [string] $Target
     )
 
     switch ($Name) {
@@ -63,6 +73,11 @@ function Invoke-RootConfigGenerator {
             # registry (Catzc.Base.VSCode). Fed to the extension via azure-pipelines.customSchemaFile to
             # replace its bundled per-task anyOf — the source of the offline "^PowerShell@2$" false positives.
             New-VSCodePipelineSchema
+        }
+        'New-GoWorkspace' {
+            # The Go test workspace (Catzc.Base.Languages): the root go.work and one go.mod per go/tests/<folder>/,
+            # as one record per file; the entry's target selects which.
+            New-GoWorkspace -Target $Target
         }
         default {
             throw "Unknown root-config generator '$Name'. Register its invocation in Invoke-RootConfigGenerator (Catzc.Base.RootConfig)."
