@@ -147,8 +147,7 @@ concepts:
     domain: design
     defined_by: ADR-DSGN-TRACK#14
     short:
-      The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each ADR domain declares
-      one.
+      The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each ADR domain declares one.
     realized_by: { kind: prose-only }
     contrasts:
       value-chain concern:
@@ -165,8 +164,7 @@ concepts:
       override per ADR.
     realized_by: { kind: prose-only }
     contrasts:
-      track:
-        A track is a root concern, the root folder where files live; a value-chain concern is where along delivery a decision acts.
+      track: A track is a root concern, the root folder where files live; a value-chain concern is where along delivery a decision acts.
       value-chain stack:
         The value-chain stack is the rows, how general a decision is; a value-chain concern is a column, where along delivery it acts.
   value-chain map:

@@ -54,8 +54,9 @@ The diagram is described element by element in
 
 The ADRs describe `main-UAT`, release-uat and pre-prod as always-on environments with one occupant each, joined by the RC and RBC gates. The
 CD pipelines define no `main-uat` or release-uat environment and record no occupant: once a main commit passes its CI stage, CD deploys it
-to dev, test, preprod and prod in one stage, with no gate between them. In code, every environment therefore takes the tip of main. The ADRs
-also spell the environment two ways: `main-UAT` in the commit lifecycle and `main-uat` in the promotion flow.
+to every target of a stage at once, non-prod and prod tier side by side (`nsub` and `psub`, or the expedition's `dev` and `prod`), with no
+gate between them. In code, every environment therefore takes the tip of main. The ADRs also spell the environment two ways: `main-UAT` in
+the commit lifecycle and `main-uat` in the promotion flow.
 
 ## See also
 

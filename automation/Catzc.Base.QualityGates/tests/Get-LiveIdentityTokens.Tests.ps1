@@ -8,10 +8,36 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
         # config declares, never a hand-kept list. The 'live' identities here are the fixture identities the
         # mocked config declares; the derivation logic is identical against the real config
         # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
-        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'customer' } -MockWith {
+        # Two declaring modules (identity-tokens.yml), each naming only configs it owns.
+        $script:declarations = @{
+            'Catzc.Base.Widget' = @(
+                @{ config = 'customer'; path = 'customers'; take = 'keys'; kind = 'customer-key'; suggest = 'a fixture customer (acme / globex)' }
+                @{ config = 'customer'; path = 'customers.*.shortcode'; kind = 'customer-shortcode'; suggest = 'a fixture shortcode (ac / gx)' }
+                @{ config = 'azure'; path = 'org'; kind = 'org'; suggest = 'the fixture org (tst)' }
+                @{ config = 'azure'; path = 'subscriptions'; take = 'keys'; kind = 'subscription'; suggest = 'a fixture subscription' }
+                @{ config = 'azure'; path = 'environments'; take = 'keys'; kind = 'environment'; suggest = 'a fixture environment'; match = 'position'; skip_when = 'per_subscription' }
+                @{ config = 'azure'; path = 'environments.*.shortcode'; kind = 'environment-shortcode'; suggest = 'a fixture env shortcode'; match = 'position'; skip_when = 'per_subscription' }
+            )
+            'Catzc.Base.Gadget' = @(
+                @{ config = 'ado'; path = 'project'; kind = 'ado-project'; suggest = 'a fixture project name' }
+            )
+        }
+        $script:configOwner = @{ customer = 'Catzc.Base.Widget'; azure = 'Catzc.Base.Widget'; ado = 'Catzc.Base.Gadget' }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'identity-tokens' -and $ListOwners } -MockWith {
+            foreach ($module in @($declarations.Keys | Sort-Object)) {
+                [pscustomobject]@{ Name = 'identity-tokens'; Module = $module; Path = "automation/$module/configs/identity-tokens.yml" }
+            }
+        }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'identity-tokens' -and $Module } -MockWith {
+            [Catzc.Base.QualityGates.IdentityTokensConfig]::new(@{ tokens = $declarations[$Module] })
+        }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -ne 'identity-tokens' -and $ListOwners } -MockWith {
+            [pscustomobject]@{ Name = $Config; Module = $configOwner[$Config]; Path = "automation/$($configOwner[$Config])/configs/$Config.yml" }
+        }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'customer' -and -not $ListOwners } -MockWith {
             [ordered]@{ customers = [ordered]@{ acme = @{ shortcode = 'ac' }; globex = @{ shortcode = 'gx' } } }
         }
-        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'azure' } -MockWith {
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'azure' -and -not $ListOwners } -MockWith {
             [ordered]@{
                 org           = 'tst'
                 subscriptions = [ordered]@{ core_lower = @{}; acme_lower = @{} }
@@ -22,7 +48,7 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
                 }
             }
         }
-        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'ado' } -MockWith {
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'ado' -and -not $ListOwners } -MockWith {
             [ordered]@{ project = 'FixtureProject' }
         }
         Mock Get-RepositoryRoot { $TestDrive } -ModuleName Catzc.Base.QualityGates
@@ -70,6 +96,20 @@ Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
         $tokens = & $script:run
         $tokens.Token | Should -Contain 'FixtureProject'
         $tokens.Token | Should -Contain 'sample'
+    }
+
+    It 'yields no config tokens when no loaded module declares any (a bundle without the owning modules)' {
+        $declarations.Clear()
+        $tokens = & $script:run
+        ($tokens | Where-Object { $_.Source -like '*.yml' }) | Should -BeNullOrEmpty
+        $tokens.Token | Should -Contain 'sample'
+    }
+
+    It 'rejects a declaration that names a config its own module does not own' {
+        $declarations['Catzc.Base.Gadget'] = @(
+            @{ config = 'azure'; path = 'org'; kind = 'org'; suggest = 'the fixture org (tst)' }
+        )
+        { & $script:run } | Should -Throw "*Catzc.Base.Gadget/configs/identity-tokens.yml declares tokens of config 'azure', which Catzc.Base.Gadget does not own*"
     }
 
     It 'carries a Source and a Suggest for every token, de-duplicated' {

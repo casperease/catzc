@@ -147,10 +147,10 @@ resolves to one or more value-chain concerns, never to none and never to an unkn
 ### Rule ADR-DSGN-TRACK:16
 
 The **value-chain map** is the ADRs drawn as the value-chain stack crossed with the value-chain concerns: one row per row of the stack
-(ADR-DSGN-TRACK#14) and one column per value-chain concern (ADR-DSGN-TRACK#15), and an ADR lights the places where the row of the ADR
-domain that holds it meets each of its value-chain concerns. It is computed from `adrs.yml`, never drawn by hand, and every label it prints
-names a defined term in its head, as the world map's labels do (ADR-DSGN-TRACK#13); its row names are the rows of the value-chain stack, and
-its column names are the value-chain concerns.
+(ADR-DSGN-TRACK#14) and one column per value-chain concern (ADR-DSGN-TRACK#15), and an ADR lights the places where the row of the ADR domain
+that holds it meets each of its value-chain concerns. It is computed from `adrs.yml`, never drawn by hand, and every label it prints names a
+defined term in its head, as the world map's labels do (ADR-DSGN-TRACK#13); its row names are the rows of the value-chain stack, and its
+column names are the value-chain concerns.
 
 - [The value-chain map](#the-value-chain-map)
 
@@ -245,18 +245,18 @@ entry, and the quality gate fails a label that names none.
 ### The value-chain map
 
 The world map says where a decision's files sit; it cannot say where along delivery the decision acts. A rule about formatting and a rule
-about release tags can govern the same PowerShell files in the same track, and the world map lights the same cells for both. The
-value-chain map answers the other question. Its rows are the value-chain stack, ordered from the axioms every decision specialises down to
-the vendor every deployment lands on, so the row says how general a decision is. Its columns are the value-chain concerns, ordered the way
-a change travels — the tooling it runs on, its build, its verification, its release, its deployment, and the access to what runs — so the
-columns read left to right like the value-chain diagrams ([visual-design](visual-design.md)). The two maps sit side by side because each
-answers what the other cannot.
+about release tags can govern the same PowerShell files in the same track, and the world map lights the same cells for both. The value-chain
+map answers the other question. Its rows are the value-chain stack, ordered from the axioms every decision specialises down to the vendor
+every deployment lands on, so the row says how general a decision is. Its columns are the value-chain concerns, ordered the way a change
+travels — the tooling it runs on, its build, its verification, its release, its deployment, and the access to what runs — so the columns
+read left to right like the value-chain diagrams ([visual-design](visual-design.md)). The two maps sit side by side because each answers
+what the other cannot.
 
 The place is declared, never guessed. Every ADR domain names its row and a default set of value-chain concerns in `adrs.yml`, and an ADR
 that acts elsewhere declares its own, so the declaration is made once per ADR domain and repeated only where an ADR differs, the same
-resolution every setting follows ([sensible-defaults](../automation/sensible-defaults.md#rule-adr-auto-default6)). Both words are
-qualified on purpose: "concern" already names a track, the repository's root concern, and "stack" already names a track's tech-stack, so
-the value-chain forms keep each word to one meaning.
+resolution every setting follows ([sensible-defaults](../automation/sensible-defaults.md#rule-adr-auto-default6)). Both words are qualified
+on purpose: "concern" already names a track, the repository's root concern, and "stack" already names a track's tech-stack, so the
+value-chain forms keep each word to one meaning.
 
 ## Decision
 
