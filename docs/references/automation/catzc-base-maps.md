@@ -80,8 +80,8 @@ BCL-only PDF writer.
 Responsibility 4 answers the question the world map cannot: where along delivery a decision acts. It reads nothing but the ADR registry,
 where each ADR domain declares its row and a default set of value-chain concerns and an ADR declares its own only when it differs
 ([ADR-DSGN-TRACK#15](../../adr/design/tracks.md#rule-adr-dsgn-track15)), so its picture is declared, never guessed. Its quality gate is a
-sibling of the world map's rather than a part of it, because the two read different registries and check different properties; the labels
-of both maps share one configuration section and one glossary check.
+sibling of the world map's rather than a part of it, because the two read different registries and check different properties; the labels of
+both maps share one configuration section and one glossary check.
 
 ## Division
 

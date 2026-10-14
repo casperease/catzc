@@ -135,7 +135,7 @@ enforced by `.editorconfig`, not `Test-ScriptAnalyzer`) — is documented inline
 
 A PSScriptAnalyzer rule that fails the build enforces an ADR rule on every run, so the rule-coverage report of
 [test-automation](../automation/test-automation.md#provenance-and-rule-coverage) counts it as an enforcer beside the tagged tests. The map
-from analyzer rule to citation sits with the analyzer gate that runs those rules, not with the test runner: a custom rule is added here, in
+from analyzer rule to citation sits with the analyzer quality gate (`Test-ScriptAnalyzer`) that runs those rules, not with the test runner: a custom rule is added here, in
 `automation/.scriptanalyzer/`, and its entry in `analyzer-adr-map.yml` is part of the same change. `Test-AnalyzerAdrMap` keeps the two in
 step — an unmapped custom rule, or a mapped id that no ADR declares, fails it.
 
