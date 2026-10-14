@@ -138,46 +138,37 @@ Describe 'Install-Zsh' -Tag 'L0', 'logic' {
         }
     }
 
-    # The apt-get calls, the root assert, and the presence check are mocked, so nothing installs and no process starts.
+    # The shared apt installer is mocked: it reads the package name from the entry's apt_package, so Install-Zsh names
+    # only the tool, and nothing installs and no process starts.
     Context 'on Linux' {
         BeforeEach {
-            Mock Test-Command -ModuleName Catzc.Tooling.Provisioning { $false }
-            Mock Assert-IsAdministrator -ModuleName Catzc.Tooling.Provisioning { }
-            Mock Assert-Command -ModuleName Catzc.Tooling.Provisioning { }
-            Mock Invoke-Executable -ModuleName Catzc.Tooling.Provisioning { }
+            Mock Install-Tool -ModuleName Catzc.Tooling.Provisioning { }
         }
 
-        It 'installs the distribution''s zsh with apt-get when it is missing, then asserts it' {
+        It 'installs through the shared apt installer, then asserts zsh: <Description>' -ForEach @(
+            @{ Description = 'a plain install'; UseForce = $false }
+            @{ Description = 'a -Force install'; UseForce = $true }
+        ) {
             if (-not $IsLinux) {
                 Set-ItResult -Skipped -Because 'unix_only_linux_apt'; return
             }
-            Install-Zsh
-            Should -Invoke Assert-IsAdministrator -ModuleName Catzc.Tooling.Provisioning -Times 1 -Exactly
-            Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Provisioning -Times 1 -Exactly -ParameterFilter {
-                $Command -eq 'sudo apt-get install -y zsh'
+            $script:useForce = $UseForce
+            Install-Zsh -Force:$UseForce
+            Should -Invoke Install-Tool -ModuleName Catzc.Tooling.Provisioning -Times 1 -Exactly -ParameterFilter {
+                $Tool -eq 'zsh' -and [bool] $Force -eq $script:useForce
             }
             Should -Invoke Assert-Tool -ModuleName Catzc.Tooling.Provisioning -Times 1 -Exactly -ParameterFilter { $Tool -eq 'zsh' }
             Should -Invoke Save-VerifiedDownload -ModuleName Catzc.Tooling.Provisioning -Times 0
-        }
-
-        It 'asserts a zsh that is already there, asking for no root and running no apt-get' {
-            if (-not $IsLinux) {
-                Set-ItResult -Skipped -Because 'unix_only_linux_apt'; return
-            }
-            Mock Test-Command -ModuleName Catzc.Tooling.Provisioning { $true }
-            Install-Zsh
-            Should -Invoke Assert-Tool -ModuleName Catzc.Tooling.Provisioning -Times 1 -Exactly -ParameterFilter { $Tool -eq 'zsh' }
-            Should -Invoke Assert-IsAdministrator -ModuleName Catzc.Tooling.Provisioning -Times 0
             Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Provisioning -Times 0
         }
 
-        It 'stops before apt-get without root' {
+        It 'stops before asserting when the shared installer stops' {
             if (-not $IsLinux) {
                 Set-ItResult -Skipped -Because 'unix_only_linux_apt'; return
             }
-            Mock Assert-IsAdministrator -ModuleName Catzc.Tooling.Provisioning { throw 'widget needs root' }
+            Mock Install-Tool -ModuleName Catzc.Tooling.Provisioning { throw 'widget needs root' }
             { Install-Zsh } | Should -Throw '*widget needs root*'
-            Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Provisioning -Times 0
+            Should -Invoke Assert-Tool -ModuleName Catzc.Tooling.Provisioning -Times 0
         }
     }
 

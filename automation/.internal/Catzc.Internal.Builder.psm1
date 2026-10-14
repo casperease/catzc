@@ -47,15 +47,16 @@ $script:shippedSideFolders = @('assets', 'configs', 'types')
 function Get-BuildSourceIndex {
     <#
     .SYNOPSIS
-        Returns the files git tracks under the source root, each marked with whether git stores it with LF-only
-        line endings.
+        Returns the files a build may ship — the tracked files and the untracked files git does not ignore — each
+        marked with whether git stores it with LF-only line endings.
     .DESCRIPTION
-        A build ships tracked files only, so untracked and ignored files (bin/, obj/, local scratch) never reach a
-        bundle. The mark drives the one normalisation rule
+        Ignored files (bin/, obj/, local scratch) never reach a bundle. An untracked file that is not ignored is new
+        work on a devbox, so it ships, and it makes the tree dirty; a pipeline refuses a dirty tree, so a released
+        bundle is always exactly its commit's tracked files. The mark drives the one normalisation rule
         ([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)): a file whose index
         form is LF-only is written LF-only, which undoes whatever line-ending conversion the checkout applied;
-        every other file (CRLF-stored, mixed, binary, no line ending) is a byte copy. On a clean tree the build
-        therefore ships exactly the bytes git stores, on any OS and under any core.autocrlf.
+        every other file (CRLF-stored, mixed, binary, no line ending, untracked) is a byte copy. On a clean tree the
+        build therefore ships exactly the bytes git stores, on any OS and under any core.autocrlf.
     .OUTPUTS
         [System.Collections.Generic.Dictionary[string, bool]] source-root-relative, forward-slashed path -> LF-only.
     #>
@@ -77,6 +78,13 @@ function Get-BuildSourceIndex {
             continue
         }
         $index[$line.Substring($tab + 1).TrimEnd("`r")] = $line.StartsWith('i/lf ', [System.StringComparison]::Ordinal)
+    }
+    $untracked = Invoke-Executable 'git -c core.quotepath=off ls-files --others --exclude-standard' -WorkingDirectory $SourceRoot -PassThru -Silent
+    foreach ($line in ([string] $untracked.Output).Split("`n")) {
+        $path = $line.TrimEnd("`r")
+        if ($path) {
+            $index[$path] = $false   # no stored form to restore: a byte copy
+        }
     }
     , $index
 }
@@ -129,10 +137,10 @@ function Test-BuildSourceLfOnly {
     $isLfOnly
 }
 
-function Test-BuildSourceTracked {
+function Test-BuildSourceShippable {
     <#
     .SYNOPSIS
-        Returns whether a source file is tracked by git, and so may ship in a build.
+        Returns whether a source file may ship in a build: tracked by git, or untracked and not ignored.
     #>
     [CmdletBinding()]
     [OutputType([bool])]
@@ -287,7 +295,7 @@ function Get-MergedModule {
         Merges one source module's function files into the text of its built <Module>.functions.ps1.
     .DESCRIPTION
         Order is private/*.ps1 ordinal, then the root *.ps1 ordinal — the order the source manifest's NestedModules
-        uses, so load semantics are identical. Only files git tracks are merged. Each file is taken verbatim (CR
+        uses, so load semantics are identical. Files git ignores are never merged. Each file is taken verbatim (CR
         stripped, trailing newlines trimmed) behind one '# source: automation/<Module>/<path>' marker line.
         Returns the canonical text, the public (exported) function names, and every precondition violation of
         every file.
@@ -310,14 +318,14 @@ function Get-MergedModule {
 
     $privateFiles = [string[]] @(if ([System.IO.Directory]::Exists($privateDirectory)) {
             foreach ($file in [System.IO.Directory]::GetFiles($privateDirectory, '*.ps1')) {
-                if (Test-BuildSourceTracked -Index $Index -SourceRoot $SourceRoot -Path $file) {
+                if (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $file) {
                     $file
                 }
             }
         })
     $publicFiles = [string[]] @(foreach ($file in [System.IO.Directory]::GetFiles($moduleDirectory, '*.ps1')) {
             if (-not $file.EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase) -and
-                (Test-BuildSourceTracked -Index $Index -SourceRoot $SourceRoot -Path $file)) {
+                (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $file)) {
                 $file
             }
         })
@@ -372,7 +380,7 @@ function Get-BuildFileCopy {
     .PARAMETER SourceRoot
         The source root the index paths are relative to.
     .PARAMETER Index
-        The tracked files and their line-ending form (Get-BuildSourceIndex); an untracked file is skipped.
+        The files that may ship and their line-ending form (Get-BuildSourceIndex); an ignored file is skipped.
     .PARAMETER ExcludeDirectory
         Folder names (at any depth) whose contents are skipped — e.g. tests.
     .PARAMETER IncludeUntracked
@@ -414,7 +422,7 @@ function Get-BuildFileCopy {
                 break
             }
         }
-        if (-not $excluded -and ($IncludeUntracked -or (Test-BuildSourceTracked -Index $Index -SourceRoot $SourceRoot -Path $file))) {
+        if (-not $excluded -and ($IncludeUntracked -or (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $file))) {
             $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $file
             [pscustomobject]@{ Path = "$TargetPath/$relativePath"; Kind = 'Copy'; Source = $file; Content = $null; Exports = $null; Normalize = $normalize }
         }
@@ -494,8 +502,8 @@ function Get-ModuleBuildPlan {
             $violations.Add("automation/.internal/${relativePath}: the runtime loader file does not exist")
             continue
         }
-        if (-not (Test-BuildSourceTracked -Index $Index -SourceRoot $SourceRoot -Path $source)) {
-            $violations.Add("automation/.internal/${relativePath}: the runtime loader file is not tracked by git, and a bundle ships tracked files only")
+        if (-not (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $source)) {
+            $violations.Add("automation/.internal/${relativePath}: the runtime loader file is ignored by git, and a bundle never ships an ignored file")
             continue
         }
         $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $source
@@ -529,8 +537,8 @@ function Get-ModuleBuildPlan {
     if (-not [System.IO.File]::Exists($initializer)) {
         $violations.Add('automation/.internal/assets/Import-Catzc.ps1: the build initializer does not exist')
     }
-    elseif (-not (Test-BuildSourceTracked -Index $Index -SourceRoot $SourceRoot -Path $initializer)) {
-        $violations.Add('automation/.internal/assets/Import-Catzc.ps1: the build initializer is not tracked by git, and a bundle ships tracked files only')
+    elseif (-not (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $initializer)) {
+        $violations.Add('automation/.internal/assets/Import-Catzc.ps1: the build initializer is ignored by git, and a bundle never ships an ignored file')
     }
     else {
         $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $initializer
@@ -860,11 +868,12 @@ function Invoke-ModuleBuild {
           <Module>/<Module>.functions.ps1            per module: merged function files
           <Module>/{configs,assets,types}/           shipped side folders, verbatim — never tests/
 
-        A build ships the files git tracks under the source root, never untracked or ignored ones, and writes
-        each one as git stores it: a file git holds LF-only is written LF-only whatever the checkout's line
-        endings, every other file is a byte copy (Get-BuildSourceIndex). The same commit therefore yields the
-        same bytes on any OS. A source tree that differs from its commit is recorded as dirty in build.json; a
-        pipeline refuses to build one.
+        A build ships the files git tracks under the source root, plus the untracked files git does not ignore
+        (new work on a devbox), never an ignored one, and writes each as git stores it: a file git holds LF-only
+        is written LF-only whatever the checkout's line endings, every other file is a byte copy
+        (Get-BuildSourceIndex). The same commit therefore yields the same bytes on any OS. A source tree that
+        differs from its commit — an untracked file included — is recorded as dirty in build.json; a pipeline
+        refuses to build one, so a released bundle is exactly its commit.
 
         Every check runs before anything is written, and each collects every violation before it throws: the
         merge preconditions of every source file

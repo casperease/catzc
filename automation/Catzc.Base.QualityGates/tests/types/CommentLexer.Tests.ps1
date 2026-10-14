@@ -72,4 +72,34 @@ Describe 'CommentLexer' -Tag 'L0', 'logic' {
             })
         $strings | Should -Be @("'docs/adr/widget.md'")
     }
+
+    Context 'string literals of every code family' {
+        BeforeAll {
+            $script:stringTexts = {
+                param([string] $Text, [string] $Extension)
+                foreach ($span in [Catzc.Base.QualityGates.CommentLexer]::Strings($Text, $Extension)) {
+                    $Text.Substring($span.Item1, $span.Item2)
+                }
+            }
+        }
+
+        It 'returns C# regular, verbatim, interpolated, and raw literals, never a comment' -Tag 'ADR-REPO-LINK#6' {
+            $source = @(
+                'var a = "widget"; // "not data"'
+                'var b = @"gad""get";'
+                'var c = $"sp{x}";'
+                'var d = """raw""";'
+            ) -join "`n"
+            @(& $stringTexts $source '.cs') | Should -Be @('"widget"', '@"gad""get"', '$"sp{x}"', '"""raw"""')
+        }
+
+        It 'returns a YAML line''s text before its comment, and a block scalar''s lines' -Tag 'ADR-REPO-LINK#6' {
+            $source = (@('widget: one   # a comment', '# only a comment', 'gadget: |', '  line two', '') -join "`n")
+            @(& $stringTexts $source '.yml') | Should -Be @('widget: one', 'gadget: |', 'line two')
+        }
+
+        It 'returns nothing for XML' -Tag 'ADR-REPO-LINK#6' {
+            @(& $stringTexts '<Project Name="widget" />' '.csproj') | Should -HaveCount 0
+        }
+    }
 }

@@ -72,4 +72,62 @@ Describe 'Test-ExpectedPackageManager — MSYS2-package tools' -Tag 'L0', 'logic
         Mock Test-Command { $true } -ModuleName Catzc.Tooling.Core
         Test-ExpectedPackageManager $script:config -Path '/elsewhere/widget' | Should -BeTrue
     }
+
+    It 'off Windows, is not managed when the system''s tool is absent' {
+        if ($IsWindows) {
+            Set-ItResult -Skipped -Because 'unix_only_system_package'
+            return
+        }
+        Mock Test-Command { $false } -ModuleName Catzc.Tooling.Core
+        Test-ExpectedPackageManager $script:config | Should -BeFalse
+    }
+}
+
+Describe 'Test-ExpectedPackageManager — MSYS2-package tools that also declare an apt package' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#3' {
+    # Neutral fixture ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): the MSYS2
+    # package on Windows, the apt package on Linux, and nothing declared for macOS, so each platform takes one manager.
+    BeforeEach {
+        $script:tree = Join-Path $TestDrive 'gadget'
+        Mock Get-ScriptInstallDir { $script:tree } -ModuleName Catzc.Tooling.Core
+        $script:config = [Catzc.Base.Execution.ToolConfig]::new(@{
+                version = '1'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'
+                msys2_url = 'https://example.com/widget-1.0-1-x86_64.pkg.tar.zst'; msys2_sha256 = 'a' * 64; windows_install_dir = 'gadget'
+                apt_package = 'widget-pkg'
+            })
+    }
+
+    It 'on Windows, judges the MSYS2 tree, never apt' {
+        if (-not $IsWindows) {
+            Set-ItResult -Skipped -Because 'windows_only_msys2_package'
+            return
+        }
+        Mock Invoke-Executable { throw 'no package manager may be asked' } -ModuleName Catzc.Tooling.Core
+        Test-ExpectedPackageManager $script:config -Path (Join-Path $TestDrive 'gadget/usr/bin/widget.exe') | Should -BeTrue
+        Test-ExpectedPackageManager $script:config -Path (Join-Path $TestDrive 'other/usr/bin/widget.exe') | Should -BeFalse
+    }
+
+    It 'on Linux, asks dpkg for the declared package: <Description>' -ForEach @(
+        @{ Description = 'dpkg owns it'; ExitCode = 0; Expected = $true }
+        @{ Description = 'dpkg does not own it, even though a widget is present'; ExitCode = 1; Expected = $false }
+    ) {
+        if (-not $IsLinux) {
+            Set-ItResult -Skipped -Because 'unix_only_linux_apt'
+            return
+        }
+        $script:exitCode = $ExitCode
+        Mock Test-Command { $true } -ModuleName Catzc.Tooling.Core
+        Mock Invoke-Executable { [pscustomobject]@{ ExitCode = $script:exitCode; Output = ''; Full = '' } } -ModuleName Catzc.Tooling.Core
+        Test-ExpectedPackageManager $script:config | Should -Be $Expected
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Core -Times 1 -Exactly -ParameterFilter { $Command -eq 'dpkg -s widget-pkg' }
+    }
+
+    It 'on macOS, counts the system''s tool as managed when present' {
+        if (-not $IsMacOS) {
+            Set-ItResult -Skipped -Because 'unix_only_macos_system'
+            return
+        }
+        Mock Test-Command { $true } -ModuleName Catzc.Tooling.Core
+        Mock Invoke-Executable { throw 'no package manager may be asked' } -ModuleName Catzc.Tooling.Core
+        Test-ExpectedPackageManager $script:config | Should -BeTrue
+    }
 }

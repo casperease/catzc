@@ -10,7 +10,9 @@
     path, an ADR file name, a bare citation (`ADR-X`, `ADR-X:n`, `ADR-X#n`), a path followed by its citation, or a
     link in another shape. The citation code is the source of truth, so a path to a moved ADR is re-pointed. In
     markdown files a repository-rooted link becomes relative to its file, and a prose rule citation `ADR-X:n` becomes
-    `ADR-X#n`.
+    `ADR-X#n`. In a code file's string literals a rule citation `ADR-X:n` becomes `ADR-X#n` too, and stays plain data
+    (only the ':' changes), except in a `### Rule` heading the string builds and in a file links.yml's
+    string_citations exempts. A string is data its code consumes, so align it together with whatever reads it.
 
     A comment line that outgrows its line limit (.editorconfig max_line_length, with links.yml overrides) is wrapped
     per -Wrap: broken before the link, never inside it, continuing with the same comment prefix and indent.

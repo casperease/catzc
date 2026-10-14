@@ -4,7 +4,10 @@
 //   Code      — every comment span (CommentLexer) is rewritten into canonical code links (CodeLinkRewriter); a
 //               comment line that outgrows its limit is wrapped per the configured LinkWrap; a PowerShell string
 //               naming a docs/adr path that does not exist is reported (strings are data,
-// [ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6)).
+// [ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6)); a rule citation spelled
+//               `ADR-X:n` in any string literal, outside a `### Rule` heading, becomes `ADR-X#n` and stays plain
+//               ([ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)), except in a file the
+//               string_citations check exempts (links.yml).
 //   Markdown  — the file's links are checked and aligned (MarkdownLinkScanner).
 // It reads files and never writes them: the result carries each changed file's new text. Findings carry real
 // 1-based line and column numbers of the original text.
@@ -27,9 +30,12 @@ public sealed class LinkEngine
 
     static readonly Regex StringDocPath = new Regex(@"(?<![\w/.\-])docs/adr/[A-Za-z0-9_\-./]+?\.md(?![\w/])", RegexOptions.Compiled);
     static readonly Regex InsertedLink = new Regex(@"\[[^\]\r\n]+\]\(/docs/adr/[^)\s]+\)", RegexOptions.Compiled);
+    static readonly Regex StringColonCitation = new Regex(@"(?<![\w\-])ADR-[A-Z]+(?:-[A-Z]+)*(?<colon>:)(?<rule>\d+)", RegexOptions.Compiled);
+    static readonly Regex RuleHeadingLead = new Regex(@"#{1,6}[ \t]+Rule[ \t]+$", RegexOptions.Compiled);
 
     readonly string root;
     readonly AdrCitationMap map;
+    readonly SourceCheck stringCitations;
     readonly LinkWrap wrap;
     readonly IReadOnlyDictionary<string, int> lineLimits;
     readonly int defaultLineLimit;
@@ -41,11 +47,13 @@ public sealed class LinkEngine
     // lineLimits: extension ('.ps1') -> line limit; an extension not listed takes defaultLineLimit.
     // selfUrlPrefix: this repository's web URL, or null to skip the self-URL check.
     // trackedFiles: the paths git tracks, so a markdown link to a file GitHub does not have is reported; null to skip.
+    // stringCitations: the string-citation check's settings (links.yml string_citations); its exempt globs.
     public LinkEngine(string repositoryRoot, AdrCitationMap map, LinkWrap wrap, IDictionary<string, int> lineLimits, int defaultLineLimit, string selfUrlPrefix,
-        IEnumerable<string> trackedFiles)
+        IEnumerable<string> trackedFiles, SourceCheck stringCitations)
     {
         root = Path.GetFullPath(repositoryRoot ?? throw new ArgumentNullException(nameof(repositoryRoot)));
         this.map = map ?? throw new ArgumentNullException(nameof(map));
+        this.stringCitations = stringCitations ?? throw new ArgumentNullException(nameof(stringCitations));
         this.wrap = wrap;
         this.lineLimits = new Dictionary<string, int>(lineLimits ?? new Dictionary<string, int>(), StringComparer.OrdinalIgnoreCase);
         this.defaultLineLimit = defaultLineLimit;
@@ -113,6 +121,9 @@ public sealed class LinkEngine
                 }
             }
         }
+
+        // A string citation's fix replaces one character with one, so every offset below holds for the fixed text.
+        text = AlignStringCitations(text, file, extension, hits);
 
         IReadOnlyList<(int Start, int Length)> comments = CommentLexer.Comments(text, extension);
         if (comments.Count == 0) { return text; }
@@ -193,6 +204,31 @@ public sealed class LinkEngine
         if (!changed) { return text; }
         output.Append(text, copied, text.Length - copied);
         return output.ToString();
+    }
+
+    // Respells every `ADR-X:n` in the file's string literals as `ADR-X#n`, outside a `### Rule` heading the string
+    // builds, and reports each as StringColon. A file the string_citations check exempts is returned as written.
+    string AlignStringCitations(string text, string file, string extension, List<CodeLinkRewriter.Hit> hits)
+    {
+        if (stringCitations.IsExempt(file)) { return text; }
+
+        char[] output = null;
+        foreach ((int start, int length) in CommentLexer.Strings(text, extension))
+        {
+            string literal = text.Substring(start, length);
+            foreach (Match citation in StringColonCitation.Matches(literal))
+            {
+                int lineStart = literal.LastIndexOf('\n', Math.Max(citation.Index - 1, 0)) + 1;
+                if (RuleHeadingLead.IsMatch(literal.Substring(lineStart, citation.Index - lineStart))) { continue; }
+
+                string fixedCitation = citation.Value.Replace(':', '#');
+                hits.Add(new CodeLinkRewriter.Hit(start + citation.Index, LinkFindingType.StringColon,
+                    "rule citation '" + citation.Value + "' in a string -> " + fixedCitation + " (strings are data: only the ':' changes)", fixedCitation));
+                output ??= text.ToCharArray();
+                output[start + citation.Groups["colon"].Index] = '#';
+            }
+        }
+        return output == null ? text : new string(output);
     }
 
     // Wraps the lines of a rewritten comment that carry an inserted code link and outgrow the limit: the line is broken

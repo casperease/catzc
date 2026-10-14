@@ -84,21 +84,17 @@ function Get-ToolsStatus {
         $command = Get-ToolCommandSuffix -Tool $toolName
 
         # Mirror Test-ExpectedPackageManager check order:
-        # SystemProvided → ScriptInstall → MSYS2 package → uv → platform-specific → pip → npm → unknown. An MSYS2
-        # package installs on Windows only; elsewhere that tool is the system's.
+        # SystemProvided → ScriptInstall → MSYS2 package (Windows) → uv → platform-specific → pip → npm → MSYS2
+        # package elsewhere → unknown. An MSYS2 package installs on Windows only; on another platform the tool takes
+        # the manager its entry declares there (apt_package on Linux), and with none it is the system's.
         $expectedManager = if ($config.system_provided) {
             'system'
         }
         elseif ($config.script_install) {
             'script'
         }
-        elseif ($config.msys2_url) {
-            if ($IsWindows) {
-                'msys2'
-            }
-            else {
-                'system'
-            }
+        elseif ($config.msys2_url -and $IsWindows) {
+            'msys2'
         }
         elseif ($config.uv_tool -or $config.uv_python -or $config.uv_venv) {
             'uv'
@@ -117,6 +113,9 @@ function Get-ToolsStatus {
         }
         elseif ($config.npm_package) {
             'npm'
+        }
+        elseif ($config.msys2_url) {
+            'system'
         }
         else {
             'unknown'

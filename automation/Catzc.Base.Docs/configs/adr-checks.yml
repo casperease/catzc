@@ -25,16 +25,16 @@ engine_neutrality:
   tokens:
     env-variable: '\$env:'
     pwsh-variable: '\$(?!env:)[A-Za-z_][A-Za-z0-9_]*'
-    comparison-operator: '(?<![\w-])-[ci]?(?:eq|ne|gt|lt|ge|le|like|notlike|match|notmatch|contains|notcontains|in|notin|replace)\b'
+    comparison-operator: '(?<![\w-])-[ci]?(?:not)?(?:eq|ne|gt|lt|ge|le|like|match|contains|in|replace)\b'
     type-literal: '\[(?:[A-Z][A-Za-z0-9]*(?:\.[A-Z][A-Za-z0-9]*)*|switch|bool|string|int|object|hashtable|scriptblock|pscustomobject|ordered)(?:\(\))?\](?!\()'
     pwsh-cmdlet: '\b(?:Join-Path|Split-Path|Test-Path|Resolve-Path|Set-Location|Push-Location|Pop-Location|Set-StrictMode|Write-Host|Write-Output|ForEach-Object|Where-Object|Invoke-Expression|Get-Content|Set-Content|Get-ChildItem|ConvertFrom-Json|ConvertTo-Json|Import-Module|Remove-Module|Export-ModuleMember|Get-Command|Invoke-Pester)\b'
     pester-block: '\b(?:Describe|Context|It|BeforeAll|BeforeEach|AfterAll|AfterEach|Mock)\b(?=`|\s*\{|\s+[''"])'
     pester-framework: '\bPester\b'
     pwsh-file: '\.ps[md]?1\b'
-    dot-source: '\bdot-sourc(?:e|es|ed|ing)\b'
+    dot-source: '\bdot-(?:source[sd]?|sourcing)\b'
     module-manifest: '\b(?:FunctionsToExport|NestedModules|RootModule|RequiredModules)\b'
     should-process: '\b(?:SupportsShouldProcess|ShouldProcess|WhatIf)\b'
-    script-block: '\b[Ss]cript ?block'
+    script-block: '\b(?:Script|script) ?block'
 
 citation_graph:
   mode: report

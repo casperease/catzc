@@ -7,6 +7,18 @@ Describe 'LinksConfig' -Tag 'L0', 'logic' {
         $config.wrap | Should -Be ([Catzc.Base.QualityGates.LinkWrap]::Break)
         $config.default_line_limit | Should -Be 140
         $config.line_limit.Count | Should -Be 0
+        $config.string_citations.mode | Should -Be ([Catzc.Base.QualityGates.CheckMode]::Gate)
+        $config.string_citations.exempt.Count | Should -Be 0
+    }
+
+    It 'maps the string-citation check''s mode and exempt globs' -Tag 'ADR-REPO-LINK#5', 'ADR-PRIN-CONFIG#4' {
+        $config = [Catzc.Base.QualityGates.LinksConfig]::new(@{
+                string_citations = [ordered]@{ mode = 'report'; exempt = [ordered]@{ 'src/widget.Tests.ps1' = 'its fixtures' } }
+            })
+        $config.string_citations.IsReport | Should -BeTrue
+        $config.string_citations.IsExempt('src/widget.Tests.ps1') | Should -BeTrue
+        { [Catzc.Base.QualityGates.LinksConfig]::new(@{ string_citations = 'report' }) } | Should -Throw '*string_citations must be a map*'
+        { [Catzc.Base.QualityGates.LinksConfig]::new(@{ string_citations = @{ mode = 'loud' } }) } | Should -Throw '*gate, report*'
     }
 
     It 'maps every key it is given' -Tag 'ADR-REPO-LINK#8' {

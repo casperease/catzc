@@ -54,11 +54,12 @@ reliable than a comment because it executes.
 
 Bound every wait. Every external call and every unbounded piece of work runs inside a time safeguard, so a hang fails fast with a message
 naming the limit instead of waiting forever. The limits live in one config (`timeouts.yml`, owned by `Catzc.Base.Timeouts`), keyed by run
-environment (devbox | pipeline) and shell (bash | pwsh), with sensible defaults declared on its config type — deliberately tight on a devbox
-— plus per-executable entries, and no "no limit" value. `Invoke-Executable` kills a child process tree at its executable's limit;
-`Invoke-WithTimeout` / `Assert-CompletesWithin` / `Test-CompletesWithin` stop a script block at its limit. The bash limits bound every shell
-call an agent makes, foreground and background, and a hook denies a call outside them. Work that legitimately runs longer while it is tuned
-carries an immutable budget GUID and is exempted in `timeout-exemptions.yml`, which raises its limit to a ceiling but never lifts it.
+environment (devbox | pipeline) and execution engine ([ADR-AUTO-ENGINE#1](execution-engines.md#rule-adr-auto-engine1)), with sensible
+defaults declared on its config type — deliberately tight on a devbox — plus per-executable entries, and no "no limit" value.
+`Invoke-Executable` kills a child process tree at its executable's limit; `Invoke-WithTimeout` / `Assert-CompletesWithin` /
+`Test-CompletesWithin` stop a script block at its limit. The bash limits bound every shell call an agent makes, foreground and background,
+and a hook denies a call outside them. Work that legitimately runs longer while it is tuned carries an immutable budget GUID and is exempted
+in `timeout-exemptions.yml`, which raises its limit to a ceiling but never lifts it.
 
 - [A hang is the slowest failure](#a-hang-is-the-slowest-failure)
 - [Bounding an agent's shell calls](#bounding-an-agents-shell-calls)

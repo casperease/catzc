@@ -20,6 +20,9 @@ public enum LinkFindingType
     // Both kinds — fixable.
     Colon,          // `ADR-X:n` becomes `ADR-X#n` outside the rule's own heading
 
+    // Code kind, string literals — fixable. Strings are data, so the citation stays plain: only its ':' changes.
+    StringColon,    // `ADR-X:n` in a string literal becomes `ADR-X#n` outside a `### Rule` heading
+
     // Markdown kind — fixable.
     Rooted,         // a repository-rooted link in a .md file becomes relative to the file
 

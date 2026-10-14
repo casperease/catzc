@@ -126,7 +126,9 @@ The module's public surface, sorted into the responsibilities above.
 |                                           | `Get-AdrDomainEdges`         |
 |                                           | `ConvertTo-AdrDomainDiagram` |
 |                                           | `Test-AdrRegistry`           |
+|                                           | `Test-AdrEngineNeutrality`   |
 | config                                    | `adrs.yml`                   |
+|                                           | `adr-checks.yml`             |
 | responsibility:5 — Controlled vocabulary  | `Get-Glossary`               |
 |                                           | `Build-Glossary`             |
 |                                           | `Test-Glossary`              |

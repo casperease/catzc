@@ -1,0 +1,31 @@
+# The source checks Test-SourceConventions runs beside its naming conventions. Each check takes:
+#   mode    gate (default: every finding fails the run) or report (findings are listed as a work list and never fail
+#           it); a check reports only while its work list is drained, and returns to gate once its count is 0
+#   exempt  repository-relative glob -> why its files are left out; default none
+# Every key is optional: an omitted key takes the sensible default declared once on
+# Catzc.Base.QualityGates.SourceConventionsConfig
+# ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
+
+# The engine set is declared once, in the ExecutionEngines model, and never restated
+# ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)). The engine names and their
+# count are read from the model, so the phrases below are .NET regular expressions with placeholders:
+#   count_phrases  {count} is a number word or digits; a match whose number is not the model's count is a finding
+#   name_phrases   {name} is any engine name; one phrase's matches on one line that name two or more engines, but not
+#                  all of them, are a finding
+# Defaults: no phrases.
+engine_set:
+  mode: report
+  exempt:
+    automation/Catzc.Base.Engines/types/**: the model itself, the one place the engines are declared
+    automation/Catzc.Base.Engines/tests/**: the model's own tests pin the names it declares
+    "**/tests/assets/engine-cases/**": the engine-case tables carry one column per engine by design
+  count_phrases:
+    - '\b{count} (?:execution )?engines\b'
+  name_phrases:
+    - '\b{name}(?:(?:,? and |,? or |, |/| \| ){name})+\b'
+    - '\[{name}\]'
+
+# A logic (L0) test's fixture data uses neutral ADR codes, never one the ADR index declares
+# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+neutral_codes:
+  mode: report

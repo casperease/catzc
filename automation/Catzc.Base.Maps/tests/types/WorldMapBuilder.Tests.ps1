@@ -202,7 +202,7 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             $guide.Citations | Should -BeNullOrEmpty
             $guide.Sites | Should -BeNullOrEmpty
             $map.Placement('docs/adr/index.md').Citations | Should -Be @('ADR-WIDGET-SPROCKET')
-            $map.Placement('importer.ps1').Citations | Should -Be @('ADR-WIDGET-GADGET#2')
+            $map.Placement('importer.ps1').Citations | Should -Be @('ADR-GIZMO-COG', 'ADR-WIDGET-GADGET#2')
             $map.Placement('docs/adr/widgetry/widget-gadget.md').Basis | Should -Be 'adr-file'
         }
     }

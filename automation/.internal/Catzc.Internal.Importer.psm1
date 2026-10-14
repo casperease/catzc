@@ -223,18 +223,8 @@ function Invoke-Importer {
         # proves it before any janitor touches the tree from a mixed session.
         Assert-CatzcRunModeExclusive -ModulesRoot $modulesRoot
 
-        # A consumer's overlay ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)): in a bundle load, its
-        # function overrides apply once every bundled module has loaded and been proven exclusive, after the whole
-        # overlay is checked. A bundle that does not carry the overlay module cannot apply them, so the load stops
-        # rather than run with the consumer's overlay silently ignored.
-        if ($Bundle -and [System.IO.Directory]::Exists([System.IO.Path]::Combine($repoRoot, '.catzc', 'automation'))) {
-            if (-not (Get-Command Import-CatzcOverlay -ErrorAction Ignore)) {
-                throw "The working root '$repoRoot' has a consumer overlay (.catzc/automation/), but this bundle does not carry Catzc.Base.Overlay, which applies it. Use a bundle whose profile includes Catzc.Base.Overlay, or remove the overlay."
-            }
-            $overrides = @(Import-CatzcOverlay)
-            if ($overrides.Count -gt 0) {
-                Write-ImporterMessage "Overlay: $($overrides.Count) function override(s) from .catzc/automation applied" -StateChange
-            }
+        if ($Bundle) {
+            Invoke-ConsumerOverlay -RepositoryRoot $repoRoot
         }
         if ($DiagnoseLoadTime) {
             Write-LoadTime 'All modules loaded'
@@ -377,6 +367,39 @@ function Invoke-Importer {
 .PARAMETER ModulesRoot
     The active code root.
 #>
+function Invoke-ConsumerOverlay {
+    <#
+    .SYNOPSIS
+        Applies a consumer's overlay at the end of a bundle load, or stops the load when the bundle cannot.
+    .DESCRIPTION
+        A consumer changes a built bundle only through the overlay in its working root
+        ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)). Its function overrides apply once every
+        bundled module has loaded and been proven exclusive, after the whole overlay is checked (Import-CatzcOverlay,
+        Catzc.Base.Overlay). A bundle that does not carry the overlay module cannot apply them, so the load stops
+        rather than run with the consumer's overlay silently ignored. Without an overlay this does nothing.
+    .PARAMETER RepositoryRoot
+        The working root of the load.
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string] $RepositoryRoot
+    )
+
+    if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($RepositoryRoot, '.catzc', 'automation'))) {
+        return
+    }
+    if (-not (Get-Command Import-CatzcOverlay -ErrorAction Ignore)) {
+        throw "The working root '$RepositoryRoot' has a consumer overlay (.catzc/automation/), but this bundle does not carry Catzc.Base.Overlay, which applies it. Use a bundle whose profile includes Catzc.Base.Overlay, or remove the overlay."
+    }
+    $applied = @(Import-CatzcOverlay)
+    $overrides = @($applied | Where-Object { $_.Kind -eq 'FunctionOverride' }).Count
+    $locals = @($applied | Where-Object { $_.Kind -eq 'LocalModule' }).Count
+    if ($applied.Count -gt 0) {
+        Write-ImporterMessage "Overlay: $overrides function override(s) applied, $locals local module(s) loaded from .catzc/automation" -StateChange
+    }
+}
+
 function Assert-CatzcRunModeExclusive {
     [CmdletBinding()]
     param(

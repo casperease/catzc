@@ -10,6 +10,15 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
                     version_pattern = 'version (?<ver>[\d.]+)'; unix_probes = @('/opt/widget'); windows_probes = @('C:\widget.exe')
                 }
             })
+        # The MSYS2 package for Windows and an apt package for Linux, and nothing for macOS, so each platform takes
+        # exactly one manager: msys2 on Windows, apt on Linux, the system on macOS.
+        $script:twoMechanismTools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{
+                gadget = @{
+                    version = '5'; command = 'gadget'; version_command = 'gadget --version'; version_pattern = 'gadget (?<ver>[\d.]+)'
+                    msys2_url = 'https://example.com/gadget-5.0-1-x86_64.pkg.tar.zst'; msys2_sha256 = 'b' * 64; windows_install_dir = 'Widget'
+                    apt_package = 'gadget-pkg'; unix_probes = @('/opt/gadget'); windows_probes = @('C:\gadget.exe')
+                }
+            })
     }
     BeforeEach {
         Mock Get-Config { $script:tools } -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Config -eq 'tools' }
@@ -51,5 +60,30 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
         "$($status.Status)" | Should -Be 'OK'
         $status.Manager | Should -Be ($IsWindows ? 'msys2' : 'system')
         Should -Invoke Test-ExpectedPackageManager -ModuleName Catzc.Tooling.Provisioning -Times 1 -Exactly -ParameterFilter { $Path -eq '/opt/gadget' }
+    }
+
+    It 'reports an MSYS2-package tool that declares an apt package under the manager of the running platform' {
+        Mock Get-Config { $script:twoMechanismTools } -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Config -eq 'tools' }
+        Mock Test-Tool { [Catzc.Base.Execution.ExecutableProbe]::new('gadget', '/opt/gadget', 'probe', '5.9', '5', $true, 1, 1, 'Person') } -ModuleName Catzc.Tooling.Provisioning
+        $expected = if ($IsWindows) {
+            'msys2'
+        }
+        elseif ($IsLinux) {
+            'apt'
+        }
+        else {
+            'system'
+        }
+        $status = Get-ToolsStatus
+        "$($status.Status)" | Should -Be 'OK'
+        $status.Manager | Should -Be $expected
+    }
+
+    It 'names the installer, not the platform, for a missing MSYS2-package tool where it declares a manager' {
+        Mock Get-Config { $script:twoMechanismTools } -ModuleName Catzc.Tooling.Provisioning -ParameterFilter { $Config -eq 'tools' }
+        Mock Test-Tool { [Catzc.Base.Execution.ExecutableProbe]::new('gadget', $null, 'none', $null, '5', $false, 1, 0, 'Person') } -ModuleName Catzc.Tooling.Provisioning
+        $status = Get-ToolsStatus
+        "$($status.Status)" | Should -Be 'Missing'
+        $status.Action | Should -Be ($IsMacOS ? 'Provided by the platform, not the toolchain — install it (bash on Windows: Install-Git)' : 'Run Install-Gadget')
     }
 }

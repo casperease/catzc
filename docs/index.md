@@ -70,6 +70,7 @@ The "why" and "how" behind the automation layer and its PowerShell engine.
 - [Open/closed architecture](adr/automation/open-closed-architecture.md) — extend by adding files, never by editing infrastructure
 - [Dynamic module manifests](adr/pwsh/dynamic-module-manifests.md) — the PowerShell layer: generated .psd1, collision-free namespace
 - [Fail fast with assertions](adr/automation/fail-fast-with-asserts.md) — catch errors at the source, not three layers down
+- [Assert idioms](adr/pwsh/assert-idioms.md) — the PowerShell layer: guards after the param block, a declared time limit on long work
 - [Retry as a last resort](adr/automation/retry-as-last-resort.md) — last-ditch only, lowest level possible, never in a test
 - [Test automation](adr/automation/test-automation.md) — isolate logic tests behind seams; bind only integrity tests to shipped assets
 - [Pester testing](adr/pwsh/pester-testing.md) — the language layer: the mock idioms, test-file conventions, and engine gotchas
@@ -83,9 +84,12 @@ The "why" and "how" behind the automation layer and its PowerShell engine.
 
 ### Implementation decisions
 
+- [The pwsh engine](adr/pwsh/pwsh-engine.md) — PowerShell 7.4+, strict mode in every scope, one dot-sourced importer
 - [One function per file](adr/pwsh/one-function-per-file.md) — makes discovery automatic and eliminates export ceremony
 - [Use .ps1 not .psm1](adr/pwsh/use-ps1-not-psm1.md) — shared scope without boilerplate loaders
 - [Approved verbs](adr/pwsh/respect-pwsh-verb-rules.md) — enforced naming so functions are self-documenting
+- [Spell out names](adr/automation/spell-out-names.md) — no invented abbreviations
+- [Identifier names](adr/pwsh/identifier-names.md) — the PowerShell layer: the analyzer rule that checks every variable and noun
 - [Uniform formatting](adr/repository/uniform-formatting.md) — the whole repo, one mechanical standard
 - [PowerShell formatting](adr/pwsh/powershell-formatting.md) — the PowerShell layer over uniform-formatting
 - [Log before invoke](adr/automation/log-before-invoke.md) — automatic, not opt-in
@@ -111,6 +115,7 @@ The "why" and "how" behind the automation layer and its PowerShell engine.
 - [Prefer foreach over ForEach-Object](adr/pwsh/prefer-foreach-over-foreach-object.md) — clarity and debuggability
 - [Automatic variable pitfalls](adr/pwsh/automatic-variable-pitfalls.md) — `$?`, `$_`, `$LASTEXITCODE` and their traps
 - [Use proper package managers](adr/automation/use-proper-package-managers.md) — system tools via native package managers
+- [Hosting C# types](adr/pwsh/hosting-csharp-types.md) — the PowerShell layer under native C# types: Add-Type, accelerators, stale types
 
 ### SOLID principles that don't apply
 

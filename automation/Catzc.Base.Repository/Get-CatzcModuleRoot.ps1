@@ -22,7 +22,8 @@
     In build mode a consumer overlay may replace a module's asset: when <overlay root>/<Module>/<ChildPath> is a
     file under assets/, that path is returned instead of the bundled one
     ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)). Only assets/ is looked up there — configs merge
-    through Get-Config, and the registry and other module files are never replaced wholesale.
+    through Get-Config, and the registry and other module files are never replaced wholesale. A consumer's local
+    module — an overlay folder that names no bundled module — resolves to its overlay folder.
 .PARAMETER ChildPath
     A path below the module folder, '/'-separated (e.g. 'assets/gitkeep', 'configs/configs.yml'). Omit for the
     module folder itself.
@@ -52,18 +53,21 @@ function Get-CatzcModuleRoot {
     }
 
     $moduleRoot = Join-Path (Get-CatzcModulesRoot) $moduleName
+    $isBundled = [System.IO.Directory]::Exists($moduleRoot)
+    $overlayRoot = Get-CatzcOverlayRoot
+    if (-not $isBundled -and $overlayRoot -and [System.IO.Directory]::Exists([System.IO.Path]::Combine($overlayRoot, $moduleName))) {
+        # A consumer's local module: its folder is the overlay's, and nothing there overrides it.
+        $moduleRoot = [System.IO.Path]::Combine($overlayRoot, $moduleName)
+    }
     Assert-PathExist $moduleRoot -PathType Container
 
     if (-not $ChildPath) {
         return $moduleRoot
     }
-    if ($ChildPath.Replace('\', '/').StartsWith('assets/', [System.StringComparison]::Ordinal)) {
-        $overlayRoot = Get-CatzcOverlayRoot
-        if ($overlayRoot) {
-            $override = [System.IO.Path]::Combine($overlayRoot, $moduleName, $ChildPath)
-            if ([System.IO.File]::Exists($override)) {
-                return $override
-            }
+    if ($isBundled -and $overlayRoot -and $ChildPath.Replace('\', '/').StartsWith('assets/', [System.StringComparison]::Ordinal)) {
+        $override = [System.IO.Path]::Combine($overlayRoot, $moduleName, $ChildPath)
+        if ([System.IO.File]::Exists($override)) {
+            return $override
         }
     }
     Join-Path $moduleRoot $ChildPath

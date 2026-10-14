@@ -15,3 +15,18 @@ line_limit: {}
 
 # The limit for an extension .editorconfig gives no max_line_length. Default: 140 (the prose target).
 default_line_limit: 140
+
+# The string-citation check: a rule citation in a code string literal is spelled ADR-<CODE>#<n>, never with a ':'
+# outside a '### Rule' heading ([ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)).
+#   mode    gate (default: every finding fails Test-Links) or report (findings are listed and never fail it)
+#   exempt  glob -> why its files may spell the ':' form on purpose; default none
+string_citations:
+  mode: report
+  exempt:
+    automation/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1: its fixtures carry the ':' form the aligner respells
+    automation/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1: its fixtures carry the ':' form the gate reports
+    automation/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1: a ':' test tag is the malformed tag it proves is refused
+    automation/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1: a ':' test tag is the malformed tag it proves is reported
+    automation/Catzc.Base.QualityGates/tests/types/AnalyzerAdrMapConfig.Tests.ps1:
+      a ':' citation is the malformed mapping it proves is refused
+    automation/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1: a ':' citation is the malformed defined_by it proves is refused

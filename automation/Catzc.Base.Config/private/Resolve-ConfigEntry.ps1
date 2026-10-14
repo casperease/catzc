@@ -5,7 +5,9 @@
     Scans <module>/configs/*.yml under the loaded code root (Get-CatzcModulesRoot — the source tree's
     automation/ or a built package) once (cached) into a name -> entries index, and resolves a
     requested name to a single @{ Name; Module; Path }. -Module disambiguates a name present in more than one
-    module. Throws when the name is unknown or ambiguous. -All instead returns every entry of the name, one
+    module. In build mode the scan also covers a consumer overlay's local modules — the folders under
+    .catzc/automation/ that name no bundled module ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md))
+    — so a local module's configs are found like any module's. Throws when the name is unknown or ambiguous. -All instead returns every entry of the name, one
     per owning module sorted by module name (ordinal), and nothing when no module has it — the listing for a
     config several modules opt into by shipping it. Mock this to redirect a config to a fixture in logic tests
     (see ADR test-automation).
@@ -35,7 +37,16 @@ function Resolve-ConfigEntry {
         # ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
         $script:configIndex = @{}
         $automationRoot = Get-CatzcModulesRoot
-        foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($automationRoot)) {
+        $moduleDirs = [System.Collections.Generic.List[string]]::new([string[]] @([System.IO.Directory]::EnumerateDirectories($automationRoot)))
+        $overlayRoot = Get-ConfigOverlayRoot
+        if ($overlayRoot) {
+            foreach ($overlayDir in [System.IO.Directory]::EnumerateDirectories($overlayRoot)) {
+                if (-not [System.IO.Directory]::Exists([System.IO.Path]::Combine($automationRoot, [System.IO.Path]::GetFileName($overlayDir)))) {
+                    $moduleDirs.Add($overlayDir)   # a local module; a bundled module's folder holds fragments, not configs
+                }
+            }
+        }
+        foreach ($moduleDir in $moduleDirs) {
             $moduleName = [System.IO.Path]::GetFileName($moduleDir)
             if ($moduleName.StartsWith('.')) {
                 continue

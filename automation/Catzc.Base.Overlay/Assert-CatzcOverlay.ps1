@@ -14,8 +14,9 @@
       ConfigFragment    merges onto a config the module ships, and never onto a sealed one (configs.yml
                         overridable: false)
       AssetOverride     replaces an asset the module ships; a new asset belongs in a local module
-      LocalModule       never takes the reserved Catzc. prefix, and carries no types/ (a bundle has no C# compile at
-                        load). Local modules do not load yet, so one is reported until they do.
+      LocalModule       follows catzc's module conventions (Get-LocalModuleViolation): never the reserved Catzc.
+                        prefix, no types/, only function files, configs/, assets/ and tests/, every function file
+                        well-shaped, and no public function that takes the name of a command already loaded.
 
     A consumer's CI runs it on its own to fail early; Import-CatzcOverlay runs it before it applies anything.
 .PARAMETER Entry
@@ -70,7 +71,7 @@ function Assert-CatzcOverlay {
                 if ($item.Target -in $sealed) {
                     $violations.Add("$($item.RelativePath): config '$($item.Target)' is sealed (configs.yml overridable: false); the overlay may not change it")
                 }
-                elseif (-not [System.IO.File]::Exists((Get-CatzcModuleRoot -Module $item.Module "configs/$($item.Target).yml"))) {
+                elseif (-not [System.IO.File]::Exists([System.IO.Path]::Combine((Get-CatzcModulesRoot), $item.Module, 'configs', "$($item.Target).yml"))) {
                     $violations.Add("$($item.RelativePath): $($item.Module) ships no config '$($item.Target)' to merge onto; a new config belongs in a local module")
                 }
             }
@@ -82,14 +83,8 @@ function Assert-CatzcOverlay {
                 }
             }
             'LocalModule' {
-                if ($item.Module.StartsWith('Catzc.', [System.StringComparison]::OrdinalIgnoreCase)) {
-                    $violations.Add("$($item.RelativePath): the Catzc. prefix is reserved, and the bundle has no module $($item.Module); is it a missing bundle module, or a typo?")
-                }
-                elseif ([System.IO.Directory]::Exists([System.IO.Path]::Combine($item.File, 'types'))) {
-                    $violations.Add("$($item.RelativePath): a local module carries no types/; a bundle loads no C# compile")
-                }
-                else {
-                    $violations.Add("$($item.RelativePath): local modules do not load yet; this bundle applies overrides of bundled modules only")
+                foreach ($violation in @(Get-LocalModuleViolation -Path $item.File -RelativePath $item.RelativePath)) {
+                    $violations.Add($violation)
                 }
             }
         }

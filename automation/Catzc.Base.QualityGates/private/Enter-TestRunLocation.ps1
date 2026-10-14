@@ -128,6 +128,16 @@ function Enter-TestRunLocation {
     Write-Message "Running in an isolated snapshot instead: $destination" -ForegroundColor Yellow
     $location.Snapshot = New-RepositorySnapshot -SourceRoot $sourceRoot -Destination $destination
 
+    # The snapshot starts with the working folder's quality-check result caches (out/cache), which it would not
+    # otherwise carry: each entry is keyed on a file's content and the stamps of the check's inputs
+    # ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)), so it holds in a copy of the same
+    # tree and a file the snapshot changed is simply a new key. Without them every snapshot run would format and
+    # analyse every file from cold. The snapshot's own updates stay in the snapshot.
+    $sourceCache = Join-Path (Get-OutputRoot) 'cache'
+    if ([System.IO.Directory]::Exists($sourceCache)) {
+        Copy-Directory $sourceCache (Join-Path $location.Snapshot.Path 'out/cache')
+    }
+
     # Prime the snapshot with one full import, as a fresh clone's first import does: the janitors materialise
     # the generated, gitignored files the snapshot does not carry (module manifests, READMEs, root configs,
     # cspell dictionaries), once, before any worker starts — workers import with -SkipJanitors and would

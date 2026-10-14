@@ -5,9 +5,10 @@
 //   C family   (.cs .bicep)         // and /* */ (/// included), skipping string, verbatim, raw, and char literals
 //   Hash       (.yml .yaml)         # at line start or after whitespace, outside quoted scalars and block scalars
 //   XML        (.csproj .props .targets)  <!-- -->
-// It also returns PowerShell string-literal spans, which hold docs paths as data
-// ([ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6)). Spans are
-// (Start, Length) offsets into the text, in document order.
+// It also returns the string-literal spans, which hold docs paths and citations as data
+// ([ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6)): PowerShell's string tokens, C#'s
+// and Bicep's string literals (regular, verbatim, interpolated, raw), and a YAML line's text outside its comment.
+// Spans are (Start, Length) offsets into the text, in document order.
 
 using System;
 using System.Collections.Generic;
@@ -35,8 +36,8 @@ public static class CommentLexer
     {
         if (string.IsNullOrEmpty(text)) { return Array.Empty<(int, int)>(); }
         if (PowerShellExtensions.Contains(extension)) { return PowerShellSpans(text, wantComments: true); }
-        if (CFamilyExtensions.Contains(extension)) { return CFamily(text, extension); }
-        if (HashExtensions.Contains(extension)) { return Hash(text); }
+        if (CFamilyExtensions.Contains(extension)) { return CFamily(text, extension, wantComments: true); }
+        if (HashExtensions.Contains(extension)) { return Hash(text, wantComments: true); }
         if (XmlExtensions.Contains(extension)) { return Xml(text); }
         return Array.Empty<(int, int)>();
     }
@@ -44,6 +45,18 @@ public static class CommentLexer
     // PowerShell string-literal spans (the literal token, quotes included); empty for any other language.
     public static IReadOnlyList<(int Start, int Length)> PowerShellStrings(string text) =>
         string.IsNullOrEmpty(text) ? Array.Empty<(int, int)>() : PowerShellSpans(text, wantComments: false);
+
+    // The string-literal spans of any code file, quotes included: PowerShell's string tokens, the C family's
+    // literals, and each YAML line's non-blank text outside its comment (a YAML value is data however it is quoted).
+    // Empty for XML, whose text is not code.
+    public static IReadOnlyList<(int Start, int Length)> Strings(string text, string extension)
+    {
+        if (string.IsNullOrEmpty(text)) { return Array.Empty<(int, int)>(); }
+        if (PowerShellExtensions.Contains(extension)) { return PowerShellSpans(text, wantComments: false); }
+        if (CFamilyExtensions.Contains(extension)) { return CFamily(text, extension, wantComments: false); }
+        if (HashExtensions.Contains(extension)) { return Hash(text, wantComments: false); }
+        return Array.Empty<(int, int)>();
+    }
 
     static IReadOnlyList<(int, int)> PowerShellSpans(string text, bool wantComments)
     {
@@ -61,7 +74,9 @@ public static class CommentLexer
         return spans;
     }
 
-    static IReadOnlyList<(int, int)> CFamily(string text, string extension)
+    // The C family's comment spans (wantComments) or string-literal spans (otherwise), from one scan that skips each
+    // kind while it looks for the other.
+    static IReadOnlyList<(int, int)> CFamily(string text, string extension, bool wantComments)
     {
         bool isCSharp = string.Equals(extension, ".cs", StringComparison.OrdinalIgnoreCase);
         var spans = new List<(int, int)>();
@@ -71,13 +86,14 @@ public static class CommentLexer
         {
             char c = text[i];
             char next = i + 1 < n ? text[i + 1] : '\0';
+            int start = i;
 
             if (c == '/' && next == '/')
             {
                 int end = text.IndexOf('\n', i);
                 if (end < 0) { end = n; }
                 if (end > i && text[end - 1] == '\r') { end--; }
-                spans.Add((i, end - i));
+                if (wantComments) { spans.Add((i, end - i)); }
                 i = end;
                 continue;
             }
@@ -85,19 +101,21 @@ public static class CommentLexer
             {
                 int end = text.IndexOf("*/", i + 2, StringComparison.Ordinal);
                 end = end < 0 ? n : end + 2;
-                spans.Add((i, end - i));
+                if (wantComments) { spans.Add((i, end - i)); }
                 i = end;
                 continue;
             }
 
-            if (isCSharp && c == '"' && i + 2 < n && text[i + 1] == '"' && text[i + 2] == '"')
+            if (isCSharp && (c == '"' || c == '$') && RawQuotesAt(text, c == '$' ? SkipDollars(text, i) : i))
             {
-                // Raw string literal: a run of 3+ quotes closes with the same run length.
+                // Raw (optionally interpolated) string literal: a run of 3+ quotes closes with the same run length.
+                int open = c == '$' ? SkipDollars(text, i) : i;
                 int run = 0;
-                while (i + run < n && text[i + run] == '"') { run++; }
+                while (open + run < n && text[open + run] == '"') { run++; }
                 string closer = new string('"', run);
-                int end = text.IndexOf(closer, i + run, StringComparison.Ordinal);
+                int end = text.IndexOf(closer, open + run, StringComparison.Ordinal);
                 i = end < 0 ? n : end + run;
+                if (!wantComments) { spans.Add((start, i - start)); }
                 continue;
             }
             if (isCSharp && (c == '@' && next == '"' || c == '$' && next == '@' || c == '@' && next == '$'))
@@ -114,7 +132,14 @@ public static class CommentLexer
                     j++;
                 }
                 i = Math.Min(n, j + 1);
+                if (!wantComments) { spans.Add((start, i - start)); }
                 continue;
+            }
+            if (isCSharp && c == '$' && next == '"')
+            {
+                // Interpolated string: the literal starts at its '$'; its body is scanned as a regular string.
+                i++;
+                c = '"';
             }
             if (c == '"' || c == '\'')
             {
@@ -131,9 +156,11 @@ public static class CommentLexer
                     // Bicep multi-line string '''…'''.
                     int end = text.IndexOf("'''", i + 3, StringComparison.Ordinal);
                     i = end < 0 ? n : end + 3;
+                    if (!wantComments) { spans.Add((start, i - start)); }
                     continue;
                 }
                 i = Math.Min(n, j + 1);
+                if (!wantComments) { spans.Add((start, i - start)); }
                 continue;
             }
             i++;
@@ -141,7 +168,19 @@ public static class CommentLexer
         return spans;
     }
 
-    static IReadOnlyList<(int, int)> Hash(string text)
+    // The index after a run of '$' (an interpolated raw string's prefix).
+    static int SkipDollars(string text, int index)
+    {
+        while (index < text.Length && text[index] == '$') { index++; }
+        return index;
+    }
+
+    // True when three quotes start at the index: a raw string literal's opening.
+    static bool RawQuotesAt(string text, int index) =>
+        index + 2 < text.Length && text[index] == '"' && text[index + 1] == '"' && text[index + 2] == '"';
+
+    // A YAML file's comment spans (wantComments) or, per line, the non-blank text before its comment (otherwise).
+    static IReadOnlyList<(int, int)> Hash(string text, bool wantComments)
     {
         var spans = new List<(int, int)>();
         int lineStart = 0;
@@ -160,6 +199,7 @@ public static class CommentLexer
             {
                 if (blank || indent > blockIndent)
                 {
+                    if (!wantComments && !blank) { spans.Add((lineStart + indent, line.Length - indent)); }
                     lineStart = lineEnd + 1;
                     continue;
                 }
@@ -197,11 +237,16 @@ public static class CommentLexer
                 previous = c;
             }
 
-            if (commentAt >= 0)
+            string code = commentAt >= 0 ? line.Substring(0, commentAt) : line;
+            if (wantComments && commentAt >= 0)
             {
                 spans.Add((lineStart + commentAt, line.Length - commentAt));
             }
-            string code = commentAt >= 0 ? line.Substring(0, commentAt) : line;
+            int codeLength = code.TrimEnd().Length;
+            if (!wantComments && codeLength > indent)
+            {
+                spans.Add((lineStart + indent, codeLength - indent));
+            }
             if (!blank && BlockScalarHeader.IsMatch(code.TrimEnd()))
             {
                 blockIndent = indent;

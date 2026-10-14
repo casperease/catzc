@@ -23,15 +23,15 @@ what is changed; there is no list of overrides to keep in step with the files.
 
 Under `.catzc/automation/<Module>/`, where `<Module>` is a bundled module, the only entries are a public function override
 (`<Function>.ps1`), a private function override (`private/<Function>.ps1`), a config fragment (`configs/<config>.yml`), an asset override
-(`assets/<path>`), and local tests (`tests/<path>`). Anything else there is rejected. A folder that names no bundled module is reserved for a
-local module; it never takes the reserved `Catzc.` prefix and carries no `types/`, and the overlay rejects one until local modules load.
+(`assets/<path>`), and local tests (`tests/<path>`). Anything else there is rejected. A folder that names no bundled module is a local
+module ([ADR-AUTO-OVERLAY#9](#rule-adr-auto-overlay9)).
 
 - [Override points](#override-points)
 
 ### Rule ADR-AUTO-OVERLAY:4
 
-A config fragment states only the keys that differ, and is merged onto the bundled config before the config's own type validates the
-result: a map merges key by key, a scalar or a list replaces the bundled value, and an explicit `null` removes the key so the type's declared
+A config fragment states only the keys that differ, and is merged onto the bundled config before the config's own type validates the result:
+a map merges key by key, a scalar or a list replaces the bundled value, and an explicit `null` removes the key so the type's declared
 default applies. In build mode a setting therefore resolves the caller's explicit value, then the overlay fragment, then the bundled config,
 then the type's default ([sensible-defaults](sensible-defaults.md#rule-adr-auto-default6)). A fragment merges only onto a config the module
 ships.
@@ -49,8 +49,8 @@ with the same type; no new mandatory parameter; the same declared output type. A
 
 ### Rule ADR-AUTO-OVERLAY:6
 
-An asset override replaces an asset the bundled module ships: the one lookup of a module's content returns the overlay's file for that
-asset path. A new asset belongs in a local module.
+An asset override replaces an asset the bundled module ships: the one lookup of a module's content returns the overlay's file for that asset
+path. A new asset belongs in a local module.
 
 - [Asset overrides](#asset-overrides)
 
@@ -69,6 +69,16 @@ in source mode the catzc tree is changed directly, and a `.catzc/` folder there 
 
 - [Checked as a whole](#checked-as-a-whole)
 
+### Rule ADR-AUTO-OVERLAY:9
+
+A **local module** is a folder under `.catzc/automation/` that names no bundled module: the consumer's own module, following catzc's module
+conventions — folder = module, a public function per root `.ps1`, private functions under `private/`, `configs/` found by `Get-Config`,
+`assets/` found by the one content lookup. It never takes the reserved `Catzc.` prefix, carries no `types/`, and has no public function that
+takes the name of a command already loaded. It loads after the bundled modules and their overrides, so it calls the bundle as overridden,
+and nothing is written to load it.
+
+- [Local modules](#local-modules)
+
 ## Context
 
 A built bundle carries catzc out of the mono repo into a consumer's own repository ([platform-bundle](platform-bundle.md)). A consumer needs
@@ -80,7 +90,8 @@ hash. The change has to live beside the consumer's own code, apply to the bundle
 ## Decision
 
 A consumer changes a built bundle only through an overlay in its own working root, laid out as the bundle's code root is laid out, checked
-as a whole and applied as the bundle loads. Catzc's own folder conventions are the overlay's conventions, so a consumer learns no second set.
+as a whole and applied as the bundle loads. Catzc's own folder conventions are the overlay's conventions, so a consumer learns no second
+set.
 
 ### The overlay
 
@@ -132,24 +143,34 @@ not exist, so they are sealed in the one place every config is registered.
 ### Checked as a whole
 
 `Assert-CatzcOverlay` checks every entry against these rules and reports every violation at once; `Import-CatzcOverlay` runs it before it
-applies anything, so an overlay applies whole or not at all, and a consumer's pipeline can run it alone to fail early. In source mode there is
-no bundle to change — the catzc tree is `automation/` itself — so the overlay is not read.
+applies anything, so an overlay applies whole or not at all, and a consumer's pipeline can run it alone to fail early. In source mode there
+is no bundle to change — the catzc tree is `automation/` itself — so the overlay is not read.
+
+### Local modules
+
+What a consumer adds rather than changes — a new function, a new config, a new asset — goes in a module of its own, written the way catzc's
+own modules are written, so a consumer learns no second convention. It loads last, after the bundle and the overrides, and calls the bundle
+like any module does. It is built in the session from its files — private functions, then public ones, the order a built module's merge uses
+— so nothing is written to load it; `Get-Config` finds its configs and `Get-CatzcModuleRoot` its folder, in the overlay. A local public
+function may not take a loaded command's name, because that would replace a bundled function behind the contract check's back; replacing one
+is what an override is for.
 
 ### How this is enforced
 
-- **`Catzc.Base.Repository`** derives the overlay root (`Get-CatzcOverlayRoot`, build mode only) and returns an overlay asset from
-  `Get-CatzcModuleRoot`.
-- **`Catzc.Base.Config`** merges a fragment in `Get-Config` (`Merge-ConfigFragment`), validates the result with the config's type, and
-  refuses a fragment of a config the registry seals (`ConfigsConfig.sealedConfigs`).
+- **`Catzc.Base.Repository`** derives the overlay root (`Get-CatzcOverlayRoot`, build mode only), returns an overlay asset from
+  `Get-CatzcModuleRoot`, and resolves a local module's folder in the overlay.
+- **`Catzc.Base.Config`** merges a fragment in `Get-Config` (`Merge-ConfigFragment`), validates the result with the config's type, refuses a
+  fragment of a config the registry seals (`ConfigsConfig.sealedConfigs`), and discovers a local module's configs.
 - **`Catzc.Base.Overlay`** inventories the overlay (`Get-CatzcOverlay`), checks it (`Assert-CatzcOverlay`, with the shared function-file
-  check `Get-FunctionFileViolation` and the contract check), and applies function overrides (`Import-CatzcOverlay`), which the importer
-  runs at the end of a bundle load.
-- **Tests** prove the merge, the sealing, the asset lookup, every check, and a function override reaching every caller in a built bundle.
+  check `Get-FunctionFileViolation`, the contract check, and the local-module check), and applies function overrides and loads local modules
+  (`Import-CatzcOverlay`), which the importer runs at the end of a bundle load.
+- **Tests** prove the merge, the sealing, the asset lookup, every check, a function override reaching every caller, and a local module
+  loading with its configs, in a built bundle.
 
 ## Consequences
 
-- A consumer changes a bundle without forking it, and upgrades by installing the next bundle; its overlay carries over, and a contract
-  break in an override fails at load instead of at run time.
+- A consumer changes a bundle without forking it, and upgrades by installing the next bundle; its overlay carries over, and a contract break
+  in an override fails at load instead of at run time.
 - What a consumer changed is a folder to read, not a diff to reconstruct.
 - A sealed config cannot be changed by a consumer at all; a consumer that needs one changed asks for a different bundle.
 - The cost is one more folder convention, the same one catzc's own modules use, and a check that runs on every bundle load with an overlay.

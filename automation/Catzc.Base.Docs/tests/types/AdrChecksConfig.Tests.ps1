@@ -1,0 +1,86 @@
+# AdrChecksConfig — the ADR checks' settings (adr-checks.yml): every key optional with its default declared once on the type, and
+# every violation collected into one throw. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
+    Context 'defaults' -Tag 'ADR-AUTO-DEFAULT#6' {
+        It 'gives every check the gate mode and empty lists when the file states nothing' {
+            foreach ($raw in @($null, [ordered]@{})) {
+                $config = [Catzc.Base.Docs.AdrChecksConfig]::new($raw)
+                $config.engine_neutrality.mode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Gate)
+                $config.engine_neutrality.domains | Should -HaveCount 0
+                $config.engine_neutrality.tokens | Should -HaveCount 0
+                $config.citation_graph.mode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Gate)
+                $config.dora_coverage.mode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Gate)
+                $config.dora_coverage.file | Should -Be 'dora-explains.md'
+                $config.dora_coverage.exempt.Count | Should -Be 0
+            }
+        }
+
+        It 'declares the default mode once, as gate' {
+            [Catzc.Base.Docs.AdrChecksConfig]::DefaultMode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Gate)
+        }
+    }
+
+    Context 'a stated config' -Tag 'ADR-PRIN-CONFIG#1' {
+        BeforeAll {
+            $script:config = [Catzc.Base.Docs.AdrChecksConfig]::new([ordered]@{
+                    engine_neutrality = [ordered]@{
+                        mode    = 'report'
+                        domains = @('widget', 'gadget')
+                        tokens  = [ordered]@{ 'gizmo-call' = '\bGizmo-[A-Z][a-z]+\b'; 'dollar-name' = '\$[a-z]+' }
+                    }
+                    citation_graph    = [ordered]@{ mode = 'Report' }
+                    dora_coverage     = [ordered]@{ mode = 'gate'; file = 'widget-notes.md'; exempt = [ordered]@{ gizmo = 'Gizmo keeps its own notes.' } }
+                })
+        }
+
+        It 'reads each check''s mode, case-insensitively' {
+            $config.engine_neutrality.mode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Report)
+            $config.citation_graph.mode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Report)
+            $config.dora_coverage.mode | Should -Be ([Catzc.Base.Docs.AdrCheckMode]::Gate)
+        }
+
+        It 'reads the domains, the tokens in file order, the file, and the exempt domains with their reasons' {
+            $config.engine_neutrality.domains | Should -Be @('widget', 'gadget')
+            $config.engine_neutrality.tokens.name | Should -Be @('gizmo-call', 'dollar-name')
+            $config.engine_neutrality.tokens[0].pattern | Should -Be '\bGizmo-[A-Z][a-z]+\b'
+            $config.dora_coverage.file | Should -Be 'widget-notes.md'
+            $config.dora_coverage.exempt['gizmo'] | Should -Be 'Gizmo keeps its own notes.'
+        }
+
+        It 'finds every distinct match of a token in a line, case-sensitively' {
+            $token = $config.engine_neutrality.tokens[0]
+            $token.Find('Call Gizmo-Spin, then Gizmo-Stop, then Gizmo-Spin; never gizmo-spin.') | Should -Be @('Gizmo-Spin', 'Gizmo-Stop')
+            $token.Find('No gizmo here.') | Should -HaveCount 0
+            $token.Find('') | Should -HaveCount 0
+        }
+    }
+
+    Context 'validation' {
+        It 'throws once, naming every violation' {
+            $raw = [ordered]@{
+                widget            = 1
+                engine_neutrality = [ordered]@{
+                    mode    = 'loud'
+                    colour  = 'red'
+                    domains = @('widget', 'widget')
+                    tokens  = [ordered]@{ 'Bad Name' = 'x'; 'broken' = '(unclosed'; 'empty' = '' }
+                }
+                citation_graph    = 'report'
+                dora_coverage     = [ordered]@{ file = 'notes/widget.md'; exempt = [ordered]@{ gizmo = ' ' } }
+            }
+            $thrown = { [Catzc.Base.Docs.AdrChecksConfig]::new($raw) } | Should -Throw -PassThru
+            $message = $thrown.Exception.Message
+            $message | Should -BeLike '*adr-checks.yml is invalid*'
+            $message | Should -BeLike "*adr-checks: unknown key 'widget'*"
+            $message | Should -BeLike "*engine_neutrality: unknown key 'colour'*"
+            $message | Should -BeLike "*engine_neutrality: mode 'loud' is not one of: report, gate*"
+            $message | Should -BeLike "*engine_neutrality: domain 'widget' is listed twice*"
+            $message | Should -BeLike "*token name 'Bad Name' must be kebab-case*"
+            $message | Should -BeLike "*token 'broken' pattern does not compile*"
+            $message | Should -BeLike "*token 'empty' needs a pattern*"
+            $message | Should -BeLike '*citation_graph: must be a mapping*'
+            $message | Should -BeLike "*dora_coverage: file 'notes/widget.md' must be a markdown file name, with no folder*"
+            $message | Should -BeLike "*dora_coverage: exempt domain 'gizmo' needs a reason*"
+        }
+    }
+}

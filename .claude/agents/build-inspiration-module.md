@@ -42,7 +42,7 @@ first, and stop and ask if it is missing or a decision there is still open.
 - One function per file (`Verb-Noun.ps1`). Public functions sit at the module root, helpers in `private/`.
 - Declare the module's group and its dependencies in `configs/dependencies.yml`, and register the config in `configs.yml`.
 - **L0 tests:**
-  - use neutral fixture names (widget/gadget, ADR-TEST#3);
+  - use neutral fixture names (widget/gadget, ADR-AUTO-TEST#3);
   - mock `Get-Config`;
   - use `TestDrive:` for availability;
   - cover every config-type rejection, the root resolution for both shell forms, seed determinism, the `-Count` bounds, `-Id` selection and

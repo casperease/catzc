@@ -118,11 +118,28 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
         }
 
         It 'aligns C# and YAML comments too' -Tag 'ADR-REPO-LINK#1', 'ADR-REPO-LINK#3' {
-            $cSharpString = 'var s = "ADR-TST-WIDGET:2";'
-            & $alignFile $root 'src/Gadget.cs' ((@('// Per ADR-TST-WIDGET:2.', $cSharpString, '') -join "`n")) |
-                Should -BeExactly ((@("// Per $widget2.", $cSharpString, '') -join "`n"))
+            # A string or value is data: its citation stays plain, never a link (only its ':' is respelled).
+            & $alignFile $root 'src/Gadget.cs' ((@('// Per ADR-TST-WIDGET:2.', 'var s = "ADR-TST-WIDGET:2";', '') -join "`n")) |
+                Should -BeExactly ((@("// Per $widget2.", 'var s = "ADR-TST-WIDGET#2";', '') -join "`n"))
             & $alignFile $root 'src/gadget.yml' "# Per ADR-TST-WIDGET:2.`nkey: ADR-TST-WIDGET:2`n" |
-                Should -BeExactly "# Per $widget2.`nkey: ADR-TST-WIDGET:2`n"
+                Should -BeExactly "# Per $widget2.`nkey: ADR-TST-WIDGET#2`n"
+        }
+    }
+
+    Context 'rule citations in string literals' {
+        It 'respells a colon citation in a PowerShell, C#, or YAML string as plain data, keeping a rule heading' -Tag 'ADR-REPO-LINK#5', 'ADR-REPO-LINK#6' {
+            & $alignFile $root 'src/widget.ps1' "throw 'widgets nest (ADR-TST-WIDGET:2)'`n`$doc = `"### Rule ADR-TST-WIDGET:2`"`n" |
+                Should -BeExactly "throw 'widgets nest (ADR-TST-WIDGET#2)'`n`$doc = `"### Rule ADR-TST-WIDGET:2`"`n"
+            & $alignFile $root 'src/Gadget.cs' "class Gadget { const string Why = `"ADR-TST-GADGET:1`"; }`n" |
+                Should -BeExactly "class Gadget { const string Why = `"ADR-TST-GADGET#1`"; }`n"
+            & $alignFile $root 'src/widget.yml' "rule: ADR-TST-WIDGET:1`n" | Should -BeExactly "rule: ADR-TST-WIDGET#1`n"
+        }
+
+        It 'reports each respelled string citation as fixable' -Tag 'ADR-REPO-LINK#5' {
+            & $writeFile $root 'src/widget.ps1' "throw 'widgets nest (ADR-TST-WIDGET:2)'`n"
+            $result = Format-Links -RepositoryRoot $root -Path (Join-Path $root 'src/widget.ps1') -DryRun -PassThru
+            @($result.Fixed.Type) | Should -Be @('StringColon')
+            $result.Fixed[0].Line | Should -Be 1
         }
     }
 
@@ -132,8 +149,8 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
             & $alignFile $root 'src/widget.ps1' $text | Should -BeExactly $text
         }
 
-        It 'never rewrites a citation or path inside a PowerShell string' -Tag 'ADR-REPO-LINK#6' {
-            $text = "`$tag = 'ADR-TST-WIDGET:2'`n`$path = 'docs/adr/widget/widget-rules.md'`n"
+        It 'never turns a citation or path inside a PowerShell string into a link' -Tag 'ADR-REPO-LINK#6' {
+            $text = "`$tag = 'ADR-TST-WIDGET#2'`n`$path = 'docs/adr/widget/widget-rules.md'`n"
             & $alignFile $root 'src/widget.ps1' $text | Should -BeExactly $text
         }
 

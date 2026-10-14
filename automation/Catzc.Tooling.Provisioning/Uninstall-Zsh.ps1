@@ -7,8 +7,9 @@
     are empty, then the manifest. A file Git's tree had before Install-Zsh ran is never in the manifest, so it stays
     ([ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2)). No admin required.
 
-    Linux: removes the zsh package with apt-get, the manager Install-Zsh installs it through
-    ([ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2)); that step needs root
+    Linux: removes the package the entry's apt_package names through Uninstall-Tool (apt-get), the manager Install-Zsh
+    installs it through ([ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2)).
+    A zsh that apt does not own stops the uninstall rather than being removed; the apt step needs root
     ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)).
 
     macOS: zsh is the system's /bin/zsh, and Install-Zsh installed nothing, so there is nothing to uninstall.
@@ -24,16 +25,8 @@ function Uninstall-Zsh {
     param()
 
     if ($IsLinux) {
-        if (-not (Test-Command zsh)) {
-            Write-Message 'zsh is not installed — nothing to do'
-            return
-        }
-        Assert-IsAdministrator -ErrorText (
-            'Uninstall-Zsh on Linux requires root (apt-get). Run as root or uninstall zsh manually.'
-        )
-        Assert-Command apt-get
-        Invoke-Executable 'sudo apt-get remove -y zsh'
-        Write-Message 'zsh uninstalled via apt-get'
+        # The shared apt uninstaller: it removes the package the entry's apt_package names, only when apt owns it.
+        Uninstall-Tool -Tool zsh
         return
     }
 

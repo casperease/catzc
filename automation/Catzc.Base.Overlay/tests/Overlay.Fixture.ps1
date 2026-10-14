@@ -12,24 +12,38 @@ foreach ($folder in 'Catzc.Base.Widget/configs', 'Catzc.Base.Widget/assets') {
 Set-Content -Path (Join-Path $modulesRoot 'Catzc.Base.Widget/configs/widget.yml') -Value 'limit: 3'
 Set-Content -Path (Join-Path $modulesRoot 'Catzc.Base.Widget/assets/lever.txt') -Value 'bundled'
 
-New-Module -Name Catzc.Base.Widget -ScriptBlock {
-    function Get-Widget {
-        [OutputType([string])]
-        param(
-            [Parameter(Mandatory)]
-            [string] $Name,
+function script:New-OverlayFixtureModule {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: the module lives inside one test file''s lifecycle and Remove-OverlayFixture removes it; its output belongs to Pester')]
+    param()
 
-            [int] $Count
-        )
-        "bundled:$(Get-WidgetCore)"
-    }
-    function Get-WidgetCore {
-        [OutputType([string])]
-        param()
-        'core'
-    }
-    Export-ModuleMember -Function Get-Widget
-} | Import-Module -Global
+    New-Module -Name Catzc.Base.Widget -ScriptBlock {
+        <#
+        .SYNOPSIS
+            The fixture module's public function.
+        #>
+        function Get-Widget {
+            [OutputType([string])]
+            param(
+                [Parameter(Mandatory)]
+                [string] $Name,
+
+                [int] $Count
+            )
+            "bundled:$Name/$Count/$(Get-WidgetCore)"
+        }
+        <#
+        .SYNOPSIS
+            The fixture module's private function.
+        #>
+        function Get-WidgetCore {
+            [OutputType([string])]
+            param()
+            'core'
+        }
+        Export-ModuleMember -Function Get-Widget
+    } | Import-Module -Global
+}
+New-OverlayFixtureModule
 
 function script:Set-OverlayFile {
     param([string] $RelativePath, [string] $Content)
@@ -46,6 +60,9 @@ function script:Clear-OverlayFixture {
 }
 
 function script:Remove-OverlayFixture {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: removes the module New-OverlayFixtureModule loaded for the same test file; its output belongs to Pester')]
+    param()
+
     Remove-Module Catzc.Base.Widget -Force -ErrorAction Ignore
     Remove-Item -Path function:global:Get-Widget -ErrorAction Ignore
 }
@@ -54,7 +71,7 @@ function script:Remove-OverlayFixture {
 $script:useFixtureRoots = {
     Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { $overlayRoot }
     Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Overlay -MockWith { $modulesRoot }
-    Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.Overlay -MockWith { [System.IO.Path]::Combine($modulesRoot, $Module, $ChildPath) }
+    Mock Write-Message -ModuleName Catzc.Base.Overlay -MockWith { }
     Mock Get-Config -ModuleName Catzc.Base.Overlay -ParameterFilter { $Config -eq 'configs' } -MockWith {
         [pscustomobject]@{ sealedConfigs = @('gadget') }
     }

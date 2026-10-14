@@ -42,6 +42,55 @@ function Get-Widget {
         (Get-Command Get-Widget).Definition | Should -Be $before
     }
 
+    Context 'a local module' {
+        BeforeEach {
+            # Config discovery and the content lookup reach the fixture overlay through their own seams; the config
+            # index is rebuilt so it scans the fixture.
+            Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlayRoot }
+            Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Repository -MockWith { $overlayRoot }
+            & (Get-Module Catzc.Base.Config) { $script:configIndex = $null; $script:configCache = $null }
+        }
+        AfterEach {
+            Remove-Module Widget.Local -Force -ErrorAction Ignore
+            & (Get-Module Catzc.Base.Config) { $script:configIndex = $null; $script:configCache = $null }
+        }
+
+        It 'loads after the overrides, exporting its public functions only, with its config and folder found in the overlay' {
+            Set-OverlayFile 'Catzc.Base.Widget/Get-Widget.ps1' @'
+function Get-Widget {
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Name,
+
+        [int] $Count
+    )
+    'overridden'
+}
+'@
+            Set-OverlayFile 'Widget.Local/Get-Local.ps1' "function Get-Local {`n    `"`$(Get-LocalCore):`$(Get-Widget -Name lever):`$((Get-Config -Config widget-local).limit)`"`n}"
+            Set-OverlayFile 'Widget.Local/private/Get-LocalCore.ps1' "function Get-LocalCore {`n    'local-core'`n}"
+            Set-OverlayFile 'Widget.Local/configs/widget-local.yml' 'limit: 7'
+
+            $applied = @(Import-CatzcOverlay)
+
+            @($applied | ForEach-Object Kind) | Should -Be @('FunctionOverride', 'LocalModule')
+            # Its private function, the bundle as overridden, and its own config.
+            Get-Local | Should -Be 'local-core:overridden:7'
+            @((Get-Module Widget.Local).ExportedFunctions.Keys) | Should -Be @('Get-Local')
+            Get-CatzcModuleRoot -Module Widget.Local | Should -Be ([System.IO.Path]::Combine($overlayRoot, 'Widget.Local'))
+        }
+
+        It 'replaces the module a previous load built' {
+            Set-OverlayFile 'Widget.Local/Get-Local.ps1' "function Get-Local {`n    'first'`n}"
+            $null = Import-CatzcOverlay
+            Set-OverlayFile 'Widget.Local/Get-Local.ps1' "function Get-Local {`n    'second'`n}"
+            $null = Import-CatzcOverlay
+            Get-Local | Should -Be 'second'
+            @(Get-Module Widget.Local).Count | Should -Be 1
+        }
+    }
+
     It 'does nothing without an overlay' {
         Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { }
         @(Import-CatzcOverlay) | Should -BeNullOrEmpty

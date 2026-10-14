@@ -19,11 +19,28 @@
 
     Dot-prefixed folders hold no source files; their tests/ folders are scanned (except .vendor and
     .scriptanalyzer). It reads the per-function source files, which exist only in the source tree (Assert-SourceTree).
+
+    Two source checks run beside these, each with its mode and exempt globs in configs/source-conventions.yml
+    (Catzc.Base.QualityGates.SourceConventionsConfig). In gate mode a check's findings are issues; in report mode
+    they are printed as its work list (Write-ReportModeFinding) and never fail the run.
+
+      - engine_set: the engine set is never restated
+        ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)) — in any git-tracked
+        markdown, PowerShell, C#, or YAML file, a literal engine list in code or a partial or miscounted engine set
+        in prose (Get-EngineSetFinding), with the engine names read from [Catzc.Base.Engines.ExecutionEngines];
+      - neutral_codes: an L0 test's fixture data names no real ADR code
+        ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) — in every test file, a
+        code the ADR registry declares (Get-AdrCitationMap) in a string literal of an L0 block, outside -Tag
+        (Get-NeutralCodeFinding).
+
+    Both leave out the files the content tools leave as written (Get-ContentExemptPath: vendored, generated,
+    fixture, contract).
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-source-conventions/ (Write-QualityGateReport).
 .PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; SourceFiles; TestFiles; SkipReasons }) instead of
-    throwing on issues.
+    Return the result ({ Subject; IssueCount; Issues; ReportPath; SourceFiles; TestFiles; SkipReasons;
+    EngineSetCount; NeutralCodeCount; EngineSet; NeutralCodes }) instead of throwing on issues. EngineSet and
+    NeutralCodes list each check's findings whatever its mode.
 .OUTPUTS
     [pscustomobject] With -PassThru only.
 .EXAMPLE
@@ -39,7 +56,21 @@ function Test-SourceConventions {
     )
 
     Assert-SourceTree
-    $automationRoot = Join-Path (Get-RepositoryRoot) 'automation'
+    $repositoryRoot = [System.IO.Path]::GetFullPath((Get-RepositoryRoot))
+    $automationRoot = Join-Path $repositoryRoot 'automation'
+    $settings = Get-Config -Config source-conventions
+    # Every file is parsed once; the source checks below reuse the trees the naming checks parsed.
+    $parsed = [System.Collections.Generic.Dictionary[string, System.Management.Automation.Language.Ast]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    $parse = {
+        param([string] $FullPath)
+        $key = [System.IO.Path]::GetFullPath($FullPath)
+        if (-not $parsed.ContainsKey($key)) {
+            $tokens = $null
+            $errors = $null
+            $parsed[$key] = [System.Management.Automation.Language.Parser]::ParseFile($key, [ref]$tokens, [ref]$errors)
+        }
+        $parsed[$key]
+    }
     $isFunctionAst = { param($node) $node -is [System.Management.Automation.Language.FunctionDefinitionAst] }
     $isSetItResult = {
         param($node)
@@ -76,8 +107,7 @@ function Test-SourceConventions {
                 $sourceCount++
                 $relative = "$module/" + ($path.Substring($moduleDirectory.Length + 1) -replace '\\', '/')
                 $baseName = [System.IO.Path]::GetFileNameWithoutExtension($path)
-                $tokens = $null; $errors = $null
-                $ast = [System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$tokens, [ref]$errors)
+                $ast = & $parse $path
                 $functions = @($ast.FindAll($isFunctionAst, $false) | Where-Object { $_.Parent.Parent -eq $ast })
 
                 if ($baseName -notmatch '-') {
@@ -139,8 +169,7 @@ function Test-SourceConventions {
         Sort-Object
     foreach ($testFile in $allTestFiles) {
         $relative = $testFile.Substring($automationRoot.Length + 1) -replace '\\', '/'
-        $tokens = $null; $errors = $null
-        $ast = [System.Management.Automation.Language.Parser]::ParseFile($testFile, [ref]$tokens, [ref]$errors)
+        $ast = & $parse $testFile
         foreach ($call in $ast.FindAll($isSetItResult, $true)) {
             $elements = $call.CommandElements
             for ($i = 1; $i -lt $elements.Count; $i++) {
@@ -163,7 +192,74 @@ function Test-SourceConventions {
         }
     }
 
-    Write-QualityGateReport -Subject 'source-conventions' -Title 'Test-SourceConventions' -Issues $issues `
-        -Facts ([ordered]@{ SourceFiles = $sourceCount; TestFiles = $testCount; SkipReasons = $skipReasonCount }) `
-        -OutputFolder $OutputFolder -PassThru:$PassThru
+    # The source checks read the git-tracked files, less those the content tools leave as written.
+    $tracked = @(Get-GitTrackedPath '.')
+    $contentExempt = [System.Collections.Generic.HashSet[string]]::new([string[]] @(Get-ContentExemptPath -RepositoryRoot $repositoryRoot -Path $tracked))
+    $checked = @($tracked | Where-Object { -not $contentExempt.Contains($_) })
+
+    $engineNames = [string[]] @((Get-ExecutionEngine).Name)
+    $engineSet = [System.Collections.Generic.List[string]]::new()
+    $engineExtensions = '.md', '.ps1', '.psm1', '.psd1', '.cs', '.yml', '.yaml'
+    foreach ($file in $checked) {
+        $extension = [Catzc.Base.QualityGates.CommentLexer]::ExtensionOf($file)
+        if ($extension -notin $engineExtensions -or $settings.engine_set.IsExempt($file)) {
+            continue
+        }
+        $fullPath = Join-Path $repositoryRoot $file
+        if (-not [System.IO.File]::Exists($fullPath)) {
+            continue
+        }
+        $ast = if ([Catzc.Base.QualityGates.CommentLexer]::IsPowerShell($extension)) {
+            & $parse $fullPath
+        }
+        else {
+            $null
+        }
+        $found = Get-EngineSetFinding -Path $file -Text ([System.IO.File]::ReadAllText($fullPath)) -Ast $ast `
+            -EngineName $engineNames -Check $settings.engine_set
+        $engineSet.AddRange([string[]] @($found))
+    }
+
+    $realCodes = [System.Collections.Generic.HashSet[string]]::new([string[]] @((Get-AdrCitationMap -RepositoryRoot $repositoryRoot).Codes))
+    $neutralCodes = [System.Collections.Generic.List[string]]::new()
+    foreach ($file in $checked) {
+        if ($file -notlike '*.Tests.ps1' -or $settings.neutral_codes.IsExempt($file)) {
+            continue
+        }
+        $fullPath = Join-Path $repositoryRoot $file
+        if (-not [System.IO.File]::Exists($fullPath)) {
+            continue
+        }
+        $neutralCodes.AddRange([string[]] @(Get-NeutralCodeFinding -Path $file -Ast (& $parse $fullPath) -Code $realCodes))
+    }
+
+    # Each check's findings are issues in gate mode and its printed work list in report mode (its config decides).
+    $checks = [ordered]@{
+        engine_set    = @{ Settings = $settings.engine_set; Findings = $engineSet }
+        neutral_codes = @{ Settings = $settings.neutral_codes; Findings = $neutralCodes }
+    }
+    foreach ($name in $checks.Keys) {
+        $check = $checks[$name]
+        if ($check.Settings.IsReport) {
+            Write-ReportModeFinding -Check $name -Finding $check.Findings.ToArray()
+        }
+        else {
+            $issues.AddRange($check.Findings)
+        }
+    }
+
+    $facts = [ordered]@{
+        SourceFiles      = $sourceCount
+        TestFiles        = $testCount
+        SkipReasons      = $skipReasonCount
+        EngineSetCount   = $engineSet.Count
+        NeutralCodeCount = $neutralCodes.Count
+    }
+    $report = Write-QualityGateReport -Subject 'source-conventions' -Title 'Test-SourceConventions' -Issues $issues `
+        -Facts $facts -OutputFolder $OutputFolder -PassThru:$PassThru
+    if ($PassThru) {
+        $report | Add-Member -NotePropertyName EngineSet -NotePropertyValue $engineSet.ToArray()
+        $report | Add-Member -NotePropertyName NeutralCodes -NotePropertyValue $neutralCodes.ToArray()
+        $report
+    }
 }

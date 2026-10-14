@@ -12,12 +12,25 @@
       - a rule set's file does not head its registry `## Rules: <External>` with the registered external code;
       - a rule file is registered by no rule set (its `<domain folder>/<slug>` is not in adrs.yml).
 
+    It also runs two checks whose mode is configured in adr-checks.yml (Catzc.Base.Docs.AdrChecksConfig):
+
+      - citation graph (citation_graph): a rule summary cites only its own domain or a domain in its domain's depends_on
+        (Get-AdrCitationGraphViolations);
+      - DORA coverage (dora_coverage): every rule set whose domain is not exempt has exactly one section linking its ADR in its
+        domain's DORA file (Get-AdrDoraCoverageViolations).
+
+    A check in gate mode adds its findings to this gate's issues. A check in report mode writes its own report
+    (out/test-adr-<check>/, Write-QualityGateReport), prints its findings and their count, and never fails the run.
+
     The registry's own invariants (unique external codes, domain links that are declared and acyclic) are AdrsConfig
     construction rules, not this gate's.
 .PARAMETER OutputFolder
-    The report base folder. Defaults to out/test-adr-registry/ (Write-QualityGateReport).
+    The report base folder. Defaults to out/test-adr-registry/ (Write-QualityGateReport); a check in report mode writes under
+    <OutputFolder>/adr-<check>/ when it is given, else under its own default folder.
 .PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; RuleSets; Files }) instead of throwing on issues.
+    Return the result instead of throwing on issues: { Subject; IssueCount; Issues; ReportPath; RuleSets; Files; CitationGraphMode;
+    CitationGraphFindings; DoraCoverageMode; DoraCoverageFindings; CitationGraph; DoraCoverage }, where CitationGraph and
+    DoraCoverage list each check's findings in either mode.
 .OUTPUTS
     [pscustomobject] With -PassThru only.
 .EXAMPLE
@@ -32,31 +45,15 @@ function Test-AdrRegistry {
         [switch] $PassThru
     )
 
-    $ruleSets = @((Get-Config -Config adrs).RuleSets)
-    $adrRoot = Resolve-RepoPath 'docs/adr'
+    $adrs = Get-Config -Config adrs
+    $checks = Get-Config -Config adr-checks
+    $ruleSets = @($adrs.RuleSets)
+    $index = Get-AdrFileIndex $ruleSets -AdrRoot (Resolve-RepoPath 'docs/adr')
     $issues = [System.Collections.Generic.List[string]]::new()
 
-    # Index every ADR .md by "<domain folder>/<slug>" so a slug shared across domains (one in automation/, one in
-    # research/) stays distinct, and a slug repeated within one domain's subfolders is caught as a duplicate.
-    $filesByKey = @{}
     $rulesHeadingByPath = @{}
-    $fileCount = 0
-    foreach ($file in [System.IO.Directory]::EnumerateFiles($adrRoot, '*.md', [System.IO.SearchOption]::AllDirectories)) {
-        $fileCount++
-        $relative = $file.Substring($adrRoot.Length).TrimStart('\', '/').Replace('\', '/')
-        $segments = $relative.Split('/')
-        $domainFolder = if ($segments.Count -gt 1) {
-            $segments[0]
-        }
-        else {
-            ''
-        }
-        $key = "$domainFolder/$([System.IO.Path]::GetFileNameWithoutExtension($file))"
-        if (-not $filesByKey.ContainsKey($key)) {
-            $filesByKey[$key] = [System.Collections.Generic.List[string]]::new()
-        }
-        $filesByKey[$key].Add($relative)
-        $heading = [regex]::Match([System.IO.File]::ReadAllText($file), '(?m)^## Rules: (?<code>\S+)\s*$')
+    foreach ($relative in $index.Relative) {
+        $heading = [regex]::Match([System.IO.File]::ReadAllText([System.IO.Path]::Combine($index.Root, $relative)), '(?m)^## Rules: (?<code>\S+)\s*$')
         if ($heading.Success) {
             $rulesHeadingByPath[$relative] = $heading.Groups['code'].Value
         }
@@ -66,8 +63,8 @@ function Test-AdrRegistry {
     foreach ($ruleSet in $ruleSets) {
         $key = "$($ruleSet.Domain)/$($ruleSet.Slug)"
         [void]$registeredKeys.Add($key)
-        $files = @(if ($filesByKey.ContainsKey($key)) {
-                $filesByKey[$key]
+        $files = @(if ($index.ByKey.ContainsKey($key)) {
+                $index.ByKey[$key]
             })
         if ($files.Count -eq 0) {
             $issues.Add("$($ruleSet.External): no ADR file docs/adr/$($ruleSet.Domain)/**/$($ruleSet.Slug).md")
@@ -96,6 +93,47 @@ function Test-AdrRegistry {
         }
     }
 
-    Write-QualityGateReport -Subject 'adr-registry' -Title 'Test-AdrRegistry' -Issues $issues `
-        -Facts ([ordered]@{ RuleSets = $ruleSets.Count; Files = $fileCount }) -OutputFolder $OutputFolder -PassThru:$PassThru
+    # The configured checks: one mode setting each, the same handling for both
+    # ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+    $configured = @(
+        [pscustomobject]@{
+            Name     = 'citation-graph'
+            Fact     = 'CitationGraph'
+            Mode     = $checks.citation_graph.mode
+            Findings = [string[]] @(Get-AdrCitationGraphViolations -Adrs $adrs -Index $index)
+        }
+        [pscustomobject]@{
+            Name     = 'dora-coverage'
+            Fact     = 'DoraCoverage'
+            Mode     = $checks.dora_coverage.mode
+            Findings = [string[]] @(Get-AdrDoraCoverageViolations -Adrs $adrs -Index $index -Settings $checks.dora_coverage)
+        }
+    )
+    $facts = [ordered]@{ RuleSets = $ruleSets.Count; Files = $index.Relative.Count }
+    foreach ($check in $configured) {
+        $facts["$($check.Fact)Mode"] = $check.Mode.ToString().ToLowerInvariant()
+        $facts["$($check.Fact)Findings"] = $check.Findings.Count
+        if ($check.Mode -eq [Catzc.Base.Docs.AdrCheckMode]::Gate) {
+            $issues.AddRange($check.Findings)
+            continue
+        }
+        # A check reporting on its own writes under the caller's folder when one is given, else under its subject's default.
+        $checkFolder = if ($OutputFolder) {
+            Join-Path $OutputFolder "adr-$($check.Name)"
+        }
+        else {
+            ''
+        }
+        [void](Write-QualityGateReport -Subject "adr-$($check.Name)" -Title "Test-AdrRegistry $($check.Name) (report mode)" `
+                -Issues $check.Findings -OutputFolder $checkFolder -PassThru)
+    }
+
+    $result = Write-QualityGateReport -Subject 'adr-registry' -Title 'Test-AdrRegistry' -Issues $issues -Facts $facts `
+        -OutputFolder $OutputFolder -PassThru:$PassThru
+    if ($PassThru) {
+        foreach ($check in $configured) {
+            $result | Add-Member -NotePropertyName $check.Fact -NotePropertyValue $check.Findings
+        }
+        $result
+    }
 }

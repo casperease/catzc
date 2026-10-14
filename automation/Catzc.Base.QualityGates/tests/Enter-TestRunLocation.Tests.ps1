@@ -131,6 +131,31 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         }
     }
 
+    It 'starts the snapshot with the working folder''s result caches' {
+        $cache = Join-Path $script:outRoot 'cache'
+        [System.IO.Directory]::CreateDirectory($cache) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $cache 'format-code.json'), '{"widget.ps1":"key"}')
+        $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
+        Mock New-RepositorySnapshot {
+            [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
+        } -ModuleName Catzc.Base.QualityGates
+
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
+
+        [System.IO.File]::ReadAllText((Join-Path $snapshotPath 'out/cache/format-code.json')) | Should -Be '{"widget.ps1":"key"}'
+    }
+
+    It 'starts the snapshot without caches when the working folder has none' {
+        $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
+        Mock New-RepositorySnapshot {
+            [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
+        } -ModuleName Catzc.Base.QualityGates
+
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
+
+        [System.IO.Directory]::Exists((Join-Path $snapshotPath 'out/cache')) | Should -BeFalse
+    }
+
     It 'removes the snapshot and fails when priming it fails' {
         Mock Invoke-Executable { throw 'import failed' } -ModuleName Catzc.Base.QualityGates
         { InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Test-Automation' -Isolated } } |

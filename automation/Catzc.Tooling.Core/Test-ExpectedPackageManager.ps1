@@ -3,10 +3,11 @@
     Tests whether a tool is managed by the expected package manager.
 .DESCRIPTION
     Checks the platform's expected package manager to determine if it
-    currently manages the given tool. Check order: system-provided (and an
-    MSYS2-package tool off Windows), UserInstallDir (script-installed, and an
-    MSYS2-package tool's tree on Windows), uv, platform-specific
-    (winget/brew/apt), then pip and npm (cross-platform fallbacks). Returns $false if the manager is not available.
+    currently manages the given tool. Check order: system-provided, UserInstallDir (script-installed, and an
+    MSYS2-package tool's tree on Windows), uv, platform-specific (winget/brew/apt), pip and npm (cross-platform
+    fallbacks), then an MSYS2-package tool that declares no manager for this platform, which is the system's. So an
+    MSYS2-package tool that also declares an apt_package is judged by apt on Linux. Returns $false if the manager is
+    not available.
 .PARAMETER Config
     Tool configuration hashtable from Get-ToolConfig / tools.yml.
 .PARAMETER WingetListCache
@@ -33,15 +34,14 @@ function Test-ExpectedPackageManager {
         [string] $Path
     )
 
-    # 0. OS-provided tools (winget) — the OS is the manager, so "managed" means simply present. An MSYS2-package tool
-    #    (zsh) is the system's off Windows, so it counts the same way there.
-    if ($Config.system_provided -or ($Config.msys2_url -and -not $IsWindows)) {
+    # 0. OS-provided tools (winget) — the OS is the manager, so "managed" means simply present.
+    if ($Config.system_provided) {
         return [bool](Test-Command $Config.command)
     }
 
     # 1. Script-installed tools (e.g., Dotnet via dotnet-install scripts), and on Windows MSYS2-package tools, which
     #    install into the tree Get-ScriptInstallDir names (windows_install_dir): managed when inside that folder.
-    if ($Config.script_install -or $Config.msys2_url) {
+    if ($Config.script_install -or ($Config.msys2_url -and $IsWindows)) {
         $expectedDir = [System.IO.Path]::GetFullPath((Get-ScriptInstallDir -Config $Config)).TrimEnd('\', '/')
         if ($Path) {
             $target = [System.IO.Path]::GetFullPath($Path).TrimEnd('\', '/')
@@ -152,6 +152,12 @@ function Test-ExpectedPackageManager {
         }
         $result = Invoke-Executable "npm ls -g $($Config.npm_package)" -PassThru -NoAssert -Silent
         return $result.ExitCode -eq 0
+    }
+
+    # 5. An MSYS2-package tool off Windows with no manager declared for this platform (zsh on macOS) is the system's,
+    #    so "managed" means simply present, as for an OS-provided tool.
+    if ($Config.msys2_url) {
+        return [bool](Test-Command $Config.command)
     }
 
     $false

@@ -59,4 +59,41 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
         $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
         $result.IssueCount | Should -Be 0
     }
+
+    Context 'rule citations in string literals' {
+        BeforeEach {
+            $script:useLinks = {
+                param([System.Collections.IDictionary] $StringCitations)
+                $config = [Catzc.Base.QualityGates.LinksConfig]::new(@{ string_citations = $StringCitations })
+                Mock Get-Config -ParameterFilter { $Config -eq 'links' } -ModuleName Catzc.Base.QualityGates -MockWith { $config }.GetNewClosure()
+            }
+            & $writeFile $root 'src/widget.ps1' "throw 'a widget needs a gadget (ADR-TST-WIDGET:1)'`n"
+            & $writeFile $root 'src/Gadget.cs' "class Gadget { const string Why = `"ADR-TST-WIDGET:1`"; const string Heading = `"### Rule ADR-TST-WIDGET:1`"; }`n"
+        }
+
+        It 'fails the gate in gate mode, once per citation, naming Format-Links' -Tag 'ADR-REPO-LINK#5', 'ADR-PRIN-CONFIG#4' {
+            & $useLinks ([ordered]@{})
+            $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
+            $result.IssueCount | Should -Be 2
+            $result.Issues | Should -BeLike '*`[StringColon`]*run Format-Links'
+            @($result.Issues | Where-Object { $_ -like 'src/widget.ps1:1:*' }) | Should -HaveCount 1
+            $result.ReportedCount | Should -Be 0
+        }
+
+        It 'lists the findings and passes in report mode' -Tag 'ADR-REPO-LINK#5', 'ADR-PRIN-CONFIG#4' {
+            & $useLinks ([ordered]@{ mode = 'report' })
+            { Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase } | Should -Not -Throw
+            $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
+            $result.IssueCount | Should -Be 0
+            $result.ReportedCount | Should -Be 2
+            $result.Reported | Should -BeLike '*`[StringColon`]*'
+        }
+
+        It 'leaves out a file its exempt globs match' -Tag 'ADR-REPO-LINK#5', 'ADR-PRIN-CONFIG#4' {
+            & $useLinks ([ordered]@{ exempt = [ordered]@{ 'src/*.cs' = 'gadget fixtures' } })
+            $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
+            $result.IssueCount | Should -Be 1
+            $result.Issues[0] | Should -BeLike 'src/widget.ps1:1:*'
+        }
+    }
 }

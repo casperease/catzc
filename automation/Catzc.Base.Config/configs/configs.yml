@@ -32,6 +32,8 @@ configs:
     type: Catzc.Base.Globs.GlobsConfig
   adrs:
     type: Catzc.Base.Docs.AdrsConfig
+  adr-checks:
+    type: Catzc.Base.Docs.AdrChecksConfig
   agents:
     type: Catzc.Base.Docs.AgentsConfig
   glossary:

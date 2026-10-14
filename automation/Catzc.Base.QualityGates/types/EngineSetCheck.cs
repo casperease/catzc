@@ -3,10 +3,11 @@
 // ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)). Beside the mode and the
 // exempt globs every source check has (SourceCheck), it reads two lists of phrase patterns, each a .NET regular
 // expression with a placeholder the matcher fills from the model, so no engine name or count is a literal here:
-//   count_phrases — '{count}' stands for a number word ('two', 'both', '2'); a match restates the engine count when its
-//                   number is not the model's count ('two engines' while the model declares three)
+//   count_phrases — '{count}' stands for a number word or digits; a match restates the engine count when its number is
+//                   not the model's count
 //   name_phrases  — '{name}' stands for any engine name; the matches of one phrase on one line restate the engine set
-//                   when they name two or more engines but not all of them ('pwsh and bash', '[pwsh]' with '[bash]')
+//                   when they name two or more engines but not all of them (a pair joined by 'and', or bracketed test
+//                   titles that leave one engine out)
 // The defaults are empty lists, declared once here
 // ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): the phrases themselves live
 // in the config. Matching ignores case. Property names mirror the YAML keys (snake_case,
@@ -30,7 +31,12 @@ public sealed class EngineSetCheck : SourceCheck
     // The number words a count phrase can carry; a digit run is read as its number.
     static readonly IReadOnlyDictionary<string, int> NumberWords = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
     {
-        ["one"] = 1, ["two"] = 2, ["both"] = 2, ["three"] = 3, ["four"] = 4, ["five"] = 5,
+        ["one"] = 1,
+        ["two"] = 2,
+        ["both"] = 2,
+        ["three"] = 3,
+        ["four"] = 4,
+        ["five"] = 5,
     };
 
     public IReadOnlyList<string> count_phrases { get; }

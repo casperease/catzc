@@ -53,9 +53,11 @@ zsh:
   # extracted, into the Git for Windows tree Install-Git provides (windows_install_dir: %LOCALAPPDATA%\Git), user-space;
   # it runs on Git Bash's own MSYS2 runtime. Install-Git -Force replaces that tree, so Install-Zsh runs after it, and
   # depends_on bash (Git Bash) orders it there. macOS ships zsh as /bin/zsh, which Install-Zsh asserts. Linux: the
-  # distribution's package, which Install-Zsh installs with apt-get when zsh is missing and which needs root.
+  # distribution's package named by apt_package, which Install-Zsh installs through Install-Tool (apt-get) when zsh is
+  # missing and which needs root; Get-ToolsStatus reports it under apt.
   depends_on: bash
   linux_admin_only: true
+  apt_package: "zsh"
   msys2_url: "https://repo.msys2.org/msys/x86_64/zsh-5.9.2-1-x86_64.pkg.tar.zst"
   msys2_sha256: "9a134200a152d90a0f1820d6aa74c3369d8539c068b523852549d74b16739fa8"
   windows_install_dir: "Git"

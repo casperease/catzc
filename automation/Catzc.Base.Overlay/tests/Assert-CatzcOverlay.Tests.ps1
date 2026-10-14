@@ -31,6 +31,10 @@ function Get-Widget {
         Set-OverlayFile 'Catzc.Base.Widget/configs/widget.yml' 'limit: 5'
         Set-OverlayFile 'Catzc.Base.Widget/assets/lever.txt' 'consumer'
         Set-OverlayFile 'Catzc.Base.Widget/tests/Get-Widget.Tests.ps1' "Describe 'x' { }"
+        Set-OverlayFile 'Widget.Local/Get-Local.ps1' 'function Get-Local { }'
+        Set-OverlayFile 'Widget.Local/private/Get-LocalCore.ps1' 'function Get-LocalCore { }'
+        Set-OverlayFile 'Widget.Local/configs/widget-local.yml' 'limit: 1'
+        Set-OverlayFile 'Widget.Local/tests/Get-Local.Tests.ps1' "Describe 'x' { }"
         { Assert-CatzcOverlay } | Should -Not -Throw
     }
 
@@ -48,9 +52,12 @@ function Get-Widget {
         @{ Case = 'a fragment of a sealed config'; File = 'Catzc.Base.Widget/configs/gadget.yml'; Content = 'limit: 5'; Expected = "*config 'gadget' is sealed*" }
         @{ Case = 'a fragment of a config the module does not ship'; File = 'Catzc.Base.Widget/configs/gizmo.yml'; Content = 'limit: 5'; Expected = "*ships no config 'gizmo' to merge onto*" }
         @{ Case = 'an asset the module does not ship'; File = 'Catzc.Base.Widget/assets/gizmo.txt'; Content = 'new'; Expected = '*ships no asset assets/gizmo.txt to replace*' }
-        @{ Case = 'a local module with the reserved prefix'; File = 'Catzc.Base.Gadget/Get-Gadget.ps1'; Content = "function Get-Gadget { }"; Expected = '*the Catzc. prefix is reserved*' }
+        @{ Case = 'a local module with the reserved prefix'; File = 'Catzc.Base.Gadget/Get-Gadget.ps1'; Content = 'function Get-Gadget { }'; Expected = '*the Catzc. prefix is reserved*' }
         @{ Case = 'a local module carrying types/'; File = 'Widget.Local/types/Lever.cs'; Content = 'class Lever { }'; Expected = '*a local module carries no types/*' }
-        @{ Case = 'a local module, until local modules load'; File = 'Widget.Local/Get-Local.ps1'; Content = "function Get-Local { }"; Expected = '*local modules do not load yet*' }
+        @{ Case = 'a local function file that is not one function'; File = 'Widget.Local/Get-Local.ps1'; Content = "function Get-Local { }`nfunction Get-Other { }"; Expected = '*Widget.Local/Get-Local.ps1: must hold exactly one top-level statement*' }
+        @{ Case = 'a local public function that takes a loaded command''s name'; File = 'Widget.Local/Get-Widget.ps1'; Content = 'function Get-Widget { }'; Expected = '*public function Get-Widget takes the name of a command already loaded from Catzc.Base.Widget*' }
+        @{ Case = 'a local module entry that is not part of a module'; File = 'Widget.Local/notes.txt'; Content = 'notes'; Expected = '*Widget.Local/notes.txt: not part of a module*' }
+        @{ Case = 'a local module with no function file'; File = 'Widget.Local/configs/widget-local.yml'; Content = 'limit: 1'; Expected = '*Widget.Local: a local module has at least one function file*' }
     ) {
         Set-OverlayFile $File $Content
         { Assert-CatzcOverlay } | Should -Throw -ExpectedMessage $Expected

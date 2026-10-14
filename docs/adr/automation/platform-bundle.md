@@ -43,14 +43,14 @@ description cannot guarantee.
 
 A build is **immutable and content-addressed**: the same commit yields a byte-identical build on any machine — merged files, manifests, and
 the types DLL — and an identical durable-SHA content hash ([durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)) over
-all of it. A build ships **the files git tracks**, never untracked or ignored ones, and writes each as git stores it: a file git holds with
-LF-only line endings is written LF-only, whatever line endings the checkout wrote; every other file is a byte copy. Every build ships the
-**full** type set whatever its module selection, so its `typesHash` (the combined hash of every `types/*.cs` source, which names the DLL)
-equals the source tree's; the type sources follow that set, as the DLL does, and the build copies the source tree's
-`Catzc.Types.<typesHash>.dll` instead of compiling — it compiles only when that DLL is missing. Before it writes anything the build proves
-its selection closed against the code itself, not only against `dependencies.yml`: every call a selected module makes to a catzc function,
-and every config it reads by a literal name, lands in a selected module (an owner-scoped read, which reads only the owners present, is
-exempt), and every inventoried internal asset is present
+all of it. A build ships **the files git tracks** — and, on a devbox, the untracked files git does not ignore — never an ignored one, and
+writes each as git stores it: a file git holds with LF-only line endings is written LF-only, whatever line endings the checkout wrote; every
+other file is a byte copy. Every build ships the **full** type set whatever its module selection, so its `typesHash` (the combined hash of
+every `types/*.cs` source, which names the DLL) equals the source tree's; the type sources follow that set, as the DLL does, and the build
+copies the source tree's `Catzc.Types.<typesHash>.dll` instead of compiling — it compiles only when that DLL is missing. Before it writes
+anything the build proves its selection closed against the code itself, not only against `dependencies.yml`: every call a selected module
+makes to a catzc function, and every config it reads by a literal name, lands in a selected module (an owner-scoped read, which reads only
+the owners present, is exempt), and every inventoried internal asset is present
 ([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep4)). Each bundle carries a `build.json` provenance
 record (bundle, version, content hash, `typesHash`, the type-source list, source commit, whether the tree differed from that commit,
 modules); a pipeline refuses to build a tree that differs from its commit. `Assert-CatzcBundle` is the integrity guard: it re-verifies the
@@ -173,13 +173,14 @@ out: no `tests/` tree travels. The exact form of the payload in pwsh is
 `The immutable, verified artifact`
 
 A bundle is content-addressed. Its input is a commit, not a checkout: the build takes the files git tracks and writes each as git stores it,
-so an untracked scratch file, an ignored `bin/` or `obj/`, or a Windows checkout's CRLF line endings never change what ships — a file git
-holds LF-only is written LF-only, and every other file (CRLF-stored, binary, a vendored script whose signature covers its bytes) is a byte
-copy. The type sources and the DLL are the exception that proves the rule: they follow the type set the DLL's name proves, which on a devbox
-with an uncommitted `types/*.cs` includes it, and on a clean tree is the same set. `Build-Modules` writes its generated output canonically —
-UTF-8 without BOM, LF, one trailing newline, through `Write-FileIfChanged` — so rebuilding a commit rewrites nothing, the DLL included,
-because it is the same copied file — and computes a durable SHA over the whole payload with the same recipe the globsets use. The same
-commit therefore hashes the same on every OS, which the CI pipeline proves by building on each and comparing.
+so an ignored `bin/` or `obj/`, or a Windows checkout's CRLF line endings, never change what ships — a file git holds LF-only is written
+LF-only, and every other file (CRLF-stored, binary, a vendored script whose signature covers its bytes) is a byte copy. On a devbox the
+untracked files git does not ignore ship too, because they are the work in progress a developer builds to try; they make the tree dirty, and
+a pipeline refuses a dirty tree, so a released bundle is always exactly its commit. The type sources and the DLL follow the type set the
+DLL's name proves, which on a clean tree is the commit's. `Build-Modules` writes its generated output canonically — UTF-8 without BOM, LF,
+one trailing newline, through `Write-FileIfChanged` — so rebuilding a commit rewrites nothing, the DLL included, because it is the same
+copied file — and computes a durable SHA over the whole payload with the same recipe the globsets use. The same commit therefore hashes the
+same on every OS, which the CI pipeline proves by building on each and comparing.
 
 A partial bundle is only as good as its closure. `dependencies.yml` leaves a module it does not list unconstrained, so the build does not
 take the declared closure on trust: before it writes anything it walks the code of the selected modules and fails, with the full list, on a

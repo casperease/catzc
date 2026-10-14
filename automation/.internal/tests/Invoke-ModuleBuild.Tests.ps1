@@ -55,6 +55,7 @@ BeforeAll {
         # A file git stores with CRLF (kept as-is by -text, the way a signed vendored script must be).
         'automation/.vendor/powershell-yaml/0.4.12/Signed.ps1'           = "# signed`r`n"
         '.gitattributes'                                                 = "automation/.vendor/powershell-yaml/0.4.12/Signed.ps1 -text`n"
+        '.gitignore'                                                     = "*.log`n"
         'automation/.vendor/Pester/5.7.1/Pester.psd1'                    = '@{ }'
         'automation/.scriptanalyzer/WidgetRule.psm1'                     = '# rule'
         'automation/.scriptanalyzer/tests/WidgetRule.Tests.ps1'          = '# rule test (never ships)'
@@ -313,19 +314,24 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
 
     Context 'a source tree that differs from its commit' {
         BeforeAll {
+            # New work on a devbox, and scratch git ignores (*.log).
             $script:untracked = Join-Path $fake.Automation 'Catzc.Base.Widget/assets/untracked.txt'
-            [System.IO.File]::WriteAllText($untracked, 'not in git')
+            $script:ignored = Join-Path $fake.Automation 'Catzc.Base.Widget/assets/scratch.log'
+            [System.IO.File]::WriteAllText($untracked, 'not in git yet')
+            [System.IO.File]::WriteAllText($ignored, 'ignored by git')
         }
 
         AfterAll {
             [System.IO.File]::Delete($untracked)
+            [System.IO.File]::Delete($ignored)
         }
 
-        It 'ships tracked files only and records the build as dirty' {
+        It 'ships new untracked work but never an ignored file, and records the build as dirty' {
             $dirtyBuild = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'dirty')
             $dirtyBuild.Dirty | Should -BeTrue
             (Get-Content -Raw (Join-Path $dirtyBuild.BuildRoot 'build.json') | ConvertFrom-Json).dirty | Should -BeTrue
-            Test-Path (Join-Path $dirtyBuild.BuildRoot 'Catzc.Base.Widget/assets/untracked.txt') | Should -BeFalse
+            Test-Path (Join-Path $dirtyBuild.BuildRoot 'Catzc.Base.Widget/assets/untracked.txt') | Should -BeTrue
+            Test-Path (Join-Path $dirtyBuild.BuildRoot 'Catzc.Base.Widget/assets/scratch.log') | Should -BeFalse
             Test-Path (Join-Path $dirtyBuild.BuildRoot 'Catzc.Base.Widget/assets/widget.txt') | Should -BeTrue
         }
 
