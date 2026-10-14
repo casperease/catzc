@@ -52,10 +52,10 @@ files up to L2, and a test opts out of the build run only with the `source-only`
 ### Rule ADR-DSGN-RUNMODE:7
 
 Build mode has four kinds, told apart by where the code root lives: **temporary** (a devbox build under
-`<RepositoryRoot>/out/automation/build/`, overwritten in place), **cached** (a build kept outside the repository and reused across sessions
-for the same commit and version), **installed** (a package under a `PSModulePath` entry, put there by `Install-Catzc`), and **saved** (a
-package copied into another root's `.vendor/` by `Install-Catzc -Root`, which `Export-Catzc -Root` calls after building). The kind is
-derived from the code root like the mode itself, never stored, and every kind loads through the same importer.
+`<RepositoryRoot>/out/automation/built/<bundle>/`, overwritten in place), **cached** (a build kept outside the repository and reused across
+sessions for the same commit and version), **installed** (a package under a `PSModulePath` entry, put there by `Install-Catzc`), and
+**saved** (a package copied into another root's `.vendor/` by `Install-Catzc -Root`, which `Export-Catzc -Root` calls after building). The
+kind is derived from the code root like the mode itself, never stored, and every kind loads through the same importer.
 
 - [Four kinds of build root](#four-kinds-of-build-root)
 
@@ -105,12 +105,12 @@ loaded, so it is also how a reader confirms which mode a session is in.
 "Build mode" says only that the modules come from a package and not from the source tree. Where that package sits says how long it lives and
 who owns it, and the four kinds name those places (`<v>` is the package version):
 
-| Kind      | Code root                                          | Made by                     | Lifetime                             |
-| --------- | -------------------------------------------------- | --------------------------- | ------------------------------------ |
-| temporary | `<RepositoryRoot>/out/automation/build/Catzc/<v>/` | `Build-Modules` on a devbox | overwritten by the next devbox build |
-| cached    | a build cache outside the repository               | a build reused per commit   | kept across sessions                 |
-| installed | `<PSModulePath entry>/Catzc/<v>/`                  | `Install-Catzc -Scope`      | until uninstalled or replaced        |
-| saved     | `<root>/.vendor/Catzc/<v>/`                        | `Install-Catzc -Root`       | versioned with that root             |
+| Kind      | Code root                                                   | Made by                     | Lifetime                             |
+| --------- | ----------------------------------------------------------- | --------------------------- | ------------------------------------ |
+| temporary | `<RepositoryRoot>/out/automation/built/<bundle>/Catzc/<v>/` | `Build-Modules` on a devbox | overwritten by the next devbox build |
+| cached    | a build cache outside the repository                        | a build reused per commit   | kept across sessions                 |
+| installed | `<PSModulePath entry>/Catzc/<v>/`                           | `Install-Catzc -Scope`      | until uninstalled or replaced        |
+| saved     | `<root>/.vendor/Catzc/<v>/`                                 | `Install-Catzc -Root`       | versioned with that root             |
 
 The kind is derived from the code root the same way the mode is ([Deriving the mode](#deriving-the-mode)), so it cannot disagree with what
 loaded. All four enter through the package's `Import-Catzc.ps1` (or `Import-Module Catzc` for an installed package), end in the same

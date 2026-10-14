@@ -84,7 +84,7 @@ of a module in `NestedModules`. In build mode `Build-Modules` concatenates the s
 order and each preceded by a `# source:` marker line naming its source path — into one `<Module>.functions.ps1`, and the built manifest
 lists that one file ([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest5)). The merged file is a `.ps1` too, so
 the module's public and private functions share one session state in both modes, and it is one module per folder, so each module keeps its
-own `$script:` scope. It is output, not source: it exists only in a build under `out/automation/build/` and the installs copied from it, is
+own `$script:` scope. It is output, not source: it exists only in a build under `out/automation/built/` and the installs copied from it, is
 rewritten on every build, and the rules of this ADR apply to the files it is generated from.
 
 ### How this is enforced
@@ -92,7 +92,7 @@ rewritten on every build, and the rules of this ADR apply to the files it is gen
 - **Bootstrap module** — `New-DynamicManifest` only scans for `*.ps1` files. Any `.psm1` file inside a module folder is silently ignored.
 - **`Test-Automation.Tests.ps1`** — only discovers `.ps1` files for validation, reinforcing that `.psm1` is not used for function files.
 - **`Build-Modules`** — reads only the source `.ps1` function files, writes the merged `<Module>.functions.ps1` under
-  `out/automation/build/`, and `Assert-CatzcBundle` checks that every built module has its manifest and its one merged file.
+  `out/automation/built/<bundle>/`, and `Assert-CatzcBundle` checks that every built module has its manifest and its one merged file.
 
 ## Consequences
 

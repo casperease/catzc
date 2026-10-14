@@ -1,3 +1,4 @@
+# cspell:ignore minimaps
 """The sister .md of every minimap PNG, written by render.py from the same data the PNG is drawn from.
 
 A sister file sits next to its PNG with the same stem (<stem>.grid.png -> <stem>.grid.md). It opens with its path as the

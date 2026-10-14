@@ -203,9 +203,9 @@ prints `value_chain_column_axis`, and `value_chain_row_axis` runs upright along 
 
 ### The sister `.md` of each minimap
 
-Every minimap PNG has a **sister `.md`** with the same stem, next to it (`<stem>.grid.md`, `<stem>.tree.md`, `<stem>.chain.md`).
-`render.py` writes it in the same run, from the same data (`describe.py`), and never by hand. It opens with its path as the H1
-(ADR-REPO-FORMAT#6) and gives **every lit cell or lit group its reason**:
+Every minimap PNG has a **sister `.md`** with the same stem, next to it (`<stem>.grid.md`, `<stem>.tree.md`, `<stem>.chain.md`). `render.py`
+writes it in the same run, from the same data (`describe.py`), and never by hand. It opens with its path as the H1 (ADR-REPO-FORMAT#6) and
+gives **every lit cell or lit group its reason**:
 
 - **World map:** the root folder names the track (ADR-DSGN-TRACK#1), or the file is a root file (#7); the extension names the file language
   (#6), or the file is an unlisted file (#8); then each lit file with the ADR code that selects it, its basis (an ADR file of that code's
@@ -249,8 +249,8 @@ view adds its sections in `describe.py`'s `VIEWS`.
   - `supports` (the ADR chips) at x 1316, y 576, 240 × ≤ 46: with the map key fixed at y 626 this holds the bold "Supports" line plus at
     most 2 lines, so pack several ADR codes per line (`ADR-A · ADR-B`) and leave the rest to the `.md`. With more than 4 codes, put the
     first code inline after "Supports" and set the cell at 10.5 px;
-  - `mapkey` at x 1316, y 626, 240 × 122: the minimap legend, one swatch each for a lit cell, a touched cell, a lit file (framed: an ADR
-    file) and a value-chain cell shaded by its ADRs.
+  - `mapkey` at x 1316, y 626 (or 8 px below taller ADR chips, which `join.py` sizes at 14 px a line), 240 × 122: the minimap legend, one
+    swatch each for a lit cell, a touched cell, a lit file (framed: an ADR file) and a value-chain cell shaded by its ADRs.
 - **Minimap PNGs** are rendered at 2× (480 × 300, 480 × 360 and 480 × 300) and placed at 1×. Text is ≥ 9 px at 1×. The grid names a lit row
   by its track and a lit column by its file language, in full; the column names are turned upright. Lit tree groups are labelled with their
   full names, most lit files first; a label may run past its tile (the white halo keeps it legible) and is cut only at the image edge, never
@@ -280,8 +280,8 @@ view adds its sections in `describe.py`'s `VIEWS`.
   1. `pwsh -NoProfile -File .claude/drawio/minimaps/highlights.ps1 -Slides <slides.json>` asks the map processors and writes the data
      (default `out/minimaps/`);
   2. `uv run -q --with pillow python .claude/drawio/minimaps/render.py --slides <slides.json>` draws the three minimaps and their sister
-     `.md` files into the target folder (`--target`, default `docs/.assets/explanation`; `--facts` also writes each slide's sidebar
-     facts, `--overview` the full-size tree world map of an `out/` wave);
+     `.md` files into the target folder (`--target`, default `docs/.assets/explanation`; `--facts` also writes each slide's sidebar facts,
+     `--overview` the full-size tree world map of an `out/` wave);
   3. `uv run -q --with pillow python .claude/drawio/minimaps/join.py --slides <slides.json>` lays out each slide's sidebar in its source
      XML, embeds the three PNGs and builds `<target>/<stem>.drawio.png` (`--start` and `--end` slice the list to fit the time limit).
 - An `out/` wave runs the same three steps with `--target out/diagrams/<wave>`.
@@ -342,8 +342,8 @@ otherwise.>
 
 Describe only what is drawn, never what it means, using this kit's vocabulary: **canvas, drawing area, sidebar, band, span bar, glyph** (by
 its legend phrase: code unit, named set, file, store, runner, gate, environment, external tool, actor, result, failure, ADR-only, commit),
-**edge** (flow, thick, ADR-only, failure path), **marker, fraction chip, rule chip, legend, map key, grid minimap, tree minimap,
-value-chain minimap, lit cell, touched cell, lit tile, lens badge**. Write it after reading the built PNG, and make every count match the XML.
+**edge** (flow, thick, ADR-only, failure path), **marker, fraction chip, rule chip, legend, map key, grid minimap, tree minimap, value-chain
+minimap, lit cell, touched cell, lit tile, lens badge**. Write it after reading the built PNG, and make every count match the XML.
 
 ```markdown
 # <title>: visual description

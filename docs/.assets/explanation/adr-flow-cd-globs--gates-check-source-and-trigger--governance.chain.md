@@ -1,0 +1,104 @@
+# docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.chain.md
+
+`Value-chain minimap: adr-flow-cd-globs--gates-check-source-and-trigger--governance`
+
+![Value-chain minimap of adr-flow-cd-globs--gates-check-source-and-trigger--governance](adr-flow-cd-globs--gates-check-source-and-trigger--governance.chain.png)
+
+The value-chain minimap of the slide `adr-flow-cd-globs--gates-check-source-and-trigger--governance` (governance lens). The slide supports
+[ADR-AUTO-TEST][1], [ADR-FLOW-CD-GLOBS][2] and [ADR-REPO-PROTGLOB][3]; the highlight of those ADR codes selects what is lit, and each reason
+below names the code that selects it.
+
+## What the minimap shows
+
+Value-chain map: value-chain stack × value-chain concerns. The grid crosses the 5 rows of the value-chain stack (PRIN, DSGN, AUTO, PIPE,
+CLOUD) with the 6 value-chain concerns (automation, build, quality-control, release, deploy, access), shades each cell by the ADRs it holds,
+and lights 3 cells.
+
+- DSGN × automation: 1 lit of 7 ADRs
+- AUTO × automation: 1 lit of 63 ADRs
+- AUTO × quality-control: 1 lit of 10 ADRs
+
+## Why each cell is lit
+
+### DSGN × automation (1 ADR)
+
+Lit ([ADR-DSGN-TRACK#12][4]) by:
+
+- [ADR-FLOW-CD-GLOBS][2]: selected by [ADR-FLOW-CD-GLOBS][2]; its ADR domain `flow` sits on the DSGN row of the value-chain stack
+  ([ADR-DSGN-TRACK#14][5]); its own value-chain concerns (automation) override its ADR domain's default (build, quality-control, release and
+  deploy), so it lights the automation column ([ADR-DSGN-TRACK#15][6]).
+
+### AUTO × automation (1 ADR)
+
+Lit ([ADR-DSGN-TRACK#12][4]) by:
+
+- [ADR-REPO-PROTGLOB][3]: selected by [ADR-REPO-PROTGLOB][3]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
+  ([ADR-DSGN-TRACK#14][5]); its value-chain concerns (automation) are its ADR domain's default, so it lights the automation column
+  ([ADR-DSGN-TRACK#15][6]).
+
+### AUTO × quality-control (1 ADR)
+
+Lit ([ADR-DSGN-TRACK#12][4]) by:
+
+- [ADR-AUTO-TEST][1]: selected by [ADR-AUTO-TEST][1]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
+  ([ADR-DSGN-TRACK#14][5]); its own value-chain concerns (quality-control) override its ADR domain's default (automation), so it lights the
+  quality-control column ([ADR-DSGN-TRACK#15][6]).
+
+## Keywords
+
+- [value-chain map][7]
+- [value-chain stack][8]
+- [value-chain concern][9]
+- [cell][10]
+- [lit cell][11]
+
+Terms the cited ADRs define:
+
+- [all tests][12], defined by [ADR-AUTO-TEST#36][13]
+- [build verification test][14], defined by [ADR-AUTO-TEST#24][15]
+- [category][16], defined by [ADR-AUTO-TEST#1][17]
+- [phase][18], defined by [ADR-AUTO-TEST#26][19]
+- [quality gate][20], defined by [ADR-AUTO-TEST#35][21]
+- [test][22], defined by [ADR-AUTO-TEST#42][23]
+- [test file][24], defined by [ADR-AUTO-TEST#43][25]
+- [test run][26], defined by [ADR-AUTO-TEST#34][27]
+- [test suite][28], defined by [ADR-AUTO-TEST#37][29]
+- [testing in production][30], defined by [ADR-AUTO-TEST#41][31]
+- [tier][32], defined by [ADR-AUTO-TEST#13][33]
+- [vertical test][34], defined by [ADR-AUTO-TEST#38][35]
+
+[1]: ../../adr/automation/test-automation.md
+[2]: ../../adr/flow/durable-sha-globs.md
+[3]: ../../adr/automation/protected-globs.md
+[4]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
+[5]: ../../adr/design/tracks.md#rule-adr-dsgn-track14
+[6]: ../../adr/design/tracks.md#rule-adr-dsgn-track15
+[7]: ../../adr/glossary.md#value-chain-map
+[8]: ../../adr/glossary.md#value-chain-stack
+[9]: ../../adr/glossary.md#value-chain-concern
+[10]: ../../adr/glossary.md#cell
+[11]: ../../adr/glossary.md#lit-cell
+[12]: ../../adr/glossary.md#all-tests
+[13]: ../../adr/automation/test-automation.md#rule-adr-auto-test36
+[14]: ../../adr/glossary.md#build-verification-test
+[15]: ../../adr/automation/test-automation.md#rule-adr-auto-test24
+[16]: ../../adr/glossary.md#category
+[17]: ../../adr/automation/test-automation.md#rule-adr-auto-test1
+[18]: ../../adr/glossary.md#phase
+[19]: ../../adr/automation/test-automation.md#rule-adr-auto-test26
+[20]: ../../adr/glossary.md#quality-gate
+[21]: ../../adr/automation/test-automation.md#rule-adr-auto-test35
+[22]: ../../adr/glossary.md#test
+[23]: ../../adr/automation/test-automation.md#rule-adr-auto-test42
+[24]: ../../adr/glossary.md#test-file
+[25]: ../../adr/automation/test-automation.md#rule-adr-auto-test43
+[26]: ../../adr/glossary.md#test-run
+[27]: ../../adr/automation/test-automation.md#rule-adr-auto-test34
+[28]: ../../adr/glossary.md#test-suite
+[29]: ../../adr/automation/test-automation.md#rule-adr-auto-test37
+[30]: ../../adr/glossary.md#testing-in-production
+[31]: ../../adr/automation/test-automation.md#rule-adr-auto-test41
+[32]: ../../adr/glossary.md#tier
+[33]: ../../adr/automation/test-automation.md#rule-adr-auto-test13
+[34]: ../../adr/glossary.md#vertical-test
+[35]: ../../adr/automation/test-automation.md#rule-adr-auto-test38

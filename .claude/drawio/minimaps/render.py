@@ -1,3 +1,4 @@
+# cspell:ignore minimaps segoeui segoeuib seguisb textlength squarify Bruls rects cwid
 """Render the three minimaps of every slide, each with its sister .md, from the map processors' data.
 
 Per slide, into the target folder (.claude/drawio/STYLE.md, "Fan-out"):

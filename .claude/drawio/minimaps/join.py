@@ -1,3 +1,4 @@
+# cspell:ignore minimaps mapkey
 """Join the three minimaps into each slide: lay out the sidebar, embed the PNGs, and rebuild the slide.
 
 For every slide of the list: rewrite its source XML's sidebar (the minimap-grid, minimap-tree and minimap-chain image
@@ -22,7 +23,7 @@ REPO = Path(__file__).resolve().parents[3]
 TOOLS = REPO / ".claude/drawio"
 VIEWS = ("grid", "tree", "chain")
 X, WIDTH = 1316, 240
-# The sidebar, top to bottom: cell id -> (y, height). The map key follows at MAPKEY_Y.
+# The sidebar, top to bottom: cell id -> (y, height). The map key follows at MAPKEY_Y, or below taller ADR chips.
 SIDEBAR = {
     "minimap-grid": (16, 150),
     "minimap-tree": (182, 180),
@@ -47,8 +48,8 @@ def cell(cell_id, value, style, y, height, x=X, width=WIDTH):
     )
 
 
-def map_key(palette):
-    """The map key: one swatch per mark the three minimaps draw."""
+def map_key(palette, top):
+    """The map key at y = top: one swatch per mark the three minimaps draw."""
     lit = palette["highlight"]
     rows = [
         ("lit", f"fillColor={lit};strokeColor={INK};strokeWidth=2;", "lit cell"),
@@ -62,12 +63,12 @@ def map_key(palette):
             "&lt;b&gt;Map key&lt;/b&gt;",
             "rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#37474F;fillColor=#FFFFFF;"
             f"strokeColor={BORDER};spacingLeft=8;spacingTop=2;",
-            MAPKEY_Y,
+            top,
             122,
         )
     ]
     for i, (key, style, text) in enumerate(rows):
-        y = MAPKEY_Y + 28 + i * 23
+        y = top + 28 + i * 23
         size = 12 if key == "file" else 18
         cells.append(cell(f"mapkey-{key}", "", "rounded=0;html=1;" + style, y + (18 - size) / 2, size, x=X + 12 + (26 - size) / 2, width=size))
         cells.append(cell(f"mapkey-{key}-text", text, TEXT, y - 1, 20, x=X + 48, width=WIDTH - 56))
@@ -93,8 +94,14 @@ def lay_out_sidebar(model, palette):
         attrs = re.sub(r'\s(x|y|width|height)="[^"]*"', "", match.group(2))
         model = model[: match.start(2)] + f' x="{X}" y="{y}" width="{WIDTH}" height="{height}"' + attrs + model[match.end(2) :]
     model = re.sub(r'\s*<mxCell id="mapkey[^"]*"(?:[^>]*/>|.*?</mxCell>)', "", model, flags=re.S)
+    # The ADR chips grow with their lines (11 px text, 14 px a line); the map key starts below them.
+    supports = re.search(r'<mxCell id="supports" value="([^"]*)".*?</mxCell>', model, re.S)
+    lines = supports.group(1).count("&lt;br&gt;") + 1
+    height = max(SIDEBAR["supports"][1], lines * 14 + 4)
+    model = model.replace(supports.group(0), re.sub(r'height="[^"]*"', f'height="{height}"', supports.group(0), count=1))
     supports = re.search(r'<mxCell id="supports".*?</mxCell>', model, re.S)
-    return model[: supports.end()] + "\n    " + map_key(palette) + model[supports.end() :]
+    top = max(MAPKEY_Y, SIDEBAR["supports"][0] + height + 8)
+    return model[: supports.end()] + "\n    " + map_key(palette, top) + model[supports.end() :]
 
 
 def main():

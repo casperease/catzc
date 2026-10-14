@@ -9,11 +9,12 @@
 A **bundle** is the toolset's build: one installable, versioned `Catzc` package of one **named bundle** — an `exporter.yml` `bundles` entry
 with its own profile, version line, and vendor policy — under `out/automation/built/<bundle>/Catzc/<version>/`, built by `Build-Modules`
 from the bundle's profile (or, for an experiment or a test, explicit names and/or a profile), closure-expanded over `dependencies.yml`, that
-loads in a fresh session of its engine **outside the mono repo** — with no git work tree, no compile at load, and no working-tree writes. It is build
-mode's code root ([run-modes](../design/run-modes.md)). `Catzc.Base.Exporter` owns its lifecycle: `Build-Modules` builds it (through the
-`Invoke-ModuleBuild` engine in `Catzc.Internal.Builder`), `Install-Catzc`/`Export-Catzc` place it, `Assert-CatzcBundle` verifies it. This is
-the platform-level form of the build-once artifact ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md)) and of
-a reproducible, content-addressed, self-service artifact ([self-service](../design/self-service.md)).
+loads in a fresh session of its engine **outside the mono repo** — with no git work tree, no compile at load, and no working-tree writes. It
+is build mode's code root ([run-modes](../design/run-modes.md)). `Catzc.Base.Exporter` owns its lifecycle: `Build-Modules` builds it
+(through the `Invoke-ModuleBuild` engine in `Catzc.Internal.Builder`), `Install-Catzc`/`Export-Catzc` place it, `Assert-CatzcBundle`
+verifies it. This is the platform-level form of the build-once artifact
+([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md)) and of a reproducible, content-addressed, self-service
+artifact ([self-service](../design/self-service.md)).
 
 - [What a bundle is](#what-a-bundle-is)
 
@@ -77,8 +78,8 @@ placeholder** (`exporter.yml`'s `direct_install_version`), announced by a yellow
 the pipeline. A pipeline export gets a **calculated, reproducible version**: `MAJOR.MINOR` from the bundle's own `version` in
 `exporter.yml`, and `PATCH` the first-parent commit count of the built commit — so the same commit always gets the same version and versions
 rise along `main`. Each bundle has its own version line, and no bundle's version moves another's. An explicit `-Version` is honoured when it
-is `MAJOR.MINOR.PATCH`, and a pipeline build that names `6.6.666` is rejected. Every version is numeric so the `Catzc/<version>/` folder is a
-valid package version. Export options — the bundles, each with its profile, vendor policy, and version line, and the default bundle — are
+is `MAJOR.MINOR.PATCH`, and a pipeline build that names `6.6.666` is rejected. Every version is numeric so the `Catzc/<version>/` folder is
+a valid package version. Export options — the bundles, each with its profile, vendor policy, and version line, and the default bundle — are
 configuration read through `Get-Config` ([sensible-defaults](sensible-defaults.md)), so a build's shape is a reviewed edit to one file and a
 test can substitute a fixture config through the same seam.
 
@@ -120,12 +121,13 @@ installs to another root and loads there with no git and no compile, owned by `C
 A bundle is the platform, made portable. The repository declares its bundles by name in `exporter.yml` — `full`, and smaller ones such as
 `azure` or `minimal` — each a release identity of its own. `Build-Modules` takes a bundle's modules — its profile, or for an experiment
 modules named explicitly, by profile, or both — closure-expands them so every dependency comes along, and writes one installable package
-root, `out/automation/built/<bundle>/Catzc/<version>/` by default, so two bundles never share a folder. Inside it every selected module is **its own module of the same name**: same public functions, same private functions, same configs
-and assets, its own module state ([run-modes](../design/run-modes.md)). Only its on-disk form differs: one manifest and one merged function
-file instead of a folder of function files. It is small (the `tests/` surface is dropped), fast (a few dozen files to open, no compile, no
-discovery drift), and sharable (one versioned folder). It is distinct from the repository it is built from: an install is not a repository,
-has no `.git`, and ships no `infrastructure/`, `pipelines/`, or `.cspell/` — the functions that operate on the source tree assert that they
-run there (`Assert-SourceTree`) and say so in a build, and a trimmed profile can exclude them.
+root, `out/automation/built/<bundle>/Catzc/<version>/` by default, so two bundles never share a folder. Inside it every selected module is
+**its own module of the same name**: same public functions, same private functions, same configs and assets, its own module state
+([run-modes](../design/run-modes.md)). Only its on-disk form differs: one manifest and one merged function file instead of a folder of
+function files. It is small (the `tests/` surface is dropped), fast (a few dozen files to open, no compile, no discovery drift), and
+sharable (one versioned folder). It is distinct from the repository it is built from: an install is not a repository, has no `.git`, and
+ships no `infrastructure/`, `pipelines/`, or `.cspell/` — the functions that operate on the source tree assert that they run there
+(`Assert-SourceTree`) and say so in a build, and a trimmed profile can exclude them.
 
 ### The two roots
 
@@ -188,8 +190,8 @@ The DLL's own name carries the `typesHash`, so which sources it was compiled fro
 type-source list, source commit, whether the tree differed from that commit, version, and module list travel in `build.json`, which is
 excluded from the hash it carries. A devbox may build a tree with uncommitted changes, and `build.json` says so; a pipeline refuses, so a
 released bundle is always exactly its commit. `Assert-CatzcBundle` closes the loop: given any bundle, it recomputes the hash and checks it
-against `build.json`, confirms no test file leaked in, confirms exactly one types DLL whose name matches `typesHash` and that the shipped type
-sources hash to it, confirms every module's manifest and merged file, and confirms every manifest export resolves to a function in its
+against `build.json`, confirms no test file leaked in, confirms exactly one types DLL whose name matches `typesHash` and that the shipped
+type sources hash to it, confirms every module's manifest and merged file, and confirms every manifest export resolves to a function in its
 merged file — throwing with the full list of what is wrong. A build verifies itself with it, and an install verifies its source with it.
 
 ### The two-part install
@@ -217,8 +219,9 @@ own version line and no bundle's version moves another's — and `PATCH` is the 
 [durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs9)). The same commit therefore always gets the same version — build
 once, version once ([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd3)) — and versions
 increase monotonically along `main` without a counter to store. The placeholder never leaves a devbox: a pipeline build that names it
-explicitly is rejected. Every bundle, with its profile, vendor policy, and version line, is declared in one `exporter.yml` read through `Get-Config`
-— the single place the repository states how it wants to export itself, validated on load and substitutable by a fixture in tests.
+explicitly is rejected. Every bundle, with its profile, vendor policy, and version line, is declared in one `exporter.yml` read through
+`Get-Config` — the single place the repository states how it wants to export itself, validated on load and substitutable by a fixture in
+tests.
 
 ### A session, not a library
 
@@ -234,11 +237,14 @@ disk — publishing the package to GitHub or a public feed — is a deliberate, 
   beside `Get-RepositoryRoot` (the working root); the importer sets `CatzcModulesRoot`, and `Catzc.Base.Config`'s discovery scan reads it.
 - **`Catzc.Internal.Importer`** carries the bundle mode (honour the pre-set code root, force the janitors off, read prebuilt manifests, load
   the prebuilt DLL) that the build's entry calls.
-- **`Catzc.Internal.Builder`** is the engine (`Invoke-ModuleBuild`): closure, merge, manifests, types compile, vendor and `.internal` copy,
-  `build.json`.
+- **`Catzc.Internal.Builder`** is the engine (`Invoke-ModuleBuild`): the tracked source and its line-ending rule, closure (declared and
+  proven against the code), merge, manifests, types compile, vendor and `.internal` copy, `build.json`. Its integrity tests build a fixture
+  repository checked out with CRLF and with LF and prove the same hash.
+- **The CI pipeline** builds the `full` bundle on Windows, Linux, and macOS and fails when the content hashes differ.
 - **`Catzc.Base.Exporter`** owns the artifact: `Build-Modules`, `Resolve-CatzcBuildVersion`, `Install-Catzc`, `Export-Catzc`,
-  `Assert-CatzcBundle`, `Get-CatzcContentHash`, and the `exporter.yml` config. `Build-Modules` self-checks with `Assert-CatzcBundle`; the
-  walking-skeleton integrity test builds the full profile, loads it in a fresh session, and calls into every module.
+  `Assert-CatzcBundle`, `Get-CatzcContentHash`, and the `exporter.yml` config with its named bundles (`ExporterConfig`, `ExporterBundle`,
+  which validate it on load). `Build-Modules` self-checks with `Assert-CatzcBundle`; the walking-skeleton integrity test builds the full
+  profile, loads it in a fresh session, and calls into every module.
 - **The build run** (`Test-CatzcBuild`, [test-automation](test-automation.md)) runs the same tests against the build that the source run
   runs against source.
 - **Code review** keeps the split honest: a scan of catzc's own code anchored on `RepositoryRoot` rather than `CatzcModulesRoot`, or a

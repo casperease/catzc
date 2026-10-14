@@ -1,3 +1,4 @@
+# cspell:ignore minimaps
 <#
 .SYNOPSIS
     The minimap data step: reads the two map processors (module Catzc.Base.Maps) for a list of slides.

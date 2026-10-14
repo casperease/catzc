@@ -1,0 +1,104 @@
+# docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.chain.md
+
+`Value-chain minimap: adr-auto-bundle--rule-and-gate-per-load-stage--governance`
+
+![Value-chain minimap of adr-auto-bundle--rule-and-gate-per-load-stage--governance](adr-auto-bundle--rule-and-gate-per-load-stage--governance.chain.png)
+
+The value-chain minimap of the slide `adr-auto-bundle--rule-and-gate-per-load-stage--governance` (governance lens). The slide supports
+[ADR-AUTO-BUNDLE][1], [ADR-AUTO-TYPES][2], [ADR-DSGN-RUNMODE][3], [ADR-PRIN-ONELIVE][4], [ADR-PWSH-ERROR][5] and [ADR-REPO-ROOTCFG][6]; the
+highlight of those ADR codes selects what is lit, and each reason below names the code that selects it.
+
+## What the minimap shows
+
+Value-chain map: value-chain stack × value-chain concerns. The grid crosses the 5 rows of the value-chain stack (PRIN, DSGN, AUTO, PIPE,
+CLOUD) with the 6 value-chain concerns (automation, build, quality-control, release, deploy, access), shades each cell by the ADRs it holds,
+and lights 6 cells.
+
+- PRIN × release: 1 lit of 32 ADRs
+- DSGN × automation: 1 lit of 7 ADRs
+- DSGN × build: 1 lit of 5 ADRs
+- AUTO × automation: 3 lit of 63 ADRs
+- AUTO × build: 2 lit of 4 ADRs
+- AUTO × release: 1 lit of 2 ADRs
+
+## Why each cell is lit
+
+### PRIN × release (1 ADR)
+
+Lit ([ADR-DSGN-TRACK#12][7]) by:
+
+- [ADR-PRIN-ONELIVE][4]: selected by [ADR-PRIN-ONELIVE][4]; its ADR domain `principles` sits on the PRIN row of the value-chain stack
+  ([ADR-DSGN-TRACK#14][8]); its own value-chain concerns (release) override its ADR domain's default (automation, build, quality-control,
+  release, deploy and access), so it lights the release column ([ADR-DSGN-TRACK#15][9]).
+
+### DSGN × automation (1 ADR)
+
+Lit ([ADR-DSGN-TRACK#12][7]) by:
+
+- [ADR-DSGN-RUNMODE][3]: selected by [ADR-DSGN-RUNMODE][3]; its ADR domain `design` sits on the DSGN row of the value-chain stack
+  ([ADR-DSGN-TRACK#14][8]); its own value-chain concerns (automation and build) override its ADR domain's default (automation), so it lights
+  the automation column ([ADR-DSGN-TRACK#15][9]).
+
+### DSGN × build (1 ADR)
+
+Lit ([ADR-DSGN-TRACK#12][7]) by:
+
+- [ADR-DSGN-RUNMODE][3]: selected by [ADR-DSGN-RUNMODE][3]; its ADR domain `design` sits on the DSGN row of the value-chain stack
+  ([ADR-DSGN-TRACK#14][8]); its own value-chain concerns (automation and build) override its ADR domain's default (automation), so it lights
+  the build column ([ADR-DSGN-TRACK#15][9]).
+
+### AUTO × automation (3 ADRs)
+
+Lit ([ADR-DSGN-TRACK#12][7]) by:
+
+- [ADR-AUTO-TYPES][2]: selected by [ADR-AUTO-TYPES][2]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
+  ([ADR-DSGN-TRACK#14][8]); its own value-chain concerns (automation and build) override its ADR domain's default (automation), so it lights
+  the automation column ([ADR-DSGN-TRACK#15][9]).
+- [ADR-PWSH-ERROR][5]: selected by [ADR-PWSH-ERROR][5]; its ADR domain `pwsh` sits on the AUTO row of the value-chain stack
+  ([ADR-DSGN-TRACK#14][8]); its value-chain concerns (automation) are its ADR domain's default, so it lights the automation column
+  ([ADR-DSGN-TRACK#15][9]).
+- [ADR-REPO-ROOTCFG][6]: selected by [ADR-REPO-ROOTCFG][6]; its ADR domain `repository` sits on the AUTO row of the value-chain stack
+  ([ADR-DSGN-TRACK#14][8]); its value-chain concerns (automation) are its ADR domain's default, so it lights the automation column
+  ([ADR-DSGN-TRACK#15][9]).
+
+### AUTO × build (2 ADRs)
+
+Lit ([ADR-DSGN-TRACK#12][7]) by:
+
+- [ADR-AUTO-BUNDLE][1]: selected by [ADR-AUTO-BUNDLE][1]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
+  ([ADR-DSGN-TRACK#14][8]); its own value-chain concerns (build and release) override its ADR domain's default (automation), so it lights
+  the build column ([ADR-DSGN-TRACK#15][9]).
+- [ADR-AUTO-TYPES][2]: selected by [ADR-AUTO-TYPES][2]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
+  ([ADR-DSGN-TRACK#14][8]); its own value-chain concerns (automation and build) override its ADR domain's default (automation), so it lights
+  the build column ([ADR-DSGN-TRACK#15][9]).
+
+### AUTO × release (1 ADR)
+
+Lit ([ADR-DSGN-TRACK#12][7]) by:
+
+- [ADR-AUTO-BUNDLE][1]: selected by [ADR-AUTO-BUNDLE][1]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
+  ([ADR-DSGN-TRACK#14][8]); its own value-chain concerns (build and release) override its ADR domain's default (automation), so it lights
+  the release column ([ADR-DSGN-TRACK#15][9]).
+
+## Keywords
+
+- [value-chain map][10]
+- [value-chain stack][11]
+- [value-chain concern][12]
+- [cell][13]
+- [lit cell][14]
+
+[1]: ../../adr/automation/platform-bundle.md
+[2]: ../../adr/automation/BCL/native-csharp-types.md
+[3]: ../../adr/design/run-modes.md
+[4]: ../../adr/principles/one-living-version.md
+[5]: ../../adr/pwsh/error-handling.md
+[6]: ../../adr/repository/generated-root-configs.md
+[7]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
+[8]: ../../adr/design/tracks.md#rule-adr-dsgn-track14
+[9]: ../../adr/design/tracks.md#rule-adr-dsgn-track15
+[10]: ../../adr/glossary.md#value-chain-map
+[11]: ../../adr/glossary.md#value-chain-stack
+[12]: ../../adr/glossary.md#value-chain-concern
+[13]: ../../adr/glossary.md#cell
+[14]: ../../adr/glossary.md#lit-cell
