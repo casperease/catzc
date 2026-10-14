@@ -92,7 +92,7 @@ function Get-MarkdownHeadingFinding {
         $groups = [System.Collections.Generic.List[string]]::new()
         while ($words -match '^(?<head>.*?)\s*\((?<inner>[^()]*`[^()]*)\)\s*$') {
             # Capture before the next -match overwrites $Matches
-            # ([ADR-AUTO-AUTOVAR](/docs/adr/automation/powershell/automatic-variable-pitfalls.md)).
+            # ([ADR-PWSH-AUTOVAR](/docs/adr/pwsh/automatic-variable-pitfalls.md)).
             $head = $Matches['head']
             $inner = $Matches['inner']
             if ($head.Trim() -eq '' -or ($inner -replace '`[^`]*`', '') -notmatch $separatorsOnly) {

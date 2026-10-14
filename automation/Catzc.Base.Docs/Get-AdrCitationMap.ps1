@@ -18,7 +18,7 @@
 .OUTPUTS
     [Catzc.Base.Docs.AdrCitationMap]
 .EXAMPLE
-    (Get-AdrCitationMap).Destination('ADR-AUTO-ERROR', 3)   # /docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error3
+    (Get-AdrCitationMap).Destination('ADR-PWSH-ERROR', 3)   # /docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error3
 #>
 function Get-AdrCitationMap {
     [CmdletBinding()]
@@ -30,7 +30,7 @@ function Get-AdrCitationMap {
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:adrCitationMapCache')) {
         # strict-clean probe of the lazy cache entry
-        # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        # ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
         $script:adrCitationMapCache = @{}
     }
     if ($script:adrCitationMapCache.ContainsKey($root)) {

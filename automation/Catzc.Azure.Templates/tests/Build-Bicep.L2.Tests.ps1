@@ -19,7 +19,7 @@
 # `tool_az_missing` grammar.
 #
 # Isolation is the standard seam swap
-# ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)): redirect the template
+# ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)): redirect the template
 # tree to tests/assets/templates and the
 # azure/network configs to the fixtures, so these bind to the sample-* assets, never to shipped templates.
 # greedy, not serial: it drives real `az bicep build` child processes (consuming the machine beyond this
@@ -30,7 +30,7 @@
 Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greedy' {
     BeforeAll {
         # Isolate build output to this file's throwaway $TestDrive
-        # ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)) so the real-az
+        # ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)) so the real-az
         # builds never
         # share out/template/<name> with the L0 sample files — removing the sharing that forced a serial tag.
         # Pester auto-cleans $TestDrive, so the per-test output teardown below is belt-and-suspenders only.

@@ -61,61 +61,55 @@ responsibilities, describes it in those terms, and sorts its functions and confi
 
 ## Automation ADRs
 
-The "why" and "how" behind the PowerShell automation layer.
+The "why" and "how" behind the automation layer and its PowerShell engine.
 
 ### Design principles
 
 - [Single-responsibility functions](adr/automation/single-responsibility-functions.md) — keep functions focused so they are easy to write,
   test, and debug
 - [Open/closed architecture](adr/automation/open-closed-architecture.md) — extend by adding files, never by editing infrastructure
-- [Dynamic module manifests](adr/automation/powershell/dynamic-module-manifests.md) — the PowerShell layer: generated .psd1, collision-free
-  namespace
+- [Dynamic module manifests](adr/pwsh/dynamic-module-manifests.md) — the PowerShell layer: generated .psd1, collision-free namespace
 - [Fail fast with assertions](adr/automation/fail-fast-with-asserts.md) — catch errors at the source, not three layers down
 - [Retry as a last resort](adr/automation/retry-as-last-resort.md) — last-ditch only, lowest level possible, never in a test
 - [Test automation](adr/automation/test-automation.md) — isolate logic tests behind seams; bind only integrity tests to shipped assets
-- [Pester testing](adr/automation/powershell/pester-testing.md) — the language layer: the mock idioms, test-file conventions, and engine
-  gotchas
+- [Pester testing](adr/pwsh/pester-testing.md) — the language layer: the mock idioms, test-file conventions, and engine gotchas
 - [Idempotent state functions](adr/automation/idempotent-state-functions.md) — re-runs are always safe
 - [Sensible defaults](adr/automation/sensible-defaults.md) — the zero-arg call does the right thing
-- [Parameter design](adr/automation/powershell/parameter-design.md) — the PowerShell layer: positional primary argument, switches over
-  booleans
-- [Console output matters](adr/automation/powershell/console-output-matters.md) — every line of output is a UX decision
-- [Error handling](adr/automation/powershell/error-handling.md) — fail immediately, no warnings, no middle ground
+- [Parameter design](adr/pwsh/parameter-design.md) — the PowerShell layer: positional primary argument, switches over booleans
+- [Console output matters](adr/automation/console-output-matters.md) — every line of output is a UX decision
+- [Error handling](adr/pwsh/error-handling.md) — fail immediately, no warnings, no middle ground
 - [Never depend on $PWD](adr/automation/never-depend-on-pwd.md) — functions work from anywhere
-- [Working-directory mechanics](adr/automation/powershell/working-directory-mechanics.md) — the PowerShell layer: the anchors, and
-  Push-Location/Pop-Location
+- [Working-directory mechanics](adr/pwsh/working-directory-mechanics.md) — the PowerShell layer: the anchors, and Push-Location/Pop-Location
 
 ### Implementation decisions
 
-- [One function per file](adr/automation/powershell/one-function-per-file.md) — makes discovery automatic and eliminates export ceremony
-- [Use .ps1 not .psm1](adr/automation/powershell/use-ps1-not-psm1.md) — shared scope without boilerplate loaders
-- [Approved verbs](adr/automation/powershell/respect-pwsh-verb-rules.md) — enforced naming so functions are self-documenting
+- [One function per file](adr/pwsh/one-function-per-file.md) — makes discovery automatic and eliminates export ceremony
+- [Use .ps1 not .psm1](adr/pwsh/use-ps1-not-psm1.md) — shared scope without boilerplate loaders
+- [Approved verbs](adr/pwsh/respect-pwsh-verb-rules.md) — enforced naming so functions are self-documenting
 - [Uniform formatting](adr/repository/uniform-formatting.md) — the whole repo, one mechanical standard
-- [PowerShell formatting](adr/automation/powershell/powershell-formatting.md) — the PowerShell layer over uniform-formatting
+- [PowerShell formatting](adr/pwsh/powershell-formatting.md) — the PowerShell layer over uniform-formatting
 - [Log before invoke](adr/automation/log-before-invoke.md) — automatic, not opt-in
-- [Vendor dependencies](adr/automation/powershell/vendor-toolset-dependencies.md) — determinism without a restore step
+- [Vendor dependencies](adr/pwsh/vendor-toolset-dependencies.md) — determinism without a restore step, no gallery at runtime
 - [Controlling system-wide deps](adr/automation/controlling-systemwide-deps.md) — version-locked, platform-aware, no container required
-- [Effective in enterprises](adr/automation/effective-in-enterprises.md) — no gallery at runtime, no admin required
-- [Module-path hygiene](adr/automation/powershell/module-path-hygiene.md) — the PowerShell layer: vendored copies win, network user paths
-  fixed once
-- [Prefer Az CLI](adr/automation/powershell/prefer-az-cli.md) — avoids assembly hell, no module ceremony
-- [Prefer -DryRun over ShouldProcess](adr/automation/powershell/prefer-dryrun-over-shouldprocess.md) — an explicit switch beats the
+- [Effective in enterprises](adr/automation/effective-in-enterprises.md) — no admin required
+- [Module-path hygiene](adr/pwsh/module-path-hygiene.md) — the PowerShell layer: vendored copies win, network user paths fixed once
+- [Prefer Az CLI](adr/azure/prefer-az-cli.md) — avoids assembly hell, no module ceremony
+- [Dry run](adr/automation/dry-run.md) — an explicit dry-run parameter on every side-effecting function
+- [Prefer -DryRun over ShouldProcess](adr/pwsh/prefer-dryrun-over-shouldprocess.md) — the PowerShell layer: an explicit switch beats the
   un-testable, easy-to-misuse -WhatIf/-Confirm subsystem
 - [Conventional folders](adr/repository/conventional-folders.md) — predictable layout for the whole repository: root folders, modules,
   tests, assets, and output
 - [Dedicated output directory](adr/repository/dedicated-output-directory.md) — all generated artifacts go to `out/`
 - [Environment variables](adr/automation/environment-variables.md) — when and how to use them
-- [Environment-variable mechanics](adr/automation/powershell/environment-variable-mechanics.md) — the PowerShell layer: scoping, runspaces,
-  test isolation
+- [Environment-variable mechanics](adr/pwsh/environment-variable-mechanics.md) — the PowerShell layer: scoping, runspaces, test isolation
 - [Cross-platform](adr/automation/cross-platform.md) — runs on Windows, Linux, and macOS
-- [Cross-platform PowerShell](adr/automation/powershell/cross-platform-powershell.md) — the language layer: Join-Path, compatible cmdlets,
-  platform guards
-- [Script-scope caching](adr/automation/powershell/script-scope-caching.md) — the PowerShell layer under
-  [caching](adr/automation/caching.md): `$script:` cache entries, mock-the-whole-function
+- [Cross-platform PowerShell](adr/pwsh/cross-platform-powershell.md) — the language layer: Join-Path, compatible cmdlets, platform guards
+- [Script-scope caching](adr/pwsh/script-scope-caching.md) — the PowerShell layer under [caching](adr/automation/caching.md): `$script:`
+  cache entries, mock-the-whole-function
 - [Avoid deep nesting](adr/automation/avoid-deep-nesting.md) — flat code is readable code
-- [Avoid using semicolons](adr/automation/powershell/avoid-using-semicolons.md) — one statement per line
-- [Prefer foreach over ForEach-Object](adr/automation/powershell/prefer-foreach-over-foreach-object.md) — clarity and debuggability
-- [Automatic variable pitfalls](adr/automation/powershell/automatic-variable-pitfalls.md) — `$?`, `$_`, `$LASTEXITCODE` and their traps
+- [Avoid using semicolons](adr/pwsh/avoid-using-semicolons.md) — one statement per line
+- [Prefer foreach over ForEach-Object](adr/pwsh/prefer-foreach-over-foreach-object.md) — clarity and debuggability
+- [Automatic variable pitfalls](adr/pwsh/automatic-variable-pitfalls.md) — `$?`, `$_`, `$LASTEXITCODE` and their traps
 - [Use proper package managers](adr/automation/use-proper-package-managers.md) — system tools via native package managers
 
 ### SOLID principles that don't apply
@@ -130,9 +124,9 @@ The "why" and "how" behind the PowerShell automation layer.
 
 - **KISS** — This is [zero ceremony, hard to fail](adr/automation/zero-ceremony-poka-yoke.md). The foundational ADR's first test — "Does
   this add ceremony?" — is the KISS test.
-- **DRY** — Enforced structurally: [dynamic module manifests](adr/automation/powershell/dynamic-module-manifests.md) eliminate manifest
-  duplication, [sensible defaults](adr/automation/sensible-defaults.md) pull versions from config,
-  [one function per file](adr/automation/powershell/one-function-per-file.md) makes the file name the export name.
+- **DRY** — Enforced structurally: [dynamic module manifests](adr/pwsh/dynamic-module-manifests.md) eliminate manifest duplication,
+  [sensible defaults](adr/automation/sensible-defaults.md) pull versions from config,
+  [one function per file](adr/pwsh/one-function-per-file.md) makes the file name the export name.
 
 ## Pipeline ADRs
 

@@ -15,7 +15,7 @@ Describe 'Source & test file conventions' -Tag 'L0', 'integrity', 'source-only' 
         $result.SkipReasons | Should -BeGreaterThan 10
     }
 
-    It 'reports no source or test file convention issues' -Tag 'ADR-AUTO-PESTER#5' {
+    It 'reports no source or test file convention issues' -Tag 'ADR-PWSH-PESTER#5', 'ADR-AUTO-TEST#43' {
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

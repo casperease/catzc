@@ -90,10 +90,10 @@ form immediately before it runs ([ADR-AUTO-PRELOG](../automation/log-before-invo
 automation's own inner state — the exact command a step is about to take is exposed, not inferred after the fact. Console output is treated
 as the automation's whitebox signal stream: it reports outcomes rather than step-by-step narration, stays silent when there is nothing to
 report, and announces a slow operation before it blocks so silence is never mistaken for a hang
-([ADR-AUTO-CONSOLE](../automation/powershell/console-output-matters.md)) — the same symptom-first, low-noise discipline DORA asks of
-alerting. Decisions about whether work is actually done rest on the real running artifact and its real signals — a green gate, a deployed
-environment, a monitored metric — rather than on a proxy such as a task marked complete ([ADR-PROC-OBSERVEWIP](../process/observe-work.md)),
-which is the "go and see" instinct behind observability applied to the whole delivery flow, not only to production.
+([ADR-AUTO-CONSOLE](../automation/console-output-matters.md)) — the same symptom-first, low-noise discipline DORA asks of alerting.
+Decisions about whether work is actually done rest on the real running artifact and its real signals — a green gate, a deployed environment,
+a monitored metric — rather than on a proxy such as a task marked complete ([ADR-PROC-OBSERVEWIP](../process/observe-work.md)), which is the
+"go and see" instinct behind observability applied to the whole delivery flow, not only to production.
 
 ## Common pitfalls
 

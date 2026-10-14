@@ -32,7 +32,7 @@
     coordinate must resolve to exactly one subscription (the same rule discovery enforces).
 .PARAMETER DryRun
     Preview only — returns the planned path and content without writing. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 .EXAMPLE
     Set-BicepTemplateConfiguration discovery dev -Parameters @{ sqlAdminLogin = 'admin' }
 .EXAMPLE
@@ -40,8 +40,8 @@
 #>
 function Set-BicepTemplateConfiguration {
     # State-changing function deliberately uses -DryRun, not ShouldProcess — see
-    # [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-AUTO-DRYRUN#5')]
+    # [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
     param(

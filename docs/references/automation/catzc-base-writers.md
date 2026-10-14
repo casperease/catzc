@@ -7,7 +7,7 @@ table, and object dump flows through this module's stream — and the diagnostic
 parameters, and the environment when something goes wrong. It is a member of the `Base` group alongside
 [Catzc.Base.Asserts](catzc-base-asserts.md) and depends on [Catzc.Base.Objects](catzc-base-objects.md) for the object-shaping helpers that
 `Write-Object` delegates to. The design contract that governs these writers is the subject of
-[console-output-matters](../../adr/automation/powershell/console-output-matters.md).
+[console-output-matters](../../adr/automation/console-output-matters.md).
 
 ## Responsibilities
 
@@ -24,7 +24,7 @@ pipe, and never intermixes with raw `Write-Host` calls. `Write-Message` is the p
 private information-stream chokepoint (`Write-InformationColored`), which owns the colour mapping and the suppression of output during a
 Pester run; `Write-Object` serialises a structured value through the same stream, delegating the object-shaping work to
 [Catzc.Base.Objects](catzc-base-objects.md) before writing; `Write-Header` and `Write-Footer` bracket sections of output with consistent
-framing. This is the concrete implementation of [console-output-matters](../../adr/automation/powershell/console-output-matters.md).
+framing. This is the concrete implementation of [console-output-matters](../../adr/automation/console-output-matters.md).
 
 ### responsibility:2 — Diagnostics
 

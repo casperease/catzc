@@ -59,9 +59,8 @@ citing it as an authority puts a second set of rules beside the ADRs. Both turn 
 
 The ADRs are where catzc decides. An idea is a candidate, and the ADR of the aspect it touches judges it:
 
-- **Module and command design:** [ADR-AUTO-ONEFUNC](../automation/powershell/one-function-per-file.md),
-  [ADR-AUTO-PSPARAM](../automation/powershell/parameter-design.md), and the one resolution order of a setting,
-  [ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6).
+- **Module and command design:** [ADR-PWSH-ONEFUNC](../pwsh/one-function-per-file.md), [ADR-PWSH-PARAM](../pwsh/parameter-design.md), and
+  the one resolution order of a setting, [ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6).
 - **Docs and ADR structure:** the [authoring conventions](../index.md#authoring-conventions).
 - **Contracts:** [ADR-REPO-CONTRACT](api-contracts.md).
 - **Testing:** [ADR-AUTO-TEST](../automation/test-automation.md).

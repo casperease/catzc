@@ -3,7 +3,7 @@
     Writes a compact table of tool existence checks: where each tool was found, its version, and the timings.
 .DESCRIPTION
     Renders the probe records from Test-Tool -PassThru as one plain-text table through Write-Message -NoHeader
-    ([ADR-AUTO-CONSOLE#2](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console2)): one
+    ([ADR-PWSH-ANNOUNCE#7](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce7)): one
     row per tool with Found, Method (probe | path | none), Version against Required, VersionOk, ProbeMs and
     VersionMs, then the path. The header line names the session actor the checks ran as. Writes
     nothing for no records. With no -Probe it checks every tool in tools.yml.

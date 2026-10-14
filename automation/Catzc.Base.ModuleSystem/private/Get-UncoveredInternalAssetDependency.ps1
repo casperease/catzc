@@ -7,7 +7,7 @@
     satisfies [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3). The
     function's test files are the ones in its own module's tests/ folder
     named for it: <Function>.Tests.ps1, or <Function>.<suffix>.Tests.ps1 for a cross-cutting test file
-    ([ADR-AUTO-PESTER#5](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester5)). Each file is parsed,
+    ([ADR-PWSH-PESTER#5](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester5)). Each file is parsed,
     never run: every It block's tags are the union of its own -Tag
     values and those of each enclosing Describe and Context (the block chain,
     [ADR-AUTO-TEST#13](/docs/adr/automation/test-automation.md#rule-adr-auto-test13)/27). A test

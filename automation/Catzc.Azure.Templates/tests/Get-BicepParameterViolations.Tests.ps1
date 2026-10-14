@@ -3,7 +3,7 @@
 # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) and a rendered parameters file each
 # test writes, plus a clean case. No az: main.json is written as a current build, so the model is read without
 # building. Discovery binds to the fixture templates ('sample', configs alpha/beta) and the output to this file's
-# $TestDrive through the seams ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)).
+# $TestDrive through the seams ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)).
 Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates

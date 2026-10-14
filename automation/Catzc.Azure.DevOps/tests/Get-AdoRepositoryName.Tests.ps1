@@ -1,4 +1,4 @@
-Describe 'Get-AdoRepositoryName' -Tag 'L0', 'logic', 'ADR-AUTO-PSPARAM#4' {
+Describe 'Get-AdoRepositoryName' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#4' {
     BeforeEach {
         $script:originalName = $env:BUILD_REPOSITORY_NAME
         $env:BUILD_REPOSITORY_NAME = $null

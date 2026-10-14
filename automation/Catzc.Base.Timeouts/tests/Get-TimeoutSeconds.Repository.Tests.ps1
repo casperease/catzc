@@ -1,8 +1,8 @@
 # A function bounds its own long-running work through Get-TimeoutSeconds -Command and its [TimeLimit] decoration, never
 # a number literal as the parameter default
-# ([ADR-AUTO-FAILFAST#8](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast8)). Reads the shipped .ps1
+# ([ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)). Reads the shipped .ps1
 # files by AST, so it runs in the source and the build run alike.
-Describe 'TimeoutSeconds defaults come from the time safeguard' -Tag 'L1', 'integrity', 'ADR-AUTO-FAILFAST#8' {
+Describe 'TimeoutSeconds defaults come from the time safeguard' -Tag 'L1', 'integrity', 'ADR-PWSH-ASSERT#1' {
     It 'no function defaults a TimeoutSeconds parameter to a number literal above zero' {
         $root = Get-CatzcModulesRoot
         $isParameter = { param($node) $node -is [System.Management.Automation.Language.ParameterAst] }

@@ -15,7 +15,7 @@
 
     The ##vso command is written like every other console line, through the
     writer chokepoint (Write-Message -NoHeader,
-    [ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1)): the host
+    [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)): the host
     renders an information record to stdout exactly as it renders Write-Host,
     which is where the agent reads logging commands. Being an ordinary record, it
     honours 6> redirection, and a Pester run silences it — so a test run in a

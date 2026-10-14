@@ -1,4 +1,4 @@
-Set-StrictMode -Version Latest   # hooks run strict (Build-Bicep / Deploy-Bicep also set it on import) — ADR-AUTO-ERROR:8
+Set-StrictMode -Version Latest   # hooks run strict (Build-Bicep / Deploy-Bicep also set it on import) — ADR-PWSH-ERROR:8
 
 <#
 .SYNOPSIS
@@ -21,7 +21,7 @@ Set-StrictMode -Version Latest   # hooks run strict (Build-Bicep / Deploy-Bicep 
 
     The two deploy hooks are not exported, so they fall through to no-ops.
 
-    See docs/adr/automation/powershell/prepost-extension-modules.md.
+    See docs/adr/pwsh/prepost-extension-modules.md.
 #>
 function Invoke-BicepPrepareParameterSet {
     [CmdletBinding()]

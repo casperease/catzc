@@ -3,7 +3,7 @@
 // one line of operators; PdfDocument writes the lines as the page's content stream. Text goes through WinAnsi, the
 // only encoding the base-14 fonts show, and a character outside it throws instead of printing a wrong glyph. Numbers
 // go through PdfNumber, so the bytes do not depend on the culture
-// ([ADR-AUTO-TYPES#5](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types5)).
+// ([ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)).
 
 using System;
 using System.Text;

@@ -6,11 +6,11 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: a function file reads a lazy $script: cache entry only after probing or assigning it.
 .DESCRIPTION
     A module function file holds one function and no top-level statements
-    ([ADR-AUTO-ONEFUNC](/docs/adr/automation/powershell/one-function-per-file.md)), so nothing declares
+    ([ADR-PWSH-ONEFUNC](/docs/adr/pwsh/one-function-per-file.md)), so nothing declares
     a $script: cache entry at import: the first call reads a variable that was never set, and strict mode throws.
     The function must either assign the cache entry before reading it, or probe it with
     `$ExecutionContext.SessionState.PSVariable.GetValue('script:<entry>')`
-    ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4)).
+    ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)).
 
     Scope: everything except a .psm1 and a Pester file. A .psm1 module can declare its cache entries at load, and a
     Pester file shares state through $script: on purpose. Within a function, a read is accepted when the same function
@@ -38,7 +38,7 @@ function Measure-NoBareCacheEntryRead {
     }
 
     # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
+    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
     $isFunction = {
         param($node)
         $node -is [System.Management.Automation.Language.FunctionDefinitionAst]
@@ -94,7 +94,7 @@ function Measure-NoBareCacheEntryRead {
                 continue
             }
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "'$($function.Name)' reads `$script:$name before assigning it — on a first call the cache entry is unset and strict mode throws. Probe it with `$ExecutionContext.SessionState.PSVariable.GetValue('script:$name') (ADR-AUTO-PSCACHE:4)."
+                    Message  = "'$($function.Name)' reads `$script:$name before assigning it — on a first call the cache entry is unset and strict mode throws. Probe it with `$ExecutionContext.SessionState.PSVariable.GetValue('script:$name') (ADR-PWSH-CACHE:4)."
                     Extent   = $variable.Extent
                     RuleName = 'Measure-NoBareCacheEntryRead'
                     Severity = 'Warning'

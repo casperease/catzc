@@ -57,7 +57,7 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
         }
         Mock Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{
-                Rows = @([pscustomobject]@{ Result = 'Passed'; Level = 'L0'; DurationMs = 1 })
+                Rows = @([pscustomobject]@{ Result = 'Passed'; Level = 'L0'; DurationMs = 1 }); Files = @()
                 FailedShardLabels = @(); ShardExitCodes = @{}; DurationSeconds = 0.1; Shards = @(); WorkerSummaries = @(); Location = $null
             }
         }
@@ -258,15 +258,19 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
         It 'names the entry point when the run fails' {
             Mock Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates {
                 [pscustomobject]@{
-                    Rows = @([pscustomobject]@{ Result = 'Failed'; Level = 'L0'; DurationMs = 1 })
+                    Rows = @([pscustomobject]@{ Result = 'Failed'; Level = 'L0'; DurationMs = 1; ExpandedPath = 'Widget.fits'; ErrorMessage = 'gadget too wide' }); Files = @()
                     FailedShardLabels = @('shard-0'); ShardExitCodes = @{}; DurationSeconds = 0.1; Shards = @(); WorkerSummaries = @(); Location = $null
                 }
             }
+            Mock Write-TestRunFailures -ModuleName Catzc.Base.QualityGates { }
             $arguments = $script:buildArguments.Clone()
             $arguments['OutputFolder'] = $script:outputFolder
             $arguments['PassThru'] = $false
 
             { Invoke-Run $arguments } | Should -Throw 'Test-CatzcBuild failed*'
+            Should -Invoke Write-TestRunFailures -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+                @($Rows).Count -eq 1 -and $Rows[0].ErrorMessage -eq 'gadget too wide'
+            }
         }
     }
 }

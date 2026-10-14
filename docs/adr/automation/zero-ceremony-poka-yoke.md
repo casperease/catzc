@@ -59,11 +59,11 @@ Each of these is a single action with no prerequisites and no follow-up steps. T
 
 ### What hard-to-fail looks like
 
-**You cannot name a file wrong.** [One function per file](powershell/one-function-per-file.md#rule-adr-auto-onefunc1) —
+**You cannot name a file wrong.** [One function per file](../pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc1) —
 `Test-Automation.Tests.ps1` validates that every file is `Verb-Noun.ps1`, contains exactly one function, and the function name matches. A
 misnamed file fails the next test run immediately.
 
-**You cannot use the wrong verb.** [Approved verbs](powershell/respect-pwsh-verb-rules.md#rule-adr-auto-verbs1) — PSScriptAnalyzer's
+**You cannot use the wrong verb.** [Approved verbs](../pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs1) — PSScriptAnalyzer's
 `PSUseApprovedVerbs` rule rejects unapproved verbs. The author does not need to check `Get-Verb` — the tool catches it.
 
 **You cannot forget an assertion.** [Fail fast with assertions](fail-fast-with-asserts.md#rule-adr-auto-failfast1) — the convention of
@@ -74,16 +74,16 @@ state cannot silently propagate.
 configures the editor. PSScriptAnalyzer rules enforce brace style and variable casing. The author does not need to think about formatting —
 the tools handle it.
 
-**You cannot depend on $PWD.** [Working-directory mechanics](powershell/working-directory-mechanics.md#rule-adr-auto-pspwd2) — a custom
+**You cannot depend on $PWD.** [Working-directory mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd2) — a custom
 PSScriptAnalyzer rule flags bare `Set-Location` calls. Functions that accidentally depend on the working directory are caught before they
 run in a different context.
 
-**You cannot publish a function that doesn't exist.** [Use .ps1 not .psm1](powershell/use-ps1-not-psm1.md) — the bootstrap module derives
+**You cannot publish a function that doesn't exist.** [Use .ps1 not .psm1](../pwsh/use-ps1-not-psm1.md) — the bootstrap module derives
 exports from file names. There is no manifest to get out of sync — the file system is the source of truth.
 
-**You cannot get a stale module version.** [Vendor dependencies](powershell/vendor-toolset-dependencies.md#rule-adr-auto-vendor2) — vendored
-modules are checked into the repo. There is no version resolution at runtime, no gallery call that might return a different version on a
-different machine.
+**You cannot get a stale module version.** [Controlling module dependencies](controlling-module-dependencies.md#rule-adr-auto-depm8) —
+vendored modules are checked into the repo. There is no version resolution at runtime, no gallery call that might return a different version
+on a different machine.
 
 ## Decision
 

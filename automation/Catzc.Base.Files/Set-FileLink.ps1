@@ -21,7 +21,7 @@
     Path of the source file, which must exist, that the link must resolve to.
 .PARAMETER DryRun
     Report whether the link would change without touching the filesystem. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 .OUTPUTS
     [bool] $true when the link was (re)created (or would be, under -DryRun); $false when already current.
 .EXAMPLE

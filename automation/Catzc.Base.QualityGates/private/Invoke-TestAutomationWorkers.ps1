@@ -45,7 +45,8 @@
 .PARAMETER EntryParameter
     Named arguments for -EntryScript (the build run's @{ RepositoryRoot = <repo> }).
 .OUTPUTS
-    [pscustomobject] with Rows (aggregated, in shard order), FailedShardLabels (shards that exited 1),
+    [pscustomobject] with Rows (aggregated, in shard order), Files (every shard's files-sidecar entries — File as a
+    working-folder path, DurationMs, Result, ErrorMessage), FailedShardLabels (shards that exited 1),
     ShardExitCodes (label -> exit code, for the run manifest), Shards (the shard descriptors, serial last),
     WorkerSummaries (one per worker: queue number, label, file/test tallies, wall-clock start and duration —
     the end-of-run table's rows), DurationSeconds (wall clock across both phases), and Location (the
@@ -201,7 +202,7 @@ function Invoke-TestAutomationWorkers {
 
     # Announce before the pool blocks: each worker pays its own importer + Pester load before the first
     # Pester line streams, so silence here would read as a hang
-    # ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console10)).
+    # ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)).
     Write-Message "Running $($ParallelFiles.Count) test file(s) across $($shards.Count) parallel worker(s)$(if ($greedyShards.Count) { ", then $($GreedyFiles.Count) greedy file(s) pooled" })$(if ($serialShard) { ", then $($SerialFiles.Count) serial-tagged file(s)" })..." -NoHeader
 
     $stopwatch.Start()
@@ -311,12 +312,16 @@ function Invoke-TestAutomationWorkers {
 
     # Every shard finished: record each file's measured duration for the next run's scheduling, keyed on its source
     # path. A shard without its files sidecar contributes nothing; the history keeps the file's last measurement.
+    # The same entries, with their working-folder paths, are the run's Files: a file's own outcome and error.
     $measured = @{}
+    $fileEntries = [System.Collections.Generic.List[object]]::new()
     foreach ($shard in $allShards) {
         if ([System.IO.File]::Exists($shard.FilesPath)) {
             foreach ($entry in @([System.IO.File]::ReadAllText($shard.FilesPath) | ConvertFrom-Json)) {
                 $source = Convert-TestRunLocationPath -Location $Location -Path $entry.File -ToSource
                 $measured[([System.IO.Path]::GetRelativePath($repositoryRoot, $source) -replace '\\', '/')] = $entry.DurationMs
+                $entry.File = $source
+                $fileEntries.Add($entry)
             }
         }
     }
@@ -326,6 +331,7 @@ function Invoke-TestAutomationWorkers {
 
     [pscustomobject]@{
         Rows              = @($rows)
+        Files             = @($fileEntries)
         FailedShardLabels = @($failedShardLabels)
         ShardExitCodes    = $shardExitCodes
         Shards            = @($allShards)

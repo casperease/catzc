@@ -150,7 +150,7 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*invalid executables.widget '0'*"
         }
 
-        It 'reads per-command limits, case-insensitively, and answers null for a command without one' -Tag 'ADR-AUTO-FAILFAST#8' {
+        It 'reads per-command limits, case-insensitively, and answers null for a command without one' -Tag 'ADR-PWSH-ASSERT#1' {
             $config = New-TimeoutsConfig ([ordered]@{ commands = @{ 'Sync-Widget' = 45 } })
             $config.SecondsForCommand('sync-widget') | Should -Be 45
             $config.SecondsForCommand('Sync-Gadget') | Should -BeNullOrEmpty

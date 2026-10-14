@@ -244,7 +244,7 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
             $result.Unfixable | Should -BeNullOrEmpty
         }
 
-        It 'takes the wrap mode from links.yml when -Wrap is omitted, and an explicit -Wrap wins' -Tag 'ADR-AUTO-PSPARAM#4' {
+        It 'takes the wrap mode from links.yml when -Wrap is omitted, and an explicit -Wrap wins' -Tag 'ADR-PWSH-PARAM#4' {
             Mock Get-Config -ParameterFilter { $Config -eq 'links' } -ModuleName Catzc.Base.QualityGates -MockWith {
                 [Catzc.Base.QualityGates.LinksConfig]::new(@{ wrap = 'off'; line_limit = @{ '.ps1' = 60 } })
             }

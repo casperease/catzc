@@ -66,7 +66,7 @@ against exactly the code that commit holds. An external dependency is pinned to 
 ### Rule ADR-AUTO-DEPM:8
 
 Internal module dependencies are vendored and named. The code is in-tree — the toolset's own modules, and third-party modules vendored under
-`automation/.vendor/` ([vend](powershell/vendor-toolset-dependencies.md)) — and every edge is declared by name in `dependencies.yml`
+`automation/.vendor/` ([vend](../pwsh/vendor-toolset-dependencies.md)) — and every edge is declared by name in `dependencies.yml`
 (ADR-AUTO-DEPM#1). The repository alone is the internal dependency set; there is nothing to fetch.
 
 - [Internal: vendored and named](#internal-vendored-and-named)
@@ -92,8 +92,8 @@ reproducible from the checkout.
 The repository is a mono-repo of modules that use one another: a function in one module calls a function in another, and a C# type in one
 module references a type in another. Left implicit, those uses form an unmanaged graph — and an unmanaged graph drifts into cycles and layer
 inversions, where a foundation module quietly comes to depend on a leaf. Neither medium the edges travel through stops this on its own:
-PowerShell imports every module into one global function namespace (see [dynamic-module-manifests](powershell/dynamic-module-manifests.md)),
-so any module can call any other's function; and the C# types compile into a **single combined assembly** (see
+PowerShell imports every module into one global function namespace (see [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md)), so
+any module can call any other's function; and the C# types compile into a **single combined assembly** (see
 [native-csharp-types](BCL/native-csharp-types.md)), so the compiler does not forbid a cross-module type reference that inverts a layer.
 
 So the layering is made explicit and enforced: the allowed edges are declared once, in one file, and the actual edges are extracted from the
@@ -172,15 +172,15 @@ conflated.
 Reproducibility is the point, so nothing floats. An internal dependency needs no version field — its code is in the checkout, so the commit
 is the pin: a given commit builds against exactly the code that commit holds. An external dependency carries an exact version in config — a
 single version, not a `2.x` range or `latest` — so its feed resolves the same artifact every time. This is the determinism
-[vend](powershell/vendor-toolset-dependencies.md) secures for vendored modules, applied to every module dependency however it arrives.
+[vend](../pwsh/vendor-toolset-dependencies.md) secures for vendored modules, applied to every module dependency however it arrives.
 
 ### Internal: vendored and named
 
 An internal module dependency is visible in the repository two ways at once. It is **vendored** — the code is in-tree, whether the toolset's
 own modules under `automation/` or a third-party module checked in under `automation/.vendor/<Name>/<Version>/`
-([vend](powershell/vendor-toolset-dependencies.md)) — so loading is a path read with no network. And it is **named** — the edge is declared
-in `dependencies.yml` and checked (the graph rules above). Vendored gives the code; named gives the layering. Together they make the
-repository alone the internal dependency set: nothing is fetched and nothing is resolved.
+([vend](../pwsh/vendor-toolset-dependencies.md)) — so loading is a path read with no network. And it is **named** — the edge is declared in
+`dependencies.yml` and checked (the graph rules above). Vendored gives the code; named gives the layering. Together they make the repository
+alone the internal dependency set: nothing is fetched and nothing is resolved.
 
 ### External: stitched at build time
 
@@ -211,7 +211,7 @@ describes, and adding or moving a dependency is a reviewed change.
   exists on disk) and the extracted edges against the declaration (allow-set membership and the group's internal-map subset rule), failing
   its L1 integrity test on any finding.
 - **Code review** — enforces `ADR-AUTO-DEPM:5`: a new edge is declared in the same change as the code, not deferred.
-- **`Install-VendorModule`** + **`Import-VendorModules`** ([vend](powershell/vendor-toolset-dependencies.md)) — pin a vendored internal
+- **`Install-VendorModule`** + **`Import-VendorModules`** ([vend](../pwsh/vendor-toolset-dependencies.md)) — pin a vendored internal
   dependency by its `automation/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-AUTO-DEPM:8`).
 - **Pinning** — the commit pins every internal dependency; an external dependency carries its exact version in the stitch config, reviewed
   in the diff (`ADR-AUTO-DEPM:7`).

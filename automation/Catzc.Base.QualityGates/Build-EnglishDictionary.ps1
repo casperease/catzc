@@ -24,11 +24,11 @@
     SpellingOracle (Catzc.Base.QualityGates/types) loads this list plus every .cspell/*.txt term list into one
     set. English recognizes the spelled-out words (rule, collection, group); the term lists carry the product
     vocabulary and the conventional-abbreviation allow-list. See
-    [ADR-AUTO-SPELL](/docs/adr/automation/powershell/spell-out-names.md).
+    [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md).
 .PARAMETER DryRun
     Report whether the committed list would change without writing it. The returned content is the same in
     either mode; -DryRun skips the write. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 .PARAMETER PassThru
     Return a result object ({ Path, WordCount, Changed, DryRun }) instead of the path string.
 .OUTPUTS
@@ -82,7 +82,7 @@ function Build-EnglishDictionary {
 
     # cspell-trie reads a trie and prints its words. Pin to the cspell 10 line to match the installed tries.
     # This shells out to npx (a cold run downloads cspell-trie) and reads ~440k words — announce it
-    # ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console10)).
+    # ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)).
     Write-Message 'Flattening cspell English dictionaries (en_US, en_GB) via cspell-trie — this can take a while...'
 
     $set = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)

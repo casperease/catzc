@@ -286,7 +286,7 @@ function Get-MergePreconditionViolation {
     .SYNOPSIS
         Returns every reason a module function file cannot be merged verbatim into its module's <Module>.functions.ps1.
     .DESCRIPTION
-        The merge preconditions of [ADR-AUTO-BUNDLE#4](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle4),
+        The merge preconditions of [ADR-PWSH-MANIFEST#5](/docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5),
         read from the file's syntax tree: it parses; it defines
         exactly one function, named for the file, and nothing else at the top level (no param block, no
         begin/process blocks, no other statement); it carries no `using` statement and no `#requires`; and it
@@ -491,7 +491,7 @@ function Get-ModuleBuildPlan {
         Pure with respect to the build destination: reads the source modules and infrastructure, writes nothing.
         Returns the plan entries (build-relative Path, Kind Text/Copy/Manifest/Types, Content or Source), the
         type-source hash, the union of the public functions, and the collected violations — merge preconditions
-        ([ADR-AUTO-BUNDLE#4](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle4)), missing modules, missing
+        ([ADR-PWSH-MANIFEST#5](/docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5)), missing modules, missing
         infrastructure.
     #>
     [CmdletBinding()]
@@ -930,7 +930,7 @@ function Invoke-ModuleBuild {
 
         Every check runs before anything is written, and each collects every violation before it throws: the
         merge preconditions of every source file
-        ([ADR-AUTO-BUNDLE#4](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle4)), the closure check —
+        ([ADR-PWSH-MANIFEST#5](/docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5)), the closure check —
         every catzc call and literal config read of the selected modules lands in a selected module
         (Get-BuildClosureViolation) — and the presence
         check — every internal asset dependency of the selected modules (Get-InternalAssetDependency) is present in the planned output
@@ -960,7 +960,7 @@ function Invoke-ModuleBuild {
         Catzc.psd1 metadata: Guid, Author, CompanyName, Description, Tags, ProjectUri, LicenseUri.
     .PARAMETER DryRun
         Return the plan and write nothing
-        ([ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md)).
+        ([ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)).
     .OUTPUTS
         [pscustomobject] BuildRoot, Version, Modules, TypesHash, ContentHash ($null under -DryRun), FileCount,
         Dirty, DryRun.
@@ -1023,7 +1023,7 @@ function Invoke-ModuleBuild {
     Import-InternalModule Types
     $plan = Get-ModuleBuildPlan -SourceRoot $sourceRoot -Module $modules -Version $Version -VendorPolicy $VendorPolicy -PackageMetadata $PackageMetadata -Index $index
     if ($plan.Violations.Count -gt 0) {
-        throw ("Invoke-ModuleBuild: $($plan.Violations.Count) problem(s) in the source tree prevent the build (merge preconditions, ADR-AUTO-BUNDLE:4):`n  " +
+        throw ("Invoke-ModuleBuild: $($plan.Violations.Count) problem(s) in the source tree prevent the build (merge preconditions, ADR-PWSH-MANIFEST:5):`n  " +
             ($plan.Violations -join "`n  "))
     }
 

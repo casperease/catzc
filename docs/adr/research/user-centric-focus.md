@@ -72,9 +72,9 @@ more consequential.
 
 ## How to apply
 
-This platform treats console output as its user interface ([ADR-AUTO-CONSOLE](../automation/powershell/console-output-matters.md)), because
-the person running an automation function has no GUI or dashboard to fall back on — every decision about what a line of output says, and
-whether it says anything at all, is a user-experience decision, not merely a logging concern. Sensible defaults
+This platform treats console output as its user interface ([ADR-AUTO-CONSOLE](../automation/console-output-matters.md)), because the person
+running an automation function has no GUI or dashboard to fall back on — every decision about what a line of output says, and whether it
+says anything at all, is a user-experience decision, not merely a logging concern. Sensible defaults
 ([ADR-AUTO-DEFAULT](../automation/sensible-defaults.md)) apply the same lens to the calling code itself: a function's parameter surface is
 designed around what the caller most likely wants, so the caller's actual need drives the interface rather than the implementation's
 internal shape. Zero-ceremony design ([ADR-AUTO-ZERO](../automation/zero-ceremony-poka-yoke.md)) extends this to the contributor experience

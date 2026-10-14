@@ -14,7 +14,7 @@
     declared.
 
     The result is cached for the session per repository root
-    ([ADR-AUTO-PSCACHE](/docs/adr/automation/powershell/script-scope-caching.md)); re-run the importer to pick up
+    ([ADR-PWSH-CACHE](/docs/adr/pwsh/script-scope-caching.md)); re-run the importer to pick up
     an edited glossary. Callers treat it as read-only (the same array is returned on every call).
 .OUTPUTS
     [Catzc.Base.Docs.GlossaryEntry[]] Empty when no module ships a glossary.
@@ -28,7 +28,7 @@ function Get-Glossary {
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:glossaryCache')) {
         # strict-clean probe of the lazy cache entry
-        # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        # ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
         $script:glossaryCache = @{}
     }
     $cacheKey = Get-RepositoryRoot

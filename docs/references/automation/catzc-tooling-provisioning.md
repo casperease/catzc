@@ -43,8 +43,8 @@ The module depends on [Catzc.Tooling.Core](catzc-tooling-core.md) and the three 
 dynamic dispatch rather than a static call, so converging a workstation is just running the lifecycle for every tool in dependency order and
 then reporting where reality diverges from the lock. The status report is the surface a human or an assertion reads to see at a glance what
 needs installing, upgrading, or removing. Install and uninstall are dry-run-able so a run can be previewed before it mutates the machine
-(see [prefer-dryrun-over-shouldprocess](../../adr/automation/powershell/prefer-dryrun-over-shouldprocess.md)). The same functions run
-locally and in CI, with no separate provisioning script (see [cross-platform](../../adr/automation/cross-platform.md)).
+(see [dry-run](../../adr/automation/dry-run.md)). The same functions run locally and in CI, with no separate provisioning script (see
+[cross-platform](../../adr/automation/cross-platform.md)).
 
 Provisioning is also where the platform's package-manager support matters for enterprise and air-gapped networks, because the locked tools
 must still install where the public registries are unreachable. The support is uneven by manager: apt-get has full Artifactory support, so

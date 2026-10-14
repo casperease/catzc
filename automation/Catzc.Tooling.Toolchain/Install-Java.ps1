@@ -80,7 +80,7 @@ function Install-Java {
     }
 
     # Set for current session. Each change is announced where it happens, and only when it changes something
-    # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)).
+    # ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)).
     if ($env:JAVA_HOME -ne $javaHome) {
         $env:JAVA_HOME = $javaHome
         Write-Message "Session: JAVA_HOME='$javaHome'"

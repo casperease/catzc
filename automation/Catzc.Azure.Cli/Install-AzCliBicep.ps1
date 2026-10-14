@@ -8,7 +8,7 @@
     Bicep CLI already meets Get-AzureBicepMinVersion (azure.yml `bicep_min_version`); installs it when absent,
     upgrades it when too old. Asserts the az CLI itself first (Assert-Tool 'az_cli'), and confirms the result
     meets the minimum before returning. See
-    [ADR-AUTO-AZCLI#1](/docs/adr/automation/powershell/prefer-az-cli.md#rule-adr-auto-azcli1).
+    [ADR-AZ-CLI#1](/docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1).
 .PARAMETER Force
     Upgrade to the latest Bicep CLI even when the installed one already meets the minimum.
 .EXAMPLE

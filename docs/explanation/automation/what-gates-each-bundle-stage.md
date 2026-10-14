@@ -13,7 +13,7 @@ Every stage of the bundle has a rule, and two gates check it.
 6  Cached                   a code root the ADR names and no code makes (RUNMODE#7)
 7  Test-CatzcBuild          the build run: the same tests, against a fresh build (TEST#30)
 
-Supports ADR-AUTO-BUNDLE#1, #4, #5, #6 and #7, ADR-AUTO-TEST#30 and #31, and ADR-DSGN-RUNMODE#7 (governance lens).
+Supports ADR-AUTO-BUNDLE#1, #5, #6 and #7, ADR-PWSH-MANIFEST#5, ADR-AUTO-TEST#30 and #31, and ADR-DSGN-RUNMODE#7 (governance lens).
 ```
 
 ADR-AUTO-BUNDLE fixes every stage of a bundle, from the module selection to the place the build is copied to. Rules only hold when something
@@ -29,7 +29,7 @@ The diagram is described element by element in
 ## Walkthrough
 
 1. **Build-Modules.** Three rules shape the build. The selection is closure-expanded over the declared dependencies (ADR-AUTO-BUNDLE#1), the
-   payload ships in merged form and never carries `tests/` (ADR-AUTO-BUNDLE#4), and the version is the devbox placeholder or a version
+   payload ships in merged form and never carries `tests/` (ADR-PWSH-MANIFEST#5), and the version is the devbox placeholder or a version
    calculated in the pipeline (ADR-AUTO-BUNDLE#7).
 2. **Assert-CatzcBundle.** The gate on integrity checks the layout, that no test file leaked in, that exactly one types DLL is named for the
    recorded types hash, every module's manifest, merged file and exports, and the recorded content hash. It collects every violation and
@@ -47,7 +47,7 @@ The diagram is described element by element in
 ## Why it holds
 
 - A bundle is built from a selected set of modules, closure-expanded over the declared dependencies (ADR-AUTO-BUNDLE#1).
-- The payload is merged and default-deny: the `tests/` surface never travels (ADR-AUTO-BUNDLE#4).
+- The payload is merged and default-deny: the `tests/` surface never travels (ADR-PWSH-MANIFEST#5).
 - A build is immutable and content-addressed, and `Assert-CatzcBundle` is its integrity guard, run by the build on its own output
   (ADR-AUTO-BUNDLE#5).
 - An install verifies its source before it changes the destination, and a re-install with a matching hash does not copy (ADR-AUTO-BUNDLE#6).
@@ -66,6 +66,7 @@ The diagram is described element by element in
 ## See also
 
 - [Platform bundle](../../adr/automation/platform-bundle.md) — the decision this article explains.
+- [Dynamic module manifests](../../adr/pwsh/dynamic-module-manifests.md) — the merged module form of the payload.
 - [Test automation](../../adr/automation/test-automation.md) and [Run modes](../../adr/design/run-modes.md) — the build run and the build
   kinds.
 - The other lenses on the same bundle: [meta](one-commit-one-immutable-package.md), [architecture](every-code-root-is-a-copy.md),

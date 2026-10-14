@@ -12,9 +12,9 @@ a normative summary plus internal links to the prose that justifies it).
 
 - Every `<code>` has the form `ADR-<NAME>` — a literal `ADR-` prefix plus one or more uppercase segments — so `ADR-` is the single
   searchable marker for a rule reference anywhere in the repository.
-- **Cite a rule** as `<code>#<n>` — e.g. `ADR-AUTO-ERROR#3`, `ADR-AUTO-CACHE#5`, `ADR-AZ-NAMING#7`.
+- **Cite a rule** as `<code>#<n>` — e.g. `ADR-PWSH-ERROR#3`, `ADR-AUTO-CACHE#5`, `ADR-AZ-NAMING#7`.
 - That resolves to the anchor `#rule-<code><n>` with the code lowercased and the `:` dropped — e.g.
-  `automation/powershell/error-handling.md#rule-adr-auto-error3` (so it is `rule-adr-auto-error3`, not `rule-adr-auto-error-3`).
+  `pwsh/error-handling.md#rule-adr-pwsh-error3` (so it is `rule-adr-pwsh-error3`, not `rule-adr-pwsh-error-3`).
 - The `<code>` is unique per ADR; the tables below are the authoritative code ↔ ADR mapping.
 - `#` is the only citation spelling — in comments, test tags, configuration, and prose. The `:` form exists only in the rule's own
   `### Rule <code>:<n>` heading (ADR-REPO-LINK#5).

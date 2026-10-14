@@ -3,7 +3,7 @@
 # Every key is optional: an omitted key takes the sensible default declared once on
 # Catzc.Base.QualityGates.LinksConfig
 # ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), and a Format-Links parameter overrides the
-# resolved value per call ([ADR-AUTO-PSPARAM#4](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam4)).
+# resolved value per call ([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)).
 
 # How an aligned comment line that outgrows its limit is wrapped: break (continue the comment on a new line
 # before the link, never inside it) or off (leave it long and report it). Default: break.

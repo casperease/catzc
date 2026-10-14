@@ -14,7 +14,7 @@
 #
 # Each test self-skips when `az` is absent ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)).
 # The build output goes to this file's $TestDrive through the Get-BicepTemplatesOutputRoot seam
-# ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)), so it never shares
+# ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)), so it never shares
 # out/template/<name> with another test file or a developer's build. greedy, not serial: it drives real
 # `az bicep build` child processes but shares no mutable state
 # ([ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26)).

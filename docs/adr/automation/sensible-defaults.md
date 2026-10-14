@@ -72,7 +72,7 @@ function Install-Python {
 ```
 
 How the parameter surface itself is shaped so the common call stays short — the positional primary argument, switches over booleans — is the
-language layer, [parameter-design](powershell/parameter-design.md) (`ADR-AUTO-PSPARAM`).
+language layer, [parameter-design](../pwsh/parameter-design.md) (`ADR-PWSH-PARAM`).
 
 ### The principle
 
@@ -97,7 +97,7 @@ In order of preference:
    uses these anchors instead of requiring a path parameter.
 
 4. **Off, for opt-in behavior.** `-PassThru`, `-DryRun`, `-Silent`, `-NoAssert` — these default to off because the common case does not need
-   them; the caller opts in explicitly when needed (expressed as a `[switch]` — see [parameter-design](powershell/parameter-design.md)).
+   them; the caller opts in explicitly when needed (expressed as a `[switch]` — see [parameter-design](../pwsh/parameter-design.md)).
 
 ### One resolution order
 
@@ -113,7 +113,7 @@ The sensible default is declared once, on the config type that maps the file (a 
 identically, a fresh checkout works with no configuration edits, and no function or second file restates the value. This is not a fallback
 kept for an older shape ([one-living-version](../principles/one-living-version.md)): it is the single declared default of an optional
 setting. How a PowerShell parameter expresses steps 1–2 is the language layer,
-[parameter-design](powershell/parameter-design.md#configurable-parameters) (`ADR-AUTO-PSPARAM#4`).
+[parameter-design](../pwsh/parameter-design.md#configurable-parameters) (`ADR-PWSH-PARAM#4`).
 
 ## Decision
 

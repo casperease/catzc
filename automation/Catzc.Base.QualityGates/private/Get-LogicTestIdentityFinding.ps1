@@ -51,7 +51,7 @@ function Get-LogicTestIdentityFinding {
     $ast = [System.Management.Automation.Language.Parser]::ParseFile($Path, [ref]$parseTokens, [ref]$parseErrors)
 
     # Predicates bound to locals (never inlined in a .FindAll(...) call) —
-    # [ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6).
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6).
     $isCommandNode = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]

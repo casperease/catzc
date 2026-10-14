@@ -1,4 +1,4 @@
-Describe 'Catzc.Base.QualityGates.AnalyzerAdrMapConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#29' {
+Describe 'Catzc.Base.QualityGates.AnalyzerAdrMapConfig' -Tag 'L0', 'logic', 'ADR-PWSH-FORMAT#7' {
     BeforeAll {
         function Get-ViolationMessage {
             param($Raw)
@@ -32,8 +32,8 @@ Describe 'Catzc.Base.QualityGates.AnalyzerAdrMapConfig' -Tag 'L0', 'logic', 'ADR
     }
 
     It 'throws on a malformed citation (registry colon form)' {
-        Get-ViolationMessage ([ordered]@{ analyzers = [ordered]@{ 'Measure-X' = @('ADR-AUTO-ERROR:3') } }) |
-            Should -BeLike "*malformed citation 'ADR-AUTO-ERROR:3'*"
+        Get-ViolationMessage ([ordered]@{ analyzers = [ordered]@{ 'Measure-X' = @('ADR-PWSH-ERROR:3') } }) |
+            Should -BeLike "*malformed citation 'ADR-PWSH-ERROR:3'*"
     }
 
     It 'reports every violation in one throw, including an unknown top-level key' {

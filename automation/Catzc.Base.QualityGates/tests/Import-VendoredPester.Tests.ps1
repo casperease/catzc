@@ -1,4 +1,4 @@
-Describe 'Import-VendoredPester' -Tag 'L0', 'logic', 'ADR-AUTO-VENDOR#5' {
+Describe 'Import-VendoredPester' -Tag 'L0', 'logic', 'ADR-PWSH-VENDOR#5' {
     BeforeEach {
         # A fake code root with one vendored version; every module operation is mocked, so the Pester running this
         # test is never touched.

@@ -72,7 +72,7 @@ function Get-TerminologyCorpus {
     }
 
     # Enumerate with [System.IO] rather than Get-ChildItem — no per-file PSObject wrapping, so a whole-tree
-    # scan is markedly faster ([ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)).
+    # scan is markedly faster ([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)).
     # Directory/name filtering is done inline on the raw path string.
     $ret = [System.Text.StringBuilder]::new()
     foreach ($path in [System.IO.Directory]::EnumerateFiles($Root, '*', [System.IO.SearchOption]::AllDirectories)) {

@@ -61,10 +61,9 @@ derived from the code root like the mode itself, never stored, and every kind lo
 
 ## Context
 
-Source mode is how the toolset is developed: one function per file
-([one-function-per-file](../automation/powershell/one-function-per-file.md)), read in place from the repository, with every module's
-manifest generated from its folder on import. That form serves the people who edit the code — a directory listing is the module's API, a
-diff touches one function, blame has one history per function.
+Source mode is how the toolset is developed: one function per file ([one-function-per-file](../pwsh/one-function-per-file.md)), read in
+place from the repository, with every module's manifest generated from its folder on import. That form serves the people who edit the code —
+a directory listing is the module's API, a diff touches one function, blame has one history per function.
 
 An installable, versioned package is how the toolset is shipped to other machines: carried out of the repository, loaded with no git and no
 compile, and opened as few files as possible because real-time antivirus scans every file on a cold import
@@ -127,8 +126,8 @@ validator in its owning module's scope ([module-config-loading](../configuration
 `Mock -ModuleName` or `InModuleScope` — resolves the same way in both modes.
 
 What makes this hold for content as well as code is that a module locates its own files only through the code root (`Get-CatzcModuleRoot`,
-[never-depend-on-pwd](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd5)), never through the folder its source file sits in, and
-that every such lookup is inventoried and tested in both modes
+[working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd4)), never through the folder its source file sits in,
+and that every such lookup is inventoried and tested in both modes
 ([internal-asset-dependencies](../automation/internal-asset-dependencies.md)). Tools whose job is the source tree itself — formatters,
 dependency tooling, README and dictionary generators — operate on per-function files and git by definition; they assert that they run in
 source mode (`Assert-SourceTree`) and fail fast in a build rather than reading the wrong tree.
@@ -138,10 +137,10 @@ source mode (`Assert-SourceTree`) and fail fast in a build rather than reading t
 `One scope per module, never shared`
 
 Merging every module into one scope, flattened, would be the simplest build and the wrong one. Module scope is a contract: each module's
-`$script:` caches belong to it alone ([script-scope-caching](../automation/powershell/script-scope-caching.md)), and config validation,
-mocks, and module queries all name a module. So the package `Catzc` is a container, not a scope: inside it every source module is its own
-PowerShell module with its own session state, exactly as in source mode. Two modules that hold a `$script:` cache entry of the same name
-never see each other's value, in either mode, and a scope-isolation test proves it.
+`$script:` caches belong to it alone ([script-scope-caching](../pwsh/script-scope-caching.md)), and config validation, mocks, and module
+queries all name a module. So the package `Catzc` is a container, not a scope: inside it every source module is its own PowerShell module
+with its own session state, exactly as in source mode. Two modules that hold a `$script:` cache entry of the same name never see each
+other's value, in either mode, and a scope-isolation test proves it.
 
 ### Deriving the mode
 
@@ -213,6 +212,6 @@ asserting the derived mode, the exclusivity check, a call into each module, and 
 - [internal-asset-dependencies](../automation/internal-asset-dependencies.md) — how a module's content is located and tested in both modes.
 - [test-automation](../automation/test-automation.md) — the source and build runs and the `source-only` tag.
 - [never-depend-on-pwd](../automation/never-depend-on-pwd.md) — the code-root anchor and the `$PSScriptRoot` ban in module function files.
-- [script-scope-caching](../automation/powershell/script-scope-caching.md) — the per-module `$script:` caches the modes keep isolated.
+- [script-scope-caching](../pwsh/script-scope-caching.md) — the per-module `$script:` caches the modes keep isolated.
 - [native-csharp-types](../automation/BCL/native-csharp-types.md) — the one combined types assembly both modes share.
 - [one-living-version](../principles/one-living-version.md) — why the build is a mode of the same modules, not a second product.

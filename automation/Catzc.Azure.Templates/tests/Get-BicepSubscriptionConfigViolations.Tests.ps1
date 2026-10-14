@@ -12,7 +12,7 @@ Describe 'Get-BicepSubscriptionConfigViolations' -Tag 'L0', 'logic' {
             }
         }
         # The customer catalogue reads are whole-boundary mocks
-        # ([ADR-AUTO-PESTER#3](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester3)) — the rule
+        # ([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3)) — the rule
         # needs the key
         # list, and the candidates rule normalizes a non-matching raw token through Get-AzureCustomer.
         Mock Get-AzureCustomers { @('acme', 'globex') } -ModuleName Catzc.Azure.Templates

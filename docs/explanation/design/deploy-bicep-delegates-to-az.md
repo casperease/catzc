@@ -60,7 +60,7 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-- ADR-AUTO-AZCLI#1 says to parse az output with `ConvertFrom-Json`, but `Deploy-Bicep` asks az for `--output yaml` and parses it with
+- ADR-AZ-CLI#1 says to parse az output with `ConvertFrom-Json`, but `Deploy-Bicep` asks az for `--output yaml` and parses it with
   `ConvertFrom-Yaml`.
 - ADR-DSGN-THINPLAT describes a single authentication path that is resolved for you. The code has two logins that meet at the az session,
   AzureCLI@2 in a pipeline and `Connect-AzCli` on a devbox, and on the devbox the caller picks the parameter set.
@@ -68,7 +68,7 @@ The diagram is described element by element in
 ## See also
 
 - [Thin platforms](../../adr/design/thin-platforms.md) — the decision this article explains.
-- [Prefer Az CLI over Az PowerShell modules](../../adr/automation/powershell/prefer-az-cli.md) — the az-first rules.
+- [Prefer Az CLI over Az PowerShell modules](../../adr/azure/prefer-az-cli.md) — the az-first rules.
 - The other lenses on the same platform: [meta](bind-to-one-cli-delegate-the-rest.md),
   [architecture](every-vendor-call-leaves-through-az.md), [operations](same-deploy-bicep-on-both-sides.md) and
   [governance](what-keeps-the-platform-thin.md).

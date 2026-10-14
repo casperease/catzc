@@ -24,7 +24,7 @@
 
     A marker file inside the snapshot's .git folder records its provenance; Remove-RepositorySnapshot refuses
     any folder without it. The snapshot is announced once it is ready
-    ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console10)).
+    ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)).
 .PARAMETER SourceRoot
     The repository to snapshot. Defaults to the repository root (Get-RepositoryRoot).
 .PARAMETER Destination

@@ -4,9 +4,10 @@
 
 The foundation of the Tooling group. It owns the generic, tool-agnostic engine that reads the single source of truth for which external
 command-line tool is locked to which version — the `tools.yml` config and the `ToolConfig` type that models it, both owned by
-[Catzc.Base.Execution](catzc-base-execution.md), the module furthest down the stack that reads them — to assert a tool's presence, install it, and uninstall
-it through the right mechanism. Every other Tooling module is built on this one; it knows nothing about any specific tool, only how to drive
-one from its config. The rationale is in [controlling-systemwide-deps](../../adr/automation/controlling-systemwide-deps.md) and
+[Catzc.Base.Execution](catzc-base-execution.md), the module furthest down the stack that reads them — to assert a tool's presence, install
+it, and uninstall it through the right mechanism. Every other Tooling module is built on this one; it knows nothing about any specific tool,
+only how to drive one from its config. The rationale is in
+[controlling-systemwide-deps](../../adr/automation/controlling-systemwide-deps.md) and
 [uv-python-handler](../../adr/automation/uv-python-handler.md), and the config is modelled as a native type per
 [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md).
 

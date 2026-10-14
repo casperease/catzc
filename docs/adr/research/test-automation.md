@@ -90,7 +90,7 @@ pipeline-level version of "a change does not pass until its tests do."
 
 The concrete authoring idioms — mocking at module boundaries, isolating through seams rather than editing production data, and the
 per-function test-file convention — are the Pester-specific layer under that doctrine
-([ADR-AUTO-PESTER](../automation/powershell/pester-testing.md#rule-adr-auto-pester1)).
+([ADR-PWSH-PESTER](../pwsh/pester-testing.md#rule-adr-pwsh-pester1)).
 
 ## Common pitfalls
 

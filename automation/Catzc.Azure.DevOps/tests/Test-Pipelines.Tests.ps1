@@ -24,7 +24,7 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         $script:refs = @()
 
         # Isolate through the classifier + reference-scan seams
-        # ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)).
+        # ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)).
         Mock Get-AdoYamlFiles -ModuleName Catzc.Azure.DevOps { $script:records }
         Mock Get-PipelineTemplateReference -ModuleName Catzc.Azure.DevOps { $script:refs }
         Mock Assert-PathExist -ModuleName Catzc.Azure.DevOps { }

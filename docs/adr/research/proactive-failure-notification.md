@@ -86,7 +86,7 @@ the operation is still succeeding, before the retries are exhausted and the call
 breadcrumb ahead of the failure it predicts. The retry itself is the automated response DORA asks for when a notification's action is always
 the same — retry the one idempotent call — and the warning is what a person reviewing the log sees if the same dependency keeps degrading
 across runs. Console output reserves yellow strictly for conditions that need attention
-([ADR-AUTO-CONSOLE](../automation/powershell/console-output-matters.md#rule-adr-auto-console7)), so that reserved channel keeps working as a
+([ADR-AUTO-CONSOLE](../automation/console-output-matters.md#rule-adr-auto-console7)), so that reserved channel keeps working as a
 notification signal instead of being drowned out by decorative color used for everything else.
 
 ## Common pitfalls

@@ -32,7 +32,7 @@
     Write-QualityGateReport -Subject spelling -Title Test-Spelling -Issues $issues -Facts ([ordered]@{ Files = 812 }) -PassThru:$PassThru
 #>
 function Write-QualityGateReport {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'Every gate forwards its own -OutputFolder here, empty when its caller gave none; an explicit empty argument would override a declared default (ADR-AUTO-PSPARAM#4)')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'Every gate forwards its own -OutputFolder here, empty when its caller gave none; an explicit empty argument would override a declared default (ADR-PWSH-PARAM#4)')]
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
@@ -56,7 +56,7 @@ function Write-QualityGateReport {
     $settings = Get-Config -Config reports
     # A body fill-in on purpose: every gate forwards its own -OutputFolder here, empty when its caller gave none, and
     # an explicit empty argument would override a declared default
-    # ([ADR-AUTO-PSPARAM#4](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam4)).
+    # ([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)).
     if (-not $OutputFolder) {
         $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) $settings.FolderFor($Subject)
     }

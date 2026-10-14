@@ -21,5 +21,5 @@ registry's `categories:`).
   (see [generated-readmes](../adr/repository/generated-readmes.md)). Only the `.gitkeep` keeping the folder tracked is committed. On a fresh
   clone, run `. ./importer.ps1` once so the files exist and cspell can resolve them.
 
-A hand-edit is overwritten on the next import. See [spell-out-names](../adr/automation/powershell/spell-out-names.md) and
+A hand-edit is overwritten on the next import. See [spell-out-names](../adr/automation/spell-out-names.md) and
 [dedicated-output-directory](../adr/repository/dedicated-output-directory.md) (`ADR-REPO-OUTDIR:8`).

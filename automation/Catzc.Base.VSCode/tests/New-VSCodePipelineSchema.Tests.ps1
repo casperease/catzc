@@ -1,7 +1,7 @@
 Describe 'New-VSCodePipelineSchema' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolate through the config seam
-        # ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)): a small
+        # ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)): a small
         # fixture schema registry.
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodePipelineSchemaConfig]::new([ordered]@{

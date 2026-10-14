@@ -17,7 +17,7 @@
     write only on drift), so a clean tree costs one file read.
 .PARAMETER DryRun
     Report whether index.md would change without writing it. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 .PARAMETER Silent
     The wrote / would-write status line is verbose-level — -Silent suppresses it (used by the importer tail).
 .PARAMETER PassThru
@@ -57,10 +57,10 @@ Every ADR carries a numbered rule registry as its first content section: `## Rul
 
 - Every `<code>` has the form `ADR-<NAME>` — a literal `ADR-` prefix plus one or more uppercase segments — so
   `ADR-` is the single searchable marker for a rule reference anywhere in the repository.
-- **Cite a rule** as `<code>#<n>` — e.g. `ADR-AUTO-ERROR#3`, `ADR-AUTO-CACHE#5`, `ADR-AZ-NAMING#7`.
+- **Cite a rule** as `<code>#<n>` — e.g. `ADR-PWSH-ERROR#3`, `ADR-AUTO-CACHE#5`, `ADR-AZ-NAMING#7`.
 - That resolves to the anchor `#rule-<code><n>` with the code lowercased and the `:` dropped — e.g.
-  `automation/powershell/error-handling.md#rule-adr-auto-error3` (so it is `rule-adr-auto-error3`, not
-  `rule-adr-auto-error-3`).
+  `pwsh/error-handling.md#rule-adr-pwsh-error3` (so it is `rule-adr-pwsh-error3`, not
+  `rule-adr-pwsh-error-3`).
 - The `<code>` is unique per ADR; the tables below are the authoritative code ↔ ADR mapping.
 - `#` is the only citation spelling — in comments, test tags, configuration, and prose. The `:` form exists only in the rule's own
   `### Rule <code>:<n>` heading (ADR-REPO-LINK#5).
@@ -182,7 +182,7 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
     Assert-PathExist $adrDocsRoot
 
     # Map "<domainFolder>/<slug>" -> the ADR file path relative to docs/adr (forward-slashed), so a ruleset
-    # in a subfolder (automation/powershell/, automation/BCL/) still resolves to its real link target. The
+    # in a subfolder (automation/BCL/) still resolves to its real link target. The
     # generated index.md and every folder README are skipped — they are not ADRs.
     $pathBySlugKey = @{}
     foreach ($file in [System.IO.Directory]::EnumerateFiles($adrDocsRoot, '*.md', [System.IO.SearchOption]::AllDirectories)) {

@@ -4,7 +4,7 @@
 .DESCRIPTION
     The output-side twin of Get-BicepTemplatesRoot: templates' output_folder descriptors resolve to
     <output root>/template/<name>, and this function owns the root — <repository>/out by default. It exists
-    as a seam ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)): build
+    as a seam ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)): build
     tests mock it to a folder of their own so no two test files ever write
     the same build folder (a fixed out/ path two files both write is the serial-tag race,
     [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26) —

@@ -39,7 +39,7 @@ AfterAll { Remove-FakeRepositoryRoot $script:fake }
 ## Related
 
 - ADR: [test-automation](../../../adr/automation/test-automation.md) — isolating logic tests behind seams, which these fixtures provide.
-- ADR: [one-living-version](../../../adr/principles/one-living-version.md) and
-  [use-ps1-not-psm1](../../../adr/automation/powershell/use-ps1-not-psm1.md) — why a multi-function `.internal` `.psm1` is sanctioned here.
+- ADR: [one-living-version](../../../adr/principles/one-living-version.md) and [use-ps1-not-psm1](../../../adr/pwsh/use-ps1-not-psm1.md) —
+  why a multi-function `.internal` `.psm1` is sanctioned here.
 - Reference: [Catzc.Internal.Loader](catzc-internal-loader.md) — `Import-InternalModule TestKit` loads it; the
   [internal area overview](index.md).

@@ -28,9 +28,9 @@ left, not for never stopping.
 
 ### Rule ADR-PROC-ANDON:4
 
-The stop is automatic and unambiguous: the gate throws ([ADR-AUTO-ERROR](../automation/powershell/error-handling.md)), the commit is
-coloured red ([ADR-DSGN-VISUAL](../design/visual-design.md)), and there is no "warn and continue" path. A warning that does not stop the
-line is not holding the line.
+The stop is automatic and unambiguous: the gate throws ([ADR-PWSH-ERROR](../pwsh/error-handling.md)), the commit is coloured red
+([ADR-DSGN-VISUAL](../design/visual-design.md)), and there is no "warn and continue" path. A warning that does not stop the line is not
+holding the line.
 
 - [How to apply](#how-to-apply)
 
@@ -73,10 +73,10 @@ to route around the cord, which is how defects reach production.
 
 ## How to apply
 
-Make the stop automatic and total. A gate that detects a problem throws ([ADR-AUTO-ERROR](../automation/powershell/error-handling.md)) — it
-does not `Write-Warning` and carry on, because a warning that does not stop is a defect waved through. When the mainline is red, treat
-restoring it as the top priority and do not integrate new work onto it. When a gate goes red on your own machine, that is the system
-working: fix it there, where it is a one-line change, rather than pushing and letting the pipeline catch it.
+Make the stop automatic and total. A gate that detects a problem throws ([ADR-PWSH-ERROR](../pwsh/error-handling.md)) — it does not
+`Write-Warning` and carry on, because a warning that does not stop is a defect waved through. When the mainline is red, treat restoring it
+as the top priority and do not integrate new work onto it. When a gate goes red on your own machine, that is the system working: fix it
+there, where it is a one-line change, rather than pushing and letting the pipeline catch it.
 
 ## References
 

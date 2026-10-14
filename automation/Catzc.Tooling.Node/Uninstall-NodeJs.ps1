@@ -30,7 +30,7 @@ function Uninstall-NodeJs {
 
     # Managed uninstall best-effort; with -Remove a failure (a foreign install) is logged and the escalation
     # proceeds, without -Remove it propagates
-    # ([ADR-AUTO-ERROR#6](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error6),
+    # ([ADR-AUTO-ONEJOB#5](/docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob5),
     # [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
     try {
         Uninstall-Tool -Tool 'node_js' -Version $Version

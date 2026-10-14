@@ -28,8 +28,8 @@ line endings, indentation kind, trailing-whitespace handling, and final newline)
 ### Rule ADR-REPO-FORMAT:4
 
 The baseline is the floor, not the ceiling. Indent width and line-length limits are per-language `.editorconfig` sections, and each language
-layers its own formatting rules on top — PowerShell in [powershell-formatting](../automation/powershell/powershell-formatting.md). No file
-falls below the baseline.
+layers its own formatting rules on top — PowerShell in [powershell-formatting](../pwsh/powershell-formatting.md). No file falls below the
+baseline.
 
 - [Per-language layers](#per-language-layers)
 
@@ -105,7 +105,7 @@ save.
 The baseline is the floor. Each language adds its own `.editorconfig` section (indent width, line length) and, where it has one, a formatter
 engine and an analyzer. The exact per-language values live in `.editorconfig`, and which engine formats each language lives in the
 file-language registry, `automation/Catzc.Base.Languages/configs/languages.yml`; this ADR restates neither. Beyond the engines, PowerShell
-is governed by `PSScriptAnalyzerSettings.psd1` (see [powershell-formatting](../automation/powershell/powershell-formatting.md)), Markdown by
+is governed by `PSScriptAnalyzerSettings.psd1` (see [powershell-formatting](../pwsh/powershell-formatting.md)), Markdown by
 `.markdownlint.yml`, and pipeline YAML by the naming-and-placement check `Test-Pipelines`
 ([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md)).
 
@@ -174,9 +174,9 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
   save.
 - **`.gitattributes`** — marks binary files so EOL/diff normalization never corrupts them; deliberately no `* text=auto`.
 - **Per-language analyzers** — each language's specific rules run in its own gate. For PowerShell this is PSScriptAnalyzer plus custom rules
-  in the L2 tests (see [powershell-formatting](../automation/powershell/powershell-formatting.md)). For Markdown it is markdownlint
-  (`.markdownlint.yml`), formatted by Prettier and kept in sync with it. For ADO pipeline YAML (`.yaml`) it is Prettier (the same engine as
-  Markdown, checked by the `Test-Formatting` gate in an L2 test) plus the naming-and-placement quality gate `Test-Pipelines`
+  in the L2 tests (see [powershell-formatting](../pwsh/powershell-formatting.md)). For Markdown it is markdownlint (`.markdownlint.yml`),
+  formatted by Prettier and kept in sync with it. For ADO pipeline YAML (`.yaml`) it is Prettier (the same engine as Markdown, checked by
+  the `Test-Formatting` gate in an L2 test) plus the naming-and-placement quality gate `Test-Pipelines`
   ([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md), an L1 integrity test) — both run in every CI test run, so
   drifted or misplaced pipeline YAML fails CI.
 - **The file-language registry** — `languages.yml` names each language's formatter engine or the reason it has none, validated at load

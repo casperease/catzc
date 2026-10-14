@@ -1,6 +1,6 @@
 # The per-case assertions run the rule function directly on a parsed AST (L0). The engine-wiring proof lives once,
 # for all custom rules, in CustomRuleWiring.Tests.ps1.
-Describe 'Measure-NoBareCacheEntryRead' -Tag 'L0', 'logic', 'ADR-AUTO-PSCACHE#4' {
+Describe 'Measure-NoBareCacheEntryRead' -Tag 'L0', 'logic', 'ADR-PWSH-CACHE#4' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoBareCacheEntryRead.psm1') -Force
         # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly.

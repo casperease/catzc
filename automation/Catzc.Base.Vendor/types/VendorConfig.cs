@@ -1,5 +1,5 @@
 // The vendor module source (configs/vendor.yml) — where Install-VendorModule downloads vendored modules from and
-// Remove-VendorModules validates them against ([ADR-AUTO-VENDOR](/docs/adr/automation/powershell/vendor-toolset-dependencies.md)).
+// Remove-VendorModules validates them against ([ADR-PWSH-VENDOR](/docs/adr/pwsh/vendor-toolset-dependencies.md)).
 // Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Vendor.VendorConfig), so
 // Get-Config -Config vendor returns this typed record. Mirrors the YAML keys verbatim (the file's own `sourceUrl`
 // spelling, [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).

@@ -1,5 +1,5 @@
 # Get-ReadmeMappings is private, so it is exercised through the module (InModuleScope, per
-# [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)).
+# [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).
 Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
     BeforeAll {
         # The source-tree guard is its own unit (below); here the fixture stands in for the source tree in either run mode.

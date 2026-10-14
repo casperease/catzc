@@ -5,7 +5,7 @@ using System.IO.Compression;
 
 /// <summary>
 /// Gzip compress/decompress for UTF-8 text payloads, using only the BCL
-/// ([ADR-AUTO-TYPES#5](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types5)). Shared by
+/// ([ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)). Shared by
 /// Build-EnglishDictionary (writes the committed english.txt.gz) and SpellingOracle (reads it). Kept in one
 /// place so the container handling cannot drift between the writer and the reader.
 /// </summary>

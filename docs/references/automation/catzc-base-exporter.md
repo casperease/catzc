@@ -24,12 +24,14 @@ computes reuses the durable-SHA recipe of [durable-sha-globs](../../adr/flow/dur
 
 ### responsibility:1 — Build
 
-Turning the selected modules into the build under `out/automation/build/Catzc/<version>/`. `Build-Modules` settles the inputs — the modules
-(explicit names and/or a profile, `exporter.yml`'s `default_profile` when neither is given), the vendor policy, the destination, the
-version, and the package identity — and hands them to the build engine in the `.internal` builder, which closure-expands the selection,
-merges each module's function files into one `<Module>.ps1` beside a generated manifest, copies the side folders, the loader and the
-vendored modules, ships the types assembly, and writes `Catzc.psd1`, `Catzc.psm1`, `Import-Catzc.ps1`, and the `build.json` provenance
-record. It then verifies what was written with `Assert-CatzcBundle`. `-DryRun` returns the plan and writes nothing.
+Turning the selected modules into the build of one named bundle under `out/automation/built/<bundle>/Catzc/<version>/`. A bundle is an
+`exporter.yml` `bundles` entry — a release identity with its own profile, version line and vendor policy, so two bundles never share a
+folder or a version. `Build-Modules` settles the inputs — the bundle (`default_bundle` when none is named), its modules (the bundle's
+profile, or explicit names and/or a profile for an experiment), the vendor policy, the destination, the version, and the package identity —
+and hands them to the build engine in the `.internal` builder, which closure-expands the selection, merges each module's function files into
+one `<Module>.ps1` beside a generated manifest, copies the side folders, the loader and the vendored modules, ships the types assembly, and
+writes `Catzc.psd1`, `Catzc.psm1`, `Import-Catzc.ps1`, and the `build.json` provenance record. It then verifies what was written with
+`Assert-CatzcBundle`. `-DryRun` returns the plan and writes nothing.
 
 ### responsibility:2 — Install, export and package
 
@@ -45,13 +47,13 @@ installs (`-To disk`) or packs the build folder itself into `out/automation/pack
 ### responsibility:3 — Version, identity and verification
 
 The build's version, identity, and integrity guard. `Resolve-CatzcBuildVersion` decides the version: on a devbox `-Version auto` is the
-fixed `6.6.666` placeholder, announced by a yellow notice; in a pipeline it is calculated — `MAJOR.MINOR` from `exporter.yml` and the
-first-parent commit count of the built commit as `PATCH` — so the same commit always gets the same version; an explicit `MAJOR.MINOR.PATCH`
-is honoured, except the placeholder in a pipeline. `Get-CatzcContentHash` applies the durable-SHA recipe to a tree (CR-stripped per file,
-folded in ordinal path order) for a reproducible, EOL-insensitive identity. `Assert-CatzcBundle` is the guard: the layout files, no
-`tests/`, exactly one types DLL named for the recorded `typesHash` and built from the recorded type sources, every module's manifest and
-merged file, every manifest export resolving to a function in its merged file, and the recorded content hash — throwing with every
-violation.
+fixed `6.6.666` placeholder, announced by a yellow notice; in a pipeline it is calculated — the bundle's own `MAJOR.MINOR` from
+`exporter.yml` and the first-parent commit count of the built commit as `PATCH` — so the same commit always gets the same version; an
+explicit `MAJOR.MINOR.PATCH` is honoured, except the placeholder in a pipeline. `Get-CatzcContentHash` applies the durable-SHA recipe to a
+tree (CR-stripped per file, folded in ordinal path order) for a reproducible, EOL-insensitive identity. `Assert-CatzcBundle` is the guard:
+the layout files, no `tests/`, exactly one types DLL named for the recorded `typesHash` and built from the recorded type sources, every
+module's manifest and merged file, every manifest export resolving to a function in its merged file, and the recorded content hash —
+throwing with every violation.
 
 ## What the module does
 

@@ -4,8 +4,8 @@
 # those lists. Two roots: `categories:` defines the vocabulary classes, and `terms:` groups the words under
 # them — `terms: <category>: [ { term, meaning }, ... ]`. A term's category is the group it sits in (no
 # per-entry category field); an abbreviation entry also carries `expands_to`. See
-# [ADR-AUTO-SPELL](/docs/adr/automation/powershell/spell-out-names.md)
-# ([ADR-AUTO-SPELL#5](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell5)-[ADR-AUTO-SPELL#8](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell8)).
+# [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md)
+# ([ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5)-[ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8)).
 #
 # Loaded via Get-Config -Config terminology; validated by Catzc.Base.QualityGates.TerminologyConfig, which
 # requires every term's category to be one defined here.
@@ -27,7 +27,7 @@
 # an extension of Get-TestTagViolations that inspects string literals, not comments), with `scope` as the
 # machine-readable zone map that gate would consume. All categories are effectively GLOBAL to cspell today.
 # See [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md) and
-# [ADR-AUTO-SPELL](/docs/adr/automation/powershell/spell-out-names.md).
+# [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md).
 categories:
   product:
     description: "A real product, tool, protocol, or general technical term this codebase uses that fits no more specific category below."
@@ -509,7 +509,7 @@ terms:
     - term: mytem
       meaning: "derived short_name of the 'my-template' example in the naming-standard ADR"
     - term: myvalue
-      meaning: "invented placeholder token cited as a bad example in the spell-out-names ADR (ADR-AUTO-SPELL:12)"
+      meaning: "invented placeholder token cited as a bad example in the spell-out-names ADR (ADR-PWSH-NAMES:4)"
     - term: myvar
       meaning: "placeholder variable name 'myvar' in examples"
     - term: objout

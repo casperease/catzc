@@ -27,7 +27,7 @@
     collapsed to exactly one.
 .PARAMETER DryRun
     Report whether the file would change without writing it. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 .OUTPUTS
     [bool] $true when the file was written (or would be, under -DryRun); $false when already current.
 .EXAMPLE

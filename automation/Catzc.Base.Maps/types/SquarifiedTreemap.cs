@@ -6,7 +6,7 @@
 // The result depends only on the input: the items are taken heaviest first, ties broken by the ordinal order of their
 // keys, so the same weights give the same rectangles whatever order they arrive in. An item of weight zero gets no
 // rectangle; a negative, NaN or infinite weight, a duplicate or empty key, or an empty box throws. BCL only
-// ([ADR-AUTO-TYPES#5](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types5)).
+// ([ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)).
 
 using System;
 using System.Collections.Generic;

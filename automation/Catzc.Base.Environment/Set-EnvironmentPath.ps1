@@ -10,7 +10,7 @@
     own.
 
     Because every persistent PATH write passes through here, this is also where it is announced
-    ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)): one line
+    ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)): one line
     names the scope and the entries added and removed. Writing the value the
     scope already holds is a no-op, so it neither writes nor announces.
 .PARAMETER Value

@@ -80,7 +80,7 @@ git history ([ADR-DSGN-VISUAL](../design/visual-design.md)). The broader princip
 progress from the real running artifact rather than a proxy, is stated directly as observe-the-work
 ([ADR-PROC-OBSERVEWIP](../process/observe-work.md)). Console output is treated as the CLI automation's only user-facing display surface, and
 is held to the same bar the DORA page sets for a good dashboard — signal over noise, current, and actionable — so a console session is
-itself a form of visual management for a tool with no GUI ([ADR-AUTO-CONSOLE](../automation/powershell/console-output-matters.md)).
+itself a form of visual management for a tool with no GUI ([ADR-AUTO-CONSOLE](../automation/console-output-matters.md)).
 
 ## Common pitfalls
 

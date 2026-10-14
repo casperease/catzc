@@ -6,7 +6,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .DESCRIPTION
     Every write to the console goes through the information stream, by way of the writer chokepoint
     (Write-Message -> Write-InformationColored -> Write-Information) —
-    [ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1). Only there
+    [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1). Only there
     is the
     output controllable ($InformationPreference, -InformationAction, 6> redirection), silenced during a Pester
     run (the chokepoint guard), and headed with its caller. A write that goes around the stream bypasses all
@@ -27,7 +27,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     This supersedes the built-in PSAvoidUsingWriteHost, which is excluded in PSScriptAnalyzerSettings.psd1: one
     rule owns the console bypass, and it covers every route, not only Write-Host.
 
-    See ADR: [ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1).
+    See ADR: [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1).
 #>
 
 function Measure-NoRawConsoleWrite {
@@ -41,7 +41,7 @@ function Measure-NoRawConsoleWrite {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoRawConsoleWrite'
-    $advice = 'Write through the information stream instead: Write-Message (with -NoHeader / -ForegroundColor / -NoNewline as needed) — ADR-AUTO-ANNOUNCE:1.'
+    $advice = 'Write through the information stream instead: Write-Message (with -NoHeader / -ForegroundColor / -NoNewline as needed) — ADR-PWSH-ANNOUNCE:1.'
 
     $rawCommands = @('Write-Host', 'Out-Host', 'Write-Progress', 'Clear-Host', 'clear', 'cls')
     $consoleTypes = @('Console', 'System.Console')
@@ -63,7 +63,7 @@ function Measure-NoRawConsoleWrite {
     }
 
     # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
+    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
     $isCandidate = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst] -or

@@ -1,6 +1,6 @@
 # The per-case assertions run the rule function directly on a parsed AST (L0). The engine-wiring proof lives once,
 # for all custom rules, in CustomRuleWiring.Tests.ps1.
-Describe 'Measure-NoUnsafeFirstIndex' -Tag 'L0', 'logic', 'ADR-AUTO-ERROR#8' {
+Describe 'Measure-NoUnsafeFirstIndex' -Tag 'L0', 'logic', 'ADR-PWSH-ERROR#8' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoUnsafeFirstIndex.psm1') -Force
         # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly.

@@ -4,7 +4,7 @@
     violation.
 .DESCRIPTION
     The build's integrity guard ([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)).
-    Given a build root — out/automation/build/Catzc/<version>/,
+    Given a build root — out/automation/built/<bundle>/Catzc/<version>/,
     or an installed copy — it asserts:
       - layout: build.json, Catzc.psd1, Catzc.psm1, Import-Catzc.ps1 and the .internal loader are present, and the
         folder is named for build.json's version (a valid Catzc/<version>/ module folder);
@@ -25,7 +25,7 @@
 .PARAMETER Path
     The build root to verify (the Catzc/<version>/ folder).
 .EXAMPLE
-    Assert-CatzcBundle -Path (Join-Path (Get-OutputRoot) 'automation/build/Catzc/6.6.666')
+    Assert-CatzcBundle -Path (Join-Path (Get-OutputRoot) 'automation/built/full/Catzc/6.6.666')
 #>
 function Assert-CatzcBundle {
     [CmdletBinding()]

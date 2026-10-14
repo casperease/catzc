@@ -80,8 +80,8 @@ defaults to the caller's own; an explicit `-Module` reads another module's conte
 in `dependencies.yml` ([controlling-module-dependencies](controlling-module-dependencies.md)). The dot-prefixed infrastructure that is not a
 module — the `.internal` assets, the vendored modules, the compiled types — is located from `Get-CatzcModulesRoot` directly. The analyzer
 rule `Measure-NoScriptRootAnchor` bans `$PSScriptRoot` in module function files
-([never-depend-on-pwd](never-depend-on-pwd.md#rule-adr-auto-nopwd5)), which leaves the helper as the only way a function can find its
-content.
+([working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd4)), which leaves the helper as the only way a
+function can find its content.
 
 ### The code is the inventory
 

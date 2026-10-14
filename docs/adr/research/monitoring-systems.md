@@ -77,8 +77,8 @@ complete, which is the same discipline this capability asks of business decision
 an assumption about it. Console output is the concrete channel that data travels through to reach the person who needs it: it reports
 outcomes rather than step narration, stays silent when there is nothing to report, and announces a slow operation before it blocks, so the
 signal that reaches the reader is relevant and timely rather than buried in noise
-([ADR-AUTO-CONSOLE](../automation/powershell/console-output-matters.md)) — the same "relevant, timely, accurate, easy to understand" bar
-DORA sets for monitoring data aimed at a decision-maker rather than a machine.
+([ADR-AUTO-CONSOLE](../automation/console-output-matters.md)) — the same "relevant, timely, accurate, easy to understand" bar DORA sets for
+monitoring data aimed at a decision-maker rather than a machine.
 
 ## Common pitfalls
 

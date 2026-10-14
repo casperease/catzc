@@ -5,7 +5,7 @@ Describe 'sample-with-module (reusable module consumer)' -Tag 'L0', 'logic' {
     # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)/[ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4)).
     BeforeAll {
         # Isolate build output to this file's throwaway $TestDrive via the output-root seam
-        # ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)), so
+        # ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)), so
         # it never shares out/template/<name> with Build-Bicep.L2 or the other sample files — the sharing the
         # 'serial' tag used to work around
         # ([ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26)). Mocking the seam removes

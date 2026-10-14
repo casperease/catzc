@@ -6,7 +6,7 @@
     ([ADR-REPO-OUTDIR#2](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2)): Get-OutputRoot
     joined with the output_folder of configs/maps.yml (read through Get-Config, typed as Catzc.Base.Maps.MapsConfig;
     default world-map). It is also the seam a test mocks to a folder of its own
-    ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)).
+    ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)).
 .PARAMETER EnsureExists
     Create the folder (and the output root) when it does not exist.
 .OUTPUTS

@@ -29,7 +29,7 @@ Describe 'Get-CatzcRunMode' -Tag 'L0', 'logic' {
     }
 
     It 'is build when the code root is anywhere else' {
-        $env:CatzcModulesRoot = Join-Path $TestDrive 'out/automation/build/Catzc/6.6.666'
+        $env:CatzcModulesRoot = Join-Path $TestDrive 'out/automation/built/full/Catzc/6.6.666'
         Get-CatzcRunMode | Should -Be 'build'
     }
 }

@@ -1,5 +1,5 @@
 # Get-CatsModules is private, so it is exercised through the module (& (Get-Module …), per
-# [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)).
+# [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).
 Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fixture modules loaded from a fixture code root: two catzc-shaped modules, one dot-prefixed

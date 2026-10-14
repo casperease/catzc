@@ -4,11 +4,11 @@
 
 Owns the vendored third-party PowerShell modules under `automation/.vendor/` — adding them, removing them, and proving they can be restored
 from the network. Vendoring checks each dependency's exact version straight into the repository so a load needs no gallery query
-(deterministic, fast, offline; see [vendor-toolset-dependencies](../../adr/automation/powershell/vendor-toolset-dependencies.md)); this
-module is the lifecycle around that committed set. It deliberately does **not** load them at import time — that is the internal,
-pre-module-system loader (`Import-VendorModules`); this module is the post-import surface for managing what is committed. Every operation
-targets a configured source (`vendor.yml` — the PowerShell Gallery by default, a custom feed when set), reached through the bundled
-`Microsoft.PowerShell.PSResourceGet` (shipped with PowerShell 7.4+).
+(deterministic, fast, offline; see [vendor-toolset-dependencies](../../adr/pwsh/vendor-toolset-dependencies.md)); this module is the
+lifecycle around that committed set. It deliberately does **not** load them at import time — that is the internal, pre-module-system loader
+(`Import-VendorModules`); this module is the post-import surface for managing what is committed. Every operation targets a configured source
+(`vendor.yml` — the PowerShell Gallery by default, a custom feed when set), reached through the bundled `Microsoft.PowerShell.PSResourceGet`
+(shipped with PowerShell 7.4+).
 
 ## Responsibilities
 

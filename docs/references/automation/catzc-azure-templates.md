@@ -71,10 +71,9 @@ Build (responsibility 4) and deploy (responsibility 5) are the two execution pha
 immutable artifact and never touches the cloud, while deploy is the only place state changes. Both phases call the template's optional
 extension hooks at the right moments — preparation merges global configuration into the parameter set at build time, and the pre/post-deploy
 hooks bracket the deployment — which is how a template injects a secret reference or provisions a queue without that logic leaking into the
-engine (see [prepost-extension-modules](../../adr/automation/powershell/prepost-extension-modules.md)). A value that belongs to the
-repository rather than to one template, such as the policy enforcement mode, needs no hook: a template's configuration names it by its
-config address, and build renders the addressed value into the parameter file (see
-[data-model](../../adr/azure/azure-data-model.md#rule-adr-az-datamod10) and
+engine (see [prepost-extension-modules](../../adr/pwsh/prepost-extension-modules.md)). A value that belongs to the repository rather than to
+one template, such as the policy enforcement mode, needs no hook: a template's configuration names it by its config address, and build
+renders the addressed value into the parameter file (see [data-model](../../adr/azure/azure-data-model.md#rule-adr-az-datamod10) and
 [config-value-addressing](../../adr/configuration/config-value-addressing.md)). Deploy leans on the session-verification checks before it
 acts, so a deployment can never run against the wrong subscription.
 

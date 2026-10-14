@@ -8,7 +8,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     mode an index past the end throws ("Index was outside the bounds of the array"), so an empty result never
     reaches the `$null` check or assert written right after it — the caller gets an engine error instead of the
     intended message. `<result> | Select-Object -First 1` is `$null` on an empty result and the same element
-    otherwise. See [ADR-AUTO-ERROR#8](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error8).
+    otherwise. See [ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8).
 
     Flagged: index `[0]` whose target is an array subexpression `@(…)`, or a parenthesised pipeline of two or
     more elements. Not flagged: an index on a variable or member (`$list[0]`, `$Matches[0]`), whose length the
@@ -27,7 +27,7 @@ function Measure-NoUnsafeFirstIndex {
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
 
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
+    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
     $isFirstIndex = {
         param($node)
         $node -is [System.Management.Automation.Language.IndexExpressionAst] -and
@@ -56,7 +56,7 @@ function Measure-NoUnsafeFirstIndex {
         $null -ne $target.SubExpression.Find($isSplit, $false)
         if ($collected -and -not $splitOnly) {
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "'$($index.Extent.Text)' indexes the first element of a result that may be empty — under strict mode that throws before any `$null check runs. Use '<result> | Select-Object -First 1' (ADR-AUTO-ERROR:8)."
+                    Message  = "'$($index.Extent.Text)' indexes the first element of a result that may be empty — under strict mode that throws before any `$null check runs. Use '<result> | Select-Object -First 1' (ADR-PWSH-ERROR:8)."
                     Extent   = $index.Extent
                     RuleName = 'Measure-NoUnsafeFirstIndex'
                     Severity = 'Warning'

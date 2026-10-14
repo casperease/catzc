@@ -1,5 +1,5 @@
 # Get-GlossarySources is private, so it is exercised through the module (InModuleScope, per
-# [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)).
+# [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).
 # Discovery is redirected to the fixture sources under tests/assets/glossary/ through the Resolve-ConfigEntry seam,
 # so every source still loads through Get-Config and the GlossaryConfig type; git is mocked at Get-GitTrackedPath.
 # The fixture owners are loaded modules (Get-Config resolves validation in the owner's scope); the fixture terms

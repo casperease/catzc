@@ -24,7 +24,7 @@
 
     Pass -DryRun to preview: it runs `az deployment ... create --what-if` (Azure's server-side preview)
     and skips the real deploy, the post-deploy hook, and tag-setting. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 .PARAMETER Environment
     Environment shortname.
 .PARAMETER Template
@@ -55,8 +55,8 @@
 #>
 function Deploy-Bicep {
     # State-changing function deliberately uses -DryRun, not ShouldProcess — see
-    # [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-AUTO-DRYRUN#5')]
+    # [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
     param(
@@ -130,7 +130,7 @@ function Deploy-Bicep {
         Write-Message "Importing per-template PrePost: $($context.artifacts.prepost_module)"
         $prepostModule = Import-Module (Resolve-RepoPath $context.artifacts.prepost_module) -Scope Local -Force -PassThru
         # The template's hooks run strict like every catzc module, whoever wrote them
-        # ([ADR-AUTO-ERROR#8](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error8)).
+        # ([ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)).
         . $prepostModule { Set-StrictMode -Version Latest }
         if ($prepostModule.ExportedCommands.ContainsKey('Invoke-BicepPreDeploy')) {
             $preDeployHook = $prepostModule.ExportedCommands['Invoke-BicepPreDeploy']
@@ -143,7 +143,7 @@ function Deploy-Bicep {
     # The deploy invocation — the arguments this deploy is acting on (incl. Mode). DryRun is passed
     # as its own first-class parameter to PreDeploy (it's the side-effect kill switch — too special
     # to hide in a bag). Computed descriptor objects stay separate.
-    # See [ADR-AUTO-PREPOST](/docs/adr/automation/powershell/prepost-extension-modules.md).
+    # See [ADR-PWSH-PREPOST](/docs/adr/pwsh/prepost-extension-modules.md).
     $deployInvocation = [ordered]@{
         Template     = $Template
         Environment  = $Environment

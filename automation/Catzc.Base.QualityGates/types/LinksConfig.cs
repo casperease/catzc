@@ -3,7 +3,7 @@
 // defaults: every key is optional, and an omitted key — or a fresh checkout with no file — behaves exactly like
 // the default, so no function restates a value
 // ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). A Format-Links parameter overrides the
-// resolved value per call ([ADR-AUTO-PSPARAM#4](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam4)).
+// resolved value per call ([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)).
 //   wrap               — how an aligned comment line that outgrows its limit is wrapped (break | off; default break)
 //   line_limit         — per-extension limit overrides ({ .ps1: 120 }); default none, so .editorconfig decides
 //   default_line_limit — the limit for an extension .editorconfig gives no max_line_length (default 140, the

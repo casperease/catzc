@@ -13,7 +13,7 @@
        or one of -AcceptVersion (any parsed version, when no version is required).
 
     The version is a lazy session cache entry keyed by the executable's path, its last write time and the
-    arguments ([ADR-AUTO-PSCACHE](/docs/adr/automation/powershell/script-scope-caching.md)), so a process starts at
+    arguments ([ADR-PWSH-CACHE](/docs/adr/pwsh/script-scope-caching.md)), so a process starts at
     most once per executable per session, while a reinstall, an upgrade or a removal is seen on the next call. The
     locate step runs on every call: it is file checks only.
 

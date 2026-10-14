@@ -46,7 +46,7 @@ function Test-FunctionDependency {
     Assert-SourceTree
 
     # Parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/call provider
-    # overhead, [ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)); the definition map
+    # overhead, [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)); the definition map
     # and the call-resolution walk reuse these ASTs, so each file is read and parsed a single time. The walk itself is
     # [Catzc.Base.ModuleSystem.FunctionCallCollector] — one C# pass per function, not scriptblock-predicate FindAll calls.
     $parsed = [System.Collections.Generic.List[object]]::new()

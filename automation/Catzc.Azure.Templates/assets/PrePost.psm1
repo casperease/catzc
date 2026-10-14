@@ -1,5 +1,5 @@
 # hooks run strict (Build-Bicep / Deploy-Bicep also set it on import) —
-# [ADR-AUTO-ERROR#8](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error8)
+# [ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)
 Set-StrictMode -Version Latest
 
 <#
@@ -26,7 +26,7 @@ Set-StrictMode -Version Latest
     To customise: copy this file to `infrastructure/templates/<name>/PrePost.psm1`, keep the hook(s) you need,
     delete the rest, and ship.
 
-    See `docs/adr/automation/powershell/prepost-extension-modules.md` for the full extension-point design.
+    See `docs/adr/pwsh/prepost-extension-modules.md` for the full extension-point design.
 #>
 
 <#

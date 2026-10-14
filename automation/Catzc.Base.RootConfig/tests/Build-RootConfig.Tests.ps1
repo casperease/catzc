@@ -4,7 +4,7 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         Import-InternalModule TestKit
 
         # Isolate through the seams
-        # ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)): mock the
+        # ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)): mock the
         # config seam (Get-Config) and the generator
         # dispatch, and redirect the repository root to a fixture tree (TestKit) so Resolve-RepoPath binds
         # inside it.

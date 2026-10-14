@@ -111,7 +111,7 @@ function Install-Dotnet {
     # Converge the environment on every run that owns the install — session + persistent, both idempotent.
     # This is the PATH non-repo processes resolve dotnet through.
     # Each change is announced where it happens, and only when it changes something
-    # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)).
+    # ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)).
     if ($env:DOTNET_ROOT -ne $installDir) {
         $env:DOTNET_ROOT = $installDir
         Write-Message "Session: DOTNET_ROOT='$installDir'"

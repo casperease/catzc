@@ -73,7 +73,7 @@ Export-SpellingTriage      # queue the flagged words for triage -> out/terminolo
 `Export-SpellingTriage` scans the same content as `Test-Spelling` and writes every flagged word to a triage queue under `out/`. A queued
 word is still flagged: it is accepted only when someone adds it to the terminology registry (`terminology.yml`) with its meaning and
 category, and an invented identifier abbreviation is spelled out instead (see
-[spell-out-names](../../../adr/automation/powershell/spell-out-names.md)).
+[spell-out-names](../../../adr/automation/spell-out-names.md)).
 
 PSScriptAnalyzer itself (style, approved verbs, the custom rules under `automation/.scriptanalyzer/`) runs as part of the **L2** tests via
 the analyzer test — so `Test-Automation -Level 2` is what catches a formatting or convention violation before CI does.

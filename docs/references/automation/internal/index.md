@@ -10,8 +10,8 @@ post-import `Catzc` modules (which run after) must call — the single home for 
 
 These are `.psm1` files on purpose. The repository's function files are `.ps1` so they share one module scope with no import ceremony; the
 `automation/.internal/*.psm1` shared modules are the explicit, sanctioned exception — genuine standalone modules with their own scope,
-listed by name in [use-ps1-not-psm1 rule ADR-AUTO-USEPS#2](../../../adr/automation/powershell/use-ps1-not-psm1.md). They carry no `types/`,
-generate no `README.md`, and are excluded from the module list because they are not automation modules — they are what loads them.
+listed by name in [use-ps1-not-psm1 rule ADR-PWSH-USEPS#2](../../../adr/pwsh/use-ps1-not-psm1.md). They carry no `types/`, generate no
+`README.md`, and are excluded from the module list because they are not automation modules — they are what loads them.
 
 ## The load sequence
 
@@ -41,7 +41,7 @@ Listed in load order.
 
 ## Related
 
-- ADR: [use-ps1-not-psm1](../../../adr/automation/powershell/use-ps1-not-psm1.md) — why these are the only sanctioned `.psm1` files.
+- ADR: [use-ps1-not-psm1](../../../adr/pwsh/use-ps1-not-psm1.md) — why these are the only sanctioned `.psm1` files.
 - ADR: [one-living-version](../../../adr/principles/one-living-version.md) — why the two-layer shared code lives here once.
 - ADR: [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md) and [caching](../../../adr/automation/caching.md) — the
   combined type assembly and its committed prebuild that Bootstrap and Types implement.

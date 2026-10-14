@@ -7,7 +7,7 @@ using System.Text;
 
 /// <summary>
 /// The word oracle behind the spell-out-names analyzer rule (Measure-SpellOutIdentifiers), backing
-/// [ADR-AUTO-SPELL](/docs/adr/automation/powershell/spell-out-names.md). It answers one question fast: given an identifier, which of its
+/// [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md). It answers one question fast: given an identifier, which of its
 /// word fragments are neither a real English word nor approved repository vocabulary — i.e. invented local
 /// abbreviations that must be spelled out.
 ///
@@ -26,7 +26,7 @@ using System.Text;
 public static class SpellingOracle
 {
     // Fragments shorter than this are never flagged: single letters are loop indices / type variables
-    // ([ADR-AUTO-SPELL#2](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell2)), which the ADR exempts.
+    // ([ADR-AUTO-SPELL#2](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell2)), which the ADR exempts.
     public const int MinFragmentLength = 2;
 
     private static readonly object Gate = new object();
@@ -40,7 +40,7 @@ public static class SpellingOracle
     /// <summary>
     /// Load the oracle once: the gzip-compressed English list plus every plain-text term list. Idempotent — a
     /// second call is a no-op, so each analyzer shard pays the load once. Fixture terms are kept SEPARATE
-    /// ([ADR-AUTO-SPELL#6](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell6)): they are accepted only when
+    /// ([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)): they are accepted only when
     /// CoinedFragments is called with includeFixtures — i.e. for a test
     /// file — so a fixture token cannot bless a real identifier in production code. Term-list lines starting
     /// with '#' (the generated-file header) and blank lines are skipped; every other token is added lower-cased.
@@ -116,7 +116,7 @@ public static class SpellingOracle
     /// the dictionary — the invented abbreviations to spell out. Returns an empty array for a fully
     /// spelled-out identifier. Fixture terms count as known only when <paramref name="includeFixtures"/> is set
     /// (the caller passes true only for a test file), so a fixture token never blesses a production identifier
-    /// ([ADR-AUTO-SPELL#6](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell6)).
+    /// ([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)).
     /// </summary>
     public static string[] CoinedFragments(string identifier, bool includeFixtures)
     {
@@ -147,7 +147,7 @@ public static class SpellingOracle
     }
 
     /// <summary>Production-scope overload: fixture terms are not accepted
-    /// ([ADR-AUTO-SPELL#6](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell6)).</summary>
+    /// ([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)).</summary>
     public static string[] CoinedFragments(string identifier)
     {
         return CoinedFragments(identifier, false);

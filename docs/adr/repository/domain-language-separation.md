@@ -140,8 +140,8 @@ structure, not text.
 
 The set of live identities a logic test may not name is not a maintained list — it is read from the shipped config, so it cannot drift: a
 customer added to `customer.yml` is banned from logic tests the moment it exists, and one renamed updates the ban automatically. The
-terminology registry's per-category `scope` ([spell-out-names](../automation/powershell/spell-out-names.md)) declares which zone each
-vocabulary category belongs to — `fixture` is the test zone, `azure-live` the live zone, `adr-example` the design zone. That map is the
+terminology registry's per-category `scope` ([spell-out-names](../automation/spell-out-names.md)) declares which zone each vocabulary
+category belongs to — `fixture` is the test zone, `azure-live` the live zone, `adr-example` the design zone. That map is the
 machine-readable statement of intent; the gate consumes it, and a later step can widen what it drives.
 
 ### Exact, conservative, staged
@@ -179,8 +179,8 @@ declares the zones; a file-glob spell-checker is not used, because it cannot sep
 - **`Get-FixtureIdentityTokens`** (private) derives the forbidden fixture set from the `tests/assets/config/` fixtures — always current with
   the test configs, and disjoint from the live set by construction.
 
-- **The terminology `scope` map** ([spell-out-names](../automation/powershell/spell-out-names.md)) records each category's zone, and
-  `Test-Terminology` keeps the registry honest — but cspell does not scope on it (ADR-REPO-LANG#5).
+- **The terminology `scope` map** ([spell-out-names](../automation/spell-out-names.md)) records each category's zone, and `Test-Terminology`
+  keeps the registry honest — but cspell does not scope on it (ADR-REPO-LANG#5).
 
 - **Code review** covers the design-zone rules a gate does not — an ADR illustrating with a test fixture (ADR-REPO-LANG#4), or a live
   identity in a doc that is not documenting that identity as its subject.
@@ -209,7 +209,6 @@ declares the zones; a file-glob spell-checker is not used, because it cannot sep
   (`ADR-AUTO-TEST:3`) this gate mechanizes.
 - [data-model](../azure/azure-data-model.md), [naming-standard](../azure/azure-naming-standard.md),
   [customer-model](../azure/azure-customer-model.md) — the live zone's real identities.
-- [spell-out-names](../automation/powershell/spell-out-names.md) (`ADR-AUTO-SPELL`) — the terminology registry and the per-category `scope`
-  map.
+- [spell-out-names](../automation/spell-out-names.md) (`ADR-AUTO-SPELL`) — the terminology registry and the per-category `scope` map.
 - [poka-yoke](../principles/poka-yoke.md), [reduce-variability](../principles/reduce-variability.md) — the principles a mechanical,
   low-ceremony quality gate instantiates.

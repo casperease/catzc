@@ -57,7 +57,7 @@ public sealed class AdrCitationMap
             rulesByCode[code] = rules;
 
             // Every hyphen-prefix of a code (ADR-AUTO for
-            // [ADR-AUTO-ERROR](/docs/adr/automation/powershell/error-handling.md)) names its domain; a domain code or a
+            // [ADR-PWSH-ERROR](/docs/adr/pwsh/error-handling.md)) names its domain; a domain code or a
             // domain wildcard (ADR-PRIN-*) is a valid mention, not an unknown ADR.
             int dash = code.IndexOf('-', 4);
             while (dash > 0)

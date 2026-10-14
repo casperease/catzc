@@ -14,11 +14,11 @@
       - Each shard imports the vendored analyzer from the loaded code root (Get-CatzcModulesRoot/.vendor).
       - Shards run from the repo root (Push-Location/Pop-Location) so the settings' relative CustomRulePath
         entries resolve (ADR working-directory-mechanics, rule
-        [ADR-AUTO-PSPWD#2](/docs/adr/automation/powershell/working-directory-mechanics.md#rule-adr-auto-pspwd2)/[ADR-AUTO-PSPWD#3](/docs/adr/automation/powershell/working-directory-mechanics.md#rule-adr-auto-pspwd3)).
+        [ADR-PWSH-PWD#2](/docs/adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd2)/[ADR-PWSH-PWD#3](/docs/adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd3)).
 
     A dot is printed per interval while shards run so the run never looks hung — a progress bar is banned
     (ADR console-output-matters, rule
-    [ADR-AUTO-CONSOLE#8](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console8)). The
+    [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8)). The
     external Invoke-ScriptAnalyzer progress bar is suppressed
     inside the worker for the same reason.
     A result cache under out/cache/ skips every file the analyzer last found clean whose bytes and analyzer inputs
@@ -101,7 +101,7 @@ function Get-ScriptAnalyzerDiagnostics {
         Push-Location $root
         # Invoke-ScriptAnalyzer draws its own Write-Progress bar; this repo bans progress bars (ADR
         # console-output-matters, rule
-        # [ADR-AUTO-CONSOLE#8](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console8)) and
+        # [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8)) and
         # reports shard progress with dots instead. Suppress the
         # external bar for the duration of the call and restore the preference in finally.
         $savedProgress = $ProgressPreference
@@ -133,9 +133,9 @@ function Get-ScriptAnalyzerDiagnostics {
     }
 
     # Print a dot per interval while shards run, rather than a progress bar (ADR console-output-matters,
-    # rule [ADR-AUTO-CONSOLE#8](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console8)). The
+    # rule [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8)). The
     # dots go through the writer chokepoint
-    # ([ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1)), so a
+    # ([ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)), so a
     # Pester run
     # silences them with everything else. $dotted tracks whether any dot was written so the closing newline only
     # fires when it is needed.

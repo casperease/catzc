@@ -7,14 +7,14 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
     The importer and its .internal bootstrap run before the module system (and Write-Message) are available,
     so this is their writer chokepoint: the bootstrap's counterpart of Write-InformationColored, and like it the
     one place besides it that may call Write-Information
-    ([ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1)). It
+    ([ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)). It
     prepends '[Importer.ps1] ' so
     importer output reads consistently with the rest of the toolset's '[Caller] ...' messages, carries the
     colour as embedded ANSI, and is silent during a Pester run ($global:__PesterRunning), exactly as the Writers
     chokepoint is. .internal code only ever runs from the importer. An empty message writes a blank line.
 
     A -StateChange line is one of the importer's own load announcements, which go to the verbose stream instead
-    ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)): shown
+    ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)): shown
     when the import runs with -Verbose (Set-ImporterVerbosity), silent otherwise.
 .PARAMETER Message
     The message text.
@@ -515,9 +515,9 @@ function Import-CSharpTypes {
 
     # Load the assembly if not already in the AppDomain (a reimport keeps the live copy). Verify EVERY type.
     # Loading a binary into the session is a state change, so it is announced
-    # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)) on the
+    # ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)) on the
     # importer's verbose record
-    # ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)), naming
+    # ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)), naming
     # the DLL; a reimport that keeps the live copy loads
     # nothing and says nothing. The load goes through a per-user shadow copy (Import-TypesAssembly), never the
     # .compiled file itself, so no session ever locks a build inside the repository; the message names the
@@ -906,7 +906,7 @@ function Import-AllModules {
             $importedModule = Import-Module $manifestPath -Scope Global -Force -PassThru | Select-Object -First 1
             # A session-level Set-StrictMode does not reach module code, so strict mode is set in each module's own
             # script scope, which every function in the module inherits
-            # ([ADR-AUTO-ERROR](/docs/adr/automation/powershell/error-handling.md)).
+            # ([ADR-PWSH-ERROR](/docs/adr/pwsh/error-handling.md)).
             . $importedModule { Set-StrictMode -Version Latest }
             $imported.Add($dir.Name)
             if ($DiagnoseLoadTime) {
@@ -928,10 +928,10 @@ function Import-AllModules {
     }
 
     # Loading and unloading modules changes the session, so it is announced
-    # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)) on the
+    # ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)) on the
     # importer's
     # verbose record
-    # ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)): one
+    # ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)): one
     # line names
     # the load, plus any module that left the session for good — evicted from another root, or gone from the tree.
     # A re-import's remove-then-reload of the same modules is not a departure and is not listed.

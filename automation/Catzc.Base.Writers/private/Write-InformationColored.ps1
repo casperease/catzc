@@ -23,11 +23,11 @@
     writing. Tests that need to assert writer output lift the flag for their own scope.
 
     It is also the one way to write to the console at all
-    ([ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1)): nothing
+    ([ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)): nothing
     in the toolset calls
     Write-Host, [Console]::Write or $Host.UI. -NoNewline covers the one thing those were used for — an inline
     liveness dot
-    ([ADR-AUTO-CONSOLE#8](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console8)). It wraps
+    ([ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8)). It wraps
     the text in a HostInformationMessage with NoNewLine set, the same
     record Write-Host emits internally, so the host renders it without a line break while it stays an ordinary
     information-stream record: it obeys $InformationPreference and 6> redirection, and never enters the pipeline.

@@ -24,7 +24,7 @@
     'automation/Catzc.Azure.DevOps'). Throws when it matches no mapping. Default: every mapping.
 .PARAMETER DryRun
     Report what would change without touching the filesystem. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 .PARAMETER Silent
     The per-README status lines are verbose-level — shown only when this function is run with -Verbose.
     -Silent suppresses them entirely, even under -Verbose (used by the importer tail so a session with

@@ -31,7 +31,7 @@
     of the wildcard entry it matches. Default: every opted-in entry.
 .PARAMETER DryRun
     Report what would change without writing any file. The composed content is the same either way; -DryRun
-    only skips the write. See [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+    only skips the write. See [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 .PARAMETER Silent
     The per-file status lines are verbose-level — shown only when this function is run with -Verbose. -Silent
     suppresses them entirely, even under -Verbose (used by the importer tail so a session with -Verbose on

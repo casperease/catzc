@@ -5,7 +5,7 @@
     Downloads with Save-PSResource from the vendor source (configs/vendor.yml — PSGallery by default, or a
     custom feed) into automation/.vendor/<Name>/<Version>/, then removes folders the toolset never loads
     (legacy .NET Framework builds, PSScriptAnalyzer's compatibility_profiles). The only supported way to add a vendor module
-    ([ADR-AUTO-VENDOR](/docs/adr/automation/powershell/vendor-toolset-dependencies.md)); commit the result.
+    ([ADR-PWSH-VENDOR](/docs/adr/pwsh/vendor-toolset-dependencies.md)); commit the result.
     Must be run in a fresh session — a loaded module may lock its files. Writes into the source tree's
     .vendor, so it stops with a named error in build mode (Assert-SourceTree,
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
@@ -58,7 +58,7 @@ function Install-VendorModule {
     # Prune folders the toolset never loads: legacy .NET Framework builds (we only target PS 7+ / .NET 6+) and
     # PSScriptAnalyzer's ~280 MB compatibility_profiles, read only by the PSUseCompatible* rules that
     # PSScriptAnalyzerSettings.psd1 keeps off
-    # ([ADR-AUTO-VENDOR#7](/docs/adr/automation/powershell/vendor-toolset-dependencies.md#rule-adr-auto-vendor7)).
+    # ([ADR-PWSH-VENDOR#7](/docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor7)).
     $moduleDir = Join-Path $vendorRoot $Name
     $prunedFolders = @('net20', 'net35', 'net40', 'net45', 'net451', 'net452',
         'net46', 'net461', 'net462', 'net47', 'net471', 'net472', 'net48', 'compatibility_profiles')

@@ -47,7 +47,7 @@
 .PARAMETER TimeoutSeconds
     Hard ceiling for the worker; on expiry it is killed and this throws. Defaults to this function's [TimeLimit]
     (360 s on a devbox, 600 s in a pipeline), unless timeouts.yml overrides it
-    ([ADR-AUTO-FAILFAST#8](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast8)).
+    ([ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)).
 .PARAMETER Isolated
     Run in a snapshot of the working folder even when it is free — immune to edits made while it runs.
 .PARAMETER KeepSandbox
@@ -58,7 +58,9 @@
     paths even for a snapshot run) — the live Pester object cannot cross the process boundary. Location is
     the run's location as the run directory's run.json records it: 'in-place' or 'snapshot'.
 .OUTPUTS
-    None by default; the result object with -PassThru. The worker's Pester output streams either way.
+    None by default; the result object with -PassThru. The worker's Pester output streams either way, and a failed
+    run ends with every failure's message (Write-TestRunFailures): each failed test, and each file that failed before
+    its tests ran.
 .EXAMPLE
     Invoke-TestFile automation/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
 .EXAMPLE
@@ -183,6 +185,16 @@ function Invoke-TestFile {
         $manifestStatus = $result.ToLowerInvariant()
         if ($exitCode -ne 0) {
             $failedShardLabels = @($shard.Label)
+            # Every failure's message, on the console at every -Output level (the worker's own output does not reach a
+            # redirected console): failed tests from the rows, and a file that failed before its tests ran from the
+            # files sidecar.
+            $files = if ([System.IO.File]::Exists($shard.FilesPath)) {
+                @([System.IO.File]::ReadAllText($shard.FilesPath) | ConvertFrom-Json)
+            }
+            else {
+                @()
+            }
+            Write-TestRunFailures -Rows $rows -Files $files
         }
         Write-Message "$result ($($location.Mode)) — artifacts in $runDirectory" -ForegroundColor $(if ($exitCode -eq 0) {
                 'Green'

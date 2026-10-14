@@ -38,7 +38,7 @@ function Invoke-PSScriptAnalyzerFormat {
     }
     if (-not (Get-Module PSScriptAnalyzer)) {
         # First use this session pays the vendored-module import (several seconds) — announce it
-        # ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console10)).
+        # ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)).
         Write-Message 'Loading PSScriptAnalyzer (first use this session)...'
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
     }

@@ -40,7 +40,7 @@ function Protect-GlobSet {
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:protectedGlobSets')) {
         # strict-clean probe of the lazy cache entries
-        # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        # ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
         $script:protectedGlobSets = @{}
         $script:pendingGlobProtections = @{}
     }

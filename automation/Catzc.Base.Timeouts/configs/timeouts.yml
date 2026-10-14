@@ -24,7 +24,7 @@
 #
 # A function whose work is long by nature declares its limit beside its code, as a [Catzc.Base.Timeouts.TimeLimit]
 # attribute; Get-TimeoutSeconds -Command resolves an exemption, then `commands`, then the decoration, then the
-# environment's pwsh limit ([ADR-AUTO-FAILFAST#8](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast8)).
+# environment's pwsh limit ([ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)).
 #
 # Every key is optional: the sensible defaults are declared once, on TimeoutsConfig, so this file states only what
 # has been tuned. The devbox defaults are deliberately tight while the blockers are tuned: a call that

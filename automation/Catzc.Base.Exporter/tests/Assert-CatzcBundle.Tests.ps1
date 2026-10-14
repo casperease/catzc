@@ -35,6 +35,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             & $write ".compiled/Catzc.Types.$typesHash.dll" 'MZ'
 
             $build = [ordered]@{
+                bundle      = 'widgets'
                 version     = '1.2.3'
                 typesHash   = $typesHash
                 typeSources = @('.compiled/types/Catzc.Base.Gadget/Gadget.cs', 'Catzc.Base.Widget/types/Widget.cs')
@@ -85,10 +86,13 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
         { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*missing build.json*'
     }
 
-    It 'throws when build.json lacks a field' {
-        $fixture.Build.Remove('typesHash')
+    It 'throws when build.json lacks <Field>' -ForEach @(
+        @{ Field = 'typesHash' }
+        @{ Field = 'bundle' }
+    ) {
+        $fixture.Build.Remove($Field)
         & $script:resealBuild $fixture
-        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*build.json records no typesHash*'
+        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage "*build.json records no $Field*"
     }
 
     It 'throws when the folder is not named for the version' {

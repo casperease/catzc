@@ -33,7 +33,7 @@ Describe 'Measure-SpellOutIdentifiers' -Tag 'L0', 'logic' {
         @{ Code = '$ruleCollectionGroup = 1' }
         @{ Code = '$templateContext = 1' }
         # single-letter loop index
-        # ([ADR-AUTO-SPELL#2](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell2))
+        # ([ADR-AUTO-SPELL#2](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell2))
         @{ Code = 'foreach ($i in 1..3) { $i }' }
         @{ Code = 'function Get-Thing { param($Path) $Path }' }
     ) {

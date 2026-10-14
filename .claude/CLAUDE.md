@@ -27,7 +27,7 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 ## ADRs
 
 Architecture Decision Records live under `docs/adr/`, grouped into the domains that `docs/adr/index.md` lists. The index also holds every
-rule-citation code (e.g. `ADR-AUTO-ERROR#3`) and the **authoring conventions**. The ADRs define the design principles behind this codebase
+rule-citation code (e.g. `ADR-PWSH-ERROR#3`) and the **authoring conventions**. The ADRs define the design principles behind this codebase
 and must be followed when writing or reviewing code. **Read `docs/adr/index.md` at the start of every session**, then read in full the ADRs
 that govern the files a task touches, and cite their rules by code. The whole corpus is far larger than a context window, so never sweep it,
 and never sweep `research/`, which is reference material, not rules.
@@ -42,8 +42,8 @@ without it.
 
 Which catzc ADR decides each aspect you might take an idea for:
 
-- **Module and command design:** [ADR-AUTO-ONEFUNC](../docs/adr/automation/powershell/one-function-per-file.md),
-  [ADR-AUTO-PSPARAM](../docs/adr/automation/powershell/parameter-design.md), and the one resolution order of a setting,
+- **Module and command design:** [ADR-PWSH-ONEFUNC](../docs/adr/pwsh/one-function-per-file.md),
+  [ADR-PWSH-PARAM](../docs/adr/pwsh/parameter-design.md), and the one resolution order of a setting,
   [ADR-AUTO-DEFAULT#6](../docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6).
 - **Docs and ADR structure:** the [authoring conventions](../docs/adr/index.md#authoring-conventions).
 - **Contracts:** [ADR-REPO-CONTRACT](../docs/adr/repository/api-contracts.md).

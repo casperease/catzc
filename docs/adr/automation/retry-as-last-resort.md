@@ -54,7 +54,7 @@ fails catastrophically. Reaching for retry is a strong claim — "I expect this 
 rarely justified.
 
 The codebase leans the other way. [Fail fast with assertions](fail-fast-with-asserts.md) says assert and fail at the source.
-[Error handling](powershell/error-handling.md) and [single-responsibility-functions](single-responsibility-functions.md) say functions
+[Error handling](../pwsh/error-handling.md) and [single-responsibility-functions](single-responsibility-functions.md) say functions
 **throw** on failure and never catch-and-continue; whether to retry is the _caller's_ decision, isolated in a dedicated wrapper, never
 tangled into business logic. This ADR sets the policy for when a retry is permitted at all.
 

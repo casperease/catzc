@@ -13,7 +13,7 @@ Describe 'Get-BicepDeploymentContext (sample-subscription)' -Tag 'L0', 'logic' {
 
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
         # The deploy target is the az session's subscription
-        # ([ADR-AUTO-PESTER#3](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester3) whole-boundary
+        # ([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3) whole-boundary
         # mock).
         Mock Get-AzCliSessionSubscription {
             [ordered]@{ name = 'core_lower'; id = '50a0ed00-de00-50b0-0000-000000000000'; customer = ''

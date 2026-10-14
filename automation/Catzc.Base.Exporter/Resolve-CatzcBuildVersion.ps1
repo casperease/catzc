@@ -11,7 +11,7 @@
       -Version auto, on a devbox    the fixed direct_install_version placeholder (6.6.666), announced by a yellow
                                     Write-Message notice — never Write-Warning, which terminates under the catzc
                                     session's preferences
-                                    ([ADR-AUTO-ERROR#2](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error2)). A rebuild overwrites it in place.
+                                    ([ADR-PWSH-ERROR#2](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error2)). A rebuild overwrites it in place.
       -Version auto, in a pipeline  <the bundle's MAJOR.MINOR (exporter.yml bundles.<name>.version)>.<first-parent
                                     commit count of HEAD>, so the same commit always gets the same version and
                                     versions rise along main. Each bundle has its own MAJOR.MINOR line. Needs the full

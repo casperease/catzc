@@ -62,7 +62,7 @@ jobs:
         shell: pwsh
         run: |
           . ./importer.ps1
-          $built = Build-Modules -ModuleProfile full
+          $built = Build-Modules -Bundle full
           New-Item -ItemType Directory -Force out/bundle-hash | Out-Null
           Set-Content -Path "out/bundle-hash/${{ matrix.os }}.txt" -Value "$($built.Version) $($built.ContentHash)" -NoNewline
           Write-Host "Catzc $($built.Version) on ${{ matrix.os }}: $($built.ContentHash)"

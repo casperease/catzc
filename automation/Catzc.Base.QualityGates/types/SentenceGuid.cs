@@ -12,7 +12,7 @@ using System.Text;
 /// ("sample test data" → 5a001e00-7e57-da7a-…). The mint behind ConvertTo-Guid: run by a human or an LLM to
 /// produce readable placeholder GUIDs for the managed-GUID registry (guids.yml) — never called by
 /// production code. Validity is structural: any 32 hex digits form a parseable GUID, so every input yields
-/// one. BCL-only ([ADR-AUTO-TYPES#5](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types5)).
+/// one. BCL-only ([ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)).
 /// </summary>
 public static class SentenceGuid
 {

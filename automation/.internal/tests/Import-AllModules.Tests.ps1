@@ -23,7 +23,7 @@ BeforeAll {
     function Invoke-Sandbox {
         # ONE cold import in a child pwsh; $Capture is evaluated AFTER the import and returned as parsed JSON. The
         # import's announcements are information records
-        # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)), so
+        # ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)), so
         # 6>$null keeps them out of the JSON.
         param([Parameter(Mandatory)][string]$Capture)
         $script = ". '$sandbox/importer.ps1' 6>`$null`n$Capture | ConvertTo-Json -Depth 6 -Compress"

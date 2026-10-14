@@ -3,7 +3,7 @@ Describe 'Get-ToolInstallOrder' -Tag 'L0' {
         # Isolate the sort from the shipped tools.yml by mocking the config seam to a controlled graph: this
         # verifies the ALGORITHM (dependencies-before-dependents, a diamond, an independent root, and cycle
         # detection), never the production tool set
-        # ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)/[ADR-AUTO-PESTER#3](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester3)). 'base/mid1/mid2/top/lone' are fixture
+        # ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)/[ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3)). 'base/mid1/mid2/top/lone' are fixture
         # identities ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) — nothing here
         # binds to a real tool name.
         It 'orders every dependency before its dependents (diamond + independent root)' {

@@ -17,7 +17,7 @@ BeforeAll {
     }
 }
 
-Describe 'Measure-ParameterFillIn' -Tag 'L0', 'logic', 'ADR-AUTO-PSPARAM#4' {
+Describe 'Measure-ParameterFillIn' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#4' {
     It 'flags a body that fills an empty parameter in: <Description>' -ForEach @(
         @{ Description = 'if (-not $P) { $P = … }'; Body = "if (-not `$Label) {`n        `$Label = 'widget'`n    }" }
         @{ Description = '$P = $P ?? …'; Body = "`$Label = `$Label ?? 'widget'" }
@@ -39,7 +39,7 @@ Describe 'Measure-ParameterFillIn' -Tag 'L0', 'logic', 'ADR-AUTO-PSPARAM#4' {
     }
 }
 
-Describe 'Measure-PrimaryArgumentPosition' -Tag 'L0', 'logic', 'ADR-AUTO-PSPARAM#2' {
+Describe 'Measure-PrimaryArgumentPosition' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#2' {
     It 'flags a public function whose one mandatory parameter is named-only' {
         $code = "function Get-Widget {`n    param([Parameter(Mandatory)] [string] `$Name, [int] `$Count = 1)`n}"
         $records = @(Get-RuleRecord -Rule 'Measure-PrimaryArgumentPosition' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1')

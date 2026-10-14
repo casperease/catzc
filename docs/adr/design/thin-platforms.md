@@ -16,8 +16,8 @@ Viable Platform** (TVP): the smallest set of APIs, tooling, and docs that measur
 ### Rule ADR-DSGN-THINPLAT:2
 
 Thin is achieved by **delegation, not reimplementation**. The platform adds only what reduces a consumer's cognitive load, and delegates
-everything else to the vendor's own primitives — Bicep for ARM templating, the az CLI for control-plane actions (`ADR-AUTO-AZCLI`). It wraps
-to _harmonize_ (one calling convention, one auth path, one set of defaults), never to hide the substrate or clone its behaviour. In Hohpe's
+everything else to the vendor's own primitives — Bicep for ARM templating, the az CLI for control-plane actions (`ADR-AZ-CLI`). It wraps to
+_harmonize_ (one calling convention, one auth path, one set of defaults), never to hide the substrate or clone its behaviour. In Hohpe's
 terms: build abstractions, not illusions — a thick wrapper that re-implements the cloud is a liability, not a platform.
 
 - [Delegation](#delegation)
@@ -81,10 +81,10 @@ we do not build a function.
 
 The platform never re-implements what the vendor already does well. ARM templating is Bicep's job; the platform composes Bicep modules and
 supplies their configuration, it does not generate ARM by hand. Control-plane and account actions are the az CLI's job; the platform curates
-a pinned az surface and calls it (`ADR-AUTO-AZCLI`), it does not reach for SDK assemblies to redo the same calls. What the platform _does_
-own is the layer on top that harmonizes: uniform invocation, a single authentication path (local token vs. pipeline identity resolved for
-you), sensible zero-arg behaviour, and the guardrails that keep every call consistent. That is the line between a platform and a framework —
-a platform makes the vendor easier to use correctly; a framework tries to replace it and inherits its entire maintenance surface.
+a pinned az surface and calls it (`ADR-AZ-CLI`), it does not reach for SDK assemblies to redo the same calls. What the platform _does_ own
+is the layer on top that harmonizes: uniform invocation, a single authentication path (local token vs. pipeline identity resolved for you),
+sensible zero-arg behaviour, and the guardrails that keep every call consistent. That is the line between a platform and a framework — a
+platform makes the vendor easier to use correctly; a framework tries to replace it and inherits its entire maintenance surface.
 
 ### The surface is a CLI
 
@@ -132,7 +132,7 @@ covering Azure and Azure RM via Bicep plus a curated az CLI.
   guardrail (surface the decisions that scale-time cost punishes).
 - **`ADR-PRIN-EAC` / `ADR-PRIN-ONELIVE`** keep the abstraction fully materialized and singular — no drift, no legacy shims behind a layer
   that is thin.
-- **`ADR-AUTO-AZCLI` and the Bicep infrastructure track** are the concrete substrate bindings the CLI delegates to.
+- **`ADR-AZ-CLI` and the Bicep infrastructure track** are the concrete substrate bindings the CLI delegates to.
 - **`ADR-AUTO-PARITY`** keeps the one CLI surface identical on a developer box and in the pipeline, which is what makes it a real service
   boundary.
 

@@ -5,7 +5,7 @@ Describe 'Deploy-Bicep' -Tag 'L0', 'logic' {
         # Static fixtures + boundary mocks set up ONCE (not per test). The only per-test state is the hook
         # marker files (pre-/post-called.json), cleared in BeforeEach; main.json/parameters/PrePost.psm1 never
         # change, so rebuilding them every test was pure filesystem-cmdlet tax (~5 cmdlet calls × ~20ms —
-        # [ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)). [System.IO] writes them in
+        # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)). [System.IO] writes them in
         # ~0.1ms.
         [System.IO.Directory]::CreateDirectory($script:tempArtifacts) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:tempArtifacts 'main.json'), '{}')

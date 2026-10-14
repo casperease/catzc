@@ -7,7 +7,7 @@ Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {
 
         # Draw the exact files from the one shared selector (Get-AutomationSourceFiles), so this gate cannot
         # drift from Test-ScriptAnalyzer
-        # ([ADR-AUTO-PSFORMAT#5](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat5)). The
+        # ([ADR-PWSH-FORMAT#5](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format5)). The
         # selector covers module *.ps1
         # (root, private/), tests/**/*.Tests.ps1 recursively (so tests/types/ is included), the
         # .internal/.scriptanalyzer infrastructure folders (bootstrap, TestKit, custom analyzer rules, and

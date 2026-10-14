@@ -15,7 +15,7 @@
     a lower -MaxLevel). Otherwise — in a snapshot, or in place while another run on this account holds the
     system-test lock — a request that reaches L3 is capped at L2, and the cap is announced: the run says it
     skips L3 and who holds the working folder or the lock, so a missing tier is never silent
-    ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console10)).
+    ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)).
     L4, the opt-in tier that tests the released system after final approval
     ([ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)), runs only when asked for, and
     where L3 runs: a run capped at L2 skips L4 too, and says so.

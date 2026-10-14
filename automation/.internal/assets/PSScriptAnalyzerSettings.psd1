@@ -35,7 +35,7 @@
         # NRE and stay enabled.
         'PSReservedCmdletChar'
         # Superseded by the custom Measure-NoRawConsoleWrite
-        # ([ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1)),
+        # ([ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)),
         # which flags Write-Host AND
         # every other way past the information stream ([Console]::Write, $Host.UI, Out-Host, Write-Progress, ...).
         # One rule owns the console bypass, so a Write-Host is reported once, not twice.
@@ -94,7 +94,7 @@
         #     custom rules), so it never actually checked anything — disabling is no regression.
         #   - The profiles it reads (PSScriptAnalyzer's ~280 MB compatibility_profiles/) are not vendored:
         #     Install-VendorModule prunes the folder, so the rule has nothing to load
-        #     ([ADR-AUTO-VENDOR#7](/docs/adr/automation/powershell/vendor-toolset-dependencies.md#rule-adr-auto-vendor7)).
+        #     ([ADR-PWSH-VENDOR#7](/docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor7)).
         #   - When it runs, PSScriptAnalyzer merges the target profiles into a single ~42 MB
         #     union_<hash>.json written INSIDE automation/.vendor/PSScriptAnalyzer/.../
         #     compatibility_profiles/, an untracked blob after every fresh run.

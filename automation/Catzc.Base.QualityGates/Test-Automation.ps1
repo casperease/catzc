@@ -53,7 +53,7 @@
     Hard ceiling on each execution phase (the parallel pool, then the serial phase). On expiry every worker
     is killed and the run throws. Defaults to this function's [TimeLimit] (360 s on a devbox, where a full run takes
     about 250 s; 3600 s in a pipeline), unless timeouts.yml overrides it
-    ([ADR-AUTO-FAILFAST#8](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast8)).
+    ([ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)).
 .PARAMETER Output
     Pester output verbosity level inside each worker. Defaults to 'Detailed' (one line per test with its
     own duration); use 'Normal' for one line per file, or 'Minimal' for just the final tally.
@@ -62,7 +62,7 @@
     DurationSeconds, Rows (the aggregated per-test rows), RunDirectory, and Shards (the shard descriptors).
     By default, no object is returned.
 .PARAMETER Rule
-    Run only the tests that cite one of these ADR rules (the provenance filter) — e.g. `-Rule ADR-AUTO-ERROR#3`.
+    Run only the tests that cite one of these ADR rules (the provenance filter) — e.g. `-Rule ADR-PWSH-ERROR#3`.
     Each value is a citation in `ADR-<CODE>#<n>` form. The run narrows to the files carrying a matching test
     and, within them, to the cited tests (Pester tag include). Composes with -Level/-Category/-Modules. It is
     the executable companion of the rule-coverage report: find a rule's tests, then run just them.
@@ -114,7 +114,7 @@
 .EXAMPLE
     Test-Automation -EnforceTimings   # fail if any test is over its level's limit
 .EXAMPLE
-    Test-Automation -Rule ADR-AUTO-ERROR#3   # run only the tests that cite ADR-AUTO-ERROR#3
+    Test-Automation -Rule ADR-PWSH-ERROR#3   # run only the tests that cite ADR-PWSH-ERROR#3
 .EXAMPLE
     Test-Automation -Suite infrastructure   # run the infrastructure test suite (its globs.yml verify scope)
 .EXAMPLE

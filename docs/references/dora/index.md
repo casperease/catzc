@@ -132,7 +132,7 @@ From a research ADR, `docs/adr/research/<slug>.md`, or any other first-level ADR
 [the 2023 report](../../references/dora/publications.md#2023-accelerate-state-of-devops-report)
 ```
 
-From a nested ADR folder, `docs/adr/automation/powershell/<name>.md`:
+From a nested ADR folder, `docs/adr/automation/BCL/<name>.md`:
 
 ```markdown
 [fast feedback](../../../references/dora/core-model.md#fast-feedback)

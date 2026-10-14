@@ -19,9 +19,9 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
 - **Manifest generation** — `New-DynamicManifest` scans a module folder for `.ps1` files (root files are public, `private/` files are
   private, `.Tests.ps1` excluded), and writes a canonical `<Module>.psd1` listing them in `NestedModules` so they share one session state.
   It scans for `.ps1` only — a `.psm1` inside a module folder is silently ignored — which is one of the mechanical enforcements of
-  [use-ps1-not-psm1](../../../adr/automation/powershell/use-ps1-not-psm1.md). `Get-DynamicManifestContent` renders the manifest text: the
-  `=` column is computed from the longest key rather than hand-padded, endings are LF, and the output is formatter-stable — running the
-  formatter over it is a no-op — so the bytes are identical on every platform and every build of a commit
+  [use-ps1-not-psm1](../../../adr/pwsh/use-ps1-not-psm1.md). `Get-DynamicManifestContent` renders the manifest text: the `=` column is
+  computed from the longest key rather than hand-padded, endings are LF, and the output is formatter-stable — running the formatter over it
+  is a no-op — so the bytes are identical on every platform and every build of a commit
   ([ADR-REPO-FORMAT#1](../../../adr/repository/uniform-formatting.md)).
 - **C# type compile and load** — `Import-CSharpTypes` compiles every module's `types/*.cs` into one hash-keyed assembly,
   `automation/.compiled/Catzc.Types.<hash>.dll`, so a type in one module can reference a type in another. It keys the assembly off the
@@ -46,7 +46,7 @@ The exported surface the importer calls:
 
 - `Import-AllModules` — discover, guard, and import every `automation/*` module, compiling the combined C# type assembly first.
 - `Write-ImporterMessage` — the `[Importer.ps1]`-prefixed console writer the whole importer uses before `Write-Message` is available;
-  `-StateChange` puts a line on the importer's verbose load record (ADR-AUTO-ANNOUNCE#6).
+  `-StateChange` puts a line on the importer's verbose load record (ADR-PWSH-ANNOUNCE#6).
 - `Set-ImporterVerbosity` — hands the importer's `-Verbose` to `Write-ImporterMessage -StateChange`, for the life of the bootstrap.
 - `Clear-CompiledType` — delete the compiled type DLLs before import so the types rebuild from source (`-ClearCompiledTypes`).
 
@@ -59,8 +59,8 @@ The module-internal engine `Import-AllModules` drives (not exported):
 
 ## Related
 
-- ADR: [use-ps1-not-psm1](../../../adr/automation/powershell/use-ps1-not-psm1.md) — `New-DynamicManifest` scanning only `.ps1` is the
-  enforcement; Bootstrap is itself a sanctioned `.psm1`.
+- ADR: [use-ps1-not-psm1](../../../adr/pwsh/use-ps1-not-psm1.md) — `New-DynamicManifest` scanning only `.ps1` is the enforcement; Bootstrap
+  is itself a sanctioned `.psm1`.
 - ADR: [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md) and [caching](../../../adr/automation/caching.md) — the one
   combined assembly, its committed prebuild, and the hash key `Import-CSharpTypes` loads by.
 - ADR: [uniform-formatting](../../../adr/repository/uniform-formatting.md) — the canonical, hand-alignment-free manifest text.

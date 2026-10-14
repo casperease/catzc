@@ -56,7 +56,7 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-- ADR-AUTO-MANIFEST#3 says `New-DynamicManifest` deletes the manifest when no `.ps1` is left; that function returns nothing, and
+- ADR-PWSH-MANIFEST#3 says `New-DynamicManifest` deletes the manifest when no `.ps1` is left; that function returns nothing, and
   `Import-AllModules` deletes the stale file.
 - ADR-DSGN-ASPECT#2 prefixes every aspect pattern by the unit root; `Get-ModuleGlobSet` adds the language test folders to the tests set
   outside it.

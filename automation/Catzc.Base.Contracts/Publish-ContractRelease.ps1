@@ -16,7 +16,7 @@
     It writes files only: it never commits, and it does not check the assets. A release build resolves the version
     (Resolve-CatzcBuildVersion), runs this, runs Test-Contracts -Version <version>, and commits the folder in its own
     step. Publish is the approved verb for making a resource available to others
-    ([ADR-AUTO-VERBS#1](/docs/adr/automation/powershell/respect-pwsh-verb-rules.md#rule-adr-auto-verbs1)): the frozen
+    ([ADR-PWSH-VERBS#1](/docs/adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs1)): the frozen
     folder is what a consumer pins.
 .PARAMETER Unit
     The deployable-unit whose draft to freeze, by folder name: today catzc, the bundle.

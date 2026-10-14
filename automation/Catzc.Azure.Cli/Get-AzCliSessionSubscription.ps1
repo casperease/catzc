@@ -6,7 +6,7 @@
     (Get-CurrentAzSubscription — in a pipeline, exactly what the service connection logged into), finds
     the azure.yml subscription with that GUID, and returns the declared identity. Read-only — it never
     logs in or switches context (verify is not connect,
-    [ADR-AZ-SESSION](/docs/adr/automation/az-session-verification.md));
+    [ADR-AZ-SESSION](/docs/adr/azure/az-session-verification.md));
     config defines correct, so a session pointed at a subscription azure.yml does not declare is an
     error, not a fallback.
 .OUTPUTS

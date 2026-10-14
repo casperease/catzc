@@ -43,7 +43,7 @@
     relative links resolve. Defaults to the loaded repository root.
 .PARAMETER DryRun
     Return the changes without writing the file. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 .OUTPUTS
     [Catzc.Base.Docs.AdrCitationChange] One per rewritten (or Unhandled) reference, in file order.
 .EXAMPLE

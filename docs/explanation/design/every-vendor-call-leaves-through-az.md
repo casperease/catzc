@@ -14,7 +14,7 @@ Every vendor call leaves cats through the az CLI, the one exit to Azure.
 7  Azure                    the vendor substrate, today the only one
 8  the single exit          the only edge that reaches Azure leaves from az
 
-Supports ADR-DSGN-THINPLAT#1, #2 and #3, and ADR-AUTO-AZCLI#1, #2 and #3 (architecture lens).
+Supports ADR-DSGN-THINPLAT#1, #2 and #3, and ADR-AZ-CLI#1, #2 and #3 (architecture lens).
 ```
 
 Cats is a thin platform over Azure: it standardizes how the vendor is used and leaves the work to the vendor's own tools. On the Bicep
@@ -49,18 +49,18 @@ The diagram is described element by element in
 - Thin comes from delegation: Bicep for templating and the az CLI for control-plane actions, never a clone of either (ADR-DSGN-THINPLAT#2).
 - The `Verb-Noun` functions and their configuration are the platform's API, so the modules behind them can be re-wired without touching a
   consumer (ADR-DSGN-THINPLAT#3).
-- az is the default for every Azure operation, called through `Invoke-Executable` (ADR-AUTO-AZCLI#1); a function that calls az asserts it
-  with `Assert-Tool 'az_cli'` first (ADR-AUTO-AZCLI#2); and automation code never imports `Az.*` (ADR-AUTO-AZCLI#3).
+- az is the default for every Azure operation, called through `Invoke-Executable` (ADR-AZ-CLI#1); a function that calls az asserts it with
+  `Assert-Tool 'az_cli'` first (ADR-AZ-CLI#2); and automation code never imports `Az.*` (ADR-AZ-CLI#3).
 
 ## Where the code and the ADR differ
 
-`Get-AdoAuthorizationHeader` in `Catzc.Azure.DevOps` calls az directly and never asserts `Assert-Tool 'az_cli'`, which ADR-AUTO-AZCLI#2 asks
-of every function that calls az. It still leaves through az, so the finding holds.
+`Get-AdoAuthorizationHeader` in `Catzc.Azure.DevOps` calls az directly and never asserts `Assert-Tool 'az_cli'`, which ADR-AZ-CLI#2 asks of
+every function that calls az. It still leaves through az, so the finding holds.
 
 ## See also
 
 - [Thin platforms](../../adr/design/thin-platforms.md) — the decision this article explains.
-- [Prefer Az CLI over Az PowerShell modules](../../adr/automation/powershell/prefer-az-cli.md) — the az-first rules.
+- [Prefer Az CLI over Az PowerShell modules](../../adr/azure/prefer-az-cli.md) — the az-first rules.
 - The other lenses on the same platform: [meta](bind-to-one-cli-delegate-the-rest.md), [implementation](deploy-bicep-delegates-to-az.md),
   [operations](same-deploy-bicep-on-both-sides.md) and [governance](what-keeps-the-platform-thin.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

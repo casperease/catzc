@@ -18,7 +18,7 @@ Describe 'WorkerParentWatch' -Tag 'logic' {
     Context 'starting a watch' -Tag 'L0' {
         BeforeAll {
             # Process-scope only, snapshot and restore
-            # ([ADR-AUTO-PSENV#4](/docs/adr/automation/powershell/environment-variable-mechanics.md#rule-adr-auto-psenv4)): under the harness these hold the real
+            # ([ADR-PWSH-ENV#4](/docs/adr/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env4)): under the harness these hold the real
             # parent, and only the absent/malformed cases run here — a watch that starts in THIS process would
             # watch whatever the variables name.
             $script:savedPid = $env:CATZC_TEST_PARENT_PID

@@ -8,7 +8,7 @@
     from a background ThreadJob that streams to this host (-StreamingHost).
 
     The dots go through the writer chokepoint like every other console
-    write ([ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1)):
+    write ([ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)):
     the job imports the loaded Catzc.Base.Writers
     module and writes Write-Message '.' -NoHeader -NoNewline — an inline
     information-stream record, so the scriptblock's return value passes

@@ -27,7 +27,7 @@ function Measure-NoForEachObjectControlFlow {
 
     # Find all ForEach-Object / % command invocations
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
+    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
     $isForEachObjectCommand = {
         param($node)
         if ($node -isnot [System.Management.Automation.Language.CommandAst]) {
@@ -53,7 +53,7 @@ function Measure-NoForEachObjectControlFlow {
             # scriptblock — not inside a nested foreach/for/while/do/switch/function/
             # scriptblock, where they would be valid.
             # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-            # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
+            # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
             $isControlFlowStatement = {
                 param($node)
 

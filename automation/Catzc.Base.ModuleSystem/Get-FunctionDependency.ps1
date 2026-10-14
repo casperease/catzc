@@ -35,7 +35,7 @@ function Get-FunctionDependency {
     # read-only ([ADR-AUTO-CACHE#5](/docs/adr/automation/caching.md#rule-adr-auto-cache5)).
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:functionDependencyCache')) {
         # strict-clean probe of the lazy cache entry
-        # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        # ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
         $script:functionDependencyCache = @{}
     }
     if ($script:functionDependencyCache.ContainsKey($AutomationRoot)) {
@@ -43,7 +43,7 @@ function Get-FunctionDependency {
     }
 
     # Enumerate + parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/
-    # call provider overhead, [ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)),
+    # call provider overhead, [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)),
     # capturing each file's top-level functions. Both the definition map and
     # the call walk reuse these ASTs, so a file is read and parsed a single time (it was twice before).
     $isFunction = { param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] }

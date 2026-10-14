@@ -29,7 +29,7 @@
     Reset-GitCleanFxd
 #>
 # Uses -DryRun, not ShouldProcess/-WhatIf — see
-# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun2).
+# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2).
 function Reset-GitCleanFxd {
     [CmdletBinding()]
     param(

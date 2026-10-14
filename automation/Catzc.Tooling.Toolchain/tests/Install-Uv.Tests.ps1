@@ -93,7 +93,7 @@ Describe 'Install-UvStandalone' -Tag 'L1', 'logic' {
     BeforeEach {
         # The helper reads $env:HOME (the uv tool-bin anchor) and prepends to $env:PATH — snapshot both and
         # restore after each test
-        # ([ADR-AUTO-PSENV#4](/docs/adr/automation/powershell/environment-variable-mechanics.md#rule-adr-auto-psenv4)).
+        # ([ADR-PWSH-ENV#4](/docs/adr/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env4)).
         $script:savedHome = $env:HOME
         $script:savedPath = $env:PATH
         $env:HOME = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

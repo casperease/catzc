@@ -1,5 +1,5 @@
 # Get-GlossaryAnchorViolations is private, so it is exercised through the module (InModuleScope, per
-# [ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)). A fixture ADR index and
+# [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)). A fixture ADR index and
 # ADR live in $TestDrive, and the glossary is built in memory from the
 # real GlossaryEntry/GlossaryConcept/GlossaryOptions types, so each test breaks exactly one anchoring fact. Fixture
 # terms and rule codes are neutral (widget/gadget, tst —

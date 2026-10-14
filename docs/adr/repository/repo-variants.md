@@ -47,7 +47,7 @@ Config layer** (all of `AzureExt`, `Tooling`, and the upper `Base` modules) — 
 `have_customers` is **tri-state** — `false` (no customer deployments; only non-customer templates), `all` (every customer in `customer.yml`
 is enabled), or a **list of customer names** (only those). `Get-EnabledCustomers` normalizes it; the plural `Test-`/`Assert-HaveCustomers`
 answer the repo-wide question (with an optional `-Name` list), and the singular `Test-`/`Assert-HaveCustomer` cover one customer
-(`ADR-AUTO-VERBS:6` cardinality). The **enabled set lives in the variant**, not in `customer.yml`, precisely so these primitives can live in
+(`ADR-PWSH-VERBS#6` cardinality). The **enabled set lives in the variant**, not in `customer.yml`, precisely so these primitives can live in
 `Base` while `customer.yml` stays an Azure-layer catalogue (see [customer-model](../azure/azure-customer-model.md)).
 
 - [The three variants](#the-three-variants)
@@ -77,7 +77,7 @@ re-importing. What it takes is a place to put such values and a disciplined way 
 
 A variant is a repo-wide switch backed by `Catzc.Base.Variants/configs/variants.yml`, loaded and validated by `Get-Config -Config variants`
 (through its config type `VariantsConfig`), and cached for the session. "Fixed for the importer session" is not special machinery — it is
-the ordinary `Get-Config` cache boundary (`ADR-AUTO-CACHE:6`, `ADR-AUTO-PSCACHE:1`): the value is read once, every caller sees the same
+the ordinary `Get-Config` cache boundary (`ADR-AUTO-CACHE#6`, `ADR-PWSH-CACHE#1`): the value is read once, every caller sees the same
 answer, and re-running the importer is the only way to pick up an edit. The set of variants is open: `variants.yml` is a dictionary that
 grows a key (and a matching primitive) whenever a new repo-wide switch is genuinely needed.
 

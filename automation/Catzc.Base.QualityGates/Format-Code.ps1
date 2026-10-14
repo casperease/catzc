@@ -125,7 +125,7 @@ function Format-Code {
         $pending = @($split.Pending)
 
         # Announce before the engine runs: a whole-repository pass takes seconds and prints nothing until it ends
-        # ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console10)).
+        # ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)).
         $verb = $DryRun ? 'Checking' : 'Formatting'
         Write-Message "$verb $($pending.Count) $(@($engineGroup.Group | ForEach-Object name) -join ', ') file(s) with $engine ($($split.CachedCount) unchanged since their last check)..."
         $changed = @(Invoke-FormatterEngine -Engine $engine -File $pending -DryRun:$DryRun | ForEach-Object { $_ })

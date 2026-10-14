@@ -31,7 +31,7 @@ function Get-AutomationFunctions {
         Assert-SourceTree
     }
 
-    # [System.IO] enumeration ([ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18))
+    # [System.IO] enumeration ([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9))
     $moduleNames = Get-AutomationModules -AutomationRoot $AutomationRoot
 
     $modules = Get-Module | Where-Object { $_.Name -in $moduleNames }

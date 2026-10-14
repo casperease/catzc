@@ -45,7 +45,7 @@ commits.
 ## Related
 
 - ADR: [one-living-version](../../../adr/principles/one-living-version.md) — why the shim is a generated copy of this one body.
-- ADR: [use-ps1-not-psm1](../../../adr/automation/powershell/use-ps1-not-psm1.md) — the overlay is a sanctioned `.psm1`.
+- ADR: [use-ps1-not-psm1](../../../adr/pwsh/use-ps1-not-psm1.md) — the overlay is a sanctioned `.psm1`.
 - Reference: [Catzc.Base.ModuleSystem](../catzc-base-modulesystem.md) — `New-Importer` generates the `importer.ps1` shim from this block;
   [Bootstrap](catzc-internal-bootstrap.md), [Vendor](catzc-internal-vendor.md), and [Types](catzc-internal-types.md) — the shared modules it
   drives; the [internal area overview](index.md).

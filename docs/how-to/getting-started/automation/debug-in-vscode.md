@@ -86,7 +86,7 @@ A large cold "file-read I/O" line on an enterprise machine is antivirus scanning
 for the working copy and `automation/.vendor/`, not a code change (see
 [effective-in-enterprises](../../../adr/automation/effective-in-enterprises.md)). On Windows, if the importer warns that `$env:PSModulePath`
 contains a network share, run the one-time helper it points you at (`automation/Catzc.Base.Environment/assets/Set-LocalPSModulePath.ps1`;
-see [module-path-hygiene](../../../adr/automation/powershell/module-path-hygiene.md)).
+see [module-path-hygiene](../../../adr/pwsh/module-path-hygiene.md)).
 
 ## When something throws
 

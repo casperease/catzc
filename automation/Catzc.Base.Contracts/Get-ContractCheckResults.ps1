@@ -22,9 +22,9 @@
     The assets come from the pipeline (Get-Contract) or -Asset; with neither, every asset of every unit's draft, 0.0.0,
     is checked. A failed check is a result with Passed false, never an exception; only misuse throws (a null asset, a
     repository root that does not exist). This returns records rather than a boolean, so it is a Get- and not a Test-
-    ([ADR-AUTO-VERBS#2](/docs/adr/automation/powershell/respect-pwsh-verb-rules.md#rule-adr-auto-verbs2)), and the noun is
+    ([ADR-PWSH-VERBS#2](/docs/adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs2)), and the noun is
     plural for the collection it returns
-    ([ADR-AUTO-VERBS#6](/docs/adr/automation/powershell/respect-pwsh-verb-rules.md#rule-adr-auto-verbs6)).
+    ([ADR-PWSH-VERBS#6](/docs/adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs6)).
 .PARAMETER Asset
     The assets to check. Default: Get-Contract's assets, every unit's draft.
 .PARAMETER RepositoryRoot

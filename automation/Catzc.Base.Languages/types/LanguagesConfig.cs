@@ -275,7 +275,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             bool dotSegment = Array.Exists(adrFolder.Split('/'), s => s == "." || s == "..");
             if (!AdrFolder.IsMatch(adrFolder) || dotSegment)
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: invalid adr_folder '{1}' (a '/'-separated folder under docs/adr/, e.g. automation/powershell)", name, adrFolder));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: invalid adr_folder '{1}' (a '/'-separated folder under docs/adr/, e.g. pwsh)", name, adrFolder));
             }
         }
 

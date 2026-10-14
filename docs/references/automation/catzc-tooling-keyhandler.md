@@ -38,8 +38,7 @@ config types `KeyHandlerBindingsConfig` / `KeyHandlerSupportedConfig`
 platform — is a pure function, `Select-SupportedKeyHandler`, split out from the side-effecting import so it is deterministic and unit-tested
 on mocks rather than through a live PSReadLine session ([test-automation](../../adr/automation/test-automation.md) push-left). `Import-` is
 the thin walking skeleton over it: read the two configs, classify, apply the supported ones. `-DryRun` follows
-[prefer-dryrun-over-shouldprocess](../../adr/automation/powershell/prefer-dryrun-over-shouldprocess.md) — a capturable plan, no host
-narration.
+[dry-run](../../adr/automation/dry-run.md) — a capturable plan, no host narration.
 
 ## Division
 

@@ -3,7 +3,7 @@
 # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)), and the build-when-not-current
 # decision. No az: the fixture stands in for the compiled main.json, and Build-Bicep (the one az touch) is mocked.
 # Discovery binds to the fixture templates and the output to this file's $TestDrive through the seams
-# ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)).
+# ([ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)).
 Describe 'Get-BicepParameterModel' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates

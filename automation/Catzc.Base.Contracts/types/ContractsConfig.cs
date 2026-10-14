@@ -2,7 +2,7 @@
 // optional, and an omitted key, or a fresh checkout with no file, behaves exactly like the default, so no function
 // restates a value ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). A Get-Contract
 // parameter overrides the resolved value per call
-// ([ADR-AUTO-PSPARAM#4](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam4)).
+// ([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)).
 //   addressing  how one contract asset addresses many files
 //               ([ADR-REPO-CONTRACT#8](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract8)), one of AddressingModes;
 //               default full-path (an asset addresses the one real file at its own path). A mode in AddressingModes but

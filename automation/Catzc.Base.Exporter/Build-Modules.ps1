@@ -47,7 +47,7 @@
     Build-Modules Catzc.Base.Config -DryRun
 #>
 # Uses -DryRun, not ShouldProcess/-WhatIf — see
-# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md#rule-adr-auto-dryrun2).
+# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2).
 function Build-Modules {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '', Justification = 'Builds a set of modules; the plural is the contract name (ADR-AUTO-BUNDLE:1)')]
     [CmdletBinding()]
@@ -58,19 +58,17 @@ function Build-Modules {
 
         [string] $Bundle = "$((Get-Config -Config exporter).default_bundle)",
 
-        # The bundle's profile, unless -Module names the selection.
-        [string] $ModuleProfile = $(
-            if (-not $Module) {
-                "$((Get-Config -Config exporter).bundles[$Bundle].profile)"
-            }
-        ),
+        # The bundle's profile, unless -Module names the selection (resolved below, once the bundle is known).
+        [string] $ModuleProfile,
 
+        # The bundle's vendor policy unless given (resolved below).
         [ValidateSet('runtime', 'full')]
-        [string] $VendorPolicy = "$((Get-Config -Config exporter).bundles[$Bundle].vendor_policy)",
+        [string] $VendorPolicy,
 
         [string] $Version = 'auto',
 
-        [string] $Destination = (Join-Path (Get-OutputRoot) "automation/built/$Bundle"),
+        # <Get-OutputRoot>/automation/built/<bundle> unless given (resolved below).
+        [string] $Destination,
 
         [switch] $DryRun,
 
@@ -79,6 +77,16 @@ function Build-Modules {
 
     $config = Get-Config -Config exporter
     Assert-True ($config.bundles.ContainsKey($Bundle)) -ErrorText "Unknown bundle '$Bundle': exporter.yml declares $(@($config.bundles.Keys) -join ', ')."
+    $bundleConfig = $config.bundles[$Bundle]
+    if (-not $Module -and -not $ModuleProfile) {
+        $ModuleProfile = "$($bundleConfig.profile)"
+    }
+    if (-not $VendorPolicy) {
+        $VendorPolicy = "$($bundleConfig.vendor_policy)"
+    }
+    if (-not $Destination) {
+        $Destination = Join-Path (Get-OutputRoot) "automation/built/$Bundle"
+    }
     $resolvedVersion = Resolve-CatzcBuildVersion -Version $Version -Bundle $Bundle -Silent:$Silent
 
     $package = $config.package

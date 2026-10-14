@@ -9,8 +9,8 @@
 // source of the category set. A category with no 'scope' is GLOBAL — its terms are legitimate everywhere; a
 // category WITH a scope is ZONE-BOUND — its terms belong only under the scope globs, and cspell enforces
 // that (a fixture token in shipped config, or a live identity in a logic test, becomes a spelling failure).
-// See [ADR-AUTO-SPELL](/docs/adr/automation/powershell/spell-out-names.md)
-// ([ADR-AUTO-SPELL#5](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell5)-[ADR-AUTO-SPELL#8](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell8)).
+// See [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md)
+// ([ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5)-[ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8)).
 
 using System;
 using System.Collections;

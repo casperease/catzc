@@ -3,19 +3,19 @@ Set-StrictMode -Version Latest   # this module's scope: the rules run strict ins
 <#
 .SYNOPSIS
     Custom PSScriptAnalyzer rules for a function's parameter surface
-    ([ADR-AUTO-PSPARAM](/docs/adr/automation/powershell/parameter-design.md)).
+    ([ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md)).
 .DESCRIPTION
     Two checks over the functions in a module function file — a .ps1 directly under automation/<Module>/ (public) or
     automation/<Module>/private/ (private); tests, assets, dot-prefixed infrastructure, and files outside automation/
     are exempt by path, as for Measure-NoScriptRootAnchor:
 
     Measure-ParameterFillIn
-    ([ADR-AUTO-PSPARAM#4](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam4)):
+    ([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)):
     the body fills an empty parameter in — `if (-not $P) { $P = … }` or `$P = $P ?? …` — instead of declaring the default.
     The cases a declaration cannot express carry a SuppressMessageAttribute naming the reason.
 
     Measure-PrimaryArgumentPosition
-    ([ADR-AUTO-PSPARAM#2](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam2)):
+    ([ADR-PWSH-PARAM#2](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param2)):
     a public function with exactly one mandatory parameter, and no parameter at Position 0, leaves its primary argument
     named-only. Private helpers are exempt: they are called by name from inside their module.
 #>
@@ -32,7 +32,7 @@ function Test-ModuleFunctionFile {
 function Get-ParameterFunction {
     param([System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst)
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
+    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
     $isFunction = {
         param($node)
         $node -is [System.Management.Automation.Language.FunctionDefinitionAst] -and $null -ne $node.Body.ParamBlock
@@ -64,7 +64,7 @@ function Measure-ParameterFillIn {
             foreach ($statement in @($blocks | ForEach-Object { $_.Statements })) {
                 if ($patterns | Where-Object { $statement.Extent.Text -match $_ }) {
                     $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                            Message  = "Declare -$($parameter.Name.VariablePath.UserPath)'s default in the param block instead of filling it in the body (ADR-AUTO-PSPARAM#4); suppress with the reason when a declaration cannot express it."
+                            Message  = "Declare -$($parameter.Name.VariablePath.UserPath)'s default in the param block instead of filling it in the body (ADR-PWSH-PARAM#4); suppress with the reason when a declaration cannot express it."
                             Extent   = $statement.Extent
                             RuleName = 'Measure-ParameterFillIn'
                             Severity = 'Warning'
@@ -101,7 +101,7 @@ function Measure-PrimaryArgumentPosition {
         }
         $primary = $mandatory | Select-Object -First 1
         $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                Message  = "$($function.Name)'s one mandatory parameter -$($primary.Name.VariablePath.UserPath) is its primary argument: give it Position = 0 (ADR-AUTO-PSPARAM#2)."
+                Message  = "$($function.Name)'s one mandatory parameter -$($primary.Name.VariablePath.UserPath) is its primary argument: give it Position = 0 (ADR-PWSH-PARAM#2)."
                 Extent   = $primary.Extent
                 RuleName = 'Measure-PrimaryArgumentPosition'
                 Severity = 'Warning'

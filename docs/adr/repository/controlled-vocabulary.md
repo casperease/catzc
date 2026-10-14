@@ -68,9 +68,9 @@ general words **source**, **layer**, **facet**, and **scope** are such families 
 ## Context
 
 The repository already controls its words at the spelling level: `terminology.yml` approves every token, and `Test-Terminology` and the
-spell-checker keep that list honest ([spell-out-names](../automation/powershell/spell-out-names.md)). Spelling is not meaning. A correctly
-spelled word can still carry several meanings — "suite" names every test in the repository, a tier, a category, a run mode, a gate's own
-tests, and a pipeline payload, all in the same tree — and nothing in a spelling list can tell those apart.
+spell-checker keep that list honest ([spell-out-names](../automation/spell-out-names.md)). Spelling is not meaning. A correctly spelled word
+can still carry several meanings — "suite" names every test in the repository, a tier, a category, a run mode, a gate's own tests, and a
+pipeline payload, all in the same tree — and nothing in a spelling list can tell those apart.
 
 Meaning is fixed in prose today. [process-terms](../process/process-terms.md) is the model: one article that pins the flow vocabulary so the
 other process ADRs can reason with it. But prose alone leaves three things unchecked: which rule defines a term, whether other text drifts
@@ -217,8 +217,8 @@ with their replacements. A source's options default sensibly, and a source overr
 ## Related
 
 - [process-terms](../process/process-terms.md) (`ADR-PROC-LEANTERMS`) — the flow vocabulary; the model this ADR generalizes to every domain.
-- [spell-out-names](../automation/powershell/spell-out-names.md) (`ADR-AUTO-SPELL`) — the spelling-level registry (`terminology.yml`), which
-  controls tokens, not meanings.
+- [spell-out-names](../automation/spell-out-names.md) (`ADR-AUTO-SPELL`) — the spelling-level registry (`terminology.yml`), which controls
+  tokens, not meanings.
 - [domain-language-separation](domain-language-separation.md) (`ADR-REPO-LANG`) — which identities belong in which language zone; this ADR
   fixes what the words themselves mean.
 - [module-config-loading](../configuration/module-config-loading.md) (`ADR-CONF-LOADING`) — how a module's `configs/glossary.yml` is

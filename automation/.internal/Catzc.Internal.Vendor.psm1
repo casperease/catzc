@@ -112,9 +112,9 @@ function Import-VendorModules {
 
         # The load, the system copy it replaced, and the PSModulePath entries it dropped are one state change of
         # the session, announced on one line
-        # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)) on
+        # ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)) on
         # the importer's verbose record
-        # ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)).
+        # ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)).
         if ($existing) {
             $line += "; replaced $($existing.Name) $($existing.Version) from '$($existing.ModuleBase)'"
         }

@@ -7,12 +7,12 @@
     writes them as UNCATEGORIZED STUBS to a triage queue under out/ (terminology-triage.yml). Nothing here is
     accepted vocabulary: a flagged token joins the dictionary only when a human moves it into the terminology
     registry (configs/terminology.yml) with a real meaning and category, or spells the token out in the code
-    ([ADR-AUTO-SPELL#7](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell7)). The queue is a to-do
+    ([ADR-AUTO-SPELL#7](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell7)). The queue is a to-do
     list, not a dictionary — cspell
     never reads it, so a token sitting in the queue is still flagged until promoted. It changes no repository file,
     so it is an export, not a formatter. The accepted-word list is generated from the registry
     (Build-TerminologyDictionary) and is never appended to by a tool
-    ([ADR-AUTO-SPELL#5](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell5)).
+    ([ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5)).
 
     Tokens already in the registry are skipped (cspell accepts them, so they are not flagged in the first
     place); only genuinely new, unaccepted tokens reach the queue.
@@ -27,7 +27,7 @@
 .PARAMETER DryRun
     Report which tokens would be queued without writing the triage file. The returned list is the same in
     either mode; -DryRun simply skips the write. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 .OUTPUTS
     [string[]] The flagged tokens queued for triage (or, under -DryRun, that would be queued), ordinal-sorted.
 .EXAMPLE
@@ -134,8 +134,8 @@ function Export-SpellingTriage {
     if (-not $DryRun) {
         # Emit paste-ready stubs. The blank meaning/category are intentional: a stub pasted into
         # terminology.yml as-is fails to load and fails Test-Terminology, forcing a human to classify it
-        # ([ADR-AUTO-SPELL#6](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell6),
-        # [ADR-AUTO-SPELL#7](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell7)) before it becomes
+        # ([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6),
+        # [ADR-AUTO-SPELL#7](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell7)) before it becomes
         # accepted vocabulary.
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add('# Terminology triage queue — spell-checker-flagged tokens awaiting classification.')

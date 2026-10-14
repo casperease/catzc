@@ -1,5 +1,5 @@
 # The single ConsoleColor -> ANSI SGR map
-# ([ADR-AUTO-CONSOLE#7](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console7)): the escape
+# ([ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)): the escape
 # codes Write-InformationColored and
 # RainbowColor both resolve through, asserted in one place so the two can never disagree.
 Describe 'Ansi' -Tag 'L0', 'logic' {

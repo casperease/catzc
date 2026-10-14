@@ -11,7 +11,7 @@
       Show-Cats verbs           the approved verbs in use across the tree
 
     Output is presentation only (the information stream,
-    [ADR-AUTO-CONSOLE](/docs/adr/automation/powershell/console-output-matters.md));
+    [ADR-AUTO-CONSOLE](/docs/adr/automation/console-output-matters.md));
     the function returns nothing. Live bicep templates are out of scope here — use Get-BicepTemplates. The ADR
     reads are memoized for the session by the private getters
     ([ADR-AUTO-CACHE](/docs/adr/automation/caching.md)); the module and

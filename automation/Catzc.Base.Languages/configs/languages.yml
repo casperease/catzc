@@ -73,7 +73,7 @@ languages:
   powershell:
     extensions: [.ps1, .psm1, .psd1]
     formatter: psscriptanalyzer
-    adr_folder: automation/powershell
+    adr_folder: pwsh
   csharp:
     extensions: [.cs]
     formatter: dotnet-format

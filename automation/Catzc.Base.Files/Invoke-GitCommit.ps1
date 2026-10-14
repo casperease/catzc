@@ -18,7 +18,7 @@
     The commit message. Double quotes are rejected — the message is embedded in a quoted command string.
 .PARAMETER DryRun
     Return the planned command strings without touching git at all (not even the status check) — see
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 .OUTPUTS
     [string] The new commit's full SHA; the planned commands with -DryRun; nothing when there was
     nothing to commit.

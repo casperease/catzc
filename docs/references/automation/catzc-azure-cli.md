@@ -7,7 +7,7 @@ and verifying that the session points where configuration says it should. It is 
 What it deliberately does **not** own is the az _binary_: installing it lives in [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md)
 (`Install-AzCli`) and locking its version in [Catzc.Tooling.Core](catzc-tooling-core.md) (`Assert-Tool`, against the `tools.yml` lock that
 [Catzc.Base.Execution](catzc-base-execution.md) owns). This module owns everything you _do_ with `az` once it is installed. The
-verify-vs-connect split is the subject of [az-session-verification](../../adr/automation/az-session-verification.md).
+verify-vs-connect split is the subject of [az-session-verification](../../adr/azure/az-session-verification.md).
 
 ## Responsibilities
 

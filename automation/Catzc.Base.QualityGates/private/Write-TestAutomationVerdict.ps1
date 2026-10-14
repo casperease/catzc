@@ -5,7 +5,7 @@
 .DESCRIPTION
     Renders one end-of-run banner and nothing else: a Write-Header whose rule lines carry a per-character
     gradient (green-rainbow on a passing run, red-rainbow on a failing one,
-    [ADR-AUTO-CONSOLE#7](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console7)) while its
+    [ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)) while its
     titled line
     keeps the anchor's solid base colour, a default-coloured counts detail line (the banner rule carries the
     signal; the counts are data), and a Write-Footer closing the same gradient. It is the symmetric close to
@@ -55,7 +55,7 @@ function Write-TestAutomationVerdict {
 
     # Green-rainbow celebrates a pass, red-rainbow marks a fail — the gradient lives in this one end-of-run
     # verdict and nowhere else
-    # ([ADR-AUTO-CONSOLE#7](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console7)
+    # ([ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)
     # "sparingly"). The rule lines take the per-character walk; the
     # title keeps the anchor's solid base colour (the profile side-grades to Base on the titled line).
     $anchor = if ($Result -eq 'Passed') {

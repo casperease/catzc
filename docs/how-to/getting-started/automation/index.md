@@ -71,7 +71,7 @@ steps:
 
 The importer sets both `$ErrorActionPreference` and `$WarningPreference` to `Stop`. There are exactly two states: everything is fine
 (execution continues), or something is wrong (execution stops). No warnings, no "succeeded with warnings", no middle ground (see
-[error-handling](../../../adr/automation/powershell/error-handling.md)).
+[error-handling](../../../adr/pwsh/error-handling.md)).
 
 - **Interactive sessions** get a prompt hook that prints a full stack trace after any failed command.
 - **Scripts** add `trap { Write-Exception $_; break }` right after the importer line for the same effect.

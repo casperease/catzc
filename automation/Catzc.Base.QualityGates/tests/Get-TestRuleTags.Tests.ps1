@@ -34,7 +34,7 @@ Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#27' {
     }
 
     It 'ignores a malformed citation (registry colon form, missing number, wrong case)' {
-        $result = & $script:rules (New-FakeTest -InnerTags @('ADR-AUTO-ERROR:3', 'ADR-AUTO-ERROR', 'adr-error#3'))
+        $result = & $script:rules (New-FakeTest -InnerTags @('ADR-PWSH-ERROR:3', 'ADR-PWSH-ERROR', 'adr-error#3'))
         $result | Should -HaveCount 0
     }
 

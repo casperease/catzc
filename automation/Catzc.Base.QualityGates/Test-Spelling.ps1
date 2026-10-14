@@ -9,14 +9,14 @@
     cspell issue line ('<path>:<line>:<col> - Unknown word (<word>) …') is an issue, and the gate ends through
     Write-QualityGateReport, which writes out/test-spelling/, prints every issue, and throws once listing them all
     — so the misspelled words are named in the failure itself
-    ([ADR-AUTO-CONSOLE#6](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console6)).
+    ([ADR-AUTO-CONSOLE#6](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console6)).
     -PassThru returns the result object instead. A cspell tool error (exit > 1) or a scan that matched no files
     throws before the report: there is no verdict to report.
 
     cspell must be on PATH — install it once with Install-Cspell (or: npm install -g cspell).
-.PARAMETER Glob
-    Globs/paths to check. Defaults to the repository's known file types. cspell still applies the
-    ignorePaths from cspell.yml.
+.PARAMETER Path
+    Repository-relative paths or globs to check (cspell expands a glob). Defaults to the repository's known file types.
+    cspell still applies the ignorePaths from cspell.yml.
 .PARAMETER Exclude
     Globs the spelling QUALITY GATE skips, passed to cspell as --exclude. Defaults to the authored/generated trees
     that are out of scope to spell-check (out/, docs/notes, the machine-derived configuration/**
@@ -35,7 +35,7 @@
 function Test-Spelling {
     [CmdletBinding()]
     param(
-        [string[]] $Glob = @(
+        [string[]] $Path = @(
             '**/*.md'
             '**/*.ps1'
             '**/*.psm1'
@@ -84,8 +84,8 @@ function Test-Spelling {
         )
     }
 
-    $quotedGlobs = foreach ($g in $Glob) {
-        "'$g'"
+    $quotedPaths = foreach ($p in $Path) {
+        "'$p'"
     }
     # Content-scope exclusions (out/, docs/notes, generated config trees) — cspell ignorePaths rejects
     # negation globs, so the gate's content scope is expressed here as --exclude on the command line.
@@ -93,7 +93,7 @@ function Test-Spelling {
         "--exclude '$e'"
     }
     $command = (
-        "cspell lint $($quotedGlobs -join ' ') $($excludeArgs -join ' ') " +
+        "cspell lint $($quotedPaths -join ' ') $($excludeArgs -join ' ') " +
         "--config '$configPath' --no-progress --no-color --relative"
     )
 
@@ -106,10 +106,10 @@ function Test-Spelling {
     }
 
     # cspell prints a summary ("Files checked: N, Issues found: M in K file(s)"). cspell globs are relative to the
-    # working directory (the repo root here), so an empty match means a bad -Glob.
+    # working directory (the repo root here), so an empty match means a bad -Path.
     $checkedMatch = [regex]::Match($result.Full, 'Files checked:\s*(?<n>\d+)')
     if ($result.ExitCode -ne 0 -and $checkedMatch.Success -and [int]$checkedMatch.Groups['n'].Value -eq 0) {
-        throw "Test-Spelling matched no files for the given globs: $($Glob -join ', ')."
+        throw "Test-Spelling matched no files for the given paths: $($Path -join ', ')."
     }
 
     $issues = @($result.Full -split '\r?\n' | Where-Object { $_ -match ':\d+:\d+ - ' })

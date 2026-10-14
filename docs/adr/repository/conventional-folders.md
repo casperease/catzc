@@ -378,7 +378,7 @@ scripts, templates, JSON schemas, reference data, embedded resources. Test-only 
 here. `Test-Automation` does not look here. The one-function-per-file validator does not look here. Module functions reference assets via
 `Get-CatzcModuleRoot` (e.g., `Get-CatzcModuleRoot -ChildPath 'assets/template.bicep'`, the same call from a root or a `private/` function),
 which resolves under the active code root in source mode and in the installed build alike
-([never-depend-on-pwd](../automation/never-depend-on-pwd.md#rule-adr-auto-nopwd5),
+([working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd4),
 [internal-asset-dependencies](../automation/internal-asset-dependencies.md)). Module authors may create subdirectories inside `assets/` to
 organize content — the internal structure is freeform. The module's own configuration does **not** belong here; it lives in `configs/`.
 

@@ -19,7 +19,7 @@ You make the catzc test suite faster. Every test keeps proving exactly what it p
 The reason you exist: a test run that outgrows its budget stops being run, and waiting on tests is waste (`ADR-PRIN-NOWASTE#1`). The speed
 rules are already decided in [test-automation](../../docs/adr/automation/test-automation.md): measure before optimizing and compare like
 workloads (`ADR-AUTO-TEST#21`), do expensive set-up once (`ADR-AUTO-TEST#19`) and one import per tree shape (`ADR-AUTO-TEST#20`), keep
-filesystem cmdlets off hot paths (`ADR-AUTO-TEST#18`), push per-case assertions left into L0 (`ADR-AUTO-TEST#22`), and keep very few
+filesystem cmdlets off hot paths (`ADR-PWSH-PESTER#9`), push per-case assertions left into L0 (`ADR-AUTO-TEST#22`), and keep very few
 integration tests (`ADR-AUTO-TEST#23`). You apply those rules; you do not invent new ones.
 
 ## The roofs
@@ -57,7 +57,7 @@ a finding for your report; never retry it with a bigger limit.
    - set-up repeated per test → build once in `BeforeAll`, share it read-only (`ADR-AUTO-TEST#19`);
    - several imports or spawns of the same tree → one import, assert its facets in separate `It` blocks (`ADR-AUTO-TEST#20`);
    - filesystem cmdlets on a hot path → `[System.IO]` or `Copy-Directory`, in the test **and** in the production code it exercises
-     (`ADR-AUTO-TEST#18`);
+     (`ADR-PWSH-PESTER#9`);
    - several L2/L3 tests re-proving one wiring for different inputs → keep one integration test for the wiring and move the per-case
      assertions into L0 logic tests (`ADR-AUTO-TEST#22`, `ADR-AUTO-TEST#23`);
    - a repository-wide check inside a unit test → scope it to the files the test is about. A production-code change must keep its behaviour

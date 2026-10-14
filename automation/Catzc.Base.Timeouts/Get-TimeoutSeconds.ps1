@@ -8,7 +8,7 @@
     (the ones the Claude Code hook enforces), pwsh and zsh have one each. With -Command it is a function's own limit, most specific
     first: an exemption for its [TimeLimit] decoration's budget GUID, then its entry under `commands`, then the
     decoration for this environment, then the environment's pwsh limit
-    ([ADR-AUTO-FAILFAST#8](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast8)). Every consumer of the safeguard (Invoke-Executable,
+    ([ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)). Every consumer of the safeguard (Invoke-Executable,
     Invoke-WithTimeout, Assert-CompletesWithin, the hook's parity test) asks here, so tuning a limit is one edit to
     the config.
 .PARAMETER Executable

@@ -37,7 +37,7 @@ function Uninstall-Dotnet {
     )
 
     # Managed uninstall best-effort; with -Remove a failure is logged and the escalation proceeds, without
-    # -Remove it propagates ([ADR-AUTO-ERROR#6](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error6),
+    # -Remove it propagates ([ADR-AUTO-ONEJOB#5](/docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob5),
     # [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
     try {
         $config = Get-ToolConfig -Tool 'dotnet'

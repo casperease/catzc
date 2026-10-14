@@ -1,12 +1,12 @@
 // A "<base>-rainbow" colour profile
-// ([ADR-AUTO-CONSOLE#7](/docs/adr/automation/powershell/console-output-matters.md#rule-adr-auto-console7)): a header/footer rule rendered
+// ([ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)): a header/footer rule rendered
 // as a gradient anchored on
 // a base [System.ConsoleColor] — char 0 IS the base, and each subsequent char steps forward along a fixed
 // CHROMATIC ring of the console colours (dark/neutral colours never appear in the walk, so the gradient stays
 // legible on a dark ground even when the anchor is a dark colour). When only one colour is needed the profile
 // side-grades to its base via an implicit ConsoleColor conversion, so every single-colour sink (Write-Message,
 // any [ConsoleColor] parameter) keeps working unchanged. Green-rainbow is the passed-run celebration; the
-// profile is reusable for any anchor. See [ADR-AUTO-CONSOLE](/docs/adr/automation/powershell/console-output-matters.md).
+// profile is reusable for any anchor. See [ADR-AUTO-CONSOLE](/docs/adr/automation/console-output-matters.md).
 
 using System;
 using System.Text;

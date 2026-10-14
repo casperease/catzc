@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    The flat set of every declared ADR rule id across all ADRs (registry form, e.g. 'ADR-AUTO-ERROR:3').
+    The flat set of every declared ADR rule id across all ADRs (registry form, e.g. 'ADR-PWSH-ERROR:3').
 .DESCRIPTION
     Unions the rule ids of every ADR the index ([index](/docs/adr/index.md)) lists: for each index row
     (Get-CatsAdrIndex) it reads that ADR file (Get-CatsAdrRules) and collects the `### Rule <CODE>:<n>` ids,
@@ -21,7 +21,7 @@
     the index are resolved relative to the index's own folder, so a test can point this at a fixture index
     beside fixture ADR files; the cache keys on the path, so a fixture path and the real path never collide.
 .OUTPUTS
-    [string[]] the distinct rule ids in registry form (e.g. 'ADR-AUTO-ERROR:3'), ordinally sorted.
+    [string[]] the distinct rule ids in registry form (e.g. 'ADR-PWSH-ERROR:3'), ordinally sorted.
 #>
 function Get-CatsAdrRuleIds {
     [OutputType([string[]])]
@@ -32,7 +32,7 @@ function Get-CatsAdrRuleIds {
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrRuleIdsCache')) {
         # strict-clean probe of the lazy cache entry
-        # ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4))
+        # ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
         $script:catsAdrRuleIdsCache = @{}
     }
     if ($script:catsAdrRuleIdsCache.ContainsKey($IndexPath)) {

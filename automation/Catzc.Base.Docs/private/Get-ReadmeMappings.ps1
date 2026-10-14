@@ -55,7 +55,7 @@ function Get-ReadmeMappings {
 
         # [System.IO] (sorted) rather than Get-ChildItem — the cmdlet carries ~20ms of per-call provider
         # overhead the raw .NET enumeration avoids
-        # ([ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)). '*' excludes dot-prefixed
+        # ([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)). '*' excludes dot-prefixed
         # infrastructure folders.
         foreach ($dir in ([System.IO.Directory]::EnumerateDirectories($prefixPath) | Sort-Object)) {
             $leaf = [System.IO.Path]::GetFileName($dir)

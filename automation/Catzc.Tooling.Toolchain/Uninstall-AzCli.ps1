@@ -29,7 +29,7 @@ function Uninstall-AzCli {
     # exact case -Remove exists for) is logged and the escalation proceeds to Remove-AzCli; without -Remove it
     # propagates as a normal uninstall failure. Catching only under -Remove is the escalation's single stated
     # purpose, not general catch-and-continue
-    # ([ADR-AUTO-ERROR#6](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error6),
+    # ([ADR-AUTO-ONEJOB#5](/docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob5),
     # [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
     try {
         Uninstall-UvVenvTool -Tool 'az_cli'

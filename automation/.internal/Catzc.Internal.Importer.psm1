@@ -109,7 +109,7 @@ function Invoke-Importer {
     }
 
     # -Verbose shows the importer's own state-change record
-    # ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)). The
+    # ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)). The
     # dot-sourced shim binds it in the caller's scope, so for the import the session-wide preference is quieted,
     # restored in the finally below: otherwise every Import-Module would list each function it dot-sources and exports.
     $showStateChanges = $VerbosePreference -ne 'SilentlyContinue'
@@ -181,13 +181,13 @@ function Invoke-Importer {
         Update-FormatData -PrependPath $errorViewPath
 
         # Every lasting change to the caller's session is announced
-        # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)):
+        # ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)):
         # the preferences and the
         # error view, then the two roots and the internal modules that stay loaded — RepositoryRoot set by the
         # importer.ps1 shim and the modules by Import-InternalModule, which both delegate their announcement here.
         # This is the first point Write-ImporterMessage (Catzc.Internal.Bootstrap) is loaded. Like every announcement
         # of the importer's own load, they go on its verbose record
-        # ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)).
+        # ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)).
         Write-ImporterMessage ("Session: ErrorActionPreference=$global:ErrorActionPreference, WarningPreference=$global:WarningPreference, " +
             "InformationPreference=$global:InformationPreference, error view '$errorViewPath'") -StateChange
         if ($outputEncodingChanged) {
@@ -568,10 +568,10 @@ function Set-RedirectedOutputEncoding {
         stream UTF-8, so one captured log mixed two encodings and the box drawing came out mangled. An interactive
         console writes Unicode directly and is left as it is. Returns $true when it changed the encoding, so the
         caller announces it on the importer's load record
-        ([ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1)
+        ([ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
         names this as the one console property the toolset assigns).
     #>
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawConsoleWrite', '', Justification = 'The one sanctioned console-property assignment (ADR-AUTO-ANNOUNCE#1): UTF-8 output for a redirected session, announced by Invoke-Importer on its load record.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawConsoleWrite', '', Justification = 'The one sanctioned console-property assignment (ADR-PWSH-ANNOUNCE#1): UTF-8 output for a redirected session, announced by Invoke-Importer on its load record.')]
     [CmdletBinding()]
     [OutputType([bool])]
     param()
@@ -657,7 +657,7 @@ function Write-LoadTime {
     .DESCRIPTION
         Internal to the importer overlay, called only under -DiagnoseLoadTime, which starts $script:diagSw. The slot
         is probed strict-clean
-        ([ADR-AUTO-PSCACHE#4](/docs/adr/automation/powershell/script-scope-caching.md#rule-adr-auto-pscache4)), so a
+        ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)), so a
         call before the clock exists starts it instead of throwing on the unset variable.
     .PARAMETER Step
         The stage just finished.

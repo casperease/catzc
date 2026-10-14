@@ -17,7 +17,7 @@
     diff across every location. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
 .PARAMETER DryRun
     Report what would change without writing any file. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 .PARAMETER Silent
     The per-file status lines are verbose-level — -Silent suppresses them entirely, even under -Verbose
     (used by the importer tail).
@@ -53,7 +53,7 @@ function Build-GitKeep {
     # Walk the tree for .gitkeep files, skipping git's own store and the vendored modules (not ours to
     # manage). The output root's own .gitkeep is checked, but its contents — transient artifacts that may
     # carry fixture copies — are never descended into. [System.IO] over cmdlets on this hot path
-    # ([ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)); sorted for deterministic
+    # ([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)); sorted for deterministic
     # output.
     $outputRoot = [System.IO.Path]::Combine($repositoryRoot, 'out')
     $found = [System.Collections.Generic.List[string]]::new()

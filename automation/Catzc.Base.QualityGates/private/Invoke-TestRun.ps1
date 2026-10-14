@@ -39,7 +39,7 @@
     The remaining parameters are Test-Automation's own, passed through unchanged — see its help.
 #>
 function Invoke-TestRun {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = '-OutputFolder is forwarded empty by every entry point that got none, and its default is keyed by the entry point the body resolves; an explicit empty argument would override a declared default (ADR-AUTO-PSPARAM#4)')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = '-OutputFolder is forwarded empty by every entry point that got none, and its default is keyed by the entry point the body resolves; an explicit empty argument would override a declared default (ADR-PWSH-PARAM#4)')]
     [CmdletBinding()]
     param(
         [ValidateSet('Test-Automation', 'Test-CatzcBuild')]
@@ -227,7 +227,7 @@ function Invoke-TestRun {
                 'Every module in scope is protected — nothing to run.'
             }
             Write-Message $nothingToRun -ForegroundColor Yellow
-            [pscustomobject]@{ Rows = @(); FailedShardLabels = @(); DurationSeconds = 0.0; Shards = @(); WorkerSummaries = @(); Location = $null }
+            [pscustomobject]@{ Rows = @(); Files = @(); FailedShardLabels = @(); DurationSeconds = 0.0; Shards = @(); WorkerSummaries = @(); Location = $null }
         }
         else {
             Invoke-TestAutomationWorkers -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
@@ -292,6 +292,8 @@ function Invoke-TestRun {
             -FailedCount $failedCount -FailedShardLabels $failedShardLabels -TimingFailure:$timingFailure `
             -PassedCount $passedCount -SkippedCount $skippedCount -DurationSeconds $workerRun.DurationSeconds
 
+        # Every failed test's and failed file's message, right before the verdict (nothing on a green run).
+        Write-TestRunFailures -Rows $rows -Files @($workerRun.Files)
         # The closing bracket prints on every exit path — pass, fail, and -PassThru alike — so a run is always
         # visually closed. Console UX is orthogonal to the -PassThru data return (banner on the information
         # stream, object on the output stream), and orthogonal to the throw that still fires last on a fail.

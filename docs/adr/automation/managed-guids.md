@@ -38,7 +38,7 @@ the registry, not to generate identity at runtime.
 
 The registry holds only live entries, and the gate enforces both directions: a GUID found in tracked text but absent from the registry fails
 the test run, and a registry entry no tracked file references is dead vocabulary and fails too — the same liveness discipline as the
-terminology registry ([spell-out-names](powershell/spell-out-names.md#rule-adr-auto-spell8)).
+terminology registry ([spell-out-names](spell-out-names.md#rule-adr-auto-spell8)).
 
 - [The gate](#the-gate)
 
@@ -67,8 +67,8 @@ to prove tooling loads and content validates. Unmanaged, they are opaque: a read
 production identity from an arbitrary token, or which fixture a value belongs to. And nothing stops a new, unexplained GUID from entering
 the tree.
 
-The repair is the registry pattern the repository already applies to vocabulary ([spell-out-names](powershell/spell-out-names.md)): one
-authored source of truth, deliberate reviewed entries, a liveness rule, and a gate that enforces membership both ways.
+The repair is the registry pattern the repository already applies to vocabulary ([spell-out-names](spell-out-names.md)): one authored source
+of truth, deliberate reviewed entries, a liveness rule, and a gate that enforces membership both ways.
 
 ### The registry
 

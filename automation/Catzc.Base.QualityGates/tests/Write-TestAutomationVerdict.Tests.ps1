@@ -13,7 +13,7 @@ Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-AUTO-CONSOLE#7' 
         }
 
         # The presenter is a private (module-scoped) function, so it is invoked through InModuleScope
-        # ([ADR-AUTO-PESTER#4](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester4)). Returns the
+        # ([ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)). Returns the
         # RAW banner (ANSI intact) so a caller can assert on colour or strip for text.
         function Get-VerdictRaw {
             param($Result, $Summary, $PassedCount = 0, $FailedCount = 0, $SkippedCount = 0, $DurationSeconds = 0, $ReportPath = '')

@@ -9,7 +9,7 @@ AfterAll {
     Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue
 }
 
-Describe 'Write-LoadTime' -Tag 'L0', 'logic', 'ADR-AUTO-PSCACHE#4' {
+Describe 'Write-LoadTime' -Tag 'L0', 'logic', 'ADR-PWSH-CACHE#4' {
     BeforeEach {
         Mock Write-ImporterMessage { } -ModuleName Catzc.Internal.Importer
         InModuleScope Catzc.Internal.Importer { $script:diagSw = $null }

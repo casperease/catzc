@@ -100,7 +100,7 @@ function Build-Bicep {
         Write-Message "Importing per-template PrePost module: $($templateDescriptor.prepost_module)"
         $prepostModule = Import-Module $templateDescriptor.prepost_module -Scope Local -Force -PassThru
         # The template's hooks run strict like every catzc module, whoever wrote them
-        # ([ADR-AUTO-ERROR#8](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error8)).
+        # ([ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)).
         . $prepostModule { Set-StrictMode -Version Latest }
         if ($prepostModule.ExportedCommands.ContainsKey('Invoke-BicepPrepareParameterSet')) {
             $prepareHook = $prepostModule.ExportedCommands['Invoke-BicepPrepareParameterSet']
@@ -137,7 +137,7 @@ function Build-Bicep {
         # The build invocation for this slot — the arguments Build-Bicep is acting on. Hooks read what
         # they need from it (e.g. $BuildInvocation.Customer) rather than via raw params, so adding a
         # dimension never changes the hook signature.
-        # See [ADR-AUTO-PREPOST](/docs/adr/automation/powershell/prepost-extension-modules.md).
+        # See [ADR-PWSH-PREPOST](/docs/adr/pwsh/prepost-extension-modules.md).
         $buildInvocation = [ordered]@{
             Template     = $Template
             Environment  = $environment

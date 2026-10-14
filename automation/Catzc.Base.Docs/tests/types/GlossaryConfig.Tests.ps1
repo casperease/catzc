@@ -115,7 +115,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $body.domain = 'Automation'
         { & $script:single $body } | Should -Throw "*domain 'Automation'*"
 
-        foreach ($citation in 'ADR-AUTO-TEST:30', 'ADR-AUTO-TEST#0', 'ADR-AUTO#3', 'adr-auto-test#3') {
+        foreach ($citation in 'ADR-COG-GADGET:30', 'ADR-COG-GADGET#0', 'ADR-COG#3', 'adr-cog-gadget#3') {
             $body = & $script:concept
             $body.defined_by = $citation
             { & $script:single $body } | Should -Throw '*must be a rule citation*' -Because "'$citation' is not the '#' citation form"

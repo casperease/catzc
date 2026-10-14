@@ -5,7 +5,7 @@
 .DESCRIPTION
     Reads the approved-vocabulary registry (configs/terminology.yml, via Get-Config -Config terminology)
     and writes one plain cspell word list per category
-    ([ADR-AUTO-SPELL#6](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell6)) to the repository
+    ([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)) to the repository
     root's .cspell/<category>.txt
     — one file per category defined in the registry (see .cspell/README.md) — the lists cspell.yml references
     as separate dictionaries. Each carries a generated-file header comment (cspell treats
@@ -19,14 +19,14 @@
     resolves them at fixed paths without a committed second copy of the vocabulary
     ([ADR-REPO-OUTDIR#8](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8)).
 
-    See [ADR-AUTO-SPELL](/docs/adr/automation/powershell/spell-out-names.md)
-    ([ADR-AUTO-SPELL#5](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell5),
-    [ADR-AUTO-SPELL#6](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell6)) and
+    See [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md)
+    ([ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5),
+    [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)) and
     [ADR-REPO-OUTDIR#8](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8).
 .PARAMETER DryRun
     Report whether any generated list would change without writing the files. The returned content is the
     same in either mode; -DryRun simply skips the write. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/powershell/prefer-dryrun-over-shouldprocess.md).
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 .PARAMETER Silent
     The per-category status lines are verbose-level — shown only when this function is run with -Verbose.
     -Silent suppresses them entirely, even under -Verbose (used by the importer tail so a session with
@@ -58,7 +58,7 @@ function Build-TerminologyDictionary {
     $config = Get-Config -Config terminology
 
     # One dictionary per category
-    # ([ADR-AUTO-SPELL#6](/docs/adr/automation/powershell/spell-out-names.md#rule-adr-auto-spell6)): each category's
+    # ([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)): each category's
     # terms generate their own cspell word list, so
     # cspell.yml can reference — and scope — them independently. The category set is the registry's own
     # 'categories' map (the single source, validated by TerminologyConfig); every category's file is always

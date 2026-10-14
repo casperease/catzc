@@ -29,14 +29,14 @@ function Uninstall-Java {
     )
 
     # Managed uninstall best-effort; with -Remove a failure is logged and the escalation proceeds, without
-    # -Remove it propagates ([ADR-AUTO-ERROR#6](/docs/adr/automation/powershell/error-handling.md#rule-adr-auto-error6),
+    # -Remove it propagates ([ADR-AUTO-ONEJOB#5](/docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob5),
     # [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
     try {
         Uninstall-Tool -Tool 'java' -Version $Version
 
         # Clean up JAVA_HOME. Each removal is announced where it happens, and only when there was something to
         # remove
-        # ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)).
+        # ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)).
         if ($env:JAVA_HOME) {
             $env:JAVA_HOME = $null
             Write-Message 'Session: removed JAVA_HOME'

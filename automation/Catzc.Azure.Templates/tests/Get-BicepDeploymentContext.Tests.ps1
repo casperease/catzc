@@ -16,7 +16,7 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
         } -ModuleName Catzc.Azure.Templates
 
         # Mock Build-Bicep to materialize stub artifacts without invoking az ([System.IO], not the file cmdlets:
-        # ~0.1ms vs ~20ms/call — [ADR-AUTO-TEST#18](/docs/adr/automation/test-automation.md#rule-adr-auto-test18)).
+        # ~0.1ms vs ~20ms/call — [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)).
         Mock Build-Bicep {
             $outputFolder = (Get-BicepTemplate $Template).output_folder
             [System.IO.Directory]::CreateDirectory($outputFolder) | Out-Null
@@ -28,7 +28,7 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
 
         # The deploy target is the az session's subscription — the whole-boundary session mock stands in
         # for the service connection / az account set
-        # ([ADR-AUTO-PESTER#3](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester3)).
+        # ([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3)).
         Mock Get-AzCliSessionSubscription {
             [ordered]@{ name = 'core_lower'; id = '50a0ed00-de00-50b0-0000-000000000000'; customer = ''
                 tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }

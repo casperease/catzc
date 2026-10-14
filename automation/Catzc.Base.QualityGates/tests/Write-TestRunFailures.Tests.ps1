@@ -20,7 +20,7 @@ Describe 'Write-TestRunFailures' -Tag 'L0', 'logic' {
     It 'writes each failed test with its whole message, and nothing for passed or skipped tests' {
         $rows = @(
             [pscustomobject]@{ Result = 'Passed'; ExpandedPath = 'Widget.spins'; ErrorMessage = $null }
-            [pscustomobject]@{ Result = 'Failed'; ExpandedPath = 'Widget.fits the gadget'; ErrorMessage = "Expected 2, but got 1.`nbecause the gadget is wide" }
+            [pscustomobject]@{ Result = 'Failed'; ExpandedPath = 'Widget.fits the gadget'; ErrorMessage = ('Expected 2, but got 1.', 'because the gadget is wide') -join "`n" }
             [pscustomobject]@{ Result = 'Skipped'; ExpandedPath = 'Widget.needs a gizmo'; ErrorMessage = $null }
         )
         & $script:write $rows @()

@@ -7,7 +7,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .DESCRIPTION
     Every lasting change a function makes to the state of the console session is announced on the information
     stream, through the writer chokepoint
-    ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2)). This
+    ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)). This
     rule flags a state change in a function (or
     in a script's top-level code) that never calls a writer. The changes it recognises:
 
@@ -27,14 +27,14 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Write-ImporterMessage (the bootstrap's chokepoint, used before Write-Message is loaded) — on the information
     stream, so a Write-Message with -Verbose bound does not count. The one exception is Write-ImporterMessage
     -StateChange, which counts: it is the importer's own load record, announced on the verbose stream
-    ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)). A writer
+    ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)). A writer
     announces a change only when it runs
     whenever the change runs: it must sit in the change's own statement block or an enclosing one, so a writer
     inside an unrelated branch (if ($diagnose) { Write-Message ... }) does not cover a change outside it. The
     rule checks that the change is announced; what the line says is a review concern (it must name what changed).
 
     These are not changes of this session and pass
-    ([ADR-AUTO-ANNOUNCE#3](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce3)):
+    ([ADR-AUTO-CONSOLE#12](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console12)):
 
       - a change the function undoes before it returns: when a finally block in the same function changes the
         same target (the same env var or global, any Remove-Module for an Import-Module, Pop-Location for
@@ -51,8 +51,9 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     suppressed for its function with SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification =
     ...), the justification naming where the announcement happens.
 
-    See ADR: [ADR-AUTO-ANNOUNCE](/docs/adr/automation/powershell/announce-state-changes.md)
-    ([ADR-AUTO-ANNOUNCE#2](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce2), :3).
+    See ADR: [ADR-AUTO-CONSOLE](/docs/adr/automation/console-output-matters.md)
+    ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11),
+    [ADR-AUTO-CONSOLE#12](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console12)).
 #>
 
 # Whether a command binds the named parameter.
@@ -299,7 +300,7 @@ function Measure-AnnounceStateChange {
     }
 
     # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-AUTO-PSFORMAT#6](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat6)).
+    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
     $isCandidate = {
         param($node)
         $node -is [System.Management.Automation.Language.AssignmentStatementAst] -or
@@ -365,7 +366,7 @@ function Measure-AnnounceStateChange {
                 continue
             }
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "This changes the session state ($($change.Target)), but $where does not announce it where it happens. Announce every lasting state change with Write-Message, naming what changed (ADR-AUTO-ANNOUNCE:2) — or restore it in a finally block if it is temporary (ADR-AUTO-ANNOUNCE:3)."
+                    Message  = "This changes the session state ($($change.Target)), but $where does not announce it where it happens. Announce every lasting state change with Write-Message, naming what changed (ADR-AUTO-CONSOLE:11) — or restore it in a finally block if it is temporary (ADR-AUTO-CONSOLE:12)."
                     Extent   = $change.Node.Extent
                     RuleName = $ruleName
                     Severity = 'Warning'

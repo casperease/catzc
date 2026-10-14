@@ -38,7 +38,7 @@
         Convert-FirewallCsvToYaml -OutputFolder .\out\yaml
 #>
 function Convert-FirewallCsvToYaml {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'In Object mode -SourceName derives from the piped input, bound after defaults are evaluated (ADR-AUTO-PSPARAM#4)')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = 'In Object mode -SourceName derives from the piped input, bound after defaults are evaluated (ADR-PWSH-PARAM#4)')]
     [CmdletBinding(DefaultParameterSetName = 'Path')]
     param(
         [Parameter(Mandatory, ParameterSetName = 'Path')]
@@ -91,7 +91,7 @@ function Convert-FirewallCsvToYaml {
         }
 
         # A body fill-in on purpose: in Object mode $CsvPath comes from pipeline input, bound after defaults are
-        # evaluated ([ADR-AUTO-PSPARAM#4](/docs/adr/automation/powershell/parameter-design.md#rule-adr-auto-psparam4)).
+        # evaluated ([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)).
         if (-not $SourceName) {
             $SourceName = Split-Path -Path $CsvPath -Leaf
         }
