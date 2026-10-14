@@ -11,15 +11,15 @@ the authored source one file (the root `PSScriptAnalyzerSettings.psd1`). Same re
 deliberately does **not** own is the content itself — that lives in the authored sources and generators its registry names; this module is
 only the pairing and the materialisation.
 
-## Domains
+## Responsibilities
 
-| Domain   | Area     | Name                                                                   |
+| Responsibility   | Area     | Name                                                                   |
 | -------- | -------- | ---------------------------------------------------------------------- |
-| domain:1 | render   | [Managed-file materialisation](#domain1--managed-file-materialisation) |
-| domain:2 | registry | [Root-config registry](#domain2--root-config-registry)                 |
-| domain:3 | gates    | [Root-config quality gates](#domain3--root-config-quality-gates)       |
+| responsibility:1 | render   | [Managed-file materialisation](#responsibility1--managed-file-materialisation) |
+| responsibility:2 | registry | [Root-config registry](#responsibility2--root-config-registry)                 |
+| responsibility:3 | gates    | [Root-config quality gates](#responsibility3--root-config-quality-gates)       |
 
-### domain:1 — Managed-file materialisation
+### responsibility:1 — Managed-file materialisation
 
 Turning each opted-in registry entry into its root file. A copy entry obtains the content from its single source of truth — a `source` file
 read and prefixed with the `comment`-style generated-file header, or a `generator` function's rendered output (dispatched by name, so an
@@ -30,7 +30,7 @@ IS the authored source and there is nothing to compose or drift. Both forms are 
 every managed root file on each load at no steady-state cost — and the copy branch treats a target that is currently a link as stale, so a
 flipped-back entry always converts even when the composed bytes equal the source.
 
-### domain:2 — Root-config registry
+### responsibility:2 — Root-config registry
 
 Which root file is managed, from what, and how it relates to git. The registry is `rootconfig.yml`: per entry a `target`, exactly one of
 `source` or `generator`, the two booleans — `optIn` (is the file managed at all; **opt-out is the default**) and `committed` (gitignored
@@ -39,7 +39,7 @@ forbids a declared `comment` ([ADR-REPO-ROOTCFG#7](../../adr/repository/generate
 malformed entry can never produce a run. The registry is the single place the pairing is stated; the generator reads it through
 [Catzc.Base.Config](catzc-base-config.md) and never hard-codes a path.
 
-### domain:3 — Root-config quality gates
+### responsibility:3 — Root-config quality gates
 
 The quality gates ([ADR-AUTO-TEST#35](../../adr/automation/test-automation.md#rule-adr-auto-test35)) over the materialised result. One
 checks that the registry, `.gitignore`, git's tracked set, and the link mechanism agree for every opted-in entry
@@ -62,11 +62,11 @@ tree costs a few file reads and writes nothing.
 
 ## Division
 
-The module's public surface, sorted into the domains above.
+The module's public surface, sorted into the responsibilities above.
 
-| Domain                                  | Function                    |
+| Responsibility                                  | Function                    |
 | --------------------------------------- | --------------------------- |
-| domain:1 — Managed-file materialisation | `Build-RootConfig`          |
-| domain:2 — Root-config registry         | `rootconfig.yml`            |
-| domain:3 — Root-config quality gates    | `Test-RootConfigFiles`      |
+| responsibility:1 — Managed-file materialisation | `Build-RootConfig`          |
+| responsibility:2 — Root-config registry         | `rootconfig.yml`            |
+| responsibility:3 — Root-config quality gates    | `Test-RootConfigFiles`      |
 |                                         | `Test-RootAnalyzerSettings` |

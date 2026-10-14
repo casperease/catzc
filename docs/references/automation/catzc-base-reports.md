@@ -7,20 +7,20 @@ throw listing every issue, or a result object under `-PassThru` (see [test-autom
 quality-gate rule). A gate collects its issues and hands them here last, so no gate writes its own report or invents its own message. It
 deliberately does **not** decide what a gate checks — that stays with each gate's module.
 
-## Domains
+## Responsibilities
 
-| Domain   | Area     | Name                                                       |
+| Responsibility   | Area     | Name                                                       |
 | -------- | -------- | ---------------------------------------------------------- |
-| domain:1 | report   | [Quality-gate reporting](#domain1--quality-gate-reporting) |
-| domain:2 | settings | [Report settings](#domain2--report-settings)               |
+| responsibility:1 | report   | [Quality-gate reporting](#responsibility1--quality-gate-reporting) |
+| responsibility:2 | settings | [Report settings](#responsibility2--report-settings)               |
 
-### domain:1 — Quality-gate reporting
+### responsibility:1 — Quality-gate reporting
 
 Ending a quality gate the same way every time: a stamped run folder with a markdown report naming the gate, its facts, and every issue; a
 file beside the stamped folders naming the latest run; each issue and the count printed, then the report path; and one verdict — a throw
 that lists every issue (fail fast, aggregated), or the result object when the caller asks for it.
 
-### domain:2 — Report settings
+### responsibility:2 — Report settings
 
 Where reports land and how their files are named, from `configs/reports.yml`. Every setting has a sensible default — the report folder
 `test-<subject>` under the output root, the report `<subject>.md`, `latest.txt`, and a `yyyyMMdd-HHmmss` stamp — so the file overrides only
@@ -35,9 +35,9 @@ dependency cycle.
 
 ## Division
 
-Each function belongs to one domain.
+Each function belongs to one responsibility.
 
-| Domain                            | Function                  |
+| Responsibility                            | Function                  |
 | --------------------------------- | ------------------------- |
-| domain:1 — Quality-gate reporting | `Write-QualityGateReport` |
-| domain:2 — Report settings        | `reports.yml`             |
+| responsibility:1 — Quality-gate reporting | `Write-QualityGateReport` |
+| responsibility:2 — Report settings        | `reports.yml`             |
