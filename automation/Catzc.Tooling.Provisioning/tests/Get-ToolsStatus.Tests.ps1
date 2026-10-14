@@ -4,7 +4,7 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
     # the scope and winget are mocked. Fixture tokens are neutral
     # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
     BeforeAll {
-        $script:tools = [Catzc.Tooling.Core.ToolsConfig]::new([ordered]@{
+        $script:tools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{
                 widget = @{
                     version = '5'; command = 'widget'; system_provided = $true; version_command = 'widget --version'
                     version_pattern = 'version (?<ver>[\d.]+)'; unix_probes = @('/opt/widget'); windows_probes = @('C:\widget.exe')
@@ -38,7 +38,7 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
     }
 
     It 'reports an MSYS2-package tool under the msys2 manager on Windows and the system elsewhere, judged at its probe path' {
-        $msys2Tools = [Catzc.Tooling.Core.ToolsConfig]::new([ordered]@{
+        $msys2Tools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{
                 gadget = @{
                     version = '5'; command = 'gadget'; version_command = 'gadget --version'; version_pattern = 'gadget (?<ver>[\d.]+)'
                     msys2_url = 'https://example.com/gadget-5.0-1-x86_64.pkg.tar.zst'; msys2_sha256 = 'b' * 64; windows_install_dir = 'Widget'

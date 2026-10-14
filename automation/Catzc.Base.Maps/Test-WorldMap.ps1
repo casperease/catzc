@@ -15,9 +15,9 @@
       [ADR-REPO-OUTDIR](/docs/adr/repository/dedicated-output-directory.md)). The map places the files of any other
       root folder no track names among the root files: one issue per such folder, with its file count.
     - Printed labels. Every label the world map prints names a defined term
-      ([ADR-DSGN-TRACK#13](/docs/adr/design/tracks.md#rule-adr-dsgn-track13)): each label of
-      maps.yml (Get-Config -Config maps) names a glossary term (Get-Glossary) in its head, the text before its first
-      ':' (Resolve-WorldMapLabelTerm). A row prints a track's name and a column a file language's name, so the
+      ([ADR-DSGN-TRACK#13](/docs/adr/design/tracks.md#rule-adr-dsgn-track13)): each world-map label of
+      maps.yml (Get-Config -Config maps; the value_chain_ labels are Test-ValueChainMap's) names a glossary term
+      (Get-Glossary) in its head, the text before its first ':' (Resolve-MapLabelTerm). A row prints a track's name and a column a file language's name, so the
       names resolve through their axis's term: the glossary holds 'track'
       ([ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)) and 'file language'
       ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)). The two catch-all lines print their
@@ -90,11 +90,15 @@ function Test-WorldMap {
             $entry.Concept.term
         })
     $labels = (Get-Config -Config maps).labels
-    $labelNames = [string[]] @($labels.PSObject.Properties | ForEach-Object Name)
+    $labelNames = [string[]] @(foreach ($property in $labels.PSObject.Properties) {
+            if (-not $property.Name.StartsWith([Catzc.Base.Maps.MapsLabels]::ValueChainPrefix, [System.StringComparison]::Ordinal)) {
+                $property.Name
+            }
+        })
     [System.Array]::Sort($labelNames, [System.StringComparer]::Ordinal)
     foreach ($name in $labelNames) {
         $text = [string] $labels.$name
-        if ($null -eq (Resolve-WorldMapLabelTerm -Label $text -Term $terms)) {
+        if ($null -eq (Resolve-MapLabelTerm -Label $text -Term $terms)) {
             $issues.Add("unregistered label: maps.yml labels.$name '$text' names no glossary term in its head (ADR-DSGN-TRACK#13)")
         }
     }

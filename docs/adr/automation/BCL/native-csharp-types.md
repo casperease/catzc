@@ -26,9 +26,9 @@ impossible.
 ### Rule ADR-AUTO-TYPES:3
 
 Every module's `types/*.cs` compile together into **one** assembly for the whole repository, so a type in any module can reference a type in
-any other — only cross-_namespace_ references inside a single assembly, never cross-_assembly_. The Roslyn-assigned (random) assembly name
-is irrelevant because the assembly is a leaf in the reference graph: nothing references it by assembly identity, and PowerShell resolves
-`[Namespace.Type]` by FQN. `Add-Type` stays the compiler.
+any other — only cross-_namespace_ references inside a single assembly, never cross-_assembly_. The compiler-assigned assembly name is
+irrelevant because the assembly is a leaf in the reference graph: nothing references it by assembly identity, and every caller resolves a
+type by its fully-qualified name. One runtime compiler builds it, the host's own, with no separate build step.
 
 - [One assembly](#one-assembly)
 
@@ -41,14 +41,6 @@ extracts the C# edges and the `Test-ModuleDependency` quality gate fails its L1 
 
 - [The `DictionaryRecord` base](#the-dictionaryrecord-base)
 - [How this is enforced](#how-this-is-enforced)
-
-### Rule ADR-AUTO-TYPES:5
-
-Host-guaranteed assemblies only — types reference the BCL plus `System.Management.Automation`, and nothing else. Both are in `Add-Type`'s
-default reference set, and both are loaded in every process that can load the compiled assembly, so a `using` namespace is the whole
-binding. No external packages, no NuGet.
-
-- [The reference set](#the-reference-set)
 
 ### Rule ADR-AUTO-TYPES:6
 
@@ -64,13 +56,13 @@ session ever locks `automation/.compiled`.
 
 ### Rule ADR-AUTO-TYPES:7
 
-Handle changed-after-load by context — a loaded assembly cannot be swapped in the AppDomain. In a **pipeline** the loader throws (CI must
-never run on stale types). On a **devbox** a changed or removed type degrades gracefully — the loader warns in orange ("Using old cached C#
-types … restart PowerShell") and keeps the already-loaded types this session, so a dev editing a type mid-session is never blocked. It
-returns without recording the new hash, so the warning repeats on every re-import until you restart. A type the AppDomain lacks (added since
-load, or not loaded on behalf of another root) throws on a devbox too: the old types cannot serve code that uses it, so continuing would
-only move the failure to a confusing cast error far from the cause. The pipeline check is inlined (`$env:TF_BUILD`/`$env:GITHUB_ACTIONS`)
-because this pre-pass runs before `Catzc.Base.Repository` (Test-IsRunningInPipeline) loads.
+Handle changed-after-load by context — a loaded assembly cannot be swapped in a running process. In a **pipeline** the loader throws (CI
+must never run on stale types). On a **devbox** a changed or removed type degrades gracefully — the loader warns in orange that it is using
+the old cached types until the session restarts, and keeps the already-loaded types this session, so a dev editing a type mid-session is
+never blocked. It returns without recording the new hash, so the warning repeats on every re-import until you restart. A type the loaded
+assembly lacks (added since load, or not loaded on behalf of another root) throws on a devbox too: the old types cannot serve code that uses
+it, so continuing would only move the failure to a confusing cast error far from the cause. The pipeline check reads the CI variables
+(`TF_BUILD`, `GITHUB_ACTIONS`) directly, because this pre-pass runs before `Catzc.Base.Repository` (`Test-IsRunningInPipeline`) loads.
 
 - [The cache-state contract](#the-cache-state-contract)
 
@@ -84,23 +76,13 @@ YAML-interop rule scoped to config-mirroring types, not a repository-wide naming
 
 ### Rule ADR-AUTO-TYPES:9
 
-The platform's internal fixed model is authored as native C# types — not `[pscustomobject]` / `[ordered]@{}`. A first-class concept the
+The platform's internal fixed model is authored as native C# types — not loose dictionaries or ad-hoc objects. A first-class concept the
 platform's own logic **selects on, branches on, or pins as a parameter or return type at a call site** (for example `BaseModule` and its
 kinds, `CliResult`) is a C# type, so its shape is fixed, discoverable, and validated at construction. Loose dictionaries remain right for
 config-shaped data crossing a boundary (a parsed `.yml`, a splat) — but the moment the code acts on the shape as a first-class concept, it
 is a type.
 
 - [A C# model type](#a-c-model-type)
-
-### Rule ADR-AUTO-TYPES:10
-
-A type publishes a PowerShell type-accelerator by carrying `[Catzc.Base.Objects.PSTypeAlias("Name")]`; `Import-CSharpTypes` registers each
-after loading the assembly, so `[Name]` resolves to that type (`[Catzc.Module.Depm]::Puml`). Names carry a `Catzc.` prefix — a registration
-reclaims only our own accelerator — and the alias literal is authored in the source of the type it decorates, so a search for it lands on
-the type. This is registration, not compilation: `Add-Type` stays the sole compiler, and the decoration's cross-module edge is governed by
-the dependency graph (Rule ADR-AUTO-TYPES#4) like any other.
-
-- [Type-accelerator aliases](#type-accelerator-aliases)
 
 ### Rule ADR-AUTO-TYPES:11
 
@@ -115,7 +97,8 @@ deletion.
 
 ### Rule ADR-AUTO-TYPES:12
 
-The "source changed since loaded — restart PowerShell" guard is keyed by `ModulesRoot`. `Import-CSharpTypes` takes the tree as a parameter,
+The stale-types guard — the source changed since it was loaded, so restart — is keyed by `ModulesRoot`. `Import-CSharpTypes` takes the tree
+as a parameter,
 and one session may load more than one tree (the real `automation/` plus the test-fixture trees), so the per-session record of loaded hash
 and file snapshot is stored per resolved root. A load from one root therefore never makes a re-import of another root falsely report a
 change — without this, a test run (which loads fixture trees) would poison the next real import's guard. The thrown message names the
@@ -142,8 +125,8 @@ it.
 
 ### Rule ADR-AUTO-TYPES:14
 
-Every concrete type a pwsh caller can hold renders console-ready: it overrides `ToString()`, normally as the one line
-`public override string ToString() => this.ToConsoleString();`, so `"$x"`, `[string]$x`, and a table cell read `TypeName { A = 1, B = x }`
+Every concrete type a caller can hold renders console-ready: it overrides `ToString()`, normally as the one line
+`public override string ToString() => this.ToConsoleString();`, so its string form and a table cell read `TypeName { A = 1, B = x }`
 instead of the fully-qualified name. The rendering lives once, in `Catzc.Base.Objects.ConsoleText`, and `DictionaryRecord` carries the
 override for every record derived from it. A type names its identity properties with `[Catzc.Base.Objects.ConsoleDisplay(...)]`, which
 narrows both its text and its default display at the prompt. `Test-ShippedTypes` fails a type that keeps the inherited `ToString()`.
@@ -165,8 +148,8 @@ janitors (ADR-AUTO-TYPES#13), and no switch overrides it: an agent, a script, or
 
 ## Context
 
-Some logic is better expressed as a native .NET type than as PowerShell: a process runner with background reader threads
-(`Catzc.Base.Execution.CliRunner`), or a constrained, validated data record that replaces a loose `[pscustomobject]` / `[ordered]@{}`. The
+Some logic is better expressed as a native .NET type than as script code: a process runner with background reader threads
+(`Catzc.Base.Execution.CliRunner`), or a constrained, validated data record that replaces a loose dictionary. The
 platform autoloads such types from each module's `types/` folder (see [conventional-folders](../../repository/conventional-folders.md) for
 where `types/` sits) and commits the compiled assembly so a fresh checkout and CI load it without invoking Roslyn (see
 [caching](../caching.md#rule-adr-auto-cache8) for why committed prebuilds are the one sanctioned cross-session cache).
@@ -180,18 +163,17 @@ layering discipline is policed by the dependency checker rather than structurall
 
 `Why one assembly, not one per module`
 
-The blocker for cross-module references under a per-module design is `Add-Type`: it assigns a **random** assembly name (verified —
-`Add-Type -OutputAssembly` produces e.g. `khuvslfy.cez`, and a rebuild of a source that is unchanged produces a _different_ random name). A
-dependent assembly bakes that random name at compile time and dangles when the base is rebuilt under a new name. There is no `Add-Type` knob
-for a stable assembly name, and no NuGet to reach the Roslyn API cleanly.
+The blocker for cross-module references under a per-module design is the runtime compiler: it assigns a **random** assembly name, different
+on every rebuild of an unchanged source, and has no setting for a stable one. A dependent assembly bakes that random name at compile time
+and dangles when the base is rebuilt under a new name.
 
 One combined assembly dissolves the problem entirely rather than working around it:
 
 - **No cross-assembly references exist.** Every type is in one assembly; a base in `Catzc.Base.Objects` and a derived record in
   `Catzc.Azure.Templates` are different _namespaces_ in the _same_ assembly, which the compiler and CLR resolve unconditionally.
 - **The random name is harmless.** The combined assembly is a leaf in the assembly-reference graph — nothing references it by assembly
-  identity. PowerShell resolves `[Namespace.Type]` by fully-qualified name, so the Roslyn-assigned name is never consulted. `Add-Type`
-  therefore stays the compiler, with no `dotnet`/`csc` build step, no topological compile order, and no transitive references.
+  identity, and every caller resolves a type by its fully-qualified name, so the compiler-assigned name is never consulted. The host's own
+  compiler therefore stays the compiler, with no separate build step, no topological compile order, and no transitive references.
 
 The cost is that the compiler does not structurally forbid a layer inversion (a base-module type referencing a leaf-module type) — in one
 compilation unit that just compiles. That enforcement moves to the linter (see Rule ADR-AUTO-TYPES#4): `Get-CSharpTypeDependency` reports
@@ -201,29 +183,21 @@ the cross-module C# edges and the acyclic allow-list in `configs/dependencies.ym
 
 Every module's `types/*.cs` are compiled together into **one** assembly, `automation/.compiled/Catzc.Types.<combinedHash8>.dll`, autoloaded
 before any module's functions. Each file is named for the bare type it must produce and declares the file-scoped `namespace <module>;` of
-its folder; the loader compiles the sources **as authored** — `Add-Type -Path` over the files, one compilation unit each (a file-scoped
-namespace is illegal once several are concatenated into one unit), all landing in the single assembly — so the FQN is `<module>.<filename>`.
-Types may reference each other across modules (one assembly); the dependency graph, not the compiler, governs those edges.
+its folder; the loader compiles the sources **as authored**, one compilation unit per file, all landing in the single assembly — so the FQN
+is `<module>.<filename>`. Types may reference each other across modules (one assembly); the dependency graph, not the compiler, governs
+those edges.
 
 The mechanism is `Import-CSharpTypes` in `automation/.internal/Catzc.Internal.Bootstrap.psm1`, run once as a pre-pass by `Import-AllModules`
 before the module loop.
 
-### The reference set
+### The host binding
 
-`The reference set: host-guaranteed assemblies`
+`How the one host compiles, references, and names the types`
 
-A type may reference exactly what the host guarantees is present: the BCL and `System.Management.Automation` (SMA). The types compile and
-run exclusively inside a `pwsh` session's CLR — `Add-Type` is the only compiler, and its default reference set includes SMA alongside the
-shared framework. The compiled assembly is likewise only ever loaded by a `pwsh` process, where SMA is loaded by definition, so an SMA
-reference resolves in every process that can load the assembly at all. Using a PowerShell primitive from C# — `WildcardPattern`,
-`TypeAccelerators`, `PSObject` — therefore costs a `using` namespace and nothing more: no package, no assembly hint, no build step. That is
-what "host-guaranteed" means: the reference is satisfied by the same host that makes the type reachable in the first place.
-
-The boundary is packages, not the SMA line: `Add-Type` has no mechanism to add references beyond its default set, and there is no NuGet in
-this toolset. A type that wants `Microsoft.Extensions.*` or any other external package is asking for a dependency the host does not
-guarantee — that logic belongs in PowerShell calling a vendored tool, not in `types/`. The IDE mirror carries the SMA reference
-**compile-time-only** (never copied to output), so the editor analyzes the same reference set the runtime compiles against and the project
-build cannot change what `Add-Type` sees.
+The types run inside the process of the one engine that hosts them, pwsh. Which compiler builds the assembly, which assemblies a type may
+reference, the short names pwsh callers type, how a running pwsh meets a changed type, and why the console text has to live in C# are that
+host's binding, decided in [hosting-csharp-types](../../pwsh/hosting-csharp-types.md). This ADR decides what the types are; that one
+decides how the host carries them.
 
 ### Declared namespaces and the IDE project
 
@@ -238,11 +212,11 @@ Turning the analyzer off, or disabling Dev Kit, would hide the rule instead of e
 Declaring `namespace <module>;` makes each file compile cleanly on its own, so a real IDE project can analyze exactly what the runtime
 compiles. The repo ships an **IDE-only** `Catzc.Types.csproj` (under `automation/.internal/assets/`, a `../../**/types/*.cs` glob over every
 type source) and a classic root `catzc.sln` (Dev Kit loads a `.sln`, not a `.slnx`; kept at the repo root so the editor auto-loads it, and
-it references the project by relative path) that mirror `Add-Type`'s compile — `Nullable` and `ImplicitUsings` off, .NET 10 — so the
+it references the project by relative path) that mirror the runtime compile — `Nullable` and `ImplicitUsings` off, .NET 10 — so the
 editor's feedback equals the runtime's: real namespaces (no `CA1050`), with two deliberate opt-outs stated in `.editorconfig` — `IDE1006`
 (snake_case config-mirroring props, Rule ADR-AUTO-TYPES#8) and `IDE0130` (the namespace mirrors the module, not the project's physical
-folder path, Rule ADR-AUTO-TYPES#2). The runtime never builds the project; `Add-Type` stays the compiler, and `Invoke-BuildForVSCode` builds
-the IDE project on demand for the editor (see below). The [poka-yoke](../../principles/poka-yoke.md) is preserved because the namespace is
+folder path, Rule ADR-AUTO-TYPES#2). The runtime never builds the project, and `Invoke-BuildForVSCode` builds the IDE project on demand for
+the editor (see below). The [poka-yoke](../../principles/poka-yoke.md) is preserved because the namespace is
 folder-derived by `Format-Types` and checked by `Test-Formatting`, not a second source of truth, maintained by hand, that could drift.
 
 To keep that IDE artifact honest, the project **stamps its version from the committed `Catzc.Types.<hash>.dll`** — the runtime assembly's
@@ -252,35 +226,12 @@ when the committed DLL is stale, missing, or ambiguous**, so the editor's projec
 claims to describe. That makes the hashing a fourth mirror of the same algorithm (loader, `Clear-ModuleTypeCache`, the drift-guard tests)
 that must stay in step.
 
-### Type-accelerator aliases
-
-`Type-accelerator aliases, and backtracking to source`
-
-A type exposes a short alias for its fully-qualified name by carrying one or more `[Catzc.Base.Objects.PSTypeAlias("Catzc.Module.Depm")]`
-attributes (Rule ADR-AUTO-TYPES#10). After loading the combined assembly, `Import-CSharpTypes` reflects for the attribute and registers each
-name with `System.Management.Automation.TypeAccelerators` — the table behind `[regex]` and `[ordered]` — so `[Catzc.Module.Depm]::Puml`
-resolves to `Catzc.Base.ModuleSystem.ModuleDependencyFormat`. Registration is idempotent (remove-then-add), so a re-import never throws on a
-duplicate key, and the `Catzc.` prefix keeps it from reclaiming another module's accelerator.
-
-The terseness carries a backtracking cost the design pays deliberately. A type accelerator is a runtime string-to-`Type` mapping with no
-source symbol, so F12 / Go-to-Definition does not jump from `[Catzc.Module.Depm]` to the `.cs` — the same holds for the full
-`[Catzc.Base.ModuleSystem.ModuleDependencyFormat]`, because the editor has no source for a compiled .NET type. Two source-anchored paths
-restore the trail, and the design leans on both:
-
-- **The alias literal is authored in the C# source.** The name lives in `[PSTypeAlias("Catzc.Module.Depm")]` on the type, so a workspace
-  search for `Catzc.Module.Depm` lands on the one declaring `types/*.cs`, and `[Catzc.Module.Depm].FullName` recovers the real type at
-  runtime.
-- **The IDE project makes the C# navigable.** With `Catzc.Types.csproj` built, every `types/*.cs` is a first-class Dev Kit symbol, so
-  Go-to-Symbol on `ModuleDependencyFormat` jumps to source.
-
-That editor build is the second of two pathways over the same sources: `Add-Type` compiles for the runtime (Rule ADR-AUTO-TYPES#3), and
-`dotnet build` compiles for the editor. `Invoke-BuildForVSCode` drives the editor half — a `dotnet build` of `Catzc.Types.csproj` — and it
-doubles as a gate: the project's stamp task fails when the committed `Catzc.Types.<hash>.dll` is stale versus the sources (Rule
-ADR-AUTO-TYPES#6), so a green build also proves the IDE project matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable`,
-not the Tooling layer's `Invoke-Dotnet`, which a `Base` module must not depend on.
-
-A short accelerator trades some of the [spell-out ADR](../powershell/spell-out-names.md)'s self-describing-name value for terseness at the
-call site; the `Catzc.`-namespaced, source-authored literal is what keeps it discoverable rather than opaque.
+That editor build is the second of two pathways over the same sources: the host's compiler builds the runtime assembly (Rule
+ADR-AUTO-TYPES#3), and `dotnet build` compiles for the editor, which makes every `types/*.cs` a navigable Go-to-Symbol target.
+`Invoke-BuildForVSCode` drives the editor half — a `dotnet build` of `Catzc.Types.csproj` — and it doubles as a gate: the project's stamp
+task fails when the committed `Catzc.Types.<hash>.dll` is stale versus the sources (Rule ADR-AUTO-TYPES#6), so a green build also proves the
+IDE project matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable`, not the Tooling layer's `Invoke-Dotnet`, which a
+`Base` module must not depend on.
 
 ### The cache-state contract
 
@@ -290,7 +241,7 @@ filename, so the current-hash DLL is simply absent until built. The loader resol
 | current-hash DLL                       | types loaded this session | Outcome                                                                                                                                                                                                                                                                                                                                                                   |
 | -------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | present                                | no                        | **Skip compile, load it.** CI / fresh-checkout hot path (no Roslyn).                                                                                                                                                                                                                                                                                                      |
-| present                                | yes                       | **No-op.** Types already in the AppDomain.                                                                                                                                                                                                                                                                                                                                |
+| present                                | yes                       | **No-op.** Types already loaded in the process.                                                                                                                                                                                                                                                                                                                           |
 | absent (source added/changed/deleted)  | no                        | **Compile** all sources → the hash-named DLL, load, verify every type.                                                                                                                                                                                                                                                                                                    |
 | absent (DLL deleted, source unchanged) | yes                       | **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.                                                                                                                                                                                                                                                              |
 | absent because the source CHANGED      | yes                       | **A person's own console: start the import over in a new pwsh** (ADR-AUTO-TYPES#15). **Otherwise, devbox: warn (orange) + keep the old types** this session (return, don't record the new hash) — unless a type was added, which throws "restart PowerShell". **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped. |
@@ -328,10 +279,10 @@ That limit is measured once, so every caller agrees on it. `Get-LoadedTypeDrift`
 sources on disk and names each drifted type; the loader reads it to warn or throw, and `Test-LoadedTypesCurrent` /
 `Assert-LoadedTypesCurrent` give the same answer to any code that needs current types, such as a test of a type just edited.
 
-A person who edits a type and imports again wants the new types, so the importer gives them a new process instead of an instruction. It
-starts a pwsh beside the running one, which dot-sources the importer with the same switches and stays open, so the person carries on in the
-same window. The old session stays underneath, because a process cannot replace itself on every platform; `exit` returns to it, and it says
-it still holds the old types. Each restart nests one more process, which `exit` unwinds. The restart is for a person only: an agent cannot
+A person who edits a type and imports again wants the new types, so the importer gives them a new process instead of an instruction, in the
+same window and with the same switches ([hosting-csharp-types](../../pwsh/hosting-csharp-types.md#rule-adr-pwsh-types5)). The old session
+stays underneath, because a process cannot replace itself on every platform, and says it still holds the old types. Each restart nests one
+more process, which leaving the new session unwinds. The restart is for a person only: an agent cannot
 drive a nested shell, a script would block on one, and a pipeline must never run on stale types.
 
 ### Why a shadow copy
@@ -350,7 +301,7 @@ so a locked leftover copy is harmless.
 The `DictionaryRecord` base (dictionary-compatible data records)
 ```
 
-A data record backed by an `[ordered]@{}` / `[pscustomobject]` shape may inherit the single, shared `Catzc.Base.Objects.DictionaryRecord`
+A data record that replaces a dictionary shape may inherit the single, shared `Catzc.Base.Objects.DictionaryRecord`
 (the combined assembly makes the cross-module reference possible). It supplies two things a derived record would otherwise implement:
 
 - A **dictionary view** over the record's own public properties — `Contains(key)`, the `[key]` indexer, `Keys`, and `ToHashtable()` (for
@@ -381,7 +332,7 @@ but do not force a universal flip.
 There are two kinds of structured data in the platform, and they get different treatment. **Boundary data** — a parsed `configs/*.yml`, an
 `az` CLI JSON blob, a splatted parameter set — is shaped by something outside our code; it is validated where it crosses in and then
 consumed. A shipped config crosses in through its C# config type (registered in `configs.yml`), which maps and validates it at load; the
-rest is fine as an `[ordered]@{}` / `[pscustomobject]`. **Model data** — a first-class concept the platform's _own_ logic operates on — is
+rest is fine as a dictionary or a plain object. **Model data** — a first-class concept the platform's _own_ logic operates on — is
 different: the moment code selects on it, branches on its kind, or pins it as a parameter/return type at a call site, its shape is part of
 the design and must be fixed, discoverable, and enforced. That is a native C# type.
 
@@ -393,14 +344,12 @@ boundary through its own config type, `FilesConfig`, which validates it at load;
 
 ### Console-ready rendering
 
-`A catzc object held in pwsh reads as one line`
+`A catzc object reads as one line`
 
-The types are consumed from pwsh, so how an object reads there is part of its design
-([console-output-matters](../powershell/console-output-matters.md#rule-adr-auto-console1)). A class that keeps `object.ToString()` renders
-as its fully-qualified name: `Write-Message "Switched to $context"` prints `Switched to Catzc.Azure.Cli.SubscriptionContext`, and a
-collection property shows `{Catzc.Base.Globs.GlobPattern, …}` in a table. The fix has to be in C#: PowerShell's interpolation and `[string]`
-cast call the type's own .NET `ToString()` and ignore a `ToString` registered through the extended type system, which only `-join`, an
-explicit `.ToString()`, and the formatter honour.
+How an object reads at the console is part of its design
+([console-output-matters](../console-output-matters.md#rule-adr-auto-console1)). A class that keeps `object.ToString()` renders as its
+fully-qualified name: a message about a subscription context prints `Catzc.Azure.Cli.SubscriptionContext`, and a collection property shows
+`{Catzc.Base.Globs.GlobPattern, …}` in a table. The host's string conversion reads the type's own `ToString()`, so the fix is in C#.
 
 So the rendering is one shared extension method, `ConsoleText.ToConsoleString()`, and each type opts in with a one-line override. The format
 is the C# `record` convention a .NET reader already knows, `TypeName { A = 1, B = x }`, on one line: the bare type name, a null property
@@ -410,9 +359,8 @@ whose identity is one domain value (a path, a glob pattern, a dependency edge) w
 better than a property list.
 
 `[ConsoleDisplay("Id", "Name")]` names a type's identity properties once and drives both console surfaces: `ToConsoleString()` renders only
-those, and `Import-CSharpTypes` registers them as the type's `DefaultDisplayPropertySet`, so typing `$x` at the prompt shows those columns
-instead of every property. The formatter does honour extended-type-system data, so this half is registration, like the type-accelerator
-aliases.
+those, and `Import-CSharpTypes` registers them as the type's default display, so an object shown at the prompt shows those columns instead
+of every property.
 
 ### How this is enforced
 
@@ -422,9 +370,8 @@ aliases.
   can never drift from it.
 
 - **`Import-CSharpTypes`** rejects a dotted filename and a source whose declared namespace is missing, mismatched, or block-scoped (the same
-  invariant `Test-Formatting` enforces, checked at load), compiles all modules' sources **as authored** into one assembly (`Add-Type -Path`,
-  one compilation unit per file), verifies every `types/*.cs` produced `<module>.<filename>` (else "was not produced"), registers each
-  `[Catzc.Base.Objects.PSTypeAlias]` name as a type-accelerator (Rule ADR-AUTO-TYPES#10), and registers each
+  invariant `Test-Formatting` enforces, checked at load), compiles all modules' sources **as authored** into one assembly (one compilation
+  unit per file), verifies every `types/*.cs` produced `<module>.<filename>` (else "was not produced"), and registers each
   `[Catzc.Base.Objects.ConsoleDisplay]` property list as the type's default display (Rule ADR-AUTO-TYPES#14).
 
 - **`Get-LoadedTypeDrift`** (in `Catzc.Internal.Types`) is the one measure of stale types; the loader, the importer's restart
@@ -480,15 +427,11 @@ The module-dependency graph that governs cross-module C# type edges (ADR-AUTO-TY
   follows the folder (and `Test-Formatting`/the loader fail loudly if it didn't).
 
 - The editor compiles and analyzes exactly the sources the runtime does: with C# Dev Kit enabled, `Catzc.Types.csproj`/`catzc.sln` give real
-  in-IDE analysis (no false `CA1050`, no "No solution file") that equals the `Add-Type` compile — the rules live as code, not as a disabled
+  in-IDE analysis (no false `CA1050`, no "No solution file") that equals the runtime compile — the rules live as code, not as a disabled
   analyzer.
-
-- A type can publish a short call-site alias (`[Catzc.Module.Depm]`) by decorating its source, without giving up the trail back to it: the
-  alias literal greps to the declaring `.cs`, and the IDE project — built with `Invoke-BuildForVSCode` — makes the C# a navigable
-  Go-to-Symbol target.
 
 - The dependency graph is a single source of truth for _both_ function-call and C# type layering. The cost of one combined assembly — the
   compiler does not block a layer inversion — is paid back by the linter, which fails L1 on an undeclared edge.
 
-- Editing any type re-keys and rebuilds the one assembly (a single sub-second `Add-Type` compile, one committed DLL) and requires a session
+- Editing any type re-keys and rebuilds the one assembly (a single sub-second compile, one committed DLL) and requires a session
   restart to pick up — the documented devbox contract.

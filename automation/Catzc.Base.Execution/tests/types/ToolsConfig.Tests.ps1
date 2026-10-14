@@ -5,7 +5,7 @@ Describe 'ToolsConfig' -Tag 'L0' {
         It 'accepts the shipped tools.yml (all snake_case)' {
             $path = Join-Path $PSScriptRoot '../../configs/tools.yml'
             $config = Get-Content $path -Raw | ConvertFrom-Yaml -Ordered
-            { [Catzc.Tooling.Core.ToolsConfig]::new($config) } | Should -Not -Throw
+            { [Catzc.Base.Execution.ToolsConfig]::new($config) } | Should -Not -Throw
         }
     }
 
@@ -15,7 +15,7 @@ Describe 'ToolsConfig' -Tag 'L0' {
     # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
     Context 'logic (inline configs)' -Tag 'logic' {
         BeforeAll {
-            $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Tooling.Core.ToolsConfig]::new($raw) }
+            $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Execution.ToolsConfig]::new($raw) }
             # A well-formed tool entry; each test copies it and changes one thing.
             $script:tool = {
                 param([hashtable] $extra = @{})
@@ -36,7 +36,7 @@ Describe 'ToolsConfig' -Tag 'L0' {
         It 'maps every entry to a ToolConfig, keyed by tool identity in file order' {
             $tools = & $script:make ([ordered]@{ widget = (& $script:tool); gadget = (& $script:tool @{ depends_on = 'widget' }) })
             @($tools.Keys) | Should -Be @('widget', 'gadget')
-            $tools['gadget'] | Should -BeOfType [Catzc.Tooling.Core.ToolConfig]
+            $tools['gadget'] | Should -BeOfType [Catzc.Base.Execution.ToolConfig]
             $tools['gadget'].depends_on | Should -Be 'widget'
             $tools.widget.command | Should -Be 'widget'
             $tools.Contains('widget') | Should -BeTrue

@@ -1,18 +1,28 @@
-// The world-map labels (the `labels` section of configs/maps.yml): the fixed text the two PDFs print beside the data,
-// namely the title of each view, the header of each axis, the headers of the two catch-all lines of the grid and the
-// legend's entries. The catch-all row holds the root files
+// The map labels (the `labels` section of configs/maps.yml): the fixed text the maps print beside the data.
+//
+// The world map's labels: the title of each view, the header of each axis, the headers of the two catch-all lines of the
+// grid and the legend's entries. The catch-all row holds the root files
 // ([ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7)) and the catch-all column the unlisted files
-// ([ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8)), so their headers print those terms. The
-// properties mirror the YAML keys, so they are snake_case
+// ([ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8)), so their headers print those terms.
+//
+// The value-chain map's labels, each key starting value_chain_: its title, the header of each axis (the value-chain
+// stack and the value-chain concerns) and the legend's entries
+// ([ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16)). Test-WorldMap checks the world map's
+// labels and Test-ValueChainMap the value-chain map's.
+//
+// The properties mirror the YAML keys, so they are snake_case
 // ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)). The defaults are declared
 // here, once ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). MapsConfig
-// validates the section (every label one non-empty line of WinAnsi text, each row or column header within its limit)
-// and builds one.
+// validates the section (every label one non-empty line of WinAnsi text, each world-map row or column header within
+// its limit) and builds one.
 
 namespace Catzc.Base.Maps;
 
 public sealed class MapsLabels
 {
+    // The prefix of every value-chain map label key.
+    public const string ValueChainPrefix = "value_chain_";
+
     public const string DefaultGridTitle = "World map: tracks × file languages";
     public const string DefaultTreeTitle = "World map: repository tree";
     public const string DefaultRowAxis = "Track";
@@ -22,6 +32,11 @@ public sealed class MapsLabels
     public const string DefaultLegendFiles = "Cell: files";
     public const string DefaultLegendViolation = "Stack violation";
     public const string DefaultLegendHighlight = "Lit cell";
+    public const string DefaultValueChainTitle = "Value-chain map: value-chain stack × value-chain concerns";
+    public const string DefaultValueChainRowAxis = "Value-chain stack";
+    public const string DefaultValueChainColumnAxis = "Value-chain concern";
+    public const string DefaultValueChainLegendAdrs = "Cell: ADRs";
+    public const string DefaultValueChainLegendHighlight = "Lit cell";
 
     // The title of the grid view (world-map.grid.pdf). Default: DefaultGridTitle.
     public string grid_title { get; }
@@ -50,10 +65,26 @@ public sealed class MapsLabels
     // The legend entry of a lit cell's outline. Default: DefaultLegendHighlight.
     public string legend_highlight { get; }
 
+    // The title of the value-chain map. Default: DefaultValueChainTitle.
+    public string value_chain_title { get; }
+
+    // The header of the value-chain map's row axis (the rows of the value-chain stack). Default: DefaultValueChainRowAxis.
+    public string value_chain_row_axis { get; }
+
+    // The header of the value-chain map's column axis (the value-chain concerns). Default: DefaultValueChainColumnAxis.
+    public string value_chain_column_axis { get; }
+
+    // The legend entry of the value-chain map's ADR-count scale. Default: DefaultValueChainLegendAdrs.
+    public string value_chain_legend_adrs { get; }
+
+    // The legend entry of a lit value-chain map cell. Default: DefaultValueChainLegendHighlight.
+    public string value_chain_legend_highlight { get; }
+
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     public MapsLabels(string gridTitle, string treeTitle, string rowAxis, string columnAxis, string rootFiles, string unlistedFiles,
-        string legendFiles, string legendViolation, string legendHighlight)
+        string legendFiles, string legendViolation, string legendHighlight, string valueChainTitle, string valueChainRowAxis,
+        string valueChainColumnAxis, string valueChainLegendAdrs, string valueChainLegendHighlight)
     {
         grid_title = gridTitle;
         tree_title = treeTitle;
@@ -64,5 +95,10 @@ public sealed class MapsLabels
         legend_files = legendFiles;
         legend_violation = legendViolation;
         legend_highlight = legendHighlight;
+        value_chain_title = valueChainTitle;
+        value_chain_row_axis = valueChainRowAxis;
+        value_chain_column_axis = valueChainColumnAxis;
+        value_chain_legend_adrs = valueChainLegendAdrs;
+        value_chain_legend_highlight = valueChainLegendHighlight;
     }
 }

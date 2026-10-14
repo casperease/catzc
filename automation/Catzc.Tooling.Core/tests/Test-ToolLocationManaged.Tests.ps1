@@ -81,7 +81,7 @@ Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
             param($location, $expected)
             # Neutral fixture ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
             Mock Get-ScriptInstallDir { 'C:\Users\me\AppData\Local\Gadget' }
-            $config = [Catzc.Tooling.Core.ToolConfig]::new(@{
+            $config = [Catzc.Base.Execution.ToolConfig]::new(@{
                     version = '1'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'
                     msys2_url = 'https://example.com/widget-1.0-1-x86_64.pkg.tar.zst'; msys2_sha256 = 'a' * 64; windows_install_dir = 'Gadget'
                 })

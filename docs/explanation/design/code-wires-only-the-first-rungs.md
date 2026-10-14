@@ -56,8 +56,8 @@ stage: a failed CI stage skips every deploy, and a failed deploy stage skips the
 
 ## Where the code and the ADR differ
 
-- Past BVT there is no promotion ladder: each stage deploys its non-prod and prod-tier targets together (`nsub` and `psub`, or the
-  expedition's `dev` and `prod`), where the ADR climbs `main-uat` → `release-uat` → `pre-prod` → `production` one rung at a time.
+- Past BVT there is no promotion ladder: a stage deploys its non-prod and prod-tier targets together (`nsub` and `psub`, or apex's
+  expedition `dev` and `prod`), where the ADR climbs `main-uat` → `release-uat` → `pre-prod` → `production` one rung at a time.
 - No pipeline runs the L3 tier.
 - No environment is named `main-uat` or `release-uat`, and no RC or RBC approval exists.
 - No CD pipeline has a pre-prod target that stays inactive until it is activated.

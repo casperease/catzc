@@ -86,10 +86,42 @@ Describe 'Uninstall-Zsh' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'on macOS and Linux' {
+    # The apt-get call, the root assert, and the presence check are mocked, so nothing is removed and no process starts.
+    Context 'on Linux' {
+        BeforeEach {
+            Mock Test-Command -ModuleName Catzc.Tooling.Provisioning { $true }
+            Mock Assert-IsAdministrator -ModuleName Catzc.Tooling.Provisioning { }
+            Mock Assert-Command -ModuleName Catzc.Tooling.Provisioning { }
+            Mock Invoke-Executable -ModuleName Catzc.Tooling.Provisioning { }
+        }
+
+        It 'removes the zsh package with apt-get, the manager Install-Zsh used' {
+            if (-not $IsLinux) {
+                Set-ItResult -Skipped -Because 'unix_only_linux_apt'; return
+            }
+            Uninstall-Zsh
+            Should -Invoke Assert-IsAdministrator -ModuleName Catzc.Tooling.Provisioning -Times 1 -Exactly
+            Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Provisioning -Times 1 -Exactly -ParameterFilter {
+                $Command -eq 'sudo apt-get remove -y zsh'
+            }
+            Should -Invoke Get-ZshInstallLayout -ModuleName Catzc.Tooling.Provisioning -Times 0
+        }
+
+        It 'is a no-op without zsh, asking for no root' {
+            if (-not $IsLinux) {
+                Set-ItResult -Skipped -Because 'unix_only_linux_apt'; return
+            }
+            Mock Test-Command -ModuleName Catzc.Tooling.Provisioning { $false }
+            { Uninstall-Zsh } | Should -Not -Throw
+            Should -Invoke Assert-IsAdministrator -ModuleName Catzc.Tooling.Provisioning -Times 0
+            Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Provisioning -Times 0
+        }
+    }
+
+    Context 'on macOS' {
         It 'has nothing to uninstall: zsh is the system''s' {
-            if ($IsWindows) {
-                Set-ItResult -Skipped -Because 'unix_only_uninstall'; return
+            if (-not $IsMacOS) {
+                Set-ItResult -Skipped -Because 'unix_only_macos_system'; return
             }
             { Uninstall-Zsh } | Should -Not -Throw
             Should -Invoke Get-ZshInstallLayout -ModuleName Catzc.Tooling.Provisioning -Times 0

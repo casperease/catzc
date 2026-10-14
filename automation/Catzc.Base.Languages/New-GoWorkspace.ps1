@@ -75,7 +75,7 @@ function New-GoWorkspace {
     [string[]] $header = @(
         '// GENERATED FILE — do not edit. Single source of truth:'
         "//   automation/Catzc.Base.Languages/configs/go.yml (rendered by New-GoWorkspace over the $testsRelative/*/ folders)"
-        '//   the go directive: the go pin in automation/Catzc.Tooling.Core/configs/tools.yml'
+        '//   the go directive: the go pin in automation/Catzc.Base.Execution/configs/tools.yml'
         '// Regenerated on import by Build-RootConfig; edit the yml or the folders, not this file.'
     )
 

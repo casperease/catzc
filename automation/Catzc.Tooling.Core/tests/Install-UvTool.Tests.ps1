@@ -8,7 +8,7 @@ Describe 'Install-UvTool' -Tag 'L0', 'logic' {
             foreach ($key in $Keys.Keys) {
                 $entry[$key] = $Keys[$key]
             }
-            [Catzc.Tooling.Core.ToolConfig]::new($entry)
+            [Catzc.Base.Execution.ToolConfig]::new($entry)
         }
     }
 

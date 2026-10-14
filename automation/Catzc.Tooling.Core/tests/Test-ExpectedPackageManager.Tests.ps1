@@ -3,7 +3,7 @@ Describe 'Test-ExpectedPackageManager — script-installed tools' -Tag 'L0', 'lo
         $script:managedDir = Join-Path $TestDrive 'widget-managed'
         Mock Get-ScriptInstallDir { $script:managedDir } -ModuleName Catzc.Tooling.Core
         # The record Get-ToolConfig gives a script-installed tool, so every manager kind the oracle reads is present.
-        $script:config = [Catzc.Tooling.Core.ToolConfig]::new(@{
+        $script:config = [Catzc.Base.Execution.ToolConfig]::new(@{
                 version = '1'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; script_install = $true
             })
     }
@@ -37,7 +37,7 @@ Describe 'Test-ExpectedPackageManager — MSYS2-package tools' -Tag 'L0', 'logic
     BeforeEach {
         $script:tree = Join-Path $TestDrive 'gadget'
         Mock Get-ScriptInstallDir { $script:tree } -ModuleName Catzc.Tooling.Core
-        $script:config = [Catzc.Tooling.Core.ToolConfig]::new(@{
+        $script:config = [Catzc.Base.Execution.ToolConfig]::new(@{
                 version = '1'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'
                 msys2_url = 'https://example.com/widget-1.0-1-x86_64.pkg.tar.zst'; msys2_sha256 = 'a' * 64; windows_install_dir = 'gadget'
             })

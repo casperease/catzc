@@ -437,6 +437,10 @@ function Get-BuildFileCopy {
         The tracked files and their line-ending form (Get-BuildSourceIndex); an untracked file is skipped.
     .PARAMETER ExcludeDirectory
         Folder names (at any depth) whose contents are skipped — e.g. tests.
+    .PARAMETER IncludeUntracked
+        Copy untracked files too. Only the types/ folders take it: their sources must equal the type set the DLL's
+        name (typesHash) proves, and that set is every types/*.cs on disk, tracked or not. A pipeline builds a
+        clean tree, where the two are the same.
     #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -453,7 +457,9 @@ function Get-BuildFileCopy {
         [Parameter(Mandatory)]
         [System.Collections.Generic.Dictionary[string, bool]] $Index,
 
-        [string[]] $ExcludeDirectory = @()
+        [string[]] $ExcludeDirectory = @(),
+
+        [switch] $IncludeUntracked
     )
 
     if (-not [System.IO.Directory]::Exists($SourceDirectory)) {
@@ -470,7 +476,7 @@ function Get-BuildFileCopy {
                 break
             }
         }
-        if (-not $excluded -and (Test-BuildSourceTracked -Index $Index -SourceRoot $SourceRoot -Path $file)) {
+        if (-not $excluded -and ($IncludeUntracked -or (Test-BuildSourceTracked -Index $Index -SourceRoot $SourceRoot -Path $file))) {
             $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $file
             [pscustomobject]@{ Path = "$TargetPath/$relativePath"; Kind = 'Copy'; Source = $file; Content = $null; Exports = $null; Normalize = $normalize }
         }
@@ -533,7 +539,8 @@ function Get-ModuleBuildPlan {
         $entries.Add([pscustomobject]@{ Path = "$name/$name$($script:mergedFileSuffix)"; Kind = 'Text'; Source = $null; Content = $merged.Content; Exports = $null })
         $entries.Add([pscustomobject]@{ Path = "$name/$name.psd1"; Kind = 'Manifest'; Source = $null; Content = $null; Exports = $exports })
         foreach ($folder in $script:shippedSideFolders) {
-            foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($moduleDirectory, $folder)) -TargetPath "$name/$folder" -SourceRoot $SourceRoot -Index $Index)) {
+            $copies = Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($moduleDirectory, $folder)) -TargetPath "$name/$folder" -SourceRoot $SourceRoot -Index $Index -IncludeUntracked:($folder -eq 'types')
+            foreach ($copy in @($copies)) {
                 $entries.Add($copy)
             }
         }

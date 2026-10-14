@@ -4,7 +4,7 @@ Describe 'Get-Config' -Tag 'L0' {
         # ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)). The raw default itself
         # is pinned hermetically below, on a fixture config with no registry entry.
         It 'discovers and loads a shipped config from its owning module' {
-            $configuration = Get-Config -Config tools                       # registry type: Catzc.Tooling.Core.ToolsConfig
+            $configuration = Get-Config -Config tools                       # registry type: Catzc.Base.Execution.ToolsConfig
             $configuration.Keys | Should -Contain 'python'
         }
     }

@@ -1,22 +1,41 @@
 <#
 .SYNOPSIS
-    Uninstalls the zsh Install-Zsh placed in Git Bash's tree.
+    Uninstalls the zsh Install-Zsh placed: in Git Bash's tree on Windows, the apt-get package on Linux.
 .DESCRIPTION
-    Windows: reads the manifest Install-Zsh wrote inside the Git for Windows tree (LOCALAPPDATA\Git) and deletes exactly
-    the files it lists, then the folders it lists once they are empty, then the manifest. A file Git's tree had before
-    Install-Zsh ran is never in the manifest, so it stays
+    Windows: reads the manifest Install-Zsh wrote inside the Git for Windows tree (the zsh entry's windows_install_dir,
+    which Get-ScriptInstallDir resolves) and deletes exactly the files it lists, then the folders it lists once they
+    are empty, then the manifest. A file Git's tree had before Install-Zsh ran is never in the manifest, so it stays
     ([ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2)). No admin required.
 
-    macOS and Linux: zsh is the system's, and Install-Zsh installed nothing, so there is nothing to uninstall.
+    Linux: removes the zsh package with apt-get, the manager Install-Zsh installs it through
+    ([ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2)); that step needs root
+    ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)).
+
+    macOS: zsh is the system's /bin/zsh, and Install-Zsh installed nothing, so there is nothing to uninstall.
 
     Idempotent ([ADR-AUTO-IDEM#2](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem2)): without a
-    manifest it reports that there is nothing to do, and a listed file already gone is skipped.
+    manifest (Windows) or without zsh (Linux) it reports that there is nothing to do, and a listed file already gone is
+    skipped.
 .EXAMPLE
     Uninstall-Zsh
 #>
 function Uninstall-Zsh {
     [CmdletBinding()]
     param()
+
+    if ($IsLinux) {
+        if (-not (Test-Command zsh)) {
+            Write-Message 'zsh is not installed — nothing to do'
+            return
+        }
+        Assert-IsAdministrator -ErrorText (
+            'Uninstall-Zsh on Linux requires root (apt-get). Run as root or uninstall zsh manually.'
+        )
+        Assert-Command apt-get
+        Invoke-Executable 'sudo apt-get remove -y zsh'
+        Write-Message 'zsh uninstalled via apt-get'
+        return
+    }
 
     if (-not $IsWindows) {
         Write-Message 'zsh is provided by the system, not installed by Install-Zsh — nothing to do'

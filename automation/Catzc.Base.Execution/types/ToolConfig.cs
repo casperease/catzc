@@ -20,7 +20,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Catzc.Tooling.Core;
+namespace Catzc.Base.Execution;
 
 public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
 {

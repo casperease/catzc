@@ -71,7 +71,7 @@ function New-PythonProject {
     [string[]] $header = @(
         '# GENERATED FILE — do not edit. Single source of truth:'
         "#   automation/Catzc.Base.Languages/configs/python.yml (rendered by New-PythonProject over the $pythonRoot/tests/*/ folders)"
-        '#   requires-python: the python pin in automation/Catzc.Tooling.Core/configs/tools.yml'
+        '#   requires-python: the python pin in automation/Catzc.Base.Execution/configs/tools.yml'
         '# Regenerated on import by Build-RootConfig; edit the yml or the folders, not this file.'
     )
 

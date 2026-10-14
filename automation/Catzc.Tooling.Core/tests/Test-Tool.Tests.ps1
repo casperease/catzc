@@ -10,7 +10,7 @@ Describe 'Test-Tool' -Tag 'L0', 'logic' {
             if ($DevboxVersion) {
                 $entry.devbox_version = $DevboxVersion
             }
-            [Catzc.Tooling.Core.ToolConfig]::new($entry)
+            [Catzc.Base.Execution.ToolConfig]::new($entry)
         }
     }
     BeforeEach {
@@ -83,7 +83,7 @@ Describe 'Test-Tool' -Tag 'L0', 'logic' {
 
         It 'checks a tool with candidate paths through the probe' {
             Mock Get-ToolConfig {
-                [Catzc.Tooling.Core.ToolConfig]::new(@{ version = '3.0'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; unix_probes = @('/opt/widget') })
+                [Catzc.Base.Execution.ToolConfig]::new(@{ version = '3.0'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; unix_probes = @('/opt/widget') })
             } -ModuleName Catzc.Tooling.Core
             Test-Tool 'widget' | Should -BeTrue
             Should -Invoke Resolve-ToolExecutable -ModuleName Catzc.Tooling.Core -Times 1 -Exactly -ParameterFilter { $Tool -eq 'widget' }
@@ -95,7 +95,7 @@ Describe 'Test-Tool' -Tag 'L0', 'logic' {
             @{ version = $null; ok = $false; present = $false }
         ) {
             Mock Get-ToolConfig {
-                [Catzc.Tooling.Core.ToolConfig]::new(@{ version = '3.0'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; unix_probes = @('/opt/widget') })
+                [Catzc.Base.Execution.ToolConfig]::new(@{ version = '3.0'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; unix_probes = @('/opt/widget') })
             } -ModuleName Catzc.Tooling.Core
             Mock Resolve-ToolExecutable { [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget', 'probe', $version, '3.0', $false, 1, 0, 'Person') } -ModuleName Catzc.Tooling.Core
             Test-Tool 'widget' | Should -Be $ok

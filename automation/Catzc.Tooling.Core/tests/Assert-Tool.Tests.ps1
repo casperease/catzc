@@ -4,7 +4,7 @@ Describe 'Assert-Tool' -Tag 'L0', 'logic' {
     # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
     BeforeEach {
         Mock Get-ToolConfig {
-            [Catzc.Tooling.Core.ToolConfig]::new(@{ version = '5'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; unix_probes = @('/opt/widget'); windows_probes = @('C:\widget.exe') })
+            [Catzc.Base.Execution.ToolConfig]::new(@{ version = '5'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; unix_probes = @('/opt/widget'); windows_probes = @('C:\widget.exe') })
         } -ModuleName Catzc.Tooling.Core
         Mock Assert-Command { throw 'Assert-Command must not run for a probed tool' } -ModuleName Catzc.Tooling.Core
     }

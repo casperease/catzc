@@ -1,7 +1,7 @@
 // The tool lock file (configs/tools.yml): a map of snake_case tool identity -> ToolConfig, in file order. The
 // YAML root IS the tool map, so the type is the read-only dictionary itself — `$tools.Keys`, `$tools['python']`,
 // `$tools.python` and `$tools.ContainsKey('python')` read it as they read the parsed YAML. Registered in
-// Catzc.Base.Config/configs/configs.yml (type: Catzc.Tooling.Core.ToolsConfig), so Get-Config -Config tools
+// Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Execution.ToolsConfig), so Get-Config -Config tools
 // returns this typed model.
 //
 // Constructing an instance validates the whole file, collecting every violation into one ArgumentException:
@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
-namespace Catzc.Tooling.Core;
+namespace Catzc.Base.Execution;
 
 public sealed class ToolsConfig : ReadOnlyDictionary<string, ToolConfig>
 {

@@ -2,11 +2,11 @@
 
 `Catzc.Tooling.Core`
 
-The foundation of the Tooling group. It owns the single source of truth for which external command-line tool is locked to which version —
-the `tools.yml` config and the `ToolConfig` type that models it — and the generic, tool-agnostic engine that reads that contract to assert a
-tool's presence, install it, and uninstall it through the right mechanism. Every other Tooling module is built on this one; it knows nothing
-about any specific tool, only how to drive one from its config. The rationale is in
-[controlling-systemwide-deps](../../adr/automation/controlling-systemwide-deps.md) and
+The foundation of the Tooling group. It owns the generic, tool-agnostic engine that reads the single source of truth for which external
+command-line tool is locked to which version — the `tools.yml` config and the `ToolConfig` type that models it, both owned by
+[Catzc.Base.Execution](catzc-base-execution.md), the lowest layer that reads them — to assert a tool's presence, install it, and uninstall
+it through the right mechanism. Every other Tooling module is built on this one; it knows nothing about any specific tool, only how to drive
+one from its config. The rationale is in [controlling-systemwide-deps](../../adr/automation/controlling-systemwide-deps.md) and
 [uv-python-handler](../../adr/automation/uv-python-handler.md), and the config is modelled as a native type per
 [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md).
 
@@ -24,8 +24,9 @@ about any specific tool, only how to drive one from its config. The rationale is
 
 Reading `tools.yml` and resolving, for any named tool, its locked version, the command it provides (and the per-platform command suffix that
 command takes), and the order tools must be installed in to satisfy their declared dependencies. `tools.yml` is the single source of truth;
-the `ToolConfig` C# type is its in-memory shape (see [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)). Because every
-fact about a tool lives in config — its install mechanism, dependencies, and any devbox version relaxation or session PATH hint — adding or
+the `ToolConfig` C# type is its in-memory shape (see [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)). Both live in
+[Catzc.Base.Execution](catzc-base-execution.md), so a bundle without the Tooling group still locates every managed tool. Because every fact
+about a tool lives in config — its install mechanism, dependencies, and any devbox version relaxation or session PATH hint — adding or
 upgrading one is an edit here, not new install code.
 
 ### responsibility:2 — Presence and version control
@@ -61,12 +62,12 @@ does not own. It is advisory and session-only — it never writes the persistent
 
 ### responsibility:5 — Per-engine fixture tables
 
-Holding test cases for the repository's two execution engines, pwsh and bash, side by side. A per-engine fixture table is a YAML file under
-a module's `tests/assets/engine-cases/`: a subject, then one case per row with a pwsh column and a bash column. Every column holds the
-case's fields for that engine, or says why the case does not apply there (`n/a: <reason>`), so a behaviour can never quietly cover one
-engine only. The `EngineCaseTable` type validates the shape — the two engine columns are fixed in it — and `Get-EngineCaseTable` loads a
-table as rows shaped for Pester's `-ForEach`. Any subject can use the same shape: the time safeguard's command grammar is the first, and an
-integrity test holds every table in the repository to it.
+Holding test cases for the repository's three execution engines, pwsh, bash and zsh, side by side. A per-engine fixture table is a YAML file
+under a module's `tests/assets/engine-cases/`: a subject, then one case per row with a column per engine. Every column holds the case's
+fields for that engine, or says why the case does not apply there (`n/a: <reason>`), so a behaviour can never quietly cover one engine only.
+The `EngineCaseTable` type validates the shape — its columns are the engines the `ExecutionEngines` model declares — and
+`Get-EngineCaseTable` loads a table as rows shaped for Pester's `-ForEach`. Any subject can use the same shape: the time safeguard's command
+grammar is the first, and an integrity test holds every table in the repository to it.
 
 ## What the module does
 
@@ -79,9 +80,9 @@ concrete tool repeats the same lifecycle shape over this shared engine.
 
 The four responsibilities stack cleanly. Configuration and mapping turns a tool name into facts; presence and version control reads those
 facts against the live machine; the engine acts on the gap between them; and session reconciliation keeps what is installed resolvable on
-PATH. The per-engine fixture tables sit beside them: the two engines are tools too, and the tables keep their parity testable. The
-`ToolConfig` type that carries those facts derives from the shared `DictionaryRecord` base in [Catzc.Base.Objects](catzc-base-objects.md),
-so it gets a dictionary view and the extraction helpers without a per-module copy.
+PATH. The per-engine fixture tables sit beside them: the engines are tools too, and the tables keep their parity testable. The `ToolConfig`
+type that carries those facts derives from the shared `DictionaryRecord` base in [Catzc.Base.Objects](catzc-base-objects.md), so it gets a
+dictionary view and the extraction helpers without a per-module copy.
 
 The sibling Tooling modules — [Catzc.Tooling.Python](catzc-tooling-python.md), [Catzc.Tooling.Node](catzc-tooling-node.md),
 [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md), and [Catzc.Tooling.Provisioning](catzc-tooling-provisioning.md) — all depend on this
@@ -97,7 +98,6 @@ The module's public functions and configuration, sorted into the responsibilitie
 |                                                   | `Get-ToolVersion`             |
 |                                                   | `Get-ToolCommandSuffix`       |
 |                                                   | `Get-ToolInstallOrder`        |
-| config                                            | `tools.yml`                   |
 | responsibility:2 — Presence and version control   | `Assert-Tool`                 |
 |                                                   | `Test-Tool`                   |
 |                                                   | `Test-ExpectedPackageManager` |

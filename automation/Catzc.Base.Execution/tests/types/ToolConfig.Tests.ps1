@@ -12,11 +12,11 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
     ) {
         $entry = $script:required.Clone()
         $entry[$flag] = $true
-        [Catzc.Tooling.Core.ToolConfig]::new($entry).$flag | Should -BeTrue
+        [Catzc.Base.Execution.ToolConfig]::new($entry).$flag | Should -BeTrue
     }
 
     It 'defaults an absent elevation flag to false and an absent devbox_version to null' {
-        $config = [Catzc.Tooling.Core.ToolConfig]::new($script:required.Clone())
+        $config = [Catzc.Base.Execution.ToolConfig]::new($script:required.Clone())
         $config.admin_only | Should -BeFalse
         $config.linux_admin_only | Should -BeFalse
         $config.devbox_version | Should -BeNullOrEmpty
@@ -25,26 +25,26 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
     It 'maps the devbox_version lever' {
         $entry = $script:required.Clone()
         $entry.devbox_version = '0.9'
-        [Catzc.Tooling.Core.ToolConfig]::new($entry).devbox_version | Should -Be '0.9'
+        [Catzc.Base.Execution.ToolConfig]::new($entry).devbox_version | Should -Be '0.9'
     }
 
     It 'rejects an unknown key' {
         $entry = $script:required.Clone()
         $entry.gadget_id = 'x'
-        { [Catzc.Tooling.Core.ToolConfig]::new($entry) } | Should -Throw "*unknown key 'gadget_id'*"
+        { [Catzc.Base.Execution.ToolConfig]::new($entry) } | Should -Throw "*unknown key 'gadget_id'*"
     }
 
     It 'rejects a version_pattern without the named ver group' {
         $entry = $script:required.Clone()
         $entry.version_pattern = '^(.+)$'
-        { [Catzc.Tooling.Core.ToolConfig]::new($entry) } | Should -Throw '*named group (?<ver>...)*'
+        { [Catzc.Base.Execution.ToolConfig]::new($entry) } | Should -Throw '*named group (?<ver>...)*'
     }
 
     It 'reports whether the entry declares an install mechanism' {
         $entry = $script:required.Clone()
-        [Catzc.Tooling.Core.ToolConfig]::new($entry).HasInstallMechanism() | Should -BeTrue
+        [Catzc.Base.Execution.ToolConfig]::new($entry).HasInstallMechanism() | Should -BeTrue
         $entry.Remove('winget_id')
-        [Catzc.Tooling.Core.ToolConfig]::new($entry).HasInstallMechanism() | Should -BeFalse
+        [Catzc.Base.Execution.ToolConfig]::new($entry).HasInstallMechanism() | Should -BeFalse
     }
 
     It 'counts an MSYS2 package as an install mechanism and maps its URL and SHA-256' {
@@ -52,14 +52,14 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
         $entry.Remove('winget_id')
         $entry.msys2_url = 'https://example.com/widget-1.0-1-x86_64.pkg.tar.zst'
         $entry.msys2_sha256 = 'a' * 64
-        $config = [Catzc.Tooling.Core.ToolConfig]::new($entry)
+        $config = [Catzc.Base.Execution.ToolConfig]::new($entry)
         $config.HasInstallMechanism() | Should -BeTrue
         $config.msys2_url | Should -Be 'https://example.com/widget-1.0-1-x86_64.pkg.tar.zst'
         $config.msys2_sha256 | Should -Be ('a' * 64)
     }
 
     It 'defaults the MSYS2 package to null' {
-        $config = [Catzc.Tooling.Core.ToolConfig]::new($script:required.Clone())
+        $config = [Catzc.Base.Execution.ToolConfig]::new($script:required.Clone())
         $config.msys2_url | Should -BeNullOrEmpty
         $config.msys2_sha256 | Should -BeNullOrEmpty
     }
@@ -70,7 +70,7 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
     ) {
         $entry = $script:required.Clone()
         $entry[$key] = $value
-        { [Catzc.Tooling.Core.ToolConfig]::new($entry) } | Should -Throw '*msys2_url and msys2_sha256 are declared together*'
+        { [Catzc.Base.Execution.ToolConfig]::new($entry) } | Should -Throw '*msys2_url and msys2_sha256 are declared together*'
     }
 
     It 'rejects an msys2_sha256 that is not 64 lowercase hex digits: <case>' -Tag 'ADR-AUTO-PKGMGR#6' -ForEach @(
@@ -83,17 +83,17 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
         $entry = $script:required.Clone()
         $entry.msys2_url = 'https://example.com/widget.pkg.tar.zst'
         $entry.msys2_sha256 = $value
-        { [Catzc.Tooling.Core.ToolConfig]::new($entry) } | Should -Throw '*must be 64 lowercase hex digits*'
+        { [Catzc.Base.Execution.ToolConfig]::new($entry) } | Should -Throw '*must be 64 lowercase hex digits*'
     }
 
     It 'rejects a session_host_probes entry that does not end with {version}' {
         $entry = $script:required.Clone()
         $entry.session_host_probes = @('sdk/{version}/bin')
-        { [Catzc.Tooling.Core.ToolConfig]::new($entry) } | Should -Throw '*must end with the {version} segment*'
+        { [Catzc.Base.Execution.ToolConfig]::new($entry) } | Should -Throw '*must end with the {version} segment*'
     }
 
     It 'declares no candidate paths when the entry has none' {
-        $config = [Catzc.Tooling.Core.ToolConfig]::new($script:required.Clone())
+        $config = [Catzc.Base.Execution.ToolConfig]::new($script:required.Clone())
         $config.HasProbes() | Should -BeFalse
         $config.windows_probes | Should -HaveCount 0
     }
@@ -104,7 +104,7 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
         $entry.windows_pipeline_probes = @('win-pipeline')
         $entry.unix_probes = @('unix-devbox')
         $entry.unix_pipeline_probes = @('unix-pipeline')
-        $config = [Catzc.Tooling.Core.ToolConfig]::new($entry)
+        $config = [Catzc.Base.Execution.ToolConfig]::new($entry)
         $config.HasProbes() | Should -BeTrue
         $config.windows_probes | Should -Be @('win-devbox')
         $config.windows_pipeline_probes | Should -Be @('win-pipeline')
@@ -115,11 +115,11 @@ Describe 'ToolConfig' -Tag 'L0', 'logic' {
     It 'counts an exclusion alone as a probed entry' {
         $entry = $script:required.Clone()
         $entry.probe_excludes = @('/gadget/widget')
-        [Catzc.Tooling.Core.ToolConfig]::new($entry).HasProbes() | Should -BeTrue
+        [Catzc.Base.Execution.ToolConfig]::new($entry).HasProbes() | Should -BeTrue
     }
 
     It 'reports every missing required key in one throw' -Tag 'ADR-AUTO-DEPS#1' {
-        $err = { [Catzc.Tooling.Core.ToolConfig]::new(@{ winget_id = 'Widget.Widget' }) } | Should -Throw -PassThru
+        $err = { [Catzc.Base.Execution.ToolConfig]::new(@{ winget_id = 'Widget.Widget' }) } | Should -Throw -PassThru
         foreach ($key in 'version', 'command', 'version_command', 'version_pattern') {
             $err.Exception.Message | Should -BeLike "*$key is required*"
         }

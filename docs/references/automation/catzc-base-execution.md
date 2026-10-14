@@ -40,7 +40,8 @@ command, once per executable file per session (a lazy cache entry keyed by its p
 one record: found, path, method, version against the required one, the two timings, and the session actor. For a tool declared in
 `tools.yml`, the module reads the entry itself — the candidates for the running platform and run environment, the exclusions, the version
 command and pin, and the devbox version lever outside a pipeline — so a Base module locates a managed tool without depending on the tooling
-modules. An execution engine's executable is located the way the engine model says
+modules. The module owns `tools.yml` and its `ToolsConfig`/`ToolConfig` types: the lowest layer that reads the lock file owns it, so every
+bundle that can run a process can also resolve the tools it runs. An execution engine's executable is located the way the engine model says
 ([ADR-AUTO-ENGINE](../../adr/automation/execution-engines.md)): pwsh beside the running PowerShell, never through PATH, and bash through its
 `tools.yml` entry.
 
@@ -78,7 +79,8 @@ callers that compose multiple calls can use the same primitives to do the same.
 
 The module depends on [Catzc.Base.Writers](catzc-base-writers.md) for the pre-invocation log line,
 [Catzc.Base.Repository](catzc-base-repository.md) for the run environment and the session actor, and
-[Catzc.Base.Asserts](catzc-base-asserts.md) for argument validation. It exposes no configuration files.
+[Catzc.Base.Asserts](catzc-base-asserts.md) for argument validation. Its one configuration file is `tools.yml`, the tool lock file the
+tooling modules read as well.
 
 ## Division
 
@@ -92,5 +94,6 @@ The module's public functions, sorted into the responsibilities above.
 | responsibility:2 — Executable location        | `Find-Executable`          |
 |                                               | `Resolve-ToolExecutable`   |
 |                                               | `Resolve-EngineExecutable` |
+| config                                        | `tools.yml`                |
 | responsibility:3 — Exit-code lifecycle        | `Get-LastExitCode`         |
 |                                               | `Reset-LastExitCode`       |

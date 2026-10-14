@@ -1,51 +1,81 @@
-# docs/adr/automation/powershell/cross-platform-powershell.md
+# docs/adr/pwsh/cross-platform-powershell.md
 
 `ADR: Cross-platform PowerShell — the language layer over cross-platform`
 
-## Rules: ADR-AUTO-PSXPLAT
+## Rules: ADR-PWSH-XPLAT
 
-### Rule ADR-AUTO-PSXPLAT:1
+### Rule ADR-PWSH-XPLAT:1
 
-PowerShell code meets [cross-platform](../cross-platform.md) (`ADR-AUTO-XPLAT`) through the rules below, enforced mechanically:
+PowerShell code meets [cross-platform](../automation/cross-platform.md) (`ADR-AUTO-XPLAT`) through the rules below, enforced mechanically:
 PSScriptAnalyzer's compatibility rules validate cmdlets and .NET types against the target-platform profiles at analysis time, before the
 code ever runs on the other OS.
 
 - [Analyzer coverage](#analyzer-coverage)
 
-### Rule ADR-AUTO-PSXPLAT:2
+### Rule ADR-PWSH-XPLAT:2
 
 Use `Join-Path` for all path construction; never concatenate strings with `/` or `\`. It uses the correct separator for the current
 platform.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-AUTO-PSXPLAT:3
+### Rule ADR-PWSH-XPLAT:3
 
 Never use platform-specific cmdlets (`Get-Service`, `Get-WmiObject`, …) without a cross-platform alternative. If platform-specific behavior
 is unavoidable, branch on `$IsWindows` / `$IsLinux` and implement both.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
-### Rule ADR-AUTO-PSXPLAT:4
+### Rule ADR-PWSH-XPLAT:4
 
-Never shell out to platform-specific binaries (`cmd /c`, `/bin/sh -c`). Use PowerShell native operations or the `Invoke-Executable` wrapper
-with tools that exist on both platforms.
+PowerShell code meets [ADR-AUTO-XPLAT#9](../automation/cross-platform.md#rule-adr-auto-xplat9) with its native operations, or with the
+`Invoke-Executable` wrapper around a tool that exists on both platforms — never `cmd /c` or `/bin/sh -c`.
 
 - [What breaks the other way](#what-breaks-the-other-way)
 
-### Rule ADR-AUTO-PSXPLAT:5
+### Rule ADR-PWSH-XPLAT:5
 
 Branch unavoidable platform-specific logic on the built-in `$IsWindows` / `$IsLinux` automatic variables, and always provide both branches.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
+### Rule ADR-PWSH-XPLAT:6
+
+PowerShell code resolves a path from the anchors of [ADR-AUTO-XPLAT#3](../automation/cross-platform.md#rule-adr-auto-xplat3): the working
+root through `Get-RepositoryRoot`, the code root through `Get-CatzcModuleRoot`, or the temp directory through `[IO.Path]::GetTempPath()`,
+joined with `Join-Path`. It never writes a literal `C:\` or `/tmp/`, and never reads a variable that one platform alone sets
+(`$env:APPDATA`, `$env:USERPROFILE`).
+
+- [What breaks in practice](#what-breaks-in-practice)
+
+### Rule ADR-PWSH-XPLAT:7
+
+PowerShell code formats and parses a machine-bound string ([ADR-AUTO-XPLAT#6](../automation/cross-platform.md#rule-adr-auto-xplat6)) with
+`[System.Globalization.CultureInfo]::InvariantCulture` passed to `ToString` or `ParseExact`.
+
+- [Culture in PowerShell](#culture-in-powershell)
+
+### Rule ADR-PWSH-XPLAT:8
+
+PowerShell code compares paths ([ADR-AUTO-XPLAT#7](../automation/cross-platform.md#rule-adr-auto-xplat7)) with `-ieq`, or compares
+`[IO.Path]::GetFullPath()` results, rather than `-eq`.
+
+- [What breaks in practice](#what-breaks-in-practice)
+
+### Rule ADR-PWSH-XPLAT:9
+
+The one code path of [ADR-AUTO-XPLAT#8](../automation/cross-platform.md#rule-adr-auto-xplat8) is, in PowerShell, `Install-DevBoxTools` for
+the tools and the dot-sourced `importer.ps1` for the session, run unchanged on a workstation and in CI.
+
+- [How this is enforced](#how-this-is-enforced)
+
 ## Context
 
-[cross-platform](../cross-platform.md) fixes the doctrine: everything runs on Windows and Linux, and a developer tests locally everything
-that runs in CI. PowerShell 7+ is cross-platform by design, but the _code_ people write in it often is not: Windows-only cmdlets, .NET types
-that do not exist on Linux, backslash separators, registry access, COM objects, shell-outs to `cmd.exe`. These work fine on the author's
-machine and fail silently or loudly in CI. This ADR is the language layer — the concrete PowerShell hazards and the analyzer that catches
-them before push.
+[cross-platform](../automation/cross-platform.md) fixes the doctrine: everything runs on Windows and Linux, and a developer tests locally
+everything that runs in CI. PowerShell 7+ is cross-platform by design, but the _code_ people write in it often is not: Windows-only cmdlets,
+.NET types that do not exist on Linux, backslash separators, registry access, COM objects, shell-outs to `cmd.exe`. These work fine on the
+author's machine and fail silently or loudly in CI. This ADR is the language layer — the concrete PowerShell hazards and the analyzer that
+catches them before push.
 
 ### What breaks in practice
 
@@ -59,9 +89,6 @@ them before push.
 | `[System.IO.Path]::DirectorySeparatorChar` assumed `\` | It is `/` on Unix                     |
 | Case-insensitive file lookups                          | Unix filesystems are case-sensitive   |
 
-The culture axis — a locale-dependent `ToString` producing different output on a da-DK devbox than an invariant CI agent — is a doctrine
-rule, not a language one: see [cross-platform](../cross-platform.md#rule-adr-auto-xplat6).
-
 ### What breaks the other way
 
 | Unix-ism                                              | Fails on Windows because                     |
@@ -71,14 +98,20 @@ rule, not a language one: see [cross-platform](../cross-platform.md#rule-adr-aut
 | `/tmp`, `/dev/null` in paths                          | Not valid Windows paths                      |
 | `apt-get`, `brew` assumed available                   | Windows uses `winget`                        |
 
+### Culture in PowerShell
+
+`ToString()` on a date or a number, and `[datetime]::Parse`, use the current culture, so a da-DK devbox and an invariant CI agent render and
+read the same value differently. Passing `[System.Globalization.CultureInfo]::InvariantCulture` makes the format explicit at the call site.
+Why the culture axis matters at all is the doctrine: [cross-platform](../automation/cross-platform.md#rule-adr-auto-xplat6).
+
 ### Analyzer coverage
 
 `How the analyzer catches platform breaks`
 
 **PSScriptAnalyzer** validates cmdlets and .NET types against Windows and Ubuntu profiles at analysis time, catching Windows-only APIs
 _before the code runs_ — in the L2 tests, on every developer's machine. The rules that do this (`PSUseCompatibleCmdlets`,
-`PSUseCompatibleTypes`), their target profiles, and their current on/off state are defined in `PSScriptAnalyzerSettings.psd1`, documented
-inline (they are costly to run and may be toggled — the psd1 is authoritative).
+`PSUseCompatibleTypes`), their target profiles, and their on/off state are defined in `PSScriptAnalyzerSettings.psd1`, documented inline
+(they are costly to run and may be toggled — the psd1 is authoritative).
 
 **Why no macOS profile?** PSScriptAnalyzer's built-in compatibility catalog only ships with Windows and Ubuntu profiles — there is no macOS
 catalog. In practice this is fine: macOS and Linux both run .NET on Unix, so the cmdlet and type surface is nearly identical. The Ubuntu
@@ -88,9 +121,10 @@ profile effectively covers macOS. If Microsoft ever ships a macOS catalog, we ad
 
 ## Decision
 
-PowerShell code constructs every path with `Join-Path`, uses no platform-only cmdlet or binary without a branch for the other platform, and
-expresses unavoidable platform logic as `$IsWindows` / `$IsLinux` branches — all validated by the analyzer's compatibility profiles before
-push.
+PowerShell code constructs every path with `Join-Path` from a known anchor, uses no platform-only cmdlet or binary without a branch for the
+other platform, expresses unavoidable platform logic as `$IsWindows` / `$IsLinux` branches, passes the invariant culture to every
+machine-bound format and parse, and compares paths with an explicit case rule — all validated by the analyzer's compatibility profiles
+before push.
 
 ### How this is enforced
 
@@ -98,11 +132,13 @@ push.
   on all target platforms. The rules, their profiles, and their on/off state live in `PSScriptAnalyzerSettings.psd1`.
 - **L2 tests run locally** — developers run the same `Test-ScriptAnalyzer.Tests.ps1` test file that CI runs, so platform violations are
   caught before push, not in the pipeline queue.
+- **One entry, everywhere** — `Install-DevBoxTools` and `importer.ps1` are the same files on a workstation and in CI; a pipeline step calls
+  them, never a CI-only script.
 
 ## Consequences
 
 - Code that passes L2 tests locally on Windows is validated against Linux compatibility without needing a Linux machine.
 - Platform-specific concerns are isolated to `Install-*` functions and branched on `$IsWindows` / `$IsLinux`; the rest of the codebase is
   platform-agnostic.
-- Path handling is consistent everywhere — `Join-Path` is the only way to build paths.
+- Path handling is consistent everywhere — `Join-Path` from an anchor is the only way to build paths.
 - New platforms (macOS) can be added by extending the `Install-*` functions without touching business logic.

@@ -1,6 +1,7 @@
 Describe 'Get-ToolConfig' -Tag 'L0' {
-    # Discovery-time: populates -ForEach data before tests run
-    $script:configPath = Join-Path $PSScriptRoot '../configs/tools.yml'
+    # Discovery-time: populates -ForEach data before tests run. tools.yml is located through its registered owner
+    # (Catzc.Base.Execution owns it; this module reads it).
+    $script:configPath = (Get-Config -Config tools -ListOwners).Path
     $script:allTools = Get-Content $configPath -Raw | ConvertFrom-Yaml
     $script:toolEntries = foreach ($key in $script:allTools.Keys) {
         @{ Tool = $key; Config = $script:allTools[$key] }
@@ -15,13 +16,13 @@ Describe 'Get-ToolConfig' -Tag 'L0' {
 
     # Run-time: makes data available inside It blocks
     BeforeAll {
-        $script:configPath = Join-Path $PSScriptRoot '../configs/tools.yml'
+        $script:configPath = (Get-Config -Config tools -ListOwners).Path
         $script:allTools = Get-Content $configPath -Raw | ConvertFrom-Yaml
     }
 
     Context 'asset dependencies' -Tag 'integrity' {
         It 'tools.yml exists' {
-            Join-Path $PSScriptRoot '../configs/tools.yml' | Should -Exist
+            $script:configPath | Should -Exist
         }
     }
 
@@ -80,7 +81,7 @@ Describe 'Get-ToolConfig' -Tag 'L0' {
             # shipped tools.yml ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)). The
             # mock returns a STABLE typed ToolsConfig (Get-ToolConfig inherits its
             # same-reference caching from Get-Config's cached read), so both calls see one ToolConfig.
-            $script:toolsFixture = [Catzc.Tooling.Core.ToolsConfig]::new(@{ faketool = @{
+            $script:toolsFixture = [Catzc.Base.Execution.ToolsConfig]::new(@{ faketool = @{
                         version         = '1.0'
                         command         = 'faketool'
                         version_command = 'faketool --version'

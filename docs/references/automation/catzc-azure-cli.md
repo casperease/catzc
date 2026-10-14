@@ -5,9 +5,9 @@
 The Azure CLI module. It **encapsulates every interaction with the `az` CLI** — issuing commands, establishing and selecting the session,
 and verifying that the session points where configuration says it should. It is the single boundary the whole platform runs `az` through.
 What it deliberately does **not** own is the az _binary_: installing it lives in [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md)
-(`Install-AzCli`) and locking its version in [Catzc.Tooling.Core](catzc-tooling-core.md) (`Assert-Tool`, `tools.yml`). This module owns
-everything you _do_ with `az` once it is installed. The verify-vs-connect split is the subject of
-[az-session-verification](../../adr/automation/az-session-verification.md).
+(`Install-AzCli`) and locking its version in [Catzc.Tooling.Core](catzc-tooling-core.md) (`Assert-Tool`, against the `tools.yml` lock that
+[Catzc.Base.Execution](catzc-base-execution.md) owns). This module owns everything you _do_ with `az` once it is installed. The
+verify-vs-connect split is the subject of [az-session-verification](../../adr/automation/az-session-verification.md).
 
 ## Responsibilities
 
@@ -87,10 +87,10 @@ name — and responsibility 6 is literally responsibility 5 with the names looke
 no business reading `azure.yml` still verify a session by GUID.
 
 The split with the Tooling group is the deliberate counterpart to all of this: [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md) owns
-the az **binary** (install and uninstall) and [Catzc.Tooling.Core](catzc-tooling-core.md) the `tools.yml` version lock asserted by
-`Assert-Tool`, while this module owns the az **session**. The one tie back is that `Invoke-AzCli` and the connect functions call
-`Assert-Tool 'az_cli'` (from [Catzc.Tooling.Core](catzc-tooling-core.md)) — a single, version-locking dependency, not a reimplementation of
-tool management.
+the az **binary** (install and uninstall) and [Catzc.Tooling.Core](catzc-tooling-core.md) the version lock asserted by `Assert-Tool` (the
+`tools.yml` entry, owned by [Catzc.Base.Execution](catzc-base-execution.md)), while this module owns the az **session**. The one tie back is
+that `Invoke-AzCli` and the connect functions call `Assert-Tool 'az_cli'` (from [Catzc.Tooling.Core](catzc-tooling-core.md)) — a single,
+version-locking dependency, not a reimplementation of tool management.
 
 ## Division
 

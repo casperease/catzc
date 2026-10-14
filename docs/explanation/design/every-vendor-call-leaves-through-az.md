@@ -8,7 +8,7 @@ Every vendor call leaves cats through the az CLI, the one exit to Azure.
 1  Catzc.Azure.Templates    the module behind the deploy commands; never calls the vendor itself
 2  azure.yml, options.yml   the configuration both Azure modules read
 3  Catzc.Azure.Cli          the module that owns the az session and the az wrapper
-4  Catzc.Tooling.Core       the tooling contract: the az_cli pin and its check
+4  Catzc.Tooling.Core       the tooling contract: checks the installed az against its pin
 5  az CLI                   the vendor's control-plane tool, and the one exit to Azure
 6  Bicep                    the vendor's templating language, compiled by az
 7  Azure                    the vendor substrate, today the only one
@@ -35,8 +35,8 @@ The diagram is described element by element in
    and each template can carry an `options.yml` of validated overrides beside it. Both modules read it.
 3. **Catzc.Azure.Cli.** The module that owns the az session: the login, the session's subscription, and `Invoke-AzCli`, the wrapper every
    deploy-path call goes through.
-4. **Catzc.Tooling.Core.** The tooling contract. It holds the `az_cli` pin in `tools.yml`, and `Assert-Tool 'az_cli'` checks the installed
-   az against it before the wrapper runs az.
+4. **Catzc.Tooling.Core.** The tooling contract. It reads the `az_cli` pin from `tools.yml`, which `Catzc.Base.Execution` holds, and
+   `Assert-Tool 'az_cli'` checks the installed az against it before the wrapper runs az.
 5. **az CLI.** The vendor's control-plane tool, and the one exit to Azure. The resource-group check and create, the deployment and the
    tracking tags all go through it.
 6. **Bicep.** The vendor's templating language. The platform does not generate ARM by hand: az compiles each template with `az bicep build`.

@@ -97,9 +97,9 @@ that module's `tests/` folder, and a test folder that names no catzc module stop
 discovery needs no tool, and runs them once per module through [Catzc.Base.Languages](catzc-base-languages.md): every test becomes one `L2`
 Pester test with the category its name gives, and passes, fails with the tool output, or skips as the test did. The run's source session
 locates the tools once — the managed `go`, `uv` with the pinned interpreter, and the bash engine — and hands them to the bridge; without
-one, that language's tests skip with `tool_go_missing`, `tool_uv_missing` or `tool_bash_missing`. The Go and Python tests run once per
-execution engine, pwsh and bash; the Bash tests run under bash only. In a build run the bridge hands the build's entry script on, so the
-tests start the built engine.
+one, that language's tests skip with `tool_go_missing`, `tool_uv_missing` or `tool_bash_missing`. The Go and Python tests run once under
+each of the three execution engines, pwsh, bash and zsh; the Bash tests run under bash only. In a build run the bridge hands the build's
+entry script on, so the tests start the built engine.
 
 Responsibility 3 is a set of thin wrappers, one per external tool, deliberately kept separate so each can be run in isolation;
 `Test-Formatting` (responsibility 2) runs every formatter in its report-only mode as one gate. A `Format-*` function is both a check and a

@@ -92,9 +92,10 @@ so it is the same picture on every run of the same commit.
 
 ### Rule ADR-DSGN-TRACK:10
 
-A **cell** is one row crossed with one column of the world map: it holds the tracked files whose root folder names its row and whose
-extension names its column, and its file count is how many there are. Every row meets every column, so an empty cell is still a cell of the
-map.
+A **cell** is one row crossed with one column of a map, the world map (ADR-DSGN-TRACK#9) or the value-chain map (ADR-DSGN-TRACK#16). A
+world-map cell holds the tracked files whose root folder names its row and whose extension names its column, and its file count is how many
+there are; a value-chain map cell holds the ADRs whose ADR domain declares its row and whose value-chain concerns include its column. Every
+row meets every column, so an empty cell is still a cell of the map.
 
 - [The world map](#the-world-map)
 
@@ -108,8 +109,9 @@ one, and the root files' row has no track, so none of its cells is one.
 
 ### Rule ADR-DSGN-TRACK:12
 
-A **lit cell** is a cell a highlight selects: an ADR code, or a set of files, names the files it concerns, and every cell holding one of
-them is lit. A lit cell answers "where does this decision, or this change, sit"; lighting a cell never changes its file count.
+A **lit cell** is a cell a highlight selects. On the world map, an ADR code, or a set of files, names the files it concerns, and every cell
+holding one of them is lit; on the value-chain map, an ADR code, or one of its rules, lights every cell its ADR sits in. A lit cell answers
+"where does this decision, or this change, sit"; lighting a cell never changes what the cell holds.
 
 - [The world map](#the-world-map)
 

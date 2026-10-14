@@ -39,6 +39,11 @@ Describe 'MapsConfig' -Tag 'L0' {
                 $config.labels.legend_files | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultLegendFiles)
                 $config.labels.legend_violation | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultLegendViolation)
                 $config.labels.legend_highlight | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultLegendHighlight)
+                $config.labels.value_chain_title | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainTitle)
+                $config.labels.value_chain_row_axis | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainRowAxis)
+                $config.labels.value_chain_column_axis | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainColumnAxis)
+                $config.labels.value_chain_legend_adrs | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainLegendAdrs)
+                $config.labels.value_chain_legend_highlight | Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainLegendHighlight)
                 $config.highlight.pins.Count | Should -Be 0
                 $config.highlight.exceptions.Count | Should -Be 0
                 $config.output_folder | Should -Be ([Catzc.Base.Maps.MapsConfig]::DefaultOutputFolder)
@@ -64,6 +69,9 @@ Describe 'MapsConfig' -Tag 'L0' {
                         grid_title = "Widgets $script:times gadgets"; tree_title = 'Widget tree'; row_axis = 'Widget'; column_axis = 'Gadget'
                         root_files = 'Top widgets'; unlisted_files = 'Gizmos'; legend_files = 'Widgets per cell'
                         legend_violation = 'Gadget clash'; legend_highlight = 'Lit widget'
+                        value_chain_title = 'Gadget chain: widgets'; value_chain_row_axis = 'Widget rank'
+                        value_chain_column_axis = 'Gadget step, longer than any world-map limit'; value_chain_legend_adrs = 'Gadget: widgets'
+                        value_chain_legend_highlight = 'Lit gadget'
                     }
                     highlight     = [ordered]@{ pins = @(& $script:pin); exceptions = @(& $script:pin) }
                     output_folder = 'widget-map'
@@ -80,6 +88,11 @@ Describe 'MapsConfig' -Tag 'L0' {
             $config.labels.root_files | Should -Be 'Top widgets'
             $config.labels.unlisted_files | Should -Be 'Gizmos'
             $config.labels.legend_highlight | Should -Be 'Lit widget'
+            $config.labels.value_chain_title | Should -Be 'Gadget chain: widgets'
+            $config.labels.value_chain_row_axis | Should -Be 'Widget rank'
+            $config.labels.value_chain_column_axis | Should -Be 'Gadget step, longer than any world-map limit'
+            $config.labels.value_chain_legend_adrs | Should -Be 'Gadget: widgets'
+            $config.labels.value_chain_legend_highlight | Should -Be 'Lit gadget'
             $config.highlight.pins[0] | Should -BeOfType [Catzc.Base.Maps.MapsPin]
             $config.highlight.pins[0].adr | Should -Be 'ADR-WIDGET-GADGET#3'
             $config.highlight.pins[0].track | Should -Be 'widgets'

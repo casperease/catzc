@@ -37,8 +37,8 @@ The diagram is described element by element in
 4. **dependsOn.** `Deploy_Foundation`, then `Deploy_Discovery`, then `Deploy_Expedition`: foundation owns the Key Vault the other two read,
    so the stages are chained with `dependsOn`.
 5. **Non-prod targets.** Through the `sc-<customer>-nonprod` service connection, foundation and discovery deploy per subscription to `nsub`,
-   and the expedition template deploys to `dev`. `cd-apex` also deploys the expedition slot `dev-blu`; `cd-nova` carries non-prod entries
-   only, and `cd-flux` has no expedition. The standalone `cd-shared.yaml` deploys `shared-nsub`, `shared-dev` and `shared-test`.
+   and the expedition template deploys to `dev`. `cd-apex` also deploys the expedition's special slot `dev-blu`; `cd-nova` carries non-prod
+   entries only, and `cd-flux` has no expedition. The standalone `cd-shared.yaml` deploys `shared-nsub`, `shared-dev` and `shared-test`.
 6. **Prod-tier targets.** Through the `sc-<customer>-prod` service connection, `cd-apex` deploys foundation and discovery to `psub` and the
    expedition to `prod`, and `cd-shared.yaml` deploys `shared-psub`. The jobs come from `${{ each }}` and share each stage with no order
    between them, so prod-tier jobs run beside the non-prod ones, with no gate between the environments.

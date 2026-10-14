@@ -154,7 +154,7 @@ Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
             @(InModuleScope Catzc.Base.Docs -Parameters $parameters $check) | Should -BeNullOrEmpty
             @($parameters.Table.Keys) | Should -Be @($relative)
 
-            $parameters.Table[$relative] = @([pscustomobject]@{ Surface = 'markdown'; Line = 1; Text = 'the widget bundle' })
+            $parameters.Table[$relative] = @([Catzc.Base.Docs.GlossarySegment]::new('markdown', 1, 'the widget bundle'))
             @(InModuleScope Catzc.Base.Docs -Parameters $parameters $check) |
                 Should -Be @('docs/alpha.md:1 says "widget bundle" — say "widget suite" (ADR-TST-WIDGET#1)')
         }

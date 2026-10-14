@@ -27,7 +27,8 @@
 .PARAMETER Root
     The directory the tracked files are relative to. Defaults to the repository root.
 .PARAMETER SurfaceCache
-    The text surfaces already read, keyed by tracked file: a file read once is not read again. Test-Glossary hands the
+    The text surfaces already read, keyed by tracked file, each value the file's Catzc.Base.Docs.GlossarySegment array
+    (Catzc.Base.Docs.GlossaryProse): a file read once is not read again. Test-Glossary hands the
     same table to this check and to the forms check (G6, Get-GlossaryFormViolations), which read the same surfaces of
     the same files under the same root, so one run reads each file's prose once. Defaults to an empty table.
 .OUTPUTS
@@ -51,74 +52,7 @@ function Get-GlossaryPhrasingViolations {
         [hashtable] $SurfaceCache = @{}
     )
 
-    # Per source: its options and every avoided phrasing of its concepts. Sources outside the avoid check drop out.
-    $sources = [ordered]@{}
-    foreach ($item in $Entry) {
-        if ($item.Options.checks -notcontains 'avoid' -or $item.Concept.avoid.Count -eq 0) {
-            continue
-        }
-        if (-not $sources.Contains($item.SourcePath)) {
-            $sources[$item.SourcePath] = [pscustomobject]@{
-                Options = $item.Options
-                Avoid   = [System.Collections.Generic.List[object]]::new()
-            }
-        }
-        foreach ($avoid in $item.Concept.avoid) {
-            $words = @($avoid.phrase -split '\s+' | ForEach-Object { [regex]::Escape($_) })
-            $sources[$item.SourcePath].Avoid.Add([pscustomobject]@{
-                    Phrase    = $avoid.phrase
-                    Say       = $avoid.say
-                    DefinedBy = $item.Concept.defined_by
-                    Pattern   = [regex]::new('(?<![\w-])' + ($words -join '\s+') + '(?![\w-])', 'IgnoreCase')
-                })
-        }
-    }
-
-    # A file's text surfaces are read once (into -SurfaceCache), however many sources scan it.
-    $hits = [System.Collections.Generic.List[object]]::new()
-    foreach ($sourcePath in $sources.Keys) {
-        $source = $sources[$sourcePath]
-        $scope = @($source.Options.scope | ForEach-Object { [Catzc.Base.Globs.GlobPattern]::new($_) })
-        $exclude = @($source.Options.exclude | ForEach-Object { [Catzc.Base.Globs.GlobPattern]::new($_) })
-        foreach ($file in $TrackedFile) {
-            $isMarkdown = $file.EndsWith('.md', [System.StringComparison]::OrdinalIgnoreCase)
-            $isPowerShell = $file -match '\.psm?1$'
-            if (-not ($isMarkdown -or $isPowerShell)) {
-                continue
-            }
-            if (-not @($scope | Where-Object { $_.Matches($file) }) -or @($exclude | Where-Object { $_.Matches($file) })) {
-                continue
-            }
-            $fullPath = Join-Path $Root $file
-            if (-not [System.IO.File]::Exists($fullPath)) {
-                continue   # a tracked file deleted in the working tree has no prose to read
-            }
-            if (-not $surfaceCache.ContainsKey($file)) {
-                $surfaceCache[$file] = if ($isMarkdown) {
-                    @(Get-GlossaryMarkdownProse $fullPath)
-                }
-                else {
-                    @(Get-GlossaryPowerShellProse $fullPath)
-                }
-            }
-            foreach ($segment in $surfaceCache[$file]) {
-                if ($source.Options.surfaces -notcontains $segment.Surface) {
-                    continue
-                }
-                foreach ($avoid in $source.Avoid) {
-                    foreach ($match in $avoid.Pattern.Matches($segment.Text)) {
-                        $line = $segment.Line + ([regex]::Matches($segment.Text.Substring(0, $match.Index), "`n")).Count
-                        $hits.Add([pscustomobject]@{
-                                File    = $file
-                                Line    = $line
-                                Message = "${file}:$line says `"$($avoid.Phrase)`" — say `"$($avoid.Say)`" ($($avoid.DefinedBy))"
-                            })
-                    }
-                }
-            }
-        }
-    }
-
-    [string[]] @($hits | Sort-Object -Property @{ Expression = 'File' }, @{ Expression = 'Line' }, @{ Expression = 'Message' } -Unique |
-            ForEach-Object Message)
+    # The scan runs compiled (Catzc.Base.Docs.GlossaryScan): it reads each file's prose through GlossaryProse into the
+    # surface cache once, and matches every avoided phrasing over the files each glossary source's scope selects.
+    [string[]] [Catzc.Base.Docs.GlossaryScan]::Phrasing([Catzc.Base.Docs.GlossaryEntry[]] @($Entry), [string[]] @($TrackedFile), $Root, $SurfaceCache)
 }

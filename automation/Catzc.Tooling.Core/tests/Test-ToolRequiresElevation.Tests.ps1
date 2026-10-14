@@ -8,7 +8,7 @@ Describe 'Test-ToolRequiresElevation' -Tag 'L0', 'logic' {
             foreach ($key in $Flags.Keys) {
                 $entry[$key] = $Flags[$key]
             }
-            [Catzc.Tooling.Core.ToolConfig]::new($entry)
+            [Catzc.Base.Execution.ToolConfig]::new($entry)
         }
     }
 

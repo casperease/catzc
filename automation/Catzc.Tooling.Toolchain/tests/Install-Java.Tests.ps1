@@ -19,7 +19,7 @@ Describe 'Install-Java' -Tag 'L1', 'logic' {
     BeforeEach {
         $env:JAVA_HOME = $null
         Mock Get-ToolConfig {
-            [Catzc.Tooling.Core.ToolConfig]::new(@{ version = '21'; command = 'java'; version_command = 'java -version'; version_pattern = '(?<ver>.+)' })
+            [Catzc.Base.Execution.ToolConfig]::new(@{ version = '21'; command = 'java'; version_command = 'java -version'; version_pattern = '(?<ver>.+)' })
         } -ModuleName Catzc.Tooling.Toolchain
         Mock Test-Command { $false } -ModuleName Catzc.Tooling.Toolchain
         Mock Get-ToolVersion { $null } -ModuleName Catzc.Tooling.Toolchain

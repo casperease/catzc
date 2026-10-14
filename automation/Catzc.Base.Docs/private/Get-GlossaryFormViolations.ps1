@@ -25,7 +25,8 @@
 .PARAMETER Root
     The directory the tracked files are relative to. Defaults to the repository root.
 .PARAMETER SurfaceCache
-    The text surfaces already read, keyed by tracked file: a file read once is not read again. Test-Glossary hands the
+    The text surfaces already read, keyed by tracked file, each value the file's Catzc.Base.Docs.GlossarySegment array
+    (Catzc.Base.Docs.GlossaryProse): a file read once is not read again. Test-Glossary hands the
     same table to this check and to the avoided-phrasing check (G4, Get-GlossaryPhrasingViolations), which read the same
     surfaces of the same files under the same root, so one run reads each file's prose once. Defaults to an empty
     table.
@@ -50,112 +51,7 @@ function Get-GlossaryFormViolations {
         [hashtable] $SurfaceCache = @{}
     )
 
-    # Words that only point at, count, own, or join a noun — never a qualifier that names a kind of it: articles,
-    # determiners, quantifiers, possessives (the 's' of "the template's slot"), prepositions, conjunctions, and
-    # adverbs that only limit the noun ("only slots").
-    $functionWords = [System.Collections.Generic.HashSet[string]]::new([string[]] @(
-            'a', 'an', 'the', 'this', 'that', 'these', 'those', 'each', 'every', 'any', 'all', 'no', 'some', 'both', 'either',
-            'neither', 'its', 'their', 'our', 'your', 'my', 'his', 'her', 'which', 'whose', 'what', 'same', 'other', 'another',
-            'own', 'one', 'two', 'three', 'four', 'five', 'first', 'second', 'last', 'next', 'single', 'per', 'more', 'most',
-            'many', 'few', 'several', 's', 'and', 'or', 'nor', 'but', 'of', 'for', 'to', 'in', 'on', 'at', 'by', 'with', 'from',
-            'into', 'onto', 'across', 'between', 'within', 'without', 'per', 'via', 'than', 'then', 'as', 'is', 'are', 'was', 'be', 'only', 'also', 'not', 'just', 'even', 'against', 'about', 'over',
-            'under', 'after', 'before', 'behind', 'through', 'around', 'along', 'among', 'beyond', 'during', 'except', 'inside',
-            'outside', 'toward', 'towards', 'upon', 'past', 'off', 'out', 'up', 'down', 'since', 'until', 'versus', 'vs'
-        ), [System.StringComparer]::OrdinalIgnoreCase)
-
-    # Per source: its options and every concept that declares forms. Sources outside the forms check drop out.
-    $sources = [ordered]@{}
-    foreach ($item in $Entry) {
-        if ($item.Options.checks -notcontains 'forms' -or $item.Concept.forms.Count -eq 0) {
-            continue
-        }
-        if (-not $sources.Contains($item.SourcePath)) {
-            $sources[$item.SourcePath] = [pscustomobject]@{
-                Options  = $item.Options
-                Concepts = [System.Collections.Generic.List[object]]::new()
-            }
-        }
-        $head = @($item.Concept.term -split '[ -]')[-1]
-        $stem = if ($head.EndsWith('e')) {
-            $head.Substring(0, $head.Length - 1)
-        }
-        else {
-            $head
-        }
-        $allowed = [System.Collections.Generic.HashSet[string]]::new([string[]] @($item.Concept.forms), [System.StringComparer]::OrdinalIgnoreCase)
-        $sources[$item.SourcePath].Concepts.Add([pscustomobject]@{
-                Term      = $item.Concept.term
-                DefinedBy = $item.Concept.defined_by
-                Allowed   = $allowed
-                Forms     = (@($item.Concept.forms | ForEach-Object { "$_ $head" }) + $head) -join ', '
-                # The qualifier is the last word before the head ('commit' in 'pre-commit gate'), joined by spaces, one
-                # line break, or a hyphen. A word after a dot is a keyword, not a qualifier (`.PARAMETER Slot` in help).
-                Qualified = [regex]::new('(?<![A-Za-z0-9.])(?<q>[A-Za-z0-9]+)(?:[ \t]+|[ \t]*\n[ \t]*|-)(?<w>' + [regex]::Escape($head) + 's?)(?![\w-])', 'IgnoreCase')
-                # A verb form counts after a hyphen too (`double-gated`).
-                Verbs     = [bool] $item.Concept.verbs
-                Verb      = [regex]::new('(?<![A-Za-z0-9])(?<w>' + [regex]::Escape($stem) + '(?:ed|ing))(?![\w-])', 'IgnoreCase')
-            })
-    }
-
-    # A file's text surfaces are read once (into -SurfaceCache), however many sources scan it.
-    $hits = [System.Collections.Generic.List[object]]::new()
-    foreach ($sourcePath in $sources.Keys) {
-        $source = $sources[$sourcePath]
-        $scope = @($source.Options.scope | ForEach-Object { [Catzc.Base.Globs.GlobPattern]::new($_) })
-        $exclude = @($source.Options.exclude | ForEach-Object { [Catzc.Base.Globs.GlobPattern]::new($_) })
-        foreach ($file in $TrackedFile) {
-            $isMarkdown = $file.EndsWith('.md', [System.StringComparison]::OrdinalIgnoreCase)
-            $isPowerShell = $file -match '\.psm?1$'
-            if (-not ($isMarkdown -or $isPowerShell)) {
-                continue
-            }
-            if (-not @($scope | Where-Object { $_.Matches($file) }) -or @($exclude | Where-Object { $_.Matches($file) })) {
-                continue
-            }
-            $fullPath = Join-Path $Root $file
-            if (-not [System.IO.File]::Exists($fullPath)) {
-                continue   # a tracked file deleted in the working tree has no prose to read
-            }
-            if (-not $surfaceCache.ContainsKey($file)) {
-                $surfaceCache[$file] = if ($isMarkdown) {
-                    @(Get-GlossaryMarkdownProse $fullPath)
-                }
-                else {
-                    @(Get-GlossaryPowerShellProse $fullPath)
-                }
-            }
-            foreach ($segment in $surfaceCache[$file]) {
-                if ($source.Options.surfaces -notcontains $segment.Surface) {
-                    continue
-                }
-                foreach ($concept in $source.Concepts) {
-                    $uses = @(
-                        foreach ($match in $concept.Qualified.Matches($segment.Text)) {
-                            $qualifier = $match.Groups['q'].Value
-                            if (-not $concept.Allowed.Contains($qualifier) -and -not $functionWords.Contains($qualifier) -and $qualifier -notmatch '^\d+$') {
-                                $match
-                            }
-                        }
-                        if (-not $concept.Verbs) {
-                            foreach ($match in $concept.Verb.Matches($segment.Text)) {
-                                $match
-                            }
-                        }
-                    )
-                    foreach ($match in $uses) {
-                        $line = $segment.Line + ([regex]::Matches($segment.Text.Substring(0, $match.Index), "`n")).Count
-                        $use = $match.Value -replace '\s+', ' '
-                        $hits.Add([pscustomobject]@{
-                                File    = $file
-                                Line    = $line
-                                Message = "${file}:$line says `"$use`" — `"$($concept.Term)`" takes only: $($concept.Forms) ($($concept.DefinedBy))"
-                            })
-                    }
-                }
-            }
-        }
-    }
-
-    [string[]] @($hits | Sort-Object -Property @{ Expression = 'File' }, @{ Expression = 'Line' }, @{ Expression = 'Message' } -Unique |
-            ForEach-Object Message)
+    # The scan runs compiled (Catzc.Base.Docs.GlossaryScan): it reads each file's prose through GlossaryProse into the
+    # surface cache once, and matches every concept with forms over the files each glossary source's scope selects.
+    [string[]] [Catzc.Base.Docs.GlossaryScan]::Forms([Catzc.Base.Docs.GlossaryEntry[]] @($Entry), [string[]] @($TrackedFile), $Root, $SurfaceCache)
 }

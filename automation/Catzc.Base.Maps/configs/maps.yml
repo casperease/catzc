@@ -1,5 +1,5 @@
-# maps.yml — the world-map settings: the palette, the limits, the printed labels, the reviewed highlight pins and
-# exceptions, and the folder under the output root the PDFs are written to
+# maps.yml — the map settings: the palette, the limits, the printed labels of the world map and the value-chain map,
+# the reviewed highlight pins and exceptions, and the folder under the output root the PDFs are written to
 # ([ADR-REPO-OUTDIR#2](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2)). Every key has a
 # sensible default, declared once on Catzc.Base.Maps.MapsConfig and the section types it holds
 # ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)); set a key only to change
@@ -35,7 +35,14 @@
 #     legend_files: 'Cell: files'
 #     legend_violation: Stack violation
 #     legend_highlight: Lit cell
-#   highlight:                      # reviewed overrides of the derived highlight
+#     # the value-chain map's labels, checked by Test-ValueChainMap; no length limit
+#     #   ([ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16))
+#     value_chain_title: 'Value-chain map: value-chain stack × value-chain concerns'
+#     value_chain_row_axis: Value-chain stack
+#     value_chain_column_axis: Value-chain concern
+#     value_chain_legend_adrs: 'Cell: ADRs'
+#     value_chain_legend_highlight: Lit cell
+#   highlight:                     # reviewed overrides of the derived highlight
 #     pins: []                      #   cells an ADR always lights
 #     exceptions: []                #   cells an ADR never lights (a passing mention)
 #       # each: { adr: <ADR code, optionally #n>, track: <track>, file_language: <file language>, reason: <why> }

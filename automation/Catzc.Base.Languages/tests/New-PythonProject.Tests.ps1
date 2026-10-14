@@ -16,7 +16,7 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
         $script:header = @(
             '# GENERATED FILE — do not edit. Single source of truth:'
             '#   automation/Catzc.Base.Languages/configs/python.yml (rendered by New-PythonProject over the python/tests/*/ folders)'
-            '#   requires-python: the python pin in automation/Catzc.Tooling.Core/configs/tools.yml'
+            '#   requires-python: the python pin in automation/Catzc.Base.Execution/configs/tools.yml'
             '# Regenerated on import by Build-RootConfig; edit the yml or the folders, not this file.'
         )
     }

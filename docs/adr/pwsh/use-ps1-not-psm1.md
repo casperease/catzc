@@ -1,17 +1,17 @@
-# docs/adr/automation/powershell/use-ps1-not-psm1.md
+# docs/adr/pwsh/use-ps1-not-psm1.md
 
 `ADR: Use .ps1 for function files, not .psm1`
 
-## Rules: ADR-AUTO-USEPS
+## Rules: ADR-PWSH-USEPS
 
-### Rule ADR-AUTO-USEPS:1
+### Rule ADR-PWSH-USEPS:1
 
 Use `.ps1` for all module function files — listed in the manifest's `NestedModules`, they share the module's session state, so public and
 private functions see each other without imports.
 
 - [Decision](#decision)
 
-### Rule ADR-AUTO-USEPS:2
+### Rule ADR-PWSH-USEPS:2
 
 Reserve `.psm1` for genuine module or standalone files only — the `automation/.internal/*.psm1` shared modules, the
 `automation/.scriptanalyzer/*.psm1` analyzer rules, and per-template `PrePost.psm1` — never for a per-function file inside a module.
@@ -19,7 +19,7 @@ Reserve `.psm1` for genuine module or standalone files only — the `automation/
 - [Decision](#decision)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-USEPS:3
+### Rule ADR-PWSH-USEPS:3
 
 These rules govern **source** — the `automation/<Module>/` tree a developer edits. The installed build's merged `<Module>.functions.ps1`
 (every function of one module in one file, listed as that module's single `NestedModules` entry) is a **generated artifact** written by
@@ -79,13 +79,13 @@ None of these are per-function files within a module, so the rule above is intac
 
 ### Source and the generated build
 
-The toolset runs in two modes ([run-modes](../../design/run-modes.md)). In source mode the generated manifest lists every `.ps1` function
-file of a module in `NestedModules`. In build mode `Build-Modules` concatenates the same files — `private/` first, then the root, each in
-ordinal order and each preceded by a `# source:` marker line naming its source path — into one `<Module>.functions.ps1`, and the built
-manifest lists that one file. The merged file is a `.ps1` too, so the module's public and private functions share one session state in both
-modes, and it is one module per folder, so each module keeps its own `$script:` scope. It is output, not source: it exists only in a build
-under `out/automation/build/` and the installs copied from it, is rewritten on every build, and the rules of this ADR apply to the files it
-is generated from.
+The toolset runs in two modes ([run-modes](../design/run-modes.md)). In source mode the generated manifest lists every `.ps1` function file
+of a module in `NestedModules`. In build mode `Build-Modules` concatenates the same files — `private/` first, then the root, each in ordinal
+order and each preceded by a `# source:` marker line naming its source path — into one `<Module>.functions.ps1`, and the built manifest
+lists that one file ([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest5)). The merged file is a `.ps1` too, so
+the module's public and private functions share one session state in both modes, and it is one module per folder, so each module keeps its
+own `$script:` scope. It is output, not source: it exists only in a build under `out/automation/build/` and the installs copied from it, is
+rewritten on every build, and the rules of this ADR apply to the files it is generated from.
 
 ### How this is enforced
 

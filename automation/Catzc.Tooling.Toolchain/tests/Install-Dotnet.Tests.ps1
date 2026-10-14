@@ -87,7 +87,7 @@ Describe 'Install-Dotnet' -Tag 'L1', 'logic' {
 
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Tooling.Toolchain
         Mock Get-ToolConfig {
-            [Catzc.Tooling.Core.ToolConfig]::new(@{ version = '10.0'; command = 'dotnet'; version_command = 'dotnet --version'; version_pattern = '(?<ver>\d+\.\d+\.\d+)' })
+            [Catzc.Base.Execution.ToolConfig]::new(@{ version = '10.0'; command = 'dotnet'; version_command = 'dotnet --version'; version_pattern = '(?<ver>\d+\.\d+\.\d+)' })
         } -ModuleName Catzc.Tooling.Toolchain
         Mock Get-ScriptInstallDir { $script:installDir } -ModuleName Catzc.Tooling.Toolchain
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Full = '10.0.201'; Output = '10.0.201' } } -ModuleName Catzc.Tooling.Toolchain

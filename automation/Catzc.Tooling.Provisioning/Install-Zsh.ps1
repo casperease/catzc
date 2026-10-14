@@ -1,10 +1,10 @@
 <#
 .SYNOPSIS
-    Installs zsh (user-space on Windows, into Git Bash's tree; the system's elsewhere).
+    Installs zsh (user-space on Windows, into Git Bash's tree; apt-get on Linux; the system's on macOS).
 .DESCRIPTION
     Windows: installs the MSYS2 zsh package that tools.yml pins (`zsh`: msys2_url and msys2_sha256) into the Git for
-    Windows tree Install-Git provides at LOCALAPPDATA\Git, so zsh runs on Git Bash's own MSYS2 runtime. No admin
-    required ([ADR-AUTO-ENTERP#4](/docs/adr/automation/effective-in-enterprises.md#rule-adr-auto-enterp4)). The package
+    Windows tree Install-Git provides (the entry's windows_install_dir), so zsh runs on Git Bash's own MSYS2 runtime.
+    No admin required ([ADR-AUTO-ENTERP#4](/docs/adr/automation/effective-in-enterprises.md#rule-adr-auto-enterp4)). The package
     is downloaded through Save-VerifiedDownload and its SHA-256 checked before anything is extracted
     ([ADR-AUTO-PKGMGR#6](/docs/adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr6)); Windows' own tar
     reads the zstd archive. Only the files Git's tree lacks are copied, and their list is recorded in a manifest inside
@@ -16,11 +16,16 @@
     Install-Git. Install-Git -Force replaces Git's whole tree, zsh included, so run Install-Zsh again after it
     (Install-DevBoxTools runs them in that order).
 
-    macOS and Linux: zsh is the system's (macOS ships it; on Linux it is the distribution's package), so Install-Zsh
-    asserts it is present at the pinned version and installs nothing.
+    Linux: installs the distribution's zsh package with apt-get when zsh is missing
+    ([ADR-AUTO-PKGMGR#5](/docs/adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr5)), which needs
+    root or passwordless sudo (Test-IsAdministrator), so tools.yml marks the entry linux_admin_only and a
+    non-elevated Install-DevBoxTools skips it and says so. Either way it then asserts zsh at the pinned version.
+
+    macOS: zsh ships as /bin/zsh, so Install-Zsh asserts it is present at the pinned version and installs nothing.
 
     Idempotent ([ADR-AUTO-IDEM#1](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem1)): skips when
-    the pinned package is already installed. A zsh from another package stops the install unless -Force is passed.
+    the pinned package is already installed, and on Linux when zsh is already present, with no root asked for. On
+    Windows a zsh from another package stops the install unless -Force is passed.
 .PARAMETER Force
     Uninstall the zsh Install-Zsh placed (Uninstall-Zsh) and install the pinned package again. Windows only.
 .EXAMPLE
@@ -33,6 +38,25 @@ function Install-Zsh {
     param(
         [switch] $Force
     )
+
+    if ($IsLinux) {
+        # The presence guard comes first, so a box that has zsh never trips the root assert just to find there is
+        # nothing to do.
+        if (Test-Command zsh) {
+            Assert-Tool zsh
+            Write-Message 'zsh is already installed'
+            return
+        }
+        Assert-IsAdministrator -ErrorText (
+            'Install-Zsh on Linux requires root (apt-get). Run as root or install zsh manually.'
+        )
+        Assert-Command apt-get
+        Invoke-Executable 'sudo apt-get update -qq'
+        Invoke-Executable 'sudo apt-get install -y zsh'
+        Assert-Tool zsh
+        Write-Message 'zsh installed successfully via apt-get'
+        return
+    }
 
     if (-not $IsWindows) {
         Assert-Tool zsh

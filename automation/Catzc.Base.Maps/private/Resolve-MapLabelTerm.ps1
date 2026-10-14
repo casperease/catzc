@@ -1,13 +1,14 @@
 <#
 .SYNOPSIS
-    Returns the glossary term a printed world-map label names, or nothing when it names none.
+    Returns the glossary term a printed map label names, or nothing when it names none.
 .DESCRIPTION
     A label names the concept it prints in its head: the text before its first ':', trimmed ('World map' in
     'World map: repository tree'), or the whole label when it has no ':'. The head resolves when, compared without
     case, it is a term of -Term or that term's plural (the term followed by 's' or 'es': 'Root files' names the term
-    'root file'). Every label the world map prints names a defined term in its head
-    ([ADR-DSGN-TRACK#13](/docs/adr/design/tracks.md#rule-adr-dsgn-track13)), so Test-WorldMap reports a label this
-    returns nothing for.
+    'root file'). Every label the world map or the value-chain map prints names a defined term in its head
+    ([ADR-DSGN-TRACK#13](/docs/adr/design/tracks.md#rule-adr-dsgn-track13),
+    [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16)), so Test-WorldMap and Test-ValueChainMap
+    report a label this returns nothing for.
 .PARAMETER Label
     The printed label.
 .PARAMETER Term
@@ -15,9 +16,9 @@
 .OUTPUTS
     [string] The term the label names; nothing when it names none.
 .EXAMPLE
-    Resolve-WorldMapLabelTerm -Label 'Root files' -Term (Get-Glossary | ForEach-Object { $_.Concept.term })
+    Resolve-MapLabelTerm -Label 'Root files' -Term (Get-Glossary | ForEach-Object { $_.Concept.term })
 #>
-function Resolve-WorldMapLabelTerm {
+function Resolve-MapLabelTerm {
     [CmdletBinding()]
     [OutputType([string])]
     param(

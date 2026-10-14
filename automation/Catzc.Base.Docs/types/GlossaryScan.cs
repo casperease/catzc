@@ -1,0 +1,200 @@
+// The two glossary checks that read every in-scope file's prose (GlossaryProse):
+//   Phrasing (G4)  an avoided phrasing of a concept, as a whole word sequence, in a surface its source checks;
+//   Forms    (G6)  a qualified use of a concept's head word whose qualifier the concept does not list as a form (a
+//                  function word, a number, or an allowed form is fine), and — unless the concept takes verb forms — its
+//                  -ed / -ing verb forms.
+// Each source is checked over the tracked files its options' scope selects and its exclude does not, in the surfaces its
+// options list. A file's prose is read once per run into the caller's surface cache, however many sources and checks
+// scan it. The result is one message per hit, sorted by file, line and message, duplicates removed — the order and
+// text the checks have always reported.
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace Catzc.Base.Docs;
+
+public static class GlossaryScan
+{
+    static readonly Regex PowerShellFile = new Regex(@"\.psm?1$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    static readonly Regex Number = new Regex(@"^\d+$", RegexOptions.Compiled);
+    static readonly Regex Whitespace = new Regex(@"\s+", RegexOptions.Compiled);
+
+    // Words that only point at, count, own, or join a noun — never a qualifier that names a kind of it: articles,
+    // determiners, quantifiers, possessives (the 's' of "the template's slot"), prepositions, conjunctions, and adverbs
+    // that only limit the noun ("only slots").
+    static readonly HashSet<string> FunctionWords = new HashSet<string>(new[]
+    {
+        "a", "an", "the", "this", "that", "these", "those", "each", "every", "any", "all", "no", "some", "both", "either",
+        "neither", "its", "their", "our", "your", "my", "his", "her", "which", "whose", "what", "same", "other", "another",
+        "own", "one", "two", "three", "four", "five", "first", "second", "last", "next", "single", "per", "more", "most",
+        "many", "few", "several", "s", "and", "or", "nor", "but", "of", "for", "to", "in", "on", "at", "by", "with", "from",
+        "into", "onto", "across", "between", "within", "without", "via", "than", "then", "as", "is", "are", "was", "be",
+        "only", "also", "not", "just", "even", "against", "about", "over", "under", "after", "before", "behind", "through",
+        "around", "along", "among", "beyond", "during", "except", "inside", "outside", "toward", "towards", "upon", "past",
+        "off", "out", "up", "down", "since", "until", "versus", "vs"
+    }, StringComparer.OrdinalIgnoreCase);
+
+    sealed class Hit
+    {
+        public string File;
+        public int Line;
+        public string Message;
+    }
+
+    sealed class Source
+    {
+        public GlossaryOptions Options;
+        public readonly List<GlossaryEntry> Entries = new List<GlossaryEntry>();
+    }
+
+    public static string[] Phrasing(IEnumerable<GlossaryEntry> entries, IEnumerable<string> trackedFiles, string root, IDictionary surfaceCache)
+    {
+        List<Hit> hits = new List<Hit>();
+        foreach (Source source in Sources(entries, e => e.Options.checks.Contains("avoid") && e.Concept.avoid.Count > 0))
+        {
+            var avoids = source.Entries.SelectMany(e => e.Concept.avoid.Select(a => new
+            {
+                a.phrase,
+                a.say,
+                e.Concept.defined_by,
+                Pattern = new Regex("(?<![\\w-])" + string.Join("\\s+", Whitespace.Split(a.phrase).Select(Regex.Escape)) + "(?![\\w-])", RegexOptions.IgnoreCase),
+            })).ToList();
+            foreach ((string file, GlossarySegment segment) in Segments(source, trackedFiles, root, surfaceCache))
+            {
+                foreach (var avoid in avoids)
+                {
+                    foreach (Match match in avoid.Pattern.Matches(segment.Text))
+                    {
+                        int line = LineOf(segment, match.Index);
+                        hits.Add(new Hit { File = file, Line = line, Message = $"{file}:{line} says \"{avoid.phrase}\" — say \"{avoid.say}\" ({avoid.defined_by})" });
+                    }
+                }
+            }
+        }
+        return Sorted(hits);
+    }
+
+    public static string[] Forms(IEnumerable<GlossaryEntry> entries, IEnumerable<string> trackedFiles, string root, IDictionary surfaceCache)
+    {
+        List<Hit> hits = new List<Hit>();
+        foreach (Source source in Sources(entries, e => e.Options.checks.Contains("forms") && e.Concept.forms.Count > 0))
+        {
+            var concepts = source.Entries.Select(e =>
+            {
+                string[] words = Regex.Split(e.Concept.term, "[ -]");
+                string head = words[words.Length - 1];
+                string stem = head.EndsWith("e", StringComparison.Ordinal) ? head.Substring(0, head.Length - 1) : head;
+                return new
+                {
+                    e.Concept.term,
+                    e.Concept.defined_by,
+                    Allowed = new HashSet<string>(e.Concept.forms, StringComparer.OrdinalIgnoreCase),
+                    Forms = string.Join(", ", e.Concept.forms.Select(f => f + " " + head).Concat(new[] { head })),
+                    // The qualifier is the last word before the head ('commit' in 'pre-commit gate'), joined by spaces,
+                    // one line break, or a hyphen. A word after a dot is a keyword, not a qualifier (`.PARAMETER Slot`).
+                    Qualified = new Regex("(?<![A-Za-z0-9.])(?<q>[A-Za-z0-9]+)(?:[ \\t]+|[ \\t]*\\n[ \\t]*|-)(?<w>" + Regex.Escape(head) + "s?)(?![\\w-])", RegexOptions.IgnoreCase),
+                    // A verb form counts after a hyphen too (`double-gated`).
+                    e.Concept.verbs,
+                    Verb = new Regex("(?<![A-Za-z0-9])(?<w>" + Regex.Escape(stem) + "(?:ed|ing))(?![\\w-])", RegexOptions.IgnoreCase),
+                };
+            }).ToList();
+            foreach ((string file, GlossarySegment segment) in Segments(source, trackedFiles, root, surfaceCache))
+            {
+                foreach (var concept in concepts)
+                {
+                    List<Match> uses = new List<Match>();
+                    foreach (Match match in concept.Qualified.Matches(segment.Text))
+                    {
+                        string qualifier = match.Groups["q"].Value;
+                        if (!concept.Allowed.Contains(qualifier) && !FunctionWords.Contains(qualifier) && !Number.IsMatch(qualifier))
+                        {
+                            uses.Add(match);
+                        }
+                    }
+                    if (!concept.verbs)
+                    {
+                        foreach (Match match in concept.Verb.Matches(segment.Text)) { uses.Add(match); }
+                    }
+                    foreach (Match match in uses)
+                    {
+                        int line = LineOf(segment, match.Index);
+                        string use = Whitespace.Replace(match.Value, " ");
+                        hits.Add(new Hit { File = file, Line = line, Message = $"{file}:{line} says \"{use}\" — \"{concept.term}\" takes only: {concept.Forms} ({concept.defined_by})" });
+                    }
+                }
+            }
+        }
+        return Sorted(hits);
+    }
+
+    // The glossary sources whose entries pass the check's filter, in first-seen order, each with those entries.
+    static IEnumerable<Source> Sources(IEnumerable<GlossaryEntry> entries, Func<GlossaryEntry, bool> applies)
+    {
+        Dictionary<string, Source> byPath = new Dictionary<string, Source>(StringComparer.Ordinal);
+        List<Source> ordered = new List<Source>();
+        foreach (GlossaryEntry entry in entries)
+        {
+            if (!applies(entry)) { continue; }
+            if (!byPath.TryGetValue(entry.SourcePath, out Source source))
+            {
+                source = new Source { Options = entry.Options };
+                byPath[entry.SourcePath] = source;
+                ordered.Add(source);
+            }
+            source.Entries.Add(entry);
+        }
+        return ordered;
+    }
+
+    // Every segment, in a surface the source checks, of every tracked Markdown or PowerShell file the source's scope
+    // selects and its exclude does not; a file's prose is read into the surface cache on first use.
+    static IEnumerable<(string, GlossarySegment)> Segments(Source source, IEnumerable<string> trackedFiles, string root, IDictionary surfaceCache)
+    {
+        Catzc.Base.Globs.GlobPattern[] scope = source.Options.scope.Select(p => new Catzc.Base.Globs.GlobPattern(p)).ToArray();
+        Catzc.Base.Globs.GlobPattern[] exclude = source.Options.exclude.Select(p => new Catzc.Base.Globs.GlobPattern(p)).ToArray();
+        HashSet<string> surfaces = new HashSet<string>(source.Options.surfaces, StringComparer.OrdinalIgnoreCase);
+        foreach (string file in trackedFiles)
+        {
+            bool isMarkdown = file.EndsWith(".md", StringComparison.OrdinalIgnoreCase);
+            bool isPowerShell = PowerShellFile.IsMatch(file);
+            if (!(isMarkdown || isPowerShell)) { continue; }
+            if (!scope.Any(p => p.Matches(file)) || exclude.Any(p => p.Matches(file))) { continue; }
+            string fullPath = Path.Combine(root, file);
+            if (!File.Exists(fullPath)) { continue; }   // a tracked file deleted in the working tree has no prose to read
+            if (!surfaceCache.Contains(file))
+            {
+                surfaceCache[file] = isMarkdown ? GlossaryProse.Markdown(fullPath) : GlossaryProse.PowerShell(fullPath);
+            }
+            if (!(surfaceCache[file] is IEnumerable cached)) { continue; }
+            foreach (object item in cached)
+            {
+                if (item is GlossarySegment segment && surfaces.Contains(segment.Surface)) { yield return (file, segment); }
+            }
+        }
+    }
+
+    static int LineOf(GlossarySegment segment, int index)
+    {
+        int line = segment.Line;
+        for (int i = 0; i < index; i++)
+        {
+            if (segment.Text[i] == '\n') { line++; }
+        }
+        return line;
+    }
+
+    // Sorted by file, line and message, duplicates removed — case-insensitive, as the checks' PowerShell sort was.
+    static string[] Sorted(List<Hit> hits)
+    {
+        StringComparer text = StringComparer.CurrentCultureIgnoreCase;
+        return hits
+            .OrderBy(h => h.File, text).ThenBy(h => h.Line).ThenBy(h => h.Message, text)
+            .GroupBy(h => (h.File.ToUpperInvariant(), h.Line, h.Message.ToUpperInvariant()))
+            .Select(g => g.First().Message)
+            .ToArray();
+    }
+}

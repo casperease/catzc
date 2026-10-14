@@ -78,8 +78,13 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
         )
     }
 
-    It 'reports a maps.yml label whose head names no glossary term' -Tag 'ADR-DSGN-TRACK#13' {
-        $script:labels = [pscustomobject]@{ row_axis = 'Widgets'; legend_files = 'Gizmos per widget'; column_axis = 'Sprocket: gadget boxes' }
+    It 'reports a maps.yml label whose head names no glossary term, leaving the value_chain_ labels to Test-ValueChainMap' -Tag 'ADR-DSGN-TRACK#13' {
+        $script:labels = [pscustomobject]@{
+            row_axis          = 'Widgets'
+            legend_files      = 'Gizmos per widget'
+            column_axis       = 'Sprocket: gadget boxes'
+            value_chain_title = 'Gizmo map'
+        }
         $issues = @((Test-WorldMap -OutputFolder $script:out -PassThru).Issues)
         $issues | Should -Be @(
             "unregistered label: maps.yml labels.column_axis 'Sprocket: gadget boxes' names no glossary term in its head (ADR-DSGN-TRACK#13)"

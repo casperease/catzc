@@ -87,7 +87,7 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         @(InModuleScope Catzc.Base.Docs -Parameters $parameters $check) | Should -BeNullOrEmpty
         @($parameters.Table.Keys) | Should -Be @($relative)
 
-        $parameters.Table[$relative] = @([pscustomobject]@{ Surface = 'markdown'; Line = 1; Text = 'The sprocket widget runs.' })
+        $parameters.Table[$relative] = @([Catzc.Base.Docs.GlossarySegment]::new('markdown', 1, 'The sprocket widget runs.'))
         @(InModuleScope Catzc.Base.Docs -Parameters $parameters $check) | Should -Be @("docs/alpha.md:1 says `"sprocket widget`" — $script:tail")
     }
 }

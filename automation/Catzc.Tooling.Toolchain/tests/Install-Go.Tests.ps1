@@ -6,7 +6,7 @@ Describe 'Install-Go' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:goHome = Join-Path $TestDrive 'go-home'
         $script:binary = Join-Path $script:goHome ($IsWindows ? 'bin/go.exe' : 'bin/go')
-        $script:goConfig = [Catzc.Tooling.Core.ToolConfig]::new(@{
+        $script:goConfig = [Catzc.Base.Execution.ToolConfig]::new(@{
                 version = '1.27'; command = 'go'; script_install = $true; version_command = 'go version'
                 version_pattern = 'go version go(?<ver>[\d.]+)'
             })

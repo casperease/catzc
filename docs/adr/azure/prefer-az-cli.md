@@ -1,22 +1,22 @@
-# docs/adr/automation/powershell/prefer-az-cli.md
+# docs/adr/azure/prefer-az-cli.md
 
 `ADR: Prefer Az CLI over Az PowerShell modules`
 
-## Rules: ADR-AUTO-AZCLI
+## Rules: ADR-AZ-CLI
 
-### Rule ADR-AUTO-AZCLI:1
+### Rule ADR-AZ-CLI:1
 
 Default to `az` for all Azure operations; wrap calls in `Invoke-Executable` and parse output with `ConvertFrom-Json`.
 
 - [Why Az CLI](#why-az-cli)
 
-### Rule ADR-AUTO-AZCLI:2
+### Rule ADR-AZ-CLI:2
 
 Assert `az` availability with `Assert-Tool 'az_cli'` at the start of functions that call `az`.
 
 - [Why Az CLI](#why-az-cli)
 
-### Rule ADR-AUTO-AZCLI:3
+### Rule ADR-AZ-CLI:3
 
 Never `Import-Module Az.*` in automation code. If an Az module is needed, the environment must provide it and the function must assert it
 with `Assert-PsModule`.
@@ -24,20 +24,20 @@ with `Assert-PsModule`.
 - [Az PowerShell problems](#az-powershell-problems)
 - [When Az PowerShell is unavoidable](#when-az-powershell-is-unavoidable)
 
-### Rule ADR-AUTO-AZCLI:4
+### Rule ADR-AZ-CLI:4
 
 Do not vendor Az modules; they are too large and their assembly dependencies make in-process versioning unsafe. Manage them via workstation
 provisioning and CI configuration.
 
 - [Az PowerShell problems](#az-powershell-problems)
 
-### Rule ADR-AUTO-AZCLI:5
+### Rule ADR-AZ-CLI:5
 
 When Az modules are required, pin the exact version in the workstation or CI configuration. Never rely on whatever is installed.
 
 - [When Az PowerShell is unavoidable](#when-az-powershell-is-unavoidable)
 
-### Rule ADR-AUTO-AZCLI:6
+### Rule ADR-AZ-CLI:6
 
 Document Az module dependencies explicitly: any function requiring an Az module must state the module name and minimum version in its
 `.SYNOPSIS` or `.DESCRIPTION`.

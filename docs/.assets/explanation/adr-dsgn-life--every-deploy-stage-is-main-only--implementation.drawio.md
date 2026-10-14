@@ -28,7 +28,7 @@ LANDING row. Seven markers number the reading order.
 4. Down the dashed leg and right to marker 4: the dashed white pill, out-of-band deploy.
 5. Back to the top row, along the flow edge to marker 5, MAIN band: the grey commit, main.
 6. Right to marker 6, AFTER LANDING band, under the CD span bar: the runner stage: CI, then the gate main only.
-7. Marker 7: the runner Deploy\_\* stages, with the count chip 5 on its top-right corner.
+7. Marker 7: the runner Deploy\_\* stages, with the count chip 6 on its top-right corner.
 
 ## Glyphs
 
@@ -62,7 +62,7 @@ A full-width panel at the bottom of the drawing area, in four columns, read top 
 | grey rhombus with a thick rim     | gate: Deploy\_\* condition             |
 | dashed white box and dashed arrow | ADR-only (no code): glyph or edge      |
 | thin arrow                        | flow: starts or runs next              |
-| white chip `5` with a slate rim   | count chip: stages that carry the gate |
+| white chip `6` with a slate rim   | count chip: stages that carry the gate |
 | dark disc `1`                     | marker: a Walkthrough step             |
 | crossbar                          | span bar: stages over bands            |
 

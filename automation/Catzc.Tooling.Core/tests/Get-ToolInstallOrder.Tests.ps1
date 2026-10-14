@@ -54,7 +54,9 @@ Describe 'Get-ToolInstallOrder' -Tag 'L0' {
         # logic Context above.
         BeforeAll {
             $script:order = & (Get-Module Catzc.Tooling.Core) { Get-ToolInstallOrder }
-            $script:allTools = Get-Content (Join-Path $PSScriptRoot '../configs/tools.yml') -Raw | ConvertFrom-Yaml
+            # The shipped file wherever its owning module keeps it (Catzc.Base.Execution), read raw so the set
+            # compared against is the YAML itself, not the typed model Get-ToolInstallOrder reads.
+            $script:allTools = Get-Content (Get-Config -Config tools -ListOwners).Path -Raw | ConvertFrom-Yaml
         }
 
         It 'returns exactly the shipped tool set, each exactly once' {

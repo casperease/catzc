@@ -2,7 +2,7 @@
 Describe 'Uninstall-Go' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:goHome = Join-Path $TestDrive 'go-home'
-        $script:goConfig = [Catzc.Tooling.Core.ToolConfig]::new(@{
+        $script:goConfig = [Catzc.Base.Execution.ToolConfig]::new(@{
                 version = '1.27'; command = 'go'; script_install = $true; version_command = 'go version'
                 version_pattern = 'go version go(?<ver>[\d.]+)'
             })

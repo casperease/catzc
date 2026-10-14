@@ -36,7 +36,7 @@ configs:
   output-formats:
     type: Catzc.Base.Reports.OutputFormatsConfig
   tools:
-    type: Catzc.Tooling.Core.ToolsConfig
+    type: Catzc.Base.Execution.ToolsConfig
   dependencies:
     type: Catzc.Base.ModuleSystem.DependenciesConfig
   files:

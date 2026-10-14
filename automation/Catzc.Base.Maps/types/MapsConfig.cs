@@ -1,5 +1,5 @@
-// The world-map settings (configs/maps.yml): the palette, the limits, the printed labels, the reviewed highlight pins
-// and exceptions, and the output folder the PDFs land in under Get-OutputRoot
+// The map settings (configs/maps.yml): the palette, the limits, the printed labels of the world map and the value-chain
+// map, the reviewed highlight pins and exceptions, and the output folder the PDFs land in under Get-OutputRoot
 // ([ADR-REPO-OUTDIR#2](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2)). Registered in
 // Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Maps.MapsConfig), so Get-Config -Config maps returns this
 // typed record. Property names mirror the YAML keys (snake_case,
@@ -15,8 +15,8 @@
 //   - a colour is '#' and six hex digits (e.g. #DCE6F0);
 //   - a size is a positive number, and a label length a positive whole number;
 //   - a label is one non-empty line of WinAnsi text, the only text the base-14 PDF fonts show (WinAnsi), and a row or
-//     column header fits its limit (row_axis and root_files within max_row_label, column_axis and unlisted_files within
-//     max_column_label);
+//     column header of the world map fits its limit (row_axis and root_files within max_row_label, column_axis and
+//     unlisted_files within max_column_label); the value_chain_ labels have no length limit;
 //   - output_folder is one path segment;
 //   - a pin names an ADR code (optionally #n), a track name, a kebab-case file language and a reason.
 
@@ -39,7 +39,8 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] LabelsKeys =
     {
         "grid_title", "tree_title", "row_axis", "column_axis", "root_files", "unlisted_files", "legend_files", "legend_violation",
-        "legend_highlight"
+        "legend_highlight", "value_chain_title", "value_chain_row_axis", "value_chain_column_axis", "value_chain_legend_adrs",
+        "value_chain_legend_highlight"
     };
     private static readonly string[] HighlightKeys = { "pins", "exceptions" };
     private static readonly string[] PinKeys = { "adr", "track", "file_language", "reason" };
@@ -98,7 +99,12 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
             ReadLabel(labelsMap, "unlisted_files", MapsLabels.DefaultUnlistedFiles, limits.max_column_label, errors),
             ReadLabel(labelsMap, "legend_files", MapsLabels.DefaultLegendFiles, 0, errors),
             ReadLabel(labelsMap, "legend_violation", MapsLabels.DefaultLegendViolation, 0, errors),
-            ReadLabel(labelsMap, "legend_highlight", MapsLabels.DefaultLegendHighlight, 0, errors));
+            ReadLabel(labelsMap, "legend_highlight", MapsLabels.DefaultLegendHighlight, 0, errors),
+            ReadLabel(labelsMap, "value_chain_title", MapsLabels.DefaultValueChainTitle, 0, errors),
+            ReadLabel(labelsMap, "value_chain_row_axis", MapsLabels.DefaultValueChainRowAxis, 0, errors),
+            ReadLabel(labelsMap, "value_chain_column_axis", MapsLabels.DefaultValueChainColumnAxis, 0, errors),
+            ReadLabel(labelsMap, "value_chain_legend_adrs", MapsLabels.DefaultValueChainLegendAdrs, 0, errors),
+            ReadLabel(labelsMap, "value_chain_legend_highlight", MapsLabels.DefaultValueChainLegendHighlight, 0, errors));
 
         IDictionary highlightMap = Section(raw, "highlight", HighlightKeys, errors);
         highlight = new MapsHighlight(ReadPins(highlightMap, "pins", errors), ReadPins(highlightMap, "exceptions", errors));
