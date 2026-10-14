@@ -29,4 +29,19 @@ engine_set:
 # A logic (L0) test's fixture data uses neutral ADR codes, never one the ADR index declares
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 neutral_codes:
-  mode: report
+  exempt:
+    automation/.scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1: it asserts the analyzer's exact message, which cites its real rule
+    automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1: it asserts the gate's exact messages, which cite its real rules
+    automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1:
+      an integrity test over the shipped templates; its -Because message names the real rule they meet
+    automation/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1:
+      it asserts the findings' exact messages, which cite their real rule
+    automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
+    automation/Catzc.Base.Docs/tests/Get-Glossary*Violations.Tests.ps1:
+      they assert the glossary checks' exact messages, which cite their real rules
+    automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1: it asserts the config's exact errors, which cite their real rule
+    automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
+    automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
+    automation/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1:
+      the citation a covering test carries is the real rule the function looks for
+    automation/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1: it asserts the gate's exact message, which names its real ADR
