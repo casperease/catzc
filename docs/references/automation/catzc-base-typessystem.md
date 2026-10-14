@@ -13,15 +13,15 @@ full type-system contract is [native-csharp-types](../../adr/automation/BCL/nati
 
 ## Domains
 
-| Domain   | Area   | Name                                                                                     |
+| Responsibility   | Area   | Name                                                                                     |
 | -------- | ------ | ---------------------------------------------------------------------------------------- |
-| domain:1 | cache  | [Compiled type-assembly cache](#domain1--compiled-type-assembly-cache)                   |
-| domain:2 | graph  | [Cross-module type dependency analysis](#domain2--cross-module-type-dependency-analysis) |
-| domain:3 | list   | [Automation-module enumeration](#domain3--automation-module-enumeration)                 |
-| domain:4 | editor | [Editor type-project build](#domain4--editor-type-project-build)                         |
-| domain:5 | gate   | [Shipped-type coverage](#domain5--shipped-type-coverage)                                 |
+| responsibility:1 | cache  | [Compiled type-assembly cache](#responsibility1--compiled-type-assembly-cache)                   |
+| responsibility:2 | graph  | [Cross-module type dependency analysis](#responsibility2--cross-module-type-dependency-analysis) |
+| responsibility:3 | list   | [Automation-module enumeration](#responsibility3--automation-module-enumeration)                 |
+| responsibility:4 | editor | [Editor type-project build](#responsibility4--editor-type-project-build)                         |
+| responsibility:5 | gate   | [Shipped-type coverage](#responsibility5--shipped-type-coverage)                                 |
 
-### domain:1 — Compiled type-assembly cache
+### responsibility:1 — Compiled type-assembly cache
 
 Housekeeping for the single committed combined C# type assembly (`automation/.compiled/Catzc.Types.<hash>.dll`). `Clear-ModuleTypeCache` is
 the post-import janitor: it keeps the one assembly whose name matches the current combined source hash and prunes every superseded build, so
@@ -31,7 +31,7 @@ invariant is enforced everywhere: when a second `Catzc.Types.*.dll` coexists it 
 locked stale DLL committed instead of deleted must not reach trunk. Its combined-hash computation mirrors the loader's exactly, so it can
 never plan the live build for deletion.
 
-### domain:2 — Cross-module type dependency analysis
+### responsibility:2 — Cross-module type dependency analysis
 
 Recovering, for the dependency graph, the C# type edges the compiler no longer enforces. Because every module's `types/*.cs` compile into
 one assembly (see [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)), a type in one module may reference a type in
@@ -40,7 +40,7 @@ reference, stripping comments, string literals, and each file's own namespace so
 [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md) folds these edges into its integrity assertion, so the one declared graph in
 `dependencies.yml` governs C# type layering as well as PowerShell calls.
 
-### domain:3 — Automation-module enumeration
+### responsibility:3 — Automation-module enumeration
 
 The platform's single source of the automation-module name list. `Get-AutomationModules` enumerates the non-dot directories under
 `automation/` — the same set `Import-AllModules` loads — sorted ordinally. The C# type scan of domain 2 maps its references against this
@@ -49,7 +49,7 @@ list; [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md) validates the declar
 checks that consume it depend on this module rather than the reverse — which is what keeps the graph acyclic once the C# type edges are
 folded in.
 
-### domain:4 — Editor type-project build
+### responsibility:4 — Editor type-project build
 
 The editor-facing build of the native type sources, kept separate from the runtime's `Add-Type` compile. `Invoke-BuildForVSCode` drives
 `dotnet build` over the committed IDE-only `Catzc.Types.csproj` (under `automation/.internal/assets/`, auto-loaded in the editor via the
@@ -59,7 +59,7 @@ which fails when the committed `.compiled` assembly is stale versus the sources,
 matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable` rather than the Tooling layer's `Invoke-Dotnet`, which this
 `Base` module must not depend on.
 
-### domain:5 — Shipped-type coverage
+### responsibility:5 — Shipped-type coverage
 
 Proving every shipped type is present in the session: each `<module>/types/<Name>.cs` under the loaded code root declares `<module>.<Name>`,
 so after import that full name must resolve. The quality gate lists every type that does not, in either run mode; how the files are written
@@ -85,10 +85,10 @@ forming a cycle.
 
 The module's public functions, sorted into the domains above.
 
-| Domain                                           | Function                   |
+| Responsibility                                           | Function                   |
 | ------------------------------------------------ | -------------------------- |
-| domain:1 — Compiled type-assembly cache          | `Clear-ModuleTypeCache`    |
-| domain:2 — Cross-module type dependency analysis | `Get-CSharpTypeDependency` |
-| domain:3 — Automation-module enumeration         | `Get-AutomationModules`    |
-| domain:4 — Editor type-project build             | `Invoke-BuildForVSCode`    |
-| domain:5 — Shipped-type coverage                 | `Test-ShippedTypes`        |
+| responsibility:1 — Compiled type-assembly cache          | `Clear-ModuleTypeCache`    |
+| responsibility:2 — Cross-module type dependency analysis | `Get-CSharpTypeDependency` |
+| responsibility:3 — Automation-module enumeration         | `Get-AutomationModules`    |
+| responsibility:4 — Editor type-project build             | `Invoke-BuildForVSCode`    |
+| responsibility:5 — Shipped-type coverage                 | `Test-ShippedTypes`        |
