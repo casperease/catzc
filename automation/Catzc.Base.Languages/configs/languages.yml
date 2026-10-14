@@ -1,0 +1,46 @@
+# The file-language registry — every file language the repository's tracked files are written in, each named by its
+# extensions ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)). A track's tech-stack is the set of
+# file languages it declares in variants.yml (`tracks:`); this registry makes that set checkable. Every extension
+# belongs to exactly one file language; an extension no entry lists has no file language.
+#
+# Per entry:
+#   extensions  the extensions that name the language, lowercase, each with its leading dot
+#   formatter   the repository command that formats its files (one of those Test-Formatting runs); omitted = none
+#   adr_folder  its ADR folder under docs/adr/; omitted = none
+#
+# The defaults are declared once on Catzc.Base.Languages.LanguagesConfig
+# ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). Loaded via
+# Get-Config -Config languages and read through Get-FileLanguage.
+#
+# YAML is two file languages: executable pipeline YAML is `.yaml`, configuration data is `.yml`
+# ([ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6)), and only `.yaml` has a formatter.
+languages:
+  powershell:
+    extensions: [.ps1, .psm1, .psd1]
+    formatter: Format-Automation
+    adr_folder: automation/powershell
+  csharp:
+    extensions: [.cs]
+    formatter: Format-Types
+    adr_folder: automation/BCL
+  pipeline-yaml:
+    extensions: [.yaml]
+    formatter: Format-Pipelines
+    adr_folder: pipelines
+  yaml:
+    extensions: [.yml]
+  markdown:
+    extensions: [.md]
+    formatter: Format-Markdown
+  bicep:
+    extensions: [.bicep]
+  python:
+    extensions: [.py]
+    adr_folder: automation/python
+  json:
+    extensions: [.json, .jsonl]
+  go:
+    extensions: [.go]
+    adr_folder: automation/go
+  xml:
+    extensions: [.ps1xml, .xml, .xsd, .dtd]

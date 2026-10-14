@@ -64,12 +64,12 @@ cases:
     bash: { command: "timeout 60 echo 'it'\\''s; done'", expect: allow }
 
   - case: a backtick — escape in pwsh, command substitution in bash
-    pwsh: { command: "Invoke-WithTimeout -Seconds 60 { Get-Widget } -Activity \"a`\"; b\"", expect: allow }
+    pwsh: { command: 'Invoke-WithTimeout -Seconds 60 { Get-Widget } -Activity "a`"; b"', expect: allow }
     bash: { command: "timeout 60 echo `get-gadget; get-widget`", expect: allow }
 
   - case: a subexpression or command substitution
-    pwsh: { command: "Invoke-WithTimeout -Seconds 60 { Get-Widget } -Activity \"$(Get-Date; Get-Gadget)\"", expect: allow }
-    bash: { command: "timeout 60 echo \"$(date; hostname)\"", expect: allow }
+    pwsh: { command: 'Invoke-WithTimeout -Seconds 60 { Get-Widget } -Activity "$(Get-Date; Get-Gadget)"', expect: allow }
+    bash: { command: 'timeout 60 echo "$(date; hostname)"', expect: allow }
 
   - case: no time limit at all
     pwsh: { command: "Get-Widget", expect: no-limit }

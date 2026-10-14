@@ -79,3 +79,5 @@ configs:
     type: Catzc.Base.VSCode.VscodePipelineSchemaConfig
   go:
     type: Catzc.Base.Languages.GoConfig
+  languages:
+    type: Catzc.Base.Languages.LanguagesConfig

@@ -219,10 +219,10 @@ per-template configuration tree under `infrastructure/templates/`, the customer 
 ### repository/
 
 How the repository tree is laid out, formatted, and generated: conventional folder names at every level, the single `out/` output directory,
-one formatting standard for every file type, versioned external contracts under `contracts/`, READMEs and root configs generated from one
-source, fictional documentation examples, the separation of design, test, and live vocabulary, the controlled vocabulary of defined terms,
-repo-wide variants, the sub-agent definitions and the rules behind each, and sibling repositories read for ideas, never as a reference
-implementation.
+one formatting standard for every file type, contracts at the repository boundary, in both directions, under `contracts/`, READMEs and root
+configs generated from one source, fictional documentation examples, the separation of design, test, and live vocabulary, the controlled
+vocabulary of defined terms, repo-wide variants, the sub-agent definitions and the rules behind each, and sibling repositories read for
+ideas, never as a reference implementation.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `design`.
 

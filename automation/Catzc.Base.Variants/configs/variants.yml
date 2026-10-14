@@ -41,3 +41,21 @@ aspects:
   infrastructure:
     - tests: ['**/tests/**']
     - live: ['**']
+
+# Tracks ([ADR-DSGN-TRACK](/docs/adr/design/tracks.md)) — the repository's root concerns, the one declaration of what a
+# track is. Each entry names its root folder (one segment; every root folder git tracks a file under is a track, except
+# out/), its class (core | adapter | external-port | verification,
+# [ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2)) and the file languages its
+# tech-stack is declared as (names from Catzc.Base.Languages' languages.yml,
+# [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6); default: none). Read
+# through Get-Track; validated by the VariantsConfig type.
+tracks:
+  automation: { root: automation, class: core, languages: [powershell, csharp, yaml] }
+  infrastructure: { root: infrastructure, class: adapter, languages: [bicep, yaml] }
+  pipelines: { root: pipelines, class: adapter, languages: [pipeline-yaml, powershell] }
+  docs: { root: docs, class: external-port, languages: [markdown] }
+  contracts: { root: contracts, class: external-port }
+  go: { root: go, class: verification, languages: [go] }
+  .github: { root: .github, class: external-port, languages: [yaml, markdown] }
+  .cspell: { root: .cspell, class: external-port }
+  .claude: { root: .claude, class: external-port, languages: [markdown, python, csharp, json] }

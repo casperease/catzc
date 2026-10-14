@@ -1,0 +1,68 @@
+Describe 'Get-EngineCaseTable' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:table = Join-Path $TestDrive 'widget-cases.yml'
+        Set-Content -LiteralPath $script:table -Value @'
+subject: widget start
+cases:
+  - case: starts
+    pwsh: { command: Start-Widget, expect: allow }
+    bash: { command: start-widget, expect: allow }
+  - case: pwsh only
+    pwsh: { command: Get-Gadget, expect: allow }
+    bash: "n/a: bash has no gadget"
+'@
+    }
+
+    It 'returns one -ForEach-shaped row per case and engine' {
+        $rows = @(Get-EngineCaseTable $table)
+        $rows.Count | Should -Be 4
+        $rows[0].Case | Should -Be 'starts'
+        $rows[0].Engine | Should -Be 'pwsh'
+        $rows[0].Fields.command | Should -Be 'Start-Widget'
+        $rows[3].NotApplicable | Should -Be 'bash has no gadget'
+    }
+
+    It 'filters to one engine' {
+        @(Get-EngineCaseTable $table -Engine bash).Engine | Should -Be @('bash', 'bash')
+    }
+
+    It 'skips the n/a cells with -Applicable' {
+        @(Get-EngineCaseTable $table -Applicable).Count | Should -Be 3
+        @(Get-EngineCaseTable $table -Engine bash -Applicable).Case | Should -Be 'starts'
+    }
+
+    It 'resolves a relative path against the repository root, never the current directory' {
+        Mock Resolve-RepoPath -ModuleName Catzc.Tooling.Core { $script:table }
+        @(Get-EngineCaseTable 'widget-cases.yml').Count | Should -Be 4
+        Should -Invoke Resolve-RepoPath -ModuleName Catzc.Tooling.Core -Times 1 -Exactly -ParameterFilter { $Path -eq 'widget-cases.yml' }
+    }
+
+    It 'throws for a table that breaks the shape, naming the problem' {
+        $broken = Join-Path $TestDrive 'broken-cases.yml'
+        Set-Content -LiteralPath $broken -Value @(
+            'subject: widget'
+            'cases:'
+            '  - case: c'
+            '    pwsh: { command: x }'
+        )
+        { Get-EngineCaseTable $broken } | Should -Throw '*the bash column must be a map*'
+    }
+}
+
+Describe 'Get-EngineCaseTable — every shipped engine case table' -Tag 'L1', 'integrity' {
+    BeforeDiscovery {
+        # Every per-engine fixture table in the repository: tests/assets/engine-cases/*.yml in any module.
+        $root = Get-CatzcModulesRoot
+        $script:tables = @(Get-ChildItem -Path $root -Recurse -File -Filter '*.yml' |
+                Where-Object { $_.Directory.Name -eq 'engine-cases' -and $_.Directory.Parent.Name -eq 'assets' -and $_.FullName -notmatch '[\\/]\.vendor[\\/]' } |
+                ForEach-Object { @{ Name = $_.Name; Path = $_.FullName } })
+    }
+
+    It 'finds at least one table' -ForEach @(@{ Found = $tables.Count }) {
+        $Found | Should -BeGreaterThan 0
+    }
+
+    It '<Name> fills every engine column or names why not' -ForEach $tables {
+        { Get-EngineCaseTable $Path } | Should -Not -Throw
+    }
+}

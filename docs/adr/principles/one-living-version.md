@@ -59,7 +59,7 @@ Docs read present-tense, like the code. An ADR, README, or help block describes 
 Version as a first-class contract is not legacy. Pinning an external tool, vendored module, or API version — or an explicit `schema_version`
 you own and validate — is a deliberate contract value, and versioned coexistence is legitimate there. The line from forbidden back-compat
 (ADR-PRIN-ONELIVE#2): every supported version is **equally live and intended**, owned and tested — not a deprecated shadow kept only to
-defer changing callers. Versioned contracts have a structural home: `contracts/<contract-name>/v<N>/`
+defer changing callers. Versioned contracts have a structural home: `contracts/<release>/<module>/`
 ([conventional-folders](../repository/conventional-folders.md#rule-adr-repo-folders11)).
 
 - [Versioned contracts](#versioned-contracts)
@@ -80,7 +80,7 @@ the same tree. Nothing outside it pins a version of an internal function, config
 consumer that cannot be changed in lockstep, the only real reason a codebase carries backwards compatibility.
 
 The one place external consumers _do_ exist is the repository's deliberately published API surface, and that is exactly why it is versioned
-explicitly — as binding contracts under `contracts/<name>/v<N>/`, kept honest by contract testing (see
+explicitly — as binding contracts under `contracts/<release>/<module>/`, kept honest by contract testing (see
 [api-contracts](../repository/api-contracts.md)). Back-compat for those consumers is legitimate and lives **there**, as separate live
 versions — never as a shim smeared through the internal code. Everything below is about the inside; the external API boundary is the
 deliberate, versioned exception (ADR-PRIN-ONELIVE#7).
@@ -144,10 +144,10 @@ The tell that separates a versioned contract from legacy: in a versioned contrac
 which is what ADR-PRIN-ONELIVE#2 forbids. Versioned coexistence is fair for the former and forbidden for the latter.
 
 Versioned contracts also have a **structural home**, which keeps them from being mistaken for legacy: the root
-`contracts/<contract-name>/v<N>/` convention ([conventional-folders](../repository/conventional-folders.md#rule-adr-repo-folders11)) — one
-named contract folder is the boundary (like an `infrastructure/templates/<name>/`), with `v1`, `v2`, … inside. Each version is its own
-self-contained, checked-in folder (kept by a `.gitkeep`), so coexistence is explicit and located — never an ad-hoc `V2` fork buried beside
-the original in the code. These are the repository's external-facing API contracts, binding and contract-tested — see
+`contracts/<release>/<module>/` convention ([conventional-folders](../repository/conventional-folders.md#rule-adr-repo-folders11)) — one
+folder per catzc release (`0.0.0` the mutable draft, every other release frozen), with one folder per owning module inside it. Each release
+is its own self-contained, checked-in folder, so coexistence is explicit and located — never an ad-hoc `V2` fork buried beside the original
+in the code. These are the repository's external-facing API contracts, binding and contract-tested — see
 [api-contracts](../repository/api-contracts.md).
 
 ### Branch by abstraction
@@ -169,10 +169,10 @@ branch would. Use it to _get to_ one version; the failure mode is letting the se
 
 1. **Deprecation cycles in internal code** (mark an internal shape old, keep it for N releases) — rejected: a deprecation window serves
    external consumers who migrate on their own schedule, and internal code has none — all callers are in-tree and move with the change. At
-   the published API boundary it is different: retiring a `contracts/<name>/v<N>` version is a deliberate, contract-tested deprecation,
-   because external consumers genuinely pin it (ADR-PRIN-ONELIVE#7). What is rejected is deprecation as a hedge in internal code, not the
-   versioned external contracts. (A bounded branch-by-abstraction swap is also not this: it has a deadline and a deletion plan, and serves
-   the migration itself.)
+   the published API boundary it is different: retiring a released `contracts/<release>/` folder is a deliberate, contract-tested
+   deprecation, because external consumers genuinely pin it (ADR-PRIN-ONELIVE#7). What is rejected is deprecation as a hedge in internal
+   code, not the versioned external contracts. (A bounded branch-by-abstraction swap is also not this: it has a deadline and a deletion
+   plan, and serves the migration itself.)
 
 ### Rejected alternatives
 

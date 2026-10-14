@@ -10,10 +10,10 @@ Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
         $script:widgetGo = [System.IO.Path]::GetFullPath((Join-Path $script:repo 'go/tests/catzc-widget'))
         [void][System.IO.Directory]::CreateDirectory($script:widgetGo)
         function ConvertTo-Target {
-            param([string[]] $Path, [string] $EntryScript)
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ Path = $Path; EntryScript = $EntryScript } {
-                param($Path, $EntryScript)
-                ConvertTo-PesterRunTarget -Path $Path -EntryScript $EntryScript
+            param([string[]] $Path, [string] $EntryScript, [string] $GoExecutable)
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ Path = $Path; EntryScript = $EntryScript; GoExecutable = $GoExecutable } {
+                param($Path, $EntryScript, $GoExecutable)
+                ConvertTo-PesterRunTarget -Path $Path -EntryScript $EntryScript -GoExecutable $GoExecutable
             }
         }
     }
@@ -26,17 +26,19 @@ Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
     }
 
     It 'keeps test files and folders as paths, in order, and turns a Go test folder into a bridge container' {
-        $target = ConvertTo-Target -Path 'C:\x\Widget.Tests.ps1', "$script:widgetGo/", 'C:\x\gadget\tests' -EntryScript 'C:\build\Import-Catzc.ps1'
+        $target = ConvertTo-Target -Path 'C:\x\Widget.Tests.ps1', "$script:widgetGo/", 'C:\x\gadget\tests' -EntryScript 'C:\build\Import-Catzc.ps1' -GoExecutable 'C:\widget\go\bin\go.exe'
         $target.Path | Should -Be @('C:\x\Widget.Tests.ps1', 'C:\x\gadget\tests')
         $target.Container | Should -HaveCount 1
         $target.Container[0].Item.FullName | Should -Be ([System.IO.Path]::GetFullPath($script:bridge))
         $target.Container[0].Data['GoTestFolder'] | Should -Be $script:widgetGo
         $target.Container[0].Data['EntryScript'] | Should -Be 'C:\build\Import-Catzc.ps1'
+        $target.Container[0].Data['GoExecutable'] | Should -Be 'C:\widget\go\bin\go.exe'
     }
 
-    It 'hands the bridge an empty entry script in the source run' {
+    It 'hands the bridge an empty entry script in the source run, and an empty go when there is none' {
         $target = ConvertTo-Target -Path $script:widgetGo
         $target.Path | Should -HaveCount 0
         $target.Container[0].Data['EntryScript'] | Should -Be ''
+        $target.Container[0].Data['GoExecutable'] | Should -Be ''
     }
 }

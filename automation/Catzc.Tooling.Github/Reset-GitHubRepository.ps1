@@ -14,6 +14,10 @@
     equal to -Repo (and not -DryRun). On any failure after deletion, it throws
     with the exact recovery commands — the local clone and the backup bundle are
     always intact.
+
+    Pushing a whole history takes longer than an ordinary call, so the function
+    declares its own time limit ([TimeLimit]; tune it under `commands` in
+    timeouts.yml) and bounds the push and the remote read with it.
 .PARAMETER Repo
     The GitHub repository to delete, as owner/name.
 .PARAMETER NewName
@@ -22,9 +26,11 @@
 .PARAMETER Branch
     The local branch to push as the new default. Defaults to main.
 .PARAMETER Token
-    The token that must be absent from the pushed history. When set, the new
-    remote is mirror-cloned and re-scanned after the push; a hit aborts with a
-    "do not make public" warning.
+    The token that must be absent from the pushed history. When set, the
+    pushed branch is scanned locally, and the new remote must hold only that
+    branch's commit — the commit names its whole history, so this proves what
+    the server stored without a mirror clone. A hit or a foreign ref aborts
+    with a "do not make public" warning.
 .PARAMETER BackupBundle
     A verified `git bundle create --all` backup. The purge refuses to run without
     one (checked by Assert-GitHubPurgeReady).
@@ -48,6 +54,7 @@
 #>
 function Reset-GitHubRepository {
     [CmdletBinding()]
+    [Catzc.Base.Timeouts.TimeLimit(600, Pipeline = 3600)]
     param(
         [Parameter(Mandatory, Position = 0)]
         [string] $Repo,
@@ -118,10 +125,11 @@ function Reset-GitHubRepository {
 
     # --- Point origin at the new repo and push (retry for propagation) ---
     $newUrl = "https://github.com/$NewName.git"
+    $limit = Get-TimeoutSeconds -Command 'Reset-GitHubRepository'
     Invoke-Executable "git remote set-url origin $newUrl" -WorkingDirectory $RepositoryPath -Silent | Out-Null
     $pushed = $false
     foreach ($attempt in 1..5) {
-        $push = Invoke-Executable "git push -u origin $Branch" -WorkingDirectory $RepositoryPath -PassThru -NoAssert
+        $push = Invoke-Executable "git push -u origin $Branch" -WorkingDirectory $RepositoryPath -PassThru -NoAssert -TimeoutSeconds $limit
         if ($push.ExitCode -eq 0) {
             $pushed = $true; break
         }
@@ -131,19 +139,10 @@ function Reset-GitHubRepository {
         throw "Push failed. Recover: git push -u origin $Branch (local clone and backup intact)."
     }
 
-    # --- Post-verify: mirror-clone the new remote and prove the token is gone ---
+    # --- Post-verify: the remote holds only the pushed commit, and that commit's history is token-free ---
     if ($Token) {
-        $mirror = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-verify-' + [guid]::NewGuid().ToString('N').Substring(0, 12))
-        $clone = Invoke-Executable "git clone --mirror $newUrl `"$mirror`"" -PassThru -NoAssert -Silent
-        if ($clone.ExitCode -ne 0) {
-            throw "Post-verify clone failed (the push may be fine — check GitHub): $($clone.Errors)"
-        }
-        try {
-            $scan = Test-GitHistoryClean -Token $Token -Ref '--all' -RepositoryPath $mirror
-        }
-        finally {
-            Remove-Item -Recurse -Force $mirror -ErrorAction SilentlyContinue
-        }
+        $null = Assert-RemoteMatchesBranch -Url $newUrl -Branch $Branch -RepositoryPath $RepositoryPath -TimeoutSeconds $limit
+        $scan = Test-GitHistoryClean -Token $Token -Ref $Branch -RepositoryPath $RepositoryPath
         if (-not $scan.Clean) {
             throw "The new repo '$NewName' still contains '$Token' — DO NOT make it public. Investigate before continuing."
         }

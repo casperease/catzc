@@ -10,6 +10,7 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
         Mock Enter-TestRunLocation -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Mode = 'in-place' } }
         Mock Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates { }
         Mock Get-TestRunLocationEntry -ModuleName Catzc.Base.QualityGates { @{} }
+        Mock Get-GoTestExecutable -ModuleName Catzc.Base.QualityGates { '' }
         Mock Resolve-TestRunMaxLevel -ModuleName Catzc.Base.QualityGates { 3 }
         Mock Convert-TestRunLocationPath -ModuleName Catzc.Base.QualityGates { $Path }
         # The shard script is the last stop before a real worker spawns: stop there.

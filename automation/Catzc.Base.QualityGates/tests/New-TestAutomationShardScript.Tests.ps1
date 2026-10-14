@@ -114,6 +114,23 @@ Describe 'New-TestAutomationShardScript' {
             $content | Should -Match ([regex]::Escape("Join-Path (Get-CatzcModulesRoot) '.vendor/Pester'"))
             $content | Should -Match 'ConvertTo-TestAutomationRowSet'
         }
+
+        It 'hands the go this session located to the Pester configuration, quotes doubled, empty when none' {
+            $built = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
+                param($Dir)
+                New-TestAutomationShardScript -ShardIndex 7 -TestPath @('C:\repo\a.Tests.ps1') -RunDirectory $Dir `
+                    -GoExecutable "C:\widget's go\bin\go.exe"
+            }
+            $content = Get-Content -LiteralPath $built.ScriptPath -Raw
+            $content | Should -Match ([regex]::Escape("-GoExecutable `$goExecutable"))
+            $content | Should -Match ([regex]::Escape("'' '' 'C:\widget''s go\bin\go.exe'"))
+
+            $none = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $script:runDirectory } {
+                param($Dir)
+                New-TestAutomationShardScript -ShardIndex 8 -TestPath @('C:\repo\a.Tests.ps1') -RunDirectory $Dir
+            }
+            Get-Content -LiteralPath $none.ScriptPath -Raw | Should -Match "'' '' ''\r?\n"
+        }
     }
 
     # greedy: spawns a full importer-loading pwsh worker — stacked on the parallel pool that

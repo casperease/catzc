@@ -5,8 +5,8 @@
     The Go bridge's run step (tests/Go.Bridge.ps1 calls it once per module, in its BeforeAll); each generated
     Pester test then reports its own outcome:
 
-      - go missing: when Resolve-ToolExecutable finds no managed go, or the one found does not match the tools.yml
-        pin, nothing runs and every case is skipped with the constrained skip key 'tool_go_missing'
+      - go missing: when -GoExecutable is empty (the run's source session found no managed go at the tools.yml pin,
+        Get-GoTestExecutable), nothing runs and every case is skipped with the constrained skip key 'tool_go_missing'
         ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8));
       - otherwise Invoke-GoTest runs the module's Go tests (against -EntryScript in a build run) and each case takes
         the outcome of its GoTestResult: pass; fail, with the Go output; or skip, with the skip key 'go_test_skipped'
@@ -21,11 +21,15 @@
     The module's discovered cases (Get-GoTestCases).
 .PARAMETER EntryScript
     The engine entry of a build run (the build's Import-Catzc.ps1); empty for the source run.
+.PARAMETER GoExecutable
+    The managed go the run's source session located and checked against the pin (Get-GoTestExecutable), handed
+    down through the shard and the bridge container; empty when there is none. The worker never locates go itself:
+    a build run's engine does not carry the tools.yml entry.
 .OUTPUTS
     [hashtable] Case key -> [pscustomobject] { Outcome (pass|fail|skip); Reason (the skip key, or empty); Message
     (the failure text, or the Go output of a skip) }.
 .EXAMPLE
-    $outcomes = Get-GoTestOutcomes -Module Catzc.Base.Repository -Case (Get-GoTestCases -Folder $folder)
+    $outcomes = Get-GoTestOutcomes -Module Catzc.Base.Repository -Case (Get-GoTestCases -Folder $folder) -GoExecutable (Get-GoTestExecutable)
 #>
 function Get-GoTestOutcomes {
     [CmdletBinding()]
@@ -38,19 +42,20 @@ function Get-GoTestOutcomes {
         [AllowEmptyCollection()]
         [object[]] $Case,
 
-        [string] $EntryScript
+        [string] $EntryScript,
+
+        [string] $GoExecutable
     )
 
     $outcomes = @{}
-    $go = Resolve-ToolExecutable -Tool go
-    if (-not ($go.Found -and $go.VersionOk)) {
+    if (-not $GoExecutable) {
         foreach ($item in $Case) {
             $outcomes[$item.Key] = [pscustomobject]@{ Outcome = 'skip'; Reason = 'tool_go_missing'; Message = '' }
         }
         return $outcomes
     }
 
-    $goTest = @{ Module = $Module }
+    $goTest = @{ Module = $Module; GoExecutable = $GoExecutable }
     if ($EntryScript) {
         $goTest['EntryScript'] = $EntryScript
     }

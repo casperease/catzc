@@ -62,7 +62,9 @@ go.dev archive; a machine-wide Go is left in place, and the managed copy is foun
 `Test-Automation` runs the Go tests through a bridge: discovery maps each Go test module to its catzc module, so ordering, protection,
 `-Modules`, `-Suite`, the tiers, and both runs apply as to its Pester tests, and the bridge turns every top-level Go test into one Pester
 test. Every Go test is tagged `L2` — a real tool and a real engine (ADR-AUTO-TEST#9) — plus a category from its name: `TestIntegrity*` is
-`integrity`, every other test is `logic`. Without the managed `go`, the bridge skips with `tool_go_missing` (ADR-AUTO-TEST#8).
+`integrity`, every other test is `logic`. The run's source session locates the managed `go` once and hands its path to the bridge beside the
+engine entry; a worker never locates `go` itself, so a build run tests the build without carrying the tools config. Without the managed
+`go`, the bridge skips with `tool_go_missing` (ADR-AUTO-TEST#8).
 
 - [The bridge](#the-bridge)
 
@@ -163,6 +165,12 @@ modes, under the same selection, ordering, protection, tiers, categories, and re
 A Go test starts a real engine through a real toolchain, so the bridge tags every one `L2`, with no per-test choice to make. Its category
 comes from its name, decided in one place (the `GoTestResult` type): a `TestIntegrity*` test reads the shipped artifacts and is `integrity`;
 every other test is `logic`. Both axes stay mandatory and checked, exactly as for a Pester test (ADR-AUTO-TEST#13).
+
+`go` is a tool of the harness, not part of the engine under test. A build run's workers load the build, which holds only the selected
+modules and so not the `tools` config that `Resolve-ToolExecutable` reads. The run's source session therefore locates `go` once
+(`Get-GoTestExecutable`) and hands the path down beside the engine entry: through the shard script, the Pester configuration, and the bridge
+container's data. An empty path means no managed `go` at the pin, and every Go test skips with `tool_go_missing`. The bundle under test
+stays exactly what ships.
 
 ### The checks
 

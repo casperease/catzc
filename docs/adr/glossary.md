@@ -190,6 +190,8 @@ A file one stage produces and a later stage downloads and consumes — carried b
 - **Realized by:** type `Catzc.Base.Objects.ArtifactRef`
 - **Source:** `automation/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
+  - [contract asset](#contract-asset): A contract asset is a checked-in file that states what the repository boundary requires, frozen per
+    release; a published artifact is a file one stage produces and a later stage consumes within a run.
   - [release candidate](#release-candidate): A release candidate is the tagged build that gets promoted; a published artifact is any file
     handed across a stage boundary.
 

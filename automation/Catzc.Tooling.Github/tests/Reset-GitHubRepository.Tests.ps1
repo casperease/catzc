@@ -4,6 +4,11 @@ Describe 'Reset-GitHubRepository' -Tag 'L1', 'logic' {
             param([hashtable] $Extra = @{})
             Reset-GitHubRepository -Repo 'me/project' -BackupBundle 'TestDrive:/backup.bundle' -RepositoryPath 'TestDrive:/' @Extra
         }
+        # `git ls-remote` output: one tab-separated '<commit> <ref>' line per advertised ref.
+        function script:New-RefListing {
+            param([string[]] $Ref)
+            ($Ref | ForEach-Object { $_ -replace ' ', [char]9 }) -join [Environment]::NewLine
+        }
     }
 
     BeforeEach {
@@ -13,6 +18,9 @@ Describe 'Reset-GitHubRepository' -Tag 'L1', 'logic' {
         Mock -ModuleName Catzc.Tooling.Github Test-GitHistoryClean { [pscustomobject]@{ Clean = $true; Blobs = @(); Paths = @(); Messages = @() } }
         # Catch-all: every git/gh command succeeds. Individual tests override as needed.
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = ''; Errors = '' } }
+        # The pushed remote advertises only the local branch's commit.
+        Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = 'aaa111'; Errors = '' } } -ParameterFilter { $Command -like 'git rev-parse*' }
+        Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = (New-RefListing 'aaa111 HEAD', 'aaa111 refs/heads/main'); Errors = '' } } -ParameterFilter { $Command -like 'git ls-remote*' }
     }
 
     It 'is a dry run without -ConfirmRepo (nothing destructive runs)' {
@@ -43,9 +51,22 @@ Describe 'Reset-GitHubRepository' -Tag 'L1', 'logic' {
         Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 1 -ParameterFilter { $Command -eq 'git push -u origin main' }
     }
 
-    It 'runs the post-verify scan when a token is given' {
+    It 'runs the post-verify scan on the pushed branch, never on a mirror clone, when a token is given' {
         RunReset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } | Out-Null
-        Should -Invoke -ModuleName Catzc.Tooling.Github Test-GitHistoryClean -Times 1
+        Should -Invoke -ModuleName Catzc.Tooling.Github Test-GitHistoryClean -Times 1 -Exactly -ParameterFilter { $Ref -eq 'main' }
+        Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 0 -ParameterFilter { $Command -like 'git clone*' }
+    }
+
+    It 'bounds the push and the remote read with its own time limit' {
+        $limit = Get-TimeoutSeconds -Command 'Reset-GitHubRepository'
+        RunReset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } | Out-Null
+        Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 1 -ParameterFilter { $Command -like 'git push*' -and $TimeoutSeconds -eq $limit }
+        Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 1 -ParameterFilter { $Command -like 'git ls-remote*' -and $TimeoutSeconds -eq $limit }
+    }
+
+    It 'aborts with a do-not-publish warning when the remote holds a commit the local scan did not cover' {
+        Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = (New-RefListing 'aaa111 refs/heads/main', 'bbb222 refs/heads/gadget'); Errors = '' } } -ParameterFilter { $Command -like 'git ls-remote*' }
+        { RunReset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } } | Should -Throw '*refs/heads/gadget (bbb222)*DO NOT make it public*'
     }
 
     It 'aborts with a do-not-publish warning when post-verify finds the token' {

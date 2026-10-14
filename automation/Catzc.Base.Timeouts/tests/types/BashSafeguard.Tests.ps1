@@ -1,4 +1,4 @@
-# cspell:ignore tmain tforeground tbackground tsleep nsleep tsubagent tpipeline  -- "`t"/"`n" escape artifacts in the tab-separated log lines
+# cspell:ignore tmain tforeground tbackground tsleep tsubagent tpipeline  -- "`t" escape artifacts in the tab-separated log lines
 Describe 'BashSafeguard' -Tag 'L0', 'logic' {
     BeforeAll {
         # Tight fixture limits, so every verdict is visible: devbox 7 s / 70 s, pipeline 60 s / 600 s.
@@ -71,14 +71,31 @@ Describe 'BashSafeguard' -Tag 'L0', 'logic' {
     }
 
     Context 'background calls' {
-        It 'allows a single command behind a timeout prefix within the limit: <command>' -ForEach @(
-            @{ command = 'timeout 70 pwsh -NoProfile -File out/widget.ps1' }
-            @{ command = 'timeout -k 5 1m pwsh -NoProfile -Command ". ./importer.ps1; Invoke-Widget"' }
-            @{ command = 'timeout --kill-after=5 --preserve-status 60s bash out/widget.sh 2>&1' }
-            @{ command = "timeout 70 grep -n 'a;b|c' widget.txt &> out/widget.log" }
-            @{ command = 'timeout 70 echo "$(date; hostname)" `uname | tr a b`' }
-        ) {
-            (Get-Verdict @{ command = $command; run_in_background = $true }).Reason | Should -BeNullOrEmpty
+        BeforeDiscovery {
+            # The command grammar's cases live in the per-engine fixture table, one source for BoundedCommand and this
+            # hook; here each bash case checks the denial the hook words for its verdict.
+            $script:bashCases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/bounded-command.yml') -Engine bash -Applicable)
+        }
+
+        It 'words the <Fields.expect> verdict for: <Case>' -ForEach $bashCases {
+            $reason = (Get-Verdict @{ command = $Fields.command; run_in_background = $true }).Reason
+            switch ($Fields.expect) {
+                'allow' {
+                    $reason | Should -BeNullOrEmpty
+                }
+                'no-limit' {
+                    $reason | Should -BeLike '*has no*timeout <duration>*prefix*'
+                }
+                'over-limit' {
+                    $reason | Should -BeLike '*; the background limit is 70 s*'
+                }
+                'compound' {
+                    $reason | Should -BeLike '*compound command*'
+                }
+                default {
+                    throw "unknown expected verdict '$($Fields.expect)'"
+                }
+            }
         }
 
         It 'ignores the tool timeout parameter, which the Bash tool does not apply in the background' {
@@ -87,33 +104,9 @@ Describe 'BashSafeguard' -Tag 'L0', 'logic' {
             $verdict.LogLine | Should -BeLike "*`tbackground`tno timeout prefix`t70 s`tsleep 30"
         }
 
-        It 'denies a duration over the background limit or zero: <command>' -ForEach @(
-            @{ command = 'timeout 71 sleep 1'; asked = 'timeout 71 s' }
-            @{ command = 'timeout 2m sleep 1'; asked = 'timeout 120 s' }
-            @{ command = 'timeout 0 sleep 1'; asked = 'timeout 0 s' }
-        ) {
-            (Get-Verdict @{ command = $command; run_in_background = $true }).Reason | Should -BeLike "*has $asked; the background limit is 70 s*"
-        }
-
-        It 'denies a compound command, which would leave its later commands unbounded: <command>' -ForEach @(
-            @{ command = 'timeout 70 make && sleep 999' }
-            @{ command = 'timeout 70 make || sleep 999' }
-            @{ command = 'timeout 70 make; sleep 999' }
-            @{ command = 'timeout 70 make | tee out/widget.log' }
-            @{ command = 'timeout 70 make & sleep 999' }
-            @{ command = "timeout 70 make`nsleep 999" }
-        ) {
-            (Get-Verdict @{ command = $command; run_in_background = $true }).Reason | Should -BeLike '*compound command*'
-        }
-
-        It 'denies a prefix that is not a GNU timeout: <command>' -ForEach @(
-            @{ command = 'sleep 30' }
-            @{ command = 'timeout' }
-            @{ command = 'timeout 70' }
-            @{ command = 'timeout ten sleep 1' }
-            @{ command = 'timeouts 70 sleep 1' }
-        ) {
-            (Get-Verdict @{ command = $command; run_in_background = $true }).Reason | Should -BeLike '*has no*timeout <duration>*prefix*'
+        It 'names the requested duration when it is over the background limit' {
+            (Get-Verdict @{ command = 'timeout 2m sleep 1'; run_in_background = $true }).Reason |
+                Should -BeLike '*has timeout 120 s; the background limit is 70 s*'
         }
 
         It 'uses the pipeline background limit in a pipeline' {

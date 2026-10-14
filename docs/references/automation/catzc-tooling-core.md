@@ -18,6 +18,7 @@ about any specific tool, only how to drive one from its config. The rationale is
 | responsibility:2 | verify  | [Presence and version control](#responsibility2--presence-and-version-control)     |
 | responsibility:3 | engine  | [Install and uninstall engine](#responsibility3--install-and-uninstall-engine)     |
 | responsibility:4 | session | [Session tool reconciliation](#responsibility4--session-tool-reconciliation)       |
+| responsibility:5 | parity  | [Per-engine fixture tables](#responsibility5--per-engine-fixture-tables)           |
 
 ### responsibility:1 — Tool configuration and mapping
 
@@ -58,6 +59,15 @@ or relocated tool resolves without a shell restart, uses each tool's declared PA
 layer (e.g. nvm-managed node, or winget's alias directory), and reports on one line any tool running from a location the installer layer
 does not own. It is advisory and session-only — it never writes the persistent environment.
 
+### responsibility:5 — Per-engine fixture tables
+
+Holding test cases for the repository's two execution engines, pwsh and bash, side by side. A per-engine fixture table is a YAML file under
+a module's `tests/assets/engine-cases/`: a subject, then one case per row with a pwsh column and a bash column. Every column holds the
+case's fields for that engine, or says why the case does not apply there (`n/a: <reason>`), so a behaviour can never quietly cover one
+engine only. The `EngineCaseTable` type validates the shape — the two engine columns are fixed in it — and `Get-EngineCaseTable` loads a
+table as rows shaped for Pester's `-ForEach`. Any subject can use the same shape: the time safeguard's command grammar is the first, and an
+integrity test holds every table in the repository to it.
+
 ## What the module does
 
 The module is a config-driven dispatcher with no tools of its own. `tools.yml` is the single source of truth: each entry names a tool's
@@ -69,8 +79,9 @@ concrete tool repeats the same lifecycle shape over this shared engine.
 
 The four responsibilities stack cleanly. Configuration and mapping turns a tool name into facts; presence and version control reads those
 facts against the live machine; the engine acts on the gap between them; and session reconciliation keeps what is installed resolvable on
-PATH. The `ToolConfig` type that carries those facts derives from the shared `DictionaryRecord` base in
-[Catzc.Base.Objects](catzc-base-objects.md), so it gets a dictionary view and the extraction helpers without a per-module copy.
+PATH. The per-engine fixture tables sit beside them: the two engines are tools too, and the tables keep their parity testable. The
+`ToolConfig` type that carries those facts derives from the shared `DictionaryRecord` base in [Catzc.Base.Objects](catzc-base-objects.md),
+so it gets a dictionary view and the extraction helpers without a per-module copy.
 
 The sibling Tooling modules — [Catzc.Tooling.Python](catzc-tooling-python.md), [Catzc.Tooling.Node](catzc-tooling-node.md),
 [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md), and [Catzc.Tooling.Provisioning](catzc-tooling-provisioning.md) — all depend on this
@@ -101,3 +112,4 @@ The module's public functions and configuration, sorted into the responsibilitie
 |                                                   | `Get-InstallScope`            |
 |                                                   | `Get-ScriptInstallDir`        |
 | responsibility:4 — Session tool reconciliation    | `Sync-SessionTools`           |
+| responsibility:5 — Per-engine fixture tables      | `Get-EngineCaseTable`         |

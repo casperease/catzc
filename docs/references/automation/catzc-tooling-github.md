@@ -24,8 +24,10 @@ through the process boundary in [Catzc.Base.Execution](catzc-base-execution.md).
 Making a clean local history the remote's sole history and destroying the old object store with it. Two entry points cover the two starting
 points: hard-purging a repository that already exists — delete it, recreate it (optionally under a new name), push, and re-scan — and
 publishing a clean tree to a brand-new repository that must not already exist. Both are safe by default: they run the preflight and return a
-plan, mutating nothing until armed with an explicit confirm-repo value equal to the target. After pushing, each independently mirror-clones
-the new remote and re-scans it, so the proof runs against what the server actually stored rather than the local tree.
+plan, mutating nothing until armed with an explicit confirm-repo value equal to the target. After pushing, each reads the refs the new
+remote advertises (`git ls-remote`) and requires every one to point at the scanned local commit. A commit's hash names its whole history, so
+a match proves what the server stored without downloading it, and a ref at any other commit fails as history the scan never covered. Pushing
+a whole history outlasts an ordinary call, so both declare their own time limit and bound the push and the remote read with it.
 
 ### responsibility:2 — Local history rewrite
 
@@ -48,18 +50,18 @@ specific, actionable error for whichever check fails first.
 
 The read-only primitive behind every purge: proving a token is absent across all three surfaces it can survive in — file content (blobs),
 file paths, and commit messages — over a ref's whole reachable history, not just the working tree. It returns a structured result naming any
-residual hits so a caller can act on path-name residue a content scrub could not reach. Run it on the local ref before pushing and again on
-a fresh `git clone --mirror` of the remote to prove what actually landed; never run it against a ref whose upstream still tracks un-purged
-history, which would false-alarm.
+residual hits so a caller can act on path-name residue a content scrub could not reach. Run it on the local ref that is pushed; the purge
+then proves the remote holds that same commit. Never run it against a ref whose upstream still tracks un-purged history, which would
+false-alarm.
 
 ## What the module does
 
 The four responsibilities form a single pipeline with the verification primitive threaded through both ends of it. A rewrite produces a
 token-free local history; the preflight guards the irreversible move; the purge makes that history the remote's only history and destroys
-the old objects with the repository that held them; and verification runs before the push against the local ref and again after it against a
-mirror clone, so no step is trusted without independent proof from the server. The rewrite offers two routes because completeness and
-convenience trade off: rebuilding from a clean tree leaves nothing to scrub and no residual objects but discards the original commit shape,
-while an in-place filter-repo scrub preserves it at the cost of unreachable leftovers and a blind spot on file paths.
+the old objects with the repository that held them; and verification scans the local ref, then proves from the server's own refs that the
+remote holds exactly that commit, so no step is trusted without proof of what the server stored. The rewrite offers two routes because
+completeness and convenience trade off: rebuilding from a clean tree leaves nothing to scrub and no residual objects but discards the
+original commit shape, while an in-place filter-repo scrub preserves it at the cost of unreachable leftovers and a blind spot on file paths.
 
 Safe-by-default is the through-line across the mutating surfaces. Every destructive entry point runs a dry run and returns a plan unless
 explicitly armed with a confirmation value matching its target, and the remote purge keeps the local clone and the verified backup bundle

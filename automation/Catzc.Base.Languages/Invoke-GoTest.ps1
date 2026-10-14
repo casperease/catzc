@@ -32,6 +32,10 @@
 .PARAMETER EntryScript
     The engine entry for a build run: the build's Import-Catzc.ps1. Default: the repository's importer.ps1 (the
     source run).
+.PARAMETER GoExecutable
+    The go to run, already located and checked against the pin by the caller: a test run passes the go its source
+    session resolved, because a build run's engine does not carry the tools.yml entry. Default: located here by
+    Resolve-ToolExecutable.
 .OUTPUTS
     [Catzc.Base.Languages.GoTestResult] One record per Go test.
 .EXAMPLE
@@ -46,7 +50,9 @@ function Invoke-GoTest {
         [Parameter(Mandatory, Position = 0)]
         [string] $Module,
 
-        [string] $EntryScript
+        [string] $EntryScript,
+
+        [string] $GoExecutable
     )
 
     $root = Get-RepositoryRoot
@@ -61,15 +67,23 @@ function Invoke-GoTest {
         throw "$relative/go.mod is missing — it is generated; regenerate with: Build-RootConfig"
     }
 
-    # The managed go, by its path (Resolve-ToolExecutable reads the tools.yml entry); never a bare go off PATH.
-    $go = Resolve-ToolExecutable -Tool go
-    if (-not $go.Found) {
-        throw 'go is not installed (no managed go found). Run Install-Go.'
+    # The managed go, by its path: the caller's, already located and checked, or located here from its tools.yml entry
+    # (Resolve-ToolExecutable); never a bare go off PATH.
+    $goPath = if ($GoExecutable) {
+        Assert-PathExist $GoExecutable -PathType Leaf
+        $GoExecutable
     }
-    if (-not $go.VersionOk) {
-        throw "go at $($go.Path) reports version '$($go.Version)', but tools.yml pins '$($go.Required)'. Run Install-Go."
+    else {
+        $go = Resolve-ToolExecutable -Tool go
+        if (-not $go.Found) {
+            throw 'go is not installed (no managed go found). Run Install-Go.'
+        }
+        if (-not $go.VersionOk) {
+            throw "go at $($go.Path) reports version '$($go.Version)', but tools.yml pins '$($go.Required)'. Run Install-Go."
+        }
+        $go.Path
     }
-    $goCommand = "`"$($go.Path)`""
+    $goCommand = "`"$goPath`""
 
     $entry = if ($EntryScript) {
         Assert-PathExist $EntryScript -PathType Leaf

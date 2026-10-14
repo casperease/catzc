@@ -6,9 +6,14 @@
     Use this when there is no existing repository to purge — you already hold a
     clean local tree (for example, freshly rebuilt by New-SyntheticHistory) and
     want to push it to a new repo. It refuses to target a name that already
-    exists (that is Reset-GitHubRepository's job), and after pushing it
-    mirror-clones the new remote and re-scans it, so the check runs against what
-    the server actually stored rather than the local tree.
+    exists (that is Reset-GitHubRepository's job), and after pushing it reads
+    the new remote's refs and proves every one points at the scanned local
+    commit, so the check covers what the server actually stored without
+    downloading it.
+
+    Pushing a whole history takes longer than an ordinary call, so the function
+    declares its own time limit ([TimeLimit]; tune it under `commands` in
+    timeouts.yml) and bounds the push and the remote read with it.
 
     Safe by default: unless armed with -ConfirmRepo equal to -NewRepo (and not
     -DryRun), it validates and returns a plan without creating or pushing
@@ -19,8 +24,9 @@
 .PARAMETER Branch
     The local branch to push as the default. Defaults to main.
 .PARAMETER Token
-    The token that must be absent from the pushed history. When set, the new
-    remote is mirror-cloned and re-scanned; a hit aborts with a warning.
+    The token that must be absent from the pushed history. When set, the local
+    branch is scanned before the push, and after it the new remote must hold
+    only that branch's commit; anything else aborts with a warning.
 .PARAMETER RepositoryPath
     The local clone to push from. Defaults to the repository root.
 .PARAMETER Visibility
@@ -35,6 +41,7 @@
 #>
 function Publish-CleanHistory {
     [CmdletBinding()]
+    [Catzc.Base.Timeouts.TimeLimit(600, Pipeline = 3600)]
     param(
         [Parameter(Mandatory, Position = 0)]
         [string] $NewRepo,
@@ -84,10 +91,11 @@ function Publish-CleanHistory {
     }
 
     $newUrl = "https://github.com/$NewRepo.git"
+    $limit = Get-TimeoutSeconds -Command 'Publish-CleanHistory'
     Invoke-Executable "git remote set-url origin $newUrl" -WorkingDirectory $RepositoryPath -Silent | Out-Null
     $pushed = $false
     foreach ($attempt in 1..5) {
-        $push = Invoke-Executable "git push -u origin $Branch" -WorkingDirectory $RepositoryPath -PassThru -NoAssert
+        $push = Invoke-Executable "git push -u origin $Branch" -WorkingDirectory $RepositoryPath -PassThru -NoAssert -TimeoutSeconds $limit
         if ($push.ExitCode -eq 0) {
             $pushed = $true; break
         }
@@ -98,20 +106,8 @@ function Publish-CleanHistory {
     }
 
     if ($Token) {
-        $mirror = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-publish-' + [guid]::NewGuid().ToString('N').Substring(0, 12))
-        $clone = Invoke-Executable "git clone --mirror $newUrl `"$mirror`"" -PassThru -NoAssert -Silent
-        if ($clone.ExitCode -ne 0) {
-            throw "Post-verify clone failed (the push may be fine — check GitHub): $($clone.Errors)"
-        }
-        try {
-            $scan = Test-GitHistoryClean -Token $Token -Ref '--all' -RepositoryPath $mirror
-        }
-        finally {
-            Remove-Item -Recurse -Force $mirror -ErrorAction SilentlyContinue
-        }
-        if (-not $scan.Clean) {
-            throw "The new repo '$NewRepo' contains '$Token' — DO NOT make it public. Investigate before continuing."
-        }
+        # The local branch was scanned clean above; the remote holding only its commit proves the same of the server.
+        $null = Assert-RemoteMatchesBranch -Url $newUrl -Branch $Branch -RepositoryPath $RepositoryPath -TimeoutSeconds $limit
         Write-Message "Verified '$NewRepo' is free of '$Token' across all refs."
     }
 

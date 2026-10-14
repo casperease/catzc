@@ -107,8 +107,8 @@ Lessons from wave 4:
 - **Every title is ≤ 100 characters on one line**, not only fan-out drawings. Shorten the brief's draft title when you have to, and say so.
 - **Check the result colour.** A fail-open "proceed" result isn't a pipeline/runner, so don't borrow `#fff2cc` for it. Use the neutral grey
   unless the palette has a role for it.
-- **The time-safeguard limit can change mid-wave.** If the hook denies a call, its message names the current limit. Report the denial,
-  and never retry with a larger limit.
+- **The time-safeguard limit can change mid-wave.** If the hook denies a call, its message names the current limit. Report the denial, and
+  never retry with a larger limit.
 
 ## Lens variants (one diagram, five simplifications)
 

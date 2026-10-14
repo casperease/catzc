@@ -69,6 +69,21 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
             }
         }
 
+        It 'runs the caller''s -GoExecutable by its quoted path without locating go itself' {
+            $callerGo = Join-Path $TestDrive 'caller go/bin/go.exe'
+            $null = New-Item -ItemType File -Path $callerGo -Force
+            $null = Invoke-GoTest Catzc.Widget -GoExecutable $callerGo
+            Should -Invoke Resolve-ToolExecutable -ModuleName Catzc.Base.Languages -Times 0 -Exactly
+            foreach ($command in $script:seen.Command) {
+                [Catzc.Base.Execution.CliRunner]::ExecutableName($command) | Should -Be $callerGo
+            }
+        }
+
+        It 'throws when -GoExecutable does not exist, before running anything' {
+            { Invoke-GoTest Catzc.Widget -GoExecutable (Join-Path $TestDrive 'absent/go.exe') } | Should -Throw
+            $script:seen.Count | Should -Be 0
+        }
+
         It 'throws with "Run Install-Go" when no managed go is found, before running anything' {
             $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('go', $null, 'none', $null, '1.27', $false, 1, 0, 'Agent')
             { Invoke-GoTest Catzc.Widget } | Should -Throw '*no managed go found*Run Install-Go*'

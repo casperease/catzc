@@ -411,8 +411,8 @@ folder must exist.
   `tests/assets/`.
 
 - **Repo-wide conventions** — the closed root set (`ADR-REPO-FOLDERS:3`), the dot-prefixed roots (`ADR-REPO-FOLDERS:4`), the markdown-only
-  rule for `docs/` (`ADR-REPO-FOLDERS:5`), and the `contracts/` versioned-contract layout with its `.gitkeep` marker (`ADR-REPO-FOLDERS:11`)
-  — are enforced by **code review** against this ADR; the deep `automation/` conventions above are additionally enforced mechanically by the
+  rule for `docs/` (`ADR-REPO-FOLDERS:5`), and the `contracts/<release>/<module>/` layout with its root `.gitkeep` (`ADR-REPO-FOLDERS:11`) —
+  are enforced by **code review** against this ADR; the deep `automation/` conventions above are additionally enforced mechanically by the
   tooling listed here.
 
 - **Code review.** Structural conventions that tooling cannot enforce (e.g., "this YAML file belongs in `configs/`, not the module root")

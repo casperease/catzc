@@ -29,8 +29,8 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 Architecture Decision Records live under `docs/adr/`, grouped into the domains that `docs/adr/index.md` lists. The index also holds every
 rule-citation code (e.g. `ADR-AUTO-ERROR#3`) and the **authoring conventions**. The ADRs define the design principles behind this codebase
 and must be followed when writing or reviewing code. **Read `docs/adr/index.md` at the start of every session**, then read in full the ADRs
-that govern the files a task touches, and cite their rules by code. The whole corpus is far larger than a context window, so never sweep
-it, and never sweep `research/`, which is reference material, not rules.
+that govern the files a task touches, and cite their rules by code. The whole corpus is far larger than a context window, so never sweep it,
+and never sweep `research/`, which is reference material, not rules.
 
 ## Inspiration
 

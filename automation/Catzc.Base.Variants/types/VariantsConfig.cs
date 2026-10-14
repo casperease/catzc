@@ -21,8 +21,10 @@
 //                   check — structural checks only.
 //   tracks          a non-empty map of track -> { root, class, languages } ([ADR-DSGN-TRACK](/docs/adr/design/tracks.md)),
 //                   in declared order: a kebab-case or dot-prefixed track name; 'root' required, one folder segment
-//                   (no '/', '\', '.' or '..'), never 'out' (gitignored output, ADR-DSGN-TRACK#1), and unique across
-//                   tracks; 'class' required, one of VariantTrack.Classes (ADR-DSGN-TRACK#2); 'languages' optional
+//                   (no '/', '\', '.' or '..'), never 'out' (gitignored output,
+//                   [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)), and unique across tracks;
+//                   'class' required, one of VariantTrack.Classes
+//                   ([ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2)); 'languages' optional
 //                   (default: none), a list of unique kebab-case file-language names. This file is validated alone:
 //                   that each name is a registered file language is an integrity test in Catzc.Base.Languages.
 

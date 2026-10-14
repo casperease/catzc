@@ -17,6 +17,9 @@
 .PARAMETER EntryScript
     The engine entry of a build run (the build's Import-Catzc.ps1), handed to the Go bridge so the Go tests start
     the build; empty for the source run.
+.PARAMETER GoExecutable
+    The managed go the run's source session located (Get-GoTestExecutable), handed to the Go bridge; empty when
+    there is none.
 .PARAMETER ExcludeTag
     Tags excluded from the run (from Get-TestExcludeTag). Empty means no tag filter.
 .PARAMETER IncludeTag
@@ -50,10 +53,12 @@ function New-PesterRunConfiguration {
 
         [string] $FullNameFilter,
 
-        [string] $EntryScript
+        [string] $EntryScript,
+
+        [string] $GoExecutable
     )
 
-    $target = ConvertTo-PesterRunTarget -Path $Path -EntryScript $EntryScript
+    $target = ConvertTo-PesterRunTarget -Path $Path -EntryScript $EntryScript -GoExecutable $GoExecutable
     $config = New-PesterConfiguration
     if ($target.Path.Count -gt 0) {
         $config.Run.Path = $target.Path

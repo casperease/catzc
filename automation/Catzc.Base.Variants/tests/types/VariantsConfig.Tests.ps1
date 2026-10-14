@@ -144,7 +144,7 @@ Describe 'VariantsConfig' -Tag 'L0' {
         It 'throws on a root that is not one folder segment' {
             foreach ($root in 'widget/gadget', '..') {
                 { & $script:make ([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ root = $root; class = 'core' } } }) } |
-                    Should -Throw "*invalid root*"
+                    Should -Throw '*invalid root*'
             }
         }
 

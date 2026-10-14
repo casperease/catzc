@@ -8,8 +8,9 @@
     old blob, a renamed path, or a commit message. This scans the whole history
     reachable from a ref for all three and returns a structured result.
 
-    Scan the local ref (default HEAD) before pushing, and again on a fresh
-    `git clone --mirror` of the remote to prove what actually landed. Never scan
+    Scan the local ref (default HEAD) that is pushed; the purge functions then
+    prove from the remote's advertised refs that it holds that same commit,
+    so the scan covers what actually landed. Never scan
     a ref whose upstream tracking still points at un-purged history (e.g. an
     un-updated origin/*) — a stale tracking ref false-alarms.
 
@@ -19,8 +20,8 @@
     Matched case-insensitively as a literal substring across every surface.
 .PARAMETER Ref
     The ref whose reachable history is scanned. Defaults to HEAD. Pass a branch
-    name, a SHA, or --all to sweep every ref (only meaningful on a mirror clone,
-    where no stale tracking ref exists to false-alarm).
+    name, a SHA, or --all to sweep every ref (only meaningful in a clone with no
+    stale tracking ref to false-alarm).
 .PARAMETER RepositoryPath
     The git repository to scan. Defaults to the current repository root.
 .PARAMETER ExcludePath

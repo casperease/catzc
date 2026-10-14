@@ -1034,6 +1034,8 @@ terms:
       meaning: "PowerShell splatting"
     - term: steppable
       meaning: "a PowerShell steppable pipeline"
+    - term: subexpression
+      meaning: "PowerShell subexpression operator $( )"
     - term: warningaction
       meaning: "PowerShell -WarningAction common parameter"
     - term: warningpreference
