@@ -1,7 +1,7 @@
-// One zone of the gitignore registry (configs/gitignore.yml) — a titled, explained group of ignore
-// patterns. A zone declares EITHER `patterns` (a static list, each a bare string or { pattern, note }) OR
+// One section of the gitignore registry (configs/gitignore.yml) — a titled, explained group of ignore
+// patterns. A section declares EITHER `patterns` (a static list, each a bare string or { pattern, note }) OR
 // `inject: <provider>` (the patterns are supplied at render time by the caller — e.g. the root-config
-// registry's committed:false targets), never both. `title` and `why` render as the zone's comment block, so
+// registry's committed:false targets), never both. `title` and `why` render as the section's comment block, so
 // every rule in the generated .gitignore carries its explanation.
 //
 // Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
@@ -13,12 +13,12 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Git;
 
-public sealed class GitIgnoreZone : Catzc.Base.Objects.DictionaryRecord
+public sealed class GitIgnoreSection : Catzc.Base.Objects.DictionaryRecord
 {
     // Short kebab identifier — unique across the registry. Required.
     public string id { get; }
 
-    // The zone's heading, rendered as its comment rule-line. Required.
+    // The section's heading, rendered as its comment rule-line. Required.
     public string title { get; }
 
     // The explanation rendered (wrapped) under the heading — why these paths are ignored. Required.
@@ -31,9 +31,9 @@ public sealed class GitIgnoreZone : Catzc.Base.Objects.DictionaryRecord
     // patterns/inject.
     public string inject { get; }
 
-    public GitIgnoreZone(IDictionary d)
+    public GitIgnoreSection(IDictionary d)
     {
-        if (d == null) { throw new ArgumentException("GitIgnoreZone requires a mapping"); }
+        if (d == null) { throw new ArgumentException("GitIgnoreSection requires a mapping"); }
         id = Req(d, "id");
         title = Req(d, "title");
         why = Req(d, "why");
@@ -44,7 +44,7 @@ public sealed class GitIgnoreZone : Catzc.Base.Objects.DictionaryRecord
         if (hasPatterns == (inject != null))
         {
             throw new ArgumentException(string.Format(
-                "gitignore zone '{0}' must declare exactly one of 'patterns' or 'inject'", id));
+                "gitignore section '{0}' must declare exactly one of 'patterns' or 'inject'", id));
         }
     }
 

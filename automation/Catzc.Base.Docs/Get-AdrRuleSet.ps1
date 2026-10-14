@@ -5,7 +5,7 @@
     Returns the RuleSets of the typed ADR registry (Get-Config -Config adrs, an AdrsConfig — mapped and
     validated by the C# type, so this reads strong properties, not a slippery ordered dictionary). Each record
     (Catzc.Base.Docs.AdrRuleSet) carries the internal kebab Slug, the full External citation code, the
-    EFFECTIVE domain Code (a leaf override or the domain default), the folder-owning Domain and its Role, and
+    domain Code in effect (a leaf override or the domain default), the folder-owning Domain and its Role, and
     the optional Terminology token.
 .PARAMETER Domain
     Restrict to one folder-owning domain (e.g. 'automation'), by name.

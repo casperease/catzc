@@ -33,7 +33,7 @@ function Resolve-BicepConfigName {
         throw "Config '$ConfigName' has an unknown environment '$environment' (valid: $(@($known | Sort-Object) -join ', '))"
     }
     if ($slot -and $slot -cnotmatch '^[a-z0-9]{1,3}$') {
-        throw "Config '$ConfigName' has an invalid slot '$slot' (must be 1-3 lowercase alphanumeric chars)"
+        throw "Config '$ConfigName' has a slot '$slot' that is not valid (must be 1-3 lowercase alphanumeric chars)"
     }
 
     [ordered]@{ environment = $environment; slot = $slot }

@@ -10,15 +10,15 @@ in, running commands, selecting a subscription, verifying — belongs to [Catzc.
 user-space per [uv-python-handler](../../adr/automation/uv-python-handler.md); the build tools use their native managers per
 [use-proper-package-managers](../../adr/automation/use-proper-package-managers.md).
 
-## Domains
+## Responsibilities
 
-| Domain   | Area        | Name                                                             |
-| -------- | ----------- | ---------------------------------------------------------------- |
-| domain:1 | build-tools | [Build toolchain lifecycle](#domain1--build-toolchain-lifecycle) |
-| domain:2 | uv          | [uv, the Python handler](#domain2--uv-the-python-handler)        |
-| domain:3 | az-binary   | [Azure CLI binary](#domain3--azure-cli-binary)                   |
+| Responsibility   | Area        | Name                                                                     |
+| ---------------- | ----------- | ------------------------------------------------------------------------ |
+| responsibility:1 | build-tools | [Build toolchain lifecycle](#responsibility1--build-toolchain-lifecycle) |
+| responsibility:2 | uv          | [uv, the Python handler](#responsibility2--uv-the-python-handler)        |
+| responsibility:3 | az-binary   | [Azure CLI binary](#responsibility3--azure-cli-binary)                   |
 
-### domain:1 — Build toolchain lifecycle
+### responsibility:1 — Build toolchain lifecycle
 
 The full life of the .NET SDK, the Java runtime, and Terraform: install the locked version idempotently, invoke through the asserted
 execution wrapper, uninstall the managed install, and — for .NET and Java — hard-remove an unmanaged one. .NET installs from the vendored
@@ -26,14 +26,14 @@ official `dotnet-install` script this module ships under `assets/scripts/`; Java
 manager — winget (user scope) on Windows, Homebrew on macOS, apt on Linux (see
 [use-proper-package-managers](../../adr/automation/use-proper-package-managers.md)).
 
-### domain:2 — uv, the Python handler
+### responsibility:2 — uv, the Python handler
 
 Installing and upgrading uv — a fresh machine bootstraps it via winget (user scope, no admin); an existing Astral-standalone uv upgrades
 itself in place with `uv self update`. uv is the standard Python handler: everything the Python family and the Azure CLI install runs
 through it, so it is the toolchain's foundational prerequisite (its dependents declare `depends_on: uv`). See
 [uv-python-handler](../../adr/automation/uv-python-handler.md).
 
-### domain:3 — Azure CLI binary
+### responsibility:3 — Azure CLI binary
 
 Installing, uninstalling, and hard-removing the `az` binary and locking its version. It installs user-space as an isolated uv tool
 (`uv tool install azure-cli`) on every platform — no administrator anywhere — so this module carries no machine-scope install path (see
@@ -57,23 +57,23 @@ locally and in CI, with no separate provisioning path (see [cross-platform](../.
 
 ## Division
 
-The module's public functions, sorted into the domains above.
+The module's public functions, sorted into the responsibilities above.
 
-| Domain                               | Function              |
-| ------------------------------------ | --------------------- |
-| domain:1 — Build toolchain lifecycle | `Install-Dotnet`      |
-|                                      | `Invoke-Dotnet`       |
-|                                      | `Uninstall-Dotnet`    |
-|                                      | `Remove-Dotnet`       |
-|                                      | `Install-Java`        |
-|                                      | `Invoke-Java`         |
-|                                      | `Uninstall-Java`      |
-|                                      | `Remove-Java`         |
-|                                      | `Install-Terraform`   |
-|                                      | `Invoke-Terraform`    |
-|                                      | `Uninstall-Terraform` |
-| domain:2 — uv, the Python handler    | `Install-Uv`          |
-|                                      | `Uninstall-Uv`        |
-| domain:3 — Azure CLI binary          | `Install-AzCli`       |
-|                                      | `Uninstall-AzCli`     |
-|                                      | `Remove-AzCli`        |
+| Responsibility                               | Function              |
+| -------------------------------------------- | --------------------- |
+| responsibility:1 — Build toolchain lifecycle | `Install-Dotnet`      |
+|                                              | `Invoke-Dotnet`       |
+|                                              | `Uninstall-Dotnet`    |
+|                                              | `Remove-Dotnet`       |
+|                                              | `Install-Java`        |
+|                                              | `Invoke-Java`         |
+|                                              | `Uninstall-Java`      |
+|                                              | `Remove-Java`         |
+|                                              | `Install-Terraform`   |
+|                                              | `Invoke-Terraform`    |
+|                                              | `Uninstall-Terraform` |
+| responsibility:2 — uv, the Python handler    | `Install-Uv`          |
+|                                              | `Uninstall-Uv`        |
+| responsibility:3 — Azure CLI binary          | `Install-AzCli`       |
+|                                              | `Uninstall-AzCli`     |
+|                                              | `Remove-AzCli`        |

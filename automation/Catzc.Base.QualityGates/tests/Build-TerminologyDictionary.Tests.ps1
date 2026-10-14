@@ -1,15 +1,15 @@
 Describe 'Build-TerminologyDictionary' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
-        # A tiny registry spanning all three categories, with a duplicate and mixed case in the domain
+        # A tiny registry spanning all three categories, with a duplicate and mixed case in the product
         # category, to prove per-category grouping plus lower-casing + de-duplication.
         Mock Get-Config -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{
-                categories = @('domain', 'abbreviation', 'fixture')
+                categories = @('product', 'abbreviation', 'fixture')
                 terms      = @(
-                    [pscustomobject]@{ term = 'Zebra'; category = 'domain' }
-                    [pscustomobject]@{ term = 'zebra'; category = 'domain' }
-                    [pscustomobject]@{ term = 'alpha'; category = 'domain' }
+                    [pscustomobject]@{ term = 'Zebra'; category = 'product' }
+                    [pscustomobject]@{ term = 'zebra'; category = 'product' }
+                    [pscustomobject]@{ term = 'alpha'; category = 'product' }
                     [pscustomobject]@{ term = 'ctx'; category = 'abbreviation' }
                     [pscustomobject]@{ term = 'smpl'; category = 'fixture' }
                 )
@@ -21,7 +21,7 @@ Describe 'Build-TerminologyDictionary' -Tag 'L0', 'logic' {
         # -DryRun only: a real write would overwrite the checked-in dictionaries with this fixture set.
         $results = Build-TerminologyDictionary -DryRun -PassThru
         @($results).Count | Should -Be 3
-        ($results | Where-Object Category -EQ 'domain').WordCount | Should -Be 2
+        ($results | Where-Object Category -EQ 'product').WordCount | Should -Be 2
         ($results | Where-Object Category -EQ 'abbreviation').WordCount | Should -Be 1
         ($results | Where-Object Category -EQ 'fixture').WordCount | Should -Be 1
         ($results | ForEach-Object DryRun) | Should -Not -Contain $false
@@ -33,7 +33,7 @@ Describe 'Build-TerminologyDictionary' -Tag 'L0', 'logic' {
 
     It 'with -DryRun does not modify the generated dictionaries' {
         $cspellDir = Join-Path (Get-RepositoryRoot) '.cspell'
-        $dicts = 'domain', 'abbreviation', 'fixture' |
+        $dicts = 'product', 'abbreviation', 'fixture' |
             ForEach-Object { Join-Path $cspellDir "$_.txt" }
         $before = $dicts | ForEach-Object { [System.IO.File]::ReadAllText($_) }
         Build-TerminologyDictionary -DryRun | Out-Null

@@ -10,14 +10,14 @@ renderers are pure functions that return content and write nothing; the `.vscode
 [Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s `Build-RootConfig`, which names each renderer as its entry's generator (the CSS is a
 `copyAsLink` entry — the `.vscode/` file is a link to this module's asset).
 
-## Domains
+## Responsibilities
 
-| Domain   | Area     | Name                                                     |
-| -------- | -------- | -------------------------------------------------------- |
-| domain:1 | render   | [Editor-file rendering](#domain1--editor-file-rendering) |
-| domain:2 | registry | [The editor registries](#domain2--the-editor-registries) |
+| Responsibility   | Area     | Name                                                             |
+| ---------------- | -------- | ---------------------------------------------------------------- |
+| responsibility:1 | render   | [Editor-file rendering](#responsibility1--editor-file-rendering) |
+| responsibility:2 | registry | [The editor registries](#responsibility2--the-editor-registries) |
 
-### domain:1 — Editor-file rendering
+### responsibility:1 — Editor-file rendering
 
 Turning the registries into the `.vscode/` contents. Three renderers emit a generated-file header (JSONC — VS Code reads comments in
 `settings.json`, `extensions.json`, and `launch.json`) followed by the authored content as JSON, in registry order; the fourth, the Azure
@@ -27,7 +27,7 @@ an authored entry winning over an injected key of the same name (an explicit `fa
 pipeline schema render their registries verbatim — the generators are the seam should any ever need dynamic content. The authored
 explanations live as comments in the yml — the searched, reviewed artifact — not in the renderings.
 
-### domain:2 — The editor registries
+### responsibility:2 — The editor registries
 
 Which editor behaviour the workspace pins, and why. Four registries, each entry carrying its rationale as a comment:
 
@@ -61,19 +61,19 @@ The injected `search.exclude` completion is the point of the design: the reposit
 committed files, and the `.vscode/` copies themselves) are derived artifacts, and a search that lands in one invites an edit that the next
 import silently overwrites. With the exclusion list computed from the same registry that defines "managed", opting a file into management
 removes it from find-all in the same change — the editor and the tooling cannot disagree, and there is no hand-kept second list. It is the
-same one-source-injection shape as [Catzc.Base.Git](catzc-base-git.md)'s managed-copies zone.
+same one-source-injection shape as [Catzc.Base.Git](catzc-base-git.md)'s managed-copies section.
 
 ## Division
 
-The module's public surface, sorted into the domains above.
+The module's public surface, sorted into the responsibilities above.
 
-| Domain                           | Function                     |
-| -------------------------------- | ---------------------------- |
-| domain:1 — Editor-file rendering | `New-VSCodeSettings`         |
-|                                  | `New-VSCodeExtensions`       |
-|                                  | `New-VSCodeLaunch`           |
-|                                  | `New-VSCodePipelineSchema`   |
-| domain:2 — The editor registries | `vscode-settings.yml`        |
-|                                  | `vscode-extensions.yml`      |
-|                                  | `vscode-launch.yml`          |
-|                                  | `vscode-pipeline-schema.yml` |
+| Responsibility                           | Function                     |
+| ---------------------------------------- | ---------------------------- |
+| responsibility:1 — Editor-file rendering | `New-VSCodeSettings`         |
+|                                          | `New-VSCodeExtensions`       |
+|                                          | `New-VSCodeLaunch`           |
+|                                          | `New-VSCodePipelineSchema`   |
+| responsibility:2 — The editor registries | `vscode-settings.yml`        |
+|                                          | `vscode-extensions.yml`      |
+|                                          | `vscode-launch.yml`          |
+|                                          | `vscode-pipeline-schema.yml` |

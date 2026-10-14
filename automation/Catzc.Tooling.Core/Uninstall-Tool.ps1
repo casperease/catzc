@@ -38,7 +38,7 @@ function Uninstall-Tool {
     # Microsoft.OpenJDK.{0}), defaulting to the locked version asks the package manager to remove a
     # package that isn't there ("No installed package found") whenever the installed major differs —
     # e.g. replacing node 22 with the locked 24 via Install-Tool -Force. Reduce the installed version to
-    # the locked version's component granularity so the {0} slot matches the installed package:
+    # the locked version's component granularity so the {0} placeholder matches the installed package:
     # node "22.22.2" -> "22", python "3.11.9" -> "3.11". Version-independent ids (Microsoft.AzureCLI,
     # Hashicorp.Terraform) ignore the value. An explicit -Version still wins for removing a named build.
     if (-not $Version) {

@@ -287,12 +287,12 @@ approach gives you a stringly-typed global that the caller has to know about by 
 The twelve-factor app methodology recommends storing configuration in environment variables that are "granular controls, each fully
 orthogonal to other env vars" and "never grouped together as environments."
 
-This is sound advice for its original domain: stateless web applications with a handful of independent settings (a database URL, an API key,
-a log level).
+This is sound advice for its original setting: stateless web applications with a handful of independent settings (a database URL, an API
+key, a log level).
 
 Each knob is truly independent — changing the log level has no relationship to the database host.
 
-Infrastructure platform configuration is a fundamentally different domain.
+Infrastructure platform configuration is a fundamentally different problem.
 
 In a multi-customer, multi-environment system, configuration values form a dependency graph, not a flat set of independent knobs.
 

@@ -105,8 +105,8 @@ proceed, DEPLOY performs the roll. Clearing a gate is a promotion; failing it ho
 A **UAT** (User Acceptance Testing environment) is a running deployment a user-mimic can interact with — `main-uat` (tracking main) and
 `release-uat` (the release branch). **AT** (Acceptance Testing) is the verification _activity_: the **automated and manual** acceptance
 tests a commit must pass in that environment to be release-verified. So a stage's `-AT` name marks the testing and a `-uat` name marks the
-environment: **`L3-vertical-AT`** is the automated AT run in an on-demand slot — in a pipeline it is the AT gate; on a devbox it is a fast
-run that reports the assumptions it makes, not a gate; **`main-AT`** is the AT against `main-uat` (the manual RC gate, ADR-FLOW-CD#9);
+environment: **`L3-vertical-AT`** is the automated AT run in an on-demand environment — in a pipeline it is the AT gate; on a devbox it is a
+fast run that reports the assumptions it makes, not a gate; **`main-AT`** is the AT against `main-uat` (the manual RC gate, ADR-FLOW-CD#9);
 **`release-AT`** is the AT against `release-uat` (the manual RBC gate). A commit state `release-at-verified (main-uat)` reads "passed AT, in
 the main-uat environment" — the `-AT` is the testing, the `(…-uat)` is where.
 
@@ -117,21 +117,22 @@ the main-uat environment" — the `-AT` is the testing, the `(…-uat)` is where
 **The prod tail adds a pre-prod rung, and DEPLOY splits by target into non-prod and prod.** Past the RBC gate the artifact is promoted
 through a **pre-prod** environment (staged, not yet live) before **production**, so the promotion ladder's tail is
 `release-uat → pre-prod → production` (ADR-DSGN-LIFE#1). The DEPLOY activity (ADR-FLOW-CD#6) is correspondingly two-part on the same
-build-once artifact: **DEPLOY-Non-Prod** drives it into the non-prod AT environments (the on-demand slots, `main-uat`, `release-uat`), and
-**DEPLOY-Prod** drives the RBC-cleared artifact through `pre-prod` into `production`. Only the target and its governance differ; the tagged
-artifact is identical across both.
+build-once artifact: **DEPLOY-Non-Prod** drives it into the non-prod AT environments (the on-demand environments, `main-uat`,
+`release-uat`), and **DEPLOY-Prod** drives the RBC-cleared artifact through `pre-prod` into `production`. Only the target and its governance
+differ; the tagged artifact is identical across both.
 
 - [Pre-prod and the DEPLOY split](#pre-prod-and-the-deploy-split)
 
 ### Rule ADR-FLOW-CD:12
 
-**Deploy-to-prod is a two-slot activation: stage the artifact _inactive_ in pre-prod, validate the exact bytes, then activate it _live_ to
-production.** DEPLOY-Prod never deploys straight into the serving environment. It first deploys the RBC-cleared artifact to **pre-prod** — a
-production-grade environment that is **not serving live traffic** (the "inactive" slot) — where the identical bytes get a final rehearsal
-against production-shaped dependencies. Only then is that same artifact **activated to live production** (the inactive → live cutover). The
-go-live is therefore a **promotion of already-validated bytes, not a fresh untested deploy**, which is what keeps the production cutover
-low-risk. When the new version goes live, the previous production occupant is superseded and steps down (ADR-DSGN-LIFE#3/ADR-DSGN-LIFE#4).
-Build-once holds throughout: pre-prod and production receive the identical tagged artifact (ADR-FLOW-CD#3).
+**Deploy-to-prod is a two-environment activation: stage the artifact _inactive_ in pre-prod, validate the exact bytes, then activate it
+_live_ to production.** DEPLOY-Prod never deploys straight into the serving environment. It first deploys the RBC-cleared artifact to
+**pre-prod** — a production-grade environment that is **not serving live traffic** (the "inactive" environment) — where the identical bytes
+get a final rehearsal against production-shaped dependencies. Only then is that same artifact **activated to live production** (the inactive
+→ live cutover). The go-live is therefore a **promotion of already-validated bytes, not a fresh untested deploy**, which is what keeps the
+production cutover low-risk. When the new version goes live, the previous production occupant is superseded and steps down
+(ADR-DSGN-LIFE#3/ADR-DSGN-LIFE#4). Build-once holds throughout: pre-prod and production receive the identical tagged artifact
+(ADR-FLOW-CD#3).
 
 - [Deploy to prod](#deploy-to-prod)
 
@@ -172,7 +173,7 @@ YAML file that compiles something. Read as a discipline, it is the team-scale pr
 each proven fast — that the pipeline exists to _serve_. The 5–10 minute budget, the always-on environment that mirrors main, and the
 build-once artifact that flows to prod are all consequences of taking the discipline as primary. The complement is
 [continuous integration](../research/continuous-integration.md), whose CI-gate budget is what a slow release-candidate test run breaks when
-it squats in the fast CI slot.
+it squats in the fast CI budget.
 
 ## Decision
 
@@ -303,7 +304,7 @@ Continuous Integration as a discipline (ADR-FLOW-CD#1) asks that every change be
 integrable. In practice that validation runs at two speeds, and conflating them is the mistake. The **inner loop** — the CI gate — must
 clear in 5–10 minutes (ADR-FLOW-CD#2) or it stops being a gate and becomes a queue; it runs the fast, hermetic checks (L0–L2) and the BVT.
 The **outer loop** — CI+ — runs the system-level tests that exercise the built artifact against real boundaries (the L3-vertical run of
-ADR-FLOW-CD#5), and those cannot be made to fit the inner budget: they take an hour or two, and forcing them into the pre-commit slot is
+ADR-FLOW-CD#5), and those cannot be made to fit the inner budget: they take an hour or two, and forcing them into the pre-commit stage is
 exactly the shared-fate failure the budget rule exists to prevent.
 
 The discipline's honesty depends on naming this. A green inner CI proves the merge builds and passes the fast checks; it does not prove the
@@ -357,10 +358,10 @@ and inactive, a last rehearsal of the exact bytes before they go live — and on
 `release-uat → pre-prod → production` (ADR-DSGN-LIFE#1), and pre-prod is a single-occupant environment like the others (ADR-DSGN-LIFE#5).
 
 Because the deploy activity spans several environments with different governance, it reads as two named halves of one build-once flow.
-**DEPLOY-Non-Prod** is the deploy into the non-prod AT environments — the on-demand L3 slots, `main-uat`, and `release-uat` — the targets
-CD's automated direction covers (ADR-FLOW-CD#5). **DEPLOY-Prod** is the governed deploy of the RBC-cleared artifact through `pre-prod` into
-`production` (ADR-FLOW-CD#6, and [ADR-FLOW-CD-TYPE#11](../flow/pipeline-types.md#rule-adr-flow-cd-type11)). The split is by _target and
-governance_, not by artifact: the same tagged build flows through both, so build-once / deploy-many holds end to end.
+**DEPLOY-Non-Prod** is the deploy into the non-prod AT environments — the on-demand L3 environments, `main-uat`, and `release-uat` — the
+targets CD's automated direction covers (ADR-FLOW-CD#5). **DEPLOY-Prod** is the governed deploy of the RBC-cleared artifact through
+`pre-prod` into `production` (ADR-FLOW-CD#6, and [ADR-FLOW-CD-TYPE#11](../flow/pipeline-types.md#rule-adr-flow-cd-type11)). The split is by
+_target and governance_, not by artifact: the same tagged build flows through both, so build-once / deploy-many holds end to end.
 
 ### Deploy to prod
 
@@ -370,15 +371,15 @@ Going to production is not one step of "push the bytes at the live environment."
 **DEPLOY-Prod deploys the RBC-cleared artifact into `pre-prod` — a production-grade environment that is _inactive_** (staged, not serving
 live traffic). This is the last place the _exact_ bytes that will go live are exercised against production-shaped dependencies, with real
 production configuration, before any user sees them. Second, once pre-prod is good, **the same artifact is _activated_ to
-`live / production`** — the inactive slot becomes the serving one. The two boxes in the diagram, `inactive / pre-prod` and
+`live / production`** — the inactive environment becomes the serving one. The two boxes in the diagram, `inactive / pre-prod` and
 `live / production`, are precisely these two states of the prod deploy: staged-but-dark, then live.
 
 The reason to split them is risk. Because the live cutover is the **activation of bytes already validated in a prod-identical environment**,
 not a fresh deploy of something only ever seen in non-prod, the moment of going live carries almost no new risk — nothing is compiled,
-rendered, or first-run at cutover (build-once, ADR-FLOW-CD#3). What flips is _which slot serves traffic_, not _what the bytes are_. When the
-new version goes live, the previous production occupant is superseded and steps down (ADR-DSGN-LIFE#4) — the diagram shows the new version
-occupying both `pre-prod` and `production` at the moment of cutover, and the version it replaced leaving. Whether that activation is a
-human-triggered DEPLOY (delivery) or an automated continuation (CDe, deployment) is the posture of ADR-FLOW-CD#6/ADR-FLOW-CD#7; either way
+rendered, or first-run at cutover (build-once, ADR-FLOW-CD#3). What flips is _which environment serves traffic_, not _what the bytes are_.
+When the new version goes live, the previous production occupant is superseded and steps down (ADR-DSGN-LIFE#4) — the diagram shows the new
+version occupying both `pre-prod` and `production` at the moment of cutover, and the version it replaced leaving. Whether that activation is
+a human-triggered DEPLOY (delivery) or an automated continuation (CDe, deployment) is the posture of ADR-FLOW-CD#6/ADR-FLOW-CD#7; either way
 the mechanic — stage inactive, validate, activate live — is the same.
 
 ## How this is enforced
@@ -430,4 +431,4 @@ the mechanic — stage inactive, validate, activate live — is the same.
 - [everything-as-code](../principles/everything-as-code.md), [reduce-waste](../principles/reduce-waste.md) — build-once/deploy-many and the
   version-aligned artifact are these principles applied to the flow.
 - DORA: [continuous integration](../../references/dora/capabilities.md#continuous-integration) — the fast-feedback budget a slow test run in
-  the fast CI slot breaks.
+  the fast CI budget breaks.

@@ -13,7 +13,7 @@
     Idempotent (Set-): an existing config is loaded and the named parameters are overlaid (other
     parameters and keys are preserved); a missing config is created (the customer subdir too).
     Running it twice with the same input leaves the same file. The config file need not exist yet — that
-    is how a new slot / resource group is introduced (the next discovery picks it up).
+    is how a slot / resource group is added (the next discovery picks it up).
 
     This function does NOT deploy, render, or call Azure. It only edits a file. Deployment of the change
     is the CD pipeline's job, against version control.
@@ -21,7 +21,7 @@
     Template name (folder under infrastructure/templates/).
 .PARAMETER Environment
     Environment name — must be a defined environment in azure.yml (it may be one the template does not
-    yet have a config for; that is the point of creating a new slot).
+    yet have a config for; that is the point of creating the slot).
 .PARAMETER Parameters
     Hashtable of ARM parameter name -> value. Each becomes `parameters.<name>.value = <value>`.
 .PARAMETER Slot

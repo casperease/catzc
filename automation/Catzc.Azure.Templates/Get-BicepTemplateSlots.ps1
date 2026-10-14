@@ -18,7 +18,7 @@
 .PARAMETER Environment
     Optional filter — return only slots configured for this environment name.
 .PARAMETER Customer
-    Customer filter — return slots for this customer's configuration subfolder (omitted/empty = the
+    Customer filter — only the slots of this customer's configuration subfolder (omitted/empty = the
     configuration-root, shared-platform slots).
 .EXAMPLE
     Get-BicepTemplateSlots sample-indexed            # -> 001, 002

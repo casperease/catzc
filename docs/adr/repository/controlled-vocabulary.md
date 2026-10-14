@@ -212,7 +212,7 @@ with their replacements. A source's options default sensibly, and a source overr
 - [process-terms](../process/process-terms.md) (`ADR-PROC-LEANTERMS`) — the flow vocabulary; the model this ADR generalizes to every domain.
 - [spell-out-names](../automation/powershell/spell-out-names.md) (`ADR-AUTO-SPELL`) — the spelling-level registry (`terminology.yml`), which
   controls tokens, not meanings.
-- [domain-language-separation](domain-language-separation.md) (`ADR-REPO-LANG`) — which identities belong in which language zone; this ADR fixes
-  what the words themselves mean.
+- [domain-language-separation](domain-language-separation.md) (`ADR-REPO-LANG`) — which identities belong in which language zone; this ADR
+  fixes what the words themselves mean.
 - [module-config-loading](../configuration/module-config-loading.md) (`ADR-CONF-LOADING`) — how a module's `configs/glossary.yml` is
   discovered and validated.

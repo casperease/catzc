@@ -9,8 +9,8 @@ deliberately does **not** decide what a gate checks — that stays with each gat
 
 ## Responsibilities
 
-| Responsibility   | Area     | Name                                                       |
-| -------- | -------- | ---------------------------------------------------------- |
+| Responsibility   | Area     | Name                                                               |
+| ---------------- | -------- | ------------------------------------------------------------------ |
 | responsibility:1 | report   | [Quality-gate reporting](#responsibility1--quality-gate-reporting) |
 | responsibility:2 | settings | [Report settings](#responsibility2--report-settings)               |
 
@@ -38,6 +38,6 @@ dependency cycle.
 Each function belongs to one responsibility.
 
 | Responsibility                            | Function                  |
-| --------------------------------- | ------------------------- |
+| ----------------------------------------- | ------------------------- |
 | responsibility:1 — Quality-gate reporting | `Write-QualityGateReport` |
 | responsibility:2 — Report settings        | `reports.yml`             |

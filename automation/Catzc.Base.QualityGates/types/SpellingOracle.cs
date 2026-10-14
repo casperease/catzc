@@ -13,7 +13,7 @@ using System.Text;
 ///
 /// The dictionary is a single HashSet loaded once per process from the committed english.txt.gz (flattened
 /// from cspell's own dictionaries by Build-EnglishDictionary) plus every generated .cspell/*.txt term list
-/// (the domain vocabulary and the conventional-abbreviation allow-list, from terminology.yml). Both the load
+/// (the product vocabulary and the conventional-abbreviation allow-list, from terminology.yml). Both the load
 /// and the per-fragment lookup are here in C# rather than PowerShell on purpose: a PowerShell method call
 /// costs ~10 microseconds, so tokenizing and looking up thousands of fragments per file in PowerShell would
 /// dominate the analyzer's runtime, whereas the same work in C# is microseconds

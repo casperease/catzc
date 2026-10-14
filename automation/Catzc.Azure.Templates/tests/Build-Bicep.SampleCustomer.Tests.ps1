@@ -56,7 +56,7 @@ Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic' {
     It 'builds a mixed template — acme has both a base (no-slot) and a slotted config' {
         Build-Bicep sample-customer | Out-Null
         Join-Path $script:outputRoot 'parameters.acme.alpha.json' | Should -Exist       # acme base slot
-        Join-Path $script:outputRoot 'parameters.acme.alpha-001.json' | Should -Exist   # acme slot 001
+        Join-Path $script:outputRoot 'parameters.acme.alpha-001.json' | Should -Exist   # slot 001 of acme
     }
 
     It 'passes the per-(customer,slot) storageAccountName through' {

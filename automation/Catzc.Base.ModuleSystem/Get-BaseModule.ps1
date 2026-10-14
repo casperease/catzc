@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Returns the automation modules as typed BaseModule objects, by kind — the native domain model
+    Returns the automation modules as typed BaseModule objects, by kind — the native model type
     ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
 .DESCRIPTION
     The typed view of the module system. Two facets, six kinds:

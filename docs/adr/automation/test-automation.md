@@ -205,11 +205,11 @@ whole file (serial wins over greedy):
   another.
 - **`greedy`** — the test consumes the machine beyond its own process (`Test-ScriptAnalyzer`'s background-process pool, tests that spawn
   importer-loading pwsh workers) but shares no mutable state with other files. Its file runs in the **greedy phase** between the parallel
-  shards and the serial phase: single-file shards through the worker pool, one file per worker slot, so greedy files overlap each other
-  (their tests carry L2-scale time limits) but never the parallel phase whose L0/L1 timings they would inflate.
+  shards and the serial phase: single-file shards through the worker pool, one file per worker, so greedy files overlap each other (their
+  tests carry L2-scale time limits) but never the parallel phase whose L0/L1 timings they would inflate.
 
-A test that changes state outside the repository is not a phase concern: it is an L3 vertical system test, and the slot decides whether it
-runs (ADR-AUTO-TEST#33).
+A test that changes state outside the repository is not a phase concern: it is an L3 vertical system test, and the run's location decides
+whether it runs (ADR-AUTO-TEST#33).
 
 A parallel-run flake root-caused to a shared resource is fixed by tagging it serial (or removing the sharing) — never by retrying
 (ADR-AUTO-RETRY#1).
@@ -253,9 +253,9 @@ renumber breaks the build. Id existence is checked by that gate, not at load, ke
 The same tests run in two kinds of test run (ADR-AUTO-TEST#34), one per run mode ([run-modes](../design/run-modes.md)): the source run
 (`Test-Automation`) loads the modules through `importer.ps1` from `automation/`, and the build run (`Test-CatzcBuild`) builds the selected
 modules and loads them through the build's `Import-Catzc.ps1`. Both run the same `automation/<Module>/tests/*.Tests.ps1` files at every tier
-their slot allows by default (ADR-AUTO-TEST#33), with the same discovery, tag checks, sharding, and reports — the build run swaps only the
-entry script each shard worker dot-sources, and writes its reports to `out/test-catzc-build/`. No test is copied or rewritten for the build
-run.
+their location allows by default (ADR-AUTO-TEST#33), with the same discovery, tag checks, sharding, and reports — the build run swaps only
+the entry script each shard worker dot-sources, and writes its reports to `out/test-catzc-build/`. No test is copied or rewritten for the
+build run.
 
 - [Source and build runs](#source-and-build-runs)
 
@@ -276,10 +276,10 @@ never `source-only`.
 A test run never waits for another. The first run owns the working folder and runs in place; a run that starts while another holds it runs
 in a **verified snapshot** of the working folder instead — HEAD plus every uncommitted change, staged and unstaged, plus the untracked files
 git does not ignore, byte-identical, checked by `git status` equality before anything runs, and primed by one import that materialises the
-generated files. Both entry points (`Test-Automation`, `Invoke-TestFile`) claim their slot the same way (`Enter-TestRunSlot`), a busy
-working folder is announced together with the run that holds it, the report lands in the working folder's `out/` either way, and `run.json`
-records where the run executed. `-Isolated` asks for a snapshot up front. State outside the repository, which no snapshot isolates, is the
-L3 tier's, and only the run that owns the working folder runs L3 (ADR-AUTO-TEST#33).
+generated files. Both entry points (`Test-Automation`, `Invoke-TestFile`) claim their location the same way (`Enter-TestRunLocation`), a
+busy working folder is announced together with the run that holds it, the report lands in the working folder's `out/` either way, and
+`run.json` records where the run executed. `-Isolated` asks for a snapshot up front. State outside the repository, which no snapshot
+isolates, is the L3 tier's, and only the run that owns the working folder runs L3 (ADR-AUTO-TEST#33).
 
 - [Working folder and snapshots](#working-folder-and-snapshots)
 
@@ -287,22 +287,22 @@ L3 tier's, and only the run that owns the working folder runs L3 (ADR-AUTO-TEST#
 
 **L3 holds the vertical system tests**: a test that changes or depends on state outside the repository — the cloud, the user's environment
 (the user `PATH`, other persistent environment variables, the registry), installed tools — is L3, and only the run that owns the working
-folder (the in-place slot) **and** the user's system-test lock (`Enter-SystemTestLock`, one per user account, taken without waiting) runs
-L3. A run's top tier defaults to 3 and the slot caps it (`Resolve-TestRunMaxLevel`): in place with the lock every requested tier runs; a
-snapshot run, or an in-place run while another checkout's run holds the lock, skips L3 — an explicit `-MaxLevel 3` and `-Isolated` included
-— and says so, naming who holds the working folder or the lock; a run that asks only for L3 when it cannot run it fails with that reason.
-Every L3 test keeps its logic covered below it: the code it drives reaches the outside state through a mockable seam, and an L1 test mocks
-that seam.
+folder (the in-place location) **and** the user's system-test lock (`Enter-SystemTestLock`, one per user account, taken without waiting)
+runs L3. A run's top tier defaults to 3 and its location caps it (`Resolve-TestRunMaxLevel`): in place with the lock every requested tier
+runs; a snapshot run, or an in-place run while another checkout's run holds the lock, skips L3 — an explicit `-MaxLevel 3` and `-Isolated`
+included — and says so, naming who holds the working folder or the lock; a run that asks only for L3 when it cannot run it fails with that
+reason. Every L3 test keeps its logic covered below it: the code it drives reaches the outside state through a mockable seam, and an L1 test
+mocks that seam.
 
 - [System tests](#system-tests)
 
 ### Rule ADR-AUTO-TEST:34
 
 A **test run** is one invocation of a test entry point — `Test-Automation`, `Test-CatzcBuild`, or `Invoke-TestFile` — over one selection of
-test files (by module, tier, and category): it claims one slot (ADR-AUTO-TEST#32), runs the selection once, and records it in one report
+test files (by module, tier, and category): it claims one location (ADR-AUTO-TEST#32), runs the selection once, and records it in one report
 under `out/`. A test run in source mode is a **source run** (`Test-Automation`, `Invoke-TestFile`); one in build mode is a **build run**
 (`Test-CatzcBuild`). The test files at rest are not a run: a run is the act of executing them. A run states its **context** — entry point
-and code root, slot and why, the tiers asked for and running (and why they differ), the actor, which local tools are present, and the
+and code root, location and why, the tiers asked for and running (and why they differ), the actor, which local tools are present, and the
 selection — in a block under its banner and under `context` in `run.json`, so neither a reader nor a later run infers it.
 
 - [Source and build runs](#source-and-build-runs)
@@ -324,8 +324,8 @@ or session state** (`Test-IsGuid`, `Test-AzCliConnected`) is not a quality gate:
 ### Rule ADR-AUTO-TEST:36
 
 **All tests** means every test in the repository: every test file of every module, at every tier and category. It is what a test run selects
-at its defaults (a source run, less only the tiers its slot cannot run, ADR-AUTO-TEST#33), and what "every test passes" claims; a narrower
-selection — some modules, some tiers, one test file — is named by what it selects, never called all tests.
+at its defaults (a source run, less only the tiers its location cannot run, ADR-AUTO-TEST#33), and what "every test passes" claims; a
+narrower selection — some modules, some tiers, one test file — is named by what it selects, never called all tests.
 
 - [Source and build runs](#source-and-build-runs)
 
@@ -506,11 +506,11 @@ flowchart TB
   absent. The pipelines pin `-Level 2`, the CI gate's fast build validation and the BVT; `-Level 1` excludes L2 for a core-only pass.
 - **L3 — vertical system tests, through both rings.** Changes or depends on state outside the repository: the real cloud API layer (maybe
   through a CLI tool, e.g. `az deployment create` / `az account show`), the user's persistent environment, installed tools. It
-  **self-skips** when its prerequisite (cloud access, the platform) is missing, and runs only in the working-folder slot (ADR-AUTO-TEST#33),
-  so a devbox run that owns the folder includes it by default. This is the integration sliver that [fail-fast](fail-fast-with-asserts.md)
-  argues you cannot rely on alone — kept thin, one test per distinct outside boundary, each a worked example of its kind (the
-  persistent-environment seam's real round trip, `Set-PermanentEnvironmentVariable.Tests.ps1`, is one). A test that only drives a local tool
-  inside the repository is L2.
+  **self-skips** when its prerequisite (cloud access, the platform) is missing, and runs only in the working folder itself
+  (ADR-AUTO-TEST#33), so a devbox run that owns the folder includes it by default. This is the integration sliver that
+  [fail-fast](fail-fast-with-asserts.md) argues you cannot rely on alone — kept thin, one test per distinct outside boundary, each a worked
+  example of its kind (the persistent-environment seam's real round trip, `Set-PermanentEnvironmentVariable.Tests.ps1`, is one). A test that
+  only drives a local tool inside the repository is L2.
 
 ### Fast logic tests
 
@@ -604,8 +604,8 @@ could not finish it.
 Results cross the process boundary as **rows**, not Pester objects: each worker reduces its own live result — where the `.Block` chain still
 exists for tier/category/skip-reason resolution — to plain per-test rows in a JSON sidecar, and the parent aggregates them for the timing
 check and every report. Pester's NUnit output is per shard (`results-shard-<N>.xml`); summary.md and tests.csv are the merged artifacts.
-Files containing a `greedy`-tagged test (ADR-AUTO-TEST#26) follow the parallel shards as single-file shards through the pool, one per worker
-slot; files containing a `serial`-tagged test run last in a one-worker phase, alone.
+Files containing a `greedy`-tagged test (ADR-AUTO-TEST#26) follow the parallel shards as single-file shards through the pool, one per
+worker; files containing a `serial`-tagged test run last in a one-worker phase, alone.
 
 Two deliberate consequences: workers run tests **under strict mode** (parity — the code under test is strict in its module scope, so the
 tests that drive it are strict too, and a strict-hostile test opts out only in its own `It` body); and the protected-glob session map
@@ -637,19 +637,21 @@ before any worker starts; workers import without janitors and nothing is ever au
 so every path it resolves lands inside the snapshot ([never-depend-on-pwd](never-depend-on-pwd.md)), while the run folder stays in the
 working folder's `out/` — reports land where a reader always looks, with row paths mapped back to working-folder paths, and `run.json`
 records the location and the snapshot's provenance. The snapshot is removed afterwards unless `-KeepSandbox` keeps it for a post-mortem.
+Where a run executes is its **location**, one record: the claim (`Enter-TestRunLocation`) returns it, and the context block, the workers,
+the report's Location line, and `run.json` all read that same record.
 
 A snapshot is also frozen: edits made in the working folder while it runs never reach it. `-Isolated` takes the snapshot even when the lock
 is free, for a deterministic run against the tree as it was when the run started.
 
 ### System tests
 
-`System tests run in the working-folder slot`
+`System tests run in the working folder itself`
 
 A snapshot isolates the repository, not the machine or the cloud. A test that changes state outside the repository — the user `PATH` or
 another persistent environment variable, installed tools, a cloud resource — collides with the same test in any concurrent run, snapshot or
-not. Such a test is an L3 vertical system test, and the slot already decides who may run it: only the run that owns the working folder runs
-L3, so the working folder's lock is also the guard for system tests, and no run ever waits. A run in a snapshot skips L3 and says so, naming
-who holds the folder, so a missing tier is never silent; the system tests run with the next run that owns the folder.
+not. Such a test is an L3 vertical system test, and the run's location already decides who may run it: only the run that owns the working
+folder runs L3, so the working folder's lock is also the guard for system tests, and no run ever waits. A run in a snapshot skips L3 and
+says so, naming who holds the folder, so a missing tier is never silent; the system tests run with the next run that owns the folder.
 
 The tier stays thin because the logic it touches is covered below it. Code reaches outside state only through a mockable seam —
 `Set-EnvironmentPath` for the user `PATH`, `Set-PermanentEnvironmentVariable` for other persistent variables — and the logic tests mock the
@@ -734,7 +736,7 @@ test is written.
   never to a named template (ADR-AUTO-TEST#17). The fixtures under `tests/assets/` are the patterns new logic tests copy (see
   [conventional-folders](../repository/conventional-folders.md)).
 - **Two test runs** — `Test-Automation` and `Test-CatzcBuild` share the harness; `Get-TestTagViolations` accepts and validates `source-only`
-  (ADR-AUTO-TEST#31), and the build run reports the excluded count and list. Each run claims one slot and writes one report
+  (ADR-AUTO-TEST#31), and the build run reports the excluded count and list. Each run claims one location and writes one report
   (ADR-AUTO-TEST#34).
 - **Code review** decides whether a new test verifies _pure logic_ (seam-isolated, hermetic) or _shipped templates_ (binds to assets, only
   external tools mocked), and checks it mocks the right boundaries — not too few, not too many (testing the mock).

@@ -10,13 +10,13 @@ private process-env write seam; it does **not** own config reading or addressing
 [environment-variables](../../adr/automation/environment-variables.md) and
 [config-value-addressing](../../adr/configuration/config-value-addressing.md).
 
-## Domains
+## Responsibilities
 
-| Domain   | Area    | Name                                                                     |
-| -------- | ------- | ------------------------------------------------------------------------ |
-| domain:1 | handoff | [Environment variable hand-off](#domain1--environment-variable-hand-off) |
+| Responsibility   | Area    | Name                                                                             |
+| ---------------- | ------- | -------------------------------------------------------------------------------- |
+| responsibility:1 | handoff | [Environment variable hand-off](#responsibility1--environment-variable-hand-off) |
 
-### domain:1 — Environment variable hand-off
+### responsibility:1 — Environment variable hand-off
 
 Setting a set of `$env:` variables for an external, child, or test process to read, from three unambiguous channels so intent is never
 guessed. A `-Set` entry is either a `[SecureString]` (a secret) or a `global.<config>...` config address (a non-secret value, or a subtree
@@ -59,6 +59,6 @@ The module is a member of the `Tooling` group with no intra-Tooling edges; it dr
 
 The module's single public function.
 
-| Domain                                   | Function               |
-| ---------------------------------------- | ---------------------- |
-| domain:1 — Environment variable hand-off | `Write-EnvironmentSet` |
+| Responsibility                                   | Function               |
+| ------------------------------------------------ | ---------------------- |
+| responsibility:1 — Environment variable hand-off | `Write-EnvironmentSet` |

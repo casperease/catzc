@@ -118,7 +118,7 @@ and an `integrity` Context — work without being split: the integrity block's i
 `The design zone and the doc asymmetry`
 
 Design examples are the discovery theme, and this is asymmetric on purpose. A test fixture (`acme`, `alpha`) must never appear in an ADR —
-an ADR that illustrated with test fixtures would be borrowing the wrong zone's vocabulary. But a live identity legitimately appears in a doc
+an ADR that illustrated with test fixtures would be borrowing another zone's vocabulary. But a live identity legitimately appears in a doc
 when the doc's subject **is** that identity: `azure-data-model.md` names `apex` and `nova` because it is describing the real data model, not
 illustrating a general point. So docs admit live identities as a documented subject, never fixtures as illustration.
 

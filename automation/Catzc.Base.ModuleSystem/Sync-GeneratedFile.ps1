@@ -34,14 +34,17 @@
       (Clear-ModuleTypeCache -DryRun lists the surplus): a superseded DLL a live session still locks
       would otherwise be committed next to the new one. One red line names the surplus; any other
       changed generated path still commits.
+    - Holds back automation/.compiled while any type source (automation/*/types/*.cs) differs from HEAD:
+      the build is named for the hash of the working-tree sources, so committing it ahead of them would
+      leave HEAD with a build its own sources do not produce. One yellow line asks for the sources to be
+      committed; the next import commits the build.
 
-    Past the guards it always commits what changed under the generated paths — a dirty or even staged
-    working tree does not hold the stamp commit back. Invoke-GitCommit stages and commits by PATHSPEC
+    Past the guards it commits what changed under the generated paths — other uncommitted or staged work
+    does not hold the stamp commit back. Invoke-GitCommit stages and commits by PATHSPEC
     (`git add -A --`/`git commit --` limited to the changed generated paths), so exactly the generated
     files land in the stamp commit whatever else is modified or staged: unrelated staged work stays
     staged, and a generated file someone staged earlier is re-staged at its current content and carried
-    along. The stamps hash working-tree content, so mid-work they describe the tree the in-flight edits
-    will join in the next work commit; CI verifies the pushed HEAD by recomputing the hashes.
+    along. CI verifies the pushed HEAD by recomputing the hashes.
 .PARAMETER DryRun
     Propagated to Invoke-GitCommit: the changed generated paths are still probed (a read), but instead of
     committing, the planned git commands for those paths are returned.
@@ -114,6 +117,14 @@ function Sync-GeneratedFile {
             Write-Message "Skipped automation/.compiled: superseded type assemblies remain ($names). Restart the session holding them, run Clear-ModuleTypeCache, then re-import." -ForegroundColor Red
             $changed = @($changed | Where-Object { $_ -ne 'automation/.compiled' })
         }
+    }
+
+    # The build is named for the hash of the working-tree type sources. While any of them differs from HEAD — often
+    # another session's in-flight edit — committing it would leave HEAD carrying a build its own sources do not
+    # produce. Hold .compiled back until the sources are committed.
+    if ($changed -contains 'automation/.compiled' -and (Test-GitPathChanged 'automation/*/types/*.cs')) {
+        Write-Message 'Skipped automation/.compiled: type sources (types/*.cs) differ from HEAD, so this build is not the one HEAD produces. Commit the type sources, then re-import.' -ForegroundColor Yellow
+        $changed = @($changed | Where-Object { $_ -ne 'automation/.compiled' })
     }
 
     if (-not $changed.Count) {

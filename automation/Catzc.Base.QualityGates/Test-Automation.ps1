@@ -8,7 +8,7 @@
     through the pool — the first unfinished worker is live, later workers buffer and replay in submission
     order, so the console reads sequentially while the wall clock runs in parallel. Files containing a
     'greedy'-tagged test (tests that fan out heavy machine load of their own but share no state) follow as
-    single-file shards through the pool, one file per worker slot; files containing a 'serial'-tagged test
+    single-file shards through the pool, one file per worker; files containing a 'serial'-tagged test
     (tests that mutate state shared across processes) run last in a one-worker phase, alone — see
     [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26). Pester executes tests sequentially
     within a worker; a single file never splits across

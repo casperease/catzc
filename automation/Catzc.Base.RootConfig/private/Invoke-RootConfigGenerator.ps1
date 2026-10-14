@@ -26,8 +26,8 @@ function Invoke-RootConfigGenerator {
             New-Importer -DryRun
         }
         'New-GitIgnore' {
-            # The root .gitignore, rendered from the gitignore zone registry (Catzc.Base.Git). The managed-
-            # copies zone is injected HERE, from this module's own registry — the committed:false targets,
+            # The root .gitignore, rendered from the gitignore section registry (Catzc.Base.Git). The managed-
+            # copies section is injected HERE, from this module's own registry — the committed:false targets,
             # root-anchored — so the ignored-copies list lives once in rootconfig.yml and the dependency edge
             # stays one-way (RootConfig -> Git; New-GitIgnore never reads rootconfig.yml).
             $config = Get-Config -Config rootconfig

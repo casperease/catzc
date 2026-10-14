@@ -22,8 +22,8 @@ session state.
 ### Rule ADR-AUTO-PSCACHE:3
 
 Tests vary cached behavior by mocking the whole function (`Mock Get-BicepTemplates`), not its internals — a warm cache ignores mocked
-dependencies. A test exercising cache population resets the cache entry in module scope (`InModuleScope <Module> { $script:<entry> = $null }`), and
-only such a test does.
+dependencies. A test exercising cache population resets the cache entry in module scope
+(`InModuleScope <Module> { $script:<entry> = $null }`), and only such a test does.
 
 - [Testing cached functions](#testing-cached-functions)
 
@@ -101,10 +101,10 @@ function Get-BicepTemplates {
 
 All code runs under `Set-StrictMode -Version Latest` ([error-handling](error-handling.md)), where reading a variable that was never assigned
 throws. A cache entry is exactly such a variable on the first call: nothing declares it at import, because a function file holds one
-function and no top-level statements ([one-function-per-file](one-function-per-file.md)). The probe therefore asks the session state for
-the value instead of reading the variable: `PSVariable.GetValue('script:<entry>')` returns `$null` for an unset cache entry and for a cache
-entry a test reset to `$null`, and resolves the module's own `$script:` scope — a same-named function local, caller variable, or `$global:` never answers for it.
-Without the `script:` qualifier the lookup walks the scope chain and returns a `$global:` of the same name.
+function and no top-level statements ([one-function-per-file](one-function-per-file.md)). The probe therefore asks the session state for the
+value instead of reading the variable: `PSVariable.GetValue('script:<entry>')` returns `$null` for an unset cache entry and for a cache
+entry a test reset to `$null`, and resolves the module's own `$script:` scope — a same-named function local, caller variable, or `$global:`
+never answers for it. Without the `script:` qualifier the lookup walks the scope chain and returns a `$global:` of the same name.
 
 The probe costs a few microseconds per call, a small share of even the hottest cached function (`Get-Config`). The alternatives are worse:
 
@@ -114,16 +114,15 @@ The probe costs a few microseconds per call, a small share of even the hottest c
 - **`try { $script:x } catch { }`** is the cheapest, but it is a catch-and-continue inside a function, which
   [error-handling](error-handling.md#rule-adr-auto-error6) forbids.
 
-Only the probe changes: once the cache entry is initialised in the same function, the function reads and writes `$script:<entry>`
-directly.
+Only the probe changes: once the cache entry is initialised in the same function, the function reads and writes `$script:<entry>` directly.
 
 ### Testing cached functions
 
 A warm cache short-circuits before any dependency runs, so mocking a cached function's _internals_ silently tests nothing — the mock never
 fires. A test therefore mocks the **whole boundary function** and lets the cache be an implementation detail. The one exception is a test
-whose subject _is_ the cache: it resets the module-scope cache entry first (`InModuleScope Catzc.Base.Config { $script:configCache = $null }`) and
-pays the cold derive deliberately. Resetting per test everywhere else defeats the cache and multiplies test-run time (see
-[test-automation](../test-automation.md)).
+whose subject _is_ the cache: it resets the module-scope cache entry first
+(`InModuleScope Catzc.Base.Config { $script:configCache = $null }`) and pays the cold derive deliberately. Resetting per test everywhere
+else defeats the cache and multiplies test-run time (see [test-automation](../test-automation.md)).
 
 ## Decision
 
@@ -141,8 +140,8 @@ cache entry only to exercise cache behavior itself.
 
 ## Consequences
 
-- Every cache shares one lifetime story: import populates nothing, first use populates the cache entry, re-import destroys it. There is no second
-  invalidation mechanism to reason about.
+- Every cache shares one lifetime story: import populates nothing, first use populates the cache entry, re-import destroys it. There is no
+  second invalidation mechanism to reason about.
 - Caches are module-private by construction — no cross-module coupling through shared cache state, and parallel test workers cannot see each
   other's cache entries (each process imports its own).
 - Tests stay honest: mocking the boundary function works whether the cache is cold or warm, and only deliberate cache tests touch the cache

@@ -184,7 +184,7 @@ One *.Tests.ps1 file under a module's tests/ — one per function, named Verb-No
 
 ### test run
 
-One invocation of Test-Automation, Test-CatzcBuild, or Invoke-TestFile over a selection of test files, in one slot, with one report.
+One invocation of Test-Automation, Test-CatzcBuild, or Invoke-TestFile over a selection of test files, in one location, with one report.
 
 - **Defined by:** [ADR-AUTO-TEST#34](automation/test-automation.md#rule-adr-auto-test34)
 - **Realized by:** artifact `out/test-*/*/run.json`
@@ -249,6 +249,18 @@ An L2 or L3 test that cuts from an outer ring of the test onion (local tools; ou
   - [tier](#tier): A tier names a test's outermost ring and every test has one; a vertical test is an L2 or L3 test, one that crosses a
     ring.
 
+## azure
+
+### slot
+
+A Bicep configuration slot — one config file of a template (`<env>[-<slot>].yml`), deploying one subscription's resource group.
+
+- **Defined by:** [ADR-AZ-DATAMOD#2](azure/azure-data-model.md#rule-adr-az-datamod2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Azure.Templates/configs/glossary.yml`
+- **Forms:** `Bicep slot`, `base slot`, `configuration slot`, `root slot`, `template slot`, `indexed slot`, `special slot`, `optional slot`,
+  `customer slot`, `platform slot`, `env slot`, `core slot`, `subfolder slot`, `target slot`, `region slot`, and the bare `slot`
+
 ## repository
 
 ### code link
@@ -262,6 +274,20 @@ An ADR citation in a code comment, written as a repository-rooted markdown link 
   - [markdown link](#markdown-link): A markdown link lives in a .md file and is relative to it; a code link lives in a comment of a
     non-markdown file and is repository-rooted.
 
+### domain
+
+A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its role and the domains it depends on.
+
+- **Defined by:** [ADR-REPO-FOLDERS#5](repository/conventional-folders.md#rule-adr-repo-folders5)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Forms:** `ADR domain`, `principles domain`, `process domain`, `design domain`, `flow domain`, `automation domain`,
+  `configuration domain`, `pipelines domain`, `github domain`, `azure domain`, `repository domain`, `research domain`, `axioms domain`,
+  `architecture domain`, `implementation domain`, `optimisable domain`, `owning domain`, and the bare `domain`
+- **Contrasts:**
+  - [language zone](#language-zone): A language zone is one of the design, test, and live registers of identities; an ADR domain groups
+    ADRs.
+
 ### domain rules
 
 The repository's conventions and decision records — its ADRs and the rules they state.
@@ -273,6 +299,17 @@ The repository's conventions and decision records — its ADRs and the rules the
 | Avoid         | Say instead              |
 | ------------- | ------------------------ |
 | `house rules` | domain rules / ADR rules |
+
+### language zone
+
+One of the three registers — design, test, live — each with its own terminology and identities; a token belongs to exactly one.
+
+- **Defined by:** [ADR-REPO-LANG#1](repository/domain-language-separation.md#rule-adr-repo-lang1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Forms:** `language zone`, `design zone`, `test zone`, `live zone`, and the bare `zone`
+- **Contrasts:**
+  - [domain](#domain): An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.
 
 ### markdown link
 

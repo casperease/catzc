@@ -42,7 +42,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 ## Self-service
 
-`Self-service — safe by construction in controlled domains`
+`Self-service — safe by construction in controlled settings`
 
 [ADR-DSGN-SELFSERV](self-service.md)
 

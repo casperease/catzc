@@ -299,7 +299,7 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
 | `Get-AzureBicepDeploymentTargets` | the allowed `deployment_target` values for `options.yml` validation            |
 | `Get-AzureBicepMinVersion`        | `bicep_min_version` from `azure.yml` (asserted by `Assert-AzCliBicep`)         |
 | `Get-BicepTemplateCustomers`      | the distinct customers (configuration subfolders) a template ships (completer) |
-| `Get-BicepTemplateSlots`          | the distinct slots a template declares (completer)                             |
+| `Get-BicepTemplateSlots`          | each slot a template declares (completer)                                      |
 
 ### Validation
 

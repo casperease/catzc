@@ -1,32 +1,32 @@
 Describe 'GitIgnoreConfig' -Tag 'L0', 'logic' {
-    It 'constructs and exposes zones in registry order' {
+    It 'constructs and exposes sections in registry order' {
         $c = [Catzc.Base.Git.GitIgnoreConfig]::new(@{
-                zones = @(
+                sections = @(
                     @{ id = 'a'; title = 'A'; why = 'w'; patterns = @('x') }
                     @{ id = 'b'; title = 'B'; why = 'w'; inject = 'p' }
                 )
             })
-        @($c.zones.id) | Should -Be @('a', 'b')
+        @($c.sections.id) | Should -Be @('a', 'b')
     }
 
-    It 'throws when zones is missing or empty' {
-        { [Catzc.Base.Git.GitIgnoreConfig]::new(@{}) } | Should -Throw "*'zones' must be a list*"
-        { [Catzc.Base.Git.GitIgnoreConfig]::new(@{ zones = @() }) } | Should -Throw "*'zones' must be a list*"
+    It 'throws when sections is missing or empty' {
+        { [Catzc.Base.Git.GitIgnoreConfig]::new(@{}) } | Should -Throw "*'sections' must be a list*"
+        { [Catzc.Base.Git.GitIgnoreConfig]::new(@{ sections = @() }) } | Should -Throw "*'sections' must be a list*"
     }
 
-    It 'throws on a duplicate zone id (case-insensitive)' {
+    It 'throws on a duplicate section id (case-insensitive)' {
         { [Catzc.Base.Git.GitIgnoreConfig]::new(@{
-                    zones = @(
+                    sections = @(
                         @{ id = 'a'; title = 'A'; why = 'w'; patterns = @('x') }
                         @{ id = 'A'; title = 'B'; why = 'w'; patterns = @('y') }
                     )
-                }) } | Should -Throw '*duplicate zone id*'
+                }) } | Should -Throw '*duplicate section id*'
     }
 
-    It 'collects every malformed zone into one error' {
+    It 'collects every malformed section into one error' {
         $construct = {
             [Catzc.Base.Git.GitIgnoreConfig]::new(@{
-                    zones = @(
+                    sections = @(
                         @{ title = 'no id'; why = 'w'; patterns = @('x') }
                         @{ id = 'both'; title = 't'; why = 'w'; patterns = @('a'); inject = 'p' }
                     )

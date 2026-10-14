@@ -23,8 +23,8 @@ a normative summary plus internal links to the prose that justifies it).
 ### principles/
 
 The design axioms every other domain specialises: everything as code, reduce variability, reduce waste, poka-yoke, and one living version.
-They rest only on the DORA research, no later domain overrides them, and every other domain cites them (`ADR-PRIN-*`) as the reason for its
-own decisions.
+They rest only on the DORA research, no domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`) as the
+reason for its own decisions.
 
 **Role:** `axioms` — **depends on:** `research`.
 
@@ -240,7 +240,7 @@ and repo-wide variants.
 ### research/
 
 The repository's core theoretical construct: the DORA research program, held as one ADR-style record per DORA capability, each with its own
-`ADR-DORA-<NAME>` rule domain, beside the cross-referenceable research reference in `docs/references/dora/`. It is trusted external
+`ADR-DORA-<NAME>` rule codes, beside the cross-referenceable research reference in `docs/references/dora/`. It is trusted external
 validation — every other domain depends on it and it depends on none; the others cite it through their `dora-explains.md` files and
 `ADR-DORA-*` citations.
 

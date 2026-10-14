@@ -22,7 +22,7 @@
     repository, so it needs source mode and throws in build mode (Assert-SourceTree).
 
     SpellingOracle (Catzc.Base.QualityGates/types) loads this list plus every .cspell/*.txt term list into one
-    set. English recognizes the spelled-out words (rule, collection, group); the term lists carry the domain
+    set. English recognizes the spelled-out words (rule, collection, group); the term lists carry the product
     vocabulary and the conventional-abbreviation allow-list. See
     [ADR-AUTO-SPELL](/docs/adr/automation/powershell/spell-out-names.md).
 .PARAMETER DryRun

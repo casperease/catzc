@@ -3,8 +3,8 @@
 `Catzc.Base.Git`
 
 The declarative git-configuration module. It owns the rule that **what git ignores is declared, explained, and generated**: the
-repository-root `.gitignore` is rendered in full from a zone registry (`gitignore.yml`) — every rule under a titled, explained comment block
-— and never hand-maintained (see [generated-root-configs](../../adr/repository/generated-root-configs.md)). What it deliberately does
+repository-root `.gitignore` is rendered in full from a section registry (`gitignore.yml`) — every rule under a titled, explained comment
+block — and never hand-maintained (see [generated-root-configs](../../adr/repository/generated-root-configs.md)). What it deliberately does
 **not** own is the materialisation: `New-GitIgnore` is a pure renderer that returns content and writes nothing; the `.gitignore` target
 itself is a managed, committed root file written by [Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s `Build-RootConfig`, which names
 `New-GitIgnore` as that entry's generator.
@@ -14,25 +14,25 @@ itself is a managed, committed root file written by [Catzc.Base.RootConfig](catz
 | Responsibility   | Area     | Name                                                           |
 | ---------------- | -------- | -------------------------------------------------------------- |
 | responsibility:1 | render   | [Gitignore rendering](#responsibility1--gitignore-rendering)   |
-| responsibility:2 | registry | [The zone registry](#responsibility2--the-zone-registry)       |
+| responsibility:2 | registry | [The section registry](#responsibility2--the-section-registry) |
 | responsibility:3 | snapshot | [Repository snapshots](#responsibility3--repository-snapshots) |
 
 ### responsibility:1 — Gitignore rendering
 
-Turning the zone registry into the full `.gitignore` text. This responsibility renders a generated-file header naming the sources of truth,
-then each zone in registry order: a rule line carrying the zone's title, the wrapped `why` explanation as comment lines, and the zone's
-patterns verbatim — a `note` becomes an aligned trailing comment. A zone declaring `inject: <provider>` takes its patterns from the caller
-at render time; a provider the caller does not supply throws, so a silently incomplete `.gitignore` can never render. Pattern text is never
-rewritten — what the registry says is what git gets.
+Turning the section registry into the full `.gitignore` text. This responsibility renders a generated-file header naming the sources of
+truth, then each section in registry order: a rule line carrying the section's title, the wrapped `why` explanation as comment lines, and
+the section's patterns verbatim — a `note` becomes an aligned trailing comment. A section declaring `inject: <provider>` takes its patterns
+from the caller at render time; a provider the caller does not supply throws, so a silently incomplete `.gitignore` can never render.
+Pattern text is never rewritten — what the registry says is what git gets.
 
-### responsibility:2 — The zone registry
+### responsibility:2 — The section registry
 
-Which paths are ignored, grouped and explained. The registry is `gitignore.yml`: an ordered list of **zones**, each with an `id`, a `title`,
-a `why`, and either static `patterns` (bare strings or `{ pattern, note }`) or an `inject` provider name. The managed root-config copies are
-the injected zone — their list lives in [Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s registry (the `committed: false` targets) and is
-never restated here, which is also what keeps the dependency edge one-way: `Build-RootConfig` computes the injection and calls the renderer;
-`New-GitIgnore` never reads `rootconfig.yml`. The registry is validated when it loads (`GitIgnoreConfig` — exactly one of
-`patterns`/`inject` per zone, unique ids), so a malformed zone can never produce a run.
+Which paths are ignored, grouped and explained. The registry is `gitignore.yml`: an ordered list of **sections**, each with an `id`, a
+`title`, a `why`, and either static `patterns` (bare strings or `{ pattern, note }`) or an `inject` provider name. The managed root-config
+copies are the injected section — their list lives in [Catzc.Base.RootConfig](catzc-base-rootconfig.md)'s registry (the `committed: false`
+targets) and is never restated here, which is also what keeps the dependency edge one-way: `Build-RootConfig` computes the injection and
+calls the renderer; `New-GitIgnore` never reads `rootconfig.yml`. The registry is validated when it loads (`GitIgnoreConfig` — exactly one
+of `patterns`/`inject` per section, unique ids), so a malformed section can never produce a run.
 
 ### responsibility:3 — Repository snapshots
 
@@ -47,14 +47,14 @@ one (see [test-automation](../../adr/automation/test-automation.md#rule-adr-auto
 
 The module is small and single-purpose: it makes the repository's ignore rules a reviewed, explained artifact instead of an accreted one.
 Every rule in the generated `.gitignore` sits under a heading and a rationale, so "why is this ignored?" is answered in the file itself, and
-adding a rule means adding it to a zone (or a new zone) in `gitignore.yml` — the render carries the explanation along.
+adding a rule means adding it to a section (or a new section) in `gitignore.yml` — the render carries the explanation along.
 
 The split with [Catzc.Base.RootConfig](catzc-base-rootconfig.md) is the deliberate design: this module knows **what** is ignored and **how
 to say it**; RootConfig knows **which root files are managed** and **owns every write**. The `.gitignore` file is `committed: true` in the
 root-config registry — git must read it at checkout, before any import — so a fresh clone ignores correctly from the first second, the
-importer merely keeps it current, and a source change surfaces as a normal reviewable diff. The injected zone closes the loop: opting a new
-root file into management (`committed: false`) puts its ignore line into the next rendered `.gitignore` automatically, with no second list
-to maintain.
+importer merely keeps it current, and a source change surfaces as a normal reviewable diff. The injected section closes the loop: opting a
+new root file into management (`committed: false`) puts its ignore line into the next rendered `.gitignore` automatically, with no second
+list to maintain.
 
 ## Division
 
@@ -63,5 +63,5 @@ The module's public surface, sorted into the responsibilities above.
 | Responsibility                          | Function                                              |
 | --------------------------------------- | ----------------------------------------------------- |
 | responsibility:1 — Gitignore rendering  | `New-GitIgnore`                                       |
-| responsibility:2 — The zone registry    | `gitignore.yml`                                       |
+| responsibility:2 — The section registry | `gitignore.yml`                                       |
 | responsibility:3 — Repository snapshots | `New-RepositorySnapshot`, `Remove-RepositorySnapshot` |

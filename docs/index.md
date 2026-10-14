@@ -27,8 +27,8 @@ in a script and in CI, and the task index. Its how-to articles:
 
 ## Module reference
 
-Per-module reference, written domains-first — each [article](references/automation/index.md) declares the module's domains, describes it in
-those terms, and sorts its functions and configs into them:
+Per-module reference, written responsibilities-first — each [article](references/automation/index.md) declares the module's
+responsibilities, describes it in those terms, and sorts its functions and configs into them:
 
 - [Catzc.Base.Asserts](references/automation/catzc-base-asserts.md),
   [Catzc.Base.Repository](references/automation/catzc-base-repository.md),

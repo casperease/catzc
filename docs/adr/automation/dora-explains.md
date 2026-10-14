@@ -870,9 +870,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-AUTO-TYPES](BCL/native-csharp-types.md)
 
-> DORA research links code maintainability and loosely coupled architecture to faster delivery and fewer defects. This ADR encodes domain
-> models as native types with fixed shapes, versioned assemblies, and dependency-governed layering, reducing the cognitive load of loose
-> dictionaries.
+> DORA research links code maintainability and loosely coupled architecture to faster delivery and fewer defects. This ADR encodes the
+> platform's models as native types with fixed shapes, versioned assemblies, and dependency-governed layering, reducing the cognitive load
+> of loose dictionaries.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — fixed, discoverable type shapes and standardized
   namespace patterns.

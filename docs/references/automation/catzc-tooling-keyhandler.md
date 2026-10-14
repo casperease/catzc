@@ -9,21 +9,21 @@ Windows binding set as version-controlled config and replays it on Linux, so the
 manages no external tool, so — like [Catzc.Tooling.Github](catzc-tooling-github.md) — it rests only on the `Base` group, not on
 [Catzc.Tooling.Core](catzc-tooling-core.md).
 
-## Domains
+## Responsibilities
 
-| Domain   | Area    | Name                                                                   |
-| -------- | ------- | ---------------------------------------------------------------------- |
-| domain:1 | capture | [Capture the Windows bindings](#domain1--capture-the-windows-bindings) |
-| domain:2 | replay  | [Replay them on Linux](#domain2--replay-them-on-linux)                 |
+| Responsibility   | Area    | Name                                                                           |
+| ---------------- | ------- | ------------------------------------------------------------------------------ |
+| responsibility:1 | capture | [Capture the Windows bindings](#responsibility1--capture-the-windows-bindings) |
+| responsibility:2 | replay  | [Replay them on Linux](#responsibility2--replay-them-on-linux)                 |
 
-### domain:1 — Capture the Windows bindings
+### responsibility:1 — Capture the Windows bindings
 
 `Save-PSReadLineKeyHandlerSet` serializes the active session's `Set-PSReadLineKeyHandler` bindings — key and function only, the pair the
 replay consumes — to `configs/key-handler-bindings.yml`. It is the Windows-side authoring step: run it in the session whose editing
 experience is the one to replicate, then commit the regenerated config. It writes canonically (UTF-8, LF, one trailing newline) through
 `Write-FileIfChanged`, so re-capturing an unchanged session is a no-op.
 
-### domain:2 — Replay them on Linux
+### responsibility:2 — Replay them on Linux
 
 `Import-PSReadLineKeyHandlerSet` applies the captured bindings on Linux, filtered to the functions the Linux PSReadLine build actually
 supports (`configs/key-handler-supported.yml`) so a Windows-only function is dropped rather than throwing. The real apply path asserts
@@ -43,11 +43,11 @@ narration.
 
 ## Division
 
-The module's public functions, sorted into the domains above.
+The module's public functions, sorted into the responsibilities above.
 
-| Domain                                  | Function                         |
-| --------------------------------------- | -------------------------------- |
-| domain:1 — Capture the Windows bindings | `Save-PSReadLineKeyHandlerSet`   |
-| domain:2 — Replay them on Linux         | `Import-PSReadLineKeyHandlerSet` |
-| config                                  | `key-handler-bindings.yml`       |
-|                                         | `key-handler-supported.yml`      |
+| Responsibility                                  | Function                         |
+| ----------------------------------------------- | -------------------------------- |
+| responsibility:1 — Capture the Windows bindings | `Save-PSReadLineKeyHandlerSet`   |
+| responsibility:2 — Replay them on Linux         | `Import-PSReadLineKeyHandlerSet` |
+| config                                          | `key-handler-bindings.yml`       |
+|                                                 | `key-handler-supported.yml`      |

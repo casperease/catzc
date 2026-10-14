@@ -55,7 +55,7 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
         $names = @($templateDescriptor.slots | ForEach-Object { $_.name })
         $names | Should -Contain 'alpha-001'
         $names | Should -Contain 'alpha-002'
-        # both slots are the same environment (alpha), different slots
+        # both slots are the same environment (alpha), two slots
         @($templateDescriptor.slots | ForEach-Object { $_.environment } | Select-Object -Unique) | Should -Be @('alpha')
         ($templateDescriptor.slots | Where-Object { $_.name -eq 'alpha-001' } | Select-Object -First 1).slot | Should -Be '001'
     }

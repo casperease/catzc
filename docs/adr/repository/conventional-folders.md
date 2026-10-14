@@ -40,7 +40,7 @@ Dot-prefix means infrastructure/tooling, everywhere — `.github/`, `.vscode/`, 
 
 Documentation folders are markdown-only. `docs/` organizes its subfolders freely (the names and casing are the author's), but it holds only
 `.md` files — except the dot-prefixed `docs/.assets/`, which holds the binary diagram assets the markdown embeds. Each subfolder of
-`docs/adr/` is an **ADR domain**: a group of ADRs that `adrs.yml` declares with its role and the domains it depends on.
+`docs/adr/` is an ADR **domain**: a group of ADRs that `adrs.yml` declares with its role and the domains it depends on.
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -212,7 +212,7 @@ level, and each has its own conventional sub-layout:
 **`docs/`** holds four folders. `adr/` is the Architecture Decision Records, one subfolder per domain declared in
 `automation/Catzc.Base.Docs/configs/adrs.yml`: `principles/`, `process/`, `design/`, `flow/`, `automation/`, `configuration/`, `pipelines/`,
 `github/`, `azure/`, `repository/` (this ADR), and `research/`. Its `index.md` is generated from that registry and describes each domain, so
-the registry — not this paragraph — is the authoritative domain list. `references/` holds the authored reference articles, including the
+the registry — not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles, including the
 sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference under
 `references/dora/`. `how-to/` holds task-oriented guides. These three are **markdown-only**; their subfolders are author-organized topic
 buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown content

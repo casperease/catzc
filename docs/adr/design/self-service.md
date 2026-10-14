@@ -1,6 +1,6 @@
 # docs/adr/design/self-service.md
 
-`ADR: Self-service — safe by construction in controlled domains`
+`ADR: Self-service — safe by construction in controlled settings`
 
 ## Rules: ADR-DSGN-SELFSERV
 
@@ -9,7 +9,7 @@
 Self-service is the platform's mode of use: a consumer provisions and changes managed infrastructure themselves, through the CLI
 (`ADR-DSGN-THINPLAT`), without filing a ticket to a central gatekeeper. This is only defensible because every self-service action is a
 **reviewable, reproducible change to a single source of truth** — never a live, unrecorded mutation. The guardrails in the rules below are
-what make self-service safe in tightly controlled and managed domains, rather than a way to route around control.
+what make self-service safe in tightly controlled and managed settings, rather than a way to route around control.
 
 - [Self-service, not free-for-all](#self-service-not-free-for-all)
 
@@ -45,7 +45,7 @@ same mechanism here, not a trade-off. (Primary source: trunkbaseddevelopment.com
 
 ### Rule ADR-DSGN-SELFSERV:5
 
-In tightly managed domains — regulated, compliance-bound, provenance-critical — self-service is acceptable **only when reproducibility,
+In tightly managed settings — regulated, compliance-bound, provenance-critical — self-service is acceptable **only when reproducibility,
 provenance, and an audit trail are intrinsic to the mechanism**, not bolted on as process. Here they are structural: the git history _is_
 the audit log, the markers _are_ the provenance record, and code review _is_ the change-approval control. Self-service and compliance
 auditability are therefore not in tension — the same trunk-based, everything-as-code pipeline that lets a consumer move quickly is also the
@@ -57,8 +57,8 @@ one that produces a complete, tamper-evident record of who changed what, when, a
 
 Self-service is the whole point of a platform: if every change still routes through a central team's queue, the platform has not removed the
 bottleneck it exists to remove. But naive self-service — handing people console access to a controlled environment — trades the bottleneck
-for chaos: undocumented changes, un-reproducible state, and no audit trail. In a regulated or otherwise tightly managed domain that trade is
-simply not allowed.
+for chaos: undocumented changes, un-reproducible state, and no audit trail. In a regulated or otherwise tightly managed setting that trade
+is simply not allowed.
 
 The resolution is to make self-service _safe by construction_. catzc rests on four properties that, together, make "anyone can change it
 themselves" and "every change is controlled, reproducible, and auditable" the same statement rather than opposing ones: a **single source of
@@ -118,7 +118,7 @@ construction" means: the fast path and the compliant path are the same path.
 Make self-service the platform's mode of use, and make it safe by construction: every self-service action is a change to the **single source
 of truth** (ADR-DSGN-SELFSERV#2), applied only through the **thin CLI** (ADR-DSGN-SELFSERV#1), shipped as an **immutable, reproducibly-built
 artifact with provenance** (ADR-DSGN-SELFSERV#3), landed via **trunk-based development behind automated, mandatory guardrails**
-(ADR-DSGN-SELFSERV#4). In controlled domains this makes self-service and auditability the same mechanism rather than competing ones
+(ADR-DSGN-SELFSERV#4). In controlled settings this makes self-service and auditability the same mechanism rather than competing ones
 (ADR-DSGN-SELFSERV#5).
 
 ### How this is enforced

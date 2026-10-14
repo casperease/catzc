@@ -80,7 +80,7 @@ acyclic. `Test-ModuleDependency` then resolves each declared target to a member 
 every actual edge from that consumer falls within the resolved allow-set and that every declared module exists on disk.
 
 The `Base` group is the primary instance of this schema: it holds the cluster of small, focused `Catzc.Base.*` libraries, and
-`Catzc.Base.ModuleSystem` is itself a member, with its own declared intra-group dependencies. A domain module such as `Catzc.Azure` or
+`Catzc.Base.ModuleSystem` is itself a member, with its own declared intra-group dependencies. A feature module such as `Catzc.Azure` or
 `Catzc.Tooling.Core` declares `[Base]` in its `modules:` entry, which permits an edge to any member without naming each individually.
 
 The gates are the mechanical evidence that the [open-closed-architecture](../../adr/automation/open-closed-architecture.md) rules hold:

@@ -1,4 +1,4 @@
-// The internal domain model for an automation "module" — one concept with four kinds (native C# per
+// The internal model type for an automation "module" — one concept with four kinds (native C# per
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9), because the platform's own logic selects on it
 // and pins it at call sites). Two facets:
 // on-disk (kinds 'named'/'hidden', see DiskModule) and in-session (kinds 'imported'/'residue', see

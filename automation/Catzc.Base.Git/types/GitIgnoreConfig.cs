@@ -1,7 +1,7 @@
-// The gitignore registry (configs/gitignore.yml) and its validity rules: a required 'zones' list of
-// explained pattern groups, each validated by GitIgnoreZone, with unique zone ids. Constructing an instance
-// validates the registry (collecting every malformed zone into one error) and exposes the parsed zones to
-// the renderer (New-GitIgnore). Registered as the `gitignore` config's type override in
+// The gitignore registry (configs/gitignore.yml) and its validity rules: a required 'sections' list of
+// explained pattern groups, each validated by GitIgnoreSection, with unique section ids. Constructing an
+// instance validates the registry (collecting every malformed section into one error) and exposes the parsed
+// sections to the renderer (New-GitIgnore). Registered as the `gitignore` config's type override in
 // Catzc.Base.Config/configs/configs.yml. See [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md) and
 // [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
 
@@ -13,10 +13,10 @@ namespace Catzc.Base.Git;
 
 public sealed class GitIgnoreConfig
 {
-    // The zones, in registry (and render) order.
-    public IReadOnlyList<GitIgnoreZone> zones { get; }
+    // The sections, in registry (and render) order.
+    public IReadOnlyList<GitIgnoreSection> sections { get; }
 
-    private static readonly string[] AllowedKeys = { "zones" };
+    private static readonly string[] AllowedKeys = { "sections" };
 
     public GitIgnoreConfig(IDictionary raw)
     {
@@ -32,32 +32,32 @@ public sealed class GitIgnoreConfig
                 }
             }
         }
-        List<GitIgnoreZone> list = new List<GitIgnoreZone>();
+        List<GitIgnoreSection> list = new List<GitIgnoreSection>();
         HashSet<string> seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-        object obj = (raw != null && raw.Contains("zones")) ? raw["zones"] : null;
+        object obj = (raw != null && raw.Contains("sections")) ? raw["sections"] : null;
         IEnumerable seq = obj as IEnumerable;
         if (seq == null || obj is string)
         {
-            errors.Add("'zones' must be a list with at least one entry");
+            errors.Add("'sections' must be a list with at least one entry");
         }
         else
         {
             foreach (object item in seq)
             {
                 IDictionary entry = item as IDictionary;
-                if (entry == null) { errors.Add("each 'zones' entry must be a mapping"); continue; }
+                if (entry == null) { errors.Add("each 'sections' entry must be a mapping"); continue; }
 
-                GitIgnoreZone zone;
-                try { zone = new GitIgnoreZone(entry); }
+                GitIgnoreSection section;
+                try { section = new GitIgnoreSection(entry); }
                 catch (ArgumentException ex) { errors.Add(ex.Message); continue; }
 
-                if (!seen.Add(zone.id)) { errors.Add(string.Format("duplicate zone id '{0}'", zone.id)); continue; }
-                list.Add(zone);
+                if (!seen.Add(section.id)) { errors.Add(string.Format("duplicate section id '{0}'", section.id)); continue; }
+                list.Add(section);
             }
             if (errors.Count == 0 && list.Count == 0)
             {
-                errors.Add("'zones' must be a list with at least one entry");
+                errors.Add("'sections' must be a list with at least one entry");
             }
         }
 
@@ -65,6 +65,6 @@ public sealed class GitIgnoreConfig
         {
             throw new ArgumentException("gitignore config validation failed:\n" + string.Join("\n", errors));
         }
-        zones = list;
+        sections = list;
     }
 }

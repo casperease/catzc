@@ -13,7 +13,7 @@
     style/format rules; Test-Markdownlint verifies them. Idempotent — re-running formats nothing new.
 
     Two first-class names for one command, neither deprecated. `Format-Markdown` is the generic
-    domain-convention name, matching the other formatters (Format-Automation, Format-Types) so the Markdown
+    repository-convention name, matching the other formatters (Format-Automation, Format-Types) so the Markdown
     formatter is reachable the same way. `Invoke-MarkdownPrettier` is the precise `Invoke-<tool>` name for
     the engine — the accurate name when you mean specifically Prettier. The precise name routes through the
     generic (it is the alias), so the behaviour is identical whichever you call.

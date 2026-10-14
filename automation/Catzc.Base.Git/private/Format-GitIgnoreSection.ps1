@@ -1,20 +1,20 @@
 <#
 .SYNOPSIS
-    Renders one gitignore zone — its titled, explained comment block followed by its pattern lines.
+    Renders one gitignore section — its titled, explained comment block followed by its pattern lines.
 .DESCRIPTION
-    The per-zone pretty-printer behind New-GitIgnore: a rule line carrying the zone's title, the wrapped
+    The per-section pretty-printer behind New-GitIgnore: a rule line carrying the section's title, the wrapped
     `why` explanation as comment lines, then each pattern verbatim — with any `note` rendered as a trailing
-    comment aligned across the zone's noted lines. Pure formatting; the pattern text is never rewritten.
+    comment aligned across the section's noted lines. Pure formatting; the pattern text is never rewritten.
 .PARAMETER Title
-    The zone's heading.
+    The section's heading.
 .PARAMETER Why
-    The zone's explanation (wrapped to the comment width).
+    The section's explanation (wrapped to the comment width).
 .PARAMETER Pattern
-    The zone's resolved pattern entries ({ pattern; note } objects, in order).
+    The section's resolved pattern entries ({ pattern; note } objects, in order).
 .OUTPUTS
-    [string[]] The zone's rendered lines (no trailing blank — the caller owns zone separation).
+    [string[]] The section's rendered lines (no trailing blank — the caller owns section separation).
 #>
-function Format-GitIgnoreZone {
+function Format-GitIgnoreSection {
     [OutputType([string[]])]
     param(
         [Parameter(Mandatory)]
@@ -47,7 +47,7 @@ function Format-GitIgnoreZone {
         $lines.Add($current)
     }
 
-    # Patterns, with notes aligned two spaces past the zone's longest noted pattern.
+    # Patterns, with notes aligned two spaces past the section's longest noted pattern.
     $notedLengths = @(foreach ($entry in $Pattern) {
             if ($entry.note) {
                 $entry.pattern.Length

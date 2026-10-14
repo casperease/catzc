@@ -11,10 +11,10 @@ it live in [Catzc.Base.QualityGates](catzc-base-qualitygates.md). The one build 
 sources (`Invoke-BuildForVSCode`), which never feeds the runtime — it exists so VS Code's C# analysis matches the `Add-Type` compile. The
 full type-system contract is [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md).
 
-## Domains
+## Responsibilities
 
-| Responsibility   | Area   | Name                                                                                     |
-| -------- | ------ | ---------------------------------------------------------------------------------------- |
+| Responsibility   | Area   | Name                                                                                             |
+| ---------------- | ------ | ------------------------------------------------------------------------------------------------ |
 | responsibility:1 | cache  | [Compiled type-assembly cache](#responsibility1--compiled-type-assembly-cache)                   |
 | responsibility:2 | graph  | [Cross-module type dependency analysis](#responsibility2--cross-module-type-dependency-analysis) |
 | responsibility:3 | list   | [Automation-module enumeration](#responsibility3--automation-module-enumeration)                 |
@@ -43,8 +43,8 @@ reference, stripping comments, string literals, and each file's own namespace so
 ### responsibility:3 — Automation-module enumeration
 
 The platform's single source of the automation-module name list. `Get-AutomationModules` enumerates the non-dot directories under
-`automation/` — the same set `Import-AllModules` loads — sorted ordinally. The C# type scan of domain 2 maps its references against this
-list; [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md) validates the declared dependency graph against it and drives
+`automation/` — the same set `Import-AllModules` loads — sorted ordinally. The C# type scan of responsibility 2 maps its references against
+this list; [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md) validates the declared dependency graph against it and drives
 `Test-Automation`'s `-Modules` completer and validator from it. It lives here, below `Catzc.Base.ModuleSystem`, so the module-dependency
 checks that consume it depend on this module rather than the reverse — which is what keeps the graph acyclic once the C# type edges are
 folded in.
@@ -68,11 +68,11 @@ so after import that full name must resolve. The quality gate lists every type t
 ## What the module does
 
 The module is the part of the native-type system that runs _outside_ the importer. Type compilation and loading happen once, eagerly, in the
-bootstrap pre-pass; what remains are the concerns this module owns. Domain 1 keeps the committed artifact tidy after every devbox import, so
-a type edit produces a clean single-file swap in `.compiled/` rather than an accumulating pile of stale assemblies. Domain 2 reconstructs
-the cross-module type references that a single combined assembly makes invisible to the compiler, handing them to `Catzc.Base.ModuleSystem`
-so the same layering contract polices both worlds. Domain 3 is the on-disk module enumeration both of those build on — and the platform's
-one module-name source besides.
+bootstrap pre-pass; what remains are the concerns this module owns. Responsibility 1 keeps the committed artifact tidy after every devbox
+import, so a type edit produces a clean single-file swap in `.compiled/` rather than an accumulating pile of stale assemblies.
+Responsibility 2 reconstructs the cross-module type references that a single combined assembly makes invisible to the compiler, handing them
+to `Catzc.Base.ModuleSystem` so the same layering contract polices both worlds. Responsibility 3 is the on-disk module enumeration both of
+those build on — and the platform's one module-name source besides.
 
 The module sits in the `Base` group. It depends only on the group's lower layers — `Catzc.Base.Repository` (repository root, pipeline
 detection), `Catzc.Base.Files` (file-lock detection), `Catzc.Base.Execution` (running `dotnet` for the editor build), `Catzc.Base.Writers`
@@ -83,10 +83,10 @@ forming a cycle.
 
 ## Division
 
-The module's public functions, sorted into the domains above.
+The module's public functions, sorted into the responsibilities above.
 
 | Responsibility                                           | Function                   |
-| ------------------------------------------------ | -------------------------- |
+| -------------------------------------------------------- | -------------------------- |
 | responsibility:1 — Compiled type-assembly cache          | `Clear-ModuleTypeCache`    |
 | responsibility:2 — Cross-module type dependency analysis | `Get-CSharpTypeDependency` |
 | responsibility:3 — Automation-module enumeration         | `Get-AutomationModules`    |

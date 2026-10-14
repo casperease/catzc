@@ -159,7 +159,7 @@ public class PesterRunner
                     }
                 }
 
-                // Start the next workers in submission order while there is a free slot.
+                // Start the next workers in submission order while a worker is free.
                 while (nextToStart < workers.Length && running < maxParallel)
                 {
                     Start(workers[nextToStart], environment);

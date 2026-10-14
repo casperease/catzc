@@ -80,7 +80,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 - [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — CI/CD both run post-commit on master, the
   single source of truth.
 - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — the pre-commit gate keeps its fast-feedback
-  budget because slow system tests run post-commit in CD, not in the pre-commit slot.
+  budget because slow system tests run post-commit in CD, not in the pre-commit stage.
 - [Test automation](../../references/dora/capabilities.md#test-automation) — test feedback in under ten minutes is the pre-commit gate's
   working budget.
 - [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — INPUT lands user input as a reviewed

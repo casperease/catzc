@@ -2,17 +2,17 @@ Describe 'New-GitIgnore' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolate through the config seam
         # ([ADR-AUTO-PESTER#2](/docs/adr/automation/powershell/pester-testing.md#rule-adr-auto-pester2)): a small
-        # fixture registry with one static zone (a
-        # noted and a bare pattern) and one injected zone.
+        # fixture registry with one static section (a
+        # noted and a bare pattern) and one injected section.
         Mock Get-Config -ModuleName Catzc.Base.Git {
             [pscustomobject]@{
-                zones = @(
-                    [Catzc.Base.Git.GitIgnoreZone]::new(@{
+                sections = @(
+                    [Catzc.Base.Git.GitIgnoreSection]::new(@{
                             id = 'output'; title = 'Output directory'
                             why      = 'All generated artifacts land in the output folder and never enter git.'
                             patterns = @('out/*', @{ pattern = '!out/.gitkeep'; note = 'keep the folder' })
                         })
-                    [Catzc.Base.Git.GitIgnoreZone]::new(@{
+                    [Catzc.Base.Git.GitIgnoreSection]::new(@{
                             id = 'root-config'; title = 'Managed copies'
                             why    = 'Injected from the root-config registry.'
                             inject = 'rootconfig-committed-false'
@@ -22,7 +22,7 @@ Describe 'New-GitIgnore' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'renders the header, the zones in order, and the injected patterns' {
+    It 'renders the header, the sections in order, and the injected patterns' {
         $text = New-GitIgnore -Inject @{ 'rootconfig-committed-false' = @('/.editorconfig', '/cspell.yml') }
         $text | Should -Match '^# GENERATED FILE'
         $text | Should -Match ([regex]::Escape('configs/gitignore.yml'))
@@ -37,12 +37,12 @@ Describe 'New-GitIgnore' -Tag 'L0', 'logic' {
         @($lines | Where-Object { $_ -match '^!out/\.gitkeep\s+# keep the folder$' }) | Should -HaveCount 1
     }
 
-    It 'wraps the why into comment lines under the zone rule' {
+    It 'wraps the why into comment lines under the section rule' {
         $text = New-GitIgnore -Inject @{ 'rootconfig-committed-false' = @() }
         $text | Should -Match '# All generated artifacts land in the output folder and never enter git\.'
     }
 
-    It 'renders an empty injected list as a titled, empty zone' {
+    It 'renders an empty injected list as a titled, empty section' {
         $text = New-GitIgnore -Inject @{ 'rootconfig-committed-false' = @() }
         $text | Should -Match ([regex]::Escape('Managed copies'))
     }
@@ -59,7 +59,7 @@ Describe 'New-GitIgnore' -Tag 'L0', 'logic' {
 }
 
 Describe 'New-GitIgnore — real gitignore.yml' -Tag 'L1', 'integrity' {
-    It 'renders the shipped registry with the root-config provider (every zone resolves)' {
+    It 'renders the shipped registry with the root-config provider (every section resolves)' {
         $text = New-GitIgnore -Inject @{ 'rootconfig-committed-false' = @('/PSScriptAnalyzerSettings.psd1') }
         $text | Should -Match ([regex]::Escape('automation/**/*.psd1'))
         $text | Should -Match ([regex]::Escape('**/README.md'))

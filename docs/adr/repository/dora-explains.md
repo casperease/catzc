@@ -152,7 +152,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 [ADR-REPO-LANG](domain-language-separation.md)
 
 > DORA's research on pervasive security and streamlining change approval emphasizes preventing configuration drift and production leaks; a
-> tag-aware AST quality gate that enforces zone boundaries catches silent violations where text-based checks cannot, so live identities
+> tag-aware AST quality gate that enforces the zone boundaries catches silent violations where text-based checks cannot, so live identities
 > never leak into test code.
 
 - [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — mechanical enforcement prevents live identities from

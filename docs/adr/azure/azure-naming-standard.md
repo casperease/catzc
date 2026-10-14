@@ -110,7 +110,7 @@ Azure-facing identifiers (resource names, tracking-tag prefixes, deployment name
 | 4   | `org`        | ✔   | 2–3 | `[a-z][a-z0-9]{1,2}`                         | Vertical / organization. Global, one per repo (`azure.yml`).                                                                                                                                                                                                                                                                 |
 | 5   | `short_name` | ✔   | 2–5 | `[a-z][a-z0-9]{1,4}`                         | Template id segment. **Derived** from the template folder name (first 5 `[a-z0-9]`, `BicepShortName`); optional `options.yml` override. Globally unique.                                                                                                                                                                     |
 | 6   | `customer`   | ✖   | 2+  | key `[a-z][a-z0-9]+` / shortcode `[a-z]{2}`  | Customer / sub-tenant. **Pattern-chosen render** (like `env`): generous (`long`) patterns use the readable **key** (`apex`); restricted (`kv`/`storage`/`vm`) patterns use the 2-char **shortcode** (`ap`). **Derived** from the deploy's subscription (`subscription.customer` in `azure.yml`), not a deploy arg; optional. |
-| 7   | `role`       | ✖   | 2–3 | `[a-z][a-z0-9]{1,2}`                         | **Intra-slot** sibling discriminator among same-type resources (`hot`/`cool`/`arc`). Bicep author, per resource.                                                                                                                                                                                                             |
+| 7   | `role`       | ✖   | 2–3 | `[a-z][a-z0-9]{1,2}`                         | **Within a slot**, the sibling discriminator among same-type resources (`hot`/`cool`/`arc`). Bicep author, per resource.                                                                                                                                                                                                     |
 | 8   | `type`       | ✔   | 2–5 | `[a-z]{2,5}`                                 | Resource-type abbreviation (`rg`, `st`, `kv`, `sqldb`). The resource being named. Each type ties to a render pattern (`Get-AzureNamePatternSet`); the 5-char form is only for the `long` pattern — the restricted `kv` (≤24), `storage` (concatenated ≤24) and `vm` (≤15) patterns keep a 2–4 char abbreviation.             |
 
 **Three discriminator axes, kept distinct:**
@@ -164,11 +164,11 @@ env_sc(2) + slot(3) + region(3) + org(3) + short_name(5) + cust_sc(2) + role(3) 
 
 So the full-house corner (slot + customer + role together) **fits** the 24-char storage limit at 23, with a byte to spare. (The 2-char
 customer shortcode is what buys this — a 4-char customer code would push the same name to 25.) The other restricted patterns: `kv`
-(hyphenated, 24) carries a customer comfortably (~22) but cannot also take slot + role at `short_name`=5. The **`vm`** pattern (15)
-**omits** `org`, `customer`, and `role` (the resource group already encodes them), so it renders `<env_sc>[<slot>]<region><short_name>vm` —
-e.g. `de001weuwkspvm` (14) — and fits 15 even with a slot. A customer therefore never appears in a VM name. The namer computes the render
-and **throws at deploy time** if it exceeds the target type's limit, naming which components to shorten. Never truncate silently (truncation
-collides on globally-unique types).
+(hyphenated, 24) carries a customer comfortably (~22) but cannot also take the slot + role segments at `short_name`=5. The **`vm`** pattern
+(15) **omits** `org`, `customer`, and `role` (the resource group already encodes them), so it renders
+`<env_sc>[<slot>]<region><short_name>vm` — e.g. `de001weuwkspvm` (14) — and fits 15 even with a slot. A customer therefore never appears in
+a VM name. The namer computes the render and **throws at deploy time** if it exceeds the target type's limit, naming which components to
+shorten. Never truncate silently (truncation collides on globally-unique types).
 
 ### Character & case rules
 
@@ -233,7 +233,7 @@ Per-customer rows use customer `apex` (shortcode `ap`):
 | Scenario                                 | Relaxed (name / key)                                     | Tight (shortcode)                                                                  |
 | ---------------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | Prod discovery RG, base slot             | `prod-weu-fin-disc-rg`                                   | —                                                                                  |
-| Two prod WAF slots                       | `prod-001-weu-fin-edge-waf`, `prod-002-weu-fin-edge-waf` | —                                                                                  |
+| WAF in two slots of prod                 | `prod-001-weu-fin-edge-waf`, `prod-002-weu-fin-edge-waf` | —                                                                                  |
 | Per-customer RG, base slot               | `prod-weu-fin-disc-apex-rg` (readable key)               | —                                                                                  |
 | Per-customer hot storage, base slot      | —                                                        | `prweufindiscaphotst` (19, customer shortcode `ap`)                                |
 | Storage, slot + customer + role, short5  | —                                                        | `pr001weufindiscxaphotst` (**23 — fits**, thanks to the 2-char customer shortcode) |

@@ -12,30 +12,30 @@ and [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md). The rationale is in
 [idempotent-state-functions](../../adr/automation/idempotent-state-functions.md); the status types are native per
 [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md).
 
-## Domains
+## Responsibilities
 
-| Domain   | Area          | Name                                                             |
-| -------- | ------------- | ---------------------------------------------------------------- |
-| domain:1 | orchestration | [Workstation orchestration](#domain1--workstation-orchestration) |
-| domain:2 | hygiene       | [Workstation hygiene](#domain2--workstation-hygiene)             |
-| domain:3 | bespoke       | [Bespoke tool installers](#domain3--bespoke-tool-installers)     |
+| Responsibility   | Area          | Name                                                                     |
+| ---------------- | ------------- | ------------------------------------------------------------------------ |
+| responsibility:1 | orchestration | [Workstation orchestration](#responsibility1--workstation-orchestration) |
+| responsibility:2 | hygiene       | [Workstation hygiene](#responsibility2--workstation-hygiene)             |
+| responsibility:3 | bespoke       | [Bespoke tool installers](#responsibility3--bespoke-tool-installers)     |
 
-### domain:1 — Workstation orchestration
+### responsibility:1 — Workstation orchestration
 
 The whole machine rather than one tool: install (and uninstall) the complete locked tool set in the order declared dependencies require,
 report each tool's aggregate status — correct, usable-but-wrong-manager, wrong-version, missing, or unwanted — through the
 `ToolStatus`/`ToolStatusKind` types (see [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)), and assert that status is
 clean. This is the diagnostic and convergence layer over the per-tool engines.
 
-### domain:2 — Workstation hygiene
+### responsibility:2 — Workstation hygiene
 
 Keeping the workstation free of what the platform will not depend on: removing Chocolatey — a package manager the estate refuses (see
 [controlling-systemwide-deps](../../adr/automation/controlling-systemwide-deps.md)) — and clearing accumulated temporary files.
 
-### domain:3 — Bespoke tool installers
+### responsibility:3 — Bespoke tool installers
 
 Git and Postman, whose installers do not fit Core's config-driven engine and so are written by hand here. Each still exposes the same
-install and uninstall shape as a managed tool, so it slots into the orchestration above and the status report sees it like any other.
+install and uninstall shape as a managed tool, so it fits into the orchestration above and the status report sees it like any other.
 
 ## What the module does
 
@@ -54,17 +54,17 @@ installers in a Generic repository and point at a private REST source, or to pre
 
 ## Division
 
-The module's public functions, sorted into the domains above.
+The module's public functions, sorted into the responsibilities above.
 
-| Domain                               | Function                   |
-| ------------------------------------ | -------------------------- |
-| domain:1 — Workstation orchestration | `Install-DevBoxTools`      |
-|                                      | `Uninstall-DevBoxTools`    |
-|                                      | `Get-ToolsStatus`          |
-|                                      | `Assert-DevBoxToolsStatus` |
-| domain:2 — Workstation hygiene       | `Uninstall-Chocolatey`     |
-|                                      | `Clear-TempFolders`        |
-| domain:3 — Bespoke tool installers   | `Install-Git`              |
-|                                      | `Uninstall-Git`            |
-|                                      | `Install-Postman`          |
-|                                      | `Uninstall-Postman`        |
+| Responsibility                               | Function                   |
+| -------------------------------------------- | -------------------------- |
+| responsibility:1 — Workstation orchestration | `Install-DevBoxTools`      |
+|                                              | `Uninstall-DevBoxTools`    |
+|                                              | `Get-ToolsStatus`          |
+|                                              | `Assert-DevBoxToolsStatus` |
+| responsibility:2 — Workstation hygiene       | `Uninstall-Chocolatey`     |
+|                                              | `Clear-TempFolders`        |
+| responsibility:3 — Bespoke tool installers   | `Install-Git`              |
+|                                              | `Uninstall-Git`            |
+|                                              | `Install-Postman`          |
+|                                              | `Uninstall-Postman`        |

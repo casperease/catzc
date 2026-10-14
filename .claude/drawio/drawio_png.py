@@ -175,7 +175,11 @@ def render(root):
         b = off(dst[0] + dst[2] / 2, dst[1] + dst[3] / 2)
         a, b = clip(a, b, src, minx, miny), clip(b, a, dst, minx, miny)
         ink = color(s.get("strokeColor"), "#333333")
-        d.line([a, b], fill=ink, width=int(float(s.get("strokeWidth", 1))) + 1)
+        width = int(float(s.get("strokeWidth", 1))) + 1
+        if s.get("dashed") == "1":
+            dashed_line(d, [a, b], ink, width)
+        else:
+            d.line([a, b], fill=ink, width=width)
         if s.get("endArrow", "classic") != "none":
             arrow(d, a, b, ink)
         label = plain(c.get("value"))

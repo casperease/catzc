@@ -23,8 +23,8 @@ stored result thereafter. Exemplar: `Get-BicepTemplates`.
 
 ### Rule ADR-AUTO-CACHE:4
 
-Key the cache by the function's inputs: no parameters → a single cache entry; parameters → a cache keyed on them; a resolved-input function keys on
-that input. Keys must be session-stable values, never mutable objects.
+Key the cache by the function's inputs: no parameters → a single cache entry; parameters → a cache keyed on them; a resolved-input function
+keys on that input. Keys must be session-stable values, never mutable objects.
 
 - [The storage idiom](#the-storage-idiom)
 
@@ -64,8 +64,8 @@ on a fresh checkout and self-invalidating on any source change. Sessions load it
 ### Rule ADR-AUTO-CACHE:9
 
 Git state that a session itself changes — the tracked-file set a `git add` or a commit rewrites — is cached only under a key computed from
-its bytes on disk on every call, never under a session-lifetime cache entry. Exemplar: `Get-GitTrackedPath` reads the index in-process and keys the
-parsed listing on the SHA-256 of the index file, so the answer always equals `git ls-files` for the index as it is now (see
+its bytes on disk on every call, never under a session-lifetime cache entry. Exemplar: `Get-GitTrackedPath` reads the index in-process and
+keys the parsed listing on the SHA-256 of the index file, so the answer always equals `git ls-files` for the index as it is now (see
 [tracked-files-from-the-index](tracked-files-from-the-index.md)).
 
 - [Content-keyed git state](#content-keyed-git-state)
@@ -153,9 +153,9 @@ The rule has a sharp boundary. Do **not** cache:
 `Git state is keyed on its content`
 
 The tracked-file set is not part of the file set the importer fixes: the session's own `Invoke-GitCommit`, a developer's `git add`, or a
-parallel session's commit rewrites the git index while the session runs. A session-lifetime cache entry would serve the listing from before that
-change, and a gate that scopes itself by tracked files would then check the wrong set. Launching `git ls-files` on every call is correct but
-slow, and it is a real process that a unit test cannot run (ADR-AUTO-TEST#10).
+parallel session's commit rewrites the git index while the session runs. A session-lifetime cache entry would serve the listing from before
+that change, and a gate that scopes itself by tracked files would then check the wrong set. Launching `git ls-files` on every call is
+correct but slow, and it is a real process that a unit test cannot run (ADR-AUTO-TEST#10).
 
 Plain `git ls-files` is exactly the index's entry list, so the index file's bytes determine the answer completely. Hashing those bytes is
 cheap next to parsing them, so `Get-GitTrackedPath` hashes the file on every call and reuses the parsed listing only while the hash is
@@ -195,5 +195,5 @@ the type system, [native-csharp-types](BCL/native-csharp-types.md) (`ADR-AUTO-TY
   developer already takes after editing files.
 - The accepted cost: a developer who edits files **without** re-importing sees stale information. This is the documented contract, not a bug
   — the importer is the boundary by design.
-- Tests inject the descriptor by mocking the cached function itself (already the established pattern), and reset the `$script:` cache entry only
-  when exercising cache behavior directly.
+- Tests inject the descriptor by mocking the cached function itself (already the established pattern), and reset the `$script:` cache entry
+  only when exercising cache behavior directly.

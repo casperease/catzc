@@ -9,8 +9,9 @@
     takes part in the `forms` check, this reads the same tracked files and text surfaces as the avoided-phrasing check
     (G4, Get-GlossaryPhrasingViolations) and reports:
       - a qualified use: "<word> <head>" or "<word>-<head>" (singular or plural), where <word> is neither one of the
-        concept's forms nor a function word (an article, determiner, quantifier, possessive, or number — "the gate",
-        "each gate", "two gates" are always allowed); the comparison ignores case;
+        concept's forms nor a function word (an article, determiner, quantifier, possessive, preposition, conjunction,
+        or number — "the gate", "each gate", "two gates", "and gates" are always allowed), nor a keyword after a dot
+        (`.PARAMETER Slot`); the comparison ignores case;
       - a verb use: the head word's -ed and -ing forms ("gated", "gating"), which a noun family never takes.
     The bare head word is always allowed. A mention — the phrase in backticks or quotes — is exempt, as in G4, so the
     vocabulary can talk about itself.
@@ -41,12 +42,15 @@ function Get-GlossaryFormViolations {
         [string] $Root = (Get-RepositoryRoot)
     )
 
-    # Words that only point at, count, or own a noun — never a qualifier that names a kind of it.
+    # Words that only point at, count, own, or join a noun — never a qualifier that names a kind of it: articles,
+    # determiners, quantifiers, possessives (the 's' of "the template's slot"), prepositions, conjunctions, and
+    # adverbs that only limit the noun ("only slots").
     $functionWords = [System.Collections.Generic.HashSet[string]]::new([string[]] @(
             'a', 'an', 'the', 'this', 'that', 'these', 'those', 'each', 'every', 'any', 'all', 'no', 'some', 'both', 'either',
             'neither', 'its', 'their', 'our', 'your', 'my', 'his', 'her', 'which', 'whose', 'what', 'same', 'other', 'another',
             'own', 'one', 'two', 'three', 'four', 'five', 'first', 'second', 'last', 'next', 'single', 'per', 'more', 'most',
-            'many', 'few', 'several'
+            'many', 'few', 'several', 's', 'and', 'or', 'nor', 'but', 'of', 'for', 'to', 'in', 'on', 'at', 'by', 'with', 'from',
+            'into', 'onto', 'across', 'between', 'within', 'without', 'per', 'via', 'than', 'then', 'as', 'is', 'are', 'was', 'be', 'only', 'also', 'not', 'just', 'even'
         ), [System.StringComparer]::OrdinalIgnoreCase)
 
     # Per source: its options and every concept that declares forms. Sources outside the forms check drop out.
@@ -75,8 +79,8 @@ function Get-GlossaryFormViolations {
                 Allowed   = $allowed
                 Forms     = (@($item.Concept.forms | ForEach-Object { "$_ $head" }) + $head) -join ', '
                 # The qualifier is the last word before the head ('commit' in 'pre-commit gate'), joined by spaces, one
-                # line break, or a hyphen.
-                Qualified = [regex]::new('(?<![A-Za-z0-9])(?<q>[A-Za-z0-9]+)(?:[ \t]+|[ \t]*\n[ \t]*|-)(?<w>' + [regex]::Escape($head) + 's?)(?![\w-])', 'IgnoreCase')
+                # line break, or a hyphen. A word after a dot is a keyword, not a qualifier (`.PARAMETER Slot` in help).
+                Qualified = [regex]::new('(?<![A-Za-z0-9.])(?<q>[A-Za-z0-9]+)(?:[ \t]+|[ \t]*\n[ \t]*|-)(?<w>' + [regex]::Escape($head) + 's?)(?![\w-])', 'IgnoreCase')
                 # A verb form counts after a hyphen too (`double-gated`).
                 Verb      = [regex]::new('(?<![A-Za-z0-9])(?<w>' + [regex]::Escape($stem) + '(?:ed|ing))(?![\w-])', 'IgnoreCase')
             })

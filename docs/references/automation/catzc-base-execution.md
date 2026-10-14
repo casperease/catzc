@@ -6,7 +6,7 @@ The external-process boundary module. It **owns the complete lifecycle of runnin
 command before it executes (see [log-before-invoke](../../adr/automation/log-before-invoke.md)), capturing separated standard output and
 error through the native `CliRunner` C# type (see [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)), managing the
 exit-code boundary so a stale code can never leak across a call, and returning a structured `CliResult` when the caller needs to inspect
-output programmatically. Every CLI wrapper in the platform funnels through this module; no domain module ever spawns a process directly. It
+output programmatically. Every CLI wrapper in the platform funnels through this module; no feature module ever spawns a process directly. It
 is a member of the `Base` group alongside [Catzc.Base.Writers](catzc-base-writers.md), [Catzc.Base.Repository](catzc-base-repository.md),
 and [Catzc.Base.Asserts](catzc-base-asserts.md).
 
@@ -44,7 +44,7 @@ The process-running machinery lives in the native C# type `Catzc.Base.Execution.
 [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)). `CliRunner` is what actually spawns the subprocess and captures its
 streams; `Invoke-Executable` is the PowerShell wrapper that adds logging, exit-code hygiene, and dry-run. When the caller passes
 `-PassThru`, the result comes back as `Catzc.Base.Execution.CliResult` — a typed object with separated `.Stdout` and `.Stderr` properties
-rather than a mixed output stream. Domain module wrappers such as `Invoke-AzCli` use `-PassThru` when they need to parse tool output; plain
+rather than a mixed output stream. Feature module wrappers such as `Invoke-AzCli` use `-PassThru` when they need to parse tool output; plain
 script calls omit it and let the streams flow through.
 
 The exit-code responsibility (responsibility 2) is a supporting mechanism. `$LASTEXITCODE` is shared state: any external command can leave a

@@ -86,7 +86,7 @@ Responsibility 3 is a set of thin wrappers, one per external tool, deliberately 
 mutation — it rewrites files in place, so it belongs to the authoring workflow as well as CI.
 
 The module's neighbours are the rest of the `Base` group, which supply the primitives (file location, process invocation, console output,
-reports, and assertions) this module composes. It does not depend on any domain module.
+reports, and assertions) this module composes. It does not depend on any feature module.
 
 ## Division
 

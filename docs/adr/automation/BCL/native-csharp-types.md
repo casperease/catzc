@@ -84,13 +84,13 @@ YAML-interop rule scoped to config-mirroring types, not a repository-wide naming
 
 ### Rule ADR-AUTO-TYPES:9
 
-The internal fixed domain model is authored as native C# types — not `[pscustomobject]` / `[ordered]@{}`. A first-class domain concept the
+The platform's internal fixed model is authored as native C# types — not `[pscustomobject]` / `[ordered]@{}`. A first-class concept the
 platform's own logic **selects on, branches on, or pins as a parameter or return type at a call site** (for example `BaseModule` and its
 kinds, `CliResult`) is a C# type, so its shape is fixed, discoverable, and validated at construction. Loose dictionaries remain right for
-config-shaped data crossing a boundary (a parsed `.yml`, a splat) — but the moment the code acts on the shape as a domain concept, it is a
-type.
+config-shaped data crossing a boundary (a parsed `.yml`, a splat) — but the moment the code acts on the shape as a first-class concept, it
+is a type.
 
-- [A C# domain model](#a-c-domain-model)
+- [A C# model type](#a-c-model-type)
 
 ### Rule ADR-AUTO-TYPES:10
 
@@ -287,7 +287,9 @@ decides by who is running it (ADR-AUTO-TYPES#13) — a person's import stops the
 invariant is guarded at three points:
 
 - **Devbox auto-commit:** `Sync-GeneratedFile` holds `automation/.compiled` back, with one red line naming the surplus DLLs, while
-  `Clear-ModuleTypeCache -DryRun` lists anything but the current build. A surviving build never rides along as the +1 without its −1.
+  `Clear-ModuleTypeCache -DryRun` lists anything but the current build. A surviving build never rides along as the +1 without its −1. It
+  also holds the build back, with one yellow line, while any `types/*.cs` differs from HEAD: the build is named for the working tree's
+  sources, so committing it first would leave HEAD with a build its own sources do not produce.
 - **Pipeline:** two `Catzc.Types.*.dll` are a hard `throw` in `Clear-ModuleTypeCache`. CI makes no source-control changes, so two builds
   there were committed; the fix is to run `Clear-ModuleTypeCache` on the devbox and commit the single remaining build.
 - **IDE project:** the `Catzc.Types.csproj` stamp task warns when the git index's `.compiled` does not hold exactly the current DLL.
@@ -328,18 +330,18 @@ module declares `Base`). A record names its properties to match the dict keys it
 The "same name inside and outside" snake_case rule is a **YAML-interop** concern, not a repository-wide naming convention: it applies only
 to a type whose properties mirror the keys of a `configs/<name>.yml` file, so the YAML key and the C# property are literally the same
 identifier (the YAML side is enforced by `Assert-YmlNaming`). A type with no backing YAML file — a result, CLI-state, or REST shape such as
-`CliResult` or `CliRunner` — has nothing to mirror, so it keeps default .NET **PascalCase**. For a non-config domain object that already
+`CliResult` or `CliRunner` — has nothing to mirror, so it keeps default .NET **PascalCase**. For a non-config typed record that already
 emits snake keys from an external tool (for example an `az` CLI `logged_in` field), match the existing keys to avoid breaking consumers —
 but do not force a universal flip.
 
-### A C# domain model
+### A C# model type
 
-`The domain model is C#, not a loose dictionary`
+`The model is C#, not a loose dictionary`
 
 There are two kinds of structured data in the platform, and they get different treatment. **Boundary data** — a parsed `configs/*.yml`, an
 `az` CLI JSON blob, a splatted parameter set — is shaped by something outside our code; it is validated where it crosses in and then
 consumed. A shipped config crosses in through its C# config type (registered in `configs.yml`), which maps and validates it at load; the
-rest is fine as an `[ordered]@{}` / `[pscustomobject]`. **Domain model** — a first-class concept the platform's _own_ logic operates on — is
+rest is fine as an `[ordered]@{}` / `[pscustomobject]`. **Model data** — a first-class concept the platform's _own_ logic operates on — is
 different: the moment code selects on it, branches on its kind, or pins it as a parameter/return type at a call site, its shape is part of
 the design and must be fixed, discoverable, and enforced. That is a native C# type.
 
@@ -388,7 +390,8 @@ boundary through its own config type, `FilesConfig`, which validates it at load;
 
 - **`Sync-GeneratedFile`** (in `Catzc.Base.ModuleSystem`, the importer's auto-commit) refuses to commit `automation/.compiled` while it
   holds anything but the current build (the `Clear-ModuleTypeCache -DryRun` surplus). It skips with a red line, so a superseded DLL is never
-  committed next to the new one. `Sync-GeneratedFile.Tests.ps1` covers the probe, the hold-back, and the no-probe case when nothing changed.
+  committed next to the new one, and while a type source differs from HEAD, with a yellow line, so HEAD never holds a build ahead of its
+  sources. `Sync-GeneratedFile.Tests.ps1` covers the probes, both hold-backs, and the no-probe case when nothing changed.
 
 ## Disambiguation
 

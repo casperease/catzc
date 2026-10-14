@@ -11,7 +11,7 @@
         strictly alone, one file after another.
       - 'greedy' — the test consumes the machine beyond its own process (fans out a background-process
         pool, spawns importer-loading pwsh workers) but shares no mutable state with other files. Its file
-        runs in the greedy phase: single-file shards through the worker pool, one file per worker slot, so
+        runs in the greedy phase: single-file shards through the worker pool, one file per worker, so
         greedy files overlap each other but never the parallel phase they would otherwise starve.
       - untagged — the parallel phase (the round-robin shards).
 

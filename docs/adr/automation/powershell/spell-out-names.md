@@ -28,11 +28,11 @@ spelled out, and an invented local shorthand (`tfPath`, `perSubEnvs`, `expectedM
 
 ### Rule ADR-AUTO-SPELL:3
 
-The curated vocabulary is authored in one place — the terminology registry (ADR-AUTO-SPELL#5) — which carries both genuine domain terms kept
-as-is (a real product, protocol, tool, or external field name) and the conventional-abbreviation allow-list of ADR-AUTO-SPELL#2, each as a
-categorized entry (ADR-AUTO-SPELL#6). It grows only by review. A term worth keeping earns a reviewed entry, used consistently everywhere; a
-term not worth that is not worth coining. What the rule forbids is the reflex of dropping a one-off local shorthand (`tfPath`, `perSubEnvs`)
-into the vocabulary just to clear the gate — that is a junk drawer, not curation (ADR-AUTO-SPELL#7).
+The curated vocabulary is authored in one place — the terminology registry (ADR-AUTO-SPELL#5) — which carries both genuine product terms
+kept as-is (a real product, protocol, tool, or external field name) and the conventional-abbreviation allow-list of ADR-AUTO-SPELL#2, each
+as a categorized entry (ADR-AUTO-SPELL#6). It grows only by review. A term worth keeping earns a reviewed entry, used consistently
+everywhere; a term not worth that is not worth coining. What the rule forbids is the reflex of dropping a one-off local shorthand (`tfPath`,
+`perSubEnvs`) into the vocabulary just to clear the gate — that is a junk drawer, not curation (ADR-AUTO-SPELL#7).
 
 - [The dictionary is the backstop](#the-dictionary-is-the-backstop)
 
@@ -100,7 +100,7 @@ ADR-AUTO-SPELL#11).
 
 ### Rule ADR-AUTO-SPELL:11
 
-When no other rule names a local variable — it carries no domain meaning to spell out (ADR-AUTO-SPELL#1) and it is not the return value
+When no other rule names a local variable — it carries no meaning of its own to spell out (ADR-AUTO-SPELL#1) and it is not the return value
 (ADR-AUTO-SPELL#10) — name it after the **simple type of what it holds**: a `[System.Text.StringBuilder]` is `$stringBuilder`, a
 `[hashtable]` is `$hashtable`, a `[regex]` is `$regex`, an `[xml]` is `$xml`. The type is a true, self-describing name when there is nothing
 more specific to say, and it keeps scratch and working variables consistent across the codebase instead of a scatter of `$sb` / `$temp` /
@@ -111,7 +111,7 @@ more specific to say, and it keeps scratch and working variables consistent acro
 ### Rule ADR-AUTO-SPELL:12
 
 A short-lived, throwaway intermediate — a value assigned and consumed within a tight, co-located window (roughly 10–15 lines) that has no
-domain meaning worth naming (ADR-AUTO-SPELL#1), no return role (ADR-AUTO-SPELL#10), and no type worth stating (ADR-AUTO-SPELL#11) — takes a
+meaning worth naming (ADR-AUTO-SPELL#1), no return role (ADR-AUTO-SPELL#10), and no type worth stating (ADR-AUTO-SPELL#11) — takes a
 **generic blessed placeholder** rather than a coined bespoke name. The sanctioned generic is **`$obj`**. This is what keeps trivial scratch
 from minting one-off vocabulary — the `myapp` / `myvalue` / `myproject` / `myvar` placeholders that otherwise each need a `fixture` registry
 entry just to clear `Test-Spelling`. It applies equally to example and test placeholder data: reach for the generic blessed token (`$obj`,
@@ -160,16 +160,16 @@ The test for an exception is "is the short form a _standard, shared_ name recogn
 Four things can name a local, in order of preference — meaning, then role, then type, then a generic placeholder.
 
 - **Meaning** is best, and is what ADR-AUTO-SPELL#1 asks for: `$subscription`, `$templateFolderPath`. A name that says what the value
-  _means_ in the domain is the densest documentation a reader gets.
+  _means_ is the densest documentation a reader gets.
 - **Role** comes next, for the one or two variables that _are_ the function's output: `$ret` for the accumulator built up and handed back,
   `$found` for what a lookup located (ADR-AUTO-SPELL#10). The role name wins here because a reader scanning the function finds the return
   value at a glance, and it stays stable when the accumulator's type changes — a `[StringBuilder]` swapped for a `[List]` is still `$ret`.
-- **Type** comes next (ADR-AUTO-SPELL#11): a scratch buffer or working object with no domain meaning and no return role is named for the
+- **Type** comes next (ADR-AUTO-SPELL#11): a scratch buffer or working object with no meaning of its own and no return role is named for the
   simple type it holds — `$stringBuilder`, `$hashtable`, `$regex`. Type-as-name says exactly what the value is and is shared (everyone names
   a scratch StringBuilder the same way), which is why it beats an invented `$sb` or `$temp`.
 - **Generic placeholder** is the honest default of last resort (ADR-AUTO-SPELL#12): a genuinely nameless, short-lived intermediate — no
-  domain meaning, no return role, no type worth a glance — is `$obj`, rather than a coined bespoke name or a one-off `fixture` token. The
-  bar is high: `$obj` is for the truly anonymous scratch value only, never a blur over something that has a real name.
+  meaning of its own, no return role, no type worth a glance — is `$obj`, rather than a coined bespoke name or a one-off `fixture` token.
+  The bar is high: `$obj` is for the truly anonymous scratch value only, never a blur over something that has a real name.
 
 So `$stringBuilder` is right for a StringBuilder used as a mid-function scratch buffer — but the same StringBuilder becomes `$ret` the
 moment its role is "the value this function returns."
@@ -183,7 +183,7 @@ tokenizes identifiers and checks every fragment with no length floor against the
 terms), so the short and compound coined abbreviations cspell misses (`$rcg`, `$tfPath`, `$perSubEnvs`) are caught automatically. What
 neither can catch is an abbreviation that is _also_ a real dictionary word — `$spec`, `$info` — since membership alone cannot tell a
 truncation from a short word; those stay a code-review concern. When either gate flags a token, there are two honest resolutions: spell it
-out, or — when it is a genuine domain term or a conventional abbreviation worth blessing — add a deliberate, reviewed entry to the
+out, or — when it is a genuine product term or a conventional abbreviation worth blessing — add a deliberate, reviewed entry to the
 terminology registry (ADR-AUTO-SPELL#5). Dropping a one-off local invention into the vocabulary just to clear the gate is the anti-pattern
 this rule forbids; adding a genuinely conventional abbreviation as a categorized registry entry is the opposite — a reviewed decision the
 whole team then shares.
@@ -196,7 +196,7 @@ _variable_ that holds such a value (`$accountId = $row.acct_id`), but leave the 
 
 ### The terminology registry
 
-The allow-list of ADR-AUTO-SPELL#2 and the domain glossary of ADR-AUTO-SPELL#3 are not two piles of tokens in the spell-checker's config;
+The allow-list of ADR-AUTO-SPELL#2 and the product glossary of ADR-AUTO-SPELL#3 are not two piles of tokens in the spell-checker's config;
 they are one authored registry, `terminology.yml`, and the spell-checker's word lists are generated from it. A flat list of accepted words
 answers only "is this token spelled legally?" — it cannot say what a term means, where it is legitimate, or whether anything still uses it.
 So the same token that silences the gate is silently blessed everywhere and forever, and the next author reads the coinage as sanctioned
@@ -205,7 +205,7 @@ vocabulary. The registry keeps the meaning attached to the term and makes genera
 
 Each entry is grouped under a category (ADR-AUTO-SPELL#6), and the category is what drains that ambiguity:
 
-- **`domain`** — a real product, tool, protocol, or external field name (`bicep`, `entra`). Kept as-is, with a one-line meaning; legal
+- **`product`** — a real product, tool, protocol, or external field name (`bicep`, `entra`). Kept as-is, with a one-line meaning; legal
   everywhere.
 - **`abbreviation`** — a conventional short form from the ADR-AUTO-SPELL#2 allow-list (`ctx`, `cfg`). It carries its full-word expansion,
   and an abbreviation without one is rejected.
@@ -228,7 +228,7 @@ enter except as a reviewed entry, and an unreferenced entry cannot remain.
 ## Decision
 
 Spell out identifier names in full. Abbreviate only the universal acronyms and loop indices in ADR-AUTO-SPELL#2, and coin nothing local. A
-domain term worth keeping is added to the terminology registry and used consistently; everything else is written as the real, whole word.
+product term worth keeping is added to the terminology registry and used consistently; everything else is written as the real, whole word.
 
 This is the variable-and-parameter complement to the function-naming rules in [respect-pwsh-verb-rules](respect-pwsh-verb-rules.md): verbs
 gives functions a shared, spelled-out vocabulary, and this gives the same to the names inside them.
@@ -259,6 +259,6 @@ gives functions a shared, spelled-out vocabulary, and this gives the same to the
 
 - Functions read as plain language; a reader unfamiliar with a file can follow it without reconstructing what each shortened name meant.
 - Search and refactoring are reliable — one spelling per concept means `grep`/rename find every occurrence.
-- The terminology registry becomes a meaningful glossary of real domain terms, and each new entry is a small, deliberate decision rather
+- The terminology registry becomes a meaningful glossary of real product terms, and each new entry is a small, deliberate decision rather
   than a reflex to silence the gate.
 - The cost lands on the author (a few more keystrokes, fully absorbed by tab-completion), and the benefit lands on every reader.

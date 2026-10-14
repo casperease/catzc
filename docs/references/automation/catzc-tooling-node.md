@@ -8,20 +8,20 @@ quality gates run on — cSpell, markdownlint, and Prettier — each pinned to i
 installs through npm per [use-proper-package-managers](../../adr/automation/use-proper-package-managers.md) and
 [controlling-systemwide-deps](../../adr/automation/controlling-systemwide-deps.md).
 
-## Domains
+## Responsibilities
 
-| Domain   | Area      | Name                                                                 |
-| -------- | --------- | -------------------------------------------------------------------- |
-| domain:1 | runtime   | [Node runtime and npm](#domain1--node-runtime-and-npm)               |
-| domain:2 | npm-tools | [npm-installed quality tools](#domain2--npm-installed-quality-tools) |
+| Responsibility   | Area      | Name                                                                         |
+| ---------------- | --------- | ---------------------------------------------------------------------------- |
+| responsibility:1 | runtime   | [Node runtime and npm](#responsibility1--node-runtime-and-npm)               |
+| responsibility:2 | npm-tools | [npm-installed quality tools](#responsibility2--npm-installed-quality-tools) |
 
-### domain:1 — Node runtime and npm
+### responsibility:1 — Node runtime and npm
 
 The runtime itself: install the locked Node.js idempotently, uninstall the managed install, hard-remove an unmanaged one, and run npm
 through the asserted execution wrapper. npm is the package manager the module's other tools install through, so it lives here with the
 runtime that provides it.
 
-### domain:2 — npm-installed quality tools
+### responsibility:2 — npm-installed quality tools
 
 The tools that ride on npm — cSpell (spell-checking), markdownlint (Markdown linting), and Prettier (formatting) — each with the same
 install and uninstall shape over Core's engine, pinned to its locked version. These are the binaries the repository's quality gates in
@@ -33,24 +33,24 @@ The module depends on [Catzc.Tooling.Core](catzc-tooling-core.md) and only that 
 tool name to Core's engine, which reads `tools.yml` for the locked version and the npm identifier and then installs, asserts, or removes
 idempotently — there is no Node-specific install logic outside that delegation.
 
-The two domains are the runtime and what rides on it. Domain 1 owns Node and npm — the package manager domain 2 needs; domain 2 owns the
-quality tools that are themselves npm packages. The relationship to the quality gates is one-way: the gates invoke these tools at runtime,
-while this module owns only installing and locking them. The same functions run locally and in CI (see
+The two responsibilities are the runtime and what rides on it. Responsibility 1 owns Node and npm — the package manager responsibility 2
+needs; responsibility 2 owns the quality tools that are themselves npm packages. The relationship to the quality gates is one-way: the gates
+invoke these tools at runtime, while this module owns only installing and locking them. The same functions run locally and in CI (see
 [cross-platform](../../adr/automation/cross-platform.md)).
 
 ## Division
 
-The module's public functions, sorted into the domains above.
+The module's public functions, sorted into the responsibilities above.
 
-| Domain                                 | Function                 |
-| -------------------------------------- | ------------------------ |
-| domain:1 — Node runtime and npm        | `Install-NodeJs`         |
-|                                        | `Invoke-Npm`             |
-|                                        | `Uninstall-NodeJs`       |
-|                                        | `Remove-NodeJs`          |
-| domain:2 — npm-installed quality tools | `Install-Cspell`         |
-|                                        | `Uninstall-Cspell`       |
-|                                        | `Install-Markdownlint`   |
-|                                        | `Uninstall-Markdownlint` |
-|                                        | `Install-Prettier`       |
-|                                        | `Uninstall-Prettier`     |
+| Responsibility                                 | Function                 |
+| ---------------------------------------------- | ------------------------ |
+| responsibility:1 — Node runtime and npm        | `Install-NodeJs`         |
+|                                                | `Invoke-Npm`             |
+|                                                | `Uninstall-NodeJs`       |
+|                                                | `Remove-NodeJs`          |
+| responsibility:2 — npm-installed quality tools | `Install-Cspell`         |
+|                                                | `Uninstall-Cspell`       |
+|                                                | `Install-Markdownlint`   |
+|                                                | `Uninstall-Markdownlint` |
+|                                                | `Install-Prettier`       |
+|                                                | `Uninstall-Prettier`     |

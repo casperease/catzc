@@ -13,8 +13,8 @@ only the pairing and the materialisation.
 
 ## Responsibilities
 
-| Responsibility   | Area     | Name                                                                   |
-| -------- | -------- | ---------------------------------------------------------------------- |
+| Responsibility   | Area     | Name                                                                           |
+| ---------------- | -------- | ------------------------------------------------------------------------------ |
 | responsibility:1 | render   | [Managed-file materialisation](#responsibility1--managed-file-materialisation) |
 | responsibility:2 | registry | [Root-config registry](#responsibility2--root-config-registry)                 |
 | responsibility:3 | gates    | [Root-config quality gates](#responsibility3--root-config-quality-gates)       |
@@ -65,8 +65,8 @@ tree costs a few file reads and writes nothing.
 The module's public surface, sorted into the responsibilities above.
 
 | Responsibility                                  | Function                    |
-| --------------------------------------- | --------------------------- |
+| ----------------------------------------------- | --------------------------- |
 | responsibility:1 — Managed-file materialisation | `Build-RootConfig`          |
 | responsibility:2 — Root-config registry         | `rootconfig.yml`            |
 | responsibility:3 — Root-config quality gates    | `Test-RootConfigFiles`      |
-|                                         | `Test-RootAnalyzerSettings` |
+|                                                 | `Test-RootAnalyzerSettings` |

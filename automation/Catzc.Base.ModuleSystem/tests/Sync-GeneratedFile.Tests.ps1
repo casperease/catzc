@@ -7,6 +7,8 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Mock Test-RepositorySnapshot { $false } -ModuleName Catzc.Base.ModuleSystem
         Mock Get-GitCurrentBranch { 'feature/sync' } -ModuleName Catzc.Base.ModuleSystem
         Mock Test-GitPathChanged { $true } -ModuleName Catzc.Base.ModuleSystem
+        # The type sources match HEAD unless a test dirties them.
+        Mock Test-GitPathChanged { $false } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Path -contains 'automation/*/types/*.cs' }
         Mock Invoke-GitCommit { 'abc1234567890abcdef1234567890abcdef12345' } -ModuleName Catzc.Base.ModuleSystem
         Mock Write-Message { } -ModuleName Catzc.Base.ModuleSystem
         # A tidy .compiled (only the current build) unless a test plants a superseded one.
@@ -106,6 +108,24 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
             $Message -like '*Catzc.Types.widget01.dll, Catzc.Types.widget02.dll*' -and $ForegroundColor -eq 'Red'
         }
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0 -ParameterFilter { $Message -like 'Synced*' }
+    }
+
+    It 'holds back .compiled with a yellow line while a type source differs from HEAD' -Tag 'ADR-AUTO-TYPES#6' {
+        Mock Test-GitPathChanged { $true } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Path -contains 'automation/*/types/*.cs' }
+
+        Sync-GeneratedFile | Should -BeNullOrEmpty
+        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
+            $Message -like 'Skipped automation/.compiled: type sources*' -and $ForegroundColor -eq 'Yellow'
+        }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0 -ParameterFilter { $Message -like 'Synced*' }
+    }
+
+    It 'checks the type sources against HEAD before committing .compiled' {
+        Sync-GeneratedFile | Should -Not -BeNullOrEmpty
+        Should -Invoke Test-GitPathChanged -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter {
+            $Path -contains 'automation/*/types/*.cs'
+        }
     }
 
     It 'does not probe .compiled when it matches HEAD' {

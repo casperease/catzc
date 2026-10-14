@@ -81,10 +81,10 @@ in one session, and are proven in both by running the same tests.
 
 ### Two modes, two entry points
 
-| Mode   | Code root (`CatzcModulesRoot`)            | Entered by                                                   | A module on disk                          |
-| ------ | ----------------------------------------- | ------------------------------------------------------------ | ----------------------------------------- |
-| source | `<RepositoryRoot>/automation`             | `importer.ps1`                                               | a folder of one-function `.ps1` files     |
-| build  | one of the four build roots below         | `Import-Catzc.ps1`, `Import-Module Catzc`, `build-catzc.ps1` | a generated `.psd1` and one merged `.ps1` |
+| Mode   | Code root (`CatzcModulesRoot`)    | Entered by                                                   | A module on disk                          |
+| ------ | --------------------------------- | ------------------------------------------------------------ | ----------------------------------------- |
+| source | `<RepositoryRoot>/automation`     | `importer.ps1`                                               | a folder of one-function `.ps1` files     |
+| build  | one of the four build roots below | `Import-Catzc.ps1`, `Import-Module Catzc`, `build-catzc.ps1` | a generated `.psd1` and one merged `.ps1` |
 
 Both entry scripts at the repository root are dot-sourced and run in the caller's scope. `importer.ps1` loads source mode. `build-catzc.ps1`
 builds the selected modules in a child `pwsh` — building needs source mode loaded, and doing it in a child process keeps the caller's
@@ -102,8 +102,8 @@ loaded, so it is also how a reader confirms which mode a session is in.
 
 `Temporary, cached, installed, saved`
 
-"Build mode" says only that the modules come from a package and not from the source tree. Where that package sits says how long it lives
-and who owns it, and the four kinds name those places (`<v>` is the package version):
+"Build mode" says only that the modules come from a package and not from the source tree. Where that package sits says how long it lives and
+who owns it, and the four kinds name those places (`<v>` is the package version):
 
 | Kind      | Code root                                          | Made by                     | Lifetime                             |
 | --------- | -------------------------------------------------- | --------------------------- | ------------------------------------ |

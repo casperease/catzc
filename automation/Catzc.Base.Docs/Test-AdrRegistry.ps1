@@ -12,7 +12,7 @@
       - a rule set's file does not head its registry `## Rules: <External>` with the registered external code;
       - a rule file is registered by no rule set (its `<domain folder>/<slug>` is not in adrs.yml).
 
-    The registry's own invariants (unique external codes, declared and acyclic domain links) are AdrsConfig
+    The registry's own invariants (unique external codes, domain links that are declared and acyclic) are AdrsConfig
     construction rules, not this gate's.
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-adr-registry/ (Write-QualityGateReport).

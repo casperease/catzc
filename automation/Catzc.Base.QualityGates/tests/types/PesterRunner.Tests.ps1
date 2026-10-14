@@ -96,7 +96,7 @@ exit 0
             $null = [Catzc.Base.QualityGates.PesterRunner]::Run(
                 @($lead, $tail), @('lead', 'tail'), 1, $null, 120, $true)
 
-            # With one slot, the second worker starts only after the first has fully exited.
+            # With one worker allowed at a time, the second worker starts only after the first has fully exited.
             [long][System.IO.File]::ReadAllText($tailStart) |
                 Should -BeGreaterOrEqual ([long][System.IO.File]::ReadAllText($leadEnd))
         }

@@ -1,0 +1,12 @@
+# glossary.yml — the Catzc.Azure.Templates glossary source: the vocabulary of the Bicep template configuration this module
+# builds and deploys ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)). Every option is defaulted: all five
+# checks, the whole repository, every text surface
+# ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). Checked by Test-Glossary.
+concepts:
+    slot:
+        key: slot
+        domain: azure
+        defined_by: ADR-AZ-DATAMOD#2
+        short: A Bicep configuration slot — one config file of a template (`<env>[-<slot>].yml`), deploying one subscription's resource group.
+        realized_by: { kind: prose-only }
+        forms: [Bicep, base, configuration, root, template, indexed, special, optional, customer, platform, env, core, subfolder, target, region]

@@ -11,3 +11,21 @@ concepts:
         realized_by: { kind: prose-only }
         avoid:
             - { phrase: house rules, say: domain rules / ADR rules }
+    domain:
+        key: domain
+        domain: repository
+        defined_by: ADR-REPO-FOLDERS#5
+        short: A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its role and the domains it depends on.
+        realized_by: { kind: prose-only }
+        forms: [ADR, principles, process, design, flow, automation, configuration, pipelines, github, azure, repository, research, axioms, architecture, implementation, optimisable, owning]
+        contrasts:
+            language zone: A language zone is one of the design, test, and live registers of identities; an ADR domain groups ADRs.
+    language zone:
+        key: language_zone
+        domain: repository
+        defined_by: ADR-REPO-LANG#1
+        short: One of the three registers — design, test, live — each with its own terminology and identities; a token belongs to exactly one.
+        realized_by: { kind: prose-only }
+        forms: [language, design, test, live]
+        contrasts:
+            domain: An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.

@@ -1,6 +1,6 @@
 # GENERATED FILE — do not edit. Single source of truth:
-#   automation/Catzc.Base.Git/configs/gitignore.yml (zones; rendered by New-GitIgnore)
-#   automation/Catzc.Base.RootConfig/configs/rootconfig.yml (the injected managed-copies zone)
+#   automation/Catzc.Base.Git/configs/gitignore.yml (sections; rendered by New-GitIgnore)
+#   automation/Catzc.Base.RootConfig/configs/rootconfig.yml (the injected managed-copies section)
 # Regenerated on import by Build-RootConfig; committed, so a fresh clone ignores correctly from checkout.
 
 # ── Local, never-committed files ────────────────────────────────────────────────────────────────────────────────────

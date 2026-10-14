@@ -9,7 +9,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     name, parameter name, and the noun
     of every function name is tokenized (camelCase / PascalCase / snake_case) and each fragment is checked
     against the SpellingOracle — the union of cspell's English words (assets/english.txt.gz) and the approved
-    terminology (.cspell/*.txt: domain vocabulary + the conventional-abbreviation allow-list). A fragment that
+    terminology (.cspell/*.txt: the product vocabulary + the conventional-abbreviation allow-list). A fragment that
     is neither a real word nor approved vocabulary is an invented abbreviation and is flagged.
 
     This catches what Test-Spelling cannot: cspell's minWordLength (4) lets short coined tokens (rcg, and

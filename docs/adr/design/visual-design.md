@@ -154,9 +154,9 @@ commit was discarded, abandoned, or promoted.
 as neutral chrome — its label names the environment (on-demand, main-UAT, release-uat, production) and it carries no per-stage tint and no
 state colour of its own. The single commit drawn _inside_ — generic or numbered — is the environment's occupant (ADR-DSGN-LIFE#5), coloured
 for whatever state that commit is in right now, not for a fixed property of the box. So production holds a **green** commit, release-uat a
-**light-green** one, main-UAT a **light-blue** one, and the on-demand L3 slot whatever it is hosting at the moment (a **yellow** commit
-mid-verification, a **blue** one just verified). Reading the inner colour tells you the state of what currently lives there; the label tells
-you where.
+**light-green** one, main-UAT a **light-blue** one, and the on-demand L3 environment whatever it is hosting at the moment (a **yellow**
+commit mid-verification, a **blue** one just verified). Reading the inner colour tells you the state of what currently lives there; the
+label tells you where.
 
 - [Environment boxes](#environment-boxes)
 
@@ -280,9 +280,9 @@ An environment is not a commit, so it is drawn as a container — and the contai
 and no per-stage tint, only a label naming which environment it is. What it does carry is its **occupant**: the one commit deployed there
 right now (ADR-DSGN-LIFE#5), drawn in that commit's own current state colour. So the inner colour is not a fixed property of the box — it is
 whatever state the occupant is in: the production occupant is drawn green, the release-uat occupant light-green, the main-UAT occupant
-light-blue, and the on-demand L3 slot whatever it currently hosts. Reading the inner colour tells you the state of what lives there now; the
-label tells you where. This defers to `ADR-DSGN-LIFE:5` (each always-on environment hosts exactly one commit) rather than colouring the box
-by what it validates — an environment's picture is "what is deployed here", not "what this stage is for".
+light-blue, and the on-demand L3 environment whatever it currently hosts. Reading the inner colour tells you the state of what lives there
+now; the label tells you where. This defers to `ADR-DSGN-LIFE:5` (each always-on environment hosts exactly one commit) rather than colouring
+the box by what it validates — an environment's picture is "what is deployed here", not "what this stage is for".
 
 ## Canonical palette (locked)
 

@@ -29,8 +29,9 @@
 # See [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md) and
 # [ADR-AUTO-SPELL](/docs/adr/automation/powershell/spell-out-names.md).
 categories:
-  domain:
-    description: "General technical or computing vocabulary this codebase uses that fits no more specific category below."
+  product:
+    description:
+      "A real product, tool, protocol, or general technical term this codebase uses that fits no more specific category below."
   abbreviation:
     description: "A short form standing for a full word or phrase; carries expands_to with the full form."
   fixture:
@@ -75,7 +76,7 @@ categories:
     description: "A cited author or thinker referenced in the docs."
 
 terms:
-  domain:
+  product:
     - term: testkit
       meaning: "catzc-internal-testkit"
     - term: adrs
