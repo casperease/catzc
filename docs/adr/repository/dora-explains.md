@@ -49,8 +49,8 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 > DORA's research ties fast, reliable delivery to fast feedback; a declared, validated shape for every output file turns a broken report or
 > drawing into a named failure at the moment it is written, not a surprise when a person opens it.
 
-- [Test automation](../../references/dora/capabilities.md#test-automation) — every output format carries a validator that runs as code, so
-  a malformed file fails a check instead of a review.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — every output format carries a validator that runs as code, so a
+  malformed file fails a check instead of a review.
 - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — deterministic, re-runnable producers make every output
   reproducible from its inputs.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

@@ -81,9 +81,9 @@ entry, not code, as long as an existing validator kind fits it.
 
 ### Formats for people
 
-A person reviews PNG, PDF, and Markdown with the tools every machine has. HTML needs a browser opened on a local file, which not every reader
-has or wants; a page that needs a browser is published as a review page, where it opens from a link. A review page has its own name because
-"artifact" already means a file handed between pipeline stages, and one word carries one meaning
+A person reviews PNG, PDF, and Markdown with the tools every machine has. HTML needs a browser opened on a local file, which not every
+reader has or wants; a page that needs a browser is published as a review page, where it opens from a link. A review page has its own name
+because "artifact" already means a file handed between pipeline stages, and one word carries one meaning
 ([controlled-vocabulary](controlled-vocabulary.md)).
 
 ### Validators
@@ -100,8 +100,8 @@ A producer rebuilds its files from declared inputs — files on disk, a manifest
 result, and a reviewer can regenerate any file instead of trusting it. A producer writes only its own formats, so parallel producers never
 overwrite each other.
 
-A Python producer is product code: it ships in `Catzc.Base.Reports/assets/` and runs through a public function that resolves the script
-and starts it through uv with its pinned packages. The caller names the producer, never a path, so moving or renaming a script changes one
+A Python producer is product code: it ships in `Catzc.Base.Reports/assets/` and runs through a public function that resolves the script and
+starts it through uv with its pinned packages. The caller names the producer, never a path, so moving or renaming a script changes one
 function.
 
 ## Consequences
