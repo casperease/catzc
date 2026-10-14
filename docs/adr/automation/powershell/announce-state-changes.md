@@ -9,7 +9,9 @@
 Every write to the console goes through the information stream, by way of the writer chokepoint: `Write-Message` →
 `Write-InformationColored` → `Write-Information`, or the bootstrap's `Write-ImporterMessage` before the Writers module is loaded. Nothing
 calls `Write-Host`, `Out-Host`, `Write-Progress`, `Clear-Host`, a `[Console]` write method, or a `$Host.UI` writer, and nothing assigns a
-console property (title, colour, cursor, encoding). An inline liveness dot is `Write-Message '.' -NoHeader -NoNewline`.
+console property (title, colour, cursor, encoding). The one exception is the output encoding of a redirected session: the importer sets it
+to UTF-8 (`Set-RedirectedOutputEncoding`), so a captured log carries one encoding, and announces it on its load record
+(ADR-AUTO-ANNOUNCE#6). An inline liveness dot is `Write-Message '.' -NoHeader -NoNewline`.
 
 - [One stream](#one-stream)
 - [How this is enforced](#how-this-is-enforced)
@@ -50,10 +52,10 @@ because its caller owns the wording, such as one that masks a secret — the cha
 
 ### Rule ADR-AUTO-ANNOUNCE:6
 
-The importer's own load sequence is the one exception to ADR-AUTO-ANNOUNCE#2: the state changes it makes itself (session preferences, roots,
-vendor modules, `PSModulePath`, the types assembly, the catzc modules) are announced on the verbose stream through
-`Write-ImporterMessage -StateChange`, shown by `. .\importer.ps1 -Verbose`. A plain import shows only its `Loaded in N seconds` line and
-genuine warnings. The functions the importer calls announce on the information stream as everywhere else.
+The importer's own load sequence is the one exception to ADR-AUTO-ANNOUNCE#2: the state changes it makes itself (session preferences, a
+redirected session's output encoding, roots, vendor modules, `PSModulePath`, the types assembly, the catzc modules) are announced on the
+verbose stream through `Write-ImporterMessage -StateChange`, shown by `. .\importer.ps1 -Verbose`. A plain import shows only its
+`Loaded in N seconds` line and genuine warnings. The functions the importer calls announce on the information stream as everywhere else.
 
 - [The importer's load record](#the-importers-load-record)
 
@@ -193,7 +195,8 @@ not announced; child-process output is relayed as the tool's own; a delegated an
 - **`Measure-NoRawConsoleWrite`** (`automation/.scriptanalyzer/NoRawConsoleWrite.psm1`) flags every way past the information stream:
   `Write-Host`, `Out-Host`, `Write-Progress`, `Clear-Host`, the `[Console]` write methods and property assignments, writes through
   `[Console]::Out`/`Error`, and the `$Host.UI` writers. It supersedes the built-in `PSAvoidUsingWriteHost`, which the analyzer settings
-  exclude so a `Write-Host` is reported once.
+  exclude so a `Write-Host` is reported once. Its one justified suppression is `Set-RedirectedOutputEncoding` in the importer module, the
+  exception ADR-AUTO-ANNOUNCE#1 names.
 - **`Measure-AnnounceStateChange`** (`automation/.scriptanalyzer/AnnounceStateChange.psm1`) flags a state change of the kinds in the table
   above that no information-stream writer (or `Write-ImporterMessage -StateChange`, ADR-AUTO-ANNOUNCE#6) in the same or an enclosing block
   announces, and passes the exemptions of ADR-AUTO-ANNOUNCE#3. It checks that a change is announced; what the line says is a review concern.

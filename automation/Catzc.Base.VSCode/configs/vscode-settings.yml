@@ -96,11 +96,14 @@ settings:
   # .yml -> generic YAML, .yaml -> Azure Pipelines YAML
   # .markdownlintignore -> "ignore" (the built-in .gitignore language) so it is treated as a
   # gitignore-syntax ignore file, not as Markdown.
+  # Captured console output under out/ -> "ansi" (iliazeus.vscode-ansi), so the writers' colors render and the
+  # escape codes are hidden.
   files.associations:
     '**/LICENSE': plaintext
     '**/*.yml': yaml
     '**/*.yaml': azure-pipelines
     '**/.markdownlintignore': ignore
+    '**/out/**/*.log': ansi
 
   # Route *.drawio.png to VS Code's built-in image preview editor (viewType imagePreview.previewEditor, from
   # the bundled media-preview extension) instead of the Draw.io extension's binary custom editor. This is

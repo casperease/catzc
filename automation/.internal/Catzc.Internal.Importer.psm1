@@ -136,6 +136,10 @@ function Invoke-Importer {
         }
         $global:InformationPreference = 'Continue'
 
+        # A redirected session writes UTF-8, the encoding the process relays stream, so a captured log is one
+        # encoding; announced with the preferences below.
+        $outputEncodingChanged = Set-RedirectedOutputEncoding
+
         # Repository root — the WORKING root (out/, repo-relative paths, git), set on $env by the shim
         # (importer.ps1 sets $env:RepositoryRoot = $PSScriptRoot). Read it here; working-root readers anchor on it.
         $repoRoot = $env:RepositoryRoot
@@ -187,6 +191,9 @@ function Invoke-Importer {
         # ([ADR-AUTO-ANNOUNCE#6](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce6)).
         Write-ImporterMessage ("Session: ErrorActionPreference=$global:ErrorActionPreference, WarningPreference=$global:WarningPreference, " +
             "InformationPreference=$global:InformationPreference, error view '$errorViewPath'") -StateChange
+        if ($outputEncodingChanged) {
+            Write-ImporterMessage 'Session: console output encoding UTF-8 (output is redirected)' -StateChange
+        }
         Write-ImporterMessage ("Roots: RepositoryRoot='$repoRoot', CatzcModulesRoot='$modulesRoot'; " +
             'internal modules Catzc.Internal.Loader, Catzc.Internal.Types, Catzc.Internal.Vendor') -StateChange
 
@@ -371,6 +378,31 @@ function Assert-CatzcRunModeExclusive {
     $header = "Run-mode exclusivity violated: the active CatzcModulesRoot is '$ModulesRoot', but $($offenders.Count) loaded catzc module(s) come from another root ('$($otherRoots -join "', '")'):"
     $footer = 'Restart PowerShell, or re-run the entry script of the mode you want.'
     throw ((@($header) + @($lines) + @($footer)) -join "`n")
+}
+
+function Set-RedirectedOutputEncoding {
+    <#
+    .SYNOPSIS
+        Makes a redirected session write UTF-8, so a captured log has one encoding.
+    .DESCRIPTION
+        When the session's standard output goes to a file or a pipe, the host encodes everything it writes with
+        [Console]::OutputEncoding — the OEM codepage on Windows — while the process relays (CliRunner, PesterRunner)
+        stream UTF-8, so one captured log mixed two encodings and the box drawing came out mangled. An interactive
+        console writes Unicode directly and is left as it is. Returns $true when it changed the encoding, so the
+        caller announces it on the importer's load record
+        ([ADR-AUTO-ANNOUNCE#1](/docs/adr/automation/powershell/announce-state-changes.md#rule-adr-auto-announce1)
+        names this as the one console property the toolset assigns).
+    #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawConsoleWrite', '', Justification = 'The one sanctioned console-property assignment (ADR-AUTO-ANNOUNCE#1): UTF-8 output for a redirected session, announced by Invoke-Importer on its load record.')]
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param()
+
+    if (-not [Console]::IsOutputRedirected -or [Console]::OutputEncoding.CodePage -eq 65001) {
+        return $false
+    }
+    [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+    $true
 }
 
 <#
