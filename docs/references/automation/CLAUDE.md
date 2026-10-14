@@ -101,8 +101,8 @@ Rules:
   and just the files appear. A module that owns no config has no such rows (`catzc-azure-cli.md` owns none).
 - **The Division intro sentence must not claim functions are "listed together"** (e.g. "throwing and querying forms are listed together") —
   each function now has its own row, so that clause is false. Keep the rest of the intro.
-- **Do not hand-align the columns.** Write cells with single-space padding; `Format-Markdown` aligns them. Hand-built padding drifts and
-  fights the formatter.
+- **Do not hand-align the columns.** Write cells with single-space padding; `Format-Code` aligns them. Hand-built padding drifts and fights
+  the formatter.
 
 Sub-group labels and config rows look like this (DevBox lifecycle verbs; `config` as a trailing sub-group):
 
@@ -125,7 +125,7 @@ Sub-group labels and config rows look like this (DevBox lifecycle verbs; `config
 - After editing, run, from the repo root:
 
   ```powershell
-  Format-Markdown -Glob 'docs/references/automation/*.md'   # aligns tables, wraps prose
+  Format-Code -Language markdown -Path docs/references/automation   # aligns tables, wraps prose
   Test-Markdownlint
   Test-Spelling
   ```

@@ -62,6 +62,15 @@ checks it.
 
 - [Headings are plain words](#headings-are-plain-words)
 
+### Rule ADR-REPO-FORMAT:8
+
+Each file language's formatter is configured, not coded: its entry in the file-language registry (`languages.yml`) names the formatter
+engine that formats its files, or states in `no_formatter:` why it has none. `Format-Code` runs the engines over every tracked file except
+vendored code, and `Test-Formatting` checks the same entries — there is no formatting command per language and no list of formatters in a
+check (ADR-PRIN-CONFIG#1).
+
+- [Formatting is configured per language](#formatting-is-configured-per-language)
+
 ## Context
 
 The repository holds many file types — PowerShell (`.ps1`/`.psm1`/`.psd1`), Bicep, YAML pipelines, Markdown, JSON, C#. When formatting is
@@ -91,19 +100,21 @@ save.
 
 ### Per-language layers
 
-The baseline is the floor. Each language adds its own `.editorconfig` section (indent width, line length) and, where it has one, a
-formatter/analyzer. The exact per-language values live in `.editorconfig`; this ADR does not restate them — it records only which tool
-governs each language:
+The baseline is the floor. Each language adds its own `.editorconfig` section (indent width, line length) and, where it has one, a formatter
+engine and an analyzer. The exact per-language values live in `.editorconfig`, and which engine formats each language lives in the
+file-language registry, `automation/Catzc.Base.Languages/configs/languages.yml`; this ADR restates neither. Beyond the engines, PowerShell
+is governed by `PSScriptAnalyzerSettings.psd1` (see [powershell-formatting](../automation/powershell/powershell-formatting.md)), Markdown by
+`.markdownlint.yml`, and pipeline YAML by the naming-and-placement check `Test-Pipelines`
+([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md)).
 
-| Language                            | Governed by                                                                                                                                                   |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PowerShell (`.ps1`/`.psm1`/`.psd1`) | `.editorconfig` + `PSScriptAnalyzerSettings.psd1` — see [powershell-formatting](../automation/powershell/powershell-formatting.md)                            |
-| YAML (`.yml`/`.yaml`)               | `.editorconfig`; `.yaml` pipelines additionally formatted by Prettier (`Format-Pipelines`) and checked for naming/placement (`Test-Pipelines`, ADR-PIPE-NAME) |
-| JSON                                | `.editorconfig`                                                                                                                                               |
-| Markdown (`.md`)                    | `.editorconfig` + `.markdownlint.yml`, formatted by Prettier                                                                                                  |
+### Formatting is configured per language
 
-Adding a language means adding its `.editorconfig` section (and, if it has one, wiring its formatter into the tests as a quality gate) — not
-inventing a new formatting philosophy.
+Formatting follows [configure-not-program](../principles/configure-not-program.md): there is one formatting command, `Format-Code`, and one
+adapter per formatter engine (Prettier, gofmt, ruff, PSScriptAnalyzer). Which engine formats a language is one line in the registry —
+`formatter: prettier` — so supporting a language on an engine the repository already runs is a configuration change, reviewed as such, and
+the editor, the formatting command, and the `Test-Formatting` check all read the same line. A language with nothing to format says why in
+`no_formatter:`, so a gap is a visible entry rather than a missing command. Adding a language means adding its registry entry and its
+`.editorconfig` section — not a new command, and not a new formatting philosophy.
 
 ### `.gitattributes` and binary files
 
@@ -162,10 +173,13 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - **`.gitattributes`** — marks binary files so EOL/diff normalization never corrupts them; deliberately no `* text=auto`.
 - **Per-language analyzers** — each language's specific rules run in its own gate. For PowerShell this is PSScriptAnalyzer plus custom rules
   in the L2 tests (see [powershell-formatting](../automation/powershell/powershell-formatting.md)). For Markdown it is markdownlint
-  (`.markdownlint.yml`), formatted by Prettier and kept in sync with it. For ADO pipeline YAML (`.yaml`) it is Prettier (`Format-Pipelines`,
-  the same engine as Markdown, checked by the `Test-Formatting` gate in an L2 test) plus the naming-and-placement quality gate
-  `Test-Pipelines` ([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md), an L1 integrity test) — both run in
-  every CI test run, so drifted or misplaced pipeline YAML fails CI.
+  (`.markdownlint.yml`), formatted by Prettier and kept in sync with it. For ADO pipeline YAML (`.yaml`) it is Prettier (the same engine as
+  Markdown, checked by the `Test-Formatting` gate in an L2 test) plus the naming-and-placement quality gate `Test-Pipelines`
+  ([pipeline-naming-and-placement](../pipelines/pipeline-naming-and-placement.md), an L1 integrity test) — both run in every CI test run, so
+  drifted or misplaced pipeline YAML fails CI.
+- **The file-language registry** — `languages.yml` names each language's formatter engine or the reason it has none, validated at load
+  (`LanguagesConfig`); `Format-Code` runs the engines and `Test-Formatting` reports every file an engine would change, and an L0 integrity
+  test asserts every engine the registry may name has its adapter.
 - **Generated artifacts** — a build-generated artifact is emitted canonical by its generator (the module-manifest emitter), and an L2 test
   asserts the formatter is a no-op over generated output, so its bytes cannot drift from the standard.
 - **Links** — `Format-Links` aligns every link mechanically (code links repository-rooted, markdown links relative, rule citations spelled

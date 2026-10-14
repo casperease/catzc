@@ -30,7 +30,7 @@ Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
 
     It 'keeps test files and folders as paths, in order, and turns each language test folder into a bridge container' {
         $target = ConvertTo-Target -Path 'C:\x\Widget.Tests.ps1', "$script:widgetGo/", 'C:\x\gadget\tests', $script:widgetPython `
-            -EntryScript 'C:\build\Import-Catzc.ps1' -LanguageExecutable @{ go = 'C:\widget\go\bin\go.exe'; python = 'C:\widget\uv\uv.exe' }
+            -EntryScript 'C:\build\Import-Catzc.ps1' -LanguageExecutable @{ go = 'C:\widget\go\bin\go.exe'; python = 'C:\widget\uv\uv.exe'; bash = 'C:\widget\bash\bash.exe' }
         $target.Path | Should -Be @('C:\x\Widget.Tests.ps1', 'C:\x\gadget\tests')
         $target.Container | Should -HaveCount 2
         $target.Container[0].Item.FullName | Should -Be ([System.IO.Path]::GetFullPath($script:bridge))
@@ -41,6 +41,8 @@ Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
         $target.Container[1].Data['Language'] | Should -Be 'python'
         $target.Container[1].Data['TestFolder'] | Should -Be $script:widgetPython
         $target.Container[1].Data['Executable'] | Should -Be 'C:\widget\uv\uv.exe'
+        $target.Container[0].Data['EngineExecutable']['bash'] | Should -Be 'C:\widget\bash\bash.exe'
+        @($target.Container[0].Data['EngineExecutable'].Keys) | Should -Be @('bash')
     }
 
     It 'hands the bridge an empty entry script in the source run, and an empty tool when there is none' {

@@ -30,6 +30,9 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         Mock Get-Config {
             [Catzc.Base.Languages.PythonConfig]::new(@{ root = 'python'; dependencies = @{ pytest = '9.1.1'; ruff = '0.17.0' } })
         } -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'python' }
+        Mock Get-Config {
+            [Catzc.Base.Languages.BashConfig]::new(@{ root = 'bash'; bats_version = '1.2.3'; bats_sha256 = ('a' * 64) })
+        } -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'bash' }
         # The fake root is not the loaded code root, so the run mode reads 'build'; the guard is the seam.
         Mock Assert-SourceTree -ModuleName Catzc.Base.Globs { }
     }
@@ -46,7 +49,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         $live.Matches('automation/Catzc.Fake.Beta/Get-Beta.ps1') | Should -BeFalse
     }
 
-    It 'puts the module''s Go and Python test folders in its tests aspect, never in live (ADR-AUTO-GO#2, ADR-AUTO-PY#2)' {
+    It 'puts the module''s Go, Python and Bash test folders in its tests aspect, never in live (ADR-AUTO-GO#2, ADR-AUTO-PY#2, ADR-AUTO-BASH#2)' {
         $aspects = @(Get-ModuleGlobSet -Name Catzc.Base.Alpha)
         $live = $aspects | Where-Object Name -eq 'catzc-base-alpha-live'
         $tests = $aspects | Where-Object Name -eq 'catzc-base-alpha-tests'
@@ -54,6 +57,8 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         $live.Matches('go/tests/catzc-base-alpha/alpha_test.go') | Should -BeFalse
         $tests.Matches('python/tests/catzc-base-alpha/test_alpha.py') | Should -BeTrue
         $live.Matches('python/tests/catzc-base-alpha/test_alpha.py') | Should -BeFalse
+        $tests.Matches('bash/tests/catzc-base-alpha/alpha.bats') | Should -BeTrue
+        $live.Matches('bash/tests/catzc-base-alpha/alpha.bats') | Should -BeFalse
         $tests.Matches('go/tests/catzc-fake-beta/beta_test.go') | Should -BeFalse
     }
 

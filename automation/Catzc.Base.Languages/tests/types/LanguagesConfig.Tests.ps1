@@ -1,9 +1,17 @@
 Describe 'LanguagesConfig' -Tag 'L0' {
     BeforeAll {
         $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Languages.LanguagesConfig]::new($raw) }
+        # One 'widget' entry; it states no_formatter unless the test sets formatter or no_formatter itself.
         $script:one = {
             param([System.Collections.IDictionary] $entry)
-            [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{ widget = $entry } })
+            $full = [ordered]@{}
+            foreach ($key in $entry.Keys) {
+                $full[$key] = $entry[$key]
+            }
+            if (-not $full.Contains('formatter') -and -not $full.Contains('no_formatter')) {
+                $full['no_formatter'] = 'widgets are never formatted'
+            }
+            [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{ widget = $full } })
         }
     }
 
@@ -14,19 +22,35 @@ Describe 'LanguagesConfig' -Tag 'L0' {
     }
 
     Context 'logic (fixture configs)' -Tag 'logic' {
-        It 'reads languages in declared order, with formatter and adr_folder defaulting to none' {
+        It 'reads languages in declared order: a formatter engine or the reason for none, and adr_folder defaulting to none' -Tag 'ADR-PRIN-CONFIG#4' {
             $config = & $script:make ([ordered]@{ languages = [ordered]@{
-                        widget = [ordered]@{ extensions = @('.wdg', '.widget'); formatter = 'Format-Widget'; adr_folder = 'widgets/core' }
-                        gadget = [ordered]@{ extensions = @('.gdg') }
+                        widget = [ordered]@{ extensions = @('.wdg', '.widget'); formatter = 'prettier'; adr_folder = 'widgets/core' }
+                        gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'binary gadgets' }
                     }
                 })
             $config.languages.name | Should -Be @('widget', 'gadget')
             $config.languages[0] | Should -BeOfType [Catzc.Base.Languages.FileLanguage]
             $config.languages[0].extensions | Should -Be @('.wdg', '.widget')
-            $config.languages[0].formatter | Should -Be 'Format-Widget'
+            $config.languages[0].formatter | Should -Be 'prettier'
+            $config.languages[0].no_formatter | Should -BeNullOrEmpty
             $config.languages[0].adr_folder | Should -Be 'widgets/core'
             $config.languages[1].formatter | Should -BeNullOrEmpty
+            $config.languages[1].no_formatter | Should -Be 'binary gadgets'
             $config.languages[1].adr_folder | Should -BeNullOrEmpty
+        }
+
+        It 'accepts every engine it declares' {
+            foreach ($engine in [Catzc.Base.Languages.LanguagesConfig]::FormatterEngines) {
+                (& $script:one ([ordered]@{ extensions = @('.wdg'); formatter = $engine })).languages[0].formatter | Should -Be $engine
+            }
+        }
+
+        It 'throws on a language with neither a formatter nor the reason for none, or with both' -Tag 'ADR-PRIN-CONFIG#4' {
+            { & $script:make ([ordered]@{ languages = [ordered]@{ widget = [ordered]@{ extensions = @('.wdg') } } }) } |
+                Should -Throw '*needs a formatter engine (formatter: one of prettier*or the reason it has none*'
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); no_formatter = '  ' }) } | Should -Throw '*needs a formatter engine*'
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); formatter = 'prettier'; no_formatter = 'never' }) } |
+                Should -Throw '*names both a formatter and no_formatter*'
         }
 
         It 'is empty for an empty file' {
@@ -52,8 +76,8 @@ Describe 'LanguagesConfig' -Tag 'L0' {
 
         It 'throws on an extension claimed by two languages' {
             $raw = [ordered]@{ languages = [ordered]@{
-                    widget = [ordered]@{ extensions = @('.wdg') }
-                    gadget = [ordered]@{ extensions = @('.gdg', '.wdg') }
+                    widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never' }
+                    gadget = [ordered]@{ extensions = @('.gdg', '.wdg'); no_formatter = 'never' }
                 }
             }
             { & $script:make $raw } | Should -Throw "*extension '.wdg' is already claimed by 'widget'*"
@@ -71,7 +95,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         }
 
         It 'throws on a language with no extensions' {
-            { & $script:one ([ordered]@{ formatter = 'Format-Widget' }) } | Should -Throw '*needs at least one extension*'
+            { & $script:one ([ordered]@{ formatter = 'prettier' }) } | Should -Throw '*needs at least one extension*'
             { & $script:one ([ordered]@{ extensions = @() }) } | Should -Throw '*needs at least one extension*'
         }
 
@@ -81,16 +105,16 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         }
 
         It 'throws on a non-kebab name, a non-map entry, and a non-map languages' {
-            { & $script:make ([ordered]@{ languages = [ordered]@{ Widget = [ordered]@{ extensions = @('.wdg') } } }) } |
+            { & $script:make ([ordered]@{ languages = [ordered]@{ Widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never' } } }) } |
                 Should -Throw "*invalid language name 'Widget'*"
             { & $script:make ([ordered]@{ languages = [ordered]@{ widget = '.wdg' } }) } | Should -Throw '*must be a mapping*'
             { & $script:make ([ordered]@{ languages = @('widget') }) } | Should -Throw '*invalid languages*'
         }
 
-        It 'throws on a formatter that is not a Verb-Noun command and on a bad adr_folder' {
-            $err = { & $script:one ([ordered]@{ extensions = @('.wdg'); formatter = 'widget-fmt'; adr_folder = '../widgets' }) } |
+        It 'throws on a formatter that is not a declared engine and on a bad adr_folder' {
+            $err = { & $script:one ([ordered]@{ extensions = @('.wdg'); formatter = 'Format-Widget'; adr_folder = '../widgets' }) } |
                 Should -Throw -PassThru
-            $err.Exception.Message | Should -BeLike "*invalid formatter 'widget-fmt'*"
+            $err.Exception.Message | Should -BeLike "*unknown formatter engine 'Format-Widget' (one of: prettier, *"
             $err.Exception.Message | Should -BeLike "*invalid adr_folder '../widgets'*"
         }
     }

@@ -1,10 +1,10 @@
 function Get-AutomationSourceFiles {
     <#
     .SYNOPSIS
-        The canonical set of authored PowerShell files the formatting and analysis quality gates cover.
+        The canonical set of authored PowerShell files the analysis quality gates cover.
     .DESCRIPTION
-        One source of truth for "what the quality gates format and analyze", so Format-Automation, Test-ScriptAnalyzer,
-        and the L2 analyzer test cannot drift apart. Covers every authored PowerShell file the repository ships
+        One source of truth for "what the quality gates analyze", so Test-ScriptAnalyzer and the L2 analyzer test
+        cannot drift apart. Formatting covers every tracked PowerShell file instead (Format-Code). Covers every authored PowerShell file the repository ships
         or runs: each module's root *.ps1 (non-test), private/*.ps1, tests/**/*.Tests.ps1; the .internal
         shared modules (the loader, the bootstrap, the shared libraries, the TestKit fixture library) and their
         tests/**/*.Tests.ps1; the custom analyzer rules (.scriptanalyzer/*.psm1) and their tests/**/*.Tests.ps1;

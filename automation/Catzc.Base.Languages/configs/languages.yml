@@ -3,48 +3,68 @@
 # file languages it declares in variants.yml (`tracks:`); this registry makes that set checkable. Every extension
 # belongs to exactly one file language; an extension no entry lists has no file language.
 #
-# Per entry:
-#   extensions  the extensions that name the language, lowercase, each with its leading dot
-#   formatter   the repository command that formats its files (one of those Test-Formatting runs); omitted = none
-#   adr_folder  its ADR folder under docs/adr/; omitted = none
+# Formatting is configured here, not programmed
+# ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)): an entry names the
+# formatter engine for its files, and Format-Code (Catzc.Base.QualityGates) runs it; Test-Formatting checks the same
+# entries. Supporting a language on an existing engine is one line here. A language with nothing to format says why.
 #
-# The defaults are declared once on Catzc.Base.Languages.LanguagesConfig
+# Per entry:
+#   extensions    the extensions that name the language, lowercase, each with its leading dot
+#   formatter     the formatter engine: prettier | gofmt | ruff | psscriptanalyzer
+#   no_formatter  instead of formatter: why the language has none (exactly one of the two)
+#   adr_folder    its ADR folder under docs/adr/; omitted = none
+#
+# The defaults and the engine list are declared once on Catzc.Base.Languages.LanguagesConfig
 # ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). Loaded via
 # Get-Config -Config languages and read through Get-FileLanguage.
 #
 # YAML is two file languages: executable pipeline YAML is `.yaml`, configuration data is `.yml`
-# ([ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6)), and only `.yaml` has a formatter.
+# ([ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6)).
 languages:
   powershell:
     extensions: [.ps1, .psm1, .psd1]
-    formatter: Format-Automation
+    formatter: psscriptanalyzer
     adr_folder: automation/powershell
   csharp:
     extensions: [.cs]
-    formatter: Format-Types
+    no_formatter: no layout engine is configured for C# yet; Format-Types keeps the file-scoped namespace
     adr_folder: automation/BCL
   pipeline-yaml:
     extensions: [.yaml]
-    formatter: Format-Pipelines
+    formatter: prettier
     adr_folder: pipelines
   yaml:
     extensions: [.yml]
+    no_formatter: no engine is configured for configuration YAML yet
   markdown:
     extensions: [.md]
-    formatter: Format-Markdown
+    formatter: prettier
   bicep:
     extensions: [.bicep]
+    no_formatter: no engine is configured for Bicep yet
   python:
     extensions: [.py]
+    formatter: ruff
     adr_folder: automation/python
   json:
-    extensions: [.json, .jsonl]
+    extensions: [.json]
+    no_formatter: no engine is configured for JSON yet
+  jsonl:
+    extensions: [.jsonl]
+    no_formatter: one record per line by definition, so there is no layout to format
   go:
     extensions: [.go]
+    formatter: gofmt
     adr_folder: automation/go
+  bash:
+    extensions: [.sh, .bats]
+    no_formatter: no engine is configured for Bash yet
   xml:
     extensions: [.ps1xml, .xml, .xsd, .dtd, .csproj]
+    no_formatter: no engine is configured for XML yet
   html:
     extensions: [.html]
+    no_formatter: no engine is configured for HTML yet
   asset:
     extensions: [.png, .pdf]
+    no_formatter: binary files

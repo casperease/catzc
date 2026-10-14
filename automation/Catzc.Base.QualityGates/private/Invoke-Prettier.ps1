@@ -1,146 +1,68 @@
 <#
 .SYNOPSIS
-    Runs Prettier over a set of globs and returns a structured result — the shared engine behind the
-    Format-<language> formatters (Format-Markdown, Format-Pipelines).
+    The prettier formatter engine: formats the given files with Prettier and returns the files it changed.
 .DESCRIPTION
-    The one copy of "invoke Prettier and make sense of its output"
-    ([ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)): mode selection
-    (--write / --list-different / --check), the tool-missing guard, the >1 exit-code tool-error throw, ANSI
-    stripping, and the per-mode changed-file parsing. Each public formatter is a thin wrapper that supplies
-    its default -Glob and a -Label for the messages; the parsing and result shape live here, once.
+    One Format-Code engine adapter ([ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)):
+    every file language languages.yml gives `formatter: prettier` is formatted here. Prettier picks its parser from
+    each file's extension and applies the root .prettierrc.yml and .editorconfig, so the Markdown and pipeline YAML
+    rules live in those files, not in a command per language.
 
-    Applies the root .prettierrc.yml (Prettier auto-discovers it) — so printWidth/proseWrap and the per-type
-    behaviour are the same whichever formatter calls in. Third-party trees (automation/.vendor/,
-    node_modules/) are excluded by the root .prettierignore.
+    `prettier --list-different` names the files that differ; without -DryRun, `prettier --write` then rewrites
+    exactly those. The files go to Prettier in batches that keep each command line short. Exit codes: 0 = clean,
+    1 = files differ (expected), anything higher is a tool error (a file Prettier cannot parse), which throws with
+    Prettier's own output.
 
-    Prettier must be on PATH — install it once with Install-Prettier (or: npm install -g prettier).
-.PARAMETER Glob
-    Globs/paths to format (already resolved by the caller — each formatter owns its default scope).
-.PARAMETER Label
-    The language label for the user-facing messages ('Markdown', 'Pipeline', …).
-.PARAMETER Check
-    Check-only mode — prettier --check (no write); names every unformatted file and keeps Prettier's
-    [warn]/[error] diagnostics (surfaced via Warnings). -Check supersedes -DryRun if both are given.
+    Prettier must be on PATH — install it once with Install-Prettier.
+.PARAMETER File
+    Absolute paths of the files to format.
 .PARAMETER DryRun
-    Do not write; list the files Prettier WOULD reformat (prettier --list-different). Quieter than -Check.
+    List the files Prettier would change without writing them.
 .OUTPUTS
-    [pscustomobject] { ChangedCount, ChangedFiles, Warnings, DryRun, Check, ExitCode }
+    [string[]] Absolute paths of the files changed (or, under -DryRun, that would change).
 #>
 function Invoke-Prettier {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([string[]])]
     param(
         [Parameter(Mandatory)]
-        [string[]] $Glob,
-
-        [Parameter(Mandatory)]
-        [string] $Label,
-
-        [switch] $Check,
+        [AllowEmptyCollection()]
+        [string[]] $File,
 
         [switch] $DryRun
     )
 
-    $root = Get-RepositoryRoot
-    $configPath = Join-Path $root '.prettierrc.yml'
-    Assert-PathExist $configPath
-
+    if ($File.Count -eq 0) {
+        return , [string[]] @()
+    }
     if (-not (Test-Command 'prettier')) {
-        throw (
-            'Prettier is not installed. Install it with:  Install-Prettier   (or: npm install -g prettier), ' +
-            "then re-run the ${Label} formatter."
-        )
+        throw 'Prettier is not installed. Install it with:  Install-Prettier   (or: npm install -g prettier), then re-run Format-Code.'
     }
 
-    $quotedGlobs = foreach ($g in $Glob) {
-        "'$g'"
-    }
-    # Mode select: --check verifies + keeps Prettier's [warn]/[error] diagnostics (no write);
-    # --list-different is the quiet dry-run file list (no write); --write formats in place. -Check
-    # supersedes -DryRun when both are given.
-    $action = if ($Check) {
-        '--check'
-    }
-    elseif ($DryRun) {
-        '--list-different'
-    }
-    else {
-        '--write'
-    }
-    $command = "prettier $action $($quotedGlobs -join ' ')"
-
-    # Prettier exit codes: 0 = clean, 1 = files differ (expected under --check / --list-different, not an
-    # error here), >1 = tool error (e.g. a file Prettier cannot parse).
-    $result = Invoke-Executable $command -PassThru -NoAssert -Silent
-    if ($result.ExitCode -gt 1) {
-        throw "Prettier failed (exit $($result.ExitCode)): $($result.Full)"
-    }
-
-    # Strip the ANSI colour codes Prettier wraps around its [warn]/[error] tags, then split into lines.
-    $plain = $result.Full -replace '\x1b\[[0-9;]*m', ''
-    $lines = @($plain -split '\r?\n' | Where-Object { $_ })
-
-    # The raw [warn]/[error] diagnostic lines. Prettier emits these only under --check; kept verbatim so
-    # callers see exactly what Prettier reported (the file lines below are derived from them).
-    $warnings = @($lines | Where-Object { $_ -match '^\[(warn|error)\]' })
-
-    if ($Check) {
-        # --check prints "[warn] <path>" once per unformatted file, plus a "Checking formatting..." header
-        # and a trailing "[warn] Code style issues found ..." / "All matched files ..." summary. The changed
-        # files are the per-file [warn] lines with that summary line removed.
-        $changed = foreach ($w in $warnings) {
-            $path = ($w -replace '^\[(warn|error)\]\s*', '').Trim()
-            if ($path -match '^(Code style issues|All matched files)') {
-                continue
+    $changed = [System.Collections.Generic.List[string]]::new()
+    foreach ($batch in @(Split-CommandLineBatch -Item $File)) {
+        $quoted = ($batch | ForEach-Object { "`"$_`"" }) -join ' '
+        $list = Invoke-Executable "prettier --list-different $quoted" -PassThru -NoAssert -Silent
+        if ($list.ExitCode -gt 1) {
+            throw "Prettier failed (exit $($list.ExitCode)): $($list.Full)"
+        }
+        # --list-different prints one differing path per line; strip any ANSI colour first.
+        $plain = $list.Output -replace '\x1b\[[0-9;]*m', ''
+        foreach ($line in ($plain -split '\r?\n')) {
+            if ($line.Trim() -and $line -notmatch '^\[') {
+                $changed.Add([System.IO.Path]::GetFullPath($line.Trim(), (Get-RepositoryRoot)))
             }
-            $path
-        }
-    }
-    elseif ($DryRun) {
-        # --list-different prints only the differing file paths, one per line (no [warn] prefix).
-        $changed = @($lines | Where-Object { $_ -notmatch '^\[' })
-    }
-    else {
-        # --write prints "<path> <ms>" or "<path> <ms> (unchanged)"; changed = lines without (unchanged).
-        $fileLines = @($lines | Where-Object { $_ -notmatch '^\[' })
-        $changedLines = @($fileLines | Where-Object { $_ -notmatch '\(unchanged\)' })
-        $changed = foreach ($line in $changedLines) {
-            ($line -replace '\s+\d+ms.*$', '').Trim()
-        }
-    }
-    $changed = @($changed | Where-Object { $_ })
-
-    if ($Check) {
-        if ($changed.Count -eq 0) {
-            Write-Message "All ${Label} is already formatted."
-        }
-        else {
-            Write-Message "$($changed.Count) ${Label} file(s) are not formatted (run the ${Label} formatter to fix)."
-        }
-    }
-    elseif ($DryRun) {
-        if ($changed.Count -eq 0) {
-            Write-Message "All ${Label} is already formatted."
-        }
-        else {
-            Write-Message "$($changed.Count) ${Label} file(s) would be reformatted (run the ${Label} formatter)."
-        }
-    }
-    else {
-        if ($changed.Count -eq 0) {
-            Write-Message "No ${Label} files needed reformatting."
-        }
-        else {
-            Write-Message "Formatted $($changed.Count) ${Label} file(s)."
         }
     }
 
-    [pscustomobject]@{
-        ChangedCount = $changed.Count
-        ChangedFiles = $changed
-        Warnings     = $warnings
-        DryRun       = [bool] $DryRun
-        Check        = [bool] $Check
-        ExitCode     = $result.ExitCode
+    if ($changed.Count -gt 0 -and -not $DryRun) {
+        foreach ($batch in @(Split-CommandLineBatch -Item $changed.ToArray())) {
+            $quoted = ($batch | ForEach-Object { "`"$_`"" }) -join ' '
+            $write = Invoke-Executable "prettier --write $quoted" -PassThru -NoAssert -Silent
+            if ($write.ExitCode -ne 0) {
+                throw "Prettier failed (exit $($write.ExitCode)): $($write.Full)"
+            }
+        }
     }
+
+    , [string[]] $changed.ToArray()
 }

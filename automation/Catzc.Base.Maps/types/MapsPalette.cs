@@ -26,6 +26,8 @@ public sealed class MapsPalette
     // The fill of a lit cell. Default: DefaultHighlight.
     public string highlight { get; }
 
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     public MapsPalette(string row, string column, string cell, string highlight)
     {
         this.row = row;

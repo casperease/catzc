@@ -19,7 +19,7 @@ agents:
       - Test-ScriptAnalyzer
       - Test-Spelling
       - Format-Types
-      - Format-Markdown
+      - Format-Code
       - Test-Links
       - Test-Glossary
       - Build-Readme

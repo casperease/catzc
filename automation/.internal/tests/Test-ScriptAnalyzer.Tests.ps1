@@ -9,7 +9,7 @@ Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {
         $analyzerPath = Join-Path $automationRoot '.vendor/PSScriptAnalyzer'
 
         # Draw the exact files from the one shared selector (Get-AutomationSourceFiles), so this gate cannot
-        # drift from Format-Automation / Test-ScriptAnalyzer
+        # drift from Test-ScriptAnalyzer
         # ([ADR-AUTO-PSFORMAT#5](/docs/adr/automation/powershell/powershell-formatting.md#rule-adr-auto-psformat5)). The
         # selector covers module *.ps1
         # (root, private/), tests/**/*.Tests.ps1 recursively (so tests/types/ is included), the

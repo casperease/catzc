@@ -43,9 +43,10 @@ Describe 'ExecutionEngines' -Tag 'L0', 'logic' {
     }
 
     It 'declares what differs between the engines: <Name>' -ForEach @(
-        @{ Name = 'pwsh'; Extension = '.ps1'; StrictMode = 'Set-StrictMode -Version Latest'; Safeguard = 'Invoke-WithTimeout'; Lf = $false; Bit = $false; Importer = 'importer.ps1' }
-        @{ Name = 'bash'; Extension = '.sh'; StrictMode = 'set -euo pipefail'; Safeguard = 'timeout'; Lf = $true; Bit = $true; Importer = 'importer.sh' }
+        @{ Name = 'pwsh'; Extension = '.ps1'; StrictMode = 'Set-StrictMode -Version Latest'; Safeguard = 'Invoke-WithTimeout'; Lf = $false; Bit = $false; Importer = 'importer.ps1'; Prefix = '' }
+        @{ Name = 'bash'; Extension = '.sh'; StrictMode = 'set -euo pipefail'; Safeguard = 'timeout'; Lf = $true; Bit = $true; Importer = 'importer.sh'; Prefix = 'cats ' }
     ) {
+        [Catzc.Base.Engines.ExecutionEngines]::Get($Name).CommandPrefix | Should -BeExactly $Prefix
         $engine = [Catzc.Base.Engines.ExecutionEngines]::Get($Name)
         $engine.ScriptExtensions[0] | Should -Be $Extension
         $engine.StrictMode | Should -Be $StrictMode

@@ -41,6 +41,11 @@
     The uv to run, already located and checked against the pin by the caller: a test run passes the uv its source
     session resolved, because a build run's engine does not carry the tools.yml entry. Default: located here by
     Resolve-ToolExecutable.
+.PARAMETER Engine
+    The execution engine the tests start: pwsh (default) or bash, which reaches catzc through importer.sh's cats
+    dispatcher (ADR-AUTO-ENGINE). The tests are the same; only the contract they read changes.
+.PARAMETER EngineExecutable
+    The engine's executable, already located by the caller. Default: located here by Resolve-EngineExecutable.
 .OUTPUTS
     [Catzc.Base.Languages.PythonTestResult] One record per Python test.
 .EXAMPLE
@@ -57,7 +62,12 @@ function Invoke-PythonTest {
 
         [string] $EntryScript,
 
-        [string] $UvExecutable
+        [string] $UvExecutable,
+
+        [ArgumentCompleter({ [Catzc.Base.Engines.ExecutionEngines]::Names })]
+        [string] $Engine = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name,
+
+        [string] $EngineExecutable
     )
 
     $root = Get-RepositoryRoot
@@ -101,7 +111,7 @@ function Invoke-PythonTest {
     # ([ADR-AUTO-ENVVAR#1](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar1)): set for these
     # commands only, then restored. UV_PYTHON_DOWNLOADS=never keeps uv on the managed interpreter at the pin
     # (ADR-AUTO-PY#6).
-    $environment = Get-EngineContract -EntryScript $EntryScript
+    $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['UV_PYTHON_DOWNLOADS'] = 'never'
     $environment['PYTHONDONTWRITEBYTECODE'] = '1'
     $saved = @{}

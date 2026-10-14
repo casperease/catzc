@@ -1,115 +1,102 @@
 # Test-Formatting is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
-# each L0 case mocks every formatter at the module boundary and reads the collected issues; the report goes to
-# $TestDrive.
+# each L0 case mocks the registry, Format-Code and Format-Types at the module boundary and reads the collected issues;
+# the report goes to $TestDrive. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Test-Formatting' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
+                languages = [ordered]@{
+                    widget   = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' }
+                    gadget   = [ordered]@{ extensions = @('.gdg'); formatter = 'gofmt' }
+                    csharp   = [ordered]@{ extensions = @('.cs'); no_formatter = 'no layout engine yet' }
+                    sprocket = [ordered]@{ extensions = @('.spr'); no_formatter = 'binary sprockets' }
+                }
+            })
+        $script:root = Get-RepositoryRoot
+        $script:widgetFile = Join-Path $script:root 'docs/widget.wdg'
+        $script:gadgetFile = Join-Path $script:root 'gadgets/catzc-widget/gadget.gdg'
+        $script:typeFile = Join-Path $script:root 'automation/Widget/types/Gadget.cs'
+        $script:blockFile = Join-Path $script:root 'automation/Widget/types/Gizmo.cs'
+    }
+
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
-        Mock Format-Markdown -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); Warnings = @(); DryRun = $false; Check = $true; ExitCode = 0 } }
-        Mock Format-Pipelines -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); Warnings = @(); DryRun = $false; Check = $true; ExitCode = 0 } }
-        Mock Format-Automation -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } { $script:languages }
+        Mock Format-Code -ModuleName Catzc.Base.QualityGates { }
         Mock Format-Types -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); BlockScopedFiles = @(); DryRun = $true } }
-        Mock Format-Go -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); DryRun = $true } }
-        Mock Format-Python -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); DryRun = $true } }
         $script:reportFolder = Join-Path $TestDrive 'formatting'
     }
 
-    It 'passes a tree every formatter leaves unchanged, running each in its report-only mode' -Tag 'ADR-AUTO-TEST#35' {
+    It 'passes a tree the formatting leaves unchanged, running every language with a formatter and the C# namespace rule in report-only mode' -Tag 'ADR-AUTO-TEST#35', 'ADR-PRIN-CONFIG#1' {
         { Test-Formatting -OutputFolder $script:reportFolder } | Should -Not -Throw
-        Should -Invoke Format-Markdown -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Check -and $PassThru }
-        Should -Invoke Format-Pipelines -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Check -and $PassThru }
-        Should -Invoke Format-Automation -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun }
-        Should -Invoke Format-Types -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and $PassThru }
-        Should -Invoke Format-Go -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and $PassThru }
-        Should -Invoke Format-Python -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and $PassThru }
+        Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            ($Language -join ',') -eq 'widget,gadget' -and $DryRun -and $PassThru
+        }
+        Should -Invoke Format-Types -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $DryRun -and $PassThru }
     }
 
-    It 'throws once listing every unformatted file with the formatter that fixes it' -Tag 'ADR-AUTO-TEST#35' {
-        Mock Format-Markdown -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 2; ChangedFiles = @('docs/widget.md', 'docs/gadget.md'); Warnings = @(); DryRun = $false; Check = $true; ExitCode = 1 } }
-        Mock Format-Pipelines -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 1; ChangedFiles = @('pipelines/ci-widget.yaml'); Warnings = @(); DryRun = $false; Check = $true; ExitCode = 1 } }
+    It 'throws once listing every unformatted file, repository-relative, with the command that fixes it' -Tag 'ADR-AUTO-TEST#35' {
+        Mock Format-Code -ModuleName Catzc.Base.QualityGates {
+            [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @($script:widgetFile), [string[]] @($script:widgetFile), $true)
+            [Catzc.Base.QualityGates.FormatResult]::new('gadget', 'gofmt', [string[]] @($script:gadgetFile), [string[]] @($script:gadgetFile), $true)
+        }
+        Mock Format-Types -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ ChangedCount = 1; ChangedFiles = @($script:typeFile); BlockScopedFiles = @($script:blockFile); DryRun = $true }
+        }
 
         $thrown = { Test-Formatting -OutputFolder $script:reportFolder } | Should -Throw -PassThru
-        $thrown.Exception.Message | Should -BeLike 'Test-Formatting failed: 3 issue(s)*'
-        $thrown.Exception.Message | Should -BeLike '*docs/widget.md: not formatted — run Format-Markdown*'
-        $thrown.Exception.Message | Should -BeLike '*docs/gadget.md: not formatted — run Format-Markdown*'
-        $thrown.Exception.Message | Should -BeLike '*pipelines/ci-widget.yaml: not formatted — run Format-Pipelines*'
-    }
-
-    It 'returns the result with the formatter count under -PassThru, naming files repository-relative' -Tag 'ADR-AUTO-TEST#35' {
-        $widget = Join-Path (Get-RepositoryRoot) 'automation/Widget/Get-Widget.ps1'
-        $gizmo = Join-Path (Get-RepositoryRoot) 'automation/Widget/types/Gizmo.cs'
-        Mock Format-Automation -ModuleName Catzc.Base.QualityGates -ParameterFilter { $DryRun } { $widget }
-        Mock Format-Types -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ ChangedCount = 1; ChangedFiles = @('automation\Widget\types\Gadget.cs'); BlockScopedFiles = @($gizmo); DryRun = $true }
-        }.GetNewClosure()
-        $gadgetGo = Join-Path (Get-RepositoryRoot) 'go/tests/catzc-widget/gadget_test.go'
-        Mock Format-Go -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ ChangedCount = 1; ChangedFiles = @($gadgetGo); DryRun = $true }
-        }.GetNewClosure()
-        $gadgetPython = Join-Path (Get-RepositoryRoot) 'python/tests/catzc-widget/test_gadget.py'
-        Mock Format-Python -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ ChangedCount = 1; ChangedFiles = @($gadgetPython); DryRun = $true }
-        }.GetNewClosure()
-
+        $thrown.Exception.Message | Should -BeLike 'Test-Formatting failed: 4 issue(s)*'
         $result = Test-Formatting -PassThru -OutputFolder $script:reportFolder
         $result.Subject | Should -Be 'formatting'
-        $result.Formatters | Should -Be 6
+        $result.Languages | Should -Be 4
         $result.Issues | Should -Be @(
-            'automation/Widget/Get-Widget.ps1: not formatted — run Format-Automation'
-            'automation/Widget/types/Gadget.cs: not formatted — run Format-Types'
+            'docs/widget.wdg: not formatted — run Format-Code -Language widget'
+            'gadgets/catzc-widget/gadget.gdg: not formatted — run Format-Code -Language gadget'
+            'automation/Widget/types/Gadget.cs: namespace not set from its module folder — run Format-Types'
             "automation/Widget/types/Gizmo.cs: block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'"
-            'go/tests/catzc-widget/gadget_test.go: not formatted — run Format-Go'
-            'python/tests/catzc-widget/test_gadget.py: not formatted — run Format-Python'
         )
     }
 
-    It 'runs only the selected formatters' {
-        $result = Test-Formatting -Formatter Format-Pipelines -PassThru -OutputFolder $script:reportFolder
+    It 'checks only the selected languages, and skips Format-Code when none of them has a formatter' {
+        $result = Test-Formatting -Language gadget -PassThru -OutputFolder $script:reportFolder
         $result.IssueCount | Should -Be 0
-        $result.Formatters | Should -Be 1
-        Should -Invoke Format-Pipelines -ModuleName Catzc.Base.QualityGates -Times 1
-        Should -Invoke Format-Markdown -ModuleName Catzc.Base.QualityGates -Times 0
-        Should -Invoke Format-Automation -ModuleName Catzc.Base.QualityGates -Times 0
+        $result.Languages | Should -Be 1
+        Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { ($Language -join ',') -eq 'gadget' }
         Should -Invoke Format-Types -ModuleName Catzc.Base.QualityGates -Times 0
-        Should -Invoke Format-Go -ModuleName Catzc.Base.QualityGates -Times 0
-        Should -Invoke Format-Python -ModuleName Catzc.Base.QualityGates -Times 0
+
+        $null = Test-Formatting -Language csharp, sprocket -PassThru -OutputFolder $script:reportFolder
+        Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
+        Should -Invoke Format-Types -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
+    }
+
+    It 'throws on an undeclared language' {
+        { Test-Formatting -Language gizmo -OutputFolder $script:reportFolder } | Should -Throw "*unknown file language 'gizmo'*"
     }
 }
 
-# Integrity: the real repository is formatted — Markdown (Prettier), the checked PowerShell set, and the C# type
-# namespaces (each source declares its module's file-scoped namespace, the invariant the type loader also enforces). The pipeline YAML has its own block (Format-Pipelines.Tests.ps1). L2 because it drives the Prettier CLI
-# and the vendored analyzer's formatter; self-skips when prettier is absent. The Go test modules get their own case
-# (gofmt from the managed go, skipping with tool_go_missing without it), and so do the Python test folders (ruff
-# through the managed uv, skipping with tool_uv_missing without it)
+# Integrity: the real repository is formatted — every language languages.yml gives a formatter, and the C# type
+# namespaces (each source declares its module's file-scoped namespace, the invariant the type loader also enforces). L2
+# because it drives the real engines; it self-skips when one of their tools is absent
 # ([ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)/9). source-only: it reads the
 # repository's own files, which give the same answer in both run modes.
 Describe 'Repository formatting integrity' -Tag 'L2', 'integrity', 'source-only' {
-    It 'every formatter leaves the repository unchanged (Test-Formatting)' {
-        if (-not (Get-Command prettier -ErrorAction Ignore)) {
-            Set-ItResult -Skipped -Because 'tool_prettier_missing'
-            return
-        }
-        $result = Test-Formatting -Formatter Format-Markdown, Format-Automation, Format-Types -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')
-        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
-    }
-
-    It 'the Go test modules are gofmt-formatted (Format-Go)' {
+    It 'formatting leaves the repository unchanged (Test-Formatting)' {
         $go = Resolve-ToolExecutable -Tool go
-        if (-not ($go.Found -and $go.VersionOk)) {
-            Set-ItResult -Skipped -Because 'tool_go_missing'
-            return
-        }
-        $result = Test-Formatting -Formatter Format-Go -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')
-        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
-    }
-
-    It 'the Python test folders are ruff-formatted (Format-Python)' {
         $uv = Resolve-ToolExecutable -Tool uv
         $python = Resolve-ToolExecutable -Tool python
-        if (-not ($uv.Found -and $uv.VersionOk -and $python.Found -and $python.VersionOk)) {
-            Set-ItResult -Skipped -Because 'tool_uv_missing'
+        $missing = if (-not (Get-Command prettier -ErrorAction Ignore)) {
+            'tool_prettier_missing'
+        }
+        elseif (-not ($go.Found -and $go.VersionOk)) {
+            'tool_go_missing'
+        }
+        elseif (-not ($uv.Found -and $uv.VersionOk -and $python.Found -and $python.VersionOk)) {
+            'tool_uv_missing'
+        }
+        if ($missing) {
+            Set-ItResult -Skipped -Because $missing
             return
         }
-        $result = Test-Formatting -Formatter Format-Python -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')
+        $result = Test-Formatting -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

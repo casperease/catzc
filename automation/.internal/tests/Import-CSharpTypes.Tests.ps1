@@ -388,7 +388,7 @@ Describe 'shipped C# types' -Tag 'L0', 'integrity' {
         if (-not (Get-Command Test-Formatting -ErrorAction Ignore)) {
             Set-ItResult -Skipped -Because 'harness_test_formatting'; return
         }
-        $result = Test-Formatting -Formatter Format-Types -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')
+        $result = Test-Formatting -Language csharp -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

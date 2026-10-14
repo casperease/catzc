@@ -30,10 +30,18 @@ public sealed class GitIndex
     // which the index holds once per conflict stage, is listed once.
     public string[] Paths { get; }
 
-    private GitIndex(string contentHash, string[] paths)
+    // The tracked paths stored executable (git mode 100755), in the same order and form as Paths — what
+    // `git ls-files -s` lists with mode 100755.
+    public string[] ExecutablePaths { get; }
+
+    // git's mode for an executable regular file (octal 100755).
+    private const uint ExecutableMode = 0x81ED;
+
+    private GitIndex(string contentHash, string[] paths, string[] executablePaths)
     {
         ContentHash = contentHash;
         Paths = paths;
+        ExecutablePaths = executablePaths;
     }
 
     // The cache key of an index file's bytes — cheap enough to compute on every lookup.
@@ -56,7 +64,12 @@ public sealed class GitIndex
 
     // The tracked paths at or under the given literal, repo-relative paths ('.' is the whole repository) —
     // the `git ls-files -- <paths>` answer, in index order, each path once.
-    public string[] Under(IEnumerable<string> pathspecs)
+    public string[] Under(IEnumerable<string> pathspecs) => Select(Paths, pathspecs);
+
+    // The executable tracked paths at or under the given paths, in the same form as Under.
+    public string[] ExecutableUnder(IEnumerable<string> pathspecs) => Select(ExecutablePaths, pathspecs);
+
+    private static string[] Select(string[] candidates, IEnumerable<string> pathspecs)
     {
         var prefixes = new List<string>();
         foreach (var pathspec in pathspecs)
@@ -64,13 +77,13 @@ public sealed class GitIndex
             var normalized = NormalizePathspec(pathspec);
             if (normalized.Length == 0)
             {
-                return (string[])Paths.Clone();
+                return (string[])candidates.Clone();
             }
             prefixes.Add(normalized);
         }
 
         var matches = new List<string>();
-        foreach (var path in Paths)
+        foreach (var path in candidates)
         {
             foreach (var prefix in prefixes)
             {
@@ -109,6 +122,7 @@ public sealed class GitIndex
 
         var count = ReadUInt32(content, 8);
         var paths = new List<string>((int)count);
+        var executablePaths = new List<string>();
         var position = 12;
         var previous = Array.Empty<byte>();
         for (var i = 0; i < count; i++)
@@ -154,6 +168,10 @@ public sealed class GitIndex
             if (paths.Count == 0 || !string.Equals(paths[^1], path, StringComparison.Ordinal))
             {
                 paths.Add(path);
+                if (mode == ExecutableMode)
+                {
+                    executablePaths.Add(path);
+                }
             }
         }
 
@@ -172,7 +190,7 @@ public sealed class GitIndex
             throw new InvalidDataException("The git index is truncated or malformed: its extensions overrun the checksum.");
         }
 
-        return new GitIndex(HashContent(content), paths.ToArray());
+        return new GitIndex(HashContent(content), paths.ToArray(), executablePaths.ToArray());
     }
 
     private static string NormalizePathspec(string pathspec)

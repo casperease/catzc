@@ -13,7 +13,7 @@
     collapses) and rebuilt on import, its sources (the glossary files and this generator) are what is reviewed and
     checked
     ([ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)). It is written only when its
-    content changes, and emitted already formatted (Format-MarkdownParagraph), so Format-Markdown is a no-op on it.
+    content changes, and emitted already formatted (Format-MarkdownParagraph), so Format-Code is a no-op on it.
 .PARAMETER Path
     The page to write. Defaults to the [glossary](/docs/adr/glossary.md); a test points it at a fixture path.
 .PARAMETER DryRun

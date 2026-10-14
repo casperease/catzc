@@ -1,7 +1,8 @@
 # Engine case table (Get-EngineCaseTable, Catzc.Tooling.Core) for ExecutionEngine.StartArguments: the arguments that
-# start each execution engine non-interactively, load an entry script with its output discarded, and run one command.
-# Each column holds the `entry` and `command` given, and the `arguments` expected after the executable. Neutral fixture
-# names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+# start each execution engine non-interactively, load its importer with the output discarded, and run one catzc command.
+# The command is the same catzc command text in every engine; bash runs it through the cats dispatcher importer.sh
+# defines. Each column holds the `entry` and `command` given, and the `arguments` expected after the executable. Neutral
+# fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 subject: engine start
 cases:
   - case: a plain entry and command
@@ -11,8 +12,8 @@ cases:
       arguments: [-NoProfile, -NonInteractive, -Command, ". 'C:/widget/importer.ps1' *> $null; Get-Widget"]
     bash:
       entry: /home/widget/importer.sh
-      command: get-widget
-      arguments: [--noprofile, --norc, -c, "source '/home/widget/importer.sh' >/dev/null 2>&1; get-widget"]
+      command: Get-Widget
+      arguments: [--noprofile, --norc, -c, "source '/home/widget/importer.sh' >/dev/null 2>&1; cats Get-Widget"]
 
   - case: an entry path with a single quote in it
     pwsh:
@@ -21,8 +22,8 @@ cases:
       arguments: [-NoProfile, -NonInteractive, -Command, ". 'C:/widget''s/importer.ps1' *> $null; Get-Widget"]
     bash:
       entry: "/home/widget's/importer.sh"
-      command: get-widget
-      arguments: [--noprofile, --norc, -c, "source '/home/widget'\\''s/importer.sh' >/dev/null 2>&1; get-widget"]
+      command: Get-Widget
+      arguments: [--noprofile, --norc, -c, "source '/home/widget'\\''s/importer.sh' >/dev/null 2>&1; cats Get-Widget"]
 
   - case: an entry path with spaces
     pwsh:
@@ -31,8 +32,18 @@ cases:
       arguments: [-NoProfile, -NonInteractive, -Command, ". 'C:/widget tools/importer.ps1' *> $null; Get-Widget"]
     bash:
       entry: /home/widget tools/importer.sh
-      command: get-widget
-      arguments: [--noprofile, --norc, -c, "source '/home/widget tools/importer.sh' >/dev/null 2>&1; get-widget"]
+      command: Get-Widget
+      arguments: [--noprofile, --norc, -c, "source '/home/widget tools/importer.sh' >/dev/null 2>&1; cats Get-Widget"]
+
+  - case: a command with a parameter
+    pwsh:
+      entry: C:/widget/importer.ps1
+      command: Get-Widget -Name gadget
+      arguments: [-NoProfile, -NonInteractive, -Command, ". 'C:/widget/importer.ps1' *> $null; Get-Widget -Name gadget"]
+    bash:
+      entry: /home/widget/importer.sh
+      command: Get-Widget -Name gadget
+      arguments: [--noprofile, --norc, -c, "source '/home/widget/importer.sh' >/dev/null 2>&1; cats Get-Widget -Name gadget"]
 
   - case: the command placeholder a black-box test fills in
     pwsh:
@@ -42,4 +53,4 @@ cases:
     bash:
       entry: /home/widget/importer.sh
       command: "{command}"
-      arguments: [--noprofile, --norc, -c, "source '/home/widget/importer.sh' >/dev/null 2>&1; {command}"]
+      arguments: [--noprofile, --norc, -c, "source '/home/widget/importer.sh' >/dev/null 2>&1; cats {command}"]

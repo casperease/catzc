@@ -40,7 +40,7 @@ recommendations:
   # The Python extension — for the Python tests under python/tests/: the settings generator points it at the generated
   # test project's environment (python/.venv), so imports and the test explorer resolve with no setting.
   - ms-python.python
-  # Ruff — format and lint the Python tests on save with the pinned ruff, matching Format-Python and the bridge's
+  # Ruff — format and lint the Python tests on save with the pinned ruff, matching Format-Code's ruff engine and the bridge's
   # ruff check.
   - charliermarsh.ruff
   # C# Dev Kit — the language service for the native C# type sources: it loads catzc.sln, whose project compiles
@@ -50,7 +50,7 @@ recommendations:
   - ms-azuretools.vscode-bicep
   # XML — validation and formatting for the PowerShell format/type data (.ps1xml), schemas and MSBuild projects.
   - redhat.vscode-xml
-  # Prettier — the markdown formatter behind Format-Markdown; format-on-save matches the gate.
+  # Prettier — the prettier engine Format-Code runs for Markdown and pipeline YAML; Format Document matches the gate.
   - esbenp.prettier-vscode
   # PDF viewing for reference material in docs.
   - tomoki1207.pdf

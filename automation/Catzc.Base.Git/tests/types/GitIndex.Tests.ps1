@@ -213,6 +213,18 @@ Describe 'GitIndex' -Tag 'L0', 'logic' {
             @($script:index.Under([string[]] @('gadget'))).Count | Should -Be 0
         }
 
+        It 'lists the entries stored executable (mode 100755), and selects them by path the same way' {
+            $mixed = [Catzc.Base.Git.GitIndex]::Parse((New-GitIndexBytes @(
+                        @{ Path = 'run.sh'; Mode = 0x81ED }
+                        'widget/gadget.yml'
+                        @{ Path = 'widget/start.sh'; Mode = 0x81ED }
+                        @{ Path = 'widget/link'; Mode = 0xA000 }
+                    )))
+            $mixed.ExecutablePaths | Should -Be @('run.sh', 'widget/start.sh')
+            $mixed.ExecutableUnder([string[]] @('widget')) | Should -Be @('widget/start.sh')
+            @($script:index.ExecutablePaths).Count | Should -Be 0
+        }
+
         It 'rejects a path outside the repository or a rooted path' {
             { $script:index.Under([string[]] @('../x')) } | Should -Throw '*outside the repository*'
             { $script:index.Under([string[]] @('/etc/x')) } | Should -Throw '*not a repository-relative path*'

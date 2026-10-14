@@ -20,17 +20,22 @@ public sealed class FileLanguage
     // belongs to exactly one file language.
     public IReadOnlyList<string> extensions { get; }
 
-    // The repository command that formats the language's files (e.g. Format-Markdown). Null when it has none.
+    // The formatter engine Format-Code runs over the language's files (e.g. prettier). Null when it has none.
     public string formatter { get; }
+
+    // Why the language has no formatter (e.g. binary files). Null when it has one: an entry carries exactly one of
+    // formatter and no_formatter.
+    public string no_formatter { get; }
 
     // The language's ADR folder under docs/adr/ (e.g. automation/powershell). Null when it has none.
     public string adr_folder { get; }
 
-    public FileLanguage(string name, string[] extensions, string formatter, string adrFolder)
+    public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string adrFolder)
     {
         this.name = name;
         this.extensions = extensions == null ? Array.Empty<string>() : (string[])extensions.Clone();
         this.formatter = formatter;
+        no_formatter = noFormatter;
         adr_folder = adrFolder;
     }
 }

@@ -11,7 +11,10 @@
               repository has one, else .go/ ([ADR-AUTO-GO#2](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go2));
       python  <pythonRoot>/tests/<folder>/ holding at least one test_*.py file; the Python root is python.yml's,
               through PythonConfig.ResolveRoot, by the same convention: python/ when present, else .python/
-              ([ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2)).
+              ([ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2));
+      bash    <bashRoot>/tests/<folder>/ holding at least one .bats file; the Bash root is bash.yml's, through
+              BashConfig.ResolveRoot: bash/ when present, else .bash/
+              ([ADR-AUTO-BASH#2](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2)).
 
     A folder whose name starts with '.' is never a test folder. Each folder is named for its catzc module in kebab
     case — the module name lowercased, with dots replaced by hyphens (Catzc.Base.Repository ->
@@ -22,8 +25,8 @@
     Throws, naming every such folder, when a test folder matches no catzc module: an unmapped folder would
     otherwise never run.
 .OUTPUTS
-    [pscustomobject] One record per test folder ({ Language; Module; Folder; Name }), by language (go, then python)
-    and ordinal by folder name within it: Language is go or python, Module the catzc module name, Folder the
+    [pscustomobject] One record per test folder ({ Language; Module; Folder; Name }), by language (go, python, then
+    bash) and ordinal by folder name within it: Language is go, python or bash, Module the catzc module name, Folder the
     absolute folder path, Name the folder name. Nothing when the repository has no such folder.
 .EXAMPLE
     Get-LanguageTestFolders | Where-Object Module -EQ 'Catzc.Base.Repository'
@@ -38,6 +41,7 @@ function Get-LanguageTestFolders {
     $languages = @(
         [pscustomobject]@{ Language = 'go'; Root = (Get-Config -Config go).ResolveRoot($repositoryRoot); Pattern = '*.go' }
         [pscustomobject]@{ Language = 'python'; Root = (Get-Config -Config python).ResolveRoot($repositoryRoot); Pattern = 'test_*.py' }
+        [pscustomobject]@{ Language = 'bash'; Root = (Get-Config -Config bash).ResolveRoot($repositoryRoot); Pattern = '*.bats' }
     )
 
     # The catzc modules of the source tree, by kebab name: the folders under <repository>/automation/, read from the

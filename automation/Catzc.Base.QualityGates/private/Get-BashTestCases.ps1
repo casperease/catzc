@@ -1,0 +1,77 @@
+<#
+.SYNOPSIS
+    Lists the Bash tests a Bash test folder declares, read from its .bats files without running bats.
+.DESCRIPTION
+    The language bridge's discovery for Bash: Pester discovers the bridge's tests before anything runs, so the Bash
+    tests are read from the source text, never from bats — discovery stays fast and offline, and works where bash is
+    missing (the tests then skip). Every *.bats file below the folder counts, except under a folder whose name starts
+    with '.' or '_'. A Bash test is a line `@test "<name>" {` (or with the name in single quotes), as bats declares it.
+
+    Each case carries its package: the file's path inside the folder, '/'-separated (repository.bats, or
+    nested/widget.bats), which pairs it with the BashTestResult Invoke-BashTest returns. The category follows the
+    BashTestResult rule: a name starting with "integrity:" is integrity, everything else logic.
+.PARAMETER Folder
+    The absolute path of the Bash test folder (a Get-LanguageTestFolders Folder).
+.OUTPUTS
+    [pscustomobject] One case per Bash test ({ Key; Package; Name; Category; Title }), files in ordinal order and
+    each file's tests in declaration order. Key is '<Package> <Name>'; Title is the name, prefixed with the package
+    when two files declare the same name.
+.EXAMPLE
+    Get-BashTestCases -Folder (Get-LanguageTestFolders | Where-Object Language -EQ bash)[0].Folder
+#>
+function Get-BashTestCases {
+    [CmdletBinding()]
+    [OutputType([pscustomobject])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Folder
+    )
+
+    Assert-PathExist $Folder -PathType Container
+    $integrityPrefix = [Catzc.Base.Languages.BashConfig]::IntegrityPrefix
+    $declaration = [regex]::new('(?m)^[ \t]*@test[ \t]+(?:"(?<name>[^"]+)"|''(?<name>[^'']+)'')[ \t]*\{')
+
+    $files = @([System.IO.Directory]::GetFiles($Folder, '*.bats', [System.IO.SearchOption]::AllDirectories))
+    [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
+    $cases = [System.Collections.Generic.List[pscustomobject]]::new()
+    foreach ($file in $files) {
+        $package = [System.IO.Path]::GetRelativePath($Folder, $file).Replace('\', '/')
+        $ignored = $false
+        foreach ($segment in @($package -split '/' | Select-Object -SkipLast 1)) {
+            if ($segment.StartsWith('.') -or $segment.StartsWith('_')) {
+                $ignored = $true
+            }
+        }
+        if ($ignored) {
+            continue
+        }
+        foreach ($match in $declaration.Matches([System.IO.File]::ReadAllText($file))) {
+            $name = $match.Groups['name'].Value
+            $category = if ($name.StartsWith($integrityPrefix, [System.StringComparison]::Ordinal)) {
+                'integrity'
+            }
+            else {
+                'logic'
+            }
+            $cases.Add([pscustomobject]@{
+                    Key      = "$package $name"
+                    Package  = $package
+                    Name     = $name
+                    Category = $category
+                    Title    = $name
+                })
+        }
+    }
+
+    # A test name is its title unless two files declare it; then every title carries its package.
+    $names = @{}
+    foreach ($case in $cases) {
+        $names[$case.Name] = 1 + ($names[$case.Name] ?? 0)
+    }
+    foreach ($case in $cases) {
+        if ($names[$case.Name] -gt 1) {
+            $case.Title = "$($case.Package): $($case.Name)"
+        }
+        $case
+    }
+}

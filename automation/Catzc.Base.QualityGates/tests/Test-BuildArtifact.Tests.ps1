@@ -51,20 +51,25 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
         Mock Get-ModuleSourceFunctions -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'Catzc.Gadget' } {
             [pscustomobject]@{ Public = @('Get-Gadget'); Private = @() }
         }
-        Mock Format-Automation -ModuleName Catzc.Base.QualityGates { }
+        Mock Format-Code -ModuleName Catzc.Base.QualityGates { }
     }
 
     It 'passes a build every facet accepts, building once with the full vendor policy' -Tag 'ADR-AUTO-TEST#35' {
         { Test-BuildArtifact -OutputFolder $script:reportFolder } | Should -Not -Throw
         Should -Invoke Build-Modules -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $VendorPolicy -eq 'full' }
         Should -Invoke Invoke-BuildArtifactProbe -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $ScopeModule -eq 'Catzc.Base.Config' }
-        Should -Invoke Format-Automation -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $DryRun -and @($Path).Count -eq 3 }
+        Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+            $Language -eq 'powershell' -and $DryRun -and $PassThru -and @($Path).Count -eq 3
+        }
     }
 
     It 'throws once listing every issue, each prefixed with its facet' -Tag 'ADR-AUTO-TEST#35' {
         Mock Get-CommittedTypesDrift -ModuleName Catzc.Base.QualityGates { 'automation/.compiled has pending git changes — commit it' }
         $script:observation.RunMode = 'source'
-        Mock Format-Automation -ModuleName Catzc.Base.QualityGates { Join-Path $script:buildRoot 'Catzc.Gadget/Catzc.Gadget.psd1' }
+        Mock Format-Code -ModuleName Catzc.Base.QualityGates {
+            $manifest = Join-Path $script:buildRoot 'Catzc.Gadget/Catzc.Gadget.psd1'
+            [Catzc.Base.QualityGates.FormatResult]::new('powershell', 'psscriptanalyzer', [string[]] @($manifest), [string[]] @($manifest), $true)
+        }
 
         $thrown = { Test-BuildArtifact -OutputFolder $script:reportFolder } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-BuildArtifact failed: 3 issue(s)*'

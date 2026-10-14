@@ -38,6 +38,11 @@
     The go to run, already located and checked against the pin by the caller: a test run passes the go its source
     session resolved, because a build run's engine does not carry the tools.yml entry. Default: located here by
     Resolve-ToolExecutable.
+.PARAMETER Engine
+    The execution engine the tests start: pwsh (default) or bash, which reaches catzc through importer.sh's cats
+    dispatcher (ADR-AUTO-ENGINE). The tests are the same; only the contract they read changes.
+.PARAMETER EngineExecutable
+    The engine's executable, already located by the caller. Default: located here by Resolve-EngineExecutable.
 .OUTPUTS
     [Catzc.Base.Languages.GoTestResult] One record per Go test.
 .EXAMPLE
@@ -54,7 +59,12 @@ function Invoke-GoTest {
 
         [string] $EntryScript,
 
-        [string] $GoExecutable
+        [string] $GoExecutable,
+
+        [ArgumentCompleter({ [Catzc.Base.Engines.ExecutionEngines]::Names })]
+        [string] $Engine = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name,
+
+        [string] $EngineExecutable
     )
 
     $root = Get-RepositoryRoot
@@ -92,7 +102,7 @@ function Invoke-GoTest {
     # commands only, then restored. GOTOOLCHAIN=local keeps go on the managed binary just checked: without it, go
     # reads go.work's go directive and silently downloads that toolchain instead
     # ([ADR-AUTO-GO#6](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go6)).
-    $environment = Get-EngineContract -EntryScript $EntryScript
+    $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['GOTOOLCHAIN'] = 'local'
     $saved = @{}
     foreach ($name in $environment.Keys) {

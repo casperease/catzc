@@ -57,7 +57,7 @@ if ($userConfig.PSModulePath -ne $localModulePath) {
     Write-SetupLine "  Config: $userConfigFile" Gray
 }
 else {
-    Write-SetupLine "PSModulePath already configured" Green
+    Write-SetupLine 'PSModulePath already configured' Green
 }
 
 # --- Check for modules left on DFS that should be moved ---
@@ -65,7 +65,7 @@ $dfsModulePath = Join-Path $userConfigDir 'Modules'
 if ((Test-Path $dfsModulePath) -and (Get-ChildItem $dfsModulePath -Directory -ErrorAction Ignore)) {
     Write-SetupLine ''
     Write-SetupLine "You have modules at '$dfsModulePath' (DFS)." Yellow
-    Write-SetupLine "Move them to the new local path to avoid stale copies:" Yellow
+    Write-SetupLine 'Move them to the new local path to avoid stale copies:' Yellow
     Write-SetupLine "  Move-Item '$dfsModulePath\*' '$localModulePath' -Force" Cyan
 }
 

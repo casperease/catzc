@@ -11,13 +11,15 @@
 
       go      the managed go at the pin;
       python  the managed uv at the pin, handed down only when the uv-managed python at the tools.yml pin is there
-              too, since uv never downloads an interpreter in a test run.
+              too, since uv never downloads an interpreter in a test run;
+      bash    the bash engine (Resolve-EngineExecutable), which every language's tests also run under
+              ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)), and which runs the Bash tests.
 
     A language's entry is empty when the repository has no test folder in it (nothing is probed), or when its tool
-    is missing or misses the pin; the bridge then skips that language's tests with tool_go_missing or
-    tool_uv_missing.
+    is missing or misses the pin; the bridge then skips that language's tests with tool_go_missing,
+    tool_uv_missing or tool_bash_missing.
 .OUTPUTS
-    [hashtable] @{ go = <path or ''>; python = <path or ''> }.
+    [hashtable] @{ go = <path or ''>; python = <path or ''>; bash = <path or ''> }.
 .EXAMPLE
     $executables = Get-LanguageTestExecutable
 #>
@@ -27,7 +29,17 @@ function Get-LanguageTestExecutable {
     param()
 
     $languages = @(Get-LanguageTestFolders | ForEach-Object Language | Select-Object -Unique)
-    $executables = @{ go = ''; python = '' }
+    $executables = @{ go = ''; python = ''; bash = '' }
+    # The bash engine, which every language's tests also run under (ADR-AUTO-ENGINE): located once here, since a build
+    # run's worker cannot locate it (its tools.yml entry is not in the build).
+    if ($languages.Count -gt 0) {
+        try {
+            $executables['bash'] = Resolve-EngineExecutable -Engine ([Catzc.Base.Engines.ExecutionEngines]::Bash.Name)
+        }
+        catch {
+            Write-Verbose "The bash engine is not available, so the tests' bash runs skip: $($_.Exception.Message)"
+        }
+    }
     if ('go' -in $languages) {
         $go = Resolve-ToolExecutable -Tool go
         if ($go.Found -and $go.VersionOk) {

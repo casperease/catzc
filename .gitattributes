@@ -43,9 +43,19 @@ automation/.compiled/** binary
 /.gitignore     text eol=lf
 /importer.ps1   text eol=lf
 
+# Shell scripts run under bash, which reads a carriage return as part of the command: every *.sh is LF everywhere,
+# so a Windows checkout runs too (ADR-AUTO-ENGINE: the bash engine requires LF). This also covers importer.sh.
+*.sh            text eol=lf
+*.bats          text eol=lf
+# The vendored bats-core test runner: Bash scripts, most without an extension, so they are pinned by folder.
+**/.vendor/bats-core/** text eol=lf
+
 # GitHub (linguist): third-party modules are vendored — out of the language statistics. Linguist only knows
 # `vendor/`, not this repository's `.vendor/`, so it is named here.
 automation/.vendor/** linguist-vendored
+**/.vendor/bats-core/** linguist-vendored
+# Microsoft's dotnet-install scripts, checked in as published: third-party code, so Format-Code leaves them as shipped.
+**/assets/scripts/dotnet-install.* linguist-vendored
 
 # GitHub (linguist): committed files the automation writes are generated — out of the statistics, and collapsed
 # in pull-request diffs so review lands on their sources (the New-Importer shim, the managed root-config copies,
@@ -54,6 +64,7 @@ automation/.vendor/** linguist-vendored
 # them on import from adrs.yml and the glossary sources.
 automation/.compiled/** linguist-generated
 /importer.ps1   linguist-generated
+/importer.sh    linguist-generated
 /.gitattributes linguist-generated
 /.gitignore     linguist-generated
 /docs/adr/index.md    linguist-generated

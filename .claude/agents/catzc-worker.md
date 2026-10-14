@@ -71,8 +71,8 @@ limit. Use your own scratch script names (prefix them with your task) and never 
 
 - **Per file:** its own tests — `Invoke-TestFile -Path <test file>`.
 - **At the end, on your files:** `Test-ScriptAnalyzer -Path <your .ps1> -PassThru`, `Test-Spelling -Glob <your files> -PassThru`,
-  `Format-Types -Path <module>/types -DryRun -PassThru` for C#, `Format-Markdown -Glob <your md>` then `Test-Links -Path <md> -PassThru`,
-  and `Test-Glossary -PassThru` (report its IssueCount and every issue that names one of your files). Each must report 0 on your files.
+  `Format-Types -Path <module>/types -DryRun -PassThru` for C#, `Format-Code -Path <your files>` then `Test-Links -Path <md> -PassThru`, and
+  `Test-Glossary -PassThru` (report its IssueCount and every issue that names one of your files). Each must report 0 on your files.
 - **Generated files:** when you change a source of a generated file (a reference article, a glossary source, `adrs.yml`), run its generator
   (`Build-Readme`, `Build-Glossary`, `Build-AdrIndex`) and check `Test-GeneratedFiles -PassThru` reports 0.
 - **Never** run `Test-Automation` over everything — the user runs the full suites.

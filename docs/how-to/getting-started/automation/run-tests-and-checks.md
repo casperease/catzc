@@ -64,8 +64,7 @@ Every run writes to `out/test-automation/<yyyyMMdd-HHmmss>/`, and `out/test-auto
 These run independently of `Test-Automation`:
 
 ```powershell
-Format-Automation          # auto-format every PowerShell file (PSScriptAnalyzer + .editorconfig)
-Format-Markdown            # format Markdown to the house style (alias: Invoke-MarkdownPrettier)
+Format-Code                # format every tracked file with the engine languages.yml names for its language
 Test-Markdownlint          # lint Markdown        -> out/test-markdownlint/
 Test-Spelling              # cspell vs cspell.yml  -> out/test-spelling/
 Format-Spelling            # register flagged words into cspell.yml (-DryRun to preview)

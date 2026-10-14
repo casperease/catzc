@@ -7,12 +7,12 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 
 ## Index
 
-| #   | Tier | Test file                                                                  | FullNameFilter                                                       | Guards                                                                                                                                                                                 |
-| --- | ---- | -------------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | L0   | automation/.internal/tests/Import-CSharpTypes.Tests.ps1                    | shipped C# types                                                     | Every shipped C# type resolves into the process (`Test-ShippedTypes` reports 0 issues) and declares its module namespace (`Test-Formatting -Formatter Format-Types` reports 0 issues). |
-| 2   | L1   | automation/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1 | integrity (real repo)                                                | All shipped C# type sources parse without syntax errors.                                                                                                                               |
-| 3   | L1   | automation/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1    | never plans the live combined build for deletion (real repo, DryRun) | The live combined types DLL is never marked for deletion.                                                                                                                              |
-| 4   | L2   | automation/.internal/tests/Import-CSharpTypes.Tests.ps1                    | combined types assembly is committed and current                     | The committed combined types DLL matches current sources (`Test-BuildArtifact -Facet Types` reports 0 issues), and the IDE project stamps the current hash.                            |
+| #   | Tier | Test file                                                                  | FullNameFilter                                                       | Guards                                                                                                                                                                          |
+| --- | ---- | -------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | L0   | automation/.internal/tests/Import-CSharpTypes.Tests.ps1                    | shipped C# types                                                     | Every shipped C# type resolves into the process (`Test-ShippedTypes` reports 0 issues) and declares its module namespace (`Test-Formatting -Language csharp` reports 0 issues). |
+| 2   | L1   | automation/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1 | integrity (real repo)                                                | All shipped C# type sources parse without syntax errors.                                                                                                                        |
+| 3   | L1   | automation/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1    | never plans the live combined build for deletion (real repo, DryRun) | The live combined types DLL is never marked for deletion.                                                                                                                       |
+| 4   | L2   | automation/.internal/tests/Import-CSharpTypes.Tests.ps1                    | combined types assembly is committed and current                     | The committed combined types DLL matches current sources (`Test-BuildArtifact -Facet Types` reports 0 issues), and the IDE project stamps the current hash.                     |
 
 ## Checks
 
@@ -23,7 +23,7 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 **Checks:**
 
 - `Test-ShippedTypes` reports 0 issues: every shipped type's fully-qualified name (`<module>.<typename>`) resolves after import.
-- `Test-Formatting -Formatter Format-Types` reports 0 issues: every source declares its module's file-scoped namespace.
+- `Test-Formatting -Language csharp` reports 0 issues: every source declares its module's file-scoped namespace.
 
 ### 2. integrity (real repo) — Get-CSharpTypeDependency
 
@@ -32,7 +32,7 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 **Checks:**
 
 - The scan finds shipped `types/*.cs` sources, and every shipped type resolves after import.
-- `Test-Formatting -Formatter Format-Types` reports 0 issues: every source declares its module's file-scoped namespace.
+- `Test-Formatting -Language csharp` reports 0 issues: every source declares its module's file-scoped namespace.
 
 ### 3. never plans the live combined build for deletion (real repo, DryRun)
 

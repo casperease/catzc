@@ -30,6 +30,8 @@ public sealed class MapsLimits
     // The most characters a column header (a file-language name) prints. Default: DefaultMaxColumnLabel.
     public int max_column_label { get; }
 
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     public MapsLimits(double pageWidth, double pageHeight, double minFontSize, int maxRowLabel, int maxColumnLabel)
     {
         page_width = pageWidth;

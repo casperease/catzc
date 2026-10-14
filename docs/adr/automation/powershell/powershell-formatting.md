@@ -95,8 +95,8 @@ function Get-Config {
 
 A multi-line scriptblock nested in a method call's parentheses is the one place PSScriptAnalyzer's `PSUseConsistentIndentation` is
 version-sensitive: the editor extension's bundled analyzer wants the body indented one level, vendored 1.25.0 wants two. The inline form
-then squiggles in the editor while the gate (1.25.0) stays green, and "Format Document" and `Format-Automation` disagree on the indent.
-Binding the predicate to a local removes the paren nesting, so every version indents it the same.
+then squiggles in the editor while the gate (1.25.0) stays green, and "Format Document" and `Format-Code` disagree on the indent. Binding
+the predicate to a local removes the paren nesting, so every version indents it the same.
 
 ```powershell
 # NO — paren-nested multi-line scriptblock; editor and gate disagree on the body indent
@@ -132,14 +132,15 @@ PowerShell files follow the repo-wide baseline plus the PowerShell-specific rule
   `automation/.scriptanalyzer/`, one check module each. The settings hand the engine one entry rule, `CatzcRules.psm1`, which runs every
   check once per file (the engine otherwise calls a script rule once per script block); a new check module is added to its list. Each check
   keeps its own rule name, so diagnostics and `SuppressMessageAttribute` name the check.
-- **The source set, shared** — `Get-AutomationSourceFiles` names the canonical set the quality gates cover: every module `*.ps1` (module
-  root, `private/`, `tests/`), the `.internal` and `.scriptanalyzer` infrastructure folders (every `.internal/*.psm1` internal module, the
-  custom analyzer rules `*.psm1`, and their `tests/`), the root `importer.ps1`, and authored `.psd1` config
-  (`PSScriptAnalyzerSettings.psd1`). `Format-Automation`, `Test-ScriptAnalyzer`, and the L2 `Test-ScriptAnalyzer.Tests.ps1` all draw from it
-  — the L2 test shards the resulting list across processes for speed — so no gate can drift from the others. The dot-prefixed `.vendor`
-  (third-party) and `.compiled` (build output) folders, `assets/`, and generated module manifests are excluded as vendored or generated
-  rather than authored source. A custom rule's `*.Tests.ps1` embeds the very anti-patterns the rule forbids as fixtures, so it carries a
-  file-scoped `SuppressMessageAttribute` for its own rule. Formatting violations fail the build.
+- **The source set, shared** — `Get-AutomationSourceFiles` names the canonical set the analysis quality gates cover: every module `*.ps1`
+  (module root, `private/`, `tests/`), the `.internal` and `.scriptanalyzer` infrastructure folders (every `.internal/*.psm1` internal
+  module, the custom analyzer rules `*.psm1`, and their `tests/`), the root `importer.ps1`, and authored `.psd1` config
+  (`PSScriptAnalyzerSettings.psd1`). `Test-ScriptAnalyzer` and the L2 `Test-ScriptAnalyzer.Tests.ps1` both draw from it — the L2 test shards
+  the resulting list across processes for speed — so neither can drift from the other. Formatting covers more: `Format-Code` runs the
+  `psscriptanalyzer` engine over every tracked PowerShell file except vendored code. The dot-prefixed `.vendor` (third-party) and
+  `.compiled` (build output) folders, `assets/`, and generated module manifests are excluded as vendored or generated rather than authored
+  source. A custom rule's `*.Tests.ps1` embeds the very anti-patterns the rule forbids as fixtures, so it carries a file-scoped
+  `SuppressMessageAttribute` for its own rule. Formatting violations fail the build.
 
 ## Consequences
 

@@ -4,7 +4,8 @@
 .DESCRIPTION
     The file-language registry (configs/languages.yml, validated by the LanguagesConfig type) names each language a
     tracked file is written in by its extensions ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)),
-    with the command that formats it and its ADR folder. Each result is a FileLanguage, in declared order.
+    with the formatter engine that formats it (or why it has none) and its ADR folder. Each result is a FileLanguage,
+    in declared order.
 
     -Path answers "which file language is this file?" by its extension, case-insensitively. A file whose extension no
     language lists, a file with no extension, and a dotfile such as .gitkeep return nothing; -Path never throws.
@@ -15,7 +16,7 @@
 .EXAMPLE
     Get-FileLanguage
 .EXAMPLE
-    (Get-FileLanguage -Name markdown).formatter                              # -> Format-Markdown
+    (Get-FileLanguage -Name markdown).formatter                              # -> prettier
 .EXAMPLE
     (Get-FileLanguage -Path 'automation/Catzc.Base.Languages/Get-FileLanguage.ps1').name   # -> powershell
 #>

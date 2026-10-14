@@ -26,6 +26,8 @@ public sealed class MapsLabels
     // The header of the column axis (the file languages). Default: DefaultColumnAxis.
     public string column_axis { get; }
 
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     public MapsLabels(string gridTitle, string treeTitle, string rowAxis, string columnAxis)
     {
         grid_title = gridTitle;

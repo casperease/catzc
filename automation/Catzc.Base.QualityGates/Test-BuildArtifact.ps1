@@ -23,8 +23,9 @@
                   help kept and privates not exported; InModuleScope enters a built module.
       [parity]    Every built module exports exactly its source folder's public functions and defines exactly its
                   private ones ([ADR-DSGN-RUNMODE#2](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode2)).
-      [manifest]  Every built manifest (Catzc.psd1 and each <Module>.psd1) is formatter-stable — Format-Automation
-                  -DryRun would leave it byte-for-byte unchanged — so a published manifest never churns.
+      [manifest]  Every built manifest (Catzc.psd1 and each <Module>.psd1) is formatter-stable — Format-Code
+                  -Language powershell -DryRun would leave it byte-for-byte unchanged — so a published manifest
+                  never churns.
 
     Collects every issue and ends with Write-QualityGateReport: the report lands in out/test-build-artifact/, and
     the gate throws once listing every issue (or returns the result with -PassThru). It builds from the source
@@ -237,9 +238,11 @@ function Test-BuildArtifact {
                     $manifests = @(Join-Path $buildRoot 'Catzc.psd1') + @(foreach ($name in $builtModules) {
                             Join-Path $buildRoot "$name/$name.psd1"
                         })
-                    foreach ($file in @(Format-Automation -Path $manifests -DryRun)) {
-                        $relative = [System.IO.Path]::GetRelativePath($buildRoot, $file) -replace '\\', '/'
-                        $issues.Add("[manifest] $relative is not formatter-stable — Format-Automation would rewrite the built manifest")
+                    foreach ($result in @(Format-Code -Language powershell -Path $manifests -DryRun -PassThru)) {
+                        foreach ($file in $result.ChangedFiles) {
+                            $relative = [System.IO.Path]::GetRelativePath($buildRoot, $file) -replace '\\', '/'
+                            $issues.Add("[manifest] $relative is not formatter-stable — Format-Code would rewrite the built manifest")
+                        }
                     }
                 }
             }

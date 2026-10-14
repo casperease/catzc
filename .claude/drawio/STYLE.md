@@ -146,8 +146,8 @@ showing where the drawing sits in the world.
 1. **Stack × domain grid** (`.stack.png`). Rows are the system stack, top to bottom: `PRIN` principles (docs/adr/principles) · `DSGN` design
    · `AUTO` automation modules · `PIPE` pipelines and CI · `CLOUD` Azure. Columns are the domains, by function: `LOAD` (importer, run modes,
    module loading) · `CONFIG` · `GLOBS` (globsets, tracks, scopes) · `BUILD` (bundle, aspects, folders, dependencies) · `DEPLOY` (promotion,
-   lifecycle, naming, templates) · `ACCESS` (auth, server remote, git). The drawing's main cell is filled; every other cell its ADRs touch
-   gets a ring; its row and column are tinted.
+   lifecycle, naming, templates) · `ACCESS` (auth, server remote, git). The drawing's main cell is filled and framed; every other cell its
+   files touch gets a small neutral dot; its row and column are marked on the axes only.
 2. **Repository tree map** (`.tree.png`). A treemap of the real repository, with area set by tracked-file count and grouped by top-level
    folder (`automation/<Module>`, `pipelines/`, `infrastructure/`, `docs/adr/<domain>`, `.github/`, root scripts). The files the drawing
    shows (from its `.verify.md` `file:line` refs and its ADR files) are lit.
@@ -164,8 +164,10 @@ showing where the drawing sits in the world.
 | `ACCESS`      | `#EC407A` |
 
 - The background is `#FFFFFF`. Idle cells and tiles are `#ECEFF1`, with `#CFD8DC` borders. Labels are `#546E7A`.
-- The tinted row and column use the domain hue at 15 % opacity. The **main cell** is the domain hue at 40 % fill with a 3 px stroke at 100
-  %. **Touched cells** are a 2 px ring in their own column's hue, unfilled.
+- **Exactly one cell is ever framed:** the **main cell**, the domain hue at 40 % fill with a 3 px stroke at 100 %. Its row and column are
+  marked only by a bold axis label and a hue tick, never by tinting the cells: a tinted cross or a hued ring on another cell reads, while
+  paging through slides, as the previous slide's selection left behind.
+- **Touched cells** carry a small `#546E7A` dot (7 px radius at 2×), with no fill and no frame.
 - The **you-are-here dot** is `#263238` with a 2 px white ring. Lit tree tiles are the hue of the main cell's domain at 100 %. An ADR file
   tile is outlined `#263238`.
 - The **lens badge** is white text on `#263238`: `META`, `ARCH`, `IMPL`, `OPS` or `GOV`.
@@ -183,9 +185,11 @@ showing where the drawing sits in the world.
   - `minimap-stack` image at x 1316, y 16, 240 × 150;
   - `minimap-tree` image at x 1316, y 182, 240 × 180;
   - `lens-badge` at x 1316, y 378, 240 × 24;
-  - `supports` (the ADR chips) at x 1316, y 410, 240 × ≤ 96.
+  - `supports` (the ADR chips) at x 1316, y 410, 240 × ≤ 96;
+  - `mapkey` (the minimap legend: this slide's cell, also touched, a file it shows) at x 1316, y 460, 240 × 122.
 - **Minimap PNGs** are rendered at 2× (480 × 300 and 480 × 360) and placed at 1×. Text is ≥ 9 px at 1×. Row labels are ≤ 5 chars and column
-  labels ≤ 6 chars. A tree group is labelled only when its tile is ≥ 40 px wide at 1×.
+  labels ≤ 6 chars. Every lit tree group is labelled with its full name, even when the label runs past its tile (the white halo keeps
+  it legible); a label is cut only at the image edge, never to a stub like "Module…".
 - **Title:** ≤ 100 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, in the form
   `Supports <ADR-CODE>:<rules> · <lens> lens`.
 - **Boxes:**
@@ -207,6 +211,40 @@ showing where the drawing sits in the world.
 - Flow B **places and renders** both minimaps.
 - Both flows key their work by the manifest id `<diagram>.<lens>` in `out/diagrams/fan-out/_manifest.json`.
 - The lead joins them at fan-in: renames the minimaps to the slug, embeds both PNGs as data URIs in the image cells, and rebuilds.
+
+## Symbol slides with two markdown companions
+
+A fan-out drawing is a **slide**: symbols on the picture, words in its markdown. Every slide ships as three files with one stem, side by
+side:
+
+| File                     | Holds                                                                                                                                       |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<stem>.drawio.png`      | the symbol slide, its legend, and the sidebar with both minimaps and the map key                                                            |
+| `<stem>.md`              | the **presentation**: title, ADR link, the slide image, the finding in one or two sentences, `## Notes` numbered to match the slide's markers, any side note (e.g. boundaries), and `## Sources` pointing at the `.verify.md` |
+| `<stem>.visual.md`       | the **visual description**: layout and reading direction, every shape, fill, line and marker as the eye meets it, the legend as a table, the sidebar, and the colour budget |
+
+**What stays on the slide:**
+
+- the title (the finding, ≤ 60 chars) and a subtitle of the form `<ADR-CODE>:<rules> · <lens>`;
+- band labels as one or two caps words (`TOP LAYER`);
+- box names only: one bold name, ≤ 28 chars, no second line and no stereotype text (fill colour carries the stereotype);
+- numbers as symbols, each shown once: edge fractions (`4/5`, bold, on a white patch) first; a count chip (white pill, box-stroke rim)
+  only for a number no fraction already shows. Leaner wins: a symbol that repeats what another symbol says is cut, and the number goes
+  to the `.md`;
+- **numbered markers**: a 22 px `#37474F` disc with a 2 px white rim and a white bold digit, on a box's top-left corner or beside an edge.
+  Each number is a `## Notes` item in `<stem>.md`.
+
+**What moves to `<stem>.md`:** the lede, every body line, stereotype text, edge labels that are words, footers and side notes. Nothing is
+dropped: every word the wave-4 drawing carried appears in the presentation or is replaced by a symbol the legend explains.
+
+**Every slide has a proper legend**, a full-width outer panel at the bottom of the drawing area. It explains every fill, stroke weight,
+dash, chip and marker on the slide, with a swatch each (≤ 8 entries, in columns). The minimaps get their own **map key** in the sidebar.
+
+`<stem>.visual.md` describes only what is seen; meaning lives in `<stem>.md`. It must match the built PNG (counts of boxes, arrows and
+touched cells), so write it after reading the preview.
+
+Pilot and quality bar for this format:
+`out/diagrams/wave-5/modules/adr-auto-depm--three-layers-edges-point-down--architecture.{drawio.png,md,visual.md}`.
 
 ## Readability rules
 

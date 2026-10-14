@@ -1,22 +1,29 @@
 // The file-language registry (configs/languages.yml): every file language the repository's tracked files are written
 // in, each named by its extensions ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)), with the
-// command that formats it and its ADR folder. Registered in Catzc.Base.Config/configs/configs.yml
+// formatter engine that formats it and its ADR folder. Registered in Catzc.Base.Config/configs/configs.yml
 // (type: Catzc.Base.Languages.LanguagesConfig), so Get-Config -Config languages returns this typed record; Get-FileLanguage
-// reads it. Property names mirror the YAML keys (snake_case,
+// and Format-Code read it. Property names mirror the YAML keys (snake_case,
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+//
+// Formatting is configured, not programmed
+// ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)): an entry names the
+// formatter ENGINE that formats its files, one of FormatterEngines below, and Format-Code runs that engine. A language
+// with nothing to format states why in 'no_formatter' instead
+// ([ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4)), so every language
+// carries exactly one of the two and a gap is a visible, reviewed entry.
 //
 // The sensible defaults are declared here, once
 // ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted 'languages' is no
-// file language, an omitted 'formatter' is none (the language has no formatter), and an omitted 'adr_folder' is none.
+// file language, and an omitted 'adr_folder' is none.
 //
 // Constructing an instance validates the file, collecting every violation into one ArgumentException:
-//   - only the key 'languages' at the top, and only 'extensions', 'formatter' and 'adr_folder' in an entry — an
-//     unknown key (a typo) fails at load;
+//   - only the key 'languages' at the top, and only 'extensions', 'formatter', 'no_formatter' and 'adr_folder' in an
+//     entry — an unknown key (a typo) fails at load;
 //   - a language name is kebab-case;
 //   - 'extensions' is a non-empty list; each extension starts with its leading dot, is lowercase letters and digits
 //     after it (e.g. .ps1), and belongs to exactly one file language (an extension claimed twice is rejected);
-//   - 'formatter' is a Verb-Noun command name; 'adr_folder' is a '/'-separated folder under docs/adr/, no leading or
-//     trailing slash, no '.' or '..' segment.
+//   - exactly one of 'formatter' (an engine in FormatterEngines) and 'no_formatter' (a non-empty reason);
+//   - 'adr_folder' is a '/'-separated folder under docs/adr/, no leading or trailing slash, no '.' or '..' segment.
 
 using System;
 using System.Collections;
@@ -30,14 +37,19 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
     private static readonly string[] AllowedKeys = { "languages" };
-    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "adr_folder" };
+    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "adr_folder" };
     private static readonly Regex LanguageName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex Extension = new Regex("^\\.[a-z0-9]+$");
-    private static readonly Regex Formatter = new Regex("^[A-Z][A-Za-z]*-[A-Z][A-Za-z0-9]*$");
     private static readonly Regex AdrFolder = new Regex("^[A-Za-z0-9_-][A-Za-z0-9._-]*(/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$");
 
     private readonly Dictionary<string, FileLanguage> byExtension = new Dictionary<string, FileLanguage>(StringComparer.Ordinal);
     private readonly Dictionary<string, string> claimedBy = new Dictionary<string, string>(StringComparer.Ordinal);
+
+    // The formatter engines a language may name: one Format-Code adapter each. A new engine is new mechanism — its
+    // adapter and its name here land together
+    // ([ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)).
+    private static readonly string[] Engines = { "prettier", "gofmt", "ruff", "psscriptanalyzer" };
+    public static IReadOnlyList<string> FormatterEngines => Engines;
 
     // The file languages in declared order. Empty when the file declares none.
     public IReadOnlyList<FileLanguage> languages { get; }
@@ -63,7 +75,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
                 IDictionary map = raw["languages"] as IDictionary;
                 if (map == null)
                 {
-                    errors.Add("invalid languages (must be a map of language -> { extensions, formatter, adr_folder })");
+                    errors.Add("invalid languages (must be a map of language -> { extensions, formatter | no_formatter, adr_folder })");
                 }
                 else
                 {
@@ -116,7 +128,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         IDictionary entry = value as IDictionary;
         if (entry == null)
         {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'] must be a mapping {{ extensions, formatter, adr_folder }}", name));
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'] must be a mapping {{ extensions, formatter | no_formatter, adr_folder }}", name));
             return null;
         }
         foreach (object k in entry.Keys)
@@ -134,10 +146,25 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         if (entry.Contains("formatter") && entry["formatter"] != null)
         {
             formatter = Text(entry["formatter"]);
-            if (!Formatter.IsMatch(formatter))
+            if (Array.IndexOf(Engines, formatter) < 0)
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: invalid formatter '{1}' (a Verb-Noun command name, e.g. Format-Markdown)", name, formatter));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: unknown formatter engine '{1}' (one of: {2})", name, formatter, string.Join(", ", FormatterEngines)));
             }
+        }
+
+        string noFormatter = null;
+        if (entry.Contains("no_formatter") && entry["no_formatter"] != null)
+        {
+            noFormatter = Text(entry["no_formatter"]).Trim();
+            if (noFormatter.Length == 0) { noFormatter = null; }
+        }
+        if (formatter == null && noFormatter == null)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'] needs a formatter engine (formatter: one of {1}) or the reason it has none (no_formatter: <reason>)", name, string.Join(", ", FormatterEngines)));
+        }
+        else if (formatter != null && noFormatter != null)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'] names both a formatter and no_formatter; keep one", name));
         }
 
         string adrFolder = null;
@@ -152,7 +179,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         }
 
         if (errors.Count > before) { return null; }
-        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, adrFolder);
+        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, adrFolder);
         foreach (string extension in extensions) { byExtension[extension] = language; }
         return language;
     }

@@ -2,8 +2,8 @@ Describe 'Get-FileLanguage' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
                 languages = [ordered]@{
-                    widget = [ordered]@{ extensions = @('.wdg', '.widget'); formatter = 'Format-Widget'; adr_folder = 'widgets' }
-                    gadget = [ordered]@{ extensions = @('.gdg') }
+                    widget = [ordered]@{ extensions = @('.wdg', '.widget'); formatter = 'prettier'; adr_folder = 'widgets' }
+                    gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'binary gadgets' }
                 }
             })
     }
@@ -19,7 +19,7 @@ Describe 'Get-FileLanguage' -Tag 'L0', 'logic' {
     }
 
     It 'returns the named file languages' {
-        (Get-FileLanguage -Name widget).formatter | Should -Be 'Format-Widget'
+        (Get-FileLanguage -Name widget).formatter | Should -Be 'prettier'
         @(Get-FileLanguage -Name gadget, widget).name | Should -Be @('gadget', 'widget')
     }
 

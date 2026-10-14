@@ -1,0 +1,76 @@
+# The gofmt engine with its seams mocked ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)):
+# the tool probe (Resolve-ToolExecutable) finding a managed go beside a fixture gofmt in $TestDrive, and gofmt itself
+# (Invoke-Executable). Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'Invoke-Gofmt' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:bin = Join-Path $TestDrive 'managed go/bin'
+        $null = New-Item -ItemType Directory -Path $script:bin -Force
+        $script:goPath = Join-Path $script:bin ($IsWindows ? 'go.exe' : 'go')
+        $script:gofmt = Join-Path $script:bin ($IsWindows ? 'gofmt.exe' : 'gofmt')
+        $null = New-Item -ItemType File -Path $script:goPath, $script:gofmt -Force
+        $script:widgetFile = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo/go/tests/catzc-widget/widget_test.go'))
+        $script:gadgetFile = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo/go/tests/catzc-widget/gadget_test.go'))
+    }
+
+    BeforeEach {
+        $script:listed = $script:widgetFile
+        $script:listExit = 0
+        Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'go' } {
+            [pscustomobject]@{ Found = $true; VersionOk = $true; Path = $script:goPath; Version = '1.27.2'; Required = '1.27' }
+        }
+        Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -like '* -l *' } {
+            [Catzc.Base.Execution.CliResult]::new($script:listed, '', $script:listExit)
+        }
+        Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -like '* -w *' } { }
+    }
+
+    It 'lists with the managed gofmt -l, then rewrites exactly the listed files' {
+        $changed = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widgetFile, $script:gadgetFile) } {
+            param($Files)
+            Invoke-Gofmt -File $Files
+        }
+        $changed | Should -Be @($script:widgetFile)
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Command -eq "`"$script:gofmt`" -l `"$script:widgetFile`" `"$script:gadgetFile`""
+        }
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Command -eq "`"$script:gofmt`" -w `"$script:widgetFile`""
+        }
+    }
+
+    It 'reports without writing under -DryRun, and writes nothing when every file is formatted' {
+        $changed = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widgetFile) } {
+            param($Files)
+            Invoke-Gofmt -File $Files -DryRun
+        }
+        $changed | Should -Be @($script:widgetFile)
+        $script:listed = ''
+        $none = InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widgetFile) } {
+            param($Files)
+            @(Invoke-Gofmt -File $Files | ForEach-Object { $_ })
+        }
+        $none | Should -HaveCount 0
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 0 -ParameterFilter { $Command -like '* -w *' }
+    }
+
+    It 'needs no go when there are no Go files' {
+        $none = InModuleScope Catzc.Base.QualityGates { @(Invoke-Gofmt -File @() | ForEach-Object { $_ }) }
+        $none | Should -HaveCount 0
+        Should -Invoke Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -Times 0
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 0
+    }
+
+    It 'throws with "Run Install-Go" when no go at the pin is found' {
+        Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'go' } {
+            [pscustomobject]@{ Found = $true; VersionOk = $false; Path = $script:goPath; Version = '1.24.4'; Required = '1.27' }
+        }
+        { InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widgetFile) } { param($Files) Invoke-Gofmt -File $Files } } |
+            Should -Throw "*pin '1.27' (found: 1.24.4)*Run Install-Go*"
+    }
+
+    It 'throws with gofmt''s message when a source does not parse' {
+        $script:listExit = 2
+        { InModuleScope Catzc.Base.QualityGates -Parameters @{ Files = @($script:widgetFile) } { param($Files) Invoke-Gofmt -File $Files } } |
+            Should -Throw '*gofmt could not read the Go files (exit 2)*'
+    }
+}

@@ -6,7 +6,8 @@
     the test languages beside PowerShell (Get-LanguageTestFolders: Go, Python), which have no Pester file of their
     own: each runs through the one shared language bridge, automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1,
     as a Pester container whose data names the language (Language), the folder (TestFolder), the engine entry the
-    tests start (EntryScript), and the tool that runs them (Executable, that language's entry of -LanguageExecutable).
+    tests start (EntryScript), the tool that runs them (Executable, that language's entry of -LanguageExecutable), and
+    the executables of the other execution engines the tests also run under (EngineExecutable: bash).
     Get-TestRunFile reads the folder back from a test's container, so the folder stays the run file of its tests.
 
     The bridge is read from the repository, not the code root: tests never ship, and the build run runs the
@@ -48,11 +49,19 @@ function ConvertTo-PesterRunTarget {
         $full = [System.IO.Path]::GetFullPath($item).TrimEnd('\', '/')
         if ($languageByFolder.ContainsKey($full)) {
             $language = $languageByFolder[$full]
+            # The engines other than pwsh, whose executables the source session located too (bash: the 'bash' entry).
+            $engineExecutable = @{}
+            foreach ($engine in [Catzc.Base.Engines.ExecutionEngines]::All) {
+                if ($engine.Name -ne [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) {
+                    $engineExecutable[$engine.Name] = "$($LanguageExecutable[$engine.Name])"
+                }
+            }
             $containers.Add((New-PesterContainer -Path $bridge -Data @{
-                        Language    = $language
-                        TestFolder  = $full
-                        EntryScript = "$EntryScript"
-                        Executable  = "$($LanguageExecutable[$language])"
+                        Language         = $language
+                        TestFolder       = $full
+                        EntryScript      = "$EntryScript"
+                        Executable       = "$($LanguageExecutable[$language])"
+                        EngineExecutable = $engineExecutable
                     }))
         }
         else {

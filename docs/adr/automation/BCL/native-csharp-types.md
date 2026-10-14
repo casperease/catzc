@@ -143,11 +143,10 @@ it.
 ### Rule ADR-AUTO-TYPES:14
 
 Every concrete type a pwsh caller can hold renders console-ready: it overrides `ToString()`, normally as the one line
-`public override string ToString() => this.ToConsoleString();`, so `"$x"`, `[string]$x`, and a table cell read
-`TypeName { A = 1, B = x }` instead of the fully-qualified name. The rendering lives once, in `Catzc.Base.Objects.ConsoleText`, and
-`DictionaryRecord` carries the override for every record derived from it. A type names its identity properties with
-`[Catzc.Base.Objects.ConsoleDisplay(...)]`, which narrows both its text and its default display at the prompt. `Test-ShippedTypes` fails a
-type that keeps the inherited `ToString()`.
+`public override string ToString() => this.ToConsoleString();`, so `"$x"`, `[string]$x`, and a table cell read `TypeName { A = 1, B = x }`
+instead of the fully-qualified name. The rendering lives once, in `Catzc.Base.Objects.ConsoleText`, and `DictionaryRecord` carries the
+override for every record derived from it. A type names its identity properties with `[Catzc.Base.Objects.ConsoleDisplay(...)]`, which
+narrows both its text and its default display at the prompt. `Test-ShippedTypes` fails a type that keeps the inherited `ToString()`.
 
 - [Console-ready rendering](#console-ready-rendering)
 - [How this is enforced](#how-this-is-enforced)
@@ -370,9 +369,9 @@ boundary through its own config type, `FilesConfig`, which validates it at load;
 The types are consumed from pwsh, so how an object reads there is part of its design
 ([console-output-matters](../powershell/console-output-matters.md#rule-adr-auto-console1)). A class that keeps `object.ToString()` renders
 as its fully-qualified name: `Write-Message "Switched to $context"` prints `Switched to Catzc.Azure.Cli.SubscriptionContext`, and a
-collection property shows `{Catzc.Base.Globs.GlobPattern, …}` in a table. The fix has to be in C#: PowerShell's interpolation and
-`[string]` cast call the type's own .NET `ToString()` and ignore a `ToString` registered through the extended type system, which only
-`-join`, an explicit `.ToString()`, and the formatter honour.
+collection property shows `{Catzc.Base.Globs.GlobPattern, …}` in a table. The fix has to be in C#: PowerShell's interpolation and `[string]`
+cast call the type's own .NET `ToString()` and ignore a `ToString` registered through the extended type system, which only `-join`, an
+explicit `.ToString()`, and the formatter honour.
 
 So the rendering is one shared extension method, `ConsoleText.ToConsoleString()`, and each type opts in with a one-line override. The format
 is the C# `record` convention a .NET reader already knows, `TypeName { A = 1, B = x }`, on one line: the bare type name, a null property
@@ -417,8 +416,8 @@ aliases.
   mismatched / block-scoped namespace and dotted-filename throws, the filename-type verification, the changed-after-load fail-fast,
   self-heal of a deleted DLL, the `DictionaryRecord` dictionary view, and a drift guard (the committed `Catzc.Types.<hash>.dll` matches the
   current sources, with no pending git changes). A `shipped C# types` test asserts every committed type resolves **and** declares its module
-  namespace (via `Test-Formatting -Formatter Format-Types`), and a `PSTypeAlias accelerators` test asserts a decorated type's accelerator
-  resolves after load. `Set-CSharpFileScopedNamespace.Tests.ps1` unit-tests the namespace string engine behind `Format-Types`.
+  namespace (via `Test-Formatting -Language csharp`), and a `PSTypeAlias accelerators` test asserts a decorated type's accelerator resolves
+  after load. `Set-CSharpFileScopedNamespace.Tests.ps1` unit-tests the namespace string engine behind `Format-Types`.
 
 - **`Clear-ModuleTypeCache`** keeps the current `automation/.compiled/Catzc.Types.<hash>.dll` and prunes the rest (deleting on a devbox
   only). A delete that fails throws after every deletable build is gone, naming the file and its holders; the importer reports it as one red

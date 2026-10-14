@@ -1,5 +1,5 @@
 # Prettier configuration — the markdown formatter for this repo (esbenp.prettier-vscode is the
-# [markdown] formatter in .vscode/settings.json; Format-Markdown runs the same engine).
+# [markdown] formatter in .vscode/settings.json; Format-Code runs the same engine).
 #
 # proseWrap: always makes the formatter OWN line length — it wraps prose at printWidth so Markdown
 # satisfies markdownlint MD013 (line-length 140). printWidth is pinned to 140 to match

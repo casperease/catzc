@@ -6,43 +6,83 @@
     A Go or Python test starts the engine as a process and asserts on its output
     ([ADR-AUTO-GO#3](/docs/adr/automation/go/test-artifacts.md#rule-adr-auto-go3),
     [ADR-AUTO-PY#3](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py3)). How to start it comes from
-    the execution engine model, never from the test ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)):
+    the execution engine model, never from the test ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)), so
+    the same test runs under either engine:
 
-      CATZC_ENGINE_EXECUTABLE  the engine's executable (Resolve-EngineExecutable);
+      CATZC_ENGINE             the engine's name (pwsh, bash);
+      CATZC_ENGINE_EXECUTABLE  the engine's executable;
+      CATZC_ENGINE_ENTRY       the script that loads catzc into the engine: the PowerShell entry for pwsh, the
+                               repository's importer.sh (forward-slashed) for bash — what a Bash test sources;
       CATZC_ENGINE_START       the arguments after it, as a JSON array (ExecutionEngine.StartArguments): they start the
-                               engine non-interactively, load the entry script with its output discarded, and end in
-                               the command text, where the test puts its command in place of {command};
+                               engine non-interactively, load its importer with the output discarded, and end in the
+                               command text, where the test puts its catzc command in place of {command};
+      CATZC_IMPORTER           bash only: the PowerShell entry the cats dispatcher loads (importer.sh reads it);
       CATZC_REPOSITORY_ROOT    the repository root.
 
-    The entry is the repository's importer for a source run, or -EntryScript (the build's Import-Catzc.ps1) for a build
-    run. The engine is pwsh: the build's entry is a PowerShell script, and the second engine's importer arrives with it.
+    The PowerShell entry is the repository's importer.ps1 for a source run, or -EntryScript (the build's
+    Import-Catzc.ps1) for a build run. pwsh loads it directly. bash loads the repository's importer.sh, whose cats
+    dispatcher loads it through CATZC_IMPORTER, so a bash session drives the build too.
+.PARAMETER Engine
+    The execution engine: pwsh (default) or bash.
+.PARAMETER EngineExecutable
+    The engine's executable, already located by the caller (a test run's source session hands it down, since a build
+    run's engine does not carry the tools.yml entry bash is located through). Default: Resolve-EngineExecutable.
 .PARAMETER EntryScript
-    The engine entry for a build run. Default: the repository's importer.ps1 (the source run).
+    The PowerShell entry for a build run. Default: the repository's importer.ps1 (the source run).
 .OUTPUTS
     [System.Collections.Specialized.OrderedDictionary] The variables, by name.
 .EXAMPLE
-    $contract = Get-EngineContract -EntryScript $buildEntry
+    $contract = Get-EngineContract -Engine bash -EntryScript $buildEntry
 #>
 function Get-EngineContract {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
     param(
+        [ArgumentCompleter({ [Catzc.Base.Engines.ExecutionEngines]::Names })]
+        [string] $Engine = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name,
+
+        [string] $EngineExecutable,
+
         [string] $EntryScript
     )
 
     $root = Get-RepositoryRoot
-    $engine = [Catzc.Base.Engines.ExecutionEngines]::Pwsh
-    $entry = if ($EntryScript) {
+    $model = [Catzc.Base.Engines.ExecutionEngines]::Get($Engine)
+    $powershellEntry = if ($EntryScript) {
         Assert-PathExist $EntryScript -PathType Leaf
         (Resolve-Path -LiteralPath $EntryScript).ProviderPath
     }
     else {
-        Join-Path $root $engine.ImporterEntry
+        Join-Path $root ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry)
+    }
+    $executable = if ($EngineExecutable) {
+        Assert-PathExist $EngineExecutable -PathType Leaf
+        $EngineExecutable
+    }
+    else {
+        Resolve-EngineExecutable -Engine $model.Name
     }
 
-    [ordered]@{
-        CATZC_ENGINE_EXECUTABLE = Resolve-EngineExecutable -Engine $engine.Name
-        CATZC_ENGINE_START      = ConvertTo-Json -InputObject @($engine.StartArguments($entry, '{command}')) -Compress
-        CATZC_REPOSITORY_ROOT   = $root
+    # The entry the engine itself loads: pwsh the PowerShell entry; any other engine its own importer in the repository,
+    # forward-slashed so a POSIX shell on Windows reads the path.
+    $entry = if ($model.Name -eq [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) {
+        $powershellEntry
     }
+    else {
+        $importer = Join-Path $root $model.ImporterEntry
+        Assert-PathExist $importer -PathType Leaf
+        $importer.Replace('\', '/')
+    }
+
+    $contract = [ordered]@{
+        CATZC_ENGINE            = $model.Name
+        CATZC_ENGINE_EXECUTABLE = $executable
+        CATZC_ENGINE_ENTRY      = $entry
+        CATZC_ENGINE_START      = ConvertTo-Json -InputObject @($model.StartArguments($entry, '{command}')) -Compress
+    }
+    if ($model.Name -ne [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) {
+        $contract['CATZC_IMPORTER'] = $powershellEntry
+    }
+    $contract['CATZC_REPOSITORY_ROOT'] = $root
+    $contract
 }

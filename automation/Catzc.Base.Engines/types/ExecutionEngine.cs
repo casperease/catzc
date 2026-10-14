@@ -60,12 +60,16 @@ public sealed class ExecutionEngine
     // The repository-root script that loads the engine's entry points into a session (importer.ps1, importer.sh).
     public string ImporterEntry { get; }
 
+    // What goes before a catzc command in this engine: nothing in pwsh, where the commands are native; "cats " in bash,
+    // the dispatcher importer.sh defines, which runs the command through pwsh. A command's text is the same in both.
+    public string CommandPrefix { get; }
+
     private readonly Func<string, string> quote;
     private readonly string sourceFormat;
 
     internal ExecutionEngine(string name, string command, string locate, string toolKey, string[] scriptExtensions, string shebang,
         string[] nonInteractiveArguments, string commandFlag, string strictMode, string timeSafeguard, bool requiresLf,
-        bool requiresExecutableBit, string importerEntry, Func<string, string> quote, string sourceFormat)
+        bool requiresExecutableBit, string importerEntry, string commandPrefix, Func<string, string> quote, string sourceFormat)
     {
         Name = name;
         Command = command;
@@ -80,6 +84,7 @@ public sealed class ExecutionEngine
         RequiresLf = requiresLf;
         RequiresExecutableBit = requiresExecutableBit;
         ImporterEntry = importerEntry;
+        CommandPrefix = commandPrefix;
         this.quote = quote;
         this.sourceFormat = sourceFormat;
     }
@@ -106,13 +111,14 @@ public sealed class ExecutionEngine
     }
 
     // The arguments (after the executable) that start the engine non-interactively, load the entry script, and run the
-    // command: the non-interactive arguments, the command flag, then one command text "<source the entry>; <command>".
+    // catzc command: the non-interactive arguments, the command flag, then one command text
+    // "<source the entry>; <command prefix><command>". The command is catzc command text, the same in every engine.
     public string[] StartArguments(string entry, string command)
     {
         if (string.IsNullOrWhiteSpace(command)) { throw new ArgumentException("StartArguments needs a command", nameof(command)); }
         List<string> arguments = new List<string>(NonInteractiveArguments);
         arguments.Add(CommandFlag);
-        arguments.Add(SourceEntry(entry) + "; " + command);
+        arguments.Add(SourceEntry(entry) + "; " + CommandPrefix + command);
         return arguments.ToArray();
     }
 

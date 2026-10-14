@@ -32,8 +32,10 @@ check (ADR-AUTO-DEPS#3), never the WSL launcher.
 ### Rule ADR-AUTO-ENGINE:4
 
 A black-box test in another language starts the engine from the contract its runner sets, never from a hardcoded command:
-`CATZC_ENGINE_EXECUTABLE`, and `CATZC_ENGINE_START`, the model's start arguments as a JSON array that loads the run's entry and ends in the
-command text, with `{command}` where the test's command goes (ADR-AUTO-GO#3, ADR-AUTO-PY#3).
+`CATZC_ENGINE` (the engine's name), `CATZC_ENGINE_EXECUTABLE`, `CATZC_ENGINE_ENTRY` (the script that loads catzc into the engine), and
+`CATZC_ENGINE_START`, the model's start arguments as a JSON array that loads the entry and ends in the command text, with `{command}` where
+the test's command goes (ADR-AUTO-GO#3, ADR-AUTO-PY#3, ADR-AUTO-BASH#3). Every Go and Python black-box test runs once per engine, titled
+`<test> [<engine>]`, unchanged between them.
 
 - [The black-box contract](#the-black-box-contract)
 
@@ -44,6 +46,16 @@ every column filled or naming why the case does not apply (`n/a: <reason>`). The
 `<module>/tests/assets/engine-cases/<subject>.yml`, loaded by `Get-EngineCaseTable`, and their columns are the engines of the model.
 
 - [Fixture tables per engine](#fixture-tables-per-engine)
+
+### Rule ADR-AUTO-ENGINE:6
+
+Each engine reaches catzc through its importer entry at the repository root. bash's is `importer.sh`, a generated, committed root file
+that must be sourced and defines one dispatcher, `cats`: with no arguments it lists the catzc commands; otherwise it runs its first argument
+as a catzc command in pwsh with the PowerShell entry loaded — `CATZC_IMPORTER`, else the repository's `importer.ps1` — passing an argument
+that starts with `-` as a parameter name and every other argument as one PowerShell literal. The model's `CommandPrefix` (`cats ` for
+bash, none for pwsh) is how a command text reaches catzc in that engine, so one test's command text is the same under both.
+
+- [The cats dispatcher](#the-cats-dispatcher)
 
 ## Context
 
@@ -77,9 +89,10 @@ declares:
 | time safeguard             | `Invoke-WithTimeout`             | `timeout`                          |
 | line endings, exec bit     | any, none                        | LF, required                       |
 | importer entry             | `importer.ps1`                   | `importer.sh`                      |
+| command prefix             | —                                | `cats `                            |
 
 `StartArguments(entry, command)` composes the start from these: the non-interactive arguments, the command flag, then one command text that
-loads the entry and runs the command.
+loads the entry and runs the command, behind the engine's command prefix.
 
 The Pester workers, the isolated test runs, and the snapshot priming start pwsh too, but they are not engine-neutral: Pester is a PowerShell
 framework, so those starts are pwsh by nature and stay so.
@@ -97,7 +110,9 @@ A Go or Python test starts the engine as a process. It used to build that start 
 `pwsh -NoProfile -Command ". '<entry>' *> $null; <command>"`, with PowerShell's quoting rule copied into Go and Python. Now the runner hands
 it the start: the executable, and the arguments from the model with the entry already quoted in the engine's own rule and `{command}` where
 the test's command goes. The test fills in its command and runs the process. The same test therefore runs under any engine the runner names,
-with no change to the test, which is what running the black-box tests under bash needs.
+with no change to the test, which is what running the black-box tests under bash needs. The runner names the engine through
+`CATZC_ENGINE` and the file that loads catzc into it through `CATZC_ENGINE_ENTRY`; for bash it also sets `CATZC_IMPORTER`, the PowerShell
+entry `cats` loads, which is the build's entry in a build run.
 
 ### Fixture tables per engine
 

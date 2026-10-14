@@ -169,6 +169,7 @@ domains:
       native-csharp-types: { external: ADR-AUTO-TYPES }
       test-artifacts: { external: ADR-AUTO-GO }
       python-test-artifacts: { external: ADR-AUTO-PY }
+      bash-test-artifacts: { external: ADR-AUTO-BASH }
       execution-engines: { external: ADR-AUTO-ENGINE }
 
   configuration:

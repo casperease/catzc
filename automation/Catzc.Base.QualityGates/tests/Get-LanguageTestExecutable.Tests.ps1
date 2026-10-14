@@ -14,12 +14,21 @@ Describe 'Get-LanguageTestExecutable' -Tag 'L0', 'logic' {
         }
         Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates { $script:folders }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates { $script:probes[$Tool] }
+        Mock Resolve-EngineExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Engine -eq 'bash' } { 'C:\widget\bash\bash.exe' }
     }
 
-    It 'returns go and uv when both are found at the pin' {
+    It 'returns go, uv and the bash engine when they are found' {
         $executables = InModuleScope Catzc.Base.QualityGates { Get-LanguageTestExecutable }
         $executables['go'] | Should -Be 'C:\widget\go\bin\go.exe'
         $executables['python'] | Should -Be 'C:\widget\uv\uv.exe'
+        $executables['bash'] | Should -Be 'C:\widget\bash\bash.exe'
+    }
+
+    It 'returns an empty bash entry when the bash engine is not found' {
+        Mock Resolve-EngineExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Engine -eq 'bash' } { throw 'no bash' }
+        $executables = InModuleScope Catzc.Base.QualityGates { Get-LanguageTestExecutable }
+        $executables['bash'] | Should -BeExactly ''
+        $executables['go'] | Should -Be 'C:\widget\go\bin\go.exe'
     }
 
     It 'returns an empty <Language> entry when <Case>' -ForEach @(
@@ -45,6 +54,8 @@ Describe 'Get-LanguageTestExecutable' -Tag 'L0', 'logic' {
         $executables = InModuleScope Catzc.Base.QualityGates { Get-LanguageTestExecutable }
         $executables['go'] | Should -BeExactly ''
         $executables['python'] | Should -BeExactly ''
+        $executables['bash'] | Should -BeExactly ''
         Should -Invoke Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -Times 0
+        Should -Invoke Resolve-EngineExecutable -ModuleName Catzc.Base.QualityGates -Times 0
     }
 }

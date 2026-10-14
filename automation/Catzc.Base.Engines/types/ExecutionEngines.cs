@@ -26,6 +26,7 @@ public static class ExecutionEngines
         requiresLf: false,
         requiresExecutableBit: false,
         importerEntry: "importer.ps1",
+        commandPrefix: "",
         quote: text => "'" + text.Replace("'", "''") + "'",
         sourceFormat: ". {0} *> $null");
 
@@ -44,6 +45,7 @@ public static class ExecutionEngines
         requiresLf: true,
         requiresExecutableBit: true,
         importerEntry: "importer.sh",
+        commandPrefix: "cats ",
         quote: text => "'" + text.Replace("'", "'\\''") + "'",
         sourceFormat: "source {0} >/dev/null 2>&1");
 

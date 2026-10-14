@@ -14,6 +14,9 @@
     `git add`/commit/checkout mid-session re-keys it and the answer always matches the index on disk.
 .PARAMETER Path
     The literal repository-relative, '/'-separated paths (files or folders) to look up; '.' for all.
+.PARAMETER Executable
+    Return only the tracked files stored executable (git mode 100755) — the bit bash needs to run a script
+    directly. Read from the same index, in the same order and form.
 .OUTPUTS
     [string]
 .EXAMPLE
@@ -22,13 +25,17 @@
     Get-GitTrackedPath 'automation/Catzc.Base.Docs/configs', 'docs/adr'
 .EXAMPLE
     Get-GitTrackedPath '.'
+.EXAMPLE
+    Get-GitTrackedPath 'automation' -Executable   # the tracked files under automation/ stored as 100755
 #>
 function Get-GitTrackedPath {
     [CmdletBinding()]
     [OutputType([string])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [string[]] $Path
+        [string[]] $Path,
+
+        [switch] $Executable
     )
 
     $indexPath = Get-GitIndexPath
@@ -51,6 +58,9 @@ function Get-GitTrackedPath {
     if ($null -eq $index -or $index.ContentHash -ne [Catzc.Base.Git.GitIndex]::HashContent($content)) {
         $index = [Catzc.Base.Git.GitIndex]::Parse($content)
         $script:gitIndexCache[$indexPath] = $index
+    }
+    if ($Executable) {
+        return $index.ExecutableUnder($Path)
     }
     $index.Under($Path)
 }

@@ -120,7 +120,7 @@ settings:
   workbench.editorAssociations:
     '*.drawio.png': imagePreview.previewEditor
 
-  # Prettier is the .yaml (ADO pipeline) formatter, the same engine Format-Pipelines runs — so the editor
+  # Prettier is the .yaml (ADO pipeline) formatter, the same engine Format-Code runs for it — so the editor
   # and the catzc gate produce byte-identical output
   # ([ADR-REPO-FORMAT](/docs/adr/repository/uniform-formatting.md)). `.yaml` is the azure-pipelines language
   # (files.associations above), a custom language prettier-vscode does not format by default, so

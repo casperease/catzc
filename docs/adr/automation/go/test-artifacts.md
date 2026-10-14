@@ -179,10 +179,10 @@ test stays exactly what ships.
 ### The checks
 
 Every check that reads Go applies to Go: `gofmt` is the formatting standard for `.go` files
-([uniform-formatting](../../repository/uniform-formatting.md)), applied by `Format-Go` and checked by `Test-Formatting` with the managed
-toolchain's own `gofmt`, `go vet` type-checks and vets the test packages before every run, and the spelling check reads `*.go`. The glossary
-checks read PowerShell, through its parser, and markdown ([controlled-vocabulary](../../repository/controlled-vocabulary.md)), so a Go
-comment is outside their reach.
+([uniform-formatting](../../repository/uniform-formatting.md)), applied by `Format-Code` (the `gofmt` engine languages.yml names for Go) and
+checked by `Test-Formatting` with the managed toolchain's own `gofmt`, `go vet` type-checks and vets the test packages before every run, and
+the spelling check reads `*.go`. The glossary checks read PowerShell, through its parser, and markdown
+([controlled-vocabulary](../../repository/controlled-vocabulary.md)), so a Go comment is outside their reach.
 
 ## Decision
 

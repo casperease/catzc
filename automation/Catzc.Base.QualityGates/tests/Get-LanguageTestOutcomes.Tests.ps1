@@ -68,6 +68,24 @@ Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
         Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 0
     }
 
+    It 'runs Bash tests through Invoke-BashTest under the bash it was given, whatever engine is named' {
+        Mock Invoke-BashTest -ModuleName Catzc.Base.QualityGates {
+            [Catzc.Base.Languages.BashTestResult]::new('widget.bats', 'widget spins', 'pass', 0.1, '')
+            [Catzc.Base.Languages.BashTestResult]::new('widget.bats', 'widget naps', 'skip', 0.0, 'asleep')
+        }
+        $cases = @((New-Case 'widget spins' 'widget.bats'), (New-Case 'widget naps' 'widget.bats'))
+        $outcomes = InModuleScope Catzc.Base.QualityGates -Parameters @{ Case = $cases } {
+            param($Case)
+            Get-LanguageTestOutcomes -Language bash -Module 'Catzc.Widget' -Case $Case -Executable 'C:\widget\bash\bash.exe' -Engine bash `
+                -EngineExecutable 'C:\widget\bash\bash.exe'
+        }
+        $outcomes['widget.bats widget spins'].Outcome | Should -Be 'pass'
+        $outcomes['widget.bats widget naps'].Reason | Should -Be 'bash_test_skipped'
+        Should -Invoke Invoke-BashTest -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Module -eq 'Catzc.Widget' -and $EngineExecutable -eq 'C:\widget\bash\bash.exe'
+        }
+    }
+
     It 'hands the build run''s entry script to the runner, and none for the source run' {
         $null = Invoke-Outcomes -EntryScript 'C:\build\Import-Catzc.ps1'
         Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
@@ -77,9 +95,29 @@ Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
         Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { -not $EntryScript }
     }
 
+    It 'runs the tests under the bash engine with the executable handed down' {
+        $null = InModuleScope Catzc.Base.QualityGates -Parameters @{ Case = $script:cases; Go = $script:goPath } {
+            param($Case, $Go)
+            Get-LanguageTestOutcomes -Language go -Module 'Catzc.Widget' -Case $Case -Executable $Go -Engine bash -EngineExecutable 'C:\widget\bash\bash.exe'
+        }
+        Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Engine -eq 'bash' -and $EngineExecutable -eq 'C:\widget\bash\bash.exe'
+        }
+    }
+
+    It 'skips every test with tool_bash_missing when the bash engine was not handed down' {
+        $outcomes = InModuleScope Catzc.Base.QualityGates -Parameters @{ Case = $script:cases; Go = $script:goPath } {
+            param($Case, $Go)
+            Get-LanguageTestOutcomes -Language go -Module 'Catzc.Widget' -Case $Case -Executable $Go -Engine bash
+        }
+        @($outcomes.Values.Reason | Select-Object -Unique) | Should -Be @('tool_bash_missing')
+        Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
+    }
+
     It 'skips every test with <Reason>, running nothing, when no <Language> tool was handed down' -ForEach @(
         @{ Language = 'go'; Reason = 'tool_go_missing' }
         @{ Language = 'python'; Reason = 'tool_uv_missing' }
+        @{ Language = 'bash'; Reason = 'tool_bash_missing' }
     ) {
         $outcomes = Invoke-Outcomes -Language $Language -Executable ''
         @($outcomes.Values.Outcome | Select-Object -Unique) | Should -Be @('skip')

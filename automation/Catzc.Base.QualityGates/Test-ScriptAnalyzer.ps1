@@ -10,8 +10,8 @@
     This is the interactive, report-style sibling of the L2 'PSScriptAnalyzer' Pester test
     (automation/.internal/tests/Test-ScriptAnalyzer.Tests.ps1): both shard the analysis across background
     processes (see Get-ScriptAnalyzerDiagnostics) so a full-tree run finishes in ~15-30s with live progress
-    rather than ~90s of silence. It is also the verify counterpart to Format-Automation — Format-Automation FIXES
-    the auto-fixable formatting, Test-ScriptAnalyzer only reports and never rewrites files.
+    rather than ~90s of silence. It is also the verify counterpart to Format-Code -Language powershell — Format-Code
+    FIXES the auto-fixable formatting, Test-ScriptAnalyzer only reports and never rewrites files.
 
     A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): every
     diagnostic ('<path>:<line>:<col> <severity> <rule> <message>', repository-relative) is an issue, and the gate
@@ -55,7 +55,7 @@ function Test-ScriptAnalyzer {
     $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
     Assert-PathExist $settingsPath
 
-    # Resolve the file set — same coverage as Format-Automation and the L2 analyzer test (module root
+    # Resolve the file set — same coverage as the L2 analyzer test (module root
     # *.ps1 non-test, private/, tests/ *.Tests.ps1, and the .internal/.scriptanalyzer infrastructure folders).
     $files = [System.Collections.Generic.List[string]]::new()
     if ($Path) {
@@ -70,7 +70,7 @@ function Test-ScriptAnalyzer {
         }
     }
     else {
-        # The canonical checked set — shared with Format-Automation and the L2 analyzer test so they cannot
+        # The canonical checked set — shared with the L2 analyzer test so they cannot
         # drift. Includes the root importer.ps1 and authored .psd1 config; excludes generated manifests.
         foreach ($f in (Get-AutomationSourceFiles)) {
             $files.Add($f)

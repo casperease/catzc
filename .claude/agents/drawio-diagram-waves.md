@@ -77,6 +77,7 @@ the background, because each takes longer than the 10-second Bash limit:
 | --------------------------------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | `out/diagrams/lenses/<name>/<name>.sheet.png` | `uv run -q --with pillow python .claude/drawio/contact_sheet.py out/diagrams/lenses/<name>` | one diagram's five lenses stacked, with a "skipped" row for a gap                  |
 | `out/diagrams/gallery.pdf`                    | `uv run -q --with pillow python .claude/drawio/gallery_pdf.py`                              | the world maps, the contact sheets, then each fan-out drawing and its two minimaps |
+| `out/diagrams/wave-N/gallery.pdf`             | `uv run -q --with pillow python .claude/drawio/gallery_pdf.py out/diagrams/wave-N`          | the world maps, then each slide followed by its `.md` and `.visual.md` as text pages |
 | `out/atlas.html` + `out/atlas.files.json`     | `uv run -q python .claude/drawio/atlas.py`                                                  | the claude.ai Catzc Diagram Atlas page and its file batches                        |
 
 To refresh the atlas, rebuild it, then republish `out/atlas.html` to its existing link with `root: out`. Send the batches from

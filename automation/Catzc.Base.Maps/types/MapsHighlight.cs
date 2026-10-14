@@ -18,6 +18,8 @@ public sealed class MapsHighlight
     // The cells an ADR never lights, in declared order. Empty by default.
     public IReadOnlyList<MapsPin> exceptions { get; }
 
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     public MapsHighlight(MapsPin[] pins, MapsPin[] exceptions)
     {
         this.pins = pins == null ? Array.Empty<MapsPin>() : (MapsPin[])pins.Clone();

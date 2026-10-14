@@ -206,6 +206,25 @@ go:
   unix_probes:
     - "%HOME%/.go/bin/go"
 
+shellcheck:
+  # ShellCheck 0.11 — the analyzer for the repository's shell scripts (*.sh, the importer.sh dispatcher), run by the
+  # Test-ShellScripts quality gate (ADR-AUTO-ENGINE: bash scripts take the checks that read them). Windows: winget
+  # koalaman.shellcheck as a user-scope portable (no admin). macOS: brew. Linux: the distribution's package, which needs
+  # root (Install-Shellcheck).
+  version: "0.11"
+  command: shellcheck
+  depends_on: winget
+  winget_id: "koalaman.shellcheck"
+  winget_scope: user
+  brew_formula: "shellcheck"
+  linux_admin_only: true
+  version_command: "shellcheck --version"
+  version_pattern: "version: (?<ver>[\\d.]+)"
+  # The user-scope winget portable lands in its package folder, which winget adds to the user PATH; probed first, so a
+  # fresh install is found before the shell is restarted.
+  windows_probes:
+    - "%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\koalaman.shellcheck_Microsoft.Winget.Source_8wekyb3d8bbwe\\shellcheck.exe"
+
 uv:
   version: "0.11"
   command: uv

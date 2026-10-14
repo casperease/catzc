@@ -23,7 +23,7 @@ All of `docs/` is **markdown only**. Decide which kind you're writing, then foll
 
   ```powershell
   . ./importer.ps1
-  Format-Markdown                    # format Markdown to the house style
+  Format-Code -Language markdown     # format Markdown to the repository style
   Test-Markdownlint                  # lint; report under out/test-markdownlint/
   Test-Spelling                      # cspell against the repo dictionary (cspell.yml)
   ```

@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-    Installs Prettier (the Markdown formatter CLI) globally via npm.
+    Installs Prettier (the prettier formatter engine's CLI) globally via npm.
 .DESCRIPTION
-    Prettier is the formatter behind Format-Markdown. It is installed globally with npm at the
-    version locked in tools.yml. Requires Node.js (npm). Idempotent — skips if already installed at the
+    Prettier is the engine Format-Code runs for every file language languages.yml gives `formatter: prettier`
+    (Markdown, pipeline YAML). It is installed globally with npm at the version locked in tools.yml. Requires Node.js (npm). Idempotent — skips if already installed at the
     locked version; -Force replaces a wrong version.
 .PARAMETER Version
     Prettier version to install. Defaults to the locked version in Get-ToolConfig.

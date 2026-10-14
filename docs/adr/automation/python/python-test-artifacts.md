@@ -74,9 +74,9 @@ its path to the bridge; without uv or the interpreter at the pin, the bridge ski
 ### Rule ADR-AUTO-PY:8
 
 Every `.py` file the repository holds — the Python tests and the agent helpers under `.claude/` alike — takes the repository's checks where
-a check reads Python, with the pinned ruff and the workspace's settings: `ruff format` through `Test-Formatting` (`Format-Python`),
-`ruff check` through the `Test-PythonLint` quality gate and before every Python test run, and the spelling check over `*.py`. The glossary
-checks read PowerShell and markdown, so Python comments are outside their reach.
+a check reads Python, with the pinned ruff and the workspace's settings: `ruff format` through `Test-Formatting` (`Format-Code`, the `ruff`
+engine), `ruff check` through the `Test-PythonLint` quality gate and before every Python test run, and the spelling check over `*.py`. The
+glossary checks read PowerShell and markdown, so Python comments are outside their reach.
 
 - [The checks](#the-checks)
 
@@ -163,7 +163,7 @@ tools config.
 ### The checks
 
 Every check that reads Python applies to every `.py` file the repository holds, wherever it lives: `ruff format` is the formatting standard
-for `.py` files ([uniform-formatting](../../repository/uniform-formatting.md)), applied by `Format-Python` and checked by `Test-Formatting`;
+for `.py` files ([uniform-formatting](../../repository/uniform-formatting.md)), applied by `Format-Code` and checked by `Test-Formatting`;
 `ruff check` lints them through the `Test-PythonLint` quality gate, and lints a test folder again before every run of its tests; and the
 spelling check reads `*.py`. ruff is pinned in `python.yml` and runs from the workspace environment with the workspace's settings passed
 explicitly, so every machine formats and lints every file — the agent helpers outside the workspace too — with the same version and rules.
@@ -189,8 +189,8 @@ as `L2` tests through the language bridge (ADR-AUTO-PY#7), under the checks that
 - **The gitignore registry** (`gitignore.yml`) ignores the environment, the lock, and the caches.
 - **The language bridge** in `Catzc.Base.QualityGates` (`Get-LanguageTestFolders`, `Get-PythonTestCases`, `Language.Bridge.ps1`) maps each
   Python test folder to its catzc module and tags each test.
-- **`Format-Python`** in `Test-Formatting`, the **`Test-PythonLint`** quality gate, and the spelling check's `*.py` scope apply the checks
-  to every `.py` file the repository holds.
+- **The `ruff` formatter engine** in `Test-Formatting` (languages.yml gives Python `formatter: ruff`), the **`Test-PythonLint`** quality
+  gate, and the spelling check's `*.py` scope apply the checks to every `.py` file the repository holds.
 
 ## Consequences
 

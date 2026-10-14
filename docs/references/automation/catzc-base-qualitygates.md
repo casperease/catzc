@@ -50,12 +50,12 @@ identity is also a live one. An integrity test runs each gate at its tier, so ev
 
 How the repository checks and enforces the style of its written and source content. This responsibility runs the spell-checker (and collects
 its flagged tokens into a triage queue), the Markdown linter, the Markdown formatter (which aligns tables and wraps prose in place), the
-Markdown title and heading formatter and quality gate, the ADO pipeline YAML formatter (`Format-Pipelines`, the same Prettier engine as
-`Format-Markdown` — they share one private `Invoke-Prettier`), the PowerShell auto-formatter, the C# type-namespace formatter, the Go
-formatter (`Format-Go`, the managed toolchain's `gofmt`), the Python formatter (`Format-Python`, the pinned `ruff`) and the Python lint gate
-(`Test-PythonLint`, `ruff check`) over every `.py` file the repository holds, and the link aligner and quality gate, which keep code links
-repository-rooted and markdown links relative and resolving ([markdown-links](../../adr/repository/markdown-links.md)). The responsibility
-owns the invocation of each tool, not the tool itself or its per-tool configuration.
+Markdown title and heading formatter and quality gate, the one formatting command (`Format-Code`, which runs the formatter engine
+`languages.yml` names for each file language — Prettier, the managed toolchain's `gofmt`, the pinned `ruff`, PSScriptAnalyzer — with one
+private adapter per engine; [configure-not-program](../../adr/principles/configure-not-program.md)), the C# type-namespace formatter, the
+Python lint gate (`Test-PythonLint`, `ruff check`) over every `.py` file the repository holds, and the link aligner and quality gate, which
+keep code links repository-rooted and markdown links relative and resolving ([markdown-links](../../adr/repository/markdown-links.md)). The
+responsibility owns the invocation of each tool, not the tool itself or its per-tool configuration.
 
 ### responsibility:4 — Terminology and dictionaries
 
@@ -127,14 +127,10 @@ The module's public functions and configuration files, sorted into the responsib
 | responsibility:3 — Document and code formatting | `Test-Spelling`               |
 |                                                 | `Format-Spelling`             |
 |                                                 | `Test-Markdownlint`           |
-|                                                 | `Format-Markdown`             |
+|                                                 | `Format-Code`                 |
 |                                                 | `Format-MarkdownTitle`        |
 |                                                 | `Test-MarkdownTitle`          |
-|                                                 | `Format-Pipelines`            |
-|                                                 | `Format-Automation`           |
 |                                                 | `Format-Types`                |
-|                                                 | `Format-Go`                   |
-|                                                 | `Format-Python`               |
 |                                                 | `Test-PythonLint`             |
 |                                                 | `Format-Links`                |
 |                                                 | `Test-Links`                  |

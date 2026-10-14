@@ -8,6 +8,7 @@
 
 namespace Catzc.Base.Maps;
 
+[Catzc.Base.Objects.ConsoleDisplay(nameof(adr), nameof(track), nameof(file_language))]
 public sealed class MapsPin
 {
     // The ADR code, or one rule of it (e.g. ADR-WIDGET-GADGET or ADR-WIDGET-GADGET#3).
@@ -21,6 +22,8 @@ public sealed class MapsPin
 
     // Why the entry was reviewed: one line, required.
     public string reason { get; }
+
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     public MapsPin(string adr, string track, string fileLanguage, string reason)
     {

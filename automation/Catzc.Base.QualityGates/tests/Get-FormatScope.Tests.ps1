@@ -1,0 +1,46 @@
+# Get-FormatScope with git mocked: the tracked files (Get-GitTrackedPath) and the .gitattributes classes
+# (Get-GitAttributeValue). Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'Get-FormatScope' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo'))
+        foreach ($relative in 'widgets/a.wdg', 'widgets/tests/assets/b.wdg', 'third-party/c.wdg', 'gadgets/d.gdg') {
+            $null = New-Item -ItemType File -Path (Join-Path $script:root $relative) -Force
+        }
+        $script:outside = Join-Path $TestDrive 'build/e.wdg'
+        $null = New-Item -ItemType File -Path $script:outside -Force
+        $script:full = { param($relative) [System.IO.Path]::GetFullPath((Join-Path $script:root $relative)) }
+    }
+
+    BeforeEach {
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Path -eq '.' } {
+            'widgets/a.wdg', 'widgets/tests/assets/b.wdg', 'third-party/c.wdg', 'gadgets/d.gdg', 'widgets/deleted.wdg'
+        }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Path -eq 'widgets' } {
+            'widgets/a.wdg', 'widgets/tests/assets/b.wdg'
+        }
+        Mock Get-GitAttributeValue -ModuleName Catzc.Base.QualityGates {
+            @{ 'third-party/c.wdg' = @{ 'linguist-vendored' = 'set' } }
+        }
+    }
+
+    It 'is every tracked file present on disk, fixtures included, minus vendored code' {
+        $scope = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } { param($Root) Get-FormatScope -RepositoryRoot $Root }
+        $scope | Should -Be @((& $script:full 'widgets/a.wdg'), (& $script:full 'widgets/tests/assets/b.wdg'), (& $script:full 'gadgets/d.gdg'))
+    }
+
+    It 'narrows to a folder''s tracked files, and takes a given file as it is, even outside the repository' {
+        $scope = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Folder = (Join-Path $script:root 'widgets'); Outside = $script:outside } {
+            param($Root, $Folder, $Outside)
+            Get-FormatScope -RepositoryRoot $Root -Path $Folder, $Outside
+        }
+        $scope | Should -Be @((& $script:full 'widgets/a.wdg'), (& $script:full 'widgets/tests/assets/b.wdg'), [System.IO.Path]::GetFullPath($script:outside))
+    }
+
+    It 'leaves out a vendored file even when it is given explicitly' {
+        $scope = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Vendored = (Join-Path $script:root 'third-party/c.wdg') } {
+            param($Root, $Vendored)
+            @(Get-FormatScope -RepositoryRoot $Root -Path $Vendored)
+        }
+        $scope | Should -HaveCount 0
+    }
+}

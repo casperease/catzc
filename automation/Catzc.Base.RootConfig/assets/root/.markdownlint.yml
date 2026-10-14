@@ -24,7 +24,7 @@
 # blank lines, 2-space nested-list indent (its tabWidth comes from .editorconfig [*.md]
 # indent_size = 2), and — via the root .prettierrc.yml (proseWrap: always, printWidth: 140) — prose
 # wrapped at 140 columns. The style rules below ACCEPT exactly that output, so formatter and linter
-# never fight. Run "Format Document" (Prettier) or Format-Markdown to bring a file into
+# never fight. Run "Format Document" (Prettier) or Format-Code to bring a file into
 # compliance; these rules then pass.
 #
 # Deprecated rules MD002 (first-heading-h1) and MD006 (ul-start-left) are superseded by MD041 / MD007
@@ -46,7 +46,7 @@ MD007:
 # MD013 line-length — prose target 140 (uniform-formatting ADR; .editorconfig max_line_length = 140).
 # Tables exempt (never wrap a table) and code blocks exempt (wrapping code / log output is wrong).
 # The root .prettierrc.yml sets proseWrap: always + printWidth: 140, so Prettier (Format Document /
-# Format-Markdown) wraps prose to satisfy this rule. Keep .prettierrc printWidth, this
+# Format-Code) wraps prose to satisfy this rule. Keep .prettierrc printWidth, this
 # line_length, and .editorconfig [*.md] max_line_length in sync at 140.
 MD013:
   line_length: 140

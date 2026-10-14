@@ -48,7 +48,7 @@ conventions.)
 - After editing, run, from the repo root:
 
   ```powershell
-  Format-Markdown -Glob 'docs/references/infrastructure/*.md'   # wraps prose
+  Format-Code -Language markdown -Path docs/references/infrastructure   # wraps prose
   Test-Markdownlint
   Test-Spelling
   ```
