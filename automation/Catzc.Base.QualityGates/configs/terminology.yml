@@ -236,6 +236,8 @@ terms:
       meaning: "reference-doc slug segment for the Catzc.Base.QualityGates module"
     - term: configextensions
       meaning: "reference-doc slug segment for the Catzc.Base.ConfigExtensions module"
+    - term: markdownmeta
+      meaning: "reference-doc slug segment for the Catzc.Base.MarkdownMeta module"
     - term: reformatter
       meaning: "a reformatter"
     - term: regenerable
