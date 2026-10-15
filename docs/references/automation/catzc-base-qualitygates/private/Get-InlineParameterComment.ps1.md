@@ -1,3 +1,13 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/private/Get-InlineParameterComment.ps1.md
+    kind: comment-page
+    body_sha: "8790b4ecbcbf"
+    adrs:
+      - ADR-REPO-HELP#3
+---
+
 # automation/Catzc.Base.QualityGates/private/Get-InlineParameterComment.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section

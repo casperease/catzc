@@ -1,3 +1,13 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/private/Move-FunctionHelpCitation.ps1.md
+    kind: comment-page
+    body_sha: "1e30e60946b0"
+    adrs:
+      - ADR-REPO-HELP#2
+---
+
 # automation/Catzc.Base.QualityGates/private/Move-FunctionHelpCitation.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
