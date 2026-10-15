@@ -9,9 +9,9 @@
     for its tool's commands.
 .DESCRIPTION
     How to start the engine comes from the engine model, never the test, so one test runs under every engine.
+    [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md),
     [ADR-AUTO-GO#3](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go3),
-    [ADR-AUTO-PY#3](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py3),
-    [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)
+    [ADR-AUTO-PY#3](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py3)
     [comment:1](/docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md#comment1)
 .PARAMETER Engine
     The execution engine: pwsh (default), or any other of ExecutionEngines.Names.

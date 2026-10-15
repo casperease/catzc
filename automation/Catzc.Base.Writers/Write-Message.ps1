@@ -13,6 +13,10 @@
     The message text to write.
 .PARAMETER NoHeader
     Omits the [caller] prefix.
+.PARAMETER NoNewline
+    The next write continues the same line, so this serves the inline liveness dot; it has no effect on verbose output.
+    [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8)
+    [comment:4](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment4)
 .PARAMETER ForegroundColor
     A rainbow value is flattened to its base colour, because a status line is solid and a gradient is for rules.
     [comment:2](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment2)
@@ -20,10 +24,6 @@
     Not the Write-Warning stream: the importer makes a real warning halt, so use throw to stop and this to notify.
     [ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)
     [comment:3](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment3)
-.PARAMETER NoNewline
-    The next write continues the same line, so this serves the inline liveness dot; it has no effect on verbose output.
-    [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8)
-    [comment:4](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment4)
 .EXAMPLE
     Write-Message '.' -NoHeader -NoNewline
 .EXAMPLE

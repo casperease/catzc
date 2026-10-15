@@ -5,10 +5,10 @@
 
 <#
 .SYNOPSIS
-    Computes a globset's durable SHA — the deployable unit's identity
-    ([ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)).
+    Computes a globset's durable SHA — the deployable unit's identity.
 .DESCRIPTION
     CR bytes are stripped and the path is in the fold: CRLF or LF agree, while a rename or deletion re-keys the set.
+    [ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5),
     [ADR-FLOW-CD-GLOBS#9](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs9)
     [comment:1](/docs/references/automation/catzc-base-globs/Get-GlobSetHash.ps1.md#comment1)
 .PARAMETER Name

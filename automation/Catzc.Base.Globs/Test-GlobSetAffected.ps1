@@ -9,9 +9,9 @@
     to process?" check.
 .DESCRIPTION
     Fails open: an unresolvable range returns true, since a redundant run is safe and a wrong skip is not.
+    [ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md),
     [ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1),
-    [ADR-REPO-PROTGLOB#5](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob5),
-    [ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)
+    [ADR-REPO-PROTGLOB#5](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob5)
     [comment:1](/docs/references/automation/catzc-base-globs/Test-GlobSetAffected.ps1.md#comment1)
 .PARAMETER Name
     The globset — typically a deployable unit — to test.

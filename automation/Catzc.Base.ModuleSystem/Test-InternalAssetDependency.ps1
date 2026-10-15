@@ -8,10 +8,10 @@
     Quality gate: every internal asset dependency is inventoried and covered by a test that runs in both run modes.
 .DESCRIPTION
     A test must cite the rule and not be source-only, so the read is exercised in both the source and build run.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4),
     [ADR-AUTO-ASSETDEP#2](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2),
-    [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)
+    [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3),
+    [ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4),
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-InternalAssetDependency.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-internal-asset-dependency/ (Write-QualityGateReport).

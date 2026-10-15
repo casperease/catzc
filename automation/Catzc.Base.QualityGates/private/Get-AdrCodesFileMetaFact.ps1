@@ -5,10 +5,10 @@
 
 <#
 .SYNOPSIS
-    The adr-codes meta kind's fact: the rule citations the file's body makes, sorted and without duplicates
-    ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
+    The adr-codes meta kind's fact: the rule citations the file's body makes, sorted and without duplicates.
 .DESCRIPTION
     A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation.
+    [ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3),
     [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md#comment1)
 .PARAMETER State

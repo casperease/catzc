@@ -9,6 +9,7 @@
 .DESCRIPTION
     Lines are kept exactly as written, so rendering the sections back in their order reproduces the block.
     [ADR-REPO-HELP#1](/docs/adr/repository/function-help.md#rule-adr-repo-help1)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FunctionHelpSection.ps1.md#comment1)
 .PARAMETER HelpText
     The block comment, from its opening to its closing delimiter, with LF line endings.
 .OUTPUTS

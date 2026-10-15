@@ -9,9 +9,9 @@
     in each cell.
 .DESCRIPTION
     Every row meets every column, so empty cells are kept: the map is the full grid, not only where ADRs sit.
-    [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16),
     [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14),
-    [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)
+    [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15),
+    [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16)
     [comment:1](/docs/references/automation/catzc-base-maps/Get-ValueChainMap.ps1.md#comment1)
 .PARAMETER AsJson
     JSON carries rows, columns and every cell, so a tool reads the map without PowerShell.

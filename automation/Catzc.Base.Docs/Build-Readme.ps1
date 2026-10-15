@@ -9,8 +9,8 @@
     "READMEs are generated" contract.
 .DESCRIPTION
     READMEs are gitignored copies, and the write is source-mode only, so a built package stops with a named error.
-    [ADR-REPO-README](/docs/adr/repository/generated-readmes.md),
-    [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md)
+    [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md),
+    [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Build-Readme.ps1.md#comment1)
 .PARAMETER Folder
     A folder that matches no mapping throws, so a mistyped path cannot pass as an empty, successful run.

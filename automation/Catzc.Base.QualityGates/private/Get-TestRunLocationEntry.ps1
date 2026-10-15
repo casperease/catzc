@@ -8,8 +8,8 @@
     Resolves the entry script a test run's workers load, for the location the run executes in.
 .DESCRIPTION
     A snapshot run must load from the snapshot, so every path a worker resolves lands inside the snapshot.
-    [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30),
-    [ADR-AUTO-NOPWD](/docs/adr/automation/never-depend-on-pwd.md)
+    [ADR-AUTO-NOPWD](/docs/adr/automation/never-depend-on-pwd.md),
+    [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLocationEntry.ps1.md#comment1)
 .PARAMETER Location
     The location Enter-TestRunLocation returned.

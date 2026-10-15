@@ -10,9 +10,9 @@
     The first source in owner order keeps a duplicated term or key; every later one is reported.
     [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
     [ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1),
-    [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5),
     [ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3),
-    [ADR-REPO-VOCAB#4](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab4)
+    [ADR-REPO-VOCAB#4](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab4),
+    [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossarySourceViolations.ps1.md#comment1)
 .PARAMETER Source
     Defaults to every source in the repository, in owner order, which decides who keeps a duplicated term.

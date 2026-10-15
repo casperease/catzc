@@ -8,8 +8,8 @@
     Whether a test run outlasted its whole-run budget in a way that fails it: a devbox run over tests.run_seconds.
 .DESCRIPTION
     The budget is a roof never raised to make a run pass; a pipeline run is bounded by its stage limit instead.
-    [ADR-AUTO-TEST#44](/docs/adr/automation/test-automation.md#rule-adr-auto-test44),
-    [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)
+    [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7),
+    [ADR-AUTO-TEST#44](/docs/adr/automation/test-automation.md#rule-adr-auto-test44)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md#comment1)
 .PARAMETER DurationSeconds
     The run's wall clock — its workers' run, as the run reports it.

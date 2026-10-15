@@ -8,9 +8,9 @@
     Returns every reason a .ps1 file is not one function, named for the file, that can be loaded anywhere.
 .DESCRIPTION
     A file loaded away from its folder must never read PSScriptRoot, which then names another folder.
-    [ADR-PWSH-MANIFEST#5](/docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5),
+    [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1),
     [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md),
-    [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
+    [ADR-PWSH-MANIFEST#5](/docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5)
     [comment:1](/docs/references/automation/catzc-base-overlay/Get-FunctionFileViolation.ps1.md#comment1)
 .PARAMETER Path
     The file to check.

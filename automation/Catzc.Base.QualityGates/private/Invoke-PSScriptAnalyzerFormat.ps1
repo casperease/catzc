@@ -9,9 +9,9 @@
     Invoke-Formatter and the .editorconfig rules, and returns the files it changed.
 .DESCRIPTION
     Invoke-Formatter ignores .editorconfig, so line endings, trailing space and the final newline are a second step.
+    [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1),
     [ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2),
-    [ADR-REPO-FORMAT#3](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format3),
-    [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
+    [ADR-REPO-FORMAT#3](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format3)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md#comment1)
 .PARAMETER File
     Absolute paths of the PowerShell files to format.

@@ -8,8 +8,8 @@
     Builds the ADR citation map: every citation code to its ADR's path and declared rule numbers.
 .DESCRIPTION
     The map is memoized per root for the session, so a changed ADR file shows only after the importer reruns.
-    [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3),
-    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)
+    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md),
+    [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)
     [comment:1](/docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root whose [index](/docs/adr/index.md) is read. Defaults to the loaded repository root.

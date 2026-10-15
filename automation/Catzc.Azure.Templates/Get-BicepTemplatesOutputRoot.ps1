@@ -8,8 +8,8 @@
     Returns the root folder Build-Bicep writes template build output under.
 .DESCRIPTION
     A build test mocks this root to its own folder, so no two test files ever write the same build folder.
-    [ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2),
-    [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26)
+    [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26),
+    [ADR-PWSH-PESTER#2](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester2)
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTemplatesOutputRoot.ps1.md#comment1)
 .OUTPUTS
     [string] the absolute output root path.

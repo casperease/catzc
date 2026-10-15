@@ -9,9 +9,9 @@
     template names, and ADO project the shipped config maps to — that a hermetic LOGIC test must never name.
 .DESCRIPTION
     Reading the shipped config, not a hand-kept list, keeps the banned set current: a new customer is banned at once.
+    [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3),
     [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md),
-    [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md),
-    [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)
+    [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md#comment1)
 .OUTPUTS
     [object[]] One record per token: @{ Token; Kind; Source; Suggest }.

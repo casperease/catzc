@@ -15,12 +15,12 @@
     The storage account holding the exports.
 .PARAMETER ContainerName
     The blob container within the account to search.
-.PARAMETER Type
-    The type word also filters blob names case-insensitively, so a type with no matching blob throws.
-    [comment:2](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment2)
 .PARAMETER DownloadPath
     Unset, the folder sits under the output root (out locally, the staging directory in a pipeline) and is created.
     [comment:3](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment3)
+.PARAMETER Type
+    The type word also filters blob names case-insensitively, so a type with no matching blob throws.
+    [comment:2](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment2)
 .PARAMETER TimestampPattern
     Regex capturing the timestamp substring in the filename. Default '\d{2}-\d{2}-\d{4}-\d{2}-\d{2}'.
 .PARAMETER TimestampFormat

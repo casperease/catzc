@@ -19,10 +19,10 @@
     Author (and committer) name stamped on every synthetic commit.
 .PARAMETER AuthorEmail
     Author (and committer) email stamped on every synthetic commit.
-.PARAMETER SpanStart
-    Start of the backdating window. Defaults to 90 days before SpanEnd.
 .PARAMETER SpanEnd
     End of the backdating window. Defaults to the current date.
+.PARAMETER SpanStart
+    Start of the backdating window. Defaults to 90 days before SpanEnd.
 .PARAMETER Branch
     The branch the synthetic history becomes. Defaults to main.
 .PARAMETER WorkingBranch

@@ -5,10 +5,10 @@
 
 <#
 .SYNOPSIS
-    Reads what a code text says about its own meta head, without changing it
-    ([ADR-REPO-CODEMETA#1](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta1)).
+    Reads what a code text says about its own meta head, without changing it.
 .DESCRIPTION
     Pure: it takes the text and the head's comment syntax, reads no file and no config.
+    ADR-REPO-CODEMETA#1 [comment:1](/docs/references/automation/catzc-base-codemeta/Get-CodeMetaState.ps1.md#comment1)
 .PARAMETER Text
     The whole code file as text.
 .PARAMETER Form

@@ -9,8 +9,8 @@
     flattened from cspell's own bundled dictionaries so the two checks agree on "what is a word".
 .DESCRIPTION
     Committed, not built at import: regeneration needs node and cspell, yet a fresh checkout needs the list.
-    [ADR-REPO-OUTDIR#5](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir5),
-    [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md)
+    [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
+    [ADR-REPO-OUTDIR#5](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir5)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment1)
 .PARAMETER DryRun
     The returned content is the same in either mode; -DryRun only skips the write.

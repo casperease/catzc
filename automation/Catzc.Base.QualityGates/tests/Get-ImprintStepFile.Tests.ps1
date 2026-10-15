@@ -36,6 +36,18 @@ Describe 'Get-ImprintStepFile' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
         $found | Should -Be @((Join-Path $script:root 'automation/Widget/types/Gadget.cs'))
     }
 
+    It 'returns only the function files of a module, public and private, for the ps-help step' {
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates {
+            'automation/Widget/Get-Gadget.ps1', 'automation/Widget/private/Get-Cog.ps1', 'automation/Widget/tests/Get-Gadget.Tests.ps1',
+            'automation/Widget/assets/scripts/install.ps1', 'automation/Widget/types/Gadget.cs', 'tools/Cog/Get-Sprocket.ps1'
+        }
+        $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
+            param($Root)
+            Get-ImprintStepFile -Step ps-help -RepositoryRoot $Root
+        }
+        $found | Should -Be @((Join-Path $script:root 'automation/Widget/Get-Gadget.ps1'), (Join-Path $script:root 'automation/Widget/private/Get-Cog.ps1'))
+    }
+
     It 'returns the absolute paths of the files the comment scope covers for the comments step' {
         Mock Get-CommentScope -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ File = 'automation/Widget/Get-Gadget.ps1'; Extension = '.ps1'; Language = 'powershell'; Page = 'docs/references/automation/widget/Get-Gadget.ps1.md' }

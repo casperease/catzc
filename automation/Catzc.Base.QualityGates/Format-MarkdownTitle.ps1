@@ -5,11 +5,11 @@
 
 <#
 .SYNOPSIS
-    Makes the H1 of every in-scope Markdown file its title and brings its headings into normal form
-    ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6),
-    [ADR-REPO-FORMAT#7](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format7)).
+    Makes the H1 of every in-scope Markdown file its title and brings its headings into normal form.
 .DESCRIPTION
     A duplicate heading anchor and a file with no title are reported, not fixed, since only the author can reword or write them.
+    [ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6),
+    [ADR-REPO-FORMAT#7](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format7)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-MarkdownTitle.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to title. Default: every in-scope file.

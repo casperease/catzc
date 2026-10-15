@@ -9,9 +9,9 @@
 .DESCRIPTION
     The manual path cannot drift from the harness: it is the harness path, one shard wide, in a fresh child process.
     [ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25),
-    [ADR-AUTO-TEST#34](/docs/adr/automation/test-automation.md#rule-adr-auto-test34),
     [ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32),
     [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33),
+    [ADR-AUTO-TEST#34](/docs/adr/automation/test-automation.md#rule-adr-auto-test34),
     [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment1)
 .PARAMETER Path

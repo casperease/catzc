@@ -9,11 +9,11 @@
 .DESCRIPTION
     Windows needs Install-Git first and never runs it; a manifest of copied files lets Uninstall-Zsh remove them all.
     [ADR-AUTO-ENTERP#4](/docs/adr/automation/effective-in-enterprises.md#rule-adr-auto-enterp4),
+    [ADR-AUTO-IDEM#1](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem1),
+    [ADR-AUTO-PKGMGR#5](/docs/adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr5),
     [ADR-AUTO-PKGMGR#6](/docs/adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr6),
     [ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2),
-    [ADR-AUTO-PKGMGR#5](/docs/adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr5),
-    [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
-    [ADR-AUTO-IDEM#1](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem1)
+    [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)
     [comment:1](/docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md#comment1)
 .PARAMETER Force
     Install-Git -Force wipes Git's whole tree, zsh included, so run Install-Zsh again after it.

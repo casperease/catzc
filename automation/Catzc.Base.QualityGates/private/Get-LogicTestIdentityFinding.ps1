@@ -6,11 +6,11 @@
 <#
 .SYNOPSIS
     Scans one Pester test file's AST for a live production identity used as a code string literal OUTSIDE an
-    integrity-tagged block — the comment-blind, tag-aware check cspell cannot do
-    ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)).
+    integrity-tagged block — the comment-blind, tag-aware check cspell cannot do.
 .DESCRIPTION
     Only literals outside integrity-tagged blocks count, and the AST skips comments and help, so docs never trigger.
-    [ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1)
+    [ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1),
+    [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment1)
 .PARAMETER Path
     The test file to scan.

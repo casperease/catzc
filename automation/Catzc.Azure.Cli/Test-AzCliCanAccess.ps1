@@ -8,8 +8,8 @@
     Tests whether the current az CLI login can reach the named subscription.
 .DESCRIPTION
     Asks whether the login can reach the subscription, independent of which subscription is the active one.
-    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),
-    [ADR-AZ-CLI#1](/docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1)
+    [ADR-AZ-CLI#1](/docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1),
+    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure-cli/Test-AzCliCanAccess.ps1.md#comment1)
 .PARAMETER Subscription
     Subscription name (a key in azure.yml's subscriptions).

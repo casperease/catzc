@@ -9,8 +9,8 @@
     glossary sources.
 .DESCRIPTION
     The page is emitted already formatted and sorted by term, so output is deterministic and Format-Code is a no-op.
-    [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
-    [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)
+    [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7),
+    [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Build-Glossary.ps1.md#comment1)
 .PARAMETER Path
     The page to write. Defaults to the [glossary](/docs/adr/glossary.md); a test points it at a fixture path.

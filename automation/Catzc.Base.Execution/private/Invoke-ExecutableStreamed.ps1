@@ -12,12 +12,12 @@
     [comment:1](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md#comment1)
 .PARAMETER Command
     The command string to execute.
+.PARAMETER WorkingDirectory
+    The directory to run the command in.
 .PARAMETER PassThru
     Return a Catzc.Base.Execution.CliResult object with Output, Errors, Full, ExitCode, and Raw.
 .PARAMETER NoAssert
     Skip the exit code assertion.
-.PARAMETER WorkingDirectory
-    The directory to run the command in.
 .PARAMETER Silent
     Suppress all console output. Output is still captured for -PassThru.
 .PARAMETER TimeoutSeconds

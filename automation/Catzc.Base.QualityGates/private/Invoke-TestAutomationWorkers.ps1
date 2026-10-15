@@ -15,8 +15,6 @@
 .PARAMETER GreedyFiles
     Greedy files overlap each other but never the parallel phase, which is why each gets a single-file shard.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment2)
-.PARAMETER GreedyGroupSize
-    Greedy files run side by side in groups of this size, one group after another; 0 reads greedy_group_size from test-policy.yml.
 .PARAMETER SerialFiles
     The serial-tagged test files for the final one-worker phase (may be empty).
 .PARAMETER Location
@@ -29,6 +27,8 @@
     Pester output verbosity inside each worker.
 .PARAMETER Workers
     Explicit pool size; 0 sizes automatically — max(1, ProcessorCount / 4), never more than the file count.
+.PARAMETER GreedyGroupSize
+    Greedy files run side by side in groups of this size, one group after another; 0 reads greedy_group_size from test-policy.yml.
 .PARAMETER TimeoutSeconds
     Hard ceiling per execution phase; on expiry the pool is killed and the run throws.
 .PARAMETER WorkerEnvironment

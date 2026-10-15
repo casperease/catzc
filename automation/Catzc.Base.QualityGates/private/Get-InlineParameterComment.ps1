@@ -7,8 +7,9 @@
 .SYNOPSIS
     Lists the comment lines written directly above each parameter of a function, with the text range they occupy.
 .DESCRIPTION
-    A trailing comment after code is not one: only a comment alone on its line, in an unbroken run that ends on the line above the parameter.
+    A trailing comment after code is not one: only a comment alone on its line, in an unbroken run that ends on the...
     [ADR-REPO-HELP#3](/docs/adr/repository/function-help.md#rule-adr-repo-help3)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-InlineParameterComment.ps1.md#comment1)
 .PARAMETER Text
     The file text, with LF line endings.
 .PARAMETER ParamBlock

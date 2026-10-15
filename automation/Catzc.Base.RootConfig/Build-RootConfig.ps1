@@ -9,8 +9,8 @@
     "root configs are managed" contract.
 .DESCRIPTION
     In build mode this skips instead of throwing, because the importer calls it on every load and must not fail.
-    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md),
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
+    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment1)
 .PARAMETER Target
     A wildcard entry is selected by its own pattern, or one of its files by a path the pattern matches.

@@ -6,17 +6,16 @@
 <#
 .SYNOPSIS
     Returns the DERIVED globsets — the live/tests aspect sets per module folder, one set per internal .psm1
-    module, the reserved infra umbrellas, and the 'module-leftovers' catch-all
-    ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md),
-    [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)).
+    module, the reserved infra umbrellas, and the 'module-leftovers' catch-all.
 .DESCRIPTION
     A declared globset may not shadow a derived name; the collision throws, naming both sides.
-    [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md),
+    [ADR-AUTO-BASH#2](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2),
     [ADR-AUTO-GO#2](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2),
     [ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2),
-    [ADR-AUTO-BASH#2](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2),
-    [ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7),
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
+    [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md),
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
+    [ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md),
+    [ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)
     [comment:1](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment1)
 .PARAMETER Name
     Folder, internal module, kebab or reserved infra name all resolve to the same derived set; omit for every set.

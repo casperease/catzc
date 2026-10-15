@@ -16,16 +16,22 @@
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment2)
 .PARAMETER Title
     The banner title (Write-TestAutomationHeader).
+.PARAMETER MaxLevel
+    The highest tier asked for; the run's location caps it (Resolve-TestRunMaxLevel): a snapshot never runs L3.
 .PARAMETER Modules
     The modules whose tests/ folders run; empty runs every module plus the dot-prefixed infrastructure.
+.PARAMETER TimeoutSeconds
+    The entry point's own limit (its [TimeLimit] through Get-TimeoutSeconds -Command); no default here.
+.PARAMETER Suite
+    A test suite's name, when -Modules was resolved from one (Test-Automation -Suite); the context block names it.
+.PARAMETER OutputFolder
+    Report base; empty resolves to <out>/<entry point in lowercase>.
 .PARAMETER OptOutTag
     Opt-out tags of this test run: tests carrying one are excluded, counted, and listed — never silently.
 .PARAMETER EntryScript
     The script each worker dot-sources to load the modules; empty is the source importer.
 .PARAMETER EntryParameter
     Named arguments for -EntryScript.
-.PARAMETER OutputFolder
-    Report base; empty resolves to <out>/<entry point in lowercase>.
 .PARAMETER Isolated
     Run in a snapshot of the working folder even when it is free (Enter-TestRunLocation).
 .PARAMETER KeepSandbox
@@ -45,7 +51,6 @@ function Invoke-TestRun {
         [ValidateSet(0, 1, 2, 3, 4)]
         [int] $MinLevel = 0,
 
-        # The highest tier asked for; the run's location caps it (Resolve-TestRunMaxLevel): a snapshot never runs L3.
         [ValidateSet(0, 1, 2, 3, 4)]
         [int] $MaxLevel = 3,
 
@@ -61,7 +66,6 @@ function Invoke-TestRun {
         [ValidateRange(0, 64)]
         [int] $GreedyGroupSize = 0,
 
-        # The entry point's own limit (its [TimeLimit] through Get-TimeoutSeconds -Command); no default here.
         [Parameter(Mandatory)]
         [ValidateRange(60, 86400)]
         [int] $TimeoutSeconds,
@@ -76,7 +80,6 @@ function Invoke-TestRun {
         [AllowEmptyCollection()]
         [string[]] $Rule = @(),
 
-        # A test suite's name, when -Modules was resolved from one (Test-Automation -Suite); the context block names it.
         [string] $Suite,
 
         [string] $OutputFolder,

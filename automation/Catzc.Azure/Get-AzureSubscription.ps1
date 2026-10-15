@@ -8,8 +8,8 @@
     Returns the resolved Azure subscription identity (id + tenant [+ customer]) for a named subscription.
 .DESCRIPTION
     Lookup is by name alone: no environment, group or customer join happens here, so callers build on it.
-    [ADR-AZ-DATAMOD#4](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod4),
-    [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
+    [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md),
+    [ADR-AZ-DATAMOD#4](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod4)
     [comment:1](/docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md#comment1)
 .PARAMETER Subscription
     Subscription name — a key in azure.yml's `subscriptions`.

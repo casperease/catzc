@@ -7,11 +7,12 @@
 .SYNOPSIS
     Quality gate: no LOGIC test may name a live production identity (a real customer, subscription, org, template, or
     ADO project) as a code string literal — the tag-aware, comment-blind enforcer of the test/live zone
-    separation ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md),
-    [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+    separation.
 .DESCRIPTION
     Adding a customer to customer.yml bans it from logic tests at once: the forbidden set is derived, not listed.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
+    [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3),
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
+    [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md#comment1)
 .PARAMETER Path
     The default needs the source tree (Assert-SourceTree); an explicit list works in either mode.

@@ -5,10 +5,10 @@
 
 <#
 .SYNOPSIS
-    Aligns the repository's links in place: code links repository-rooted, markdown links relative
-    ([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)).
+    Aligns the repository's links in place: code links repository-rooted, markdown links relative.
 .DESCRIPTION
     The citation code is the source of truth, so a link to a moved ADR is re-pointed, not kept.
+    [ADR-REPO-LINK](/docs/adr/repository/markdown-links.md),
     [ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-Links.ps1.md#comment1)
 .PARAMETER Path

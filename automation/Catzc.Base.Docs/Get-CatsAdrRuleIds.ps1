@@ -8,8 +8,9 @@
     The flat set of every declared ADR rule id across all ADRs (registry form, e.g. 'ADR-PWSH-ERROR:3').
 .DESCRIPTION
     Ids come back in colon form, so a citation in hash form needs its separator swapped before the lookup.
+    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md),
     [ADR-AUTO-NOPWD#1](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1),
-    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md), [ADR-PRIN-REDUCEVAR](/docs/adr/principles/reduce-variability.md)
+    [ADR-PRIN-REDUCEVAR](/docs/adr/principles/reduce-variability.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md#comment1)
 .PARAMETER IndexPath
     ADR paths resolve against the index's own folder, so a test can pair a fixture index with fixture ADRs.

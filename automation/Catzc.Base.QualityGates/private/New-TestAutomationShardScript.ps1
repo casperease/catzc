@@ -8,8 +8,8 @@
     Generates one parallel worker's runner script and returns its shard descriptor.
 .DESCRIPTION
     The worker sets strict mode itself, as test scopes chain to it; exit 1 is a failed run, any other code a crash.
-    [ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25),
-    [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
+    [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1),
+    [ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment1)
 .PARAMETER ShardIndex
     The shard's zero-based index — names the script, results, and rows files.
@@ -19,6 +19,8 @@
     The run directory the script and its artifacts are written into (must exist).
 .PARAMETER ExcludeTag
     Tags excluded from the worker's run (from Get-TestExcludeTag). Empty means no tag filter.
+.PARAMETER IncludeTag
+    Tags a test must carry to run (the -Rule provenance filter). Empty means no include filter.
 .PARAMETER Verbosity
     Pester output verbosity inside the worker (the run's -Output value).
 .PARAMETER EntryScript
@@ -49,7 +51,6 @@ function New-TestAutomationShardScript {
 
         [string[]] $ExcludeTag = @(),
 
-        # Tags a test must carry to run (the -Rule provenance filter). Empty means no include filter.
         [string[]] $IncludeTag = @(),
 
         [ValidateSet('Minimal', 'Normal', 'Detailed', 'Diagnostic')]

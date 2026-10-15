@@ -9,8 +9,8 @@
     terminology registry, never an automatic acceptance.
 .DESCRIPTION
     The queue is a to-do list: cspell never reads it, so a token stays flagged until a human promotes it.
-    [ADR-AUTO-SPELL#7](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell7),
-    [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5)
+    [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5),
+    [ADR-AUTO-SPELL#7](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell7)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment1)
 .PARAMETER Path
     The default scope equals Test-Spelling's, though cspell still applies the ignorePaths from cspell.yml.

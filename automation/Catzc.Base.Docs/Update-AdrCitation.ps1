@@ -8,8 +8,8 @@
     Rewrites the ADR citations, codes, anchors, links, and paths in one file through a code map and a rule map.
 .DESCRIPTION
     A citation range spanning a moved rule is left as written and returned Unhandled, for a person to resolve.
-    [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2),
-    [ADR-AUTO-IDEM](/docs/adr/automation/idempotent-state-functions.md)
+    [ADR-AUTO-IDEM](/docs/adr/automation/idempotent-state-functions.md),
+    [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)
     [comment:1](/docs/references/automation/catzc-base-docs/Update-AdrCitation.ps1.md#comment1)
 .PARAMETER Path
     The one file to rewrite: absolute, or relative to the repository root. It must be inside the repository root.

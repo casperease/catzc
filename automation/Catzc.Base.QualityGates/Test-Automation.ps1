@@ -10,14 +10,14 @@
     Whole files, never single tests, are the unit of sharding; serial-tagged files run last, alone.
     [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment1)
+.PARAMETER MinLevel
+    -MinLevel 2 -MaxLevel 2 runs only the L2 tests; MinLevel must not exceed MaxLevel.
+    [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment3)
 .PARAMETER MaxLevel
     Defaults to 3, the tiers the run's location allows: a snapshot run skips L3 and says so.
     [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33),
     [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment2)
-.PARAMETER MinLevel
-    -MinLevel 2 -MaxLevel 2 runs only the L2 tests; MinLevel must not exceed MaxLevel.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment3)
 .PARAMETER Modules
     Dot-prefixed infrastructure (.internal, .scriptanalyzer) runs only when this is left empty.
     [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment4)
@@ -39,6 +39,9 @@
 .PARAMETER PassThru
     Without it no object comes back; with it the aggregated per-test rows and the shard descriptors do.
     [comment:9](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment9)
+.PARAMETER EnforceTimings
+    Timings depend on the machine, so by default over-limit tests are only reported and the run stays green.
+    [comment:12](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment12)
 .PARAMETER Rule
     The run narrows to the files carrying a matching test, then to the cited tests through a Pester tag include.
     [ADR-PWSH-ERROR#3](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error3)
@@ -48,9 +51,6 @@
     [ADR-AUTO-TEST#37](/docs/adr/automation/test-automation.md#rule-adr-auto-test37),
     [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)
     [comment:11](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment11)
-.PARAMETER EnforceTimings
-    Timings depend on the machine, so by default over-limit tests are only reported and the run stays green.
-    [comment:12](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment12)
 .PARAMETER OutputFolder
     Every run writes its own timestamped subfolder, so repeated runs never overwrite each other.
     [comment:13](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment13)

@@ -9,10 +9,10 @@
     repository root — for testing in a tmp folder, or vendoring the toolset as a package.
 .DESCRIPTION
     Never clobbers: an existing file at the destination aborts the copy before any write, unless -Force.
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
-    [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md),
+    [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md),
     [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9),
-    [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)
+    [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md),
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md#comment1)
 .PARAMETER Destination
     The target root the selected paths are mirrored into (created if missing).

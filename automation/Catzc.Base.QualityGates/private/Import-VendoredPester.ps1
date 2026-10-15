@@ -8,9 +8,9 @@
     Loads the vendored Pester into the session on first use, and makes sure it is the one in use.
 .DESCRIPTION
     Any other Pester in the session, a system install or another version, is removed and replaced, and named.
-    [ADR-PWSH-VENDOR#5](/docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor5),
     [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1),
-    [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)
+    [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11),
+    [ADR-PWSH-VENDOR#5](/docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor5)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Import-VendoredPester.ps1.md#comment1)
 .OUTPUTS
     None.

@@ -8,9 +8,9 @@
     Registers (creates or updates) the build-validation branch policy tied to a globset. Idempotent.
 .DESCRIPTION
     The existing policy is matched by pipeline plus branch, so a changed filter or name updates it in place.
+    [ADR-AUTO-IDEM](/docs/adr/automation/idempotent-state-functions.md),
     [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
-    [ADR-FLOW-CD-TYPE#4](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4),
-    [ADR-AUTO-IDEM](/docs/adr/automation/idempotent-state-functions.md)
+    [ADR-FLOW-CD-TYPE#4](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4)
     [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md#comment1)
 .PARAMETER GlobSet
     The declared globset the policy is tied to (a name in globs.yml).

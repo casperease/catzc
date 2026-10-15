@@ -5,12 +5,12 @@
 
 <#
 .SYNOPSIS
-    The file meta quality gate: fails on any in-scope file whose meta block differs from what Format-FileMeta would write
-    ([ADR-REPO-FORMAT#9](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format9),
-    [ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
+    The file meta quality gate: fails on any in-scope file whose meta block differs from what Format-FileMeta would write.
 .DESCRIPTION
     A key no meta kind owns is reported too: the author decides whether it belongs in `config` or goes.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
+    [ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3),
+    [ADR-REPO-FORMAT#9](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format9)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-FileMeta.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to check. Default: every in-scope file.

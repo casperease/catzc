@@ -10,11 +10,11 @@
 .DESCRIPTION
     It reads the map's placements and never places a file itself, so it judges the map, not the placing rules.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3),
     [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1),
-    [ADR-REPO-OUTDIR](/docs/adr/repository/dedicated-output-directory.md),
+    [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3),
+    [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
     [ADR-DSGN-TRACK#13](/docs/adr/design/tracks.md#rule-adr-dsgn-track13),
-    [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)
+    [ADR-REPO-OUTDIR](/docs/adr/repository/dedicated-output-directory.md)
     [comment:1](/docs/references/automation/catzc-base-maps/Test-WorldMap.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-world-map/ (Write-QualityGateReport).

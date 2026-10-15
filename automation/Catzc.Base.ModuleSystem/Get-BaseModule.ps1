@@ -5,10 +5,10 @@
 
 <#
 .SYNOPSIS
-    Returns the automation modules as typed BaseModule objects, by kind — the native model type
-    ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
+    Returns the automation modules as typed BaseModule objects, by kind — the native model type.
 .DESCRIPTION
     Classifies against the code root, not the repository root, so build mode (the built package) answers right.
+    [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9),
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-BaseModule.ps1.md#comment1)
 .PARAMETER Kind

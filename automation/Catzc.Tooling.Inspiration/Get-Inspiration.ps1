@@ -9,8 +9,8 @@
 .DESCRIPTION
     An absent inspiration is reported with Available false, never thrown on, so the work carries on without it.
     [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
-    [ADR-REPO-INSPIRE#2](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire2),
-    [ADR-REPO-INSPIRE#1](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire1)
+    [ADR-REPO-INSPIRE#1](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire1),
+    [ADR-REPO-INSPIRE#2](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire2)
     [comment:1](/docs/references/automation/catzc-tooling-inspiration/Get-Inspiration.ps1.md#comment1)
 .PARAMETER Id
     The id of one inspiration (its inspiration.yml entry).

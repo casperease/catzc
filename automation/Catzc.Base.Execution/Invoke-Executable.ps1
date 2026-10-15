@@ -21,6 +21,9 @@
 .PARAMETER AsBytes
     Read .Bytes, not .Output: .Output stays empty, so a text reader of a binary stream gets an empty string.
     [comment:4](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment4)
+.PARAMETER TimeoutSeconds
+    Overrides the timeouts.yml limit for one call; -Direct has no limit, since a person at the prompt is its safeguard.
+    [comment:8](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment8)
 .PARAMETER NoAssert
     With -PassThru the ExitCode stays readable on the result, so the caller can judge it instead.
     [comment:5](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment5)
@@ -30,9 +33,6 @@
 .PARAMETER WorkingDirectory
     Defaults to the repository root, not $PWD, so pass a directory whenever the command depends on one.
     [comment:7](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment7)
-.PARAMETER TimeoutSeconds
-    Overrides the timeouts.yml limit for one call; -Direct has no limit, since a person at the prompt is its safeguard.
-    [comment:8](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment8)
 .PARAMETER DryRun
     Return the command string without executing. Used for testing.
 .EXAMPLE

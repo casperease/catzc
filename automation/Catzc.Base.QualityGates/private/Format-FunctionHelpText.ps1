@@ -7,11 +7,12 @@
 .SYNOPSIS
     Writes the normal form of a function file's help block and reports what only a person can settle.
 .DESCRIPTION
-    Sections move and citations are ordered, but no prose is written: text a person authored is left as it is.
+    Sections move and citations are ordered, but no prose is written: text a person authored is left as it is.,,,
     [ADR-REPO-HELP#1](/docs/adr/repository/function-help.md#rule-adr-repo-help1),
     [ADR-REPO-HELP#2](/docs/adr/repository/function-help.md#rule-adr-repo-help2),
     [ADR-REPO-HELP#3](/docs/adr/repository/function-help.md#rule-adr-repo-help3),
     [ADR-REPO-HELP#4](/docs/adr/repository/function-help.md#rule-adr-repo-help4)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Format-FunctionHelpText.ps1.md#comment1)
 .PARAMETER Text
     The text of one function file.
 .OUTPUTS

@@ -8,11 +8,11 @@
     Returns the world map: every tracked file placed in one cell of tracks by file languages.
 .DESCRIPTION
     File text is read only for kinds that cite ADRs, once per session, so the map costs one pass over the index.
-    [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1),
-    [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
+    [ADR-AUTO-CACHE#6](/docs/adr/automation/caching.md#rule-adr-auto-cache6),
     [ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md),
+    [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1),
     [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3),
-    [ADR-AUTO-CACHE#6](/docs/adr/automation/caching.md#rule-adr-auto-cache6)
+    [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)
     [comment:1](/docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md#comment1)
 .PARAMETER AsJson
     JSON carries axes, cells and per-file placements, so a tool reads the map without PowerShell.

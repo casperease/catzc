@@ -9,9 +9,9 @@
 .DESCRIPTION
     Resolves against the modules root, so it is right in both run modes, and a build-mode overlay may replace an asset.
     [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1),
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
     [ADR-AUTO-ASSETDEP#2](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2),
-    [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
+    [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md),
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-repository/Get-CatzcModuleRoot.ps1.md#comment1)
 .PARAMETER ChildPath
     Pass a string literal: the asset-dependency inventory is derived from these literals at each call site.

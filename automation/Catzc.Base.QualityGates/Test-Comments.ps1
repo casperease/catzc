@@ -9,8 +9,8 @@
 .DESCRIPTION
     The shape of the insight line is Format-Comments' to fix, not this gate's.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),
-    [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)
+    [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
+    [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Comments.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to check. Default: every file in scope.

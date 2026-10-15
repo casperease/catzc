@@ -13,15 +13,6 @@
     Path to the source CSV (Path set).
 .PARAMETER MarkdownPath
     Output Markdown path (Path set).
-.PARAMETER SourceName
-    H1 title. Defaults to the CSV's own filename.
-.PARAMETER GeneratedAt
-    CSV generation time in UTC. When omitted, the preamble shows only the conversion time.
-.PARAMETER InputObject
-    A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the pipeline (Object set).
-.PARAMETER OutputFolder
-    Unset, the file lands under the output root, which is out locally and the staging directory in a pipeline.
-    [comment:2](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment2)
 .PARAMETER RuleNameColumn
     CSV column used as the rule name / first table column. Default 'Name'.
 .PARAMETER CompositeColumns
@@ -42,6 +33,15 @@
     Rule collection group -> group priority (lower evaluated first). Not in the export, so supplied here.
 .PARAMETER DoNotCutIpgNames
     Keep full IP-group resource IDs instead of trimming to the simple name.
+.PARAMETER SourceName
+    H1 title. Defaults to the CSV's own filename.
+.PARAMETER GeneratedAt
+    CSV generation time in UTC. When omitted, the preamble shows only the conversion time.
+.PARAMETER InputObject
+    A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the pipeline (Object set).
+.PARAMETER OutputFolder
+    Unset, the file lands under the output root, which is out locally and the staging directory in a pipeline.
+    [comment:2](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment2)
 .PARAMETER SortNote
     The sentence under '## Rules' describing the ordering.
 .EXAMPLE

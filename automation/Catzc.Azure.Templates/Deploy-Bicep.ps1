@@ -8,7 +8,8 @@
     Deploys a bicep template to Azure (resolves context, runs hooks, calls az, sets tags).
 .DESCRIPTION
     The session picks the slot: a customer subscription deploys the customer config, otherwise the root config.
-    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md), [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md),
+    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment1)
 .PARAMETER Environment
     Environment shortname.

@@ -71,6 +71,44 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
         }
     }
 
+    Context 'the ps-help step' {
+        BeforeEach {
+            $script:helpFile = Join-Path $script:root 'automation/Widget/Get-Gadget.ps1'
+            $null = New-Item -ItemType Directory -Path (Split-Path $script:helpFile) -Force
+            $script:misordered = "<#`n.SYNOPSIS`n    Gets a gadget.`n.OUTPUTS`n    [string] The gadget.`n.PARAMETER Widget`n    The widget.`n#>`nfunction Get-Gadget {`n    [OutputType([string])]`n    param(`n        [string] `$Widget`n    )`n}`n"
+            [System.IO.File]::WriteAllText($script:helpFile, $script:misordered)
+        }
+
+        It 'writes the normal form of a help block and returns the absolute path it changed' {
+            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
+                param($Root, $File)
+                Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root
+            }
+            $outcome.Changed | Should -Be @($script:helpFile)
+            $outcome.Unfixable.Count | Should -Be 0
+            [System.IO.File]::ReadAllText($script:helpFile) | Should -BeLike '*.PARAMETER Widget*.OUTPUTS*'
+        }
+
+        It 'changes nothing under -DryRun, and still names the file it would change' {
+            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
+                param($Root, $File)
+                Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root -DryRun
+            }
+            $outcome.Changed | Should -Be @($script:helpFile)
+            [System.IO.File]::ReadAllText($script:helpFile) | Should -BeExactly $script:misordered
+        }
+
+        It 'returns a problem only a person can settle as a file to repair' {
+            [System.IO.File]::WriteAllText($script:helpFile, "<#`n.SYNOPSIS`n    Gets a gadget.`n#>`nfunction Get-Gadget {`n    param(`n        [string] `$Widget`n    )`n}`n")
+            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
+                param($Root, $File)
+                Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root
+            }
+            $outcome.Changed.Count | Should -Be 0
+            $outcome.Unfixable[$script:helpFile] | Should -BeLike '*parameter Widget has no .PARAMETER section*'
+        }
+    }
+
     Context 'the comments step' {
         It 'hands the files to Export-Comments as repository-relative paths, and returns what it moved as absolute paths' {
             $gadget = Join-Path $script:root 'automation/Widget/Get-Gadget.ps1'

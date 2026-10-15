@@ -6,10 +6,11 @@
 <#
 .SYNOPSIS
     Quality gate: checks each ADO pipeline's trigger path filters against its globset's projection — the
-    trigger-drift quality gate ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)).
+    trigger-drift quality gate.
 .DESCRIPTION
     Filters compare as sets, since ADO path filters are order-independent; a missing pipeline file is an issue too.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
+    [ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)
     [comment:1](/docs/references/automation/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md#comment1)
 .PARAMETER Name
     The globset(s) to check — a declared, pipeline-bound name. Omit for every pipeline-bound globset.

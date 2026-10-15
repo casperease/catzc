@@ -13,12 +13,6 @@
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md#comment1)
 .PARAMETER Path
     The test file(s) or folder(s) to run. A Go test folder runs through the Go bridge (ConvertTo-PesterRunTarget).
-.PARAMETER EntryScript
-    Empty for the source run; a build run sets it so the Go and Python tests start the build, not the source.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md#comment2)
-.PARAMETER LanguageExecutable
-    The run's source session located these once, so the bridge reuses them; an empty entry means there is none.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md#comment3)
 .PARAMETER ExcludeTag
     Tags excluded from the run (from Get-TestExcludeTag). Empty means no tag filter.
 .PARAMETER IncludeTag
@@ -30,6 +24,12 @@
     When given, enables the NUnit result file at this path (the shard workers' results-shard-<N>.xml).
 .PARAMETER FullNameFilter
     When given, filters the run to tests whose full name matches (the manual single-check path).
+.PARAMETER EntryScript
+    Empty for the source run; a build run sets it so the Go and Python tests start the build, not the source.
+    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md#comment2)
+.PARAMETER LanguageExecutable
+    The run's source session located these once, so the bridge reuses them; an empty entry means there is none.
+    [comment:3](/docs/references/automation/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md#comment3)
 .OUTPUTS
     [PesterConfiguration] The configured, ready-to-invoke configuration.
 #>

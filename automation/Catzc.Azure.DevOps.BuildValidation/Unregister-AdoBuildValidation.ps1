@@ -8,8 +8,8 @@
     Removes the build-validation branch policy tied to a globset. Idempotent — a no-op when none exists.
 .DESCRIPTION
     The policy is found by its path filter, the only tie to the globset; an absent policy is reported, not an error.
-    [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
-    [ADR-AUTO-IDEM#2](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem2)
+    [ADR-AUTO-IDEM#2](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem2),
+    [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
     [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md#comment1)
 .PARAMETER GlobSet
     The declared globset whose policy to remove (a name in globs.yml).

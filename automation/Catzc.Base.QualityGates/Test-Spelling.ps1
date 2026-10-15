@@ -8,8 +8,8 @@
     Spell-checks the repository's known file types with cspell and writes a report under out/.
 .DESCRIPTION
     A scan that matched no files throws before the report, since there is no verdict to report.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-AUTO-CONSOLE#6](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console6)
+    [ADR-AUTO-CONSOLE#6](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console6),
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment1)
 .PARAMETER Path
     cspell still applies ignorePaths from cspell.yml, so an explicit path can still be skipped.

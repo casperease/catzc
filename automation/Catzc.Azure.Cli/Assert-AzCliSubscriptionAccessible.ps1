@@ -8,8 +8,8 @@
     Asserts the current az CLI login can reach a given subscription.
 .DESCRIPTION
     A pass proves a real ARM call will work, not merely that the subscription is in the local profile.
-    [ADR-AZ-CLI#1](/docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1),
-    [ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)
+    [ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md),
+    [ADR-AZ-CLI#1](/docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1)
     [comment:1](/docs/references/automation/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID the current login must be able to reach.

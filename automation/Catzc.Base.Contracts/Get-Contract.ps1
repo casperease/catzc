@@ -8,11 +8,11 @@
     Lists the repository's contract assets, with every fact derived from each asset's name.
 .DESCRIPTION
     Nothing is registered: every fact comes from folder and file names, and the real files are never read.
+    [ADR-AUTO-PATH#2](/docs/adr/automation/path-representation.md#rule-adr-auto-path2),
     [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),
+    [ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5),
     [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
     [ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7),
-    [ADR-AUTO-PATH#2](/docs/adr/automation/path-representation.md#rule-adr-auto-path2),
-    [ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5),
     [ADR-REPO-CONTRACT#8](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract8)
     [comment:1](/docs/references/automation/catzc-base-contracts/Get-Contract.ps1.md#comment1)
 .PARAMETER Unit

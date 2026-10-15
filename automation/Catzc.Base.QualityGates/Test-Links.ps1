@@ -5,12 +5,12 @@
 
 <#
 .SYNOPSIS
-    The link quality gate: fails on any off-form, dangling, or dead link or citation
-    ([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)).
+    The link quality gate: fails on any off-form, dangling, or dead link or citation.
 .DESCRIPTION
     Read-only twin of Format-Links: each issue says whether Format-Links can fix it or a person must.
-    [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5),
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
+    [ADR-REPO-LINK](/docs/adr/repository/markdown-links.md),
+    [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Links.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to check. Default: every git-tracked file.

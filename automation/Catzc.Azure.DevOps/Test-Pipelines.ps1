@@ -5,17 +5,16 @@
 
 <#
 .SYNOPSIS
-    Quality gate: checks the pipelines/ tree against the naming-and-placement contract
-    ([ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md)).
+    Quality gate: checks the pipelines/ tree against the naming-and-placement contract.
 .DESCRIPTION
     A file that fails to parse is reported as a violation, so a broken pipeline cannot slip through silently.
-    [ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md),
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6),
+    [ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md),
+    [ADR-PIPE-NAME#1](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name1),
     [ADR-PIPE-NAME#2](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name2),
     [ADR-PIPE-NAME#3](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name3),
-    [ADR-PIPE-NAME#1](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name1),
     [ADR-PIPE-NAME#4](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name4),
+    [ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6),
     [ADR-PIPE-NAME#7](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name7)
     [comment:1](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment1)
 .PARAMETER Path

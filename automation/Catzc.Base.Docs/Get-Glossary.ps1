@@ -8,8 +8,8 @@
     Returns the controlled vocabulary: every concept of every glossary source, merged and sorted by term.
 .DESCRIPTION
     Cross-source facts such as a duplicate term are not checked here, so a reader gets the vocabulary as declared.
-    [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2),
-    [ADR-PWSH-CACHE](/docs/adr/pwsh/script-scope-caching.md)
+    [ADR-PWSH-CACHE](/docs/adr/pwsh/script-scope-caching.md),
+    [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)
     [comment:1](/docs/references/automation/catzc-base-docs/Get-Glossary.ps1.md#comment1)
 .OUTPUTS
     [Catzc.Base.Docs.GlossaryEntry[]] Empty when no module ships a glossary.

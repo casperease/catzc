@@ -8,8 +8,8 @@
     Commits the importer-maintained generated files to git — the dev-box janitor.
 .DESCRIPTION
     Only a person's session commits: a pipeline must fail loudly and an agent leaves the commit to the person.
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
     [ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13),
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
     [ADR-REPO-VARIANT#6](/docs/adr/repository/repo-variants.md#rule-adr-repo-variant6)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md#comment1)
 .PARAMETER DryRun

@@ -8,10 +8,10 @@
     Checks contract assets against the real repository and returns one result per asset.
 .DESCRIPTION
     A failed check is a result with Passed false, never an exception; only misuse throws.
-    [ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4),
-    [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
     [ADR-PWSH-VERBS#2](/docs/adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs2),
-    [ADR-PWSH-VERBS#6](/docs/adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs6)
+    [ADR-PWSH-VERBS#6](/docs/adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs6),
+    [ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4),
+    [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)
     [comment:1](/docs/references/automation/catzc-base-contracts/Get-ContractCheckResults.ps1.md#comment1)
 .PARAMETER Asset
     The assets to check. Default: Get-Contract's assets, every unit's draft.

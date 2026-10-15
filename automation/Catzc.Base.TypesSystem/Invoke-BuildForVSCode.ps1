@@ -9,7 +9,8 @@
     sources — the editor-facing build pathway, separate from the runtime's Add-Type compile.
 .DESCRIPTION
     Unlike the runtime Add-Type compile, this runs the analyzers and fails when the committed DLL is stale.
-    [ADR-AUTO-TYPES](/docs/adr/automation/BCL/native-csharp-types.md), [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
+    [ADR-AUTO-TYPES](/docs/adr/automation/BCL/native-csharp-types.md),
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md#comment1)
 .PARAMETER Configuration
     The MSBuild configuration to build. Defaults to Debug.

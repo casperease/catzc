@@ -5,10 +5,10 @@
 
 <#
 .SYNOPSIS
-    Lists the tracked files that carry a meta block, each with the carrier entry that says where it goes
-    ([ADR-REPO-FILEMETA#5](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5)).
+    Lists the tracked files that carry a meta block, each with the carrier entry that says where it goes.
 .DESCRIPTION
     Exempt files, opt-outs, a class's own excludes and a path no imprint kind names all stay out.
+    [ADR-REPO-FILEMETA#5](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FileMetaScope.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the returned paths are relative to.

@@ -5,10 +5,10 @@
 
 <#
 .SYNOPSIS
-    Computes the meta block of every in-scope file — the one place Format-FileMeta and Test-FileMeta share
-    ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
+    Computes the meta block of every in-scope file — the one place Format-FileMeta and Test-FileMeta share.
 .DESCRIPTION
     An unowned key is reported and the file left alone, since writing would drop the author's key.
+    [ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3),
     [ADR-REPO-FILEMETA#5](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-FileMetaEngine.ps1.md#comment1)
 .PARAMETER RepositoryRoot

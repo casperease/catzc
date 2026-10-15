@@ -6,11 +6,11 @@
 <#
 .SYNOPSIS
     Quality gate: no shipped config may carry a TEST-fixture identity in its data — the reverse of
-    Test-LogicTestIdentity, closing the other half of the language-zone separation
-    ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)).
+    Test-LogicTestIdentity, closing the other half of the language-zone separation.
 .DESCRIPTION
     The forbidden set is derived from the fixture configs, and the scan reads parsed keys and values, never raw text.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
+    [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md#comment1)
 .PARAMETER Path
     The terminology registry is skipped by default, since it defines the fixture tokens it would be flagged for.

@@ -5,14 +5,14 @@
 
 <#
 .SYNOPSIS
-    Quality gate: checks per-layer independence
-    ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)) — no two same-layer
+    Quality gate: checks per-layer independence — no two same-layer
     globsets select a common file on their OWN contribution.
 .DESCRIPTION
     Layers are checked one by one, never across: a unit contains the base it composes, so that overlap is expected.
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),
-    [ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7),
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
+    [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10),
+    [ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)
     [comment:1](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-globset-independence).

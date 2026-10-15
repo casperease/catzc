@@ -10,8 +10,8 @@
     Dictionaries are gitignored and regenerated on import, so a drift finding means a hand-edited word list.
     [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
     [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5),
-    [ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8),
     [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6),
+    [ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8),
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Terminology.ps1.md#comment1)
 .PARAMETER OutputFolder
