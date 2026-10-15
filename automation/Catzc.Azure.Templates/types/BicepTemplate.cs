@@ -1,11 +1,5 @@
-// A discovered deployable template — one folder of Bicep under the templates tree, plus the deployment
-// axes (environments × subscriptions × customers) it fans out across, materialised as `slots`. The
-// definitional record a deploy is planned from; mirrors a template's config keys (snake_case), overlaid
-// with options.yml, and is constructed from that merged dictionary.
-//
-// Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
-// over its own properties (Contains/indexer/Keys/ToHashtable) and its constructor uses the base's
-// Req/OptStr/StrArr extraction helpers.
+// A discovered deployable template — one folder of Bicep under the templates tree, plus the deployment axes (environments ×...
+// [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -57,8 +51,9 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     // The kind of environment this template targets (e.g. per-subscription vs shared). Always present.
     public string environment_kind { get; }
 
-    // Whether this is a customer template (its configs deploy into customer subscriptions). Defaults to the
-    // have_customers repo variant; see [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md). Always present (a bool).
+    // Whether this is a customer template (its configs deploy into customer subscriptions).
+    // [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
+    // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md#comment2)
     public bool customer_deployment { get; }
 
     // The short name used when composing resource names. Always present.
@@ -70,8 +65,8 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     // Supporting resource files the template carries. Null when the template has no resources/ folder.
     public string[] resources { get; }
 
-    // Constructed from the parsed-and-overlaid configuration dictionary; the constructor validates required
-    // keys (a malformed template cannot produce an instance).
+    // Constructed from the parsed-and-overlaid configuration dictionary; the constructor validates required keys (a malformed template...
+    // [comment:3](/docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md#comment3)
     public BicepTemplate(IDictionary d)
     {
         if (d == null) { throw new ArgumentException("BicepTemplate requires a dictionary"); }

@@ -1,5 +1,5 @@
-// The deployment-plan concern of a deployment: what to deploy and where, independent of the files
-// (those are BicepArtifacts). One of the three concerns nested in BicepDeploymentContext.
+// The deployment-plan concern of a deployment: what to deploy and where, independent of the files (those are BicepArtifacts).
+// [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepDeploymentPlan.cs.md#comment1)
 
 using System;
 

@@ -2,16 +2,9 @@
 .SYNOPSIS
     The build-artifact parameters filename for a (customer?, env, slot) config.
 .DESCRIPTION
-    The single source of the per-slot parameters artifact name, used by both Build-Bicep (which writes
-    it) and Get-BicepDeploymentContext (which reads it) so the two can never drift — the same principle
-    as the derived RG name (Get-BicepResourceGroupName).
-
-    `parameters.<config>.json` for a configuration-root (shared-platform) slot, or
-    `parameters.<customer>.<config>.json` for a customer slot — where `<config>` is `<env>[-<slot>]`
-    (Get-BicepConfigName). The artifact names mirror the configuration tree exactly: all of a template's
-    slots render into one build folder, and keying on the customer keeps them structurally
-    collision-free ((customer?, env, slot) is unique) with no guard to remember. See
-    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md).
+    The single source of the per-slot parameters artifact name, used by both Build-Bicep (which writes it) and...
+    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
+    [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md#comment1)
 .PARAMETER Environment
     Environment name.
 .PARAMETER Slot

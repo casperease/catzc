@@ -2,14 +2,9 @@
 .SYNOPSIS
     Returns the subscriptions a config coordinate (customer?, environment) can resolve to.
 .DESCRIPTION
-    The single implementation of the configuration-tree resolution rule
-    ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)): a config at the configuration/ ROOT (empty -Customer) is
-    served by
-    the NON-customer subscriptions serving its environment; a config under configuration/<customer>/ is
-    served by that customer's subscriptions serving it (the subscription's raw customer token — key or
-    shortcode — is normalized against the folder's customer key). A conforming azure.yml yields exactly
-    one candidate; callers assert that (Get-BicepSubscriptionConfigViolations for the violation text,
-    discovery for the resolved name) so the rule cannot drift between them.
+    The single implementation of the configuration-tree resolution rule: a config at the configuration/ ROOT (empty...
+    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
+    [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md#comment1)
 .PARAMETER Customer
     The configuration subfolder name (a customer key), or '' for a configuration-root config.
 .PARAMETER Environment
@@ -45,8 +40,8 @@ function Get-BicepConfigSubscriptionCandidates {
         if ([string]::IsNullOrEmpty($token)) {
             continue
         }
-        # Customer config: match the raw token first (the common, by-key binding), and only resolve a
-        # non-matching token through the catalogue (the by-shortcode binding) — keeps the read lazy.
+        # Customer config: match the raw token first (the common, by-key binding), and only resolve a non-matching...
+        # [comment:2](/docs/references/automation/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md#comment2)
         if ($token -ceq $Customer -or (Get-AzureCustomer $token).key -ceq $Customer) {
             $ret.Add($subscriptionName)
         }

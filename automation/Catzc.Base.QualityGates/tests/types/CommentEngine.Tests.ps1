@@ -162,6 +162,20 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $second.PageText.Contains('<!-- cspell:ignore gadgt wdgt -->') | Should -BeTrue
     }
 
+    It 'wraps many ignored words into several lines within the page limit, and merges them back on re-export' -Tag 'ADR-REPO-COMMENTS#2' {
+        $many = (1..30 | ForEach-Object { "gadgetword$_" }) -join ' '
+        $first = & $export "# cspell:ignore $many`n# A widget note`n# on two lines.`nwidget: 1`n" '.yml' 'yaml'
+        $ignoreLines = @($first.PageText -split "`n" | Where-Object { $_ -like '<!-- cspell:ignore*' })
+        $ignoreLines.Count | Should -BeGreaterThan 1
+        $ignoreLines | ForEach-Object { $_.Length | Should -BeLessOrEqual 140 }
+        $grown = $first.Text + "# cspell:ignore wdgt`n# A gadget note`n# on two lines.`ngadget: 2`n"
+        $second = & $export $grown '.yml' 'yaml' $first.PageText
+        $words = @($second.PageText -split "`n" | Where-Object { $_ -like '<!-- cspell:ignore*' } |
+                ForEach-Object { ($_ -replace '^<!-- cspell:ignore | -->$', '') -split ' ' })
+        $words.Count | Should -Be 31
+        $second.PageText | Should -Not -Match "`n`n`n"
+    }
+
     It 'cuts a long annotated code line at a word, never inside one' -Tag 'ADR-REPO-COMMENTS#2' {
         $long = '$widgets = Get-Gadget -Name widget -Filter gadget -Recurse -Depth 3 -ErrorAction Ignore -Force'
         $source = "# A long widget note`n# on two lines.`n$long`n"

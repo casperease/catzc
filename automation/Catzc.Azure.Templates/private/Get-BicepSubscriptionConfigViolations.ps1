@@ -5,15 +5,8 @@
     drift. Parallels Get-BicepConfigClassViolations. See
     [ADR-AZ-DATAMOD#8](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8).
 .DESCRIPTION
-    A config lives at `configuration/<env>[-<slot>].yml` (a shared-platform config) or
-    `configuration/<customer>/<env>[-<slot>].yml` (a customer config). This checks the two conventional
-    rules (returns a possibly-empty array of human-readable violations; the caller prepends the template
-    identifier):
-      - a configuration subfolder is always a customer KEY defined in customer.yml;
-      - the config's (customer?, environment) coordinate resolves to exactly ONE subscription
-        (Get-BicepConfigSubscriptionCandidates) — the root rule: one non-customer subscription serves
-        the env; the customer rule: one of the customer's subscriptions serves it.
-    Empty result means the config conforms.
+    A config lives at `configuration/<env>[-<slot>].yml` (a shared-platform config) or...
+    [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md#comment1)
 .PARAMETER Customer
     The configuration subfolder name, or '' for a configuration-root config.
 .PARAMETER Environment

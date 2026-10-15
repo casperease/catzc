@@ -45,6 +45,8 @@ public static class CommentEngine
     const string FenceOpen = "```text";
     const string FenceClose = "```";
     const int ContextLength = 80;
+    // The Markdown line limit a page's generated lines stay within (.editorconfig [*.md] max_line_length).
+    const int PageLineLimit = 140;
     const string Ellipsis = "...";
 
     // ---- finding ----------------------------------------------------------------------------------------------
@@ -570,18 +572,61 @@ public static class CommentEngine
         static string WithIgnoreLine(string prefix, string repoRelativePath, IReadOnlyList<string> ignoredWords)
         {
             if (ignoredWords == null || ignoredWords.Count == 0) { return prefix; }
-            Match existing = PageIgnoreLine.Match(prefix);
-            var words = existing.Success ? Whitespace.Split(existing.Groups["words"].Value.Trim()).Where(w => w.Length > 0).ToList() : new List<string>();
+            MatchCollection existing = PageIgnoreLine.Matches(prefix);
+            var words = new List<string>();
+            foreach (Match match in existing)
+            {
+                foreach (string word in Whitespace.Split(match.Groups["words"].Value.Trim()))
+                {
+                    if (word.Length > 0 && !words.Contains(word)) { words.Add(word); }
+                }
+            }
             int before = words.Count;
             foreach (string word in ignoredWords) { if (!words.Contains(word)) { words.Add(word); } }
-            if (existing.Success && words.Count == before) { return prefix; }
-            string line = "<!-- cspell:ignore " + string.Join(" ", words) + " -->";
-            if (existing.Success) { return prefix.Substring(0, existing.Index) + line + prefix.Substring(existing.Index + existing.Length); }
+            if (existing.Count > 0 && words.Count == before) { return prefix; }
+            string block = IgnoreLines(words);
+            if (existing.Count > 0)
+            {
+                // The existing lines are one block: the first is replaced by the merged block, the rest are removed.
+                var builder = new StringBuilder(prefix.Substring(0, existing[0].Index)).Append(block);
+                int copied = existing[0].Index + existing[0].Length;
+                for (int m = 1; m < existing.Count; m++)
+                {
+                    builder.Append(prefix, copied, existing[m].Index - copied);
+                    copied = existing[m].Index + existing[m].Length;
+                    if (copied < prefix.Length && prefix[copied] == '\n') { copied++; }
+                }
+                builder.Append(prefix, copied, prefix.Length - copied);
+                return Regex.Replace(builder.ToString(), @"\n{3,}", "\n\n");
+            }
             string pathLine = "`" + repoRelativePath + "`\n";
             int at = prefix.IndexOf(pathLine, StringComparison.Ordinal);
-            if (at < 0) { return prefix.TrimEnd('\n') + "\n\n" + line + "\n"; }
+            if (at < 0) { return prefix.TrimEnd('\n') + "\n\n" + block + "\n"; }
             int after = at + pathLine.Length;
-            return prefix.Substring(0, after) + "\n" + line + "\n" + prefix.Substring(after);
+            return prefix.Substring(0, after) + "\n" + block + "\n" + prefix.Substring(after);
+        }
+
+        // The words as `<!-- cspell:ignore … -->` lines, each within the Markdown line limit; the spell checker reads them all.
+        static string IgnoreLines(IReadOnlyList<string> words)
+        {
+            const string open = "<!-- cspell:ignore";
+            const string close = " -->";
+            var lines = new List<string>();
+            var current = new StringBuilder(open);
+            int count = 0;
+            foreach (string word in words)
+            {
+                if (count > 0 && current.Length + 1 + word.Length + close.Length > PageLineLimit)
+                {
+                    lines.Add(current.Append(close).ToString());
+                    current = new StringBuilder(open);
+                    count = 0;
+                }
+                current.Append(' ').Append(word);
+                count++;
+            }
+            lines.Add(current.Append(close).ToString());
+            return string.Join("\n", lines);
         }
     }
 }

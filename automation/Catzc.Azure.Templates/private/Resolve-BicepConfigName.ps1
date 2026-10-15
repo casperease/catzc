@@ -2,11 +2,9 @@
 .SYNOPSIS
     Parses a config / resource-group identity name into its (environment, slot) parts.
 .DESCRIPTION
-    The inverse of Get-BicepConfigName. A config-name is `<environment>[-<slot>]`; env names contain
-    no hyphen, so splitting on the FIRST `-` cleanly separates them: the part before is the
-    environment (must be defined in azure.yml), the remainder is the optional slot (1-3 lowercase
-    alphanumeric, empty for the base slot). Used at discovery to map config filenames back to envs.
-    See [ADR-AZ-DATAMOD#2](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2).
+    The inverse of Get-BicepConfigName.
+    [ADR-AZ-DATAMOD#2](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2)
+    [comment:1](/docs/references/automation/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md#comment1)
 .PARAMETER ConfigName
     The config-name (a config filename without extension), e.g. `dev` or `dev-001`.
 .EXAMPLE

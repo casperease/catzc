@@ -5,42 +5,33 @@
     mutation. See [ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md) and
     [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md).
 .DESCRIPTION
-    Resolves the config file for a (template[, customer], environment[, slot]) coordinate —
-    `infrastructure/templates/<template>/configuration/[<customer>/]<env>[-<slot>].yml` — and sets the
-    given parameters under `ParametersFile.parameters`. Each entry is written ARM-style as
-    `{ <name>: { value: <value> } }`.
-
-    Idempotent (Set-): an existing config is loaded and the named parameters are overlaid (other
-    parameters and keys are preserved); a missing config is created (the customer subdir too).
-    Running it twice with the same input leaves the same file. The config file need not exist yet — that
-    is how a slot / resource group is added (the next discovery picks it up).
-
-    This function does NOT deploy, render, or call Azure. It only edits a file. Deployment of the change
-    is the CD pipeline's job, against version control.
+    Resolves the config file for a (template[, customer], environment[, slot]) coordinate —...
+    [comment:1](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .PARAMETER Environment
-    Environment name — must be a defined environment in azure.yml (it may be one the template does not
-    yet have a config for; that is the point of creating the slot).
+    Environment name — must be a defined environment in azure.yml (it may be one the template does not yet have a...
+    [comment:2](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment2)
 .PARAMETER Parameters
     Hashtable of ARM parameter name -> value. Each becomes `parameters.<name>.value = <value>`.
 .PARAMETER Slot
     Optional special-slot discriminator (1-3 lowercase alphanumeric). Omitted ⇒ the base / index-0 slot.
 .PARAMETER Customer
-    Optional customer key (customer.yml) — the config subfolder to write under
-    (`configuration/<customer>/`). Omitted writes the configuration-root (shared-platform) config. The
-    coordinate must resolve to exactly one subscription (the same rule discovery enforces).
+    Optional customer key (customer.yml) — the config subfolder to write under (`configuration/<customer>/`).
+    [comment:3](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment3)
 .PARAMETER DryRun
-    Preview only — returns the planned path and content without writing. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+    Preview only — returns the planned path and content without writing.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
+    [comment:4](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment4)
 .EXAMPLE
     Set-BicepTemplateConfiguration discovery dev -Parameters @{ sqlAdminLogin = 'admin' }
 .EXAMPLE
     Set-BicepTemplateConfiguration discovery dev -Customer apex -Parameters @{ sqlAdminLogin = 'admin' } -DryRun
 #>
 function Set-BicepTemplateConfiguration {
-    # State-changing function deliberately uses -DryRun, not ShouldProcess — see
-    # [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+    # State-changing function deliberately uses -DryRun, not ShouldProcess — see.
+    # [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
+    # [comment:5](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment5)
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
@@ -80,9 +71,8 @@ function Set-BicepTemplateConfiguration {
         throw "Invalid -Slot '$Slot' — must be 1-3 lowercase alphanumeric chars (e.g. 001)."
     }
 
-    # The coordinate must conform to the conventional tree (the same cross-layer rule discovery
-    # enforces): the customer subfolder is a defined customer key, and the (customer?, env) coordinate
-    # resolves to exactly one subscription.
+    # The coordinate must conform to the conventional tree (the same cross-layer rule discovery enforces): the...
+    # [comment:6](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment6)
     $loc = if ([string]::IsNullOrEmpty($Customer)) {
         "configuration/$Environment.yml"
     }

@@ -2,34 +2,20 @@
 .SYNOPSIS
     Writes the deployment-provenance tags (commit, buildId, branch) on the target scope.
 .DESCRIPTION
-    Called by Deploy-Bicep after a successful deploy. Resolves the scope:
-    - ResourceGroup target  → `/subscriptions/<id>/resourceGroups/<rg>`
-    - Subscription target   → `/subscriptions/<id>`
-
-    Tag *values* come from:
-    - Pipeline:  $env:BUILD_SOURCEVERSION / $env:BUILD_BUILDID / $env:BUILD_SOURCEBRANCH
-    - Devbox:    Get-GitCurrentCommit / 'CLI_NO_BUILD' / Get-GitCurrentBranch
-
-    Tag *names* are template-aware (see Get-BicepTrackTagNameSet).
-
-    Runs `az tag update --operation Merge` so unrelated tags on the scope are preserved. On a non-zero
-    exit it throws a self-contained error that names the target scope, the exact az command, the exit
-    code, and az's captured stderr/stdout — so a failure here (e.g. a tag-governing Azure Policy
-    colliding with the tags API, or a dropped connection) is diagnosable from the thrown error itself,
-    not only from the live console stream.
-    The target scope's subscription is the az session's (Get-AzCliSessionSubscription) — the same
-    session-determined target Deploy-Bicep just deployed into, so the tags land where the deploy did.
+    Called by Deploy-Bicep after a successful deploy.
+    [comment:1](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment1)
 .PARAMETER Slot
-    Optional special-slot discriminator (1-3 lowercase alphanumeric chars). Selects the same slot (and
-    therefore the same RG) that was deployed; omitted -> the env's base / index-0 slot.
+    Optional special-slot discriminator (1-3 lowercase alphanumeric chars).
+    [comment:2](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment2)
 .PARAMETER DryRun
     Preview only — log the tag command that would run and make no change.
 .EXAMPLE
     Set-BicepTrackingTagSet -Environment dev -Template sample
 #>
 function Set-BicepTrackingTagSet {
-    # State-changing function deliberately uses -DryRun, not ShouldProcess — see
-    # [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+    # State-changing function deliberately uses -DryRun, not ShouldProcess — see.
+    # [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
+    # [comment:3](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment3)
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
@@ -104,10 +90,8 @@ function Set-BicepTrackingTagSet {
         return
     }
 
-    # -NoAssert: take the result in hand so a failure throws WITH context (scope, command, az stderr)
-    # from here, rather than the generic exit-code assertion buried in Invoke-Executable. az's stderr is
-    # where the real cause shows up — a RequestDisallowedByPolicy / tag-policy collision, a dropped
-    # connection, an auth problem — so it must travel in the thrown error, not just the console stream.
+    # -NoAssert: take the result in hand so a failure throws WITH context (scope, command, az stderr) from here,...
+    # [comment:4](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment4)
     $result = Invoke-AzCli $command -PassThru -NoAssert
     if ($result.ExitCode -ne 0) {
         $detail = @(

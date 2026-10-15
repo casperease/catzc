@@ -1,5 +1,5 @@
-// The build-artifacts concern of a deployment: the concrete files a Bicep deploy hands to az. Paths are
-// stored repo-root-relative where possible. One of the three concerns nested in BicepDeploymentContext.
+// The build-artifacts concern of a deployment: the concrete files a Bicep deploy hands to az.
+// [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepArtifacts.cs.md#comment1)
 
 using System;
 

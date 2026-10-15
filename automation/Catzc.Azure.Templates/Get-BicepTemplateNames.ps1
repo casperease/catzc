@@ -2,10 +2,8 @@
 .SYNOPSIS
     Returns the names of all discovered bicep templates as a flat string array.
 .DESCRIPTION
-    The single source of the template-name list used by the ArgumentCompleter / ValidateScript
-    blocks on every -Template parameter. Centralising it removes the repeated
-    `Get-BicepTemplates | ForEach-Object { $_.name }` and the member-enumeration trap that the
-    comma-wrapped Get-BicepTemplates return invites (see Get-BicepTemplate for the same caution).
+    The single source of the template-name list used by the ArgumentCompleter / ValidateScript blocks on every...
+    [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateNames.ps1.md#comment1)
 .EXAMPLE
     Get-BicepTemplateNames   # -> sample, sample-indexed, sample-subscription, sample-with-prepost
 #>

@@ -2,39 +2,19 @@
 .SYNOPSIS
     Composes the immutable deployment-context object Deploy-Bicep operates on.
 .DESCRIPTION
-    Resolves everything Deploy-Bicep needs into ONE immutable object with exactly three concerns —
-    the deployment PLAN, the build ARTIFACTS, and the target IDENTITY:
-
-      deployment   — the plan: { template, name, mode, target, resource_group? }
-      artifacts    — the built files: { did_local_build, folder, template_file, parameters_file, prepost_module? }
-      environment  — the target identity: the resolved Get-AzureEnvironment (env + serving subscription)
-
-    Build-folder resolution:
-    - Pipeline: $ArtifactsFolder is required and is used as-is.
-    - Devbox + no -DoNotRebuild: Build-Bicep is invoked here, then its output is used.
-    - Devbox + -DoNotRebuild: the template's standard output_folder is used; the function
-      throws if it does not exist.
-
-    DoNotRun handling: when the template's deployment_mode is 'DoNotRun', this function
-    returns $null (signal to skip) unless -OverrideDoNotRunAndRun is set.
-
-    Subscription-target templates leave `deployment.resource_group` unset and assert that
-    `configuration/<slot>.yml` does NOT carry a `ResourceGroup` key.
-    The target SUBSCRIPTION is the az session's (in a pipeline: the service connection's), resolved
-    against azure.yml by Get-AzCliSessionSubscription; the slot addressed is (session customer?, env,
-    slot). The optional -SubscriptionIdAssertIs guard pins the target explicitly. See
-    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md).
+    Resolves everything Deploy-Bicep needs into ONE immutable object with exactly three concerns — the deployment...
+    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
+    [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment1)
 .PARAMETER Environment
     Environment shortname (must be in azure.yml and in the template's environment list).
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .PARAMETER Slot
-    Optional special-slot discriminator (1-3 lowercase alphanumeric chars, `001`). Selects the slot
-    (config file + parameters artifact + resource group). Omitted -> the env's base / index-0 slot.
+    Optional special-slot discriminator (1-3 lowercase alphanumeric chars, `001`).
+    [comment:2](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment2)
 .PARAMETER SubscriptionIdAssertIs
-    Optional guard — the subscription GUID the az session is expected to target. Throws when the
-    session's subscription differs (in a pipeline that means a mis-wired service connection). Never a
-    selector: the session always determines the target.
+    Optional guard — the subscription GUID the az session is expected to target.
+    [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment3)
 .PARAMETER ArtifactsFolder
     Required on a build agent. Points at the downloaded build output.
 .PARAMETER DoNotRebuild
@@ -98,9 +78,8 @@ function Get-BicepDeploymentContext {
         return $null
     }
 
-    # The deploy target is the az session's subscription (in a pipeline: exactly what the service
-    # connection logged into), reverse-resolved against azure.yml. The optional -SubscriptionIdAssertIs
-    # guard pins it explicitly — a mismatch is a mis-wired service connection, not a retarget.
+    # The deploy target is the az session's subscription (in a pipeline: exactly what the service connection logged...
+    # [comment:4](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment4)
     $sessionSubscription = Get-AzCliSessionSubscription
     if (-not [string]::IsNullOrEmpty($SubscriptionIdAssertIs)) {
         Assert-IsGuid $SubscriptionIdAssertIs
@@ -111,8 +90,8 @@ function Get-BicepDeploymentContext {
     $subscription = $sessionSubscription.name
     $customer = $sessionSubscription.customer
 
-    # The slot addressed is (session customer?, env, slot) — it must exist as a config, and the session
-    # subscription must serve the env (Get-AzureEnvironment asserts that).
+    # The slot addressed is (session customer?, env, slot) — it must exist as a config, and the session subscription...
+    # [comment:5](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment5)
     $wantSlot = [string]$Slot
     $slotMatch = @($templateDescriptor.slots | Where-Object { $_.environment -eq $Environment -and $_.slot -eq $wantSlot -and $_.customer -eq $customer })
     if ($slotMatch.Count -eq 0) {
@@ -173,11 +152,8 @@ function Get-BicepDeploymentContext {
         $templateDescriptor.deployment_target,
         $resourceGroup)   # $null for Subscription-target — the plan exposes resource_group = $null
 
-    # Verify the artifacts as absolute paths above (this process touches the filesystem directly), but
-    # STORE them normalized relative-to-root where possible (ConvertTo-RepoRelativePath). A pipeline's
-    # external $(Pipeline.Workspace) artifact area has no repo-relative form and stays absolute.
-    # Consumers turn these back into absolute paths via Resolve-RepoPath, or hand them to az — which
-    # runs from the repo root, so a repo-relative path resolves there.
+    # Verify the artifacts as absolute paths above (this process touches the filesystem directly), but STORE them...
+    # [comment:6](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment6)
     $prepostArtifact = $null
     if ($null -ne $templateDescriptor.prepost_module) {
         $prepostInBuild = Join-Path $buildFolder (Split-Path $templateDescriptor.prepost_module -Leaf)

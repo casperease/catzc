@@ -1,6 +1,5 @@
-// Everything one Bicep deploy needs, gathered into three concerns: the plan (what/where to deploy), the
-// artifacts (which files), and the resolved environment identity (which subscription/tenant). The deploy
-// of a DoNotRun template yields no context at all (the producer returns null instead of this).
+// Everything one Bicep deploy needs, gathered into three concerns: the plan (what/where to deploy), the artifacts (which files), and the...
+// [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepDeploymentContext.cs.md#comment1)
 
 using System;
 

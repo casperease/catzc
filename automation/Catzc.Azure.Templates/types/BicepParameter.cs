@@ -1,16 +1,7 @@
-// One parameter of a compiled Bicep template: the contract `az bicep build` writes into the `parameters` section of
-// main.json — its type, whether it has a default, its @allowed values, and its @minValue/@maxValue and
-// @minLength/@maxLength bounds. Get-BicepParameterViolations checks every rendered parameters.<config>.json value
-// against it.
-//
-// A result type, not a config mirror, so its properties are PascalCase
-// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)). It is a model type
-// ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)): the checks branch on its
-// Type and bounds, so the shape is fixed here and validated at construction. Nested into BicepParameterModel, which
-// parses the whole section.
-//
-// The nested shape of an object or array parameter (Bicep `items`/`properties`) is not modelled: only the top-level
-// type, the allowed values, and the bounds are.
+// One parameter of a compiled Bicep template: the contract `az bicep build` writes into the `parameters` section of main.json — its...
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
+// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
+// [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -23,8 +14,8 @@ public sealed class BicepParameter
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // The parameter types ARM declares, spelled the way Bicep and the ARM documentation spell them. ARM reads the
-    // type case-insensitively (main.json writes "securestring"); the model stores this canonical spelling.
+    // The parameter types ARM declares, spelled the way Bicep and the ARM documentation spell them.
+    // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md#comment2)
     public static readonly IReadOnlyList<string> Types = Array.AsReadOnly(new[]
     {
         "string", "int", "bool", "object", "array", "secureString", "secureObject",
@@ -74,8 +65,8 @@ public sealed class BicepParameter
         MaxLength = maxLength;
     }
 
-    // Builds the parameter from its main.json declaration. A declaration that names a user-defined type
-    // (`"$ref": "#/definitions/<name>"`) takes its type and any constraint it does not set itself from that definition.
+    // Builds the parameter from its main.json declaration.
+    // [comment:3](/docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md#comment3)
     public static BicepParameter FromArmDeclaration(string name, JsonElement declaration, JsonElement definitions)
     {
         if (declaration.ValueKind != JsonValueKind.Object)
@@ -123,9 +114,8 @@ public sealed class BicepParameter
         return new BicepParameter(name, type, hasDefault, nullable, allowedValues, minValue, maxValue, minLength, maxLength);
     }
 
-    // Normalizes a JSON value for comparison against AllowedValues: a string stays a string, an integer becomes a
-    // long, true/false a bool, null a null, and any other value (a fractional number, an object, an array) its
-    // compact JSON text.
+    // Normalizes a JSON value for comparison against AllowedValues: a string stays a string, an integer becomes a long, true/false a...
+    // [comment:4](/docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md#comment4)
     public static object ToComparable(JsonElement value)
     {
         switch (value.ValueKind)

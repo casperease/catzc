@@ -4,13 +4,8 @@
     Get-BicepTemplates (fail-fast at discovery) and Assert-BicepTemplate (collect-all), so the two
     never drift. See [ADR-AZ-DATAMOD#8](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8).
 .DESCRIPTION
-    Checks one config against the template's env-class bit and returns a (possibly empty) array of
-    human-readable violation strings:
-      - env-class bit: subscription ⇒ the config env must be a per_subscription env (nsub/psub);
-                       standard ⇒ it must be a standard env.
-    The slot is a per-config dimension, not a template-level bit — a template may freely mix slotted
-    (<env>-<slot>.yml) and non-slotted (<env>.yml) configs — so there is no slot rule here.
-    Empty result means the config conforms.
+    Checks one config against the template's env-class bit and returns a (possibly empty) array of human-readable...
+    [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md#comment1)
 .PARAMETER Environment
     The config's resolved environment name.
 .PARAMETER EnvironmentKind
