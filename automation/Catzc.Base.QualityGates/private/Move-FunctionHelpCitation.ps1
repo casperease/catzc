@@ -96,10 +96,15 @@ function Move-FunctionHelpCitation {
             }
         }
     }
-    $sorted = @($byCitation.Keys | Sort-Object -Property @(
-            @{ Expression = { $_ -replace '#\d+$', '' } }
-            @{ Expression = { if ($_ -match '#(\d+)$') { [int] $Matches[1] } else { -1 } } }
-        ))
+    # Sorted by code, then by rule number; a citation of the whole ADR has no number and comes first.
+    $keyed = foreach ($citation in $byCitation.Keys) {
+        $number = -1
+        if ($citation -match '#(\d+)$') {
+            $number = [int] $Matches[1]
+        }
+        [pscustomobject]@{ Citation = $citation; Code = ($citation -replace '#\d+$', ''); Number = $number }
+    }
+    $sorted = @($keyed | Sort-Object -Property Code, Number | ForEach-Object Citation)
 
     while ($kept.Count -gt 0 -and [string]::IsNullOrWhiteSpace($kept[$kept.Count - 1])) {
         $kept.RemoveAt($kept.Count - 1)

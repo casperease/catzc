@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-FormatEngineStamp.ps1.md
     kind: comment-page
-    body_sha: "9b6aaf814d26"
+    body_sha: "6659f0337e02"
     adrs:
       - ADR-AUTO-CACHE#10
 ---

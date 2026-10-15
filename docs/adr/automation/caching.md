@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/automation/caching.md
     kind: adr
-    body_sha: "0a85f8b07cf5"
+    body_sha: a9b615c0027f
     adrs:
       - ADR-AUTO-CACHE#10
       - ADR-AUTO-CACHE#6
@@ -88,10 +88,11 @@ keys the parsed listing on the SHA-256 of the index file, so the answer always e
 ### Rule ADR-AUTO-CACHE:10
 
 A quality check that runs an expensive tool over many files may keep, across sessions, which files the tool last found clean — keyed on each
-file's SHA-256 together with a stamp of every input that decides the tool's verdict (its declared settings files and the tool pins), so a
-change to any of them is a new key and never a stale hit. The result cache is a per-machine file under `out/`, never committed; losing it
-costs one full check, and a pipeline starts without it. A file the tool would still change is never recorded as clean. Exemplar:
-`Format-Code`, with each engine's settings files declared in `languages.yml`.
+file's SHA-256 together with a stamp of every input that decides the tool's verdict (its declared settings files and the pins of the tools
+it runs, each as its own entry), so a change to any of them is a new key and never a stale hit, while a change to another tool's pin is not.
+The result cache is a per-machine file under `out/`, never committed; losing it costs one full check, and a pipeline starts without it. A
+file the tool would still change is never recorded as clean. Exemplar: `Format-Code`, with each engine's settings files declared in
+`languages.yml`.
 
 - [Result caches for quality checks](#result-caches-for-quality-checks)
 
