@@ -87,8 +87,14 @@ author. Which kinds of fact and config exist is a registry. Who computes or read
 ---
 name: example-agent
 catzc:
-  derived: { kind: agent, body_sha: 3fa91c0d2b7e }
-  config: { agents: { example-agent: { gates: [Test-AgentDefinitions] } } }
+  derived:
+    kind: agent
+    body_sha: "3fa91c0d2b7e"
+    adrs: []
+  config:
+    agents:
+      example-agent:
+        gates: [Test-AgentDefinitions]
 ---
 ```
 
