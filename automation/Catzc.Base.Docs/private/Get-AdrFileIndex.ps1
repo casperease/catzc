@@ -40,7 +40,8 @@ function Get-AdrFileIndex {
 
     $relativePaths = [System.Collections.Generic.List[string]]::new()
     $byKey = @{}
-    foreach ($file in [System.IO.Directory]::EnumerateFiles($AdrRoot, '*.md', [System.IO.SearchOption]::AllDirectories)) {
+    # An ADR sits at most three levels below docs/adr (domain, subfolder, file); the fourth level is headroom.
+    foreach ($file in Get-ChildPath $AdrRoot -File -Filter '*.md' -Depth 4) {
         $relative = $file.Substring($AdrRoot.Length).TrimStart('\', '/').Replace('\', '/')
         $relativePaths.Add($relative)
         $segments = $relative.Split('/')

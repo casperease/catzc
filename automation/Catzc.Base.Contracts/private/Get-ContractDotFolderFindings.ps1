@@ -39,7 +39,8 @@ function Get-ContractDotFolderFindings {
         return
     }
 
-    $folders = [string[]] @([System.IO.Directory]::GetDirectories($contractsRoot, '*', [System.IO.SearchOption]::AllDirectories) |
+    # A named whole-tree walk (ADR-PWSH-ENUM#3): this gate looks for stray folders, so no name is pruned and no depth hides one.
+    $folders = [string[]] @(Get-ChildPath $contractsRoot -Directory -Depth 64 -Exclude @() -PruneVendor $false |
             ForEach-Object { [System.IO.Path]::GetRelativePath($contractsRoot, $_) -replace '\\', '/' })
     [System.Array]::Sort($folders, [System.StringComparer]::Ordinal)
     foreach ($folder in $folders) {

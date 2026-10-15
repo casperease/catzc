@@ -199,7 +199,8 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
     # Keyed by domain folder plus slug, so a ruleset in a subfolder resolves; index.md and READMEs are no ADRs.
     # [comment:4](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment4)
     $pathBySlugKey = @{}
-    foreach ($file in [System.IO.Directory]::EnumerateFiles($adrDocsRoot, '*.md', [System.IO.SearchOption]::AllDirectories)) {
+    # An ADR sits at most three levels below docs/adr (domain, subfolder, file); the fourth level is headroom.
+    foreach ($file in Get-ChildPath $adrDocsRoot -File -Filter '*.md' -Depth 4) {
         $relative = ($file.Substring($adrDocsRoot.Length).TrimStart('\', '/')) -replace '\\', '/'
         $slug = [System.IO.Path]::GetFileNameWithoutExtension($file)
         if ($slug -in 'index', 'README') {

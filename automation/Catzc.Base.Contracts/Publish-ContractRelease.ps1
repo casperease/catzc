@@ -73,7 +73,8 @@ function Publish-ContractRelease {
     }
 
     try {
-        $files = [string[]] [System.IO.Directory]::GetFiles($draft, '*', [System.IO.SearchOption]::AllDirectories)
+        # A named whole-tree walk (ADR-PWSH-ENUM#3): the freeze copies the whole draft, so no name is pruned and no depth drops a file.
+        $files = [string[]] @(Get-ChildPath $draft -File -Depth 64 -Exclude @() -PruneVendor $false)
         $null = [System.IO.Directory]::CreateDirectory($target)
         foreach ($file in $files) {
             $copy = Join-Path $target ([System.IO.Path]::GetRelativePath($draft, $file))

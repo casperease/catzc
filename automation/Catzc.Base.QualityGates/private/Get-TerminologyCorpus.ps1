@@ -75,7 +75,9 @@ function Get-TerminologyCorpus {
     # Raw System.IO enumeration avoids per-file object wrapping, which makes a whole-tree scan markedly faster.
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment4)
     $ret = [System.Text.StringBuilder]::new()
-    foreach ($path in [System.IO.Directory]::EnumerateFiles($Root, '*', [System.IO.SearchOption]::AllDirectories)) {
+    # Tracked files reach nine levels below the root, so ten leaves one level of headroom. The corpus is searched for words,
+    # never read in order, so the walker's file order does not matter.
+    foreach ($path in Get-ChildPath $Root -File -Depth 10) {
         if (-not $exts.Contains([System.IO.Path]::GetExtension($path)) -and
             -not $names.Contains([System.IO.Path]::GetFileName($path))) {
             continue

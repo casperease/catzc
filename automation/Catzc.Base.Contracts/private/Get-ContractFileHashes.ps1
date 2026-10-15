@@ -35,7 +35,8 @@ function Get-ContractFileHashes {
         [string] $Folder
     )
 
-    $files = [string[]] [System.IO.Directory]::GetFiles($Folder, '*', [System.IO.SearchOption]::AllDirectories)
+    # A named whole-tree walk (ADR-PWSH-ENUM#3): a frozen contract is hashed in full, so no name is pruned and no depth drops a file.
+    $files = [string[]] @(Get-ChildPath $Folder -File -Depth 64 -Exclude @() -PruneVendor $false)
     $paths = [string[]] @($files |
             ForEach-Object { [System.IO.Path]::GetRelativePath($Folder, $_) -replace '\\', '/' } |
             Where-Object { $_ -cne '.frozen' })

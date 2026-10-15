@@ -60,7 +60,8 @@ function Get-AdrCitationMap {
         }
     }
 
-    $documents = foreach ($file in [System.IO.Directory]::EnumerateFiles($adrRoot, '*.md', [System.IO.SearchOption]::AllDirectories)) {
+    # An ADR sits at most three levels below docs/adr (domain, subfolder, file); the fourth level is headroom.
+    $documents = foreach ($file in Get-ChildPath $adrRoot -File -Filter '*.md' -Depth 4) {
         [System.IO.Path]::GetRelativePath($root, $file) -replace '\\', '/'
     }
 

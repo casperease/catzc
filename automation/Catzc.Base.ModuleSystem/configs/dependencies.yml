@@ -38,6 +38,7 @@ groups:
         Catzc.Base.MarkdownMeta,
         Catzc.Base.Languages,
         Catzc.Base.Asserts,
+        Catzc.Base.Folders,
       ]
     Catzc.Base.Vendor: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Writers, Catzc.Base.Repository, Catzc.Base.Folders]
     Catzc.Base.Timeouts: [Catzc.Base.Engines, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Asserts]
@@ -174,6 +175,7 @@ groups:
         Catzc.Base.Writers,
         Catzc.Base.Docs,
         Catzc.Base.Languages,
+        Catzc.Base.Folders,
       ]
 
   # Edges to Base, to the Catzc.Azure root and to Tooling are declared per member under modules, not in this DAG.
