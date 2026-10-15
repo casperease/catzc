@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBinding.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: b3810deee108
     adrs:
       - ADR-AUTO-TYPES#8

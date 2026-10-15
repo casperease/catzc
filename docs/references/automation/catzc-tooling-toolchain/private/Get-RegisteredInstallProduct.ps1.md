@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/private/Get-RegisteredInstallProduct.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "40dd298c1834"
     adrs:
       - ADR-AUTO-REMOVE#7

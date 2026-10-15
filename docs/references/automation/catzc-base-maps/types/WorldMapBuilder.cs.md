@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/WorldMapBuilder.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: ec81c0113268
     adrs:
       - ADR-AUTO-TYPES#4

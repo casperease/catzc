@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/private/Get-Variant.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ef0c31774530
     adrs: []
 ---

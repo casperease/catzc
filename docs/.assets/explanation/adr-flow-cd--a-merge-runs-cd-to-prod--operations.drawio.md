@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.md
     kind: asset-description
-    body_sha: da9c97a6ff75
+    body_sha: "407355477171"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

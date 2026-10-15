@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ee8acc1a45e6
     adrs:
       - ADR-FLOW-CD-TYPE#4

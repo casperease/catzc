@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.md
     kind: asset-description
-    body_sha: "9c50f9f14d8f"
+    body_sha: "94297987628a"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

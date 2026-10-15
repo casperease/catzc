@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Deploy-AzureResourceGroup.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f0348a01206a
     adrs: []
 ---

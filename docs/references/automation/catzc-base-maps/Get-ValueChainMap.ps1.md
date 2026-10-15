@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/Get-ValueChainMap.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: a01dd621c4bd
     adrs:
       - ADR-DSGN-TRACK#14

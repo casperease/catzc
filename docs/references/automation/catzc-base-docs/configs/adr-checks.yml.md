@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/configs/adr-checks.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "6ce41028f450"
     adrs:
       - ADR-AUTO-DEFAULT#6

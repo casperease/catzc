@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-reports/configs/output-formats.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: c72dc0bf389c
     adrs: []
 ---

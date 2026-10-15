@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-GlossaryFormViolations.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b805c29bc5a1
     adrs:
       - ADR-REPO-VOCAB#8

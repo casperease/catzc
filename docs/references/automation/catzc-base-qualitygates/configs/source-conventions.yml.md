@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "5bb6902703ff"
     adrs:
       - ADR-AUTO-DEFAULT#6

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d542f91d7205
     adrs: []
 ---

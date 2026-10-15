@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.md
     kind: asset-description
-    body_sha: "4552f8f2f2fb"
+    body_sha: "0b78b1119135"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.md
     kind: asset-description
-    body_sha: "50ac2b4a5bc9"
+    body_sha: "0ba67eea298c"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/Invoke-WithTimeout.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f2e82f024e4c
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d4edacbd3f06
     adrs: []
 ---

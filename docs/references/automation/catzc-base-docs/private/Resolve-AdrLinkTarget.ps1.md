@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Resolve-AdrLinkTarget.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: c3497bc3dff1
     adrs:
       - ADR-REPO-LINK#2

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/private/Get-UvVenvDir.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "8beb894c5758"
     adrs: []
 ---

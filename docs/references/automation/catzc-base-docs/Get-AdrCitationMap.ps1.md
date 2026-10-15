@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "6f2206eb0300"
     adrs:
       - ADR-PWSH-CACHE#4

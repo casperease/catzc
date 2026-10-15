@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/AnalyzerAdrMapConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "61b3ffe5c212"
     adrs:
       - ADR-AUTO-TYPES#8

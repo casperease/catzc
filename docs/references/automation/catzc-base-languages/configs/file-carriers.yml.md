@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/configs/file-carriers.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: a631a03ab8f5
     adrs:
       - ADR-AUTO-DEFAULT#6

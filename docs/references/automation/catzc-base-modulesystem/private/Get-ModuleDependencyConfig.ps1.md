@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyConfig.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: bbddd59d33d9
     adrs: []
 ---

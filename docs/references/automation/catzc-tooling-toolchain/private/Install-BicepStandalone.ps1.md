@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/private/Install-BicepStandalone.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: be6702523c17
     adrs: []
 ---

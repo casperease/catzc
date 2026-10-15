@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-python/private/Uninstall-PipTool.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: bd42c877b8d4
     adrs: []
 ---

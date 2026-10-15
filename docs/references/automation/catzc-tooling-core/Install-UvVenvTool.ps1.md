@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b8b938fce923
     adrs: []
 ---

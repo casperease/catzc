@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: bf4a01a7829e
     adrs: []
 ---

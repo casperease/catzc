@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLockHolder.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "185d60b4a166"
     adrs: []
 ---

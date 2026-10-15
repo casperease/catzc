@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b07c653bcc38
     adrs:
       - ADR-AUTO-ASSETDEP#1

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/TestPolicyConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: dda07b0327f7
     adrs:
       - ADR-AUTO-DEFAULT#6

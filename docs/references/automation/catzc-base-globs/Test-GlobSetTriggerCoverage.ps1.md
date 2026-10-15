@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "51b43ad45e5f"
     adrs:
       - ADR-AUTO-TEST#35

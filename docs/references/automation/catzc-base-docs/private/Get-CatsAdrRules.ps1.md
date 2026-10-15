@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-CatsAdrRules.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "3e9e29a570ed"
     adrs:
       - ADR-REPO-VOCAB#1

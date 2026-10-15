@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-repository/Assert-SourceTree.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "53af14cdd6f3"
     adrs: []
 ---

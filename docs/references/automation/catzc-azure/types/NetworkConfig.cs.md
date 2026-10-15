@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/NetworkConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: d399fcfb0c5d
     adrs:
       - ADR-AUTO-TYPES#8

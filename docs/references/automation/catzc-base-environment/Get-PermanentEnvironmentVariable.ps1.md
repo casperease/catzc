@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-environment/Get-PermanentEnvironmentVariable.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: eb67139bec71
     adrs: []
 ---

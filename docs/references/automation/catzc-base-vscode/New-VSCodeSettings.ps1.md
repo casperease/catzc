@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ddbdedc25460
     adrs:
       - ADR-REPO-FORMAT#8

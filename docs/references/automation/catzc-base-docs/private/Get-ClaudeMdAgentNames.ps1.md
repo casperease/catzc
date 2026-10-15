@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-ClaudeMdAgentNames.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ec01aecfe80f
     adrs:
       - ADR-REPO-AGENTS#3

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/private/Get-RootConfigTargets.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "91de9fc4fa8d"
     adrs: []
 ---

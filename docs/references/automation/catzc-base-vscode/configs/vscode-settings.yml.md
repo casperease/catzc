@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "2c5a5d201884"
     adrs:
       - ADR-AUTO-GO#6

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-overlay/Assert-CatzcOverlay.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b5c6fdf6dc8b
     adrs: []
 ---

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md
     kind: asset-description
-    body_sha: "683f526b1071"
+    body_sha: e210720832ca
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "964863461021"
     adrs: []
 ---

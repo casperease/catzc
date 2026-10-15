@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ef819015defe
     adrs:
       - ADR-PWSH-PARAM#4

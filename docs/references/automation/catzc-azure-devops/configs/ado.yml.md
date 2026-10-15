@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/configs/ado.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: b8843ba8a09d
     adrs: []
 ---

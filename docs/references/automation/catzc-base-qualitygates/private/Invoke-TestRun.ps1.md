@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "4b1be7b47227"
     adrs:
       - ADR-AUTO-TEST#26

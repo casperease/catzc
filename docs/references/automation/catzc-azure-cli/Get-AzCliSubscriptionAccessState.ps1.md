@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b1b33866f568
     adrs:
       - ADR-AZ-CLI#1

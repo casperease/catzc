@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/types/ConsoleDisplayAttribute.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "877dafa3feb9"
     adrs: []
 ---

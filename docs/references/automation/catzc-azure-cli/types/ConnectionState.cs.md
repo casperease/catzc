@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/types/ConnectionState.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: d1813a2ef229
     adrs: []
 ---

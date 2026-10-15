@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ba211f8a5ae9
     adrs: []
 ---

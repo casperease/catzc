@@ -4,13 +4,8 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid return, break, continue inside ForEach-Object.
 .DESCRIPTION
-    return/break/continue have completely different semantics inside a
-    ForEach-Object scriptblock than inside a foreach loop:
-    - return exits the scriptblock (acts like continue), not the function
-    - break/continue act on the enclosing loop or terminate the script
-    If you need control flow, use a foreach statement instead.
-
-    See ADR: prefer-foreach-over-foreach-object.
+    return/break/continue have completely different semantics inside a ForEach-Object scriptblock than inside a...
+    [comment:1](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment1)
 #>
 
 function Measure-NoForEachObjectControlFlow {
@@ -25,9 +20,9 @@ function Measure-NoForEachObjectControlFlow {
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoForEachObjectControlFlow'
 
-    # Find all ForEach-Object / % command invocations
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+    # Find all ForEach-Object / % command invocations Predicate as a local, not inlined in FindAll's parens — dodges...
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+    # [comment:2](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment2)
     $isForEachObjectCommand = {
         param($node)
         if ($node -isnot [System.Management.Automation.Language.CommandAst]) {
@@ -40,7 +35,7 @@ function Measure-NoForEachObjectControlFlow {
 
     foreach ($cmd in $commands) {
         # Collect all scriptblock arguments to this ForEach-Object call.
-        # These are the -Process, -Begin, -End blocks or positional scriptblock args.
+        # [comment:3](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment3)
         $scriptBlocks = @()
         foreach ($element in $cmd.CommandElements) {
             if ($element -is [System.Management.Automation.Language.ScriptBlockExpressionAst]) {
@@ -49,11 +44,9 @@ function Measure-NoForEachObjectControlFlow {
         }
 
         foreach ($block in $scriptBlocks) {
-            # Find return, break, continue statements that are direct children of THIS
-            # scriptblock — not inside a nested foreach/for/while/do/switch/function/
-            # scriptblock, where they would be valid.
-            # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-            # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+            # Find return, break, continue statements that are direct children of THIS scriptblock — not inside a...
+            # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+            # [comment:4](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment4)
             $isControlFlowStatement = {
                 param($node)
 
@@ -67,9 +60,8 @@ function Measure-NoForEachObjectControlFlow {
                     return $false
                 }
 
-                # Walk up the AST to check if there is an intervening loop/switch/function
-                # between this statement and the ForEach-Object scriptblock.
-                # If there is, the keyword targets that construct — not our scriptblock.
+                # Walk up the AST to check if there is an intervening loop/switch/function between this statement and...
+                # [comment:5](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment5)
                 $parent = $node.Parent
                 while ($null -ne $parent -and $parent -ne $block) {
                     # foreach/for/while/do loops — return/break/continue are valid here

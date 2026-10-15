@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Resolve-ManagedGuid.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: fcd052cd9899
     adrs: []
 ---

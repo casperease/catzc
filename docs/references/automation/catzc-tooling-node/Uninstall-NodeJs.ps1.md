@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-node/Uninstall-NodeJs.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "0a1328e9ee77"
     adrs:
       - ADR-AUTO-ONEJOB#5

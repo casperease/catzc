@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b80e97c1b4a0
     adrs:
       - ADR-AUTO-BASH#2

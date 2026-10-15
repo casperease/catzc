@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/types/BicepSlot.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "900edce83a54"
     adrs: []
 ---

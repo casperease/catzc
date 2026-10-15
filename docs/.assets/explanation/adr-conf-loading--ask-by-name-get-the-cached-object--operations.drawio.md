@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.md
     kind: asset-description
-    body_sha: "5304436a0fd6"
+    body_sha: "4c4c1279b03a"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

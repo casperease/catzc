@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "0a7d3e3e2889"
     adrs:
       - ADR-AUTO-FAILFAST#7

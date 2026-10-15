@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Get-ModuleDependencyEdges.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: dff810848432
     adrs: []
 ---

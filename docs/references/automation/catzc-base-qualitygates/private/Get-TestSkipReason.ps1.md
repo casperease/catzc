@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestSkipReason.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "3abad0db54c4"
     adrs: []
 ---

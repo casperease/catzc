@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/MapsLimits.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: d4f04fdd8aca
     adrs:
       - ADR-AUTO-DEFAULT#6

@@ -45,8 +45,14 @@ engines:
     settings:
       - automation/Catzc.Base.Execution/configs/tools.yml
 # Imprint steps run after every language's formatter: the global list over every language, a language's own list over its files only.
-imprint: [file-meta]
+imprint: [comments, file-meta]
 steps:
+  # Before file-meta, so a page the move writes gets its meta block in the same run.
+  comments:
+    settings:
+      - automation/Catzc.Base.QualityGates/configs/comments.yml
+      - automation/Catzc.Base.QualityGates/configs/links.yml
+      - automation/Catzc.Base.RootConfig/assets/root/.editorconfig
   file-meta:
     settings:
       - automation/Catzc.Base.QualityGates/configs/file-meta.yml

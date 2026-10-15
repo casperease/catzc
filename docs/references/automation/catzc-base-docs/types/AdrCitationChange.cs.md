@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrCitationChange.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "88f20b7d5364"
     adrs:
       - ADR-AUTO-TYPES#9

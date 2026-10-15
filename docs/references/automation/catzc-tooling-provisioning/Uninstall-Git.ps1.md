@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Uninstall-Git.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: a6c28bb36cd9
     adrs: []
 ---

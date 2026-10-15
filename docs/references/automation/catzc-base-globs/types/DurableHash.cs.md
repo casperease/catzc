@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/types/DurableHash.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "7ab7fa1bcd3a"
     adrs:
       - ADR-FLOW-CD-GLOBS#5

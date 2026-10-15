@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/types/Aspect.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "3777b37ef2aa"
     adrs:
       - ADR-DSGN-ASPECT#5

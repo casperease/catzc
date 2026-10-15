@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/Assert-HaveCustomer.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "30dd354a22f0"
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/templates/expedition/configuration/nova/dev.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "94290169c2cf"
     adrs: []
 ---

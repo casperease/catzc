@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.md
     kind: asset-description
-    body_sha: e5ea2bbe45d8
+    body_sha: b01568f3d92e
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-AdrFileIndex.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f97a27a202f2
     adrs: []
 ---

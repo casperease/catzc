@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrNeutralityToken.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: a500c7131628
     adrs:
       - ADR-AUTO-TYPES#8

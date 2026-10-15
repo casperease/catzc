@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-GlossaryAnchorViolations.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "2e776c9942e7"
     adrs:
       - ADR-REPO-VOCAB#1

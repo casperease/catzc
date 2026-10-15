@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Disconnect-AzCli.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d7084debd726
     adrs: []
 ---

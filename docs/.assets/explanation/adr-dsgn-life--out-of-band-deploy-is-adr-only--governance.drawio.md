@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.md
     kind: asset-description
-    body_sha: "88fe0b66284b"
+    body_sha: "58c9f6a27cb6"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

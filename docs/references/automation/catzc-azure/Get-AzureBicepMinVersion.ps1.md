@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/Get-AzureBicepMinVersion.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: e80a6c5e453f
     adrs: []
 ---

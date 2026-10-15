@@ -32,12 +32,13 @@ function Invoke-FileMetaEngine {
         [pscustomobject[]] $Entry
     )
 
-    $files = if ($PSBoundParameters.ContainsKey('Entry')) {
-        @($Entry)
-    }
-    else {
-        @(Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $Config)
-    }
+    # @() around the whole if: an empty file list must stay an array (.Count under strict mode).
+    $files = @(if ($PSBoundParameters.ContainsKey('Entry')) {
+            $Entry
+        }
+        else {
+            Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $Config
+        })
     $owned = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.Imprint() | ForEach-Object { $_.keys }))
 
     $entries = foreach ($entry in $files) {

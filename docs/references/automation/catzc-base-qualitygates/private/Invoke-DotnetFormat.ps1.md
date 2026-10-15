@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-DotnetFormat.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: acbf860ccb79
     adrs:
       - ADR-PRIN-CONFIG#2

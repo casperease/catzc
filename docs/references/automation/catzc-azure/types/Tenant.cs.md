@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/Tenant.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: a62e246cee2c
     adrs: []
 ---

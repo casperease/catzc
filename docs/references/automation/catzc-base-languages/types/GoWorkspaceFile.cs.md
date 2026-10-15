@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/GoWorkspaceFile.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: aa57d63fbba2
     adrs:
       - ADR-AUTO-TYPES#8

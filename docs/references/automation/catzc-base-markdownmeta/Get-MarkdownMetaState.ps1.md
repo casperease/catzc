@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-markdownmeta/Get-MarkdownMetaState.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ae572d032cde
     adrs:
       - ADR-REPO-FILEMETA#3

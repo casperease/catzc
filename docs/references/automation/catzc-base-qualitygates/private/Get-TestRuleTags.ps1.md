@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestRuleTags.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: fcbbd5d53589
     adrs:
       - ADR-PWSH-ERROR#3

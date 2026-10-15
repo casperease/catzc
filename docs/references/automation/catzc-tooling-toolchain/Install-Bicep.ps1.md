@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Install-Bicep.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b505186b6825
     adrs:
       - ADR-REPO-FORMAT#8

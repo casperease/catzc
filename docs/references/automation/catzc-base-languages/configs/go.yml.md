@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/configs/go.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "6260b077e224"
     adrs:
       - ADR-AUTO-DEFAULT#6

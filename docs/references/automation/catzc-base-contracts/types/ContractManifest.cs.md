@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/types/ContractManifest.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "5aea1a09a150"
     adrs:
       - ADR-AUTO-TYPES#8

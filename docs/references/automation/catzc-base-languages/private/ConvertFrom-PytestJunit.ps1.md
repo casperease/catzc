@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/private/ConvertFrom-PytestJunit.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f12b9cecb8ab
     adrs: []
 ---

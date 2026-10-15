@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-RepositoryWebUrl.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "83818b61713d"
     adrs:
       - ADR-REPO-LINK#7

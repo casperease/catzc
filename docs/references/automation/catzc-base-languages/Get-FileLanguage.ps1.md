@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/Get-FileLanguage.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "2d25d860d6d6"
     adrs:
       - ADR-DSGN-TRACK#6

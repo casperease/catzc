@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/Write-Message.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "45eeec779afc"
     adrs:
       - ADR-AUTO-CONSOLE#7

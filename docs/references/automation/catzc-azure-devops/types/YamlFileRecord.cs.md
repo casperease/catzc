@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/types/YamlFileRecord.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "8f428ff3f31c"
     adrs: []
 ---

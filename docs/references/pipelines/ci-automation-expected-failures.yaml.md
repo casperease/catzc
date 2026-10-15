@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/pipelines/ci-automation-expected-failures.yaml.md
-    kind: reference
+    kind: comment-page
     body_sha: b62e57868b53
     adrs: []
 ---

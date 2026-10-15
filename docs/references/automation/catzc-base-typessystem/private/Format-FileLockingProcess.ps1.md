@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/private/Format-FileLockingProcess.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "63591df01d0e"
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/templates/expedition/configuration/apex/dev-blu.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: cd945771c2fa
     adrs: []
 ---

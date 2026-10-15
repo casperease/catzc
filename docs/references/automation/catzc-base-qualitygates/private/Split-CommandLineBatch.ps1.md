@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Split-CommandLineBatch.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "02f4b30b368b"
     adrs: []
 ---

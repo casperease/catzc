@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/Get-AdoRepositoryName.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "63d8dd7353a3"
     adrs:
       - ADR-PWSH-PARAM#4

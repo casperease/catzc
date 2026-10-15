@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/ArtifactsConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: da8cdfbc744e
     adrs:
       - ADR-AUTO-TEST#24

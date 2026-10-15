@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Format-MarkdownParagraph.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: bfad51b4ad62
     adrs:
       - ADR-REPO-FORMAT#5

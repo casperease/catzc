@@ -3,14 +3,8 @@ function Test-AnalyzedFileIsTest {
     .SYNOPSIS
         Whether the code under analysis is a Pester test file — the one scope test the custom checks share.
     .DESCRIPTION
-        Several checks exempt test files, which change state, read raw variables, and use short names on purpose. The
-        Test-ScriptAnalyzer quality gate runs on files, so the file name decides: a *.Tests.ps1 file, or (for a check
-        that asks) a file under a tests/ folder. VS Code's PowerShell extension analyzes the open editor buffer instead,
-        as a script definition with no file name, so the name cannot decide there. Then the content does: a Pester test
-        file calls Describe, and no automation code does. Every check asks this one function, so the quality gate and
-        the editor agree.
-
-        Dot-sourced into each check module, so it runs in that module's scope and changes no session state.
+        Several checks exempt test files, which change state, read raw variables, and use short names on purpose.
+        [comment:1](/docs/references/automation/scriptanalyzer/Test-AnalyzedFileIsTest.ps1.md#comment1)
     .PARAMETER ScriptBlockAst
         Any block of the code under analysis; the whole buffer is searched from its root.
     .PARAMETER IncludeTestsFolder

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/New-GitIgnore.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: a2546a3d1d3e
     adrs: []
 ---

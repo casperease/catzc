@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GlossarySegment.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: a1eefb9be75e
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/ParameterConsistencyConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: c4a991178c2a
     adrs:
       - ADR-AUTO-DEFAULT#6

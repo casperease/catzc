@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.md
     kind: asset-description
-    body_sha: "54c3f738c6af"
+    body_sha: "6d4ae6b931d6"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "22828909acf6"
     adrs:
       - ADR-AUTO-TYPES#8

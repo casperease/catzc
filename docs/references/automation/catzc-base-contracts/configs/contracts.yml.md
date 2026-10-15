@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/configs/contracts.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "0b2cd4e4847c"
     adrs:
       - ADR-AUTO-DEFAULT#6

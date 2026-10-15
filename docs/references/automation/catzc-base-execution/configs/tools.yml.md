@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/configs/tools.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "394f78a2791b"
     adrs:
       - ADR-AUTO-BASH#6

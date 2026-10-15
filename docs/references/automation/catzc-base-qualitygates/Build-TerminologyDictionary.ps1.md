@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "9df31c667c35"
     adrs:
       - ADR-AUTO-SPELL#5

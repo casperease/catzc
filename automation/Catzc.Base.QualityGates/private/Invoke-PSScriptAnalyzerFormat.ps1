@@ -52,9 +52,8 @@ function Invoke-PSScriptAnalyzerFormat {
         }
     }
 
-    # A cold pass spends about 40 ms a file resolving command names it has not seen, so a large batch is sharded
-    # across a few processes (the analyzer's initialization is not thread-safe, as in Get-ScriptAnalyzerDiagnostics);
-    # a small batch, the usual warm-cache one, stays in this session.
+    # A cold pass spends about 40 ms a file resolving command names it has not seen, so a large batch is sharded...
+    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md#comment3)
     $shardCount = [Math]::Min([Math]::Max(1, [Math]::Min([Environment]::ProcessorCount - 1, 4)), [int][Math]::Floor($File.Count / 25))
     if ($shardCount -lt 2) {
         if (-not (Get-Module PSScriptAnalyzer)) {

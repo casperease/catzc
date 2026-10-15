@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "17d8550115a7"
     adrs: []
 ---

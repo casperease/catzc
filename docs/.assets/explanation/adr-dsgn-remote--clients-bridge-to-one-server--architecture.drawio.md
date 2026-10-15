@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.md
     kind: asset-description
-    body_sha: f5152f2e4bc6
+    body_sha: "4b1749882fd0"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

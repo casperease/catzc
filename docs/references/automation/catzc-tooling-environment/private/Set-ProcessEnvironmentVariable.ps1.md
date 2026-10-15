@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-environment/private/Set-ProcessEnvironmentVariable.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "2af716414cbe"
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: efb029a26751
     adrs:
       - ADR-AUTO-ONEJOB#5

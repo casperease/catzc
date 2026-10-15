@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-inspiration/private/Resolve-InspirationRoot.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "251f375ff9fc"
     adrs:
       - ADR-AUTO-PATH#11

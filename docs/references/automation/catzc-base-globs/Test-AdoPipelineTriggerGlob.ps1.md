@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ce3ffdf7ad2b
     adrs:
       - ADR-AUTO-TEST#35

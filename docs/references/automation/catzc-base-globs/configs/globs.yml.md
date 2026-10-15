@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/configs/globs.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "24cde5833be9"
     adrs:
       - ADR-DSGN-TRACK#5

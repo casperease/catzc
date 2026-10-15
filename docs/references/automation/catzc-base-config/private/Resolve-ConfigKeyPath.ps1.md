@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "63b3200a242a"
     adrs:
       - ADR-CONF-ADDRESSING#2

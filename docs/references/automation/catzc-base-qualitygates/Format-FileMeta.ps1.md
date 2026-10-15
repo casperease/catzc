@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "5cff9835113f"
     adrs:
       - ADR-AUTO-DRYRUN#2

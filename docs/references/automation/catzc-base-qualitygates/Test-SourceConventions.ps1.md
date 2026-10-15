@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: c38e489612ea
     adrs:
       - ADR-AUTO-ENGINE#1

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-Formatting.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "9e68ef2cd274"
     adrs:
       - ADR-AUTO-TEST#35

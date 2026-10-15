@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "8a1181fd5a34"
     adrs:
       - ADR-AUTO-DEFAULT#6

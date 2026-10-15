@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "5d865d845cc3"
     adrs:
       - ADR-AUTO-DEFAULT#6

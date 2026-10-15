@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "13921c7abd10"
     adrs:
       - ADR-REPO-LINK#2

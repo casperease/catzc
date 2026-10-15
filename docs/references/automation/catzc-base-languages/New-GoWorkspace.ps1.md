@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "817c13edc99e"
     adrs: []
 ---

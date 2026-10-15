@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/types/AdoConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "327280ee7de3"
     adrs:
       - ADR-AUTO-TYPES#8

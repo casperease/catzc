@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.md
     kind: asset-description
-    body_sha: c48ed7c74f02
+    body_sha: "3a1c2a128456"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

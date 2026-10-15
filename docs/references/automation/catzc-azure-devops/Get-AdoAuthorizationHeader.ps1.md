@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d857c2ce460a
     adrs: []
 ---

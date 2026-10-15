@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/LinkEngineResult.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "4241f346d043"
     adrs: []
 ---

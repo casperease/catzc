@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-environment/Remove-PermanentPath.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "093109b98a65"
     adrs: []
 ---

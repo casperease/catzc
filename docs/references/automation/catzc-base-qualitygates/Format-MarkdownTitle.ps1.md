@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Format-MarkdownTitle.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "109bd3edbc67"
     adrs:
       - ADR-AUTO-DRYRUN#2

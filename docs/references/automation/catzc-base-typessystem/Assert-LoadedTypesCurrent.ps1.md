@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: c6e770400f6f
     adrs:
       - ADR-AUTO-FAILFAST#3

@@ -5,24 +5,9 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid raw pipeline-detection env reads.
 .DESCRIPTION
-    Whether code is running inside a CI/CD pipeline is detected by checking the
-    agent-set environment variables TF_BUILD (Azure DevOps) and GITHUB_ACTIONS
-    (GitHub Actions). That detection logic must live in exactly one place —
-    Test-IsRunningInPipeline — so the checked variables stay an implementation
-    detail and both platforms are always covered.
-
-    This rule flags any direct reference to $env:TF_BUILD or $env:GITHUB_ACTIONS
-    that appears OUTSIDE the function Test-IsRunningInPipeline. The canonical
-    detector is the one sanctioned place that reads them, so it is exempt.
-
-    Test files (*.Tests.ps1) are exempt: they legitimately set and restore these
-    variables to drive Test-IsRunningInPipeline through both contexts in isolation.
-
-    Note: $env:BUILD_ARTIFACTSTAGINGDIRECTORY is deliberately NOT flagged — it
-    answers "where does output go," not "am I in a pipeline," and its read is
-    confined to Get-OutputRoot.
-
-    See ADR: [ADR-FLOW-CD-DETECT#1](/docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1).
+    Whether code is running inside a CI/CD pipeline is detected by checking the agent-set environment variables...
+    [ADR-FLOW-CD-DETECT#1](/docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1)
+    [comment:1](/docs/references/automation/scriptanalyzer/NoRawPipelineDetection.psm1.md#comment1)
 #>
 
 function Measure-NoRawPipelineDetection {
@@ -44,8 +29,9 @@ function Measure-NoRawPipelineDetection {
     $exemptFunction = 'Test-IsRunningInPipeline'
     $detectionVars = @('env:TF_BUILD', 'env:GITHUB_ACTIONS')
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+    # [comment:2](/docs/references/automation/scriptanalyzer/NoRawPipelineDetection.psm1.md#comment2)
     $isVariable = {
         param($node)
         $node -is [System.Management.Automation.Language.VariableExpressionAst]

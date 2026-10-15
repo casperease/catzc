@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/Get-ContractCheckResults.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "6ca4af260a62"
     adrs:
       - ADR-PWSH-VERBS#2

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-github/New-SyntheticHistory.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "0ad07c3dcbd9"
     adrs: []
 ---

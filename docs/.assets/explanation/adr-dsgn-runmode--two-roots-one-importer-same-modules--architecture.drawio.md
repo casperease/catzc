@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.md
     kind: asset-description
-    body_sha: ce5fed6b2bec
+    body_sha: "18a7b164a729"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

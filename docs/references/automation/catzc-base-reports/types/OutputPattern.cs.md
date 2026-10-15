@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-reports/types/OutputPattern.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "26a1ff45e109"
     adrs:
       - ADR-REPO-OUTFMT#1

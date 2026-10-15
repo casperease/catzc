@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-node/Install-Cspell.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ad53066f731c
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-NeutralCodeFinding.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "9652570d923d"
     adrs:
       - ADR-AUTO-TEST#3

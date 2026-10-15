@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "1f2a1fabf0da"
     adrs:
       - ADR-PRIN-CONFIG#1

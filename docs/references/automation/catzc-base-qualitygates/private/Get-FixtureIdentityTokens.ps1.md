@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "84b20ebc3d21"
     adrs: []
 ---

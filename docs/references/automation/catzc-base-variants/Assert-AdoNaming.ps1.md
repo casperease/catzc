@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/Assert-AdoNaming.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d23b5b8b7b33
     adrs: []
 ---

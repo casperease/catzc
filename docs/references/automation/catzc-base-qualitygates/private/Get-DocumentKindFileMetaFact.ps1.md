@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-DocumentKindFileMetaFact.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d25070ca4808
     adrs:
       - ADR-PRIN-CONFIG#1

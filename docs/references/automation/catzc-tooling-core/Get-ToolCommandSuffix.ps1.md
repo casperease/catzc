@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Get-ToolCommandSuffix.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "0e4221406ec7"
     adrs: []
 ---

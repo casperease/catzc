@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Get-BicepTrackTagNameSet.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "4cd53c0329de"
     adrs: []
 ---

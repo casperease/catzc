@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Get-AzCliConnectionState.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "689497677d07"
     adrs: []
 ---

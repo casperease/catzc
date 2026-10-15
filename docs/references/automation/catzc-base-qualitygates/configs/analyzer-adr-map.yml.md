@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: eecfc11d89a6
     adrs:
       - ADR-AZ-CUSTOMER#3

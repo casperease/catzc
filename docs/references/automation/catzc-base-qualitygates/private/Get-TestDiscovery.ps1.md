@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestDiscovery.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f072c8aee8aa
     adrs: []
 ---

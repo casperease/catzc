@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "7903f43fee59"
     adrs:
       - ADR-AUTO-SPELL#5

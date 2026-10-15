@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-reports/configs/reports.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: a16108d925b4
     adrs:
       - ADR-AUTO-TEST#35

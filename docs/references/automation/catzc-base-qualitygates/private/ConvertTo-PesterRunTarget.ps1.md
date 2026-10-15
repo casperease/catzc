@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/ConvertTo-PesterRunTarget.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d205d6ba8a58
     adrs: []
 ---

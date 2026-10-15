@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/CommentBlock.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: ee76455745cd
     adrs:
       - ADR-AUTO-TYPES#9

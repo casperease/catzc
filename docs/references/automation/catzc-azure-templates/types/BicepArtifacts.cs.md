@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/types/BicepArtifacts.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "442985107c83"
     adrs: []
 ---

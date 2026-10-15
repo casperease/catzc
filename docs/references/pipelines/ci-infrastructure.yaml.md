@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/pipelines/ci-infrastructure.yaml.md
-    kind: reference
+    kind: comment-page
     body_sha: "3f39e363227f"
     adrs:
       - ADR-AUTO-TEST#37

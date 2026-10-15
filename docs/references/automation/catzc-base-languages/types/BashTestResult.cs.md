@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/BashTestResult.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "7f7e4108c4d2"
     adrs:
       - ADR-AUTO-TEST#1

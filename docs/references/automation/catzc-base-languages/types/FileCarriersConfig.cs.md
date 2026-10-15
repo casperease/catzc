@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/FileCarriersConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: c43229993d38
     adrs:
       - ADR-AUTO-DEFAULT#6

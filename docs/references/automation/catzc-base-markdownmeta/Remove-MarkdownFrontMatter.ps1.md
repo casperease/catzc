@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-markdownmeta/Remove-MarkdownFrontMatter.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "61ae7a41bc6f"
     adrs: []
 ---

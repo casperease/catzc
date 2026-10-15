@@ -139,8 +139,8 @@ function Format-Code {
         }
     }
 
-    # Imprint steps run after every formatter, so a step never works on text a formatter is about to rewrite: a global step runs over
-    # every language in scope, a language's own step over that language only.
+    # Imprint steps run after every formatter, so a step never works on text a formatter is about to rewrite: a...
+    # [comment:5](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment5)
     $inScope = if ($Language) {
         @($selected | ForEach-Object name)
     }
@@ -161,12 +161,23 @@ function Format-Code {
     }
     foreach ($step in $plan.Keys) {
         $covered = $plan[$step]
-        $candidates = @(Get-ImprintStepFile -Step $step -RepositoryRoot $root -Path $Path | Where-Object {
+        # Get-ImprintStepFile returns its paths as one array: assign it, so the pipeline walks the paths, not the array.
+        $stepFiles = Get-ImprintStepFile -Step $step -RepositoryRoot $root -Path $Path
+        $candidates = @($stepFiles | Where-Object {
                 $owner = $config.ForPath($_)
                 $null -ne $owner -and $owner.name -in $covered
             })
         $stamp = Get-FormatEngineStamp -Engine "imprint:$step" -Settings @($config.steps[$step].settings) -RepositoryRoot $root
-        $split = Split-CachedFile -File $candidates -Cache $cache -Stamp $stamp -RepositoryRoot $root
+
+        # A step has its own cache file: one file passes through an engine and several steps, and the cache keeps one slot per file.
+        $stepCachePath = Join-Path (Get-OutputRoot) "cache/format-code-$step.json"
+        $stepCache = if ($NoCache) {
+            @{}
+        }
+        else {
+            Get-ResultCache -Path $stepCachePath
+        }
+        $split = Split-CachedFile -File $candidates -Cache $stepCache -Stamp $stamp -RepositoryRoot $root
         $pending = @($split.Pending)
         Write-Message "$verb $($pending.Count) file(s) with the $step imprint step ($($split.CachedCount) unchanged since their last check)..."
         $outcome = Invoke-ImprintStep -Step $step -File $pending -RepositoryRoot $root -DryRun:$DryRun
@@ -174,11 +185,12 @@ function Format-Code {
 
         # A file a person must still repair is never recorded as done, so the next run reports it again.
         if ($DryRun) {
-            Update-ResultCache -Cache $cache -Key $split.Key -Checked $pending -Flagged @(@($outcome.Changed) + $unfixable)
+            Update-ResultCache -Cache $stepCache -Key $split.Key -Checked $pending -Flagged @(@($outcome.Changed) + $unfixable)
         }
         else {
-            Update-ResultCache -Cache $cache -Key $split.Key -Checked @($pending | Where-Object { $_ -notin $unfixable }) -Stamp $stamp -RekeyFromDisk
+            Update-ResultCache -Cache $stepCache -Key $split.Key -Checked @($pending | Where-Object { $_ -notin $unfixable }) -Stamp $stamp -RekeyFromDisk
         }
+        Save-ResultCache -Path $stepCachePath -Cache $stepCache
 
         foreach ($file in @($outcome.Changed) + $unfixable) {
             $owner = $config.ForPath($file)

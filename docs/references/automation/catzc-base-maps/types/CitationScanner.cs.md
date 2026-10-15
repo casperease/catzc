@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "2d2a717d0041"
     adrs:
       - ADR-REPO-LINK#3

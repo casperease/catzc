@@ -1,11 +1,6 @@
 # Catzc.Internal.Importer — the importer overlay.
-#
-# The whole load sequence lives here, in Invoke-Importer, whose parameter block is the importer's public
-# switch surface. The root importer.ps1 is a thin, GENERATED shim (New-Importer) that carries the same param
-# block and delegates here — one living copy of the load logic (see
-# [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)).
-# Like the transient bootstrap, this module is import-time orchestration, not shared library code: the shim
-# removes it after Invoke-Importer returns.
+# [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)
+# [comment:1](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment1)
 
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
@@ -13,10 +8,8 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 .SYNOPSIS
     Runs the toolset's whole load sequence — the single living copy of the importer body.
 .DESCRIPTION
-    Called by the generated importer.ps1 shim, which carries the same public switch block and sets
-    $env:RepositoryRoot first. Loads the .internal shared modules, the vendored dependencies, and every
-    automation module, then runs the post-import janitors and removes the transient bootstrap. Its parameter
-    block is asserted to match importer.ps1 (New-Importer generates the shim from it).
+    Called by the generated importer.ps1 shim, which carries the same public switch block and sets...
+    [comment:2](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment2)
 .PARAMETER ExportPrivates
     Export private (private/) functions too, so tests can reach them.
 .PARAMETER AllowWarnings
@@ -28,17 +21,11 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 .PARAMETER SkipJanitors
     Skip the post-import janitors and the PSModulePath check — a lean load for a copied subset.
 .PARAMETER CleanClone
-    Opt IN to a whitelisted deep clean as the janitor run's first step: Reset-GitCleanFxd deletes only
-    the auto-controlled generated artifacts a `git clean -fxd` would remove (managed root configs,
-    module manifests, generated READMEs, cspell dictionaries, out/, IDE bin/obj) and keeps — reported — any
-    untracked file that is not the automation's to delete. The regenerating janitors that follow
-    rematerialise what it removed, so one -CleanClone import leaves a pristine, fully-generated clone
-    (the module manifests reappear on the next import, exactly as on a fresh clone). Ignored under
-    -SkipJanitors.
+    Opt IN to a whitelisted deep clean as the janitor run's first step: Reset-GitCleanFxd deletes only the...
+    [comment:3](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment3)
 .PARAMETER Bundle
-    Load as an installed bundle rather than the mono repo: honour the pre-set $env:CatzcModulesRoot (the
-    bundle's own automation/, set by its Catzc.psm1) instead of deriving it from RepositoryRoot, and force
-    -SkipJanitors. Only the bundle bootstrap passes it; the mono shim never does.
+    Load as an installed bundle rather than the mono repo: honour the pre-set $env:CatzcModulesRoot (the bundle's own...
+    [comment:4](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment4)
 .EXAMPLE
     Invoke-Importer -DiagnoseLoadTime
 #>
@@ -51,30 +38,25 @@ function Invoke-Importer {
         [switch] $AllowWarnings,
         [switch] $DiagnoseLoadTime,
 
-        # Delete every compiled C# type DLL before importing, so each type is rebuilt from source rather than
-        # loaded from its committed/cached assembly. Use it to build from source (e.g. verify a clean rebuild).
+        # Delete every compiled C# type DLL before importing, so each type is rebuilt from source rather than loaded...
+        # [comment:5](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment5)
         [switch] $ClearCompiledTypes,
 
-        # Skip the post-import janitors (Clear-ModuleTypeCache, Build-Readme, Build-TerminologyDictionary,
-        # Build-RootConfig) and the PSModulePath check — a lean/optimized load for a copied subset
-        # (Test-InIsolation). Type loading still fast-paths on the committed .compiled DLL; only the tail
-        # maintenance is skipped.
+        # Skip the post-import janitors (Clear-ModuleTypeCache, Build-Readme, Build-TerminologyDictionary,...
+        # [comment:6](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment6)
         [switch] $SkipJanitors,
 
-        # Opt IN to a whitelisted deep clean as the janitor run's first step (Reset-GitCleanFxd): delete
-        # only the auto-controlled generated artifacts, keep and report everything else, and let the
-        # regenerating janitors below rematerialise the tree.
+        # Opt IN to a whitelisted deep clean as the janitor run's first step (Reset-GitCleanFxd): delete only the...
+        # [comment:7](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment7)
         [switch] $CleanClone,
 
-        # Load as an installed bundle, not the mono repo. Honour the pre-set $env:CatzcModulesRoot (the bundle's
-        # own automation/, set by its Catzc.psm1) instead of deriving it from RepositoryRoot, and force
-        # -SkipJanitors (a bundle is a read-only install with no git work tree). Only the bundle bootstrap passes
-        # this; the mono shim never does, so an inherited CatzcModulesRoot can never divert a mono/fixture load.
+        # Load as an installed bundle, not the mono repo.
+        # [comment:8](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment8)
         [switch] $Bundle
     )
 
-    # Hard floor: the toolset requires PowerShell 7.4+. Among other things the vendor functions
-    # (Catzc.Base.Vendor) use the bundled Microsoft.PowerShell.PSResourceGet, first shipped in 7.4.
+    # Hard floor: the toolset requires PowerShell 7.4+.
+    # [comment:9](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment9)
     if ($PSVersionTable.PSVersion -lt [version]'7.4') {
         throw "The Catzc toolset requires PowerShell 7.4 or later (found $($PSVersionTable.PSVersion))."
     }
@@ -82,10 +64,8 @@ function Invoke-Importer {
     # Strict mode
     Set-StrictMode -Version Latest
 
-    # Detect a direct console session vs a load from within a script. The overlay runs one call below the
-    # generated importer.ps1 shim, so the stack is [0] Invoke-Importer, [1] importer.ps1, [2] the shim's caller.
-    # An empty ScriptName at [2] means importer.ps1 was dot-sourced with no calling script (a console session).
-    # This reproduces the shim's own `-not $MyInvocation.ScriptName` from inside the module.
+    # Detect a direct console session vs a load from within a script.
+    # [comment:10](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment10)
     $stack = Get-PSCallStack
     $callerScriptName = if ($stack.Count -gt 2) {
         $stack[2].ScriptName
@@ -98,8 +78,8 @@ function Invoke-Importer {
     if ($isConsoleSession) {
         $sw = [Diagnostics.Stopwatch]::StartNew()
     }
-    # Times only the module import (vendor + automation modules), so the console load line can split it from
-    # the session initializer/finalizer around it (session setup and internal modules before, janitors after).
+    # Times only the module import (vendor + automation modules), so the console load line can split it from the...
+    # [comment:11](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment11)
     $importSw = [Diagnostics.Stopwatch]::new()
 
     if ($DiagnoseLoadTime) {
@@ -108,10 +88,9 @@ function Invoke-Importer {
         $global:__CatzcLoadTimings = [System.Collections.Generic.List[object]]::new()
     }
 
-    # -Verbose shows the importer's own state-change record
-    # ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)). The
-    # dot-sourced shim binds it in the caller's scope, so for the import the session-wide preference is quieted,
-    # restored in the finally below: otherwise every Import-Module would list each function it dot-sources and exports.
+    # -Verbose shows the importer's own state-change record.
+    # [ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)
+    # [comment:12](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment12)
     $showStateChanges = $VerbosePreference -ne 'SilentlyContinue'
     $callerVerbosePreference = $global:VerbosePreference
     $global:VerbosePreference = 'SilentlyContinue'
@@ -130,19 +109,17 @@ function Invoke-Importer {
         }
         $global:InformationPreference = 'Continue'
 
-        # A redirected session writes UTF-8, the encoding the process relays stream, so a captured log is one
-        # encoding; announced with the preferences below.
+        # A redirected session writes UTF-8, the encoding the process relays stream, so a captured log is one...
+        # [comment:13](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment13)
         $outputEncodingChanged = Set-RedirectedOutputEncoding
 
-        # Repository root — the WORKING root (out/, repo-relative paths, git), set on $env by the shim
-        # (importer.ps1 sets $env:RepositoryRoot = $PSScriptRoot). Read it here; working-root readers anchor on it.
+        # Repository root — the WORKING root (out/, repo-relative paths, git), set on $env by the shim (importer.ps1...
+        # [comment:14](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment14)
         $repoRoot = $env:RepositoryRoot
         Write-Verbose "RepositoryRoot: $repoRoot"
 
-        # Catzc code anchor — the automation/ tree that holds the loaded modules; config, type and vendor discovery
-        # follow THIS, not RepositoryRoot (see Get-CatzcModulesRoot). In the mono repo it equals <repoRoot>/automation
-        # and nothing pre-sets it, so it is derived here (a no-op split). An installed bundle's Catzc.psm1 pre-sets it
-        # to the bundle's own automation/, so the importer honours that — this is what makes catzc relocatable.
+        # Catzc code anchor — the automation/ tree that holds the loaded modules; config, type and vendor discovery...
+        # [comment:15](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment15)
         if ($Bundle -and $env:CatzcModulesRoot) {
             $modulesRoot = $env:CatzcModulesRoot
         }
@@ -157,11 +134,8 @@ function Invoke-Importer {
             $SkipJanitors = $true
         }
 
-        # The .internal shared-code loader is already imported by the shim (it provides Import-InternalModule).
-        # Load the rest of the shared modules on demand. Bootstrap does the import-time discovery/loading and is
-        # removed at the end; the loader, Types and Vendor stay in the session (NOT removed), so post-import Catzc
-        # cover functions can Import-InternalModule the same shared code and delegate to it. -Force honors the
-        # re-import invalidation boundary (cache ADR), so a devbox re-import picks up edits to a shared module.
+        # The.internal shared-code loader is already imported by the shim (it provides Import-InternalModule).
+        # [comment:16](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment16)
         Import-InternalModule Bootstrap -Force
         Import-InternalModule Types -Force
         Import-InternalModule Vendor -Force
@@ -175,14 +149,10 @@ function Invoke-Importer {
         $errorViewPath = Join-Path $modulesRoot '.internal/assets/ErrorView.format.ps1xml'
         Update-FormatData -PrependPath $errorViewPath
 
-        # Every lasting change to the caller's session is announced
-        # ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)):
-        # the preferences and the
-        # error view, then the two roots and the internal modules that stay loaded — RepositoryRoot set by the
-        # importer.ps1 shim and the modules by Import-InternalModule, which both delegate their announcement here.
-        # This is the first point Write-ImporterMessage (Catzc.Internal.Bootstrap) is loaded. Like every announcement
-        # of the importer's own load, they go on its verbose record
-        # ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)).
+        # Every lasting change to the caller's session is announced: the preferences and the error view, then the two...
+        # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11),
+        # [ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)
+        # [comment:17](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment17)
         Write-ImporterMessage ("Session: ErrorActionPreference=$global:ErrorActionPreference, WarningPreference=$global:WarningPreference, " +
             "InformationPreference=$global:InformationPreference, error view '$errorViewPath'") -StateChange
         if ($outputEncodingChanged) {
@@ -202,7 +172,7 @@ function Invoke-Importer {
         }
 
         # Discover and import all modules from the catzc code anchor computed above ($modulesRoot).
-        # Optionally wipe compiled type DLLs first so the import below rebuilds them from source.
+        # [comment:18](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment18)
         if ($ClearCompiledTypes) {
             Clear-CompiledType -ModulesRoot $modulesRoot
         }
@@ -213,9 +183,9 @@ function Invoke-Importer {
         Import-AllModules -ModulesRoot $modulesRoot -ExportPrivates:$ExportPrivates -DiagnoseLoadTime:$DiagnoseLoadTime -Bundle:$Bundle
         $importSw.Stop()
 
-        # The two run modes never coexist ([ADR-DSGN-RUNMODE#5](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode5)):
-        # Import-AllModules evicted the other mode, and this
-        # proves it before any janitor touches the tree from a mixed session.
+        # The two run modes never coexist: Import-AllModules evicted the other mode, and this proves it before any...
+        # [ADR-DSGN-RUNMODE#5](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode5)
+        # [comment:19](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment19)
         Assert-CatzcRunModeExclusive -ModulesRoot $modulesRoot
 
         if ($Bundle) {
@@ -229,15 +199,14 @@ function Invoke-Importer {
             Write-LoadTimeSummary
         }
 
-        # The post-import janitors, in their fixed order (Invoke-ImporterJanitors). An isolated copy and a bundle
-        # (-SkipJanitors) skip the whole chain.
+        # The post-import janitors, in their fixed order (Invoke-ImporterJanitors).
+        # [comment:20](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment20)
         if (-not $SkipJanitors) {
             Invoke-ImporterJanitors -CleanClone:$CleanClone -ShowStateChanges:$showStateChanges
         }
 
-        # Warn if PSModulePath contains a network share. The permanent fix is a one-time
-        # script that writes a local PSModulePath to the user-scope powershell.config.json.
-        # See: automation/Catzc.Base.Environment/assets/README.md
+        # Warn if PSModulePath contains a network share.
+        # [comment:21](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment21)
         if (-not $SkipJanitors -and $IsWindows) {
             $hasUncModulePath = ($env:PSModulePath -split [IO.Path]::PathSeparator) -match '^\\\\' | Select-Object -First 1
 
@@ -252,13 +221,13 @@ function Invoke-Importer {
             }
         }
 
-        # Remove the bootstrap, kept until here for Write-ImporterMessage, so its import-time functions do not linger;
-        # the other .internal modules (loader, Types, Vendor) stay loaded.
+        # Remove the bootstrap, kept until here for Write-ImporterMessage, so its import-time functions do not...
+        # [comment:22](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment22)
         Write-Verbose 'Removing Catzc.Internal.Bootstrap module'
         Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue -Verbose:$false
 
         # Console session: load timer, split into the module import and the session initializer/finalizer around it.
-        # In scripts, authors add `trap { Write-Exception $_; break }` after the importer.
+        # [comment:23](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment23)
         if ($isConsoleSession) {
             if (Get-Command Write-Message -ErrorAction Ignore) {
                 $totalSeconds = [math]::Round($sw.Elapsed.TotalSeconds, 1)
@@ -277,13 +246,9 @@ function Invoke-Importer {
 .SYNOPSIS
     Throws unless every loaded catzc module comes from the active code root.
 .DESCRIPTION
-    Run at the importer tail in both run modes
-    ([ADR-DSGN-RUNMODE#5](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode5)). Every loaded module named 'Catzc' or
-    'Catzc.*' — the Catzc.Internal.* loader modules included, vendored third-party modules excluded by name —
-    must have its ModuleBase under the active CatzcModulesRoot (Get-ForeignCatzcModule, the same predicate the
-    eviction sweep uses). A violation names every offending module with its ModuleBase, the active root, and
-    the other root(s) the offenders came from. Internal to the importer overlay: it needs the transient
-    bootstrap, which is still loaded at this point.
+    Run at the importer tail in both run modes.
+    [ADR-DSGN-RUNMODE#5](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode5)
+    [comment:24](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment24)
 .PARAMETER ModulesRoot
     The active code root.
 #>
@@ -292,11 +257,9 @@ function Invoke-ConsumerOverlay {
     .SYNOPSIS
         Applies a consumer's overlay at the end of a bundle load, or stops the load when the bundle cannot.
     .DESCRIPTION
-        A consumer changes a built bundle only through the overlay in its working root
-        ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)). Its function overrides apply once every
-        bundled module has loaded and been proven exclusive, after the whole overlay is checked (Import-CatzcOverlay,
-        Catzc.Base.Overlay). A bundle that does not carry the overlay module cannot apply them, so the load stops
-        rather than run with the consumer's overlay silently ignored. Without an overlay this does nothing.
+        A consumer changes a built bundle only through the overlay in its working root.
+        [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
+        [comment:25](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment25)
     .PARAMETER RepositoryRoot
         The working root of the load.
     #>
@@ -350,13 +313,9 @@ function Set-RedirectedOutputEncoding {
     .SYNOPSIS
         Makes a redirected session write UTF-8, so a captured log has one encoding.
     .DESCRIPTION
-        When the session's standard output goes to a file or a pipe, the host encodes everything it writes with
-        [Console]::OutputEncoding — the OEM codepage on Windows — while the process relays (CliRunner, PesterRunner)
-        stream UTF-8, so one captured log mixed two encodings and the box drawing came out mangled. An interactive
-        console writes Unicode directly and is left as it is. Returns $true when it changed the encoding, so the
-        caller announces it on the importer's load record
-        ([ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
-        names this as the one console property the toolset assigns).
+        When the session's standard output goes to a file or a pipe, the host encodes everything it writes with...
+        [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
+        [comment:26](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment26)
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawConsoleWrite', '', Justification = 'The one sanctioned console-property assignment (ADR-PWSH-ANNOUNCE#1): UTF-8 output for a redirected session, announced by Invoke-Importer on its load record.')]
     [CmdletBinding()]
@@ -374,20 +333,17 @@ function Set-RedirectedOutputEncoding {
 .SYNOPSIS
     Writes the -DiagnoseLoadTime summary: file-read and parse totals, and the three slowest load stages.
 .DESCRIPTION
-    Reads the $global:__CatzcLoadTimings collector Invoke-Importer creates under -DiagnoseLoadTime and the Bootstrap
-    loaders append to. Internal to the importer overlay: it writes through the transient bootstrap's
-    Write-ImporterMessage, which is still loaded at this point.
+    Reads the $global:__CatzcLoadTimings collector Invoke-Importer creates under -DiagnoseLoadTime and the Bootstrap...
+    [comment:27](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment27)
 #>
 function Invoke-TypeCacheJanitor {
     <#
     .SYNOPSIS
         Runs the post-import type-cache janitor (Clear-ModuleTypeCache) without ever failing the load.
     .DESCRIPTION
-        -Silent unless -ShowReport (the importer passes its -Verbose); CI self-skips inside Clear-ModuleTypeCache. A
-        superseded build it cannot delete (held outside catzc) becomes one red line, never a failed load. Holders are
-        stopped in a person's session only — never an agent's, never CI's (Get-SessionActor,
-        [ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)). A no-op when
-        Clear-ModuleTypeCache is absent (the bootstrap sandbox).
+        -Silent unless -ShowReport (the importer passes its -Verbose); CI self-skips inside Clear-ModuleTypeCache.
+        [ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)
+        [comment:28](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment28)
     .PARAMETER ShowReport
         Show the janitor's end-state report.
     #>
@@ -412,11 +368,9 @@ function Invoke-AgentHookJanitor {
     .SYNOPSIS
         Publishes the agent Bash time-safeguard hook when its C# source changed, without ever failing the load.
     .DESCRIPTION
-        Build-BashTimeoutHook is a no-op while the published hook matches its source
-        ([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)). The hook is
-        agent tooling, so a pipeline skips it; a checkout without the hook's code (a bundle) or without dotnet yet is
-        told, never stopped — Install-Dotnet itself needs this import to succeed. A failed publish is one red line.
-        A no-op when Build-BashTimeoutHook is absent (the bootstrap sandbox).
+        Build-BashTimeoutHook is a no-op while the published hook matches its source.
+        [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)
+        [comment:29](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment29)
     #>
     [CmdletBinding()]
     param()
@@ -442,11 +396,8 @@ function Invoke-ImporterJanitors {
     .SYNOPSIS
         Runs the post-import janitors in their fixed order, from the opt-in deep clean to the commit of what changed.
     .DESCRIPTION
-        The tail maintenance of a mono-repo import: the opt-in deep clean first (-CleanClone), then the type-cache
-        janitor, the generated ADR, glossary, contract, README, .gitkeep, dictionary and root-config files, the session
-        PATH, the agent hook, and last the commit of the generated files the importer maintains. Every janitor is a
-        fast no-op on a clean tree and guarded by presence, so the bootstrap sandbox runs the subset it has. The
-        caller skips the whole chain under -SkipJanitors (an isolated copy, a bundle).
+        The tail maintenance of a mono-repo import: the opt-in deep clean first (-CleanClone), then the type-cache...
+        [comment:30](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment30)
     .PARAMETER CleanClone
         Run the whitelisted deep clean (Reset-GitCleanFxd) first, so the janitors below rematerialise what it removed.
     .PARAMETER ShowStateChanges
@@ -458,10 +409,8 @@ function Invoke-ImporterJanitors {
         [switch] $ShowStateChanges
     )
 
-    # Opt-in deep clean (-CleanClone): the whitelisted git clean -fxd (Reset-GitCleanFxd) deletes only the
-    # auto-controlled generated artifacts and keeps — reported — any untracked file that is not the
-    # automation's to delete. Deliberately the FIRST janitor, so the regenerating janitors below
-    # rematerialise what it removed in the same run. Guarded: absent in the bootstrap sandbox.
+    # Opt-in deep clean (-CleanClone): the whitelisted git clean -fxd (Reset-GitCleanFxd) deletes only the...
+    # [comment:31](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment31)
     if ($CleanClone -and (Get-Command Reset-GitCleanFxd -ErrorAction Ignore)) {
         Reset-GitCleanFxd
     }
@@ -469,60 +418,51 @@ function Invoke-ImporterJanitors {
     # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff) — see Invoke-TypeCacheJanitor.
     Invoke-TypeCacheJanitor -ShowReport:$ShowStateChanges
 
-    # Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/adr/index.md) from adrs.yml and
-    # [glossary](/docs/adr/glossary.md) from the glossary sources — committed so GitHub has them, rebuilt BEFORE
-    # Build-Readme (the docs/adr README is generated from the index). See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+    # Keep the generated ADR pages current (Catzc.Base.Docs): from adrs.yml and from the glossary sources — committed...
+    # [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
+    # [comment:32](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment32)
     if (Get-Command Build-AdrIndex -ErrorAction Ignore) {
         Build-AdrIndex -Silent | Out-Null
         Build-Glossary -Silent | Out-Null
     }
 
-    # Keep the generated contract pages current (Catzc.Base.Contracts): docs/references/contracts/<unit>.md from the
-    # contract assets' header comments — committed so GitHub has them. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+    # Keep the generated contract pages current (Catzc.Base.Contracts): docs/references/contracts/<unit>.md from the...
+    # [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
+    # [comment:33](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment33)
     if (Get-Command Build-ContractReference -ErrorAction Ignore) {
         Build-ContractReference -Silent | Out-Null
     }
 
-    # Keep the generated README copy-ins current (Catzc.Base.Docs). Fast no-op when nothing changed — Build-Readme
-    # rewrites a README only when its composed content differs (compared EOL-insensitively), so a clean tree costs
-    # only a few small file reads. Guarded: absent in the bootstrap sandbox, like Clear-ModuleTypeCache.
+    # Keep the generated README copy-ins current (Catzc.Base.Docs).
+    # [comment:34](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment34)
     if (Get-Command Build-Readme -ErrorAction Ignore) {
         Build-Readme -Silent | Out-Null
     }
 
-    # Keep the managed .gitkeep files current (Catzc.Base.Docs). Every .gitkeep is a committed copy of the
-    # one shared template, pointing at its folder's generated README — reproduced here so a template change
-    # propagates, and a fast no-op on a clean tree. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+    # Keep the managed.gitkeep files current (Catzc.Base.Docs).
+    # [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
+    # [comment:35](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment35)
     if (Get-Command Build-GitKeep -ErrorAction Ignore) {
         Build-GitKeep -Silent | Out-Null
     }
 
-    # Keep the generated cspell dictionaries current (Catzc.Base.QualityGates). They are derived from
-    # configs/terminology.yml — gitignored, not committed — so the registry is the single source of truth and
-    # cspell still resolves them at fixed paths. Fast no-op when nothing changed (writes only on drift).
+    # Keep the generated cspell dictionaries current (Catzc.Base.QualityGates).
+    # [comment:36](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment36)
     if (Get-Command Build-TerminologyDictionary -ErrorAction Ignore) {
         Build-TerminologyDictionary -Silent | Out-Null
     }
 
-    # Keep the managed root config files current (Catzc.Base.RootConfig). Every opted-in root file is
-    # reproduced from its single in-repo source of truth — an authored source copied out with a generated-file
-    # header (e.g. the root PSScriptAnalyzerSettings.psd1 from .internal/assets), or a generator's rendered
-    # output (e.g. New-Importer for importer.ps1). Rewrites only on drift, so a clean tree is a fast no-op.
-    # Guarded: absent in the bootstrap sandbox. See [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
+    # Keep the managed root config files current (Catzc.Base.RootConfig).
+    # [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
+    # [comment:37](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment37)
     if (Get-Command Build-RootConfig -ErrorAction Ignore) {
         Build-RootConfig -Silent | Out-Null
     }
 
-    # Reconcile the session PATH to whatever tools are actually present — including tools installed outside the
-    # installer layer (e.g. nvm-managed node) — and report any running from a non-owned location on one line.
-    # Session-only, self-skips in CI. The importer is dot-sourced, so its PATH nudges land in the caller's live
-    # session. The janitor announces each nudge like any function, but at every shell open the same nudges are part
-    # of the load record ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)):
-    # the importer's -Verbose decides whether they are shown, so a plain import prints only the Loaded line. The
-    # quieting is the session-wide information preference, restored in the finally
-    # ([ADR-PWSH-ANNOUNCE#9](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce9)): a common parameter
-    # would reach only the janitor's own scope, not the writer chokepoint in Catzc.Base.Writers. Guarded: absent in
-    # the bootstrap sandbox (Catzc.Tooling.Core).
+    # Reconcile the session PATH to whatever tools are actually present — including tools installed outside the...
+    # [ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6),
+    # [ADR-PWSH-ANNOUNCE#9](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce9)
+    # [comment:38](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment38)
     if (Get-Command Sync-SessionTools -ErrorAction Ignore) {
         $informationPreference = $global:InformationPreference
         if (-not $ShowStateChanges) {
@@ -539,12 +479,9 @@ function Invoke-ImporterJanitors {
     # Publish the agent hook when its source changed — after the PATH reconciliation, so `dotnet` is the owned SDK.
     Invoke-AgentHookJanitor
 
-    # Commit the generated files the importer maintains (automation/.compiled/) — who is running decides
-    # ([ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)): a person's session
-    # commits, an agent's announces what changed and leaves the commit to the person, a test-run snapshot never
-    # commits, and a pipeline is not even asked, so CI imports stay silent. Deliberately the LAST janitor, so
-    # tracked files the janitors above touch (the .compiled DLL swap) are in their final state.
-    # Guarded: absent in the bootstrap sandbox.
+    # Commit the generated files the importer maintains (automation/.compiled/) — who is running decides: a person's...
+    # [ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)
+    # [comment:39](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment39)
     if ((Get-Command Sync-GeneratedFile -ErrorAction Ignore) -and (Get-SessionActor) -ne 'Pipeline') {
         Sync-GeneratedFile | Out-Null
     }
@@ -555,10 +492,9 @@ function Write-LoadTime {
     .SYNOPSIS
         Writes one -DiagnoseLoadTime stage line: the milliseconds since the previous stage, then restarts the clock.
     .DESCRIPTION
-        Internal to the importer overlay, called only under -DiagnoseLoadTime, which starts $script:diagSw. The slot
-        is probed strict-clean
-        ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)), so a
-        call before the clock exists starts it instead of throwing on the unset variable.
+        Internal to the importer overlay, called only under -DiagnoseLoadTime, which starts $script:diagSw.
+        [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
+        [comment:40](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment40)
     .PARAMETER Step
         The stage just finished.
     #>
@@ -582,18 +518,15 @@ function Write-LoadTimeSummary {
 
     Write-ImporterMessage '  ---- summary ----' -ForegroundColor DarkGray
 
-    # raw-read is a pure [IO.File]::ReadAllText of every .ps1 BEFORE Import-Module, so it isolates the cold
-    # file-READ I/O (disk / network share / antivirus-on-read) from the parse. It is warm-cached after the
-    # first access — small here does NOT mean "no AV": an AV that scans on script *parse* (AMSI) is not a
-    # read, so that cost lands in parse/compile below, not here. Don't read this as "antivirus time".
+    # raw-read is a pure [IO.File]::ReadAllText of every.ps1 BEFORE Import-Module, so it isolates the cold file-READ...
+    # [comment:41](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment41)
     $scanMs = [int](($global:__CatzcLoadTimings | Measure-Object ReadMs -Sum).Sum)
     $scanFiles = [int](($global:__CatzcLoadTimings | Measure-Object FileCount -Sum).Sum)
     $parseMs = [int](($global:__CatzcLoadTimings | Measure-Object ImportMs -Sum).Sum)
     Write-ImporterMessage ('  file-read I/O (cold; warm-cached after 1st access): {0}ms across {1} .ps1 files' -f $scanMs, $scanFiles) -ForegroundColor DarkGray
     Write-ImporterMessage ('  Import-Module parse/compile (incl. any AV/AMSI scan-on-parse): {0}ms' -f $parseMs) -ForegroundColor DarkGray
-    # The native C# type compile/load (every module's types/*.cs via Import-CSharpTypes) appears as one
-    # 'types (combined)' row below; a 'compile+load' row is a cold cache (Roslyn), a 'cache load' row reused
-    # the committed automation/.compiled DLL.
+    # The native C# type compile/load (every module's types/*.cs via Import-CSharpTypes) appears as one 'types...
+    # [comment:42](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment42)
     $top = $global:__CatzcLoadTimings | Sort-Object Ms -Descending | Select-Object -First 3
     foreach ($t in $top) {
         Write-ImporterMessage ('  slowest: {0,6}ms  {1}' -f $t.Ms, $t.Stage) -ForegroundColor DarkGray

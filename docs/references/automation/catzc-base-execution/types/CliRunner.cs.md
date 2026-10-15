@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/types/CliRunner.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "74a77c995054"
     adrs: []
 ---

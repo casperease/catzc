@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/Write-Footer.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "31f8e3d9672e"
     adrs: []
 ---

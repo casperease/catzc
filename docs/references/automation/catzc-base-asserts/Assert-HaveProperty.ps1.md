@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-asserts/Assert-HaveProperty.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "81af8fc5a0e2"
     adrs: []
 ---

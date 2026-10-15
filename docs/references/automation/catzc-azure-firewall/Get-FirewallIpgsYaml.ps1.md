@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f6eeeed5ac18
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "227fd0b0c0ba"
     adrs:
       - ADR-AUTO-UVPY#2

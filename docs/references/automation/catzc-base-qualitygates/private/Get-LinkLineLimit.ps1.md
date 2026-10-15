@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LinkLineLimit.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "266f219456a7"
     adrs:
       - ADR-AUTO-DEFAULT#6

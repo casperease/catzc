@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "9303149393b8"
     adrs:
       - ADR-AUTO-TEST#35

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "139574debb47"
     adrs:
       - ADR-AUTO-TEST#35

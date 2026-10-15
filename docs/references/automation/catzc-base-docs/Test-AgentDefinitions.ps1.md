@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Test-AgentDefinitions.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "0e4ff1cba509"
     adrs:
       - ADR-AUTO-TEST#35

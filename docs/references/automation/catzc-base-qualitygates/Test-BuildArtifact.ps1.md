@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-BuildArtifact.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f8de49c2dbde
     adrs:
       - ADR-AUTO-TEST#24

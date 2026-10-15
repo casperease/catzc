@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-reports/types/OutputFormatsConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: ee93cd6f3639
     adrs:
       - ADR-AUTO-TYPES#8

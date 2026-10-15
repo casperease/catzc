@@ -5,17 +5,10 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: a function file reads a lazy $script: cache entry only after probing or assigning it.
 .DESCRIPTION
-    A module function file holds one function and no top-level statements
-    ([ADR-PWSH-ONEFUNC](/docs/adr/pwsh/one-function-per-file.md)), so nothing declares
-    a $script: cache entry at import: the first call reads a variable that was never set, and strict mode throws.
-    The function must either assign the cache entry before reading it, or probe it with
-    `$ExecutionContext.SessionState.PSVariable.GetValue('script:<entry>')`
-    ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)).
-
-    Scope: everything except a .psm1 and a Pester file. A .psm1 module can declare its cache entries at load, and a
-    Pester file shares state through $script: on purpose. Within a function, a read is accepted when the same function
-    probes that cache entry with GetValue('script:<entry>') anywhere, or assigns it (a plain `$script:<entry> = …`)
-    earlier in the text, or when the script declares that cache entry at top level, outside any function.
+    A module function file holds one function and no top-level statements, so nothing declares a $script: cache entry...
+    [ADR-PWSH-ONEFUNC](/docs/adr/pwsh/one-function-per-file.md),
+    [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
+    [comment:1](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment1)
 #>
 
 function Measure-NoBareCacheEntryRead {
@@ -29,16 +22,17 @@ function Measure-NoBareCacheEntryRead {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
 
-    # Skip a .psm1 (it can declare its cache entries at load) and a Pester file — by name, or by its Describe calls when
-    # an editor buffer has no file name. Any other in-memory definition is analysed.
+    # Skip a.psm1 (it can declare its cache entries at load) and a Pester file — by name, or by its Describe calls...
+    # [comment:2](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment2)
     $path = "$($ScriptBlockAst.Extent.File)"
     if ($path.EndsWith('.psm1', [System.StringComparison]::OrdinalIgnoreCase) -or
         (Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst)) {
         return $results.ToArray()
     }
 
-    # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+    # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew.
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+    # [comment:3](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment3)
     $isFunction = {
         param($node)
         $node -is [System.Management.Automation.Language.FunctionDefinitionAst]
@@ -52,8 +46,8 @@ function Measure-NoBareCacheEntryRead {
         $node -is [System.Management.Automation.Language.VariableExpressionAst] -and $node.VariablePath.IsScript
     }
 
-    # Cache entries the script itself declares at load (a top-level `$script:<entry> = …`, outside any function). This
-    # covers a .psm1 the editor analyses as an in-memory buffer, where the file name — and so the skip above — is lost.
+    # Cache entries the script itself declares at load (a top-level `$script:<entry> = …`, outside any function).
+    # [comment:4](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment4)
     $declared = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($assignment in $ScriptBlockAst.FindAll($isAssignment, $false)) {
         $left = $assignment.Left

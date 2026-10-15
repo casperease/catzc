@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/WorldMapGridLayout.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "0a42f8562447"
     adrs:
       - ADR-AUTO-TYPES#8

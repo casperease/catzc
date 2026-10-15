@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/Export-WorldMapPdf.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "2fc94a830eb5"
     adrs:
       - ADR-DSGN-TRACK#3

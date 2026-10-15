@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-files/Get-FileLockingProcess.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "1039fe8b0f63"
     adrs: []
 ---

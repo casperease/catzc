@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d1e44c9bb3cd
     adrs: []
 ---

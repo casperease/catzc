@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "04c054303c69"
     adrs: []
 ---

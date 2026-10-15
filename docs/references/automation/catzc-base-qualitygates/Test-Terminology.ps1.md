@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-Terminology.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "9f3c91b18c45"
     adrs:
       - ADR-AUTO-SPELL#5

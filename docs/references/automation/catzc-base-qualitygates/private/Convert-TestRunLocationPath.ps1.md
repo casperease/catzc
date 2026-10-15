@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Convert-TestRunLocationPath.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "2c54c1f13c1a"
     adrs: []
 ---

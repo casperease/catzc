@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "8da8c45e43eb"
     adrs: []
 ---

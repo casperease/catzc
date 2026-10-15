@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/ConvertTo-ModuleDependencyDiagram.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "7ac1d8086216"
     adrs: []
 ---

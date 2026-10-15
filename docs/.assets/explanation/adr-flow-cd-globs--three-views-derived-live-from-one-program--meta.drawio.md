@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.md
     kind: asset-description
-    body_sha: cc7cd59b5606
+    body_sha: f81bc722efc4
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

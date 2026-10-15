@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-FileMetaProcessors.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: eff78d97f7ca
     adrs:
       - ADR-AUTO-TEST#35

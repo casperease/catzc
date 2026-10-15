@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/Test-HaveCustomer.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f50e4a58121a
     adrs: []
 ---

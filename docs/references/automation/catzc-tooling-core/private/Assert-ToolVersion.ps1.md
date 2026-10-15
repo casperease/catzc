@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: c0906cc637e1
     adrs:
       - ADR-PWSH-CACHE#4

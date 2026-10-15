@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-AdrCitationGraphViolations.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "81694d4c7532"
     adrs: []
 ---

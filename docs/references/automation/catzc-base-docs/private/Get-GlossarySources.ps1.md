@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-GlossarySources.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: e3296d4c5a2f
     adrs:
       - ADR-CONF-LOADING#1

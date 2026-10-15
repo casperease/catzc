@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Invoke-Go.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "20f6dd230c8c"
     adrs: []
 ---

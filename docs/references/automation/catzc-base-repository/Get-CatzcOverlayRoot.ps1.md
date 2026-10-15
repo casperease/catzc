@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-repository/Get-CatzcOverlayRoot.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "5c848caffe5e"
     adrs: []
 ---

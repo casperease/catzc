@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-Gofmt.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: eaf9157f8c08
     adrs:
       - ADR-PRIN-CONFIG#2

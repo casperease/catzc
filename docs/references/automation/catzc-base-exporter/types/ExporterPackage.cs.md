@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/types/ExporterPackage.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: e81f1d72a735
     adrs:
       - ADR-AUTO-TYPES#8

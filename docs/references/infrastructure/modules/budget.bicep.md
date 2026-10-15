@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/modules/budget.bicep.md
-    kind: reference
+    kind: comment-page
     body_sha: "7dfd5da36da1"
     adrs: []
 ---

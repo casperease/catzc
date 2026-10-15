@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-configextensions/Invoke-ConfigValidator.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "9a167d821909"
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f4342ccff482
     adrs: []
 ---

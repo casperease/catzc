@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.md
     kind: asset-description
-    body_sha: db10b3326b59
+    body_sha: "3f1ee3ef3742"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

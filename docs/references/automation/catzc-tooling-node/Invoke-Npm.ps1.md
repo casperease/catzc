@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-node/Invoke-Npm.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ba96d50aa965
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "990d6d7cf67b"
     adrs:
       - ADR-FLOW-CD-GLOBS#5

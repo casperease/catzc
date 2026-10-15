@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-files/Copy-Directory.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "56b5c4842b73"
     adrs: []
 ---

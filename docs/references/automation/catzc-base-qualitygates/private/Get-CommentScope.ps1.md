@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-CommentScope.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: e1c4ce1c9a39
     adrs:
       - ADR-PRIN-CONFIG#1

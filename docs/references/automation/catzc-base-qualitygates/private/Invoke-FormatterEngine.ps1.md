@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-FormatterEngine.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "2310494cf066"
     adrs:
       - ADR-PRIN-CONFIG#2

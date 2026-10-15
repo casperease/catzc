@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/SquarifiedTreemap.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "0f212045c983"
     adrs:
       - ADR-PWSH-TYPES#1

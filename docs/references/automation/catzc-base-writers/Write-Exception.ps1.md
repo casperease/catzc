@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/Write-Exception.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "1d08bf3bf03c"
     adrs: []
 ---

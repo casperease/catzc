@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.md
     kind: asset-description
-    body_sha: "92e963d4c665"
+    body_sha: "4cf8ead86ed1"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

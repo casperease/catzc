@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/templates/discovery/configuration/apex/nsub.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: acddcfce81e7
     adrs: []
 ---

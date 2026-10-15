@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "28320ff03398"
     adrs:
       - ADR-AUTO-ENGINE#1

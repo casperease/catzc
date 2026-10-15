@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestRunLockRecord.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "2618a444c682"
     adrs: []
 ---

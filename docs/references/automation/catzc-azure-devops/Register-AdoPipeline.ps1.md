@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/Register-AdoPipeline.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b1858f066e3c
     adrs: []
 ---

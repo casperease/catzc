@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/FileMetaKind.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: df7167f4ce88
     adrs:
       - ADR-AUTO-DEFAULT#6

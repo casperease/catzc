@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-repository/Get-CatzcRunMode.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: e54b450daaab
     adrs:
       - ADR-DSGN-RUNMODE#4

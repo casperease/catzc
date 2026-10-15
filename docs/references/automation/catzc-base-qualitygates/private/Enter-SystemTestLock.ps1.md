@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Enter-SystemTestLock.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "821c60302fad"
     adrs:
       - ADR-AUTO-TEST#32

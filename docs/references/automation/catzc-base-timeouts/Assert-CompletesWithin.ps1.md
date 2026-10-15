@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/Assert-CompletesWithin.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "276cbc7d7352"
     adrs: []
 ---

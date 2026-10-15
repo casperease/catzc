@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/IdentityTokensConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "8e6e8cfb5048"
     adrs: []
 ---

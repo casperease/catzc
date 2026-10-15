@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "650ba85b4b1d"
     adrs:
       - ADR-AUTO-CONSOLE#10

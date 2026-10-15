@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/MapsHighlight.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "37197cea93b9"
     adrs:
       - ADR-AUTO-DEFAULT#6

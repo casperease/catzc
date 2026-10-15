@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/WorldMapHighlight.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "1ecaf509ba80"
     adrs:
       - ADR-DSGN-TRACK#1

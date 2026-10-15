@@ -30,7 +30,7 @@ keep_run:
   csharp: ["// catzc:"]
   bicep: ["// catzc:"]
 
-# Dot-prefixed folders never match a wildcard source, so .vendor and .internal files get no comment pages.
+# Dot-prefixed folders never match a wildcard source, so .scriptanalyzer and .internal are named and .vendor (third-party) has no pages.
 # [comment:4](/docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md#comment4)
 pages:
   - source: automation/*
@@ -41,6 +41,10 @@ pages:
     docs: docs/references/infrastructure
   - source: .claude/hooks
     docs: docs/references/automation/claude-hooks
+  - source: automation/.scriptanalyzer
+    docs: docs/references/automation/scriptanalyzer
+  - source: automation/.internal
+    docs: docs/references/automation/internal
 
 # Listing this key replaces the default map, so both default entries are kept here.
 # [comment:5](/docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md#comment5)

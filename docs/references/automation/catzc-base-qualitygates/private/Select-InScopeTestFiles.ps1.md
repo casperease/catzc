@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Select-InScopeTestFiles.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "11ce1e9b0826"
     adrs: []
 ---

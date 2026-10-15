@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "605398973015"
     adrs:
       - ADR-AUTO-FAILFAST#7

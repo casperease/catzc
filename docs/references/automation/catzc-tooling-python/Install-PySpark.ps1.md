@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-python/Install-PySpark.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "852e5b17d61f"
     adrs: []
 ---

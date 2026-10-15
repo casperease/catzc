@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "98e4a4082168"
     adrs: []
 ---

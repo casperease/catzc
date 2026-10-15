@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/LinksConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "62aad7f7b112"
     adrs:
       - ADR-AUTO-DEFAULT#6

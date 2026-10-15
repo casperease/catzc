@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-FilePathFileMetaFact.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "82f63ed2a0e8"
     adrs:
       - ADR-REPO-FORMAT#6

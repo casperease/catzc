@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/private/Get-ChangedFile.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "25cd7959f074"
     adrs:
       - ADR-FLOW-CD-GLOBS#4

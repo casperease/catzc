@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/HelveticaMetrics.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "79f4779831a8"
     adrs:
       - ADR-PWSH-TYPES#1

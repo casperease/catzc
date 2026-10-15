@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.md
     kind: asset-description
-    body_sha: "050064e1bb35"
+    body_sha: f8d68fa2cf78
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

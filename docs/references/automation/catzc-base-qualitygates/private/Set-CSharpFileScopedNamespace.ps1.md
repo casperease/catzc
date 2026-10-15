@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Set-CSharpFileScopedNamespace.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: bf01a548ba66
     adrs: []
 ---

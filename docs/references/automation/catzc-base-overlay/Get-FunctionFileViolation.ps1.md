@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-overlay/Get-FunctionFileViolation.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: bb65e8419c5d
     adrs:
       - ADR-AUTO-ASSETDEP#1

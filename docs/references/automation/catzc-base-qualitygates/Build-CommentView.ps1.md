@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Build-CommentView.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "806e1e4b5fae"
     adrs:
       - ADR-PRIN-ONELIVE#1

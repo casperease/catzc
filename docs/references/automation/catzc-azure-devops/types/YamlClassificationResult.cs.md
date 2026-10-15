@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/types/YamlClassificationResult.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "063a1836ebfb"
     adrs: []
 ---

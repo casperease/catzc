@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerInputs.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "6ed252390d0f"
     adrs:
       - ADR-AUTO-CACHE#10

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/AzureConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "00152a1e78e6"
     adrs:
       - ADR-AUTO-DEFAULT#6

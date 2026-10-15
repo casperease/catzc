@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md
-    kind: reference
+    kind: comment-page
     body_sha: aa9262f43991
     adrs: []
 ---

@@ -4,14 +4,8 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid Az PowerShell module naming.
 .DESCRIPTION
-    Functions must not use the Verb-Az<Noun> naming pattern of the Az PowerShell
-    modules (Get-AzResource, New-AzVM, …). Name Azure-platform functions
-    Verb-Azure<Noun> — Azure spelled out, so it cannot collide with Az.* cmdlets.
-
-    The only sanctioned Az* prefixes are Verb-AzCli* (az CLI wrappers, e.g.
-    Invoke-AzCli, Assert-AzCliIsConnected) and Verb-AzBicep* (az bicep checks).
-    Both cover the az CLI itself, not the Az PowerShell modules — see the ADR to
-    prefer Az CLI over Az PowerShell modules.
+    Functions must not use the Verb-Az<Noun> naming pattern of the Az PowerShell modules (Get-AzResource, New-AzVM, …).
+    [comment:1](/docs/references/automation/scriptanalyzer/NoAzModuleNaming.psm1.md#comment1)
 #>
 
 function Measure-NoAzModuleNaming {
@@ -25,8 +19,9 @@ function Measure-NoAzModuleNaming {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+    # [comment:2](/docs/references/automation/scriptanalyzer/NoAzModuleNaming.psm1.md#comment2)
     $isFunctionDefinition = {
         param($node)
         $node -is [System.Management.Automation.Language.FunctionDefinitionAst]

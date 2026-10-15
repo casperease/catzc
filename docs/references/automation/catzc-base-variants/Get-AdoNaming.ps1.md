@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/Get-AdoNaming.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "6874c9804b5a"
     adrs: []
 ---

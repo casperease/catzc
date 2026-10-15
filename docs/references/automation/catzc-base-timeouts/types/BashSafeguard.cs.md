@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "603892a40fe7"
     adrs:
       - ADR-AUTO-FAILFAST#7

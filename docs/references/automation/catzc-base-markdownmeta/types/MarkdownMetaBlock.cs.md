@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: cdf18d3b28b7
     adrs:
       - ADR-REPO-FILEMETA#1

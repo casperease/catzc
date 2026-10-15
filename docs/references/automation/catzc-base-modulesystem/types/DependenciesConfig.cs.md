@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: b28d6eb72253
     adrs:
       - ADR-AUTO-TYPES#8

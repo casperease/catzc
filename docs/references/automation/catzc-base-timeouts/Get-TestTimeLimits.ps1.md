@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/Get-TestTimeLimits.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "842315c62faf"
     adrs:
       - ADR-AUTO-FAILFAST#7

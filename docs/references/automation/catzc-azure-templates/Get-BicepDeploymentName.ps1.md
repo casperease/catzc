@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "069bf26c2cb6"
     adrs:
       - ADR-FLOW-CD-DETECT#1

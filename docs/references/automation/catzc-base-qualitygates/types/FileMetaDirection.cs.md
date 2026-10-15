@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/FileMetaDirection.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "7ed4aa61465c"
     adrs:
       - ADR-REPO-FILEMETA#2

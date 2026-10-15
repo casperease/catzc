@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ec8d32493f81
     adrs:
       - ADR-AUTO-CONSOLE#10

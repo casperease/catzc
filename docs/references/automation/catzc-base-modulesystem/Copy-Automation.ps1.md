@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "9ba5e9ab045c"
     adrs:
       - ADR-AUTO-TYPES#9

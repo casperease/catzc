@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "1cea31bce2bb"
     adrs:
       - ADR-AUTO-TYPES#8

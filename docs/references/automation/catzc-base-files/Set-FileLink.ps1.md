@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-files/Set-FileLink.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "9683e4e5a050"
     adrs:
       - ADR-AUTO-XPLAT#7

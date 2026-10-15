@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.md
     kind: asset-description
-    body_sha: fc94a31990b9
+    body_sha: "5657707d9345"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

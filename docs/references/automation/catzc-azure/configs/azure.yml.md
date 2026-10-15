@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/configs/azure.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "7f44e182d95c"
     adrs:
       - ADR-AZ-DATAMOD#11

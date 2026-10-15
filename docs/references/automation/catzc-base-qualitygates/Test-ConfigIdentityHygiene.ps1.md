@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "502cbc97a77e"
     adrs:
       - ADR-AUTO-TEST#35

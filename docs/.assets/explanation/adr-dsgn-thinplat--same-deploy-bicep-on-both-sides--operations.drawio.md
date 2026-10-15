@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.md
     kind: asset-description
-    body_sha: "1e009b6b10c2"
+    body_sha: c95c0447de2a
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

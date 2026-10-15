@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Remove-SystemInstallation.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "0ae32a4180ca"
     adrs:
       - ADR-AUTO-TEST#33

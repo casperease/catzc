@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/types/ContractSchema.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "3afc2d46d2ba"
     adrs:
       - ADR-PWSH-TYPES#1

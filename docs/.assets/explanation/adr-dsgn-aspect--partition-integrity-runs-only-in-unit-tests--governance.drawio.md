@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.md
     kind: asset-description
-    body_sha: c68cec6bf247
+    body_sha: "01d84cc2a780"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

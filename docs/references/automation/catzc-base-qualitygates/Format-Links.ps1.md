@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Format-Links.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "3c033f444927"
     adrs:
       - ADR-REPO-LINK#8

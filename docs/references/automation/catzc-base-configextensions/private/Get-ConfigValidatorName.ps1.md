@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-configextensions/private/Get-ConfigValidatorName.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: c94b81936dd5
     adrs: []
 ---

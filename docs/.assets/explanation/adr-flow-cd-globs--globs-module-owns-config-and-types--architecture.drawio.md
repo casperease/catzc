@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.md
     kind: asset-description
-    body_sha: "547a47d14a0d"
+    body_sha: "677730c11378"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

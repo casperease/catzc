@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "87c826981dcb"
     adrs:
       - ADR-AZ-CUSTOMER#3

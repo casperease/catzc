@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/private/Stop-DotnetInstallHolder.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "3af58a6173f4"
     adrs: []
 ---

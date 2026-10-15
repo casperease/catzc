@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Protect-TestedModule.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: e18c4d876b2f
     adrs:
       - ADR-REPO-PROTGLOB#4

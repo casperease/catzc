@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestDurationHistory.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "308144f5ca29"
     adrs: []
 ---

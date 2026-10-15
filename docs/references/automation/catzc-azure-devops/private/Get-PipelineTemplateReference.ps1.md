@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/private/Get-PipelineTemplateReference.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f01f8627a9b7
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/types/YamlTemplateType.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: a0391bf123da
     adrs: []
 ---

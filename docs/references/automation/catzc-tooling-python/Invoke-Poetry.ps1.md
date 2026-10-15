@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-python/Invoke-Poetry.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "9fe2682f178c"
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Assert-ManagedGuid.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "5052bd9a2ea0"
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-repository/Get-RepositoryFile.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b784797b098e
     adrs:
       - ADR-AUTO-PATH#7

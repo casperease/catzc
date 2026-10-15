@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-python/Uninstall-PySpark.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d5a31ffe10d4
     adrs: []
 ---

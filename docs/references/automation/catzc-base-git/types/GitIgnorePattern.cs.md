@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/types/GitIgnorePattern.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "71d36507ca4a"
     adrs: []
 ---

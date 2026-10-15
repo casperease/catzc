@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/Assert-IsNotTimeoutExempt.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "5746782e858a"
     adrs: []
 ---

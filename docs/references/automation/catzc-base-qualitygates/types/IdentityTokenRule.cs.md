@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/IdentityTokenRule.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: dca12d803c34
     adrs:
       - ADR-AUTO-TEST#3

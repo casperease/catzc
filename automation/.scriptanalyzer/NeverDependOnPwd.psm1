@@ -4,11 +4,10 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: never depend on $PWD.
 .DESCRIPTION
-    Flags:
-    - References to $PWD (use $PSScriptRoot or $env:RepositoryRoot instead)
-    - Bare Set-Location / cd calls (use Push-Location / Pop-Location instead)
-    See [ADR-AUTO-NOPWD#1](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1) and
+    Flags: - References to $PWD (use $PSScriptRoot or $env:RepositoryRoot instead) - Bare Set-Location / cd calls...
+    [ADR-AUTO-NOPWD#1](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1),
     [ADR-PWSH-PWD#2](/docs/adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd2)
+    [comment:1](/docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md#comment1)
 #>
 
 function Measure-NeverDependOnPwd {
@@ -23,9 +22,9 @@ function Measure-NeverDependOnPwd {
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NeverDependOnPwd'
 
-    # Flag $PWD references
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+    # Flag $PWD references Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+    # [comment:2](/docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md#comment2)
     $isVariable = {
         param($node)
         $node -is [System.Management.Automation.Language.VariableExpressionAst]
@@ -43,9 +42,9 @@ function Measure-NeverDependOnPwd {
         }
     }
 
-    # Flag Set-Location / cd calls (Push-Location / Pop-Location are fine)
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+    # Flag Set-Location / cd calls (Push-Location / Pop-Location are fine) Predicate as a local, not inlined in...
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+    # [comment:3](/docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md#comment3)
     $isCommand = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]

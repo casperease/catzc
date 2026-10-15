@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-RepointedMarkdownText.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "8f7339fe6c69"
     adrs:
       - ADR-REPO-FORMAT#7

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Uninstall-Java.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d7850c4b944b
     adrs:
       - ADR-AUTO-CONSOLE#11

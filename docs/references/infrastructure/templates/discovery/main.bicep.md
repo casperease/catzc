@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/templates/discovery/main.bicep.md
-    kind: reference
+    kind: comment-page
     body_sha: d346c003a1a3
     adrs:
       - ADR-AZ-NETWORK#1

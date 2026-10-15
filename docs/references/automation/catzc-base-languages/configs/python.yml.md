@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/configs/python.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: c3fa75021763
     adrs:
       - ADR-AUTO-DEFAULT#6

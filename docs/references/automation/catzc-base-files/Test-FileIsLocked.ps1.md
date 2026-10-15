@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-files/Test-FileIsLocked.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "49fdc4774f0c"
     adrs: []
 ---

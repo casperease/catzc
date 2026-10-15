@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "6bc691bd968b"
     adrs: []
 ---

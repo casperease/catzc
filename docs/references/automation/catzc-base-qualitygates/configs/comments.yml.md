@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md
-    kind: reference
-    body_sha: e70dc79c3dad
+    kind: comment-page
+    body_sha: "31c90905e199"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-CONFIG#1
@@ -59,7 +59,8 @@ Above `pages:`.
 
 ```text
 Where a file's comment page lives, first match wins. `source` is a folder, or `<prefix>/*` for each immediate
-subfolder of the prefix (dot-prefixed folders never match, so .vendor and .internal are out); `docs` is the
+subfolder of the prefix (dot-prefixed folders never match, so .vendor is out and .scriptanalyzer and .internal are
+listed by name); `docs` is the
 folder under docs/ the pages go under, and with a `/*` source `{kebab}` is the matched subfolder's leaf name,
 lowercased with dots turned to hyphens. The page keeps the file's name and extension plus `.md`
 (automation/Catzc.Base.QualityGates/Format-Code.ps1 -> docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md).

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "934a6388e39e"
     adrs: []
 ---

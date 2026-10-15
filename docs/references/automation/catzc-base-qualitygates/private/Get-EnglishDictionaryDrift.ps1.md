@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-EnglishDictionaryDrift.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "352437cdf174"
     adrs: []
 ---

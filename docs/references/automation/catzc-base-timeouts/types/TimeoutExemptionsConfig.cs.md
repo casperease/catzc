@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "9b6d773e44ef"
     adrs:
       - ADR-AUTO-DEFAULT#6

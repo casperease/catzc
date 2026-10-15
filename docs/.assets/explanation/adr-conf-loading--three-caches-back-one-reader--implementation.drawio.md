@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.md
     kind: asset-description
-    body_sha: "5d8474c2143e"
+    body_sha: a994f364f2e6
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

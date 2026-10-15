@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/Test-WorldMap.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "4738a01f5d3d"
     adrs:
       - ADR-AUTO-TEST#35

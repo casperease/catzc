@@ -1,24 +1,15 @@
 # Catzc.Internal.Builder — the build-mode engine (Invoke-ModuleBuild).
-#
-# Builds the selected modules into one installable, versioned Catzc package
-# ([ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md),
-# [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)): every module stays its own PowerShell module of the same name, its
-# function files
-# merged into one <Module>.functions.ps1 behind a generated manifest, beside the runtime loader (.internal), the vendored
-# dependencies (.vendor), the full combined-types DLL and its sources (.compiled) and the package entry points. It
-# is a .internal multi-function module (the one-function-per-file convention does not apply), loaded on demand
-# (Import-InternalModule Builder) by Build-Modules after a normal source-mode import, so it calls catzc public
-# functions (Get-ModuleProfile, Write-FileIfChanged, Get-InternalAssetDependency, Get-CatzcContentHash, ...). It
-# reads the per-function source tree, so it never ships in a build itself.
+# [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md), [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
+# [comment:1](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment1)
 
 Set-StrictMode -Version Latest
 
-# Vendored modules that serve only the quality gates — the two the importer loads lazily. vendor_policy 'runtime'
-# leaves them out; every other vendored module is a runtime dependency and always ships.
+# Vendored modules that serve only the quality gates — the two the importer loads lazily.
+# [comment:2](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment2)
 $script:testToolVendorModules = @('Pester', 'PSScriptAnalyzer')
 
-# The runtime loader a build carries under .internal/: Import-Catzc.ps1 boots Invoke-Importer -Bundle, which loads
-# Bootstrap, Types and Vendor and applies the error view. Builder and the tests never ship.
+# The runtime loader a build carries under.internal/: Import-Catzc.ps1 boots Invoke-Importer -Bundle, which loads...
+# [comment:3](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment3)
 $script:runtimeInternalFiles = @(
     'Catzc.Internal.Bootstrap.psm1'
     'Catzc.Internal.Importer.psm1'
@@ -28,20 +19,19 @@ $script:runtimeInternalFiles = @(
     'assets/ErrorView.format.ps1xml'
 )
 
-# What a test-capable build (vendor_policy 'full') adds: the analyzer settings, which travel with the analyzer like
-# .scriptanalyzer/, and the TestKit the test files load (Import-InternalModule TestKit) — the build run executes them.
+# What a test-capable build (vendor_policy 'full') adds: the analyzer settings, which travel with the analyzer...
+# [comment:4](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment4)
 $script:fullPolicyInternalFiles = @(
     'Catzc.Internal.TestKit.psm1'
     'assets/PSScriptAnalyzerSettings.psd1'
 )
 
-# The merged function file of a built module is <Module>.functions.ps1, never <Module>.ps1: a nested script
-# module is named for its file, so <Module>.ps1 would load a second module named <Module> under the manifest's,
-# and Get-Module <Module>, Mock -ModuleName and InModuleScope would each see two modules of that name.
+# The merged function file of a built module is <Module>.functions.ps1, never <Module>.ps1: a nested script module is...
+# [comment:5](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment5)
 $script:mergedFileSuffix = '.functions.ps1'
 
-# A module's side folders that ship verbatim; everything else in the module folder (private/, tests/, README.md,
-# the source-mode manifest) does not.
+# A module's side folders that ship verbatim; everything else in the module folder (private/, tests/, README.md, the...
+# [comment:6](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment6)
 $script:shippedSideFolders = @('assets', 'configs', 'types')
 
 function Get-BuildSourceIndex {
@@ -50,13 +40,9 @@ function Get-BuildSourceIndex {
         Returns the files a build may ship — the tracked files and the untracked files git does not ignore — each
         marked with whether git stores it with LF-only line endings.
     .DESCRIPTION
-        Ignored files (bin/, obj/, local scratch) never reach a bundle. An untracked file that is not ignored is new
-        work on a devbox, so it ships, and it makes the tree dirty; a pipeline refuses a dirty tree, so a released
-        bundle is always exactly its commit's tracked files. The mark drives the one normalisation rule
-        ([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)): a file whose index
-        form is LF-only is written LF-only, which undoes whatever line-ending conversion the checkout applied;
-        every other file (CRLF-stored, mixed, binary, no line ending, untracked) is a byte copy. On a clean tree the
-        build therefore ships exactly the bytes git stores, on any OS and under any core.autocrlf.
+        Ignored files (bin/, obj/, local scratch) never reach a bundle.
+        [ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)
+        [comment:7](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment7)
     .OUTPUTS
         [System.Collections.Generic.Dictionary[string, bool]] source-root-relative, forward-slashed path -> LF-only.
     #>
@@ -94,10 +80,8 @@ function Test-BuildSourceDirty {
     .SYNOPSIS
         Returns whether the source root differs from its commit: a modified, staged, deleted or untracked file.
     .DESCRIPTION
-        Content decides, not file metadata: git diff compares each file as git would store it with HEAD, so a
-        checkout whose line endings differ from another checkout's is still the same commit. (git status goes by
-        stat data first and calls such a file modified until the index is refreshed.) --no-optional-locks keeps
-        both calls read-only. A tree with no commit to compare against counts as dirty.
+        Content decides, not file metadata: git diff compares each file as git would store it with HEAD, so a...
+        [comment:8](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment8)
     #>
     [CmdletBinding()]
     [OutputType([bool])]
@@ -196,17 +180,9 @@ function Get-BuildClosureViolation {
     .SYNOPSIS
         Returns every call and config read of the selected modules that lands outside the selection.
     .DESCRIPTION
-        The declared closure (dependencies.yml) leaves a module it does not list unconstrained, so a partial
-        build can miss a module the code really needs; this proves the closure from the code itself
-        ([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)):
-
-          commands  every call a selected module makes to a catzc function (Get-FunctionDependency) targets a
-                    selected module
-          configs   every Get-Config whose config name is a literal (-Config <name>, or the first positional
-                    argument) reads a config that a selected module owns (<Module>/configs/<name>.yml); a
-                    read scoped by owner (-ListOwners, -Module) reads only the owners present, so it is exempt
-
-        A config name that no module owns is left to Get-Config itself, which fails the same way in source mode.
+        The declared closure (dependencies.yml) leaves a module it does not list unconstrained, so a partial build...
+        [ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)
+        [comment:9](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment9)
     #>
     [CmdletBinding()]
     [OutputType([string])]
@@ -251,8 +227,8 @@ function Get-BuildClosureViolation {
             $syntaxTree = [System.Management.Automation.Language.Parser]::ParseFile($file, [ref] $tokens, [ref] $parseErrors)
             foreach ($read in $syntaxTree.FindAll($isConfigRead, $true)) {
                 $elements = $read.CommandElements
-                # -ListOwners / -Module read a config that many modules may ship, owner by owner: only the owners
-                # present are read, so an owner missing from the build is not a gap.
+                # -ListOwners / -Module read a config that many modules may ship, owner by owner: only the owners...
+                # [comment:10](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment10)
                 $isOwnerScoped = @($elements | Where-Object {
                         $_ -is [System.Management.Automation.Language.CommandParameterAst] -and $_.ParameterName -in 'ListOwners', 'Module'
                     }).Count -gt 0
@@ -294,11 +270,8 @@ function Get-MergedModule {
     .SYNOPSIS
         Merges one source module's function files into the text of its built <Module>.functions.ps1.
     .DESCRIPTION
-        Order is private/*.ps1 ordinal, then the root *.ps1 ordinal — the order the source manifest's NestedModules
-        uses, so load semantics are identical. Files git ignores are never merged. Each file is taken verbatim (CR
-        stripped, trailing newlines trimmed) behind one '# source: automation/<Module>/<path>' marker line.
-        Returns the canonical text, the public (exported) function names, and every precondition violation of
-        every file.
+        Order is private/*.ps1 ordinal, then the root *.ps1 ordinal — the order the source manifest's NestedModules...
+        [comment:11](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment11)
     #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -348,8 +321,8 @@ function Get-MergedModule {
     $blocks = [System.Collections.Generic.List[string]]::new()
     $blocks.Add("# $Name — generated by Invoke-ModuleBuild from automation/$Name/ (private/*.ps1, then *.ps1); do not edit.")
     foreach ($entry in $ordered) {
-        # The one function-file check (Catzc.Base.Overlay), shared with the consumer overlay, which loads a function
-        # file into a built module the same way the merge does.
+        # The one function-file check (Catzc.Base.Overlay), shared with the consumer overlay, which loads a function...
+        # [comment:12](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment12)
         foreach ($violation in @(Get-FunctionFileViolation -Path $entry.Path -RelativePath $entry.Relative)) {
             $violations.Add($violation)
         }
@@ -384,9 +357,8 @@ function Get-BuildFileCopy {
     .PARAMETER ExcludeDirectory
         Folder names (at any depth) whose contents are skipped — e.g. tests.
     .PARAMETER IncludeUntracked
-        Copy untracked files too. Only the types/ folders take it: their sources must equal the type set the DLL's
-        name (typesHash) proves, and that set is every types/*.cs on disk, tracked or not. A pipeline builds a
-        clean tree, where the two are the same.
+        Copy untracked files too.
+        [comment:13](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment13)
     #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -435,10 +407,8 @@ function Get-ModuleBuildPlan {
         Computes every file a build writes, from the source tree alone, and collects every reason it cannot.
     .DESCRIPTION
         Pure with respect to the build destination: reads the source modules and infrastructure, writes nothing.
-        Returns the plan entries (build-relative Path, Kind Text/Copy/Manifest/Types, Content or Source), the
-        type-source hash, the union of the public functions, and the collected violations — merge preconditions
-        ([ADR-PWSH-MANIFEST#5](/docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5)), missing modules, missing
-        infrastructure.
+        [ADR-PWSH-MANIFEST#5](/docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5)
+        [comment:14](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment14)
     #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -555,12 +525,8 @@ function Get-ModuleBuildPlan {
     $packageManifest = Format-CatzcPackageManifest -Version $Version -PackageMetadata $PackageMetadata -FunctionToExport $packageExports
     $entries.Add([pscustomobject]@{ Path = 'Catzc.psd1'; Kind = 'Text'; Source = $null; Content = $packageManifest; Exports = $null })
 
-    # The combined-types assembly is always the FULL type set, whatever modules are selected, so a build loads the
-    # same types as source mode. The committed <source>/.compiled/Catzc.Types.<hash>.dll is reused by copy — its
-    # name is the hash proof — and compiled into the build only when it is missing. A selected module's sources
-    # ship in its own types/ folder (copied above); every other module's ship verbatim under
-    # .compiled/types/<Module>/<File>.cs, a dot folder the importer never takes for a module. Together the two hold
-    # the full set the hash covers; build.json lists every source by its build-relative path, in hash order.
+    # The combined-types assembly is always the FULL type set, whatever modules are selected, so a build loads the...
+    # [comment:15](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment15)
     $typeHash = $null
     $typeSources = [string[]] @()
     $hashResult = Get-CombinedTypeHash -AutomationRoot $SourceRoot
@@ -581,8 +547,8 @@ function Get-ModuleBuildPlan {
                 $entries.Add([pscustomobject]@{ Path = ".compiled/types/$($file.Module)/$($file.Base).cs"; Kind = 'Copy'; Source = $file.Path; Content = $null; Exports = $null; Normalize = $normalize })
             }
         }
-        # The DLL is proven by its name, the hash of the type sources, not by git: a devbox that changed a
-        # types/*.cs holds the matching DLL before it is committed. It is binary, so a byte copy.
+        # The DLL is proven by its name, the hash of the type sources, not by git: a devbox that changed a types/*.cs...
+        # [comment:16](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment16)
         $dllPath = ".compiled/Catzc.Types.$typeHash.dll"
         $committed = [System.IO.Path]::Combine($SourceRoot, '.compiled', "Catzc.Types.$typeHash.dll")
         if ([System.IO.File]::Exists($committed)) {
@@ -606,11 +572,9 @@ function Format-CatzcPackageManifest {
     .SYNOPSIS
         Renders the package manifest Catzc.psd1 as canonical, deterministic text.
     .DESCRIPTION
-        Rendered here rather than by New-ModuleManifest, whose output carries a generation date and so differs on
-        every build; the same commit must yield the same bytes
-        ([ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)). Values are single-quoted
-        with
-        embedded quotes doubled. Blank ProjectUri/LicenseUri are left out.
+        Rendered here rather than by New-ModuleManifest, whose output carries a generation date and so differs on...
+        [ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)
+        [comment:17](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment17)
     #>
     [CmdletBinding()]
     [OutputType([string])]
@@ -683,9 +647,8 @@ function Copy-BuildFileIfChanged {
     .SYNOPSIS
         Copies a file, only when the target is missing or differs. Returns whether it wrote.
     .DESCRIPTION
-        A byte copy, except under -Normalize, which turns every CRLF into LF first: the bytes git stores for a
-        file it holds LF-only (Get-BuildSourceIndex), whatever line endings the checkout wrote. The Latin-1
-        round trip maps each byte to one char and back, so nothing but the CR bytes changes.
+        A byte copy, except under -Normalize, which turns every CRLF into LF first: the bytes git stores for a file...
+        [comment:18](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment18)
     #>
     [CmdletBinding()]
     [OutputType([bool])]
@@ -719,9 +682,8 @@ function Clear-StaleBuildFile {
     .SYNOPSIS
         Deletes every file under the build root that the plan does not name, then every emptied folder.
     .DESCRIPTION
-        What makes a rebuild converge instead of accumulate: a removed module, a dropped vendor module, a stale
-        types DLL of an earlier hash. A file that cannot be deleted (a DLL loaded by another process) fails the
-        build with its path, rather than leaving a second types DLL beside the current one.
+        What makes a rebuild converge instead of accumulate: a removed module, a dropped vendor module, a stale types...
+        [comment:19](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment19)
     #>
     [CmdletBinding()]
     [OutputType([int])]
@@ -806,9 +768,8 @@ function Write-ModuleBuildOutput {
     [void] (Clear-StaleBuildFile -BuildRoot $BuildRoot -KeepPath $keep)
     [System.IO.Directory]::CreateDirectory($BuildRoot) | Out-Null
 
-    # The manifests come from the bootstrap's canonical emitter (New-DynamicManifest -NestedModule
-    # -FunctionToExport). The bootstrap leaves the session after an import, so it is loaded for the build and
-    # removed again when this call loaded it.
+    # The manifests come from the bootstrap's canonical emitter (New-DynamicManifest -NestedModule -FunctionToExport).
+    # [comment:20](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment20)
     $hadBootstrap = [bool] (Get-Module Catzc.Internal.Bootstrap)
     Import-InternalModule Bootstrap
     try {
@@ -840,8 +801,8 @@ function Write-ModuleBuildOutput {
         }
     }
 
-    # Fallback when the committed DLL is missing: the one compile path (Build-CombinedTypeAssembly) over the full
-    # type set. An existing DLL of the same hash is kept, so a rebuild of the same sources compiles nothing.
+    # Fallback when the committed DLL is missing: the one compile path (Build-CombinedTypeAssembly) over the full...
+    # [comment:21](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment21)
     if (@($Entries | Where-Object { $_.Kind -eq 'Types' }).Count -gt 0) {
         Build-CombinedTypeAssembly -AutomationRoot $SourceRoot -OutputDirectory ([System.IO.Path]::Combine($BuildRoot, '.compiled'))
     }
@@ -852,44 +813,11 @@ function Invoke-ModuleBuild {
     .SYNOPSIS
         Builds the selected modules into one installable, versioned Catzc package — build mode's code root.
     .DESCRIPTION
-        The engine behind Build-Modules (Catzc.Base.Exporter;
-        [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md)). Resolves
-        the module set (-Module and/or -ModuleProfile, closure-expanded over dependencies.yml), then converges
-        <Destination>/Catzc/<Version>/ to:
-
-          Catzc.psd1, Catzc.psm1, Import-Catzc.ps1   the package manifest, its RootModule, the initializer
-          build.json                                 provenance: bundle, version, hashes, type sources, commit, dirty,
-                                                     modules
-          .internal/                                 the runtime loader (Loader, Importer, Types, Vendor, Bootstrap)
-          .compiled/Catzc.Types.<hash>.dll           the full type set (the committed DLL, copied)
-          .compiled/types/<Module>/<File>.cs         type sources of the modules not selected
-          .vendor/                                   vendored modules per -VendorPolicy, verbatim
-          <Module>/<Module>.psd1                     per module: generated manifest (NestedModules = the merged file)
-          <Module>/<Module>.functions.ps1            per module: merged function files
-          <Module>/{configs,assets,types}/           shipped side folders, verbatim — never tests/
-
-        A build ships the files git tracks under the source root, plus the untracked files git does not ignore
-        (new work on a devbox), never an ignored one, and writes each as git stores it: a file git holds LF-only
-        is written LF-only whatever the checkout's line endings, every other file is a byte copy
-        (Get-BuildSourceIndex). The same commit therefore yields the same bytes on any OS. A source tree that
-        differs from its commit — an untracked file included — is recorded as dirty in build.json; a pipeline
-        refuses to build one, so a released bundle is exactly its commit.
-
-        Every check runs before anything is written, and each collects every violation before it throws: the
-        merge preconditions of every source file
-        ([ADR-PWSH-MANIFEST#5](/docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5)), the closure check —
-        every catzc call and literal config read of the selected modules lands in a selected module
-        (Get-BuildClosureViolation) — and the presence
-        check — every internal asset dependency of the selected modules (Get-InternalAssetDependency) is present in the planned output
-        ([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)). Writes are
-        converging: text through Write-FileIfChanged, copies only on a byte
-        difference, and files the plan omits removed — so a rebuild of an unchanged commit writes nothing.
-
-        The types assembly is always the full type set: the committed <source>/.compiled/Catzc.Types.<hash>.dll
-        is copied (compiled into the build only when missing). Selected modules' sources ship in <Module>/types/,
-        every other module's under .compiled/types/<Module>/<File>.cs. Because the DLL is a byte copy, the content
-        hash (Get-CatzcContentHash) covers every file except build.json, the DLL included. The engine writes no
-        console output; its caller reports the result.
+        The engine behind Build-Modules (Catzc.Base.Exporter; ).
+        [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md),
+        [ADR-PWSH-MANIFEST#5](/docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5),
+        [ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)
+        [comment:22](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment22)
     .PARAMETER Module
         Explicit module names. Combined with -ModuleProfile; at least one of the two is required.
     .PARAMETER ModuleProfile
@@ -897,8 +825,8 @@ function Invoke-ModuleBuild {
     .PARAMETER Version
         The resolved MAJOR.MINOR.PATCH version (the engine never resolves 'auto').
     .PARAMETER VendorPolicy
-        runtime ships the runtime vendored modules only; full also ships Pester, PSScriptAnalyzer and the analyzer
-        rules and settings, which the build run needs.
+        runtime ships the runtime vendored modules only; full also ships Pester, PSScriptAnalyzer and the analyzer...
+        [comment:23](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment23)
     .PARAMETER Destination
         The parent folder; the build goes to <Destination>/Catzc/<Version>/.
     .PARAMETER Bundle
@@ -906,8 +834,9 @@ function Invoke-ModuleBuild {
     .PARAMETER PackageMetadata
         Catzc.psd1 metadata: Guid, Author, CompanyName, Description, Tags, ProjectUri, LicenseUri.
     .PARAMETER DryRun
-        Return the plan and write nothing
-        ([ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)).
+        Return the plan and write nothing.
+        [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
+        [comment:24](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment24)
     .OUTPUTS
         [pscustomobject] BuildRoot, Version, Modules, TypesHash, ContentHash ($null under -DryRun), FileCount,
         Dirty, DryRun.
@@ -981,9 +910,9 @@ function Invoke-ModuleBuild {
             "Declare the dependency in dependencies.yml so the closure brings the owner in, or add the owning module to the build:`n  " + ($outside -join "`n  "))
     }
 
-    # The presence check
-    # ([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)), checked
-    # against the plan so a missing asset fails before any write.
+    # The presence check, checked against the plan so a missing asset fails before any write.
+    # [ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)
+    # [comment:25](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment25)
     $plannedPaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($entry in $plan.Entries) {
         [void] $plannedPaths.Add($entry.Path)

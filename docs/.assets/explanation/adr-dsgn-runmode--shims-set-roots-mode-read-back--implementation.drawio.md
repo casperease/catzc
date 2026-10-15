@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.md
     kind: asset-description
-    body_sha: "9ba45c2bd3ee"
+    body_sha: fceaa6d70d03
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

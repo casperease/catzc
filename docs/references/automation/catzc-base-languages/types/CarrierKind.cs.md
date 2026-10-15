@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/CarrierKind.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: fe5d46850511
     adrs:
       - ADR-REPO-FILEMETA#1

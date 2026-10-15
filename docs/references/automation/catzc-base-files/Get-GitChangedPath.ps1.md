@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-files/Get-GitChangedPath.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "127c2ea53efb"
     adrs: []
 ---

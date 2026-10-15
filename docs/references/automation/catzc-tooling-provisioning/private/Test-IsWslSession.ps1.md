@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/private/Test-IsWslSession.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "533b3e72d3c7"
     adrs: []
 ---

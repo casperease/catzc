@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "82a85999900e"
     adrs:
       - ADR-AUTO-REMOVE#2

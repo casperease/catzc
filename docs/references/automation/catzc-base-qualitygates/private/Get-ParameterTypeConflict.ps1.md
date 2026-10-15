@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "2f787f7d9b2e"
     adrs: []
 ---

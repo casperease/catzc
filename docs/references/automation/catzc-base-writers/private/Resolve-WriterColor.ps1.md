@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "194549d2092d"
     adrs: []
 ---

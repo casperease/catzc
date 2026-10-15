@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/Publish-ContractRelease.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b774ea746aa7
     adrs:
       - ADR-AUTO-BUNDLE#7

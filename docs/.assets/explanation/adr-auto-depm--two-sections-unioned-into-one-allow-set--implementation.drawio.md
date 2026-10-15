@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.md
     kind: asset-description
-    body_sha: "78eeb186a5b8"
+    body_sha: "71d34610a4b4"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

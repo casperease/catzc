@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-supported.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: eec256f06f25
     adrs: []
 ---

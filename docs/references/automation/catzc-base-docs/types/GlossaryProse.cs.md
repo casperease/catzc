@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "2b2c01a46520"
     adrs:
       - ADR-REPO-FORMAT#6

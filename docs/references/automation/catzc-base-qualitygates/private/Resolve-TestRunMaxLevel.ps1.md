@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "4ca90ce08bd2"
     adrs:
       - ADR-AUTO-CONSOLE#10

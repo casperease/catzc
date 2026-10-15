@@ -26,6 +26,21 @@ kinds:
         - { class: agent, files: [".claude/agents/**"] }
         - { class: skill, files: [".claude/skills/**"] }
         - { class: adr, files: ["docs/adr/**"] }
+        # A comment page keeps its source file's name and extension plus.md, so the name marks it; it wins over reference.
+        # ADR-REPO-COMMENTS#3 [comment:2](/docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md#comment2)
+        - {
+            class: comment-page,
+            files:
+              [
+                "docs/references/**/*.ps1.md",
+                "docs/references/**/*.psm1.md",
+                "docs/references/**/*.psd1.md",
+                "docs/references/**/*.cs.md",
+                "docs/references/**/*.yml.md",
+                "docs/references/**/*.yaml.md",
+                "docs/references/**/*.bicep.md",
+              ],
+          }
         - { class: reference, files: ["docs/references/**"] }
         - { class: how-to, files: ["docs/how-to/**"] }
         - { class: explanation, files: ["docs/explanation/**"] }

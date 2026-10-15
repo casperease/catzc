@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-FileMetaEngine.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: abb257ace7eb
     adrs:
       - ADR-REPO-FILEMETA#5

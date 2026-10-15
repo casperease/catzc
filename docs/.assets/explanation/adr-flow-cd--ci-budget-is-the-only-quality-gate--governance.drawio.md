@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.md
     kind: asset-description
-    body_sha: ff3c98d3b97b
+    body_sha: "3b2f8c46c61c"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

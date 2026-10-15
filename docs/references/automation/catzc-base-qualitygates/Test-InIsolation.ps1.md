@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "730221044aa8"
     adrs: []
 ---

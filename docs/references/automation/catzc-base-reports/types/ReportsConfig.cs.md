@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-reports/types/ReportsConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: fc60597d8cfa
     adrs:
       - ADR-AUTO-TEST#35

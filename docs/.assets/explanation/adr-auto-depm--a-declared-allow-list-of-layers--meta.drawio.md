@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.md
     kind: asset-description
-    body_sha: d970c7ce6940
+    body_sha: "240f57bb1bc5"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

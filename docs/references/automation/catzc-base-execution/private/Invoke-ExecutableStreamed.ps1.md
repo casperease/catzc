@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "8eaba377d985"
     adrs: []
 ---

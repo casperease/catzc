@@ -6,8 +6,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: enforce variable casing conventions.
 .DESCRIPTION
     PascalCase: parameters, $global: scoped variables.
-    camelCase: local (unscoped), $script:, and $private: scoped variables.
-    Scriptblock params and automatic variables are skipped.
+    [comment:1](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment1)
 #>
 
 # Automatic / preference / well-known variables that should not be flagged
@@ -42,8 +41,9 @@ function Measure-VariableCasing {
 
     # Collect all parameter names (for excluding from local-variable check)
     $paramNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+    # [comment:2](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment2)
     $isParameter = {
         param($node)
         $node -is [System.Management.Automation.Language.ParameterAst]
@@ -54,9 +54,8 @@ function Measure-VariableCasing {
         $name = $p.Name.VariablePath.UserPath
         $paramNames.Add($name) | Out-Null
 
-        # Skip scriptblock params (e.g. { param($n) ... } in FindAll predicates)
-        # Named function: ParamBlockAst → ScriptBlockAst → FunctionDefinitionAst
-        # Scriptblock:    ParamBlockAst → ScriptBlockAst → ScriptBlockExpressionAst
+        # Skip scriptblock params (e.g.
+        # [comment:3](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment3)
         $parentOfScript = $p.Parent.Parent.Parent
         if ($parentOfScript -isnot [System.Management.Automation.Language.FunctionDefinitionAst]) {
             continue
@@ -73,9 +72,9 @@ function Measure-VariableCasing {
         }
     }
 
-    # Check variable assignments
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+    # Check variable assignments Predicate as a local, not inlined in FindAll's parens — dodges a cross-version...
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+    # [comment:4](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment4)
     $isAssignment = {
         param($node)
         $node -is [System.Management.Automation.Language.AssignmentStatementAst]

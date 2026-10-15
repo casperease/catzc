@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.md
     kind: asset-description
-    body_sha: "600aef8c7c3c"
+    body_sha: dde41f84db25
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

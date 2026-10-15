@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/MarkdownLinkRebaser.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "9609576333ae"
     adrs:
       - ADR-REPO-README#6

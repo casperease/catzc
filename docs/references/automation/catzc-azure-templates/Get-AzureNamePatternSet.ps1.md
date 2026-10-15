@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Get-AzureNamePatternSet.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b8100467e6c4
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-codemeta/types/HeadForm.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "3e297be3087b"
     adrs:
       - ADR-REPO-CODEMETA#1

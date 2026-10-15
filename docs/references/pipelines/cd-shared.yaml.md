@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/pipelines/cd-shared.yaml.md
-    kind: reference
+    kind: comment-page
     body_sha: d944d39fa28b
     adrs:
       - ADR-AZ-LZ#7

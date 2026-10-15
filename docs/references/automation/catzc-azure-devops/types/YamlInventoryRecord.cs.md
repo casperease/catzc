@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/types/YamlInventoryRecord.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: c616e633a245
     adrs: []
 ---

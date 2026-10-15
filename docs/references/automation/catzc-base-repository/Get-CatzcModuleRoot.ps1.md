@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-repository/Get-CatzcModuleRoot.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "073d9a83f258"
     adrs:
       - ADR-AUTO-ASSETDEP#1

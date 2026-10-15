@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/modules/storage-account.bicep.md
-    kind: reference
+    kind: comment-page
     body_sha: "8c004fbceb14"
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/FormatResult.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: e6766f4cf984
     adrs: []
 ---

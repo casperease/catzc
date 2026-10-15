@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/types/GitIndex.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "0133eb836114"
     adrs: []
 ---

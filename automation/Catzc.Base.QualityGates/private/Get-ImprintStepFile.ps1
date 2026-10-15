@@ -27,6 +27,20 @@ function Get-ImprintStepFile {
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
+
+    # Format-Code -Path also formats files outside the repository, which no step's scope covers: they are left out, not refused.
+    if ($Path) {
+        $Path = @($Path | Where-Object {
+                $resolved = Resolve-Path -LiteralPath $_ -ErrorAction Ignore
+                $relative = if ($resolved) {
+                    [System.IO.Path]::GetRelativePath($root, $resolved.ProviderPath)
+                }
+                $relative -and $relative -ne '..' -and -not $relative.StartsWith('..' + [System.IO.Path]::DirectorySeparatorChar)
+            })
+        if ($Path.Count -eq 0) {
+            return , [string[]] @()
+        }
+    }
     switch -CaseSensitive ($Step) {
         'file-meta' {
             $entries = @(Get-FileMetaScope -RepositoryRoot $root -Path $Path -Config (Get-Config -Config file-meta))
@@ -36,6 +50,10 @@ function Get-ImprintStepFile {
             $lookup = Get-ScopeLookup -RepositoryRoot $root -Path $Path -Command Get-ImprintStepFile
             $types = @(Get-GitTrackedPath $lookup | Where-Object { $_ -match '^automation/[^/]+/types/[^/]+\.cs$' })
             return , [string[]] @($types | ForEach-Object { [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $_)) })
+        }
+        'comments' {
+            $scope = @(Get-CommentScope -RepositoryRoot $root -Path $Path)
+            return , [string[]] @($scope | ForEach-Object { [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $_.File)) })
         }
         default {
             throw "Get-ImprintStepFile: no adapter for the imprint step '$Step' (declared: $([Catzc.Base.Languages.LanguagesConfig]::ImprintSteps -join ', '))."

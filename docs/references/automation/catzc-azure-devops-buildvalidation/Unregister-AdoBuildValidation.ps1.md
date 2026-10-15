@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "00df666feb77"
     adrs:
       - ADR-AUTO-IDEM#2

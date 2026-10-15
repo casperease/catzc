@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/templates/discovery/configuration/nova/nsub.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: edf3853e8444
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/ConvertTo-Guid.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: dd4f20ba1d37
     adrs: []
 ---

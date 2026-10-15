@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f3201ea9cdee
     adrs:
       - ADR-PWSH-VENDOR#7

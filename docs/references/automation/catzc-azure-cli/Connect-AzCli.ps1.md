@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "28567547d86d"
     adrs: []
 ---

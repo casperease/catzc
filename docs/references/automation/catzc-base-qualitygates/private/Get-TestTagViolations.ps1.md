@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "13d28439855f"
     adrs: []
 ---

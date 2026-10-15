@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/Get-Track.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "776683384059"
     adrs:
       - ADR-DSGN-TRACK#1

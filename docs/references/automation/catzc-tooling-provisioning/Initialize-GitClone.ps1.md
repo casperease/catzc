@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "60aab09b65b9"
     adrs:
       - ADR-AUTO-DRYRUN#2

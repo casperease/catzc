@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "13bc06b6618c"
     adrs: []
 ---

@@ -5,9 +5,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: forbid Write-Error and Write-Warning.
 .DESCRIPTION
     All errors are terminating — use throw or Assert-*.
-    All warnings are terminating ($WarningPreference = 'Stop') — there is
-    no middle ground between "fine" and "stop." Use Write-Message for
-    status, throw for failures.
+    [comment:1](/docs/references/automation/scriptanalyzer/NoWriteErrorOrWarning.psm1.md#comment1)
 #>
 
 function Measure-NoWriteErrorOrWarning {
@@ -22,8 +20,9 @@ function Measure-NoWriteErrorOrWarning {
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoWriteErrorOrWarning'
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+    # [comment:2](/docs/references/automation/scriptanalyzer/NoWriteErrorOrWarning.psm1.md#comment2)
     $isCommand = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]

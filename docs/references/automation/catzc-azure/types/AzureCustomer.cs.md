@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/AzureCustomer.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "1ca13dbdb087"
     adrs:
       - ADR-AUTO-TYPES#8

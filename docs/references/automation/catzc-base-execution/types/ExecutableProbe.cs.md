@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: bfd29fc5caf8
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-config/private/Get-ConfigRegistry.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "6cfe91cb1bff"
     adrs:
       - ADR-AUTO-ASSETDEP#1

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/private/ConvertFrom-GoTestJson.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "8fa6ab143e47"
     adrs: []
 ---

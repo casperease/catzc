@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: e3257f61b9f6
     adrs:
       - ADR-AUTO-REMOVE#3

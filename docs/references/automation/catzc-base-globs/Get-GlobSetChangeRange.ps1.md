@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "929076b503a6"
     adrs:
       - ADR-REPO-PROTGLOB#5

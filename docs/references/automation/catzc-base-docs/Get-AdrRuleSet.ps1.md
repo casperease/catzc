@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Get-AdrRuleSet.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "08a34494e24b"
     adrs: []
 ---

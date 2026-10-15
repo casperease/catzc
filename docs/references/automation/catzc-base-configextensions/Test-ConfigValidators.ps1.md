@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-configextensions/Test-ConfigValidators.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "0ea875bdfe1b"
     adrs:
       - ADR-AUTO-TEST#35

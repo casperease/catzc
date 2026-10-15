@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/private/Test-GlobListEqual.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "959cefd67203"
     adrs:
       - ADR-FLOW-CD-GLOBS#2

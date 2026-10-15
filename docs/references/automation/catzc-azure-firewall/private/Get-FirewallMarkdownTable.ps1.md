@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "25bcb58e6a7e"
     adrs: []
 ---

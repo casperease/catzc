@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-PythonTestCases.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "836f1e4d933e"
     adrs: []
 ---

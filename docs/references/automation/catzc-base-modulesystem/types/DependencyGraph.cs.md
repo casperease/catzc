@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: fe3511802c2f
     adrs:
       - ADR-AUTO-DEPM#4

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/Get-TrackedFile.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "61765dbe7cc2"
     adrs:
       - ADR-AUTO-TRACKED#1

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/Test-GlobSetAffected.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: e316ca48cff7
     adrs:
       - ADR-FLOW-CD-GLOBS#1

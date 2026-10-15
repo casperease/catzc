@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/GzipText.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "5a3143ae1390"
     adrs:
       - ADR-PWSH-TYPES#1

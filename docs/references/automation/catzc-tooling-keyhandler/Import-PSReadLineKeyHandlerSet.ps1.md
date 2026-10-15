@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-keyhandler/Import-PSReadLineKeyHandlerSet.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "17d1d5012ca2"
     adrs: []
 ---

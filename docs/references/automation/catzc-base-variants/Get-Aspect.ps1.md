@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/Get-Aspect.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b33c0514ae91
     adrs: []
 ---

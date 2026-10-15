@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "039322106972"
     adrs:
       - ADR-AUTO-TEST#35

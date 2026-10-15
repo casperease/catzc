@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/AzureEnvironment.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "2be360de1ee4"
     adrs: []
 ---

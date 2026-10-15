@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GitHubAnchor.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: c8ee7d9eaed9
     adrs:
       - ADR-REPO-LINK#2

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/CommentFindingKind.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "4b3d89593227"
     adrs:
       - ADR-PRIN-ONELIVE#1

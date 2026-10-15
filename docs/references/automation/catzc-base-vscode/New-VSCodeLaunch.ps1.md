@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/New-VSCodeLaunch.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "4e8b280744d0"
     adrs: []
 ---

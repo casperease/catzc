@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: f5a6a88d35f4
     adrs: []
 ---

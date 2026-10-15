@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/types/PipelineEnvConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "28a7b0918996"
     adrs: []
 ---

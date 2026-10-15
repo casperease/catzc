@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Assert-DevBoxToolsStatus.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: eada4841d0e3
     adrs: []
 ---

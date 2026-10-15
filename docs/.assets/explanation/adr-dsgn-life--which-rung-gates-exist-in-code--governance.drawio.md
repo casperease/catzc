@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.md
     kind: asset-description
-    body_sha: ae919ffeadf0
+    body_sha: "36c57ab09b8e"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

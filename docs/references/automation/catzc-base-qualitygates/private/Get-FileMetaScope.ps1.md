@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-FileMetaScope.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b97b5bdfd067
     adrs: []
 ---

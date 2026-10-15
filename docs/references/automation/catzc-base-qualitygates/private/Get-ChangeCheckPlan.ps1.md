@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-ChangeCheckPlan.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: aea7f7441e26
     adrs: []
 ---

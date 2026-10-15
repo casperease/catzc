@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-engines/configs/glossary.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: bd8e9e4606e4
     adrs:
       - ADR-REPO-VOCAB#2

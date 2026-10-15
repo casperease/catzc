@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/pipelines/cd-nova.yaml.md
-    kind: reference
+    kind: comment-page
     body_sha: "6e63e338fd9a"
     adrs: []
 ---

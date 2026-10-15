@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: dfcbfdb0270f
     adrs: []
 ---

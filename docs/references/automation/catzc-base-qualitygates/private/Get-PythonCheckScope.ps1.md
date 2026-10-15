@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-PythonCheckScope.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: c7c71d7c95cc
     adrs:
       - ADR-AUTO-PY#8

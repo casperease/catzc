@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-codemeta/types/HeadAnchor.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: c54057bf260a
     adrs:
       - ADR-REPO-CODEMETA#1

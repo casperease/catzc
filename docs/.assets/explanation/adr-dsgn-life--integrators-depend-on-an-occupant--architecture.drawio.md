@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.md
     kind: asset-description
-    body_sha: "31bdd81a5622"
+    body_sha: "71019547d333"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

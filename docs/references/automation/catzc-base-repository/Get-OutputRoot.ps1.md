@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-repository/Get-OutputRoot.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: cc3b10578efe
     adrs: []
 ---

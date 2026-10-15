@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "94860de84f9e"
     adrs: []
 ---

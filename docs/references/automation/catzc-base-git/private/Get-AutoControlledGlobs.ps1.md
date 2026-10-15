@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: e07efc3a8bc1
     adrs:
       - ADR-CONF-LOADING#6

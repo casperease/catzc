@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/private/Resolve-MapLabelTerm.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "87b577ef2ef2"
     adrs:
       - ADR-DSGN-TRACK#13

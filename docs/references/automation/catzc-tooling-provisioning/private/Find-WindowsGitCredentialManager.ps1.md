@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/private/Find-WindowsGitCredentialManager.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "31c0a103849e"
     adrs: []
 ---

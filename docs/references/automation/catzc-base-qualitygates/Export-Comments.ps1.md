@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Export-Comments.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "2706e1accd4b"
     adrs:
       - ADR-PRIN-CONFIG#1

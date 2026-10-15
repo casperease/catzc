@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/Remove-RepositorySnapshot.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "6cf497cb51dc"
     adrs: []
 ---

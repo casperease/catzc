@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-markdownmeta/Format-MarkdownMetaBlock.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "4fce42414409"
     adrs: []
 ---

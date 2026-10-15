@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Write-ReportModeFinding.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "690e5a46ca77"
     adrs:
       - ADR-PRIN-CONFIG#4

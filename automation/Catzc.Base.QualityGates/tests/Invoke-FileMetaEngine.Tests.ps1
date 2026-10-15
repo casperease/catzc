@@ -76,6 +76,17 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $markdown.Fixed | Should -Not -BeLike '*module:*' -Because 'the module kind lists automation/** only'
     }
 
+    It 'checks the entries it is handed, and never asks for a scope of its own' {
+        Mock Get-FileMetaScope { throw 'the scope must not be asked for' } -ModuleName Catzc.Base.QualityGates
+        $result = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Config = $script:config; Entries = @($script:entries[0]) } {
+            param($Root, $Config, $Entries)
+            Invoke-FileMetaEngine -RepositoryRoot $Root -Config $Config -Entry $Entries
+        }
+        $result.FileCount | Should -Be 1
+        $result.Files[0].Path | Should -Be 'automation/Catzc.Widget/Get-Gadget.ps1'
+        Should -Invoke Get-FileMetaScope -ModuleName Catzc.Base.QualityGates -Times 0
+    }
+
     It 'imprints nothing and reports nothing for an empty scope' {
         $result = & $script:run @()
         $result.FileCount | Should -Be 0

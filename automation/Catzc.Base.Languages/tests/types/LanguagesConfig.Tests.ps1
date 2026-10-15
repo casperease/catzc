@@ -97,6 +97,47 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                 Should -Throw '*names both a formatter and no_formatter*'
         }
 
+        It 'reads the global imprint steps and a language''s own, with the files each step''s cache stamp reads' -Tag 'ADR-REPO-FORMAT#8' {
+            $config = & $script:make ([ordered]@{
+                    imprint   = @('file-meta')
+                    steps     = [ordered]@{ 'file-meta' = [ordered]@{ settings = @('configs/file-meta.yml', 'configs/file-carriers.yml') } }
+                    languages = [ordered]@{
+                        widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier'; imprint = @('csharp-namespace') }
+                        gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'gadgets are never formatted' }
+                    }
+                })
+            $config.imprint | Should -Be @('file-meta')
+            $config.languages[0].imprint | Should -Be @('csharp-namespace')
+            $config.languages[1].imprint.Count | Should -Be 0
+            $config.steps['file-meta'].settings | Should -Be @('configs/file-meta.yml', 'configs/file-carriers.yml')
+            $config.steps['csharp-namespace'].settings.Count | Should -Be 0 -Because 'a listed step the file does not describe reads no settings'
+            $config.steps.Keys.Count | Should -Be 2
+        }
+
+        It 'lists no step unless the file does' -Tag 'ADR-AUTO-DEFAULT#6' {
+            $config = & $script:one ([ordered]@{ extensions = @('.wdg') })
+            $config.imprint.Count | Should -Be 0
+            $config.steps.Count | Should -Be 0
+            $config.languages[0].imprint.Count | Should -Be 0
+        }
+
+        It 'throws on an unknown step, a duplicate, a step both global and a language''s own, and malformed steps' -Tag 'ADR-PRIN-CONFIG#2' {
+            { & $script:make ([ordered]@{ imprint = @('shine') }) } | Should -Throw "*imprint: unknown imprint step 'shine' (one of: file-meta, csharp-namespace, comments)*"
+            { & $script:make ([ordered]@{ imprint = @('file-meta', 'file-meta') }) } | Should -Throw "*imprint: duplicate imprint step 'file-meta'*"
+            { & $script:make ([ordered]@{ imprint = 'file-meta' }) } | Should -Throw '*imprint must be a list of imprint step names*'
+            { & $script:make ([ordered]@{ steps = [ordered]@{ shine = [ordered]@{} } }) } | Should -Throw "*steps: unknown imprint step 'shine'*"
+            { & $script:make ([ordered]@{ steps = [ordered]@{ 'file-meta' = [ordered]@{ colour = 'red' } } }) } | Should -Throw "*unknown key 'colour' (allowed: settings)*"
+            { & $script:make ([ordered]@{ steps = [ordered]@{ 'file-meta' = [ordered]@{ settings = @('../outside.yml') } } }) } | Should -Throw "*invalid settings file '../outside.yml'*"
+            { & $script:make ([ordered]@{ steps = 'file-meta' }) } | Should -Throw '*invalid steps (must be a map*'
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); imprint = @('shine') }) } | Should -Throw "*.imprint: unknown imprint step 'shine'*"
+            $both = [ordered]@{ imprint = @('file-meta'); languages = [ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'x'; imprint = @('file-meta') } } }
+            { & $script:make $both } | Should -Throw "*imprint lists 'file-meta', which is already global*"
+        }
+
+        It 'names the steps it may list, each with an adapter in Format-Code' -Tag 'integrity' {
+            [Catzc.Base.Languages.LanguagesConfig]::ImprintSteps | Should -Be @('file-meta', 'csharp-namespace', 'comments')
+        }
+
         It 'is empty for an empty file' {
             (& $script:make ([ordered]@{})).languages.Count | Should -Be 0
         }

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/types/GitRefs.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "9fd69b54ce57"
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-Comments.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "4d1ca533db76"
     adrs:
       - ADR-AUTO-TEST#35

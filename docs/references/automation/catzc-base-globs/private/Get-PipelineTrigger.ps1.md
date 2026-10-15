@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: a58d07ce18bc
     adrs: []
 ---

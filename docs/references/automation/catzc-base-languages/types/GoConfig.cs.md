@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/GoConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "90450cc4d9cf"
     adrs:
       - ADR-AUTO-DEFAULT#6

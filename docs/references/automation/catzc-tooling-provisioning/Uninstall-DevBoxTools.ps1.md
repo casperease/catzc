@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "6ba2bc91cd1d"
     adrs: []
 ---

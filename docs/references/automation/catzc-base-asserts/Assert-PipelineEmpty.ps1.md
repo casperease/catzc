@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-asserts/Assert-PipelineEmpty.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b85a15f2dba2
     adrs: []
 ---

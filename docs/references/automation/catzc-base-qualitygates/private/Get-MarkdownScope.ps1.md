@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownScope.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: dc5fadaac069
     adrs: []
 ---

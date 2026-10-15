@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/types/RainbowColor.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "56f2cdf1d95d"
     adrs:
       - ADR-AUTO-CONSOLE#7

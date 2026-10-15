@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "9d98780e14b9"
     adrs: []
 ---

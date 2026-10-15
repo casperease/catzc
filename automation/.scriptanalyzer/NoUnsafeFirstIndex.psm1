@@ -4,15 +4,9 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid taking the first element of a collected result by index.
 .DESCRIPTION
-    `@(<pipeline or call>)[0]` and `(<a | b>)[0]` read the first element of a result that may be empty. Under strict
-    mode an index past the end throws ("Index was outside the bounds of the array"), so an empty result never
-    reaches the `$null` check or assert written right after it — the caller gets an engine error instead of the
-    intended message. `<result> | Select-Object -First 1` is `$null` on an empty result and the same element
-    otherwise. See [ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8).
-
-    Flagged: index `[0]` whose target is an array subexpression `@(…)`, or a parenthesised pipeline of two or
-    more elements. Not flagged: an index on a variable or member (`$list[0]`, `$Matches[0]`), whose length the
-    surrounding code owns, and `(… -split …)[0]`, which always yields at least one element.
+    `@(<pipeline or call>)[0]` and `(<a | b>)[0]` read the first element of a result that may be empty.
+    [ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)
+    [comment:1](/docs/references/automation/scriptanalyzer/NoUnsafeFirstIndex.psm1.md#comment1)
 #>
 
 function Measure-NoUnsafeFirstIndex {
@@ -26,8 +20,9 @@ function Measure-NoUnsafeFirstIndex {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+    # [comment:2](/docs/references/automation/scriptanalyzer/NoUnsafeFirstIndex.psm1.md#comment2)
     $isFirstIndex = {
         param($node)
         $node -is [System.Management.Automation.Language.IndexExpressionAst] -and

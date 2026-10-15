@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "7543aed19a21"
     adrs:
       - ADR-AUTO-TEST#35

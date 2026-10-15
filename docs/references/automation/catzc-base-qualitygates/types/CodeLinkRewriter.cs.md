@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: d17de9863180
     adrs:
       - ADR-REPO-LINK#3

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f8a4785b9838
     adrs: []
 ---

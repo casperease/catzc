@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/PdfPage.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "83d4c8bc7ddf"
     adrs:
       - ADR-PWSH-TYPES#1

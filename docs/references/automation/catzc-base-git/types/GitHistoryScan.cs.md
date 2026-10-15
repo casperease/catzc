@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "1c41a7f8825d"
     adrs: []
 ---

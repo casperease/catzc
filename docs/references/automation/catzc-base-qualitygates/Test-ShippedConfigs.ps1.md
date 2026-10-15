@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-ShippedConfigs.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: e5bf8ba23b14
     adrs:
       - ADR-AUTO-TEST#35

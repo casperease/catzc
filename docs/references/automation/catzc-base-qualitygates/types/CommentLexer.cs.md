@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: cf7275ee41ab
     adrs:
       - ADR-REPO-LINK#1

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/configs/maps.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: bdea7fff0333
     adrs:
       - ADR-AUTO-DEFAULT#6

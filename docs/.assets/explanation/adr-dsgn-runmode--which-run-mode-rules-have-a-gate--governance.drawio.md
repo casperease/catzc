@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.md
     kind: asset-description
-    body_sha: "50a2bb16b56c"
+    body_sha: "164775aa3ef5"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

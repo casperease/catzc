@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/CitationSite.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "01b9e003ec5a"
     adrs:
       - ADR-AUTO-TYPES#8

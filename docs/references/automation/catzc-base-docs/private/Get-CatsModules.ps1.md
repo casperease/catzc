@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-CatsModules.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "8a0783a703cc"
     adrs:
       - ADR-DSGN-RUNMODE#2

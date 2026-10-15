@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GlossaryRealization.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "53b7d1ad163e"
     adrs:
       - ADR-AUTO-TYPES#8

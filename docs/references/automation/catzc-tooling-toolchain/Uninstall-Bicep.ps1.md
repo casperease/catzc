@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Uninstall-Bicep.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: c36acd6846a9
     adrs: []
 ---

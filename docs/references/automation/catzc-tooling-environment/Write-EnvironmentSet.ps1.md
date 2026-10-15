@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "3e7e64d27560"
     adrs:
       - ADR-AUTO-ENVVAR#7

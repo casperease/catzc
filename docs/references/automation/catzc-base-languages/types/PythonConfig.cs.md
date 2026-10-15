@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: eefbe4511add
     adrs:
       - ADR-AUTO-TYPES#8

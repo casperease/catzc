@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-BuildArtifactProbe.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "8df1d2b7d77e"
     adrs:
       - ADR-AUTO-TEST#30

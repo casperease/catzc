@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/pipelines/cd-apex.yaml.md
-    kind: reference
+    kind: comment-page
     body_sha: "8354a8c8e73a"
     adrs: []
 ---

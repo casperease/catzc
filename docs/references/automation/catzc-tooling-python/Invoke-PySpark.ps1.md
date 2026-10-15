@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-python/Invoke-PySpark.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "1214b2a11a1f"
     adrs: []
 ---

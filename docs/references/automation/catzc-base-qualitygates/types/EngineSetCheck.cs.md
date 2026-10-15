@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/EngineSetCheck.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "8f01a4ef78f3"
     adrs:
       - ADR-AUTO-DEFAULT#6

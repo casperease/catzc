@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-github/Publish-CleanHistory.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "83e8b2100296"
     adrs: []
 ---

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.md
     kind: asset-description
-    body_sha: "67a77d0aca50"
+    body_sha: "64e2072921aa"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

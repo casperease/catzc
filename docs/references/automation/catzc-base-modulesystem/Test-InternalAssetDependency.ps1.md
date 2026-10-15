@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Test-InternalAssetDependency.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "1333ca820656"
     adrs:
       - ADR-AUTO-ASSETDEP#2

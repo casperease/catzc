@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/configs/readme.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: d6f82119d979
     adrs:
       - ADR-REPO-README#6

@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md
-    kind: reference
-    body_sha: "87b3d6a7760c"
+    kind: comment-page
+    body_sha: "89058f97dbaa"
     adrs:
       - ADR-AUTO-CONSOLE#10
       - ADR-REPO-FORMAT#4
@@ -70,4 +70,13 @@ Above `if ($DryRun) {`.
 ```text
 A file the engine left formatted is recorded; under -DryRun a file it would still change is not. Writing,
 the engine has just formatted every file, so each is recorded under the key of its bytes now.
+```
+
+## comment:5
+
+Above `$inScope = if ($Language) {`.
+
+```text
+Imprint steps run after every formatter, so a step never works on text a formatter is about to rewrite: a global step runs over
+every language in scope, a language's own step over that language only.
 ```

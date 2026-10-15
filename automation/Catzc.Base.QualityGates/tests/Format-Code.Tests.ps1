@@ -167,6 +167,106 @@ Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic' {
     }
 }
 
+# The imprint steps after the engines: a global step over every language in scope, a language's own over its files only, the merge
+# into each language's result, and the cache that never records a file a person must still repair.
+Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
+    BeforeAll {
+        $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'step-repo'))
+        $script:settingsFile = Join-Path $script:root 'step.settings'
+        $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
+                imprint   = @('file-meta')
+                steps     = [ordered]@{ 'file-meta' = [ordered]@{ settings = @('step.settings') } }
+                languages = [ordered]@{
+                    widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier'; imprint = @('csharp-namespace') }
+                    gadget = [ordered]@{ extensions = @('.gdg'); formatter = 'prettier' }
+                }
+            })
+        $script:widgetFile = Join-Path $script:root 'widgets/a.wdg'
+        $script:gadgetFile = Join-Path $script:root 'gadgets/a.gdg'
+        $script:outRoot = Join-Path $TestDrive 'step-out'
+    }
+
+    BeforeEach {
+        foreach ($file in $script:widgetFile, $script:gadgetFile) {
+            $null = New-Item -ItemType File -Path $file -Force
+            [System.IO.File]::WriteAllText($file, 'formatted')
+        }
+        [System.IO.File]::WriteAllText($script:settingsFile, 'one')
+        Remove-Item -LiteralPath $script:outRoot -Recurse -Force -ErrorAction Ignore
+        $script:stepFiles = @{ 'file-meta' = @($script:widgetFile, $script:gadgetFile); 'csharp-namespace' = @($script:widgetFile) }
+        $script:stepChanged = @{ 'file-meta' = @(); 'csharp-namespace' = @() }
+        $script:stepUnfixable = @{ 'file-meta' = @{}; 'csharp-namespace' = @{} }
+        $script:stepRuns = [System.Collections.Generic.List[string]]::new()
+        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:root }
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { $script:outRoot }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } { $script:languages }
+        Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @($script:widgetFile, $script:gadgetFile) }
+        Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates { , [string[]] @() }
+        Mock Get-ImprintStepFile -ModuleName Catzc.Base.QualityGates { , [string[]] @($script:stepFiles[$Step]) }
+        Mock Invoke-ImprintStep -ModuleName Catzc.Base.QualityGates {
+            $script:stepRuns.Add("$Step|$(($File | ForEach-Object { [System.IO.Path]::GetFileName($_) }) -join ',')")
+            $unfixable = [System.Collections.Generic.Dictionary[string, string]]::new()
+            foreach ($key in $script:stepUnfixable[$Step].Keys) {
+                $unfixable[$key] = $script:stepUnfixable[$Step][$key]
+            }
+            [pscustomobject]@{ Changed = [string[]] @($script:stepChanged[$Step]); Unfixable = $unfixable }
+        }
+    }
+
+    It 'runs the global step once over every language in scope, then a language''s own step over its files only' -Tag 'ADR-PRIN-CONFIG#1' {
+        $null = Format-Code -DryRun
+        $script:stepRuns | Should -Be @('file-meta|a.wdg,a.gdg', 'csharp-namespace|a.wdg')
+    }
+
+    It 'merges what a step changed into the result of the language that owns the file' {
+        $script:stepChanged['file-meta'] = @($script:gadgetFile)
+        $results = @(Format-Code -DryRun -PassThru)
+        ($results | Where-Object Language -EQ gadget).ChangedFiles | Should -Be @($script:gadgetFile)
+        ($results | Where-Object Language -EQ widget).ChangedFiles.Count | Should -Be 0
+    }
+
+    It 'limits a global step to the named languages, and runs no step of a language left out' {
+        $null = Format-Code -Language gadget -DryRun
+        $script:stepRuns | Should -Be @('file-meta|a.gdg')
+    }
+
+    It 'asks each step for its own files and hands it only the ones its covered languages own' {
+        Mock Get-ImprintStepFile -ModuleName Catzc.Base.QualityGates { , [string[]] @($script:widgetFile, $script:gadgetFile, (Join-Path $script:root 'notes/a.txt')) }
+        $null = Format-Code -DryRun
+        $script:stepRuns[0] | Should -Be 'file-meta|a.wdg,a.gdg'
+    }
+
+    It 'reports a file a step cannot repair on its language''s result, and reports it again on the next run' -Tag 'ADR-AUTO-CACHE#10' {
+        $script:stepUnfixable['file-meta'] = @{ $script:gadgetFile = 'a meta key no kind owns' }
+        $results = @(Format-Code -DryRun -PassThru)
+        ($results | Where-Object Language -EQ gadget).Unfixable[$script:gadgetFile] | Should -Be 'a meta key no kind owns'
+        $script:stepRuns.Clear()
+        $null = Format-Code -DryRun
+        $script:stepRuns[0] | Should -Be 'file-meta|a.gdg' -Because 'a flagged file is never recorded as done'
+    }
+
+    It 'skips files a step found current, and checks them all again when a file its stamp reads changes' -Tag 'ADR-AUTO-CACHE#10' {
+        $null = Format-Code -DryRun
+        $script:stepRuns.Clear()
+        $null = Format-Code -DryRun
+        $script:stepRuns | Should -Be @('file-meta|', 'csharp-namespace|')
+        $script:stepRuns.Clear()
+        [System.IO.File]::WriteAllText($script:settingsFile, 'two')
+        $null = Format-Code -DryRun
+        $script:stepRuns[0] | Should -Be 'file-meta|a.wdg,a.gdg'
+    }
+
+    It 'runs no step for a registry that lists none' {
+        $plain = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{ languages = [ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' } } })
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } { $plain }
+        $null = Format-Code -DryRun
+        $script:stepRuns.Count | Should -Be 0
+        Should -Invoke Get-ImprintStepFile -ModuleName Catzc.Base.QualityGates -Times 0
+    }
+}
+
 # Integrity: every engine the registry may name has its adapter, and the shipped languages.yml names only those engines
 # ([ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)).
 Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
@@ -190,6 +290,31 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
             foreach ($settingsFile in $engine.settings) {
                 Join-Path $root $settingsFile | Should -Exist -Because "engines.$($engine.name).settings in languages.yml"
             }
+        }
+    }
+
+    It 'every settings file an imprint step declares exists, so its cache stamp reads real inputs' -Tag 'ADR-AUTO-CACHE#10' {
+        $root = Get-RepositoryRoot
+        $steps = (Get-Config -Config languages).steps
+        @($steps.Keys).Count | Should -BeGreaterThan 0
+        foreach ($step in $steps.Values) {
+            foreach ($settingsFile in $step.settings) {
+                Join-Path $root $settingsFile | Should -Exist -Because "steps.$($step.name).settings in languages.yml"
+            }
+        }
+    }
+
+    It 'every step the shipped languages.yml lists has its adapters' -Tag 'ADR-PRIN-CONFIG#2' {
+        $config = Get-Config -Config languages
+        $listed = @($config.imprint) + @($config.languages | ForEach-Object { $_.imprint })
+        $listed | Should -Contain 'file-meta'
+        foreach ($step in ($listed | Sort-Object -Unique)) {
+            $step | Should -BeIn ([Catzc.Base.Languages.LanguagesConfig]::ImprintSteps)
+            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Step = $step; Root = (Get-RepositoryRoot) } {
+                param($Step, $Root)
+                Invoke-ImprintStep -Step $Step -File @() -RepositoryRoot $Root
+            }
+            @($outcome.Changed).Count | Should -Be 0 -Because $step
         }
     }
 

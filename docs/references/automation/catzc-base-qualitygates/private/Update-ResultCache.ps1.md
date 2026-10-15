@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Update-ResultCache.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f4a76a9dd020
     adrs:
       - ADR-AUTO-CACHE#10

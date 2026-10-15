@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ccf9492cbf7e
     adrs: []
 ---

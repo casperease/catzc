@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/DocPattern.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "4bcb40c321e0"
     adrs: []
 ---

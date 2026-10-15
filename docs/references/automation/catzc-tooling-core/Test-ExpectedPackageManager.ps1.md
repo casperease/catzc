@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: bc74efa62d11
     adrs:
       - ADR-AUTO-REMOVE#3

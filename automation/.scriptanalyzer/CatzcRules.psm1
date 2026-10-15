@@ -24,27 +24,16 @@ $checks = @(
     'NoBareCacheEntryRead'
 )
 
-# The check modules' Measure-* functions, loaded on the first root block (see Measure-CatzcRules); declared at load so
-# the guard reads it strict-clean.
+# The check modules' Measure-* functions, loaded on the first root block (see Measure-CatzcRules); declared at load...
+# [comment:1](/docs/references/automation/scriptanalyzer/CatzcRules.psm1.md#comment1)
 $script:measures = $null
 
 <#
 .SYNOPSIS
     The one custom PSScriptAnalyzer rule the settings load: runs every repository check once per file.
 .DESCRIPTION
-    PSScriptAnalyzer calls a script rule once for every ScriptBlockAst in a file (the file, each function body, each
-    script block literal) and pays a fixed cost per call, even for a rule that does nothing. This entry rule acts only
-    on the file's root block and hands it to each check, so every check runs once per file and walks the whole tree
-    from there.
-
-    The engine loads this module far more often than it hands it a root block (measured: 404 loads for 124 files),
-    and loading the check modules costs ~65 ms per load — ~4x the checks' own run time. So the checks load lazily,
-    on the first root block a loaded copy of this module sees, never at module load.
-
-    Each check lives in its own module next to this one, with its own tests, and keeps its own RuleName on the records
-    it emits. Diagnostics, SuppressMessageAttribute('Measure-<Check>', …) and analyzer-adr-map.yml all name the check,
-    never this entry rule. Add a new check module to $checks above (every Measure-* function it exports runs); the
-    engine-wiring test (CustomRuleWiring.Tests.ps1) proves each check fires through the engine.
+    PSScriptAnalyzer calls a script rule once for every ScriptBlockAst in a file (the file, each function body, each...
+    [comment:2](/docs/references/automation/scriptanalyzer/CatzcRules.psm1.md#comment2)
 .PARAMETER ScriptBlockAst
     The script block the engine hands the rule; only a file's root block (no parent) is acted on.
 #>
@@ -62,8 +51,8 @@ function Measure-CatzcRules {
         return
     }
 
-    # Each check module loads nested in this one, so its Measure-* functions are visible here but not exported to the
-    # engine. A module may export more than one check.
+    # Each check module loads nested in this one, so its Measure-* functions are visible here but not exported to the...
+    # [comment:3](/docs/references/automation/scriptanalyzer/CatzcRules.psm1.md#comment3)
     if ($null -eq $script:measures) {
         $script:measures = @(foreach ($check in $checks) {
                 $module = Import-Module (Join-Path $PSScriptRoot "$check.psm1") -PassThru

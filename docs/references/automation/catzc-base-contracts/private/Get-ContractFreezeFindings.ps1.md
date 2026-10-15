@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/private/Get-ContractFreezeFindings.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "6f8913be258b"
     adrs:
       - ADR-REPO-CONTRACT#5

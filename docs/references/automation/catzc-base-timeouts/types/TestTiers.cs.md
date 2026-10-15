@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: f1f7616772cc
     adrs:
       - ADR-AUTO-TEST#13

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ed1a5dccccf5
     adrs:
       - ADR-AZ-DATAMOD#10

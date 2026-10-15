@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/modules/log-analytics.bicep.md
-    kind: reference
+    kind: comment-page
     body_sha: "84f3fc913e58"
     adrs: []
 ---

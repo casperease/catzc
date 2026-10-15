@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/configs/timeouts.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "939eae7cc477"
     adrs:
       - ADR-PWSH-ASSERT#1

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/PythonTestResult.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "86d3258ab34f"
     adrs:
       - ADR-AUTO-TEST#1

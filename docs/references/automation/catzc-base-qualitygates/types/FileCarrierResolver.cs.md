@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/FileCarrierResolver.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "5ba698e1e81e"
     adrs:
       - ADR-REPO-FILEMETA#5

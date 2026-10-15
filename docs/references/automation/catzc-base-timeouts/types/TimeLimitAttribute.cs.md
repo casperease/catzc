@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "430aacd48118"
     adrs:
       - ADR-PWSH-ASSERT#1

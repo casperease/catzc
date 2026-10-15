@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Get-BicepParameterModel.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "0f083f9a2416"
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationTimingReport.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "5a6d6668bde1"
     adrs: []
 ---

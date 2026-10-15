@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.md
     kind: asset-description
-    body_sha: "03b169a77fa5"
+    body_sha: "6b9c519269c0"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

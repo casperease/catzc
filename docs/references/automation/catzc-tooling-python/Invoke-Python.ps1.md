@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-python/Invoke-Python.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "01f9b6199756"
     adrs: []
 ---

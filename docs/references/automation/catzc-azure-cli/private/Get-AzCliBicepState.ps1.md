@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d86464a35df3
     adrs:
       - ADR-AUTO-PRELOG#5

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-Prettier.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b7db04cbd3f1
     adrs:
       - ADR-PRIN-CONFIG#2

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: df4365e7c671
     adrs:
       - ADR-PWSH-PESTER#9

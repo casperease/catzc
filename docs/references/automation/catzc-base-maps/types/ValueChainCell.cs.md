@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/ValueChainCell.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: ba8182de2b34
     adrs:
       - ADR-AUTO-TYPES#8

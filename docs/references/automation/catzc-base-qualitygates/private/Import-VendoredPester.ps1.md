@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Import-VendoredPester.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "294452e3d264"
     adrs:
       - ADR-AUTO-ASSETDEP#1

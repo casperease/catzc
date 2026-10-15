@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/Test-Contracts.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "3dc49276338d"
     adrs:
       - ADR-AUTO-TEST#35

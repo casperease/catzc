@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: e7555955a7f5
     adrs: []
 ---

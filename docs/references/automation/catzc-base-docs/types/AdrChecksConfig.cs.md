@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrChecksConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: d8c3e4808833
     adrs:
       - ADR-AUTO-DEFAULT#6

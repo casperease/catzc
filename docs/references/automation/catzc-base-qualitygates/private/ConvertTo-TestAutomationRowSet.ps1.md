@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/ConvertTo-TestAutomationRowSet.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ab6818d404de
     adrs: []
 ---

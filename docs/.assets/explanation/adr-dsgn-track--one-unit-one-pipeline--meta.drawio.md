@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.md
     kind: asset-description
-    body_sha: efbac7b1a76e
+    body_sha: "395e9272a0b7"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

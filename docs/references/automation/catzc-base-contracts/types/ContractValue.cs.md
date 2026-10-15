@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/types/ContractValue.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: cc0526de0c61
     adrs:
       - ADR-REPO-CONTRACT#6

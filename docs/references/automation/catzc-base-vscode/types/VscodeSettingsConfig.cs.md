@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/types/VscodeSettingsConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "7e3202f2b64b"
     adrs:
       - ADR-AUTO-TYPES#8

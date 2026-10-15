@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-python/Uninstall-Poetry.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "2a2a6ea5a7f9"
     adrs: []
 ---

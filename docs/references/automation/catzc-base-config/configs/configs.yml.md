@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-config/configs/configs.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "98fe9057ddcb"
     adrs: []
 ---

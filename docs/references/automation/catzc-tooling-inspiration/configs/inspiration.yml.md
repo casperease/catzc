@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-inspiration/configs/inspiration.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "1a9255df99bb"
     adrs:
       - ADR-AUTO-DEFAULT#6

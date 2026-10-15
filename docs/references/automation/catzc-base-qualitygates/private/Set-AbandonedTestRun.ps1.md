@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Set-AbandonedTestRun.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "7655a4ccf034"
     adrs: []
 ---

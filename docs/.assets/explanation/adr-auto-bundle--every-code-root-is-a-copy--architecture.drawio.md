@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.md
     kind: asset-description
-    body_sha: c2f4c5d9a1bd
+    body_sha: "4e799212fbed"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

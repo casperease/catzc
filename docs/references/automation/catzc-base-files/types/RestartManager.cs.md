@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-files/types/RestartManager.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "7a90c4191a33"
     adrs: []
 ---

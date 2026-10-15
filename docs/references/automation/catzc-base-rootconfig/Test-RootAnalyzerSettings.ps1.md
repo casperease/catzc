@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/Test-RootAnalyzerSettings.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d4aee6dbdb15
     adrs:
       - ADR-AUTO-TEST#35

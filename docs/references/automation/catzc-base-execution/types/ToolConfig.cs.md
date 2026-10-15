@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: fa00ff75c4cd
     adrs:
       - ADR-AUTO-DEPS#1

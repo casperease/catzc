@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.md
     kind: asset-description
-    body_sha: abe282be0a3d
+    body_sha: "51409d5b04f2"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

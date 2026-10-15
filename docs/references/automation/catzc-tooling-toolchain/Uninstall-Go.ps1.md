@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Uninstall-Go.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: afe8bd933c45
     adrs: []
 ---

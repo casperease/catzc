@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: cacf385110c9
     adrs:
       - ADR-AUTO-BUNDLE#6

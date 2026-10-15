@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "3f2618ebc006"
     adrs:
       - ADR-AUTO-SPELL#2

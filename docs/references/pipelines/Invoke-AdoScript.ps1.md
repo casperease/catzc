@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/pipelines/Invoke-AdoScript.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "84b8256e57a4"
     adrs: []
 ---

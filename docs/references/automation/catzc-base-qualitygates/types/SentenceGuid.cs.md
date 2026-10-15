@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: b4398381f5f9
     adrs:
       - ADR-PWSH-TYPES#1

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-files/private/Get-GitIndexPath.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ea06dc818df0
     adrs: []
 ---

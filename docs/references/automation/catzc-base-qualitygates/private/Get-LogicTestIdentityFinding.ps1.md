@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "1ddaf4203aab"
     adrs:
       - ADR-AUTO-TEST#1

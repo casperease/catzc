@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-ContentExemptPath.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "0de92b9cba8f"
     adrs:
       - ADR-REPO-CONTRACT#6

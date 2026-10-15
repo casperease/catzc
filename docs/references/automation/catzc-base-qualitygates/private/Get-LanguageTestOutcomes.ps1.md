@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: e2e5be7ffc82
     adrs:
       - ADR-AUTO-TEST#8

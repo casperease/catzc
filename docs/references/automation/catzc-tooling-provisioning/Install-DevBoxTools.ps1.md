@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "299aaaad365f"
     adrs: []
 ---

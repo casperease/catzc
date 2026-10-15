@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: a0993515cac1
     adrs: []
 ---

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.md
     kind: asset-description
-    body_sha: "1457820d3bb5"
+    body_sha: cd85d597101c
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

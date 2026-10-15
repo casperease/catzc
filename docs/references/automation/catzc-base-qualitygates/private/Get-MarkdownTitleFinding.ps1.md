@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "0c75a7c854f1"
     adrs: []
 ---

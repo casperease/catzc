@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-markdownmeta/types/MarkdownDocument.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "6c5c42586009"
     adrs: []
 ---

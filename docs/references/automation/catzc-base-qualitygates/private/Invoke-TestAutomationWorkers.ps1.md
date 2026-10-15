@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "84b7a674b98b"
     adrs:
       - ADR-AUTO-CONSOLE#10

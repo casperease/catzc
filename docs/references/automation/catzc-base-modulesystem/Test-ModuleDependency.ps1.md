@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Test-ModuleDependency.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "3bb8e299b3e5"
     adrs:
       - ADR-AUTO-TEST#35

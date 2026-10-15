@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/CheckModes.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "623355b2026a"
     adrs:
       - ADR-AUTO-DEFAULT#6

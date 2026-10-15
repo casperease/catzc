@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/configs/variants.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: fdca10449365
     adrs:
       - ADR-DSGN-TRACK#2

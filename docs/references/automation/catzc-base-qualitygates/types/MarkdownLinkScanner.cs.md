@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "0470b07ea2fa"
     adrs:
       - ADR-REPO-LINK#2

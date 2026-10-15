@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Test-ToolRequiresElevation.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ca9b828ae0e1
     adrs: []
 ---

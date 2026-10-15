@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-environment/Get-EnvironmentPath.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d00c31a8b1a0
     adrs: []
 ---

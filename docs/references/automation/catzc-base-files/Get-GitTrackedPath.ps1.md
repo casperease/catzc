@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d3165057bf65
     adrs:
       - ADR-AUTO-CACHE#9

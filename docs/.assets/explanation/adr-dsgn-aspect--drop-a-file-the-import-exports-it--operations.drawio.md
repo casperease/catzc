@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.md
     kind: asset-description
-    body_sha: "4a468dc07090"
+    body_sha: "1aa9128178d2"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

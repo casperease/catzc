@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/types/Ansi.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "1b5e066a0064"
     adrs:
       - ADR-AUTO-CONSOLE#7

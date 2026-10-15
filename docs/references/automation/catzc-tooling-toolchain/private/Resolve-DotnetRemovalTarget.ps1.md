@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/private/Resolve-DotnetRemovalTarget.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "1adfd7e45330"
     adrs:
       - ADR-PWSH-PARAM#4

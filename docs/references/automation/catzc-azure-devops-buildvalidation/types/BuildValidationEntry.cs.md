@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "33dd43542c5c"
     adrs:
       - ADR-AUTO-TYPES#8

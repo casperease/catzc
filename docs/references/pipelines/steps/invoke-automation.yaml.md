@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/pipelines/steps/invoke-automation.yaml.md
-    kind: reference
+    kind: comment-page
     body_sha: "6b45b2665386"
     adrs: []
 ---

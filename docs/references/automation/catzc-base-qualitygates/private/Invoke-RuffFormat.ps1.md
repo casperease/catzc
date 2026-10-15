@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-RuffFormat.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "937ed702f47e"
     adrs:
       - ADR-AUTO-PY#8

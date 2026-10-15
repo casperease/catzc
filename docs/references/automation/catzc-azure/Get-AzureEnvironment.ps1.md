@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/Get-AzureEnvironment.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: fd868c7b13d3
     adrs:
       - ADR-AZ-DATAMOD#4

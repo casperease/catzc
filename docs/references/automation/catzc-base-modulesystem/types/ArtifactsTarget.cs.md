@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/ArtifactsTarget.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "592effb6da08"
     adrs:
       - ADR-AUTO-TYPES#8

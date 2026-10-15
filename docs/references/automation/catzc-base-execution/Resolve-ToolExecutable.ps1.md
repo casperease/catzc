@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/Resolve-ToolExecutable.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "41eec330f921"
     adrs:
       - ADR-CONF-LOADING#6

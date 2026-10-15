@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "2e7551947bfb"
     adrs:
       - ADR-AUTO-ENGINE#2

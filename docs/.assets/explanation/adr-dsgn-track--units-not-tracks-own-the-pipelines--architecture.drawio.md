@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.md
     kind: asset-description
-    body_sha: "825acf990686"
+    body_sha: "938604bc980e"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

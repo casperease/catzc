@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.md
     kind: asset-description
-    body_sha: a560e4874dba
+    body_sha: "4e6f35ae6bb0"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-AdrDoraCoverageViolations.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: c02604046f10
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/private/Get-ZshInstallLayout.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: bf31d57985f7
     adrs:
       - ADR-AUTO-ENTERP#4

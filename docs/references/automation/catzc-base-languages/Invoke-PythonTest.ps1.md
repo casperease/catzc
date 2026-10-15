@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "5fb89aa7a057"
     adrs:
       - ADR-AUTO-ENVVAR#1

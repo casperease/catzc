@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/modules/sql-database.bicep.md
-    kind: reference
+    kind: comment-page
     body_sha: f4eb67ee2fd6
     adrs: []
 ---

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.md
     kind: asset-description
-    body_sha: a6faad2cf619
+    body_sha: fb6e7675d761
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

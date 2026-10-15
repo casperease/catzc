@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ef3fb8cad343
     adrs:
       - ADR-AUTO-TEST#25

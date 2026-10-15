@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "4a8deb0c1258"
     adrs:
       - ADR-AUTO-DRYRUN#2

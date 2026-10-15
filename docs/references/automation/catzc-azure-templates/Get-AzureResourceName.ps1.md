@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: a06f59f2faf0
     adrs:
       - ADR-AZ-NAMING#4

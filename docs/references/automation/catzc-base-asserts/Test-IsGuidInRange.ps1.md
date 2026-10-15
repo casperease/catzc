@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-asserts/Test-IsGuidInRange.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "7a520a937e35"
     adrs: []
 ---

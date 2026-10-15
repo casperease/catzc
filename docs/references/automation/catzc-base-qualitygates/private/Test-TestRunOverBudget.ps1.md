@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "29fe94a06bc0"
     adrs:
       - ADR-AUTO-FAILFAST#7

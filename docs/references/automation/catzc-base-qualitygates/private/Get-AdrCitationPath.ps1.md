@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-AdrCitationPath.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: b6fe9fe6ea72
     adrs: []
 ---

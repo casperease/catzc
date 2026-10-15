@@ -5,6 +5,7 @@
 .DESCRIPTION
     A language is never named here: which language runs which step is configuration, not code.
     [ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md#comment1)
 .PARAMETER Step
     The step name, as languages.yml spells it.
 .PARAMETER File
@@ -36,13 +37,15 @@ function Invoke-ImprintStep {
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $outcome = [pscustomobject]@{ Changed = [string[]] @(); Unfixable = [System.Collections.Generic.Dictionary[string, string]]::new() }
-    if ($File.Count -eq 0) {
-        return $outcome
-    }
     $absolute = { param([string] $Relative) [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $Relative)) }
 
+    # Each case first returns for an empty list, so a run with no files still proves the step has its adapter, and an...
+    # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md#comment2)
     switch -CaseSensitive ($Step) {
         'file-meta' {
+            if ($File.Count -eq 0) {
+                return $outcome
+            }
             $resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers), (Get-Config -Config languages))
             $entries = foreach ($path in $File) {
                 $relative = [System.IO.Path]::GetRelativePath($root, $path) -replace '\\', '/'
@@ -56,11 +59,23 @@ function Invoke-ImprintStep {
             }
         }
         'csharp-namespace' {
+            if ($File.Count -eq 0) {
+                return $outcome
+            }
             $types = Format-Types -Path $File -DryRun:$DryRun -PassThru
             $outcome.Changed = [string[]] @($types.ChangedFiles)
             foreach ($blockScoped in @($types.BlockScopedFiles)) {
                 $outcome.Unfixable[$blockScoped] = "block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'"
             }
+        }
+        'comments' {
+            if ($File.Count -eq 0) {
+                return $outcome
+            }
+            # The step writes a file and its comment page, so the page is a companion of the file, not a second subject of the step.
+            $relative = [string[]] @($File | ForEach-Object { [System.IO.Path]::GetRelativePath($root, $_) -replace '\\', '/' })
+            $moved = @(Export-Comments -Path $relative -RepositoryRoot $root -DryRun:$DryRun)
+            $outcome.Changed = [string[]] @($moved | ForEach-Object { & $absolute $_ })
         }
         default {
             throw "Invoke-ImprintStep: no adapter for the imprint step '$Step' (declared: $([Catzc.Base.Languages.LanguagesConfig]::ImprintSteps -join ', '))."

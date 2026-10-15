@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/configs/network.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "8857c38dd887"
     adrs: []
 ---

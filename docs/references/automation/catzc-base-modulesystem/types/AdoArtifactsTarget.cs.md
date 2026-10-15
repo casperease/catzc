@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/AdoArtifactsTarget.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "9ec80b2104d3"
     adrs: []
 ---

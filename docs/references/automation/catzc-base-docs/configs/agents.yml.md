@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/configs/agents.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "5ead0415cdb6"
     adrs:
       - ADR-REPO-AGENTS#4

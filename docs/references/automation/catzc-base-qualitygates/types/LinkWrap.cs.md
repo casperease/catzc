@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/LinkWrap.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "575c89666bba"
     adrs:
       - ADR-REPO-LINK#8

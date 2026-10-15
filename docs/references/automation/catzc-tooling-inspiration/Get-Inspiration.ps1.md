@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-inspiration/Get-Inspiration.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "612c2f1a1593"
     adrs:
       - ADR-AUTO-DEFAULT#6

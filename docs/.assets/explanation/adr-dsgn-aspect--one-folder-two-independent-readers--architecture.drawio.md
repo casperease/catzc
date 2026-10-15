@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.md
     kind: asset-description
-    body_sha: "5a61793d2ed4"
+    body_sha: "4a4012b3a559"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

@@ -4,11 +4,8 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid use of $?.
 .DESCRIPTION
-    $? is overwritten by every statement, making it impossible to check
-    reliably. Use -ErrorAction Stop and try/catch for cmdlets, or
-    Assert-LastExitCodeWasZero for native commands.
-
-    See ADR: automatic-variable-pitfalls.
+    $? is overwritten by every statement, making it impossible to check reliably.
+    [comment:1](/docs/references/automation/scriptanalyzer/NoAutomaticVariableMisuse.psm1.md#comment1)
 #>
 
 function Measure-NoAutomaticVariableMisuse {
@@ -23,8 +20,9 @@ function Measure-NoAutomaticVariableMisuse {
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoAutomaticVariableMisuse'
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+    # [comment:2](/docs/references/automation/scriptanalyzer/NoAutomaticVariableMisuse.psm1.md#comment2)
     $isQuestionMarkVariable = {
         param($node)
         $node -is [System.Management.Automation.Language.VariableExpressionAst] -and

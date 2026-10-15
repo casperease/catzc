@@ -5,9 +5,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: function body must not exceed 300 lines.
 .DESCRIPTION
     Counts lines from the opening brace to closing brace of the function body.
-    Comment-based help placed before the function (the project convention) is
-    naturally excluded. Functions longer than the limit are likely violating
-    single-responsibility.
+    [comment:1](/docs/references/automation/scriptanalyzer/FunctionLength.psm1.md#comment1)
 #>
 
 function Measure-FunctionLength {
@@ -23,8 +21,9 @@ function Measure-FunctionLength {
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-FunctionLength'
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
-    # ([ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)).
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+    # [comment:2](/docs/references/automation/scriptanalyzer/FunctionLength.psm1.md#comment2)
     $isFunctionDefinition = {
         param($node)
         $node -is [System.Management.Automation.Language.FunctionDefinitionAst]

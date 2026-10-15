@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/Get-AzureCustomers.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "4383d9b35540"
     adrs: []
 ---

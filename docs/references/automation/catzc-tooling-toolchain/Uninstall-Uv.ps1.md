@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Uninstall-Uv.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "0c45f574db82"
     adrs: []
 ---

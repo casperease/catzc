@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Invoke-InSubscription.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "27fef377ecb7"
     adrs: []
 ---

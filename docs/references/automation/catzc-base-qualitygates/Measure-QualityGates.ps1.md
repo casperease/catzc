@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Measure-QualityGates.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "065d6cb3217f"
     adrs:
       - ADR-AUTO-CONSOLE#10

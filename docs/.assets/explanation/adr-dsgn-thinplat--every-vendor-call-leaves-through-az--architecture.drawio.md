@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.md
     kind: asset-description
-    body_sha: "4db5f5bbedd1"
+    body_sha: "71b2d201b12f"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

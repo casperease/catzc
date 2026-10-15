@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "391c737f765b"
     adrs:
       - ADR-AUTO-ENGINE#1

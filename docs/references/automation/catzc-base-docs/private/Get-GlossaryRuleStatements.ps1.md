@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "6d7c9b00446c"
     adrs:
       - ADR-REPO-VOCAB#1

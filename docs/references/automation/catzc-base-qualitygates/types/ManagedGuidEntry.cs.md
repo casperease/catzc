@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/ManagedGuidEntry.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "7b5ff75704ce"
     adrs:
       - ADR-AUTO-TYPES#8

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-config/Get-ConfigValue.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f5392dd5edca
     adrs:
       - ADR-AUTO-ENVVAR#7

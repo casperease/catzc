@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "47c10e006b1d"
     adrs:
       - ADR-AUTO-TYPES#8

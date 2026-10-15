@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/modules/private-dns-zone.bicep.md
-    kind: reference
+    kind: comment-page
     body_sha: ea5e0f2b0b8a
     adrs: []
 ---

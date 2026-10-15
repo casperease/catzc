@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Get-AzureBicepDeploymentTargets.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: a2e00a55b673
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/DocMapping.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "3f1a397e7980"
     adrs: []
 ---

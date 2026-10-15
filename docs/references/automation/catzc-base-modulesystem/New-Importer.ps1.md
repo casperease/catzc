@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: a803acc8b656
     adrs:
       - ADR-AUTO-CONSOLE#11

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/Test-ValueChainMap.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: dab552b72ca9
     adrs:
       - ADR-AUTO-TEST#35

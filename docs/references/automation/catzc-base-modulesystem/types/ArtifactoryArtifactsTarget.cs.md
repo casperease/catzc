@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/ArtifactoryArtifactsTarget.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "48d35f78a293"
     adrs: []
 ---

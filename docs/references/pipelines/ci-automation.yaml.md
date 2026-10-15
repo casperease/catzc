@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/pipelines/ci-automation.yaml.md
-    kind: reference
+    kind: comment-page
     body_sha: cbbe35e4da48
     adrs:
       - ADR-DSGN-TRACK#1

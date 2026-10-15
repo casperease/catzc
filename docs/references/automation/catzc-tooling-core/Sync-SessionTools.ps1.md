@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "046355a166ce"
     adrs: []
 ---

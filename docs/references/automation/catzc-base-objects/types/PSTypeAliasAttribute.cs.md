@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/types/PSTypeAliasAttribute.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "37d6060ab127"
     adrs: []
 ---

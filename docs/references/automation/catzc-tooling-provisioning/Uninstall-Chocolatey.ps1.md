@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d8a197e5f977
     adrs:
       - ADR-AUTO-TEST#33

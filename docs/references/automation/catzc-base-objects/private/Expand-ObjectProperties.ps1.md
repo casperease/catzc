@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "3ec7df93dfa7"
     adrs: []
 ---

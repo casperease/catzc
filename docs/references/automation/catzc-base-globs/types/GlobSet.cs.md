@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/types/GlobSet.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: a348a5d6a6db
     adrs:
       - ADR-FLOW-CD-GLOBS#10

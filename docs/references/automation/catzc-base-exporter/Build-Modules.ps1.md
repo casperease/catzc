@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "138d5f43cf3a"
     adrs:
       - ADR-AUTO-BUNDLE#1

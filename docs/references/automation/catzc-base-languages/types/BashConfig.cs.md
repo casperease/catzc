@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/BashConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: f8744cacac29
     adrs:
       - ADR-AUTO-TYPES#8

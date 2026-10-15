@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: f39e1ceb6d86
     adrs:
       - ADR-AUTO-PATH#5

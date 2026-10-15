@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "8a5c9e6bd840"
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: fa552b59188e
     adrs:
       - ADR-REPO-FORMAT#5

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "87b2bec6020f"
     adrs:
       - ADR-AUTO-REMOVE#6

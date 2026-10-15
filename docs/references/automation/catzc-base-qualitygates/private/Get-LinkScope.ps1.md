@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ac39ac529abe
     adrs: []
 ---

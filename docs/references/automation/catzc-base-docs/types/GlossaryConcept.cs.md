@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: ef353bfeb8e9
     adrs:
       - ADR-AUTO-TEST#30

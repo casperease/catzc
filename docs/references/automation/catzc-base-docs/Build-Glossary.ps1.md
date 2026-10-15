@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Build-Glossary.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "577725e06423"
     adrs:
       - ADR-REPO-README#7

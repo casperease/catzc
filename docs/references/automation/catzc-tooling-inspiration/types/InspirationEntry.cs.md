@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-inspiration/types/InspirationEntry.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "118bff2bac7a"
     adrs:
       - ADR-AUTO-TYPES#8

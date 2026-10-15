@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation/Sync-AdoBuildValidations.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: c38a92d5a1f0
     adrs: []
 ---

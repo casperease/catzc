@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/New-TestRunFinalManifest.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "4e2672175c02"
     adrs: []
 ---

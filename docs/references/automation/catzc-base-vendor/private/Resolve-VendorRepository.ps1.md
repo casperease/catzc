@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vendor/private/Resolve-VendorRepository.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "7de676490634"
     adrs: []
 ---

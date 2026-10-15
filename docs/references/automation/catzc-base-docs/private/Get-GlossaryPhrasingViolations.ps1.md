@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: a57a9f2a1572
     adrs:
       - ADR-REPO-VOCAB#2

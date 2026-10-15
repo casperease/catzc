@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ce90d9bc3547
     adrs:
       - ADR-AUTO-TEST#41

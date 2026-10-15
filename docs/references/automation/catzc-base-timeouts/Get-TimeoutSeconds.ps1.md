@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "3dc14ef52f08"
     adrs:
       - ADR-PWSH-ASSERT#1

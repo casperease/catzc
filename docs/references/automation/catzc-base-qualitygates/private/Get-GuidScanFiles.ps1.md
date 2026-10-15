@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "98e46a8d9588"
     adrs:
       - ADR-AUTO-TRACKED#1

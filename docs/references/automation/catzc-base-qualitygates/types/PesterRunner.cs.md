@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "64223a461dc5"
     adrs: []
 ---

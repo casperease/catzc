@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/Get-WorldMapOutputRoot.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d46f24204dbd
     adrs:
       - ADR-PWSH-PESTER#2

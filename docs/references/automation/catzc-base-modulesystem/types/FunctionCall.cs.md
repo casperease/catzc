@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/FunctionCall.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "5ba04fecab56"
     adrs: []
 ---

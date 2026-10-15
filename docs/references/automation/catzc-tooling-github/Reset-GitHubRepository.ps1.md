@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-github/Reset-GitHubRepository.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "6359fdf4b870"
     adrs: []
 ---

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.md
     kind: asset-description
-    body_sha: "248f30ae4db9"
+    body_sha: "8073d5beee93"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.md
     kind: asset-description
-    body_sha: "4d4e9064f0f3"
+    body_sha: ba2a84b6f727
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

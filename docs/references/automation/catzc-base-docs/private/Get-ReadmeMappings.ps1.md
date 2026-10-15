@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-ReadmeMappings.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "47a4211809fd"
     adrs:
       - ADR-PWSH-PESTER#9

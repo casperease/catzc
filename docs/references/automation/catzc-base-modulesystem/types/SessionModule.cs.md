@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/SessionModule.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: b2415eb74a00
     adrs: []
 ---

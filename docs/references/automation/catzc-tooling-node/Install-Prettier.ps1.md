@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-node/Install-Prettier.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "225547ed15a9"
     adrs: []
 ---

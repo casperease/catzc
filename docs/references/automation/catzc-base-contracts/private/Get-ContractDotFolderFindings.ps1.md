@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ef6a79dee753
     adrs:
       - ADR-REPO-CONTRACT#10

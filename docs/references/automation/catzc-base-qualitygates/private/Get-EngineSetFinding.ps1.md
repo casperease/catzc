@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-EngineSetFinding.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: eb3a3b74e052
     adrs:
       - ADR-AUTO-ENGINE#1

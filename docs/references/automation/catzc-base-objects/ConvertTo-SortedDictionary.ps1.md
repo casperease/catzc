@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/ConvertTo-SortedDictionary.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: ef8ff089e094
     adrs: []
 ---

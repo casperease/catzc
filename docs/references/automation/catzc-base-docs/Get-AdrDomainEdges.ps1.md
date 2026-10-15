@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Get-AdrDomainEdges.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "3002f39aed6f"
     adrs: []
 ---

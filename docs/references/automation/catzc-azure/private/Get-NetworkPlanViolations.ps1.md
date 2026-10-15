@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/private/Get-NetworkPlanViolations.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "72719e9a025c"
     adrs:
       - ADR-AZ-NETWORK#2

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GlossaryConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: e43e684063d0
     adrs:
       - ADR-AZ-CUSTOMER#3

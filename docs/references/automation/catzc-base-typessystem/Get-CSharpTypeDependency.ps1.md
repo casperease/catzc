@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "492f9dc9878f"
     adrs:
       - ADR-PWSH-PESTER#9

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/TreemapRect.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "3f9def9298ba"
     adrs:
       - ADR-AUTO-TYPES#8

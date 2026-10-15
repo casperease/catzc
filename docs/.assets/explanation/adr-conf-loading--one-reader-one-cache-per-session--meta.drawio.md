@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.md
     kind: asset-description
-    body_sha: "545cb1dca28b"
+    body_sha: af9948e9298f
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/configs/identity-tokens.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "848594673a69"
     adrs:
       - ADR-AUTO-TEST#3

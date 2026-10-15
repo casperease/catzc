@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/configs/timeout-exemptions.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: be07c568d106
     adrs: []
 ---

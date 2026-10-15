@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "3e0b880639d1"
     adrs: []
 ---

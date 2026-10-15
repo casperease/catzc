@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "895ab2006d77"
     adrs:
       - ADR-AUTO-DEPM#3

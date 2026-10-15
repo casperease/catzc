@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/modules/vnet-peering.bicep.md
-    kind: reference
+    kind: comment-page
     body_sha: "6e9d6d286125"
     adrs: []
 ---

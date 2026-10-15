@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/types/VscodePipelineSchemaConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "40de9432c06c"
     adrs: []
 ---

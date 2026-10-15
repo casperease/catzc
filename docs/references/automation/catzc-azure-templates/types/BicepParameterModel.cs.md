@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/types/BicepParameterModel.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: c647dc514fd6
     adrs:
       - ADR-AUTO-TYPES#8

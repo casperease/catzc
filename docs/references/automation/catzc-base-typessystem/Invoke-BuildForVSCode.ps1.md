@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: acb56156680a
     adrs: []
 ---

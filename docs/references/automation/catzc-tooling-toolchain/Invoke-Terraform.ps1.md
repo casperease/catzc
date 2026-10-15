@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Invoke-Terraform.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: c8a154f6ebc9
     adrs: []
 ---

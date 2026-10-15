@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/Test-GitWorkspace.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "5a1c187754b3"
     adrs: []
 ---

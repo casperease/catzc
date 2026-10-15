@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/types/RuleType.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: "2abb14521a6b"
     adrs: []
 ---

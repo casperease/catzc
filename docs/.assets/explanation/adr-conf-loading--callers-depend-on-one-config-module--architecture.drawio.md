@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.md
     kind: asset-description
-    body_sha: "20b63f8a54e0"
+    body_sha: "2419ee9792e2"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

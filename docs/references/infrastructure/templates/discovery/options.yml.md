@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/templates/discovery/options.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "3860a5338d18"
     adrs: []
 ---

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Install-Shellcheck.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "3bbe8bb7decd"
     adrs: []
 ---

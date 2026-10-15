@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: e6e573bf1bbb
     adrs: []
 ---

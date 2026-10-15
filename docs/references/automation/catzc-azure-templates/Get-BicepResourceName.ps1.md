@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "263e205f881c"
     adrs:
       - ADR-AZ-NAMING#8

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: d0ba2a40ca81
     adrs:
       - ADR-AUTO-REMOVE#6

@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: a2830ca67906
     adrs:
       - ADR-AUTO-TYPES#8

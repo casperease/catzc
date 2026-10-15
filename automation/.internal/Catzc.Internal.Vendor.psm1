@@ -1,12 +1,6 @@
 # Catzc.Internal.Vendor — the shared vendor-module loader.
-#
-# Loading the vendored modules under automation/.vendor/<Name>/<Version>/ happens BEFORE any Catzc module
-# exists (the importer loads vendor dependencies first), so the implementation cannot live in a Catzc module.
-# It also must be callable AFTER import by the Catzc.Base.Vendor cover functions that delegate to it — the
-# single home for what both layers share (see
-# [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)). Like the other
-# .internal shared libraries (Types, the Loader), this module stays in the session; it is NOT removed with
-# the transient bootstrap. Loaded on demand through Import-InternalModule Vendor.
+# [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)
+# [comment:1](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment1)
 
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
@@ -14,16 +8,13 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 .SYNOPSIS
     Imports third-party modules from a vendor directory.
 .DESCRIPTION
-    Loads every automation/.vendor/<Name>/<Version>/ module into the global session, removing any
-    system-installed copy from $env:PSModulePath first so the vendored version takes precedence. Skips a
-    module already loaded from the vendor path, and throws if its on-disk version changed under a loaded one
-    (a session restart is required). Modules named in -Lazy are deferred (the vendor root is prepended to
-    PSModulePath so they still autoload on first use).
+    Loads every automation/.vendor/<Name>/<Version>/ module into the global session, removing any system-installed...
+    [comment:2](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment2)
 .PARAMETER VendorRoot
     Path to the vendor directory. Skips silently if the path does not exist.
 .PARAMETER Lazy
-    Module names to defer rather than import eagerly (e.g. Pester, PSScriptAnalyzer) so they do not slow
-    shell startup; they autoload on first use from the vendor root.
+    Module names to defer rather than import eagerly (e.g.
+    [comment:3](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment3)
 .PARAMETER DiagnoseLoadTime
     Emit a per-vendor-module import time (surfaced by importer.ps1 -DiagnoseLoadTime).
 .EXAMPLE
@@ -38,10 +29,8 @@ function Import-VendorModules {
 
         [string[]]$Lazy = @(),
 
-        # Emit a per-vendor-module import time. Surfaced by importer.ps1 -DiagnoseLoadTime. A vendor import
-        # loads the module's .NET assemblies (e.g. YamlDotNet for powershell-yaml), which an enterprise
-        # antivirus scans on first load — the prime suspect for a slow startup. This isolates that cost
-        # per module so it's measured, not guessed. Off = no overhead.
+        # Emit a per-vendor-module import time.
+        # [comment:4](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment4)
         [switch]$DiagnoseLoadTime
     )
 
@@ -61,8 +50,8 @@ function Import-VendorModules {
 
         $existing = Get-Module $dir.Name -ErrorAction SilentlyContinue
 
-        # Already loaded from our vendor path — skip (re-importing can fail
-        # if the module loaded .NET assemblies that can't be replaced in-process)
+        # Already loaded from our vendor path — skip (re-importing can fail if the module loaded.NET assemblies that...
+        # [comment:5](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment5)
         if ($existing -and $existing.ModuleBase -like "$VendorRoot*") {
             $vendorVersion = (Split-Path $existing.ModuleBase -Leaf)
             $onDiskVersions = (Get-ChildItem -Path $dir.FullName -Directory).Name
@@ -79,8 +68,8 @@ function Import-VendorModules {
             Remove-Module $existing.Name -Force -ErrorAction SilentlyContinue
         }
 
-        # Remove system paths for this module from PSModulePath so auto-loading
-        # cannot resurrect the system version after we import the vendored one
+        # Remove system paths for this module from PSModulePath so auto-loading cannot resurrect the system version...
+        # [comment:6](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment6)
         $before = @($env:PSModulePath -split $sep)
         $env:PSModulePath = ($before |
                 Where-Object {
@@ -110,11 +99,10 @@ function Import-VendorModules {
             }
         }
 
-        # The load, the system copy it replaced, and the PSModulePath entries it dropped are one state change of
-        # the session, announced on one line
-        # ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)) on
-        # the importer's verbose record
-        # ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)).
+        # The load, the system copy it replaced, and the PSModulePath entries it dropped are one state change of the...
+        # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11),
+        # [ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)
+        # [comment:7](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment7)
         if ($existing) {
             $line += "; replaced $($existing.Name) $($existing.Version) from '$($existing.ModuleBase)'"
         }

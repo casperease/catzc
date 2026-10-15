@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/MapsLabels.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: c124d31779da
     adrs:
       - ADR-AUTO-DEFAULT#6

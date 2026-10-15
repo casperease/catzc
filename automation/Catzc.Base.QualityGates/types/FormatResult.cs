@@ -24,9 +24,18 @@ public sealed class FormatResult
     public IReadOnlyDictionary<string, string> Unfixable { get; }
 
     public FormatResult(string language, string engine, string[] checkedFiles, string[] changedFiles, bool dryRun,
-        IDictionary<string, string> unfixable = null)
+        System.Collections.IDictionary unfixable = null)
     {
-        Unfixable = unfixable == null ? new Dictionary<string, string>() : new Dictionary<string, string>(unfixable);
+        var problems = new Dictionary<string, string>();
+        if (unfixable != null)
+        {
+            foreach (System.Collections.DictionaryEntry entry in unfixable)
+            {
+                problems[Convert.ToString(entry.Key, System.Globalization.CultureInfo.InvariantCulture)] =
+                    Convert.ToString(entry.Value, System.Globalization.CultureInfo.InvariantCulture);
+            }
+        }
+        Unfixable = problems;
         Language = language;
         Engine = engine;
         CheckedFiles = checkedFiles ?? Array.Empty<string>();

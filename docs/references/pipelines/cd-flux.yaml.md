@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/pipelines/cd-flux.yaml.md
-    kind: reference
+    kind: comment-page
     body_sha: "6998cf4edc8d"
     adrs: []
 ---

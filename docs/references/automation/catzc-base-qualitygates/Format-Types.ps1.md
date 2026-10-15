@@ -2,9 +2,10 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md
-    kind: reference
-    body_sha: "2e8a6fa50047"
-    adrs: []
+    kind: comment-page
+    body_sha: c68fd287fe1c
+    adrs:
+      - ADR-PWSH-PESTER#9
 ---
 
 # automation/Catzc.Base.QualityGates/Format-Types.ps1
@@ -41,4 +42,13 @@ Above `if ($original -notmatch '(?m)^\s*namespace\s+\S+?\s*;' -and $original -ma
 ```text
 A block-scoped `namespace X { … }` is not a shape this repo authors, and rewriting it is not a one-line
 fix: report it for a hand edit instead.
+```
+
+## comment:3
+
+Above `$automationRoot = [System.IO.Path]::GetFullPath((Join-Path $root 'automation'))`.
+
+```text
+[System.IO] enumeration: each cmdlet call on this path adds about 20ms.
+[ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
 ```

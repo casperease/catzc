@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Assert-TestTagGate.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "9e130ce6e84a"
     adrs:
       - ADR-AUTO-TEST#13

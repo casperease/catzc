@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-dsgn-thinplat--deploy-bicep-delegates-to-az--implementation.drawio.md
     kind: asset-description
-    body_sha: "74aea07032d3"
+    body_sha: ebf496b9bb58
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

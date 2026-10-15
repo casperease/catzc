@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-PythonWorkspaceTool.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "86e086671781"
     adrs:
       - ADR-AUTO-PY#8

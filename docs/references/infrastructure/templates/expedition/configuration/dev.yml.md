@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/templates/expedition/configuration/dev.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "517ad215dc65"
     adrs: []
 ---

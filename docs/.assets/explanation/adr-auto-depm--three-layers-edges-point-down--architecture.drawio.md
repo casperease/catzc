@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.md
     kind: asset-description
-    body_sha: "8ea906cb80c1"
+    body_sha: fd7dc97da17e
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

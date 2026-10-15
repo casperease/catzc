@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Get-ToolVersion.ps1.md
-    kind: reference
+    kind: comment-page
     body_sha: "8fb6b90a307e"
     adrs: []
 ---

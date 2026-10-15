@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/infrastructure/templates/discovery/configuration/flux/nsub.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: c3b7977b4437
     adrs: []
 ---

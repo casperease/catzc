@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/FormatterEngine.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: a29997bc9e1b
     adrs:
       - ADR-AUTO-TYPES#8

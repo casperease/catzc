@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/MapCell.cs.md
-    kind: reference
+    kind: comment-page
     body_sha: b4bf71a3356a
     adrs:
       - ADR-AUTO-TYPES#8

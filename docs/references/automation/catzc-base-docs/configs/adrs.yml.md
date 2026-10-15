@@ -2,7 +2,7 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/configs/adrs.yml.md
-    kind: reference
+    kind: comment-page
     body_sha: "8da1b4b31523"
     adrs:
       - ADR-DSGN-TRACK#14
