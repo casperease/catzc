@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: .claude/drawio/embed_images.py
+#     kind: script
+# ---
+
 """Embed PNG files into a draw.io model's image cells, as data URIs.
 
 usage: uv run -q --with pillow python embed_images.py <model.xml> <cell-id>=<file.png> [<cell-id>=<file.png> ...]

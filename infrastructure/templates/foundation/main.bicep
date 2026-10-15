@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/templates/foundation/main.bicep
+//     kind: template
+// ---
+
 // The Key Vault holds the shared SQL admin password that consuming templates reference.
 // [comment:1](/docs/references/infrastructure/templates/foundation/main.bicep.md#comment1)
 
