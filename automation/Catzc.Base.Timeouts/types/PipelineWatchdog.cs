@@ -1,9 +1,5 @@
-// A one-shot timer that stops a PowerShell pipeline once it outlives its limit — the mechanism behind
-// Invoke-WithTimeout. A PowerShell timer callback cannot run here (the timer fires on a thread-pool thread, which
-// has no runspace), so the stop is issued from C#. PowerShell.Stop is safe to call from another thread: it stops
-// the running script and any native command it is waiting on.
-//
-// Dispose the watchdog once the pipeline returns, so a pipeline that finished in time is never stopped late.
+// A one-shot timer that stops a PowerShell pipeline once it outlives its limit — the mechanism behind Invoke-WithTimeout.
+// [comment:1](/docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md#comment1)
 
 using System;
 using System.Management.Automation;
@@ -28,9 +24,8 @@ public sealed class PipelineWatchdog : IDisposable
         if (pipeline == null) { throw new ArgumentNullException("pipeline"); }
         if (limit <= TimeSpan.Zero) { throw new ArgumentOutOfRangeException("limit", "the limit must be positive"); }
 
-        // The stop and Dispose share one gate: Timer.Dispose does not wait for a callback already running, so without
-        // it a limit that passes just as the pipeline returns could call Stop on a pipeline the caller has since
-        // disposed — an exception on a thread-pool thread, which ends the whole process.
+        // The stop and Dispose share one gate: Timer.Dispose does not wait for a callback already running, so without it a limit that...
+        // [comment:2](/docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md#comment2)
         timer = new Timer(_ =>
         {
             lock (gate)

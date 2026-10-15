@@ -28,6 +28,7 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
             & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120', '') -join "`n"))
             & $script:writeFile $root 'automation/Catzc.Widget/Get-Widget.ps1' $script:source
             & $script:writeFile $root 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1' "# A test's long prose`n# stays where it is.`n"
+            & $script:writeFile $root 'automation/Catzc.Widget/assets/root/gadget.yml' "# A template's header, copied verbatim,`n# stays where it is.`ngadget: 1`n"
             $root
         }
         $script:pageRelative = 'docs/references/automation/catzc-widget/Get-Widget.ps1.md'
@@ -44,6 +45,12 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
         $page = & $readFile $root $pageRelative
         $page.Contains('# Sorted first') | Should -BeFalse -Because 'the page holds the prose without its comment marker'
         $page.Contains("across runs and the cache key never changes.`n" + '```') | Should -BeTrue
+    }
+
+    It 'leaves an asset''s comments in place' -Tag 'ADR-REPO-COMMENTS#3' {
+        $root = & $newRepository
+        Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
+        & $readFile $root 'automation/Catzc.Widget/assets/root/gadget.yml' | Should -BeExactly "# A template's header, copied verbatim,`n# stays where it is.`ngadget: 1`n"
     }
 
     It 'leaves test files alone, and a second run changes nothing' -Tag 'ADR-AUTO-IDEM#1' {

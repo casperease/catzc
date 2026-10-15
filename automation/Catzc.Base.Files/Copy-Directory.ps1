@@ -2,13 +2,8 @@
 .SYNOPSIS
     Recursively copies the contents of a directory into a destination directory.
 .DESCRIPTION
-    A fast replacement for `Copy-Item -Recurse`, built on [System.IO]. The PowerShell file
-    cmdlets carry heavy per-item provider overhead on Windows (~15x slower per file/dir here),
-    which dominates when copying a tree of many small files; the raw .NET APIs avoid it.
-
-    Mirrors the tree under -Path into -Destination — the equivalent of
-    `Copy-Item (Join-Path $Path '*') $Destination -Recurse`. The destination is created if it
-    does not exist, files are overwritten, and empty subdirectories are preserved.
+    A fast replacement for `Copy-Item -Recurse`, built on [System.IO].
+    [comment:1](/docs/references/automation/catzc-base-files/Copy-Directory.ps1.md#comment1)
 .PARAMETER Path
     The source directory whose contents are copied. Must exist.
 .PARAMETER Destination
@@ -34,8 +29,7 @@ function Copy-Directory {
     [System.IO.Directory]::CreateDirectory($target) | Out-Null
 
     # Recreate the directory structure first (so empty directories survive), then copy the files.
-    # Each enumerated path starts with $source, so substring-after-prefix rebases it under $target
-    # (safer than String.Replace, which would rewrite any other occurrence of the prefix).
+    # [comment:2](/docs/references/automation/catzc-base-files/Copy-Directory.ps1.md#comment2)
     foreach ($dir in [System.IO.Directory]::EnumerateDirectories($source, '*', [System.IO.SearchOption]::AllDirectories)) {
         [System.IO.Directory]::CreateDirectory($target + $dir.Substring($sourceLen)) | Out-Null
     }

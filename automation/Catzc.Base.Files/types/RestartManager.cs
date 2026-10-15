@@ -1,7 +1,5 @@
-// Asks the Windows Restart Manager (rstrtmgr.dll) which processes hold a file open — the API behind
-// Explorer's "file in use by …" dialog. It needs no admin rights and sees both an open handle and a mapped
-// (loaded) DLL image. Windows-only: the P/Invoke binds lazily, so the type loads on every platform, but
-// GetHolders must only be called on Windows (it throws PlatformNotSupportedException elsewhere).
+// Asks the Windows Restart Manager (rstrtmgr.dll) which processes hold a file open — the API behind Explorer's "file in use by …" dialog.
+// [comment:1](/docs/references/automation/catzc-base-files/types/RestartManager.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

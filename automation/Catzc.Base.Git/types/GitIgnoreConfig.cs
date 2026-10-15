@@ -1,9 +1,6 @@
-// The gitignore registry (configs/gitignore.yml) and its validity rules: a required 'sections' list of
-// explained pattern groups, each validated by GitIgnoreSection, with unique section ids. Constructing an
-// instance validates the registry (collecting every malformed section into one error) and exposes the parsed
-// sections to the renderer (New-GitIgnore). Registered as the `gitignore` config's type override in
-// Catzc.Base.Config/configs/configs.yml. See [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md) and
-// [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
+// The gitignore registry (configs/gitignore.yml) and its validity rules: a required 'sections' list of explained pattern groups, each...
+// [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md), [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
+// [comment:1](/docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

@@ -41,6 +41,13 @@ pages:
   - source: .claude/hooks
     docs: docs/references/automation/claude-hooks
 
+# Files that keep their comments: repository-relative glob (the durable-sha-globs dialect) -> why. A test's prose is its own
+# subject; an asset is copied or published verbatim elsewhere (a root-config template, the hook's C# source, a standalone
+# script), where a residue's docs link would be foreign. Listing this key replaces the default map, so both entries are kept.
+exclude:
+  "**/tests/**": a test's prose is its own subject
+  "**/assets/**": an asset is copied or published verbatim elsewhere, where a docs link would be foreign
+
 # A residue line that starts with one of these states the obvious and is refused by Format-Comments.
 obvious_phrases:
   - this function

@@ -2,15 +2,12 @@
 .SYNOPSIS
     Returns who is running this session: Pipeline, Agent, or Person.
 .DESCRIPTION
-    The one answer every actor-dependent behaviour reads, so the policy lives in one place
-    ([ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)). A CI/CD pipeline
-    (Test-IsRunningInPipeline) wins over an agent, because an agent's run inside a pipeline is still a pipeline run;
-    otherwise an AI coding agent (Test-IsRunningAsAgent); otherwise a person at a devbox. A person may change the
-    machine and the repository on their own behalf — stop their stale sessions, commit generated files — while an
-    agent leaves both to the person, and a pipeline only asserts.
+    The one answer every actor-dependent behaviour reads, so the policy lives in one place.
+    [ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)
+    [comment:1](/docs/references/automation/catzc-base-repository/Get-SessionActor.ps1.md#comment1)
 .PARAMETER ActorAssertIs
-    Pins the expected actor: the detected actor is still returned, and a different one throws. The guard verifies,
-    it never selects.
+    Pins the expected actor: the detected actor is still returned, and a different one throws.
+    [comment:2](/docs/references/automation/catzc-base-repository/Get-SessionActor.ps1.md#comment2)
 .OUTPUTS
     [string] 'Pipeline', 'Agent', or 'Person'.
 .EXAMPLE

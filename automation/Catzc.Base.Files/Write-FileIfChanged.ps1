@@ -3,31 +3,18 @@
     Writes canonical text to a file only when its content actually changed — the shared primitive behind
     every idempotent "keep this generated file current" writer.
 .DESCRIPTION
-    Canonicalises the given content (LF endings, exactly one trailing newline) and compares it to what is on
-    disk, ignoring line endings (CR stripped) — so a CRLF working tree (git core.autocrlf, an editor's
-    format-on-save) never triggers a spurious rewrite (mirrors the compiled-type cache guard — see
-    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)). Only on a real content difference is the file written, as UTF-8
-    without
-    BOM; a missing parent directory is created. Returns whether the file changed (or would change under
-    -DryRun), so a caller can drive its own status line.
-
-    A changed write is delete-then-write, never in-place: writing through a symbolic or hard link at the
-    target path would tunnel the composed content into the link's source of truth (a Set-FileLink target that
-    an entry stopped declaring), so the write always produces a fresh, independent file.
-
-    This is the write tail every generated-artifact builder shares (Build-RootConfig, Build-GitKeep, …) —
-    one living copy of the canonicalise/compare/write logic instead of one per builder (see
-    [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)). It is a pure primitive: no console output — callers
-    own
-    their reporting.
+    Canonicalises the given content (LF endings, exactly one trailing newline) and compares it to what is on disk,...
+    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md), [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)
+    [comment:1](/docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md#comment1)
 .PARAMETER Path
     Path of the target file to write.
 .PARAMETER Content
-    The full intended content. Canonicalised before compare and write: CR stripped, trailing newlines
-    collapsed to exactly one.
+    The full intended content.
+    [comment:2](/docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md#comment2)
 .PARAMETER DryRun
-    Report whether the file would change without writing it. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+    Report whether the file would change without writing it.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
+    [comment:3](/docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md#comment3)
 .OUTPUTS
     [bool] $true when the file was written (or would be, under -DryRun); $false when already current.
 .EXAMPLE
@@ -67,9 +54,8 @@ function Write-FileIfChanged {
             [System.IO.Directory]::CreateDirectory($directory) | Out-Null
         }
         if ([System.IO.File]::Exists($Path)) {
-            # Delete-then-write: an in-place write through a linked target would tunnel the composed content
-            # into the link's source of truth; deleting first severs any link, so the write is always a fresh,
-            # independent file.
+            # Delete-then-write: an in-place write through a linked target would tunnel the composed content into the...
+            # [comment:4](/docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md#comment4)
             [System.IO.File]::Delete($Path)
         }
         $utf8NoBom = [System.Text.UTF8Encoding]::new($false)

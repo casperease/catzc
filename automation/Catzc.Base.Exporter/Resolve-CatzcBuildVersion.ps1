@@ -3,27 +3,15 @@
     Resolves the version a Catzc build carries — the devbox placeholder, a calculated pipeline version, or an
     explicit MAJOR.MINOR.PATCH.
 .DESCRIPTION
-    The one place a build version is decided
-    ([ADR-AUTO-BUNDLE#7](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle7)); every value comes from
-    configs/exporter.yml
-    (Get-Config -Config exporter):
-
-      -Version auto, on a devbox    the fixed direct_install_version placeholder (6.6.666), announced by a yellow
-                                    Write-Message notice — never Write-Warning, which terminates under the catzc
-                                    session's preferences
-                                    ([ADR-PWSH-ERROR#2](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error2)). A rebuild overwrites it in place.
-      -Version auto, in a pipeline  <the bundle's MAJOR.MINOR (exporter.yml bundles.<name>.version)>.<first-parent
-                                    commit count of HEAD>, so the same commit always gets the same version and
-                                    versions rise along main. Each bundle has its own MAJOR.MINOR line. Needs the full
-                                    history; a shallow clone throws instead of miscounting.
-      -Version <x.y.z>              honoured as given once asserted numeric MAJOR.MINOR.PATCH (a valid module
-                                    version); a pipeline build naming the placeholder throws — it never leaves a
-                                    devbox.
+    The one place a build version is decided; every value comes from configs/exporter.yml (Get-Config -Config...
+    [ADR-AUTO-BUNDLE#7](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle7),
+    [ADR-PWSH-ERROR#2](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error2)
+    [comment:1](/docs/references/automation/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md#comment1)
 .PARAMETER Version
     'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH.
 .PARAMETER Bundle
-    The bundle whose version line a pipeline build follows (an exporter.yml bundles key). Defaults to
-    default_bundle.
+    The bundle whose version line a pipeline build follows (an exporter.yml bundles key).
+    [comment:2](/docs/references/automation/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md#comment2)
 .PARAMETER Silent
     Suppress the local-build notice.
 .EXAMPLE

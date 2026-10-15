@@ -3,9 +3,7 @@
     Returns the path to the output directory for the current execution context.
 .DESCRIPTION
     In an Azure DevOps pipeline, returns $env:BUILD_ARTIFACTSTAGINGDIRECTORY.
-    Locally on DevBox, returns {RepositoryRoot}/out.
-
-    With -EnsureExists, creates the directory if it does not exist.
+    [comment:1](/docs/references/automation/catzc-base-repository/Get-OutputRoot.ps1.md#comment1)
 .PARAMETER EnsureExists
     Create the output directory if it does not exist.
 .EXAMPLE

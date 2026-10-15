@@ -2,9 +2,8 @@
 .SYNOPSIS
     Asserts that a budget GUID runs under its normal time limit here, not an exemption.
 .DESCRIPTION
-    For work that must never run exempt — for example a quality gate in a pipeline, where an exemption would hide
-    a regression. Throws naming the exemption's reason when the budget is exempt; Get-TimeoutExemption defines the
-    lookup.
+    For work that must never run exempt — for example a quality gate in a pipeline, where an exemption would hide a...
+    [comment:1](/docs/references/automation/catzc-base-timeouts/Assert-IsNotTimeoutExempt.ps1.md#comment1)
 .PARAMETER Budget
     The budget's immutable GUID.
 .PARAMETER Shell

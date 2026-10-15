@@ -1,9 +1,6 @@
-// The tracked paths of a git index file (.git/index), read in-process: what `git ls-files` prints, without
-// launching git. Plain `git ls-files` is exactly the index's entry list, so the index bytes fully determine
-// the answer — ContentHash keys a cache on those bytes, and equal bytes can never yield a stale listing.
-// Reads index versions 2-4 (v4 prefix-compressed paths included) of a SHA-1 repository; a split index
-// (the 'link' extension) or a sparse index (directory entries) is rejected loudly rather than read wrong
-// ([ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)).
+// The tracked paths of a git index file (.git/index), read in-process: what `git ls-files` prints, without launching git.
+// [ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)
+// [comment:1](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -26,12 +23,12 @@ public sealed class GitIndex
     // The SHA-256 of the index file's bytes (uppercase hex) — the cache key.
     public string ContentHash { get; }
 
-    // The tracked paths, repo-relative and '/'-separated, in index (byte-sorted) order; an unmerged path,
-    // which the index holds once per conflict stage, is listed once.
+    // The tracked paths, repo-relative and '/'-separated, in index (byte-sorted) order; an unmerged path, which the index holds once per...
+    // [comment:2](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment2)
     public string[] Paths { get; }
 
-    // The tracked paths stored executable (git mode 100755), in the same order and form as Paths — what
-    // `git ls-files -s` lists with mode 100755.
+    // The tracked paths stored executable (git mode 100755), in the same order and form as Paths — what `git ls-files -s` lists with...
+    // [comment:3](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment3)
     public string[] ExecutablePaths { get; }
 
     // git's mode for an executable regular file (octal 100755).
@@ -62,8 +59,8 @@ public sealed class GitIndex
         }
     }
 
-    // The tracked paths at or under the given literal, repo-relative paths ('.' is the whole repository) —
-    // the `git ls-files -- <paths>` answer, in index order, each path once.
+    // The tracked paths at or under the given literal, repo-relative paths ('.' is the whole repository) — the `git ls-files -- <paths>`...
+    // [comment:4](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment4)
     public string[] Under(IEnumerable<string> pathspecs) => Select(Paths, pathspecs);
 
     // The executable tracked paths at or under the given paths, in the same form as Under.
@@ -111,8 +108,8 @@ public sealed class GitIndex
             throw new InvalidDataException($"Unsupported git index version {version} (versions 2-4 are read).");
         }
 
-        // The trailer is the SHA-1 of everything before it — all zeros when git skips it (index.skipHash). A
-        // mismatch is a corrupt file or a SHA-256 repository, whose 32-byte object ids this reader does not parse.
+        // The trailer is the SHA-1 of everything before it — all zeros when git skips it (index.skipHash).
+        // [comment:5](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment5)
         var bodyLength = content.Length - HashLength;
         var trailer = content.AsSpan(bodyLength);
         if (trailer.IndexOfAnyExcept((byte)0) >= 0 && !trailer.SequenceEqual(SHA1.HashData(content.AsSpan(0, bodyLength))))

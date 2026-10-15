@@ -2,11 +2,9 @@
 .SYNOPSIS
     Throws when the session runs a built Catzc package instead of the catzc source tree.
 .DESCRIPTION
-    A guard for tools that operate on the catzc source repository by definition — lint and format quality gates,
-    dependency analysis over the per-function files, test discovery, and authoring steps that write back into
-    automation/. In build mode
-    ([ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)) those files are not where the loaded code lives, so the tool
-    stops with a named error instead of silently reading or writing the wrong tree. Silent in source mode.
+    A guard for tools that operate on the catzc source repository by definition — lint and format quality gates,...
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
+    [comment:1](/docs/references/automation/catzc-base-repository/Assert-SourceTree.ps1.md#comment1)
 .PARAMETER Command
     The name of the guarded tool, used in the error message. Defaults to the calling command's name.
 .EXAMPLE

@@ -1,30 +1,7 @@
-// The time safeguards (configs/timeouts.yml) — how long a call may run before it is stopped. Registered in
-// Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Timeouts.TimeoutsConfig), so Get-Config -Config timeouts
-// returns this typed record; Get-TimeoutSeconds resolves a limit from it. Mirrors the YAML keys verbatim
-// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)). The Claude Code Bash
-// hook (.claude/hooks/Assert-BashTimeout/) compiles this same file, so the hook and the pwsh side share one parser
-// and one set of defaults.
-//
-// Limits are keyed on two axes: the environment (devbox | pipeline, from Get-RunEnvironment) and the shell, one of the
-// execution engines (pwsh | bash | zsh). bash carries a foreground and a background limit (the hook bounds both, and
-// it governs the Bash tool only); every other engine carries one limit, with the same defaults, for the work bounded
-// outside the hook (Invoke-WithTimeout, Invoke-Executable, a zsh run). The sensible defaults are declared here, once
-// ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), so an empty file and a
-// fresh checkout behave the same; the file states only what is tuned.
-//
-// Constructing an instance validates the file, collecting every violation into one ArgumentException:
-//   - only known keys at every level ('limits', 'executables', 'commands'; devbox | pipeline; pwsh | bash | zsh;
-//     foreground | background) — an unknown key (a typo) fails fast at load;
-//   - every limit is a positive whole number (a YAML plain integer — a quoted '10' is rejected); there is no
-//     "no limit" value, so every call runs inside a safeguard;
-//   - a bash background limit is at least its foreground limit;
-//   - 'executables' maps a bare executable name (no directory, no extension) to a positive whole number;
-//   - 'commands' maps a function name (Verb-Noun) to a positive whole number — the config layer above a function's own
-//     [TimeLimit] decoration (Get-TimeoutSeconds -Command);
-//   - 'tests' holds the test-run time limits (Get-TestTimeLimits): 'level_ms' maps a test tier (TestTiers.Names, L0 to
-//     L4) to the most milliseconds one test of that tier may take, and 'run_seconds' is the budget for a whole
-//     Test-Automation run up to L3 (an L4 run is a stage of its own). Both are positive whole numbers, with defaults
-//     declared here.
+// The time safeguards (configs/timeouts.yml) — how long a call may run before it is stopped.
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
+// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
+// [comment:1](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -39,10 +16,8 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] TestKeys = { "level_ms", "run_seconds" };
     private static readonly string[] TestLevels = TestTiers.Names;
 
-    // The sensible test-run defaults: an L0 logic test is milliseconds, an L1 integrity test a couple of seconds, an L2
-    // test that drives a real tool tens of seconds, an L3 vertical system test up to two minutes, an L4 test of the
-    // released system through its public edge (DNS, TLS, a cold start) up to ten; a whole run up to L3 fits in three
-    // minutes.
+    // The sensible test-run defaults: an L0 logic test is milliseconds, an L1 integrity test a couple of seconds, an L2 test that drives...
+    // [comment:2](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment2)
     private static readonly Dictionary<string, int> TestLevelDefaults = new Dictionary<string, int>(StringComparer.Ordinal)
     {
         { "L0", 400 },
@@ -53,16 +28,16 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     };
     private const int TestRunDefaultSeconds = 180;
     private static readonly string[] Environments = { "devbox", "pipeline" };
-    // The shells a limit is keyed by: the execution engines, declared once
-    // ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)).
+    // The shells a limit is keyed by: the execution engines, declared once.
+    // [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
+    // [comment:3](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment3)
     private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
     private static readonly string[] BashKeys = { "foreground", "background" };
     // The shell whose limits the Bash hook enforces, a foreground and a background limit; every other shell has one.
     private const string HookShell = "bash";
 
-    // The sensible defaults: tight on a devbox, where the blockers are tuned together; looser in a pipeline, where
-    // nobody watches and a long build is ordinary — but still bounded. zsh takes the pwsh-side limits: the hook does
-    // not govern it.
+    // The sensible defaults: tight on a devbox, where the blockers are tuned together; looser in a pipeline, where nobody watches and a...
+    // [comment:4](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment4)
     private static readonly Dictionary<string, int> Defaults = new Dictionary<string, int>(StringComparer.Ordinal)
     {
         { "devbox.bash.foreground", 3 },
@@ -77,13 +52,12 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 
     private readonly Dictionary<string, int> resolved = new Dictionary<string, int>(Defaults, StringComparer.Ordinal);
 
-    // The resolved limits, defaults filled in: limits[devbox|pipeline][bash] is { foreground, background },
-    // limits[devbox|pipeline][pwsh|zsh] is that shell's one limit. A read-only view for display; resolve through
-    // SecondsFor.
+    // The resolved limits, defaults filled in: limits[devbox|pipeline][bash] is { foreground, background },...
+    // [comment:5](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment5)
     public IDictionary limits { get; }
 
-    // Per-executable limits in seconds, keyed by the bare executable name (case-insensitive). Empty when the file
-    // declares none.
+    // Per-executable limits in seconds, keyed by the bare executable name (case-insensitive).
+    // [comment:6](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment6)
     public IReadOnlyDictionary<string, int> executables { get; }
 
     // Per-command limits in seconds, keyed by the function name (case-insensitive). Empty when the file declares none.
@@ -282,8 +256,8 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
-    // The limit for a shell call in an environment. environment is devbox | pipeline and shell is pwsh | bash | zsh
-    // (case-insensitive); background applies to bash only.
+    // The limit for a shell call in an environment.
+    // [comment:7](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment7)
     public int SecondsFor(string environment, string shell, bool background)
     {
         string env = Axis(environment, Environments, "environment");
@@ -299,9 +273,8 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         return resolved[env + "." + sh + "." + (background ? "background" : "foreground")];
     }
 
-    // The limit for an executable that pwsh code runs: its own entry when it has one, otherwise the environment's
-    // pwsh limit. The name may carry a directory and an extension (`C:\tools\dotnet.exe`); only the bare name is
-    // looked up.
+    // The limit for an executable that pwsh code runs: its own entry when it has one, otherwise the environment's pwsh limit.
+    // [comment:8](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment8)
     public int SecondsForExecutable(string environment, string executable)
     {
         string name = string.IsNullOrWhiteSpace(executable) ? "" : Path.GetFileNameWithoutExtension(executable.Trim());

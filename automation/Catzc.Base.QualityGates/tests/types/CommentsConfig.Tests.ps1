@@ -14,6 +14,18 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.pages[0].source | Should -Be 'automation/*'
         $config.view | Should -Be 'out/annotated'
         $config.IsObvious('This function returns a widget') | Should -BeTrue
+        $config.IsExcluded('automation/Catzc.Widget/tests/Get-Widget.Tests.ps1') | Should -BeTrue
+        $config.IsExcluded('automation/Catzc.Widget/assets/root/widget.yml') | Should -BeTrue
+        $config.IsExcluded('automation/Catzc.Widget/Get-Widget.ps1') | Should -BeFalse
+    }
+
+    It 'replaces the exclude map when given, and rejects one without a reason or with a bad glob' -Tag 'ADR-REPO-COMMENTS#3' {
+        $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ 'automation/*/gadgets/**' = 'gadgets are generated' } })
+        $config.IsExcluded('automation/Catzc.Widget/gadgets/one.ps1') | Should -BeTrue
+        $config.IsExcluded('automation/Catzc.Widget/tests/Get-Widget.Tests.ps1') | Should -BeFalse
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ '**/gadgets/**' = '' } }) } | Should -Throw '*needs a reason*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = @{ '/gadgets' = 'rooted' } }) } | Should -Throw '*not a valid glob*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ exclude = 'gadgets' }) } | Should -Throw '*exclude must be a map*'
     }
 
     It 'maps a file to its comment page: the extension stays, the module folder is kebab-cased' -Tag 'ADR-REPO-COMMENTS#3' {

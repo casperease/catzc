@@ -2,13 +2,10 @@
 .SYNOPSIS
     Packs a Catzc build into a NuGet package (.nupkg) for a local-path Install-PSResource.
 .DESCRIPTION
-    The package delivery shape ([ADR-AUTO-BUNDLE#6](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle6)). The
-    build folder is already an installable module — its
-    Catzc.psd1 carries the version, GUID and package metadata, its Catzc.psm1 loads the platform, and the
-    vendored dependencies ride inside its .vendor/ — so the build folder itself is compressed, as is, with
-    Compress-PSResource into <DestinationPath>/Catzc.<version>.nupkg (pack only, no publish). A client registers
-    the destination folder as a PSResource repository and runs Install-PSResource Catzc. Publishing beyond the
-    local disk is the release workflow's act ([ADR-GH-RELEASE](/docs/adr/github/github-release.md)).
+    The package delivery shape.
+    [ADR-AUTO-BUNDLE#6](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle6),
+    [ADR-GH-RELEASE](/docs/adr/github/github-release.md)
+    [comment:1](/docs/references/automation/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md#comment1)
 .PARAMETER Source
     The build root (Build-Modules' BuildRoot — the Catzc/<version>/ folder).
 .PARAMETER DestinationPath

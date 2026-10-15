@@ -1,8 +1,6 @@
-// Git's refs, read in-process: where a checkout's git directory is, which commit HEAD, a branch or a tag names, and
-// the branch HEAD is on — what `git rev-parse` answers, without starting git. Refs are small text files (loose refs,
-// `packed-refs`), so reading them directly is exact and cheap. A layout this reader cannot read correctly — the
-// reftable ref store, or a loose annotated tag, whose commit sits inside a tag object — is rejected loudly rather
-// than read wrong ([ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)).
+// Git's refs, read in-process: where a checkout's git directory is, which commit HEAD, a branch or a tag names, and the branch HEAD is...
+// [ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)
+// [comment:1](/docs/references/automation/catzc-base-git/types/GitRefs.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -16,8 +14,8 @@ public static class GitRefs
     // How many symbolic refs (`ref: <target>`) a lookup follows before it calls the chain a loop.
     private const int MaxSymbolicDepth = 5;
 
-    // The git directory of a checkout: `<root>/.git` when it is a directory, or the target of a `gitdir: <path>`
-    // pointer file (a linked worktree or a submodule), resolved against the root when relative.
+    // The git directory of a checkout: `<root>/.git` when it is a directory, or the target of a `gitdir: <path>` pointer file (a linked...
+    // [comment:2](/docs/references/automation/catzc-base-git/types/GitRefs.cs.md#comment2)
     public static string GitDirectory(string checkoutRoot)
     {
         var dotGit = Path.Combine(checkoutRoot, ".git");
@@ -37,8 +35,8 @@ public static class GitRefs
         return Path.GetFullPath(pointer.Substring("gitdir:".Length).Trim(), Path.GetFullPath(checkoutRoot));
     }
 
-    // The directory shared refs live in: the `commondir` a linked worktree's git directory names, else the git
-    // directory itself.
+    // The directory shared refs live in: the `commondir` a linked worktree's git directory names, else the git directory itself.
+    // [comment:3](/docs/references/automation/catzc-base-git/types/GitRefs.cs.md#comment3)
     public static string CommonDirectory(string gitDirectory)
     {
         var pointer = Path.Combine(gitDirectory, "commondir");
@@ -65,9 +63,8 @@ public static class GitRefs
         return target.StartsWith("refs/heads/", StringComparison.Ordinal) ? target.Substring("refs/heads/".Length) : target;
     }
 
-    // The full object id a name resolves to: a full id, HEAD, a full ref (`refs/...`), or a short name looked up as
-    // git does — refs/<name>, refs/tags/<name>, refs/heads/<name>, refs/remotes/<name>, refs/remotes/<name>/HEAD.
-    // An annotated tag resolves to the commit it points at. Throws when nothing matches.
+    // The full object id a name resolves to: a full id, HEAD, a full ref (`refs/...`), or a short name looked up as git does —...
+    // [comment:4](/docs/references/automation/catzc-base-git/types/GitRefs.cs.md#comment4)
     public static string ResolveCommit(string gitDirectory, string name)
     {
         AssertReadable(gitDirectory);
@@ -140,8 +137,8 @@ public static class GitRefs
         return null;
     }
 
-    // A loose tag ref can name a commit (a lightweight tag) or a tag object; the loose object's header says which. A
-    // packed object cannot be told apart without unpacking, so it counts as annotated (loud, never wrong).
+    // A loose tag ref can name a commit (a lightweight tag) or a tag object; the loose object's header says which.
+    // [comment:5](/docs/references/automation/catzc-base-git/types/GitRefs.cs.md#comment5)
     private static bool IsAnnotatedTagObject(string gitDirectory, string id)
     {
         var path = Path.Combine(CommonDirectory(gitDirectory), "objects", id.Substring(0, 2), id.Substring(2));

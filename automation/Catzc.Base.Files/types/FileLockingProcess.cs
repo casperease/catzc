@@ -1,6 +1,5 @@
-// A process that holds a file open, as reported by the Windows Restart Manager (RestartManager) and enriched
-// with the process's own facts. The Restart Manager part (ProcessId, AppName, Started) is always present; the
-// enrichment (Name, CommandLine, ParentProcessId) is null when the process exited between the two lookups.
+// A process that holds a file open, as reported by the Windows Restart Manager (RestartManager) and enriched with the process's own facts.
+// [comment:1](/docs/references/automation/catzc-base-files/types/FileLockingProcess.cs.md#comment1)
 
 using System;
 using System.Globalization;

@@ -3,14 +3,9 @@
     Exports catzc — builds it (Build-Modules), then installs it beside a working root or packs it for
     Install-PSResource.
 .DESCRIPTION
-    The top-level export ([ADR-AUTO-BUNDLE#6](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle6)). It builds
-    with Build-Modules (exporter.yml defaults; the build
-    parameters pass through) and delivers the build:
-      - disk (default): the two-part install to -Root (Install-Catzc) — the build under <Root>/.vendor/Catzc/<version>/
-        and a root importer.ps1 that enters it with <Root> as the working root;
-      - nuget: the build folder packed with Compress-PSResource into <Get-OutputRoot>/automation/packages/, for a
-        client to register as a local PSResource repository and Install-PSResource Catzc. Publishing beyond the
-        local disk is the release workflow's act, never this function's.
+    The top-level export.
+    [ADR-AUTO-BUNDLE#6](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle6)
+    [comment:1](/docs/references/automation/catzc-base-exporter/Export-Catzc.ps1.md#comment1)
 .PARAMETER Root
     The destination working root of a disk export (where the root importer.ps1 goes).
 .PARAMETER To

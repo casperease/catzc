@@ -13,6 +13,9 @@
 //                      the run around it, or a comment-based help keyword (`.SYNOPSIS`) naming a section whose body
 //                      stays whole; a language given here replaces its default list
 //   pages            — the ordered source-folder -> docs-folder maps (CommentPageMap); the first match wins
+//   exclude          — repository-relative glob (the durable-sha-globs dialect) -> why its files keep their comments:
+//                      a test's prose is its own subject, and an asset is copied or published verbatim elsewhere, where a
+//                      docs link would be foreign; a key given here replaces the default map
 //   obvious_phrases  — a residue line that starts with one of these states the obvious and is refused
 //   view             — the gitignored folder, under out/, the annotated view is written to
 //                      ([ADR-REPO-OUTDIR#1](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir1))
@@ -31,7 +34,13 @@ public sealed class CommentsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    static readonly string[] AllowedKeys = { "languages", "min_lines", "keep", "pages", "obvious_phrases", "view" };
+    static readonly string[] AllowedKeys = { "languages", "min_lines", "keep", "pages", "exclude", "obvious_phrases", "view" };
+
+    public static readonly IReadOnlyDictionary<string, string> DefaultExclude = new Dictionary<string, string>(StringComparer.Ordinal)
+    {
+        ["**/tests/**"] = "a test's prose is its own subject",
+        ["**/assets/**"] = "an asset is copied or published verbatim elsewhere, where a docs link would be foreign",
+    };
 
     public const int DefaultMinLines = 2;
     public const string DefaultView = "out/annotated";
@@ -61,8 +70,11 @@ public sealed class CommentsConfig
     public int min_lines { get; }
     public IReadOnlyDictionary<string, IReadOnlyList<string>> keep { get; }
     public IReadOnlyList<CommentPageMap> pages { get; }
+    public IReadOnlyDictionary<string, string> exclude { get; }
     public IReadOnlyList<string> obvious_phrases { get; }
     public string view { get; }
+
+    readonly List<Catzc.Base.Globs.GlobPattern> excludeGlobs = new List<Catzc.Base.Globs.GlobPattern>();
 
     public CommentsConfig(IDictionary raw)
     {
@@ -73,6 +85,7 @@ public sealed class CommentsConfig
         var pageMaps = DefaultPages.Select(d => new CommentPageMap(name + ": pages", new Hashtable { ["source"] = d.source, ["docs"] = d.docs })).ToList();
         obvious_phrases = DefaultObviousPhrases;
         view = DefaultView;
+        var excludeMap = new Dictionary<string, string>(DefaultExclude, StringComparer.Ordinal);
 
         if (raw != null)
         {
@@ -137,6 +150,25 @@ public sealed class CommentsConfig
                 }
             }
 
+            if (raw.Contains("exclude") && raw["exclude"] != null)
+            {
+                if (!(raw["exclude"] is IDictionary excludeRaw))
+                {
+                    throw new ArgumentException(name + ": exclude must be a map of glob to the reason its files keep their comments");
+                }
+                excludeMap = new Dictionary<string, string>(StringComparer.Ordinal);
+                foreach (DictionaryEntry entry in excludeRaw)
+                {
+                    string glob = Convert.ToString(entry.Key, CultureInfo.InvariantCulture);
+                    string reason = Convert.ToString(entry.Value, CultureInfo.InvariantCulture);
+                    if (string.IsNullOrWhiteSpace(reason))
+                    {
+                        throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0}: exclude '{1}' needs a reason", name, glob));
+                    }
+                    excludeMap[glob] = reason.Trim();
+                }
+            }
+
             if (raw.Contains("obvious_phrases") && raw["obvious_phrases"] != null)
             {
                 obvious_phrases = Strings(name, "obvious_phrases", raw["obvious_phrases"], requireAny: false);
@@ -156,6 +188,25 @@ public sealed class CommentsConfig
 
         keep = keepLists;
         pages = pageMaps;
+        exclude = excludeMap;
+        foreach (string glob in excludeMap.Keys)
+        {
+            try
+            {
+                excludeGlobs.Add(new Catzc.Base.Globs.GlobPattern(glob));
+            }
+            catch (ArgumentException e)
+            {
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0}: exclude '{1}' is not a valid glob: {2}", name, glob, e.Message), e);
+            }
+        }
+    }
+
+    // True when an exclude glob matches the repository-relative, '/'-separated path: the file keeps its comments.
+    public bool IsExcluded(string repoRelativePath)
+    {
+        string path = repoRelativePath?.Replace('\\', '/');
+        return !string.IsNullOrEmpty(path) && excludeGlobs.Any(glob => glob.Matches(path));
     }
 
     // The comment heads that never move in a language's files; empty for a language the config does not name.

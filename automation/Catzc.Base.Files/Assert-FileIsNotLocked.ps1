@@ -2,8 +2,8 @@
 .SYNOPSIS
     Asserts that a file is free to open (not locked by another handle); throws otherwise.
 .DESCRIPTION
-    Throws when the file is locked. See Test-FileIsLocked for how lock state is determined and the
-    Windows-vs-Unix locking caveat.
+    Throws when the file is locked.
+    [comment:1](/docs/references/automation/catzc-base-files/Assert-FileIsNotLocked.ps1.md#comment1)
 .PARAMETER Path
     Path to the file to assert is not locked.
 .PARAMETER ErrorText

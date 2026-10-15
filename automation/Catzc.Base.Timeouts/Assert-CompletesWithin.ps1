@@ -2,16 +2,16 @@
 .SYNOPSIS
     Asserts that a script block finishes within a time limit; past it the work is stopped and the assert throws.
 .DESCRIPTION
-    The assertion form of Invoke-WithTimeout: the block's output is discarded, and the only outcome is pass
-    (it finished in time) or throw (it was stopped at the limit, or it failed on its own).
+    The assertion form of Invoke-WithTimeout: the block's output is discarded, and the only outcome is pass (it...
+    [comment:1](/docs/references/automation/catzc-base-timeouts/Assert-CompletesWithin.ps1.md#comment1)
 .PARAMETER ScriptBlock
     The work to time.
 .PARAMETER Budget
-    The work's immutable budget GUID. While timeout-exemptions.yml exempts it, the default limit is the exemption
-    ceiling instead.
+    The work's immutable budget GUID.
+    [comment:2](/docs/references/automation/catzc-base-timeouts/Assert-CompletesWithin.ps1.md#comment2)
 .PARAMETER Seconds
-    The limit in seconds. Defaults to the run environment's pwsh limit in timeouts.yml, or the budget's exemption
-    ceiling (Get-TimeoutSeconds -Budget).
+    The limit in seconds.
+    [comment:3](/docs/references/automation/catzc-base-timeouts/Assert-CompletesWithin.ps1.md#comment3)
 .PARAMETER Activity
     What the work is, for the timeout message. Defaults to the script block's text.
 .EXAMPLE

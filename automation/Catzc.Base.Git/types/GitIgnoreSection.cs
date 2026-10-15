@@ -1,11 +1,5 @@
-// One section of the gitignore registry (configs/gitignore.yml) — a titled, explained group of ignore
-// patterns. A section declares EITHER `patterns` (a static list, each a bare string or { pattern, note }) OR
-// `inject: <provider>` (the patterns are supplied at render time by the caller — e.g. the root-config
-// registry's committed:false targets), never both. `title` and `why` render as the section's comment block, so
-// every rule in the generated .gitignore carries its explanation.
-//
-// Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
-// over its own properties and its constructor uses the base's extraction helpers.
+// One section of the gitignore registry (configs/gitignore.yml) — a titled, explained group of ignore patterns.
+// [comment:1](/docs/references/automation/catzc-base-git/types/GitIgnoreSection.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -27,8 +21,8 @@ public sealed class GitIgnoreSection : Catzc.Base.Objects.DictionaryRecord
     // Static patterns, in registry order. Exactly one of patterns/inject.
     public IReadOnlyList<GitIgnorePattern> patterns { get; }
 
-    // Name of the render-time pattern provider (e.g. 'rootconfig-committed-false'). Exactly one of
-    // patterns/inject.
+    // Name of the render-time pattern provider (e.g.
+    // [comment:2](/docs/references/automation/catzc-base-git/types/GitIgnoreSection.cs.md#comment2)
     public string inject { get; }
 
     public GitIgnoreSection(IDictionary d)

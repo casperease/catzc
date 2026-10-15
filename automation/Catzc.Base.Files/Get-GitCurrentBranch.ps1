@@ -2,8 +2,8 @@
 .SYNOPSIS
     Returns the current git branch name (or 'HEAD' when detached).
 .DESCRIPTION
-    The branch HEAD is on in the checkout at Get-RepositoryRoot, read from its HEAD file in-process
-    ([Catzc.Base.Git.GitRefs]) — what `git rev-parse --abbrev-ref HEAD` answers, without starting git.
+    The branch HEAD is on in the checkout at Get-RepositoryRoot, read from its HEAD file in-process...
+    [comment:1](/docs/references/automation/catzc-base-files/Get-GitCurrentBranch.ps1.md#comment1)
 .EXAMPLE
     Get-GitCurrentBranch
 #>

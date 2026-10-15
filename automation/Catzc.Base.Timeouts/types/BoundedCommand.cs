@@ -1,16 +1,5 @@
-// Whether a command line runs inside a time limit, in each execution engine's grammar — the check behind the Bash
-// hook's background rule (BashSafeguard) and the per-engine fixture table
-// (tests/assets/engine-cases/bounded-command.yml, loaded by Get-EngineCaseTable).
-//
-// A command is bounded when its limit wraps all of it:
-//   - the POSIX engines: a leading GNU `timeout [options] <duration>` around ONE command — a compound command (&&, ||, ;, |, a
-//     background &, a newline) would leave everything after its first command unbounded. A backtick runs a command
-//     substitution, so its content belongs to the one command.
-//   - pwsh: ONE call to Invoke-WithTimeout, Assert-CompletesWithin or Test-CompletesWithin whose script block holds
-//     the work; the block may hold any number of statements, because the whole block is bounded. Without -Seconds the
-//     call takes its configured default, which is bounded too. & is the call operator (not a separator), a backtick
-//     escapes the next character, and '' is a quote inside a single-quoted string.
-// The verdict is one of: allow, no-limit, over-limit, compound.
+// Whether a command line runs inside a time limit, in each execution engine's grammar — the check behind the Bash hook's background rule...
+// [comment:1](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment1)
 
 using System;
 using System.Globalization;
@@ -33,8 +22,8 @@ public static class BoundedCommand
     private static readonly Regex PwshSecondsName = new Regex(
         @"(?:^|\s)-Seconds\b", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
-    // The verdict for a command in an engine (pwsh | bash | zsh) against a limit in seconds. requested describes what
-    // the command asked for, for a log line.
+    // The verdict for a command in an engine (pwsh | bash | zsh) against a limit in seconds.
+    // [comment:2](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment2)
     public static string Check(string command, string engine, int limitSeconds, out string requested)
     {
         double? seconds;
@@ -50,8 +39,8 @@ public static class BoundedCommand
             requested = (posix ? "timeout " : "-Seconds ") + seconds.Value.ToString(CultureInfo.InvariantCulture) + " s";
             return OverLimit;
         }
-        // a POSIX engine: the one command after the prefix; pwsh: the call itself at the top level (the block's own
-        // statements are inside the limit, so they never count).
+        // a POSIX engine: the one command after the prefix; pwsh: the call itself at the top level (the block's own statements are...
+        // [comment:3](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment3)
         if (!IsSingleCommand(posix ? body : command, engine))
         {
             requested = "compound command";
@@ -61,9 +50,8 @@ public static class BoundedCommand
         return Allow;
     }
 
-    // Parses the engine's time-limit wrapper. bash: `timeout [options] <duration> <rest>`, with seconds the duration
-    // and body the rest. pwsh: `Invoke-WithTimeout [params] { <body> } [params]`, with seconds the -Seconds value or
-    // null for the configured default, and body the block's content. False when the command is not wrapped.
+    // Parses the engine's time-limit wrapper.
+    // [comment:4](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment4)
     public static bool TryParseBound(string command, string engine, out double? seconds, out string body)
     {
         seconds = null;
@@ -73,9 +61,8 @@ public static class BoundedCommand
         return posix ? TryParseBash(command, out seconds, out body) : TryParsePwsh(command, out seconds, out body);
     }
 
-    // True when the text is one command in the engine's grammar: no statement separator outside quotes and nested
-    // expressions. The POSIX engines' separators: &&, ||, ;, |, a background &, newline (the & of 2>&1 or &> is a
-    // redirection). pwsh separators: &&, ||, ;, |, newline (a single & is the call operator).
+    // True when the text is one command in the engine's grammar: no statement separator outside quotes and nested expressions.
+    // [comment:5](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment5)
     public static bool IsSingleCommand(string text, string engine)
     {
         bool posix = IsPosix(engine);
@@ -84,9 +71,8 @@ public static class BoundedCommand
     }
 
     // True when the engine bounds a call with a GNU `timeout` prefix (the POSIX engines), false when with a pwsh wrapper call.
-    // The engine and its time safeguard come from the model, declared once
-    // ([ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2)); Get throws, naming the
-    // engines, for any other name.
+    // [ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2)
+    // [comment:6](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment6)
     private static bool IsPosix(string engine)
     {
         string normalized = engine == null ? "" : engine.Trim().ToLowerInvariant();

@@ -1,14 +1,6 @@
-// A function's own time limit, declared beside its code on the param block:
-//
-//     function Test-Widget {
-//         [CmdletBinding()]
-//         [Catzc.Base.Timeouts.TimeLimit(360, Pipeline = 1800)]
-//         param([int] $TimeoutSeconds = (Get-TimeoutSeconds -Command 'Test-Widget'))
-//
-// Get-TimeoutSeconds -Command reads it when no config entry overrides it, so a long-running function carries its
-// limit with its code and config only states what was tuned
-// ([ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)). The values are
-// checked when the attribute is created: whole seconds above zero, the pipeline limit at least the devbox one.
+// A function's own time limit, declared beside its code on the param block: function Test-Widget { [CmdletBinding]...
+// [ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)
+// [comment:1](/docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md#comment1)
 
 using System;
 
@@ -48,8 +40,8 @@ public sealed class TimeLimitAttribute : Attribute
         }
     }
 
-    // The work's immutable budget GUID (managed in guids.yml); while timeout-exemptions.yml exempts it, the
-    // exemption's ceiling wins. Empty when the function has no budget.
+    // The work's immutable budget GUID (managed in guids.yml); while timeout-exemptions.yml exempts it, the exemption's ceiling wins.
+    // [comment:2](/docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md#comment2)
     public string Budget
     {
         get { return budget; }

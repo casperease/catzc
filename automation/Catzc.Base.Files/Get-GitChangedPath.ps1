@@ -2,15 +2,8 @@
 .SYNOPSIS
     Returns the repository paths that differ from HEAD: what the working tree has changed.
 .DESCRIPTION
-    The working-tree counterpart of Get-GitTrackedPath: every path at or under the given paths that git status
-    reports — staged or unstaged, modified, added, deleted, and untracked files that no .gitignore rule ignores — as a
-    repo-relative, '/'-separated path, sorted ordinally, each once. A rename counts as both of its paths (--no-renames),
-    like a committed range's changed files: a file moving into or out of a scope changes both. A deleted path is
-    listed too; a caller that reads files skips what no longer exists.
-
-    One read-only `git status --porcelain=v1 -z --untracked-files=all --no-renames` from the repository root (never
-    $PWD); -z keeps every path literal (no quoting, any character). Runs through Invoke-Executable -Silent, so a git
-    failure throws.
+    The working-tree counterpart of Get-GitTrackedPath: every path at or under the given paths that git status...
+    [comment:1](/docs/references/automation/catzc-base-files/Get-GitChangedPath.ps1.md#comment1)
 .PARAMETER Path
     The repository-relative, '/'-separated paths (files or folders) to look under; '.' (the default) for all.
 .OUTPUTS

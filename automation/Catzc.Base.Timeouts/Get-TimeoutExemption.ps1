@@ -2,17 +2,16 @@
 .SYNOPSIS
     Returns the exemption that covers a budget GUID in this run environment, or nothing.
 .DESCRIPTION
-    Looks the budget up in timeout-exemptions.yml for the run environment (Get-RunEnvironment) and shell. An
-    exemption raises the budget's limit to its scope's ceiling while the work is tuned; it never removes the limit.
-    The result is the normalized entry: kind (single | range), from, to, environments, shells, reason.
+    Looks the budget up in timeout-exemptions.yml for the run environment (Get-RunEnvironment) and shell.
+    [comment:1](/docs/references/automation/catzc-base-timeouts/Get-TimeoutExemption.ps1.md#comment1)
 .PARAMETER Budget
     The budget's immutable GUID — registered in the managed-GUID registry and passed by the call site.
 .PARAMETER Shell
-    The shell the work runs in, one of the execution engines (pwsh, bash or zsh); pwsh is the default. Any other name
-    throws, naming the shells.
+    The shell the work runs in, one of the execution engines (pwsh, bash or zsh); pwsh is the default.
+    [comment:2](/docs/references/automation/catzc-base-timeouts/Get-TimeoutExemption.ps1.md#comment2)
 .PARAMETER EnvironmentAssertIs
-    Pins the expected run environment (Pipeline or Devbox); a different one throws. The guard verifies, it never
-    selects.
+    Pins the expected run environment (Pipeline or Devbox); a different one throws.
+    [comment:3](/docs/references/automation/catzc-base-timeouts/Get-TimeoutExemption.ps1.md#comment3)
 .OUTPUTS
     [hashtable] The covering exemption; nothing when the budget is not exempt here.
 .EXAMPLE

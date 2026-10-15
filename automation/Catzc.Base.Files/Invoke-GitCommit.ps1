@@ -2,23 +2,18 @@
 .SYNOPSIS
     Commits the changes under the given repository paths as one git commit.
 .DESCRIPTION
-    A thin, policy-free git wrapper: stages everything under -Path (modified, new, and deleted files —
-    `git add -A`) and commits exactly those paths with the given message. All policy — branch guards,
-    CI detection, which paths deserve auto-committing — belongs to the caller.
-
-    Idempotent (see [ADR-AUTO-IDEM](/docs/adr/automation/idempotent-state-functions.md)): `git commit` itself is not, so
-    the wrapper checks first — when `git status --porcelain` reports nothing under -Path, it returns
-    nothing and runs no side effect. Re-running after a successful commit is a quiet no-op.
-
-    Both git invocations run through Invoke-Executable, so the exact commands are logged before they run
-    ([ADR-AUTO-PRELOG](/docs/adr/automation/log-before-invoke.md)) and a non-zero exit throws.
+    A thin, policy-free git wrapper: stages everything under -Path (modified, new, and deleted files — `git add -A`)...
+    [ADR-AUTO-IDEM](/docs/adr/automation/idempotent-state-functions.md),
+    [ADR-AUTO-PRELOG](/docs/adr/automation/log-before-invoke.md)
+    [comment:1](/docs/references/automation/catzc-base-files/Invoke-GitCommit.ps1.md#comment1)
 .PARAMETER Path
     The repository-relative, '/'-separated paths (files or folders) whose changes make up the commit.
 .PARAMETER Message
     The commit message. Double quotes are rejected — the message is embedded in a quoted command string.
 .PARAMETER DryRun
-    Return the planned command strings without touching git at all (not even the status check) — see
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+    Return the planned command strings without touching git at all (not even the status check) — see.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
+    [comment:2](/docs/references/automation/catzc-base-files/Invoke-GitCommit.ps1.md#comment2)
 .OUTPUTS
     [string] The new commit's full SHA; the planned commands with -DryRun; nothing when there was
     nothing to commit.
