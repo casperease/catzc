@@ -15,8 +15,8 @@ Supports ADR-FLOW-CD-DETECT#1 and #4 (meta lens).
 
 Cats runs the same commands on a developer's machine and inside a CI/CD pipeline, and a few of them must behave differently in the two
 places: where output goes, whether a pipeline variable is written, which git range counts as the change. Every one of those branches rests
-on one question, "am I in a pipeline?", and cats answers it in exactly one function. The function reads the signal the pipeline agent
-sets, answers true or false, and an analyzer rule makes sure nobody reads the signal anywhere else.
+on one question, "am I in a pipeline?", and cats answers it in exactly one function. The function reads the signal the pipeline agent sets,
+answers true or false, and an analyzer rule makes sure nobody reads the signal anywhere else.
 
 ![One function answers whether the code is in a pipeline](../../.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png)
 
@@ -27,9 +27,9 @@ The diagram is described element by element in
 
 1. **Pipeline agent.** The Azure DevOps agent sets `TF_BUILD` on every pipeline run, and the GitHub Actions runner sets `GITHUB_ACTIONS`.
    Neither is set on a devbox, so together they are the reliable signal that the code runs in CI/CD.
-2. **One detection function.** `Test-IsRunningInPipeline` is the one reader of that signal. It answers a boolean: if either variable is
-   set, the code is in a pipeline; otherwise it is not. There is no third mode, and the variables it checks are an implementation detail
-   that only this function knows.
+2. **One detection function.** `Test-IsRunningInPipeline` is the one reader of that signal. It answers a boolean: if either variable is set,
+   the code is in a pipeline; otherwise it is not. There is no third mode, and the variables it checks are an implementation detail that
+   only this function knows.
 3. **Context-dependent behavior.** Every function that behaves differently in a pipeline asks the function instead of the variables: the
    output root, the run environment, the change range, the pipeline-variable writer and twenty more. That makes the branches greppable: a
    search for the function's name finds every place cats branches on its execution context.

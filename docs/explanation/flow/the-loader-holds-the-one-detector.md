@@ -32,18 +32,17 @@ The diagram is described element by element in
 1. **Azure DevOps agent.** Sets `TF_BUILD` on every pipeline run.
 2. **GitHub Actions runner.** Sets `GITHUB_ACTIONS` on every workflow run. Neither variable exists on a devbox.
 3. **Test-IsRunningInPipeline.** Defined and exported by `Catzc.Internal.Loader`, the one `.internal` module the importer loads
-   unconditionally and keeps in the session. Because it loads first in both run modes, the bootstrap and every module ask the same
-   function.
+   unconditionally and keeps in the session. Because it loads first in both run modes, the bootstrap and every module ask the same function.
 4. **Catzc.Internal.Bootstrap.** The C#-types pre-pass runs before any `Catzc` module loads. When the compiled types are stale it asks the
    detector: in a pipeline that is a hard failure, on a devbox a warning and a restart hint.
 5. **Catzc.Internal.Builder.** The module build asks it too: a source tree that differs from its commit cannot be bundled in a pipeline,
    because a pipeline builds only a clean commit.
-6. **Catzc modules.** Twenty-two module functions, from `Get-OutputRoot` to `Install-Dotnet`, branch on the detector. None of them reads
-   the variables.
+6. **Catzc modules.** Twenty-two module functions, from `Get-OutputRoot` to `Install-Dotnet`, branch on the detector. None of them reads the
+   variables.
 7. **Measure-NoRawPipelineDetection.** The analyzer rule, loaded through `CatzcRules.psm1` by the one settings file, flags a raw read of
    either variable in any PowerShell file outside the detector.
-8. **Assert-BashTimeout.** The time-safeguard hook is a C# program the importer publishes. It runs outside the module system and outside
-   the analyzer, so it reads `TF_BUILD` and `GITHUB_ACTIONS` itself, through `BashSafeguard.EnvironmentOf`, by the same test the detector
+8. **Assert-BashTimeout.** The time-safeguard hook is a C# program the importer publishes. It runs outside the module system and outside the
+   analyzer, so it reads `TF_BUILD` and `GITHUB_ACTIONS` itself, through `BashSafeguard.EnvironmentOf`, by the same test the detector
    applies.
 
 ## Why it holds
@@ -51,8 +50,8 @@ The diagram is described element by element in
 - Never check the detection variables directly; call `Test-IsRunningInPipeline`, so the logic lives in one place and both platforms are
   always covered (ADR-FLOW-CD-DETECT#1). Placing that one function in the loader is what lets the bootstrap honour the rule before any
   module exists.
-- The function is the one seam between devbox and pipeline, so "where do the two diverge?" has a finite answer: the callers above the
-  loader (ADR-AUTO-PARITY#3).
+- The function is the one seam between devbox and pipeline, so "where do the two diverge?" has a finite answer: the callers above the loader
+  (ADR-AUTO-PARITY#3).
 
 ## Where the code and the ADR differ
 

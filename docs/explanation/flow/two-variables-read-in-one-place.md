@@ -33,22 +33,22 @@ The diagram is described element by element in
 1. **Azure DevOps agent.** Sets `TF_BUILD` to `True` on every pipeline run.
 2. **GitHub Actions runner.** Sets `GITHUB_ACTIONS` to `true` on every workflow run.
 3. **Test-IsRunningInPipeline.** In `Catzc.Internal.Loader`, it returns `[bool]$env:TF_BUILD -or [bool]$env:GITHUB_ACTIONS`. It declares
-   `[OutputType([bool])]`, takes no parameters and touches nothing else: no file, no network, no computation. An L0 test sets each
-   variable in turn, then neither, and asserts the three answers.
+   `[OutputType([bool])]`, takes no parameters and touches nothing else: no file, no network, no computation. An L0 test sets each variable
+   in turn, then neither, and asserts the three answers.
 4. **Get-OutputRoot.** Asks the detector first, and only then reads `BUILD_ARTIFACTSTAGINGDIRECTORY`: in a pipeline the staging directory,
    otherwise `out/` under the repository root. That second variable is a location, not a signal, and it is read nowhere else.
 5. **Get-RunEnvironment.** Turns the boolean into the environment axis, `Pipeline` or `Devbox`, that environment-dependent settings such as
    the time-safeguard limits key on.
 6. **Get-GlobSetChangeRange.** Returns `HEAD` when not in a pipeline; in one, it derives the git range from the pull-request variables.
 7. **Set-AdoPipelineVariable.** Writes a `##vso` logging command in a pipeline and, on a devbox, only a verbose line saying it skipped it.
-   Twenty more call sites follow the same shape, among them `Get-SessionActor`, `Deploy-Bicep`, `Sync-SessionTools`, `Protect-GlobSet`
-   and `Install-Python`, plus the bootstrap's types pre-pass and the module builder.
+   Twenty more call sites follow the same shape, among them `Get-SessionActor`, `Deploy-Bicep`, `Sync-SessionTools`, `Protect-GlobSet` and
+   `Install-Python`, plus the bootstrap's types pre-pass and the module builder.
 8. **PSScriptAnalyzerSettings.psd1.** The single analyzer rule set. Its `CustomRulePath` names `automation/.scriptanalyzer/CatzcRules.psm1`
    and nothing else.
 9. **CatzcRules.psm1.** The one entry rule: it runs every repository check once per file, and `NoRawPipelineDetection` is on its list.
 10. **Measure-NoRawPipelineDetection.** Walks every variable expression in the file. A `$env:TF_BUILD` or `$env:GITHUB_ACTIONS` whose
-    ancestors include no function named `Test-IsRunningInPipeline` is reported as an error that names the variable and the function to
-    call instead. `*.Tests.ps1` files are exempt, because they set and restore the variables to drive the detector through both contexts.
+    ancestors include no function named `Test-IsRunningInPipeline` is reported as an error that names the variable and the function to call
+    instead. `*.Tests.ps1` files are exempt, because they set and restore the variables to drive the detector through both contexts.
 
 ## Why it holds
 

@@ -15,8 +15,8 @@ diagram glyphs; what it means is in [the article](../../explanation/flow/every-d
 
 A 1572 × 640 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads top to bottom through three
 full-width bands, labelled `GIT`, `THE CHECK` and `THE ANSWER`. It holds five glyphs, a store, a gate, two results and a failure, joined by
-three flow edges and one failure path, with five markers and a legend panel along the bottom. The eye lands first on the gate rhombus in
-the middle band, the only glyph with a thick rim.
+three flow edges and one failure path, with five markers and a legend panel along the bottom. The eye lands first on the gate rhombus in the
+middle band, the only glyph with a thick rim.
 
 ## Reading path
 
@@ -28,21 +28,21 @@ the middle band, the only glyph with a thick rim.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                               |
-| --------------------- | ----- | --------------------------------------------------- |
-| store                 | 1     | git at real refs (`GIT`)                            |
-| gate                  | 1     | is this unit touched? (`THE CHECK`), 3 px rim       |
-| result                | 2     | stop and proceed (`THE ANSWER`), side by side       |
-| failure               | 1     | a typo throws (`THE CHECK`, right of the gate)      |
+| Glyph (legend phrase) | Count | Where                                          |
+| --------------------- | ----- | ---------------------------------------------- |
+| store                 | 1     | git at real refs (`GIT`)                       |
+| gate                  | 1     | is this unit touched? (`THE CHECK`), 3 px rim  |
+| result                | 2     | stop and proceed (`THE ANSWER`), side by side  |
+| failure               | 1     | a typo throws (`THE CHECK`, right of the gate) |
 
 The store is slate with a white name, the gate a neutral rhombus, the results green and the failure the only red.
 
 ## Edges
 
-| Edge kind                 | Count | From → to                                       |
-| ------------------------- | ----- | ----------------------------------------------- |
+| Edge kind                 | Count | From → to                                            |
+| ------------------------- | ----- | ---------------------------------------------------- |
 | flow: feeds the next step | 3     | git at real refs → gate; gate → stop; gate → proceed |
-| failure path              | 1     | gate → a typo throws                            |
+| failure path              | 1     | gate → a typo throws                                 |
 
 Every edge is straight, vertical or horizontal, and none crosses another. No edge carries a label or a chip.
 
@@ -50,17 +50,17 @@ Every edge is straight, vertical or horizontal, and none crosses another. No edg
 
 A full-width panel at the bottom of the drawing area, in four columns, left to right:
 
-| Swatch              | Phrase                     |
-| ------------------- | -------------------------- |
-| slate cylinder      | store                      |
-| neutral rhombus     | gate                       |
-| green rounded box   | result                     |
-| red rounded box     | failure                    |
-| thin arrow          | flow: feeds the next step  |
-| red arrow           | failure path               |
-| light disc `1`      | marker: a Walkthrough step |
+| Swatch            | Phrase                     |
+| ----------------- | -------------------------- |
+| slate cylinder    | store                      |
+| neutral rhombus   | gate                       |
+| green rounded box | result                     |
+| red rounded box   | failure                    |
+| thin arrow        | flow: feeds the next step  |
+| red arrow         | failure path               |
+| light disc `1`    | marker: a Walkthrough step |
 
 ## Sidebar
 
-The lens badge reads `META`. The three minimaps sit above it, and the map key below it names the four swatches: lit, lit by passing
-mentions only, lit ADR file, idle.
+The lens badge reads `META`. The three minimaps sit above it, and the map key below it names the four swatches: lit, lit by passing mentions
+only, lit ADR file, idle.

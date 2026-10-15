@@ -14,9 +14,9 @@ A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts
 Supports ADR-FLOW-CD-DETECT#1 and #4 (operations lens).
 ```
 
-A developer who writes `if ($env:TF_BUILD)` finds out at the next analyzer run, not in a code review. `Test-ScriptAnalyzer` prints one
-line that names the file, the position, the rule and the function to call instead, and then throws. On the agent side the CI pipeline
-proves the seam itself: one step asserts that the detector answers true and prints where the output root landed.
+A developer who writes `if ($env:TF_BUILD)` finds out at the next analyzer run, not in a code review. `Test-ScriptAnalyzer` prints one line
+that names the file, the position, the rule and the function to call instead, and then throws. On the agent side the CI pipeline proves the
+seam itself: one step asserts that the detector answers true and prints where the output root landed.
 
 ![The analyzer names the raw read](../../.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png)
 
@@ -31,8 +31,9 @@ The diagram is described element by element in
 2. **out/test-script-analyzer/.** The gate writes its report there on every run and prints every issue, each as
    `<path>:<line>:<col> <severity> <rule> <message>`, with the path relative to the repository root.
 3. **Test-ScriptAnalyzer failed.** With issues it throws once, `Test-ScriptAnalyzer failed: N issue(s)`, followed by the folder and every
-   line. A raw read produces
-   `Error Measure-NoRawPipelineDetection Do not read the pipeline-detection variable '$env:TF_BUILD' directly. Call Test-IsRunningInPipeline so detection stays in one place and both Azure DevOps and GitHub Actions are covered.`
+   line. A raw read produces an `Error` from `Measure-NoRawPipelineDetection` whose message opens with
+   `Do not read the pipeline-detection variable '$env:TF_BUILD' directly.` and goes on to say: call `Test-IsRunningInPipeline` so detection
+   stays in one place and both Azure DevOps and GitHub Actions are covered.
 4. **Test-IsRunningInPipeline.** Step 2e of `pipelines/ci-automation.yaml`, named "Pipeline detection and output root", runs
    `Assert-True (Test-IsRunningInPipeline)` on the agent, where `TF_BUILD` is set.
 5. **Get-OutputRoot.** The same step calls `Get-OutputRoot`, asserts that the folder exists, and prints `OutputRoot: <path>`. On the agent
@@ -44,8 +45,7 @@ The diagram is described element by element in
 - Never check the detection variables directly; the analyzer rule turns a raw read into an error a developer sees at once
   (ADR-FLOW-CD-DETECT#1).
 - Detection is boolean, so the pipeline can assert it with one `Assert-True` (ADR-FLOW-CD-DETECT#4).
-- Both environments are checked equally: the analyzer runs on the devbox and in the pipeline, and the two must agree
-  (ADR-AUTO-PARITY#2).
+- Both environments are checked equally: the analyzer runs on the devbox and in the pipeline, and the two must agree (ADR-AUTO-PARITY#2).
 
 ## See also
 

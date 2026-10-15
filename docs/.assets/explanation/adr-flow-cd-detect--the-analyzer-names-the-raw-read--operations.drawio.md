@@ -8,15 +8,15 @@ Glyphs: 1 gate (neutral), 2 code units (slate), 3 results (green), 1 failure (re
 Sidebar: three minimaps and the map key.
 ```
 
-This describes what the [diagram](adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png) draws, in the vocabulary
-of the diagram glyphs; what it means is in [the article](../../explanation/flow/the-analyzer-names-the-raw-read.md).
+This describes what the [diagram](adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png) draws, in the vocabulary of
+the diagram glyphs; what it means is in [the article](../../explanation/flow/the-analyzer-names-the-raw-read.md).
 
 ## At a glance
 
 A 1572 × 640 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right along two
 full-width bands stacked top to bottom, `DEVBOX` and `PIPELINE`. It holds seven glyphs: one gate, two code units, three results and one
-failure, joined by three flow edges and one failure path, with five markers and a legend panel along the bottom. The eye lands first on
-the red failure in the `DEVBOX` band, the only saturated red on the drawing.
+failure, joined by three flow edges and one failure path, with five markers and a legend panel along the bottom. The eye lands first on the
+red failure in the `DEVBOX` band, the only saturated red on the drawing.
 
 ## Reading path
 
@@ -28,22 +28,22 @@ the red failure in the `DEVBOX` band, the only saturated red on the drawing.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                       |
-| --------------------- | ----- | ------------------------------------------------------------------------------------------- |
-| gate                  | 1     | Test-ScriptAnalyzer (`DEVBOX` band, left)                                                   |
+| Glyph (legend phrase) | Count | Where                                                                                             |
+| --------------------- | ----- | ------------------------------------------------------------------------------------------------- |
+| gate                  | 1     | Test-ScriptAnalyzer (`DEVBOX` band, left)                                                         |
 | result                | 3     | out/test-script-analyzer/ (`DEVBOX`, right, top); $true and staging directory (`PIPELINE`, right) |
-| failure               | 1     | Test-ScriptAnalyzer failed (`DEVBOX` band, right, bottom)                                   |
-| code unit             | 2     | Test-IsRunningInPipeline, Get-OutputRoot (`PIPELINE` band, left, stacked)                   |
+| failure               | 1     | Test-ScriptAnalyzer failed (`DEVBOX` band, right, bottom)                                         |
+| code unit             | 2     | Test-IsRunningInPipeline, Get-OutputRoot (`PIPELINE` band, left, stacked)                         |
 
 The gate is a neutral rhombus with a thick light rim, the code units are slate with light names, the results are green with a bright rim,
 and the failure is red with a bright red rim.
 
 ## Edges
 
-| Edge kind                 | Count | From → to                                                                                                      |
-| ------------------------- | ----- | -------------------------------------------------------------------------------------------------------------- |
+| Edge kind                 | Count | From → to                                                                                                             |
+| ------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------- |
 | flow: feeds the next step | 3     | Test-ScriptAnalyzer → out/test-script-analyzer/; Test-IsRunningInPipeline → $true; Get-OutputRoot → staging directory |
-| failure path              | 1     | Test-ScriptAnalyzer → Test-ScriptAnalyzer failed                                                                |
+| failure path              | 1     | Test-ScriptAnalyzer → Test-ScriptAnalyzer failed                                                                      |
 
 The two edges from the gate leave its right vertex and diverge, one up and one down; the two edges in the `PIPELINE` band are horizontal.
 None crosses another, and none carries a label.

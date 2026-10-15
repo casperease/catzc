@@ -8,16 +8,16 @@ Glyphs: 2 runners (slate), 4 code units (slate), 1 named set (mauve), 1 gate (ne
 Sidebar: three minimaps and the map key.
 ```
 
-This describes what the [diagram](adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../explanation/flow/the-loader-holds-the-one-detector.md).
+This describes what the [diagram](adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](../../explanation/flow/the-loader-holds-the-one-detector.md).
 
 ## At a glance
 
 A 1572 × 640 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through three
 bands on the top row, `PLATFORM`, `LOADER` and `CALLERS`, then down into two bands on a second row, `HOOK` under `PLATFORM` and
 `ENFORCEMENT` under the rest. It holds eight glyphs: two runners, four code units, one named set and one gate, joined by five flow edges.
-Three of the callers sit inside a frame, the named set carries a count chip, and eight markers number the glyphs. A legend panel runs
-along the bottom. The eye lands first on the code unit in the `LOADER` band, alone in the middle of the row.
+Three of the callers sit inside a frame, the named set carries a count chip, and eight markers number the glyphs. A legend panel runs along
+the bottom. The eye lands first on the code unit in the `LOADER` band, alone in the middle of the row.
 
 ## Reading path
 
@@ -30,20 +30,20 @@ along the bottom. The eye lands first on the code unit in the `LOADER` band, alo
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                       |
-| --------------------- | ----- | ----------------------------------------------------------------------------------------------------------- |
-| runner                | 2     | Azure DevOps agent, GitHub Actions runner (`PLATFORM` band)                                                 |
+| Glyph (legend phrase) | Count | Where                                                                                                                                   |
+| --------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| runner                | 2     | Azure DevOps agent, GitHub Actions runner (`PLATFORM` band)                                                                             |
 | code unit             | 4     | Test-IsRunningInPipeline (`LOADER`), Catzc.Internal.Bootstrap and Catzc.Internal.Builder (`CALLERS` frame), Assert-BashTimeout (`HOOK`) |
-| named set             | 1     | Catzc modules (`CALLERS` frame, bottom), with the count chip `22` at its right                              |
-| gate                  | 1     | Measure-…PipelineDetection (`ENFORCEMENT` band)                                                             |
+| named set             | 1     | Catzc modules (`CALLERS` frame, bottom), with the count chip `22` at its right                                                          |
+| gate                  | 1     | Measure-…PipelineDetection (`ENFORCEMENT` band)                                                                                         |
 
 Runners and code units are slate, the named set is mauve, all with light names; the gate is a neutral rhombus with a thick light rim. The
 frame is a thin dark-rimmed rounded rectangle with no fill around the three callers.
 
 ## Edges
 
-| Edge kind                 | Count | From → to                                                                                                |
-| ------------------------- | ----- | -------------------------------------------------------------------------------------------------------- |
+| Edge kind                 | Count | From → to                                                                                                                                                                                                                                            |
+| ------------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | flow: feeds the next step | 5     | Azure DevOps agent → Test-IsRunningInPipeline; GitHub Actions runner → Test-IsRunningInPipeline; Test-IsRunningInPipeline → the callers frame; the callers frame → Measure-…PipelineDetection; the `PLATFORM` band's lower edge → Assert-BashTimeout |
 
 The two edges from the runners converge on the detector's left side; the edge into the frame is horizontal; the two downward edges are
@@ -53,15 +53,15 @@ vertical. None crosses another, and none carries a label.
 
 A full-width panel at the bottom of the drawing area, in three columns, left to right:
 
-| Swatch                  | Phrase                                    |
-| ----------------------- | ----------------------------------------- |
-| slate pill              | runner                                    |
-| slate rounded box       | code unit                                 |
-| mauve rounded box       | named set                                 |
-| neutral rhombus         | gate                                      |
-| thin arrow              | flow: feeds the next step                 |
-| mauve-rimmed chip `22`  | count chip: module functions that call it |
-| light disc `1`          | marker: a Walkthrough step                |
+| Swatch                 | Phrase                                    |
+| ---------------------- | ----------------------------------------- |
+| slate pill             | runner                                    |
+| slate rounded box      | code unit                                 |
+| mauve rounded box      | named set                                 |
+| neutral rhombus        | gate                                      |
+| thin arrow             | flow: feeds the next step                 |
+| mauve-rimmed chip `22` | count chip: module functions that call it |
+| light disc `1`         | marker: a Walkthrough step                |
 
 ## Sidebar
 

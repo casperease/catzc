@@ -37,13 +37,13 @@ The diagram is described element by element in
 5. **Fail-open message.** When git cannot compute the diff, for example on a shallow clone, the check writes one line,
    `Test-GlobSetAffected: could not resolve change range '<range>' (<reason>); proceeding (fail-open).`, and then returns true. A run that
    proceeded on doubt is never indistinguishable from one that proceeded on a real change.
-6. **Not a declared globset.** A name that is not in `globs.yml` throws `Test-GlobSetAffected: '<Name>' is not a declared globset
-   (globs.yml).` The stage fails rather than skipping on a typo.
+6. **Not a declared globset.** A name that is not in `globs.yml` throws
+   `Test-GlobSetAffected: '<Name>' is not a declared globset (globs.yml).` The stage fails rather than skipping on a typo.
 
 ## Why it holds
 
-- The check fails open on any doubt so a wrong skip can never drop a deploy, returns false only when it has positively confirmed the unit
-  is untouched, and throws on an undeclared unit name so a typo never silently skips (ADR-FLOW-CD-GLOBS#9).
+- The check fails open on any doubt so a wrong skip can never drop a deploy, returns false only when it has positively confirmed the unit is
+  untouched, and throws on an undeclared unit name so a typo never silently skips (ADR-FLOW-CD-GLOBS#9).
 - A pipeline must check out with sufficient depth (`fetchDepth: 0`) so the base ref is reachable (ADR-FLOW-CD-GLOBS#9).
 
 ## Where the code and the ADR differ

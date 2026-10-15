@@ -17,11 +17,10 @@ Catzc.Base.Globs owns the touched-unit check; it asks the loader which context i
 Supports ADR-FLOW-CD-GLOBS#1, #9 and ADR-FLOW-CD-DETECT#1 (architecture lens).
 ```
 
-One module, `Catzc.Base.Globs`, owns everything about globsets: the registry file, the dialect, the native projection and the
-git-reflection query that answers whether a change touches a unit. The query itself depends on two things outside the module. It asks the
-loader which execution context it runs in, because the reference commit differs between a developer's machine, a post-commit build and a
-pull request. And it asks git for the diff, because the changed paths are read from the repository at real refs, never from a committed
-marker.
+One module, `Catzc.Base.Globs`, owns everything about globsets: the registry file, the dialect, the native projection and the git-reflection
+query that answers whether a change touches a unit. The query itself depends on two things outside the module. It asks the loader which
+execution context it runs in, because the reference commit differs between a developer's machine, a post-commit build and a pull request.
+And it asks git for the diff, because the changed paths are read from the repository at real refs, never from a committed marker.
 
 ![Globs asks the loader for the context and git for the diff](../../.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.png)
 
@@ -30,13 +29,13 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **A unit's pipeline stage.** The decision describes the caller: a deployable unit's stage runs the check first and returns when there
-   is nothing for it to process. No pipeline or workflow in the repository makes that call; the shared CD pipeline names the check in a
-   comment as its exact backstop.
+1. **A unit's pipeline stage.** The decision describes the caller: a deployable unit's stage runs the check first and returns when there is
+   nothing for it to process. No pipeline or workflow in the repository makes that call; the shared CD pipeline names the check in a comment
+   as its exact backstop.
 2. **Test-GlobSetAffected.** The public entry of the query. It takes a globset name, typically a deployable unit, and answers one boolean:
    true when the unit is touched or the range is in doubt, false only when the unit is confirmed untouched.
-3. **globs.yml.** The one configuration point for every globset. The check reads the registry through `Get-Config` and throws when the
-   name is not declared in it.
+3. **globs.yml.** The one configuration point for every globset. The check reads the registry through `Get-Config` and throws when the name
+   is not declared in it.
 4. **Get-GlobSetChangeRange.** The reference-commit resolver. It names the git range the context measures a change against, and it is the
    only place that decides between the working tree, the first parent of a squash commit and a pull request's merge base.
 5. **Test-IsRunningInPipeline.** The resolver asks the loader's detection function whether it runs in a pipeline. The function lives in
@@ -54,8 +53,8 @@ The diagram is described element by element in
   `Get-ChangedGlobSet` (ADR-FLOW-CD-GLOBS#1).
 - Whether a change touches a unit is computed from git at real refs, with `Test-GlobSetAffected` resolving the reference commit per context
   through `Get-GlobSetChangeRange` and failing open on any doubt (ADR-FLOW-CD-GLOBS#9).
-- Nothing checks the pipeline-detection variables directly; context detection goes through `Test-IsRunningInPipeline` so the logic stays
-  in one place (ADR-FLOW-CD-DETECT#1).
+- Nothing checks the pipeline-detection variables directly; context detection goes through `Test-IsRunningInPipeline` so the logic stays in
+  one place (ADR-FLOW-CD-DETECT#1).
 
 ## Where the code and the ADR differ
 

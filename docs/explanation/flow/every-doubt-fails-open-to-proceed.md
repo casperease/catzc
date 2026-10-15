@@ -26,11 +26,11 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **Git at real refs.** The question is asked between a reference commit and the commit being built, both read from the repository as it
-   is at run time. Nothing per unit is committed, so there is no whole-set hash to go stale.
+1. **Git at real refs.** The question is asked between a reference commit and the commit being built, both read from the repository as it is
+   at run time. Nothing per unit is committed, so there is no whole-set hash to go stale.
 2. **Is this unit touched?** The check diffs the two commits, matches the changed paths against the globset registry, and reports whether
-   the named unit is among the globsets the change touches. A rename is split into both of its paths, so a file moving into or out of a
-   unit counts as a change.
+   the named unit is among the globsets the change touches. A rename is split into both of its paths, so a file moving into or out of a unit
+   counts as a change.
 3. **Stop.** The check answers that the unit is untouched only when it has positively confirmed it over a range it could resolve. That is
    the one answer that lets a stage return early.
 4. **Proceed.** The unit is touched, or the check is in doubt: the reference commit cannot be resolved, or git cannot compute the diff. Both
@@ -40,10 +40,10 @@ The diagram is described element by element in
 
 ## Why it holds
 
-- Whether a change touches a unit is computed from git at real refs, never from a committed hash, and the check fails open on any doubt so
-  a wrong skip can never drop a deploy (ADR-FLOW-CD-GLOBS#9).
-- The check returns false only when it has positively confirmed the unit is untouched, and throws on an undeclared unit name so a typo
-  never silently skips (ADR-FLOW-CD-GLOBS#9).
+- Whether a change touches a unit is computed from git at real refs, never from a committed hash, and the check fails open on any doubt so a
+  wrong skip can never drop a deploy (ADR-FLOW-CD-GLOBS#9).
+- The check returns false only when it has positively confirmed the unit is untouched, and throws on an undeclared unit name so a typo never
+  silently skips (ADR-FLOW-CD-GLOBS#9).
 
 ## Where the code and the ADR differ
 
