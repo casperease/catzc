@@ -63,6 +63,7 @@ languages:
     formatter: dotnet-format
     adr_folder: automation/BCL
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
+    imprint: [csharp-namespace]
   pipeline-yaml:
     extensions: [.yaml]
     formatter: prettier

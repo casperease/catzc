@@ -22,25 +22,20 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } { $script:languages }
         Mock Format-Code -ModuleName Catzc.Base.QualityGates { }
-        Mock Format-Types -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ ChangedCount = 0; ChangedFiles = @(); BlockScopedFiles = @(); DryRun = $true } }
         $script:reportFolder = Join-Path $TestDrive 'formatting'
     }
 
-    It 'passes a tree the formatting leaves unchanged, running every language with a formatter and the C# namespace rule in report-only mode' -Tag 'ADR-AUTO-TEST#35', 'ADR-PRIN-CONFIG#1' {
+    It 'passes a tree the formatting leaves unchanged, running every language with a formatter in report-only mode, and no step by name' -Tag 'ADR-AUTO-TEST#35', 'ADR-PRIN-CONFIG#1' {
         { Test-Formatting -OutputFolder $script:reportFolder } | Should -Not -Throw
         Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             ($Language -join ',') -eq 'widget,gadget' -and $DryRun -and $PassThru
         }
-        Should -Invoke Format-Types -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $DryRun -and $PassThru }
     }
 
     It 'throws once listing every unformatted file, repository-relative, with the command that fixes it' -Tag 'ADR-AUTO-TEST#35' {
         Mock Format-Code -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @($script:widgetFile), [string[]] @($script:widgetFile), $true)
-            [Catzc.Base.QualityGates.FormatResult]::new('gadget', 'gofmt', [string[]] @($script:gadgetFile), [string[]] @($script:gadgetFile), $true)
-        }
-        Mock Format-Types -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ ChangedCount = 1; ChangedFiles = @($script:typeFile); BlockScopedFiles = @($script:blockFile); DryRun = $true }
+            [Catzc.Base.QualityGates.FormatResult]::new('gadget', 'gofmt', [string[]] @($script:gadgetFile, $script:typeFile, $script:blockFile), [string[]] @($script:gadgetFile, $script:typeFile), $true, @{ $script:blockFile = "block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'" })
         }
 
         $thrown = { Test-Formatting -OutputFolder $script:reportFolder } | Should -Throw -PassThru
@@ -51,7 +46,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         $result.Issues | Should -Be @(
             'docs/widget.wdg: not formatted — run Format-Code -Language widget'
             'gadgets/catzc-widget/gadget.gdg: not formatted — run Format-Code -Language gadget'
-            'automation/Widget/types/Gadget.cs: namespace not set from its module folder — run Format-Types'
+            'automation/Widget/types/Gadget.cs: not formatted — run Format-Code -Language gadget'
             "automation/Widget/types/Gizmo.cs: block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'"
         )
     }
@@ -61,11 +56,9 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         $result.IssueCount | Should -Be 0
         $result.Languages | Should -Be 1
         Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { ($Language -join ',') -eq 'gadget' }
-        Should -Invoke Format-Types -ModuleName Catzc.Base.QualityGates -Times 0
 
         $null = Test-Formatting -Language csharp, sprocket -PassThru -OutputFolder $script:reportFolder
         Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
-        Should -Invoke Format-Types -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
     }
 
     It 'throws on an undeclared language' {

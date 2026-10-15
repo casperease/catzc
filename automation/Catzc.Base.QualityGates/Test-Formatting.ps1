@@ -57,17 +57,10 @@ function Test-Formatting {
             foreach ($file in $result.ChangedFiles) {
                 & $addIssue $file "not formatted — run Format-Code -Language $($result.Language)"
             }
-        }
-    }
-
-    if ('csharp' -in @($selected | ForEach-Object name)) {
-        $types = Format-Types -DryRun -PassThru
-        foreach ($file in @($types.ChangedFiles)) {
-            & $addIssue $file 'namespace not set from its module folder — run Format-Types'
-        }
-        # A block-scoped namespace is the one drift Format-Types leaves alone: it needs a hand edit.
-        foreach ($file in @($types.BlockScopedFiles)) {
-            & $addIssue $file "block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'"
+            # What an imprint step found wrong but cannot repair needs a hand edit.
+            foreach ($file in $result.Unfixable.Keys) {
+                & $addIssue $file $result.Unfixable[$file]
+            }
         }
     }
 
