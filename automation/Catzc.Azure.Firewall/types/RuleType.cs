@@ -1,5 +1,5 @@
-// The kind of Azure Firewall rule collection an export covers. Parsed case-insensitively from, and
-// compared back against, the lowercase forms `application` / `network` that the firewall tooling uses.
+// The kind of Azure Firewall rule collection an export covers.
+// [comment:1](/docs/references/automation/catzc-azure-firewall/types/RuleType.cs.md#comment1)
 
 namespace Catzc.Azure.Firewall;
 

@@ -23,8 +23,8 @@ function Assert-PathExist {
     )
 
     if (-not (Test-Path -Path $Path -PathType $PathType)) {
-        # Not $ErrorText ?? ... : a [string] param coerces $null to '', and ?? only coalesces $null, so the
-        # default would never apply (the throw would be blank). See ADR: automatic-variable-pitfalls.
+        # Not $ErrorText ??...: a [string] param coerces $null to '', and ?? only coalesces $null, so the default...
+        # [comment:1](/docs/references/automation/catzc-base-asserts/Assert-PathExist.ps1.md#comment1)
         $message = if ($ErrorText) {
             $ErrorText
         }

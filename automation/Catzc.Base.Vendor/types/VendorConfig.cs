@@ -1,13 +1,7 @@
-// The vendor module source (configs/vendor.yml) — where Install-VendorModule downloads vendored modules from and
-// Remove-VendorModules validates them against ([ADR-PWSH-VENDOR](/docs/adr/pwsh/vendor-toolset-dependencies.md)).
-// Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Vendor.VendorConfig), so
-// Get-Config -Config vendor returns this typed record. Mirrors the YAML keys verbatim (the file's own `sourceUrl`
-// spelling, [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
-//
-// Constructing an instance validates the file, collecting every violation into one ArgumentException:
-//   - only the known keys ('source', 'sourceUrl') — an unknown key (a typo) fails fast at load;
-//   - 'source' is required and non-empty (the registered PSResourceRepository name, e.g. PSGallery);
-//   - 'sourceUrl', when present, is an absolute URI (a custom Artifactory / proxy feed).
+// The vendor module source (configs/vendor.yml) — where Install-VendorModule downloads vendored modules from and Remove-VendorModules...
+// [ADR-PWSH-VENDOR](/docs/adr/pwsh/vendor-toolset-dependencies.md),
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -22,8 +16,8 @@ public sealed class VendorConfig : Catzc.Base.Objects.DictionaryRecord
     // The registered PSResourceRepository to download from and validate against (PSGallery by default).
     public string source { get; }
 
-    // A custom repository url, registered under the `source` name on first use. Null when the source is a
-    // built-in repository that needs no url.
+    // A custom repository url, registered under the `source` name on first use.
+    // [comment:2](/docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md#comment2)
     public string sourceUrl { get; }
 
     public VendorConfig(IDictionary d)

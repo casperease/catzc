@@ -2,9 +2,8 @@
 .SYNOPSIS
     Asserts a module (optionally at a specific version) is available from the configured vendor source.
 .DESCRIPTION
-    The throwing half of the restorability check (Test-VendorModuleAvailable is the query). Throws an
-    actionable error when the source cannot offer the module, so a caller — chiefly Remove-VendorModules — never
-    deletes a committed binary that the network cannot restore.
+    The throwing half of the restorability check (Test-VendorModuleAvailable is the query).
+    [comment:1](/docs/references/automation/catzc-base-vendor/Assert-VendorModuleAvailable.ps1.md#comment1)
 .PARAMETER Name
     The module name that must be available on the source.
 .PARAMETER Version

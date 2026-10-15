@@ -4,9 +4,8 @@
 .PARAMETER Object
     The object to inspect.
 .PARAMETER PropertyName
-    The property name that must exist on the object. Dotted paths
-    (e.g. 'parent.child.etc.value') are walked level by level; the failure
-    message names the deepest segment that was reached before the chain broke.
+    The property name that must exist on the object.
+    [comment:1](/docs/references/automation/catzc-base-asserts/Assert-HaveProperty.ps1.md#comment1)
 .EXAMPLE
     Assert-HaveProperty $response 'StatusCode'
 .EXAMPLE

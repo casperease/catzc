@@ -2,12 +2,8 @@
 .SYNOPSIS
     Removes a manually installed Node.js and cleans up system PATH.
 .DESCRIPTION
-    Deletes the Node.js installation folder and removes it from the
-    system-level PATH. Requires Administrator. Auto-detects the install
-    directory from Get-Command if not specified.
-
-    This is for Node.js installations that do not appear in Apps & Features
-    or winget. If Node.js is managed by winget, use Uninstall-NodeJs instead.
+    Deletes the Node.js installation folder and removes it from the system-level PATH.
+    [comment:1](/docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md#comment1)
 .PARAMETER InstallDir
     Path to the Node.js installation folder. Auto-detected from PATH if omitted.
 .PARAMETER Force
@@ -28,16 +24,16 @@ function Remove-NodeJs {
 
     $config = Get-ToolConfig -Tool 'node_js'
 
-    # Gate: managed by our tooling system → refuse, redirect to Uninstall-NodeJs
-    # ([ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)).
+    # Gate: managed by our tooling system → refuse, redirect to Uninstall-NodeJs.
+    # [ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)
+    # [comment:2](/docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md#comment2)
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Node.js is managed by the tooling system. Use Uninstall-NodeJs instead.'
     }
 
-    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip
-    # / stray binary); elevation is scoped to the mechanism
-    # ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)), so no admin assert
-    # here.
+    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip /...
+    # [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
+    # [comment:3](/docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md#comment3)
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Node.js (native package / uv-Python pip / stray binary). Run with -Force to execute.'

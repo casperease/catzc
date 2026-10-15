@@ -98,6 +98,12 @@ public static class CommentEngine
                 continue;
             }
 
+            if (config.IsKept(language, comment))
+            {
+                // A kept line (a spell-checker directive, #Requires, #region) stays where it is and splits the run around it.
+                FlushRun();
+                continue;
+            }
             string marker = MarkerOf(comment);
             string prose = comment.Substring(marker.Length);
             if (prose.StartsWith(" ", StringComparison.Ordinal)) { prose = prose.Substring(1); }

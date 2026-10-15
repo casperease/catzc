@@ -3,12 +3,8 @@
     Asserts that a freshly pushed remote holds exactly the local branch — every ref it advertises points at the
     branch's commit.
 .DESCRIPTION
-    The post-push verification behind Publish-CleanHistory and Reset-GitHubRepository. Git names every commit by
-    the hash of its content and history, so a remote ref at the same commit as the local branch carries the same
-    history, object for object. Comparing the advertised refs (`git ls-remote`, a few hundred bytes) against the
-    local commit therefore proves what the server stored without downloading it, and the token scan runs on the
-    local branch instead of a mirror clone. A ref at any other commit is history the local scan never covered, so
-    it fails the check.
+    The post-push verification behind Publish-CleanHistory and Reset-GitHubRepository.
+    [comment:1](/docs/references/automation/catzc-tooling-github/private/Assert-RemoteMatchesBranch.ps1.md#comment1)
 .PARAMETER Url
     The remote to read, as a clone URL.
 .PARAMETER Branch

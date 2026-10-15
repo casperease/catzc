@@ -2,12 +2,8 @@
 .SYNOPSIS
     Applies the captured Windows PSReadLine key bindings on Linux, filtered to Linux-supported functions.
 .DESCRIPTION
-    PSReadLine on Linux defaults to bash-style editing; this replicates the Windows editing experience by
-    applying the captured bindings (configs/key-handler-bindings.yml) through Set-PSReadLineKeyHandler,
-    skipping any function the Linux build does not support (configs/key-handler-supported.yml) so an
-    unsupported binding is dropped rather than throwing. Runs on Linux only — applying Windows bindings on a
-    Windows session would clobber its native handlers, so the real apply path asserts $IsLinux. Use -DryRun
-    to see the plan (which bindings apply, which are skipped) on any platform without changing the session.
+    PSReadLine on Linux defaults to bash-style editing; this replicates the Windows editing experience by applying...
+    [comment:1](/docs/references/automation/catzc-tooling-keyhandler/Import-PSReadLineKeyHandlerSet.ps1.md#comment1)
 .PARAMETER DryRun
     Return the classified plan (one record per binding with Key, Function, Supported) and change nothing.
 .EXAMPLE

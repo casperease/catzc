@@ -1,5 +1,5 @@
-// A reference to one exported firewall-rules CSV on disk: which rule kind it holds, where the local file
-// is, and the provenance of the blob it came from. The handle passed down the export → convert chain.
+// A reference to one exported firewall-rules CSV on disk: which rule kind it holds, where the local file is, and the provenance of the...
+// [comment:1](/docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md#comment1)
 
 using System;
 

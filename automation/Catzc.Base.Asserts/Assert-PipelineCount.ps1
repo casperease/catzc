@@ -3,7 +3,7 @@
     Asserts the number of objects in the pipeline.
 .DESCRIPTION
     Counts pipeline objects and validates against -Equals, -Minimum, or -Maximum.
-    Objects are passed through. Fails early when the count exceeds -Equals or -Maximum.
+    [comment:1](/docs/references/automation/catzc-base-asserts/Assert-PipelineCount.ps1.md#comment1)
 .PARAMETER InputObject
     Pipeline input (do not pass directly).
 .PARAMETER Equals

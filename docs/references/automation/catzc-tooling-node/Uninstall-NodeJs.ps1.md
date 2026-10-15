@@ -1,0 +1,39 @@
+# docs/references/automation/catzc-tooling-node/Uninstall-NodeJs.ps1.md
+
+`automation/Catzc.Tooling.Node/Uninstall-NodeJs.ps1`
+
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
+
+## comment:1
+
+Section `.DESCRIPTION` of the comment-based help.
+
+```text
+Removes Node.js (and its bundled npm) through the configured manager — the managed uninstall. Idempotent —
+skips if not installed. For a Node.js installed OUTSIDE the tooling system (a stray binary, a foreign
+package), escalate with -Remove -Force: the managed uninstall runs best-effort and then falls through to
+Remove-NodeJs, which destructively evicts whatever the configured manager did not own
+([ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
+```
+
+## comment:2
+
+Section `.PARAMETER Remove` of the comment-based help.
+
+```text
+After the managed uninstall, escalate to Remove-NodeJs to evict an off-config install the managed path
+cannot touch. Pair with -Force to actually remove; -Remove alone reports the plan
+([ADR-AUTO-REMOVE#4](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)).
+```
+
+## comment:3
+
+Above `try {`.
+
+```text
+Managed uninstall best-effort; with -Remove a failure (a foreign install) is logged and the escalation
+proceeds, without -Remove it propagates
+([ADR-AUTO-ONEJOB#5](/docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob5),
+[ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
+```

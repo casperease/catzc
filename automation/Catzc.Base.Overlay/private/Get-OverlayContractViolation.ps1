@@ -2,10 +2,9 @@
 .SYNOPSIS
     Returns every way an override file breaks the contract of the function it replaces.
 .DESCRIPTION
-    The bundle's own code keeps calling a function the way it always has, so an override keeps the original's
-    contract ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)): it declares every parameter the
-    original declares, with the same type; it adds no mandatory parameter the original does not have as mandatory;
-    and it declares the same [OutputType]. Read from the override's syntax tree, against the loaded original.
+    The bundle's own code keeps calling a function the way it always has, so an override keeps the original's...
+    [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
+    [comment:1](/docs/references/automation/catzc-base-overlay/private/Get-OverlayContractViolation.ps1.md#comment1)
 .PARAMETER Original
     The loaded function the override replaces.
 .PARAMETER Path

@@ -1,5 +1,5 @@
-# Windows PSReadLine key bindings captured by Save-PSReadLineKeyHandlerSet, replicated on Linux by
-# Import-PSReadLineKeyHandlerSet (filtered to key-handler-supported). Only key + function are consumed.
+# Windows PSReadLine key bindings captured by Save-PSReadLineKeyHandlerSet, replicated on Linux by Import-PSReadLineKeyHandlerSet...
+# [comment:1](/docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-bindings.yml.md#comment1)
 - key: Enter
   function: AcceptLine
 - key: Shift+Enter

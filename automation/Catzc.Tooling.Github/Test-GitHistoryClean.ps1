@@ -3,39 +3,19 @@
     Tests whether a token is absent from a git history across all three surfaces
     it can hide in: file content (blobs), file paths, and commit messages.
 .DESCRIPTION
-    The reusable verification primitive behind every purge: to prove a secret is
-    gone, it is not enough to scan the working tree — the token can survive in an
-    old blob, a renamed path, or a commit message. This scans the whole history
-    reachable from a ref for all three and returns a structured result.
-
-    The scan is one pass (Catzc.Base.Git.GitHistoryScan): git streams its objects
-    once (`git cat-file --batch-all-objects --batch`), and every commit message,
-    every path and every distinct file content the ref reaches is read exactly
-    once — never once per revision that contains it.
-
-    Scan the local ref (default HEAD) that is pushed; the purge functions then
-    prove from the remote's advertised refs that it holds that same commit,
-    so the scan covers what actually landed. Never scan
-    a ref whose upstream tracking still points at un-purged history (e.g. an
-    un-updated origin/*) — a stale tracking ref false-alarms.
-
-    Read-only: it never mutates the repository.
+    The reusable verification primitive behind every purge: to prove a secret is gone, it is not enough to scan the...
+    [comment:1](/docs/references/automation/catzc-tooling-github/Test-GitHistoryClean.ps1.md#comment1)
 .PARAMETER Token
-    The token to hunt for (e.g. a secret, or a project name being erased).
-    Matched as a literal substring, ignoring ASCII case, across every surface.
-    A binary file (a NUL byte in its first 8000 bytes) is skipped, as
-    `git grep -I` skips it.
+    The token to hunt for (e.g.
+    [comment:2](/docs/references/automation/catzc-tooling-github/Test-GitHistoryClean.ps1.md#comment2)
 .PARAMETER Ref
-    The ref whose reachable history is scanned. Defaults to HEAD. Pass a branch
-    name, a SHA, or --all to sweep every ref (only meaningful in a clone with no
-    stale tracking ref to false-alarm).
+    The ref whose reachable history is scanned.
+    [comment:3](/docs/references/automation/catzc-tooling-github/Test-GitHistoryClean.ps1.md#comment3)
 .PARAMETER RepositoryPath
     The git repository to scan. Defaults to the current repository root.
 .PARAMETER ExcludePath
-    Repo-relative path prefixes to ignore on every surface — vendored,
-    third-party trees that legitimately contain the token. Defaults to the
-    vendor directory. A file content is ignored only when every path it
-    appears under is excluded.
+    Repo-relative path prefixes to ignore on every surface — vendored, third-party trees that legitimately contain...
+    [comment:4](/docs/references/automation/catzc-tooling-github/Test-GitHistoryClean.ps1.md#comment4)
 .OUTPUTS
     A Catzc.Tooling.Github result object with:
       .Clean    — $true when no surface contains the token

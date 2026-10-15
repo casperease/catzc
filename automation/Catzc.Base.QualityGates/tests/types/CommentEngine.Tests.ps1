@@ -1,4 +1,5 @@
-# cspell:ignore nwidgets npublic nvar nwidget ngadget  -- escape-sequence artifacts in the "`n…" fixture strings
+# cspell:ignore nwidgets npublic nvar nwidget ngadget gadgt  -- escape-sequence artifacts in the "`n…" fixture strings, and the
+# deliberate misspelling a kept cspell directive covers
 # CommentEngine moves a file's long comments to its comment page and back, losslessly
 # ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)): what moves is decided by
 # comments.yml ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)). Each case
@@ -132,6 +133,23 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         [Catzc.Base.QualityGates.CommentEngine]::Citations("$colonForm, ADR-WIDGET#2 and ADR-GADGET") | Should -Be @('ADR-WIDGET#2', 'ADR-GADGET')
         [Catzc.Base.QualityGates.CommentEngine]::IsMechanical('ADR-WIDGET#2 [comment:1](/docs/x.md#comment1)') | Should -BeTrue
         [Catzc.Base.QualityGates.CommentEngine]::IsMechanical('Sorted so the widget order is stable') | Should -BeFalse
+    }
+
+    It 'keeps a directive inside a run in place and moves the prose around it' -Tag 'ADR-REPO-COMMENTS#1' {
+        $yaml = (@(
+                '# The widget registry, one entry per gadget,'
+                '# read once per run.'
+                '# cspell:ignore gadgt'
+                '# Each key is a gadget name, each value'
+                '# its widget count.'
+                'gadgt: 1'
+                ''
+            ) -join "`n")
+        $result = & $export $yaml '.yml' 'yaml'
+        $result.MovedCount | Should -Be 2
+        ($result.Text -split "`n")[2] | Should -BeExactly '# cspell:ignore gadgt'
+        $result.PageText.Contains('cspell') | Should -BeFalse
+        [Catzc.Base.QualityGates.CommentEngine]::View($result.Text, '.yml', $result.PageText) | Should -BeExactly $yaml
     }
 
     It 'keeps a block whose head the language keeps, and moves nothing below min_lines' -Tag 'ADR-PRIN-CONFIG#1' {

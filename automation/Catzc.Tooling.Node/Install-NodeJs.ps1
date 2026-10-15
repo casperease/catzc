@@ -2,18 +2,8 @@
 .SYNOPSIS
     Installs Node.js via the platform package manager.
 .DESCRIPTION
-    Installs Node.js (which includes npm) at the locked major version. Windows: winget
-    (OpenJS.NodeJS.LTS). macOS: Homebrew (node@<major>). Linux: the NodeSource apt
-    repository for the locked major (configured inline if not already present), because
-    the distro `nodejs` package lags the pin badly (Ubuntu jammy ships Node 12).
-    Idempotent — skips if already installed at the correct version.
-
-    NOT for CI pipelines. In Azure DevOps, use the native UseNode task
-    which activates pre-cached versions instantly:
-
-        - task: UseNode@1
-          inputs:
-            version: '22.x'
+    Installs Node.js (which includes npm) at the locked major version.
+    [comment:1](/docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md#comment1)
 .PARAMETER Version
     Node.js major version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force
@@ -56,9 +46,8 @@ function Install-NodeJs {
         Assert-IsAdministrator -ErrorText 'Install-NodeJs on Linux requires root (apt-get). Run as root or install node_js manually.'
         Assert-Command apt-get
 
-        # The distro `nodejs` package trails the pinned major badly (Ubuntu jammy ships Node 12), so install
-        # from the NodeSource apt repository for the locked major — mirroring the HashiCorp repo setup in
-        # Install-Terraform. The repo URL embeds the major, so re-write the source when the pin changes.
+        # The distro `nodejs` package trails the pinned major badly (Ubuntu jammy ships Node 12), so install from the...
+        # [comment:2](/docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md#comment2)
         $sourcePath = '/etc/apt/sources.list.d/nodesource.list'
         $gpgKeyPath = '/usr/share/keyrings/nodesource.gpg'
         $repoLine = "deb [signed-by=$gpgKeyPath] https://deb.nodesource.com/node_$Version.x nodistro main"

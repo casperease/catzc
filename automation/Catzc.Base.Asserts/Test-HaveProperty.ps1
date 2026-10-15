@@ -4,9 +4,8 @@
 .PARAMETER Object
     The object to inspect.
 .PARAMETER PropertyName
-    The property name to look for. Dotted paths (e.g. 'parent.child.value')
-    walk each level in turn; a missing or null-valued intermediate short-circuits to $false
-    rather than throwing.
+    The property name to look for.
+    [comment:1](/docs/references/automation/catzc-base-asserts/Test-HaveProperty.ps1.md#comment1)
 .EXAMPLE
     Test-HaveProperty $object 'Name'
 .EXAMPLE

@@ -1,18 +1,8 @@
-// The inspirations catzc reads for ideas, configs/inspiration.yml: an 'inspirations' list of InspirationEntry
-// ([ADR-REPO-INSPIRE](/docs/adr/repository/inspiration.md)). Constructing an instance MAPS and VALIDATES the parsed
-// YAML and collects every violation into one throw. Registered in Catzc.Base.Config/configs/configs.yml
-// (type: Catzc.Tooling.Inspiration.InspirationConfig), so Get-Config -Config inspiration returns this typed model.
-// Mirrors the YAML mapping (snake_case keys, [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
-//
-// The sensible default, the one 'eac' entry, is declared once here (DefaultInspirations,
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an empty file and an
-// omitted or null 'inspirations' key take it, so an empty file and a fresh checkout behave the same. An explicit
-// empty list declares no inspirations.
-//
-// Load-time rules:
-//   - a mapping whose only key is 'inspirations' (or an empty file);
-//   - 'inspirations' is a list of well-formed entries (InspirationEntry);
-//   - every id is unique.
+// The inspirations catzc reads for ideas, configs/inspiration.yml: an 'inspirations' list of InspirationEntry.
+// [ADR-REPO-INSPIRE](/docs/adr/repository/inspiration.md),
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
+// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
+// [comment:1](/docs/references/automation/catzc-tooling-inspiration/types/InspirationConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

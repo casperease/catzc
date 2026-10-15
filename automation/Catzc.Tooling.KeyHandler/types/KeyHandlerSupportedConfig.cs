@@ -1,13 +1,6 @@
-// The PSReadLine functions supported on Linux, configs/key-handler-supported.yml — the allow-list
-// Import-PSReadLineKeyHandlerSet filters the captured bindings against, so a Windows-only function is skipped rather
-// than throwing. Constructing an instance MAPS and VALIDATES the parsed YAML, collecting every violation into one
-// throw. Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Tooling.KeyHandler.KeyHandlerSupportedConfig),
-// so Get-Config -Config key-handler-supported returns this typed model. Mirrors the YAML mapping (snake_case keys,
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
-//
-// Load-time rules:
-//   - a mapping whose only key is 'functions';
-//   - 'functions' is a non-empty list of non-blank function names.
+// The PSReadLine functions supported on Linux, configs/key-handler-supported.yml — the allow-list Import-PSReadLineKeyHandlerSet filters...
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

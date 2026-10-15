@@ -2,18 +2,9 @@
 .SYNOPSIS
     Writes a quality gate's report, prints it, and ends the gate: throws once with every issue, or returns the result.
 .DESCRIPTION
-    The one implementation of a quality gate's output
-    ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)), so every gate reports the same way:
-
-      - a run folder <output root>/<folder>/<stamp>/ holding <report_file> — a markdown report naming the gate, its
-        facts, and every issue — and <latest_file> beside the stamped folders, naming the latest run;
-      - each issue printed, then the count (or "No <subject> issues found."), then the report path;
-      - with -PassThru, a result object instead of a throw; otherwise, when there are issues, one throw that lists them
-        all (a fail-fast, aggregated verdict).
-
-    Folder and file names come from configs/reports.yml (Catzc.Base.Reports.ReportsConfig), whose defaults give
-    out/test-<subject>/<yyyyMMdd-HHmmss>/<subject>.md and out/test-<subject>/latest.txt. A gate calls this last, with the
-    issues it collected; it never writes its own report.
+    The one implementation of a quality gate's output, so every gate reports the same way: - a run folder <output...
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
+    [comment:1](/docs/references/automation/catzc-base-reports/Write-QualityGateReport.ps1.md#comment1)
 .PARAMETER Subject
     The gate's subject, kebab-case ('spelling', 'shipped-configs'); names the report folder and file.
 .PARAMETER Title
@@ -54,9 +45,9 @@ function Write-QualityGateReport {
     )
 
     $settings = Get-Config -Config reports
-    # A body fill-in on purpose: every gate forwards its own -OutputFolder here, empty when its caller gave none, and
-    # an explicit empty argument would override a declared default
-    # ([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)).
+    # A body fill-in on purpose: every gate forwards its own -OutputFolder here, empty when its caller gave none, and...
+    # [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)
+    # [comment:2](/docs/references/automation/catzc-base-reports/Write-QualityGateReport.ps1.md#comment2)
     if (-not $OutputFolder) {
         $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) $settings.FolderFor($Subject)
     }

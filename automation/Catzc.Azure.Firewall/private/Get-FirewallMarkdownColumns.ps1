@@ -2,13 +2,8 @@
 .SYNOPSIS
     Builds the ordered, validated Markdown column descriptors for Convert-FirewallCsvToMarkdown.
 .DESCRIPTION
-    Produces the column list in render order — the rule-name column, then the composite columns, then the
-    additional single-field columns — de-duplicated case-insensitively. Each descriptor carries its candidate
-    CSV fields, whether its values are sorted, and its render mode ('list' or 'protoport').
-
-    When the CSV's present headers are known (non-empty), each column's candidates are trimmed to fields the
-    CSV actually has; a requested column left with no backing field is a schema mismatch and throws — rather
-    than silently dropping the column from the output.
+    Produces the column list in render order — the rule-name column, then the composite columns, then the additional...
+    [comment:1](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md#comment1)
 .PARAMETER RuleNameColumn
     CSV column used as the rule name / first table column.
 .PARAMETER CompositeColumns
@@ -73,8 +68,8 @@ function Get-FirewallMarkdownColumns {
         }
     }
 
-    # Trim candidates to fields the CSV actually has. A requested column with none left is a schema
-    # mismatch — fail rather than silently drop it from the output.
+    # Trim candidates to fields the CSV actually has.
+    # [comment:2](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md#comment2)
     if ($Present.Count -gt 0) {
         foreach ($column in $columns) {
             $column.Candidates = @($column.Candidates | Where-Object { $_ -in $Present })

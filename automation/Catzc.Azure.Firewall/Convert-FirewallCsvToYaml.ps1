@@ -2,18 +2,8 @@
 .SYNOPSIS
     Renders an Azure Firewall rule-export CSV (application or network) as YAML.
 .DESCRIPTION
-    Reads the CSV and writes each row as a YAML mapping, splitting the multi-value fields into arrays
-    (forced to a list even for a single value, and to an empty list when blank). All other fields are
-    emitted as-is. Field set is schema-agnostic: a name in -MultiValueFields that the CSV doesn't have is
-    simply never encountered, so the same defaults serve both the application and network exports.
-
-    The file opens with a comment header (source filename, CSV generation time, conversion time, all UTC).
-    Being YAML comments they're ignored by parsers, so the parsed document is still a plain list of rules.
-
-    Two parameter sets:
-      Path   : -CsvPath + -YamlPath.
-      Object : -InputObject (a Get-FirewallCsv result, pipeline-bindable) + optional -OutputFolder. CsvPath
-               comes from the object and the file is written as <original-name>.yaml.
+    Reads the CSV and writes each row as a YAML mapping, splitting the multi-value fields into arrays (forced to a...
+    [comment:1](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment1)
 .PARAMETER CsvPath
     Path to the source CSV (Path set).
 .PARAMETER YamlPath
@@ -25,8 +15,8 @@
 .PARAMETER InputObject
     A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the pipeline (Object set).
 .PARAMETER OutputFolder
-    Destination directory in Object mode; the file is named <original-name>.yaml. Defaults to the yaml folder
-    under the output root (Get-OutputRoot: <repo>/out locally, the artifact staging directory in a pipeline).
+    Destination directory in Object mode; the file is named <original-name>.yaml.
+    [comment:2](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment2)
 .PARAMETER MultiValueFields
     Fields split into YAML arrays on -SplitPattern.
 .PARAMETER SplitPattern
@@ -90,14 +80,15 @@ function Convert-FirewallCsvToYaml {
             $YamlPath = Join-Path $OutputFolder $yamlName
         }
 
-        # A body fill-in on purpose: in Object mode $CsvPath comes from pipeline input, bound after defaults are
-        # evaluated ([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)).
+        # A body fill-in on purpose: in Object mode $CsvPath comes from pipeline input, bound after defaults are...
+        # [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)
+        # [comment:3](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment3)
         if (-not $SourceName) {
             $SourceName = Split-Path -Path $CsvPath -Leaf
         }
 
-        # In Object mode CsvPath comes from the piped object (the Path set is ValidateScript'd); assert it
-        # exists either way so a source path that is wrong fails here, named, not as a raw Import-Csv error.
+        # In Object mode CsvPath comes from the piped object (the Path set is ValidateScript'd); assert it exists...
+        # [comment:4](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment4)
         Assert-PathExist $CsvPath -PathType Leaf
 
         $rules = Import-Csv -Path $CsvPath | ForEach-Object {
@@ -123,8 +114,8 @@ function Convert-FirewallCsvToYaml {
 
         $yaml = ConvertTo-Yaml -Data $rules
 
-        # Provenance as a YAML comment header — visible to readers, ignored by parsers, so the parsed
-        # shape stays a plain list of rules. Times are UTC; conversion time is taken now in UTC.
+        # Provenance as a YAML comment header — visible to readers, ignored by parsers, so the parsed shape stays a...
+        # [comment:5](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment5)
         $header = [System.Collections.Generic.List[string]]::new()
         $header.Add("# Source: $SourceName")
         if ($null -ne $GeneratedAt) {

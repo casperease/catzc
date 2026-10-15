@@ -2,8 +2,8 @@
 .SYNOPSIS
     Runs npm with the given arguments.
 .DESCRIPTION
-    Asserts that the installed npm version matches the locked version
-    in Get-ToolConfig before executing the command.
+    Asserts that the installed npm version matches the locked version in Get-ToolConfig before executing the command.
+    [comment:1](/docs/references/automation/catzc-tooling-node/Invoke-Npm.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to npm.
 .PARAMETER PassThru
