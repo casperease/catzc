@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: private
+    adrs:
+      - ADR-AZ-DATAMOD#2
 ---
 #>
 

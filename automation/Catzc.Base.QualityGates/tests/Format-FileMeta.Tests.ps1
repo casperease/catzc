@@ -13,12 +13,12 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         $script:registry = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{
                     'file-kind' = @{ keys = @('kind'); settings = @{ classes = @(@{ class = 'gadget'; files = @('docs/**') }) } }
-                    'body-sha'      = @{ keys = @('body_sha') }
-                    'adr-codes'     = @{ keys = @('adrs') }
+                    'body-sha'  = @{ keys = @('body_sha') }
+                    'adr-codes' = @{ keys = @('adrs') }
                 }
             })
         # Not named $config: that is Get-Config's own -Config parameter inside the mock.
-        Mock Get-Config { $script:registry } -ModuleName Catzc.Base.QualityGates
+        Mock Get-Config { $script:registry } -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'file-meta' }
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
         $script:reportBase = Join-Path $script:widgetRoot 'reports'

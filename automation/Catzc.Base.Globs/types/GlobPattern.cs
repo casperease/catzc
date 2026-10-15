@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.Globs/types/GlobPattern.cs
     kind: type
     module: Catzc.Base.Globs
+    adrs:
+      - ADR-FLOW-CD-GLOBS
+      - ADR-FLOW-CD-GLOBS#2
+      - ADR-FLOW-CD-GLOBS#3
 ---
 */
 

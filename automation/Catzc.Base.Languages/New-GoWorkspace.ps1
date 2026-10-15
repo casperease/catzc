@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Languages
     visibility: public
+    adrs:
+      - ADR-CONF-ADDRESSING
+      - ADR-REPO-ROOTCFG
 ---
 #>
 

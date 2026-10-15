@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs:
+      - ADR-AUTO-CONSOLE#10
+      - ADR-AUTO-TEST#32
 ---
 #>
 
@@ -29,6 +32,8 @@ catzc:
     The run directory the shard scripts and their artifacts are written into.
 .PARAMETER ExcludeTag
     Tags excluded from every worker's run (from Get-TestExcludeTag).
+.PARAMETER IncludeTag
+    Tags every worker's run is limited to; empty runs every test the other filters keep.
 .PARAMETER Verbosity
     Pester output verbosity inside each worker.
 .PARAMETER Workers
@@ -37,6 +42,7 @@ catzc:
     Greedy files run side by side in groups of this size, one group after another; 0 reads greedy_group_size from test-policy.yml.
 .PARAMETER TimeoutSeconds
     Hard ceiling per execution phase; on expiry the pool is killed and the run throws.
+    [comment:16](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment16)
 .PARAMETER WorkerEnvironment
     Extra environment variables for each worker's process (the L0/L1 tripwire) — never the parent's $env:.
 .PARAMETER EntryScript
@@ -89,7 +95,6 @@ function Invoke-TestAutomationWorkers {
         [ValidateRange(0, 64)]
         [int] $GreedyGroupSize = 0,
 
-        # The entry point's own limit, passed down by Invoke-TestRun; no default here.
         [Parameter(Mandatory)]
         [ValidateRange(60, 86400)]
         [int] $TimeoutSeconds,

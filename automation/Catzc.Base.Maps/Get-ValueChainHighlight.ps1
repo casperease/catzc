@@ -6,6 +6,13 @@ catzc:
     kind: function
     module: Catzc.Base.Maps
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST
+      - ADR-DSGN-TRACK#12
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#3
+      - ADR-FLOW-CD
+      - ADR-THES-ONETRUTH#3
 ---
 #>
 

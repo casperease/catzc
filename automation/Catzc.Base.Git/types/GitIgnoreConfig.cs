@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Git/types/GitIgnoreConfig.cs
     kind: type
     module: Catzc.Base.Git
+    adrs:
+      - ADR-CONF-LOADING
+      - ADR-REPO-ROOTCFG
 ---
 */
 

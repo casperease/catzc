@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs:
+      - ADR-AUTO-TRACKED#1
+      - ADR-FLOW-CD-GLOBS#4
 ---
 #>
 

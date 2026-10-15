@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Maps/types/MapsLimits.cs
     kind: type
     module: Catzc.Base.Maps
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TYPES#8
 ---
 */
 

@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Azure.DevOps/types/AdoConfig.cs
     kind: type
     module: Catzc.Azure.DevOps
+    adrs:
+      - ADR-AUTO-TYPES#8
 ---
 */
 

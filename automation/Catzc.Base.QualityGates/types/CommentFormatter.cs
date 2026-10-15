@@ -5,6 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CommentFormatter.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-AUTO-IDEM#1
+      - ADR-PRIN-CONFIG#1
+      - ADR-REPO-COMMENTS#1
+      - ADR-REPO-COMMENTS#5
 ---
 */
 
@@ -43,6 +48,13 @@ public static class CommentFormatter
         {
             changed |= FormatResidue(lines, residue, repoRelativePath, pageText, config, lineLimit, findings);
         }
+        // The insight fixes above may have moved lines, so the residues are found again before their citations go.
+        List<SourceLine> settled = changed ? Split(Join(lines)) : lines;
+        foreach (CommentResidue residue in CommentEngine.FindResidues(Join(settled), extension).OrderByDescending(r => r.StartLine))
+        {
+            changed |= DropCitations(settled, residue, repoRelativePath, findings);
+        }
+        lines = settled;
         foreach (CommentBlock block in CommentEngine.FindBlocks(text, extension, language, config))
         {
             findings.Add(new CommentFinding(repoRelativePath, block.StartLine + 1, CommentFindingKind.LongComment,
@@ -91,14 +103,13 @@ public static class CommentFormatter
         int insightLine = residue.StartLine;
         string insight = residue.Insight;
         bool fixedInsight = false;
-        IReadOnlyList<string> citations = CommentEngine.Citations(insight);
-        bool carriesLink = citations.Count > 0 || insight.IndexOf("](", StringComparison.Ordinal) >= 0;
+        bool carriesLink = CommentEngine.Citations(insight).Count > 0 || insight.IndexOf("](", StringComparison.Ordinal) >= 0;
         if (carriesLink)
         {
             if (linkLineIsMechanical)
             {
                 findings.Add(new CommentFinding(file, insightLine + 1, CommentFindingKind.LinkInInsight,
-                    "the insight line carries a link or citation — links go, citations move to the docs-link line"));
+                    "the insight line carries a link or citation — both go, the file's head lists its citations"));
                 fixedInsight = true;
             }
             else
@@ -123,24 +134,24 @@ public static class CommentFormatter
         string replacement = CommentEngine.Insight(insight, maxInsight);
         if (replacement.Length == 0) { return false; }
         lines[insightLine] = new SourceLine(prefix + replacement, lines[insightLine].Terminator);
-        if (carriesLink && linkLineIsMechanical)
-        {
-            lines[linkLine] = new SourceLine(prefix + WithCitations(linkBody, citations), lines[linkLine].Terminator);
-        }
         return true;
     }
 
-    // The docs-link line's body with the given citations added before the link, each once, existing ones first.
-    static string WithCitations(string linkBody, IReadOnlyList<string> citations)
+    // A residue is the insight line and the docs link; the citation lines and the citations before the link go, because the head lists them.
+    static bool DropCitations(List<SourceLine> lines, CommentResidue residue, string file, List<CommentFinding> findings)
     {
+        string prefix = residue.Indent + (residue.Marker.Length > 0 ? residue.Marker + " " : string.Empty);
+        int linkLine = residue.EndLine;
+        string linkBody = Body(lines[linkLine].Text, residue.Indent, residue.Marker);
         int linkAt = linkBody.IndexOf(DocsLinkStart, StringComparison.Ordinal);
-        string rest = linkBody.Substring(linkAt).Trim();
-        var all = new List<string>(CommentEngine.Citations(linkBody.Substring(0, linkAt)));
-        foreach (string citation in citations)
-        {
-            if (!all.Contains(citation)) { all.Add(citation); }
-        }
-        return all.Count == 0 ? rest : string.Join(", ", all) + " " + rest;
+        if (linkAt < 0 || !CommentEngine.IsMechanical(linkBody)) { return false; }
+        int first = residue.StartLine + (residue.Insight.Length > 0 ? 1 : 0);
+        if (first >= linkLine && linkAt == 0) { return false; }
+        findings.Add(new CommentFinding(file, first + 1, CommentFindingKind.CitationInResidue,
+            "citations stand in the residue — they go, the file's head lists them"));
+        lines.RemoveRange(first, linkLine - first);
+        lines[first] = new SourceLine(prefix + linkBody.Substring(linkAt).Trim(), lines[first].Terminator);
+        return true;
     }
 
     static string Body(string line, string indent, string marker)

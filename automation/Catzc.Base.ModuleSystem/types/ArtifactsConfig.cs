@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
     kind: type
     module: Catzc.Base.ModuleSystem
+    adrs:
+      - ADR-AUTO-TEST#24
+      - ADR-AUTO-TYPES#8
 ---
 */
 

@@ -5,6 +5,12 @@ catzc:
     path: automation/Catzc.Base.Maps/types/ValueChainCell.cs
     kind: type
     module: Catzc.Base.Maps
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-DSGN-TRACK#10
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
 ---
 */
 

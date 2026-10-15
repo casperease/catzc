@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Globs/types/DurableHash.cs
     kind: type
     module: Catzc.Base.Globs
+    adrs:
+      - ADR-FLOW-CD-GLOBS
+      - ADR-FLOW-CD-GLOBS#5
 ---
 */
 

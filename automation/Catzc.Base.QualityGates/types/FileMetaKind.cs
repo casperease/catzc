@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/FileMetaKind.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-FILEMETA#2
+      - ADR-REPO-FILEMETA#4
 ---
 */
 

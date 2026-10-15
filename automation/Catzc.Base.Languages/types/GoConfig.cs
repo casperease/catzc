@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.Languages/types/GoConfig.cs
     kind: type
     module: Catzc.Base.Languages
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TYPES#8
+      - ADR-REPO-FOLDERS#4
 ---
 */
 

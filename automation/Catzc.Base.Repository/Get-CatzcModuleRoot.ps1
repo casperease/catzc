@@ -6,6 +6,11 @@ catzc:
     kind: function
     module: Catzc.Base.Repository
     visibility: public
+    adrs:
+      - ADR-AUTO-ASSETDEP#1
+      - ADR-AUTO-ASSETDEP#2
+      - ADR-AUTO-OVERLAY
+      - ADR-DSGN-RUNMODE
 ---
 #>
 

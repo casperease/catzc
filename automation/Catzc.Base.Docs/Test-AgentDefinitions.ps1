@@ -6,6 +6,13 @@ catzc:
     kind: function
     module: Catzc.Base.Docs
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-AGENTS
+      - ADR-REPO-AGENTS#1
+      - ADR-REPO-AGENTS#2
+      - ADR-REPO-AGENTS#3
+      - ADR-REPO-AGENTS#4
 ---
 #>
 

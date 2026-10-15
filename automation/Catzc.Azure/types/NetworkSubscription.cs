@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Azure/types/NetworkSubscription.cs
     kind: type
     module: Catzc.Azure
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-AZ-NETWORK
 ---
 */
 
 // Which kind a subscription needs and which environments it serves are azure.yml facts, joined by Test-AzureNetworkPlan.
-// [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md#comment1)
 
 using System;

@@ -5,6 +5,12 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/LinkEngine.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-REPO-LINK#1
+      - ADR-REPO-LINK#5
+      - ADR-REPO-LINK#6
+      - ADR-REPO-LINK#8
+      - ADR-X
 ---
 */
 

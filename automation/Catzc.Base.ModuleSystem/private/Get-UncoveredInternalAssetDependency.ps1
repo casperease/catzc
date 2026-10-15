@@ -6,6 +6,11 @@ catzc:
     kind: function
     module: Catzc.Base.ModuleSystem
     visibility: private
+    adrs:
+      - ADR-AUTO-ASSETDEP#3
+      - ADR-AUTO-ASSETDEP#4
+      - ADR-AUTO-TEST#13
+      - ADR-PWSH-PESTER#5
 ---
 #>
 

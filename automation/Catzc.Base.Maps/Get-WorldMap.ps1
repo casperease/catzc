@@ -6,6 +6,14 @@ catzc:
     kind: function
     module: Catzc.Base.Maps
     visibility: public
+    adrs:
+      - ADR-AUTO-CACHE#6
+      - ADR-AUTO-TRACKED
+      - ADR-DSGN-TRACK#1
+      - ADR-DSGN-TRACK#3
+      - ADR-DSGN-TRACK#6
+      - ADR-PWSH-CACHE#4
+      - ADR-THES-ONETRUTH#3
 ---
 #>
 

@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GlossaryScan.cs
     kind: type
     module: Catzc.Base.Docs
+    adrs: []
 ---
 */
 

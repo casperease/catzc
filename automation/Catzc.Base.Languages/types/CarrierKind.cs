@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Languages/types/CarrierKind.cs
     kind: type
     module: Catzc.Base.Languages
+    adrs:
+      - ADR-REPO-FILEMETA#1
 ---
 */
 

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md
     kind: comment-page
-    body_sha: "84b7a674b98b"
+    body_sha: "8c68d7a608a4"
     adrs:
       - ADR-AUTO-CONSOLE#10
       - ADR-AUTO-TEST#32
@@ -174,4 +174,13 @@ Above `$measured = @{}`.
 Every shard finished: record each file's measured duration for the next run's scheduling, keyed on its source
 path. A shard without its files sidecar contributes nothing; the history keeps the file's last measurement.
 The same entries, with their working-folder paths, are the run's Files: a file's own outcome and error.
+```
+
+## comment:16
+
+Section `.PARAMETER TimeoutSeconds` of the comment-based help.
+
+```text
+Hard ceiling per execution phase; on expiry the pool is killed and the run throws. The entry point's own limit, passed down by
+Invoke-TestRun, with no default here.
 ```

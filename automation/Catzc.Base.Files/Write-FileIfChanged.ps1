@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.Files
     visibility: public
+    adrs:
+      - ADR-AUTO-CACHE
+      - ADR-AUTO-DRYRUN
+      - ADR-PRIN-ONELIVE
 ---
 #>
 

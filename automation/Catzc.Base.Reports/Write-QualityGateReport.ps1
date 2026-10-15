@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Reports
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-PWSH-PARAM#4
 ---
 #>
 

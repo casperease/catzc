@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Config
     visibility: private
+    adrs:
+      - ADR-PWSH-CACHE
+      - ADR-PWSH-CACHE#4
 ---
 #>
 

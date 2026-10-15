@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Azure.Firewall
     visibility: public
+    adrs: []
 ---
 #>
 
@@ -25,10 +26,12 @@ catzc:
     Unset, the folder sits under the output root (out locally, the staging directory in a pipeline) and is created.
     [comment:3](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment3)
 .PARAMETER Type
+    The type word doubles as the blob name filter: application matches ApplicationRules, network NetworkRules.
+    [comment:4](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment4)
     The type word also filters blob names case-insensitively, so a type with no matching blob throws.
     [comment:2](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment2)
 .PARAMETER TimestampPattern
-    Regex capturing the timestamp substring in the filename. Default '\d{2}-\d{2}-\d{4}-\d{2}-\d{2}'.
+    Regex capturing the timestamp substring in the filename (UTC), the source of truth for generation time. Default '\d{2}-\d{2}-\d{4}-\d{2}-\d{2}'.
 .PARAMETER TimestampFormat
     .NET ParseExact format for the captured timestamp, interpreted as UTC. Default 'dd-MM-yyyy-HH-mm'.
 .EXAMPLE
@@ -56,13 +59,10 @@ function Get-FirewallCsv {
         [Parameter()]
         [string]$DownloadPath = (Join-Path (Get-OutputRoot) 'download'),
 
-        # The type word doubles as the blob name filter: application matches ApplicationRules, network NetworkRules.
-        # [comment:4](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment4)
         [Parameter()]
         [ValidateSet('application', 'network')]
         [string[]]$Type = @('application', 'network'),
 
-        # Timestamp embedded in the filename (UTC) — the source of truth for generation time.
         [Parameter()]
         [string]$TimestampPattern = '\d{2}-\d{2}-\d{4}-\d{2}-\d{2}',
 

@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.Exporter
     visibility: public
+    adrs:
+      - ADR-AUTO-BUNDLE#6
+      - ADR-AUTO-DRYRUN#2
+      - ADR-AUTO-ENGINE#2
 ---
 #>
 

@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: private
+    adrs:
+      - ADR-AZ-DATAMOD#8
 ---
 #>
 
@@ -13,10 +15,10 @@ catzc:
 .SYNOPSIS
     Returns the subscription-resolution violations for a single config — the shared rule used by both
     Get-BicepTemplates (fail-fast at discovery) and Assert-BicepTemplate (collect-all), so the two never
-    drift. Parallels Get-BicepConfigClassViolations. See
-    [ADR-AZ-DATAMOD#8](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8).
+    drift. Parallels Get-BicepConfigClassViolations.
 .DESCRIPTION
     The caller prepends the template identifier, and an empty result means the config conforms.
+    [ADR-AZ-DATAMOD#8](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8)
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md#comment1)
 .PARAMETER Customer
     The configuration subfolder name, or '' for a configuration-root config.

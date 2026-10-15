@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Azure.DevOps.BuildValidation
     visibility: public
+    adrs:
+      - ADR-AUTO-IDEM
+      - ADR-FLOW-CD-GLOBS
+      - ADR-FLOW-CD-TYPE#4
 ---
 #>
 

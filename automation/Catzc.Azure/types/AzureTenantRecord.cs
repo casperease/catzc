@@ -5,12 +5,13 @@ catzc:
     path: automation/Catzc.Azure/types/AzureTenantRecord.cs
     kind: type
     module: Catzc.Azure
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-AZ-DATAMOD
 ---
 */
 
 // Per-entry shape only: AzureConfig builds one per entry and collects its violations with the file's.
-// [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-azure/types/AzureTenantRecord.cs.md#comment1)
 
 using System;

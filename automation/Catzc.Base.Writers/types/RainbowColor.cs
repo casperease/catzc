@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Writers/types/RainbowColor.cs
     kind: type
     module: Catzc.Base.Writers
+    adrs:
+      - ADR-AUTO-CONSOLE
+      - ADR-AUTO-CONSOLE#7
 ---
 */
 

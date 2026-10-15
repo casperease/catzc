@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.Vendor
     visibility: public
+    adrs:
+      - ADR-DSGN-RUNMODE
+      - ADR-PWSH-VENDOR
+      - ADR-PWSH-VENDOR#7
 ---
 #>
 

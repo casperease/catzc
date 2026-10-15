@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Git
     visibility: public
+    adrs:
+      - ADR-AUTO-DRYRUN#2
+      - ADR-REPO-OUTDIR#10
 ---
 #>
 

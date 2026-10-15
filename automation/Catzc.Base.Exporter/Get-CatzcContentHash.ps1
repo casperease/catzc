@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Exporter
     visibility: public
+    adrs:
+      - ADR-FLOW-CD-GLOBS#5
 ---
 #>
 

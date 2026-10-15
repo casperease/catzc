@@ -6,6 +6,11 @@ catzc:
     kind: function
     module: Catzc.Base.Variants
     visibility: public
+    adrs:
+      - ADR-DSGN-TRACK
+      - ADR-DSGN-TRACK#1
+      - ADR-DSGN-TRACK#2
+      - ADR-DSGN-TRACK#6
 ---
 #>
 

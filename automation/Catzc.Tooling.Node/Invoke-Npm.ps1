@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Tooling.Node
     visibility: public
+    adrs: []
 ---
 #>
 
@@ -23,6 +24,8 @@ catzc:
     Skip exit code assertion.
 .PARAMETER Silent
     Suppress the command log line.
+.PARAMETER DryRun
+    Return the command string without executing.
 .EXAMPLE
     Invoke-Npm 'install'
 .EXAMPLE

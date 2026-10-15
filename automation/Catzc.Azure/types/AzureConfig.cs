@@ -5,18 +5,19 @@ catzc:
     path: automation/Catzc.Azure/types/AzureConfig.cs
     kind: type
     module: Catzc.Azure
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TYPES#8
+      - ADR-AZ-CUSTOMER#3
+      - ADR-AZ-DATAMOD
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#7
+      - ADR-AZ-DATAMOD#8
+      - ADR-AZ-NAMING#6
 ---
 */
 
 // Hermetic: a subscription's customer reference is not resolved here, and completeness is an integrity concern, not a load rule.
-// [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
-// [ADR-AZ-DATAMOD#11](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11),
-// [ADR-AZ-NAMING#6](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming6),
-// [ADR-AZ-DATAMOD#8](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8),
-// [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3),
-// [ADR-AZ-DATAMOD#7](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod7)
 // [comment:1](/docs/references/automation/catzc-azure/types/AzureConfig.cs.md#comment1)
 
 using System;

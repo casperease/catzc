@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: public
+    adrs:
+      - ADR-AUTO-DRYRUN
+      - ADR-PWSH-DRYRUN#1
 ---
 #>
 
@@ -15,6 +18,10 @@ catzc:
 .DESCRIPTION
     The tags land in the az session's subscription, the same target Deploy-Bicep just deployed into.
     [comment:1](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment1)
+.PARAMETER Environment
+    The environment the template was deployed to, as azure.yml names it.
+.PARAMETER Template
+    The Bicep template that was deployed, by name.
 .PARAMETER Slot
     Selects the same slot, and so the same resource group, that was deployed; omitted is the base slot.
     [comment:2](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment2)

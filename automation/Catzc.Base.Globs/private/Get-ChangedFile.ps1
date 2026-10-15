@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Globs
     visibility: private
+    adrs:
+      - ADR-FLOW-CD-GLOBS#4
 ---
 #>
 

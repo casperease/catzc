@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
     kind: type
     module: Catzc.Base.MarkdownMeta
+    adrs:
+      - ADR-REPO-FILEMETA#1
 ---
 */
 

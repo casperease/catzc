@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs: []
 ---
 #>
 
@@ -20,7 +21,7 @@ catzc:
 .PARAMETER MaxLength
     The longest joined batch, in characters.
 .OUTPUTS
-    [string[][]] The batches, in order; each is one array.
+    [string[]] One array per batch, in order.
 #>
 function Split-CommandLineBatch {
     [CmdletBinding()]

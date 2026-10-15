@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/SourceCheck.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TYPES#8
+      - ADR-PRIN-CONFIG#4
 ---
 */
 

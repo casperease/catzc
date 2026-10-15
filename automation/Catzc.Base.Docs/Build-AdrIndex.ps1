@@ -6,6 +6,17 @@ catzc:
     kind: function
     module: Catzc.Base.Docs
     visibility: public
+    adrs:
+      - ADR-AUTO-CACHE#5
+      - ADR-AUTO-DRYRUN
+      - ADR-AZ-DATAMOD#2
+      - ADR-AZ-NAMING#7
+      - ADR-PWSH-ERROR#3
+      - ADR-REPO-FORMAT#5
+      - ADR-REPO-LINK
+      - ADR-REPO-LINK#5
+      - ADR-REPO-LINK#9
+      - ADR-REPO-README
 ---
 #>
 

@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CommentPageMap.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-PRIN-ONELIVE#1
+      - ADR-REPO-README#7
 ---
 */
 

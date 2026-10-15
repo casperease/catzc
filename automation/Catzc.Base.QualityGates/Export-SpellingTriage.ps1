@@ -6,6 +6,11 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: public
+    adrs:
+      - ADR-AUTO-DRYRUN
+      - ADR-AUTO-SPELL#5
+      - ADR-AUTO-SPELL#6
+      - ADR-AUTO-SPELL#7
 ---
 #>
 
@@ -24,6 +29,8 @@ catzc:
 .PARAMETER Exclude
     The defaults match Test-Spelling, so the tokens queued are exactly the tokens the gate flags.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment3)
+    Third-party noise belongs in the cspell.yml ignorePaths, not in this list.
+    [comment:5](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment5)
 .PARAMETER DryRun
     The returned list is the same in either mode; -DryRun only skips the write.
     [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
@@ -55,8 +62,6 @@ function Export-SpellingTriage {
             '**/*.py'
         ),
 
-        # Third-party noise belongs in the cspell.yml ignorePaths, not in this list.
-        # [comment:5](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment5)
         [string[]] $Exclude = @(
             'out/**'
             'docs/notes/**'

@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Objects/types/ArtifactRef.cs
     kind: type
     module: Catzc.Base.Objects
+    adrs:
+      - ADR-AUTO-PATH#10
 ---
 */
 

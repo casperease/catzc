@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrRuleSet.cs
     kind: type
     module: Catzc.Base.Docs
+    adrs:
+      - ADR-AUTO-TYPES
+      - ADR-AUTO-TYPES#9
+      - ADR-DSGN-TRACK#15
 ---
 */
 

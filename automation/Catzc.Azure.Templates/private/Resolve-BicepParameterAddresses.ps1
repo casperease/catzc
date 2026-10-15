@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: private
+    adrs:
+      - ADR-AZ-DATAMOD#10
+      - ADR-CONF-ADDRESSING#1
+      - ADR-CONF-ADDRESSING#3
 ---
 #>
 

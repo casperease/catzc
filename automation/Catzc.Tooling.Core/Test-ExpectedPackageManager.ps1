@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Tooling.Core
     visibility: public
+    adrs:
+      - ADR-AUTO-REMOVE#3
 ---
 #>
 
@@ -19,10 +21,14 @@ catzc:
     Tool configuration hashtable from Get-ToolConfig / tools.yml.
 .PARAMETER WingetListCache
     Pre-fetched winget list output (Get-WingetListCache), so a batch of checks lists once.
+    A batch of checks lists winget once and passes the result here, not one winget call per tool.
+    [comment:3](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment3)
 .PARAMETER Path
     A removal passes the folder it will delete, so the managed install's PATH position never judges another folder.
     [ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)
     [comment:2](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment2)
+    The default is the PATH-resolved folder, always the managed install in a catzc session, so removals pass this.
+    [comment:4](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment4)
 #>
 function Test-ExpectedPackageManager {
     [OutputType([bool])]
@@ -31,12 +37,8 @@ function Test-ExpectedPackageManager {
         [Parameter(Mandatory, Position = 0)]
         $Config,
 
-        # A batch of checks lists winget once and passes the result here, not one winget call per tool.
-        # [comment:3](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment3)
         [string] $WingetListCache,
 
-        # The default is the PATH-resolved folder, always the managed install in a catzc session, so removals pass this.
-        # [comment:4](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment4)
         [string] $Path
     )
 

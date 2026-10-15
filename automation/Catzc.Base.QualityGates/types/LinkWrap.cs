@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/LinkWrap.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-REPO-LINK#8
 ---
 */
 

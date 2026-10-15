@@ -5,6 +5,11 @@ catzc:
     path: automation/Catzc.Base.Variants/types/VariantTrack.cs
     kind: type
     module: Catzc.Base.Variants
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-DSGN-TRACK
+      - ADR-DSGN-TRACK#2
+      - ADR-DSGN-TRACK#6
 ---
 */
 

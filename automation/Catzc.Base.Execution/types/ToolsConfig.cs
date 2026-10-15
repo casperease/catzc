@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Execution/types/ToolsConfig.cs
     kind: type
     module: Catzc.Base.Execution
+    adrs:
+      - ADR-AUTO-DEPS#4
 ---
 */
 

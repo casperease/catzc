@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-DSGN-RUNMODE
+      - ADR-PWSH-PESTER#9
 ---
 #>
 

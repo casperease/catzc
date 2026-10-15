@@ -6,6 +6,11 @@ catzc:
     kind: function
     module: Catzc.Base.Docs
     visibility: public
+    adrs:
+      - ADR-AUTO-CACHE
+      - ADR-AUTO-NOPWD#1
+      - ADR-PRIN-REDUCEVAR
+      - ADR-PWSH-CACHE#4
 ---
 #>
 

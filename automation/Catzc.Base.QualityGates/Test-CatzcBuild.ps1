@@ -6,6 +6,11 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST#30
+      - ADR-AUTO-TEST#31
+      - ADR-AUTO-TEST#33
+      - ADR-DSGN-RUNMODE#6
 ---
 #>
 

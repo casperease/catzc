@@ -6,6 +6,11 @@ catzc:
     kind: function
     module: Catzc.Base.Globs
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-FLOW-CD-GLOBS#10
+      - ADR-FLOW-CD-GLOBS#7
+      - ADR-REPO-PROTGLOB#7
 ---
 #>
 

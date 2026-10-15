@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrNeutralityCheck.cs
     kind: type
     module: Catzc.Base.Docs
+    adrs:
+      - ADR-AUTO-ENGINE#1
+      - ADR-AUTO-TYPES#8
 ---
 */
 

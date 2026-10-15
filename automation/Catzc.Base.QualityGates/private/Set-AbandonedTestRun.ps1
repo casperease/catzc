@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs: []
 ---
 #>
 
@@ -18,7 +19,7 @@ catzc:
 .PARAMETER OutputFolder
     The report base folder whose run directories (<OutputFolder>/<stamp>/run.json) are swept.
 .OUTPUTS
-    [string[]] The run directories marked abandoned.
+    [string] Each run directory marked abandoned.
 .EXAMPLE
     Set-AbandonedTestRun -OutputFolder (Join-Path (Get-OutputRoot) 'test-automation')
 #>

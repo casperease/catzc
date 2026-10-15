@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Languages/types/FileCarrier.cs
     kind: type
     module: Catzc.Base.Languages
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TYPES#8
 ---
 */
 

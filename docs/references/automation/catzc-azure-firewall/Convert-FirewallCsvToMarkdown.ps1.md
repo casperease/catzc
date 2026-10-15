@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md
     kind: comment-page
-    body_sha: ef819015defe
+    body_sha: "937607cec31c"
     adrs:
       - ADR-PWSH-PARAM#4
 ---
@@ -105,4 +105,13 @@ Above `$generatedUtc = ([datetime]$GeneratedAt).ToUniversalTime().ToString('yyyy
 ```text
 PowerShell binds Nullable[datetime] as a plain [datetime], so check for $null and cast —
 do NOT use .HasValue/.Value, which don't exist on the unwrapped struct.
+```
+
+## comment:10
+
+Section `.PARAMETER CompositeColumns` of the comment-based help.
+
+```text
+Ordered map of output column -> candidate CSV fields. Drives column order and which fields each cell pulls from; a composite cell lists
+every populated candidate.
 ```

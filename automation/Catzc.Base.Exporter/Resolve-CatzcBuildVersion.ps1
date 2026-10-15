@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Exporter
     visibility: public
+    adrs:
+      - ADR-AUTO-BUNDLE#7
+      - ADR-PWSH-ERROR#2
 ---
 #>
 

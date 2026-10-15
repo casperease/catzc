@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: public
+    adrs:
+      - ADR-PRIN-CONFIG#1
+      - ADR-PRIN-ONELIVE#1
 ---
 #>
 

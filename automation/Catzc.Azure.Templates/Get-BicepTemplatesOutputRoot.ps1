@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST#26
+      - ADR-PWSH-PESTER#2
 ---
 #>
 

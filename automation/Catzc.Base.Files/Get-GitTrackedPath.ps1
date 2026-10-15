@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.Files
     visibility: public
+    adrs:
+      - ADR-AUTO-CACHE#9
+      - ADR-AUTO-TRACKED
+      - ADR-PWSH-CACHE#4
 ---
 #>
 

@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Base.Execution/types/CliResult.cs
     kind: type
     module: Catzc.Base.Execution
+    adrs: []
 ---
 */
 

@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-AZ-CUSTOMER#3
+      - ADR-PWSH-ERROR#3
 ---
 */
 

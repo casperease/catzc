@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepTemplate.cs
     kind: type
     module: Catzc.Azure.Templates
+    adrs:
+      - ADR-AZ-CUSTOMER
 ---
 */
 

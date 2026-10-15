@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Docs
     visibility: private
+    adrs:
+      - ADR-DSGN-RUNMODE#2
+      - ADR-REPO-FOLDERS#4
 ---
 #>
 

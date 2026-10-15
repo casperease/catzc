@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrCitationMap.cs
     kind: type
     module: Catzc.Base.Docs
+    adrs:
+      - ADR-AUTO
+      - ADR-PWSH-ERROR
+      - ADR-REPO-LINK#3
 ---
 */
 

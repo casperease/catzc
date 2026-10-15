@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
     kind: type
     module: Catzc.Base.ModuleSystem
+    adrs:
+      - ADR-AUTO-DEPM#3
 ---
 */
 

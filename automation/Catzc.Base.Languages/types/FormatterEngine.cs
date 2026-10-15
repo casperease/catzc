@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Languages/types/FormatterEngine.cs
     kind: type
     module: Catzc.Base.Languages
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-REPO-FORMAT#8
 ---
 */
 

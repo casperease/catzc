@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Languages/types/PythonTestResult.cs
     kind: type
     module: Catzc.Base.Languages
+    adrs:
+      - ADR-AUTO-TEST#1
+      - ADR-AUTO-TYPES#8
 ---
 */
 

@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.TypesSystem
     visibility: public
+    adrs:
+      - ADR-AUTO-FAILFAST#7
+      - ADR-DSGN-RUNMODE
 ---
 #>
 

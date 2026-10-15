@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Contracts
     visibility: private
+    adrs:
+      - ADR-REPO-CONTRACT#3
+      - ADR-REPO-CONTRACT#4
 ---
 #>
 

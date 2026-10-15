@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Azure.Firewall
     visibility: public
+    adrs:
+      - ADR-PWSH-PARAM#4
 ---
 #>
 
@@ -22,7 +24,8 @@ catzc:
 .PARAMETER RuleNameColumn
     CSV column used as the rule name / first table column. Default 'Name'.
 .PARAMETER CompositeColumns
-    Ordered map of output column -> candidate CSV fields. Drives column order and which fields each cell pulls from.
+    Ordered map of output column -> candidate CSV fields.
+    [comment:10](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment10)
 .PARAMETER ProtocolPortColumnName
     Which composite column pairs protocols with ports (and is rendered unsorted). Default 'Protocol/Port'.
 .PARAMETER IpGroupColumns
@@ -36,16 +39,18 @@ catzc:
 .PARAMETER CellListSeparator
     Separator joining multiple values within a cell. Default ', '.
 .PARAMETER GroupPriority
-    Rule collection group -> group priority (lower evaluated first). Not in the export, so supplied here.
+    Rule collection group -> group priority (lower evaluated first). Not in the export, so supplied here, and a group not listed sorts last.
+    [comment:3](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment3)
 .PARAMETER DoNotCutIpgNames
     Keep full IP-group resource IDs instead of trimming to the simple name.
 .PARAMETER SourceName
     H1 title. Defaults to the CSV's own filename.
 .PARAMETER GeneratedAt
-    CSV generation time in UTC. When omitted, the preamble shows only the conversion time.
+    CSV generation time in UTC, from the filename and supplied by Get-FirewallCsv. When omitted, the preamble shows only the conversion time.
 .PARAMETER InputObject
     A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the pipeline (Object set).
 .PARAMETER OutputFolder
+    Where the .md goes in Object mode; the file is named <original-name>.md.
     Unset, the file lands under the output root, which is out locally and the staging directory in a pipeline.
     [comment:2](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment2)
 .PARAMETER SortNote
@@ -71,7 +76,6 @@ function Convert-FirewallCsvToMarkdown {
         [Parameter()]
         [string]$RuleNameColumn = 'Name',
 
-        # Output column -> candidate CSV fields. Composite cells list every populated candidate.
         [Parameter()]
         [System.Collections.Specialized.OrderedDictionary]$CompositeColumns = ([ordered]@{
                 Source          = @('SourceIpGroups', 'SourceAddresses')
@@ -82,11 +86,9 @@ function Convert-FirewallCsvToMarkdown {
                 )
             }),
 
-        # The composite column that pairs protocols with ports (protocols:ports) and is left unsorted.
         [Parameter()]
         [string]$ProtocolPortColumnName = 'Protocol/Port',
 
-        # Fields whose values are IP-group resource IDs (these get the simple-name trim). NOT for CIDRs.
         [Parameter()]
         [string[]]$IpGroupColumns = @(
             'SourceIpGroups',
@@ -115,8 +117,6 @@ function Convert-FirewallCsvToMarkdown {
         [Parameter()]
         [string]$CellListSeparator = ', ',
 
-        # The export omits group priority, so it is supplied here, and a group not listed sorts last.
-        # [comment:3](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment3)
         [Parameter()]
         [hashtable]$GroupPriority = @{
             'rcg-old' = 248
@@ -126,23 +126,18 @@ function Convert-FirewallCsvToMarkdown {
         [Parameter()]
         [switch]$DoNotCutIpgNames,
 
-        # Document title (H1). Defaults to the CSV's own filename.
         [Parameter(ParameterSetName = 'Path')]
         [string]$SourceName,
 
-        # CSV generation time in UTC (from the filename, supplied by Get-FirewallCsv). Optional.
         [Parameter(ParameterSetName = 'Path')]
         [Nullable[datetime]]$GeneratedAt,
 
-        # A Get-FirewallCsv result object (Type/Path/Generated/Blob/Modified). Pipeline-friendly.
         [Parameter(Mandatory, ValueFromPipeline, ParameterSetName = 'Object')]
         [psobject]$InputObject,
 
-        # Where the .md goes in Object mode. Output file is <original-name>.md.
         [Parameter(ParameterSetName = 'Object')]
         [string]$OutputFolder = (Join-Path (Get-OutputRoot) 'markdown'),
 
-        # Sentence under '## Rules' describing the ordering.
         [Parameter()]
         [string]$SortNote = (
             'Listed in evaluation order — collection group priority, then collection priority, then rule name. ' +

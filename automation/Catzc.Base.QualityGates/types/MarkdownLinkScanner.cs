@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/MarkdownLinkScanner.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-REPO-LINK#2
+      - ADR-X
 ---
 */
 

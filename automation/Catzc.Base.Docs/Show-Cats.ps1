@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Docs
     visibility: public
+    adrs:
+      - ADR-AUTO-CACHE
+      - ADR-AUTO-CONSOLE
 ---
 #>
 

@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Languages
     visibility: public
+    adrs:
+      - ADR-DSGN-TRACK#6
 ---
 #>
 

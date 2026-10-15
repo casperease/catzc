@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Tooling.Python
     visibility: private
+    adrs:
+      - ADR-AUTO-UVPY#2
 ---
 #>
 

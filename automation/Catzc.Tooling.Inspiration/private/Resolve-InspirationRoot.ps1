@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Tooling.Inspiration
     visibility: private
+    adrs:
+      - ADR-AUTO-PATH#11
+      - ADR-AUTO-PATH#3
+      - ADR-AUTO-PATH#6
 ---
 #>
 

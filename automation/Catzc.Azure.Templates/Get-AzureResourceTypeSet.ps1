@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: public
+    adrs:
+      - ADR-AZ-NAMING
+      - ADR-AZ-NAMING#4
 ---
 #>
 

@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Exporter
     visibility: private
+    adrs:
+      - ADR-AUTO-BUNDLE
 ---
 #>
 

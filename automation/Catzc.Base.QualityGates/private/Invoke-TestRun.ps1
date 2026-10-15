@@ -6,6 +6,14 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs:
+      - ADR-AUTO-TEST#26
+      - ADR-AUTO-TEST#30
+      - ADR-AUTO-TEST#31
+      - ADR-AUTO-TEST#44
+      - ADR-PWSH-ANNOUNCE#6
+      - ADR-PWSH-PARAM#4
+      - ADR-REPO-PROTGLOB#9
 ---
 #>
 
@@ -22,12 +30,28 @@ catzc:
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment2)
 .PARAMETER Title
     The banner title (Write-TestAutomationHeader).
+.PARAMETER MinLevel
+    The lowest tier asked for; it must not exceed MaxLevel (Test-Automation's -MinLevel).
 .PARAMETER MaxLevel
     The highest tier asked for; the run's location caps it (Resolve-TestRunMaxLevel): a snapshot never runs L3.
 .PARAMETER Modules
     The modules whose tests/ folders run; empty runs every module plus the dot-prefixed infrastructure.
+.PARAMETER Category
+    Logic, Integrity or Both: which category of tests runs (Test-Automation's -Category).
+.PARAMETER Workers
+    Explicit pool size; 0 sizes automatically (Test-Automation's -Workers).
+.PARAMETER GreedyGroupSize
+    Greedy files run side by side in groups of this size; 0 reads greedy_group_size from test-policy.yml.
 .PARAMETER TimeoutSeconds
     The entry point's own limit (its [TimeLimit] through Get-TimeoutSeconds -Command); no default here.
+.PARAMETER Output
+    Pester output verbosity: Detailed, Normal, Minimal or Diagnostic (Test-Automation's -Output).
+.PARAMETER PassThru
+    Return the aggregated per-test rows and the shard descriptors (Test-Automation's -PassThru).
+.PARAMETER EnforceTimings
+    Fail the run when a test is over its time limit; by default over-limit tests are only reported (Test-Automation's -EnforceTimings).
+.PARAMETER Rule
+    Narrows the run to the tests that cite these ADR rules (Test-Automation's -Rule).
 .PARAMETER Suite
     A test suite's name, when -Modules was resolved from one (Test-Automation -Suite); the context block names it.
 .PARAMETER OutputFolder
@@ -42,8 +66,6 @@ catzc:
     Run in a snapshot of the working folder even when it is free (Enter-TestRunLocation).
 .PARAMETER KeepSandbox
     Keep the snapshot (when the run used one) after the run, for a post-mortem.
-.NOTES
-    The remaining parameters are Test-Automation's own, passed through unchanged — see its help.
 #>
 function Invoke-TestRun {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '', Justification = '-OutputFolder is forwarded empty by every entry point that got none, and its default is keyed by the entry point the body resolves; an explicit empty argument would override a declared default (ADR-PWSH-PARAM#4)')]

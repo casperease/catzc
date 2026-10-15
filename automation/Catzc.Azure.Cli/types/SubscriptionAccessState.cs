@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Azure.Cli/types/SubscriptionAccessState.cs
     kind: type
     module: Catzc.Azure.Cli
+    adrs: []
 ---
 */
 

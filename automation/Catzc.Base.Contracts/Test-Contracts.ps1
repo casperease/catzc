@@ -6,6 +6,14 @@ catzc:
     kind: function
     module: Catzc.Base.Contracts
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-CONTRACT#10
+      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-CONTRACT#3
+      - ADR-REPO-CONTRACT#4
+      - ADR-REPO-CONTRACT#5
+      - ADR-REPO-CONTRACT#6
 ---
 #>
 

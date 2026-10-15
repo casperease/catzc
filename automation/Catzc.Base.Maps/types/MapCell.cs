@@ -5,6 +5,11 @@ catzc:
     path: automation/Catzc.Base.Maps/types/MapCell.cs
     kind: type
     module: Catzc.Base.Maps
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-DSGN-TRACK#1
+      - ADR-DSGN-TRACK#3
+      - ADR-DSGN-TRACK#6
 ---
 */
 

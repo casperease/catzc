@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.RootConfig
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-ROOTCFG
 ---
 #>
 

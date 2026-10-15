@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.Maps/types/WorldMapPdf.cs
     kind: type
     module: Catzc.Base.Maps
+    adrs:
+      - ADR-DSGN-TRACK#3
+      - ADR-DSGN-TRACK#7
+      - ADR-DSGN-TRACK#8
 ---
 */
 

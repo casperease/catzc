@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    adrs:
+      - ADR-AUTO-ASSETDEP#2
+      - ADR-DSGN-RUNMODE
 ---
 #>
 

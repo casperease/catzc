@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/dora-explains.md
     kind: adr
-    body_sha: "477d353769d7"
+    body_sha: "25f6f76e79b8"
     adrs: []
 ---
 
@@ -257,7 +257,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 ## Code file meta
 
-`Code file meta — a derived head in the first comment run of a C# type file and a PowerShell function file`
+`Code file meta — a derived head in the first comment of a C# type file and a PowerShell function file`
 
 [ADR-REPO-CODEMETA](code-file-meta.md)
 

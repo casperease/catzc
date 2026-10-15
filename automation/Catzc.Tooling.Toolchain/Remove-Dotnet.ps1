@@ -6,6 +6,11 @@ catzc:
     kind: function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    adrs:
+      - ADR-AUTO-REMOVE
+      - ADR-AUTO-REMOVE#3
+      - ADR-AUTO-REMOVE#6
+      - ADR-AUTO-REMOVE#7
 ---
 #>
 

@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Base.Asserts
     visibility: public
+    adrs: []
 ---
 #>
 
@@ -14,6 +15,8 @@ catzc:
     Asserts that a PowerShell module is available.
 .PARAMETER Module
     The module name to look up via Get-Module -ListAvailable.
+.PARAMETER ErrorText
+    Optional message to throw instead of the default.
 .EXAMPLE
     Assert-PsModule 'Pester'
 #>

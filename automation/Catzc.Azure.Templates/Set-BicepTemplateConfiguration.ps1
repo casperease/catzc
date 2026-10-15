@@ -6,6 +6,11 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: public
+    adrs:
+      - ADR-AUTO-DRYRUN
+      - ADR-AZ-DATAMOD
+      - ADR-FLOW-CD-TYPE
+      - ADR-PWSH-DRYRUN#1
 ---
 #>
 
@@ -13,10 +18,11 @@ catzc:
 .SYNOPSIS
     Writes (or merges) a template's per-slot ParametersFile into its config file. The write half of
     the INPUT pipeline: it turns user input into a version-controlled change, never a runtime cloud
-    mutation. See [ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md) and
-    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md).
+    mutation.
 .DESCRIPTION
     Idempotent: existing parameters and keys are preserved, a missing config is created, and nothing is deployed.
+    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),
+    [ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).

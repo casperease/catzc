@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Azure.DevOps
     visibility: public
+    adrs:
+      - ADR-FLOW-CD-TYPE
 ---
 #>
 

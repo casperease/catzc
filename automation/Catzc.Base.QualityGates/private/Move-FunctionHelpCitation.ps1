@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs:
+      - ADR-REPO-HELP#2
 ---
 #>
 
@@ -31,7 +33,8 @@ function Move-FunctionHelpCitation {
     )
 
     $link = '\[ADR-[A-Z]+(?:-[A-Z]+)*(?:#\d+)?\]\([^)]*\)'
-    $bare = 'ADR-[A-Z]+(?:-[A-Z]+)*(?:#\d+)?'
+    # A rule id in registry form ends in a colon and a number, which makes it an example value, not a citation.
+    $bare = 'ADR-[A-Z]+(?:-[A-Z]+)*(?:#\d+)?(?![A-Za-z0-9-]|:\d)'
     $either = "(?:$link|$bare)"
     $parenthesised = [regex]::new("\s*\(\s*$either(?:\s*,\s*$either)*\s*\)")
     $citationOnly = [regex]::new("^\s*$either(?:\s*(?:,|and)?\s*$either)*\s*,?\s*$")

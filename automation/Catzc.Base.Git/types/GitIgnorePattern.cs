@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Base.Git/types/GitIgnorePattern.cs
     kind: type
     module: Catzc.Base.Git
+    adrs: []
 ---
 */
 

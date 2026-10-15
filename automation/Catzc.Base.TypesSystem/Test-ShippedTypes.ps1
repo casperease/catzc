@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.TypesSystem
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST#35
 ---
 #>
 

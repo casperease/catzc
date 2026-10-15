@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Overlay
     visibility: private
+    adrs:
+      - ADR-AUTO-OVERLAY
 ---
 #>
 

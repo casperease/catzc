@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/TestPolicyConfig.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TEST#41
+      - ADR-AUTO-TYPES#8
 ---
 */
 

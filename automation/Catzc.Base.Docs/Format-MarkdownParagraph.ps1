@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Docs
     visibility: public
+    adrs:
+      - ADR-REPO-FORMAT#5
 ---
 #>
 

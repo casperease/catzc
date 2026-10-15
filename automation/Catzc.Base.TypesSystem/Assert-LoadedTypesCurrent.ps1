@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.TypesSystem
     visibility: public
+    adrs:
+      - ADR-AUTO-FAILFAST#3
+      - ADR-AUTO-TYPES#7
 ---
 #>
 

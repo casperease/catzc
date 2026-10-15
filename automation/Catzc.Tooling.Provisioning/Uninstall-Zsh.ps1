@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    adrs:
+      - ADR-AUTO-IDEM#2
+      - ADR-AUTO-REMOVE#2
+      - ADR-AUTO-REMOVE#6
 ---
 #>
 

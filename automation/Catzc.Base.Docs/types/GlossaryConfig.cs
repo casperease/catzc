@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GlossaryConfig.cs
     kind: type
     module: Catzc.Base.Docs
+    adrs:
+      - ADR-AZ-CUSTOMER#3
+      - ADR-REPO-VOCAB
+      - ADR-REPO-VOCAB#3
 ---
 */
 

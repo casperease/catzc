@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Base.Docs
     visibility: public
+    adrs: []
 ---
 #>
 
@@ -19,7 +20,7 @@ catzc:
     [Catzc.Base.Docs.AdrDomainEdge[]] { From; To } — From depends on To.
 #>
 function Get-AdrDomainEdges {
-    [OutputType([object[]])]
+    [OutputType([Catzc.Base.Docs.AdrDomainEdge[]])]
     [CmdletBinding()]
     param()
 

@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-PWSH-FORMAT#7
 ---
 #>
 

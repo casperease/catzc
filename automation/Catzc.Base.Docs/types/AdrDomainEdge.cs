@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrDomainEdge.cs
     kind: type
     module: Catzc.Base.Docs
+    adrs:
+      - ADR-AUTO-TYPES#9
 ---
 */
 

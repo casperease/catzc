@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    adrs:
+      - ADR-AUTO-ASSETDEP#1
+      - ADR-AUTO-CONSOLE#11
+      - ADR-AUTO-IDEM#1
 ---
 #>
 

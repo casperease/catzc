@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.VSCode
     visibility: public
+    adrs:
+      - ADR-REPO-FORMAT#8
+      - ADR-REPO-ROOTCFG
 ---
 #>
 

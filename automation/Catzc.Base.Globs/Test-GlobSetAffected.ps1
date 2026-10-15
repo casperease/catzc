@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.Globs
     visibility: public
+    adrs:
+      - ADR-AUTO-FAILFAST
+      - ADR-FLOW-CD-GLOBS#1
+      - ADR-REPO-PROTGLOB#5
 ---
 #>
 

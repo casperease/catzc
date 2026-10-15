@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Azure.DevOps/types/YamlTemplateType.cs
     kind: type
     module: Catzc.Azure.DevOps
+    adrs: []
 ---
 */
 

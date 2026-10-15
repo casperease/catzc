@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    adrs:
+      - ADR-AUTO-PKGMGR
+      - ADR-REPO-FORMAT#8
 ---
 #>
 

@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Azure.DevOps/types/PipelineEnvConfig.cs
     kind: type
     module: Catzc.Azure.DevOps
+    adrs: []
 ---
 */
 

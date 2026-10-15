@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Tooling.Inspiration/types/InspirationConfig.cs
     kind: type
     module: Catzc.Tooling.Inspiration
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TYPES#8
+      - ADR-REPO-INSPIRE
 ---
 */
 

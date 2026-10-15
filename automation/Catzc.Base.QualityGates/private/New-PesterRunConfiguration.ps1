@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs:
+      - ADR-AUTO-TEST#25
 ---
 #>
 
@@ -37,7 +39,7 @@ catzc:
     The run's source session located these once, so the bridge reuses them; an empty entry means there is none.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md#comment3)
 .OUTPUTS
-    [PesterConfiguration] The configured, ready-to-invoke configuration.
+    [object] A PesterConfiguration, the configured, ready-to-invoke configuration, typed object because Pester is vendored and loads later.
 #>
 function New-PesterRunConfiguration {
     [OutputType([object])]

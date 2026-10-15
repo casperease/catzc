@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Base.Objects
     visibility: public
+    adrs: []
 ---
 #>
 
@@ -16,6 +17,12 @@ catzc:
 .DESCRIPTION
     Every level becomes ordered dicts, arrays or scalars, so ConvertTo-Yaml never falls back to ToString.
     [comment:1](/docs/references/automation/catzc-base-objects/ConvertTo-YamlSafe.ps1.md#comment1)
+.PARAMETER Value
+    The object to convert; null stays null.
+.PARAMETER MaxDepth
+    The depth at which a value stops being walked and is rendered as its string form. Default 10.
+.PARAMETER Depth
+    The depth reached so far; callers leave it at 0 and the recursion raises it.
 #>
 function ConvertTo-YamlSafe {
     [CmdletBinding()]

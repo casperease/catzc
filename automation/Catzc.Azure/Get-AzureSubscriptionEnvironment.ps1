@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Azure
     visibility: public
+    adrs:
+      - ADR-AZ-DATAMOD
 ---
 #>
 

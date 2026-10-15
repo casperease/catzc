@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.MarkdownMeta
     visibility: public
+    adrs:
+      - ADR-REPO-FILEMETA#1
+      - ADR-REPO-FILEMETA#3
 ---
 #>
 

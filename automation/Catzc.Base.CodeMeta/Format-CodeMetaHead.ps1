@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.CodeMeta
     visibility: public
+    adrs:
+      - ADR-REPO-FILEMETA#3
 ---
 #>
 

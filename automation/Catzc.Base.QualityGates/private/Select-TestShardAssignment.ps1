@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs: []
 ---
 #>
 
@@ -25,7 +26,7 @@ catzc:
 .PARAMETER RepositoryRoot
     The root the history's paths are relative to.
 .OUTPUTS
-    [string[][]] One array of files per shard, in shard order; a shard with no file is an empty array.
+    [string[]] One array of files per shard, in shard order; a shard with no file is an empty array.
 #>
 function Select-TestShardAssignment {
     [CmdletBinding()]

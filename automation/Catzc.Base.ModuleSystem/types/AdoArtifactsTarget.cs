@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/AdoArtifactsTarget.cs
     kind: type
     module: Catzc.Base.ModuleSystem
+    adrs: []
 ---
 */
 

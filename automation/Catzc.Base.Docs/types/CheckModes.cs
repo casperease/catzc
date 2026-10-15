@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Docs/types/CheckModes.cs
     kind: type
     module: Catzc.Base.Docs
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-PRIN-ONELIVE#1
 ---
 */
 

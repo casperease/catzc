@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: public
+    adrs:
+      - ADR-PWSH-PESTER#9
 ---
 #>
 

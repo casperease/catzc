@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Variants
     visibility: private
+    adrs:
+      - ADR-AUTO-CACHE
 ---
 #>
 

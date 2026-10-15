@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/WorkerParentWatch.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs: []
 ---
 */
 

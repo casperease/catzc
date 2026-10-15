@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Timeouts/types/TestTiers.cs
     kind: type
     module: Catzc.Base.Timeouts
+    adrs:
+      - ADR-AUTO-TEST#13
+      - ADR-AUTO-TEST#41
 ---
 */
 

@@ -6,14 +6,15 @@ catzc:
     kind: function
     module: Catzc.Tooling.Environment
     visibility: public
+    adrs:
+      - ADR-AUTO-ENVVAR#7
 ---
 #>
 
 <#
 .SYNOPSIS
     Prepares a set of $env: variables for a child or external process to read — the one sanctioned seam for
-    handing a secret to an external consumer through the environment (ADR environment-variables,
-    [ADR-AUTO-ENVVAR#7](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar7)).
+    handing a secret to an external consumer through the environment.
 .DESCRIPTION
     A bare literal in -Set is rejected, so a literal is never mistaken for a secret or an address; use -Value.
     [ADR-AUTO-ENVVAR#7](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar7)

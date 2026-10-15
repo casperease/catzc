@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Base.VSCode/types/VscodeLaunchProfile.cs
     kind: type
     module: Catzc.Base.VSCode
+    adrs: []
 ---
 */
 

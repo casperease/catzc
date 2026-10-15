@@ -6,6 +6,12 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: public
+    adrs:
+      - ADR-AUTO-DRYRUN
+      - ADR-AZ-DATAMOD
+      - ADR-PWSH-DRYRUN#1
+      - ADR-PWSH-ERROR#8
+      - ADR-PWSH-PREPOST
 ---
 #>
 

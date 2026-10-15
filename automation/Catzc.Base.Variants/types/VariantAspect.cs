@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Variants/types/VariantAspect.cs
     kind: type
     module: Catzc.Base.Variants
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-DSGN-ASPECT
 ---
 */
 

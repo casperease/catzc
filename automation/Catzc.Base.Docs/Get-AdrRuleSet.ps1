@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Base.Docs
     visibility: public
+    adrs: []
 ---
 #>
 
@@ -21,7 +22,7 @@ catzc:
     [Catzc.Base.Docs.AdrRuleSet[]] in declaration order.
 #>
 function Get-AdrRuleSet {
-    [OutputType([object[]])]
+    [OutputType([Catzc.Base.Docs.AdrRuleSet[]])]
     [CmdletBinding()]
     param(
         [ArgumentCompleter({ (Get-Config -Config adrs).Domains.Name })]

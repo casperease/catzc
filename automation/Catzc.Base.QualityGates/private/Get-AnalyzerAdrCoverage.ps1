@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs:
+      - ADR-AUTO-NOPWD#1
 ---
 #>
 
@@ -22,7 +24,7 @@ catzc:
 #>
 function Get-AnalyzerAdrCoverage {
     [CmdletBinding()]
-    [OutputType([object[]])]
+    [OutputType([pscustomobject])]
     param()
 
     $config = Get-Config -Config analyzer-adr-map

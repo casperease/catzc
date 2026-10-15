@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CommentBlockKind.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-PRIN-ONELIVE#1
 ---
 */
 

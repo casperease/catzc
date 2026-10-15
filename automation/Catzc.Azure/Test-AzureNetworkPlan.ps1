@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Azure
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-AZ-NETWORK#2
+      - ADR-AZ-NETWORK#5
 ---
 #>
 

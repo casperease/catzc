@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Base.Objects
     visibility: private
+    adrs: []
 ---
 #>
 
@@ -15,6 +16,16 @@ catzc:
 .DESCRIPTION
     Array items are keyed with an [index] suffix, not a dot, so a path tells a list item from a property.
     [comment:1](/docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md#comment1)
+.PARAMETER Value
+    The object, or the nested value, to flatten.
+.PARAMETER Target
+    The ordered dictionary that receives the dot-notation key/value pairs.
+.PARAMETER Prefix
+    The key path so far, extended with each property name or [index] on the way down.
+.PARAMETER MaxDepth
+    The depth at which flattening stops. Default 10.
+.PARAMETER Depth
+    The depth reached so far; callers leave it at 0 and the recursion raises it.
 #>
 function Expand-ObjectProperties {
     [CmdletBinding()]

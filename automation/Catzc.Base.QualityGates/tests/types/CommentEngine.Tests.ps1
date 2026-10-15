@@ -51,12 +51,12 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $blocks[1].NextCodeLine | Should -BeLike '$widgets = Get-Gadget*'
     }
 
-    It 'leaves one insight line and one citation-and-link line per moved block' -Tag 'ADR-REPO-COMMENTS#2' {
+    It 'leaves one insight line and one docs-link line per moved block, with no citation' -Tag 'ADR-REPO-COMMENTS#2' {
         $result = & $export $helpSource
         $result.MovedCount | Should -Be 2
         $lines = $result.Text -split "`n"
         $lines | Should -Contain '    Reads the widget from the gadget store first, because the store is the one living copy.'
-        $lines | Should -Contain "    ADR-WIDGET#2 [comment:1](/$page#comment1)"
+        $lines | Should -Contain "    [comment:1](/$page#comment1)"
         $lines | Should -Contain '    # Sorted first, so the gadget order is stable across runs and the cache key never changes.'
         $lines | Should -Contain "    # [comment:2](/$page#comment2)"
         $lines | Should -Contain '    The widget name.'

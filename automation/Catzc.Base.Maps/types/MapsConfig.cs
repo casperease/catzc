@@ -5,6 +5,11 @@ catzc:
     path: automation/Catzc.Base.Maps/types/MapsConfig.cs
     kind: type
     module: Catzc.Base.Maps
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TYPES#8
+      - ADR-REPO-OUTDIR#2
+      - ADR-WIDGET-GADGET#3
 ---
 */
 

@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Reports/types/OutputFormatsConfig.cs
     kind: type
     module: Catzc.Base.Reports
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-REPO-OUTFMT#1
 ---
 */
 

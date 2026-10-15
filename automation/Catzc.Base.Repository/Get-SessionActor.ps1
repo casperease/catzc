@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Repository
     visibility: public
+    adrs:
+      - ADR-AUTO-TYPES#13
 ---
 #>
 

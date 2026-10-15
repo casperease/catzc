@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/GzipText.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-PWSH-TYPES#1
 ---
 */
 

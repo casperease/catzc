@@ -6,6 +6,12 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: public
+    adrs:
+      - ADR-AUTO-CACHE
+      - ADR-AZ-CUSTOMER
+      - ADR-AZ-DATAMOD
+      - ADR-AZ-NAMING#2
+      - ADR-PWSH-CACHE#4
 ---
 #>
 

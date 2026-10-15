@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.Globs
     visibility: public
+    adrs:
+      - ADR-PWSH-CACHE#4
+      - ADR-REPO-PROTGLOB
+      - ADR-REPO-PROTGLOB#4
 ---
 #>
 

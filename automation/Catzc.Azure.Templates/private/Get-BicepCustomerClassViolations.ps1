@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: private
+    adrs:
+      - ADR-AZ-CUSTOMER
 ---
 #>
 
@@ -13,9 +15,10 @@ catzc:
 .SYNOPSIS
     Returns the customer-class violations for a single resolved config — the shared rule used by both
     Get-BicepTemplates (fail-fast at discovery) and Assert-BicepTemplate (collect-all), so the two never
-    drift. Parallels Get-BicepConfigClassViolations. See [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md).
+    drift. Parallels Get-BicepConfigClassViolations.
 .DESCRIPTION
     The rule is asymmetric: a false template allows root configs only, a true one allows customer folders too.
+    [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepCustomerClassViolations.ps1.md#comment1)
 .PARAMETER Customer
     The configuration subfolder name (a customer key), or '' for a configuration-root config.

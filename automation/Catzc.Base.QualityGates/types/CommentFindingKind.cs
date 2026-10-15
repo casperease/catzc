@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CommentFindingKind.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-PRIN-ONELIVE#1
 ---
 */
 
@@ -18,8 +20,9 @@ public enum CommentFindingKind
 {
     // Fixable.
     Empty,          // no insight line above the docs link: the provisional one is cut from the comment's own section
-    LinkInInsight,  // the insight line carries a link or a citation: links go, citations move to the docs-link line
+    LinkInInsight,  // the insight line carries a link or a citation: both go, the head lists the file's citations
     Overlong,       // the insight line is over the file's line limit: cut at a word, first sentence only
+    CitationInResidue, // a citation line below the insight, or citations before the docs link: they go, the head lists them
 
     // Not fixable.
     Obvious,        // the insight line starts with one of comments.yml's obvious phrases: a person writes the insight

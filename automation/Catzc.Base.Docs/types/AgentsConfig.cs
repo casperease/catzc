@@ -5,6 +5,11 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AgentsConfig.cs
     kind: type
     module: Catzc.Base.Docs
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-CONF-LOADING#4
+      - ADR-REPO-AGENTS#2
+      - ADR-REPO-AGENTS#4
 ---
 */
 

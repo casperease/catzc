@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.Docs
     visibility: public
+    adrs:
+      - ADR-AUTO-DRYRUN
+      - ADR-AUTO-IDEM
+      - ADR-REPO-LINK#2
 ---
 #>
 

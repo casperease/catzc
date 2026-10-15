@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Git/types/GitRefs.cs
     kind: type
     module: Catzc.Base.Git
+    adrs:
+      - ADR-AUTO-TRACKED
 ---
 */
 

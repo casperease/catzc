@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs:
+      - ADR-PRIN-CONFIG#2
+      - ADR-REPO-FORMAT#8
 ---
 #>
 

@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Maps/types/WorldMapHighlight.cs
     kind: type
     module: Catzc.Base.Maps
+    adrs:
+      - ADR-DSGN-TRACK#1
+      - ADR-THES-ONETRUTH#3
 ---
 */
 

@@ -5,6 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CodeLinkRewriter.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-REPO-LINK#3
+      - ADR-REPO-LINK#9
+      - ADR-X
+      - ADR-X#3
 ---
 */
 
@@ -41,6 +46,8 @@ public sealed class CodeLinkRewriter
     // DocsLinkText matches only the bare comment number; CitationOnly matches a lone citation as a link's whole text.
     // [comment:4](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment4)
     static readonly Regex DocsLinkText = new Regex(@"^comment:(?<number>\d+)$", RegexOptions.Compiled);
+    // A meta head is derived front matter: its adrs list holds the file's codes as plain codes, never as links.
+    static readonly Regex MetaHead = new Regex(@"\A(?:/\*|<#|//|#)?[ \t]*\r?\n?[ \t]*(?://|#)?[ \t]*---[ \t]*\r?\n[ \t]*(?://|#)?[ \t]*catzc:", RegexOptions.Compiled);
     static readonly Regex CitationOnly = new Regex(@"^(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:[:#](?<rule>\d+))?$", RegexOptions.Compiled);
     static readonly Regex AdjacentCitation = new Regex(
         @"\G(?<sep>[ \t]*[,;:]?[ \t]*\(?(?:[Rr]ule[ \t]+)?|[ \t]+[—–-][ \t]+)(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:[:#](?<rule>\d+))?(?![\w\-:#])(?<close>\))?",
@@ -79,7 +86,7 @@ public sealed class CodeLinkRewriter
     // [comment:5](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment5)
     public string Rewrite(string comment, bool tolerateUnknownCodes, List<Hit> hits, List<string> inserted)
     {
-        if (string.IsNullOrEmpty(comment)) { return comment; }
+        if (string.IsNullOrEmpty(comment) || MetaHead.IsMatch(comment)) { return comment; }
 
         bool[] literal = LiteralMask(comment);
         var output = new StringBuilder(comment.Length + 64);

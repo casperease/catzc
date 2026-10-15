@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Timeouts
     visibility: public
+    adrs:
+      - ADR-AUTO-FAILFAST#7
 ---
 #>
 

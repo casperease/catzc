@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GlossaryAvoid.cs
     kind: type
     module: Catzc.Base.Docs
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-REPO-VOCAB#5
 ---
 */
 

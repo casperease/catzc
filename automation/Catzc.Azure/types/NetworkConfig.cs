@@ -5,15 +5,16 @@ catzc:
     path: automation/Catzc.Azure/types/NetworkConfig.cs
     kind: type
     module: Catzc.Azure
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-AZ-NETWORK
+      - ADR-AZ-NETWORK#2
+      - ADR-AZ-NETWORK#5
+      - ADR-AZ-NETWORK#6
 ---
 */
 
 // Checks this file alone: the cross-asset sync with azure.yml is the quality gate Test-AzureNetworkPlan, not a constructor.
-// [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-AZ-NETWORK#6](/docs/adr/azure/azure-network-model.md#rule-adr-az-network6),
-// [ADR-AZ-NETWORK#2](/docs/adr/azure/azure-network-model.md#rule-adr-az-network2),
-// [ADR-AZ-NETWORK#5](/docs/adr/azure/azure-network-model.md#rule-adr-az-network5)
 // [comment:1](/docs/references/automation/catzc-azure/types/NetworkConfig.cs.md#comment1)
 
 using System;

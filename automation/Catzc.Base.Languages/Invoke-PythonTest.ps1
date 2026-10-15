@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.Languages
     visibility: public
+    adrs:
+      - ADR-AUTO-ENGINE
+      - ADR-AUTO-ENVVAR#1
+      - ADR-AUTO-PY#6
 ---
 #>
 

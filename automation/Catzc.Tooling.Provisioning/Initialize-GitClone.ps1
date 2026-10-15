@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    adrs:
+      - ADR-AUTO-DRYRUN#2
 ---
 #>
 

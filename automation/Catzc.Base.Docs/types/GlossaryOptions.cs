@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GlossaryOptions.cs
     kind: type
     module: Catzc.Base.Docs
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-REPO-VOCAB#2
+      - ADR-REPO-VOCAB#3
 ---
 */
 

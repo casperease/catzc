@@ -6,6 +6,11 @@ catzc:
     kind: function
     module: Catzc.Base.Contracts
     visibility: public
+    adrs:
+      - ADR-AUTO-BUNDLE#7
+      - ADR-AUTO-PATH#2
+      - ADR-PWSH-VERBS#1
+      - ADR-REPO-CONTRACT#5
 ---
 #>
 

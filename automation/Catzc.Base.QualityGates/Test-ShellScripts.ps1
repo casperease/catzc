@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: public
+    adrs:
+      - ADR-AUTO-BASH#6
+      - ADR-AUTO-ENGINE#2
 ---
 #>
 

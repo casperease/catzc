@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Writers
     visibility: public
+    adrs:
+      - ADR-AUTO-CONSOLE#7
+      - ADR-AUTO-CONSOLE#8
 ---
 #>
 

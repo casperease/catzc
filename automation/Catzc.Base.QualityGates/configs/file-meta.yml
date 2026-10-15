@@ -53,11 +53,6 @@ kinds:
     keys: [body_sha]
     files: ["**/*.md"]
 
-  # The ADR codes the body cites, sorted and without duplicates.
-  adr-codes:
-    keys: [adrs]
-    files: ["**/*.md"]
-
   # The module a code file belongs to, the folder under automation.
   module-name:
     keys: [module]
@@ -72,3 +67,18 @@ kinds:
     files:
       - "automation/Catzc.*/*.ps1"
       - "automation/Catzc.*/private/*.ps1"
+
+  # The ADR codes the file cites, its comment page's too, sorted and without duplicates; last, because the list is the one long key.
+  # [comment:3](/docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md#comment3)
+  adr-codes:
+    keys: [adrs]
+    files:
+      - "**/*.md"
+      - "automation/**/types/*.cs"
+      - "automation/Catzc.*/*.ps1"
+      - "automation/Catzc.*/private/*.ps1"
+    settings:
+      domain_files:
+        - "automation/**/types/*.cs"
+        - "automation/Catzc.*/*.ps1"
+        - "automation/Catzc.*/private/*.ps1"

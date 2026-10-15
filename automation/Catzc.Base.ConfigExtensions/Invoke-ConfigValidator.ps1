@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Base.ConfigExtensions
     visibility: public
+    adrs: []
 ---
 #>
 

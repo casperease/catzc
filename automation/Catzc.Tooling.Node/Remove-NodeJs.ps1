@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Tooling.Node
     visibility: public
+    adrs:
+      - ADR-AUTO-REMOVE#3
+      - ADR-AUTO-REMOVE#6
 ---
 #>
 

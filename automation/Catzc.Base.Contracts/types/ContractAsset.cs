@@ -5,6 +5,13 @@ catzc:
     path: automation/Catzc.Base.Contracts/types/ContractAsset.cs
     kind: type
     module: Catzc.Base.Contracts
+    adrs:
+      - ADR-AUTO-PATH#1
+      - ADR-AUTO-PATH#2
+      - ADR-AUTO-TYPES#8
+      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-CONTRACT#6
+      - ADR-REPO-CONTRACT#7
 ---
 */
 

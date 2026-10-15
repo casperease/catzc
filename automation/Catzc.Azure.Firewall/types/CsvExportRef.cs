@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Azure.Firewall/types/CsvExportRef.cs
     kind: type
     module: Catzc.Azure.Firewall
+    adrs: []
 ---
 */
 

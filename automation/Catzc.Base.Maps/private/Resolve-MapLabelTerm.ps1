@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Maps
     visibility: private
+    adrs:
+      - ADR-DSGN-TRACK#13
+      - ADR-DSGN-TRACK#16
 ---
 #>
 

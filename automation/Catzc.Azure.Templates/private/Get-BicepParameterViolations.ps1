@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: private
+    adrs: []
 ---
 #>
 

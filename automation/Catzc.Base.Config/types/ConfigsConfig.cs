@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Config/types/ConfigsConfig.cs
     kind: type
     module: Catzc.Base.Config
+    adrs:
+      - ADR-AUTO-OVERLAY
 ---
 */
 

@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Tooling.Inspiration
     visibility: public
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-INSPIRE#1
+      - ADR-REPO-INSPIRE#2
 ---
 #>
 

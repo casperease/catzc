@@ -1,7 +1,16 @@
-# catzc:
-#   path: automation/Catzc.Base.QualityGates/private/Get-FileKindFileMetaFact.ps1
-#   module: Catzc.Base.QualityGates
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/private/Get-FileKindFileMetaFact.ps1
+    kind: function
+    module: Catzc.Base.QualityGates
+    visibility: private
+    adrs:
+      - ADR-PRIN-CONFIG#1
+      - ADR-REPO-FILEMETA#3
+---
+#>
 
 <#
 .SYNOPSIS

@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Tooling.Provisioning
     visibility: private
+    adrs:
+      - ADR-AUTO-ENTERP#4
 ---
 #>
 

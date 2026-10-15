@@ -6,6 +6,11 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs:
+      - ADR-REPO-HELP#1
+      - ADR-REPO-HELP#2
+      - ADR-REPO-HELP#3
+      - ADR-REPO-HELP#4
 ---
 #>
 
@@ -150,10 +155,18 @@ function Format-FunctionHelpText {
         $outputType = $second.Function.Body.ParamBlock.Attributes | Where-Object { $_.TypeName.Name -ceq 'OutputType' } | Select-Object -First 1
     }
     if ($null -ne $outputs -and $null -ne $outputType) {
-        $documented = [regex]::Match(($outputs.Lines -join "`n"), '\[([A-Za-z0-9_.]+(?:\[\])*)\]')
+        $documented = [regex]::Match(($outputs.Lines -join "`n"), '\[([A-Za-z0-9_.]+(?:\[[A-Za-z0-9_.,\[\] ]*\])*)\]')
         $declared = $outputType.PositionalArguments | Select-Object -First 1
         if ($documented.Success -and $null -ne $declared) {
-            $short = { param([string] $Value) ($Value.Trim().Trim('[', ']', "'", '"') -split '\.' | Select-Object -Last 1).ToLowerInvariant() }
+            # The type without its namespaces, so a generic type reads as List[object] on both sides.
+            $short = {
+                param([string] $Value)
+                $name = $Value.Trim().Trim("'", '"')
+                if ($name.StartsWith('[', [System.StringComparison]::Ordinal) -and $name.EndsWith(']', [System.StringComparison]::Ordinal)) {
+                    $name = $name.Substring(1, $name.Length - 2)
+                }
+                (($name -replace '\s+', '') -replace '(?:[A-Za-z0-9_]+\.)+', '').ToLowerInvariant()
+            }
             if ((& $short $documented.Groups[1].Value) -ne (& $short $declared.Extent.Text)) {
                 $problems.Add(".OUTPUTS documents [$($documented.Groups[1].Value)] but [OutputType] declares $($declared.Extent.Text)")
             }

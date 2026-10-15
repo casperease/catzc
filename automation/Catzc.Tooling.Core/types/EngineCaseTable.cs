@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Tooling.Core/types/EngineCaseTable.cs
     kind: type
     module: Catzc.Tooling.Core
+    adrs:
+      - ADR-AUTO-ENGINE#1
 ---
 */
 

@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepParameterModel.cs
     kind: type
     module: Catzc.Azure.Templates
+    adrs:
+      - ADR-AUTO-TYPES#8
 ---
 */
 

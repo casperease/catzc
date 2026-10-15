@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
     kind: type
     module: Catzc.Azure.DevOps.BuildValidation
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-AZ-CUSTOMER#3
+      - ADR-FLOW-CD-TYPE#4
 ---
 */
 

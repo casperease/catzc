@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Azure/types/AzureEnvironment.cs
     kind: type
     module: Catzc.Azure
+    adrs: []
 ---
 */
 

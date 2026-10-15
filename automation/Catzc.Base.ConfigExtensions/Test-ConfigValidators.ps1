@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.ConfigExtensions
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-DSGN-RUNMODE#2
 ---
 #>
 

@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
     kind: type
     module: Catzc.Base.VSCode
+    adrs:
+      - ADR-REPO-ROOTCFG
 ---
 */
 

@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.Maps/types/WorldMapGridLayout.cs
     kind: type
     module: Catzc.Base.Maps
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-DSGN-TRACK#7
+      - ADR-DSGN-TRACK#8
 ---
 */
 

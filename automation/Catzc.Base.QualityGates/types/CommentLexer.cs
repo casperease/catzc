@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CommentLexer.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-REPO-LINK#1
+      - ADR-REPO-LINK#6
 ---
 */
 

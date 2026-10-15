@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Maps/types/HighlightedCell.cs
     kind: type
     module: Catzc.Base.Maps
+    adrs:
+      - ADR-AUTO-TYPES#8
 ---
 */
 

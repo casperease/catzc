@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Tooling.Core
     visibility: public
+    adrs:
+      - ADR-AUTO-ENGINE#1
 ---
 #>
 

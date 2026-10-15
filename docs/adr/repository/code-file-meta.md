@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
-    body_sha: "2742f52c4c7b"
+    body_sha: ceaf39dd979c
     adrs:
       - ADR-REPO-COMMENTS#3
       - ADR-REPO-FILEMETA#1
@@ -11,28 +11,30 @@ catzc:
       - ADR-REPO-FILEMETA#3
       - ADR-REPO-FILEMETA#5
       - ADR-REPO-FORMAT#8
-      - ADR-REPO-LINK#3
 ---
 
-# ADR: Code file meta — a derived head in the first comment run of a C# type file and a PowerShell function file
+# ADR: Code file meta — a derived head in the first comment of a C# type file and a PowerShell function file
 
 ## Rules: ADR-REPO-CODEMETA
 
 ### Rule ADR-REPO-CODEMETA:1
 
-A code file carries its meta block ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)) as a **meta head**: the leading comment run
-of the file, opened by a line `catzc:` in the file's own comment syntax, followed by indented `key: value` lines in the registry's order and
-one blank line. The head is plain comment text in the language, so the compiler and `Get-Help` ignore it, and no language gains new syntax.
-Which prefix a language uses is asked from the one place that knows each language's comments, never written into the head's code.
+A code file carries its meta block ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)) as a **meta head**: one comment at the top
+of the file whose text is a front matter document, the same `catzc:` block a Markdown file carries, written in the registry's order and
+followed by one blank line. The head is plain comment text in the language, so the compiler and `Get-Help` ignore it, and no language gains
+new syntax. A language with block comments wraps the front matter in its delimiters; a language without them prefixes each line. Which
+delimiters a language uses is asked from the one place that knows each language's comments, never written into the head's code.
 
-- [The head is a comment run](#the-head-is-a-comment-run)
+- [The head is front matter in a comment](#the-head-is-front-matter-in-a-comment)
 
 ### Rule ADR-REPO-CODEMETA:2
 
 A head holds only facts the repository can compute and that change when the file's place or tier changes: `path` (the repository-relative
-path), `module` (the folder under `automation/`), and, for a PowerShell file, `visibility` (`private` or `public`, from the folder). It
-never holds a hash of the body, which would change on every edit and make every edit a two-hunk diff, and never the ADR codes the file
-cites, which are already links ([ADR-REPO-LINK#3](markdown-links.md#rule-adr-repo-link3)). Anything a person wrote stays outside the head.
+path), `kind` (the class of the file, from the file-kind registry entry: a C# `type` or a PowerShell `function`), `module` (the folder under
+`automation/`), for a PowerShell file `visibility` (`private` or `public`, from the folder), and `adrs`, the ADR codes the file and its
+comment page cite, sorted and without duplicates, each rule code `ADR-<CODE>#<n>` and each domain-level citation a bare `ADR-<CODE>`. It
+never holds a hash of the body, which would change on every edit and make every edit a two-hunk diff. The facts sit under `derived`, and a
+person's own keys, if any, sit under `config`, as in Markdown.
 
 - [What the head holds](#what-the-head-holds)
 
@@ -51,17 +53,18 @@ files carry no head.
 `Format-Code` writes the head as an imprint step ([ADR-REPO-FORMAT#8](uniform-formatting.md#rule-adr-repo-format8)). The step is global: the
 file-language registry lists it once, so it runs after the formatter of every language, and the carrier registry says which files carry a
 head and where. `Test-Formatting` checks the same step. No command and no check names a language's step. A step writes text its formatter
-leaves unchanged, so the formatter, the step and the formatter again change nothing.
+leaves unchanged, so the formatter, the step and the formatter again change nothing. The same entry lists the openers of old heads the step
+removes with their comment run before it writes the head, so a retired form never stands beside the current one.
 
 - [Hosted by Format-Code](#hosted-by-format-code)
 
 ### Rule ADR-REPO-CODEMETA:5
 
-The comment engine never moves, flags or rewrites a head: the head's opener is configured to keep its whole contiguous run (`keep_run:` in
-`comments.yml`, [ADR-REPO-COMMENTS#3](comments-in-docs.md#rule-adr-repo-comments3)), so the head's continuation lines are not a prose
-comment and `Export-Comments` leaves them in the file.
+The comment engine never moves, flags or rewrites a head: a comment whose front matter opens with a head listed under `keep_run:` in
+`comments.yml` ([ADR-REPO-COMMENTS#3](comments-in-docs.md#rule-adr-repo-comments3)) is not a prose comment, so `Export-Comments` leaves it
+in the file.
 
-- [The head is a comment run](#the-head-is-a-comment-run)
+- [The head is front matter in a comment](#the-head-is-front-matter-in-a-comment)
 
 ## Context
 
@@ -78,14 +81,20 @@ comments, and a leading comment run is the place a reader looks first.
 A code file's derived facts sit in a meta head at the top of the file, written by the formatter, in the one registry that already serves
 Markdown. The head is small, because every key in it is a key that can drift.
 
-### The head is a comment run
+### The head is front matter in a comment
 
-`Plain comments, valid in the language`
+`One parser for every file, plain comments in the language`
 
 ```csharp
-// catzc:
-//   path: automation/Catzc.Base.Languages/types/FileLanguage.cs
-//   module: Catzc.Base.Languages
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/types/FileLanguage.cs
+    kind: type
+    module: Catzc.Base.Languages
+---
+*/
 
 // The insight line of the file's own comment.
 
@@ -93,10 +102,16 @@ using System;
 ```
 
 ```powershell
-# catzc:
-#   path: automation/Catzc.Base.QualityGates/private/Get-WidgetFact.ps1
-#   module: Catzc.Base.QualityGates
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/private/Get-WidgetFact.ps1
+    kind: function
+    module: Catzc.Base.QualityGates
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS
@@ -104,20 +119,23 @@ using System;
 #>
 ```
 
-The head is a comment, so the compiler ignores it and `Get-Help` reads the help block below it unchanged. A blank line separates it from the
-file's own comment, so the comment engine sees two runs. The engine keeps the head's run because the head's opener is one of the heads the
-engine is configured to keep, and a kept opener keeps the run it starts.
+Without the comment delimiters the head is the front matter of a Markdown file, so one reader of the `catzc` block serves both and a tool
+that knows one knows the other. The head is a comment, so the compiler ignores it and `Get-Help` reads the help block next to the function
+unchanged. A blank line separates it from the file's own comment. The comment engine keeps the head because its front matter opens with a
+head listed to keep, whatever the language's delimiters are.
 
 ### What the head holds
 
 `Identity and tier, nothing that moves on every edit`
 
-The path says which file this is, so a copy that kept its old identity is visible. The module says where the file belongs, from the same
-source as the namespace. The visibility says whether a PowerShell function is public or private, so a file moved between folders
-re-imprints. A hash of the body would change with every edit, so every concurrent edit of one file would conflict on the hash line, and git
-already hashes the file. The ADR codes a file cites are already checked links, so a second list would be a second spelling to keep in step.
-A hash of the public signature is the one checksum that fits code, and it needs a parser per language, so it is left out until a parser is
-warranted.
+The path says which file this is, so a copy that kept its old identity is visible. The kind says what class of file it is, from the same
+registry entry that classifies Markdown files, so a type and a function are told apart by data, not by a reader's guess. The module says
+where the file belongs, from the same source as the namespace. The visibility says whether a PowerShell function is public or private, so a
+file moved between folders re-imprints. A hash of the body would change with every edit, so every concurrent edit of one file would conflict
+on the hash line, and git already hashes the file. The ADR codes a file cites are the one list a reader scans to learn which decisions bind
+the file, so they sit in the head, derived from the file and its comment page, where a tool keeps them true; the residue carries no citation
+of its own, so there is no second spelling to keep in step. A hash of the public signature is the one checksum that fits code, and it needs
+a parser per language, so it is left out until a parser is warranted.
 
 ### Scope
 

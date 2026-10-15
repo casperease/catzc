@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs:
+      - ADR-PWSH-ERROR#3
 ---
 #>
 

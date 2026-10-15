@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Reports/types/ReportsConfig.cs
     kind: type
     module: Catzc.Base.Reports
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TYPES#8
 ---
 */
 

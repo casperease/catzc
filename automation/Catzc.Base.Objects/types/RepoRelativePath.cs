@@ -5,6 +5,11 @@ catzc:
     path: automation/Catzc.Base.Objects/types/RepoRelativePath.cs
     kind: type
     module: Catzc.Base.Objects
+    adrs:
+      - ADR-AUTO-PATH
+      - ADR-AUTO-PATH#3
+      - ADR-AUTO-PATH#5
+      - ADR-AUTO-PATH#8
 ---
 */
 

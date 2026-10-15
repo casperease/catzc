@@ -905,8 +905,8 @@ Markdown file or the meta head of a code file.
 
 ### meta head
 
-The leading comment run of a code file, opened by a catzc line, that holds the file's derived facts, so it is the form a meta block takes in
-a C# or PowerShell file.
+The leading comment of a code file, whose text is a front matter document with the catzc block, that holds the file's derived facts, so it
+is the form a meta block takes in a C# or PowerShell file.
 
 - **Defined by:** [ADR-REPO-CODEMETA#1](repository/code-file-meta.md#rule-adr-repo-codemeta1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce

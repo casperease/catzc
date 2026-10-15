@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Timeouts/types/TimeLimitAttribute.cs
     kind: type
     module: Catzc.Base.Timeouts
+    adrs:
+      - ADR-PWSH-ASSERT#1
 ---
 */
 

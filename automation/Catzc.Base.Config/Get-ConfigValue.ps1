@@ -6,6 +6,13 @@ catzc:
     kind: function
     module: Catzc.Base.Config
     visibility: public
+    adrs:
+      - ADR-AUTO-ENVVAR#7
+      - ADR-CONF-ADDRESSING#3
+      - ADR-CONF-ADDRESSING#4
+      - ADR-CONF-ADDRESSING#5
+      - ADR-CONF-LOADING#1
+      - ADR-CONF-LOADING#2
 ---
 #>
 

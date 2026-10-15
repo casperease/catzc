@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CommentFinding.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-AUTO-TYPES#9
 ---
 */
 
@@ -26,7 +28,8 @@ public sealed class CommentFinding
 
     // Fixable kinds are rewritten by Format-Comments; the rest need a person or Export-Comments.
     public bool IsFixable =>
-        Kind == CommentFindingKind.Empty || Kind == CommentFindingKind.LinkInInsight || Kind == CommentFindingKind.Overlong;
+        Kind == CommentFindingKind.Empty || Kind == CommentFindingKind.LinkInInsight || Kind == CommentFindingKind.Overlong
+        || Kind == CommentFindingKind.CitationInResidue;
 
     public CommentFinding(string file, int line, CommentFindingKind kind, string message)
     {

@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/EngineSetCheck.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-ENGINE#1
+      - ADR-AUTO-TYPES#8
 ---
 */
 

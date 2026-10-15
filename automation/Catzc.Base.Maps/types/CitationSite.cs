@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Maps/types/CitationSite.cs
     kind: type
     module: Catzc.Base.Maps
+    adrs:
+      - ADR-AUTO-TYPES#8
 ---
 */
 

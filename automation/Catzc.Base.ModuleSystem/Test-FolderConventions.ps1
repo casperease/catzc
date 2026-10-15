@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-FOLDERS
+      - ADR-REPO-FOLDERS#4
 ---
 #>
 

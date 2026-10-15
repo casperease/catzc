@@ -55,14 +55,25 @@ Describe 'CommentFormatter' -Tag 'L0', 'logic' {
         (& $format $result.Text).Changed | Should -BeFalse
     }
 
-    It 'drops a link from the insight line and moves its citation to the docs-link line' -Tag 'ADR-REPO-COMMENTS#5' {
+    It 'drops a link and a citation from the insight line, and the citations before the docs link' -Tag 'ADR-REPO-COMMENTS#5' {
         $insight = 'Sorted first (ADR-WIDGET#2, [docs](/docs/w.md)), so the order is stable.'
         $result = & $format (& $snippet $insight, "ADR-GADGET#1 $link")
-        $result.Findings.Count | Should -Be 1
-        $result.Findings[0].Kind | Should -Be ([Catzc.Base.QualityGates.CommentFindingKind]::LinkInInsight)
+        @($result.Findings | ForEach-Object { "$($_.Kind)" }) | Should -Be @('LinkInInsight', 'CitationInResidue')
         $lines = $result.Text -split "`n"
         $lines[1] | Should -Be '    # Sorted first, so the order is stable.'
-        $lines[2] | Should -Be "    # ADR-GADGET#1, ADR-WIDGET#2 $link"
+        $lines[2] | Should -Be "    # $link"
+        (& $format $result.Text).Changed | Should -BeFalse
+    }
+
+    It 'removes the citation lines between the insight and the docs link' -Tag 'ADR-REPO-COMMENTS#5', 'ADR-AUTO-IDEM#1' {
+        $result = & $format (& $snippet 'Sorted first, so the order is stable.', '[ADR-WIDGET#2](/docs/adr/w.md#rule-adr-widget2),', '[ADR-GADGET](/docs/adr/g.md)', $link)
+        @($result.Findings | ForEach-Object { "$($_.Kind)" }) | Should -Be @('CitationInResidue')
+        $result.Findings[0].IsFixable | Should -BeTrue
+        $lines = $result.Text -split "`n"
+        $lines[1] | Should -Be '    # Sorted first, so the order is stable.'
+        $lines[2] | Should -Be "    # $link"
+        $lines[3] | Should -Be '    Get-Gadget'
+        (& $format $result.Text).Changed | Should -BeFalse
     }
 
     It 'gives a residue without an insight line the first sentence of its own section' -Tag 'ADR-PRIN-ONELIVE#1' {

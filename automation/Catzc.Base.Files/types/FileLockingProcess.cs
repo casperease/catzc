@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Base.Files/types/FileLockingProcess.cs
     kind: type
     module: Catzc.Base.Files
+    adrs: []
 ---
 */
 

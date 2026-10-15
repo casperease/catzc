@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs:
+      - ADR-DSGN-ASPECT
+      - ADR-FLOW-CD-GLOBS#5
+      - ADR-REPO-PROTGLOB
 ---
 #>
 

@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Docs
     visibility: public
+    adrs:
+      - ADR-AUTO-ENGINE#1
+      - ADR-AUTO-TEST#35
 ---
 #>
 

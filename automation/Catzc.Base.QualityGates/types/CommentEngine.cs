@@ -5,6 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CommentEngine.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-PRIN-CONFIG#1
+      - ADR-PRIN-ONELIVE#1
+      - ADR-REPO-FORMAT#5
+      - ADR-X#8
 ---
 */
 
@@ -294,9 +299,8 @@ public static class CommentEngine
         string prefix = block.Indent + (marker.Length > 0 ? marker + " " : string.Empty);
         string insight = Insight(block.Text, Math.Max(16, lineLimit - prefix.Length));
         string link = string.Format(CultureInfo.InvariantCulture, "[comment:{0}](/{1}#comment{0})", number, pagePath);
-        IReadOnlyList<string> cites = Citations(block.Text);
         yield return prefix + insight;
-        yield return prefix + (cites.Count > 0 ? string.Join(", ", cites) + " " : string.Empty) + link;
+        yield return prefix + link;
     }
 
     // Provisional only: links and citations go on the link line, and a later pass rewrites the cut sentence.

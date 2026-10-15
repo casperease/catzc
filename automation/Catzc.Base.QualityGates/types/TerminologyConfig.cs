@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/TerminologyConfig.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-AUTO-SPELL
+      - ADR-AUTO-SPELL#5
+      - ADR-AUTO-SPELL#8
 ---
 */
 

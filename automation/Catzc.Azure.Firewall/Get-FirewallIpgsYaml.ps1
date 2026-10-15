@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Azure.Firewall
     visibility: public
+    adrs: []
 ---
 #>
 

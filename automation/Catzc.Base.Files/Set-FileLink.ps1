@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.Files
     visibility: public
+    adrs:
+      - ADR-AUTO-DRYRUN
+      - ADR-AUTO-XPLAT#7
+      - ADR-REPO-ROOTCFG
 ---
 #>
 

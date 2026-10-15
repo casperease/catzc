@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Base.Asserts
     visibility: public
+    adrs: []
 ---
 #>
 
@@ -16,6 +17,8 @@ catzc:
     The path to test.
 .PARAMETER PathType
     The kind of path to require: Any (default), Container, or Leaf.
+.PARAMETER ErrorText
+    Optional message to throw instead of the default.
 .EXAMPLE
     Assert-PathExist './config.json'
 .EXAMPLE

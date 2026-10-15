@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.Engines/types/ExecutionEngine.cs
     kind: type
     module: Catzc.Base.Engines
+    adrs:
+      - ADR-AUTO-ENGINE
+      - ADR-AUTO-FAILFAST#7
+      - ADR-AUTO-TYPES#8
 ---
 */
 

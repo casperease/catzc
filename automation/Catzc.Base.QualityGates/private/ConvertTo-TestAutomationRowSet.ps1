@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs: []
 ---
 #>
 
@@ -26,7 +27,7 @@ catzc:
 #>
 function ConvertTo-TestAutomationRowSet {
     [CmdletBinding()]
-    [OutputType([object[]])]
+    [OutputType([pscustomobject])]
     param(
         [Parameter(Mandatory)]
         $Result

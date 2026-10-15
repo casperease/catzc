@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Maps/types/PdfPage.cs
     kind: type
     module: Catzc.Base.Maps
+    adrs:
+      - ADR-PWSH-TYPES#1
 ---
 */
 

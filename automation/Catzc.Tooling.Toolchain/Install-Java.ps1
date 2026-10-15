@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    adrs:
+      - ADR-AUTO-CONSOLE#11
 ---
 #>
 

@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Azure.Cli
     visibility: private
+    adrs:
+      - ADR-AUTO-PRELOG#5
 ---
 #>
 

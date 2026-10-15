@@ -3,9 +3,10 @@ catzc:
   derived:
     path: docs/adr/repository/comments-in-docs.md
     kind: adr
-    body_sha: f22383096359
+    body_sha: "572d6b24a295"
     adrs:
       - ADR-REPO-CODEMETA#1
+      - ADR-REPO-CODEMETA#2
       - ADR-REPO-FILEMETA#1
       - ADR-REPO-FORMAT#8
       - ADR-REPO-LINK#9
@@ -19,8 +20,9 @@ catzc:
 
 A comment in a code or configuration file is at most one line of insight: what the code does not say itself — the invariant it keeps, the
 order it depends on, the edge it guards, the reason a branch exists. A comment that needs more than one line of prose moves, verbatim, to
-the file's **comment page**, and the file keeps in its place a **residue**: the insight line, then a line with the comment's ADR citations
-and the docs link to its section (ADR-REPO-LINK#9). The comment-based help sections a reader and the help system need in place stay whole.
+the file's **comment page**, and the file keeps in its place a **residue**: the insight line, then the docs link to its section
+(ADR-REPO-LINK#9). The comment's ADR citations move to the page with the rest of its prose, and the file's meta head lists them
+(ADR-REPO-CODEMETA#2). The comment-based help sections a reader and the help system need in place stay whole.
 
 - [One line in the file](#one-line-in-the-file)
 
@@ -39,8 +41,9 @@ A file's comment page lives under `docs/references/`, at the place `comments.yml
 file's own name and extension plus `.md`, so a page maps back to exactly one file. What moves — the file languages in scope, the shortest
 comment that moves, the comment heads each language keeps — is configured there too, with its defaults declared once on the config type. A
 kept head keeps only its own line, but a head the configuration lists to keep its run (`keep_run:`) keeps the whole contiguous run it opens,
-so the meta head of a code file ([ADR-REPO-CODEMETA#1](code-file-meta.md#rule-adr-repo-codemeta1)) is never moved as prose, while prose
-directly under a kept spell-checker line still is.
+and the front matter of a block comment that opens with such a head is kept whole, so the meta head of a code file
+([ADR-REPO-CODEMETA#1](code-file-meta.md#rule-adr-repo-codemeta1)) is never moved as prose, while prose directly under a kept spell-checker
+line still is.
 
 - [Where a page lives](#where-a-page-lives)
 
@@ -77,8 +80,9 @@ rendered on GitHub, and linked from the module's reference article.
 ### One line in the file
 
 A file keeps, per long comment, the line that earns its place next to the code: a fact the code does not state. The rest of the comment is
-not deleted — it moves. The insight line is followed by the comment's ADR citations, so the analyzer map, the rule tags, and `Format-Links`
-still see every rule the comment invoked, and by the docs link, so a reader who wants the full prose is one click away.
+not deleted — it moves. The insight line is followed by the docs link, so a reader who wants the full prose is one click away. The comment's
+ADR citations leave with the prose: the page keeps them as written, and the file's meta head lists the codes the file and its page cite, so
+the analyzer map, the rule tags, and `Format-Links` still see every rule the comment invoked.
 
 The help sections a reader and `Get-Help` need in place stay whole: the synopsis, the examples, the inputs and outputs. A parameter's
 description is one line or it moves like any other comment.
@@ -107,8 +111,8 @@ the gitignored output folder from the two sources that are reviewed — the file
 ## Decision
 
 A code or configuration file carries one insight line per comment; a comment longer than that moves, verbatim and numbered, to the file's
-comment page under `docs/references/`, and the file keeps a residue with the insight, the citations, and a docs link. The full file is a
-generated view under `out/`. Tools make the move and a gate holds it.
+comment page under `docs/references/`, and the file keeps a residue with the insight and a docs link. The full file is a generated view
+under `out/`. Tools make the move and a gate holds it.
 
 ### How this is enforced
 

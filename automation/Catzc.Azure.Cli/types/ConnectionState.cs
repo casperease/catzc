@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Azure.Cli/types/ConnectionState.cs
     kind: type
     module: Catzc.Azure.Cli
+    adrs: []
 ---
 */
 

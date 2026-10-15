@@ -5,6 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/SpellingOracle.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-AUTO-SPELL
+      - ADR-AUTO-SPELL#2
+      - ADR-AUTO-SPELL#6
+      - ADR-AUTO-TYPES#9
 ---
 */
 

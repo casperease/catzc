@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBindingsConfig.cs
     kind: type
     module: Catzc.Tooling.KeyHandler
+    adrs: []
 ---
 */
 

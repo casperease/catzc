@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Environment
     visibility: public
+    adrs:
+      - ADR-PWSH-DRYRUN#1
 ---
 #>
 

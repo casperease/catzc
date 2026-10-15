@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: public
+    adrs:
+      - ADR-AUTO-CONSOLE#6
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-README#7
 ---
 #>
 
@@ -23,6 +27,8 @@ catzc:
 .PARAMETER Exclude
     Content scope only: non-authored noise such as vendor or compiled output belongs in cspell.yml ignorePaths.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment3)
+    Content scope, not third-party noise: that lives in cspell.yml ignorePaths.
+    [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment4)
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-spelling.
 .PARAMETER PassThru
@@ -50,8 +56,6 @@ function Test-Spelling {
             '**/*.py'
         ),
 
-        # Content scope, not third-party noise: that lives in cspell.yml ignorePaths.
-        # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment4)
         [string[]] $Exclude = @(
             'out/**'
             'docs/notes/**'

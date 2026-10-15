@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Azure.Firewall
     visibility: public
+    adrs:
+      - ADR-PWSH-PARAM#4
 ---
 #>
 
@@ -26,6 +28,7 @@ catzc:
 .PARAMETER InputObject
     A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the pipeline (Object set).
 .PARAMETER OutputFolder
+    Where the .yaml goes in Object mode; the file is named <original-name>.yaml.
     Unset, the file lands under the output root, which is out locally and the staging directory in a pipeline.
     [comment:2](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment2)
 .PARAMETER MultiValueFields
@@ -49,19 +52,15 @@ function Convert-FirewallCsvToYaml {
         [Parameter(Mandatory, ParameterSetName = 'Path')]
         [string]$YamlPath,
 
-        # Source filename recorded in the header comment. Defaults to the CSV's own filename.
         [Parameter(ParameterSetName = 'Path')]
         [string]$SourceName,
 
-        # CSV generation time in UTC, recorded in the header comment. Optional.
         [Parameter(ParameterSetName = 'Path')]
         [Nullable[datetime]]$GeneratedAt,
 
-        # A Get-FirewallCsv result object (Type/Path/Generated/Blob/Modified). Pipeline-friendly.
         [Parameter(Mandatory, ValueFromPipeline, ParameterSetName = 'Object')]
         [psobject]$InputObject,
 
-        # Where the .yaml goes in Object mode. Output file is <original-name>.yaml.
         [Parameter(ParameterSetName = 'Object')]
         [string]$OutputFolder = (Join-Path (Get-OutputRoot) 'yaml'),
 

@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Docs
     visibility: public
+    adrs:
+      - ADR-REPO-README#7
+      - ADR-REPO-VOCAB
 ---
 #>
 

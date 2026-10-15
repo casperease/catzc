@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.CodeMeta/types/HeadForm.cs
     kind: type
     module: Catzc.Base.CodeMeta
+    adrs:
+      - ADR-REPO-CODEMETA#1
 ---
 */
 

@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AgentEntry.cs
     kind: type
     module: Catzc.Base.Docs
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-REPO-AGENTS#2
 ---
 */
 

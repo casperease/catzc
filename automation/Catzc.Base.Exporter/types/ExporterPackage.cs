@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Exporter/types/ExporterPackage.cs
     kind: type
     module: Catzc.Base.Exporter
+    adrs:
+      - ADR-AUTO-TYPES#8
 ---
 */
 

@@ -3,18 +3,18 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-codemeta.md
     kind: reference
-    body_sha: a4e0c1810d06
+    body_sha: "09a881a934b4"
     adrs: []
 ---
 
 # Catzc.Base.CodeMeta
 
-The pure core of the code meta head: the leading comment run of a C# type file, a PowerShell function file or any other code file whose
-carrier is a comment head, holding the file's derived facts ([code-file-meta](../../adr/repository/code-file-meta.md)). The module reads no
-config and no file: every text, and the comment syntax of the head, reaches it as a parameter, so it sits below
-[Catzc.Base.Config](catzc-base-config.md) beside [Catzc.Base.MarkdownMeta](catzc-base-markdownmeta.md), its Markdown counterpart. The
-registry of meta kinds, the file-carrier registry that names each file class's comment syntax, and the commands that read them live above
-`Catzc.Base.Config`.
+The pure core of the code meta head: the leading comment of a C# type file, a PowerShell function file or any other code file whose carrier
+is a comment head, holding the file's derived facts as the same front matter a Markdown file carries
+([code-file-meta](../../adr/repository/code-file-meta.md)). The module reads no config and no file: every text, and the comment syntax of
+the head, reaches it as a parameter, so it sits below [Catzc.Base.Config](catzc-base-config.md) on top of
+[Catzc.Base.MarkdownMeta](catzc-base-markdownmeta.md), whose block reader and writer it reuses. The registry of meta kinds, the file-carrier
+registry that names each file class's comment syntax, and the commands that read them live above `Catzc.Base.Config`.
 
 ## Responsibilities
 
@@ -25,22 +25,24 @@ registry of meta kinds, the file-carrier registry that names each file class's c
 
 ### responsibility:1 — Reading a text's head
 
-What a code text says about its own meta head: whether it has one, its keys and values in the order written, the text that stays above it (a
-byte order mark, a shebang, an XML prolog or fixed preamble lines) and the rest of the text below it. A comment directly under the head is
-not part of it, and a block head that never closes is no head.
+What a code text says about its own meta head: whether it has one, the sections and derived keys in the order written, the authored config
+lines, the text that stays above it (a byte order mark, a shebang, an XML prolog or fixed preamble lines) and the rest of the text below it.
+A comment directly under the head is not part of it, a block head that never closes is no head, and a comment that is not front matter with
+a `catzc` block is no head either.
 
 ### responsibility:2 — Imprinting derived facts
 
 Returning a text with its head written from the facts given, in one canonical form and in the order given, so the same facts always give the
-same bytes. The head follows the language's anchor, a blank line separates it from the rest, the text's own line endings are kept, and no
-facts removes the head and its blank line.
+same bytes. The head follows the language's anchor, a blank line separates it from the rest, the text's own line endings are kept, authored
+config lines survive a rewrite, and no facts removes the head and its blank line. An old head the form lists to strip is removed with its
+whole comment run before the head is written.
 
 ## What the module does
 
-A code file has no front matter, but it has comments, and the leading comment run is where a reader looks first. This module is that run's
+A code file has no front matter, but it has comments, and the leading comment is where a reader looks first. This module is that comment's
 reader and writer, written as pure functions over text and three C# types: the head's comment syntax (`HeadForm`), where it may stand
-(`HeadAnchor`) and the head itself (`CodeMetaHead`). A value is a plain path or name, never a quoted string, because a head holds only facts
-the repository can compute.
+(`HeadAnchor`) and the head itself (`CodeMetaHead`). Inside the comment the head is the front matter a Markdown file has, so the Markdown
+meta block writes and reads it and a value is quoted only where YAML would read it back differently.
 
 ## Division
 

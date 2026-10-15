@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md
     kind: comment-page
-    body_sha: "2f58cc94390b"
+    body_sha: e17c917dd20f
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-COMMENTS#3
@@ -33,4 +33,13 @@ Above `- {`.
 A comment page keeps its source file's name and extension plus .md
 ([ADR-REPO-COMMENTS#3](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3)), so the name marks it; it wins over
 reference.
+```
+
+## comment:3
+
+Above `adr-codes:`.
+
+```text
+The ADR codes the file cites, its comment page's too, sorted and without duplicates; last, because the list is the one long key.
+A code file also lists the bare domain codes.
 ```

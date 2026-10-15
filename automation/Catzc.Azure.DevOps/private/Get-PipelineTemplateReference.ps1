@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Azure.DevOps
     visibility: private
+    adrs:
+      - ADR-PIPE-NAME#4
 ---
 #>
 

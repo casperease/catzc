@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Execution/types/ToolConfig.cs
     kind: type
     module: Catzc.Base.Execution
+    adrs:
+      - ADR-AUTO-DEPS#1
+      - ADR-AUTO-PKGMGR#6
 ---
 */
 

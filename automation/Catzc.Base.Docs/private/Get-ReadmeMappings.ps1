@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Docs
     visibility: private
+    adrs:
+      - ADR-PWSH-PESTER#9
+      - ADR-REPO-README
 ---
 #>
 

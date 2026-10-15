@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBinding.cs
     kind: type
     module: Catzc.Tooling.KeyHandler
+    adrs:
+      - ADR-AUTO-TYPES#8
 ---
 */
 

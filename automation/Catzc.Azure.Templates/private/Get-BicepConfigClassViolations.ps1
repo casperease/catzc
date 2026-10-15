@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: private
+    adrs:
+      - ADR-AZ-DATAMOD#8
 ---
 #>
 
@@ -13,9 +15,10 @@ catzc:
 .SYNOPSIS
     Returns the env-class violations for a single resolved config — the shared rule used by both
     Get-BicepTemplates (fail-fast at discovery) and Assert-BicepTemplate (collect-all), so the two
-    never drift. See [ADR-AZ-DATAMOD#8](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8).
+    never drift.
 .DESCRIPTION
     The slot is per-config, not a template bit, so a template may mix slotted and non-slotted configs.
+    [ADR-AZ-DATAMOD#8](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8)
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md#comment1)
 .PARAMETER Environment
     The config's resolved environment name.

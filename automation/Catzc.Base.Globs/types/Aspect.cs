@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.Globs/types/Aspect.cs
     kind: type
     module: Catzc.Base.Globs
+    adrs:
+      - ADR-DSGN-ASPECT
+      - ADR-DSGN-ASPECT#5
+      - ADR-FLOW-CD-GLOBS#4
 ---
 */
 

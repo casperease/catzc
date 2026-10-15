@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Languages/types/FileLanguage.cs
     kind: type
     module: Catzc.Base.Languages
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-DSGN-TRACK#6
 ---
 */
 

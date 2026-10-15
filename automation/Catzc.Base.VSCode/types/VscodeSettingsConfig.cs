@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
     kind: type
     module: Catzc.Base.VSCode
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-REPO-ROOTCFG
 ---
 */
 

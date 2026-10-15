@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.Execution
     visibility: public
+    adrs:
+      - ADR-AUTO-CONSOLE#10
+      - ADR-AUTO-CONSOLE#8
+      - ADR-PWSH-ANNOUNCE#1
 ---
 #>
 

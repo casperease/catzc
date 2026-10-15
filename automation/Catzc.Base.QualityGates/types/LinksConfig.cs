@@ -5,6 +5,12 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/LinksConfig.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TYPES#8
+      - ADR-PWSH-PARAM#4
+      - ADR-REPO-LINK#5
+      - ADR-REPO-LINK#8
 ---
 */
 

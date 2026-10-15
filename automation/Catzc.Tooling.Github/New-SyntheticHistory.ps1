@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Tooling.Github
     visibility: public
+    adrs: []
 ---
 #>
 
@@ -26,7 +27,7 @@ catzc:
 .PARAMETER AuthorEmail
     Author (and committer) email stamped on every synthetic commit.
 .PARAMETER SpanEnd
-    End of the backdating window. Defaults to the current date.
+    End of the backdating window. Defaults to the current date. Declared before -SpanStart, so the start's default can count back from it.
 .PARAMETER SpanStart
     Start of the backdating window. Defaults to 90 days before SpanEnd.
 .PARAMETER Branch
@@ -54,7 +55,6 @@ function New-SyntheticHistory {
         [Parameter(Mandatory)]
         [string] $AuthorEmail,
 
-        # Declared before -SpanStart, so the start's default can count back from it.
         [datetime] $SpanEnd = (Get-Date),
 
         [datetime] $SpanStart = $SpanEnd.AddDays(-90),

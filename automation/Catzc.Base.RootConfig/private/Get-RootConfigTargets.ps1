@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.RootConfig
     visibility: private
+    adrs:
+      - ADR-REPO-ROOTCFG
 ---
 #>
 

@@ -6,6 +6,16 @@ catzc:
     kind: function
     module: Catzc.Base.Globs
     visibility: public
+    adrs:
+      - ADR-AUTO-BASH#2
+      - ADR-AUTO-GO#2
+      - ADR-AUTO-PY#2
+      - ADR-DSGN-ASPECT
+      - ADR-DSGN-RUNMODE
+      - ADR-FLOW-CD-GLOBS#10
+      - ADR-FLOW-CD-GLOBS#7
+      - ADR-REPO-PROTGLOB
+      - ADR-REPO-PROTGLOB#7
 ---
 #>
 

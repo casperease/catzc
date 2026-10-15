@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: public
+    adrs:
+      - ADR-FLOW-CD-DETECT#1
 ---
 #>
 

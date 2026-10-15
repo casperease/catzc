@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Docs
     visibility: private
+    adrs:
+      - ADR-REPO-LINK#5
 ---
 #>
 
@@ -22,7 +24,7 @@ catzc:
     [pscustomobject[]] One { Rule; Line; Text } per summary line, in file order; Line is 1-based.
 #>
 function Get-AdrRuleSummaryLines {
-    [OutputType([object[]])]
+    [OutputType([pscustomobject[]])]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]

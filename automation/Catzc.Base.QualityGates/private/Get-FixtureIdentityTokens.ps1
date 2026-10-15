@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs:
+      - ADR-REPO-LANG
 ---
 #>
 
@@ -13,9 +15,10 @@ catzc:
 .SYNOPSIS
     Derives the set of TEST-fixture identity tokens — the deliberately-distinct customers, subscriptions, org,
     tenants, and environments the hermetic tests use — that must NEVER appear in a shipped config value
-    ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md), the reverse of Get-LiveIdentityTokens).
+    — the reverse of Get-LiveIdentityTokens.
 .DESCRIPTION
     Read from the fixture configs, so a fixture customer added to a test config is banned from shipped config at once.
+    [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md#comment1)
 .OUTPUTS
     [string[]] the distinct fixture identity tokens.

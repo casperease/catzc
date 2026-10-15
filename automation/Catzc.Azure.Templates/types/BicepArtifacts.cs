@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepArtifacts.cs
     kind: type
     module: Catzc.Azure.Templates
+    adrs: []
 ---
 */
 

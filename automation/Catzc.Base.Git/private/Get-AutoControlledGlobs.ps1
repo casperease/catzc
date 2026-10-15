@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.Git
     visibility: private
+    adrs:
+      - ADR-CONF-LOADING#6
+      - ADR-REPO-OUTDIR#10
+      - ADR-REPO-OUTDIR#8
 ---
 #>
 

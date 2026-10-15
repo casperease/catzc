@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Execution
     visibility: public
+    adrs:
+      - ADR-AUTO-ENGINE
 ---
 #>
 

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/automation/BCL/native-csharp-types.md
     kind: adr
-    body_sha: "3ce62af293f5"
+    body_sha: a55d51dfadd7
     adrs:
       - ADR-AUTO-CACHE#8
       - ADR-AUTO-TYPES#13
@@ -25,7 +25,7 @@ catzc:
 One type per file, named for the bare type; its fully-qualified name is `<module>.<filename>` (`types/CliRunner.cs` in
 `Catzc.Base.Execution` → `Catzc.Base.Execution.CliRunner`). The file declares the **file-scoped namespace of its module**
 (`namespace Catzc.Base.Execution;`), which `Format-Types` writes and `Test-Formatting` checks; the loader identifies the type from the
-filename, not by parsing the body. The first comment run of the file may be a meta head of derived facts, which the loader ignores like any
+filename, not by parsing the body. The first comment of the file may be a meta head of derived facts, which the loader ignores like any
 comment.
 
 - [How this is enforced](#how-this-is-enforced)

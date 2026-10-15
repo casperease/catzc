@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CommentResidue.cs
     kind: type
     module: Catzc.Base.QualityGates
+    adrs:
+      - ADR-AUTO-TYPES#9
 ---
 */
 

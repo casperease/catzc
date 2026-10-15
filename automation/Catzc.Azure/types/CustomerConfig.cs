@@ -5,14 +5,15 @@ catzc:
     path: automation/Catzc.Azure/types/CustomerConfig.cs
     kind: type
     module: Catzc.Azure
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-AZ-CUSTOMER
+      - ADR-AZ-CUSTOMER#2
+      - ADR-AZ-CUSTOMER#3
 ---
 */
 
 // Self-contained: azure.yml depends on customer.yml, never the reverse, so this type never reads azure.yml.
-// [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-AZ-CUSTOMER#2](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer2),
-// [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)
 // [comment:1](/docs/references/automation/catzc-azure/types/CustomerConfig.cs.md#comment1)
 
 using System;

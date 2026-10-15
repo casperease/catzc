@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Tooling.KeyHandler
     visibility: private
+    adrs:
+      - ADR-AUTO-CACHE#5
+      - ADR-AUTO-TEST
 ---
 #>
 

@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Exporter
     visibility: public
+    adrs:
+      - ADR-AUTO-BUNDLE#1
+      - ADR-AUTO-DRYRUN#2
 ---
 #>
 
@@ -23,7 +26,10 @@ catzc:
 .PARAMETER ModuleProfile
     Defaults to the bundle's profile only when -Module is absent; give both to build their union.
     [comment:2](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment2)
+    Empty when -Module names the selection, so the profile never widens an explicit module list.
+    [comment:6](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment6)
 .PARAMETER VendorPolicy
+    The bundle's vendor policy.
     full exists for a build run that tests the build itself, so Pester and PSScriptAnalyzer must travel with it.
     [comment:3](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment3)
 .PARAMETER Version
@@ -55,8 +61,6 @@ function Build-Modules {
 
         [string] $Bundle = "$((Get-Config -Config exporter).default_bundle)",
 
-        # Empty when -Module names the selection, so the profile never widens an explicit module list.
-        # [comment:6](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment6)
         [string] $ModuleProfile = $(
             $bundles = (Get-Config -Config exporter).bundles
             if (-not $Module -and $bundles.ContainsKey($Bundle)) {
@@ -64,7 +68,6 @@ function Build-Modules {
             }
         ),
 
-        # The bundle's vendor policy.
         [ValidateSet('runtime', 'full')]
         [string] $VendorPolicy = $(
             $bundles = (Get-Config -Config exporter).bundles

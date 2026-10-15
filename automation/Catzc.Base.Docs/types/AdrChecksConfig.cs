@@ -5,6 +5,13 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrChecksConfig.cs
     kind: type
     module: Catzc.Base.Docs
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TYPES#8
+      - ADR-CONF-LOADING#4
+      - ADR-PRIN-CONFIG#1
+      - ADR-PRIN-CONFIG#3
 ---
 */
 

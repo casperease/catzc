@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs
     kind: type
     module: Catzc.Base.Timeouts
+    adrs: []
 ---
 */
 

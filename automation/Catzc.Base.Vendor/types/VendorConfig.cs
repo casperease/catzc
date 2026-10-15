@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Vendor/types/VendorConfig.cs
     kind: type
     module: Catzc.Base.Vendor
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-PWSH-VENDOR
 ---
 */
 

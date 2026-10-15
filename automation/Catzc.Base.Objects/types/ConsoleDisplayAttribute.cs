@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs
     kind: type
     module: Catzc.Base.Objects
+    adrs: []
 ---
 */
 

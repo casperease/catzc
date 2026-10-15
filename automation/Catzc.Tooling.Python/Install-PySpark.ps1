@@ -6,6 +6,7 @@ catzc:
     kind: function
     module: Catzc.Tooling.Python
     visibility: public
+    adrs: []
 ---
 #>
 
@@ -17,6 +18,8 @@ catzc:
     [comment:1](/docs/references/automation/catzc-tooling-python/Install-PySpark.ps1.md#comment1)
 .PARAMETER Version
     PySpark version to install. Defaults to the locked version in Get-ToolConfig.
+.PARAMETER Force
+    Replace an existing installation at the wrong version.
 .EXAMPLE
     Install-PySpark
 .EXAMPLE

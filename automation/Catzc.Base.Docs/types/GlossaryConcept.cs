@@ -5,6 +5,15 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GlossaryConcept.cs
     kind: type
     module: Catzc.Base.Docs
+    adrs:
+      - ADR-AUTO-TEST#30
+      - ADR-AUTO-TYPES#8
+      - ADR-AZ-CUSTOMER#3
+      - ADR-FLOW-CD#2
+      - ADR-REPO-VOCAB#1
+      - ADR-REPO-VOCAB#4
+      - ADR-REPO-VOCAB#5
+      - ADR-REPO-VOCAB#8
 ---
 */
 

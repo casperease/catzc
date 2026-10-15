@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.RootConfig/types/RootConfigFiles.cs
     kind: type
     module: Catzc.Base.RootConfig
+    adrs:
+      - ADR-CONF-LOADING
+      - ADR-REPO-ROOTCFG
 ---
 */
 

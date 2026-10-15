@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Languages/types/ImprintStep.cs
     kind: type
     module: Catzc.Base.Languages
+    adrs:
+      - ADR-REPO-FORMAT#8
 ---
 */
 

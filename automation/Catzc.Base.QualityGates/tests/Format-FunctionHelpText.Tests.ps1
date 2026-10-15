@@ -167,6 +167,33 @@ function ConvertTo-Gadget {
         ($result.Problems -join '|') | Should -BeLike '*.OUTPUTS documents [[]int[]] but [[]OutputType[]] declares*'
     }
 
+    It 'reads a generic type in .OUTPUTS as the same type as the one OutputType declares, namespaces aside' {
+        $text = @'
+<#
+.SYNOPSIS
+    Lists the widgets.
+.OUTPUTS
+    [System.Collections.Generic.List[object]] The widgets.
+#>
+function Get-Gadget {
+    [OutputType([System.Collections.Generic.List[object]])]
+    param()
+}
+'@
+        $result = & $script:run $text
+        $result.Text | Should -BeExactly $text
+        $result.Problems | Should -BeNullOrEmpty
+    }
+
+    It 'does not read a rule id in registry form, quoted as an example, as a citation' {
+        # Built from parts, so no tool that rewrites citation spellings in text touches the example.
+        $registryId = 'ADR-WIDGET-GADGET' + ':3'
+        $text = (@('<#', '.SYNOPSIS', "    Lists every rule id (registry form, e.g. '$registryId').", '.DESCRIPTION', '    The ids come back in colon form.', '#>', 'function Get-Gadget {', '    param()', '}') -join "`n") + "`n"
+        $result = & $script:run $text
+        $result.Text | Should -BeExactly $text
+        $result.Problems | Should -BeNullOrEmpty
+    }
+
     It 'leaves a file with no help block, and a file that does not parse, untouched' {
         foreach ($text in @("function ConvertTo-Gadget {`n    param()`n}`n", "function ConvertTo-Gadget {`n")) {
             $result = & $script:run $text

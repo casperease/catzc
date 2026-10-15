@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Maps
     visibility: public
+    adrs:
+      - ADR-PWSH-PESTER#2
+      - ADR-REPO-OUTDIR#2
 ---
 #>
 

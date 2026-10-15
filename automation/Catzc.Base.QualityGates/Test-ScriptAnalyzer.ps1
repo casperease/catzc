@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: public
+    adrs:
+      - ADR-AUTO-ASSETDEP#1
+      - ADR-AUTO-NOPWD#1
+      - ADR-AUTO-TEST#35
 ---
 #>
 
@@ -21,6 +25,8 @@ catzc:
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment2)
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-script-analyzer.
+.PARAMETER NoCache
+    Analyze every file, ignoring the result cache (which is still refreshed).
 .PARAMETER PassThru
     Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount }) instead of throwing.
 .EXAMPLE

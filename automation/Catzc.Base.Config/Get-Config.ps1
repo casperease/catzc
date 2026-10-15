@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.Config
     visibility: public
+    adrs:
+      - ADR-AUTO-OVERLAY
+      - ADR-PWSH-CACHE#4
 ---
 #>
 

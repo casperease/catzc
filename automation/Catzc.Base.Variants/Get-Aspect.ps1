@@ -6,6 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Variants
     visibility: public
+    adrs:
+      - ADR-DSGN-ASPECT
 ---
 #>
 

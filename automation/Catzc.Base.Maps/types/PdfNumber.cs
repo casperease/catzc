@@ -5,6 +5,7 @@ catzc:
     path: automation/Catzc.Base.Maps/types/PdfNumber.cs
     kind: type
     module: Catzc.Base.Maps
+    adrs: []
 ---
 */
 

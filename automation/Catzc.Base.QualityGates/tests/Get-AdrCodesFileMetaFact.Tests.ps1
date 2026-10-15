@@ -36,4 +36,41 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         $codes = Get-Codes "---`ncatzc:`n  derived:`n    adrs:`n      - ADR-WIDGET#9`n---`nbody`n"
         $codes.Count | Should -Be 0
     }
+
+    Context 'a code file, whose kind names it under domain_files' {
+        BeforeAll {
+            $script:codeKind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{
+                        'adr-codes' = @{ keys = @('adrs'); settings = @{ domain_files = @('automation/**/types/*.cs') } }
+                    }
+                }).kinds[0]
+
+            function script:Get-CodeCodes {
+                param([string] $Text)
+                $state = Get-CodeMetaState -Text $Text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/'))
+                $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $script:codeKind } {
+                    param($State, $Kind)
+                    Get-AdrCodesFileMetaFact -State $State -Path 'automation/Catzc.Widget/types/Widget.cs' -Kind $Kind
+                }
+                , @($fact['adrs'])
+            }
+        }
+
+        It 'lists a bare domain code beside the rule codes, reading below the head only' {
+            $text = "/*`n---`ncatzc:`n  derived:`n    adrs:`n      - ADR-HEAD#1`n---`n*/`n`n// ADR-WIDGET, ADR-GADGET#4 and ADR-WIDGET#2`nclass Widget {}`n"
+            (Get-CodeCodes $text) | Should -Be @('ADR-GADGET#4', 'ADR-WIDGET', 'ADR-WIDGET#2')
+        }
+
+        It 'ignores the colon form of a rule heading' {
+            (Get-CodeCodes "// ADR-WIDGET#1`n").Count | Should -Be 0
+        }
+
+        It 'keeps a markdown file to rule codes even when the kind names code files' {
+            $state = Get-MarkdownMetaState -Text "The ADR-WIDGET decision, ADR-GADGET#4.`n"
+            $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $script:codeKind } {
+                param($State, $Kind)
+                Get-AdrCodesFileMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
+            }
+            , @($fact['adrs']) | Should -Be @('ADR-GADGET#4')
+        }
+    }
 }

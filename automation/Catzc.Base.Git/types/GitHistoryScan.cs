@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Git/types/GitHistoryScan.cs
     kind: type
     module: Catzc.Base.Git
+    adrs:
+      - ADR-AUTO-TRACKED
 ---
 */
 

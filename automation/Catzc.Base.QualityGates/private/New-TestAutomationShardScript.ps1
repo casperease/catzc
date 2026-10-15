@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs:
+      - ADR-AUTO-ASSETDEP#1
+      - ADR-AUTO-TEST#25
+      - ADR-AUTO-TEST#30
 ---
 #>
 
@@ -29,6 +33,9 @@ catzc:
     Tags a test must carry to run (the -Rule provenance filter). Empty means no include filter.
 .PARAMETER Verbosity
     Pester output verbosity inside the worker (the run's -Output value).
+.PARAMETER FullNameFilter
+    The harness never sets this; only the manual single-check path (Invoke-TestFile) filters by name.
+    [comment:5](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment5)
 .PARAMETER EntryScript
     Empty loads the source importer; a build run passes its Import-Catzc.ps1, which the Go tests then reuse.
     [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)
@@ -62,8 +69,6 @@ function New-TestAutomationShardScript {
         [ValidateSet('Minimal', 'Normal', 'Detailed', 'Diagnostic')]
         [string] $Verbosity = 'Detailed',
 
-        # The harness never sets this; only the manual single-check path (Invoke-TestFile) filters by name.
-        # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment5)
         [string] $FullNameFilter,
 
         [string] $EntryScript,

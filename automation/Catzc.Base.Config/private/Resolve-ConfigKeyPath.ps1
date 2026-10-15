@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.Config
     visibility: private
+    adrs:
+      - ADR-CONF-ADDRESSING#2
+      - ADR-CONF-ADDRESSING#4
+      - ADR-CONF-ADDRESSING#5
 ---
 #>
 

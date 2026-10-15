@@ -5,6 +5,11 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepShortName.cs
     kind: type
     module: Catzc.Azure.Templates
+    adrs:
+      - ADR-AUTO-TYPES#9
+      - ADR-AZ-NAMING
+      - ADR-AZ-NAMING#2
+      - ADR-AZ-NAMING#6
 ---
 */
 

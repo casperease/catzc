@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.Languages/types/FileCarriersConfig.cs
     kind: type
     module: Catzc.Base.Languages
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-PRIN-CONFIG#1
+      - ADR-REPO-FILEMETA#1
 ---
 */
 

@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.RootConfig
     visibility: private
+    adrs:
+      - ADR-AUTO-GO#6
+      - ADR-AUTO-PY#4
+      - ADR-REPO-FORMAT#8
 ---
 #>
 

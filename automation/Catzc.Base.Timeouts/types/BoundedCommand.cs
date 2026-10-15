@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Timeouts/types/BoundedCommand.cs
     kind: type
     module: Catzc.Base.Timeouts
+    adrs:
+      - ADR-AUTO-ENGINE#2
 ---
 */
 

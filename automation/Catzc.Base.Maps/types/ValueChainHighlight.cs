@@ -5,6 +5,10 @@ catzc:
     path: automation/Catzc.Base.Maps/types/ValueChainHighlight.cs
     kind: type
     module: Catzc.Base.Maps
+    adrs:
+      - ADR-DSGN-TRACK#12
+      - ADR-DSGN-TRACK#16
+      - ADR-THES-ONETRUTH#3
 ---
 */
 

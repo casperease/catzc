@@ -6,6 +6,11 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: public
+    adrs:
+      - ADR-AUTO-CACHE
+      - ADR-AUTO-CONSOLE#10
+      - ADR-PRIN-CONFIG
+      - ADR-REPO-FORMAT#4
 ---
 #>
 

@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Azure.Templates
     visibility: public
+    adrs:
+      - ADR-AZ-DATAMOD#10
+      - ADR-PWSH-ERROR#8
+      - ADR-PWSH-PREPOST
 ---
 #>
 

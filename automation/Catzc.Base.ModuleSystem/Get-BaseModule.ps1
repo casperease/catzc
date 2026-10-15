@@ -6,6 +6,9 @@ catzc:
     kind: function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    adrs:
+      - ADR-AUTO-TYPES#9
+      - ADR-DSGN-RUNMODE
 ---
 #>
 

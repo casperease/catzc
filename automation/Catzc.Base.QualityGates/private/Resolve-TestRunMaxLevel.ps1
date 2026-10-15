@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.QualityGates
     visibility: private
+    adrs:
+      - ADR-AUTO-CONSOLE#10
+      - ADR-AUTO-TEST#33
+      - ADR-AUTO-TEST#41
 ---
 #>
 

@@ -6,6 +6,10 @@ catzc:
     kind: function
     module: Catzc.Base.RootConfig
     visibility: public
+    adrs:
+      - ADR-AUTO-DRYRUN
+      - ADR-DSGN-RUNMODE
+      - ADR-REPO-ROOTCFG
 ---
 #>
 
