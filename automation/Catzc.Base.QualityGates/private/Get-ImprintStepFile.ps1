@@ -8,7 +8,8 @@
     Lists the files one imprint step may write, in its own scope.
 .DESCRIPTION
     A step is never named by a language: which languages it covers is configuration, so this only answers which files...
-    ADR-REPO-FORMAT#8 [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ImprintStepFile.ps1.md#comment1)
+    [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ImprintStepFile.ps1.md#comment1)
 .PARAMETER Step
     The step name, as languages.yml spells it.
 .PARAMETER RepositoryRoot

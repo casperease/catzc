@@ -75,8 +75,8 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
         BeforeEach {
             $script:helpFile = Join-Path $script:root 'automation/Widget/Get-Gadget.ps1'
             $null = New-Item -ItemType Directory -Path (Split-Path $script:helpFile) -Force
-            $script:misordered = "<#`n.SYNOPSIS`n    Gets a gadget.`n.OUTPUTS`n    [string] The gadget.`n.PARAMETER Widget`n    The widget.`n#>`nfunction Get-Gadget {`n    [OutputType([string])]`n    param(`n        [string] `$Widget`n    )`n}`n"
-            [System.IO.File]::WriteAllText($script:helpFile, $script:misordered)
+            $script:helpText = (@('<#', '.SYNOPSIS', '    Gets a gadget.', '.OUTPUTS', '    [string] The gadget.', '.PARAMETER Widget', '    The widget.', '#>', 'function Get-Gadget {', '    [OutputType([string])]', '    param(', '        [string] $Widget', '    )', '}') -join "`n") + "`n"
+            [System.IO.File]::WriteAllText($script:helpFile, $script:helpText)
         }
 
         It 'writes the normal form of a help block and returns the absolute path it changed' {
@@ -95,11 +95,11 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
                 Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root -DryRun
             }
             $outcome.Changed | Should -Be @($script:helpFile)
-            [System.IO.File]::ReadAllText($script:helpFile) | Should -BeExactly $script:misordered
+            [System.IO.File]::ReadAllText($script:helpFile) | Should -BeExactly $script:helpText
         }
 
         It 'returns a problem only a person can settle as a file to repair' {
-            [System.IO.File]::WriteAllText($script:helpFile, "<#`n.SYNOPSIS`n    Gets a gadget.`n#>`nfunction Get-Gadget {`n    param(`n        [string] `$Widget`n    )`n}`n")
+            [System.IO.File]::WriteAllText($script:helpFile, (@('<#', '.SYNOPSIS', '    Gets a gadget.', '#>', 'function Get-Gadget {', '    param(', '        [string] $Widget', '    )', '}') -join "`n") + "`n")
             $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
                 param($Root, $File)
                 Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root

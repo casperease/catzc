@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/dora-explains.md
     kind: adr
-    body_sha: "000532439b64"
+    body_sha: "477d353769d7"
     adrs: []
 ---
 
@@ -268,6 +268,22 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   so a reader changes it with its place in view.
 - [Version control](../../references/dora/capabilities.md#version-control) — the head holds no hash of the body, so an edit stays one hunk
   and concurrent edits do not conflict on it.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Function help
+
+`Function help — one normal form for the help block of a PowerShell function file`
+
+[ADR-REPO-HELP](function-help.md)
+
+> DORA's research ties maintainable code to documentation that is stated once and kept where the reader looks for it. A help block with one
+> section order, one place for its citations and one description per parameter lets a reader and a tool find each fact the same way in every
+> file, and shows a difference between two descriptions instead of hiding it.
+
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a parameter is described once, so two descriptions
+  cannot disagree unseen.
+- [Version control](../../references/dora/capabilities.md#version-control) — citations are a sorted list, so two edits that add one do not
+  conflict on its order.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Agent definitions

@@ -1,3 +1,15 @@
+---
+catzc:
+  derived:
+    path: docs/adr/repository/function-help.md
+    kind: adr
+    body_sha: "0c6470fe90a3"
+    adrs:
+      - ADR-REPO-FORMAT#8
+      - ADR-REPO-LINK#3
+      - ADR-REPO-LINK#9
+---
+
 # ADR: Function help — one normal form for the help block of a PowerShell function file
 
 ## Rules: ADR-REPO-HELP
@@ -22,15 +34,14 @@ without duplicates, each spelled as a code link ([ADR-REPO-LINK#3](markdown-link
 
 A parameter is described once, in its `.PARAMETER` section. An inline comment above a parameter is dropped when it says the same as the
 section, and becomes the missing section when the parameter has none. When both exist and differ, or when the inline comment carries the
-docs link of a moved comment, the file is reported for a person to settle, because authored prose is never rewritten to remove a
-difference.
+docs link of a moved comment, the file is reported for a person to settle, because authored prose is never rewritten to remove a difference.
 
 - [A parameter is described once](#a-parameter-is-described-once)
 
 ### Rule ADR-REPO-HELP:4
 
-Three mismatches are reported and never rewritten: a parameter with no `.PARAMETER` section, a `.PARAMETER` section for a name the
-function does not declare, and an `.OUTPUTS` section whose first type differs from `[OutputType]`.
+Three mismatches are reported and never rewritten: a parameter with no `.PARAMETER` section, a `.PARAMETER` section for a name the function
+does not declare, and an `.OUTPUTS` section whose first type differs from `[OutputType]`.
 
 - [Mismatches are reported](#mismatches-are-reported)
 
@@ -51,8 +62,8 @@ without any check noticing, and a citation placed in the synopsis shows up in ev
 
 ## Decision
 
-The help block has one normal form, written by the formatter wherever the rewrite cannot change what an author meant, and reported
-wherever it could.
+The help block has one normal form, written by the formatter wherever the rewrite cannot change what an author meant, and reported wherever
+it could.
 
 ### The sections have one order
 
@@ -89,9 +100,8 @@ write, so they are findings.
 
 `A configured step, not a new command`
 
-The step is one line in the file-language registry, as the namespace step and the meta head are
-([code-file-meta](code-file-meta.md)). It runs after the formatter and the meta head, and `Format-Links` keeps the line limit of the
-citation lines it writes.
+The step is one line in the file-language registry, as the namespace step and the meta head are ([code-file-meta](code-file-meta.md)). It
+runs after the formatter and the meta head, and `Format-Links` keeps the line limit of the citation lines it writes.
 
 ### How this is enforced
 
