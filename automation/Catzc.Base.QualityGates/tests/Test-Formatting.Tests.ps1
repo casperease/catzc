@@ -1,5 +1,5 @@
 # Test-Formatting is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
-# each L0 case mocks the registry, Format-Code and Format-Types at the module boundary and reads the collected issues;
+# each L0 case mocks the registry and Format-Code at the module boundary and reads the collected issues;
 # the report goes to $TestDrive. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Test-Formatting' -Tag 'L0', 'logic' {
     BeforeAll {
