@@ -4,7 +4,7 @@
     ([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)).
 .DESCRIPTION
     Runs the same engine as Format-Links, read-only, and reports every violation: a code link not yet in canonical...
-    ADR-X, [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5),
+    [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5),
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Links.ps1.md#comment1)
 .PARAMETER Path

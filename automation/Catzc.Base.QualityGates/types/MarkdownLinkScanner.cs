@@ -1,5 +1,5 @@
 // Checks and aligns the markdown links of one.md file (, #5, #7).
-// [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2), ADR-X
+// [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md#comment1)
 
 using System;

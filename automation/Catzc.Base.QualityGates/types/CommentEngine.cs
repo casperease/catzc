@@ -20,6 +20,7 @@ public static class CommentEngine
         @"^\s*\.(?<keyword>SYNOPSIS|DESCRIPTION|PARAMETER|EXAMPLE|INPUTS|OUTPUTS|NOTES|LINK|COMPONENT|ROLE|FUNCTIONALITY|EXTERNALHELP|FORWARDHELPTARGETNAME|FORWARDHELPCATEGORY|REMOTEHELPRUNSPACE)\b",
         RegexOptions.Compiled | RegexOptions.IgnoreCase);
     static readonly Regex DocsLink = new Regex(@"\[comment:(?<number>\d+)\]\((?<page>/[^)\s#]+)#comment(?<anchor>\d+)\)", RegexOptions.Compiled);
+    static readonly Regex CodeSpanText = new Regex(@"(`+)[^`\r\n]+?\1", RegexOptions.Compiled);
     static readonly Regex Citation = new Regex(@"(?<!\w)(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:[:#](?<rule>\d+))?(?![\w-])", RegexOptions.Compiled);
     static readonly Regex MarkdownLink = new Regex(@"\[[^\]\r\n]*\]\([^)\s]+\)", RegexOptions.Compiled);
     static readonly Regex SectionHeading = new Regex(@"^## comment:(?<number>\d+)[ \t]*$", RegexOptions.Compiled | RegexOptions.Multiline);
@@ -262,7 +263,10 @@ public static class CommentEngine
     // [comment:4](/docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md#comment4)
     public static string Insight(string text, int maxLength)
     {
-        string plain = Citation.Replace(MarkdownLink.Replace(text ?? string.Empty, string.Empty), string.Empty);
+        string withoutLinks = MarkdownLink.Replace(text ?? string.Empty, string.Empty);
+        // Citations leave the insight for the link line; an example inside a code span stays, it is part of the sentence.
+        var spans = CodeSpanText.Matches(withoutLinks).Cast<Match>().ToList();
+        string plain = Citation.Replace(withoutLinks, match => spans.Any(span => match.Index >= span.Index && match.Index < span.Index + span.Length) ? match.Value : string.Empty);
         plain = EmptyParentheses.Replace(plain, string.Empty);
         string sentence = SpaceBeforePunctuation.Replace(Whitespace.Replace(plain, " "), "$1").Trim();
         int end = sentence.IndexOf(". ", StringComparison.Ordinal);
@@ -299,7 +303,8 @@ public static class CommentEngine
     public static IReadOnlyList<string> Citations(string text)
     {
         var cites = new List<string>();
-        foreach (Match match in Citation.Matches(text ?? string.Empty))
+        // A citation inside a code span (`ADR-X#8`) is an example of the spelling, not a citation.
+        foreach (Match match in Citation.Matches(CodeSpanText.Replace(text ?? string.Empty, string.Empty)))
         {
             string cite = match.Groups["code"].Value + (match.Groups["rule"].Success ? "#" + match.Groups["rule"].Value : string.Empty);
             if (!cites.Contains(cite)) { cites.Add(cite); }

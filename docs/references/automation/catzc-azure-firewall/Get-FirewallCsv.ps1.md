@@ -85,7 +85,7 @@ entire listing echoes to the console. The download call stays loud — that one 
 
 ## comment:8
 
-Above `` Invoke-AzCli "storage blob download $common --name `"$blobName`" --file `"$de... ``.
+Above ``Invoke-AzCli "storage blob download $common --name `"$blobName`" --file `"$de...``.
 
 ```text
 Quote --name and --file: blob names and the repo path may contain spaces.

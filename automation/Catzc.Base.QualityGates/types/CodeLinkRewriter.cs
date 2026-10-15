@@ -1,5 +1,5 @@
 // Rewrites the ADR references in one comment into canonical code links: `` a whole ADR `` one rule Every legacy spelling is recognised —...
-// [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3), ADR-X
+// [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment1)
 
 using System;
@@ -23,7 +23,7 @@ public sealed class CodeLinkRewriter
         // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment2)
         @"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?docs/adr/[A-Za-z0-9_\-./]+?\.md)(?<frag>#[A-Za-z0-9_\-]+)?(?![\w/])" +
         // A citation is not glued to a word; a '-' before it is allowed only as a range dash after a rule number (`:5-`).
-        // ADR-X, ADR-X#8 [comment:3](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment3)
+        // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment3)
         @"|(?<cite>(?<!\w)(?<!(?:^|\D)-)(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:(?<sep>[:#])(?<rule>\d+))?(?(rule)(?!\d)|(?![\w*]|-[A-Z*<])))" +
         @"|(?<slug>(?<![^\s(\[{,;:'""*])(?<name>[a-z0-9]+(?:-[a-z0-9]+)*)\.md(?![\w/]))",
         RegexOptions.Compiled);
@@ -172,7 +172,7 @@ public sealed class CodeLinkRewriter
     }
 
     // The citation right after a path — `x.md`, `x.md, Rule `, `x.md — ` — merges into the path's link.
-    // ADR-X#3, ADR-X [comment:6](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment6)
+    // [comment:6](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment6)
     int Adjacent(string comment, int at, bool[] literal, out string code, out int? rule)
     {
         code = null;
@@ -191,7 +191,7 @@ public sealed class CodeLinkRewriter
     }
 
     // A bracketed link right after a bare citation that names the same ADR or rule — ``, the link perhaps on the next line — is the same...
-    // ADR-X#3 [comment:7](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment7)
+    // [comment:7](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment7)
     int RepeatedLink(string comment, int at, bool[] literal, string canonical)
     {
         if (at >= comment.Length) { return 0; }

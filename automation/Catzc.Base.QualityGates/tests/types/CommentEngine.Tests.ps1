@@ -131,6 +131,9 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         # The ':' spelling is built, not written, so the string-citation check does not respell the input under test.
         $colonForm = 'ADR-WIDGET' + ':2'
         [Catzc.Base.QualityGates.CommentEngine]::Citations("$colonForm, ADR-WIDGET#2 and ADR-GADGET") | Should -Be @('ADR-WIDGET#2', 'ADR-GADGET')
+        # A citation inside a code span is an example of the spelling: it is no citation, and the insight keeps it.
+        [Catzc.Base.QualityGates.CommentEngine]::Citations('Spell it `ADR-WIDGET#8` or ADR-GADGET.') | Should -Be @('ADR-GADGET')
+        [Catzc.Base.QualityGates.CommentEngine]::Insight('Spell it `ADR-WIDGET#8`, per ADR-GADGET.', 120) | Should -Be 'Spell it `ADR-WIDGET#8`, per.'
         [Catzc.Base.QualityGates.CommentEngine]::IsMechanical('ADR-WIDGET#2 [comment:1](/docs/x.md#comment1)') | Should -BeTrue
         [Catzc.Base.QualityGates.CommentEngine]::IsMechanical('Sorted so the widget order is stable') | Should -BeFalse
     }

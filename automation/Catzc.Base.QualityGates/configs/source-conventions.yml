@@ -9,6 +9,7 @@
 engine_set:
   exempt:
     automation/Catzc.Base.Engines/types/**: the model itself, the one place the engines are declared
+    docs/references/automation/catzc-base-engines/types/**: the model's comment pages, its comments moved verbatim (ADR-REPO-COMMENTS#2)
     automation/Catzc.Base.Engines/tests/**: the model's own tests pin the names it declares
     "**/tests/assets/engine-cases/**": the engine-case tables carry one column per engine by design
   count_phrases:

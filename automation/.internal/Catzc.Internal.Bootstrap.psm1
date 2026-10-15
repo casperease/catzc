@@ -471,12 +471,17 @@ function Import-CSharpTypes {
         # loaded cross-root) is a hard failure too — the code that uses it is certain to fail later, far from
         # here. A changed or removed type degrades gracefully — keep the already-loaded types this session,
         # warn (orange), and return WITHOUT recording the new hash, so the warning repeats on every re-import
-        # until you restart. A person's interactive console never reaches here: the importer restarts it in a
-        # fresh process first (Invoke-Importer).
+        # until you restart. Every devbox session, a person's included, takes this path (ADR-AUTO-TYPES#15): one
+        # yellow line naming the changed types by simple name, and the import goes on.
         if ((Test-IsRunningInPipeline) -or $typeState.MissingTypes.Count) {
             throw "$changeSummary Restart PowerShell to pick up the change."
         }
-        Write-ImporterMessage "Using old cached C# types — $changeSummary Restart PowerShell to pick up the change." -ForegroundColor DarkYellow
+        $names = @($typeState.Drift | ForEach-Object { $_ -replace '^.*/', '' })
+        $shown = ($names | Select-Object -First 5) -join ', '
+        if ($names.Count -gt 5) {
+            $shown += " and $($names.Count - 5) more"
+        }
+        Write-ImporterMessage "Using the old C# types, restart PowerShell to pick up the change: $shown" -ForegroundColor Yellow
         return
     }
 

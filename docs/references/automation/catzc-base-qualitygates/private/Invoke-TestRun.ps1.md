@@ -245,3 +245,12 @@ The closing bracket prints on every exit path — pass, fail, and -PassThru alik
 visually closed. Console UX is orthogonal to the -PassThru data return (banner on the information
 stream, object on the output stream), and orthogonal to the throw that still fires last on a fail.
 ```
+
+## comment:25
+
+Above `Write-Message '.' -NoHeader -NoNewline`.
+
+```text
+Liveness dots ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)): discovery
+runs before the banner and takes a while, so each stage shows a dot.
+```

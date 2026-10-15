@@ -90,8 +90,9 @@ function Invoke-TestRun {
 
     # The parent needs Pester only for the discovery pass; each worker imports its own copy for the actual run.
     Import-VendoredPester
-    # Liveness dots ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)): discovery
-    # runs before the banner and takes a while, so each stage shows a dot.
+    # Liveness dots: discovery runs before the banner and takes a while, so each stage shows a dot.
+    # [ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)
+    # [comment:25](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment25)
     Write-Message '.' -NoHeader -NoNewline
 
     # The run's tests folders, foundation-first — module dependency order, dot-prefixed infrastructure last...

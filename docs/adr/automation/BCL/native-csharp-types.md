@@ -124,11 +124,9 @@ text and its default display at the prompt. `Test-ShippedTypes` fails a type tha
 ### Rule ADR-AUTO-TYPES:15
 
 Whether the C# types loaded in a process are current is measured in one place, `Get-LoadedTypeDrift` (`Catzc.Internal.Types`), and asked
-through one test/assert pair, `Test-LoadedTypesCurrent` and `Assert-LoadedTypesCurrent` (`Catzc.Base.TypesSystem`). When they are stale, a
-person importing at their own interactive console is never left on them: the importer starts the import over in a new pwsh in the same
-window, with the same switches, and `exit` returns to the old session, which says it still holds the old types. Who runs decides, as for the
-janitors (ADR-AUTO-TYPES#13), and no switch overrides it: an agent, a script, or a redirected console keeps the loader's warn-or-throw
-(ADR-AUTO-TYPES#7), and a pipeline throws.
+through one test/assert pair, `Test-LoadedTypesCurrent` and `Assert-LoadedTypesCurrent` (`Catzc.Base.TypesSystem`). When they are stale, the
+importer never starts a nested shell and never waits: the loader's warn-or-throw (ADR-AUTO-TYPES#7) applies to every session. On a devbox
+that is one yellow line naming the changed types by simple name, and the import goes on with the loaded types; a pipeline throws.
 
 - [The cache-state contract](#the-cache-state-contract)
 - [Stale types in a running process](#stale-types-in-a-running-process)
@@ -238,7 +236,7 @@ filename, so the current-hash DLL is simply absent until built. The loader resol
 | present                                | yes                       | **No-op.** Types already loaded in the process.                                                                                                                                                                                                                                                                                                                           |
 | absent (source added/changed/deleted)  | no                        | **Compile** all sources → the hash-named DLL, load, verify every type.                                                                                                                                                                                                                                                                                                    |
 | absent (DLL deleted, source unchanged) | yes                       | **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.                                                                                                                                                                                                                                                              |
-| absent because the source CHANGED      | yes                       | **A person's own console: start the import over in a new pwsh** (ADR-AUTO-TYPES#15). **Otherwise, devbox: warn (orange) + keep the old types** this session (return, don't record the new hash) — unless a type was added, which throws "restart PowerShell". **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped. |
+| absent because the source CHANGED      | yes                       | **Devbox, whoever runs: warn (yellow, the changed types by simple name) + keep the old types and go on** this session (ADR-AUTO-TYPES#15) (return, don't record the new hash) — unless a type was added, which throws "restart PowerShell". **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped. |
 
 A superseded-hash DLL (the old build after a source edit) is pruned by the loader on rebuild and by the post-import janitor
 `Clear-ModuleTypeCache` (which deletes on a devbox only; CI makes no source-control changes). Editing any `types/*.cs` re-keys the whole
@@ -277,11 +275,9 @@ Whether a stale load warns or throws depends on where the process runs, and the 
 the pipeline variables ([pipeline-detection](../../flow/pipeline-detection.md#rule-adr-flow-cd-detect1)), like every other caller (Rule
 ADR-AUTO-TYPES#7). The detection function is therefore loaded before the types pre-pass runs.
 
-A person who edits a type and imports again wants the new types, so the importer gives them a new process instead of an instruction, in the
-same window and with the same switches ([hosting-csharp-types](../../pwsh/hosting-csharp-types.md#rule-adr-pwsh-types5)). The old session
-stays underneath, because a process cannot replace itself on every platform, and says it still holds the old types. Each restart nests one
-more process, which leaving the new session unwinds. The restart is for a person only: an agent cannot drive a nested shell, a script would
-block on one, and a pipeline must never run on stale types.
+A person who edits a type and imports again keeps the loaded types and gets one yellow line naming the changed types by simple name; the
+import goes on and never waits. The importer starts no nested shell: a process cannot replace itself on every platform, and an agent or a
+script would block on a nested one. A pipeline must never run on stale types, so it throws.
 
 ### Why a shadow copy
 
@@ -372,9 +368,8 @@ of every property.
   unit per file), verifies every `types/*.cs` produced `<module>.<filename>` (else "was not produced"), and registers each
   `[Catzc.Base.Objects.ConsoleDisplay]` property list as the type's default display (Rule ADR-AUTO-TYPES#14).
 
-- **`Get-LoadedTypeDrift`** (in `Catzc.Internal.Types`) is the one measure of stale types; the loader, the importer's restart
-  (`Restart-ImporterSession`, decided by `Test-ImporterRestartAllowed`), and the `Test-LoadedTypesCurrent` / `Assert-LoadedTypesCurrent`
-  pair read it (Rule ADR-AUTO-TYPES#15).
+- **`Get-LoadedTypeDrift`** (in `Catzc.Internal.Types`) is the one measure of stale types; the loader and the
+  `Test-LoadedTypesCurrent` / `Assert-LoadedTypesCurrent` pair read it (Rule ADR-AUTO-TYPES#15).
 
 - **`Test-ShippedTypes`** (in `Catzc.Base.TypesSystem`) fails a concrete shipped class that keeps the inherited `ToString()`, naming the
   file and the line to add (Rule ADR-AUTO-TYPES#14); enums, interfaces, abstract and static classes, attributes, and exceptions are exempt.

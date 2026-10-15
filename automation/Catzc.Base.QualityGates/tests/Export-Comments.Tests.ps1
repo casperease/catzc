@@ -1,3 +1,4 @@
+# cspell:ignore ngadget  -- the escape-sequence artifact in the "`ngadget" fixture strings
 # Export-Comments moves a file's long comments into its comment page, one-way and losslessly
 # ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)), tested in isolation:
 # every test builds its own fixture repository in $TestDrive with widget/gadget files and exports only that tree

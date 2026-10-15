@@ -4,7 +4,7 @@
     ([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)).
 .DESCRIPTION
     The link aligner and the repository-wide migration in one command.
-    [ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8), ADR-X
+    [ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-Links.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to align. Default: every git-tracked file.

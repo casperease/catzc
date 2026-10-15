@@ -43,10 +43,9 @@ through a `using` namespace (ADR-PWSH-TYPES#1), never through a copy of its own.
 ### Rule ADR-PWSH-TYPES:5
 
 A loaded assembly cannot be unloaded from the pwsh process (ADR-AUTO-TYPES#7), so the only remedy for stale types is a new pwsh process. The
-loader's devbox warning names that remedy ("Using old cached C# types … restart PowerShell"), its pipeline check calls
-`Test-IsRunningInPipeline` like every other caller, and for a person at their own console the importer starts the new process itself:
-`Restart-ImporterSession` starts a `pwsh` in the same window that dot-sources `importer.ps1` with the same switches, and `exit` returns to
-the old session (ADR-AUTO-TYPES#15).
+loader's devbox warning names that remedy (yellow, the changed types by simple name, "restart PowerShell") and the import goes on, its
+pipeline check calls `Test-IsRunningInPipeline` like every other caller, and the importer never starts a nested shell itself
+(ADR-AUTO-TYPES#15).
 
 - [Stale types in a pwsh process](#stale-types-in-a-pwsh-process)
 
@@ -142,9 +141,8 @@ warn-or-throw in the types pre-pass, before any module loads. It asks `Test-IsRu
 detection function is one the importer has loaded before the pre-pass runs, and the pipeline-detection variables are read in one place
 ([ADR-FLOW-CD-DETECT#1](../flow/pipeline-detection.md#rule-adr-flow-cd-detect1)).
 
-A person who edits a type and imports again gets the new process without asking: `Restart-ImporterSession` starts a `pwsh` beside the
-running one, which dot-sources the importer with the same switches and stays open in the same window. The old session stays underneath,
-because a process cannot replace itself on every platform; `exit` returns to it, and it says it still holds the old types.
+A person who edits a type and imports again keeps the loaded types and sees one yellow line naming the changed types; the import goes on and
+never waits on a nested shell.
 
 ### Model types in pwsh
 
@@ -171,8 +169,8 @@ turns each `[ConsoleDisplay("Id", "Name")]` into the type's `DefaultDisplayPrope
 ## Decision
 
 pwsh hosts the C# types through `Add-Type` alone, against the BCL and `System.Management.Automation`, and registers each type's accelerator
-aliases and default display after the load. A changed type in a running pwsh is answered with a new pwsh process, started for a person and
-named for everyone else. The console text is C#, because that is the one pwsh's string conversion reads.
+aliases and default display after the load. A changed type in a running pwsh is answered with a message that names the restart (a throw in a
+pipeline), never with a nested shell. The console text is C#, because that is the one pwsh's string conversion reads.
 
 ### How this is enforced
 
@@ -180,7 +178,6 @@ named for everyone else. The console text is C#, because that is the one pwsh's 
   file, registers each `[Catzc.Base.Objects.PSTypeAlias]` name as a type-accelerator (ADR-PWSH-TYPES#2), and registers each
   `[Catzc.Base.Objects.ConsoleDisplay]` property list as the type's default display (ADR-PWSH-TYPES#7). `Import-CSharpTypes.Tests.ps1`
   asserts a decorated type's accelerator resolves after load.
-- **`Restart-ImporterSession`**, decided by `Test-ImporterRestartAllowed`, starts the new pwsh for a person (ADR-PWSH-TYPES#5).
 - **`Catzc.Types.csproj`** carries the `System.Management.Automation` reference compile-time-only (ADR-PWSH-TYPES#4); a reference beyond the
   default set fails the runtime compile, because `Add-Type` cannot see it (ADR-PWSH-TYPES#1).
 - **`Test-ShippedTypes`** fails a concrete shipped class that keeps the inherited `ToString()` (ADR-PWSH-TYPES#7).
@@ -189,5 +186,5 @@ named for everyone else. The console text is C#, because that is the one pwsh's 
 
 - A fresh checkout needs nothing beyond pwsh to compile the types, and a C# type can use any PowerShell primitive for the cost of a `using`.
 - pwsh callers write `[Catzc.Module.Depm]` instead of the full name, and a search for the alias still lands on its source.
-- A type edit costs a person one new pwsh in the same window, and an agent or a pipeline a message or a throw that names the restart.
+- A type edit costs a devbox session a yellow line that names the changed types, and a pipeline a throw that names the restart.
 - No external package can be used from `types/`; logic that needs one lives in PowerShell over a vendored tool.

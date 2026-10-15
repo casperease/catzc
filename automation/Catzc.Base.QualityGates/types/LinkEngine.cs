@@ -1,7 +1,7 @@
 // The link engine behind Format-Links and Test-Links: runs over a list of repository files in parallel and, per file, by kind: Code —...
 // [ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8),
 // [ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1),
-// [ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6), ADR-X,
+// [ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6),
 // [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md#comment1)
 
@@ -198,7 +198,7 @@ public sealed class LinkEngine
     }
 
     // Respells every `:n` in the file's string literals as `#n`, outside a `### Rule` heading the string builds, and reports each as...
-    // ADR-X [comment:6](/docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md#comment6)
+    // [comment:6](/docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md#comment6)
     string AlignStringCitations(string text, string file, string extension, List<CodeLinkRewriter.Hit> hits)
     {
         if (stringCitations.IsExempt(file)) { return text; }
