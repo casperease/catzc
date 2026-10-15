@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs a Catzc build — two-part beside a working root, or into the current user's module path.
 .DESCRIPTION
-    Places a build (Build-Modules' Catzc/<version>/ folder) where it is consumed: -Root <dir> the two-part install.
+    The build is verified before the destination is touched, and an unchanged content hash skips the copy.
     [ADR-AUTO-BUNDLE#6](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle6)
     [comment:1](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment1)
 .PARAMETER Root
@@ -10,10 +10,10 @@
 .PARAMETER Scope
     CurrentUser — install into the user's PowerShell module path instead of beside a working root.
 .PARAMETER Bundle
-    Whose devbox build to install when -Source is not given (an exporter.yml bundles key).
+    Ignored when -Source names a build directly; otherwise it picks which devbox build is installed.
     [comment:2](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment2)
 .PARAMETER Source
-    The build to install (default: the bundle's devbox build,...
+    The default is a devbox build, which sits under the placeholder version, never a pipeline version.
     [comment:3](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment3)
 .PARAMETER Force
     Copy the build even when the target already holds the same content hash.
@@ -76,7 +76,7 @@ function Install-Catzc {
                 [System.IO.Directory]::Delete($moduleTarget, $true)
             }
             Copy-Directory -Path $Source -Destination $moduleTarget
-            # A copy drops the executable bit, which an engine whose scripts need it (bash) requires on Unix: every...
+            # Unix only: the copy drops the executable bit, so shebang scripts of bash-like engines are re-marked.
             # [ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2)
             # [comment:5](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment5)
             if (-not $IsWindows) {

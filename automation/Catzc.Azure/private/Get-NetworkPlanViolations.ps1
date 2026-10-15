@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns every way a network plan is out of sync with the azure config's environments and subscriptions.
 .DESCRIPTION
-    The cross-asset join of and, over two already-typed configs.
+    Per-subscription environments (nsub, psub) are exempt because they carry no vnet, so they need no network entry.
     [ADR-AZ-NETWORK#2](/docs/adr/azure/azure-network-model.md#rule-adr-az-network2),
     [ADR-AZ-NETWORK#5](/docs/adr/azure/azure-network-model.md#rule-adr-az-network5),
     [ADR-AZ-NETWORK#4](/docs/adr/azure/azure-network-model.md#rule-adr-az-network4)

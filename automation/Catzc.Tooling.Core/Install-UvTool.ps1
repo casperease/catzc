@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs a CLI as an isolated uv tool.
 .DESCRIPTION
-    Mirrors Install-Tool's contract but installs via `uv tool install <uv_tool>==<version>.*` — each tool gets its...
+    Each tool gets its own isolated uv environment in user space, so installs never pollute a shared one.
     [comment:1](/docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (must declare uv_tool).
@@ -47,7 +47,7 @@ function Install-UvTool {
         }
     }
 
-    # uv resolves the package's own compatible Python and installs it in an isolated env.
+    # Pre-release resolution, for packages that pin a beta dependency, goes through Invoke-Uv, which warns.
     # [comment:2](/docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md#comment2)
     Invoke-Uv "tool install $($config.uv_tool)==$Version.*" -Prerelease:$config.uv_allow_prerelease
 

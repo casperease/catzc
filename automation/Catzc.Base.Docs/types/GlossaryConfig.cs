@@ -1,4 +1,4 @@
-// One glossary source (a module's configs/glossary.yml) — the controlled vocabulary that module opts into.
+// Load reads this one file only; cross-source facts such as term uniqueness and defined_by belong to Test-Glossary.
 // [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
 // [ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3),
 // [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)

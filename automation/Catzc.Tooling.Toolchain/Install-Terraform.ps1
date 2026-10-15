@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs Terraform via the platform package manager.
 .DESCRIPTION
-    Windows: winget.
+    Linux configures the HashiCorp apt repository inline when it is missing, so no manual setup comes first.
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Terraform.ps1.md#comment1)
 .PARAMETER Version
     Terraform version to install. Defaults to the locked version in Get-ToolConfig.

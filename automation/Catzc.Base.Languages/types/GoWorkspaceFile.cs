@@ -1,4 +1,4 @@
-// One file New-GoWorkspace renders: the root go.work, or a go/tests/<folder>/go.mod.
+// The renderer only composes content; Build-RootConfig owns the write.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
 // [comment:1](/docs/references/automation/catzc-base-languages/types/GoWorkspaceFile.cs.md#comment1)

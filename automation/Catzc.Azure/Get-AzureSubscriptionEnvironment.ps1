@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the per-subscription identity environment (nsub/psub) of a named subscription.
 .DESCRIPTION
-    Each subscription carries exactly one per-subscription env (nsub or psub — see ), the identity env that...
+    Lets a standard template find the once-per-subscription foundation, and its Key Vault, in its own subscription.
     [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md#comment1)
 .PARAMETER Subscription

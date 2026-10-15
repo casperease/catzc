@@ -2,7 +2,7 @@
 .SYNOPSIS
     Runs python with the given arguments.
 .DESCRIPTION
-    Asserts that the installed Python version matches the locked version in Get-ToolConfig before executing the command.
+    A dry run skips the version assert, so command strings can be tested without Python installed.
     [comment:1](/docs/references/automation/catzc-tooling-python/Invoke-Python.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to python.

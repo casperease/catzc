@@ -1,4 +1,4 @@
-// adrs.yml — the ADR domain-structure registry (RULES ↔ domains wiring).
+// Loading reads no other file and throws once with every violation; folder and token cross-checks live in Test-AdrRegistry.
 // [ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4),
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9),
 // [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3),
@@ -24,7 +24,7 @@ public sealed class AdrsConfig
     // The rows of the value-chain stack, top to bottom ([ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14)).
     public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });
 
-    // The value-chain concerns, in value-chain order, left to right.
+    // Declared once, in value-chain order; domain and ruleset concern lists may only name entries from this list.
     // [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)
     // [comment:2](/docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md#comment2)
     public static readonly IReadOnlyList<string> Concerns = Array.AsReadOnly(new[] { "automation", "build", "quality-control", "release", "deploy", "access" });
@@ -171,7 +171,7 @@ public sealed class AdrsConfig
                     string effective = leaf != null ? leaf : code;
                     string terminology = r.Contains("terminology") && r["terminology"] != null ? r["terminology"].ToString() : null;
 
-                    // The external's domain segment is the effective code: the external is either the domain-root citation...
+                    // A prefix test is enough for a compound code such as FLOW-CD, so no dash position is needed to split it.
                     // [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)
                     // [comment:3](/docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md#comment3)
                     string expectedPrefix = "ADR-" + effective;

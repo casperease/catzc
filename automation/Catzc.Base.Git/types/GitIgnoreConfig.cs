@@ -1,4 +1,4 @@
-// The gitignore registry (configs/gitignore.yml) and its validity rules: a required 'sections' list of explained pattern groups, each...
+// Construction collects every malformed section into one error, so a bad registry is fixed in one pass.
 // [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md), [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
 // [comment:1](/docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md#comment1)
 

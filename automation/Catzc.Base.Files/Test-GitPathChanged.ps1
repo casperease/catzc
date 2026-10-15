@@ -2,7 +2,7 @@
 .SYNOPSIS
     Tests whether anything under the given repository paths differs from HEAD.
 .DESCRIPTION
-    A thin, read-only predicate over `git status --porcelain -- <paths>`: true when git reports any modified, new, or...
+    The one changed-paths question that the committer's no-op and its policy callers both ask, so it lives once.
     [comment:1](/docs/references/automation/catzc-base-files/Test-GitPathChanged.ps1.md#comment1)
 .PARAMETER Path
     The repository-relative, '/'-separated paths (files or folders) to check.

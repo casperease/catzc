@@ -2,18 +2,18 @@
 .SYNOPSIS
     Claims where a test run executes — its location: in place in the working folder, or in an isolated snapshot of it.
 .DESCRIPTION
-    A test run never waits for another.
+    Concurrent runs share a checkout's real state, so only one may use the working folder and a busy one gets a snapshot.
     [ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment1)
 .PARAMETER EntryPoint
-    The entry point claiming the location ('Test-Automation', 'Invoke-TestFile', …) — written to the lock record and...
+    Written to the lock record, so a concurrent run that finds the folder busy can name who holds it.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment2)
 .PARAMETER RunDirectory
     The run's report folder — written to the lock record so a concurrent run can name it.
 .PARAMETER Isolated
     Run in a snapshot even when the working folder is free.
 .PARAMETER KeepSandbox
-    Keep a snapshot after the run instead of deleting it — recorded on the location as KeepSandbox, which...
+    Only a snapshot is kept: an in-place run has nothing to delete, so the switch changes nothing for it.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment3)
 .OUTPUTS
     [pscustomobject] the location: Mode ('in-place'|'snapshot'), SourceRoot (the working folder), Root (where
@@ -101,7 +101,7 @@ function Enter-TestRunLocation {
     Write-Message "Running in an isolated snapshot instead: $destination" -ForegroundColor Yellow
     $location.Snapshot = New-RepositorySnapshot -SourceRoot $sourceRoot -Destination $destination
 
-    # The snapshot starts with the working folder's quality-check result caches (out/cache), which it would not...
+    # Cache keys are content-based, so they hold in the copy; without them every snapshot run starts from cold.
     # [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment4)
     $sourceCache = Join-Path (Get-OutputRoot) 'cache'
@@ -109,7 +109,7 @@ function Enter-TestRunLocation {
         Copy-Directory $sourceCache (Join-Path $location.Snapshot.Path 'out/cache')
     }
 
-    # Prime the snapshot with one full import, as a fresh clone's first import does: the janitors materialise the...
+    # Import once before any worker starts: workers skip the janitors and would find the generated files missing.
     # [ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2)
     # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment5)
     Write-Message 'Priming the snapshot: one import materialises its generated files...'

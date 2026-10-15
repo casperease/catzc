@@ -2,11 +2,11 @@
 .SYNOPSIS
     Resolves a (possibly repo-relative or out/-anchored) path to an absolute one — never against $PWD.
 .DESCRIPTION
-    Companion to ConvertTo-RepoRelativePath, and the binding helper for the path-representation contract.
+    An 'out/' path binds to the output root, not the repo root, so one stored string fits devbox and pipeline.
     [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)
     [comment:1](/docs/references/automation/catzc-base-repository/Resolve-RepoPath.ps1.md#comment1)
 .PARAMETER Path
-    The path to resolve.
+    An absolute path is returned as given; only 'out/...' and other relative paths are re-anchored and normalized.
     [comment:2](/docs/references/automation/catzc-base-repository/Resolve-RepoPath.ps1.md#comment2)
 .EXAMPLE
     Resolve-RepoPath 'automation/Catzc.Base.Repository/Get-RepositoryFile.ps1'

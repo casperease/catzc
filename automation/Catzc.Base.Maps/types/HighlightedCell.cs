@@ -1,4 +1,4 @@
-// One lit cell of a world-map highlight: the cell (a track and a file language), the files in it that the request lit, the steps that...
+// Touched is true only when every reason is a passing mention, so a cell lit by mentions alone is told apart.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/HighlightedCell.cs.md#comment1)
 

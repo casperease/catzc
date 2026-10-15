@@ -2,7 +2,7 @@
 .SYNOPSIS
     Packs a Catzc build into a NuGet package (.nupkg) for a local-path Install-PSResource.
 .DESCRIPTION
-    The package delivery shape.
+    The build folder is packed as is, since it already is an installable module; pack only, no publish.
     [ADR-AUTO-BUNDLE#6](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle6),
     [ADR-GH-RELEASE](/docs/adr/github/github-release.md)
     [comment:1](/docs/references/automation/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md#comment1)

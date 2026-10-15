@@ -1,4 +1,4 @@
-// Output formats for ConvertTo-ModuleDependencyDiagram.
+// Used as a typed parameter, so the format choice validates and tab-completes without a ValidateSet.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyFormat.cs.md#comment1)
 
 namespace Catzc.Base.ModuleSystem;

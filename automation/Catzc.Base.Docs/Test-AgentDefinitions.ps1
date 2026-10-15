@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: the sub-agent definitions, their registry (agents.yml), and the .claude/CLAUDE.md list agree.
 .DESCRIPTION
-    A quality gate over the sub-agent definitions.claude/agents/*.md, the registry (Get-Config -Config agents, an...
+    AgentsConfig already rules on spelling and distinct names, so this gate checks only agreement across the files.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-REPO-AGENTS](/docs/adr/repository/agent-definitions.md),
     [ADR-REPO-AGENTS#1](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents1),

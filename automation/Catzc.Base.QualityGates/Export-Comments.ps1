@@ -2,7 +2,7 @@
 .SYNOPSIS
     Moves every long comment of the repository's code and config files into the file's comment page, one-way.
 .DESCRIPTION
-    A file keeps one residue per long comment — an insight line, then a line with the comment's ADR citations and the...
+    A second run changes nothing, and page numbers are never reused, so an exported file stays stable.
     [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),
     [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Export-Comments.ps1.md#comment1)

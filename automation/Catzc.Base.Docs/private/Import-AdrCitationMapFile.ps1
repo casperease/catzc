@@ -2,7 +2,7 @@
 .SYNOPSIS
     Reads one tab-separated ADR map (a code map or a rule map) into one hashtable per row, keyed by the header.
 .DESCRIPTION
-    The map's first line must be exactly the expected header, and every row must have one cell per header column;...
+    A bad header or row throws with file and line before any reference is rewritten, so a map never half-applies.
     [ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md#comment1)
 .PARAMETER Path

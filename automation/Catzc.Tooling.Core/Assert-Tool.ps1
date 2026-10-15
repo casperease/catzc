@@ -2,12 +2,12 @@
 .SYNOPSIS
     Asserts that a tool is installed and at the expected version.
 .DESCRIPTION
-    Checks that the tool's command is on PATH and that its version matches the locked version in tools.yml (outside a...
+    DependsOn is not checked: those are install-time needs, and a probed tool is found by its candidate paths first.
     [comment:1](/docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (e.g., 'python', 'az_cli').
 .PARAMETER SkipVersionCheck
-    Only assert the tool is on PATH.
+    A wrong version still passes, so use it where presence is enough, such as before an uninstall.
     [comment:2](/docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md#comment2)
 .EXAMPLE
     Assert-Tool 'python'
@@ -25,7 +25,7 @@ function Assert-Tool {
     $config = Get-ToolConfig -Tool $Tool
     $command = Get-ToolCommandSuffix -Tool $Tool
 
-    # A tool with declared candidate paths is located by the probe, never by its bare name on PATH (for bash on...
+    # Bare-name lookup is wrong here: on Windows the name bash can resolve to the WSL launcher, not the tool.
     # [comment:3](/docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md#comment3)
     if ($config.HasProbes()) {
         $probe = Resolve-ToolExecutable -Tool $Tool

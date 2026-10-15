@@ -1,4 +1,4 @@
-# expedition, apex prod (customer apex, apex_prod subscription): in the apex prod spoke, registered in the prod hub's private DNS zones.
+# Production class: a provisioned database with geo backups, zone-redundant by the template default.
 # [comment:1](/docs/references/infrastructure/templates/expedition/configuration/apex/prod.yml.md#comment1)
 ParametersFile:
   parameters:

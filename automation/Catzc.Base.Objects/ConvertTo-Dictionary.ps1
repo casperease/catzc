@@ -3,7 +3,7 @@
     Converts a typed object, PSCustomObject, or dictionary into a nested, mutable structure of ordered
     dictionaries (default) or PSCustomObjects (-AsPSObject).
 .DESCRIPTION
-    The escape hatch from the native data-model classes back to a dictionary surface.
+    The result is a fresh mutable copy, so a frozen typed object can be changed without touching its source.
     [comment:1](/docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md#comment1)
 .PARAMETER InputObject
     The object to convert.
@@ -48,7 +48,7 @@ function ConvertTo-Dictionary {
     }
 
     process {
-        # ConvertTo-YamlSafe is the shared recursive reflector — it already turns any object (typed class,...
+        # The dictionary is ConvertTo-YamlSafe's own output; only the PSCustomObject shape is added here.
         # [comment:2](/docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md#comment2)
         $dict = ConvertTo-YamlSafe -Value $InputObject -MaxDepth $MaxDepth
         if ($AsPSObject) {

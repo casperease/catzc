@@ -1,4 +1,4 @@
-// The JFrog Artifactory publish target of configs/artifacts.yml (`artifactory:`): the server URL and repository the gold module-manifest...
+// Validation is the shared target shape, so this type only declares the server URL and repository coordinates.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ArtifactoryArtifactsTarget.cs.md#comment1)
 
 namespace Catzc.Base.ModuleSystem;

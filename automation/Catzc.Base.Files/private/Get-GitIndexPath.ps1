@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the absolute path of the repository's git index file.
 .DESCRIPTION
-    The index of the checkout at Get-RepositoryRoot: `<root>/.git/index` for a plain checkout, or `<gitdir>/index`...
+    The file may be absent (a fresh git init with nothing added); the caller reads that as nothing tracked.
     [comment:1](/docs/references/automation/catzc-base-files/private/Get-GitIndexPath.ps1.md#comment1)
 .OUTPUTS
     [string]

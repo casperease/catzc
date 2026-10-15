@@ -1,4 +1,4 @@
-// One concept of the merged controlled vocabulary as Get-Glossary returns it: the GlossaryConcept itself, the module whose...
+// A result type, not a YAML mirror: the concept travels with its owner, source path and options, so a gate needs no lookup.
 // [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryEntry.cs.md#comment1)

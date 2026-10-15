@@ -226,6 +226,18 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
   with the module name (`Catzc.Internal.Loader`).
 - **Escaping and encoding.** A literal `<Tool>` inside an HTML value is double-escaped (`&amp;lt;Tool&amp;gt;`). A generator script reads
   and writes UTF-8 explicitly (`encoding="utf-8"`), or a replace on `·` silently misses on Windows.
+- **One input, many readers.** When one config type feeds three or more readers, frame the readers on one row and end a single edge
+  on the frame. Put a second input band (such as the live session) above that row, so its edge drops in without a crossing.
+- **Supports holds only the ADRs that govern what is drawn.** Leave out codes the drawn code cites only for parts the slide doesn't
+  draw, and list them in the verify file.
+- **A module whose members fall in two bands** gets one tall `catzc module` frame spanning both bands, never two frames with the same
+  name.
+- **The Supports panel sets only the word `Supports` bold** (`<b>Supports</b>`), with the codes in regular weight at 11 px. Don't set
+  `fontStyle=1` on the cell.
+- **Fan-in from three or more columns** ends on a wide target box with one port cell above each column, so every edge stays a straight
+  vertical in the preview and in draw.io.
+- **A named set is named for its members, not for a type** (`access checks`, not `SubscriptionAccessState`), so it isn't read as a C#
+  type.
 - **A PowerShell built-in** (`Invoke-Expression`, `Start-Process`) is a code unit, not an `external tool`, which means a vendor tool.
 - **A computed type is not a box name.** When the code builds a type it looks up at run time (`$type::new($raw)`), draw a `C# type` glyph
   named for the role (`registered type`) and say in the description that the name varies per config. Don't invent a class name.

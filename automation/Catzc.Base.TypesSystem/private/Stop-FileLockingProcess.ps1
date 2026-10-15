@@ -2,7 +2,7 @@
 .SYNOPSIS
     Stops the processes holding a file open, so the file can be deleted — the type-cache kill switch.
 .DESCRIPTION
-    Asks Get-FileLockingProcess who holds the file and stops each holder, waiting briefly for it to exit so its...
+    Never stops this session or its ancestors, since that would end the very session asking; they are reported.
     [comment:1](/docs/references/automation/catzc-base-typessystem/private/Stop-FileLockingProcess.ps1.md#comment1)
 .PARAMETER Path
     The file whose holders to stop.

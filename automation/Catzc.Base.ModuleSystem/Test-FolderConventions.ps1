@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: every module folder under automation/ follows the folder and file conventions.
 .DESCRIPTION
-    A quality gate over the module folders of <RepositoryRoot>/automation (dot-prefixed folders are infrastructure,...
+    Lives with the module system, not in .internal: the folder convention is its contract, and .internal is no module.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-REPO-FOLDERS](/docs/adr/repository/conventional-folders.md)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md#comment1)
@@ -48,7 +48,7 @@ function Test-FolderConventions {
             }
         }
 
-        # Module-root.ps1: a test is misplaced; the rest are public functions whose file basename is the exported...
+        # File names are kept for the duplicate-export check: one name exported by two modules is last-loaded-wins.
         # [comment:2](/docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md#comment2)
         foreach ($path in ([System.IO.Directory]::EnumerateFiles($moduleDirectory, '*.ps1') | Sort-Object)) {
             $name = [System.IO.Path]::GetFileName($path)

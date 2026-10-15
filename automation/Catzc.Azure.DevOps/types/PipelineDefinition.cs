@@ -1,4 +1,4 @@
-// One pipeline (build definition) registered in Azure DevOps.
+// Describes the registration, not the file: the YAML behind it is named by path and repository only.
 // [comment:1](/docs/references/automation/catzc-azure-devops/types/PipelineDefinition.cs.md#comment1)
 
 using System;

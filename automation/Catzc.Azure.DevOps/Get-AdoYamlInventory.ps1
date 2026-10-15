@@ -2,12 +2,12 @@
 .SYNOPSIS
     Combines YAML file scanning with ADO pipeline registration data.
 .DESCRIPTION
-    Runs Get-AdoYamlFiles to classify files by heuristics, then Get-AdoPipelineDefinitions to fetch registered...
+    A file that ADO has registered as a pipeline is promoted from Unknown to Pipeline.
     [comment:1](/docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md#comment1)
 .PARAMETER Path
     Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
 .PARAMETER Exclude
-    Directory names to skip during scanning.
+    Names match exactly at any depth of the path, not as wildcards or partial paths.
     [comment:2](/docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md#comment2)
 .PARAMETER Project
     Azure DevOps project name. Defaults to the value in ado.yml.
@@ -55,7 +55,7 @@ function Get-AdoYamlInventory {
         }
     }
 
-    # ADO YamlPaths are relative to the repo root, but RelativePaths are relative to the scan root.
+    # A scan of a subdirectory shifts the paths, so the prefix is detected from the data, not assumed.
     # [comment:3](/docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md#comment3)
     $pathPrefix = ''
     foreach ($file in $files) {

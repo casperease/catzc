@@ -2,7 +2,7 @@
 .SYNOPSIS
     Removes an installation directory and cleans it from system PATH.
 .DESCRIPTION
-    Shared helper for Remove-NodeJs, Remove-Python, etc.
+    Every persistent write goes through its seam, which announces it, so a change to the Machine PATH is never silent.
     [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)
     [comment:1](/docs/references/automation/catzc-tooling-core/Remove-SystemInstallation.ps1.md#comment1)
 .OUTPUTS
@@ -10,7 +10,7 @@
 .PARAMETER InstallDir
     Resolved absolute path to the installation directory.
 .PARAMETER ExtraPathDirs
-    Subdirectory names under InstallDir that are also on PATH (e.g.
+    Sub-folders such as Scripts or wbin leave the Machine PATH too, not only the install directory itself.
     [comment:2](/docs/references/automation/catzc-tooling-core/Remove-SystemInstallation.ps1.md#comment2)
 .PARAMETER EnvironmentVariables
     System-level environment variable names to clear.

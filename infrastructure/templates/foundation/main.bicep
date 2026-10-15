@@ -1,4 +1,4 @@
-// foundation — the once-per-subscription baseline: a Log Analytics workspace + a Key Vault.
+// The Key Vault holds the shared SQL admin password that consuming templates reference.
 // [comment:1](/docs/references/infrastructure/templates/foundation/main.bicep.md#comment1)
 
 param location string = resourceGroup().location

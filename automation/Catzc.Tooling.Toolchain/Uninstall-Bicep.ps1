@@ -2,7 +2,7 @@
 .SYNOPSIS
     Uninstalls the Bicep CLI that Install-Bicep installed.
 .DESCRIPTION
-    Windows and macOS delegate to Uninstall-Tool with the tools.yml `bicep` entry (winget, brew).
+    On Linux only the binary Install-Bicep placed in ~/.local/bin is removed; a Bicep CLI elsewhere is left alone.
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Bicep.ps1.md#comment1)
 .PARAMETER Version
     The version to uninstall (Windows and macOS). Default: whichever is installed.

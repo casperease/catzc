@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs the Postman desktop app (user-space, no admin required).
 .DESCRIPTION
-    Windows: Downloads the official installer from dl.pstmn.io and runs it silently.
+    Installs per user with no admin on Windows and Linux; an existing install makes it a no-op.
     [comment:1](/docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md#comment1)
 .PARAMETER Force
     Remove an existing installation before reinstalling.
@@ -33,7 +33,7 @@ function Install-Postman {
 
         $setupPath = Join-Path ([IO.Path]::GetTempPath()) 'Postman-win64-setup.exe'
 
-        # Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download is...
+        # Postman publishes no checksum, so this download is verified by TLS alone.
         # [comment:2](/docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md#comment2)
         Write-Message 'Downloading Postman from dl.pstmn.io'
         Invoke-WebRequest -Uri 'https://dl.pstmn.io/download/latest/win64' -OutFile $setupPath -UseBasicParsing
@@ -78,7 +78,7 @@ function Install-Postman {
 
         $tarPath = Join-Path ([IO.Path]::GetTempPath()) 'postman-linux-x64.tar.gz'
 
-        # Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download is...
+        # Postman publishes no checksum, so this download is verified by TLS alone.
         # [comment:3](/docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md#comment3)
         Write-Message 'Downloading Postman from dl.pstmn.io'
         Invoke-WebRequest -Uri 'https://dl.pstmn.io/download/latest/linux_64' -OutFile $tarPath -UseBasicParsing

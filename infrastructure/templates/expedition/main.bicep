@@ -1,4 +1,4 @@
-// expedition — the Well-Architected workload: a storage account and a SQL server with one database, reached only through private...
+// Reached only through private endpoints in a discovery network, and registered in the hub's private DNS zones.
 // [comment:1](/docs/references/infrastructure/templates/expedition/main.bicep.md#comment1)
 
 @description('Azure region. Defaults to the resource group location; it must match the region of the network.')

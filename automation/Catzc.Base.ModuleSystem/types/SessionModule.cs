@@ -1,4 +1,4 @@
-// A module loaded into the current PowerShell session, mapped by how it came into play (its ModuleBase location): Kind 'imported' (our...
+// The runtime facet, for introspection and collision reporting rather than copying; residue means genuinely foreign.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/SessionModule.cs.md#comment1)
 
 namespace Catzc.Base.ModuleSystem;

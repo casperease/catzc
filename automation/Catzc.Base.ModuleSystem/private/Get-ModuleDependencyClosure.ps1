@@ -3,7 +3,7 @@
     Returns the transitive declared-dependency closure of a set of modules — the seeds plus every module they
     depend on (directly or indirectly), per configs/dependencies.yml.
 .DESCRIPTION
-    Breadth-first over the declared dependency map (Get-ModuleDependencyMap).
+    The declared graph is a superset of the code edges, so the closure holds every module the seeds need to load.
     [comment:1](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyClosure.ps1.md#comment1)
 .PARAMETER Module
     The seed module names to close over.

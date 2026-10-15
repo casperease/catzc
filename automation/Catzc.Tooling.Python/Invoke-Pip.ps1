@@ -2,7 +2,7 @@
 .SYNOPSIS
     Runs pip through uv (`uv pip`).
 .DESCRIPTION
-    Delegates to Invoke-Uv, so `Invoke-Pip 'install --system requests'` runs `uv pip install --system requests`...
+    Installs aimed at the global interpreter must pass --system, since uv pip otherwise expects a virtual environment.
     [comment:1](/docs/references/automation/catzc-tooling-python/Invoke-Pip.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to `uv pip`.

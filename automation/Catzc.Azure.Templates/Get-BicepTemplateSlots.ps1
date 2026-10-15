@@ -2,14 +2,14 @@
 .SYNOPSIS
     Returns a template's configured (non-base) slot discriminators as a flat string array.
 .DESCRIPTION
-    The single source of the slot list used by the -Slot ArgumentCompleter on every deploy/name path.
+    The base slot has an empty discriminator and is never offered; completion lists only the special slots.
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .PARAMETER Environment
     Optional filter — return only slots configured for this environment name.
 .PARAMETER Customer
-    Customer filter — only the slots of this customer's configuration subfolder (omitted/empty = the...
+    Omitted or empty means the configuration-root, shared-platform slots, not every customer's.
     [comment:2](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md#comment2)
 .EXAMPLE
     Get-BicepTemplateSlots sample-indexed            # -> 001, 002
@@ -41,7 +41,7 @@ function Get-BicepTemplateSlots {
         return @()
     }
 
-    # slots are [ordered] dicts -> use the script-block Where-Object/ForEach-Object form (the `Where-Object prop -EQ`...
+    # The Where-Object prop -EQ shortcut does not bind ordered-dict keys, so the script-block form is required.
     # [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md#comment3)
     $wantCustomer = [string]$Customer
     @($templateDescriptor.slots |

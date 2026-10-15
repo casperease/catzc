@@ -2,7 +2,7 @@
 .SYNOPSIS
     Resolves the install directory for a script-installed tool, or the Windows tree an MSYS2 package installs into.
 .DESCRIPTION
-    Returns the platform-appropriate install directory for a tool with script_install: true, and for a tool with an...
+    Config overrides win, else Windows uses LOCALAPPDATA and Unix a dot-directory under HOME, named after the command.
     [comment:1](/docs/references/automation/catzc-tooling-core/Get-ScriptInstallDir.ps1.md#comment1)
 .PARAMETER Config
     Tool configuration hashtable from Get-ToolConfig / tools.yml.

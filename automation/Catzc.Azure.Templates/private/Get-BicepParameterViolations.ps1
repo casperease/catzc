@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns every violation of a template's rendered parameters files against its compiled parameter model.
 .DESCRIPTION
-    Reads the template's parameter model (Get-BicepParameterModel, which builds the template first when its output...
+    The rendered files hold the PrePost hook's merged values, so a hook-supplied parameter counts as supplied.
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepParameterViolations.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).

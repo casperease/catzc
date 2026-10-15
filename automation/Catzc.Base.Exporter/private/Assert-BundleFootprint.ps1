@@ -2,7 +2,7 @@
 .SYNOPSIS
     Throws when a build holds more files or bytes than its bundle's footprint limits allow.
 .DESCRIPTION
-    A bundle is a small engine carried to other environments, so how big it is is a checked property, not a hope.
+    A limit the bundle does not state is not checked; every exceeded limit is reported in one throw.
     [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md)
     [comment:1](/docs/references/automation/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md#comment1)
 .PARAMETER Path

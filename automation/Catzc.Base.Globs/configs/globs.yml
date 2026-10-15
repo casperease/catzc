@@ -1,4 +1,4 @@
-# The globset registry — THE single source of truth mapping every area-of-control onto its files under version control (see ).
+# Nothing is committed per set: each set projects to native path filters and a git-reflected blast radius at run time.
 # [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
 # [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),
 # [ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7),
@@ -7,7 +7,7 @@
 # [comment:1](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment1)
 
 globsets:
-  # The automation track — the automation module system under automation/.
+  # A loose-fileset that overlaps the derived module sets it spans, which that layer exempts by design.
   # [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)
   # [comment:2](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment2)
   automation:
@@ -17,7 +17,7 @@ globsets:
     include:
       - automation/**
 
-  # The infrastructure track — the Bicep IaC tree.
+  # It overlaps the per-unit deployable sets below, and exists because ci-infrastructure and the cd pipelines use it.
   # [comment:3](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment3)
   infrastructure:
     description: The infrastructure track - the Bicep IaC tree, reusable modules and deployable templates.
@@ -29,7 +29,7 @@ globsets:
     include:
       - infrastructure/**
 
-  # The all-templates shared surface: every deployable template EXCEPT its deployment configuration — the configuration-root...
+  # Configuration is excluded so this marker says template code changed, without firing on one deployment's config edit.
   # [comment:4](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment4)
   templates:
     description: All infrastructure templates' shared surface - every template excluding deployment configuration.
@@ -40,7 +40,7 @@ globsets:
       - infrastructure/templates/*/configuration/*.yml
       - infrastructure/templates/*/configuration/*/**
 
-  # The base deployable unit: the foundation template plus the shared Bicep modules, WITHOUT any deployment configuration (the root files...
+  # Binds no pipeline: it ships only through a unit that composes it, and a change here re-keys every such unit.
   # [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)
   # [comment:5](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment5)
   template-azure-subscription-foundation:
@@ -56,7 +56,7 @@ globsets:
       - infrastructure/templates/foundation/configuration/*.yml
       - infrastructure/templates/foundation/configuration/*/**
 
-  # The landing-zone base unit: the discovery template WITHOUT any deployment configuration.
+  # Binds no pipeline, and leaves the shared Bicep modules to the foundation base it composes: a unit owns only its files.
   # [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)
   # [comment:6](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment6)
   template-azure-subscription-discovery:
@@ -72,7 +72,7 @@ globsets:
       - infrastructure/templates/discovery/configuration/*.yml
       - infrastructure/templates/discovery/configuration/*/**
 
-  # The workload base unit: the expedition template WITHOUT any deployment configuration.
+  # Composing discovery pulls in the foundation base and modules too; it binds no pipeline and ships only through composers.
   # [comment:7](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment7)
   template-azure-workload-expedition:
     description: Deployable unit - the expedition workload template plus the discovery base it lands in. Not including any configs!
@@ -87,7 +87,7 @@ globsets:
       - infrastructure/templates/expedition/configuration/*.yml
       - infrastructure/templates/expedition/configuration/*/**
 
-  # Per-customer deployable units: the shared surface plus that customer's own configuration subfolder — the folder IS the customer key,...
+  # The folder name is the customer key, so adding a customer is adding an entry here: config, never code.
   # [ADR-DSGN-TRACK#5](/docs/adr/design/tracks.md#rule-adr-dsgn-track5)
   # [comment:8](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment8)
   nova:
@@ -119,7 +119,7 @@ globsets:
       - infrastructure/templates/foundation/configuration/flux/**
       - infrastructure/templates/discovery/configuration/flux/**
 
-  # The shared-platform unit — the configuration-ROOT files (the non-customer deployment), deployed by cd-shared.
+  # Shaped like a customer unit but keyed by the configuration root files instead of a customer subfolder.
   # [comment:9](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment9)
   shared:
     description: Deployable unit - the shared platform's foundation (shared surface + the configuration-root files).
@@ -131,7 +131,7 @@ globsets:
       - infrastructure/templates/discovery/configuration/*.yml
       - infrastructure/templates/expedition/configuration/*.yml
 
-  # The markdown scan scope: exactly what Test-Markdownlint reads - every in-scope markdown file plus the scan's own config (a scan's...
+  # A scan's globset includes its own config, so a lint-rule edit re-keys the set and ends the protected-glob skip.
   # [comment:10](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment10)
   markdown-scope:
     description: The markdown integrity scan's inputs - in-scope markdown plus the markdownlint config.
@@ -143,7 +143,7 @@ globsets:
       - docs/notes/**
       - automation/.vendor/**
 
-  # The whole repository: every tracked file under every named root (automation/, infrastructure/, docs/, pipelines/,.github/,...
+  # A covering superset is safe: it can only cause a redundant run, never a wrong skip, so scans whose reads span the repo use it.
   # [ADR-REPO-PROTGLOB#6](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob6)
   # [comment:11](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment11)
   repository:

@@ -1,4 +1,4 @@
-// One `subscriptions` entry of configs/azure.yml: an Azure subscription keyed by name, the tenant that owns it, the environments it...
+// The customer stays the raw token here; an integrity test and runtime resolution enforce it, and the tenant check is AzureConfig's.
 // [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)

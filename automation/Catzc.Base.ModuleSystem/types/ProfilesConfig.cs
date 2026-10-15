@@ -1,4 +1,4 @@
-// The named module sets of configs/profiles.yml, for Copy-Automation -ModuleProfile, Test-InIsolation and the exporter: each profile is...
+// Module-name existence is not checked at load; that is left to Get-ModuleProfile, which expands the seed.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ProfilesConfig.cs.md#comment1)
 

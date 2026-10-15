@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs Microsoft OpenJDK via the platform package manager.
 .DESCRIPTION
-    After installation, sets JAVA_HOME for the current session and persists it for future sessions (User registry on...
+    Modeled on Install-Dotnet and DOTNET_ROOT: persistence is the user registry on Windows, the profile on Unix.
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Java.ps1.md#comment1)
 .PARAMETER Version
     Java version to install. Defaults to the locked version in Get-ToolConfig.
@@ -77,7 +77,7 @@ function Install-Java {
         return
     }
 
-    # Set for current session.
+    # Announced only when the value changes, so a repeat run prints nothing for the session.
     # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)
     # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Install-Java.ps1.md#comment2)
     if ($env:JAVA_HOME -ne $javaHome) {

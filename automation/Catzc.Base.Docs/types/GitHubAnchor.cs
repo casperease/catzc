@@ -1,4 +1,4 @@
-// GitHub's heading anchors: the slug GitHub renders for a markdown heading, and the full anchor set of a markdown document — what a...
+// A fragment resolves only if it matches GitHub's rendered slug, which drops every character but letters, digits, space, - and _.
 // [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GitHubAnchor.cs.md#comment1)
 
@@ -43,7 +43,7 @@ public static class GitHubAnchor
         return slug.ToString();
     }
 
-    // Every anchor a markdown document exposes: heading slugs (with GitHub's -1/-2 duplicate suffixes) plus explicit HTML anchors.
+    // Headings inside fenced code are not anchors, and a repeated heading's later copies take -1, -2 suffixes in document order.
     // [comment:2](/docs/references/automation/catzc-base-docs/types/GitHubAnchor.cs.md#comment2)
     public static IReadOnlyCollection<string> Anchors(string markdown)
     {

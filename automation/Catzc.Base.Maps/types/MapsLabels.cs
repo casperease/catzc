@@ -1,4 +1,4 @@
-// The map labels (the `labels` section of configs/maps.yml): the fixed text the maps print beside the data.
+// Each label names a defined term in its head, so Test-WorldMap and Test-ValueChainMap can check the printed text.
 // [ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7), [ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8),
 // [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),

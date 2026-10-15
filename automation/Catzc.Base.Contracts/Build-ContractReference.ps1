@@ -3,7 +3,7 @@
     Generates the contract reference: one page per unit, docs/references/contracts/<unit>.md, listing every contract
     asset of every version folder with its note.
 .DESCRIPTION
-    Projects Get-Contract over every version folder of every unit into one markdown page per unit.
+    A page is removed only when it carries this writer's marker line, so a hand-written page is never touched.
     [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),
     [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7),
     [ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)

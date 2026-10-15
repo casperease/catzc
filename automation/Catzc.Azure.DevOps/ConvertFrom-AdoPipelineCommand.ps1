@@ -2,7 +2,7 @@
 .SYNOPSIS
     Sanitizes a command string received from an ADO pipeline step.
 .DESCRIPTION
-    When ADO passes a command string through YAML template parameters, task arguments, and into PowerShell, the...
+    YAML is already parsed by now, so only the plain string is cleaned, never YAML syntax.
     [comment:1](/docs/references/automation/catzc-azure-devops/ConvertFrom-AdoPipelineCommand.ps1.md#comment1)
 .PARAMETER Command
     The raw command string as received from ADO pipeline arguments.

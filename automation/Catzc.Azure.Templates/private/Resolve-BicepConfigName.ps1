@@ -2,7 +2,7 @@
 .SYNOPSIS
     Parses a config / resource-group identity name into its (environment, slot) parts.
 .DESCRIPTION
-    The inverse of Get-BicepConfigName.
+    Env names contain no hyphen, so splitting on the first hyphen cleanly separates the env from the slot.
     [ADR-AZ-DATAMOD#2](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2)
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md#comment1)
 .PARAMETER ConfigName

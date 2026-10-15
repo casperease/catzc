@@ -1,4 +1,4 @@
-// One publish target of configs/artifacts.yml (`ado:`, `github:`, `artifactory:`) — a feed a CI build promotes the gold module-manifest...
+// An enabled target needs somewhere to publish, so its coordinates may be empty only while it is disabled.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ArtifactsTarget.cs.md#comment1)
 

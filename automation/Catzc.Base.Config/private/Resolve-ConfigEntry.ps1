@@ -2,7 +2,7 @@
 .SYNOPSIS
     Resolves a config name to its owning module and file path (the discovery seam).
 .DESCRIPTION
-    Scans <module>/configs/*.yml under the loaded code root (Get-CatzcModulesRoot — the source tree's automation/ or...
+    In build mode the scan also covers overlay-local modules, so their configs are found like any module's.
     [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
     [comment:1](/docs/references/automation/catzc-base-config/private/Resolve-ConfigEntry.ps1.md#comment1)
 .PARAMETER Config
@@ -27,7 +27,7 @@ function Resolve-ConfigEntry {
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configIndex')) {
-        # strict-clean probe of the lazy cache entry
+        # Probe through session state, not the bare variable, so strict mode does not throw before the first load.
         # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:2](/docs/references/automation/catzc-base-config/private/Resolve-ConfigEntry.ps1.md#comment2)
         $script:configIndex = @{}

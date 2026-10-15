@@ -1,4 +1,4 @@
-// One subscription's network in configs/network.yml: a hub or a spoke VNet, keyed by the azure.yml subscription name.
+// Which kind a subscription needs and which environments it serves are azure.yml facts, joined by Test-AzureNetworkPlan.
 // [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md#comment1)
@@ -25,7 +25,7 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
 
     private static readonly string[] HubSubnetNames = { "GatewaySubnet", "AzureFirewallSubnet", "shared-services" };
 
-    // The subnets a hub carries, exactly: the two reserved Azure subnets (nothing is deployed into them) and shared-services.
+    // Exactly these and no others: the two Azure-reserved subnets, which hold no deployments, plus shared-services.
     // [comment:2](/docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md#comment2)
     public static IReadOnlyList<string> HubSubnets => HubSubnetNames;
 
@@ -155,7 +155,7 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
-    // The subnet names as written, including those with an invalid range, so a subnet with a bad range is reported once (as a bad...
+    // Includes names with an invalid range, so a bad-range subnet is reported once as a bad range, not also as missing.
     // [comment:3](/docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md#comment3)
     private static List<string> SubnetNames(IDictionary d)
     {
@@ -186,7 +186,7 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
-    // A spoke carries private-endpoints; every other subnet is a workload subnet named for an environment.
+    // Skipped when subnets is missing or empty, since that is already reported; the rest must be named for an environment.
     // [comment:4](/docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md#comment4)
     private static void CheckSpoke(string where, List<string> names, List<string> errors)
     {

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs the Go toolchain from the official go.dev archive into a user-space home.
 .DESCRIPTION
-    Resolves the newest stable release of the locked version from the go.dev release feed (Get-GoRelease), downloads...
+    A Go at the locked version found elsewhere, such as a pipeline tool cache, satisfies the contract and is left alone.
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment1)
 .PARAMETER Version
     Go version to install. Defaults to the locked version in Get-ToolConfig.
@@ -45,7 +45,7 @@ function Install-Go {
         }
     }
     else {
-        # Nothing in the managed home: a Go at the right version elsewhere satisfies the contract and is not ours to...
+        # A wrong version elsewhere does not block the install, because the managed home goes first on PATH.
         # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment2)
         $probe = Test-Tool 'go' -PassThru
         if ($probe.Version -and $probe.Version.StartsWith($Version)) {
@@ -61,7 +61,7 @@ function Install-Go {
             Assert-Command tar -ErrorText 'Install-Go extracts the Go archive with tar, which is not on PATH.'
         }
 
-        # Download and extract beside the home (same volume), then swap the extracted go/ folder in, so a failed...
+        # Staging beside the home, on the same volume, means a failed download never leaves a half-written home.
         # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment3)
         $staging = "$installDir.staging"
         if (Test-Path -LiteralPath $staging) {
@@ -72,7 +72,7 @@ function Install-Go {
         Save-VerifiedDownload -Uri "https://go.dev/dl/$($release.filename)" -OutFile $archive -Sha256 $release.sha256 | Out-Null
 
         Write-Message "Extracting $($release.version) to '$installDir'"
-        # The Windows archive is a.zip, extracted in-process: the tar first on PATH there is often Git's GNU tar,...
+        # Zip is extracted in-process because Git's GNU tar, often first on PATH, reads no zip and takes C: for a host.
         # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment4)
         if ($isZip) {
             [System.IO.Compression.ZipFile]::ExtractToDirectory($archive, $staging)

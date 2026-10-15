@@ -2,7 +2,7 @@
 .SYNOPSIS
     Rewrites the ADR citations, codes, anchors, links, and paths in one file through a code map and a rule map.
 .DESCRIPTION
-    The mechanism for moving, renaming, or splitting ADRs: the maps say what moved, and this command rewrites one...
+    A citation range spanning a moved rule is left as written and returned Unhandled, for a person to resolve.
     [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2),
     [ADR-AUTO-IDEM](/docs/adr/automation/idempotent-state-functions.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Update-AdrCitation.ps1.md#comment1)
@@ -13,10 +13,10 @@
 .PARAMETER RuleMap
     The rule map file (absolute, repository-relative, or under out/).
 .PARAMETER RepositoryRoot
-    The repository whose ADR index supplies the paths the code map does not name, and against which -Path and...
+    Relative links and -Path resolve against this root, so another root changes where a rewritten link lands.
     [comment:2](/docs/references/automation/catzc-base-docs/Update-AdrCitation.ps1.md#comment2)
 .PARAMETER DryRun
-    Return the changes without writing the file.
+    The returned changes are the ones a real run would make, so a dry run is a safe preview of a migration.
     [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:3](/docs/references/automation/catzc-base-docs/Update-AdrCitation.ps1.md#comment3)
 .OUTPUTS
@@ -60,7 +60,7 @@ function Update-AdrCitation {
     $citations = Get-AdrCitationMap -RepositoryRoot $root
     $rewriter = [Catzc.Base.Docs.AdrCitationRewriter]::new($codeRows, $ruleRows, $citations)
 
-    # Decode strictly, so a file that is not UTF-8 fails here instead of being re-encoded; the byte order mark is...
+    # Strict decoding fails a non-UTF-8 file here instead of re-encoding it; the BOM is kept aside and restored.
     # [comment:4](/docs/references/automation/catzc-base-docs/Update-AdrCitation.ps1.md#comment4)
     $bytes = [System.IO.File]::ReadAllBytes($file)
     $hasBom = $bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF

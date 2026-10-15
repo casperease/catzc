@@ -1,4 +1,4 @@
-// The fragment check of a contract asset: the real file must contain the fragment.
+// Matching is a key subset: the target may hold more keys and elements, and a null in the fragment pins only that its key exists.
 // [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)
 // [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractFragment.cs.md#comment1)
 

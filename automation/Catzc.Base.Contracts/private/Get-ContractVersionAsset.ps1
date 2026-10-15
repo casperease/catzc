@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists every contract asset of one unit version folder, with its contract.yml overrides applied.
 .DESCRIPTION
-    A version folder, contracts/<unit>/<version>/, holds one folder per owning module and, optionally, its contract.yml.
+    A file at version level, a .frozen in the draft 0.0.0, or a manifest entry naming no asset throws, naming it.
     [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),
     [ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7),
     [ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the tracked files a globset matches — the deployable unit's actual members.
 .DESCRIPTION
-    Intersects the matching universe (`git ls-files`, ) with the named globset's membership (include minus exclude),...
+    A member deleted on disk but still tracked stays listed, so the durable SHA sees the deletion.
     [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4),
     [ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)
     [comment:1](/docs/references/automation/catzc-base-globs/Get-GlobSetFile.ps1.md#comment1)

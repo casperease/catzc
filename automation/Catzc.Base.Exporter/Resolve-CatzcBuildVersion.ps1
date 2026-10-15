@@ -3,14 +3,14 @@
     Resolves the version a Catzc build carries — the devbox placeholder, a calculated pipeline version, or an
     explicit MAJOR.MINOR.PATCH.
 .DESCRIPTION
-    The one place a build version is decided; every value comes from configs/exporter.yml (Get-Config -Config...
+    A pipeline version derives from the commit count, so one commit always yields one version.
     [ADR-AUTO-BUNDLE#7](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle7),
     [ADR-PWSH-ERROR#2](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error2)
     [comment:1](/docs/references/automation/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md#comment1)
 .PARAMETER Version
     'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH.
 .PARAMETER Bundle
-    The bundle whose version line a pipeline build follows (an exporter.yml bundles key).
+    Only a pipeline build reads it; a devbox build takes the placeholder version whatever the bundle.
     [comment:2](/docs/references/automation/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md#comment2)
 .PARAMETER Silent
     Suppress the local-build notice.

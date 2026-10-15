@@ -2,7 +2,7 @@
 .SYNOPSIS
     Tests whether a file is held open by another handle (locked).
 .DESCRIPTION
-    Tries to open the file for reading with no sharing.
+    Advisory on Unix, so it reports false there; use it to assert state, not as a guard before a delete.
     [comment:1](/docs/references/automation/catzc-base-files/Test-FileIsLocked.ps1.md#comment1)
 .PARAMETER Path
     Path to the file to test.

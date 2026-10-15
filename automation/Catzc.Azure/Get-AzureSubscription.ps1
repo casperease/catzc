@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the resolved Azure subscription identity (id + tenant [+ customer]) for a named subscription.
 .DESCRIPTION
-    Reads configs/azure.yml via Get-Config and looks up the subscription by name (a key in `subscriptions`) — the...
+    Lookup is by name alone: no environment, group or customer join happens here, so callers build on it.
     [ADR-AZ-DATAMOD#4](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod4),
     [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
     [comment:1](/docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md#comment1)
@@ -30,7 +30,7 @@ function Get-AzureSubscription {
     Assert-True ($azure.tenants.ContainsKey($found.tenant)) -ErrorText "Subscription '$Subscription' references unknown tenant '$($found.tenant)'"
 
     $tenant = [Catzc.Azure.Tenant]::new($found.tenant, $azure.tenants[$found.tenant].id)
-    # The subscription's `customer` field may name a customer by its key OR its 2-char shortcode; normalize to the...
+    # Normalized to the canonical key, so the resolved object is identical whichever form the config used.
     # [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
     # [comment:2](/docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md#comment2)
     $customerToken = Get-AzureSubscriptionCustomer $found

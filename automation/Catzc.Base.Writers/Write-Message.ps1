@@ -2,21 +2,21 @@
 .SYNOPSIS
     Writes a status message with calling function name prefix.
 .DESCRIPTION
-    Writes to the information stream via Write-InformationColored (which routes through Write-Information).
+    Silent in Pester runs through the guard in Write-InformationColored, so this function needs no test plumbing.
     [comment:1](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment1)
 .PARAMETER Message
     The message text to write.
 .PARAMETER NoHeader
     Omits the [caller] prefix.
 .PARAMETER ForegroundColor
-    Text color.
+    A rainbow value is flattened to its base colour, because a status line is solid and a gradient is for rules.
     [comment:2](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment2)
 .PARAMETER Warning
-    Render the line yellow on the information stream ( yellow = warning) — a non-fatal, attention-drawing status...
+    Not the Write-Warning stream: the importer makes a real warning halt, so use throw to stop and this to notify.
     [ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)
     [comment:3](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment3)
 .PARAMETER NoNewline
-    Render the text without a trailing line break, so the next write continues the same line — the inline liveness...
+    The next write continues the same line, so this serves the inline liveness dot; it has no effect on verbose output.
     [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8)
     [comment:4](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment4)
 .EXAMPLE
@@ -72,21 +72,21 @@ function Write-Message {
         $line = "$header $Message"
     }
 
-    # A verbose message (an explicitly-bound -Verbose) routes to the verbose stream instead of the always-on...
+    # Only an explicit -Verbose counts, so ordinary messages stay on the info stream even when the session is verbose.
     # [comment:5](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment5)
     if ($PSBoundParameters.ContainsKey('Verbose')) {
         Write-Verbose $line
         return
     }
 
-    # -Warning is sugar for yellow on the information stream, NOT the terminating Write-Warning stream.
+    # Parameter sets keep -Warning and -ForegroundColor exclusive, so at most one branch here sets a colour.
     # [ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)
     # [comment:6](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment6)
     if ($Warning) {
         Write-InformationColored $line -ForegroundColor Yellow -NoNewline:$NoNewline
     }
     elseif ($PSBoundParameters.ContainsKey('ForegroundColor')) {
-        # A status line is one solid line, not a rule, so a rainbow input side-grades to its base colour: the shared...
+        # The resolver flattens any accepted colour form to one ConsoleColor, so a rainbow argument works unchanged.
         # [comment:7](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment7)
         $plan = Resolve-WriterColor -ForegroundColor $ForegroundColor -Bound
         Write-InformationColored $line -ForegroundColor $plan.Base -NoNewline:$NoNewline

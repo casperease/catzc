@@ -1,4 +1,4 @@
-// One named globset: an area-of-control's mapping onto files under version control — a kebab-case name, a description, its layer...
+// Membership is a last-match-wins scan program, and a composing set's own rules come last so they override its base.
 // [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),
 // [ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8),
 // [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4),
@@ -17,7 +17,7 @@ public sealed class GlobSet
 {
     private static readonly Regex KebabCase = new Regex("^[a-z0-9]+(-[a-z0-9]+)*$");
 
-    // The layers — three kinds of thing: 'deployable-unit' (a configurable unit that ships) and 'loose-fileset' (a cross-cutting check...
+    // The module layer is valid to construct here but rejected in the declared registry; only loose-filesets may overlap.
     // [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),
     // [ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md),
     // [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)
@@ -38,11 +38,11 @@ public sealed class GlobSet
     // The composed sets, resolved by GlobsConfig once every set is constructed (names validated there).
     private IReadOnlyList<GlobSet> composed = new GlobSet[0];
 
-    // The flattened scan program, built lazily from composed + own rules and cached (composed is immutable after ResolveCompose, which...
+    // Cached because composed is fixed after ResolveCompose, which clears this so the program rebuilds on the new base.
     // [comment:3](/docs/references/automation/catzc-base-globs/types/GlobSet.cs.md#comment3)
     private IReadOnlyList<ScanRule> cachedProgram;
 
-    // A single scan-program rule: Select true = '+' (select), false = '-' (drop).
+    // Select true is a plus rule and false a minus rule; order matters, since the last matching rule decides.
     // [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
     // [comment:4](/docs/references/automation/catzc-base-globs/types/GlobSet.cs.md#comment4)
     public readonly struct ScanRule
@@ -95,7 +95,7 @@ public sealed class GlobSet
         Pipeline = string.IsNullOrWhiteSpace(pipeline) ? null : pipeline;
     }
 
-    // Called by GlobsConfig after construction, with the referenced sets in Compose order.
+    // Clears the cached program, so it rebuilds against the resolved composition instead of the empty default.
     // [comment:5](/docs/references/automation/catzc-base-globs/types/GlobSet.cs.md#comment5)
     internal void ResolveCompose(IReadOnlyList<GlobSet> resolved)
     {
@@ -103,7 +103,7 @@ public sealed class GlobSet
         cachedProgram = null;
     }
 
-    // Membership: evaluate the scan program last-match-wins, default not-selected — a file belongs when its last matching rule is '+'.
+    // A file matching no rule is not selected; it belongs only when its last matching rule is a plus rule.
     // [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
     // [comment:6](/docs/references/automation/catzc-base-globs/types/GlobSet.cs.md#comment6)
     public bool Matches(string repoRelativePath)
@@ -116,7 +116,7 @@ public sealed class GlobSet
         return selected;
     }
 
-    // OWN membership: the set's own program only — its includes as '+' then its excludes as '-', last-match-wins — with compose IGNORED.
+    // Compose is ignored on purpose: independence is a peer check, and depending on a base is a deliberate overlap.
     // [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)
     // [comment:7](/docs/references/automation/catzc-base-globs/types/GlobSet.cs.md#comment7)
     public bool OwnMatches(string repoRelativePath)
@@ -127,14 +127,14 @@ public sealed class GlobSet
         return selected;
     }
 
-    // The members of a tracked-file universe (`git ls-files`, fetched once by the caller and passed in — never cached here, since...
+    // The universe is never cached here, since staging changes it; one call per set beats one Matches call per path.
     // [comment:8](/docs/references/automation/catzc-base-globs/types/GlobSet.cs.md#comment8)
     public string[] SelectMembers(IReadOnlyList<string> tracked)
     {
         return Select(tracked, Matches);
     }
 
-    // The OWN members (OwnMatches, compose ignored) of a tracked-file universe, in ordinal order — the per-layer independence check's...
+    // Ordinal order keeps the independence check's input identical on every machine, and compose adds nothing here.
     // [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)
     // [comment:9](/docs/references/automation/catzc-base-globs/types/GlobSet.cs.md#comment9)
     public string[] SelectOwnMembers(IReadOnlyList<string> tracked)
@@ -158,7 +158,7 @@ public sealed class GlobSet
         return sorted;
     }
 
-    // The flattened scan program (/8): the composed sets' programs first (dependency order, deepest base first), then this set's own...
+    // Duplicates keep their last occurrence, which last-match-wins tolerates and a diamond compose needs to stay short.
     // [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
     // [comment:10](/docs/references/automation/catzc-base-globs/types/GlobSet.cs.md#comment10)
     public IReadOnlyList<ScanRule> ScanProgram()

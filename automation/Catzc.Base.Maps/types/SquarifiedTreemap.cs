@@ -1,4 +1,4 @@
-// A deterministic squarified treemap: it tiles a bounding box with one rectangle per item, each with an area proportional to the item's...
+// Heaviest first with ordinal key ties, so the same weights give the same rectangles in whatever order they arrive.
 // [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/SquarifiedTreemap.cs.md#comment1)
 
@@ -10,7 +10,7 @@ namespace Catzc.Base.Maps;
 
 public static class SquarifiedTreemap
 {
-    // The rectangles of the items with a positive weight inside the box (x, y is its bottom-left corner), heaviest first, ties in...
+    // A zero weight gets no rectangle, while a negative, NaN or infinite weight, a duplicate or empty key, or an empty box throws.
     // [comment:2](/docs/references/automation/catzc-base-maps/types/SquarifiedTreemap.cs.md#comment2)
     public static TreemapRect[] Layout(string[] keys, double[] weights, double x, double y, double width, double height)
     {
@@ -91,7 +91,7 @@ public static class SquarifiedTreemap
         return Math.Max(side2 * max / sum2, sum2 / (side2 * min));
     }
 
-    // Lays a row along the shorter side of the remaining box: a column at the left of a wide box (top to bottom), a band at the top of a...
+    // The last row takes the whole remaining box, so rounding never leaves a sliver or overflows the bounds.
     // [comment:3](/docs/references/automation/catzc-base-maps/types/SquarifiedTreemap.cs.md#comment3)
     private static void Place(List<int> row, string[] keys, double[] weights, double scale, bool last, List<TreemapRect> result,
         ref double rx, ref double ry, ref double rw, ref double rh)

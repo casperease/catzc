@@ -1,4 +1,4 @@
-// A per-engine fixture table: one row per case, one column per execution engine (ExecutionEngines), so the parity of a behaviour across...
+// Construction collects every violation into one ArgumentException, so a case can never silently skip an engine.
 // [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
 // [comment:1](/docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md#comment1)
 
@@ -10,7 +10,7 @@ namespace Catzc.Tooling.Core;
 
 public sealed class EngineCaseTable
 {
-    // The columns: the execution engines, declared once, in their order.
+    // Read from the one engine declaration, so a table cannot invent a column of its own.
     // [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
     // [comment:2](/docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md#comment2)
     private static readonly IReadOnlyList<string> Engines = Catzc.Base.Engines.ExecutionEngines.Names;
@@ -26,7 +26,7 @@ public sealed class EngineCaseTable
     // The case names, in file order.
     public IReadOnlyList<string> Cases { get; }
 
-    // One row per case and engine, in file order: case, engine, fields (the column's map, or null) and not_applicable (the reason, or...
+    // Exactly one of fields and not_applicable is null per row: a case either fills the engine or names why it does not.
     // [comment:3](/docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md#comment3)
     public IReadOnlyList<Hashtable> Rows { get { return rows; } }
 

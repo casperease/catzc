@@ -3,17 +3,17 @@
     Renders .vscode/settings.json content from the vscode-settings registry — the glue that keeps the
     editor's behaviour in sync with the tooling.
 .DESCRIPTION
-    Reads the authored settings registry (configs/vscode-settings.yml, via Get-Config -Config vscode-settings — the...
+    Only search.exclude is completed at render time, so find-all lands on the source and never on a generated copy.
     [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md#comment1)
 .PARAMETER ManagedTarget
-    The managed root-config target paths to complete `search.exclude` with (repo-root-relative).
+    An empty list renders the authored search.exclude alone; the generator dispatch supplies the targets.
     [comment:2](/docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md#comment2)
 .PARAMETER MachineSetting
-    Settings resolved on this machine at render time, added after the authored ones (an authored key wins).
+    A machine path is safe here because settings.json is a gitignored per-machine copy, never shared.
     [comment:3](/docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md#comment3)
 .PARAMETER LanguageFormatter
-    The editor formatter of each language, VS Code language id -> extension id, rendered as that language's...
+    An authored defaultFormatter in a language block wins over this value, and the rest of that block is kept.
     [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)
     [comment:4](/docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md#comment4)
 .OUTPUTS
@@ -40,7 +40,7 @@ function New-VSCodeSettings {
     foreach ($key in $config.settings.Keys) {
         $settings[$key] = $config.settings[$key]
     }
-    # Machine-resolved settings complete the authored ones, which win on a shared key; sorted, so the render is stable.
+    # Authored keys win on a shared key, and sorting keeps the generated file byte-stable between renders.
     # [comment:5](/docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md#comment5)
     foreach ($key in ($MachineSetting.Keys | Sort-Object)) {
         if (-not $settings.Contains($key)) {
@@ -48,7 +48,7 @@ function New-VSCodeSettings {
         }
     }
 
-    # Each language's editor formatter, merged into its [<id>] block (authored keys in the block win); sorted, so the...
+    # Authored keys in the language block win, defaultFormatter included; sorting keeps the render stable.
     # [comment:6](/docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md#comment6)
     foreach ($id in ($LanguageFormatter.Keys | Sort-Object)) {
         $key = "[$id]"

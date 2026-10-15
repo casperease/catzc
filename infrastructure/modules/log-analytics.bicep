@@ -1,4 +1,4 @@
-// Reusable bicep module: a Log Analytics workspace.
+// Templates reference it by relative path and the build inlines it, so nothing ships separately at deploy time.
 // [comment:1](/docs/references/infrastructure/modules/log-analytics.bicep.md#comment1)
 
 @description('Log Analytics workspace name.')

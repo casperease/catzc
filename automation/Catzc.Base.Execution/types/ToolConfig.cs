@@ -1,4 +1,4 @@
-// One tool's locked definition from configs/tools.yml — its required version, how to detect it, and the per-manager install metadata for...
+// An unknown key would be invisible to every caller, so the constructor rejects it and lists all violations at once.
 // [ADR-AUTO-DEPS#1](/docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps1),
 // [ADR-AUTO-PKGMGR#6](/docs/adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr6)
 // [comment:1](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment1)
@@ -25,7 +25,7 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // The locked version the tool must satisfy. Required.
     public string version { get; }
 
-    // Devbox lever: outside a CI pipeline, an installed version starting with this prefix is also accepted (Assert-ToolVersion, Test-Tool).
+    // A pipeline ignores this lever and enforces version alone, so a devbox-only version never passes CI.
     // [comment:2](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment2)
     public string devbox_version { get; }
 
@@ -56,19 +56,19 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // npm package name. Null when npm is not an install path.
     public string npm_package { get; }
 
-    // uv tool/package name — installed with `uv tool install <uv_tool>` into an isolated env (e.g.
+    // Isolated env per tool, so its dependencies cannot collide with the shared managed Python.
     // [comment:3](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment3)
     public string uv_tool { get; }
 
-    // True to pass `--prerelease=allow` to the uv install — needed when the package's dependency tree pins a pre-release (e.g.
+    // Without it uv refuses a pre-release in the dependency tree, such as the azure-batch beta behind azure-cli.
     // [comment:4](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment4)
     public bool uv_allow_prerelease { get; }
 
-    // pip package installed into a DEDICATED uv venv (not the shared managed Python, not an isolated uv tool).
+    // A uv-tool shim in the local bin breaks CLIs that expect python.exe beside their launcher, as az.bat does.
     // [comment:5](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment5)
     public string uv_venv { get; }
 
-    // Highest Python version this tool supports (runs under).
+    // ToolsConfig rejects a python pin above this, keeping Python off a release a dependent cannot use.
     // [comment:6](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment6)
     public string max_python { get; }
 
@@ -78,57 +78,57 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // True when the tool is installed via a bespoke script rather than a package manager.
     public bool script_install { get; }
 
-    // True when the tool is provided by the operating system (e.g.
+    // Asserted and kept on PATH through session_path_hints, but never installed, as winget is on Windows.
     // [comment:7](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment7)
     public bool system_provided { get; }
 
     // True when the tool exists only on Windows — skipped on macOS/Linux by the provisioning and status loops.
     public bool windows_only { get; }
 
-    // True when the tool has only a machine-scope installer, so installing it requires Administrator.
+    // Install asserts elevation, and the provisioning loops skip and report the tool when not elevated.
     // [comment:8](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment8)
     public bool admin_only { get; }
 
-    // True when only the Linux install needs root (apt-get), while the Windows and macOS installs are user-space.
+    // Test-ToolRequiresElevation honours it only on Linux, because the Windows and macOS installs stay user-space.
     // [comment:9](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment9)
     public bool linux_admin_only { get; }
 
-    // The MSYS2 package installed on Windows into the Git for Windows tree, so the tool runs on Git Bash's own MSYS2 runtime: its...
+    // Declared together with msys2_sha256, which the download is verified against before anything is extracted.
     // [comment:10](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment10)
     public string msys2_url { get; }
     public string msys2_sha256 { get; }
 
-    // The install directory on Windows, relative to LOCALAPPDATA (Get-ScriptInstallDir): a script-installed tool's home, or the tree an...
+    // Relative to LOCALAPPDATA, and also the tree an msys2 tool installs into, not only a script-installed tool's home.
     // [comment:11](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment11)
     public string windows_install_dir { get; }
 
     // The install directory on Unix. Null when not applicable.
     public string unix_install_dir { get; }
 
-    // The name of a tool that must be installed first.
+    // ToolsConfig checks that it names a declared tool, so a typo fails validation instead of a later install.
     // [comment:12](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment12)
     public string depends_on { get; }
 
-    // Extra directories the session janitor (Sync-SessionTools) prepends to PATH to point THIS session at a tool installed outside the...
+    // Applies only when the tool is otherwise unresolvable on PATH, such as nvm-managed node under ProgramFiles.
     // [comment:13](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment13)
     public string[] session_path_hints { get; }
 
-    // Ordered probes the session janitor (Sync-SessionTools) uses to pick WHICH install home of the command this session runs, when...
+    // The first probe any home satisfies wins, so a dotnet SDK at the locked version beats a runtime-only host.
     // [comment:14](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment14)
     public string[] session_host_probes { get; }
 
-    // The candidate executable paths, in order, that locate the tool without starting a process (Test-Tool -PassThru): each is a full...
+    // The first existing candidate wins, then PATH; a tool with no candidates on this platform is found on PATH alone.
     // [comment:15](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment15)
     public string[] windows_probes { get; }
     public string[] windows_pipeline_probes { get; }
     public string[] unix_probes { get; }
     public string[] unix_pipeline_probes { get; }
 
-    // Executable paths (%VAR% expanded) that never count as the tool, as a candidate or on PATH: for bash, the WSL launcher...
+    // For bash this is the WSL launcher in System32, which is not Git Bash and must never count as the tool.
     // [comment:16](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment16)
     public string[] probe_excludes { get; }
 
-    // True when the entry declares candidate paths or exclusions, so the tool is located by the probe (Test-Tool, Assert-Tool) rather...
+    // A tool without probes is located by its bare command name on PATH instead.
     // [comment:17](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment17)
     public bool HasProbes()
     {
@@ -136,7 +136,7 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
             || unix_pipeline_probes.Length > 0 || probe_excludes.Length > 0;
     }
 
-    // True when the entry declares how the toolchain gets it: a package-manager id, script_install, a uv shape, an MSYS2 package, or...
+    // ToolsConfig requires it of every shipped entry, so a tool nobody can install fails validation.
     // [comment:18](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment18)
     public bool HasInstallMechanism()
     {

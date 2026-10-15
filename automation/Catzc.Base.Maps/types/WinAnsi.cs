@@ -1,4 +1,4 @@
-// The WinAnsi character set: the only text the base-14 PDF fonts (Helvetica and its kin) can show, through their WinAnsiEncoding (PDF...
+// The multiplication sign is encodable but the arrow is not, so MapsConfig rejects any other label at load.
 // [comment:1](/docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md#comment1)
 
 using System.Collections.Generic;
@@ -27,7 +27,7 @@ public static class WinAnsi
         return Typographic.TryGetValue(c, out code) ? code : -1;
     }
 
-    // The index of the first character of the text that has no WinAnsi code, or -1 when every character has one.
+    // An empty or null text has no unsupported character, so it answers -1 rather than throwing.
     // [comment:2](/docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md#comment2)
     public static int IndexOfUnsupported(string text)
     {

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the Azure tag *names* used to record what was last deployed.
 .DESCRIPTION
-    For ResourceGroup-target templates the tags live on the RG and have generic names (`Deployed_From_Commit`, etc.)...
+    Subscription-scope tag names carry the template name, since many templates share one subscription.
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTrackTagNameSet.ps1.md#comment1)
 .PARAMETER Template
     Template name.

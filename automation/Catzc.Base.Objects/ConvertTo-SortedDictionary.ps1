@@ -2,7 +2,7 @@
 .SYNOPSIS
     Recursively converts dictionaries to ordered form for stable output.
 .DESCRIPTION
-    OrderedDictionaries keep their original key order.
+    Only a plain hashtable is sorted; an ordered dictionary keeps its key order, which is the order its author chose.
     [comment:1](/docs/references/automation/catzc-base-objects/ConvertTo-SortedDictionary.ps1.md#comment1)
 .PARAMETER Dictionary
     The dictionary to process.

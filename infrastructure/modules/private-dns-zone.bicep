@@ -1,4 +1,4 @@
-// Reusable bicep module: a private DNS zone (e.g.
+// The hub owns the zones and links every spoke, so an endpoint registered in a zone resolves from any linked VNet.
 // [comment:1](/docs/references/infrastructure/modules/private-dns-zone.bicep.md#comment1)
 
 @description('Zone name, e.g. privatelink.database.windows.net.')

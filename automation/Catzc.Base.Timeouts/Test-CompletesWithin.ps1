@@ -2,15 +2,15 @@
 .SYNOPSIS
     Tests whether a script block finishes within a time limit; past it the work is stopped.
 .DESCRIPTION
-    The boolean form of Assert-CompletesWithin: $true when the block finished in time, $false when the safeguard...
+    Answers was it fast enough, never did it succeed: an error the block raises on its own still throws.
     [comment:1](/docs/references/automation/catzc-base-timeouts/Test-CompletesWithin.ps1.md#comment1)
 .PARAMETER ScriptBlock
     The work to time.
 .PARAMETER Budget
-    The work's immutable budget GUID.
+    While the budget is exempt, the default limit becomes the exemption ceiling, not the normal pwsh limit.
     [comment:2](/docs/references/automation/catzc-base-timeouts/Test-CompletesWithin.ps1.md#comment2)
 .PARAMETER Seconds
-    The limit in seconds.
+    Left unset, the limit comes from timeouts.yml for this environment, or from the budget's exemption ceiling.
     [comment:3](/docs/references/automation/catzc-base-timeouts/Test-CompletesWithin.ps1.md#comment3)
 .EXAMPLE
     if (-not (Test-CompletesWithin { Get-Widget } -Seconds 2)) { Write-Message 'widget lookup is slow' }

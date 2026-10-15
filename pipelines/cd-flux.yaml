@@ -1,7 +1,7 @@
-# CD pipeline for customer flux — thin root that extends the shared customer CD template.
+# Dev-only, with no expedition config: the Expeditions list is empty, so Deploy_Expedition runs no job.
 # [comment:1](/docs/references/pipelines/cd-flux.yaml.md#comment1)
 
-# Trigger = the 'flux' globset projected into ADO-native path filters (Get-GlobSetTrigger, ): the foundation, discovery, and expedition...
+# Flux has no expedition config, so its own include covers only foundation and discovery; other deployments' config is excluded.
 # [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/pipelines/cd-flux.yaml.md#comment2)
 trigger:
   branches:

@@ -2,13 +2,13 @@
 .SYNOPSIS
     Lists the glossary terms that a second ADR rule defines (check G3) — one message per violation.
 .DESCRIPTION
-    A defined term is fixed by exactly one rule.
+    Only a bold term followed by "is" counts as a definition, so a rule that merely bolds the term is not flagged.
     [ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryDefinitionViolations.ps1.md#comment1)
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.
 .PARAMETER IndexPath
-    Absolute path to the ADR index whose ADRs hold the rules.
+    A test points this at a fixture index beside fixture ADR files.
     [comment:2](/docs/references/automation/catzc-base-docs/private/Get-GlossaryDefinitionViolations.ps1.md#comment2)
 .OUTPUTS
     [string[]] One message per second definition, in glossary then rule-id order; empty when every term has one.

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the customer a subscription is bound to (its `customer` field), or '' if it has none.
 .DESCRIPTION
-    A customer subscription carries a `customer` field — a customer.yml customer, by key or shortcode; its presence...
+    The one accessor for this field, shared by naming and config-coordinate resolution so the two cannot drift.
     [comment:1](/docs/references/automation/catzc-azure/Get-AzureSubscriptionCustomer.ps1.md#comment1)
 .PARAMETER Subscription
     A subscription entry (an AzureSubscriptionRecord) from azure.yml's `subscriptions` map.

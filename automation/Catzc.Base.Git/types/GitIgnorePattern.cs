@@ -1,4 +1,4 @@
-// One pattern line inside a gitignore.yml section — a verbatim git wildmatch pattern with an optional trailing note (rendered as an...
+// The pattern text is never rewritten: what the registry says is what .gitignore gets.
 // [comment:1](/docs/references/automation/catzc-base-git/types/GitIgnorePattern.cs.md#comment1)
 
 using System;

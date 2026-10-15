@@ -1,4 +1,4 @@
-// The tracked paths of a git index file (.git/index), read in-process: what `git ls-files` prints, without launching git.
+// A split or sparse index is rejected loudly rather than read wrong; equal index bytes never yield a stale listing.
 // [ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)
 // [comment:1](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment1)
 
@@ -23,11 +23,11 @@ public sealed class GitIndex
     // The SHA-256 of the index file's bytes (uppercase hex) — the cache key.
     public string ContentHash { get; }
 
-    // The tracked paths, repo-relative and '/'-separated, in index (byte-sorted) order; an unmerged path, which the index holds once per...
+    // An unmerged path is held once per conflict stage in the index but listed once here, as git ls-files lists it.
     // [comment:2](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment2)
     public string[] Paths { get; }
 
-    // The tracked paths stored executable (git mode 100755), in the same order and form as Paths — what `git ls-files -s` lists with...
+    // Same order and form as Paths, so this is an ordered subsequence of Paths: only the mode 100755 entries.
     // [comment:3](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment3)
     public string[] ExecutablePaths { get; }
 
@@ -59,7 +59,7 @@ public sealed class GitIndex
         }
     }
 
-    // The tracked paths at or under the given literal, repo-relative paths ('.' is the whole repository) — the `git ls-files -- <paths>`...
+    // Pathspecs are literal prefixes, not globs; '.' means the whole repository, and each path comes back once.
     // [comment:4](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment4)
     public string[] Under(IEnumerable<string> pathspecs) => Select(Paths, pathspecs);
 
@@ -108,7 +108,7 @@ public sealed class GitIndex
             throw new InvalidDataException($"Unsupported git index version {version} (versions 2-4 are read).");
         }
 
-        // The trailer is the SHA-1 of everything before it — all zeros when git skips it (index.skipHash).
+        // A mismatch means a corrupt file or a SHA-256 repository, whose 32-byte object ids this reader does not parse.
         // [comment:5](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment5)
         var bodyLength = content.Length - HashLength;
         var trailer = content.AsSpan(bodyLength);

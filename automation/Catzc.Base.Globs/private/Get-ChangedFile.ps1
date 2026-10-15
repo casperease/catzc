@@ -3,11 +3,11 @@
     The repo-relative paths changed across a git diff range — the diff counterpart to the tracked-file
     universe.
 .DESCRIPTION
-    The diff sibling of Get-TrackedFile: `git diff --name-only` over the range, with renames split into a delete + an...
+    Renames are split into delete plus add so a file moving into or out of a globset re-triggers it.
     [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
     [comment:1](/docs/references/automation/catzc-base-globs/private/Get-ChangedFile.ps1.md#comment1)
 .PARAMETER Range
-    The git diff range: a merge-base range 'origin/main...HEAD' (a PR's net change since it diverged) or a commit...
+    A range reaching a commit missing from a shallow clone fails in git, so a pipeline must fetch full depth.
     [comment:2](/docs/references/automation/catzc-base-globs/private/Get-ChangedFile.ps1.md#comment2)
 .EXAMPLE
     Get-ChangedFile -Range 'HEAD^1..HEAD'

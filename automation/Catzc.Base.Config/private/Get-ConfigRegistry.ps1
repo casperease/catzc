@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the config registry (this module's configs/configs.yml), keyed by config name.
 .DESCRIPTION
-    The registry Get-Config reads: maps each shipped config name to its C# config type (`type:`).
+    Loaded directly, not through Get-Config, to avoid circularity: Get-Config itself needs this registry.
     [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
     [comment:1](/docs/references/automation/catzc-base-config/private/Get-ConfigRegistry.ps1.md#comment1)
 #>
@@ -10,7 +10,7 @@ function Get-ConfigRegistry {
     [OutputType([System.Collections.IDictionary])]
     param()
 
-    # strict-clean
+    # Probe through session state, not the bare variable, so strict mode does not throw before the first load.
     # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
     # [comment:2](/docs/references/automation/catzc-base-config/private/Get-ConfigRegistry.ps1.md#comment2)
     $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:configRegistryCache')

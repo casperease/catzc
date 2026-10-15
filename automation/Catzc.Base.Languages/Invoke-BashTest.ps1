@@ -2,15 +2,15 @@
 .SYNOPSIS
     Runs a catzc module's Bash tests and returns one result per Bash test.
 .DESCRIPTION
-    In the module's Bash test folder, <root>/tests/<module-in-kebab>/ (Catzc.Base.Repository ->...
+    The tests are black-box: they reach catzc only through an environment contract set for this call and restored.
     [comment:1](/docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md#comment1)
 .PARAMETER Module
     The catzc module whose Bash tests to run (e.g. Catzc.Base.Repository).
 .PARAMETER EntryScript
-    The PowerShell entry for a build run: the build's Import-Catzc.ps1.
+    Leave it out for a source run: it then defaults to the repository's importer.ps1.
     [comment:2](/docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md#comment2)
 .PARAMETER EngineExecutable
-    The bash to run, already located by the caller: a test run passes the bash its source session resolved, because a...
+    A build run's engine has no tools.yml entry, so the caller must pass the bash its source session resolved.
     [comment:3](/docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md#comment3)
 .OUTPUTS
     [Catzc.Base.Languages.BashTestResult] One record per Bash test.
@@ -87,7 +87,7 @@ function Invoke-BashTest {
         throw "bats failed in $relative/ (exit $($run.ExitCode)): $($_.Exception.Message)`n$($run.Full)"
     }
 
-    # bats exits 1 when a test failed; a non-zero exit with no failing test, or no test at all, means it failed...
+    # A failing exit with no failing test means bats broke around the tests, such as a .bats file that does not parse.
     # [comment:4](/docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md#comment4)
     if ($results.Count -eq 0 -or ($run.ExitCode -ne 0 -and -not @($results | Where-Object { $_.Outcome -eq 'fail' }).Count)) {
         throw "bats failed in $relative/ (exit $($run.ExitCode)) with no failing test:`n$($run.Full)"

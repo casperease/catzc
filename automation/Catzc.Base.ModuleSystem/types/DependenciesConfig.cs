@@ -1,4 +1,4 @@
-// The declared (ALLOWED) module dependency graph, configs/dependencies.yml.
+// Load rules read this one file only, so a declared module missing on disk is a Test-ModuleDependency finding.
 // [ADR-AUTO-DEPM](/docs/adr/automation/controlling-module-dependencies.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md#comment1)
@@ -17,7 +17,7 @@ public sealed class DependenciesConfig : Catzc.Base.Objects.DictionaryRecord
     // Group name -> ModuleGroup, in declaration order; read-only (empty when the file declares no groups).
     public OrderedDictionary groups { get; }
 
-    // Consumer module -> the names it may depend on (string[]: each a group or a module), in declaration order; read-only.
+    // Each target is a group or a module name, kept in declaration order; the dictionary itself is read-only.
     // [comment:2](/docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md#comment2)
     public OrderedDictionary modules { get; }
 
@@ -98,7 +98,7 @@ public sealed class DependenciesConfig : Catzc.Base.Objects.DictionaryRecord
                 }
             }
 
-            // Acyclic over declared MODULE edges only (targets that are themselves declared modules, never a group or self).
+            // Group references are a lower layer and cannot form a module-level cycle, so only module edges are walked.
             // [comment:3](/docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md#comment3)
             OrderedDictionary adjacency = new OrderedDictionary(StringComparer.OrdinalIgnoreCase);
             foreach (DictionaryEntry entry in moduleMap)

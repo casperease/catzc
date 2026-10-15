@@ -1,8 +1,8 @@
-# Declared (ALLOWED) module dependency graph, validated at load (the DependenciesConfig type) and enforced against the real code...
+# A module not listed under modules is unconstrained, and a group target permits an edge to any member of that group.
 # [comment:1](/docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md#comment1)
 
 groups:
-  # The Catzc.Base cluster — small focused libraries held together as one concept.
+  # Foundation-first: each member lists only the members it may depend on, its layer in the group's internal DAG.
   # [comment:2](/docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md#comment2)
   Base:
     Catzc.Base.Asserts: []
@@ -149,7 +149,7 @@ groups:
         Catzc.Base.Docs,
       ]
 
-  # The Azure-extension cluster — all the Azure modules except the root `Catzc.Azure`.
+  # Edges to Base, to the Catzc.Azure root and to Tooling are declared per member under modules, not in this DAG.
   # [comment:3](/docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md#comment3)
   AzureExt:
     Catzc.Azure.Cli: []
@@ -158,7 +158,7 @@ groups:
     Catzc.Azure.Firewall: [Catzc.Azure.Cli]
     Catzc.Azure.Templates: [Catzc.Azure.Cli]
 
-  # The Tooling cluster — manages the non-vendored external CLI tools.
+  # Provisioning reaches the per-tool installers by dynamic dispatch, so no static edge shows, yet it may depend on them.
   # [comment:4](/docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md#comment4)
   Tooling:
     Catzc.Tooling.Core: []

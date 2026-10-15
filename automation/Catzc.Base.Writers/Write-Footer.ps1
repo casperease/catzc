@@ -2,14 +2,14 @@
 .SYNOPSIS
     Writes a closing footer line in a chosen style.
 .DESCRIPTION
-    Pairs with Write-Header to visually close a section.
+    Use the Style of the Write-Header it closes so the glyphs match; a rainbow colour draws a gradient rule.
     [comment:1](/docs/references/automation/catzc-base-writers/Write-Footer.ps1.md#comment1)
 .PARAMETER Style
     Visual style: Curved, Stars, or Heavy. Defaults to Curved.
 .PARAMETER Width
     Total width of the line. Defaults to 78.
 .PARAMETER ForegroundColor
-    Colour for the output: a [System.ConsoleColor] (or its name), a 'rainbow' / '<base>-rainbow' bareword, or a...
+    Omit it and the rule renders in the terminal default; a rainbow value gives a per-character gradient.
     [comment:2](/docs/references/automation/catzc-base-writers/Write-Footer.ps1.md#comment2)
 .EXAMPLE
     Write-Header 'Deploying'

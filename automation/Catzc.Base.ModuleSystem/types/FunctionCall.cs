@@ -1,4 +1,4 @@
-// One statically named command call inside a function body: the command name as written and the line it starts on.
+// A call with no static name, such as a call through a script block variable, never becomes a FunctionCall.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/FunctionCall.cs.md#comment1)
 
 using System;

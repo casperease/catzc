@@ -1,4 +1,4 @@
-// A resolved subscription identity: a named Azure subscription, the Entra tenant that owns it, and — for customer subscriptions only —...
+// A mid node of the identity graph, so its property names are the YAML keys verbatim.
 // [comment:1](/docs/references/automation/catzc-azure/types/AzureSubscription.cs.md#comment1)
 
 using System;
@@ -15,7 +15,7 @@ public sealed class AzureSubscription
     // The Azure subscription GUID. Always present.
     public string id { get; }
 
-    // The customer this subscription serves; this value renders into customer resource names.
+    // Null for a platform subscription, so a typed null check separates the two kinds; otherwise it renders into resource names.
     // [comment:2](/docs/references/automation/catzc-azure/types/AzureSubscription.cs.md#comment2)
     public string customer { get; }
 

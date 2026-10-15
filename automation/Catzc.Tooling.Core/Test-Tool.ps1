@@ -2,15 +2,15 @@
 .SYNOPSIS
     Tests whether a tool is installed at the expected version.
 .DESCRIPTION
-    Returns $true if the tool's command exists, its version command produces parseable output, AND the installed...
+    A tool with declared candidate paths is found by the executable probe, which starts no process; others by PATH name.
     [comment:1](/docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml.
 .PARAMETER SkipVersionCheck
-    Only test the tool is on PATH and functional.
+    A parseable version is still needed, so a Store stub fails, but a version that is not the locked one passes.
     [comment:2](/docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md#comment2)
 .PARAMETER PassThru
-    Return the probe record (Catzc.Base.Execution.ExecutableProbe: Name, Found, Path, Method, Version, Required,...
+    The record works for any tool, probed or not, and carries the timings and actor that Write-ToolProbeReport shows.
     [comment:3](/docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md#comment3)
 .EXAMPLE
     Test-Tool 'python'
@@ -55,7 +55,7 @@ function Test-Tool {
         if ($installed.StartsWith($config.version)) {
             return $true
         }
-        # Devbox lever (mirrors Assert-ToolVersion): outside a CI pipeline, also accept an installed version matching...
+        # Mirrors Assert-ToolVersion, so a levered off-pin tool also passes the quality gates, not only asserts.
         # [comment:4](/docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md#comment4)
         if ($config.devbox_version -and -not (Test-IsRunningInPipeline)) {
             return $installed.StartsWith($config.devbox_version)

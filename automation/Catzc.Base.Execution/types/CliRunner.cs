@@ -1,4 +1,4 @@
-// A streaming process runner: it parses a command string and runs the executable directly (no shell, via CreateProcess/fork+exec),...
+// Every run is bounded: past its limit the whole process tree is killed and a TimeoutException is thrown.
 // [comment:1](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment1)
 
 using System;
@@ -24,11 +24,11 @@ public class CliRunner
     // The process exit code.
     public int ExitCode { get; private set; }
 
-    // The captured stdout as the exact bytes the process wrote — set by RunBytes only (null for a text run), for a binary stream such as...
+    // Set by RunBytes only, and kept as bytes because binary object sizes (git cat-file) count bytes, not characters.
     // [comment:2](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment2)
     public byte[] StdoutBytes { get; private set; }
 
-    /// <summary> Runs a command string.
+    /// <summary> Shell operators are refused, not passed on, because the executable starts directly with no shell.
     /// [comment:3](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment3)
     public static CliRunner Run(string commandLine, bool silent, string workingDirectory, int timeoutSeconds)
     {
@@ -49,7 +49,7 @@ public class CliRunner
         return RunDirect(commandLine, parsed.Executable, parsed.Arguments, silent, workingDirectory, timeoutSeconds);
     }
 
-    /// <summary> Runs a command string silently and captures its stdout as raw bytes (StdoutBytes) — no decoding, no console echo — for...
+    /// <summary> Stdin is empty and closed and stdout is never decoded, so a binary stream passes through intact.
     /// [comment:4](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment4)
     public static CliRunner RunBytes(string commandLine, string workingDirectory, int timeoutSeconds)
     {
@@ -90,7 +90,7 @@ public class CliRunner
         return runner;
     }
 
-    /// <summary> The executable a command string runs (its first token, quotes removed), or an empty string for a blank command — the...
+    /// <summary> This name keys the time limit lookup; a blank command gives an empty string, never null.
     /// [comment:5](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment5)
     public static string ExecutableName(string commandLine)
     {
@@ -104,7 +104,7 @@ public class CliRunner
         var stdoutSb = new StringBuilder();
         var stderrSb = new StringBuilder();
 
-        // A child inheriting a stdin pipe that another thread is blocked reading hangs at startup (Git for Windows probes its std handles).
+        // Close stdin when no person can answer: a child inheriting a pipe another thread is blocked reading hangs at startup.
         // [comment:6](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment6)
         var psi = NewStartInfo(executable, arguments, workingDirectory, redirectInput: silent || Console.IsInputRedirected);
 
@@ -114,7 +114,7 @@ public class CliRunner
     private static ProcessStartInfo NewStartInfo(string executable, List<string> arguments, string workingDirectory,
         bool redirectInput)
     {
-        // Resolve the executable on PATH.
+        // Process.Start without a shell finds only exact filenames, but az, npm and poetry are .cmd scripts on Windows.
         // [comment:7](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment7)
         var psi = new ProcessStartInfo
         {
@@ -140,7 +140,7 @@ public class CliRunner
         return psi;
     }
 
-    // An output reader: a background thread, so one still blocked on a pipe a leftover process holds can never keep the host alive, and...
+    // A background thread, so a reader stuck on a pipe a leftover process holds can never keep the host alive.
     // [comment:8](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment8)
     private static Thread Reader(Action read)
     {
@@ -158,11 +158,11 @@ public class CliRunner
         { IsBackground = true };
     }
 
-    // How long the output readers may take to reach end-of-stream once the process has exited.
+    // Output drains in milliseconds after exit, so a reader still blocked here waits on a pipe a child holds open.
     // [comment:9](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment9)
     private static readonly TimeSpan DrainLimit = TimeSpan.FromSeconds(5);
 
-    // Waits for the process within its time limit, then — bounded too — for its output readers.
+    // A reader the pipe never releases fails the run with an IOException naming the cause, instead of a hang.
     // [comment:10](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment10)
     private static void Supervise(string commandLine, Process process, int timeoutSeconds, Thread stdoutThread,
         Thread stderrThread)
@@ -250,7 +250,7 @@ public class CliRunner
 
     // --- Executable resolution ---
 
-    /// <summary> Resolves a command name to a full path by searching PATH with common executable extensions.
+    /// <summary> An unresolved name is returned as is, so Process.Start raises the clear error, not this code.
     /// [comment:11](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment11)
     private static string ResolveExecutable(string name)
     {
@@ -296,7 +296,7 @@ public class CliRunner
         public string ShellOperator;
     }
 
-    /// <summary> Splits a command string into executable + arguments.
+    /// <summary> An unquoted pipe, ampersand or semicolon stops parsing and flags a shell operator for the caller to refuse.
     /// [comment:12](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment12)
     private static ParsedCommand ParseCommand(string commandLine)
     {

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the module dependency graph as typed ModuleDependencyEdge objects.
 .DESCRIPTION
-    By default returns the ACTUAL cross-module call edges derived from the code (via Get-ModuleDependency) — each...
+    A declared edge's target may be a group name, not only a module, so one edge can allow several modules.
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-ModuleDependencyEdges.ps1.md#comment1)
 .PARAMETER Declared
     Return the declared (allowed) graph from dependencies.yml instead of the actual code-derived graph.

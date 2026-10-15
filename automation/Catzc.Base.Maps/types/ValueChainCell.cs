@@ -1,4 +1,4 @@
-// One cell of the value-chain map: a row of the value-chain stack crossed with a value-chain concern, and the ADRs that sit in it.
+// On the map Adrs holds every ADR of the cell; on a highlight only the requested ADRs that light it.
 // [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16),
 // [ADR-DSGN-TRACK#10](/docs/adr/design/tracks.md#rule-adr-dsgn-track10),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
@@ -18,7 +18,7 @@ public sealed class ValueChainCell
     // The column: a value-chain concern ([ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)).
     public string Concern { get; }
 
-    // The ADR codes (ADR-<CODE>) in the cell: on the map in adrs.yml order, on a highlight in request order.
+    // The order differs by use, adrs.yml order on the map and request order on a highlight; an empty grid cell holds none.
     // [comment:2](/docs/references/automation/catzc-base-maps/types/ValueChainCell.cs.md#comment2)
     public IReadOnlyList<string> Adrs { get; }
 

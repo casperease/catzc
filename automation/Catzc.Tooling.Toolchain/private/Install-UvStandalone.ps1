@@ -2,7 +2,7 @@
 .SYNOPSIS
     Bootstraps uv on Linux from Astral's standalone GitHub release — user-space, hash-verified, no root.
 .DESCRIPTION
-    Linux has no uv apt package, so the fresh-machine bootstrap is Astral's standalone release: resolve the newest...
+    The standalone build is also the one uv self update serves, so later upgrades stay in place.
     [ADR-AUTO-PKGMGR](/docs/adr/automation/use-proper-package-managers.md),
     [ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment1)
@@ -36,7 +36,7 @@ function Install-UvStandalone {
     $asset = $release.assets | Where-Object { $_.name -eq $assetName } | Select-Object -First 1
     Assert-NotNull $asset -ErrorText "astral-sh/uv release $($release.tag_name) has no asset '$assetName'."
 
-    # The GitHub release asset carries its published SHA-256 ('digest'); hard-fail rather than run an unverified...
+    # A missing digest hard-fails rather than running an unverified binary, the same discipline as Install-Git.
     # [comment:2](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment2)
     $digest = if ($asset.PSObject.Properties['digest']) {
         $asset.digest
@@ -70,7 +70,7 @@ function Install-UvStandalone {
         Remove-Item $extractDirectory -Recurse -Force -ErrorAction Ignore
     }
 
-    # The uv tool-bin is normally on the persistent PATH already; make it resolve in this session.
+    # The tool bin is normally on the persistent PATH already; this only makes it resolve in this session.
     # [ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)
     # [comment:3](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment3)
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $binDirectory) {

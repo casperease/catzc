@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: the real module-to-module call graph has no cycle.
 .DESCRIPTION
-    A quality gate over the actual cross-module function calls (Get-ModuleDependency).
+    Covers every module, unconstrained ones included, so a cycle outside the declared allow-list is caught only here.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-ModuleCycles.ps1.md#comment1)
 .PARAMETER OutputFolder

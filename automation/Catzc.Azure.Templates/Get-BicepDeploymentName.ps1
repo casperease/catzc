@@ -2,14 +2,14 @@
 .SYNOPSIS
     Builds an ARM deployment name for a bicep template.
 .DESCRIPTION
-    Pattern: `<Template>-<slotName>-<buildId>-<commit>`, where slotName is the slot (the env's `<env>` or...
+    The subscription is not in the name: deployment names are scoped per subscription, so they cannot collide.
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .PARAMETER Environment
     Environment name (selects the slot — its base slot when no -Slot).
 .PARAMETER Slot
-    Optional special-slot discriminator (1-3 lowercase alphanumeric chars, `001`).
+    Omitted selects the environment's base slot, the index-0 one.
     [comment:2](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md#comment2)
 .EXAMPLE
     Get-BicepDeploymentName sample -Environment dev              # -> sample-dev-...
@@ -44,7 +44,7 @@ function Get-BicepDeploymentName {
     $commit = 'xxxxxxx'
 
     if (Test-IsRunningInPipeline) {
-        # We already know we're in a pipeline (the one sanctioned detector said so); here we only read each...
+        # Only run-id and commit vars are read; TF_BUILD and GITHUB_ACTIONS are detection vars, off limits here.
         # [ADR-FLOW-CD-DETECT#1](/docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1)
         # [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md#comment3)
         if ($env:GITHUB_RUN_ID) {

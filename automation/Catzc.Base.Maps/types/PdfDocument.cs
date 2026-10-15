@@ -1,4 +1,4 @@
-// A minimal PDF 1.4 writer for the world-map PDFs: pages of vector rectangles, lines and base-14 Helvetica text, written by hand with...
+// No dates and a body-hash /ID, so the same pages always give the same bytes; the xref holds each object's exact offset.
 // [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/PdfDocument.cs.md#comment1)
 // cspell:ignore startxref endstream nendobj

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: every internal asset dependency is inventoried and covered by a test that runs in both run modes.
 .DESCRIPTION
-    A quality gate enforcing the coverage rule over the module code.
+    A test must cite the rule and not be source-only, so the read is exercised in both the source and build run.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4),
     [ADR-AUTO-ASSETDEP#2](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2),

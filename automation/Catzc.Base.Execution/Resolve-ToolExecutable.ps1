@@ -2,7 +2,7 @@
 .SYNOPSIS
     Locates a managed tool's executable from its tools.yml entry and returns the probe record.
 .DESCRIPTION
-    The one reading of a tools.yml entry for the existence check, so a caller runs the managed executable by its path...
+    Run the tool by this path, never by a bare name that PATH could resolve to some other file.
     [ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6)
     [comment:1](/docs/references/automation/catzc-base-execution/Resolve-ToolExecutable.ps1.md#comment1)
 .PARAMETER Tool

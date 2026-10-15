@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns every line of every rule summary in one ADR file, with its line number and the rule's citation.
 .DESCRIPTION
-    A rule summary is the body of a `### Rule <code>:<n>` entry in an ADR's rule registry: every line from the line...
+    Fences and anchor bullets are skipped, so only the normative text of each rule remains, not its justification.
     [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-AdrRuleSummaryLines.ps1.md#comment1)
 .PARAMETER Path

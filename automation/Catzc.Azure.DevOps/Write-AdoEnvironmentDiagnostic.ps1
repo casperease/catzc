@@ -2,7 +2,7 @@
 .SYNOPSIS
     Displays whitelisted environment variables for pipeline diagnostics.
 .DESCRIPTION
-    Reads the whitelist from configs/pipeline-env.yml and displays only those environment variables.
+    A whitelisted variable that is not set is shown empty, so operators see the gap, not a silent omission.
     [comment:1](/docs/references/automation/catzc-azure-devops/Write-AdoEnvironmentDiagnostic.ps1.md#comment1)
 .EXAMPLE
     Write-AdoEnvironmentDiagnostic

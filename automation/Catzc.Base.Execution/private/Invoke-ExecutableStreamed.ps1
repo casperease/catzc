@@ -3,7 +3,7 @@
     Runs a CLI command with live-streamed output, exit code handling, and
     optional structured output capture.
 .DESCRIPTION
-    Private implementation for Invoke-Executable (default mode).
+    Colors are lost: a piped child sees no terminal and disables them, and only a pseudo-terminal would bring them back.
     [comment:1](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md#comment1)
 .PARAMETER Command
     The command string to execute.
@@ -18,7 +18,7 @@
 .PARAMETER TimeoutSeconds
     The run's time limit. Past it CliRunner kills the process tree and throws a TimeoutException.
 .PARAMETER AsBytes
-    Capture stdout as its exact bytes (CliResult.Bytes) instead of text, with no console echo — for a binary stream.
+    Returns the CliResult even without -PassThru, since bytes have no other way back to the caller.
     [comment:2](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md#comment2)
 .PARAMETER DryRun
     Return the command string without executing.
@@ -49,7 +49,7 @@ function Invoke-ExecutableStreamed {
 
     Reset-LastExitCode
 
-    # During a Pester run, also suppress the child's streamed output.
+    # The runner's Console.Write bypasses Write-Message suppression, so a test run would leak real tool chatter.
     # [comment:3](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md#comment3)
     $suppressOutput = [bool]$Silent -or [bool](Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore)
 

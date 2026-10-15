@@ -3,18 +3,18 @@
     Collects the spell-checker's flagged tokens into a triage queue for classification — the on-ramp to the
     terminology registry, never an automatic acceptance.
 .DESCRIPTION
-    Runs the same cspell scan as Test-Spelling with --words-only, collecting every token the gate flags, and writes...
+    The queue is a to-do list: cspell never reads it, so a token stays flagged until a human promotes it.
     [ADR-AUTO-SPELL#7](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell7),
     [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment1)
 .PARAMETER Path
-    Repository-relative paths or globs to scan (cspell expands a glob).
+    The default scope equals Test-Spelling's, though cspell still applies the ignorePaths from cspell.yml.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment2)
 .PARAMETER Exclude
-    Globs to skip, passed to cspell as --exclude.
+    The defaults match Test-Spelling, so the tokens queued are exactly the tokens the gate flags.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment3)
 .PARAMETER DryRun
-    Report which tokens would be queued without writing the triage file.
+    The returned list is the same in either mode; -DryRun only skips the write.
     [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:4](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment4)
 .OUTPUTS
@@ -44,7 +44,7 @@ function Export-SpellingTriage {
             '**/*.py'
         ),
 
-        # Mirror Test-Spelling's content-scope exclusions, so the tokens queued are exactly the tokens the gate flags.
+        # Third-party noise belongs in the cspell.yml ignorePaths, not in this list.
         # [comment:5](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment5)
         [string[]] $Exclude = @(
             'out/**'
@@ -72,14 +72,14 @@ function Export-SpellingTriage {
     $excludeArgs = foreach ($e in $Exclude) {
         "--exclude '$e'"
     }
-    # --words-only prints just the flagged tokens (one per line); --unique de-duplicates; --no-summary keeps the...
+    # --no-summary keeps the trailing issue-count line out of the stream, which is parsed as bare tokens.
     # [comment:6](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment6)
     $command = (
         "cspell lint $($quotedPaths -join ' ') $($excludeArgs -join ' ') " +
         "--config '$configPath' --words-only --unique --no-summary --no-progress --no-color"
     )
 
-    # -Silent: capture cspell's output instead of streaming it.
+    # Exit 1 means tokens were flagged, which is the expected case; only an exit above 1 is a tool error.
     # [comment:7](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment7)
     $result = Invoke-Executable $command -PassThru -NoAssert -Silent
     if ($result.ExitCode -gt 1) {
@@ -121,7 +121,7 @@ function Export-SpellingTriage {
     }
 
     if (-not $DryRun) {
-        # Emit paste-ready stubs.
+        # The blank meaning is deliberate: a pasted stub fails Test-Terminology until a human classifies it.
         # [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6),
         # [ADR-AUTO-SPELL#7](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell7)
         # [comment:8](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment8)

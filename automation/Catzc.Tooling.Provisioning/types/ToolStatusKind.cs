@@ -1,4 +1,4 @@
-// A tool's status relative to its tools.yml lock — the verdict of comparing what's installed against what is required.
+// Missing and WrongVersion are hard failures, while Usable is only a migrate-me hint, so the split is load-bearing.
 // [comment:1](/docs/references/automation/catzc-tooling-provisioning/types/ToolStatusKind.cs.md#comment1)
 
 namespace Catzc.Tooling.Provisioning;

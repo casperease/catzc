@@ -1,4 +1,4 @@
-// Reusable bicep module: a network security group.
+// The Azure default rules (allow VNet inbound, deny all other inbound) always apply beneath the rules the caller passes.
 // [comment:1](/docs/references/infrastructure/modules/nsg.bicep.md#comment1)
 
 @description('Network security group name (1-80 characters, unique within the resource group).')

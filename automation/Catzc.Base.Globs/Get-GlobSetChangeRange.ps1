@@ -2,7 +2,7 @@
 .SYNOPSIS
     The git diff range the current context measures a globset change against — the reference-commit resolver.
 .DESCRIPTION
-    Answers "before versus now: which two commits?" for the in-pipeline "is this unit affected?" check, per execution...
+    $null means fail open: an unknown PR target must read as affected, so a wrong skip never happens.
     [ADR-FLOW-CD-DETECT](/docs/adr/flow/pipeline-detection.md),
     [ADR-REPO-PROTGLOB#5](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob5)
     [comment:1](/docs/references/automation/catzc-base-globs/Get-GlobSetChangeRange.ps1.md#comment1)

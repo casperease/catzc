@@ -1,7 +1,7 @@
-# CD pipeline for customer apex — thin root that extends the shared customer CD template.
+# Structure lives in the shared template; this root holds only selection data and triggers, which ADO honors only at the root.
 # [comment:1](/docs/references/pipelines/cd-apex.yaml.md#comment1)
 
-# Trigger = the 'apex' globset projected into ADO-native path filters (Get-GlobSetTrigger, ): the foundation, discovery, and expedition...
+# The deeper apex include sits under the broader exclude of other deployments' config, so ADO keeps it in the trigger.
 # [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/pipelines/cd-apex.yaml.md#comment2)
 trigger:
   branches:

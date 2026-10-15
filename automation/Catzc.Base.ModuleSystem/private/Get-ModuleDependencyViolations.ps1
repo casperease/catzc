@@ -2,7 +2,7 @@
 .SYNOPSIS
     Collects conformance violations of the real code against the declared dependency graph.
 .DESCRIPTION
-    Compares the actual module-to-module edges against the declared allow-list (Get-ModuleDependencyConfig +...
+    Function calls and cross-module C# type references are checked against one and the same group-aware allow-list.
     [comment:1](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md#comment1)
 .OUTPUTS
     [string[]] One message per violation.
@@ -30,7 +30,7 @@ function Get-ModuleDependencyViolations {
         }
     }
 
-    # Resolves a source module to { Constrained; Allowed }.
+    # A source that is neither declared nor a group member is unconstrained, so callers skip it.
     # [comment:2](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md#comment2)
     $resolveAllowed = {
         param([string] $From)
@@ -85,7 +85,7 @@ function Get-ModuleDependencyViolations {
         }
     }
 
-    # Same allow-list, applied to cross-module C# type references (one combined types assembly, so the compiler...
+    # C# types share one assembly, so the compiler permits cross-module references; only this check holds them back.
     # [comment:3](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md#comment3)
     $typeEdges = Get-CSharpTypeDependency
     foreach ($edge in $typeEdges) {

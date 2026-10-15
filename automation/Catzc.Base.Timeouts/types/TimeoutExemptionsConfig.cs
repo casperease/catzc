@@ -1,4 +1,4 @@
-// The time-safeguard exemptions (configs/timeout-exemptions.yml) — work, identified by an immutable managed GUID, that may run past its...
+// Construction validates the whole file at once, and no two entries may cover the same GUID in one environment and shell cell.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 // [comment:1](/docs/references/automation/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md#comment1)
@@ -17,7 +17,7 @@ public sealed class TimeoutExemptionsConfig : Catzc.Base.Objects.DictionaryRecor
     private static readonly string[] RangeKeys = { "from", "to" };
     private static readonly string[] ScopeKeys = { "environment", "shell" };
     private static readonly string[] Environments = { "devbox", "pipeline" };
-    // The shells a ceiling is keyed by: the execution engines, declared once.
+    // Taken from the engine model, so a new execution engine needs no edit here to get a ceiling key.
     // [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
     // [comment:2](/docs/references/automation/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md#comment2)
     private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
@@ -26,7 +26,7 @@ public sealed class TimeoutExemptionsConfig : Catzc.Base.Objects.DictionaryRecor
     // The all-zeros GUID is a denied registry value, so it is built at runtime, never written as a literal.
     private static readonly string ZeroGuid = Guid.Empty.ToString("D");
 
-    // The sensible defaults: an exempt budget may run up to ten minutes on a devbox and an hour in a pipeline, in every shell.
+    // An exemption still has a ceiling, so an exempt budget is bounded: ten minutes on a devbox, an hour in a pipeline.
     // [comment:3](/docs/references/automation/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md#comment3)
     private static readonly Dictionary<string, int> Defaults = new Dictionary<string, int>(StringComparer.Ordinal)
     {
@@ -44,7 +44,7 @@ public sealed class TimeoutExemptionsConfig : Catzc.Base.Objects.DictionaryRecor
     // The resolved ceilings, defaults filled in: ceiling[devbox|pipeline][pwsh|bash|zsh]. Resolve through CeilingFor.
     public IDictionary ceiling { get; }
 
-    // The exemptions in file order, each normalized: from and to (equal for a single), environments and shells (the scope, expanded),...
+    // A single is normalized to a range whose from and to are equal; an omitted scope axis is expanded to every value.
     // [comment:4](/docs/references/automation/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md#comment4)
     public IReadOnlyList<Hashtable> exempt { get { return entries; } }
 

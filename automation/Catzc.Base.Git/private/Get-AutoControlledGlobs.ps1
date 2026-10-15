@@ -2,7 +2,7 @@
 .SYNOPSIS
     Computes, in memory, the whitelist of paths the automation itself generates and owns.
 .DESCRIPTION
-    The auto-controlled set Reset-GitCleanFxd deletes against — derived fresh on every call, held in memory only,...
+    Derived fresh on every call and never persisted, so the whitelist cannot drift from what the owners generate.
     [ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6),
     [ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10)
     [comment:1](/docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md#comment1)
@@ -24,7 +24,7 @@ function Get-AutoControlledGlobs {
         }
     }
 
-    # Generated module manifests (dynamic-module-manifests; the vendored.psd1 are committed, so they can never appear...
+    # Vendored .psd1 files are committed, so they can never show up among the untracked clean candidates.
     # [comment:2](/docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md#comment2)
     $ret.Add('automation/*/*.psd1')
 
@@ -32,13 +32,13 @@ function Get-AutoControlledGlobs {
     $ret.Add('README.md')
     $ret.Add('*/README.md')
 
-    # Generated cspell dictionaries, regenerated at the importer tail.
+    # Regenerated at the importer tail, so deleting these dictionaries loses nothing.
     # [ADR-REPO-OUTDIR#8](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8)
     # [comment:3](/docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md#comment3)
     $ret.Add('.cspell')
     $ret.Add('.cspell/*')
 
-    # The output root — transient by contract (dedicated-output-directory) — except the authored plan files, which...
+    # Plan files are authored working notes, not output, so the exclusion keeps them though out/ is transient.
     # [ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10)
     # [comment:4](/docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md#comment4)
     $ret.Add('out')
@@ -58,7 +58,7 @@ function Get-AutoControlledGlobs {
     # The compiled-type build scratch — only *.tmp is gitignored there; the hash-keyed DLL is committed.
     $ret.Add('automation/.compiled/*.tmp')
 
-    # drawio editor autosave shadows ('.$<name>.drawio.png.bkp') — disposable copies the editor writes beside a...
+    # Editor autosave shadows sit beside a committed .drawio.png and are regenerable, so cleaning them is safe.
     # [comment:5](/docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md#comment5)
     $ret.Add('**/.$*.drawio.png.bkp')
 

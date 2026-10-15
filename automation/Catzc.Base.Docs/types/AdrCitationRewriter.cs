@@ -1,4 +1,4 @@
-// Rewrites the ADR references in one file's text through a code map and a rule map: rule citations (ADR-<CODE>#<n>, the heading's...
+// The rule map decides before the code map, and matching also runs inside fenced blocks, so the result depends only on text and maps.
 // [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md#comment1)
 
@@ -41,7 +41,7 @@ public sealed class AdrCitationRewriter
     readonly AdrCitationMap citations;
     readonly Regex reference;
 
-    // codeRows: one dictionary per code-map row (old_code, new_code, old_path, new_path, kind; '-' for none), paths relative to docs/adr/.
+    // citations may be null only when the code map names every path; otherwise it supplies a moved rule's new path.
     // [comment:2](/docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md#comment2)
     public AdrCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows, AdrCitationMap citations)
     {
@@ -174,7 +174,7 @@ public sealed class AdrCitationRewriter
         }
     }
 
-    // A citation and its list continuation, each rule mapped; an inherited '#<n>' stays bare while it keeps the code of the citation...
+    // An inherited bare rule number keeps the code before it, and takes its own code only when its rule moved elsewhere.
     // [comment:3](/docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md#comment3)
     string RewriteCitation(Match match)
     {
@@ -196,7 +196,7 @@ public sealed class AdrCitationRewriter
         return rewritten == match.Value ? null : rewritten;
     }
 
-    // True when the citation's list holds a range (#1 to #6, #1–#6) that spans a rule the rule map moves: the range cannot be rewritten...
+    // A range spanning a moved rule cannot be rewritten endpoint by endpoint, so it is reported and left as written.
     // [comment:4](/docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md#comment4)
     bool SplitsRange(Match match)
     {
@@ -253,7 +253,7 @@ public sealed class AdrCitationRewriter
         return angle ? "<" + result + ">" : result;
     }
 
-    // A path reference (pathPart, then '#' + fragment when one is given) mapped and written back in its own form; null when it does not...
+    // Null means leave the text alone: the reference points outside docs/adr/ or mapping it changes nothing.
     // [comment:5](/docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md#comment5)
     string RewriteReference(string pathPart, string fragment, Form form, string self)
     {
@@ -292,7 +292,7 @@ public sealed class AdrCitationRewriter
         return newFragment == null ? newPathPart : newPathPart + "#" + newFragment;
     }
 
-    // The docs/adr-relative path and fragment a reference points to after the maps: a rule anchor follows its rule (to the file of the...
+    // A rule anchor follows its rule, even to another file; any other path follows the file and folder map.
     // [comment:6](/docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md#comment6)
     (string Path, string Fragment) MapTarget(string adrPath, string fragment, bool inFile)
     {

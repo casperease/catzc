@@ -3,7 +3,7 @@
     Exports catzc — builds it (Build-Modules), then installs it beside a working root or packs it for
     Install-PSResource.
 .DESCRIPTION
-    The top-level export.
+    Publishing beyond the local disk is the release workflow's act, never this function's.
     [ADR-AUTO-BUNDLE#6](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle6)
     [comment:1](/docs/references/automation/catzc-base-exporter/Export-Catzc.ps1.md#comment1)
 .PARAMETER Root

@@ -1,4 +1,4 @@
-// IPv4 CIDR arithmetic for the network plan (configs/network.yml, ): the one place a range is parsed, so the shape check, the...
+// Host bits must be unset (10.10.0.0/16, never 10.10.0.1/16) because Azure rejects an address prefix that sets them.
 // [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md)
 // [comment:1](/docs/references/automation/catzc-azure/types/NetworkCidr.cs.md#comment1)
 

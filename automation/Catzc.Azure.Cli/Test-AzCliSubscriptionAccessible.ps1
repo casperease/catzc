@@ -2,7 +2,7 @@
 .SYNOPSIS
     Tests whether the current az CLI login can reach a given subscription.
 .DESCRIPTION
-    Returns $true when a real, read-only ARM call scoped to the subscription succeeds with the current login; $false...
+    Ask this, not the connected test, before a call that supplies a subscription id, since the active context is moot.
     [ADR-AZ-CLI#1](/docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1)
     [comment:1](/docs/references/automation/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md#comment1)
 .PARAMETER SubscriptionId

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Walks a key path into an already-loaded config node and returns the addressed node.
 .DESCRIPTION
-    The traversal seam behind Get-ConfigValue (see ADR config-value-addressing).
+    A segment is a dictionary key first, else a property, so raw and typed configs traverse alike.
     [ADR-CONF-ADDRESSING#2](/docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing2),
     [ADR-CONF-ADDRESSING#4](/docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing4),
     [ADR-CONF-ADDRESSING#5](/docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing5)

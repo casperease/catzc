@@ -1,4 +1,4 @@
-// The DORA-coverage check's settings (configs/adr-checks.yml, dora_coverage), read by Test-AdrRegistry: every rule set of a domain has...
+// Each exempt domain or folder carries a reason for having no DORA section, so an exemption is never silent.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AdrDoraCheck.cs.md#comment1)

@@ -1,4 +1,4 @@
-// A single module-to-module dependency edge, typed for rendering to JSON / YAML / Markdown / PlantUML.
+// A declared edge has CallCount 0 and no Functions, and its To may be a group name rather than a module.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyEdge.cs.md#comment1)
 
 using System;

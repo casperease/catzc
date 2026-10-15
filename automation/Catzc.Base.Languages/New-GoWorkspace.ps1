@@ -3,11 +3,11 @@
     Renders the Go test workspace — the repository-root go.work and each <root>/tests/<folder>/go.mod — from
     configs/go.yml.
 .DESCRIPTION
-    The Go root is go.yml's `root`, resolved by GoConfig.ResolveRoot: the declared folder, else go/ when the...
+    Rendering is pure text, identical on every machine; Build-RootConfig owns the write, so this writes nothing.
     [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md#comment1)
 .PARAMETER Target
-    Return only the files whose repository-relative path matches this case-sensitive wildcard pattern (e.g.
+    The match is case-sensitive, so a pattern in the wrong case returns no files.
     [comment:2](/docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md#comment2)
 .OUTPUTS
     [Catzc.Base.Languages.GoWorkspaceFile] One record per rendered file ({ Target; Content }): go.work first,
@@ -25,7 +25,7 @@ function New-GoWorkspace {
     )
 
     $config = Get-Config -Config go
-    # The one Go version: the go tool's tools.yml pin, read by address (reading config is global access, ).
+    # Reading the tools.yml pin keeps the go directive from asking for a newer toolchain than the managed go.
     # [ADR-CONF-ADDRESSING](/docs/adr/configuration/config-value-addressing.md)
     # [comment:3](/docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md#comment3)
     $goVersion = "$(Get-ConfigValue -Address 'global.tools.go.version')"

@@ -3,7 +3,7 @@
     Lists the contract assets the repository must honour now: every asset of the current version folder, and the
     provided assets of every released version folder still in the tree.
 .DESCRIPTION
-    Contracts are binding on two sets of assets: - every asset, in both directions, of each unit's current version...
+    Depended-on assets of older releases are skipped: they follow their outside platform, so only the current binds.
     [ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4),
     [ADR-REPO-CONTRACT#3](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract3)
     [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractBindingAssets.ps1.md#comment1)

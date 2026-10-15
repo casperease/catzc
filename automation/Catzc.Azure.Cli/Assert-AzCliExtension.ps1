@@ -2,7 +2,7 @@
 .SYNOPSIS
     Asserts that an Azure CLI extension is installed, throwing with remediation if not.
 .DESCRIPTION
-    Throws a remediation-bearing error when the named extension is missing, so a command that depends on it fails...
+    It only asserts and never installs, so a missing extension is a clear error, not a hang on the install prompt.
     [comment:1](/docs/references/automation/catzc-azure-cli/Assert-AzCliExtension.ps1.md#comment1)
 .PARAMETER Name
     The required extension name (e.g. 'ip-group').

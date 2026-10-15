@@ -3,16 +3,16 @@
     Writes canonical text to a file only when its content actually changed — the shared primitive behind
     every idempotent "keep this generated file current" writer.
 .DESCRIPTION
-    Canonicalises the given content (LF endings, exactly one trailing newline) and compares it to what is on disk,...
+    The compare ignores CR, so a CRLF working tree never triggers a spurious rewrite.
     [ADR-AUTO-CACHE](/docs/adr/automation/caching.md), [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)
     [comment:1](/docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md#comment1)
 .PARAMETER Path
     Path of the target file to write.
 .PARAMETER Content
-    The full intended content.
+    Compared after canonicalising, so CRLF input or extra trailing newlines never count as a change.
     [comment:2](/docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md#comment2)
 .PARAMETER DryRun
-    Report whether the file would change without writing it.
+    A missing file counts as changed, so a dry run reports true for a first write.
     [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:3](/docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md#comment3)
 .OUTPUTS
@@ -54,7 +54,7 @@ function Write-FileIfChanged {
             [System.IO.Directory]::CreateDirectory($directory) | Out-Null
         }
         if ([System.IO.File]::Exists($Path)) {
-            # Delete-then-write: an in-place write through a linked target would tunnel the composed content into the...
+            # Deleting first severs any link, so the write never tunnels content into the link's source of truth.
             # [comment:4](/docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md#comment4)
             [System.IO.File]::Delete($Path)
         }

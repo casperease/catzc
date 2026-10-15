@@ -3,7 +3,7 @@
     Returns the violations of one parameters-file entry against its declaration in the template's compiled
     main.json.
 .DESCRIPTION
-    The per-entry check behind Get-BicepParameterViolations.
+    A reference is checked for shape alone, whatever the declared type, since it resolves only at deploy time.
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md#comment1)
 .PARAMETER Parameter
     The parameter's declaration, from Get-BicepParameterModel.
@@ -39,7 +39,7 @@ function Get-BicepParameterEntryViolations {
         return Get-BicepKeyVaultReferenceViolations -Reference $reference
     }
 
-    # A secure parameter takes its value from a Key Vault at deploy time.
+    # A literal here is a secret in the repository, so the message never echoes the value.
     # [comment:2](/docs/references/automation/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md#comment2)
     if ($Parameter.IsSecure) {
         return "is a $($Parameter.Type) parameter set to a literal value — it takes only a Key Vault reference"

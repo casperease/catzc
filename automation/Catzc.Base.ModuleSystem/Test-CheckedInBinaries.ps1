@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: every checked-in binary in the repository is stored byte-exact.
 .DESCRIPTION
-    A quality gate over every tracked file — the vendored modules (automation/.vendor/**) and the committed combined...
+    Binary means a NUL byte in the first 8000 bytes, as git decides, so no extension list can go stale.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-CheckedInBinaries.ps1.md#comment1)
 .PARAMETER OutputFolder

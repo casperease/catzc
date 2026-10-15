@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the repository paths that differ from HEAD: what the working tree has changed.
 .DESCRIPTION
-    The working-tree counterpart of Get-GitTrackedPath: every path at or under the given paths that git status...
+    A rename counts as both paths and a deleted path is listed, so a caller that reads files must skip missing ones.
     [comment:1](/docs/references/automation/catzc-base-files/Get-GitChangedPath.ps1.md#comment1)
 .PARAMETER Path
     The repository-relative, '/'-separated paths (files or folders) to look under; '.' (the default) for all.

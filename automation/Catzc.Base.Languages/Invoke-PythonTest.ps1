@@ -2,18 +2,18 @@
 .SYNOPSIS
     Runs a catzc module's Python tests and returns one result per Python test.
 .DESCRIPTION
-    In the module's Python test folder, <root>/tests/<module-in-kebab>/ (Catzc.Base.Repository ->...
+    The uv commands run from the Python root, the uv workspace root, so one environment and lock serve every module.
     [comment:1](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment1)
 .PARAMETER Module
     The catzc module whose Python tests to run (e.g. Catzc.Base.Repository).
 .PARAMETER EntryScript
-    The engine entry for a build run: the build's Import-Catzc.ps1.
+    Leave it out for a source run: it then defaults to the repository's importer.ps1.
     [comment:2](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment2)
 .PARAMETER UvExecutable
-    The uv to run, already located and checked against the pin by the caller: a test run passes the uv its source...
+    A build run's engine has no tools.yml entry, so the caller must pass the uv its source session resolved.
     [comment:3](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment3)
 .PARAMETER Engine
-    The execution engine the tests start: pwsh (default) or bash, which reaches catzc through importer.sh's cats...
+    The tests are the same under either engine; only the environment contract they read changes.
     [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)
     [comment:4](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment4)
 .PARAMETER EngineExecutable
@@ -44,7 +44,7 @@ function Invoke-PythonTest {
 
     $root = Get-RepositoryRoot
     $folderName = $Module.ToLowerInvariant().Replace('.', '-')
-    # The Python root from python.yml (PythonConfig.ResolveRoot: the declared root, else python/ when present,...
+    # The Python root is also the uv workspace root, so it may be python/ or .python/ depending on the repository.
     # [comment:5](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment5)
     $pythonRelative = (Get-Config -Config python).ResolveRoot($root)
     $pythonRoot = Join-Path $root $pythonRelative
@@ -59,7 +59,7 @@ function Invoke-PythonTest {
         }
     }
 
-    # The managed uv, by its path: the caller's, already located and checked, or located here from its tools.yml...
+    # Always the managed uv by its path, never a bare uv off PATH, so the pinned version is the one that runs.
     # [comment:6](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment6)
     $uvPath = if ($UvExecutable) {
         Assert-PathExist $UvExecutable -PathType Leaf
@@ -79,7 +79,7 @@ function Invoke-PythonTest {
 
     $report = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-pytest-$([guid]::NewGuid().ToString('N')).xml"
 
-    # How the tests start the engine (Get-EngineContract) is an external contract with the test processes: set for...
+    # UV_PYTHON_DOWNLOADS=never keeps uv on the managed interpreter at the pin instead of silently fetching another.
     # [ADR-AUTO-ENVVAR#1](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar1),
     # [ADR-AUTO-PY#6](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py6)
     # [comment:7](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment7)
@@ -130,7 +130,7 @@ function Invoke-PythonTest {
         throw "pytest failed in $relative/ (exit $($run.ExitCode)): $($_.Exception.Message)`n$($run.Full)"
     }
 
-    # pytest exits 1 when a test failed; any other non-zero exit, or 1 with no failing test, means it failed around...
+    # Exit 1 means a test failed only if one did; otherwise pytest broke around the tests, as in a collection error.
     # [comment:8](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment8)
     if ($run.ExitCode -ne 0 -and -not ($run.ExitCode -eq 1 -and @($results | Where-Object { $_.Outcome -eq 'fail' }).Count)) {
         throw "pytest failed in $relative/ (exit $($run.ExitCode)) with no failing test:`n$($run.Full)"

@@ -1,4 +1,4 @@
-// Reusable bicep module: a resource group, deployed at subscription scope.
+// Deploys at subscription scope; resources then go in through modules scoped to the new resource group.
 // [comment:1](/docs/references/infrastructure/modules/resource-group.bicep.md#comment1)
 
 targetScope = 'subscription'

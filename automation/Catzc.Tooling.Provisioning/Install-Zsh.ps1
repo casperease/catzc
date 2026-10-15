@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs zsh (user-space on Windows, into Git Bash's tree; apt-get on Linux; the system's on macOS).
 .DESCRIPTION
-    Windows: installs the MSYS2 zsh package that tools.yml pins (`zsh`: msys2_url and msys2_sha256) into the Git for...
+    Windows needs Install-Git first and never runs it; a manifest of copied files lets Uninstall-Zsh remove them all.
     [ADR-AUTO-ENTERP#4](/docs/adr/automation/effective-in-enterprises.md#rule-adr-auto-enterp4),
     [ADR-AUTO-PKGMGR#6](/docs/adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr6),
     [ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2),
@@ -11,7 +11,7 @@
     [ADR-AUTO-IDEM#1](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem1)
     [comment:1](/docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md#comment1)
 .PARAMETER Force
-    Windows: uninstall the zsh Install-Zsh placed (Uninstall-Zsh) and install the pinned package again.
+    Install-Git -Force wipes Git's whole tree, zsh included, so run Install-Zsh again after it.
     [comment:2](/docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md#comment2)
 .EXAMPLE
     Install-Zsh
@@ -25,7 +25,7 @@ function Install-Zsh {
     )
 
     if ($IsLinux) {
-        # The shared apt installer: it installs the package the entry's apt_package names, and checks presence before...
+        # Presence is checked before root is asked for, so a box with zsh at the pinned version installs nothing.
         # [comment:3](/docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md#comment3)
         Install-Tool -Tool zsh -Force:$Force
         Assert-Tool zsh
@@ -63,7 +63,7 @@ function Install-Zsh {
         throw "zsh at '$($layout.Executable)' is not the pinned package '$package' (installed: $($installed ?? 'not by Install-Zsh')). Run Install-Zsh -Force to replace it."
     }
 
-    # Past the early return, a manifest is either a -Force replacement or an install that was cut short: either way...
+    # A manifest here means a -Force or a cut-short install; its files go first so the new manifest is complete.
     # [comment:4](/docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md#comment4)
     if ($installed) {
         Write-Verbose "Removing the installed zsh ($installed) before installing $package"
@@ -85,7 +85,7 @@ function Install-Zsh {
         # Relative names from the work folder, so the command line carries no drive-letter path.
         Invoke-Executable "`"$tar`" -xf `"$package`" -C package" -WorkingDirectory $work -Silent
 
-        # An MSYS2 package keeps its metadata files (.PKGINFO and its siblings) at the archive root and its payload...
+        # Metadata files sit at the archive root beside the payload dirs, and only the payload belongs in Git's tree.
         # [comment:5](/docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md#comment5)
         foreach ($metadata in [System.IO.Directory]::GetFiles($staging)) {
             [System.IO.File]::Delete($metadata)

@@ -1,4 +1,4 @@
-// One deployable slot of a template: the unit binding one config file to one (customer?, environment, slot) coordinate, which resolves...
+// A template fans out into one slot per deployable coordinate, each resolving to one subscription and one resource group.
 // [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepSlot.cs.md#comment1)
 
 using System;
@@ -15,15 +15,15 @@ public sealed class BicepSlot
     // The environment this slot deploys into. Always present.
     public string environment { get; }
 
-    // The slot discriminator within the environment.
+    // The empty string, never null, marks the base slot, because downstream compares slots by value.
     // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepSlot.cs.md#comment2)
     public string slot { get; }
 
-    // The subscription this slot deploys into — resolved at discovery from the slot's coordinate: the one non-customer subscription...
+    // Always present: discovery resolves it from the coordinate to exactly one subscription.
     // [comment:3](/docs/references/automation/catzc-azure-templates/types/BicepSlot.cs.md#comment3)
     public string subscription { get; }
 
-    // The customer this slot is for — the configuration subfolder name (a customer key).
+    // The empty string, never null, marks a shared configuration-root slot, because downstream filters by value.
     // [comment:4](/docs/references/automation/catzc-azure-templates/types/BicepSlot.cs.md#comment4)
     public string customer { get; }
 

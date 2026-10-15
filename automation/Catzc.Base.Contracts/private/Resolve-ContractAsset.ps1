@@ -2,7 +2,7 @@
 .SYNOPSIS
     Derives one contract asset's facts from its name and place, and returns them as a ContractAsset.
 .DESCRIPTION
-    Zero ceremony: the asset declares nothing.
+    A schema targets the sample payload of its name beside it, else the real file at its path under the target root.
     [ADR-AUTO-ZERO](/docs/adr/automation/zero-ceremony-poka-yoke.md),
     [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
     [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),
@@ -19,7 +19,7 @@
 .PARAMETER File
     The asset's absolute path, read to tell an empty fragment and to find a sample beside a schema.
 .PARAMETER TargetRoot
-    The module's target root, repository-relative; the empty path is the repository root.
+    The empty path is the repository root, the default for a module with no target_roots entry.
     [comment:2](/docs/references/automation/catzc-base-contracts/private/Resolve-ContractAsset.ps1.md#comment2)
 .PARAMETER Override
     The version's contract.yml direction overrides, keyed by `<module>/<path>`. Default: none.

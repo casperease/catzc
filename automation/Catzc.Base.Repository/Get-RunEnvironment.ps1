@@ -2,11 +2,11 @@
 .SYNOPSIS
     Returns where this session runs: Pipeline or Devbox.
 .DESCRIPTION
-    The environment axis of devbox/pipeline parity, read off the one seam, Test-IsRunningInPipeline.
+    Answers where the run happens, not who drives it: that is Get-SessionActor, so an agent in a pipeline is Pipeline.
     [ADR-AUTO-PARITY](/docs/adr/automation/devbox-pipeline-parity.md)
     [comment:1](/docs/references/automation/catzc-base-repository/Get-RunEnvironment.ps1.md#comment1)
 .PARAMETER EnvironmentAssertIs
-    Pins the expected environment: the detected one is still returned, and a different one throws.
+    The guard only verifies the detected environment and never selects one, so a mismatch throws.
     [comment:2](/docs/references/automation/catzc-base-repository/Get-RunEnvironment.ps1.md#comment2)
 .OUTPUTS
     [string] 'Pipeline' or 'Devbox'.

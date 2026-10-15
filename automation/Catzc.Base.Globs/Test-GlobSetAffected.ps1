@@ -3,7 +3,7 @@
     Whether the current context's change touches a globset — the in-pipeline "is there anything here for us
     to process?" check.
 .DESCRIPTION
-    The boolean a deployable unit's pipeline stage checks to stop early ("nothing for us; return") when its own area...
+    Fails open: an unresolvable range returns true, since a redundant run is safe and a wrong skip is not.
     [ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1),
     [ADR-REPO-PROTGLOB#5](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob5),
     [ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Tests whether the repo's Azure resource-name order (the `ado_naming` variant) is the one named.
 .DESCRIPTION
-    A predicate over the `ado_naming` repo-wide variant (see Get-AdoNaming).
+    Callable anywhere above the Config layer; use Assert-AdoNaming to fail instead of branch.
     [comment:1](/docs/references/automation/catzc-base-variants/Test-AdoNaming.ps1.md#comment1)
 .PARAMETER Standard
     Test for the 'standard' order (env/slot first, type last).

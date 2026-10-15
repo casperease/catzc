@@ -3,30 +3,30 @@
     Runs a CLI command with exit code handling, stream separation, and
     optional structured output capture.
 .DESCRIPTION
-    Central wrapper for external tool invocation.
+    Streamed runs lose ANSI colors, since a piped child disables them; use -Direct when colors matter.
     [comment:1](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment1)
 .PARAMETER Command
     The command string to execute.
 .PARAMETER Direct
-    Raw execution with full color support.
+    Direct output also flows into the pipeline, so it leaks into the caller's return value.
     [comment:2](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment2)
 .PARAMETER PassThru
-    Return a Catzc.Base.Execution.CliResult object with Output, Errors, Full, ExitCode, and Raw.
+    Without it the output only streams to the console and the caller gets nothing to read back.
     [comment:3](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment3)
 .PARAMETER AsBytes
-    Capture stdout as its exact bytes, for a binary stream such as `git cat-file --batch`: returns the CliResult with...
+    Read .Bytes, not .Output: .Output stays empty, so a text reader of a binary stream gets an empty string.
     [comment:4](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment4)
 .PARAMETER NoAssert
-    Skip the exit code assertion.
+    With -PassThru the ExitCode stays readable on the result, so the caller can judge it instead.
     [comment:5](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment5)
 .PARAMETER Silent
-    Suppress the command log line and all console output.
+    A silent run also closes stdin, so a prompt in the child fails at once instead of waiting unseen.
     [comment:6](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment6)
 .PARAMETER WorkingDirectory
-    The directory to run the command in.
+    Defaults to the repository root, not $PWD, so pass a directory whenever the command depends on one.
     [comment:7](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment7)
 .PARAMETER TimeoutSeconds
-    The time limit for this call, in seconds.
+    Overrides the timeouts.yml limit for one call; -Direct has no limit, since a person at the prompt is its safeguard.
     [comment:8](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment8)
 .PARAMETER DryRun
     Return the command string without executing. Used for testing.
@@ -43,7 +43,7 @@
 .EXAMPLE
     Invoke-Executable 'python --version' -DryRun
 #>
-# Uses -DryRun, not ShouldProcess/-WhatIf — see.
+# -DryRun, not ShouldProcess or -WhatIf: it hands back the command string, so a caller can inspect it.
 # [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
 # [comment:9](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment9)
 function Invoke-Executable {
@@ -73,7 +73,7 @@ function Invoke-Executable {
         [switch] $DryRun
     )
 
-    # Unit-test tripwire (sibling to -DryRun: both prevent a launch — DryRun returns the command, this throws).
+    # A real launch in a unit test means a Mock missed, usually a wrong -ModuleName, so fail loudly.
     # [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md)
     # [comment:10](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment10)
     if ($env:CATZC_BLOCK_REAL_PROCESS -and -not $DryRun) {

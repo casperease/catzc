@@ -2,17 +2,17 @@
 .SYNOPSIS
     Returns a module's own folder inside the loaded catzc code tree, optionally joined with a child path.
 .DESCRIPTION
-    The one sanctioned way for module code to locate content that ships with it — its configs/ and assets/, or...
+    Resolves against the modules root, so it is right in both run modes, and a build-mode overlay may replace an asset.
     [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1),
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
     [ADR-AUTO-ASSETDEP#2](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2),
     [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
     [comment:1](/docs/references/automation/catzc-base-repository/Get-CatzcModuleRoot.ps1.md#comment1)
 .PARAMETER ChildPath
-    A path below the module folder, '/'-separated (e.g.
+    Pass a string literal: the asset-dependency inventory is derived from these literals at each call site.
     [comment:2](/docs/references/automation/catzc-base-repository/Get-CatzcModuleRoot.ps1.md#comment2)
 .PARAMETER Module
-    The module whose folder to resolve.
+    Defaults to the calling function's module, so a script or the console must pass it or the call throws.
     [comment:3](/docs/references/automation/catzc-base-repository/Get-CatzcModuleRoot.ps1.md#comment3)
 .EXAMPLE
     Get-CatzcModuleRoot 'assets/gitkeep'

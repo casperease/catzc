@@ -2,7 +2,7 @@
 .SYNOPSIS
     Asserts the active az CLI session is logged into the tenant + subscription named.
 .DESCRIPTION
-    The throwing companion to Test-AzCliIsConnected (which returns a bool).
+    Takes the subscription name because a connection is subscription-scoped; the tenant comes from azure.yml.
     [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md#comment1)
 .PARAMETER Subscription

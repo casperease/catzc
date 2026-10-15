@@ -2,7 +2,7 @@
 .SYNOPSIS
     Publishes the Claude Code Bash time-safeguard hook (a small C# program) when its source has changed.
 .DESCRIPTION
-    The hook (.claude/hooks/Assert-BashTimeout/) runs before every Bash call an agent makes and denies a call that...
+    Compiled, not scripted, because it runs before every Bash call and starts in a third of pwsh's time.
     [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7),
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md#comment1)
@@ -34,7 +34,7 @@ function Build-BashTimeoutHook {
     Assert-PathExist $csproj
     $projectXml = [xml](Get-Content -LiteralPath $csproj -Raw)
 
-    # The sources are this folder's *.cs/*.csproj plus every linked <Compile Include> (the module types the hook...
+    # Linked module types are hashed too, so a change to any type the hook compiles in republishes it.
     # [comment:2](/docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md#comment2)
     $sources = @(Get-ChildItem -LiteralPath $project -File | Where-Object Extension -In '.cs', '.csproj' | Sort-Object Name)
     Assert-True ($sources.Count -gt 0) -ErrorText "No hook files (*.cs, *.csproj) in $project"
@@ -47,7 +47,7 @@ function Build-BashTimeoutHook {
     }
     $sourceHash = $hashLines -join "`n"
 
-    # The program's name is the project's AssemblyName — the one place it is set.
+    # The publish appends the platform's executable extension, so find the program by name, never by a guessed suffix.
     # [comment:3](/docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md#comment3)
     $assemblyName = $projectXml.Project.PropertyGroup.AssemblyName | Where-Object { $_ } | Select-Object -First 1
     Assert-NotNullOrWhitespace $assemblyName -ErrorText "No <AssemblyName> in $csproj — it names the published hook program."
@@ -70,7 +70,7 @@ function Build-BashTimeoutHook {
         throw 'dotnet is not on PATH. Install the .NET SDK (Install-Dotnet), then re-run Build-BashTimeoutHook.'
     }
 
-    # --disable-build-servers: no MSBuild node or compiler server outlives the publish.
+    # A surviving build server would hold this call's output pipe open, so the caller would wait minutes on it.
     # [comment:4](/docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md#comment4)
     Invoke-Executable "dotnet publish `"$csproj`" --configuration Release --output `"$OutputDirectory`" --verbosity quiet --disable-build-servers" -Silent
     $program = & $findProgram

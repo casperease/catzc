@@ -1,4 +1,4 @@
-// Reusable bicep module: a route table (user-defined routes).
+// Routes are passed in the ARM routes shape, where nextHopIpAddress is optional.
 // [comment:1](/docs/references/infrastructure/modules/route-table.bicep.md#comment1)
 
 @description('Route table name (1-80 characters, unique within the resource group).')

@@ -1,4 +1,4 @@
-// The Go test-workspace settings (configs/go.yml), and the single declaration of their sensible defaults: every key is optional, and an...
+// An omitted key behaves exactly like its default, so no function restates a value.
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-REPO-FOLDERS#4](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders4)
@@ -30,14 +30,14 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly Regex DependencyPath = new Regex(@"^[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+(/[A-Za-z0-9._~-]+)*$");
     private static readonly Regex DependencyVersion = new Regex(@"^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\+incompatible)?$");
 
-    // The declared Go root folder, repository-relative ('/'-separated).
+    // Null when the file declares none; ResolveRoot then applies the default.
     // [comment:2](/docs/references/automation/catzc-base-languages/types/GoConfig.cs.md#comment2)
     public string root { get; }
 
     // The module-path prefix: a folder <root>/tests/<folder>/ is the Go module <module_root>/<folder>.
     public string module_root { get; }
 
-    // The test dependencies every go.mod requires, module path -> version, in ordinal path order.
+    // Ordinal path order keeps a rendering independent of the order of keys in the file.
     // [comment:3](/docs/references/automation/catzc-base-languages/types/GoConfig.cs.md#comment3)
     public IReadOnlyDictionary<string, string> dependencies { get; }
 
@@ -117,7 +117,7 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
         dependencies = requires;
     }
 
-    // The Go root folder for a repository, repository-relative: the declared root, else 'go' when the repository has a go/ folder, else...
+    // The one place the root default lives, so no caller restates go or .go.
     // [comment:4](/docs/references/automation/catzc-base-languages/types/GoConfig.cs.md#comment4)
     public string ResolveRoot(string repositoryRoot)
     {

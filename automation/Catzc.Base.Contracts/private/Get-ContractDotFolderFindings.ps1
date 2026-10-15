@@ -2,7 +2,7 @@
 .SYNOPSIS
     Finds every dot-prefixed folder under contracts/, and returns one finding per folder.
 .DESCRIPTION
-    contracts/ holds no dot-prefixed folder at any depth: a dot prefix marks a repository root as infrastructure, so...
+    Only the outermost dot-prefixed folder is a finding, since moving it moves what it holds; dot-prefixed files pass.
     [ADR-REPO-CONTRACT#10](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract10),
     [ADR-REPO-FOLDERS#4](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders4),
     [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)

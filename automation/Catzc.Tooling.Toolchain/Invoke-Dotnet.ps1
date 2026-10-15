@@ -2,7 +2,7 @@
 .SYNOPSIS
     Runs dotnet with the given arguments.
 .DESCRIPTION
-    Asserts that the installed.NET SDK version matches the locked version in Get-ToolConfig before executing the...
+    A drifted SDK fails the assertion before the command starts, so nothing runs on a version other than the lock.
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Invoke-Dotnet.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to dotnet.

@@ -1,4 +1,4 @@
-// Where one tracked file sits on the world map, and what lights it.
+// The cell is exact (root folder gives the track, extension the file language); only the lighting follows a fixed order.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md#comment1)
 
@@ -34,7 +34,7 @@ public sealed class MapPlacement
     // The column: a file-language name, or WorldMap.NoFileLanguage.
     public string FileLanguage { get; }
 
-    // True when the file is in its track's live aspect; false for a test file, a vendored file, a file of a verification track, and a...
+    // False for test, vendored, verification-track and trackless files, so only live files can break a track's tech-stack.
     // [comment:2](/docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md#comment2)
     public bool Live { get; }
 
@@ -50,7 +50,7 @@ public sealed class MapPlacement
     // The ADR citations that light the file, canonical (ADR-<CODE> or ADR-<CODE>#n), distinct, in ordinal order.
     public IReadOnlyList<string> Citations { get; }
 
-    // Where those citations sit (CitationSite): in the file itself for BasisCitations, in the owner's or the globset's files for...
+    // For files.yml and globset bases the sites sit in the owner's or globset's files, not in this file; empty for an ADR file.
     // [comment:3](/docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md#comment3)
     public IReadOnlyList<CitationSite> Sites { get; }
 

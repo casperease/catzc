@@ -3,7 +3,7 @@
     Recursively converts an object into a YAML-safe structure of ordered
     dictionaries, arrays, and scalar values.
 .DESCRIPTION
-    Used by Write-Object to produce clean YAML output for nested objects.
+    Every level becomes ordered dicts, arrays or scalars, so ConvertTo-Yaml never falls back to ToString.
     [comment:1](/docs/references/automation/catzc-base-objects/ConvertTo-YamlSafe.ps1.md#comment1)
 #>
 function ConvertTo-YamlSafe {

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs a CLI into a dedicated uv venv.
 .DESCRIPTION
-    For a CLI whose own launcher expects python.exe adjacent to it (azure-cli's az.bat), which an isolated `uv tool`...
+    A uv tool shim would put the launcher beside uv's default python, but az.bat needs its own python.exe next to it.
     [comment:1](/docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key (must declare uv_venv).
@@ -42,14 +42,14 @@ function Install-UvVenvTool {
         Join-Path $venvDir 'bin'
     }
 
-    # --clear rebuilds the venv clean; --seed adds pip/setuptools/wheel so packages that expect `pkg_resources`...
+    # Seeding adds pip and setuptools, so packages that import pkg_resources, such as the azure-devops extension, load.
     # [comment:2](/docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md#comment2)
     Invoke-Uv "venv `"$venvDir`" --python $pythonVersion --clear --seed"
     Invoke-Uv "pip install --python `"$venvDir`" $($config.uv_venv)==$Version.*" -Prerelease:$config.uv_allow_prerelease
 
     Sync-SessionPath
 
-    # APPEND the venv's script directory to PATH (the janitor keeps it there each load via session_path_hints).
+    # Append, never prepend: the venv holds its own python.exe, which would shadow the uv-managed python.
     # [comment:3](/docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md#comment3)
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $scriptsDir) {
         $env:PATH = "$env:PATH$([System.IO.Path]::PathSeparator)$scriptsDir"

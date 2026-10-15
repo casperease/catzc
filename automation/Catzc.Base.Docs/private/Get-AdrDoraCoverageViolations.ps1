@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists every rule set whose domain's DORA file has no section, or more than one, linking its ADR.
 .DESCRIPTION
-    Every domain outside the exempt list keeps one DORA file (dora_coverage.file, default dora-explains.md) with one...
+    Rule sets in exempt_folders are skipped, as a vendor-checklist ADR is grounded in the vendor's reference, not DORA.
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-AdrDoraCoverageViolations.ps1.md#comment1)
 .PARAMETER Adrs
     The ADR registry (Get-Config -Config adrs).

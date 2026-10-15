@@ -1,4 +1,4 @@
-// One debug launch profile of configs/vscode-launch.yml (an entry of `configurations:`), rendered verbatim into the...
+// Only name, type and request are required; every other key passes through verbatim, so VS Code launch keys stay untyped.
 // [comment:1](/docs/references/automation/catzc-base-vscode/types/VscodeLaunchProfile.cs.md#comment1)
 
 using System;

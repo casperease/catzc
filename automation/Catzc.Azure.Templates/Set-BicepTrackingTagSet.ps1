@@ -2,10 +2,10 @@
 .SYNOPSIS
     Writes the deployment-provenance tags (commit, buildId, branch) on the target scope.
 .DESCRIPTION
-    Called by Deploy-Bicep after a successful deploy.
+    The tags land in the az session's subscription, the same target Deploy-Bicep just deployed into.
     [comment:1](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment1)
 .PARAMETER Slot
-    Optional special-slot discriminator (1-3 lowercase alphanumeric chars).
+    Selects the same slot, and so the same resource group, that was deployed; omitted is the base slot.
     [comment:2](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment2)
 .PARAMETER DryRun
     Preview only — log the tag command that would run and make no change.
@@ -13,7 +13,7 @@
     Set-BicepTrackingTagSet -Environment dev -Template sample
 #>
 function Set-BicepTrackingTagSet {
-    # State-changing function deliberately uses -DryRun, not ShouldProcess — see.
+    # -DryRun replaces ShouldProcess here, so the analyzer rule for state-changing functions is suppressed.
     # [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     # [comment:3](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment3)
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
@@ -90,7 +90,7 @@ function Set-BicepTrackingTagSet {
         return
     }
 
-    # -NoAssert: take the result in hand so a failure throws WITH context (scope, command, az stderr) from here,...
+    # -NoAssert lets a failed tag call throw with scope, command and az stderr, where a policy collision shows up.
     # [comment:4](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment4)
     $result = Invoke-AzCli $command -PassThru -NoAssert
     if ($result.ExitCode -ne 0) {

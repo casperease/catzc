@@ -1,4 +1,4 @@
-// A compiled Bicep template's parameter model: the template name plus every parameter main.json declares, keyed by name.
+// Keys compare case-insensitively, as ARM matches parameter names.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepParameterModel.cs.md#comment1)
 
@@ -36,7 +36,7 @@ public sealed class BicepParameterModel
         Parameters = new ReadOnlyDictionary<string, BicepParameter>(byName);
     }
 
-    // Parses the text of a compiled main.json.
+    // Throws, naming the template, when the text is not a JSON object or a parameter declaration is malformed.
     // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepParameterModel.cs.md#comment2)
     public static BicepParameterModel Parse(string template, string mainJson)
     {

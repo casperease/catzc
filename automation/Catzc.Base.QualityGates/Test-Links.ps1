@@ -3,7 +3,7 @@
     The link quality gate: fails on any off-form, dangling, or dead link or citation
     ([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)).
 .DESCRIPTION
-    Runs the same engine as Format-Links, read-only, and reports every violation: a code link not yet in canonical...
+    Read-only twin of Format-Links: each issue says whether Format-Links can fix it or a person must.
     [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5),
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Links.ps1.md#comment1)
@@ -16,7 +16,7 @@
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-links.
 .PARAMETER PassThru
-    Return a result object ({ Subject, IssueCount, Issues, ReportPath, FileCount, FixableCount, InformationCount,...
+    Report-mode string citations show up in Reported and never fail the gate.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-Links.ps1.md#comment2)
 .OUTPUTS
     Throws on any violation; with -PassThru, returns the result object.

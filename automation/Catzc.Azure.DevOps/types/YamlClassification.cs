@@ -1,4 +1,4 @@
-// How a YAML file in an Azure DevOps repo is classified by its top-level keys.
+// Only the coarse kind lives here; a Template is refined further by YamlTemplateType.
 // [comment:1](/docs/references/automation/catzc-azure-devops/types/YamlClassification.cs.md#comment1)
 
 namespace Catzc.Azure.DevOps;

@@ -1,4 +1,4 @@
-# glossary.yml — the Catzc.Base.Docs glossary source: the repository-wide vocabulary this module owns, the words for the ADRs themselves.
+# Every option is defaulted (all checks, the whole repository, every surface), so this source states only concepts.
 # [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
 # [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)
 # [comment:1](/docs/references/automation/catzc-base-docs/configs/glossary.yml.md#comment1)
@@ -55,7 +55,7 @@ concepts:
     defined_by: ADR-REPO-LANG#1
     short: One of the three registers — design, test, live — each with its own terminology and identities; a token belongs to exactly one.
     realized_by: { kind: prose-only }
-    # landing, dns and availability are Azure's own terms (a CAF landing zone, a private DNS zone, an availability zone), not language...
+    # landing, dns and availability are Azure's own terms (landing zone, DNS zone, availability zone), not language zones.
     # [comment:2](/docs/references/automation/catzc-base-docs/configs/glossary.yml.md#comment2)
     forms: [language, design, test, live, landing, dns, availability]
     contrasts:

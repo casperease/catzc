@@ -1,4 +1,4 @@
-// A glossary source's parameters (the optional configs/glossary.yml `options:` mapping), with every key defaulted: a source overrides...
+// Default excludes are always added to a source's own, so no source can scan research text, generated output or vendored code.
 // [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2),
 // [ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
@@ -75,7 +75,7 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
         if (errors.Count > 0) { throw new ArgumentException(string.Join("; ", errors)); }
     }
 
-    // A list option restricted to a closed set; absent -> the whole set.
+    // An explicit empty list is allowed, so a source can opt out of every check and still get the structural check.
     // [comment:2](/docs/references/automation/catzc-base-docs/types/GlossaryOptions.cs.md#comment2)
     private static IReadOnlyList<string> ClosedList(IDictionary d, string key, IReadOnlyList<string> allowed, List<string> errors)
     {

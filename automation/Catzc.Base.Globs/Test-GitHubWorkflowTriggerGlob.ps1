@@ -4,7 +4,7 @@
     trigger-drift quality gate for GitHub Actions
     ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)).
 .DESCRIPTION
-    The GitHub sibling of Test-AdoPipelineTriggerGlob: recomputes the ordered, '!'-negation `paths` list a globset...
+    Paths compare element by element, since GitHub is last-match-wins; the globset-to-workflow pairing is passed in.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md#comment1)
 .PARAMETER Name

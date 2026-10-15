@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the consumer overlay root Get-Config merges fragments from, cached per pair of session anchors.
 .DESCRIPTION
-    Get-Config sits on the hot path, so the overlay root (Get-CatzcOverlayRoot, which derives the run mode from the...
+    A change of either anchor is a new cache key, so the answer never outlives the roots it came from.
     [ADR-PWSH-CACHE](/docs/adr/pwsh/script-scope-caching.md)
     [comment:1](/docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md#comment1)
 .OUTPUTS
@@ -14,7 +14,7 @@ function Get-ConfigOverlayRoot {
     param()
 
     $anchors = "$(Get-RepositoryRoot)|$(Get-CatzcModulesRoot)"
-    # strict-clean probe of the lazy cache entry
+    # Probe through session state, not the bare variable, so strict mode does not throw before the first load.
     # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
     # [comment:2](/docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md#comment2)
     if ($ExecutionContext.SessionState.PSVariable.GetValue('script:configOverlayAnchors') -ne $anchors) {

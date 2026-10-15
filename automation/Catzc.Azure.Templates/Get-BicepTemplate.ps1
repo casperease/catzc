@@ -17,7 +17,7 @@ function Get-BicepTemplate {
         [string] $Name
     )
 
-    # Parenthesise the call so its (comma-wrapped, array-preserving) output is collected and then enumerated...
+    # Without the parentheses, Where-Object receives the whole array as one object and matches every template.
     # [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTemplate.ps1.md#comment1)
     $template = (Get-BicepTemplates) | Where-Object { $_.name -eq $Name } | Select-Object -First 1
     Assert-True ($null -ne $template) -ErrorText "Template '$Name' was not found"

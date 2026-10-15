@@ -1,4 +1,4 @@
-// One piece of prose the glossary checks read (G4, G6): the surface it comes from (markdown, comments, help, messages), the line it...
+// Code and mentions are blanked to spaces, not removed, so a match's offset still maps back to its source line.
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GlossarySegment.cs.md#comment1)
 
 namespace Catzc.Base.Docs;

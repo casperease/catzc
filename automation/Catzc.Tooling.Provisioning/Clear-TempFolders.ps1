@@ -2,10 +2,10 @@
 .SYNOPSIS
     Deletes the contents of the user's temp folder(s).
 .DESCRIPTION
-    Removes every top-level entry from each temp folder, best-effort: a file or directory still in use by a running...
+    Safe to re-run: entries locked by a running process are skipped, never an error, and the folders themselves stay.
     [comment:1](/docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md#comment1)
 .PARAMETER Path
-    The temp folder(s) to clear.
+    Defaults to the de-duplicated user temp locations; pass a path to target one specific folder instead.
     [comment:2](/docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md#comment2)
 .EXAMPLE
     Clear-TempFolders
@@ -14,7 +14,7 @@
     Clear-TempFolders -DryRun
     Reports what would be removed (in the returned summary's Removed count) without deleting anything.
 .PARAMETER DryRun
-    Report what would be removed without deleting anything.
+    Removed counts every top-level entry as deleted, since a lock shows only on a real delete attempt.
     [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:3](/docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md#comment3)
 #>
@@ -40,7 +40,7 @@ function Clear-TempFolders {
             continue
         }
 
-        # Delete via.NET, NOT Remove-Item: across tens of thousands of temp entries Remove-Item's per-item cmdlet...
+        # .NET, not Remove-Item: its per-item cmdlet overhead over tens of thousands of entries costs minutes.
         # [comment:4](/docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md#comment4)
         $removed = 0
         $skipped = 0

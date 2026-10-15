@@ -2,7 +2,7 @@
 .SYNOPSIS
     Wraps one paragraph or list item of generated markdown at the 140-column prose width, the way Prettier fills it.
 .DESCRIPTION
-    Greedy fill — each line takes as many words as fit in Width columns, prefix included — which is what Prettier's...
+    The fill matches Prettier's prose wrap, and a code span or a link counts as one unbreakable word.
     [ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)
     [comment:1](/docs/references/automation/catzc-base-docs/Format-MarkdownParagraph.ps1.md#comment1)
 .PARAMETER Text

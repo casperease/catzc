@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the glossary facts that span more than one source (check G1, cross-source) — one message per violation.
 .DESCRIPTION
-    The GlossaryConfig type checks each source on its own when it loads; this checks what no single source can see: -...
+    The first source in owner order keeps a duplicated term or key; every later one is reported.
     [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
     [ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1),
     [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5),
@@ -10,7 +10,7 @@
     [ADR-REPO-VOCAB#4](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab4)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossarySourceViolations.ps1.md#comment1)
 .PARAMETER Source
-    The glossary sources, as Get-GlossarySources returns them ({ Owner; Path; Config; Tracked }).
+    Defaults to every source in the repository, in owner order, which decides who keeps a duplicated term.
     [comment:2](/docs/references/automation/catzc-base-docs/private/Get-GlossarySourceViolations.ps1.md#comment2)
 .OUTPUTS
     [string[]] One message per violation, in source and concept order; empty when the sources agree.

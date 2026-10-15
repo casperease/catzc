@@ -2,7 +2,7 @@
 .SYNOPSIS
     Plans copying an extracted package tree into a destination tree without touching a file the destination already has.
 .DESCRIPTION
-    Compares the files and folders under -Source with -Destination and returns paths relative to both roots, with...
+    Read-only, so the plan can be recorded before the copy starts and an interrupted copy is still covered by it.
     [ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2)
     [comment:1](/docs/references/automation/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md#comment1)
 .PARAMETER Source

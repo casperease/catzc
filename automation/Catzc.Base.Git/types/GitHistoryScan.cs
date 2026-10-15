@@ -1,4 +1,4 @@
-// A token hunt over a git history in one pass: every commit message, every path and every distinct file content reachable from a set of...
+// Each distinct blob is scanned once, not once per revision that contains it, which is what makes the scan fast.
 // [ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)
 // [comment:1](/docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md#comment1)
 
@@ -24,7 +24,7 @@ public sealed class GitHistoryScan
     // The token searched for.
     public string Token { get; }
 
-    // Content hits, one per matching line of each distinct blob: `<blob>:<path>:<line>`, where path is the blob's first non-excluded...
+    // The path in a hit is the blob's first non-excluded path in ordinal order, so hits are stable across runs.
     // [comment:2](/docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md#comment2)
     public string[] Blobs { get; }
 

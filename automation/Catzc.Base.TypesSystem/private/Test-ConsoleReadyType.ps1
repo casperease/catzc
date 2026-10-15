@@ -2,7 +2,7 @@
 .SYNOPSIS
     Whether a shipped C# type renders as one readable line in pwsh, rather than as its full name.
 .DESCRIPTION
-    PowerShell's "$x" and [string]$x call the type's own.NET ToString and ignore an ETS ToString, so a type reads...
+    Only a real ToString() override counts, because pwsh string conversion ignores an ETS ToString.
     [comment:1](/docs/references/automation/catzc-base-typessystem/private/Test-ConsoleReadyType.ps1.md#comment1)
 .PARAMETER Type
     The loaded type to check.

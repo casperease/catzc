@@ -2,14 +2,14 @@
 .SYNOPSIS
     Tests whether a tool is managed by the expected package manager.
 .DESCRIPTION
-    Checks the platform's expected package manager to determine if it currently manages the given tool.
+    Check order decides who judges: an MSYS2 tool that also declares apt_package is judged by apt on Linux.
     [comment:1](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment1)
 .PARAMETER Config
     Tool configuration hashtable from Get-ToolConfig / tools.yml.
 .PARAMETER WingetListCache
     Pre-fetched winget list output (Get-WingetListCache), so a batch of checks lists once.
 .PARAMETER Path
-    For a script-installed tool, or an MSYS2-package tool on Windows: judge this install folder (or a file in it)...
+    A removal passes the folder it will delete, so the managed install's PATH position never judges another folder.
     [ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)
     [comment:2](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment2)
 #>
@@ -20,11 +20,11 @@ function Test-ExpectedPackageManager {
         [Parameter(Mandatory, Position = 0)]
         $Config,
 
-        # Pre-fetched winget list output.
+        # A batch of checks lists winget once and passes the result here, not one winget call per tool.
         # [comment:3](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment3)
         [string] $WingetListCache,
 
-        # The install folder to judge, for a script-installed or an MSYS2-package tool.
+        # The default is the PATH-resolved folder, always the managed install in a catzc session, so removals pass this.
         # [comment:4](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment4)
         [string] $Path
     )
@@ -34,7 +34,7 @@ function Test-ExpectedPackageManager {
         return [bool](Test-Command $Config.command)
     }
 
-    # 1.
+    # Judged by folder, not by a package manager: script installs and Windows MSYS2 trees have none to ask.
     # [comment:5](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment5)
     if ($Config.script_install -or ($Config.msys2_url -and $IsWindows)) {
         $expectedDir = [System.IO.Path]::GetFullPath((Get-ScriptInstallDir -Config $Config)).TrimEnd('\', '/')
@@ -72,7 +72,7 @@ function Test-ExpectedPackageManager {
         return (Get-Command $Config.command).Source -like "$venvRoot*"
     }
 
-    # uv-provisioned Python — managed only when uv reports an installed uv-MANAGED CPython.
+    # Managed-only listing leaves out system pythons uv merely discovered, which would falsely count as managed.
     # [comment:6](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment6)
     if ($Config.uv_python) {
         if (-not (Test-Command uv)) {
@@ -82,18 +82,18 @@ function Test-ExpectedPackageManager {
         return [bool]$result.Output
     }
 
-    # 3.
+    # A platform manager counts only when the tool declares its field for this platform, else the check falls through.
     # [comment:7](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment7)
     if ($IsWindows -and $Config.winget_id) {
         if (-not (Test-Command winget)) {
             return $false
         }
 
-        # Build a search prefix that matches any version of this tool.
+        # Dropping the version placeholder lets the search match any installed version, not only the locked one.
         # [comment:8](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment8)
         $baseId = ($Config.winget_id -replace '\{0\}', '').TrimEnd('.', '-')
 
-        # For IDs without a format placeholder the version may be hardcoded as the last segment (e.g.,...
+        # A version hardcoded as the last ID segment, such as DotNet.SDK.10, is stripped for the same any-version match.
         # [comment:9](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment9)
         if ($Config.winget_id -notmatch '\{0\}') {
             $parts = $baseId -split '\.'
@@ -129,7 +129,7 @@ function Test-ExpectedPackageManager {
         return $result.ExitCode -eq 0
     }
 
-    # 3.
+    # Library packages live in the uv-managed Python, which show --system inspects without importing the package.
     # [comment:10](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment10)
     if ($Config.pip_package) {
         if (-not (Test-Command uv)) {
@@ -148,7 +148,7 @@ function Test-ExpectedPackageManager {
         return $result.ExitCode -eq 0
     }
 
-    # 5.
+    # With no manager declared for this platform, such as zsh on macOS, the OS is the manager: present means managed.
     # [comment:11](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment11)
     if ($Config.msys2_url) {
         return [bool](Test-Command $Config.command)

@@ -3,11 +3,11 @@
     Renders the repository-root .gitignore content from the gitignore registry — the pretty-printer behind
     "what git ignores is declared, explained, and generated".
 .DESCRIPTION
-    Reads the section registry (configs/gitignore.yml, via Get-Config -Config gitignore) and renders it to the...
+    Never reads rootconfig.yml: the ignored-copies list arrives through -Inject, so .gitignore cannot drift from it.
     [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-git/New-GitIgnore.ps1.md#comment1)
 .PARAMETER Inject
-    Render-time patterns per provider name (e.g.
+    A provider the registry names but -Inject omits throws; an empty list gives a titled, empty section.
     [comment:2](/docs/references/automation/catzc-base-git/New-GitIgnore.ps1.md#comment2)
 .OUTPUTS
     [string] The rendered .gitignore content (LF-joined; the writer canonicalises).
@@ -30,7 +30,7 @@ function New-GitIgnore {
     $lines.Add('# Regenerated on import by Build-RootConfig; committed, so a fresh clone ignores correctly from checkout.')
 
     foreach ($section in $config.sections) {
-        # Resolve the section's patterns: static from the registry, or injected by the caller.
+        # A missing inject provider is a wiring defect, so it throws rather than render an incomplete .gitignore.
         # [comment:3](/docs/references/automation/catzc-base-git/New-GitIgnore.ps1.md#comment3)
         $patterns = if ($section.inject) {
             if (-not $Inject.ContainsKey($section.inject)) {

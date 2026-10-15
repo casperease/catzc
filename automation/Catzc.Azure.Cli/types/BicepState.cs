@@ -1,4 +1,4 @@
-// The Bicep CLI's installation state measured against the configured minimum version.
+// A point-in-time probe of the local Bicep toolchain against the minimum version, not a config record.
 // [comment:1](/docs/references/automation/catzc-azure-cli/types/BicepState.cs.md#comment1)
 
 using System;

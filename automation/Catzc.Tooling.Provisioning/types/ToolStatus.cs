@@ -1,4 +1,4 @@
-// One tool's installation status: the locked requirement vs.
+// The per-tool row that drives the devbox assert and install flow: locked requirement against what is on the box.
 // [comment:1](/docs/references/automation/catzc-tooling-provisioning/types/ToolStatus.cs.md#comment1)
 
 using System;

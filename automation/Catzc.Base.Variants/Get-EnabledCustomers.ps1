@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the repo's enabled-customer set from the `have_customers` variant.
 .DESCRIPTION
-    Normalizes the tri-state `have_customers` variant (configs/variants.yml) to one of: @ — no customers enabled...
+    The one interpreter of the tri-state: false or empty gives @(), true or 'all' gives 'all', a list gives names.
     [comment:1](/docs/references/automation/catzc-base-variants/Get-EnabledCustomers.ps1.md#comment1)
 .EXAMPLE
     Get-EnabledCustomers   # -> @()  (default: customers disabled)
@@ -20,7 +20,7 @@ function Get-EnabledCustomers {
         return @()
     }
 
-    # Anything non-bool is 'all' or a name list.
+    # Get-Variant unrolls a one-item list to a scalar, so normalize to an array before spotting the 'all' sentinel.
     # [comment:2](/docs/references/automation/catzc-base-variants/Get-EnabledCustomers.ps1.md#comment2)
     $names = @($value | Where-Object { -not [string]::IsNullOrEmpty("$_") } | ForEach-Object { "$_" })
     if ($names.Count -eq 0) {

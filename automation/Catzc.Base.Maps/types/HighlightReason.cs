@@ -1,4 +1,4 @@
-// Why a highlight lights a file, or a cell with no file: the file, the step that tied it to the request (a MapPlacement basis, "path"...
+// A file lit only by comment sites is a passing mention, so a reader can tell a lit file's subject from a mention.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/HighlightReason.cs.md#comment1)
 

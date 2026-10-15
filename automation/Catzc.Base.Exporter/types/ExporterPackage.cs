@@ -1,4 +1,4 @@
-// The package identity and metadata block of configs/exporter.yml (`package:`) — Build-Modules hands it to the build engine, which...
+// Every violation is collected into one ArgumentException, so a bad package block is reported whole, not one key at a time.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-exporter/types/ExporterPackage.cs.md#comment1)
 

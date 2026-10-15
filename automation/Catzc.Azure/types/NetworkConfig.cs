@@ -1,4 +1,4 @@
-// The cross-cutting IP plan (configs/network.yml, ) — the single source of truth for vnet / subnet ranges: the per-environment ranges,...
+// Checks this file alone: the cross-asset sync with azure.yml is the quality gate Test-AzureNetworkPlan, not a constructor.
 // [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-AZ-NETWORK#6](/docs/adr/azure/azure-network-model.md#rule-adr-az-network6),
@@ -14,11 +14,11 @@ namespace Catzc.Azure;
 
 public sealed class NetworkConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    // The per-environment IP plans, keyed by environment name in file order (a Dictionary enumerates in insertion order when nothing is...
+    // File order is kept: a Dictionary enumerates in insertion order when nothing is removed, and this one is never mutated.
     // [comment:2](/docs/references/automation/catzc-azure/types/NetworkConfig.cs.md#comment2)
     public IReadOnlyDictionary<string, NetworkEnvironment> environments { get; }
 
-    // The per-subscription hub and spoke networks, keyed by subscription name in file order.
+    // Empty, never null, when the file has no subscriptions key.
     // [comment:3](/docs/references/automation/catzc-azure/types/NetworkConfig.cs.md#comment3)
     public IReadOnlyDictionary<string, NetworkSubscription> subscriptions { get; }
 
@@ -80,7 +80,7 @@ public sealed class NetworkConfig : Catzc.Base.Objects.DictionaryRecord
         if (errors.Count > 0) { throw new ArgumentException("network configuration validation failed:\n" + string.Join("\n", errors)); }
     }
 
-    // No two virtual networks of the plan share an address: environments and subscriptions alike.
+    // A range already reported invalid is skipped, so one bad range is not reported again as an overlap.
     // [comment:4](/docs/references/automation/catzc-azure/types/NetworkConfig.cs.md#comment4)
     private static void CheckVnetOverlap(Dictionary<string, NetworkEnvironment> environmentMap,
         Dictionary<string, NetworkSubscription> subscriptionMap, List<string> errors)

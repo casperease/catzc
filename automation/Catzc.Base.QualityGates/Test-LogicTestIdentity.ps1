@@ -5,11 +5,11 @@
     separation ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md),
     [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 .DESCRIPTION
-    The forbidden set is DERIVED from the shipped config (Get-LiveIdentityTokens), so it is always current — add a...
+    Adding a customer to customer.yml bans it from logic tests at once: the forbidden set is derived, not listed.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md#comment1)
 .PARAMETER Path
-    Test files to check.
+    The default needs the source tree (Assert-SourceTree); an explicit list works in either mode.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md#comment2)
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-logic-test-identity.
@@ -47,7 +47,7 @@ function Test-LogicTestIdentity {
             Sort-Object
     }
 
-    # Parse only files that COULD carry a finding — a provable SUPERSET, so no leak is ever skipped.
+    # Text-scan first: the AST parse is the whole cost and about 95% of files hold no live token, so skip those.
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md#comment3)
     $exactTokens = @($live.Values | Where-Object { $_.MatchMode -eq 'exact' } | ForEach-Object { $_.Token })
     $tokenRegex = if ($exactTokens.Count) {

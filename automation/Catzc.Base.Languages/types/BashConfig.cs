@@ -1,4 +1,4 @@
-// The Bash test settings (configs/bash.yml), and the single declaration of their sensible defaults.
+// A mistyped key fails at load: construction collects every violation into one ArgumentException.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-REPO-FOLDERS#7](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders7)
 // [comment:1](/docs/references/automation/catzc-base-languages/types/BashConfig.cs.md#comment1)
@@ -84,7 +84,7 @@ public sealed class BashConfig : Catzc.Base.Objects.DictionaryRecord
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
     }
 
-    // The Bash root folder for a repository, repository-relative: the declared root, else 'bash' when the repository has a bash/ folder,...
+    // The one place the root default lives, so no caller restates bash or .bash.
     // [comment:2](/docs/references/automation/catzc-base-languages/types/BashConfig.cs.md#comment2)
     public string ResolveRoot(string repositoryRoot)
     {

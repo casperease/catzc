@@ -2,12 +2,12 @@
 .SYNOPSIS
     The flat set of every declared ADR rule id across all ADRs (registry form, e.g. 'ADR-PWSH-ERROR:3').
 .DESCRIPTION
-    Unions the rule ids of every ADR the index lists: for each index row (Get-CatsAdrIndex) it reads that ADR file...
+    Ids come back in colon form, so a citation in hash form needs its separator swapped before the lookup.
     [ADR-AUTO-NOPWD#1](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1),
     [ADR-AUTO-CACHE](/docs/adr/automation/caching.md), [ADR-PRIN-REDUCEVAR](/docs/adr/principles/reduce-variability.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md#comment1)
 .PARAMETER IndexPath
-    Absolute path to the ADR index.
+    ADR paths resolve against the index's own folder, so a test can pair a fixture index with fixture ADRs.
     [comment:2](/docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md#comment2)
 .OUTPUTS
     [string[]] the distinct rule ids in registry form (e.g. 'ADR-PWSH-ERROR:3'), ordinally sorted.
@@ -20,7 +20,7 @@ function Get-CatsAdrRuleIds {
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrRuleIdsCache')) {
-        # strict-clean probe of the lazy cache entry
+        # GetValue gives null for an unset script variable, where a plain read would throw under strict mode.
         # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:3](/docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md#comment3)
         $script:catsAdrRuleIdsCache = @{}
@@ -31,7 +31,7 @@ function Get-CatsAdrRuleIds {
 
     Assert-PathExist $IndexPath
 
-    # Index rows carry ADR paths relative to the index's own folder (docs/adr/), so resolve against it rather than a...
+    # Resolved against the index folder, not a hardcoded docs/adr, so a fixture index beside fixture ADRs works.
     # [comment:4](/docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md#comment4)
     $adrRoot = Split-Path $IndexPath -Parent
     $ids = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)

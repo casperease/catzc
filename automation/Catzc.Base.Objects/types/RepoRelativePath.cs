@@ -1,4 +1,4 @@
-// A path value that carries both forms of the path-representation contract: it stores the canonical repo-root-RELATIVE form (forward...
+// Only the relative string is persisted; the absolute form is derived at the bind, so a value stays machine-independent.
 // [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md),
 // [ADR-AUTO-PATH#8](/docs/adr/automation/path-representation.md#rule-adr-auto-path8),
 // [ADR-AUTO-PATH#3](/docs/adr/automation/path-representation.md#rule-adr-auto-path3),
@@ -13,11 +13,11 @@ namespace Catzc.Base.Objects;
 
 public sealed class RepoRelativePath
 {
-    // The canonical stored form: repo-root-relative with forward slashes when a relative form exists, otherwise a normalized absolute...
+    // The only persisted field; it holds an absolute path only in the degrade case, when no relative form exists.
     // [comment:2](/docs/references/automation/catzc-base-objects/types/RepoRelativePath.cs.md#comment2)
     public string Relative { get; }
 
-    // True when there is no repo-relative form and Relative holds a normalized absolute path.
+    // A rooted value is never re-based, so a consumer must not treat Relative as repo-relative when this is set.
     // [ADR-AUTO-PATH#5](/docs/adr/automation/path-representation.md#rule-adr-auto-path5)
     // [comment:3](/docs/references/automation/catzc-base-objects/types/RepoRelativePath.cs.md#comment3)
     public bool IsRooted { get; }
@@ -33,7 +33,7 @@ public sealed class RepoRelativePath
 
         if (Path.IsPathRooted(slashed))
         {
-            // No repo-relative form (a path outside the root, e.g.
+            // GetFullPath is safe here: the path is already rooted, so it never consults the current directory.
             // [comment:4](/docs/references/automation/catzc-base-objects/types/RepoRelativePath.cs.md#comment4)
             IsRooted = true;
             Relative = Path.GetFullPath(slashed);
@@ -44,7 +44,7 @@ public sealed class RepoRelativePath
         Relative = NormalizeRelative(slashed);
     }
 
-    // Collapse '.', '..', a leading './', and duplicate separators in a RELATIVE path with no base directory.
+    // Walked by hand because Path.GetFullPath would resolve against the current directory, which must never matter.
     // [comment:5](/docs/references/automation/catzc-base-objects/types/RepoRelativePath.cs.md#comment5)
     private static string NormalizeRelative(string relative)
     {
@@ -73,7 +73,7 @@ public sealed class RepoRelativePath
         return string.Join("/", segments);
     }
 
-    // Resolve to the absolute binding form against the repository root.
+    // Resolves against the supplied root, never the current directory; a rooted value is returned unchanged.
     // [comment:6](/docs/references/automation/catzc-base-objects/types/RepoRelativePath.cs.md#comment6)
     public string ToAbsolute(string repositoryRoot)
     {

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Loads a template's per-slot config and returns the ordered dictionary.
 .DESCRIPTION
-    Returns the parsed yml as an ordered dictionary — typically just a `ParametersFile` (the template's ARM...
+    No merge with global config happens here; the PrePost prepare hook is the merge seam.
     [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md#comment1)
 .PARAMETER Template
@@ -10,10 +10,10 @@
 .PARAMETER Environment
     Environment shortname. Must be configured for the template.
 .PARAMETER Slot
-    Optional special-slot discriminator — 1-3 lowercase alphanumeric chars (`001`, `blu`, …).
+    Omitted selects the env's base slot file; the selected config must exist or the call throws.
     [comment:2](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md#comment2)
 .PARAMETER Customer
-    Optional customer key (a configuration subfolder).
+    Omitted selects the shared-platform config at the configuration root, never a customer's.
     [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md#comment3)
 .EXAMPLE
     $configuration = Get-BicepTemplateConfiguration sample dev
@@ -55,7 +55,7 @@ function Get-BicepTemplateConfiguration {
         throw "Invalid -Slot '$Slot' — must be 1-3 lowercase alphanumeric chars (e.g. 001)."
     }
 
-    # One config file per (customer?, env, slot): the coordinate is the file address — root for the shared platform,...
+    # The coordinate is the file address, so no resolution machinery sits between a slot and its file.
     # [comment:4](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md#comment4)
     $configName = Get-BicepConfigName $Environment $Slot
     $folder = if ([string]::IsNullOrEmpty($Customer)) {

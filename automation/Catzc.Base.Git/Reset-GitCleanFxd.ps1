@@ -3,7 +3,7 @@
     Performs a whitelisted `git clean -fxd`: deletes only the untracked files the automation itself
     generates and owns, and leaves everything else in place, reported.
 .DESCRIPTION
-    A raw `git clean -fxd` removes every untracked and ignored file — the regenerable generated artifacts AND any...
+    Unlike a raw clean, untracked work not on the whitelist survives and is reported, never deleted.
     [ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10)
     [comment:1](/docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md#comment1)
 .PARAMETER DryRun
@@ -16,7 +16,7 @@
 .EXAMPLE
     Reset-GitCleanFxd
 #>
-# Uses -DryRun, not ShouldProcess/-WhatIf — see.
+# The dry run is a plain -DryRun switch returning the plan, not ShouldProcess/-WhatIf.
 # [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
 # [comment:2](/docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md#comment2)
 function Reset-GitCleanFxd {
@@ -27,7 +27,7 @@ function Reset-GitCleanFxd {
 
     Assert-Command git
 
-    # git's own dry run is the source of the candidates: exactly what `git clean -fxd` would remove, no...
+    # Asking git's own dry run means ignore semantics are never re-implemented here.
     # [comment:3](/docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md#comment3)
     $listing = Invoke-Executable 'git clean -xdn' -PassThru -Silent
     $candidates = foreach ($line in ($listing.Output -split '\r?\n')) {

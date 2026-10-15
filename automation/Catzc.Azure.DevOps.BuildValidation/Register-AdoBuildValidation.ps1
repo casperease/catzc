@@ -2,7 +2,7 @@
 .SYNOPSIS
     Registers (creates or updates) the build-validation branch policy tied to a globset. Idempotent.
 .DESCRIPTION
-    The existing policy is matched by pipeline plus branch, so a changed filter or name updates it instead of...
+    The existing policy is matched by pipeline plus branch, so a changed filter or name updates it in place.
     [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
     [ADR-FLOW-CD-TYPE#4](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4),
     [ADR-AUTO-IDEM](/docs/adr/automation/idempotent-state-functions.md)

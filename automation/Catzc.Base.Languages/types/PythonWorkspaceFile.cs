@@ -1,4 +1,4 @@
-// One file New-PythonProject renders: the uv workspace root <root>/pyproject.toml, or a member <root>/tests/<folder>/pyproject.toml.
+// The renderer only composes content; Build-RootConfig owns the write.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
 // [comment:1](/docs/references/automation/catzc-base-languages/types/PythonWorkspaceFile.cs.md#comment1)

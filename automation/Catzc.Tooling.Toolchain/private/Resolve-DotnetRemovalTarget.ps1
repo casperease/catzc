@@ -2,7 +2,7 @@
 .SYNOPSIS
     The .NET folder Remove-Dotnet evicts by default: the off-config install, never the managed one.
 .DESCRIPTION
-    The folder of the `dotnet` on PATH, unless that is the managed user-space install (Test-ExpectedPackageManager...
+    In a catzc session PATH always leads to the managed install, so the machine-wide folder is the usual answer.
     [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/private/Resolve-DotnetRemovalTarget.ps1.md#comment1)
 .OUTPUTS

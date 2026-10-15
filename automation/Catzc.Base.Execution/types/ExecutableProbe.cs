@@ -1,4 +1,4 @@
-// One executable's existence check (Find-Executable): where the executable was found and how, the version it reports against the...
+// Construction validates the record: Method must agree with Path, so a found probe always carries a path.
 // [comment:1](/docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md#comment1)
 
 using System;
@@ -23,7 +23,7 @@ public sealed class ExecutableProbe
     // How it was located: "probe" (a candidate path exists), "path" (found on PATH), or "none".
     public string Method { get; }
 
-    // The version the executable reports, parsed by the version pattern.
+    // Null when nothing was found or the output missed the pattern; VersionOk is then false.
     // [comment:2](/docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md#comment2)
     public string Version { get; }
 
@@ -36,7 +36,7 @@ public sealed class ExecutableProbe
     // Milliseconds spent locating the executable (file checks and the PATH lookup; no process start).
     public long ProbeMs { get; }
 
-    // Milliseconds spent running the version command.
+    // Zero when nothing was found or the version came from the session cache, so zero does not mean fast.
     // [comment:3](/docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md#comment3)
     public long VersionMs { get; }
 

@@ -2,18 +2,18 @@
 .SYNOPSIS
     Runs a catzc module's Go tests and returns one result per Go test.
 .DESCRIPTION
-    In the module's Go test folder, <root>/tests/<module-in-kebab>/ (Catzc.Base.Repository -> catzc-base-repository;...
+    The commands run from inside the module folder, so ./... expands below the module root whatever the root is named.
     [comment:1](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment1)
 .PARAMETER Module
     The catzc module whose Go tests to run (e.g. Catzc.Base.Repository).
 .PARAMETER EntryScript
-    The engine entry for a build run: the build's Import-Catzc.ps1.
+    Leave it out for a source run: it then defaults to the repository's importer.ps1.
     [comment:2](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment2)
 .PARAMETER GoExecutable
-    The go to run, already located and checked against the pin by the caller: a test run passes the go its source...
+    A build run's engine has no tools.yml entry, so the caller must pass the go its source session resolved.
     [comment:3](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment3)
 .PARAMETER Engine
-    The execution engine the tests start: pwsh (default) or bash, which reaches catzc through importer.sh's cats...
+    The tests are the same under either engine; only the environment contract they read changes.
     [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)
     [comment:4](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment4)
 .PARAMETER EngineExecutable
@@ -54,7 +54,7 @@ function Invoke-GoTest {
         throw "$relative/go.mod is missing — it is generated; regenerate with: Build-RootConfig"
     }
 
-    # The managed go, by its path: the caller's, already located and checked, or located here from its tools.yml...
+    # Always the managed go by its path, never a bare go off PATH, so the pinned version is the one that runs.
     # [comment:5](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment5)
     $goPath = if ($GoExecutable) {
         Assert-PathExist $GoExecutable -PathType Leaf
@@ -72,7 +72,7 @@ function Invoke-GoTest {
     }
     $goCommand = "`"$goPath`""
 
-    # How the tests start the engine (Get-EngineContract) is an external contract with the go test processes: set for...
+    # GOTOOLCHAIN=local stops go.work's go directive from silently downloading a toolchain over the checked go.
     # [ADR-AUTO-ENVVAR#1](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar1),
     # [ADR-AUTO-GO#6](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go6)
     # [comment:6](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment6)

@@ -1,4 +1,4 @@
-// adr-checks.yml — the settings of the ADR checks over the rule registries, and the single declaration of their sensible defaults.
+// Every key is optional and an omitted one behaves as its default, so the file states only what deviates from it.
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 // [ADR-PRIN-CONFIG#3](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config3),
 // [ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4),

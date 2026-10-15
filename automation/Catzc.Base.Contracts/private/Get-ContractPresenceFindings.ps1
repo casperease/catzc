@@ -2,7 +2,7 @@
 .SYNOPSIS
     Checks that a contract asset's target file exists with the exact case of its path, and returns the findings.
 .DESCRIPTION
-    The presence check of, which every fragment and schema check runs first.
+    The path is walked one segment at a time, because a case-insensitive file system finds a wrong-case file.
     [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)
     [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractPresenceFindings.ps1.md#comment1)
 .PARAMETER RepositoryRoot

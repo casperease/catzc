@@ -1,4 +1,4 @@
-// Collects, per top-level function of a parsed.ps1 file, the commands its body calls and the names of the functions nested inside it —...
+// A function nested in another is only a name on its outer function, and calls anywhere in the body count for the outer one.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/FunctionCallCollector.cs.md#comment1)
 
 using System;

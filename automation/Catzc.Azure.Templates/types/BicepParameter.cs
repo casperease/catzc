@@ -1,4 +1,4 @@
-// One parameter of a compiled Bicep template: the contract `az bicep build` writes into the `parameters` section of main.json — its...
+// Nested object or array shapes (items, properties) are not modelled, only the top-level type, allowed values and bounds.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md#comment1)
@@ -14,7 +14,7 @@ public sealed class BicepParameter
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // The parameter types ARM declares, spelled the way Bicep and the ARM documentation spell them.
+    // ARM reads the type case-insensitively, so the model stores this one canonical spelling.
     // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md#comment2)
     public static readonly IReadOnlyList<string> Types = Array.AsReadOnly(new[]
     {
@@ -65,7 +65,7 @@ public sealed class BicepParameter
         MaxLength = maxLength;
     }
 
-    // Builds the parameter from its main.json declaration.
+    // A user-defined type reference takes its type and any constraint the declaration omits from the definition.
     // [comment:3](/docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md#comment3)
     public static BicepParameter FromArmDeclaration(string name, JsonElement declaration, JsonElement definitions)
     {
@@ -114,7 +114,7 @@ public sealed class BicepParameter
         return new BicepParameter(name, type, hasDefault, nullable, allowedValues, minValue, maxValue, minLength, maxLength);
     }
 
-    // Normalizes a JSON value for comparison against AllowedValues: a string stays a string, an integer becomes a long, true/false a...
+    // A value with no native comparable form (fractional number, object, array) falls back to its compact JSON text.
     // [comment:4](/docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md#comment4)
     public static object ToComparable(JsonElement value)
     {

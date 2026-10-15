@@ -2,7 +2,7 @@
 .SYNOPSIS
     Locates an executable without starting a process, then confirms its version once per session.
 .DESCRIPTION
-    The generic existence check, in two timed steps, from plain inputs: 1.
+    Locating never starts a process, and a version is run once per file per session, so a reinstall shows at once.
     [ADR-PWSH-CACHE](/docs/adr/pwsh/script-scope-caching.md)
     [comment:1](/docs/references/automation/catzc-base-execution/Find-Executable.ps1.md#comment1)
 .PARAMETER Name

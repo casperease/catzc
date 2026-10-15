@@ -3,7 +3,7 @@
     Quality gate: every managed root config file agrees with rootconfig.yml on git tracking, .gitignore, and link
     mechanism.
 .DESCRIPTION
-    A quality gate over the opted-in entries of rootconfig.yml, resolved exactly as Build-RootConfig resolves them...
+    Ignore rules use check-ignore --no-index: the default consults the index and would mask a wrongly tracked file.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-rootconfig/Test-RootConfigFiles.ps1.md#comment1)

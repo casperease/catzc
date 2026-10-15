@@ -2,7 +2,7 @@
 .SYNOPSIS
     Writes colored messages to the information stream.
 .DESCRIPTION
-    Writes via Write-Information, carrying the color as ANSI escape sequences embedded in the message text rather...
+    ANSI in the text survives CI redirection and keeps the information stream, so preferences and 6> still apply.
     [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1),
     [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8)
     [comment:1](/docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md#comment1)
@@ -29,7 +29,7 @@ function Write-InformationColored {
         [switch] $NoNewline
     )
 
-    # Suppress during Pester runs (flag set by Test-Automation).
+    # A guard, not a stream preference: Pester replays the information stream, so only not writing silences it.
     # [comment:2](/docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md#comment2)
     if (Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore) {
         return
@@ -38,7 +38,7 @@ function Write-InformationColored {
     $text = [string]$MessageData
 
     if ($PSBoundParameters.ContainsKey('ForegroundColor')) {
-        # The ConsoleColor -> ANSI SGR map lives once, in the Ansi type (shared with the rainbow writer), so this...
+        # One shared map in the Ansi type means this chokepoint and RainbowColor never disagree on a code.
         # [comment:3](/docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md#comment3)
         $ansi = [Catzc.Base.Writers.Ansi]::Code($ForegroundColor)
 

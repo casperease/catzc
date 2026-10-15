@@ -3,7 +3,7 @@
 .SYNOPSIS
     Generates an Azure resource name for a template's slot from the naming standard.
 .DESCRIPTION
-    The templating-layer name generator.
+    Serves two uses: validating a configured name against the generated one, and generating one to inject.
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment1)
 .PARAMETER Template
     Template name.
@@ -14,7 +14,7 @@
 .PARAMETER Slot
     Optional special-slot discriminator; omitted selects the env's base / index-0 slot.
 .PARAMETER Customer
-    Optional customer, named by its key OR its 2-char shortcode (customer.yml).
+    The readable key renders in generous names and the 2-char shortcode in restricted ones, both resolved here.
     [comment:2](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment2)
 .PARAMETER Role
     Optional 2-3 char sibling discriminator among same-type resources (per resource).
@@ -58,12 +58,12 @@ function Get-BicepResourceName {
 
     $templateDescriptor = Get-BicepTemplate $Template
     $azure = Get-Config -Config azure
-    # Naming needs only the environment's IDENTITY (shortcode/region_code), never a subscription — so it reads...
+    # The subscription group is a resolution axis only, never a name component, so azure.yml is read directly.
     # [ADR-AZ-NAMING#8](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming8)
     # [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment3)
     $envEntry = $azure.environments[$Environment]
 
-    # The namer picks the env form by pattern (name for generous, shortcode for restricted); env and slot are...
+    # Both env forms and the slot are passed so the namer chooses per type; env and slot stay separate segments.
     # [comment:4](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment4)
     $nameArgs = @{
         Env        = $Environment
@@ -78,7 +78,7 @@ function Get-BicepResourceName {
         $nameArgs['Slot'] = $Slot
     }
     if (-not [string]::IsNullOrEmpty($Customer)) {
-        # Resolve the customer (given by key OR 2-char shortcode) to its canonical key + shortcode from customer.yml:...
+        # Get-AzureCustomer throws on an unknown token, so a mistyped customer fails here, not in the name.
         # [comment:5](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment5)
         $resolvedCustomer = Get-AzureCustomer $Customer
         $nameArgs['Customer'] = $resolvedCustomer.key

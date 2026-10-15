@@ -1,4 +1,4 @@
-// An immutable, dual-form descriptor for a published-artifact file — one build stage produces it and writes it into an artifact folder;...
+// Identity is artifact-relative because ADO strips the out/template/ prefix on publish, so only the artifact root survives.
 // [ADR-AUTO-PATH#10](/docs/adr/automation/path-representation.md#rule-adr-auto-path10)
 // [comment:1](/docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md#comment1)
 
@@ -29,7 +29,7 @@ public sealed class ArtifactRef
         this.absolute = absolute;
     }
 
-    // The controlled factory: take a raw path (absolute, or relative to the artifact root) and the artifact root, and materialize both...
+    // A file outside the artifact root is a bug, so this throws rather than degrade to an absolute path.
     // [comment:2](/docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md#comment2)
     public static ArtifactRef Materialize(string rawPath, string artifactRoot)
     {
@@ -47,7 +47,7 @@ public sealed class ArtifactRef
         return new ArtifactRef(fromRoot, full);
     }
 
-    // Re-resolve to an absolute path under the GIVEN (consumer's) artifact root.
+    // The stored absolute path is only the producer's; the consumer must resolve against its own downloaded root.
     // [comment:3](/docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md#comment3)
     public string ResolveAt(string artifactRoot)
     {

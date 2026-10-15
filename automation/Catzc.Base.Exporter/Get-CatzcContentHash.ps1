@@ -2,13 +2,13 @@
 .SYNOPSIS
     Computes the durable content hash of a directory tree — the bundle's content-addressed identity.
 .DESCRIPTION
-    The same durable-SHA recipe the globsets use, applied to every file under -Path: per file a SHA-256 over its...
+    CRs are stripped before hashing, so a CRLF and an LF checkout of one tree give the same identity.
     [ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)
     [comment:1](/docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md#comment1)
 .PARAMETER Path
     The root directory whose file tree to hash (recursively).
 .PARAMETER Exclude
-    Path-relative, forward-slashed file paths to omit from the hash — e.g.
+    Exclude the file that stores the hash, such as build.json: it cannot be part of the content it identifies.
     [comment:2](/docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md#comment2)
 .EXAMPLE
     Get-CatzcContentHash -Path (Join-Path (Get-OutputRoot) 'automation/built/full/Catzc/6.6.666') -Exclude 'build.json'

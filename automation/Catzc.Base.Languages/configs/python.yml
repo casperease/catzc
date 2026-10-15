@@ -1,11 +1,11 @@
-# The Python test workspace — the one declared source that New-PythonProject renders the uv workspace from: the root...
+# Every key but the dependencies is optional; the Python version is the tools.yml pin, never declared here.
 # [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 # [comment:1](/docs/references/automation/catzc-base-languages/configs/python.yml.md#comment1)
 
-# root — the Python root folder, repository-relative: the test folders live in <root>/tests/<module>/, and the workspace root, its...
+# Left undeclared, root takes the shared default: python/ when the repository has one, else the dot-prefixed .python.
 # [comment:2](/docs/references/automation/catzc-base-languages/configs/python.yml.md#comment2)
 
-# The test dependencies every member requires: distribution name -> exact version.
+# The lock is not committed, so exact pins keep every machine on the same versions.
 # [comment:3](/docs/references/automation/catzc-base-languages/configs/python.yml.md#comment3)
 dependencies:
   pytest: "9.1.1"

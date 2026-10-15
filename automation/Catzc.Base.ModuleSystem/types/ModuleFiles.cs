@@ -1,4 +1,4 @@
-// One module's entry in configs/files.yml (`modules: <module>: { packages: { <package>: [paths] } }`): the named packages of...
+// Paths must be repository-root-relative and forward-slashed: not rooted, no backslash and no parent segment.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModuleFiles.cs.md#comment1)
 

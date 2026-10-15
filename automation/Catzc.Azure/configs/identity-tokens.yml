@@ -1,4 +1,4 @@
-# The live production identities this module's configs carry — the customers, the org, the subscriptions and the environments — which a...
+# A hermetic logic test must never name these live identities; it uses the fixture each suggestion names instead.
 # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)
 # [comment:1](/docs/references/automation/catzc-azure/configs/identity-tokens.yml.md#comment1)
 tokens:
@@ -20,7 +20,7 @@ tokens:
     take: keys
     kind: subscription
     suggest: a fixture subscription (core_lower / acme_lower)
-  # Environment names are ambiguous words ('test', 'dev'), so they match only when bound to an identity parameter.
+  # Words like test and dev are ambiguous, so they match only when bound to an identity parameter, hence match: position.
   # [comment:2](/docs/references/automation/catzc-azure/configs/identity-tokens.yml.md#comment2)
   - config: azure
     path: environments

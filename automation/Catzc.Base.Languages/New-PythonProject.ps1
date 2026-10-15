@@ -3,7 +3,7 @@
     Renders the Python test workspace: the uv workspace root <root>/pyproject.toml and one member pyproject.toml per Python
     test folder.
 .DESCRIPTION
-    Python code in this repository is test artifacts only: black-box tests in <root>/tests/<module-in-kebab>/, under...
+    Python here is test artifacts only, and its tests form one uv workspace, the Python form of go.work.
     [ADR-AUTO-PY](/docs/adr/automation/python/python-test-artifacts.md)
     [comment:1](/docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md#comment1)
 .PARAMETER Target
@@ -22,7 +22,7 @@ function New-PythonProject {
     )
 
     $config = Get-Config -Config python
-    # The one Python version: the python tool's tools.yml pin, read by address (reading config is global access, ).
+    # Reading the tools.yml pin keeps requires-python equal to the version of the managed interpreter.
     # [ADR-CONF-ADDRESSING](/docs/adr/configuration/config-value-addressing.md)
     # [comment:2](/docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md#comment2)
     $pythonVersion = "$(Get-ConfigValue -Address 'global.tools.python.version')"

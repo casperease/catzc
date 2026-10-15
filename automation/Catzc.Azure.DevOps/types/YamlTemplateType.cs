@@ -1,4 +1,4 @@
-// The sub-kind of a Template YAML file, determined by which body key it exposes.
+// Callers carry it as Nullable, where null means the file is not a Template but a Pipeline or Unknown.
 // [comment:1](/docs/references/automation/catzc-azure-devops/types/YamlTemplateType.cs.md#comment1)
 
 namespace Catzc.Azure.DevOps;

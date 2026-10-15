@@ -2,13 +2,13 @@
 .SYNOPSIS
     Runs a scriptblock while writing progress dots to the console.
 .DESCRIPTION
-    Wraps a long-running call with a visual heartbeat so the user knows the process is alive.
+    The dots come from a thread job, so the scriptblock's return value reaches the caller uncontaminated.
     [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
     [comment:1](/docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md#comment1)
 .PARAMETER ScriptBlock
     The work to execute. Runs on the current thread (module scope preserved).
 .PARAMETER Message
-    Optional prefix written before the dots (e.g., 'Checking tools').
+    The prefix is written without a newline, so it shares one line with the dots.
     [comment:2](/docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md#comment2)
 .PARAMETER IntervalMs
     Milliseconds between dots. Defaults to 1000.
@@ -41,7 +41,7 @@ function Invoke-WithProgress {
         Write-Message $Message -NoHeader -NoNewline
     }
 
-    # The dot writer runs in a thread job with its own runspace: it streams to this host, imports the same Writers...
+    # Own runspace, but the same Writers module and Pester guard as this session, so dots act like Write-Message here.
     # [comment:3](/docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md#comment3)
     $writersPath = (Get-Module Catzc.Base.Writers).Path
     $silenced = [bool](Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore)   # unset outside a test run
@@ -60,7 +60,7 @@ function Invoke-WithProgress {
         & $ScriptBlock
     }
     finally {
-        # Stop and remove without Receive-Job: the dots already streamed, and receiving would replay them.
+        # -Force because Stop-Job can return while the job is still Stopping, and a plain Remove-Job throws then.
         # [comment:4](/docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md#comment4)
         $dotJob | Remove-Job -Force
         Write-Message '' -NoHeader

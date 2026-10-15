@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs the .NET SDK via official Microsoft install scripts (user-space).
 .DESCRIPTION
-    Uses the vendored dotnet-install scripts shipped in this module's assets/scripts/ (resolved through...
+    A right-version install in our dir still converges PATH and DOTNET_ROOT, so re-running repairs lost persistence.
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment1)
 .PARAMETER Version
     .NET SDK version to install. Defaults to the locked version in Get-ToolConfig.
@@ -35,7 +35,7 @@ function Install-Dotnet {
         Join-Path $installDir 'dotnet'
     }
 
-    # Decide whether to run the install script.
+    # Our own dir wins the check; a right-version hit skips the download only, never the environment convergence below.
     # [ADR-AUTO-IDEM#1](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem1)
     # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment2)
     $needsInstall = $true
@@ -61,7 +61,7 @@ function Install-Dotnet {
         }
     }
     elseif (Test-Command $config.command) {
-        # Nothing in our install dir, but a dotnet is on PATH.
+        # A wrong version elsewhere does not block us: we install side-by-side and prepend our dir to PATH.
         # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment3)
         $installed = Get-ToolVersion -Config $config
         if ($installed -and $installed.StartsWith($Version)) {
@@ -71,7 +71,7 @@ function Install-Dotnet {
     }
 
     if ($needsInstall) {
-        # Resolve the vendored install script shipped in this module's assets/
+        # The script comes from the module's assets via Get-CatzcModuleRoot, so source and build mode resolve alike.
         # [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
         # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment4)
         if ($IsWindows) {
@@ -88,7 +88,7 @@ function Install-Dotnet {
         }
     }
 
-    # Converge the environment on every run that owns the install — session + persistent, both idempotent.
+    # This PATH is what non-repo processes, such as an editor's language server, resolve dotnet through.
     # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)
     # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment5)
     if ($env:DOTNET_ROOT -ne $installDir) {

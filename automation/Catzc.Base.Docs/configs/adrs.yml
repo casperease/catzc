@@ -1,4 +1,4 @@
-# adrs.yml — the AUTHORED source of the ADR domain structure (RULES ↔ domains wiring).
+# The only place the registry is edited: index.md is regenerated from it, and a leaf code overrides the domain default.
 # [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14),
 # [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15), [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
 # [comment:1](/docs/references/automation/catzc-base-docs/configs/adrs.yml.md#comment1)
@@ -85,7 +85,7 @@ domains:
       module-aspects: { external: ADR-DSGN-ASPECT, concern: [automation, build] }
 
   flow:
-    # compound domain code — the root ADR cites, the rest `ADR-FLOW-CD-<NAME>`
+    # Compound domain code: the root ADR cites the bare code, and every other flow ADR extends it with its own name.
     # [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)
     # [comment:2](/docs/references/automation/catzc-base-docs/configs/adrs.yml.md#comment2)
     code: FLOW-CD
@@ -256,7 +256,7 @@ domains:
       az-session-verification: { external: ADR-AZ-SESSION, terminology: sesverify, concern: [access] }
       azure-customer-model: { external: ADR-AZ-CUSTOMER }
       landing-zones: { external: ADR-AZ-LZ }
-      # Vendor recommendation, one rule per vendor item: the Well-Architected Framework pillars (azure/waf/) and the Cloud Adoption...
+      # Each rule cites one Microsoft page and summarises it in our words, for the WAF pillars and the CAF design areas.
       # [comment:3](/docs/references/automation/catzc-base-docs/configs/adrs.yml.md#comment3)
       reliability: { external: ADR-AZ-WAFRE, terminology: wafre }
       security: { external: ADR-AZ-WAFSE, terminology: wafse }

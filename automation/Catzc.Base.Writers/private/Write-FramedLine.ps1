@@ -3,7 +3,7 @@
     Emits an ordered set of header/footer lines through the writer chokepoint, applying a colour plan — a
     solid colour, or a rainbow gradient on the rule (border) lines with the base colour on any titled line.
 .DESCRIPTION
-    The shared render step behind Write-Header and Write-Footer.
+    All lines go out as one Write-InformationColored call, so a header stays a single information record.
     [comment:1](/docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md#comment1)
 .PARAMETER Segment
     Ordered line segments: @( @{ Text = '...'; Rule = $true|$false }, ... ), in render order.
@@ -21,7 +21,7 @@ function Write-FramedLine {
     )
 
     if ($Color.IsRainbow) {
-        # A rule line takes the per-character gradient; a titled line takes the base colour (the profile side-grades...
+        # The text is coloured here, so it reaches the chokepoint with no -ForegroundColor of its own.
         # [comment:2](/docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md#comment2)
         $rendered = foreach ($s in $Segment) {
             if ($s.Rule) {

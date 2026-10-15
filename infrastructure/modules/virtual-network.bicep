@@ -1,4 +1,4 @@
-// Reusable bicep module: a virtual network with its subnets declared inline.
+// List every subnet here: redeploying a VNet whose subnet list omits one tries to delete that subnet.
 // [comment:1](/docs/references/infrastructure/modules/virtual-network.bicep.md#comment1)
 
 @description('A subnet of the virtual network.')

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Formats the processes holding a file as one human-readable phrase.
 .DESCRIPTION
-    Joins the holders into "pwsh.exe (PID 10276, started 2026-10-13 14:10) — the VS Code PowerShell extension, this...
+    Returns null for no holders, so the caller can fall back to holder-free wording.
     [comment:1](/docs/references/automation/catzc-base-typessystem/private/Format-FileLockingProcess.ps1.md#comment1)
 .PARAMETER Holder
     The holders, as returned by Get-FileLockingProcess.

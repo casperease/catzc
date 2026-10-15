@@ -2,7 +2,7 @@
 .SYNOPSIS
     Resolves a markdown link's target, written in a file under docs/adr/, to its path under docs/adr/.
 .DESCRIPTION
-    A markdown link is relative to its own file.
+    Nothing comes back for anchors, URLs, rooted paths or paths that leave docs/adr/, so callers skip those links.
     [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Resolve-AdrLinkTarget.ps1.md#comment1)
 .PARAMETER AdrRoot

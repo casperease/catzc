@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the subscriptions a config coordinate (customer?, environment) can resolve to.
 .DESCRIPTION
-    The single implementation of the configuration-tree resolution rule: a config at the configuration/ ROOT (empty...
+    A conforming azure.yml yields exactly one candidate; callers assert that so the rule cannot drift.
     [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md#comment1)
 .PARAMETER Customer
@@ -40,7 +40,7 @@ function Get-BicepConfigSubscriptionCandidates {
         if ([string]::IsNullOrEmpty($token)) {
             continue
         }
-        # Customer config: match the raw token first (the common, by-key binding), and only resolve a non-matching...
+        # Only a non-matching token goes through the catalogue, the by-shortcode binding, which keeps the read lazy.
         # [comment:2](/docs/references/automation/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md#comment2)
         if ($token -ceq $Customer -or (Get-AzureCustomer $token).key -ceq $Customer) {
             $ret.Add($subscriptionName)

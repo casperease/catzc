@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the processes that hold a file open (lock it).
 .DESCRIPTION
-    Asks the Windows Restart Manager which processes hold the file — the same API behind Explorer's "file in use by...
+    Sees mapped DLLs as well as open handles, so it names the session holding a stale assembly; no admin needed.
     [comment:1](/docs/references/automation/catzc-base-files/Get-FileLockingProcess.ps1.md#comment1)
 .PARAMETER Path
     Path to the file whose holders to list.

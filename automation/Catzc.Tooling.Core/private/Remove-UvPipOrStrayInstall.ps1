@@ -3,13 +3,13 @@
     Shared tail of the Unix off-config removers: evict a uv-managed-Python pip package, else delete a stray
     on-PATH binary. Both steps are user-space.
 .DESCRIPTION
-    Called by Remove-LinuxToolInstall and Remove-MacToolInstall after each has tried its native package manager (apt...
+    Neither step needs elevation: the pip removal is uv-scoped, and the delete touches only the resolved binary.
     [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
     [comment:1](/docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md#comment1)
 .PARAMETER Config
     The tool's parsed tools.yml entry (from Get-ToolConfig).
 .PARAMETER Source
-    The resolved path of the tool's on-PATH binary (from Get-Command) — the caller resolves it once and passes it in.
+    Passed in, never looked up again, so the file deleted is exactly the one the caller judged.
     [comment:2](/docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md#comment2)
 .OUTPUTS
     [bool] — $true when an off-config install was removed, $false when there was nothing to remove.
@@ -40,7 +40,7 @@ function Remove-UvPipOrStrayInstall {
         }
     }
 
-    # Stray binary no manager owns — delete just the resolved file (a root-owned path fails the delete loudly rather...
+    # A root-owned path fails the delete loudly, never a silent forced removal; only the resolved file goes.
     # [comment:3](/docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md#comment3)
     if ([System.IO.File]::Exists($Source)) {
         Write-Message "Removing stray '$($Config.command)' at '$Source'"

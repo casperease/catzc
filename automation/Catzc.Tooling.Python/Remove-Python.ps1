@@ -2,7 +2,7 @@
 .SYNOPSIS
     Removes a manually installed Python and cleans up system PATH.
 .DESCRIPTION
-    Deletes the Python installation folder and removes it (and its Scripts subdirectory) from the system-level PATH.
+    Only for Pythons absent from Apps and Features and winget; a tooling-managed one is refused, use Uninstall-Python.
     [comment:1](/docs/references/automation/catzc-tooling-python/Remove-Python.ps1.md#comment1)
 .PARAMETER InstallDir
     Path to the Python installation folder. Auto-detected from PATH if omitted.

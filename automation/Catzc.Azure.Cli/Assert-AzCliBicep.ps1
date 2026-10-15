@@ -2,7 +2,7 @@
 .SYNOPSIS
     Asserts the Bicep CLI is available to az and at or above the configured minimum (throws otherwise).
 .DESCRIPTION
-    The throwing companion to Test-AzCliBicep.
+    Fails early because a missing or stale Bicep makes az bicep build exit 0 yet write no main.json.
     [ADR-AZ-CLI#1](/docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1),
     [ADR-AUTO-ENTERP](/docs/adr/automation/effective-in-enterprises.md)
     [comment:1](/docs/references/automation/catzc-azure-cli/Assert-AzCliBicep.ps1.md#comment1)

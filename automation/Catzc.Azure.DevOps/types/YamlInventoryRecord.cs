@@ -1,4 +1,4 @@
-// One scanned YAML file joined to ADO registration data — the inventory row that answers "does this file back a registered pipeline?".
+// The registration fields are null or absent when the file backs no registered pipeline.
 // [comment:1](/docs/references/automation/catzc-azure-devops/types/YamlInventoryRecord.cs.md#comment1)
 
 using System;
@@ -45,7 +45,7 @@ public sealed class YamlInventoryRecord
     // The YAML parse error, if any. Null when the file parsed cleanly.
     public string ParseError { get; }
 
-    // A flat constructor over primitives (not a YamlFileRecord), so a test mocking the file scan with a plain pscustomobject still binds.
+    // Takes primitives, not a YamlFileRecord, so a test mocking the file scan with a plain pscustomobject still binds.
     // [comment:2](/docs/references/automation/catzc-azure-devops/types/YamlInventoryRecord.cs.md#comment2)
     public YamlInventoryRecord(string root, string path, string relativePath, string relativeDirectory, string classification, string templateType, bool isRegistered, string pipelineName, Nullable<int> pipelineId, string pipelineDirectory, string[] topLevelKeys, string parseError)
     {

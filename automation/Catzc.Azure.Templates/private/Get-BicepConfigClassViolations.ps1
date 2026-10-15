@@ -4,7 +4,7 @@
     Get-BicepTemplates (fail-fast at discovery) and Assert-BicepTemplate (collect-all), so the two
     never drift. See [ADR-AZ-DATAMOD#8](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8).
 .DESCRIPTION
-    Checks one config against the template's env-class bit and returns a (possibly empty) array of human-readable...
+    The slot is per-config, not a template bit, so a template may mix slotted and non-slotted configs.
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md#comment1)
 .PARAMETER Environment
     The config's resolved environment name.

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns globsets from the globs.yml registry — all of them, or the named ones.
 .DESCRIPTION
-    The typed read of the single source of truth: configs/globs.yml, loaded and validated through Get-Config as a...
+    An unknown name throws and names the config file, so a typo fails loudly instead of returning nothing.
     [ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)
     [comment:1](/docs/references/automation/catzc-base-globs/Get-GlobSet.ps1.md#comment1)
 .PARAMETER Name

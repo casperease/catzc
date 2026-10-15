@@ -2,7 +2,7 @@
 .SYNOPSIS
     Asserts the installed version of a tool matches its locked version.
 .DESCRIPTION
-    Checks once per session and caches the result.
+    A pipeline enforces the locked version alone, so main builds stay locked; only a devbox may use devbox_version.
     [comment:1](/docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml.
@@ -16,7 +16,7 @@ function Assert-ToolVersion {
 
     # Cached for session lifetime. Reset by reimporting (.\importer.ps1).
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:toolVersionCache')) {
-        # strict-clean probe of the lazy cache entry
+        # GetValue gives null for an unset cache, where a direct variable read would throw under strict mode.
         # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:2](/docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md#comment2)
         $script:toolVersionCache = @{}
@@ -35,7 +35,7 @@ function Assert-ToolVersion {
         throw "$Tool is not functional — '$($config.version_command)' did not return a valid version. Run Install-$command."
     }
 
-    # Accepted prefixes: always the locked version; on a devbox (non-pipeline) also the optional devbox_version lever...
+    # Prefix match, so the locked 3.11 accepts 3.11.9; the devbox_version lever is added only outside a pipeline.
     # [comment:3](/docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md#comment3)
     $accepted = [System.Collections.Generic.List[string]]::new()
     $accepted.Add($config.version)

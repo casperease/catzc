@@ -1,4 +1,4 @@
-// The internal model type for an automation "module" — one concept with four kinds (native C# per, because the platform's own logic...
+// The platform's own logic selects on the kind and pins it at call sites, which is why this is a native C# type.
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/BaseModule.cs.md#comment1)
 
@@ -11,7 +11,7 @@ public abstract class BaseModule
     // Once here for every kind (DiskModule, SessionModule, …): the rendering names the derived kind.
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // The module name.
+    // The folder name for a disk module, dot included for hidden ones; the loaded module name for a session module.
     // [comment:2](/docs/references/automation/catzc-base-modulesystem/types/BaseModule.cs.md#comment2)
     public string Name { get; }
 

@@ -1,10 +1,10 @@
-# Azure Pipelines schema — the authored SOURCE OF TRUTH for.vscode/azure-pipelines-schema.json, the schema the...
+# Replaces the bundled schema to kill its false positives: offline, the extension surfaces every per-task anyOf branch failure.
 # [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
 # [comment:1](/docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md#comment1)
 $schema: http://json-schema.org/draft-07/schema#
 title: Azure Pipelines (catzc, relaxed)
 type: object
-# Top level is a full pipeline OR any template fragment (parameters/steps/jobs/stages/variables only), so the root stays open...
+# The root stays open because a template fragment is valid too, and an empty schema marks every polymorphic key.
 # [comment:2](/docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md#comment2)
 properties:
   name: { type: string }
@@ -24,7 +24,7 @@ definitions:
     type: array
     items: { $ref: "#/definitions/step" }
   step:
-    # One loose object shape for every step kind — no oneOf/anyOf across task variants, because that branch fan-out is exactly the...
+    # A per-task oneOf or anyOf fan-out is what produced the false positives, so every step kind shares one loose shape.
     # [comment:3](/docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md#comment3)
     type: object
     properties:

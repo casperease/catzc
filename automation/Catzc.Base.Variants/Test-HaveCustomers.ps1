@@ -2,7 +2,7 @@
 .SYNOPSIS
     Tests whether the repo has customer deployments enabled — for all customers, or for specific names.
 .DESCRIPTION
-    A predicate over the `have_customers` repo-wide variant (see Get-EnabledCustomers).
+    Enabled means by repo policy only; whether a name is a defined customer is left to customer.yml.
     [comment:1](/docs/references/automation/catzc-base-variants/Test-HaveCustomers.ps1.md#comment1)
 .PARAMETER Name
     Zero or more customer names to test for enablement. Omit to test the repo-wide capability.
@@ -37,7 +37,7 @@ function Test-HaveCustomers {
     if ($isAll) {
         return $true
     }
-    # Enabled names and the query names are both lowercase-validated, so plain (case-insensitive) membership is...
+    # Both name sets are lowercase-validated, so case-insensitive -notin is equivalent to a case-sensitive match.
     # [comment:2](/docs/references/automation/catzc-base-variants/Test-HaveCustomers.ps1.md#comment2)
     foreach ($customer in $Name) {
         if ("$customer" -notin $enabledList) {

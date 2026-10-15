@@ -1,4 +1,4 @@
-// A function's own time limit, declared beside its code on the param block: function Test-Widget { [CmdletBinding]...
+// The values are checked on creation: whole seconds above zero, and the pipeline limit no lower than the devbox one.
 // [ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)
 // [comment:1](/docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md#comment1)
 
@@ -40,7 +40,7 @@ public sealed class TimeLimitAttribute : Attribute
         }
     }
 
-    // The work's immutable budget GUID (managed in guids.yml); while timeout-exemptions.yml exempts it, the exemption's ceiling wins.
+    // An exempt budget makes the exemption ceiling win over the declared limit; empty when the function has no budget.
     // [comment:2](/docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md#comment2)
     public string Budget
     {

@@ -1,4 +1,4 @@
-// Reusable bicep module: a diagnostic setting at subscription scope that sends the subscription's activity log to a Log Analytics...
+// The workspace may live in another subscription; resource-level diagnostics belong to the separate diagnostic-setting module.
 // [comment:1](/docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md#comment1)
 
 targetScope = 'subscription'

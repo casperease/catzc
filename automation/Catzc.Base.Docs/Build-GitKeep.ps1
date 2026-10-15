@@ -3,15 +3,15 @@
     Reproduces every .gitkeep from the one generic authored source — the writer behind the ".gitkeep files
     are generated, README-backed" contract.
 .DESCRIPTION
-    The folder is the registration: every.gitkeep in the repository (found by a filesystem walk that skips `.git` and...
+    A new .gitkeep demands a reference article: its pointer to README.md is true only for readme-mapped folders.
     [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md#comment1)
 .PARAMETER DryRun
-    Report what would change without writing any file.
+    The same walk and compare run as a real run, so the report lists exactly the files a real run would rewrite.
     [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:2](/docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md#comment2)
 .PARAMETER Silent
-    The per-file status lines are verbose-level — -Silent suppresses them entirely, even under -Verbose (used by the...
+    Silent wins over -Verbose: the status lines stay hidden even when verbose output is switched on.
     [comment:3](/docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md#comment3)
 .PARAMETER PassThru
     Return one result object per .gitkeep ({ Path, Changed, DryRun }) instead of the paths.
@@ -42,7 +42,7 @@ function Build-GitKeep {
 
     $repositoryRoot = Get-RepositoryRoot
 
-    # Walk the tree for.gitkeep files, skipping git's own store and the vendored modules (not ours to manage).
+    # The out/ root is checked but never descended into: its artifacts may carry fixture copies of .gitkeep.
     # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
     # [comment:4](/docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md#comment4)
     $outputRoot = [System.IO.Path]::Combine($repositoryRoot, 'out')

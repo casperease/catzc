@@ -1,4 +1,4 @@
-// A resolved environment identity: a named deployment environment paired with the subscription that serves it.
+// The root of the identity graph, so its property names are the YAML keys verbatim and the codes compose resource names.
 // [comment:1](/docs/references/automation/catzc-azure/types/AzureEnvironment.cs.md#comment1)
 
 using System;

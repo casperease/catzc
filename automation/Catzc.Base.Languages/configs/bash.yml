@@ -1,11 +1,11 @@
-# The Bash tests — black-box tests of the engine written in Bash, under <root>/tests/<module-in-kebab>/*.bats, run by the bats-core...
+# Black-box Bash tests of the engine; BashConfig validates the shape of this file.
 # [ADR-AUTO-BASH](/docs/adr/automation/bash/bash-test-artifacts.md)
 # [comment:1](/docs/references/automation/catzc-base-languages/configs/bash.yml.md#comment1)
 
-# root — the Bash root folder, repository-relative.
+# Left undeclared, root takes the shared default: bash/ when the repository has one, else the dot-prefixed .bash.
 # [comment:2](/docs/references/automation/catzc-base-languages/configs/bash.yml.md#comment2)
 
-# The vendored bats-core release and the SHA-256 of its source archive (github.com/bats-core/bats-core, tag v<version>): the vendored...
+# Update-BatsVendor reproduces the vendored copy from this version and hash alone.
 # [comment:3](/docs/references/automation/catzc-base-languages/configs/bash.yml.md#comment3)
 bats_version: "1.14.0"
 bats_sha256: "bb537b70b15b732f6d8827dd6578e3d8ce166636ce1f18ea9a074184fcce9177"

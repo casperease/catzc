@@ -1,4 +1,4 @@
-// A discovered deployable template — one folder of Bicep under the templates tree, plus the deployment axes (environments ×...
+// Mirrors a template's config keys in snake_case, overlaid with options.yml, so it is built from the merged dictionary.
 // [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md#comment1)
 
 using System;
@@ -51,7 +51,7 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     // The kind of environment this template targets (e.g. per-subscription vs shared). Always present.
     public string environment_kind { get; }
 
-    // Whether this is a customer template (its configs deploy into customer subscriptions).
+    // Defaults to the have_customers repo variant, and is always present as a bool.
     // [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
     // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md#comment2)
     public bool customer_deployment { get; }
@@ -65,7 +65,7 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     // Supporting resource files the template carries. Null when the template has no resources/ folder.
     public string[] resources { get; }
 
-    // Constructed from the parsed-and-overlaid configuration dictionary; the constructor validates required keys (a malformed template...
+    // The constructor validates required keys, so a malformed template cannot produce an instance.
     // [comment:3](/docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md#comment3)
     public BicepTemplate(IDictionary d)
     {

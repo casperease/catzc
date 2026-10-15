@@ -2,7 +2,7 @@
 .SYNOPSIS
     Removes a manually installed Java JDK and cleans up system PATH.
 .DESCRIPTION
-    Deletes the JDK installation folder and removes it (and its bin subdirectory) from the system-level PATH.
+    For JDKs that winget, brew and apt do not manage; a managed Java goes through Uninstall-Java instead.
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment1)
 .PARAMETER InstallDir
     Path to the JDK installation folder. Auto-detected from PATH if omitted.
@@ -24,14 +24,14 @@ function Remove-Java {
 
     $config = Get-ToolConfig -Tool 'java'
 
-    # Gate: managed by our tooling system → refuse, redirect to Uninstall-Java.
+    # Removal never touches a managed install: only Uninstall-Java deletes what the tooling owns.
     # [ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)
     # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment2)
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Java is managed by the tooling system. Use Uninstall-Java instead.'
     }
 
-    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip /...
+    # Elevation is scoped to the placing mechanism, so unlike the Windows folder delete there is no admin assert here.
     # [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
     # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment3)
     if ($IsLinux -or $IsMacOS) {

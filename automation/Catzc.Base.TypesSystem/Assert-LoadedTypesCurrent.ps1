@@ -2,7 +2,7 @@
 .SYNOPSIS
     Asserts that the C# types loaded in this PowerShell process are current with their sources.
 .DESCRIPTION
-    The throwing form of Test-LoadedTypesCurrent: a precondition for work that must run on the types as written, such...
+    A loaded type cannot be swapped in place, so the only remedy it names is a fresh process.
     [ADR-AUTO-FAILFAST#3](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast3),
     [ADR-AUTO-TYPES#7](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types7)
     [comment:1](/docs/references/automation/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md#comment1)

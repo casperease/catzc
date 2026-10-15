@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the Bicep CLI state relative to the configured minimum version.
 .DESCRIPTION
-    Runs `az bicep version`, parses the installed MAJOR.MINOR.PATCH, and compares it against Get-AzureBicepMinVersion...
+    The one comparison behind both Test and Assert, so the bool and the throw cannot drift apart.
     [comment:1](/docs/references/automation/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md#comment1)
 .EXAMPLE
     (Get-AzCliBicepState).meets_minimum
@@ -12,7 +12,7 @@ function Get-AzCliBicepState {
 
     $minVersion = Get-AzureBicepMinVersion
 
-    # -Silent: a plumbing probe whose output we capture via -PassThru and parse below, so the "Bicep CLI version X"...
+    # A plumbing probe parsed below, so its version line must not echo to the console on every build.
     # [ADR-AUTO-PRELOG#5](/docs/adr/automation/log-before-invoke.md#rule-adr-auto-prelog5)
     # [comment:2](/docs/references/automation/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md#comment2)
     $result = Invoke-AzCli 'bicep version' -PassThru -NoAssert -Silent

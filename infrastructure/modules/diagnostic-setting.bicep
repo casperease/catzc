@@ -1,4 +1,4 @@
-// Reusable bicep module: a diagnostic setting that sends a resource's logs and metrics to a Log Analytics workspace.
+// The caller names the resource kind because a setting attaches to a typed resource; the module picks that kind's categories.
 // [comment:1](/docs/references/infrastructure/modules/diagnostic-setting.bicep.md#comment1)
 
 @description('Kind of the target resource.')

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Compiles module-to-module edges from cross-module C# type references in types/*.cs.
 .DESCRIPTION
-    Every module's native types compile into ONE assembly (see Import-CSharpTypes), so the C# compiler no longer...
+    One shared assembly means the compiler no longer forbids cross-module type references, so this scan does.
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
@@ -33,19 +33,19 @@ function Get-CSharpTypeDependency {
             continue
         }
 
-        # [System.IO] (sorted) instead of Get-ChildItem/Get-Content — ~20ms-per-call cmdlet overhead the raw.NET...
+        # Raw .NET, not Get-ChildItem or Get-Content: each cmdlet call adds about 20ms of overhead.
         # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
         # [comment:2](/docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md#comment2)
         foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs') | Sort-Object)) {
             $csName = [System.IO.Path]::GetFileName($cs)
-            # Strip block comments, line comments, then double- and single-quoted literals, so only real code tokens...
+            # A heuristic, but reliable here: references are fully qualified, with no using aliasing.
             # [comment:3](/docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md#comment3)
             $code = [System.IO.File]::ReadAllText($cs)
             $code = [regex]::Replace($code, '(?s)/\*.*?\*/', ' ')
             $code = [regex]::Replace($code, '//[^\r\n]*', ' ')
             $code = [regex]::Replace($code, '"(?:\\.|[^"\\])*"', ' ')
             $code = [regex]::Replace($code, "'(?:\\.|[^'\\])*'", ' ')
-            # Drop the file's own file-scoped namespace declaration ("namespace <module>;").
+            # Left in, a nested namespace would map to its parent module and fabricate a false edge to it.
             # [comment:4](/docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md#comment4)
             $code = [regex]::Replace($code, '(?m)^\s*namespace\s+[A-Za-z_][A-Za-z0-9_.]*\s*;\s*', ' ')
 

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Hashes every file of one contract version folder, the content a release freezes.
 .DESCRIPTION
-    A released version folder is immutable; its.frozen record holds the hashes this returns, so a later change to any...
+    CRLF is read as LF before hashing, so a core.autocrlf checkout and an LF checkout of one commit hash the same.
     [ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)
     [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md#comment1)
 .PARAMETER Folder

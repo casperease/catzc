@@ -2,15 +2,15 @@
 .SYNOPSIS
     Uninstalls the .NET SDK installed by Install-Dotnet.
 .DESCRIPTION
-    Removes the managed user-space install directory and cleans persistent environment variables (DOTNET_ROOT and...
+    A holder process makes the uninstall throw, naming it, so a locked file never leaves a half-deleted install.
     [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md#comment1)
 .PARAMETER Remove
-    After the managed uninstall, escalate to Remove-Dotnet to evict an off-config install.
+    Alone it only reports the plan; pair it with -Force so Remove-Dotnet actually evicts the off-config install.
     [ADR-AUTO-REMOVE#4](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)
     [comment:2](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md#comment2)
 .PARAMETER Force
-    Confirm the destructive steps: stop the processes named as holding the install open, and — with -Remove — the...
+    Stops exactly the processes named as holding the install open; with -Remove it also confirms the eviction.
     [comment:3](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md#comment3)
 .EXAMPLE
     Uninstall-Dotnet
@@ -26,7 +26,7 @@ function Uninstall-Dotnet {
         [switch] $Force
     )
 
-    # Managed uninstall best-effort; with -Remove a failure is logged and the escalation proceeds, without -Remove it...
+    # A failure is swallowed only under -Remove, where a foreign install the manager cannot touch is expected.
     # [ADR-AUTO-ONEJOB#5](/docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob5),
     # [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)
     # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md#comment4)

@@ -3,7 +3,7 @@
 .SYNOPSIS
     Discovers all bicep templates under $(Get-RepositoryRoot)/infrastructure/templates.
 .DESCRIPTION
-    Scans `infrastructure/templates/` at depth 1 for template folders (reusable bicep modules live in the sibling...
+    Reusable modules in infrastructure/modules/ are not discovered; one config file maps to one resource group.
     [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment1)
 .EXAMPLE
@@ -15,11 +15,11 @@ function Get-BicepTemplates {
     $infrastructureRoot = Get-BicepTemplatesRoot
     $outputRoot = Get-BicepTemplatesOutputRoot
 
-    # Filesystem-derived information is cached for the session, lazily on first use, keyed on the discovery root +...
+    # Keyed on the discovery and output roots, so tests can redirect either without touching the real entry.
     # [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)
     # [comment:2](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment2)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:bicepTemplatesCache')) {
-        # strict-clean probe of the lazy cache entry
+        # GetValue probes the entry because a plain script: read would throw under strict mode before first use.
         # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment3)
         $script:bicepTemplatesCache = @{}
@@ -33,12 +33,12 @@ function Get-BicepTemplates {
         return @()
     }
 
-    # A config lives at the configuration root (`<env>[-<slot>].yml` — the shared platform) or under a...
+    # The customer-key and single-subscription checks run at discovery, shared with Assert-BicepTemplate.
     # [comment:4](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment4)
     $azure = Get-Config -Config azure
 
     $templates = [System.Collections.Generic.List[object]]::new()
-    # Enumerate with [System.IO.Directory] (sorted to keep output deterministic) rather than Get-ChildItem: the...
+    # Get-ChildItem costs about 20 ms of provider overhead per call, the dominant share of a cold discovery.
     # [comment:5](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment5)
     foreach ($folderPath in ([System.IO.Directory]::EnumerateDirectories($infrastructureRoot) | Sort-Object)) {
         $name = [System.IO.Path]::GetFileName($folderPath)
@@ -50,7 +50,7 @@ function Get-BicepTemplates {
         Assert-PathExist $configurationFolder -PathType Container
 
         $options = Read-BicepTemplateOptions $folderPath
-        # Env-class template classification: the env-class bit (standard/subscription, default standard).
+        # Every config below must match this bit; the slot is per-config, not a template bit.
         # [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
         # [comment:6](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment6)
         $environmentKind = if ($options.Contains('environment_kind')) {
@@ -60,7 +60,7 @@ function Get-BicepTemplates {
             'standard'
         }
 
-        # Customer-class bit: whether this is a customer template.
+        # An explicit customer_deployment: true is only allowed when customers are enabled, the repo-level guard.
         # [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
         # [comment:7](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment7)
         $customerDeploymentOption = if ($options.Contains('customer_deployment')) {
@@ -79,7 +79,7 @@ function Get-BicepTemplates {
             [bool](Test-HaveCustomers)
         }
 
-        # short_name is the Azure id segment every resource name is built from.
+        # A malformed override, or a folder that cannot derive a short_name, throws here naming the template.
         # [ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2)
         # [comment:8](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment8)
         $shortNameOverride = if ($options.Contains('short_name')) {
@@ -90,7 +90,7 @@ function Get-BicepTemplates {
         }
         $shortName = [Catzc.Azure.Templates.BicepShortName]::Resolve($name, $shortNameOverride)
 
-        # Gather every config file with its customer (the subfolder; '' for a configuration-root config).
+        # Root files come first, then the customer subfolders, both sorted, so output stays deterministic.
         # [comment:9](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment9)
         $configEntries = [System.Collections.Generic.List[object]]::new()
         foreach ($file in @([System.IO.Directory]::EnumerateFiles($configurationFolder, '*.yml') | Sort-Object)) {
@@ -103,7 +103,7 @@ function Get-BicepTemplates {
             }
         }
 
-        # Each config file is one slot (one resource group).
+        # default.yml is a reserved skip; each other config maps to one slot, one subscription and one resource group.
         # [comment:10](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment10)
         $slots = [System.Collections.Generic.List[object]]::new()
         $configurationFiles = [System.Collections.Generic.List[string]]::new()
@@ -167,7 +167,7 @@ function Get-BicepTemplates {
             customer_deployment  = $customerDeployment
         }
 
-        # Overlay the remaining deployment overrides.
+        # short_name, environment_kind and customer_deployment are applied above, so they are excluded here.
         # [comment:11](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment11)
         foreach ($key in @($options.Keys)) {
             if ($key -in 'short_name', 'environment_kind', 'customer_deployment') {

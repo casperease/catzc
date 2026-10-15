@@ -2,7 +2,7 @@
 .SYNOPSIS
     Asserts that a file is held open by another handle (locked); throws otherwise.
 .DESCRIPTION
-    Throws when the file is not locked.
+    Locks are mandatory on Windows but advisory on Unix, where nothing counts as locked, so this always throws there.
     [comment:1](/docs/references/automation/catzc-base-files/Assert-FileIsLocked.ps1.md#comment1)
 .PARAMETER Path
     Path to the file to assert is locked.

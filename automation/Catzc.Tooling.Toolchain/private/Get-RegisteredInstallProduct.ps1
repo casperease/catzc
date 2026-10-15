@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the Windows-registered products (Apps & features entries) that own an install folder.
 .DESCRIPTION
-    Reads the machine-wide uninstall registry (64- and 32-bit views) and returns the entries whose DisplayName...
+    Matched by DisplayName because MSI and bundle products often lack an InstallLocation; entries differ by ProductCode.
     [ADR-AUTO-REMOVE#7](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove7)
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/private/Get-RegisteredInstallProduct.ps1.md#comment1)
 .PARAMETER NamePattern

@@ -2,25 +2,25 @@
 .SYNOPSIS
     Returns how many seconds a call may run before its time safeguard stops it.
 .DESCRIPTION
-    Resolves the limit from timeouts.yml for the run environment this session is in (Get-RunEnvironment: devbox or...
+    Every safeguard consumer asks here, so tuning a limit is one config edit; a command's exemption outranks its entry.
     [ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)
     [comment:1](/docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md#comment1)
 .PARAMETER Executable
-    The executable the call runs.
+    Directory and extension are ignored, so a full path to dotnet.exe resolves the same as plain dotnet.
     [comment:2](/docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md#comment2)
 .PARAMETER Command
-    The function whose own limit to return — its [Catzc.Base.Timeouts.TimeLimit] decoration, unless config overrides it.
+    The function must already be loaded, since its decoration is read from the loaded command.
     [comment:3](/docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md#comment3)
 .PARAMETER Shell
-    The shell whose limit to return, one of the execution engines (pwsh, bash or zsh); pwsh is the default.
+    A name that is no execution engine throws and lists the valid shells, so a typo never falls back to pwsh.
     [comment:4](/docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md#comment4)
 .PARAMETER Background
     Return the bash background limit instead of the foreground one. Bash only.
 .PARAMETER Budget
-    The work's immutable budget GUID.
+    An exemption only raises the limit to its ceiling, never lowers it; the empty GUID means no budget.
     [comment:5](/docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md#comment5)
 .PARAMETER EnvironmentAssertIs
-    Pins the expected run environment (Pipeline or Devbox); a different one throws.
+    The guard only verifies the environment found at run time; it never selects which environment's limit is read.
     [comment:6](/docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md#comment6)
 .EXAMPLE
     Get-TimeoutSeconds                          # the environment's pwsh limit

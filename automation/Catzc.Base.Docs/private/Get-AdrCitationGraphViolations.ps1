@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists every rule-summary citation that leaves its domain for a domain the registry does not declare it depends on.
 .DESCRIPTION
-    A rule summary may cite only its own domain or a domain in its domain's depends_on list in adrs.yml.
+    The list is read as declared, not transitively, so a domain that cites another must name it directly.
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-AdrCitationGraphViolations.ps1.md#comment1)
 .PARAMETER Adrs
     The ADR registry (Get-Config -Config adrs).

@@ -4,7 +4,7 @@
     ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)) — no two same-layer
     globsets select a common file on their OWN contribution.
 .DESCRIPTION
-    Within a layer, no two globsets may match a common file on their OWN membership (GlobSet.OwnMatches — the set's...
+    Layers are checked one by one, never across: a unit contains the base it composes, so that overlap is expected.
     [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),
     [ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7),
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
@@ -29,7 +29,7 @@ function Test-GlobSetIndependence {
         [switch] $PassThru
     )
 
-    # loose-filesets are cross-cutting and overlap-exempt (/10); every other layer is checked.
+    # Loose-filesets cut across other boundaries and overlap by design, so only they are exempt.
     # [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)
     # [comment:2](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment2)
     $exemptLayer = 'loose-fileset'
@@ -37,7 +37,7 @@ function Test-GlobSetIndependence {
     $sets = @(Get-GlobSet) + @(Get-ModuleGlobSet)
     $tracked = [string[]] @(Get-TrackedFile)
 
-    # OWN members per set (compose ignored, ), computed once as a set for O(1) intersection.
+    # Compose is ignored here: a set that selects its base's files is a deliberate overlap, not a peer one.
     # [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)
     # [comment:3](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment3)
     $own = @{}

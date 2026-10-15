@@ -1,4 +1,4 @@
-// Asks the Windows Restart Manager (rstrtmgr.dll) which processes hold a file open — the API behind Explorer's "file in use by …" dialog.
+// The P/Invoke binds lazily so the type loads on every platform, but GetHolders throws PlatformNotSupportedException off Windows.
 // [comment:1](/docs/references/automation/catzc-base-files/types/RestartManager.cs.md#comment1)
 
 using System;

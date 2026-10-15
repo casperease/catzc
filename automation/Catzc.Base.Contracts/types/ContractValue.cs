@@ -1,4 +1,4 @@
-// The value model the contract checks compare: a parsed JSON or YAML document as PowerShell hands it over (ConvertFrom-Json...
+// A CLR type outside the seven JSON kinds makes Kind throw: the parsers never produce one, so meeting one is a misuse.
 // [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)
 // [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractValue.cs.md#comment1)
 
@@ -47,7 +47,7 @@ public static class ContractValue
             "contract value: a {0} is not a JSON or YAML value", value.GetType().FullName));
     }
 
-    // A value as a finding names it, on one line: a string quoted ('gadget'), any other scalar as its text, an object as {key:...
+    // A rendering longer than DescribeLimit characters is cut there, so a finding stays on one line.
     // [comment:2](/docs/references/automation/catzc-base-contracts/types/ContractValue.cs.md#comment2)
     public const int DescribeLimit = 80;
 

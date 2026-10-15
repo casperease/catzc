@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the path to the output directory for the current execution context.
 .DESCRIPTION
-    In an Azure DevOps pipeline, returns $env:BUILD_ARTIFACTSTAGINGDIRECTORY.
+    The root is context-dependent: the pipeline staging directory outside the repo, or {RepositoryRoot}/out on a devbox.
     [comment:1](/docs/references/automation/catzc-base-repository/Get-OutputRoot.ps1.md#comment1)
 .PARAMETER EnsureExists
     Create the output directory if it does not exist.

@@ -2,10 +2,10 @@
 .SYNOPSIS
     Universal pipeline entry point. Bootstraps the module system and executes a command.
 .DESCRIPTION
-    Called by the invoke-automation.yaml step template.
+    The command runs in the importer's own scope, so every function is callable without module qualification.
     [comment:1](/docs/references/pipelines/Invoke-AdoScript.ps1.md#comment1)
 .PARAMETER Command
-    The PowerShell command string to execute.
+    Write it as a developer would type it after .\importer.ps1; multiline works via the YAML pipe operator.
     [comment:2](/docs/references/pipelines/Invoke-AdoScript.ps1.md#comment2)
 #>
 param(

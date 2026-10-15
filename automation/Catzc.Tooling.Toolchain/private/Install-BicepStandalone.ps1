@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs the Bicep CLI on Linux: the newest release at the pinned version, verified, into ~/.local/bin.
 .DESCRIPTION
-    Linux has no distribution package for the Bicep CLI, so Install-Bicep comes here.
+    A release asset without a published SHA-256 digest is refused, never run unverified.
     [ADR-AUTO-PKGMGR](/docs/adr/automation/use-proper-package-managers.md)
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/private/Install-BicepStandalone.ps1.md#comment1)
 .PARAMETER Version

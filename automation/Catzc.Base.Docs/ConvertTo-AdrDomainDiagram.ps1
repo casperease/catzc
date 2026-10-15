@@ -2,7 +2,7 @@
 .SYNOPSIS
     Renders ADR domain dependency edges to PlantUML, Mermaid, or a Markdown table.
 .DESCRIPTION
-    Serializes the edges from Get-AdrDomainEdges to the format chosen by -As — the ADR-domain counterpart of...
+    The domain DAG is drawn like the module graph, with each domain's role shown on its node.
     [comment:1](/docs/references/automation/catzc-base-docs/ConvertTo-AdrDomainDiagram.ps1.md#comment1)
 .PARAMETER Edge
     The edges to render (pipeline), as Catzc.Base.Docs.AdrDomainEdge. Produced by Get-AdrDomainEdges.

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Indexes the markdown files under docs/adr/ by "<domain folder>/<slug>", and maps each rule set to its one ADR file.
 .DESCRIPTION
-    Enumerates every docs/adr/**/*.md once and keys it by its first folder under docs/adr/ (the domain folder; empty...
+    Keyed by domain folder plus slug, so a slug shared across domains stays distinct and a repeat shows as two files.
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-AdrFileIndex.ps1.md#comment1)
 .PARAMETER RuleSets
     The rule sets of the ADR registry (AdrsConfig.RuleSets).

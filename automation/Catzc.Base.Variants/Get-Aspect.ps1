@@ -2,11 +2,11 @@
 .SYNOPSIS
     Returns a track/container's ordered aspect classification — the named parts its units partition into.
 .DESCRIPTION
-    The `aspects` repo-wide variant (configs/variants.yml, ) is a per-track/per-container map of ordered first-match...
+    First match wins and the last aspect is the catch-all: automation leaves it to tests, infrastructure to live.
     [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)
     [comment:1](/docs/references/automation/catzc-base-variants/Get-Aspect.ps1.md#comment1)
 .PARAMETER Track
-    The track/container whose convention to return ('automation', 'infrastructure', …).
+    An unknown track silently gets the automation aspects instead of an error.
     [comment:2](/docs/references/automation/catzc-base-variants/Get-Aspect.ps1.md#comment2)
 .EXAMPLE
     Get-Aspect -Track automation      # -> live (closed), tests (catch-all)

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Points the current session at the best install home of a tool, chosen by its session_host_probes.
 .DESCRIPTION
-    Some tools can be installed more than once on one machine, and the first one on PATH is not always usable — on...
+    PATH order is not trusted: a machine-wide, runtime-only dotnet can precede the user PATH and shadow the managed SDK.
     [comment:1](/docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md#comment1)
 .PARAMETER Config
     The tool's ToolConfig (from Get-ToolConfig).
@@ -90,7 +90,7 @@ function Resolve-SessionToolHost {
         Write-Message "Session PATH: $($Config.command) now runs from '$chosen'"
     }
 
-    # -First 1: the command may still resolve in more than one PATH dir — an array's.Source would break the [string]...
+    # One result only: an array would give an array Source and break the string Location binding downstream.
     # [comment:2](/docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md#comment2)
     Get-Command $Config.command -CommandType Application -ErrorAction Ignore | Select-Object -First 1
 }

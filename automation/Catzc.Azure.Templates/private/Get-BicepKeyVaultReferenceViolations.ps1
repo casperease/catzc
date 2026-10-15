@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the ways an ARM Key Vault reference in a parameters file is not well-formed.
 .DESCRIPTION
-    A parameters-file entry may carry, instead of a value, an ARM Key Vault reference that the deployment resolves:...
+    Only the reference shape is checked, never the secret, which the repository does not hold.
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepKeyVaultReferenceViolations.ps1.md#comment1)
 .PARAMETER Reference
     The `reference` object of a parameters-file entry.

@@ -2,22 +2,22 @@
 .SYNOPSIS
     Sets an Azure DevOps pipeline variable via the ##vso logging command.
 .DESCRIPTION
-    Wraps the ##vso[task.setvariable] command with output/secret flags and automatic no-op when running outside a...
+    Outside a pipeline nothing is emitted, so a local or test run never sets a real pipeline variable.
     [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
     [comment:1](/docs/references/automation/catzc-azure-devops/Set-AdoPipelineVariable.ps1.md#comment1)
 .PARAMETER Name
     The variable name. Must not contain . - ' unless -SanitizeName is set.
 .PARAMETER Value
-    The variable value.
+    An empty string is allowed on purpose: it clears a variable or tells downstream jobs there is no value.
     [comment:2](/docs/references/automation/catzc-azure-devops/Set-AdoPipelineVariable.ps1.md#comment2)
 .PARAMETER IsOutput
-    Mark as an output variable, accessible from downstream jobs via...
+    Without it the variable is invisible to downstream jobs, which reach it only through the step outputs.
     [comment:3](/docs/references/automation/catzc-azure-devops/Set-AdoPipelineVariable.ps1.md#comment3)
 .PARAMETER IsSecret
-    Mark as secret.
+    The function also omits the value from its own message output, so it never relies on ADO masking alone.
     [comment:4](/docs/references/automation/catzc-azure-devops/Set-AdoPipelineVariable.ps1.md#comment4)
 .PARAMETER SanitizeName
-    Replace.
+    Opt-in because a silent rename hides the mismatch between the name set and the name referenced later.
     [comment:5](/docs/references/automation/catzc-azure-devops/Set-AdoPipelineVariable.ps1.md#comment5)
 .EXAMPLE
     Set-AdoPipelineVariable -Name 'DeployTarget' -Value 'preprod'

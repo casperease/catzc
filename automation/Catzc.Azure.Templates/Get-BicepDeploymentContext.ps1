@@ -2,7 +2,7 @@
 .SYNOPSIS
     Composes the immutable deployment-context object Deploy-Bicep operates on.
 .DESCRIPTION
-    Resolves everything Deploy-Bicep needs into ONE immutable object with exactly three concerns — the deployment...
+    A DoNotRun template returns null, the signal to skip, unless -OverrideDoNotRunAndRun is set.
     [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment1)
 .PARAMETER Environment
@@ -10,10 +10,10 @@
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .PARAMETER Slot
-    Optional special-slot discriminator (1-3 lowercase alphanumeric chars, `001`).
+    Omitted selects the environment's base slot, the index-0 one.
     [comment:2](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment2)
 .PARAMETER SubscriptionIdAssertIs
-    Optional guard — the subscription GUID the az session is expected to target.
+    A mismatch in a pipeline means a mis-wired service connection; this is a guard, never a selector.
     [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment3)
 .PARAMETER ArtifactsFolder
     Required on a build agent. Points at the downloaded build output.
@@ -78,7 +78,7 @@ function Get-BicepDeploymentContext {
         return $null
     }
 
-    # The deploy target is the az session's subscription (in a pipeline: exactly what the service connection logged...
+    # A guard mismatch is a mis-wired service connection, not a retarget, so it throws.
     # [comment:4](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment4)
     $sessionSubscription = Get-AzCliSessionSubscription
     if (-not [string]::IsNullOrEmpty($SubscriptionIdAssertIs)) {
@@ -90,7 +90,7 @@ function Get-BicepDeploymentContext {
     $subscription = $sessionSubscription.name
     $customer = $sessionSubscription.customer
 
-    # The slot addressed is (session customer?, env, slot) — it must exist as a config, and the session subscription...
+    # The session subscription must also serve the env, which Get-AzureEnvironment asserts.
     # [comment:5](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment5)
     $wantSlot = [string]$Slot
     $slotMatch = @($templateDescriptor.slots | Where-Object { $_.environment -eq $Environment -and $_.slot -eq $wantSlot -and $_.customer -eq $customer })
@@ -152,7 +152,7 @@ function Get-BicepDeploymentContext {
         $templateDescriptor.deployment_target,
         $resourceGroup)   # $null for Subscription-target — the plan exposes resource_group = $null
 
-    # Verify the artifacts as absolute paths above (this process touches the filesystem directly), but STORE them...
+    # Paths are verified absolute but stored repo-relative; a pipeline's external artifact area stays absolute.
     # [comment:6](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment6)
     $prepostArtifact = $null
     if ($null -ne $templateDescriptor.prepost_module) {

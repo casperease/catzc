@@ -2,7 +2,7 @@
 .SYNOPSIS
     Tries, without waiting, to take the user's system-test lock — the right to run L3 on this account.
 .DESCRIPTION
-    L3 holds the vertical system tests, which change state outside the repository: the user's PATH and other...
+    L3 changes per-user state, not per-checkout state, so the per-checkout lock cannot guard it: this lock is keyed on the user.
     [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33),
     [ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Enter-SystemTestLock.ps1.md#comment1)
@@ -15,7 +15,7 @@
 .PARAMETER Name
     The mutex name. Defaults to the current user's: Global\catzc-system-tests-<hash of domain\user>.
 .PARAMETER LockPath
-    The lock record.
+    Defaults to the per-user catzc folder, so a run from any checkout finds the same record.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Enter-SystemTestLock.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] Acquired ([bool]), Mutex (owned, or $null), LockPath (the record this run wrote, or $null),

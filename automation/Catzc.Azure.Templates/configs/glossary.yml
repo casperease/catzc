@@ -1,4 +1,4 @@
-# glossary.yml — the Catzc.Azure.Templates glossary source: the vocabulary of the Bicep template configuration this module builds and...
+# Every option is defaulted, so an empty config runs all five checks over the whole repository and every text surface.
 # [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
 # [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)
 # [comment:1](/docs/references/automation/catzc-azure-templates/configs/glossary.yml.md#comment1)

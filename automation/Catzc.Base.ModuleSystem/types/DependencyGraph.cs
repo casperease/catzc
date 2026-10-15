@@ -1,4 +1,4 @@
-// The graph helpers behind the declared module dependency graph (configs/dependencies.yml): reading one node's dependency list from the...
+// Shared by DependenciesConfig and ModuleGroup, so the module graph and each group graph read and cycle-check alike.
 // [ADR-AUTO-DEPM#4](/docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm4)
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md#comment1)
 
@@ -11,7 +11,7 @@ namespace Catzc.Base.ModuleSystem;
 
 public static class DependencyGraph
 {
-    // Reads one node's dependency list: null (declared, depends on nothing) is empty; a list of non-empty names is the list; a single...
+    // A null node is declared with no dependencies, so it reads as empty; a bare string or a map is a violation.
     // [comment:2](/docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md#comment2)
     public static string[] ReadNames(object value, string owner, string what, List<string> errors)
     {
@@ -36,7 +36,7 @@ public static class DependencyGraph
         return names.ToArray();
     }
 
-    // The first cycle (as "A -> B -> A") in a node -> string[] adjacency, visiting nodes and edges in declaration order; null when the...
+    // Visiting in declaration order makes the reported cycle deterministic; edges to nodes outside the map are ignored.
     // [comment:3](/docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md#comment3)
     public static string FindCycle(OrderedDictionary adjacency)
     {

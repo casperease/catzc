@@ -1,4 +1,4 @@
-// The contracts settings (configs/contracts.yml), and the single declaration of their sensible defaults: every key is optional, and an...
+// An omitted key, or a fresh checkout with no file, behaves exactly like the default, so no function restates a value.
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 // [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4),
 // [ADR-REPO-CONTRACT#8](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract8),
@@ -22,11 +22,11 @@ public sealed class ContractsConfig
     // The target root of a module that target_roots does not name: the repository root, as the empty path.
     public const string DefaultTargetRoot = "";
 
-    // Every declared addressing mode: full-path (the asset's own path), manifest-glob (a glob in a manifest names the files), per-folder...
+    // A declared mode is valid in the file but cannot be selected until it is also in BuiltAddressingModes.
     // [comment:2](/docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md#comment2)
     public static readonly string[] AddressingModes = { "full-path", "manifest-glob", "per-folder" };
 
-    // The modes that are built.
+    // A mode joins this list only once proven from every engine, since a contract is resolved under each of them.
     // [comment:3](/docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md#comment3)
     public static readonly string[] BuiltAddressingModes = { "full-path" };
 
@@ -92,7 +92,7 @@ public sealed class ContractsConfig
         }
     }
 
-    // The target root of one module: its entry in targetRoots, else DefaultTargetRoot.
+    // A declared root is checked as the constructor checks it, so a caller's own map is held to the same form.
     // [comment:4](/docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md#comment4)
     public static string ResolveTargetRoot(IDictionary targetRoots, string module)
     {

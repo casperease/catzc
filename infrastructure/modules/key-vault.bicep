@@ -1,4 +1,4 @@
-// Reusable bicep module: a Key Vault (RBAC-authorized, no access policies).
+// Access is RBAC only, so a role assignment, never a vault access policy, grants entry.
 // [comment:1](/docs/references/infrastructure/modules/key-vault.bicep.md#comment1)
 
 @description('Key vault name (3-24 alphanumeric/hyphen, starts with a letter, globally unique).')

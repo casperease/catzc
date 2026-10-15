@@ -1,4 +1,4 @@
-// Builds the world map from plain inputs, so a logic test needs no disk: the tracks (variants.yml), the file languages (languages.yml),...
+// Plain inputs, no disk: a logic test feeds it directly, and the first matching aspect and the fixed highlight order decide placement.
 // [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1), [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
 // [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3),
 // [ADR-AUTO-TYPES#4](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types4)
@@ -17,7 +17,7 @@ public static class WorldMapBuilder
     // The track whose files fall back to their globset's citations.
     public const string PipelinesTrack = "pipelines";
 
-    // adrFiles: each ADR code's own file (ADR-<CODE> -> repository-relative path).
+    // A null citationExclude means none, and an excluded file still sits in its cell: only its citations light nothing.
     // [comment:2](/docs/references/automation/catzc-base-maps/types/WorldMapBuilder.cs.md#comment2)
     public static WorldMap Build(IEnumerable tracks, IEnumerable fileLanguages, IEnumerable paths, IDictionary aspects, IDictionary adrIndex,
         IDictionary adrFiles, IDictionary texts, IDictionary rootOwners, IEnumerable globSets, IEnumerable citationExclude = null)

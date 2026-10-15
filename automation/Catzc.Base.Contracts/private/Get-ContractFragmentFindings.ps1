@@ -2,7 +2,7 @@
 .SYNOPSIS
     Checks that a fragment asset's target exists and contains the fragment, and returns the findings.
 .DESCRIPTION
-    The fragment check of.
+    A missing target is the only finding, since there is nothing to compare; Json and Yaml compare as a key subset.
     [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)
     [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractFragmentFindings.ps1.md#comment1)
 .PARAMETER RepositoryRoot

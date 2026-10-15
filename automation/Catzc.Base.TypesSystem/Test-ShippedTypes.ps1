@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: every shipped C# type resolves in the session as <module>.<basename>.
 .DESCRIPTION
-    A quality gate over the shipped C# types: each <module>/types/<Name>.cs under the loaded code root...
+    A concrete class that still renders as its full name in pwsh is an issue too, not only a missing type.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-typessystem/Test-ShippedTypes.ps1.md#comment1)
 .PARAMETER OutputFolder

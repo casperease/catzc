@@ -2,7 +2,7 @@
 .SYNOPSIS
     Recursively copies the contents of a directory into a destination directory.
 .DESCRIPTION
-    A fast replacement for `Copy-Item -Recurse`, built on [System.IO].
+    The PowerShell file cmdlets cost about 15x more per item on Windows, which dominates a tree of many small files.
     [comment:1](/docs/references/automation/catzc-base-files/Copy-Directory.ps1.md#comment1)
 .PARAMETER Path
     The source directory whose contents are copied. Must exist.
@@ -28,7 +28,7 @@ function Copy-Directory {
 
     [System.IO.Directory]::CreateDirectory($target) | Out-Null
 
-    # Recreate the directory structure first (so empty directories survive), then copy the files.
+    # Substring past the source prefix rebases a path; String.Replace would rewrite any later copy of that prefix too.
     # [comment:2](/docs/references/automation/catzc-base-files/Copy-Directory.ps1.md#comment2)
     foreach ($dir in [System.IO.Directory]::EnumerateDirectories($source, '*', [System.IO.SearchOption]::AllDirectories)) {
         [System.IO.Directory]::CreateDirectory($target + $dir.Substring($sourceLen)) | Out-Null

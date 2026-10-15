@@ -1,4 +1,4 @@
-// One YAML file discovered by scanning a repository, with the classification derived from its content.
+// The filesystem-side view of a file, before any cross-reference to ADO registration.
 // [comment:1](/docs/references/automation/catzc-azure-devops/types/YamlFileRecord.cs.md#comment1)
 
 using System;
@@ -27,14 +27,14 @@ public sealed class YamlFileRecord
     // The template sub-kind. Null for non-Template files.
     public Nullable<YamlTemplateType> TemplateType { get; }
 
-    // The file's top-level YAML keys — the evidence the classification was derived from.
+    // Never null: a file with no top-level keys gives an empty array, so callers can enumerate without a guard.
     // [comment:2](/docs/references/automation/catzc-azure-devops/types/YamlFileRecord.cs.md#comment2)
     public string[] TopLevelKeys { get; }
 
     // The YAML parse error, if the file failed to parse. Null when it parsed cleanly.
     public string ParseError { get; }
 
-    // Classification/templateType are taken as strings and parsed to enums, so a producer (or a test mock) that supplies string literals...
+    // Strings are parsed to enums here, so a producer or test mock supplying literals binds without converting first.
     // [comment:3](/docs/references/automation/catzc-azure-devops/types/YamlFileRecord.cs.md#comment3)
     public YamlFileRecord(string root, string path, string relativePath, string relativeDirectory, string classification, string templateType, string[] topLevelKeys, string parseError)
     {

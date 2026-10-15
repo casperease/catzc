@@ -1,4 +1,4 @@
-// Reusable bicep module: a cost budget at subscription scope, with one alert per threshold.
+// Alerts reach the holders of subscription roles (Owner by default), so no email address lives in configuration.
 // [comment:1](/docs/references/infrastructure/modules/budget.bicep.md#comment1)
 
 targetScope = 'subscription'

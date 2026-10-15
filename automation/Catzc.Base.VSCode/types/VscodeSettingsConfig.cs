@@ -1,4 +1,4 @@
-// The VS Code workspace-settings registry, configs/vscode-settings.yml — the single authored source that New-VSCodeSettings renders to...
+// Settings are VS Code's own keys passed through as-is, so only the map structure is validated, never a setting's value.
 // [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-vscode/types/VscodeSettingsConfig.cs.md#comment1)

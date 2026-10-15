@@ -1,4 +1,4 @@
-// One Go test's result, as Invoke-GoTest returns it from the `go test -json` event stream: a top-level test function of a package, with...
+// The category is derived here, the one place the rule lives: a TestIntegrity name is integrity, all else logic.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1)
 // [comment:1](/docs/references/automation/catzc-base-languages/types/GoTestResult.cs.md#comment1)

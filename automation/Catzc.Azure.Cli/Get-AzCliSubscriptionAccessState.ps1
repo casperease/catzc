@@ -19,14 +19,14 @@ function Get-AzCliSubscriptionAccessState {
 
     Assert-IsGuid $SubscriptionId
 
-    # A REAL, read-only ARM call scoped to the subscription.
+    # Reaches ARM on purpose: a local profile read cannot tell an expired token or revoked role from a working one.
     # [comment:2](/docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md#comment2)
     $probe = Invoke-AzCli "account list-locations --subscription $SubscriptionId -o none" -PassThru -NoAssert -Silent
     if ($probe.ExitCode -eq 0) {
         return [Catzc.Azure.Cli.SubscriptionAccessState]::new($true, $true, $SubscriptionId, $null)
     }
 
-    # The probe failed.
+    # A local read, run only after a failure, tells not logged in from no access so the error names the right fix.
     # [comment:3](/docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md#comment3)
     $session = Invoke-AzCli 'account show -o none' -PassThru -NoAssert -Silent
 

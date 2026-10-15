@@ -1,4 +1,4 @@
-// One named bundle of configs/exporter.yml (`bundles.<name>`): a release identity of its own — which modules it carries, its own version...
+// A footprint limit is opt-in: a bundle that ships to a constrained target states one, and the others go unchecked.
 // [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-exporter/types/ExporterBundle.cs.md#comment1)

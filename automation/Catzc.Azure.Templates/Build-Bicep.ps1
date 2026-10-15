@@ -2,17 +2,17 @@
 .SYNOPSIS
     Builds a bicep template: renders per-slot parameter files and compiles main.bicep.
 .DESCRIPTION
-    For each target slot (one per configuration/[<customer>/]<config>.yml): 1.
+    The output folder is wiped on every call, so no render from an earlier run survives.
     [comment:1](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .PARAMETER Environments
-    Optional filter — build only slots whose environment is named here.
+    Omitted means every slot configured for the template, one parameters file per non-default config.
     [comment:2](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment2)
 .PARAMETER Customers
     Optional filter — build only the named customers' slots (their configuration subfolders).
 .PARAMETER Shared
-    Optional filter — build the configuration-root (shared-platform, non-customer) slots.
+    Combines with -Customers as a union, never an intersection; with neither filter every slot builds.
     [comment:3](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment3)
 .EXAMPLE
     Build-Bicep discovery
@@ -46,7 +46,7 @@ function Build-Bicep {
     $templateDescriptor = Get-BicepTemplate $Template
     $outputFolder = $templateDescriptor.output_folder
 
-    # Build every slot by default; -Environments narrows by env, and -Customers/-Shared narrow by the configuration...
+    # -Customers and -Shared are unioned when both are given, never intersected.
     # [comment:4](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment4)
     $targetSlots = @($templateDescriptor.slots)
     if ($Environments) {
@@ -61,7 +61,7 @@ function Build-Bicep {
         throw "No slots to build for template '$Template' (requested environments: $($Environments -join ', '); customers: $($Customers -join ', ')$(if ($Shared) { ' + shared' }); available environments: $($templateDescriptor.environments -join ', '))"
     }
 
-    # Precondition: the Bicep CLI must be available before we wipe the output and render params, else `az bicep...
+    # Checked before the wipe: without the Bicep CLI, az bicep build can exit 0 and write no main.json.
     # [comment:5](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment5)
     Assert-AzCliBicep
 
@@ -70,7 +70,7 @@ function Build-Bicep {
     }
     New-Item -ItemType Directory -Path $outputFolder -Force | Out-Null
 
-    # A template MAY ship its own infrastructure/templates/<name>/PrePost.psm1 exporting a build-time...
+    # An absent hook is a no-op, and the assets PrePost.psm1 starter is never loaded, only copied into templates.
     # [comment:6](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment6)
     $prepareHook = $null
     $havePrePost = $null -ne $templateDescriptor.prepost_module
@@ -92,14 +92,14 @@ function Build-Bicep {
 
         $flat = $configurationDescriptor | ConvertTo-FlatSettingSet
         foreach ($key in $flat.Keys) {
-            # The marker is a string: compared string-first and case-sensitively, so a boolean `true` (which -eq...
+            # Case-sensitive string compare: -eq would coerce a boolean true to equal any non-empty string.
             # [comment:8](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment8)
             if ($flat[$key] -is [string] -and 'UNDEFINED' -ceq $flat[$key]) {
                 throw "Undefined config key '$key' for slot '$($slot.name)' in template '$Template'"
             }
         }
 
-        # A config-addressed parameter `{ address: global.<config>.<key>… }` renders as the value it addresses,...
+        # Resolved before the PrePost hook, so the hook and the parameters file see only ARM entries.
         # [ADR-AZ-DATAMOD#10](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10)
         # [comment:9](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment9)
         if ($configurationDescriptor.Contains('ParametersFile') -and $configurationDescriptor.ParametersFile -is [System.Collections.IDictionary] -and
@@ -113,7 +113,7 @@ function Build-Bicep {
             $configurationDescriptor.ParametersFile.parameters = Resolve-BicepParameterAddresses -Parameters $configurationDescriptor.ParametersFile.parameters -ConfigFile (Join-Path $configFolder "$($slot.name).yml")
         }
 
-        # The build invocation for this slot — the arguments Build-Bicep is acting on.
+        # Hooks read from this bag, so adding a dimension never changes the hook signature.
         # [ADR-PWSH-PREPOST](/docs/adr/pwsh/prepost-extension-modules.md)
         # [comment:10](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment10)
         $buildInvocation = [ordered]@{
@@ -143,7 +143,7 @@ function Build-Bicep {
     Write-Message "Building $($templateDescriptor.main) to $outputFolder"
     Invoke-AzCli "bicep build --file `"$($templateDescriptor.main)`" --outdir `"$outputFolder`""
 
-    # az bicep build can exit 0 yet emit nothing.
+    # Exit 0 can still mean no main.json; checking here names the real culprit, not a later missing-file.
     # [comment:11](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment11)
     $mainJson = Join-Path $outputFolder 'main.json'
     Assert-PathExist $mainJson -PathType Leaf -ErrorText (

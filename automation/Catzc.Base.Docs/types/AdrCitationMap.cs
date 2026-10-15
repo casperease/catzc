@@ -1,4 +1,4 @@
-// The ADR citation registry as one immutable lookup: each citation code (ADR-<CODE>) to its ADR's repository-relative path and declared...
+// The code is the source of truth for every link destination, so a moved ADR re-points every link to it.
 // [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md#comment1)
 
@@ -25,7 +25,7 @@ public sealed class AdrCitationMap
     // Every registered citation code, ordinally sorted.
     public IReadOnlyList<string> Codes { get; }
 
-    // entries: code -> { path = '<repo-relative, /-separated.md path>'; rules = <int[]> }.
+    // documents holds every ADR-folder markdown path, code-less ones too, so a slug or stale path resolves to real files.
     // [comment:2](/docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md#comment2)
     public AdrCitationMap(IDictionary entries, IEnumerable documents)
     {
@@ -52,7 +52,7 @@ public sealed class AdrCitationMap
             }
             rulesByCode[code] = rules;
 
-            // Every hyphen-prefix of a code ( for ) names its domain; a domain code or a domain wildcard (ADR-PRIN-*) is a valid...
+            // Every hyphen-prefix of a code names its domain, so a domain code or wildcard is a valid mention, not an unknown ADR.
             // ADR-AUTO, [ADR-PWSH-ERROR](/docs/adr/pwsh/error-handling.md)
             // [comment:3](/docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md#comment3)
             int dash = code.IndexOf('-', 4);

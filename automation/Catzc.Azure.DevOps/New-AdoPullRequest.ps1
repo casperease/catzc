@@ -2,13 +2,13 @@
 .SYNOPSIS
     Creates an Azure DevOps pull request via the Git REST API.
 .DESCRIPTION
-    The "land via PR" half of an INPUT pipeline (see ): once an INPUT step has committed a config change to a branch,...
+    The PR gate runs before the CD pipeline deploys, so a config change from an INPUT step never lands unreviewed.
     [ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md)
     [comment:1](/docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md#comment1)
 .PARAMETER Title
     PR title.
 .PARAMETER SourceBranch
-    The branch with the change (e.g.
+    A bare name gets refs/heads/ prepended; a name that starts with refs/ is already taken as a full ref.
     [comment:2](/docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md#comment2)
 .PARAMETER TargetBranch
     The branch to merge into. Defaults to 'main'. Bare name or full ref.
@@ -82,7 +82,7 @@ function New-AdoPullRequest {
     }
 
     $pr = Invoke-AdoRestMethod -Uri "$apiBase/git/repositories/$($repo.id)/pullrequests?api-version=7.1" -Method Post -Body $body
-    # Postcondition: confirm the PR actually came back created.
+    # A response without an id means the create did not take effect, so fail here, not downstream.
     # [comment:3](/docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md#comment3)
     Assert-NotNull $pr.pullRequestId -ErrorText "Pull request creation returned no pullRequestId for '$Title' ($sourceRef -> $targetRef) — the PR was not created."
     Write-Message "Created PR #$($pr.pullRequestId): $Title ($sourceRef -> $targetRef)"

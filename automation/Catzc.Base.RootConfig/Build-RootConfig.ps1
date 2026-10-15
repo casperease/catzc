@@ -3,22 +3,22 @@
     Materialises every opted-in managed root file from its in-repo source of truth — the writer behind the
     "root configs are managed" contract.
 .DESCRIPTION
-    Reads the root-config registry (configs/rootconfig.yml, via Get-Config -Config rootconfig), filters it to the...
+    In build mode this skips instead of throwing, because the importer calls it on every load and must not fail.
     [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md),
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment1)
 .PARAMETER Target
-    Materialise only this repo-relative path: the entry whose target equals it (e.g.
+    A wildcard entry is selected by its own pattern, or one of its files by a path the pattern matches.
     [comment:2](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment2)
 .PARAMETER DryRun
-    Report what would change without writing any file.
+    The composed content is the same either way; -DryRun only skips the write.
     [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:3](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment3)
 .PARAMETER Silent
-    The per-file status lines are verbose-level — shown only when this function is run with -Verbose.
+    -Silent beats -Verbose, so the importer tail does not chatter during import in a verbose session.
     [comment:4](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment4)
 .PARAMETER PassThru
-    Return one result object per managed file ({ Target, Source, Generator, Committed, Path, Changed, DryRun })...
+    A wildcard entry reports one object per rendered file, each carrying that file's own Target.
     [comment:5](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment5)
 .OUTPUTS
     [string[]] The paths to the managed files (with -PassThru, one result object per file instead).
@@ -73,7 +73,7 @@ function Build-RootConfig {
 
     $ret = foreach ($entry in $entries) {
         if ($entry.copyAsLink) {
-            # A link entry skips content composition entirely: the target IS the source, verified or (re)created as a...
+            # A link entry skips composition: the target IS the source, so there is no content to compare or write.
             # [comment:6](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment6)
             $sourcePath = Resolve-RepoPath $entry.source
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $null; From = "$($entry.source) (link)" })
@@ -97,7 +97,7 @@ function Build-RootConfig {
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $content; From = $entry.source })
         }
         else {
-            # A generator's rendered output (which owns its whole content, header included): one file, or one record...
+            # A generator owns its whole content, header included, and returns one file or one per wildcard match.
             # [comment:7](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment7)
             $files = @(foreach ($file in @(Get-RootConfigRenderedFile -Entry $entry)) {
                     [pscustomobject]@{ Target = $file.Target; Content = $file.Content; From = "$($entry.generator) (generator)" }
@@ -119,7 +119,7 @@ function Build-RootConfig {
                 $changed = Set-FileLink -Path $targetPath -Target $sourcePath -DryRun:$DryRun
             }
             else {
-                # A target that is currently a LINK is stale regardless of content equality: a comment:none entry...
+                # A link target is stale despite equal bytes: the compare reads through the link and calls it current.
                 # [comment:8](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment8)
                 $item = Get-Item -LiteralPath $targetPath -Force -ErrorAction Ignore
                 $targetIsLink = [bool] ($item -and $item.LinkType)
@@ -127,7 +127,7 @@ function Build-RootConfig {
                     [System.IO.File]::Delete($targetPath)
                 }
 
-                # Canonicalise, EOL-insensitively compare, and write-on-change via the one shared primitive...
+                # Writing only on change keeps a clean tree a true no-op, so the importer can run this on every load.
                 # [comment:9](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment9)
                 $changed = Write-FileIfChanged -Path $targetPath -Content $file.Content -DryRun:$DryRun
                 if ($targetIsLink) {

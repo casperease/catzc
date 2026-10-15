@@ -1,4 +1,4 @@
-// One glob-based README source convention from configs/readme.yml — every folder matched by `glob` derives its README source from...
+// The kebab placeholder is the folder leaf lowercased with dots turned to hyphens, so Catzc.Base.Docs becomes catzc-base-docs.
 // [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/DocPattern.cs.md#comment1)
 

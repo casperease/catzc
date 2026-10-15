@@ -3,7 +3,7 @@
     Projects a globset's scan program into vendor-native pipeline path filters — the no-start trigger
     ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)).
 .DESCRIPTION
-    The pipeline trigger: project the set's flattened scan program (/8) straight into the vendor's own `paths`...
+    Only a mechanical projection: an ADO set it cannot reproduce exactly is caught by the superset test, not here.
     [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
     [comment:1](/docs/references/automation/catzc-base-globs/Get-GlobSetTrigger.ps1.md#comment1)
 .PARAMETER Name

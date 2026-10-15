@@ -1,4 +1,4 @@
-// The az CLI session's connection state measured against an expected tenant and/or subscription.
+// Pairs the expected ids with the session's actual ones plus the verdict; a point-in-time probe, not a config record.
 // [comment:1](/docs/references/automation/catzc-azure-cli/types/ConnectionState.cs.md#comment1)
 
 using System;

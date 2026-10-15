@@ -3,7 +3,7 @@
     Returns a template's Bicep parameter model: every parameter its compiled main.json declares, with type,
     default, allowed values, and bounds.
 .DESCRIPTION
-    Reads the `parameters` section of the main.json that Build-Bicep writes to the template's output folder...
+    Edits to a reusable module under infrastructure/modules/ do not mark the build stale; rebuild by hand.
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepParameterModel.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).

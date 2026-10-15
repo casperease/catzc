@@ -2,7 +2,7 @@
 .SYNOPSIS
     Freezes a unit's contract draft as a released version folder, with the .frozen record that keeps it unchanged.
 .DESCRIPTION
-    Releasing a unit freezes its draft: this copies contracts/<unit>/0.0.0/ byte for byte to...
+    It refuses before writing anything, and a failed copy removes the target, so no half-frozen folder stays.
     [ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5),
     [ADR-AUTO-BUNDLE#7](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle7),
     [ADR-PWSH-VERBS#1](/docs/adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs1)

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Normalizes a path to its communication form: out/-anchored, then repo-root-relative, else absolute.
 .DESCRIPTION
-    The "relative-where-possible" normalization for paths kept in records, configs, and long-lived information.
+    No hybrid form: a path under neither root stays absolute, and the out/ anchor is tried first.
     [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md),
     [ADR-AUTO-PATH#5](/docs/adr/automation/path-representation.md#rule-adr-auto-path5)
     [comment:1](/docs/references/automation/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md#comment1)
@@ -25,7 +25,7 @@ function ConvertTo-RepoRelativePath {
 
     $full = [IO.Path]::GetFullPath($Path)
 
-    # 1.
+    # Output root first: a pipeline's staging area sits outside the repo, so only 'out/' keeps it portable.
     # [comment:2](/docs/references/automation/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md#comment2)
     $outputRoot = [IO.Path]::GetFullPath((Get-OutputRoot))
     $fromOutput = [IO.Path]::GetRelativePath($outputRoot, $full)

@@ -3,7 +3,7 @@
     Quality gate: every tracked file sits in a declared track and its tech-stack, and every label the world map prints
     is a glossary term.
 .DESCRIPTION
-    A quality gate over the world map that Get-WorldMap returns; it reads the map's placements and never places a...
+    It reads the map's placements and never places a file itself, so it judges the map, not the placing rules.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3),
     [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1),
@@ -14,7 +14,7 @@
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-world-map/ (Write-QualityGateReport).
 .PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; Files; Tracks; FileLanguages; StackViolations;...
+    StackViolations counts files that break their track's tech-stack; Labels counts the printed labels checked.
     [comment:2](/docs/references/automation/catzc-base-maps/Test-WorldMap.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.

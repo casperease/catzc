@@ -1,4 +1,4 @@
-// The value-chain map: the rows of the value-chain stack crossed with the value-chain concerns, every cell of that grid, and the ADRs...
+// Strays and Unplaced record what the axes cannot place instead of dropping it, so Test-ValueChainMap can report it.
 // [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16),
 // [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14),
 // [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15),
@@ -68,7 +68,7 @@ public sealed class ValueChainMap
         }
     }
 
-    // The map of the given rows, columns and ADRs (Catzc.Base.Docs.AdrRuleSet items).
+    // An empty or repeated axis name, a non-AdrRuleSet item or a repeated ADR code throws rather than building a skewed grid.
     // [comment:2](/docs/references/automation/catzc-base-maps/types/ValueChainMap.cs.md#comment2)
     public static ValueChainMap Build(IEnumerable stacks, IEnumerable concerns, IEnumerable ruleSets)
     {

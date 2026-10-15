@@ -2,14 +2,14 @@
 .SYNOPSIS
     Quality gate: the ADR registry (adrs.yml) and the ADR rule files under docs/adr/ agree.
 .DESCRIPTION
-    A quality gate over the ADR registry (Get-Config -Config adrs, an AdrsConfig) and the ADR files it registers.
+    Unique codes and acyclic domain links are AdrsConfig construction rules, so this gate does not recheck them.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md#comment1)
 .PARAMETER OutputFolder
-    The report base folder.
+    A report-mode check writes under this folder only when it is given, else under its own default folder.
     [comment:2](/docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md#comment2)
 .PARAMETER PassThru
-    Return the result instead of throwing on issues: { Subject; IssueCount; Issues; ReportPath; RuleSets; Files;...
+    CitationGraph and DoraCoverage list each check's findings in either mode, so a report-mode check can be read.
     [comment:3](/docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md#comment3)
 .OUTPUTS
     [pscustomobject] With -PassThru only.
@@ -73,7 +73,7 @@ function Test-AdrRegistry {
         }
     }
 
-    # The configured checks: one mode setting each, the same handling for both.
+    # Each check has one mode setting and the same handling, so a new check is an entry here, not new code.
     # [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)
     # [comment:4](/docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md#comment4)
     $configured = @(

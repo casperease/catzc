@@ -2,7 +2,7 @@
 .SYNOPSIS
     Downloads a file over HTTPS and verifies its SHA-256, rejecting a mismatch.
 .DESCRIPTION
-    Downloads -Uri to -OutFile, computes the SHA-256, and asserts it equals -Sha256 (case-insensitive, 'sha256:'...
+    A mismatch deletes the file before throwing, so an unverified download is never left on disk to be executed.
     [comment:1](/docs/references/automation/catzc-tooling-core/Save-VerifiedDownload.ps1.md#comment1)
 .PARAMETER Uri
     The download URL.

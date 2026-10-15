@@ -1,4 +1,4 @@
-// A named group of repository-root-relative file artifacts a DiskModule owns beyond its own folder, declared in configs/files.yml.
+// The unit Copy-Automation excludes by name, which is why package names are unique across all modules.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModulePackage.cs.md#comment1)
 
 using System;

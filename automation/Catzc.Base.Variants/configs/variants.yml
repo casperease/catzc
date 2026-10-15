@@ -1,22 +1,22 @@
-# Repo-wide variants — settings fixed for the importer session (see ).
+# Edit a value and re-run the importer to apply it; read only through the module's Get-, Test- and Assert- primitives.
 # [ADR-REPO-VARIANT](/docs/adr/repository/repo-variants.md)
 # [comment:1](/docs/references/automation/catzc-base-variants/configs/variants.yml.md#comment1)
 
-# Azure resource-name component order — the segment order every generated resource name uses.
+# Changing this re-spells every resource name, so every typed name in each template's configuration needs re-editing.
 # [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)
 # [comment:2](/docs/references/automation/catzc-base-variants/configs/variants.yml.md#comment2)
 ado_naming: standard
 
-# Git workspace mode — how changes reach main: main-direct — direct commits to main are allowed (the default; a solo-author trunk)...
+# main-via-pr forbids only a direct commit made while standing on main; flip it when the repo goes from one author to more.
 # [comment:3](/docs/references/automation/catzc-base-variants/configs/variants.yml.md#comment3)
 git_workspace: main-direct
 
-# Enabled-customer set for the repo: false — no customer deployments; only non-customer templates allowed (the default for a...
+# This repo ships per-customer templates so it enables all; a repo without customer templates leaves this false.
 # [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
 # [comment:4](/docs/references/automation/catzc-base-variants/configs/variants.yml.md#comment4)
 have_customers: all
 
-# Aspects — per-track/per-container conventions.
+# First match wins and the last aspect is the catch-all: automation closes live, infrastructure makes live the catch-all.
 # [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)
 # [comment:5](/docs/references/automation/catzc-base-variants/configs/variants.yml.md#comment5)
 aspects:
@@ -27,7 +27,7 @@ aspects:
     - tests: ["**/tests/**"]
     - live: ["**"]
 
-# Tracks — the repository's root concerns, the one declaration of what a track is.
+# Every root folder git tracks a file under is a track, except out/; read through Get-Track.
 # [ADR-DSGN-TRACK](/docs/adr/design/tracks.md), [ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2),
 # [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)
 # [comment:6](/docs/references/automation/catzc-base-variants/configs/variants.yml.md#comment6)

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns true if the current session is driven by an AI coding agent rather than a person.
 .DESCRIPTION
-    Detects an agent-run shell by the environment variables the agent sets for the processes it spawns: Claude Code...
+    An agent must not stop the person's stale sessions, which a person may stop for themselves; this tells them apart.
     [comment:1](/docs/references/automation/catzc-base-repository/Test-IsRunningAsAgent.ps1.md#comment1)
 .EXAMPLE
     Test-IsRunningAsAgent

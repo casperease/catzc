@@ -2,7 +2,7 @@
 .SYNOPSIS
     Writes the world map as PDFs: the grid view, the tree view, or both, optionally with a highlight.
 .DESCRIPTION
-    Builds the world map (Get-WorldMap) and draws it with Catzc.Base.Maps.WorldMapPdf, one file per view under the...
+    One file per view, so each opens or is replaced alone; an unchanged repository writes byte-identical files.
     [ADR-REPO-OUTDIR#2](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2),
     [ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7),
     [ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8),

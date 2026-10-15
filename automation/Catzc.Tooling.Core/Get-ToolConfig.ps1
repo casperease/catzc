@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the locked configuration for a CLI tool as a validated ToolConfig.
 .DESCRIPTION
-    Looks one tool's locked definition up in configs/tools.yml, read through Get-Config — which constructs the typed...
+    The config is built and validated once per session, so repeated calls return the same cached ToolConfig instance.
     [comment:1](/docs/references/automation/catzc-tooling-core/Get-ToolConfig.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (e.g., 'python', 'az_cli').

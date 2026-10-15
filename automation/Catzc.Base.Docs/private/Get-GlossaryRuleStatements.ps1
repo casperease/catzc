@@ -2,12 +2,12 @@
 .SYNOPSIS
     Maps every indexed ADR rule id to the text of its normative summary that can define a term.
 .DESCRIPTION
-    Walks the ADRs the index lists (Get-CatsAdrIndex) and reads each one's rules (Get-CatsAdrRules), keeping each...
+    Code spans are stripped first, so an example of a definition in a code span neither anchors nor defines a term.
     [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5),
     [ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md#comment1)
 .PARAMETER IndexPath
-    Absolute path to the ADR index.
+    ADR paths resolve against the index's own folder, so a test can point this at a fixture index.
     [comment:2](/docs/references/automation/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md#comment2)
 .OUTPUTS
     [System.Collections.Generic.Dictionary[string, string]] Rule id in registry form ('ADR-AUTO-TEST:13') ->

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Provisions Python via uv.
 .DESCRIPTION
-    Installs a uv-managed CPython (`uv python install <version> --default`) — user-space, cross-platform, with a...
+    Developer workstations only: in CI pipelines the native UsePythonVersion task activates cached versions instead.
     [comment:1](/docs/references/automation/catzc-tooling-python/Install-Python.ps1.md#comment1)
 .PARAMETER Version
     Python version to install. Defaults to the locked version in Get-ToolConfig.
@@ -36,7 +36,7 @@ function Install-Python {
         }
     }
 
-    # uv resolves the newest matching CPython, installs it, and (--default) writes the global python/python3 shims...
+    # --default is still a uv preview feature: without the opt-in flag uv warns, and WarningPreference=Stop would halt.
     # [comment:2](/docs/references/automation/catzc-tooling-python/Install-Python.ps1.md#comment2)
     $reinstall = if ($Force) {
         ' --reinstall'

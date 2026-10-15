@@ -2,7 +2,7 @@
 .SYNOPSIS
     Reads a single repo-wide variant from configs/variants.yml, or a default when the key is absent.
 .DESCRIPTION
-    The one place variants.yml is read.
+    Variants are fixed for the importer session (Get-Config caches them), so re-run the importer to pick up an edit.
     [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)
     [comment:1](/docs/references/automation/catzc-base-variants/private/Get-Variant.ps1.md#comment1)
 .PARAMETER Name

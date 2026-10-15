@@ -2,7 +2,7 @@
 .SYNOPSIS
     Reads a template's optional `options.yml` and returns the validated deployment overrides.
 .DESCRIPTION
-    Each template folder under `infrastructure/templates/<name>/` MAY carry an `options.yml` beside `main.bicep`...
+    The schema is strict, so a typo in options.yml fails fast at discovery instead of silently doing nothing.
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Read-BicepTemplateOptions.ps1.md#comment1)
 .PARAMETER TemplateFolder
     Absolute path to the template folder (the one containing `main.bicep`).

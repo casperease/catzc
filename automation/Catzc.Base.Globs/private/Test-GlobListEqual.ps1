@@ -2,7 +2,7 @@
 .SYNOPSIS
     Compares two glob-pattern lists for equality — ordered for GitHub, as a set for Azure DevOps.
 .DESCRIPTION
-    The comparison behind the trigger-drift quality gates (Test-AdoPipelineTriggerGlob /...
+    Matching is case-sensitive and the set sort is ordinal, since Sort-Object is culture-aware and would vary by host.
     [ADR-AUTO-XPLAT](/docs/adr/automation/cross-platform.md),
     [ADR-FLOW-CD-GLOBS#2](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs2)
     [comment:1](/docs/references/automation/catzc-base-globs/private/Test-GlobListEqual.ps1.md#comment1)

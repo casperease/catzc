@@ -2,12 +2,12 @@
 .SYNOPSIS
     Runs uv with the given arguments.
 .DESCRIPTION
-    Asserts that uv is installed at the locked version before executing.
+    The uv version lock is checked on every call, except a dry run, which needs no uv on the machine.
     [comment:1](/docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to uv.
 .PARAMETER Prerelease
-    Append `--prerelease=allow`, permitting pre-release/dev dependency versions in the resolution.
+    Opt in only: it pulls dev-marked packages into a version-locked install, so it always emits a message.
     [comment:2](/docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md#comment2)
 .PARAMETER PassThru
     Return a CliResult object with Output, Errors, Full, and ExitCode.
@@ -41,7 +41,7 @@ function Invoke-Uv {
     }
 
     if ($Prerelease) {
-        # Pre-release resolution is a deliberate, config-driven relaxation of the version lock — surface it so it is...
+        # A message, not a warning: warnings stop this toolchain, and this opt-in relaxation is expected behaviour.
         # [comment:3](/docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md#comment3)
         Write-Message "uv: allowing pre-release/dev package versions (--prerelease=allow) for: uv $Arguments"
         $Arguments = "$Arguments --prerelease=allow"

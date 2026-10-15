@@ -1,4 +1,4 @@
-// One formatter engine's settings in the file-language registry (configs/languages.yml `engines:`): the VS Code extension that runs the...
+// The settings files are listed so Format-Code's result cache is invalidated when one of them changes the engine's output.
 // [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-languages/types/FormatterEngine.cs.md#comment1)
@@ -15,7 +15,7 @@ public sealed class FormatterEngine
     // The engine's name, as a language's `formatter:` spells it (e.g. prettier).
     public string name { get; }
 
-    // The publisher.name id of the VS Code extension that runs the engine (e.g.
+    // Null when the editor has no extension that runs the engine, so the engine has no editor formatter.
     // [comment:2](/docs/references/automation/catzc-base-languages/types/FormatterEngine.cs.md#comment2)
     public string vscode_extension { get; }
 

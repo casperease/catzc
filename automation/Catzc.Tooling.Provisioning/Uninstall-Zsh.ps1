@@ -2,7 +2,7 @@
 .SYNOPSIS
     Uninstalls the zsh Install-Zsh placed: in Git Bash's tree on Windows, the apt-get package on Linux.
 .DESCRIPTION
-    Windows: reads the manifest Install-Zsh wrote inside the Git for Windows tree (the zsh entry's...
+    Only manifest-listed files go, so a file Git's tree had before Install-Zsh stays; apt must own a Linux zsh.
     [ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2),
     [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6),
     [ADR-AUTO-IDEM#2](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem2)
@@ -41,7 +41,7 @@ function Uninstall-Zsh {
     }
     [System.IO.File]::Delete($layout.Manifest)
 
-    # Children before parents: a child sorts after its parent, so the reverse ordinal order removes the deepest first.
+    # Reverse ordinal order puts a child before its parent; a folder that still holds another tool's file stays.
     # [comment:2](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md#comment2)
     $directories = [System.Collections.Generic.List[string]]::new([string[]] @($manifest.Directories))
     $directories.Sort([System.StringComparer]::Ordinal)

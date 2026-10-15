@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the repository's tracks — all of them, the named ones, or the track that owns a path.
 .DESCRIPTION
-    The `tracks` repo-wide variant (configs/variants.yml, ) declares each track: its root folder, its class (core,...
+    -Path matches the first path segment to a root; root files, out/ and undeclared folders return nothing.
     [ADR-DSGN-TRACK](/docs/adr/design/tracks.md), [ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2),
     [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
     [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)

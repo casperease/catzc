@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: the rule summaries of the configured ADR domains carry no engine-specific syntax.
 .DESCRIPTION
-    A quality gate over the rule summaries (the `### Rule <code>:<n>` entries, Get-AdrRuleSummaryLines) of every rule...
+    Tokens list engine built-ins only, since naming a catzc command in a rule summary is allowed.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
     [comment:1](/docs/references/automation/catzc-base-docs/Test-AdrEngineNeutrality.ps1.md#comment1)

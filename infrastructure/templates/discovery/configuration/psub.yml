@@ -1,4 +1,4 @@
-# discovery, shared prod subscription (env psub): the prod hub.
+# The hub peers to the prod spokes and links its private DNS zones to them; ranges come from network.yml.
 # [comment:1](/docs/references/infrastructure/templates/discovery/configuration/psub.yml.md#comment1)
 ParametersFile:
   parameters:

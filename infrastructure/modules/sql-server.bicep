@@ -1,4 +1,4 @@
-// Reusable bicep module: a SQL logical server with the Well-Architected defaults — an Entra ID administrator (a group by default),...
+// Entra-only authentication is the default; a SQL login is an opt-in break-glass with a Key Vault password reference.
 // [comment:1](/docs/references/infrastructure/modules/sql-server.bicep.md#comment1)
 
 @description('SQL logical server name (1-63 lowercase, globally unique).')

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Checks the controlled vocabulary against the repository: every glossary check, every issue in one report.
 .DESCRIPTION
-    Runs the glossary checks of over every glossary source, in order: - G1 — the facts that span more than one source...
+    G4 and G6 share one surface table, so each tracked file's prose is read once per run, not once per check.
     [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)

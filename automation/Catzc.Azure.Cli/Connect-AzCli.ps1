@@ -47,7 +47,7 @@ function Connect-AzCli {
 
     Assert-Tool 'az_cli'
 
-    # Idempotent: skip if already logged in with the correct identity -NoAssert: non-zero exit means "not logged in"...
+    # A non-zero exit from az account show means not logged in, an expected state, so it must not throw.
     # [comment:1](/docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md#comment1)
     if (-not $Force) {
         $result = Invoke-Executable 'az account show --output json' -PassThru -NoAssert -Silent
@@ -68,7 +68,7 @@ function Connect-AzCli {
         }
     }
 
-    # No post-login assertion needed — Invoke-Executable throws on non-zero exit codes via Assert-LastExitCodeWasZero.
+    # No post-login check: a failed az login throws in Invoke-Executable, so the success message is never reached.
     # [comment:2](/docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md#comment2)
     Write-Verbose "Authenticating via $($PSCmdlet.ParameterSetName)"
     switch ($PSCmdlet.ParameterSetName) {

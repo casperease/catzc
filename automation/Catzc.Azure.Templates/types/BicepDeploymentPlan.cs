@@ -1,4 +1,4 @@
-// The deployment-plan concern of a deployment: what to deploy and where, independent of the files (those are BicepArtifacts).
+// The plan holds no file paths; those live in BicepArtifacts, the sibling concern nested in BicepDeploymentContext.
 // [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepDeploymentPlan.cs.md#comment1)
 
 using System;

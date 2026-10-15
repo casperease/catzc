@@ -4,12 +4,12 @@
     collecting every problem and throwing one consolidated error. The explicit, author/CI-facing
     counterpart to the fail-fast checks Get-BicepTemplates runs at discovery.
 .DESCRIPTION
-    Where Get-BicepTemplates enforces the rules at discovery and throws on the first violation (so a bad template...
+    Unlike discovery, which stops at the first violation, this reports all of a template's problems in one throw.
     [comment:1](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment1)
 .PARAMETER Template
     Template name to validate. Omit to validate every template under infrastructure/templates/.
 .PARAMETER Build
-    Also build the template (requires az CLI) and check its rendered parameters files against the compiled parameter...
+    Opt-in because it needs az and writes the template's build output folder; the default checks need neither.
     [comment:2](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment2)
 .EXAMPLE
     Assert-BicepTemplate my-template
@@ -39,7 +39,7 @@ function Assert-BicepTemplate {
         $folders = @($targetFolder)
     }
     else {
-        # [System.IO.Directory] (sorted) instead of Get-ChildItem — see Get-BicepTemplates for the ~20ms-per-call...
+        # Plain .NET enumeration avoids the roughly 20 ms per-call overhead of Get-ChildItem.
         # [comment:3](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment3)
         $folders = @([System.IO.Directory]::EnumerateDirectories($root) | Sort-Object)
     }
@@ -76,7 +76,7 @@ function Assert-BicepTemplate {
             'standard'
         }
 
-        # Customer-class bit — defaults to the have_customers variant unless options.yml sets it; an explicit...
+        # An explicit customer_deployment: true is only allowed when customers are enabled.
         # [comment:4](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment4)
         $customerDeploymentOption = if ($options.Contains('customer_deployment')) {
             [bool]$options.customer_deployment
@@ -94,7 +94,7 @@ function Assert-BicepTemplate {
             [bool](Test-HaveCustomers)
         }
 
-        # short_name is derived from the folder name unless options.yml overrides it.
+        # A malformed override, or a folder that cannot derive a short_name, throws.
         # [comment:5](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment5)
         $shortNameOverride = if ($options.Contains('short_name')) {
             "$($options.short_name)"
@@ -193,7 +193,7 @@ function Assert-BicepTemplate {
                 $errors.Add("[$name] -Build requested but 'az' is not installed")
             }
             else {
-                # The full build (render + compile) so the rendered parameters files can be checked against the...
+                # Both render and compile run, so the parameters files can be checked against the compiled model.
                 # [ADR-AZ-DATAMOD#9](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9)
                 # [comment:6](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment6)
                 $built = $false

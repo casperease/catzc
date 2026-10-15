@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs or upgrades uv, Astral's Python handler.
 .DESCRIPTION
-    uv is user-space on every platform.
+    Only a uv installed by Astral's own script can self-update; every other source upgrades through its installer.
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment1)
 .PARAMETER Version
     uv version to install. Defaults to the locked version in Get-ToolConfig.
@@ -18,7 +18,7 @@ function Install-Uv {
 
     $config = Get-ToolConfig -Tool 'uv'
 
-    # Fresh machine: bootstrap per platform — winget on Windows and brew on macOS (both via Install-Tool); Astral's...
+    # Linux takes Astral's standalone release into ~/.local/bin, because there is no uv apt package.
     # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment2)
     if (-not (Test-Command 'uv')) {
         if ($IsLinux) {
@@ -36,10 +36,10 @@ function Install-Uv {
         return
     }
 
-    # Upgrade through the configured install source, not a blanket `uv self update`.
+    # A blanket self update is refused on the Linux tarball, winget and brew installs, which carry no update receipt.
     # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment3)
     if ($IsLinux) {
-        # Re-download the pinned, verified standalone build over ~/.local/bin — this also replaces an off-config uv...
+        # The re-download also replaces an off-config uv, such as a leftover pip install, that sits in the tool bin.
         # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment4)
         Install-UvStandalone -Version $Version
         return
@@ -51,7 +51,7 @@ function Install-Uv {
         return
     }
 
-    # Windows: a winget-managed uv upgrades through winget; a uv installed by Astral's own script (on PATH outside...
+    # A uv outside the winget package root came from Astral's script, so it has a receipt and updates in place.
     # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment5)
     $wingetRoot = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'
     if ((Get-Command uv).Source.StartsWith($wingetRoot, [System.StringComparison]::OrdinalIgnoreCase)) {

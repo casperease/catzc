@@ -3,7 +3,7 @@
     Copies a deterministic subset of this repository's automation toolset into a destination, rooted like the
     repository root — for testing in a tmp folder, or vendoring the toolset as a package.
 .DESCRIPTION
-    The source is always this repository (Get-RepositoryRoot).
+    Never clobbers: an existing file at the destination aborts the copy before any write, unless -Force.
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
     [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md),
     [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9),
@@ -14,7 +14,7 @@
 .PARAMETER ModuleNames
     Disk module names to copy (named + hidden). Default: all ((Get-BaseModule).Name).
 .PARAMETER ModuleProfile
-    A named module profile from configs/profiles.yml (minimal, azure, …), resolved to its dependency closure +...
+    Alternative to -ModuleNames: the profile is widened to its dependency closure plus infrastructure first.
     [comment:2](/docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md#comment2)
 .PARAMETER ExcludePackages
     Package names to drop (keys under any module's packages in files.yml). Default: none.

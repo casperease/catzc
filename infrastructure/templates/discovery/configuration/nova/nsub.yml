@@ -1,4 +1,4 @@
-# discovery, nova nonprod subscription (env nsub, customer nova): a spoke.
+# This spoke peers to the nonprod hub; nova is dev-only, so it has a nonprod subscription and no prod one.
 # [comment:1](/docs/references/infrastructure/templates/discovery/configuration/nova/nsub.yml.md#comment1)
 ParametersFile:
   parameters:

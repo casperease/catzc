@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs a Python-library tool into the uv-managed Python via `uv pip`.
 .DESCRIPTION
-    Private helper for Install-PySpark.
+    Unlike an isolated uv tool, the package lands in the shared managed Python, so it stays importable.
     [comment:1](/docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (must declare pip_package).
@@ -25,7 +25,7 @@ function Install-PipTool {
     Assert-NotNullOrWhitespace $config.pip_package -ErrorText "$Tool has no pip_package in tools.yml — cannot install via uv pip"
 
 
-    # Land the package in the toolchain's importable Python — uv's managed CPython — which needs three flags together...
+    # All three flags are needed: pin the interpreter, allow a non-virtual install, and override uv's PEP-668 marker.
     # [ADR-AUTO-UVPY#2](/docs/adr/automation/uv-python-handler.md#rule-adr-auto-uvpy2)
     # [comment:2](/docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md#comment2)
     $pythonVersion = (Get-ToolConfig -Tool 'python').version
@@ -52,13 +52,13 @@ function Install-PipTool {
         }
     }
 
-    # Install into the uv-managed Python (pinned interpreter, `--system` for its non-virtual site-packages) so the...
+    # The package must be importable in the toolchain's own interpreter, not trapped in an isolated environment.
     # [comment:3](/docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md#comment3)
     Invoke-Pip "install --python $pythonVersion --system --break-system-packages $($config.pip_package)==$Version.*"
 
     Sync-SessionPath
 
-    # A pip-installed library may expose no PATH executable (PySpark's launcher lives inside the package), so confirm...
+    # A pip library may expose no PATH executable, so the version probe, not a command check, confirms the install.
     # [comment:4](/docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md#comment4)
     $actualVersion = Get-ToolVersion -Config $config
 

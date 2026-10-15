@@ -1,4 +1,4 @@
-// The world-map highlight settings (the `highlight` section of configs/maps.yml): the reviewed pins, which light a cell for an ADR, the...
+// An excluded file still sits in its world-map cell; only its citations are ignored, so file counts stay true.
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/MapsHighlight.cs.md#comment1)
@@ -10,7 +10,7 @@ namespace Catzc.Base.Maps;
 
 public sealed class MapsHighlight
 {
-    // The files whose citations light nothing by default: the generated slide descriptions and every other asset, the explanation...
+    // Slide minimaps light the repository's citations of an ADR, never the words of the slides or the tool that drew them.
     // [comment:2](/docs/references/automation/catzc-base-maps/types/MapsHighlight.cs.md#comment2)
     public static readonly IReadOnlyList<string> DefaultCitationExclude =
         Array.AsReadOnly(new[] { "docs/.assets/**", "docs/explanation/**", ".claude/drawio/**" });
@@ -21,7 +21,7 @@ public sealed class MapsHighlight
     // The cells an ADR never lights, in declared order. Empty by default.
     public IReadOnlyList<MapsPin> exceptions { get; }
 
-    // The globs (repository-relative, '/'-separated) of the files whose citations light nothing.
+    // Left unset it is DefaultCitationExclude; setting it replaces that list, it does not extend it.
     // [comment:3](/docs/references/automation/catzc-base-maps/types/MapsHighlight.cs.md#comment3)
     public IReadOnlyList<string> citation_exclude { get; }
 

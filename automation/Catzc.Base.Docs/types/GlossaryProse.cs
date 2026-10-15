@@ -1,4 +1,4 @@
-// The prose of one file, as the glossary checks read it (G4, G6): never a regex over source text.
+// PowerShell is read through the real parser's tokens and AST, never a regex, so comments, help and messages stay distinct.
 // [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5),
 // [ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md#comment1)
@@ -82,7 +82,7 @@ public static class GlossaryProse
             segments.Add(Segment(isHelp ? "help" : "comments", token.Extent.StartLineNumber, token.Text));
         }
 
-        // The argument elements that carry a message: everything after the command name of a writer, the operand of throw, and the value...
+        // Only writer arguments, throw operands and -ErrorText or -Because values count as messages; other strings are not prose.
         // [comment:2](/docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md#comment2)
         List<Ast> carriers = new List<Ast>();
         foreach (Ast node in ast.FindAll(n => n is ThrowStatementAst, true))
@@ -116,7 +116,7 @@ public static class GlossaryProse
         {
             foreach (Ast found in carrier.FindAll(n => n is StringConstantExpressionAst || n is ExpandableStringExpressionAst, true))
             {
-                // A string inside an expandable string's sub-expression is code, not message text: its parent string drops it with the...
+                // A nested string is code, so its parent expandable string drops it and it is never read as message text.
                 // [comment:3](/docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md#comment3)
                 bool inExpandable = false;
                 for (Ast parent = found.Parent; parent != null; parent = parent.Parent)

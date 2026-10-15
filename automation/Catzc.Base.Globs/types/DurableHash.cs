@@ -1,4 +1,4 @@
-// The durable-SHA digest primitives, in native code: a globset may include large binaries (the committed type assembly is a tracked...
+// Native code because a per-byte PowerShell pipeline over a tracked binary takes minutes; CR stripping keeps CRLF and LF equal.
 // [ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5),
 // [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
 // [comment:1](/docs/references/automation/catzc-base-globs/types/DurableHash.cs.md#comment1)
@@ -12,7 +12,7 @@ namespace Catzc.Base.Globs;
 
 public static class DurableHash
 {
-    // SHA-256 (lowercase hex) of the file's bytes with every CR stripped; null when the file is absent — the caller folds the distinct...
+    // Null for an absent file, not an exception: the caller folds a distinct missing marker for a tracked-but-deleted member.
     // [comment:2](/docs/references/automation/catzc-base-globs/types/DurableHash.cs.md#comment2)
     public static string HashFile(string path)
     {

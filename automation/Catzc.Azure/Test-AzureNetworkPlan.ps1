@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: the network plan (network.yml) and the azure config's environments and subscriptions are in sync.
 .DESCRIPTION
-    A quality gate over the cross-asset join of and.
+    Checks only the join between the two files, since each config validates its own shape on load; lists all violations.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-AZ-NETWORK#2](/docs/adr/azure/azure-network-model.md#rule-adr-az-network2),
     [ADR-AZ-NETWORK#5](/docs/adr/azure/azure-network-model.md#rule-adr-az-network5)
@@ -10,7 +10,7 @@
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-azure-network-plan/ (Write-QualityGateReport).
 .PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; Environments; Subscriptions }) instead of throwing...
+    Off by default: the gate throws on issues, so a caller that wants to inspect them must opt in.
     [comment:2](/docs/references/automation/catzc-azure/Test-AzureNetworkPlan.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.

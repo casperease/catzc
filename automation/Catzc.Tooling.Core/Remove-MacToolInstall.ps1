@@ -3,7 +3,7 @@
     Evicts an off-config macOS install of a tool so the managed build can win — the macOS platform core of the
     tool-removal lifecycle.
 .DESCRIPTION
-    The macOS counterpart to Remove-SystemInstallation (Windows) and Remove-LinuxToolInstall (Linux).
+    Every macOS removal step is user-space, so nothing here asserts elevation, unlike the Linux apt step.
     [ADR-AUTO-REMOVE#7](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove7),
     [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
     [comment:1](/docs/references/automation/catzc-tooling-core/Remove-MacToolInstall.ps1.md#comment1)
@@ -27,7 +27,7 @@ function Remove-MacToolInstall {
 
     $source = (Get-Command $Config.command).Source
 
-    # 1.
+    # The formula name is read from the Cellar part of the symlink target, since a brew binary is only a link.
     # [comment:2](/docs/references/automation/catzc-tooling-core/Remove-MacToolInstall.ps1.md#comment2)
     if (Test-Command brew) {
         $prefixResult = Invoke-Executable 'brew --prefix' -PassThru -NoAssert -Silent

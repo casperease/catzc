@@ -3,11 +3,11 @@
     Generates [index](/docs/adr/index.md) — the ADR code -> rule-citation registry — from adrs.yml, the single source
     of truth for the ADR domain structure.
 .DESCRIPTION
-    index.md is a derived projection of automation/Catzc.Base.Docs/configs/adrs.yml: authored preamble and...
+    index.md is projected from adrs.yml alone, so a hand-edit to it is overwritten on the next import.
     [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment1)
 .PARAMETER DryRun
-    Report whether index.md would change without writing it.
+    The index is still rendered in full, so a dry run also throws on an ADR with no file.
     [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:2](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment2)
 .PARAMETER Silent
@@ -126,7 +126,7 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   `dora-explains.md`.
 '@
 
-    # The authored prose above is wrapped for reading here, not for the page: reflow every paragraph and list item...
+    # Reflow here so the generated page already equals the formatter's fill and never shows drift afterwards.
     # [ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)
     # [comment:3](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment3)
     $reflow = {
@@ -177,7 +177,7 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
     $adrDocsRoot = Resolve-RepoPath 'docs/adr'
     Assert-PathExist $adrDocsRoot
 
-    # Map "<domainFolder>/<slug>" -> the ADR file path relative to docs/adr (forward-slashed), so a ruleset in a...
+    # Keyed by domain folder plus slug, so a ruleset in a subfolder resolves; index.md and READMEs are no ADRs.
     # [comment:4](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment4)
     $pathBySlugKey = @{}
     foreach ($file in [System.IO.Directory]::EnumerateFiles($adrDocsRoot, '*.md', [System.IO.SearchOption]::AllDirectories)) {
@@ -190,7 +190,7 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
         $pathBySlugKey["$topFolder/$slug"] = $relative
     }
 
-    # One aligned code-registry table per domain, in declared order.
+    # Row shape is fixed because Get-CatsAdrIndex parses it back; a changed shape breaks that reader.
     # [comment:5](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment5)
     $sections = foreach ($domain in $adrs.Domains) {
         $rows = foreach ($ruleSet in $domain.RuleSets) {

@@ -1,4 +1,4 @@
-# Per-template options for 'foundation' — the once-per-subscription baseline (Log Analytics + Key Vault).
+# Subscription environment kind: configs use nsub and psub, once per subscription, and carry no slot.
 # [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
 # [comment:1](/docs/references/infrastructure/templates/foundation/options.yml.md#comment1)
 short_name: fnd

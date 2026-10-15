@@ -2,7 +2,7 @@
 .SYNOPSIS
     Resolves the rootconfig registry into the list of opted-in managed root files Build-RootConfig generates.
 .DESCRIPTION
-    Filters the validated registry (Get-Config -Config rootconfig) down to the entries with optIn true — the files...
+    Opted-out entries are inert: validated for shape on load, but neither written nor treated as owned.
     [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-rootconfig/private/Get-RootConfigTargets.ps1.md#comment1)
 .PARAMETER Config

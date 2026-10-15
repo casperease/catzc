@@ -1,4 +1,4 @@
-// One edge of the ADR domain dependency graph from adrs.yml: From depends on To (one per declared depends_on link).
+// The constructor guards the edge invariant: both ends non-empty and distinct, so no domain depends on itself.
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AdrDomainEdge.cs.md#comment1)
 

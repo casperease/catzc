@@ -2,13 +2,13 @@
 .SYNOPSIS
     Lists the glossary terms that are not anchored on their defining rule (check G2) — one message per violation.
 .DESCRIPTION
-    A defined term has one home: the ADR rule its concept names in `defined_by`, whose normative summary bolds it.
+    Only the normative summary anchors a term; bold in the ADR body, rule bullets or code spans does not.
     [ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryAnchorViolations.ps1.md#comment1)
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.
 .PARAMETER IndexPath
-    Absolute path to the ADR index whose ADRs hold the rules.
+    A test points this at a fixture index beside fixture ADR files.
     [comment:2](/docs/references/automation/catzc-base-docs/private/Get-GlossaryAnchorViolations.ps1.md#comment2)
 .OUTPUTS
     [string[]] One message per violation, in glossary order; empty when every term is anchored.

@@ -1,4 +1,4 @@
-// The repo-wide variants (configs/variants.yml, ) — settings fixed for the importer session.
+// Every key is optional and an unknown key throws, so a typo fails fast at load; an absent key is null.
 // [ADR-REPO-VARIANT](/docs/adr/repository/repo-variants.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md), [ADR-DSGN-TRACK](/docs/adr/design/tracks.md),
@@ -27,7 +27,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     // How changes reach main: 'main-direct' or 'main-via-pr'. Null when unset.
     public string git_workspace { get; }
 
-    // The enabled-customer set as written: a bool, the string 'all', or a string[] of customer names.
+    // Null when unset; Get-EnabledCustomers is its single interpreter.
     // [comment:2](/docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md#comment2)
     public object have_customers { get; }
 

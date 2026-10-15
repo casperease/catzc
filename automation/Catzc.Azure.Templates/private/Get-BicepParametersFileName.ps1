@@ -2,7 +2,7 @@
 .SYNOPSIS
     The build-artifact parameters filename for a (customer?, env, slot) config.
 .DESCRIPTION
-    The single source of the per-slot parameters artifact name, used by both Build-Bicep (which writes it) and...
+    Build-Bicep writes and Get-BicepDeploymentContext reads this name, so the two can never drift.
     [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md#comment1)
 .PARAMETER Environment

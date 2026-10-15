@@ -2,7 +2,7 @@
 .SYNOPSIS
     Awaits a mutex reliably, announcing itself only when the wait is actually noticeable.
 .DESCRIPTION
-    The one low-level cover for blocking on a [System.Threading.Mutex].
+    A short wait leaves only a verbose trace; the console speaks up only once the wait is a real halt.
     [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10),
     [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8),
     [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
@@ -12,14 +12,14 @@
 .PARAMETER Name
     Short noun for the messages (e.g. 'test-run mutex'). Defaults to 'mutex'.
 .PARAMETER AnnounceText
-    The announcement written when the wait crosses -AnnounceAfterSeconds.
+    The default names the mutex, so pass -Name rather than rewriting this text.
     [comment:2](/docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md#comment2)
 .PARAMETER AnnounceAfterSeconds
     How long a wait may take before it is announced (and dots begin). Defaults to 2.
 .PARAMETER DotIntervalSeconds
     Seconds between liveness dots once the wait is announced. Defaults to 5.
 .PARAMETER TimeoutSeconds
-    Optional hard ceiling on the whole wait; the function throws when it expires.
+    The default 0 waits forever, so a stuck holder hangs the caller unless a ceiling is set.
     [comment:3](/docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md#comment3)
 .OUTPUTS
     None. Ownership is expressed on the mutex object itself.
@@ -63,7 +63,7 @@ function Wait-Mutex {
     $dotsWritten = $false
 
     while ($true) {
-        # Wait in observation-sized slices: up to the announce threshold first, then one dot interval per slice — a...
+        # A failed slice is exactly one console event, the announcement or one dot, so the wait stays observable.
         # [comment:4](/docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md#comment4)
         $waitSeconds = if ($announced) {
             $DotIntervalSeconds

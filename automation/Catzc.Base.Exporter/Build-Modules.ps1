@@ -2,7 +2,7 @@
 .SYNOPSIS
     Builds the selected modules into one installable, versioned Catzc module — build mode's code root.
 .DESCRIPTION
-    The public entry to the build.
+    A build that overrides the selection or vendor policy is an experiment, so the footprint limits skip it.
     [ADR-AUTO-BUNDLE#1](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle1)
     [comment:1](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment1)
 .PARAMETER Module
@@ -10,15 +10,15 @@
 .PARAMETER Bundle
     The bundle to build (an exporter.yml bundles key). Defaults to default_bundle.
 .PARAMETER ModuleProfile
-    A profiles.yml key whose modules to build (combinable with -Module).
+    Defaults to the bundle's profile only when -Module is absent; give both to build their union.
     [comment:2](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment2)
 .PARAMETER VendorPolicy
-    runtime ships only powershell-yaml; full also ships Pester and PSScriptAnalyzer (needed by a build run, which...
+    full exists for a build run that tests the build itself, so Pester and PSScriptAnalyzer must travel with it.
     [comment:3](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment3)
 .PARAMETER Version
     'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH — see Resolve-CatzcBuildVersion.
 .PARAMETER Destination
-    The parent folder the Catzc/<version>/ build is written under.
+    The default is per bundle, so two bundles built side by side never share a folder.
     [comment:4](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment4)
 .PARAMETER DryRun
     Return the build plan without writing anything.
@@ -44,7 +44,7 @@ function Build-Modules {
 
         [string] $Bundle = "$((Get-Config -Config exporter).default_bundle)",
 
-        # The bundle's profile, unless -Module names the selection.
+        # Empty when -Module names the selection, so the profile never widens an explicit module list.
         # [comment:6](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment6)
         [string] $ModuleProfile = $(
             $bundles = (Get-Config -Config exporter).bundles
@@ -99,14 +99,14 @@ function Build-Modules {
         $engineArguments.ModuleProfile = $ModuleProfile
     }
 
-    # The engine is an.internal module, loaded on demand and not part of the post-import command set, so it is...
+    # Invoked by name, not by a static call, so the on-demand engine stays off the function-dependency graph.
     # [comment:7](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment7)
     Import-InternalModule Builder
     $engine = 'Invoke-ModuleBuild'
     $result = & $engine @engineArguments
 
     if (-not $DryRun) {
-        # The footprint limits describe the bundle as declared.
+        # A build with an overridden selection or vendor policy is not the declared bundle, so it goes unmeasured.
         # [comment:8](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment8)
         $isDeclaredBundle = -not ($PSBoundParameters.ContainsKey('Module') -or $PSBoundParameters.ContainsKey('ModuleProfile') -or
             $PSBoundParameters.ContainsKey('VendorPolicy'))

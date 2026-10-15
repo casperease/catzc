@@ -1,4 +1,4 @@
-// The two glossary checks that read every in-scope file's prose (GlossaryProse): Phrasing (G4) an avoided phrasing of a concept, as a...
+// A file's prose is read once per run via the surface cache, and hits come sorted by file, line and message, de-duplicated.
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryScan.cs.md#comment1)
 
 using System;
@@ -16,7 +16,7 @@ public static class GlossaryScan
     static readonly Regex Number = new Regex(@"^\d+$", RegexOptions.Compiled);
     static readonly Regex Whitespace = new Regex(@"\s+", RegexOptions.Compiled);
 
-    // Words that only point at, count, own, or join a noun — never a qualifier that names a kind of it: articles, determiners,...
+    // Function words never count as qualifiers, so a phrase like the gate or only slots does not demand a listed form.
     // [comment:2](/docs/references/automation/catzc-base-docs/types/GlossaryScan.cs.md#comment2)
     static readonly HashSet<string> FunctionWords = new HashSet<string>(new[]
     {
@@ -86,7 +86,7 @@ public static class GlossaryScan
                     e.Concept.defined_by,
                     Allowed = new HashSet<string>(e.Concept.forms, StringComparer.OrdinalIgnoreCase),
                     Forms = string.Join(", ", e.Concept.forms.Select(f => f + " " + head).Concat(new[] { head })),
-                    // The qualifier is the last word before the head ('commit' in 'pre-commit gate'), joined by spaces, one line break,...
+                    // A word after a dot is a keyword, not a qualifier, so a help line such as .PARAMETER Slot is not flagged.
                     // [comment:3](/docs/references/automation/catzc-base-docs/types/GlossaryScan.cs.md#comment3)
                     Qualified = new Regex("(?<![A-Za-z0-9.])(?<q>[A-Za-z0-9]+)(?:[ \\t]+|[ \\t]*\\n[ \\t]*|-)(?<w>" + Regex.Escape(head) + "s?)(?![\\w-])", RegexOptions.IgnoreCase),
                     // A verb form counts after a hyphen too (`double-gated`).
@@ -142,7 +142,7 @@ public static class GlossaryScan
         return ordered;
     }
 
-    // Every segment, in a surface the source checks, of every tracked Markdown or PowerShell file the source's scope selects and its...
+    // A file's prose is parsed on first use and cached, so many sources over one file cost a single read.
     // [comment:4](/docs/references/automation/catzc-base-docs/types/GlossaryScan.cs.md#comment4)
     static IEnumerable<(string, GlossarySegment)> Segments(Source source, IEnumerable<string> trackedFiles, string root, IDictionary surfaceCache)
     {

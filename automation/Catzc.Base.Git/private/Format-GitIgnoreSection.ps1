@@ -2,7 +2,7 @@
 .SYNOPSIS
     Renders one gitignore section — its titled, explained comment block followed by its pattern lines.
 .DESCRIPTION
-    The per-section pretty-printer behind New-GitIgnore: a rule line carrying the section's title, the wrapped `why`...
+    A note gets its own line: git has no trailing comments, so a same-line note would become part of the pattern.
     [comment:1](/docs/references/automation/catzc-base-git/private/Format-GitIgnoreSection.ps1.md#comment1)
 .PARAMETER Title
     The section's heading.

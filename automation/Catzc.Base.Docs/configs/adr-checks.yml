@@ -1,11 +1,11 @@
-# adr-checks.yml — the settings of the ADR checks over the rule registries under docs/adr/.
+# Every key is optional and defaults on AdrChecksConfig, so this file lists only what deviates from the default.
 # [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 # [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
 # [comment:1](/docs/references/automation/catzc-base-docs/configs/adr-checks.yml.md#comment1)
 
 engine_neutrality:
   domains: [automation]
-  # Engine-specific syntax a rule summary must not carry.
+  # Only engine built-ins are listed, since naming a catzc command (Verb-Noun) in a rule summary is allowed.
   # [comment:2](/docs/references/automation/catzc-base-docs/configs/adr-checks.yml.md#comment2)
   tokens:
     env-variable: '\$env:'

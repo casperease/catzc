@@ -3,7 +3,7 @@
     Quality gate: the repository honours every binding contract asset, every released version folder is unchanged,
     and contracts/ holds no dot-prefixed folder.
 .DESCRIPTION
-    Contracts are binding, proven by tests.
+    Depended-on assets of older releases are not checked: they follow their outside platform, so only the current binds.
     [ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4),
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
@@ -19,7 +19,7 @@
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-contracts/ (Write-QualityGateReport).
 .PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; Version; Assets; PinnedAssets; FailedAssets;...
+    Without it the gate throws on issues; Assets counts every checked asset, PinnedAssets those of older releases.
     [comment:2](/docs/references/automation/catzc-base-contracts/Test-Contracts.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.

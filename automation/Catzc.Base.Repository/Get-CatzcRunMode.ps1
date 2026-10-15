@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the run mode of the current session: 'source' or 'build'.
 .DESCRIPTION
-    The mode is derived, never stored.
+    Compared as normalized, case-insensitive full paths, so a trailing separator or drive-letter case never flips it.
     [ADR-DSGN-RUNMODE#4](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode4)
     [comment:1](/docs/references/automation/catzc-base-repository/Get-CatzcRunMode.ps1.md#comment1)
 .EXAMPLE

@@ -2,13 +2,13 @@
 .SYNOPSIS
     Commits the importer-maintained generated files to git — the dev-box janitor.
 .DESCRIPTION
-    The dev-box janitor the importer runs on every load: in a person's session it commits what actually differs from...
+    Only a person's session commits: a pipeline must fail loudly and an agent leaves the commit to the person.
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
     [ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13),
     [ADR-REPO-VARIANT#6](/docs/adr/repository/repo-variants.md#rule-adr-repo-variant6)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md#comment1)
 .PARAMETER DryRun
-    Propagated to Invoke-GitCommit: the changed generated paths are still probed (a read), but instead of committing,...
+    Changed paths are still probed, so a dry run returns the exact git commands a real run would issue.
     [comment:2](/docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md#comment2)
 .OUTPUTS
     [string] The new commit's SHA (or the planned commands with -DryRun); nothing when a guard skipped
@@ -63,11 +63,11 @@ function Sync-GeneratedFile {
         return
     }
 
-    # Which generated paths actually changed decides both the commit's pathspec and its message — the stamp commit...
+    # One fact drives pathspec and message, so the stamp commit never names a sibling path that was clean.
     # [comment:3](/docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md#comment3)
     $changed = @($generatedPaths.Keys | Where-Object { Test-GitPathChanged $_ })
 
-    # .compiled must hold exactly the current build.
+    # A superseded DLL that a live session still locks would otherwise be committed next to the new one.
     # [ADR-AUTO-CACHE#8](/docs/adr/automation/caching.md#rule-adr-auto-cache8)
     # [comment:4](/docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md#comment4)
     if ($changed -contains 'automation/.compiled') {
@@ -79,7 +79,7 @@ function Sync-GeneratedFile {
         }
     }
 
-    # The build is named for the hash of the working-tree type sources.
+    # Committing the build ahead of edited type sources would leave HEAD with a build its own sources do not produce.
     # [comment:5](/docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md#comment5)
     if ($changed -contains 'automation/.compiled' -and (Test-GitPathChanged 'automation/*/types/*.cs')) {
         Write-Message 'Skipped automation/.compiled: type sources (types/*.cs) differ from HEAD, so this build is not the one HEAD produces. Commit the type sources, then re-import.' -ForegroundColor Yellow

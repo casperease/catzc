@@ -2,7 +2,7 @@
 .SYNOPSIS
     Reads a pipeline or workflow YAML's trigger path filters — the actual, on-disk trigger globs.
 .DESCRIPTION
-    The counterpart to Get-GlobSetTrigger (which computes what a pipeline's trigger SHOULD be): this reads what it...
+    A missing section comes back as an empty array, never null, so a caller compares without null guards.
     [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
     [comment:1](/docs/references/automation/catzc-base-globs/private/Get-PipelineTrigger.ps1.md#comment1)
 .PARAMETER Path

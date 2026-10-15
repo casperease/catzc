@@ -1,4 +1,4 @@
-// Reusable bicep module: a StorageV2 account with the Well-Architected defaults — zone-redundant (ZRS), no public network access, TLS...
+// Public network, shared-key and anonymous blob access are all off, so data is reached through a private endpoint.
 // [comment:1](/docs/references/infrastructure/modules/storage-account.bicep.md#comment1)
 
 @description('Storage account name (3-24 lowercase alphanumeric, globally unique).')

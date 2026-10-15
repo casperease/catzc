@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists every glossary source — each opting-in module's configs/glossary.yml — with its validated config.
 .DESCRIPTION
-    A module opts into the controlled vocabulary by shipping configs/glossary.yml, so the sources are discovered, not...
+    Sources are discovered, not declared: a module opts in by shipping the file, and this runs in source mode only.
     [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2),
     [ADR-CONF-LOADING#1](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading1),
     [ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3)

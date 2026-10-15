@@ -1,4 +1,4 @@
-# CI pipeline — unit tests, framework integration tests, and Azure auth tests.
+# Fires exactly, and only, when the module system changes: the track is its own root folder, with no committed marker to go stale.
 # [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
 # [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1) [comment:1](/docs/references/pipelines/ci-automation.yaml.md#comment1)
 
@@ -14,7 +14,7 @@ pr:
   paths:
     include: [automation/**]
 
-# --------------------------------------------------------------------------- Job 1: Unit tests (Pester)...
+# The L2 run includes the spelling and markdown integrity tests, so Node and their tools are set up before it.
 # [comment:2](/docs/references/pipelines/ci-automation.yaml.md#comment2)
 jobs:
   - job: UnitTests
@@ -24,7 +24,7 @@ jobs:
     steps:
       - checkout: self
 
-      # cspell + markdownlint-cli2 are installed here so the L2 'Repository spelling/markdown integrity' tests run as part of...
+      # The L2 integrity tests are the single spell and markdown gate; they self-skip when cspell or markdownlint is absent.
       # [comment:3](/docs/references/pipelines/ci-automation.yaml.md#comment3)
       - task: UseNode@1
         inputs:
@@ -45,7 +45,7 @@ jobs:
         parameters:
           RunCommand: "Test-Automation -Level 2 -EnforceTimings"
 
-  # --------------------------------------------------------------------------- Job 2: Framework integration tests (no Azure auth) Each...
+  # No Azure auth here: each step exercises a different edge of the framework through the template.
   # [comment:4](/docs/references/pipelines/ci-automation.yaml.md#comment4)
   - job: FrameworkTests
     displayName: "Framework Integration Tests"
@@ -157,7 +157,7 @@ jobs:
             Assert-True ($output -match 'RuntimeException')
             Write-Message 'Write-Exception output verified'
 
-  # --------------------------------------------------------------------------- Job 3: Azure auth mode tests (needs sc-azure-test service...
+  # Each Azure auth mode needs the sc-azure-test service connection to be authenticated before its assertions run.
   # [comment:5](/docs/references/pipelines/ci-automation.yaml.md#comment5)
   - job: AzureAuthTests
     displayName: "Azure Auth Tests"
@@ -200,7 +200,7 @@ jobs:
             Write-Message 'SYSTEM_ACCESSTOKEN is available'
           ExposeAccessToken: true
 
-  # --------------------------------------------------------------------------- Job 4: Tool installation — install all locked-version...
+  # One step per tool, in dependency order, so an install never runs before the runtime it depends on.
   # [comment:6](/docs/references/pipelines/ci-automation.yaml.md#comment6)
   - job: ToolInstallation
     displayName: "Tool Installation (Linux)"
@@ -209,7 +209,7 @@ jobs:
     steps:
       - checkout: self
 
-      # Activate pre-cached tool versions on the hosted agent.
+      # These put the correct version on PATH, so Install-* sees it and skips.
       # [comment:7](/docs/references/pipelines/ci-automation.yaml.md#comment7)
       - task: UsePythonVersion@0
         inputs:
@@ -232,7 +232,7 @@ jobs:
           DisplayName: "Tools status (before)"
           RunCommand: 'Get-ToolsStatus | Write-Object -Name "Before"'
 
-      # Install remaining tools via our functions.
+      # Python, Dotnet and NodeJs use the native ADO tasks above; pip tools need Python on PATH, apt tools use sudo.
       # [comment:8](/docs/references/pipelines/ci-automation.yaml.md#comment8)
       - template: /pipelines/steps/invoke-automation.yaml
         parameters:

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Runs az with the given arguments.
 .DESCRIPTION
-    Asserts that the installed Azure CLI version matches the locked version in Get-ToolConfig before executing the...
+    A command needing an uninstalled extension fails with an exit code instead of hanging on a hidden install prompt.
     [comment:1](/docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to az.
@@ -38,7 +38,7 @@ function Invoke-AzCli {
         Assert-Tool 'az_cli'
     }
 
-    # Disable az dynamic extension install for this call: a command needing an uninstalled extension then exits...
+    # Process-scoped and restored after the call, so the caller's own setting survives, even an unset one.
     # [comment:2](/docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md#comment2)
     $dynamicInstallVar = 'AZURE_EXTENSION_USE_DYNAMIC_INSTALL'
     $priorDynamicInstall = [Environment]::GetEnvironmentVariable($dynamicInstallVar, 'Process')

@@ -1,4 +1,4 @@
-// Finds the ADR citations in a file's text and maps each to its domain through the adrs index (the external codes of Catzc.Base.Docs'...
+// A look-alike is no citation: an unlisted code, a code glued to a letter, digit, underscore or hyphen, or lowercase text.
 // [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md#comment1)
 
@@ -34,7 +34,7 @@ public static class CitationScanner
         return false;
     }
 
-    // The adrs index as an ordinal code -> domain map, from any dictionary (a PowerShell hashtable).
+    // A key that is not an ADR code, or an empty domain, throws at once, so a bad registry never reaches a scan.
     // [comment:2](/docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md#comment2)
     public static IReadOnlyDictionary<string, string> Index(IDictionary raw)
     {
@@ -81,7 +81,7 @@ public static class CitationScanner
         return result;
     }
 
-    // Every citation in a file's text whose code the index lists, one site per occurrence, in line order: its line and the kind of text...
+    // Only the header is help; a later comment is a passing mention, so a subject citation differs from a stray one.
     // [comment:3](/docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md#comment3)
     public static CitationSite[] Sites(string path, string text, IReadOnlyDictionary<string, string> index)
     {
@@ -125,7 +125,7 @@ public static class CitationScanner
         return sites.ToArray();
     }
 
-    // A reference in any of the three forms as its canonical citation (ADR-<CODE> or ADR-<CODE>#n); null when the text is not one.
+    // The colon form and the hash form of one rule become one spelling, so equal rules compare equal.
     // [comment:4](/docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md#comment4)
     public static string Canonical(string reference)
     {
@@ -151,7 +151,7 @@ public static class CitationScanner
         return index.TryGetValue(code, out domain) ? domain : null;
     }
 
-    // True when a requested citation covers a cited one: a bare request covers every citation of its ADR; a one-rule request covers that...
+    // Asymmetric: a one-rule request covers a bare citation of its ADR but never another rule, so a bare request is the wider.
     // [comment:5](/docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md#comment5)
     public static bool Covers(string requested, string cited)
     {

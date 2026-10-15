@@ -2,7 +2,7 @@
 .SYNOPSIS
     Idempotently ensures a resource group exists in a given subscription and region.
 .DESCRIPTION
-    Runs `az group exists`; if missing, runs `az group create` at the given region in the given subscription.
+    The caller passes subscription and region, so the group lands in the subscription the deployment targets.
     [comment:1](/docs/references/automation/catzc-azure-templates/Deploy-AzureResourceGroup.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription the resource group must live in (from the resolved deployment context).

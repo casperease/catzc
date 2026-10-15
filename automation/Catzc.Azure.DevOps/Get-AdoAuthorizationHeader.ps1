@@ -2,10 +2,10 @@
 .SYNOPSIS
     Returns an Authorization header for Azure DevOps REST API calls.
 .DESCRIPTION
-    The sources of authentication, in priority order.
+    Every source is proven to target the configured org or tenant, so a credential alone is never trusted.
     [comment:1](/docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md#comment1)
 .PARAMETER ResourceUrl
-    The Azure AD resource URL for az CLI token requests.
+    Only the az CLI path reads it; the pipeline token and the PAT never use a resource URL.
     [comment:2](/docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md#comment2)
 .EXAMPLE
     $headers = Get-AdoAuthorizationHeader
@@ -33,7 +33,7 @@ function Get-AdoAuthorizationHeader {
         return @{ 'Authorization' = "Basic $base64" }
     }
 
-    # Prove the az session is in the Entra directory that backs the org before minting a token.
+    # Mint no token until the az session is proven to sit in the Entra directory that backs the org.
     # [comment:3](/docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md#comment3)
     Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant
 

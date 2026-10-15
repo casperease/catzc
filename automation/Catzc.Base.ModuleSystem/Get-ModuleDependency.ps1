@@ -2,7 +2,7 @@
 .SYNOPSIS
     Compiles a module-level dependency edge map from function-level dependencies.
 .DESCRIPTION
-    Takes the output of Get-FunctionDependency and collapses it into unique module-to-module edges with call counts...
+    Calls within one module never appear: only calls crossing a module boundary count toward an edge.
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-ModuleDependency.ps1.md#comment1)
 .PARAMETER Dependency
     Function dependency objects from Get-FunctionDependency. Accepts pipeline input.

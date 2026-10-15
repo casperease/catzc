@@ -1,4 +1,4 @@
-// One environment's IP plan in configs/network.yml: the vnet address space and default subnet, keyed by the azure.yml environment name.
+// Per-entry shape only: NetworkConfig builds one per entry and collects its violations with the file's.
 // [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-azure/types/NetworkEnvironment.cs.md#comment1)

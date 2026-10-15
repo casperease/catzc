@@ -5,7 +5,7 @@
     drift. Parallels Get-BicepConfigClassViolations. See
     [ADR-AZ-DATAMOD#8](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8).
 .DESCRIPTION
-    A config lives at `configuration/<env>[-<slot>].yml` (a shared-platform config) or...
+    The caller prepends the template identifier, and an empty result means the config conforms.
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md#comment1)
 .PARAMETER Customer
     The configuration subfolder name, or '' for a configuration-root config.

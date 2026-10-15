@@ -1,4 +1,4 @@
-// The customer catalogue (configs/customer.yml, ) — the customers this repo can deploy for; WHICH of them are enabled is the...
+// Self-contained: azure.yml depends on customer.yml, never the reverse, so this type never reads azure.yml.
 // [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-AZ-CUSTOMER#2](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer2),
@@ -13,7 +13,7 @@ namespace Catzc.Azure;
 
 public sealed class CustomerConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    // The catalogue, keyed by customer key in file order (a Dictionary enumerates in insertion order when nothing is removed, and this...
+    // File order is kept: a Dictionary enumerates in insertion order when nothing is removed, and this one is never mutated.
     // [comment:2](/docs/references/automation/catzc-azure/types/CustomerConfig.cs.md#comment2)
     public IReadOnlyDictionary<string, AzureCustomer> customers { get; }
 

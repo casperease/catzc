@@ -2,7 +2,7 @@
 .SYNOPSIS
     Pretty-prints any object to the console with type info and smart formatting.
 .DESCRIPTION
-    Renders objects differently based on their type: - Simple values (string, number, bool): displayed directly -...
+    Like Write-Message it stays silent during Pester runs, so a test must lift the flag to assert its output.
     [comment:1](/docs/references/automation/catzc-base-writers/Write-Object.ps1.md#comment1)
 .PARAMETER Object
     The object to display. Accepts pipeline input.

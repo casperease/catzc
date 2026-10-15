@@ -1,4 +1,4 @@
-// The shared base for typed data records that mirror an [ordered]@{} / [pscustomobject] config shape.
+// A key counts as present only when its property exists and is non-null, so nulling an optional makes Contains false.
 // [comment:1](/docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md#comment1)
 
 using System;
@@ -58,7 +58,7 @@ public abstract class DictionaryRecord
         }
     }
 
-    // A "data" property is one the DERIVED record declares — not this base's own view members (Keys, the indexer).
+    // Skipping the base's own view members is what stops Keys and ToHashtable from recursing into get_Keys forever.
     // [comment:2](/docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md#comment2)
     private static bool IsDataProp(PropertyInfo p)
     {

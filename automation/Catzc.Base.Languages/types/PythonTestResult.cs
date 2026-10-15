@@ -1,4 +1,4 @@
-// One Python test's result, as Invoke-PythonTest returns it from pytest's JUnit XML report: a top-level test function of a test file,...
+// The category is derived here, the one place the rule lives: a name starting test_integrity is integrity, all else logic.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1)
 // [comment:1](/docs/references/automation/catzc-base-languages/types/PythonTestResult.cs.md#comment1)

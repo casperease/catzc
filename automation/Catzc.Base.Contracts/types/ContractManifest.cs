@@ -1,4 +1,4 @@
-// A version folder's contract.yml, at contracts/<unit>/<version>/contract.yml: the exceptions to the direction convention.
+// Every violation is collected into one ArgumentException, and an unknown key throws; that a named asset exists is Get-Contract's check.
 // [ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractManifest.cs.md#comment1)

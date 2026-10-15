@@ -1,4 +1,4 @@
-// Claude Code PreToolUse hook: denies a Bash call that does not run inside the time safeguard.
+// The verdict is compiled from the module's own sources, so the hook, Get-TimeoutSeconds and the L0 tests share one parser and verdict.
 // [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)
 // [comment:1](/docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md#comment1)
 
@@ -57,7 +57,7 @@ public static class AssertBashTimeout
         }
     }
 
-    // timeouts.yml as the nested IDictionary TimeoutsConfig takes, typed the way the module's YAML loader types it: a plain integer is a...
+    // Typed as the module's YAML loader types it, so the verdict matches: a plain integer is a number, a quoted scalar stays a string.
     // [comment:2](/docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md#comment2)
     private static IDictionary LoadYaml(string path)
     {

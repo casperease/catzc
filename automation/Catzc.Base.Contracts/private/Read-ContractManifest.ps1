@@ -2,7 +2,7 @@
 .SYNOPSIS
     Reads a version folder's contract.yml, the direction overrides of its assets.
 .DESCRIPTION
-    The per-version manifest of sits at contracts/<unit>/<version>/contract.yml.
+    An absent contract.yml is an empty manifest, since most version folders carry none; a malformed one throws.
     [ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7)
     [comment:1](/docs/references/automation/catzc-base-contracts/private/Read-ContractManifest.ps1.md#comment1)
 .PARAMETER Folder

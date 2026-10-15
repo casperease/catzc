@@ -3,7 +3,7 @@
     Returns the black-box contract a test language's tests start the engine by: the environment variables a runner sets
     for its tool's commands.
 .DESCRIPTION
-    A Go or Python test starts the engine as a process and asserts on its output.
+    How to start the engine comes from the engine model, never the test, so one test runs under every engine.
     [ADR-AUTO-GO#3](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go3),
     [ADR-AUTO-PY#3](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py3),
     [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)
@@ -11,7 +11,7 @@
 .PARAMETER Engine
     The execution engine: pwsh (default), or any other of ExecutionEngines.Names.
 .PARAMETER EngineExecutable
-    The engine's executable, already located by the caller (a test run's source session hands it down, since a build...
+    A build run's engine has no tools.yml entry to locate a POSIX engine by, so the caller hands it down.
     [comment:2](/docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md#comment2)
 .PARAMETER EntryScript
     The PowerShell entry for a build run. Default: the repository's importer.ps1 (the source run).
@@ -49,7 +49,7 @@ function Get-EngineContract {
         Resolve-EngineExecutable -Engine $model.Name
     }
 
-    # The entry the engine itself loads: pwsh the PowerShell entry; any other engine its own importer in the...
+    # The path is forward-slashed so a POSIX shell on Windows can read the entry.
     # [comment:3](/docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md#comment3)
     $entry = if ($model.Name -eq [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) {
         $powerShellEntry

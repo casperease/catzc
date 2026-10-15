@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs ShellCheck, the analyzer for the repository's shell scripts, at the tools.yml pin.
 .DESCRIPTION
-    ShellCheck is the analyzer the Test-ShellScripts quality gate runs over every tracked *.sh file.
+    Linux uses apt-get and so needs root, while Windows and macOS stay user-scope through winget or brew.
     [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Shellcheck.ps1.md#comment1)
 .PARAMETER Version

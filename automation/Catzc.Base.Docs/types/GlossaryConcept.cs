@@ -1,4 +1,4 @@
-// One defined term of the controlled vocabulary (a configs/glossary.yml `concepts:` entry, keyed by the term).
+// Only the entry's own shape is checked on load; defined_by, domain and relation targets are cross-file facts for Test-Glossary.
 // [ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1),
 // [ADR-REPO-VOCAB#4](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab4),
 // [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5),
@@ -30,7 +30,7 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // A machine key: snake_case ('test_suite', 'all_tests').
     public static readonly Regex KeyRe = new Regex("^[a-z][a-z0-9]*(_[a-z0-9]+)*$", RegexOptions.Compiled);
 
-    // A rule citation in the '#' form: ADR-<code>[-<NAME>…]#<n>.
+    // Only the hash form with a rule number passes, so a bare domain or ADR citation is not accepted as a defining rule.
     // [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30),
     // [ADR-FLOW-CD#2](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd2)
     // [comment:2](/docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md#comment2)
@@ -69,11 +69,11 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // The avoided phrasings, in entry order. Empty when the entry avoids none.
     public IReadOnlyList<GlossaryAvoid> avoid { get; }
 
-    // The words allowed to qualify the term's head word ('quality' in 'quality gate'), in entry order.
+    // Empty means the qualified-forms check skips the term entirely, not that every qualifier is allowed.
     // [comment:3](/docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md#comment3)
     public IReadOnlyList<string> forms { get; }
 
-    // Whether the head word's -ed and -ing forms are ordinary English for this term ('scoped', 'sourced'), so the qualified-forms check...
+    // False by default, since a noun family such as gate takes no verb forms, so its -ed and -ing uses stay checked.
     // [comment:4](/docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md#comment4)
     public bool verbs { get; }
 

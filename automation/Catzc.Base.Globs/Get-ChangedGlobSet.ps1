@@ -3,7 +3,7 @@
     The globsets a diff touches — the computed area-of-control of a change
     ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)).
 .DESCRIPTION
-    Reflects a change into the globset registry: returns every declared globset whose scan program (GlobSet.Matches,...
+    Matching real refs, not a frozen hash, makes squash and concurrent merges harmless; a rename counts both paths.
     [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
     [comment:1](/docs/references/automation/catzc-base-globs/Get-ChangedGlobSet.ps1.md#comment1)
 .PARAMETER ChangedFile

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Reads and parses a JSON or YAML file for a contract check, throwing a finding-ready message when it cannot.
 .DESCRIPTION
-    Parses by the format Get-ContractDataFormat names: Json with ConvertFrom-Json -AsHashtable, Yaml with the...
+    An array is returned whole, never enumerated; a file of another format, or one that does not parse, throws its name.
     [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)
     [comment:1](/docs/references/automation/catzc-base-contracts/private/Read-ContractData.ps1.md#comment1)
 .PARAMETER RepositoryRoot
@@ -41,7 +41,7 @@ function Read-ContractData {
     catch {
         throw "'$Path' does not parse as ${format}: $($_.Exception.Message)"
     }
-    # WriteObject without enumeration hands a top-level array over whole; Write-Output -NoEnumerate would wrap the...
+    # WriteObject, not Write-Output -NoEnumerate: that would wrap the whole document in a list.
     # [comment:2](/docs/references/automation/catzc-base-contracts/private/Read-ContractData.ps1.md#comment2)
     $PSCmdlet.WriteObject($data, $false)
 }

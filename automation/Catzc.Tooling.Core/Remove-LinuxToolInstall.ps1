@@ -3,7 +3,7 @@
     Evicts an off-config Linux install of a tool so the managed (user-space) build can win — the Linux
     counterpart to Remove-SystemInstallation (Windows).
 .DESCRIPTION
-    Given a tool's tools.yml config, removes an install that did NOT come from the tool's configured manager — the...
+    Detection ignores the configured manager, so an apt azure-cli is caught though az_cli installs through uv.
     [ADR-AUTO-REMOVE#7](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove7),
     [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
     [comment:1](/docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md#comment1)
@@ -27,7 +27,7 @@ function Remove-LinuxToolInstall {
 
     $source = (Get-Command $Config.command).Source
 
-    # 1.
+    # The apt owner comes from dpkg, not from config, and removing it is the one step here that needs root.
     # [comment:2](/docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md#comment2)
     if (Test-Command dpkg) {
         $owner = Invoke-Executable "dpkg -S $source" -PassThru -NoAssert -Silent

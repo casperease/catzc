@@ -2,7 +2,7 @@
 .SYNOPSIS
     Runs poetry with the given arguments.
 .DESCRIPTION
-    Asserts that the installed Poetry version matches the locked version in Get-ToolConfig before executing the command.
+    A dry run skips the version assert, so command strings can be tested without Poetry installed.
     [comment:1](/docs/references/automation/catzc-tooling-python/Invoke-Poetry.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to poetry.

@@ -1,4 +1,4 @@
-# Per-template options for 'discovery' — the CAF application landing zone: the hub-and-spoke network, the policy assignments, the...
+# Deployed once per subscription at subscription scope, so the template creates its own resource group.
 # [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
 # [comment:1](/docs/references/infrastructure/templates/discovery/options.yml.md#comment1)
 short_name: disco

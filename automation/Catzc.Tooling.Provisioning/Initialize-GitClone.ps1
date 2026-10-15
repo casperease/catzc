@@ -2,10 +2,10 @@
 .SYNOPSIS
     Configures a fresh git clone with the local git settings this repository's workflow needs.
 .DESCRIPTION
-    Hooks up the clone-local git configuration right after a `git clone`, so the trunk-based flow works from the...
+    Writes only to the clone's local config, never the global one, and skips settings that already hold the value.
     [comment:1](/docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md#comment1)
 .PARAMETER Repository
-    Path to the cloned repository to configure.
+    Defaults to this repository's root, so a call with no argument configures the clone the session runs from.
     [comment:2](/docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md#comment2)
 .PARAMETER DryRun
     Return the `git config` commands that would run, without executing them.
@@ -16,7 +16,7 @@
 .EXAMPLE
     Initialize-GitClone ~/catzc -DryRun
 #>
-# Uses -DryRun, not ShouldProcess/-WhatIf — see.
+# The preview is a -DryRun switch that returns the git config commands, not ShouldProcess and -WhatIf.
 # [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
 # [comment:3](/docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md#comment3)
 function Initialize-GitClone {
@@ -34,13 +34,13 @@ function Initialize-GitClone {
     $workTree = Invoke-Executable 'git rev-parse --is-inside-work-tree' -WorkingDirectory $Repository -PassThru -NoAssert -Silent
     Assert-True ($workTree.ExitCode -eq 0) -ErrorText "'$Repository' is not a git repository. Clone first, then run Initialize-GitClone."
 
-    # The desired clone-local settings.
+    # pull.rebase keeps git pull working when generated-file sync commits diverge from the remote head.
     # [comment:4](/docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md#comment4)
     $settings = [ordered]@{ 'pull.rebase' = 'true' }
     if (Test-IsWslSession) {
         $credentialManager = Find-WindowsGitCredentialManager
         if ($credentialManager) {
-            # git runs the helper value through sh, so spaces in the /mnt/c path must be escaped inside the value...
+            # git runs the helper value through sh, so a space in the /mnt/c path must be escaped in the value itself.
             # [comment:5](/docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md#comment5)
             $settings['credential.helper'] = $credentialManager -replace ' ', '\ '
         }
@@ -68,7 +68,7 @@ function Initialize-GitClone {
         Invoke-Executable $command -WorkingDirectory $Repository
     }
 
-    # An unset identity is not this function's to invent, but the very next commit (often the janitor's) fails...
+    # An unset identity is reported, not invented, because the next commit, often the janitor's, fails without one.
     # [comment:6](/docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md#comment6)
     foreach ($identityKey in @('user.name', 'user.email')) {
         $identity = Invoke-Executable "git config --get $identityKey" -WorkingDirectory $Repository -PassThru -NoAssert -Silent

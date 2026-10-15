@@ -1,4 +1,4 @@
-// The sub-agent registry (configs/agents.yml): one entry per sub-agent definition under.claude/agents/, with the ADR rules that support...
+// Load checks only the file's own shape; agent files, rule ids, commands and CLAUDE.md are cross-checked by Test-AgentDefinitions.
 // [ADR-REPO-AGENTS#2](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents2),
 // [ADR-REPO-AGENTS#4](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents4),
 // [ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4),

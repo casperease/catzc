@@ -1,4 +1,4 @@
-// A template's `short_name` — the 2-5 char, lowercase-alnum Azure id segment every resource name is built from.
+// Only the short_name is Azure-facing; the kebab-case folder name never reaches a resource name.
 // [ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2),
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md#comment1)
@@ -12,7 +12,7 @@ public sealed class BicepShortName
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // The maximum short_name length.
+    // Five keeps the worst-case tight storage name at 23 of 24 characters, with a byte to spare.
     // [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)
     // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md#comment2)
     public const int MaxLength = 5;
@@ -33,7 +33,7 @@ public sealed class BicepShortName
         this.overridden = overridden;
     }
 
-    // Resolve a template's short_name from its folder name and an optional options.yml override.
+    // Throws, naming the template, on a malformed override or when the folder cannot derive a valid name without one.
     // [comment:3](/docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md#comment3)
     public static BicepShortName Resolve(string folder, string overrideValue)
     {
@@ -61,7 +61,7 @@ public sealed class BicepShortName
         return new BicepShortName(folder, derived, false);
     }
 
-    // The derivation: lowercase, keep only [a-z0-9] (drop hyphens and any other punctuation), take the first MaxLength characters.
+    // Pure and total: an all-punctuation folder yields an empty string, which Resolve rejects and so prompts an override.
     // [comment:4](/docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md#comment4)
     public static string Derive(string folder)
     {
@@ -78,7 +78,7 @@ public sealed class BicepShortName
         return sb.ToString();
     }
 
-    // A well-formed short_name: 2-MaxLength chars, a leading letter then lowercase-alnum.
+    // Mirrors the options.yml schema regex, so a name that passes here also passes Read-BicepTemplateOptions.
     // [ADR-AZ-NAMING#6](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming6)
     // [comment:5](/docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md#comment5)
     public static bool IsValid(string value)

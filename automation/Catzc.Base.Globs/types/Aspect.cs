@@ -1,4 +1,4 @@
-// Aspects: a unit's tracked files partition into named aspects — pairwise DISJOINT and jointly EXHAUSTIVE.
+// The last aspect is the non-live catch-all, so a file live does not explicitly claim can never silently ship.
 // [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md), [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
 // [comment:1](/docs/references/automation/catzc-base-globs/types/Aspect.cs.md#comment1)
 
@@ -32,7 +32,7 @@ public sealed class Aspect
     }
 }
 
-// One aspect compiled onto a unit root: the name plus the leaf (include, exclude) rule sets that encode its first-match slice.
+// The exclude set is what turns first-match order into a disjoint slice; PowerShell builds the GlobSet from these.
 // [comment:2](/docs/references/automation/catzc-base-globs/types/Aspect.cs.md#comment2)
 public sealed class CompiledAspect
 {
@@ -50,7 +50,7 @@ public sealed class CompiledAspect
 
 public static class AspectPartition
 {
-    // Compile the ordered aspect convention onto a unit root (e.g.
+    // Each aspect excludes every earlier aspect's patterns, so the last catch-all becomes the remainder under the root.
     // [comment:3](/docs/references/automation/catzc-base-globs/types/Aspect.cs.md#comment3)
     public static IReadOnlyList<CompiledAspect> Compile(IReadOnlyList<Aspect> aspects, string unitRoot)
     {
@@ -76,7 +76,7 @@ public static class AspectPartition
         return root.Length == 0 ? pattern : root + "/" + pattern;
     }
 
-    // Partition check over a file universe: every file selected by exactly one aspect.
+    // A file claimed by two aspects breaks disjointness, and one claimed by none breaks exhaustiveness.
     // [ADR-DSGN-ASPECT#5](/docs/adr/design/module-aspects.md#rule-adr-dsgn-aspect5)
     // [comment:4](/docs/references/automation/catzc-base-globs/types/Aspect.cs.md#comment4)
     public static IReadOnlyList<string> Validate(IReadOnlyList<GlobSet> aspectSets, IEnumerable<string> universe)

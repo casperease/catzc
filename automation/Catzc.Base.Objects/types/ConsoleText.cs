@@ -1,4 +1,4 @@
-// The shared console rendering of every catzc C# type, so an object held in pwsh reads as one clean line wherever PowerShell turns it...
+// PowerShell string casts call the .NET ToString and ignore an ETS one, so each type must override it to delegate here.
 // [comment:1](/docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md#comment1)
 
 using System;
@@ -145,7 +145,7 @@ public static class ConsoleText
         }
     }
 
-    // A public readable non-indexer property the type declares — not DictionaryRecord's own view members (Keys), and not one marked...
+    // Excludes DictionaryRecord's own view members (Keys) and anything hidden, so only declared data is rendered.
     // [comment:2](/docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md#comment2)
     private static bool IsDataProperty(PropertyInfo property)
     {
@@ -157,7 +157,7 @@ public static class ConsoleText
             && !IsHidden(property);
     }
 
-    // PowerShell's [Hidden], matched by name so this file stays BCL-only: the Bash time-safeguard hook compiles it (through...
+    // Matched by name, not type: the hook program compiles this file without a System.Management.Automation reference.
     // [comment:3](/docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md#comment3)
     private static bool IsHidden(PropertyInfo property)
     {

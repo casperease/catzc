@@ -1,4 +1,4 @@
-// The Azure DevOps coupling (configs/ado.yml): the data that binds this repo to one ADO organization and the Entra (Azure AD) tenant...
+// Any key beyond organization, project and tenant fails fast at load, so a misspelled key is never silently ignored.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-azure-devops/types/AdoConfig.cs.md#comment1)
 

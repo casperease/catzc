@@ -2,7 +2,7 @@
 .SYNOPSIS
     Compiles a list of function-to-function calls across all automation modules using AST.
 .DESCRIPTION
-    Parses every.ps1 file (excluding tests) under the automation root, builds a definition map of all functions, then...
+    Reads per-function source files that exist only in the source tree, so build mode stops with a named error.
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
@@ -21,7 +21,7 @@ function Get-FunctionDependency {
 
     Assert-SourceTree
 
-    # Filesystem-derived information — cached for the session, lazily on first use, keyed on the resolved automation...
+    # Cached per root for the session: only a re-import resets it, so callers must treat the result as read-only.
     # [ADR-AUTO-CACHE#2](/docs/adr/automation/caching.md#rule-adr-auto-cache2),
     # [ADR-AUTO-CACHE#4](/docs/adr/automation/caching.md#rule-adr-auto-cache4),
     # [ADR-AUTO-CACHE#6](/docs/adr/automation/caching.md#rule-adr-auto-cache6),
@@ -29,7 +29,7 @@ function Get-FunctionDependency {
     # [ADR-AUTO-CACHE#5](/docs/adr/automation/caching.md#rule-adr-auto-cache5)
     # [comment:2](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment2)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:functionDependencyCache')) {
-        # strict-clean probe of the lazy cache entry
+        # GetValue probes the entry because reading an unset script variable directly would throw under strict mode.
         # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:3](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment3)
         $script:functionDependencyCache = @{}
@@ -38,7 +38,7 @@ function Get-FunctionDependency {
         return $script:functionDependencyCache[$AutomationRoot]
     }
 
-    # Enumerate + parse every source.ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/ call...
+    # Each file is parsed once, and that AST feeds both the definition map and the call walk.
     # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
     # [comment:4](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment4)
     $isFunction = { param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] }

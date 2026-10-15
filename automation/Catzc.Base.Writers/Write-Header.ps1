@@ -2,7 +2,7 @@
 .SYNOPSIS
     Writes a header with optional message in a chosen style.
 .DESCRIPTION
-    Styles (with message / without message): Curved (default): ╭──────────────╮ ╭──────────────╮ │ Message │...
+    A rainbow colour gradients only the rule lines; the titled line keeps the profile's base colour.
     [comment:1](/docs/references/automation/catzc-base-writers/Write-Header.ps1.md#comment1)
 .PARAMETER Message
     The text to display. If omitted, writes a single separator line.
@@ -11,7 +11,7 @@
 .PARAMETER Width
     Total width of the separator lines. Defaults to 78.
 .PARAMETER ForegroundColor
-    Colour for the output: a [System.ConsoleColor] (or its name), a 'rainbow' / '<base>-rainbow' bareword, or a...
+    Omit it and the output renders in the terminal default; a rainbow value gives a per-character gradient rule.
     [comment:2](/docs/references/automation/catzc-base-writers/Write-Header.ps1.md#comment2)
 .EXAMPLE
     Write-Header 'Deployment starting'

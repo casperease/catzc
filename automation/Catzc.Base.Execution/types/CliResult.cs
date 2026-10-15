@@ -1,4 +1,4 @@
-// The captured result of running an external command: stdout and stderr kept separate, plus convenience views derived from them.
+// The constructor owns every derived view, so Output, Errors, Full and Raw can never disagree.
 // [comment:1](/docs/references/automation/catzc-base-execution/types/CliResult.cs.md#comment1)
 
 using System;
@@ -25,7 +25,7 @@ public sealed class CliResult
     // Output split into lines — the line-oriented view for callers that parse output row by row.
     public string[] Raw { get; }
 
-    // The exact stdout bytes of a binary run (Invoke-Executable -AsBytes); null for a text run, whose stdout is Output.
+    // Null for a text run, and a binary run leaves Output empty, so read this one for binary stdout.
     // [comment:2](/docs/references/automation/catzc-base-execution/types/CliResult.cs.md#comment2)
     public byte[] Bytes { get; }
 

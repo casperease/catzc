@@ -1,4 +1,4 @@
-// The Bash time safeguard's verdict on one Claude Code Bash call.
+// The hook only ever denies and never rewrites a command, since an allow skips the prompt and a rewrite can dodge deny rules.
 // [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)
 // [comment:1](/docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md#comment1)
 
@@ -12,14 +12,14 @@ public static class BashSafeguard
 {
     public const string ConfigRelativePath = "automation/Catzc.Base.Timeouts/configs/timeouts.yml";
 
-    // The run environment, by the same test as Test-IsRunningInPipeline: either variable set to any non-empty value means a pipeline.
+    // Must stay in step with Test-IsRunningInPipeline: any non-empty value in either variable means a pipeline.
     // [comment:2](/docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md#comment2)
     public static string EnvironmentOf(string tfBuild, string githubActions)
     {
         return string.IsNullOrEmpty(tfBuild) && string.IsNullOrEmpty(githubActions) ? "Devbox" : "Pipeline";
     }
 
-    // The verdict for one hook payload: null to let the call through, or the reason to deny it.
+    // logLine is a tab-separated denial record, null when allowed; the records make up the tuning list of blockers.
     // [comment:3](/docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md#comment3)
     public static string Decide(string payload, TimeoutsConfig config, string environment, out string logLine)
     {

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Asserts the current az CLI login can reach a given subscription.
 .DESCRIPTION
-    The throwing companion to Test-AzCliSubscriptionAccessible.
+    A pass proves a real ARM call will work, not merely that the subscription is in the local profile.
     [ADR-AZ-CLI#1](/docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1),
     [ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)
     [comment:1](/docs/references/automation/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md#comment1)

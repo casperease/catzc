@@ -3,7 +3,7 @@
     Builds the IDE-only C# type project (Catzc.Types.csproj) so VS Code's C# Dev Kit sees the native type
     sources — the editor-facing build pathway, separate from the runtime's Add-Type compile.
 .DESCRIPTION
-    The runtime compiles every automation/<Module>/types/*.cs at import with Add-Type (Import-CSharpTypes), and that...
+    Unlike the runtime Add-Type compile, this runs the analyzers and fails when the committed DLL is stale.
     [ADR-AUTO-TYPES](/docs/adr/automation/BCL/native-csharp-types.md), [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md#comment1)
 .PARAMETER Configuration
@@ -38,7 +38,7 @@ function Invoke-BuildForVSCode {
     $project = Join-Path (Get-RepositoryRoot) 'automation/.internal/assets/Catzc.Types.csproj'
     Assert-PathExist $project
 
-    # The stamp task's "stamped version …" line and any analyzer diagnostics stream through.
+    # A non-zero exit, from a stale committed DLL or an analyzer error, throws through Invoke-Executable.
     # [comment:2](/docs/references/automation/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md#comment2)
     $result = Invoke-Executable "dotnet build `"$project`" --configuration $Configuration" -PassThru
 

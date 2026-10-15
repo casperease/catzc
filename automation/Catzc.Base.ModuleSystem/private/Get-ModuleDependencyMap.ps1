@@ -3,7 +3,7 @@
     Builds the declared module -> dependency-set map from configs/dependencies.yml (the edges of the declared
     graph), shared by Get-ModuleTestOrder (topological order) and Get-ModuleDependencyClosure (subset closure).
 .DESCRIPTION
-    Returns a hashtable: module name -> [HashSet[string]] of the modules it is declared to depend on.
+    A group target expands to its members except for a member of that group, whose order step 1 already governs.
     [comment:1](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md#comment1)
 .PARAMETER Module
     The module set to build the map over. Defaults to all on-disk modules (Get-AutomationModules).
@@ -26,7 +26,7 @@ function Get-ModuleDependencyMap {
         $groupMembers[$group] = @($groups[$group].Keys)
     }
 
-    # module -> the set of modules it depends on.
+    # The loop variable avoids $module: names are case-insensitive, so the typed $Module parameter would coerce it.
     # [comment:2](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md#comment2)
     $dependencyMap = @{}
     foreach ($moduleName in $Module) {
@@ -45,7 +45,7 @@ function Get-ModuleDependencyMap {
         }
     }
 
-    # 2) Per-module allowed deps.
+    # A group target skips a module's own group: step 1 governs that order, and expanding would couple siblings.
     # [comment:3](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md#comment3)
     foreach ($moduleName in $allowed.Keys) {
         if (-not $dependencyMap.ContainsKey($moduleName)) {

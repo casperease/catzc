@@ -2,15 +2,15 @@
 .SYNOPSIS
     Runs a script block inside a time safeguard: past its limit it is stopped and the call throws.
 .DESCRIPTION
-    Runs the script block in the current runspace — it sees the same functions, modules and variables it would see...
+    The watchdog also stops a native command the block waits on; a terminating error is rethrown as itself, not wrapped.
     [comment:1](/docs/references/automation/catzc-base-timeouts/Invoke-WithTimeout.ps1.md#comment1)
 .PARAMETER ScriptBlock
     The work to run.
 .PARAMETER Budget
-    The work's immutable budget GUID (registered in the managed-GUID registry).
+    While the budget is exempt, the default limit becomes the exemption ceiling, not the normal pwsh limit.
     [comment:2](/docs/references/automation/catzc-base-timeouts/Invoke-WithTimeout.ps1.md#comment2)
 .PARAMETER Seconds
-    The limit in seconds.
+    Left unset, the limit comes from timeouts.yml for this environment, or from the budget's exemption ceiling.
     [comment:3](/docs/references/automation/catzc-base-timeouts/Invoke-WithTimeout.ps1.md#comment3)
 .PARAMETER Activity
     What the work is, for the timeout message. Defaults to the script block's text.

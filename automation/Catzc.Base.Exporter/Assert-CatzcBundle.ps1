@@ -3,7 +3,7 @@
     Verifies a Catzc build (or an install of one) is complete and unchanged since it was built; throws with every
     violation.
 .DESCRIPTION
-    The build's integrity guard.
+    The content hash proves nothing drifted after the build, and the types hash proves the DLL matches its sources.
     [ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)
     [comment:1](/docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md#comment1)
 .PARAMETER Path
@@ -79,7 +79,7 @@ function Assert-CatzcBundle {
                 }
             }
 
-            # Stage the sources build.json records in the one layout Get-CombinedTypeHash reads...
+            # Staged in Get-CombinedTypeHash's own layout, so the hash never rests on a second copy of its recipe.
             # [comment:2](/docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md#comment2)
             $staging = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "catzc-types-$([System.Guid]::NewGuid().ToString('N'))")
             try {

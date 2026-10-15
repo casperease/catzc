@@ -2,7 +2,7 @@
 .SYNOPSIS
     Runs one located executable's version command and returns the parsed version — the probe's only process start.
 .DESCRIPTION
-    Runs the executable at -Path (never whatever its bare name resolves to on PATH) with -Arguments, once, in the...
+    Output that misses the pattern yields null, not an error, so the caller decides what no version means.
     [comment:1](/docs/references/automation/catzc-base-execution/private/Get-ExecutableVersion.ps1.md#comment1)
 .PARAMETER Path
     The located executable's full path.
@@ -27,7 +27,7 @@ function Get-ExecutableVersion {
         [string] $Pattern
     )
 
-    # Run in the executable's own folder, never the repository: a tool that reads project files from its working...
+    # Own folder, not the repository: a project file such as go.work or global.json would change the reported version.
     # [comment:2](/docs/references/automation/catzc-base-execution/private/Get-ExecutableVersion.ps1.md#comment2)
     $folder = [System.IO.Path]::GetDirectoryName($Path)
     $result = Invoke-Executable "`"$Path`" $Arguments".TrimEnd() -WorkingDirectory $folder -PassThru -NoAssert -Silent

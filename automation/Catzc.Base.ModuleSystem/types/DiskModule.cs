@@ -1,4 +1,4 @@
-// An on-disk automation module — a folder under automation/.
+// This is the facet Copy-Automation copies: a repository-root-relative folder path plus its named packages.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/DiskModule.cs.md#comment1)
 
 using System.Collections.Generic;

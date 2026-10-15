@@ -1,4 +1,4 @@
-# Whole-pipeline (extends) template — the ONE shared structure for every customer CD.
+# Every entry pins its subscription with subscriptionIdAssertIs, so a mis-wired service connection fails loudly, not silently.
 # [ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md),
 # [ADR-PIPE-TEMPLATE](/docs/adr/pipelines/custom-template-discipline.md), [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),
 # [ADR-AZ-LZ#7](/docs/adr/azure/landing-zones.md#rule-adr-az-lz7)
@@ -25,7 +25,7 @@ stages:
         steps:
           - checkout: self
 
-          # Build only this customer's configuration subfolder (build-once).
+          # The customer key is the folder, so -Customers needs no subscription names and tolerates an absent tier.
           # [comment:2](/docs/references/pipelines/extends/cd-customer.yaml.md#comment2)
           - template: /pipelines/steps/invoke-automation.yaml
             parameters:
@@ -41,7 +41,7 @@ stages:
           - publish: out/template/discovery
             artifact: discovery
 
-          # A customer without an expedition config passes an empty Expeditions list: Build-Bicep throws when no slot matches, so the...
+          # Build-Bicep throws when no slot matches, so an empty Expeditions list skips the build, its artifact and its deploy stage.
           # [comment:3](/docs/references/pipelines/extends/cd-customer.yaml.md#comment3)
           - ${{ if gt(length(parameters.Expeditions), 0) }}:
               - template: /pipelines/steps/invoke-automation.yaml
@@ -107,7 +107,7 @@ stages:
                           'Deploy-Bicep -Environment ${{ d.env }} -Template discovery -SubscriptionIdAssertIs ${{ d.subscriptionIdAssertIs
                           }} -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
-  # --- Deploy expedition (slotted; lands in the discovery spoke) — after discovery, main only ----- An entry with a slot deploys the...
+  # An empty Expeditions list inserts no stage at all, because an ADO stage needs at least one job.
   # [comment:4](/docs/references/pipelines/extends/cd-customer.yaml.md#comment4)
   - ${{ if gt(length(parameters.Expeditions), 0) }}:
       - stage: Deploy_Expedition

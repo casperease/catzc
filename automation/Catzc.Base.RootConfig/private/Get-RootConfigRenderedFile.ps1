@@ -2,7 +2,7 @@
 .SYNOPSIS
     Renders a generator entry of the root-config registry into one { Target; Content } record per file.
 .DESCRIPTION
-    Calls the entry's generator through the dispatch (Invoke-RootConfigGenerator, passing the entry's target) and...
+    A wildcard target may render no file, but a literal target must render exactly one; any other shape throws.
     [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-rootconfig/private/Get-RootConfigRenderedFile.ps1.md#comment1)
 .PARAMETER Entry

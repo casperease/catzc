@@ -2,12 +2,12 @@
 .SYNOPSIS
     Scans a directory recursively for YAML files and classifies each as Pipeline, Template, or Unknown.
 .DESCRIPTION
-    Finds all.yml and.yaml files under the specified path, parses each with ConvertFrom-Yaml, and uses top-level key...
+    A file that fails YAML parsing stays in the output as Unknown with ParseError set, never dropped.
     [comment:1](/docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md#comment1)
 .PARAMETER Path
     Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
 .PARAMETER Exclude
-    Directory names to skip during scanning.
+    Names match exactly at any depth of the path, not as wildcards or partial paths.
     [comment:2](/docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md#comment2)
 .EXAMPLE
     Get-AdoYamlFiles -Path 'C:\repos\big-mono'
@@ -36,7 +36,7 @@ function Get-AdoYamlFiles {
 
     Write-Message "Scanning for YAML files in: $scanRoot"
 
-    # Recurse with [System.IO], PRUNING excluded directories during the walk rather than enumerating the whole tree...
+    # Prune excluded directories while walking, as Get-ChildItem -Recurse enumerated them all before filtering.
     # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
     # [comment:3](/docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md#comment3)
     $excludeSet = [System.Collections.Generic.HashSet[string]]::new(
@@ -79,7 +79,7 @@ function Get-AdoYamlFiles {
                 $parseError = 'File is empty'
             }
             else {
-                # ADO template expressions (${{ if }}, ${{ each }}, ${{ parameters.x }}) are not valid YAML.
+                # Neutralized so top-level keys parse; each placeholder is unique to avoid duplicate-key errors.
                 # [comment:4](/docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md#comment4)
                 $counter = @{ i = 0 }
                 $sanitized = [regex]::Replace($content, '\$\{\{.+?\}\}', { $counter.i++; "__ado_expr_$($counter.i)__" })

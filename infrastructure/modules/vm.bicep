@@ -1,4 +1,4 @@
-// Reusable bicep module: a Windows virtual machine with its NIC and a dynamic public IP.
+// The default SKU is the cheapest available because this is a proof-of-concept VM, not a sized workload host.
 // [comment:1](/docs/references/infrastructure/modules/vm.bicep.md#comment1)
 
 @description('VM name. Also used as the Windows computer name, so keep it <= 15 chars.')

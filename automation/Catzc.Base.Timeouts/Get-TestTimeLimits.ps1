@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the test-run time limits: the most one test of each tier may take, and the budget for a whole run.
 .DESCRIPTION
-    Reads the `tests` section of timeouts.yml (TimeoutsConfig), defaults filled in, so Test-Automation's timing...
+    One source for the timing report and the run-budget check, so Test-Automation keeps no literal limit of its own.
     [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)
     [comment:1](/docs/references/automation/catzc-base-timeouts/Get-TestTimeLimits.ps1.md#comment1)
 .OUTPUTS

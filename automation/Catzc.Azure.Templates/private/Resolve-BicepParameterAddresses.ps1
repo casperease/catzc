@@ -2,7 +2,7 @@
 .SYNOPSIS
     Resolves the config-addressed entries of a template config's parameters into ARM `value` entries.
 .DESCRIPTION
-    A parameter in a template config's `ParametersFile.parameters` takes one of three forms: a literal `{ value: …...
+    An address reaches only version-controlled config, so a secure parameter takes a reference, never an address.
     [ADR-AZ-DATAMOD#10](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10),
     [ADR-CONF-ADDRESSING#1](/docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing1),
     [ADR-CONF-ADDRESSING#3](/docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing3)

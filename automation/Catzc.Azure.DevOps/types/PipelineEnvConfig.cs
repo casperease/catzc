@@ -1,4 +1,4 @@
-// The pipeline-diagnostics whitelist, configs/pipeline-env.yml: a top-level SEQUENCE of environment variable names that...
+// The YAML has no top-level key, so the sequence is exposed as variables and every violation throws at once.
 // [comment:1](/docs/references/automation/catzc-azure-devops/types/PipelineEnvConfig.cs.md#comment1)
 
 using System;

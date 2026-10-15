@@ -1,4 +1,4 @@
-// A value-chain highlight: the lit cells of the value-chain map for ADR references.
+// A rule sits where its ADR sits, so a one-rule reference lights the same cells as its whole ADR.
 // [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16),
 // [ADR-DSGN-TRACK#12](/docs/adr/design/tracks.md#rule-adr-dsgn-track12),
 // [ADR-THES-ONETRUTH#3](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)

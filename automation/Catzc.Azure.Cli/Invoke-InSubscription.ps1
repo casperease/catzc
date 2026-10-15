@@ -2,7 +2,7 @@
 .SYNOPSIS
     Runs a script block against a target subscription, restoring the original context afterwards.
 .DESCRIPTION
-    Captures the active subscription (Get-CurrentAzSubscription), switches to the target (Set-CurrentAzSubscription),...
+    A failed restore only warns when the block threw, so a cleanup failure never masks the block's real error.
     [comment:1](/docs/references/automation/catzc-azure-cli/Invoke-InSubscription.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID (or display name) to run the block against.

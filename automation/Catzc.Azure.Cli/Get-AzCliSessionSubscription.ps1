@@ -2,7 +2,7 @@
 .SYNOPSIS
     Resolves the az session's active subscription to its declared azure.yml identity.
 .DESCRIPTION
-    The reverse lookup that makes the session the deploy-target selector: reads the active subscription...
+    A session on a subscription azure.yml does not declare is an error, never a fallback: config defines correct.
     [ADR-AZ-SESSION](/docs/adr/azure/az-session-verification.md)
     [comment:1](/docs/references/automation/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md#comment1)
 .OUTPUTS

@@ -1,4 +1,4 @@
-// One place a file cites an ADR: the file, the 1-based line, the canonical citation, and the kind of text it sits in, so a highlight can...
+// The kind tells a subject citation from a passing mention, so a highlight can say why a lit file cites the request.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/CitationSite.cs.md#comment1)
 

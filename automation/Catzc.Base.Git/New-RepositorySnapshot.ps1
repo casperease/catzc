@@ -2,13 +2,13 @@
 .SYNOPSIS
     Creates a verified, isolated snapshot of a repository's working tree as it is right now.
 .DESCRIPTION
-    Builds a throwaway copy of the source repository that is byte-identical to its working tree: HEAD plus every...
+    Copies working-tree bytes, not a checkout, so core.autocrlf cannot alter them; ignored content stays out.
     [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)
     [comment:1](/docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md#comment1)
 .PARAMETER SourceRoot
     The repository to snapshot. Defaults to the repository root (Get-RepositoryRoot).
 .PARAMETER Destination
-    The folder to create the snapshot in; it must not exist yet.
+    Must not exist yet, so a snapshot never mixes into a folder it did not create.
     [comment:2](/docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md#comment2)
 .PARAMETER Attempts
     How many times to build the snapshot when verification finds it differs from its source. Default 3.
@@ -58,7 +58,7 @@ function New-RepositorySnapshot {
         try {
             Invoke-Executable "git clone --quiet --shared --no-checkout `"$SourceRoot`" `"$Destination`"" -PassThru -Silent | Out-Null
 
-            # The provenance marker goes in first, so the cleanup below (and any later Remove-RepositorySnapshot)...
+            # Marker first: even a half-built snapshot is then recognised as deletable by the failure cleanup.
             # [comment:3](/docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md#comment3)
             $marker = [ordered]@{
                 sourceRoot = $SourceRoot
@@ -91,7 +91,7 @@ function New-RepositorySnapshot {
                 [System.IO.File]::Copy($sourceFile, $targetFile, $true)
             }
 
-            # The gate: the snapshot's status must equal the source's.
+            # --no-optional-locks keeps the source index untouched, so the gate cannot race other git commands.
             # [comment:4](/docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md#comment4)
             $statusCommand = 'git --no-optional-locks -C "{0}" -c core.quotepath=off status --porcelain=v2 --untracked-files=all'
             $sourceStatus = @((Invoke-Executable ($statusCommand -f $SourceRoot) -PassThru -Silent).Output -split '\r?\n' | Where-Object { $_ })
@@ -110,7 +110,7 @@ function New-RepositorySnapshot {
                 $mismatch = [pscustomobject]@{ Count = $differences.Count; Sample = $sample }
             }
 
-            # Status counts relative to HEAD: '1'/'2'/'u' lines are changed entries (deleted when either side of the...
+            # Deleted means D on either side of the XY code, so a staged or an unstaged deletion counts once.
             # [comment:5](/docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md#comment5)
             $modified = 0
             $deleted = 0

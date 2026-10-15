@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the transitive closure of all functions that a given function depends on.
 .DESCRIPTION
-    Takes a function name and walks the call graph produced by Get-FunctionDependency using breadth-first search.
+    Each function appears once, at the depth where breadth-first search first reached it, with the caller that did.
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependencyTree.ps1.md#comment1)
 .PARAMETER Function
     The name of the root function to trace dependencies from.

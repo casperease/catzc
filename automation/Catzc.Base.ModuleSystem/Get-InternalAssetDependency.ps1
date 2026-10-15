@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists every internal asset dependency in the module code — one record per Get-CatzcModuleRoot call site.
 .DESCRIPTION
-    The inventory of, derived from the code: the code is the registration, so there is no separate list to keep in step.
+    A call with a computed -ChildPath or -Module cannot be inventoried, so by default it throws, never listing...
     [ADR-AUTO-ASSETDEP#2](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2),
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md#comment1)
@@ -11,7 +11,7 @@
 .PARAMETER Module
     Scan only these module folders. Default: every module folder (non-dot) under the automation root.
 .PARAMETER Violation
-    Return the call sites whose -ChildPath or -Module is not a string literal ({ Module; Function; File; Line;...
+    Lists the non-literal call sites without throwing, so a caller can report every violation at once.
     [comment:2](/docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] One record per call site: Module, Function, ChildPath, File, Line (with -Violation, one
@@ -35,7 +35,7 @@ function Get-InternalAssetDependency {
     Assert-SourceTree
     Assert-PathExist $AutomationRoot -PathType Container
 
-    # The helper's own parameter metadata decides how each argument binds: which names (or unambiguous prefixes, or...
+    # Binding comes from the helper's own metadata, so a common parameter's value is never mistaken for the path.
     # [comment:3](/docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md#comment3)
     $helperName = 'Get-CatzcModuleRoot'
     $helperParameters = (Get-Command $helperName -CommandType Function).Parameters

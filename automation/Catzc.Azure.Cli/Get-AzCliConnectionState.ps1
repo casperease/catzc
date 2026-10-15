@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the az CLI session's connection state relative to a given subscription and/or tenant.
 .DESCRIPTION
-    Runs `az account show` and compares the active session against the identity passed by argument — a subscription...
+    The one comparison behind both Test and Assert, so the bool and the throw cannot drift apart.
     [comment:1](/docs/references/automation/catzc-azure-cli/Get-AzCliConnectionState.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID the session must be set to.

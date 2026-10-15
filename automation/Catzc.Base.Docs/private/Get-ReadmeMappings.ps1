@@ -2,7 +2,7 @@
 .SYNOPSIS
     Resolves the readme config into the concrete folder -> source README copy-in list Build-Readme generates.
 .DESCRIPTION
-    Expands each `patterns` glob against the filesystem and merges the result with the explicit `mappings`.
+    A folder with no source file is skipped, so the importer's Build-Readme never throws on a missing article.
     [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-ReadmeMappings.ps1.md#comment1)
 .PARAMETER Config
@@ -45,7 +45,7 @@ function Get-ReadmeMappings {
             continue
         }
 
-        # [System.IO] (sorted) rather than Get-ChildItem — the cmdlet carries ~20ms of per-call provider overhead the...
+        # Sorted .NET enumeration, since Get-ChildItem carries about 20ms of provider overhead per call.
         # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
         # [comment:2](/docs/references/automation/catzc-base-docs/private/Get-ReadmeMappings.ps1.md#comment2)
         foreach ($dir in ([System.IO.Directory]::EnumerateDirectories($prefixPath) | Sort-Object)) {

@@ -1,4 +1,4 @@
-// A "<base>-rainbow" colour profile: a header/footer rule rendered as a gradient anchored on a base [System.ConsoleColor] — char 0 IS...
+// Char 0 is the anchor and later chars walk a chromatic ring, so a dark anchor still gives a legible gradient.
 // [ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7),
 // [ADR-AUTO-CONSOLE](/docs/adr/automation/console-output-matters.md)
 // [comment:1](/docs/references/automation/catzc-base-writers/types/RainbowColor.cs.md#comment1)
@@ -10,7 +10,7 @@ namespace Catzc.Base.Writers;
 
 public sealed class RainbowColor
 {
-    // The chromatic walk: a 7-hue rainbow over the vivid console colours only.
+    // Neutrals and dark blues are left out so no step lands on an unreadable colour; DarkYellow stands in for orange.
     // [comment:2](/docs/references/automation/catzc-base-writers/types/RainbowColor.cs.md#comment2)
     public static readonly ConsoleColor[] Ring =
     {
@@ -26,7 +26,7 @@ public sealed class RainbowColor
     // The anchor colour — char 0, and the colour this profile side-grades to.
     public ConsoleColor Base { get; }
 
-    // The anchor's index in the chromatic ring, or -1 when the anchor is non-chromatic (its walk then starts at the head of the ring...
+    // Minus one marks a non-chromatic anchor, whose walk starts at the ring head instead of continuing from the anchor.
     // [comment:3](/docs/references/automation/catzc-base-writers/types/RainbowColor.cs.md#comment3)
     private readonly int baseIndex;
 
@@ -36,7 +36,7 @@ public sealed class RainbowColor
         baseIndex = Array.IndexOf(Ring, baseColor);
     }
 
-    // The colour of the character at position index.
+    // Char 0 is always the literal anchor, so a chromatic anchor continues from its own ring position afterwards.
     // [comment:4](/docs/references/automation/catzc-base-writers/types/RainbowColor.cs.md#comment4)
     public ConsoleColor ColorAt(int index)
     {
@@ -45,7 +45,7 @@ public sealed class RainbowColor
         return Ring[(index - 1) % Ring.Length];
     }
 
-    // Render text as the gradient: each character carries its ColorAt colour, one trailing reset.
+    // Meant for a single-line rule only, since a header or footer border is the one place a gradient is drawn.
     // [comment:5](/docs/references/automation/catzc-base-writers/types/RainbowColor.cs.md#comment5)
     public string Wrap(string text)
     {
@@ -59,7 +59,7 @@ public sealed class RainbowColor
         return builder.ToString();
     }
 
-    // The inverse of ToString: parse a rainbow token into a profile, or return null when the text is not one (so a caller can fall...
+    // Null for a non-rainbow text lets the caller fall through to a plain ConsoleColor parse; matching ignores case.
     // [comment:6](/docs/references/automation/catzc-base-writers/types/RainbowColor.cs.md#comment6)
     public static RainbowColor FromString(string text)
     {
@@ -82,7 +82,7 @@ public sealed class RainbowColor
         return null;
     }
 
-    // Side-grade: when only one colour is needed, a profile IS its base colour.
+    // This implicit conversion lets a profile reach any ConsoleColor sink and degrade cleanly to a single colour.
     // [comment:7](/docs/references/automation/catzc-base-writers/types/RainbowColor.cs.md#comment7)
     public static implicit operator ConsoleColor(RainbowColor profile)
     {

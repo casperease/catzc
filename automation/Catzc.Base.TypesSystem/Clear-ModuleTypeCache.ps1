@@ -2,20 +2,20 @@
 .SYNOPSIS
     Removes superseded compiled C# type assemblies, keeping the current combined build.
 .DESCRIPTION
-    The single combined assembly in automation/.compiled/ (Catzc.Types.<combinedHash8>.dll) is committed to source...
+    A delete that still fails means something outside catzc holds the file, and it is named in a thrown error.
     [ADR-AUTO-CACHE#8](/docs/adr/automation/caching.md#rule-adr-auto-cache8),
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment1)
 .PARAMETER AutomationRoot
-    Path to the automation directory (the parent of.compiled/).
+    An explicit root other than the loaded code root is cleaned even in build mode, where the default is a no-op.
     [comment:2](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment2)
 .PARAMETER DryRun
     Return the list of cache files that would be deleted, without deleting anything.
 .PARAMETER Silent
-    Suppress the per-file and end-state 'type cache: …' messages.
+    The importer passes this to keep a normal load quiet; a failed delete still throws.
     [comment:3](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment3)
 .PARAMETER StopLockingProcesses
-    The kill switch.
+    Off by default, because stopping a process can lose its unsaved work; it is asked for, never assumed.
     [comment:4](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment4)
 .EXAMPLE
     Clear-ModuleTypeCache
@@ -49,7 +49,7 @@ function Clear-ModuleTypeCache {
 
     $compiledDir = Join-Path $AutomationRoot '.compiled'
 
-    # Pipeline: nothing is deleted (CI makes no source-control changes), so more than one Catzc.Types.*.dll means two...
+    # In CI two Catzc.Types.*.dll files mean two builds were committed, so it throws rather than deletes.
     # [comment:5](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment5)
     if (Test-IsRunningInPipeline) {
         # @(): an if-expression unrolls a 0/1-item list.
@@ -79,7 +79,7 @@ function Clear-ModuleTypeCache {
         return
     }
 
-    # Keep exactly the current build (Catzc.Types.<combinedHash8>.dll) and prune every other Catzc.Types.*.dll.
+    # The hash is the loader's own implementation, so the janitor cannot plan the live build for deletion.
     # [comment:6](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment6)
     Import-InternalModule Types
     $combinedHash = (Get-CombinedTypeHash $AutomationRoot).CombinedHash
@@ -120,7 +120,7 @@ function Clear-ModuleTypeCache {
         }
     }
 
-    # The kill switch: stop each process holding a build that would not delete, then retry the delete.
+    # Windows frees a stopped process's mapped image a moment after exit, so the delete is retried over a short window.
     # [comment:7](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment7)
     if ($StopLockingProcesses -and $failed.Count) {
         $retried = [System.Collections.Generic.List[pscustomobject]]::new()
@@ -163,7 +163,7 @@ function Clear-ModuleTypeCache {
     }
 
     if ($failed.Count) {
-        # Who holds each surviving file — best-effort: the lookup only enriches the message, so a Restart Manager...
+        # Best-effort: the lookup only enriches the message, so its failure leaves the plain delete error.
         # [comment:8](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment8)
         $details = foreach ($entry in $failed) {
             $name = [System.IO.Path]::GetFileName($entry.Path)

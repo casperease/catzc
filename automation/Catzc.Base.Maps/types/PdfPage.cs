@@ -1,4 +1,4 @@
-// One page of a PdfDocument: its size in points and the content-stream operators drawn on it, in call order.
+// A character outside WinAnsi throws instead of printing a wrong glyph; the origin is the bottom-left corner.
 // [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/PdfPage.cs.md#comment1)
 
@@ -69,7 +69,7 @@ public sealed class PdfPage
     public PdfPage Line(double x1, double y1, double x2, double y2) =>
         Append(PdfNumber.Format(x1) + " " + PdfNumber.Format(y1) + " m " + PdfNumber.Format(x2) + " " + PdfNumber.Format(y2) + " l S");
 
-    // One line of text in the fill colour, its baseline starting at (x, y) (BT Tf Td Tj ET).
+    // Bytes from 0x80 up are written as octal escapes, so the content stream stays pure ASCII.
     // [comment:2](/docs/references/automation/catzc-base-maps/types/PdfPage.cs.md#comment2)
     public PdfPage Text(PdfFont font, double size, double x, double y, string text)
     {
@@ -92,7 +92,7 @@ public sealed class PdfPage
         }
     }
 
-    // The text as the body of a PDF literal string: WinAnsi codes, with '(', ')' and '\' escaped and 0x80-0xFF as three-digit octal...
+    // A character with no WinAnsi code throws, named by its code point and index, rather than being dropped or replaced.
     // [comment:3](/docs/references/automation/catzc-base-maps/types/PdfPage.cs.md#comment3)
     public static string Escape(string text)
     {

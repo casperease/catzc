@@ -1,4 +1,4 @@
-// Rebases the relative links of a markdown article for a copy of it in another folder: every relative link target is resolved at the...
+// Pure and repository-relative, so the result never depends on OS or disk; code, URLs, anchors and rooted links stay as written.
 // [ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/MarkdownLinkRebaser.cs.md#comment1)
 
@@ -18,7 +18,7 @@ public static class MarkdownLinkRebaser
     static readonly Regex Fence = new Regex(@"^ {0,3}(`{3,}|~{3,})", RegexOptions.Compiled);
     static readonly Regex Scheme = new Regex(@"^[a-zA-Z][a-zA-Z0-9+.\-]*:", RegexOptions.Compiled);
 
-    // The article's text with every relative link rebased from sourceRepoPath's folder to folderRepoPath.
+    // An empty folderRepoPath is the repository root, and a null or empty text comes back unchanged.
     // [comment:2](/docs/references/automation/catzc-base-docs/types/MarkdownLinkRebaser.cs.md#comment2)
     public static string Rebase(string text, string sourceRepoPath, string folderRepoPath)
     {

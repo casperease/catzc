@@ -1,4 +1,4 @@
-// Single source of the ConsoleColor -> ANSI SGR foreground-escape map, shared by every writer that emits color.
+// The one colour-to-escape table: Write-InformationColored and RainbowColor both read it, so no inline switch can drift.
 // [ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)
 // [comment:1](/docs/references/automation/catzc-base-writers/types/Ansi.cs.md#comment1)
 
@@ -8,15 +8,15 @@ namespace Catzc.Base.Writers;
 
 public static class Ansi
 {
-    // The ESC control byte (0x1B) that opens every SGR sequence.
+    // Built from its code point, not an escape literal, so the source carries no raw control character.
     // [comment:2](/docs/references/automation/catzc-base-writers/types/Ansi.cs.md#comment2)
     private const char Esc = (char)27;
 
-    // SGR reset — closes a coloured run.
+    // CI log renderers reset ANSI at newlines, so a multi-line caller re-opens the colour per line.
     // [comment:3](/docs/references/automation/catzc-base-writers/types/Ansi.cs.md#comment3)
     public static readonly string Reset = Esc + "[0m";
 
-    // SGR foreground code per ConsoleColor, indexed by (int)color (Black = 0..
+    // The enum order is not the ANSI order, so this is a deliberate remap and not 30 plus the index.
     // [comment:4](/docs/references/automation/catzc-base-writers/types/Ansi.cs.md#comment4)
     private static readonly int[] Codes =
     {
@@ -38,7 +38,7 @@ public static class Ansi
         97, // 15 White
     };
 
-    // The opening escape for a colour (e.g.
+    // An out-of-range value gives an empty string, so a caller can treat no colour as pass the text through.
     // [comment:5](/docs/references/automation/catzc-base-writers/types/Ansi.cs.md#comment5)
     public static string Code(ConsoleColor color)
     {
@@ -47,7 +47,7 @@ public static class Ansi
         return Esc + "[" + Codes[i].ToString() + "m";
     }
 
-    // Wrap one run of text in a colour and reset.
+    // Single-line by contract: only the caller knows whether its text is one logical line or several.
     // [comment:6](/docs/references/automation/catzc-base-writers/types/Ansi.cs.md#comment6)
     public static string Wrap(string text, ConsoleColor color)
     {

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the repository's contract assets, with every fact derived from each asset's name.
 .DESCRIPTION
-    Enumerates contracts/<unit>/<version>/<module>/<path> and returns one ContractAsset per file under a module folder.
+    Nothing is registered: every fact comes from folder and file names, and the real files are never read.
     [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),
     [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
     [ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7),
@@ -21,7 +21,7 @@
 .PARAMETER Addressing
     How an asset addresses many files. Default: contracts.yml's addressing.
 .PARAMETER TargetRoot
-    Each owning module's target root, module name to repository-relative folder; a module it does not name takes the...
+    A module the map does not name takes the repository root, so an empty map puts every target at the root.
     [comment:2](/docs/references/automation/catzc-base-contracts/Get-Contract.ps1.md#comment2)
 .PARAMETER RepositoryRoot
     The repository root that holds contracts/. Default: the loaded repository root.

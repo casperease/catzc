@@ -3,12 +3,12 @@
     Generates the committed English word list the spell-out-names analyzer rule checks identifiers against —
     flattened from cspell's own bundled dictionaries so the two checks agree on "what is a word".
 .DESCRIPTION
-    Reads cspell's bundled en_US and en_GB tries (the same dictionaries cspell.yml's `language: en,en-GB` resolves),...
+    Committed, not built at import: regeneration needs node and cspell, yet a fresh checkout needs the list.
     [ADR-REPO-OUTDIR#5](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir5),
     [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment1)
 .PARAMETER DryRun
-    Report whether the committed list would change without writing it.
+    The returned content is the same in either mode; -DryRun only skips the write.
     [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment2)
 .PARAMETER PassThru
@@ -35,12 +35,12 @@ function Build-EnglishDictionary {
     Assert-Command npm
     Assert-Command cspell
 
-    # Locate cspell's bundled tries under the global node_modules.
+    # The tries live inside cspell's own nested packages, never at a fixed path under the npm global root.
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment3)
     $nodeRoot = (& npm root -g).Trim()
     Assert-NotNullOrWhitespace $nodeRoot
 
-    # cspell bundles the tries under its own nested @cspell/dict-* folders, and the exact folder casing (dict-en_us...
+    # Folder casing differs between dictionary packages, so each trie is found by file name, not guessed.
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment4)
     $triePaths = foreach ($trieName in 'en_US.trie.gz', 'en_GB.trie.gz') {
         $found = [System.IO.Directory]::EnumerateFiles($nodeRoot, $trieName, [System.IO.SearchOption]::AllDirectories) |
@@ -51,7 +51,7 @@ function Build-EnglishDictionary {
         $found
     }
 
-    # Record what the committed dictionary is flattened from, so a drift check can detect staleness WITHOUT...
+    # These versions let a drift check detect a stale list without re-running node.
     # [comment:5](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment5)
     $cspellVersion = (Invoke-Executable 'cspell --version' -PassThru -Silent).Output.Trim()
     $dictVersions = [ordered]@{}
@@ -60,7 +60,7 @@ function Build-EnglishDictionary {
         $dictVersions[$package.name] = $package.version
     }
 
-    # cspell-trie reads a trie and prints its words.
+    # Pinned to cspell-trie 10 to match the installed tries; a cold npx run downloads it, so announce the wait.
     # [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)
     # [comment:6](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment6)
     Write-Message 'Flattening cspell English dictionaries (en_US, en_GB) via cspell-trie — this can take a while...'
@@ -74,7 +74,7 @@ function Build-EnglishDictionary {
             Invoke-Executable "npx --yes cspell-trie@10 reader '$trie' -o '$tmp'" | Out-Null
             Assert-PathExist $tmp
 
-            # Keep only lower-cased, pure-alpha words of length >= 2.
+            # Apostrophe forms, digits and single letters are no identifier fragments; casing folds to one oracle.
             # [comment:7](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment7)
             foreach ($line in [System.IO.File]::ReadLines($tmp)) {
                 $word = $line.ToLowerInvariant()
@@ -101,7 +101,7 @@ function Build-EnglishDictionary {
     $outPath = Join-Path $assetsDir 'english.txt.gz'
     $stampPath = Join-Path $assetsDir 'english.stamp'
 
-    # The stamp locks the artifact to its source versions.
+    # word_count ties the stamp to this exact gz, so a stamp and gz mismatch shows without node.
     # [comment:8](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment8)
     $stamp = [ordered]@{
         cspell     = $cspellVersion
@@ -110,7 +110,7 @@ function Build-EnglishDictionary {
     }
     $stampContent = ($stamp | ConvertTo-Json -Depth 5) + "`n"
 
-    # Idempotency is decided on the DECOMPRESSED content (gzip container bytes are not the contract), so a re-run...
+    # Compared on decompressed content, since gzip container bytes are no contract, so an unchanged list is a no-op.
     # [comment:9](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment9)
     $existing = $null
     if (Test-Path $outPath) {

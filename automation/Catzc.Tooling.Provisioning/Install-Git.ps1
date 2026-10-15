@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs Git (user-space on Windows, package manager elsewhere).
 .DESCRIPTION
-    Windows: Downloads the latest PortableGit from git-scm.com (GitHub releases) and extracts to LOCALAPPDATA\Git.
+    Windows needs no admin and persists PATH; Linux needs root; an existing git makes it a no-op.
     [comment:1](/docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md#comment1)
 .PARAMETER Force
     Remove an existing installation before reinstalling.
@@ -42,7 +42,7 @@ function Install-Git {
         $asset = $release.assets | Where-Object { $_.name -match '^PortableGit-.*-64-bit\.7z\.exe$' }
         Assert-NotNull $asset -ErrorText "No PortableGit 64-bit archive found in release $($release.tag_name)"
 
-        # git is a sanctioned 'latest' base tool, so there is no committed hash to pin — but every Git for Windows...
+        # No hash is pinned for a latest tool, so verify the GitHub digest and fail hard if it is absent.
         # [comment:2](/docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md#comment2)
         $digest = if ($asset.PSObject.Properties['digest']) {
             $asset.digest
@@ -55,7 +55,7 @@ function Install-Git {
         $exePath = Join-Path ([IO.Path]::GetTempPath()) $asset.name
         Save-VerifiedDownload -Uri $asset.browser_download_url -OutFile $exePath -Sha256 $digest | Out-Null
 
-        # PortableGit.7z.exe is a self-extracting archive.
+        # The download is a self-extracting archive, so the -o flag picks the directory and -y silences prompts.
         # [comment:3](/docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md#comment3)
         Write-Message "Extracting to '$installDir'"
         Invoke-Executable "$exePath -o`"$installDir`" -y"
@@ -83,7 +83,7 @@ function Install-Git {
         Write-Message 'Git installed successfully via brew'
     }
     elseif ($IsLinux) {
-        # Idempotent guard first (as on macOS) — a box that already has git (e.g.
+        # This guard comes before the root assert, so a box that already has git never needs root to find that out.
         # [comment:4](/docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md#comment4)
         if ((Test-Command git) -and -not $Force) {
             Write-Message 'Git is already installed'

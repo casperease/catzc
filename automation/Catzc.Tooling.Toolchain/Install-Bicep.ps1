@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs the Bicep CLI, the formatter engine for the infrastructure templates, at the tools.yml pin.
 .DESCRIPTION
-    The Bicep CLI is the `bicep` engine Format-Code runs over every.bicep file (languages.yml; ).
+    Linux has no distribution package, so it gets the SHA-256 verified release binary instead of a package manager.
     [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8),
     [ADR-AUTO-PKGMGR](/docs/adr/automation/use-proper-package-managers.md)
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Bicep.ps1.md#comment1)

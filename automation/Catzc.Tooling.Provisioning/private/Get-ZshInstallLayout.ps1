@@ -3,7 +3,7 @@
     Returns where Install-Zsh puts zsh on Windows: the Git for Windows home, its MSYS2 runtime, zsh's executable, and the
     manifest of the files Install-Zsh added.
 .DESCRIPTION
-    zsh on Windows is the MSYS2 zsh package installed into the Git Bash tree that Install-Git provides, so it runs on...
+    One shared layout keeps Install-Zsh and Uninstall-Zsh on the same paths; the manifest dies with a replaced Git tree.
     [ADR-AUTO-ENTERP#4](/docs/adr/automation/effective-in-enterprises.md#rule-adr-auto-enterp4)
     [comment:1](/docs/references/automation/catzc-tooling-provisioning/private/Get-ZshInstallLayout.ps1.md#comment1)
 .OUTPUTS

@@ -1,4 +1,4 @@
-# CI pipeline for the infrastructure templates (foundation / discovery / expedition).
+# Build and verify only, no artifact and no deploy; az bicep build is offline, so Mode stays none and no auth is needed.
 # [ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md),
 # [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:1](/docs/references/pipelines/ci-infrastructure.yaml.md#comment1)
 
@@ -49,7 +49,7 @@ jobs:
           DisplayName: "Build-Bicep expedition (compile + render + verify)"
           RunCommand: "Build-Bicep expedition"
 
-      # The infrastructure globset's test suite: its verify scope (Catzc.Azure.Templates up to L2, ), including the L2 test that builds...
+      # The L2 test builds every shipped template and checks its rendered parameter files against the compiled parameter model.
       # [ADR-AUTO-TEST#37](/docs/adr/automation/test-automation.md#rule-adr-auto-test37),
       # [ADR-AZ-DATAMOD#9](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9)
       # [comment:2](/docs/references/pipelines/ci-infrastructure.yaml.md#comment2)

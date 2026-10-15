@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the repository's file languages — all of them, the named ones, or the one a file is written in.
 .DESCRIPTION
-    The file-language registry (configs/languages.yml, validated by the LanguagesConfig type) names each language a...
+    -Path never throws: an unlisted extension, no extension, or a dotfile such as .gitkeep returns nothing.
     [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)
     [comment:1](/docs/references/automation/catzc-base-languages/Get-FileLanguage.ps1.md#comment1)
 .PARAMETER Name

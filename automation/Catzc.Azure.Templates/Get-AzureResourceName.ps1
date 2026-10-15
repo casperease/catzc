@@ -3,12 +3,12 @@
 .SYNOPSIS
     Assembles a deterministic Azure resource name from the standard component set.
 .DESCRIPTION
-    Resolves the component VALUES (env, slot, region, org, short_name, [customer], [role], type) and arranges them...
+    Restricted types render the 2-char shortcode, so a long env name never costs a tight name a byte.
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment1)
 .PARAMETER Env
     Environment name (azure.yml env key, e.g. `develop`). The env-segment of generous (`long`) types.
 .PARAMETER Shortcode
-    2-letter environment shortcode (azure.yml env `shortcode`, e.g.
+    Required when Type is restricted; the long pattern uses the readable Env name instead.
     [comment:2](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment2)
 .PARAMETER RegionCode
     3-letter region code (azure.yml env `region_code`, e.g. `weu`).
@@ -23,7 +23,7 @@
 .PARAMETER Customer
     Optional customer / sub-tenant. The readable key (the customer-segment of generous `long` types).
 .PARAMETER CustomerShortcode
-    2-letter customer shortcode (azure.yml customer `shortcode`).
+    Required only when -Customer is set and Type is restricted; long types use the readable customer key.
     [comment:3](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment3)
 .PARAMETER Role
     Optional 2-3 char sibling discriminator among same-type resources (per resource).
@@ -71,7 +71,7 @@ function Get-AzureResourceName {
     }
     $pattern = $patterns[$specification.pattern]
 
-    # A type may omit components from its render — e.g.
+    # The type segment is never omitted; vm drops org, customer and role since the resource group encodes them.
     # [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)
     # [comment:4](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment4)
     $omit = if ($specification.Contains('omit')) {
@@ -81,7 +81,7 @@ function Get-AzureResourceName {
         @()
     }
 
-    # The env-segment is the readable name for the generous `long` pattern, the 2-char shortcode for the restricted...
+    # Only restricted patterns get the 2-char shortcode, so the readable env name never costs a tight name a byte.
     # [ADR-AZ-NAMING#4](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming4)
     # [comment:5](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment5)
     $envValue = if ($specification.pattern -eq 'long') {
@@ -94,7 +94,7 @@ function Get-AzureResourceName {
         $Shortcode
     }
 
-    # Customer follows the same pattern-chosen split as env: the readable key (-Customer) for the generous `long`...
+    # The customer segment is optional, so none of this applies when no customer is given.
     # [comment:6](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment6)
     $customerValue = ''
     if ((-not [string]::IsNullOrEmpty($Customer)) -and ('customer' -notin $omit)) {
@@ -109,7 +109,7 @@ function Get-AzureResourceName {
         }
     }
 
-    # Component format checks (case-sensitive, lowercase) — see.
+    # The match is case-sensitive, so any capital letter in a component is a violation.
     # [ADR-AZ-NAMING#6](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming6)
     # [comment:7](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment7)
     $checks = [ordered]@{

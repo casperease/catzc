@@ -3,7 +3,7 @@
     Resolves a named profile (or an explicit seed list) to the full set of disk-module names to copy — the
     dependency closure of the seed plus the fixed infrastructure needed to load and test.
 .DESCRIPTION
-    A profile (configs/profiles.yml) is a seed list of module names.
+    An empty seed, as in the full profile, resolves to every named module rather than to nothing.
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-ModuleProfile.ps1.md#comment1)
 .PARAMETER Name
     A profile name from profiles.yml (minimal, base, azure, tooling, full, …).

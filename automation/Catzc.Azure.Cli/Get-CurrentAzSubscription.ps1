@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the Azure CLI's currently active subscription.
 .DESCRIPTION
-    Thin wrapper over `az account show` (via Invoke-AzCli) returning the active subscription as an object (Id, Name,...
+    The call is silenced because it is a data read, and it throws when no context is active.
     [comment:1](/docs/references/automation/catzc-azure-cli/Get-CurrentAzSubscription.ps1.md#comment1)
 .EXAMPLE
     Get-CurrentAzSubscription

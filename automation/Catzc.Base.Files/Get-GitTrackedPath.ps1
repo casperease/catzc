@@ -2,13 +2,13 @@
 .SYNOPSIS
     Returns the subset of the given repository paths that git tracks.
 .DESCRIPTION
-    The one place catzc answers `git ls-files -- <paths>`: every tracked file at or under the given paths, as a...
+    A tracked file deleted from the working tree is still listed, because it is still in the index.
     [ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)
     [comment:1](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment1)
 .PARAMETER Path
     The literal repository-relative, '/'-separated paths (files or folders) to look up; '.' for all.
 .PARAMETER ExecutableOnly
-    Return only the tracked files stored executable (git mode 100755) — the bit bash needs to run a script directly.
+    Same index, order and form as without the switch, so the result is a plain subset of the full listing.
     [comment:2](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment2)
 .OUTPUTS
     [string]
@@ -38,13 +38,13 @@ function Get-GitTrackedPath {
     }
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:gitIndexCache')) {
-        # strict-clean probe of the lazy cache entry
+        # Reading the unset cache variable directly would throw under strict mode, so probe the session state.
         # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:3](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment3)
         $script:gitIndexCache = @{}
     }
 
-    # The key is the index's content, not the session: the index changes mid-session (a commit, a `git add`), so a...
+    # Keyed on content, not session: a commit or git add changes the index mid-session, so no stale listing is reused.
     # [ADR-AUTO-CACHE#9](/docs/adr/automation/caching.md#rule-adr-auto-cache9)
     # [comment:4](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment4)
     $content = [System.IO.File]::ReadAllBytes($indexPath)

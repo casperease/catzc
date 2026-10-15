@@ -1,4 +1,4 @@
-// Names the identity properties of the type it decorates: the few that tell one instance from another at a glance.
+// One list drives both the text form and the prompt columns; an unknown property name throws when the type is rendered.
 // [comment:1](/docs/references/automation/catzc-base-objects/types/ConsoleDisplayAttribute.cs.md#comment1)
 
 using System;

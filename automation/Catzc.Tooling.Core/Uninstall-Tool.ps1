@@ -2,7 +2,7 @@
 .SYNOPSIS
     Uninstalls a tool using the platform package manager.
 .DESCRIPTION
-    Uses winget on Windows, brew on macOS, and apt-get on Linux.
+    A tool that is missing or not functional is a no-op, not an error, so the call is safe to repeat.
     [comment:1](/docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml.
@@ -21,7 +21,7 @@ function Uninstall-Tool {
     $config = Get-ToolConfig -Tool $Tool
     $command = Get-ToolCommandSuffix -Tool $Tool
 
-    # npm-managed tools (cspell, prettier, markdownlint) are removed with npm, not a platform package manager.
+    # Redirect to the npm remover now, rather than fail later on a winget id that this tool does not have.
     # [comment:2](/docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md#comment2)
     if ($config.npm_package) {
         throw "$Tool is an npm-managed tool. Uninstall-Tool manages winget/brew/apt packages only — use Uninstall-$command (npm) instead."
@@ -33,7 +33,7 @@ function Uninstall-Tool {
         return
     }
 
-    # Uninstall targets the version that is ACTUALLY installed, not the locked one.
+    # A locked version that differs from the installed major makes a versioned winget id name a package that is absent.
     # [comment:3](/docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md#comment3)
     if (-not $Version) {
         $installed = Get-ToolVersion -Config $config
@@ -41,7 +41,7 @@ function Uninstall-Tool {
         $Version = (($installed -split '\.') | Select-Object -First $components) -join '.'
     }
 
-    # Only uninstall tools managed by the expected package manager.
+    # An install made outside our package manager is refused here and left to its Remove command.
     # [comment:4](/docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md#comment4)
     if (-not (Test-ExpectedPackageManager -Config $config)) {
         $location = (Get-Command $config.command).Source
@@ -56,7 +56,7 @@ function Uninstall-Tool {
         Assert-Command winget
         $packageId = $config.winget_id -f $Version
 
-        # Snapshot User PATH before uninstall so we can detect what the uninstaller removes.
+        # Only a before-and-after diff shows what the uninstaller removed; Test-Path cannot tell stale from live.
         # [comment:5](/docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md#comment5)
         $beforeEntries = [System.Collections.Generic.HashSet[string]]::new(
             [string[]]((Get-EnvironmentPath -Scope User) -split ';' |
@@ -83,7 +83,7 @@ function Uninstall-Tool {
                     Where-Object { $_ -eq '' -or -not $removed.Contains($_.TrimEnd('\', '/')) }) -join ';'
         }
 
-        # Some uninstallers remove the directory but leave the PATH entry in the registry (e.g.
+        # Terraform-style uninstallers delete the directory but leave its registry PATH entry, so prune by existence.
         # [comment:6](/docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md#comment6)
         $userPath = Get-EnvironmentPath -Scope User
         if ($userPath) {

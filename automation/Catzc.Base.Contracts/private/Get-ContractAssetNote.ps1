@@ -2,7 +2,7 @@
 .SYNOPSIS
     Reads a contract asset's note: the header comment its file carries, as one line of text.
 .DESCRIPTION
-    The note is what an asset says about itself, in the one place it can say it without changing what its check...
+    Only a YAML comment or a schema's $comment carries a note; any other would change what the check compares.
     [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)
     [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractAssetNote.ps1.md#comment1)
 .PARAMETER RepositoryRoot

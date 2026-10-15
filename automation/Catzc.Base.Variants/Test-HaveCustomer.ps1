@@ -2,7 +2,7 @@
 .SYNOPSIS
     Tests whether one named customer is enabled for the repo (singular cover over Test-HaveCustomers).
 .DESCRIPTION
-    The single-customer form of Test-HaveCustomers, for the common "is this one customer enabled" check.
+    True when the variant is 'all' or lists the name; a thin cover that adds no logic.
     [comment:1](/docs/references/automation/catzc-base-variants/Test-HaveCustomer.ps1.md#comment1)
 .PARAMETER Name
     The customer name to test.

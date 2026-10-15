@@ -1,4 +1,4 @@
-// One glob pattern of the durable-sha-globs dialect: repo-relative, '/'-separated; '**' is the only cross-segment operator (a whole...
+// The constructor is the gate: a malformed pattern never yields an instance, and the dialect has no escape character.
 // [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
 // [ADR-FLOW-CD-GLOBS#2](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs2),
 // [ADR-FLOW-CD-GLOBS#3](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs3)
@@ -65,7 +65,7 @@ public sealed class GlobPattern
             WildcardPattern wildcard = WildcardPattern.Get(segment, WildcardOptions.None);
             try
             {
-                // WildcardPattern parses lazily; force the parse so a malformed segment (e.g.
+                // WildcardPattern parses lazily, so force the parse: a malformed segment must fail here, not at first match.
                 // [comment:2](/docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md#comment2)
                 wildcard.IsMatch(string.Empty);
             }
@@ -88,7 +88,7 @@ public sealed class GlobPattern
         return MatchFrom(0, repoRelativePath.Split('/'), 0);
     }
 
-    // The '**' walk: align pattern segments to path segments left to right; at a '**', try every number of consumed path segments (zero...
+    // A '**' tries every count of consumed path segments, zero included, and backtracks on failure.
     // [comment:3](/docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md#comment3)
     private bool MatchFrom(int patternIndex, string[] path, int pathIndex)
     {

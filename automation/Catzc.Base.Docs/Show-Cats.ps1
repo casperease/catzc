@@ -2,14 +2,14 @@
 .SYNOPSIS
     Ask the catzc docs — a deterministic browser over the ADRs, modules, and approved verbs.
 .DESCRIPTION
-    "Ask cats": surfaces what the catzc system can do from what the repository already knows, offline and...
+    Output is presentation only on the information stream; the function returns nothing for a caller to use.
     [ADR-AUTO-CONSOLE](/docs/adr/automation/console-output-matters.md),
     [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment1)
 .PARAMETER Area
     What to ask about: adr, module, or verbs. Omitted (the default) prints the overview.
 .PARAMETER Query
-    Narrows the area: an ADR code/title substring for 'adr', a module-name substring for 'module'.
+    Ignored by verbs and the overview, which have nothing to narrow.
     [comment:2](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment2)
 .EXAMPLE
     Show-Cats
@@ -46,7 +46,7 @@ function Show-Cats {
             break
         }
         'adr' {
-            # Plain assignment (not @(...)): the getter returns a comma-wrapped array ( exemplar), which assignment...
+            # Not wrapped in @(): the getter's array is comma-wrapped, and @() would nest it one level too deep.
             # [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)
             # [comment:3](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment3)
             $entries = Get-CatsAdrIndex
@@ -70,7 +70,7 @@ function Show-Cats {
                         }
                         Write-Message "  $($rule.Id)  $summary" -NoHeader
 
-                        # Show what mechanically enforces this rule (tests + analyzer rules), if anything — the...
+                        # Enforcers are keyed by the hash form of the id, so the registry colon is swapped first.
                         # [comment:4](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment4)
                         $entryEnforcers = $enforcers[($rule.Id -replace ':', '#')]
                         if ($entryEnforcers) {

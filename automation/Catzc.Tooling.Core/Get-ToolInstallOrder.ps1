@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns tool names from tools.yml in dependency-safe install order.
 .DESCRIPTION
-    Performs a topological sort based on DependsOn fields.
+    Dependencies come before their dependents, and a circular DependsOn chain throws instead of looping.
     [comment:1](/docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md#comment1)
 .EXAMPLE
     Get-ToolInstallOrder
@@ -17,7 +17,7 @@ function Get-ToolInstallOrder {
     # Build adjacency: tool → list of tools it depends on
     $dependencies = @{}
     foreach ($name in $allTools.Keys) {
-        # depends_on is optional: index it (a dotted read of an absent key throws under strict), and keep the value...
+        # Index depends_on, as a dotted read of an absent key throws under strict mode, and keep the value an array.
         # [comment:2](/docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md#comment2)
         $dependency = $allTools[$name]['depends_on']
         $dependencies[$name] = [string[]] @(
@@ -43,7 +43,7 @@ function Get-ToolInstallOrder {
         }
     }
 
-    # Wait — in-degree is wrong above.
+    # A tool's in-degree is its own dependency count, since each dependency must be installed before it.
     # [comment:3](/docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md#comment3)
 
     # Redo properly

@@ -2,7 +2,7 @@
 .SYNOPSIS
     The three Azure resource-name patterns the generator (Get-AzureResourceName) renders.
 .DESCRIPTION
-    Every resource type (Get-AzureResourceTypeSet) ties to exactly one pattern via its `pattern` property.
+    A pattern fixes both the separator and the length budget, since a restriction is length as much as format.
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-AzureNamePatternSet.ps1.md#comment1)
 .EXAMPLE
     (Get-AzureNamePatternSet).storage   # -> @{ separator = ''; limit = 24 }

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Builds a config / resource-group identity name from an (environment, slot) pair.
 .DESCRIPTION
-    The config-name is `<environment>` for the base / index-0 slot, or `<environment>-<slot>` for a special slot.
+    The name is 1:1 with the resource group and also names the config file and the build parameters artifact.
     [ADR-AZ-DATAMOD#2](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2)
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepConfigName.ps1.md#comment1)
 .PARAMETER Environment

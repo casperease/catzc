@@ -5,22 +5,22 @@
     mutation. See [ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md) and
     [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md).
 .DESCRIPTION
-    Resolves the config file for a (template[, customer], environment[, slot]) coordinate —...
+    Idempotent: existing parameters and keys are preserved, a missing config is created, and nothing is deployed.
     [comment:1](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .PARAMETER Environment
-    Environment name — must be a defined environment in azure.yml (it may be one the template does not yet have a...
+    The template may have no config for it yet; creating that config is how a slot is added.
     [comment:2](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment2)
 .PARAMETER Parameters
     Hashtable of ARM parameter name -> value. Each becomes `parameters.<name>.value = <value>`.
 .PARAMETER Slot
     Optional special-slot discriminator (1-3 lowercase alphanumeric). Omitted ⇒ the base / index-0 slot.
 .PARAMETER Customer
-    Optional customer key (customer.yml) — the config subfolder to write under (`configuration/<customer>/`).
+    Omitted writes the configuration-root config; the coordinate must resolve to exactly one subscription.
     [comment:3](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment3)
 .PARAMETER DryRun
-    Preview only — returns the planned path and content without writing.
+    Nothing is written, so the preview shows exactly the path and content a real run would use.
     [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:4](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment4)
 .EXAMPLE
@@ -29,7 +29,7 @@
     Set-BicepTemplateConfiguration discovery dev -Customer apex -Parameters @{ sqlAdminLogin = 'admin' } -DryRun
 #>
 function Set-BicepTemplateConfiguration {
-    # State-changing function deliberately uses -DryRun, not ShouldProcess — see.
+    # -DryRun replaces ShouldProcess here, so the analyzer rule for state-changing functions is suppressed.
     # [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     # [comment:5](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment5)
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
@@ -71,7 +71,7 @@ function Set-BicepTemplateConfiguration {
         throw "Invalid -Slot '$Slot' — must be 1-3 lowercase alphanumeric chars (e.g. 001)."
     }
 
-    # The coordinate must conform to the conventional tree (the same cross-layer rule discovery enforces): the...
+    # The same rule discovery enforces, so a config written here never fails the next discovery.
     # [comment:6](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment6)
     $loc = if ([string]::IsNullOrEmpty($Customer)) {
         "configuration/$Environment.yml"

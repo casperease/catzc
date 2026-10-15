@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the declared module GROUPS from configs/dependencies.yml.
 .DESCRIPTION
-    A group is a named set of on-disk modules with its own internal dependency DAG — a concept, not a disk module.
+    A file without a groups key yields an empty dictionary, since groups are optional.
     [comment:1](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleGroupConfig.ps1.md#comment1)
 .EXAMPLE
     (Get-ModuleGroupConfig)['Base']['Catzc.Base.Writers']

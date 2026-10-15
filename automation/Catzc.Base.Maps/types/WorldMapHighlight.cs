@@ -1,4 +1,4 @@
-// A world-map highlight: the cells a request lights.
+// A pin wins over an exception, and an ADR's domain never lights a file: it only picks the value-chain row.
 // [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1),
 // [ADR-THES-ONETRUTH#3](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/WorldMapHighlight.cs.md#comment1)
@@ -41,7 +41,7 @@ public sealed class WorldMapHighlight
         Cells = cells == null ? Array.Empty<HighlightedCell>() : (HighlightedCell[])cells.Clone();
     }
 
-    // The cells ADR references light (each ADR-<CODE>, ADR-<CODE>#n or ADR-<CODE>:n), with the reviewed pins and exceptions (MapsPin...
+    // An unlisted ADR code throws, and so does a pin or exception naming a cell the map lacks, so a stale pin fails loudly.
     // [comment:2](/docs/references/automation/catzc-base-maps/types/WorldMapHighlight.cs.md#comment2)
     public static WorldMapHighlight ForAdr(WorldMap map, IEnumerable references, IEnumerable pins, IEnumerable exceptions)
     {

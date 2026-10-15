@@ -1,4 +1,4 @@
-# The file-language registry — every file language the repository's tracked files are written in, each named by its extensions.
+# Every extension belongs to exactly one file language; an extension no entry lists has no file language.
 # [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
 # [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
 # [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8),
@@ -25,7 +25,7 @@ engines:
     settings:
       - automation/Catzc.Base.Languages/configs/python.yml
       - automation/Catzc.Base.Execution/configs/tools.yml
-  # PSScriptAnalyzer's formatter through the PowerShell extension, whose codeFormatting settings (vscode-settings.yml) mirror the...
+  # The editor's codeFormatting settings in vscode-settings.yml must keep mirroring the analyzer settings file.
   # [comment:2](/docs/references/automation/catzc-base-languages/configs/languages.yml.md#comment2)
   psscriptanalyzer:
     vscode_extension: ms-vscode.powershell

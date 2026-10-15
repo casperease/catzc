@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns true when a repository is a test-run snapshot made by New-RepositorySnapshot.
 .DESCRIPTION
-    The one reader of the snapshot provenance marker (.git/catzc-snapshot.json) that New-RepositorySnapshot writes.
+    Marks a disposable test-run clone: only a snapshot may be deleted, and no generated-file commit happens in one.
     [comment:1](/docs/references/automation/catzc-base-git/Test-RepositorySnapshot.ps1.md#comment1)
 .PARAMETER Path
     The repository root to check. Default: the loaded repository root.

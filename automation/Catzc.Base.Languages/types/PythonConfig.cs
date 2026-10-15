@@ -1,4 +1,4 @@
-// The Python test-workspace settings (configs/python.yml), and the single declaration of their sensible defaults.
+// The Python version is not a setting here: it is the tools.yml pin, the one Python version.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-REPO-FOLDERS#7](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders7)
 // [comment:1](/docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md#comment1)
@@ -30,7 +30,7 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly Regex DistributionName = new Regex(@"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$");
     private static readonly Regex ExactVersion = new Regex(@"^[0-9]+(\.[0-9]+)*$");
 
-    // The declared Python root folder, repository-relative ('/'-separated).
+    // Null when the file declares none; ResolveRoot then applies the default.
     // [comment:2](/docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md#comment2)
     public string root { get; }
 
@@ -110,7 +110,7 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
         dependencies = requires;
     }
 
-    // The Python root folder for a repository, repository-relative: the declared root, else 'python' when the repository has a python/...
+    // The one place the root default lives, so no caller restates python or .python.
     // [comment:3](/docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md#comment3)
     public string ResolveRoot(string repositoryRoot)
     {

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Materialises a file as a filesystem link to a source of truth — the link sibling of Write-FileIfChanged.
 .DESCRIPTION
-    Ensures the file at -Path is a link to the file at -Target, so the two are one file by construction and drift is...
+    Never degrades to a content copy, which would silently reintroduce the drift the link exists to remove.
     [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment1)
 .PARAMETER Path
@@ -10,7 +10,7 @@
 .PARAMETER Target
     Path of the source file, which must exist, that the link must resolve to.
 .PARAMETER DryRun
-    Report whether the link would change without touching the filesystem.
+    A plain file with identical content still reports true, since only a link counts as current.
     [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:2](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment2)
 .OUTPUTS
@@ -36,14 +36,14 @@ function Set-FileLink {
     Assert-PathExist $Target
     $resolvedTarget = [System.IO.Path]::GetFullPath($Target)
 
-    # The no-op path: current means "is a link to the target" — a plain file with identical content is stale, because...
+    # Only a link is current: a plain file with identical content is stale, since replacing that copy is this job.
     # [comment:3](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment3)
     $item = Get-Item -LiteralPath $Path -Force -ErrorAction Ignore
     if ($item -and $item.LinkType -eq 'SymbolicLink') {
         $resolved = $item.ResolveLinkTarget($true)
         if ($resolved) {
             $resolvedActual = [System.IO.Path]::GetFullPath($resolved.FullName)
-            # Path equality is case-insensitive on Windows, case-sensitive elsewhere.
+            # The same file may differ only by case on Windows, while Unix treats such paths as two files.
             # [ADR-AUTO-XPLAT#7](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat7)
             # [comment:4](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment4)
             $current = if ($IsWindows) {
@@ -58,7 +58,7 @@ function Set-FileLink {
         }
     }
     elseif ($item -and $item.LinkType -eq 'HardLink') {
-        # A hard link has no target to read back; link identity plus CR-insensitive content equality is the honest...
+        # No target to read back, so a source rewritten by git (old bytes left behind) fails this and re-links.
         # [comment:5](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment5)
         $existing = [System.IO.File]::ReadAllText($Path) -replace "`r", ''
         $source = [System.IO.File]::ReadAllText($resolvedTarget) -replace "`r", ''
@@ -87,7 +87,7 @@ function Set-FileLink {
             New-Item -ItemType SymbolicLink -Path $Path -Target $relativeTarget -ErrorAction Stop | Out-Null
         }
         catch {
-            # No symlink privilege — the expected non-admin case.
+            # A hard link needs no privilege and the repository is one volume; a failure here propagates, never a copy.
             # [comment:6](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment6)
             New-Item -ItemType HardLink -Path $Path -Target $resolvedTarget -ErrorAction Stop | Out-Null
         }

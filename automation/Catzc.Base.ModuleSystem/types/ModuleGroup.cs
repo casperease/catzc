@@ -1,4 +1,4 @@
-// One declared module group of configs/dependencies.yml (`groups: <name>: <member>: [members]`): a named set of on-disk modules with its...
+// A group is closed: every dependency must be a member of the same group, so cross-group edges live under modules.
 // [ADR-AUTO-DEPM#3](/docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm3)
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md#comment1)
 

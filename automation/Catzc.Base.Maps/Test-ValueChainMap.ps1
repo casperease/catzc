@@ -3,7 +3,7 @@
     Quality gate: every ADR sits in a cell of the value-chain map, and every label the value-chain map prints is a
     glossary term.
 .DESCRIPTION
-    A quality gate over the value-chain map that Get-ValueChainMap returns; it reads the map and never places an ADR...
+    Separate from Test-WorldMap: this map reads adrs.yml alone, the world map reads the git index.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-AUTO-ONEJOB](/docs/adr/automation/single-responsibility-functions.md),
     [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14),
@@ -13,7 +13,7 @@
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-value-chain-map/ (Write-QualityGateReport).
 .PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; Adrs; Rows; Columns; NonEmptyCells; Labels })...
+    NonEmptyCells counts cells holding at least one ADR; Labels counts the printed labels checked.
     [comment:2](/docs/references/automation/catzc-base-maps/Test-ValueChainMap.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.

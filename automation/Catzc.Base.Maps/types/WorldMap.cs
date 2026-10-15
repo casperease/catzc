@@ -1,4 +1,4 @@
-// The world map: the tracks (rows) crossed with the file languages (columns), every cell of that grid with its file count, and the...
+// Two buckets, NoTrack and NoFileLanguage, close the grid so every tracked file sits in exactly one cell.
 // [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1), [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
 // [ADR-THES-ONETRUTH#3](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/WorldMap.cs.md#comment1)

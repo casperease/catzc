@@ -2,7 +2,7 @@
 .SYNOPSIS
     Checks contract assets against the real repository and returns one result per asset.
 .DESCRIPTION
-    Contracts are binding: each asset is checked by its kind and gives one ContractCheckResult — Passed, and every...
+    A failed check is a result with Passed false, never an exception; only misuse throws.
     [ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4),
     [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
     [ADR-PWSH-VERBS#2](/docs/adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs2),

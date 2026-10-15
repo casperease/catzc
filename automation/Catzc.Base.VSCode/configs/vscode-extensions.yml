@@ -1,4 +1,4 @@
-# VS Code extension-recommendation registry — the single authored source for.vscode/extensions.json.
+# Edit this file, never extensions.json: the editor reads a gitignored copy that Build-RootConfig regenerates from it.
 # [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
 # [comment:1](/docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md#comment1)
 # cspell:ignore azuretools azureresourcegroups streetsidesoftware rosshamish kuskus kusto shd101wyy esbenp tomoki redhat Anson Levett iliazeus gopls
@@ -19,17 +19,17 @@ recommendations:
   - editorconfig.editorconfig
   # Markdown Preview Enhanced — the preview the vscode-settings registry themes.
   - shd101wyy.markdown-preview-enhanced
-  # Pattern-based coloring of the Output panel and.log files (keywords, paths, numbers) — it does not interpret ANSI escape codes.
+  # Colors by pattern only, so it does not interpret ANSI escape codes; the ANSI extension below handles those.
   # [comment:2](/docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md#comment2)
   - ibm.output-colorizer
-  # ANSI Colors — renders the escape codes the writers emit (console-output-matters) in a captured log, hiding the codes themselves; the...
+  # Only takes effect on out log files because the vscode-settings registry associates them with the ansi language.
   # [comment:3](/docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md#comment3)
   - iliazeus.vscode-ansi
-  # The extensions that run the formatter engines — PowerShell, Go, Ruff, Prettier — are not listed here: the generator adds each...
+  # Formatter-engine extensions are absent on purpose: the generator adds them from languages.yml, the one place they are named.
   # [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)
   # [comment:4](/docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md#comment4)
   - ms-python.python
-  # C# Dev Kit — the language service for the native C# type sources: it loads catzc.sln, whose project compiles and analyzes the types...
+  # It works through catzc.sln, whose project compiles and analyzes the C# types the importer builds with Add-Type.
   # [comment:5](/docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md#comment5)
   - ms-dotnettools.csdevkit
   # Bicep — language service and validation for the infrastructure templates.
@@ -38,7 +38,7 @@ recommendations:
   - redhat.vscode-xml
   # PDF viewing for reference material in docs.
   - tomoki1207.pdf
-  # Regex Robin — makes code links in comments Ctrl+clickable.
+  # Core VS Code links only http, https and file URLs outside markdown, so a rule in vscode-settings.yml does the rest.
   # [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)
   # [comment:6](/docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md#comment6)
   - DanLevett.regex-robin

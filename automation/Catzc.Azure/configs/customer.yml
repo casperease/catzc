@@ -1,4 +1,4 @@
-# Customer catalogue — the customers this repo can deploy for.
+# Only the catalogue of who they are: which customers are enabled is the have_customers variant in variants.yml.
 # [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md), [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)
 # [comment:1](/docs/references/automation/catzc-azure/configs/customer.yml.md#comment1)
 customers:

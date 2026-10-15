@@ -2,7 +2,7 @@
 .SYNOPSIS
     Loads a per-engine fixture table: one row per case and execution engine (ExecutionEngines), validated.
 .DESCRIPTION
-    Reads a YAML engine case table and validates it through the EngineCaseTable type: every case fills every engine...
+    A case that skips an engine must say why ("n/a: reason"), so a missing engine cell can never hide a parity gap.
     [comment:1](/docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md#comment1)
 .PARAMETER Path
     The table file: absolute, or relative to the repository root (never to the current directory).
@@ -26,7 +26,7 @@ function Get-EngineCaseTable {
         [switch] $Applicable
     )
 
-    # The engines are declared once: Get throws, naming them, for any other name.
+    # Validate the filter first: a mistyped engine name throws and lists the valid ones, not an empty result.
     # [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
     # [comment:2](/docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md#comment2)
     if ($Engine) {

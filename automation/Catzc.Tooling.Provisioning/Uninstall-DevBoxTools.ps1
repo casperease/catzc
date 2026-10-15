@@ -2,7 +2,7 @@
 .SYNOPSIS
     Removes all tools installed by Install-DevBoxTools.
 .DESCRIPTION
-    Uninstalls tools in reverse dependency order (derived from depends_on in tools.yml).
+    Dependents go first so their uninstallers can still use the dependency; winget is never removed.
     [comment:1](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment1)
 .EXAMPLE
     Uninstall-DevBoxTools
@@ -15,7 +15,7 @@ function Uninstall-DevBoxTools {
     Uninstall-Postman
     Uninstall-Git
 
-    # Version-locked tools in reverse dependency order.
+    # The @() wrap matters: Reverse throws on null, and a one-tool result would unwrap to a scalar, not an array.
     # [comment:2](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment2)
     $order = @(Get-ToolInstallOrder)
     [array]::Reverse($order)
@@ -33,14 +33,14 @@ function Uninstall-DevBoxTools {
             continue
         }
 
-        # Elevation-bound tools (admin_only machine-scope, or apt-get-routed Linux installs) need the same elevation...
+        # Uninstalling needs the same elevation as installing, so a non-elevated run skips and reports these tools.
         # [comment:3](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment3)
         if ((Test-ToolRequiresElevation $config) -and -not (Test-IsAdministrator)) {
             Write-Message "Skipping $toolName — requires elevation on this platform to uninstall. Re-run elevated."
             continue
         }
 
-        # Map the snake_case tools.yml key to its PascalCase command suffix, exactly as Install-DevBoxTools does...
+        # A raw key such as node_js never resolves to Uninstall-NodeJs, so the suffix is mapped; a missing one throws.
         # [comment:4](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment4)
         $uninstallCmd = "Uninstall-$(Get-ToolCommandSuffix -Tool $toolName)"
         if (-not (Get-Command $uninstallCmd -ErrorAction SilentlyContinue)) {

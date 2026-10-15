@@ -1,4 +1,4 @@
-# maps.yml — the map settings: the palette, the limits, the printed labels of the world map and the value-chain map, the reviewed...
+# Every key has a default on MapsConfig, so set a key only to change it; an empty file is valid.
 # [ADR-REPO-OUTDIR#2](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2),
 # [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 # [ADR-DSGN-TRACK#13](/docs/adr/design/tracks.md#rule-adr-dsgn-track13),

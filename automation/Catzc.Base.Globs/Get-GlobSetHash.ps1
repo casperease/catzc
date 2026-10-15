@@ -3,16 +3,16 @@
     Computes a globset's durable SHA — the deployable unit's identity
     ([ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)).
 .DESCRIPTION
-    The recipe: per member file, SHA-256 over the on-disk bytes with every CR (0x0D) stripped (a CRLF vs LF working...
+    CR bytes are stripped and the path is in the fold: CRLF or LF agree, while a rename or deletion re-keys the set.
     [ADR-FLOW-CD-GLOBS#9](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs9)
     [comment:1](/docs/references/automation/catzc-base-globs/Get-GlobSetHash.ps1.md#comment1)
 .PARAMETER Name
     The declared globset (from globs.yml) whose identity to compute.
 .PARAMETER GlobSet
-    A [Catzc.Base.Globs.GlobSet] instance to compute the identity for instead — the path a DERIVED set...
+    Derived module sets must come through here, since they are not in the declared registry that Name looks up.
     [comment:2](/docs/references/automation/catzc-base-globs/Get-GlobSetHash.ps1.md#comment2)
 .PARAMETER TrackedFile
-    The tracked-file universe (Get-TrackedFile), fetched once by a caller hashing many sets and passed in.
+    Passing it in saves one git index read per set when hashing many; omitted, it is fetched for this call.
     [comment:3](/docs/references/automation/catzc-base-globs/Get-GlobSetHash.ps1.md#comment3)
 .EXAMPLE
     Get-GlobSetHash -Name automation

@@ -1,4 +1,4 @@
-// One managed root-file entry from configs/rootconfig.yml — a repository-root `target` fully managed by the source-of-truth automation.
+// A wildcard target is allowed only on a generator entry, and every record it returns must match the target pattern.
 // [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)
 // [comment:1](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment1)
 
@@ -11,14 +11,14 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly char[] WildcardCharacters = { '*', '?', '[' };
 
-    // Repository-root-relative path of the managed file (e.g.
+    // A wildcard pattern here names a set of files, and only a generator entry may use one.
     // [comment:2](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment2)
     public string target { get; }
 
     // Authored source file copied out to the target (repo-relative). Exactly one of source/generator.
     public string source { get; }
 
-    // Name of the function that renders the target's full content (e.g.
+    // Exactly one of source or generator supplies the content; the constructor rejects both and neither.
     // [comment:3](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment3)
     public string generator { get; }
 
@@ -28,11 +28,11 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
     // Is this file managed at all? Opt-out is the default: false leaves the target hand-authored and committed.
     public bool optIn { get; }
 
-    // Keep the managed target tracked in git (true) instead of gitignored (false, the default).
+    // True only for files git or the bootstrap reads before the importer runs, since a fresh clone needs them tracked.
     // [comment:4](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment4)
     public bool committed { get; }
 
-    // Materialise the target as a filesystem link to the source (Set-FileLink) instead of a generated copy.
+    // Requires source, requires committed false, and forbids a declared comment, as a link carries no generated content.
     // [comment:5](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment5)
     public bool copyAsLink { get; }
 

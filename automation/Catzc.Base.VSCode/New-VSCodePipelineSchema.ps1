@@ -3,7 +3,7 @@
     Renders .vscode/azure-pipelines-schema.json content from the vscode-pipeline-schema registry — the
     repo-controlled JSON Schema the Azure Pipelines extension validates our pipeline YAML against.
 .DESCRIPTION
-    Reads the authored schema registry (configs/vscode-pipeline-schema.yml, via Get-Config -Config...
+    Strict JSON with no comment header: the schema validator rejects a leading // block, unlike settings.json.
     [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md#comment1)
 .OUTPUTS
@@ -18,7 +18,7 @@ function New-VSCodePipelineSchema {
 
     $document = (Get-Config -Config vscode-pipeline-schema).document
 
-    # Front the schema with its meta-schema declaration, then a '$comment' provenance marker (JSON has no comment...
+    # Strict JSON has no comment syntax, so the provenance marker rides in a '$comment' key the validator ignores.
     # [comment:2](/docs/references/automation/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md#comment2)
     $rendered = [ordered]@{}
     $rendered['$schema'] = $document['$schema']

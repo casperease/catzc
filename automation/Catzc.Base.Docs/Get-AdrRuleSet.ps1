@@ -2,7 +2,7 @@
 .SYNOPSIS
     The flat set of ADR rule-sets declared in adrs.yml — one typed record per ADR.
 .DESCRIPTION
-    Returns the RuleSets of the typed ADR registry (Get-Config -Config adrs, an AdrsConfig — mapped and validated by...
+    Each record's Code is already resolved, a leaf override or else the domain default, so callers never merge them.
     [comment:1](/docs/references/automation/catzc-base-docs/Get-AdrRuleSet.ps1.md#comment1)
 .PARAMETER Domain
     Restrict to one folder-owning domain (e.g. 'automation'), by name.

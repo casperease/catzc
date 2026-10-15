@@ -3,7 +3,7 @@
     Reconciles the current session's PATH to the tools that are actually present, and reports any running from
     outside the installer layer. Registered as a post-import janitor.
 .DESCRIPTION
-    A lightweight, quiet-on-clean pass over the tools.yml set.
+    Session-only and advisory: it never writes the registry and prints nothing when every tool is installer-owned.
     [comment:1](/docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md#comment1)
 .PARAMETER Silent
     Suppress both advisory lines outright (even under -Verbose).
@@ -16,7 +16,7 @@ function Sync-SessionTools {
         [switch] $Silent
     )
 
-    # Session PATH nudging is noise — and could shadow image-provided tools — in CI, where the pipeline owns tool...
+    # In CI the pipeline owns tool provisioning, and PATH nudging there could shadow the tools its image provides.
     # [comment:2](/docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md#comment2)
     if (Test-IsRunningInPipeline) {
         return
@@ -33,7 +33,7 @@ function Sync-SessionTools {
         $config = Get-ToolConfig -Tool $toolName
 
         $cmd = Get-Command $config.command -CommandType Application -ErrorAction Ignore | Select-Object -First 1
-        # When several installs exist, run the best one (tools.yml session_host_probes — for dotnet an SDK at the...
+        # With several installs the best one runs: for dotnet an SDK at the locked version, else a runtime at it.
         # [comment:3](/docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md#comment3)
         $hosted = Resolve-SessionToolHost -Config $config
         if ($hosted) {
@@ -54,7 +54,7 @@ function Sync-SessionTools {
     }
 
     if (-not $Silent -and $foreignNames.Count -gt 0) {
-        # The fact and WHICH tools is the advisory — it stays on the always-on information stream.
+        # Names stay on the always-on stream, while locations are diagnostic detail shown only under verbose.
         # [comment:4](/docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md#comment4)
         Write-Message "Session tools not managed by the installer layer: $($foreignNames -join '; ')"
         Write-Message "Locations: $($foreignLocations -join '; ')" -Verbose:($VerbosePreference -eq 'Continue')

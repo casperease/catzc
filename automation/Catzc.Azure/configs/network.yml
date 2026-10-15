@@ -1,4 +1,4 @@
-# Global cross-cutting network configuration — the IP address plan, side by side with azure.yml.
+# The single source of truth for vnet and subnet ranges: templates read it at build time, never a copy in their own config.
 # [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md)
 # [comment:1](/docs/references/automation/catzc-azure/configs/network.yml.md#comment1)
 

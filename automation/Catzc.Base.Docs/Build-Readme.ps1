@@ -3,19 +3,19 @@
     Generates each conventional folder's README.md from its authored docs source — the writer behind the
     "READMEs are generated" contract.
 .DESCRIPTION
-    Reads the README registry (configs/readme.yml, via Get-Config -Config readme), expands its glob patterns against...
+    READMEs are gitignored copies, and the write is source-mode only, so a built package stops with a named error.
     [ADR-REPO-README](/docs/adr/repository/generated-readmes.md),
     [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Build-Readme.ps1.md#comment1)
 .PARAMETER Folder
-    Generate only the mapping whose target folder equals this repo-relative path (e.g.
+    A folder that matches no mapping throws, so a mistyped path cannot pass as an empty, successful run.
     [comment:2](/docs/references/automation/catzc-base-docs/Build-Readme.ps1.md#comment2)
 .PARAMETER DryRun
-    Report what would change without touching the filesystem.
+    The same mappings are composed as in a real run, so the report names exactly the READMEs that would be rewritten.
     [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:3](/docs/references/automation/catzc-base-docs/Build-Readme.ps1.md#comment3)
 .PARAMETER Silent
-    The per-README status lines are verbose-level — shown only when this function is run with -Verbose.
+    Silent wins over -Verbose, so an importer run in a verbose session stays quiet during import.
     [comment:4](/docs/references/automation/catzc-base-docs/Build-Readme.ps1.md#comment4)
 .PARAMETER PassThru
     Return one result object per README ({ Folder, Source, Readme, Changed, DryRun }) instead of the paths.
@@ -64,7 +64,7 @@ function Build-Readme {
     $ret = foreach ($mapping in $mappings) {
         $readmePath = Resolve-RepoPath "$($mapping.folder)/README.md"
 
-        # Delete-then-write on a change (Write-FileIfChanged): a README that is still a filesystem link to its source...
+        # A README that is a filesystem link to its source is severed on rewrite, never written through into it.
         # [comment:5](/docs/references/automation/catzc-base-docs/Build-Readme.ps1.md#comment5)
         $changed = Write-FileIfChanged -Path $readmePath -Content (Get-ReadmeContent -Mapping $mapping) -DryRun:$DryRun
 
