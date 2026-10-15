@@ -42,6 +42,7 @@ function Get-TerminologyCorpus {
         '[\\/]bin[\\/]'
         '[\\/]out[\\/]'
         '[\\/]docs[\\/]notes[\\/]'
+        '[\\/]\.unordered[\\/]'
     ) -join '|'
 
     # Anchored at the root, so a nested authored configuration folder stays in the corpus instead of being swallowed.

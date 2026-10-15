@@ -49,6 +49,7 @@ function Export-SpellingTriage {
         [string[]] $Exclude = @(
             'out/**'
             'docs/notes/**'
+            '.unordered/**'
             'infrastructure/templates/**/configuration/**'
         ),
 

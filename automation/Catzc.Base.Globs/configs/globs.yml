@@ -141,6 +141,7 @@ globsets:
       - .markdownlint.yml
     exclude:
       - docs/notes/**
+      - .unordered/**
       - automation/.vendor/**
 
   # A covering superset is safe: it can only cause a redundant run, never a wrong skip, so scans whose reads span the repo use it.
