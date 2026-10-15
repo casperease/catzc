@@ -13,18 +13,20 @@ engines:
       - automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
       - automation/Catzc.Base.RootConfig/assets/root/.prettierignore
       - automation/Catzc.Base.RootConfig/assets/root/.editorconfig
-      - automation/Catzc.Base.Execution/configs/tools.yml
+      - automation/Catzc.Base.Execution/configs/tools.yml#prettier
+      - automation/Catzc.Base.Execution/configs/tools.yml#node_js
   # gofmt through the Go extension, which runs the managed go the settings generator injects as go.goroot.
   gofmt:
     vscode_extension: golang.go
     settings:
-      - automation/Catzc.Base.Execution/configs/tools.yml
+      - automation/Catzc.Base.Execution/configs/tools.yml#go
   # ruff through the Ruff extension, with the pinned ruff from the Python test workspace's environment.
   ruff:
     vscode_extension: charliermarsh.ruff
     settings:
       - automation/Catzc.Base.Languages/configs/python.yml
-      - automation/Catzc.Base.Execution/configs/tools.yml
+      - automation/Catzc.Base.Execution/configs/tools.yml#uv
+      - automation/Catzc.Base.Execution/configs/tools.yml#python
   # The editor's codeFormatting settings in vscode-settings.yml must keep mirroring the analyzer settings file.
   # [comment:2](/docs/references/automation/catzc-base-languages/configs/languages.yml.md#comment2)
   psscriptanalyzer:
@@ -38,12 +40,12 @@ engines:
     vscode_extension: ms-dotnettools.csharp
     settings:
       - automation/Catzc.Base.RootConfig/assets/root/.editorconfig
-      - automation/Catzc.Base.Execution/configs/tools.yml
+      - automation/Catzc.Base.Execution/configs/tools.yml#dotnet
   # The Bicep CLI at the tools.yml pin (Install-Bicep); the Bicep extension runs the same formatter.
   bicep:
     vscode_extension: ms-azuretools.vscode-bicep
     settings:
-      - automation/Catzc.Base.Execution/configs/tools.yml
+      - automation/Catzc.Base.Execution/configs/tools.yml#bicep
 # Imprint steps run after every language's formatter: the global list over every language, a language's own list over its files only.
 imprint: [comments, file-meta]
 steps:
