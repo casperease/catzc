@@ -29,7 +29,8 @@ BG, IDLE, BORDER, LABEL, INK, HALO, BADGE = "#1C2A24", "#243229", "#3B4D43", "#9
 FONT_R = "C:/Windows/Fonts/segoeui.ttf"
 FONT_B = "C:/Windows/Fonts/segoeuib.ttf"
 FONT_SB = "C:/Windows/Fonts/seguisb.ttf"
-LENS_BADGE = {"meta": "META", "architecture": "ARCH", "implementation": "IMPL", "operations": "OPS", "governance": "GOV"}
+LENS_BADGE = {"meta": "META", "architecture": "ARCH", "implementation": "IMPL", "operations": "OPS", "governance": "GOV",
+              "source": "SRC"}
 VIEWS = ("grid", "tree", "chain")
 
 # Set by configure() from the data folder: the maps.yml palette and the bucket labels.

@@ -75,6 +75,8 @@ registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/
 - **`session-cost-audit`** — measures what a session cost and why, against `out/plan-session-cost.md`, and proposes the changes.
 - **`test-optimization`** — makes all tests faster under the `timeouts.yml` roofs, one measured file at a time, without removing or
   weakening any test.
+- **`condense-comments`** — rewrites each comment residue's provisional insight line into the one line that says what the code does not,
+  file by file, after `Export-Comments` has moved a module's long comments to their pages; it never touches the pages or the code.
 
 ## Rules
 

@@ -1,4 +1,4 @@
-<mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="560" background="#1E2430" math="0" shadow="1">
+<mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="640" background="#1E2430" math="0" shadow="1">
   <root>
     <mxCell id="0" />
     <mxCell id="1" parent="0" />
@@ -137,8 +137,29 @@
     <mxCell id="m-count-text" value="count chip: members (rim = the counted glyph's rim)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
       <mxGeometry x="80" y="399" width="300" height="20" as="geometry" />
     </mxCell>
+    <mxCell id="band-source" value="SOURCE LENS (code-unit family: slate, no new colour)" style="rounded=1;html=1;arcSize=3;fillColor=#262E3B;strokeColor=#3A4555;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=#B0BAC7;" vertex="1" parent="1">
+      <mxGeometry x="20" y="446" width="1260" height="130" as="geometry" />
+    </mxCell>
+    <mxCell id="g-private" value="&lt;b&gt;private helper&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#4E6378;strokeColor=#7D90A4;strokeWidth=0.5;fontColor=#CDD3DC;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="40" y="490" width="130" height="36" as="geometry" />
+    </mxCell>
+    <mxCell id="g-type" value="&lt;b&gt;C# type&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#4E6378;strokeColor=#9FB3C8;fontColor=#DDE2E9;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="195" y="486" width="130" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="g-type-tag" value="C#" style="rounded=0;html=1;fillColor=#1E2430;strokeColor=#9FB3C8;fontColor=#DDE2E9;fontStyle=1;fontSize=10.5;shadow=0;" vertex="1" parent="1">
+      <mxGeometry x="303" y="478" width="26" height="16" as="geometry" />
+    </mxCell>
+    <mxCell id="g-module" value="Catzc.Other.Module" style="rounded=1;html=1;arcSize=6;fillColor=none;strokeColor=#9FB3C8;strokeWidth=1.5;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=11;fontColor=#9FB3C8;shadow=0;" vertex="1" parent="1">
+      <mxGeometry x="350" y="474" width="220" height="90" as="geometry" />
+    </mxCell>
+    <mxCell id="g-module-member" value="&lt;b&gt;code unit&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#4E6378;strokeColor=#9FB3C8;fontColor=#DDE2E9;fontSize=12;" vertex="1" parent="g-module">
+      <mxGeometry x="20" y="34" width="130" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="g-source-text" value="private helper: thin dim rim, smaller name (never dashed)&lt;br&gt;C# type: code unit with a C# tag&lt;br&gt;catzc module: slate frame named by the module (the slide's own module is a band)" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
+      <mxGeometry x="600" y="480" width="660" height="60" as="geometry" />
+    </mxCell>
     <mxCell id="footer" value="Structure in mid-tones with a light rim; neutral kinds dark with a light rim; result and failure saturated. Commits keep the locked palette (ADR-DSGN-VISUAL#4)." style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
-      <mxGeometry x="20" y="440" width="1260" height="20" as="geometry" />
+      <mxGeometry x="20" y="590" width="1260" height="20" as="geometry" />
     </mxCell>
   </root>
 </mxGraphModel>

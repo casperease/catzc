@@ -49,22 +49,22 @@ languages:
     extensions: [.ps1, .psm1, .psd1]
     formatter: psscriptanalyzer
     adr_folder: pwsh
-    checks: [Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links]
+    checks: [Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
   csharp:
     extensions: [.cs]
     formatter: dotnet-format
     adr_folder: automation/BCL
-    checks: [Test-Formatting, Test-Spelling, Test-Links]
+    checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
   pipeline-yaml:
     extensions: [.yaml]
     formatter: prettier
     vscode_language: azure-pipelines
     adr_folder: pipelines
-    checks: [Test-Formatting, Test-Spelling, Test-Links]
+    checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
   yaml:
     extensions: [.yml]
     formatter: prettier
-    checks: [Test-Formatting, Test-Spelling, Test-Links]
+    checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
   markdown:
     extensions: [.md]
     formatter: prettier
@@ -72,7 +72,7 @@ languages:
   bicep:
     extensions: [.bicep]
     formatter: bicep
-    checks: [Test-Formatting, Test-Spelling]
+    checks: [Test-Formatting, Test-Spelling, Test-Comments]
   python:
     extensions: [.py]
     formatter: ruff

@@ -7,7 +7,7 @@ With no argument it reads out/diagrams/fan-out and writes out/diagrams/gallery.p
 writes <slides-dir>/gallery.pdf.
 
 Page order: world maps, lens contact sheets (fan-out only), then every slide, each followed by its standalone minimaps when they
-exist and by its two markdown companions, <stem>.md (the presentation) and <stem>.visual.md (the visual description), rendered
+exist and by its two markdown companions, <stem>.md (the presentation) and <stem>.drawio.md (the visual description), rendered
 as text pages. Each page is the image scaled to 1600 px wide under a caption bar with its file name. Pillow writes the PDF
 directly, so no Markdown or HTML step is needed.
 """
@@ -152,7 +152,7 @@ for p in sorted(slides_dir.rglob("*.drawio.png"), key=lambda q: q.name):
     items.append((p, "Slide", page))
     items += [(m, "Minimap", page) for m in (folder / f"{stem}.{view}.png" for view in ("grid", "tree", "chain")) if m.exists()]
     items += [(m, label, markdown_page) for m, label in ((folder / f"{stem}.md", "Presentation"),
-                                                         (folder / f"{stem}.visual.md", "Visual description"))
+                                                         (folder / f"{stem}.drawio.md", "Visual description"))
               if m.exists()]
 pages = [render(p, s) for p, s, render in items]
 pages[0].save(target, "PDF", save_all=True, append_images=pages[1:], resolution=150)

@@ -76,6 +76,18 @@ their shapes (box, cylinder, pill) tell them apart.
 | failure              | rounded box                       | `#8E2424` / `#E57373` | a throw, rejection or discard; the only red; text `#EFD4D4`                        |
 | ADR-only             | the kind's shape, dashed, on page | `#1E2430` / `#AAB4C3` | something an ADR states that no code runs or checks; text `#CDD3DC`                |
 
+**Source-lens phrases** (the `source` lens, below) are variants of the code unit. They stay in slate, so they add no colour to the budget.
+Copy them from `glyphs.xml` (`g-private`, `g-type` + `g-type-tag`, `g-module`):
+
+| Phrase         | Shape                                                    | Fill / stroke                      | Use it for                                                                    |
+| -------------- | -------------------------------------------------------- | ---------------------------------- | ----------------------------------------------------------------------------- |
+| private helper | code unit, 36 px tall, `strokeWidth=0.5`, 11 px name     | `#4E6378` / `#7D90A4`              | a function in the module's `private/` folder; never dashed; text `#CDD3DC`     |
+| C# type        | code unit with a `C#` tag (26 × 16) on its top-right     | `#4E6378` / `#9FB3C8`, tag on page | a class or record under `types/*.cs`                                           |
+| catzc module   | slate frame, no fill, `strokeWidth=1.5`, name top-left   | none / `#9FB3C8`                   | another `Catzc.*` module the drawn code calls; its members sit inside it      |
+
+The slide's own module is a band (chrome), not a `catzc module` frame. `external tool` stays a vendor tool (az, git, dotnet), never a catzc
+module.
+
 - **Chrome** is not a kind: band `#262E3B` / `#3A4555` (`arcSize=3`, label `#B0BAC7`), legend and outer panel `#222A36` / `#3A4555`
   (`arcSize=6`), ink `#CDD3DC`, quiet ink `#949FAE`, lines `#AAB4C3`.
 - **Colour budget:** at most four kinds on one slide, plus chrome. A fifth kind means the slide is two slides.
@@ -127,8 +139,8 @@ The user's standard, from the wave-1 review: the information must be **verified 
 picture must be **simple**. A diagram that is only true to the ADR prose is not done.
 
 1. **Verify first.** For every claim in the picture (each box, edge, order, name, parameter, path and number), find its source in the ADR,
-   the code (`automation/**`, `importer.ps1`, root scripts) and the configs (`configs/*.yml`, pipeline YAML). Write `<name>.verify.md` next
-   to the XML: a table with the columns claim → source (`file:line`) → **confirmed / contradicted / ADR-only**.
+   the code (`automation/**`, `importer.ps1`, root scripts) and the configs (`configs/*.yml`, pipeline YAML). Write `<name>.drawio.verify.md`
+   next to the XML: a table with the columns claim → source (`file:line`) → **confirmed / contradicted / ADR-only**.
 2. **Code wins on facts. The ADR wins on intent.**
    - If the code contradicts the drawing, fix the drawing and report the contradiction.
    - If the ADR states something the code doesn't do yet, keep it only when it's essential to the finding, and mark it ADR-only in the
@@ -149,7 +161,7 @@ Lessons from wave 4:
 
 - **Run the ADR's own example when it's cheap.** Reading `Get-ConfigValue` passed, but running the ADR's example address threw (a typed
   `Dictionary` has no `Contains`). Run probes in the background behind `timeout <s>`, from a script in your own output folder.
-- **Every title is ≤ 100 characters on one line**, not only fan-out drawings. Shorten the brief's draft title when you have to, and say so.
+- **Every title is ≤ 60 characters on one line**, not only fan-out drawings. Shorten the brief's draft title when you have to, and say so.
 - **Check the result colour.** A fail-open "proceed" result isn't a pipeline/runner, so don't borrow the runner's colour for it. Use the
   neutral glyph unless the palette has a role for it.
 - **The time-safeguard limit can change mid-wave.** If the hook denies a call, its message names the current limit. Report the denial, and
@@ -173,6 +185,22 @@ doesn't need. It never adds claims the source or its sources don't support.
   and paths.
 
 - Name the files `<name>.<lens>.xml` / `<name>.<lens>.drawio.png`. The title states the lens's finding, e.g. "Meta: …".
+
+### The `source` lens (wave 9 onward)
+
+A sixth lens, drawn from the code alone rather than split from an ADR diagram. It draws one responsibility of one module.
+
+- **`source`** (≤ 10 boxes) shows the module's real public functions, private helpers, `configs/*.yml`, C# types and the other catzc
+  modules they call, in call order. Every box is a name that exists today (a Glob hit). Every edge is a call site (`file:line`) in the
+  `.drawio.verify.md`, and an edge without one is not drawn. It drops ADR wording and rationale.
+- **Subtitle:** `Module <Name> · source lens`. The **Supports** chips name the ADRs the drawn code cites (ADR codes in its comments and
+  error messages), found by grep, not guessed.
+- **Stem:** `<finding-slug>` (3–7 kebab words, ≤ 48 chars), with no ADR prefix and no lens suffix. It lands at
+  `docs/.assets/references/automation/<module-kebab>/<stem>.drawio.png` with `<stem>.drawio.md` and `<stem>.drawio.verify.md`. There is no
+  `docs/explanation/` article: the module's reference article embeds the slide under `## What the module does` with a one-paragraph
+  lead-in, and the `.drawio.md` carries the words (At a glance, Reading path, Glyphs, Edges, Legend, Where the code and the ADR differ).
+- **No minimaps** on source slides yet (wave 9 decision D4). The sidebar holds only the lens badge (`SRC`) and the Supports chips.
+- The flow edge means `flow: calls` on a source slide, or `flow: feeds` when data, not control, moves (one meaning per slide).
 - Lenses share the source's colour meanings, so a stage keeps its colour across all five.
 - If a lens has nothing honest to show (e.g. no operator touches it), draw nothing for it, and say so in the reply.
 - **Keep helper scripts in your own output folder** (e.g. `out/diagrams/lenses/<name>/_gen.py`), never under a shared name in the
@@ -277,7 +305,7 @@ view adds its sections in `describe.py`'s `VIEWS`.
   its capital code. Lit tree groups are labelled with their full names, most lit files first; a label may run past its tile (the page-colour
   halo keeps it legible) and is cut only at the image edge, never to a stub like "Module…"; a label that would cover one already printed is
   left out.
-- **Title:** ≤ 100 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, in the form
+- **Title:** ≤ 60 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, in the form
   `Supports <ADR-CODE>:<rules> · <lens> lens`.
 - **Boxes:**
   - name ≤ 28 chars;
@@ -312,15 +340,17 @@ view adds its sections in `describe.py`'s `VIEWS`.
 
 A fan-out drawing is a **slide**: glyphs on the picture, words in prose. Every slide ships as four files with one stem, side by side:
 
-| File                | Reader                                | Holds                                                                                                  |
-| ------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `<stem>.drawio.png` | everyone                              | the slide: glyphs, names, markers, chips, the legend, and the sidebar (three minimaps and the map key) |
-| `<stem>.md`         | a newcomer                            | the **article**: what the slide shows and why it holds, as well-written prose                          |
-| `<stem>.visual.md`  | anyone who can't see it, or checks it | the **visual description**: what is drawn, in this kit's terms, with no meaning                        |
-| `<stem>.verify.md`  | the lead and reviewers                | the claim → `file:line` → status table, the corrections, and the drift                                 |
+| File                      | Reader                                | Holds                                                                                                     |
+| ------------------------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `<stem>.drawio.png`       | everyone                              | the slide: glyphs, names, markers, chips, the legend, and the sidebar (three minimaps and the map key)    |
+| `<stem>.md`               | a newcomer                            | the **article**: what the slide shows and why it holds, as well-written prose                             |
+| `<stem>.drawio.md`        | anyone who can't see it, or checks it | the **visual description**, landed as the asset description: what is drawn, in this kit's terms, no meaning |
+| `<stem>.drawio.verify.md` | the lead and reviewers                | the claim → `file:line` → status table, the corrections, and the drift                                    |
+
+A `source` lens slide (below) has no `<stem>.md` article: its words go into the module's reference article and its `<stem>.drawio.md`.
 
 The article and the visual description are read by people, so they carry no audit trail: no line numbers in the prose, no claim tables, no
-"corrected from wave N", no notes about how the slide was made. All of that lives in `<stem>.verify.md`.
+"corrected from wave N", no notes about how the slide was made. All of that lives in `<stem>.drawio.verify.md`.
 
 ### The article
 
@@ -355,7 +385,7 @@ otherwise.>
 ## See also
 
 - [<ADR title>](<relative path to the ADR>) — the decision this slide supports.
-- [Visual description](<stem>.visual.md) · [Verification](<stem>.verify.md)
+- [Visual description](<stem>.drawio.md) · [Verification](<stem>.drawio.verify.md)
 ```
 
 - The Walkthrough follows the markers in reading order; every marker has exactly one step and every step has a marker.
@@ -364,7 +394,7 @@ otherwise.>
 
 ### The visual description
 
-`<stem>.visual.md`
+`<stem>.drawio.md`
 
 Describe only what is drawn, never what it means, using this kit's vocabulary: **canvas, drawing area, sidebar, band, span bar, glyph** (by
 its legend phrase: code unit, named set, file, store, runner, gate, environment, external tool, actor, result, failure, ADR-only, commit),
@@ -409,7 +439,7 @@ files.>
 
 ### The verification file
 
-`<stem>.verify.md`
+`<stem>.drawio.verify.md`
 
 A table of every claim on the slide and in the article: claim → source (`file:line`) → **confirmed / contradicted / ADR-only**, followed by
 `## Corrections` (what changed against the previous wave, one line each) and `## Drift` (ADR vs code, one line each). Re-verify every

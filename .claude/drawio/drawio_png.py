@@ -165,18 +165,29 @@ def decode(chunk):
 
 def render(root):
     cells = {c.get("id"): c for c in root.iter("mxCell")}
-    geo = {}
-    for cid, c in cells.items():
+
+    def own(c):  # a vertex's geometry relative to its parent, or None for edges and the two root cells
         g = c.find("mxGeometry")
         if g is None or c.get("edge") == "1":
+            return None
+        return float(g.get("x", 0)), float(g.get("y", 0)), float(g.get("width", 0)), float(g.get("height", 0))
+
+    geo = {}
+    for cid, c in cells.items():
+        rel = own(c)
+        if rel is None:
             continue
-        x, y = float(g.get("x", 0)), float(g.get("y", 0))
+        x, y = rel[0], rel[1]
+        seen = {cid}
         parent = cells.get(c.get("parent"))
-        while parent is not None and parent.get("id") in geo:
-            px, py, _, _ = geo[parent.get("id")]
-            x, y = x + px, y + py
-            break
-        geo[cid] = (x, y, float(g.get("width", 0)), float(g.get("height", 0)))
+        while parent is not None and parent.get("id") not in seen:  # every level up, in any document order
+            seen.add(parent.get("id"))
+            prel = own(parent)
+            if prel is None:
+                break
+            x, y = x + prel[0], y + prel[1]
+            parent = cells.get(parent.get("parent"))
+        geo[cid] = (x, y, rel[2], rel[3])
     if not geo:
         raise SystemExit("no vertices with geometry")
     minx = min(v[0] for v in geo.values()) - 20
@@ -202,7 +213,8 @@ def render(root):
         stroke = None if s.get("strokeColor") == "none" or is_text else faded(color(s.get("strokeColor"), LINE), s)
         dashed = s.get("dashed") == "1"
         if fill or stroke:
-            sw = int(float(s.get("strokeWidth", 1)))
+            sw_raw = float(s.get("strokeWidth", 1))
+            sw = max(1, int(sw_raw)) if sw_raw > 0 else 0  # a hairline (< 1 px, the private-helper rim) still draws 1 px
             box = (x0, y0, x1, y1)
             if fill and s.get("shadow") != "0":  # a filled shape casts the kit's shadow; a bare line (span bar) does not
                 drop_shadow(

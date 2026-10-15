@@ -6,7 +6,8 @@ description: >
   says it owns, verifies every file before the next, never edits a coordinator-owned shared file (it asks for the entry instead), and ends
   with a fixed report. Reach for it whenever work is delegated to a sub-agent and no specialised agent fits. Do NOT use it for draw.io
   diagrams (`drawio-diagram-waves`, `write-drawio-files`), for publishing review artifacts (`print-artifacts`), for the inspiration module
-  (`build-inspiration-module`), for auditing what a session cost (`session-cost-audit`), or for making tests faster (`test-optimization`).
+  (`build-inspiration-module`), for auditing what a session cost (`session-cost-audit`), for making tests faster (`test-optimization`), or
+  for rewriting comment residues' insight lines (`condense-comments`).
 tools: Bash, Read, Glob, Grep, Write, Edit
 ---
 
