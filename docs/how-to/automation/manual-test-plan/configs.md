@@ -41,6 +41,7 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 | 20  | L0   | automation/Catzc.Base.Config/tests/Get-Config.Tests.ps1                             | the shipped registry seals the engine-intrinsic configs | The shipped configs.yml registry (`ConfigsConfig`) seals the engine-intrinsic configs: configs, dependencies, profiles, exporter, and glossary.        |
 | 21  | L1   | automation/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1    | integrity (shipped source-conventions.yml)              | The shipped source-conventions.yml loads through `SourceConventionsConfig`.                                                                            |
 | 22  | L1   | automation/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1             | CommentsConfig (shipped comments.yml)                   | The shipped comments.yml loads through Get-Config as a valid `CommentsConfig` (the comment-page languages, keep lists, pages map and excludes).        |
+| 23  | L0   | automation/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1            | integrity (shipped file-carriers.yml)                   | The shipped file-carriers.yml loads through `FileCarriersConfig`, and every file language of languages.yml has a carrier entry (ADR-REPO-FILEMETA#1).  |
 
 ## Checks
 
