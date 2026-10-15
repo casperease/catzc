@@ -59,6 +59,7 @@ groups:
         Catzc.Base.Repository,
         Catzc.Base.Execution,
         Catzc.Base.CodeMeta,
+        Catzc.Base.MarkdownMeta,
         Catzc.Base.Asserts,
       ]
     Catzc.Base.Files: [Catzc.Base.Git, Catzc.Base.Execution, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Asserts]
@@ -134,6 +135,7 @@ groups:
         Catzc.Base.Languages,
         Catzc.Base.MarkdownMeta,
         Catzc.Base.CodeMeta,
+        Catzc.Base.Folders,
       ]
     Catzc.Base.Exporter:
       [
@@ -169,6 +171,7 @@ groups:
         Catzc.Base.Files,
         Catzc.Base.Writers,
         Catzc.Base.Docs,
+        Catzc.Base.Languages,
       ]
 
   # Edges to Base, to the Catzc.Azure root and to Tooling are declared per member under modules, not in this DAG.

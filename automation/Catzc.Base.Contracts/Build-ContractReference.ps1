@@ -144,7 +144,8 @@ function Build-ContractReference {
         }
 
         $path = Join-Path $RepositoryRoot "$pageFolder/$unit.md"
-        $changed = Write-FileIfChanged $path (($lines -join "`n") + "`n") -DryRun:$DryRun
+        $page = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path "$pageFolder/$unit.md" -Generator Build-ContractReference -Source "contracts/$unit" -Tracked
+        $changed = Write-FileIfChanged $path $page -DryRun:$DryRun
         $results.Add([pscustomobject]@{
                 Unit = $unit; Path = "$pageFolder/$unit.md"; Changed = $changed; Removed = $false; DryRun = [bool] $DryRun
                 AssetCount = $unitAssets.Count

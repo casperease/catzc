@@ -1,3 +1,14 @@
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/types/ParsedScripts.cs
+    kind: type
+    module: Catzc.Base.Repository
+    adrs: []
+---
+*/
+
 // One call's parse of each script: a file is parsed once however many checks read it, and the holder dies with the call that made it.
 
 using System;

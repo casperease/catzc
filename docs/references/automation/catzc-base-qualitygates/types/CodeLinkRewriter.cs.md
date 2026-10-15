@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md
     kind: comment-page
-    body_sha: dfc4fc231265
+    body_sha: "6482253766a3"
     adrs:
       - ADR-REPO-LINK#3
       - ADR-REPO-LINK#9
@@ -25,7 +25,7 @@ Rewrites the ADR references in one comment into canonical code links
   `[ADR-<CODE>](/docs/adr/<path>.md)`                       a whole ADR
   `[ADR-<CODE>#<n>](/docs/adr/<path>.md#rule-adr-<code><n>)` one rule
 Every legacy spelling is recognised — a bare, ./, ../ or rooted docs/adr path, an ADR file name alone, a bare
-citation (`ADR-X`, `ADR-X:n`, `ADR-X#n`), a path followed by its own citation, and a markdown link in another shape —
+citation (`ADR-<CODE>`, `ADR-<CODE>:n`, `ADR-<CODE>#n`), a path followed by its own citation, and a markdown link in another shape —
 and the citation code is the source of truth: the destination is derived from it (AdrCitationMap), so a stale
 path is re-pointed and a text/destination mismatch resolves in favour of the code.
 Inline code spans and a PowerShell help block's .EXAMPLE sections are literal and never touched. Pure: it returns
@@ -73,7 +73,7 @@ name fixture ADRs on purpose. Returns the new comment text; hits and the inserte
 Above `int Adjacent(string comment, int at, bool[] literal, out string code, out...`.
 
 ```text
-The citation right after a path — `x.md (ADR-X:3)`, `x.md, Rule ADR-X:3`, `x.md — ADR-X` — merges into the
+The citation right after a path — `x.md (ADR-X:3)`, `x.md, Rule ADR-X:3`, `x.md — ADR-<CODE>` — merges into the
 path's link. Returns how many characters it covers (0 when there is none); a ')' is taken only when the
 separator opened it.
 ```

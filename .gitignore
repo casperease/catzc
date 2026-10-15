@@ -5,7 +5,7 @@
 #     source:
 #       - automation/Catzc.Base.Git/configs/gitignore.yml
 #       - automation/Catzc.Base.RootConfig/configs/rootconfig.yml
-#     kind: generated-from-source
+#     kind: tracked-generated-from-source
 #     generator: New-GitIgnore
 # ---
 

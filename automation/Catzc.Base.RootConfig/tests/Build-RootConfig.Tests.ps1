@@ -58,7 +58,7 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
 
     It 'renders a generator entry through the dispatch, under a head naming the generator and its sources' {
         Build-RootConfig | Out-Null
-        [System.IO.File]::ReadAllText($script:genTarget) | Should -BeExactly "# ---`n# catzc:`n#   derived:`n#     path: generated.txt`n#     source: sources/fixture.yml`n#     kind: generated-from-source`n#     generator: Fake-Generator`n# ---`n`nrendered output`n"
+        [System.IO.File]::ReadAllText($script:genTarget) | Should -BeExactly "# ---`n# catzc:`n#   derived:`n#     path: generated.txt`n#     source: sources/fixture.yml`n#     kind: tracked-generated-from-source`n#     generator: Fake-Generator`n# ---`n`nrendered output`n"
         Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'Fake-Generator' -and $Target -eq 'generated.txt' }
     }
 

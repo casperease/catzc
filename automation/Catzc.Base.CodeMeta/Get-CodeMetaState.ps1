@@ -22,8 +22,9 @@ catzc:
 .PARAMETER Form
     The head's comment syntax: a Catzc.Base.CodeMeta.HeadForm.
 .OUTPUTS
-    [pscustomobject] @{ HasHead; Sections; DerivedKeys; ConfigLines; Before; Rest; NewLine } — Sections are the keys directly under `catzc`,
-    DerivedKeys the keys under `derived`, and ConfigLines the authored lines under `config`, as written.
+    [pscustomobject] @{ HasHead; Sections; DerivedKeys; DerivedLists; ConfigLines; Before; Rest; NewLine } — Sections are the keys directly
+    under `catzc`, DerivedKeys the keys under `derived`, DerivedLists each derived list key with its items, and ConfigLines the authored
+    lines under `config`, as written.
 .EXAMPLE
     Get-CodeMetaState -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')) | Select-Object -ExpandProperty DerivedKeys
 #>
@@ -40,13 +41,21 @@ function Get-CodeMetaState {
     )
 
     $head = [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($Text, $Form)
+    $lists = [ordered]@{}
+    foreach ($key in $head.DerivedKeys) {
+        $items = [string[]] @($head.DerivedList($key))
+        if ($items.Count -gt 0) {
+            $lists[$key] = $items
+        }
+    }
     [pscustomobject]@{
-        HasHead     = $head.HasHead
-        Sections    = [string[]] @($head.Sections)
-        DerivedKeys = [string[]] @($head.DerivedKeys)
-        ConfigLines = [string[]] @($head.ConfigLines)
-        Before      = $head.Before
-        Rest        = $head.Rest
-        NewLine     = $head.NewLine
+        HasHead      = $head.HasHead
+        Sections     = [string[]] @($head.Sections)
+        DerivedKeys  = [string[]] @($head.DerivedKeys)
+        DerivedLists = $lists
+        ConfigLines  = [string[]] @($head.ConfigLines)
+        Before       = $head.Before
+        Rest         = $head.Rest
+        NewLine      = $head.NewLine
     }
 }

@@ -46,7 +46,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $paths | Should -Be @('docs/references/contracts/gadget.md', 'docs/references/contracts/widget.md')
 
         $page = Read-Page
-        $page.StartsWith("# docs/references/contracts/widget.md`n`n``The widget contracts```n") | Should -BeTrue
+        $page | Should -BeLike "---`ncatzc:*kind: tracked-generated-from-source*generator: Build-ContractReference*---`n`n# docs/references/contracts/widget.md`n`n``The widget contracts```n*"
         $sections = @([regex]::Matches($page, '(?m)^## (.+)$') | ForEach-Object { $_.Groups[1].Value })
         $sections | Should -Be @('0.0.0', '1.10.0', '1.2.0')
     }

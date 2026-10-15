@@ -41,7 +41,7 @@ function Get-ReadmeContent {
     $banner = "> Generated from [$($Mapping.source)]($sourceLink) — edit the source;"
 
     # The copy's own meta block says what it is, in the shape every meta block has, so a tool can tell it from an authored file.
-    $meta = "---`ncatzc:`n  derived:`n    kind: generated-from-source`n---`n`n"
+    $meta = "---`ncatzc:`n  derived:`n    kind: $((Get-Config -Config generated-head).tracked_kind)`n---`n`n"
 
     $lines = @($body -split "`n", 2)
     if (-not $lines[0].StartsWith('# ')) {

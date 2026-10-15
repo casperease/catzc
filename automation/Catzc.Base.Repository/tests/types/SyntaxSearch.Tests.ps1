@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/tests/types/SyntaxSearch.Tests.ps1
+    kind: test
+---
+#>
+
 # The compiled searches return what a PowerShell predicate over FindAll returned. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'SyntaxSearch' -Tag 'L0', 'logic' {

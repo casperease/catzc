@@ -1,1 +1,3 @@
-{}
+{
+  "//": "catzc:\n  derived:\n    path: automation/Catzc.Azure/configs/.not-azure-schema.json\n    kind: other"
+}

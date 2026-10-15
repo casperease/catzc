@@ -30,7 +30,8 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         # The fixture repository root is not the loaded code root, which the run-mode guard reads as a built
         # package — the guard is its own seam, asserted separately below.
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
-        Mock Get-Config -ModuleName Catzc.Base.Docs {
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'generated-head' } { [Catzc.Base.Languages.GeneratedHeadConfig]::new(@{ keys = @('path', 'kind') }) }
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -ne 'generated-head' } {
             [pscustomobject]@{
                 patterns = @()
                 mappings = @(
@@ -55,7 +56,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
                 '---'
                 'catzc:'
                 '  derived:'
-                '    kind: generated-from-source'
+                '    kind: tracked-generated-from-source'
                 '---'
                 ''
                 '# Fixture Title'

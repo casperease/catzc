@@ -70,6 +70,14 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedKeys($block) | Should -Be @('kind', 'body_sha', 'adrs')
     }
 
+    It 'reads the items of one derived list, and nothing for a scalar, a missing key or a config list' {
+        $block = [string[]] @('catzc:', '  derived:', '    kind: gadget', '    adrs:', '      - ADR-WIDGET#1', '      - "ADR-GADGET#2"', '    path: x', '  config:', '    adrs:', '      - ADR-OTHER#3')
+        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedList($block, 'adrs') | Should -Be @('ADR-WIDGET#1', 'ADR-GADGET#2')
+        @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedList($block, 'kind')).Count | Should -Be 0
+        @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedList($block, 'widgets')).Count | Should -Be 0
+        @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedList($null, 'adrs')).Count | Should -Be 0
+    }
+
     It 'renders no block when there are no facts and no config' {
         @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{}, [string[]] @())).Count | Should -Be 0
     }

@@ -3,7 +3,7 @@
 #   derived:
 #     path: importer.sh
 #     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
-#     kind: generated-from-source
+#     kind: tracked-generated-from-source
 # ---
 
 # shellcheck shell=bash

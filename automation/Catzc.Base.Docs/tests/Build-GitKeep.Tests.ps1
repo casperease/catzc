@@ -39,7 +39,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         $report = @(Build-GitKeep -PassThru)
         ($report | Where-Object Path -EQ 'contracts/.gitkeep').Changed | Should -BeTrue
         $written = ([System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'contracts/.gitkeep')) -replace "`r", '')
-        $written | Should -BeLike "# ---`n# catzc:`n#   derived:`n#     path: contracts/.gitkeep`n#     source:*`n#     kind: generated-from-source`n#     generator: Build-GitKeep`n# ---`n`n*"
+        $written | Should -BeLike "# ---`n# catzc:`n#   derived:`n#     path: contracts/.gitkeep`n#     source:*`n#     kind: tracked-generated-from-source`n#     generator: Build-GitKeep`n# ---`n`n*"
         $written | Should -BeLike ('*' + ($script:expected -replace "`r", '').TrimEnd("`n") + "`n")
     }
 
@@ -89,7 +89,7 @@ Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR
         $written = [System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'widgets/.gitkeep'))
         $shipped.Trim() | Should -Not -BeNullOrEmpty
         ($written -replace "`r", '') | Should -BeLike ('*' + ($shipped -replace "`r", '').TrimEnd("`n") + "`n")
-        $written | Should -BeLike '*path: widgets/.gitkeep*kind: generated-from-source*'
+        $written | Should -BeLike '*path: widgets/.gitkeep*kind: tracked-generated-from-source*'
     }
 }
 

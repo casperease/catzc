@@ -1,3 +1,12 @@
+---
+catzc:
+  derived:
+    path: docs/adr/index.md
+    source: automation/Catzc.Base.Docs/configs/adrs.yml
+    kind: tracked-generated-from-source
+    generator: Build-AdrIndex
+---
+
 # ADR index and rule-citation registry
 
 Architecture Decision Records live under `docs/adr/`, grouped by domain — the sections below mirror the domains declared in

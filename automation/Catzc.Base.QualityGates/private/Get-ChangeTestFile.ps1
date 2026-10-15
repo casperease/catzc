@@ -55,7 +55,8 @@ function Get-ChangeTestFile {
             if (-not [System.IO.Directory]::Exists($testsFolder)) {
                 continue
             }
-            foreach ($file in [System.IO.Directory]::EnumerateFiles($testsFolder, '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories)) {
+            # Test files sit at most two levels below tests/ (tests/types/); the third level is headroom.
+            foreach ($file in Get-ChildPath $testsFolder -File -Filter '*.Tests.ps1' -Depth 3) {
                 [void]$tests.Add(([System.IO.Path]::GetRelativePath($RepositoryRoot, $file) -replace '\\', '/'))
             }
         }

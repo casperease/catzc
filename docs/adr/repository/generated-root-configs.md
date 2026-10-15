@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/generated-root-configs.md
     kind: adr
-    body_sha: "3cfbd8c46763"
+    body_sha: "9d899731abde"
     defines:
       - ADR-REPO-ROOTCFG#1
       - ADR-REPO-ROOTCFG#2
@@ -67,7 +67,7 @@ delete-then-write, never in-place, so it can never write through a linked target
 ### Rule ADR-REPO-ROOTCFG:5
 
 A composed root file — a non-link `source` copy-in or a `generator`'s output — carries the unified generated-file head
-([ADR-REPO-FILEMETA#7](file-meta.md#rule-adr-repo-filemeta7)): `kind: generated-from-source`, the `generator` when one composed it, and the
+([ADR-REPO-FILEMETA#7](file-meta.md#rule-adr-repo-filemeta7)): `kind: generated-from-source` (`tracked-generated-from-source` for a `committed: true` entry), the `generator` when one composed it, and the
 `source` it copies or the `sources` it renders from. `Build-RootConfig` writes the head, in the carrier its `carrier` key names (default:
 the carrier of the target's file language), so a generator renders its content bare and no entry hand-words a banner. The head is strictly a
 leading block: config formats have no portable in-body anchor. A `copyAsLink` entry carries no head at all — nothing is generated, and where

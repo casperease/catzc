@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/generated-readmes.md
     kind: adr
-    body_sha: b2ec30d4291a
+    body_sha: ea315fc5753d
     defines:
       - ADR-REPO-README#1
       - ADR-REPO-README#2
@@ -69,7 +69,7 @@ Every link in a generated README works where the README is opened. Each relative
 rewritten relative to the README's folder (`MarkdownLinkRebaser`); code spans, fenced blocks, URLs, in-file `#anchors`, and
 repository-rooted `/` targets are left as written. A line under the title links back to the source as the one place to edit. The source's
 front matter, its meta block ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)) included, is left out of the copy. The copy opens
-with a meta block of its own, `kind: generated-from-source`, so a tool tells a generated file from an authored one, and then its title.
+with a meta block of its own, `kind: tracked-generated-from-source`, so a tool tells a generated file from an authored one, and then its title.
 
 - [Readable where it is opened](#readable-where-it-is-opened)
 

@@ -27,8 +27,8 @@ catzc:
     The command that composed the content, when one did.
 .PARAMETER Source
     The repository-relative authored file or files the content comes from, when it has any.
-.PARAMETER Kind
-    The kind written into the head. Default: generated-from-source.
+.PARAMETER Tracked
+    The file is tracked by git, so it gets the tracked kind of generated-head.yml instead of the plain generated kind.
 .PARAMETER Carriers
     The carrier registry. Default: the shipped file-carriers.yml.
 .PARAMETER Languages
@@ -57,7 +57,7 @@ function Format-GeneratedFileHead {
 
         [string[]] $Source = @(),
 
-        [string] $Kind = 'generated-from-source',
+        [switch] $Tracked,
 
         [Catzc.Base.Languages.FileCarriersConfig] $Carriers = (Get-Config -Config file-carriers),
 
@@ -76,7 +76,13 @@ function Format-GeneratedFileHead {
     $entry = $Carriers.Find($id)
     Assert-NotNull $entry -ErrorText "Format-GeneratedFileHead: '$relative' names the carrier '$id', which file-carriers.yml does not declare."
 
-    $values = @{ path = $relative; kind = $Kind }
+    $kind = if ($Tracked) {
+        $Head.tracked_kind
+    }
+    else {
+        $Head.kind
+    }
+    $values = @{ path = $relative; kind = $kind }
     if ($Generator) {
         $values['generator'] = $Generator
     }
@@ -97,11 +103,14 @@ function Format-GeneratedFileHead {
         ([Catzc.Base.Languages.CarrierKind]::CommentHead) {
             Format-CodeMetaHead -Text $Text -Form $entry.Form() -Fact $facts
         }
+        ([Catzc.Base.Languages.CarrierKind]::FrontMatter) {
+            Format-MarkdownMetaBlock -Text $Text -Fact $facts
+        }
         ([Catzc.Base.Languages.CarrierKind]::Property) {
             Format-PropertyMetaHead -Text $Text -Property $entry.property -Strip $entry.strip -Fact $facts
         }
         default {
-            throw "Format-GeneratedFileHead: '$relative' uses the carrier '$id' of kind $($entry.carrier), and only a comment head or a property can be written into generated content."
+            throw "Format-GeneratedFileHead: '$relative' uses the carrier '$id' of kind $($entry.carrier), and only front matter, a comment head or a property can be written into generated content."
         }
     }
 }

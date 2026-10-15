@@ -48,11 +48,12 @@ function Test-ConfigIdentityHygiene {
     $root = Get-RepositoryRoot
     if (-not $Path) {
         $terminology = 'configs/terminology.yml'
-        $moduleConfigs = [System.IO.Directory]::EnumerateFiles((Join-Path $root 'automation'), '*.yml', [System.IO.SearchOption]::AllDirectories) |
+        # A module's configs sit three levels below automation (module, configs, file); infrastructure ymls reach five.
+        $moduleConfigs = Get-ChildPath (Join-Path $root 'automation') -File -Filter '*.yml' -Depth 3 -PruneVendor $true |
             Where-Object { $_ -match '[\\/]configs[\\/][^\\/]+\.yml$' -and ($_ -replace '\\', '/') -notlike "*$terminology" }
         $infrastructureRoot = Join-Path $root 'infrastructure'
         $infrastructureConfigs = if ([System.IO.Directory]::Exists($infrastructureRoot)) {
-            [System.IO.Directory]::EnumerateFiles($infrastructureRoot, '*.yml', [System.IO.SearchOption]::AllDirectories)
+            Get-ChildPath $infrastructureRoot -File -Filter '*.yml' -Depth 5
         }
         else {
             @()

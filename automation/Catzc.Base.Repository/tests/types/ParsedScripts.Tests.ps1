@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/tests/types/ParsedScripts.Tests.ps1
+    kind: test
+---
+#>
+
 # One holder parses a file once. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'ParsedScripts' -Tag 'L0', 'logic' {

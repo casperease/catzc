@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/Get-TypesLoadPolicy.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:shipped = [System.IO.Path]::Combine((Split-Path $PSScriptRoot -Parent), 'assets', 'types-load.yml')

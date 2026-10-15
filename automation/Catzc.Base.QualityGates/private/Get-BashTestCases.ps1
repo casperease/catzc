@@ -37,7 +37,8 @@ function Get-BashTestCases {
     $integrityPrefix = [Catzc.Base.Languages.BashConfig]::IntegrityPrefix
     $declaration = [regex]::new('(?m)^[ \t]*@test[ \t]+(?:"(?<name>[^"]+)"|''(?<name>[^'']+)'')[ \t]*\{')
 
-    $files = @([System.IO.Directory]::GetFiles($Folder, '*.bats', [System.IO.SearchOption]::AllDirectories))
+    # A package folder holds its .bats files directly, so they sit two levels below the folder; the third is headroom.
+    $files = @(Get-ChildPath $Folder -File -Filter '*.bats' -Depth 3)
     [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
     $cases = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($file in $files) {

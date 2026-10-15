@@ -5,7 +5,7 @@
 #     kind: config
 # ---
 
-# Where each file class keeps its meta block, or the reason it has none; a class with files: wins over a language of the same file.,,
+# Where each file class keeps its meta block, or the reason it has none; a class with files: wins over a language of the same file.
 # [comment:1](/docs/references/automation/catzc-base-languages/configs/file-carriers.yml.md#comment1)
 carriers:
   # Front matter is the Markdown convention, and the reserved catzc key is the block.
@@ -23,7 +23,7 @@ carriers:
   python: { carrier: comment-head, line: "#", anchor: after-shebang }
   bash: { carrier: comment-head, line: "#", anchor: after-shebang }
 
-  # A block comment, below the XML declaration or the doctype, which must stay first.
+  # XML carries no block, for the reason it states; HTML takes its block below the doctype, which must stay first.
   xml: { carrier: none, reason: "an XML comment may not contain '--', so the front matter fence would make the file invalid" }
   html: { carrier: comment-head, block: ["<!--", "-->"], anchor: after-prolog }
   css: { carrier: comment-head, block: ["/*", "*/"] }

@@ -1,3 +1,14 @@
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/types/SyntaxSearch.cs
+    kind: type
+    module: Catzc.Base.Repository
+    adrs: []
+---
+*/
+
 // A scriptblock handed to FindAll runs once per node and allocates about 2 KB each time; these compiled walks allocate almost nothing.
 
 using System;

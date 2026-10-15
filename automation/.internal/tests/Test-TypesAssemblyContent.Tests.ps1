@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/Test-TypesAssemblyContent.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-TypesAssemblyContent' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:space = 'Fixture' + [guid]::NewGuid().ToString('N').Substring(0, 8)

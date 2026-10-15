@@ -42,6 +42,11 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         $many | Should -BeLike "*    source:`n      - a/one.yml`n      - a/two.yml`n    kind: generated-from-source`n    generator: New-Gadget`n---*"
     }
 
+    It 'writes the tracked kind for a file git tracks' {
+        $text = Format-GeneratedFileHead -Text "body`n" -Path 'docs/gen.wdg' -Tracked -Carriers $script:carriers -Languages $script:languages
+        $text | Should -BeLike '*    kind: tracked-generated-from-source*'
+    }
+
     It 'is stable: a second run over its own output changes nothing' {
         $arguments = @{ Path = 'docs/gen.wdg'; Generator = 'New-Widget'; Source = 'docs/widget.yml'; Carriers = $script:carriers; Languages = $script:languages }
         $once = Format-GeneratedFileHead -Text "body`n" @arguments

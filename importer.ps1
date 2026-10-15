@@ -4,7 +4,7 @@ catzc:
   derived:
     path: importer.ps1
     source: automation/.internal/Catzc.Internal.Importer.psm1
-    kind: generated-from-source
+    kind: tracked-generated-from-source
     generator: New-Importer
 ---
 #>

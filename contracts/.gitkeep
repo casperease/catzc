@@ -3,7 +3,7 @@
 #   derived:
 #     path: contracts/.gitkeep
 #     source: automation/Catzc.Base.Docs/assets/gitkeep
-#     kind: generated-from-source
+#     kind: tracked-generated-from-source
 #     generator: Build-GitKeep
 # ---
 

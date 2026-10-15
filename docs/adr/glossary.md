@@ -1,3 +1,11 @@
+---
+catzc:
+  derived:
+    path: docs/adr/glossary.md
+    kind: tracked-generated-from-source
+    generator: Build-Glossary
+---
+
 # docs/adr/glossary.md
 
 Glossary: the controlled vocabulary

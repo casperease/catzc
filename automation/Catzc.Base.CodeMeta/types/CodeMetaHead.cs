@@ -62,6 +62,9 @@ public sealed class CodeMetaHead
     // The keys under `derived`.
     public IReadOnlyList<string> DerivedKeys => MarkdownMetaBlock.DerivedKeys(metaBlock);
 
+    // The items of one list under `derived`, as the head holds them.
+    public IReadOnlyList<string> DerivedList(string key) => MarkdownMetaBlock.DerivedList(metaBlock, key);
+
     // The authored lines under `config`, as written.
     public IReadOnlyList<string> ConfigLines => MarkdownMetaBlock.ConfigLines(metaBlock);
 

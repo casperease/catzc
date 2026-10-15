@@ -96,6 +96,34 @@ public static class MarkdownMetaBlock
     // The keys one level down inside `derived`, four spaces in.
     public static IReadOnlyList<string> DerivedKeys(IReadOnlyList<string> block) => KeysAt(block, 4, DerivedKey);
 
+    // The items of one list under `derived`, as written; empty when the key is absent or holds a scalar.
+    public static IReadOnlyList<string> DerivedList(IReadOnlyList<string> block, string key)
+    {
+        var items = new List<string>();
+        if (block == null) { return items; }
+        bool inDerived = false;
+        bool inKey = false;
+        foreach (string line in block)
+        {
+            if (line.StartsWith("  ", StringComparison.Ordinal) && !line.StartsWith("   ", StringComparison.Ordinal))
+            {
+                inDerived = line.TrimEnd() == "  " + DerivedKey + ":";
+                inKey = false;
+                continue;
+            }
+            if (!inDerived) { continue; }
+            if (line.StartsWith("    ", StringComparison.Ordinal) && line.Length > 4 && line[4] != ' ' && line[4] != '-')
+            {
+                inKey = line.Substring(4).Trim('"').StartsWith(key + ":", StringComparison.Ordinal)
+                    || line.Substring(4).StartsWith("\"" + key + "\":", StringComparison.Ordinal);
+                continue;
+            }
+            string item = line.TrimStart();
+            if (inKey && item.StartsWith("- ", StringComparison.Ordinal)) { items.Add(item.Substring(2).Trim().Trim('"')); }
+        }
+        return items;
+    }
+
     static List<string> KeysAt(IReadOnlyList<string> block, int indent, string inside)
     {
         var keys = new List<string>();

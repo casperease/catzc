@@ -41,7 +41,8 @@ function Get-FixtureIdentityTokens {
     Assert-SourceTree
     $registry = (Get-Config -Config configs).configs
     $automationRoot = Join-Path (Get-RepositoryRoot) 'automation'
-    $fixtureConfigs = [System.IO.Directory]::EnumerateFiles($automationRoot, '*.yml', [System.IO.SearchOption]::AllDirectories) |
+    # A fixture config sits five levels below automation: module, tests, assets, config, file.
+    $fixtureConfigs = Get-ChildPath $automationRoot -File -Filter 'azure.yml', 'customer.yml' -Depth 5 -PruneVendor $true |
         Where-Object { $_ -match '[\\/]tests[\\/]assets[\\/]config[\\/](azure|customer)\.yml$' }
 
     foreach ($file in $fixtureConfigs) {

@@ -16,7 +16,8 @@ catzc:
     The adr-codes meta kind's fact: the ADR citations the file and its comment page make, sorted and without duplicates.
 .DESCRIPTION
     A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation. A rule the file defines itself is
-    listed under `defines`, never here. A file the kind's `domain_files` setting names also lists a bare `ADR-<CODE>`.
+    listed under `defines`, never here. A file the kind's `domain_files` setting names also lists a bare `ADR-<CODE>`. A file the
+    `held_files` setting names keeps every code its head already holds, so the head is where its citations live.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What Get-MarkdownMetaState read from the file.
@@ -73,6 +74,18 @@ function Get-AdrCodesFileMetaFact {
     if (-not $withDomain) {
         foreach ($defined in (Get-AdrDefinedRule -Text $text)) {
             [void] $codes.Remove($defined)
+        }
+    }
+    $heldFiles = if ($Kind.settings.ContainsKey('held_files')) {
+        @($Kind.settings['held_files'])
+    }
+    else {
+        @()
+    }
+    $held = @($heldFiles | Where-Object { [Catzc.Base.Globs.GlobPattern]::new($_).Matches($Path) }).Count -gt 0
+    if ($held -and $State.PSObject.Properties['DerivedLists'] -and $State.DerivedLists.Contains($Kind.keys[0])) {
+        foreach ($code in $State.DerivedLists[$Kind.keys[0]]) {
+            [void] $codes.Add($code)
         }
     }
     [ordered]@{ $Kind.keys[0] = [string[]] @($codes) }

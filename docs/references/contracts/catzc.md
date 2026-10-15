@@ -1,3 +1,12 @@
+---
+catzc:
+  derived:
+    path: docs/references/contracts/catzc.md
+    source: contracts/catzc
+    kind: tracked-generated-from-source
+    generator: Build-ContractReference
+---
+
 # docs/references/contracts/catzc.md
 
 `The catzc contracts`

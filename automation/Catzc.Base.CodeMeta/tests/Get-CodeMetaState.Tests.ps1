@@ -23,6 +23,12 @@ Describe 'Get-CodeMetaState' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1' {
         $state.NewLine | Should -BeExactly "`n"
     }
 
+    It 'reports each derived list with the items the head holds, and no entry for a scalar key' {
+        $state = Get-CodeMetaState -Text "/*`n---`ncatzc:`n  derived:`n    path: a/b.cs`n    adrs:`n      - ADR-WIDGET#1`n      - ADR-GADGET#2`n---`n*/`n`nclass Gadget { }`n" -Form $script:form
+        @($state.DerivedLists.Keys) | Should -Be @('adrs')
+        $state.DerivedLists['adrs'] | Should -Be @('ADR-WIDGET#1', 'ADR-GADGET#2')
+    }
+
     It 'reports a text without a head as having none, leaving the whole text as the rest' {
         $text = "class Gadget { }`r`n"
         $state = Get-CodeMetaState -Text $text -Form $script:form

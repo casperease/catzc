@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
-    body_sha: "9de62bf6a569"
+    body_sha: "7e3d90a409e2"
     defines:
       - ADR-REPO-CODEMETA#1
       - ADR-REPO-CODEMETA#2
@@ -47,10 +47,12 @@ delimiters a language uses is asked from the one place that knows each language'
 
 A head holds only facts the repository can compute and that change when the file's place or tier changes: `path` (the repository-relative
 path), `kind` (the class of the file, from the file-kind registry entry: a C# `type` or a PowerShell `function`), `module` (the folder under
-`automation/`), for a PowerShell file `visibility` (`private` or `public`, from the folder), and `adrs`, the ADR codes the file and its
-comment page cite, sorted and without duplicates, each rule code `ADR-<CODE>#<n>` and each domain-level citation a bare `ADR-<CODE>`. It
-never holds a hash of the body, which would change on every edit and make every edit a two-hunk diff. The facts sit under `derived`, and a
-person's own keys, if any, sit under `config`, as in Markdown.
+`automation/`), for a PowerShell file `visibility` (`private` or `public`, from the folder), and `adrs`, the ADR codes that bind the file,
+sorted and without duplicates, each rule code `ADR-<CODE>#<n>` and each domain-level citation a bare `ADR-<CODE>`. For a C# type file and a
+PowerShell function file the head holds `adrs`: the formatter keeps every code the head lists and adds each code the file and its comment
+page cite, and a code leaves the list only when a person deletes it from the head. It never holds a hash of the body, which would change on
+every edit and make every edit a two-hunk diff. The facts sit under `derived`, and a person's own keys, if any, sit under `config`, as in
+Markdown.
 
 - [What the head holds](#what-the-head-holds)
 
@@ -150,8 +152,10 @@ registry entry that classifies Markdown files, so a type and a function are told
 where the file belongs, from the same source as the namespace. The visibility says whether a PowerShell function is public or private, so a
 file moved between folders re-imprints. A hash of the body would change with every edit, so every concurrent edit of one file would conflict
 on the hash line, and git already hashes the file. The ADR codes a file cites are the one list a reader scans to learn which decisions bind
-the file, so they sit in the head, derived from the file and its comment page, where a tool keeps them true; the residue carries no citation
-of its own, so there is no second spelling to keep in step. A hash of the public signature is the one checksum that fits code, and it needs
+the file, so they sit in the head, and the head is where they live: the residue carries no citation of its own, so there is no second
+spelling to keep in step, and a list rebuilt from the text alone would lose every code the text no longer spells out. The formatter only
+adds to the list, from the citations the file and its comment page make, and the files a kind names under `held_files` are the ones whose
+head holds it. A hash of the public signature is the one checksum that fits code, and it needs
 a parser per language, so it is left out until a parser is warranted.
 
 ### Scope
