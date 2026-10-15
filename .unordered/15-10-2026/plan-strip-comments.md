@@ -36,8 +36,8 @@ A source file `F` with comment blocks `b1..bn` (each ≥ 2 lines of prose after 
   `Test-AnalyzerAdrMap`, rule tags and `Format-Links` keep working on the file.
 - `P`: the page, opened by the H1 `Format-MarkdownTitle` writes (`ADR-REPO-FORMAT#6`), the source path in backticks, then one
   `### comment:i` section per block holding the prose **verbatim** (same wrapping, same words), preceded by one generated context line
-  naming what it annotated (the help keyword, the config key, or the enclosing line). The anchor is `comment<i>`, never the one-liner, so the
-  line may change without touching the link (`ADR-REPO-FORMAT#7`).
+  naming what it annotated (the help keyword, the config key, or the enclosing line). The anchor is `comment<i>`, never the one-liner, so
+  the line may change without touching the link (`ADR-REPO-FORMAT#7`).
 
 The one-liner has exactly one living copy, in the file (`ADR-PRIN-ONELIVE#1`); the prose has exactly one, in the page. The view
 `Build-CommentView` writes `out/annotated/<repo path>` by substituting each section back where its residue line stands — the inverse map.

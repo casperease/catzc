@@ -1,7 +1,7 @@
-# glossary.yml — the Catzc.Base.Engines glossary source: the vocabulary of the execution engine model this module owns
-# ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)). Every option is defaulted: all five checks, the
-# whole repository, every text surface
-# ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). Checked by Test-Glossary.
+# glossary.yml — the Catzc.Base.Engines glossary source: the vocabulary of the execution engine model this module owns.
+# [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
+# [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)
+# [comment:1](/docs/references/automation/catzc-base-engines/configs/glossary.yml.md#comment1)
 concepts:
   execution engine:
     key: execution_engine

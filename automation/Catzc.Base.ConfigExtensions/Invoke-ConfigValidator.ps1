@@ -2,15 +2,8 @@
 .SYNOPSIS
     Validates a parsed config with a PowerShell validator, run in the owning module's scope.
 .DESCRIPTION
-    The PowerShell extension point for config validation. Core configs validate through a C# config type
-    registered in configs.yml (Get-Config); a config whose owner cannot ship a C# type validates here instead,
-    with a PowerShell function that receives the parsed dictionary and throws on a violation.
-
-    The validator is found by convention, Assert-<TitleCase(name)>Config (so 'widget-parts' is
-    Assert-WidgetPartsConfig), or named with -Validator. It is resolved and run inside the owning module
-    (`& (Get-Module $Module) { … }`), so a private validator works and the result is the same whichever module
-    calls. With the conventional name and no such function, nothing runs and nothing is returned; a -Validator
-    that does not exist throws.
+    The PowerShell extension point for config validation.
+    [comment:1](/docs/references/automation/catzc-base-configextensions/Invoke-ConfigValidator.ps1.md#comment1)
 .PARAMETER Config
     The parsed config (e.g. ConvertFrom-Yaml -Ordered output).
 .PARAMETER Name

@@ -54,7 +54,7 @@ The ADR is `docs/adr/repository/output-formats.md`; the catalogue is `automation
 
 ## Sanity tests built in
 
-- **L0 (logic, neutral widget/gadget fixtures, per ADR-TEST:3):**
+- **L0 (logic, neutral widget/gadget fixtures, per ADR-TEST#3):**
   - the config type rejects each bad-catalogue shape;
   - every validator kind accepts a tiny generated good file and rejects a broken one. The broken cases are a PNG truncated before `IEND`, a
     `.drawio.png` without `mxfile`, a minimap at the wrong size, a PDF without `%%EOF`, and JSON missing a key.

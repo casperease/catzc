@@ -1,0 +1,69 @@
+# docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md
+
+`automation/Catzc.Base.Engines/types/ExecutionEngine.cs`
+
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
+
+## comment:1
+
+Above `using System;`.
+
+```text
+One of the repository's execution engines — the shells its own code runs under
+([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)). Everything that differs between the engines is declared
+here, once, so no caller restates a flag, a quote rule, or a file name: how the engine's executable is named and
+located, which script files it runs, how it is started non-interactively, how it loads an entry script and runs a
+command, its strict mode, its time safeguard, the line endings and executable bit its scripts need, and its importer
+entry. The three instances live in ExecutionEngines; this type has no public constructor, so no caller invents a fourth.
+
+A model type, so its properties are PascalCase
+([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+```
+
+## comment:2
+
+Above `public const string LocateByPsHome = "ps-home";`.
+
+```text
+How the engine's executable is found: beside the running PowerShell ($PSHOME), or through its tools.yml entry
+(the existence check, Resolve-ToolExecutable).
+```
+
+## comment:3
+
+Above `public string TimeSafeguard { get; }`.
+
+```text
+How a call is bounded in time in this engine
+([ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)).
+```
+
+## comment:4
+
+Above `public string CommandPrefix { get; }`.
+
+```text
+What goes before a catzc command in this engine: nothing in pwsh, where the commands are native; "cats " in bash
+and zsh, the dispatcher importer.sh defines, which runs the command through pwsh. A command's text is the same in
+every engine.
+```
+
+## comment:5
+
+Above `public string Quote(string text)`.
+
+```text
+The text as one literal string in the engine's own quoting: single quotes, with an embedded single quote written
+the engine's way ('' in pwsh, '\'' in bash and zsh).
+```
+
+## comment:6
+
+Above `public string[] StartArguments(string entry, string command)`.
+
+```text
+The arguments (after the executable) that start the engine non-interactively, load the entry script, and run the
+catzc command: the non-interactive arguments, the command flag, then one command text
+"<source the entry>; <command prefix><command>". The command is catzc command text, the same in every engine.
+```

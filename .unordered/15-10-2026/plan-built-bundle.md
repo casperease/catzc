@@ -75,7 +75,7 @@ ADR-AUTO-TEST, ADR-REPO-VOCAB, ADR-AUTO-PARITY, ADR-FLOW-CD#3, ADR-FLOW-CD-RUNNE
 
 ### B.2 Ruleset: draft `ADR-AUTO-OVERLAY` (`docs/adr/automation/consumer-overlay.md`)
 
-**ADR-AUTO-OVERLAY:1. The overlay.**
+**ADR-AUTO-OVERLAY#1. The overlay.**
 
 - A consumer's **overlay** is the `.catzc/` folder at its `RepositoryRoot`. It is the only place a consumer changes what a built bundle
   does. The bundle under `.vendor/Catzc/<v>/` is read-only and never edited.
@@ -83,12 +83,12 @@ ADR-AUTO-TEST, ADR-REPO-VOCAB, ADR-AUTO-PARITY, ADR-FLOW-CD#3, ADR-FLOW-CD-RUNNE
 - The overlay is the consumer's source: committed, reviewed, and never written by catzc. Everything catzc derives from it goes under the
   working root's `out/`.
 
-**ADR-AUTO-OVERLAY:2. The mirror rule: the location is the meaning.**
+**ADR-AUTO-OVERLAY#2. The mirror rule: the location is the meaning.**
 
 - A file under `.catzc/automation/` sits at the same relative path as the thing it changes under the bundle's code root.
 - The path alone says what is overridden. No registry, list or manifest of overrides exists, so nothing can disagree with the files.
 
-**ADR-AUTO-OVERLAY:3. A closed set of override points.**
+**ADR-AUTO-OVERLAY#3. A closed set of override points.**
 
 Within `.catzc/automation/<Module>/`, where `<Module>` is a bundled module, the only valid entries are:
 
@@ -104,7 +104,7 @@ A folder that names no bundled module is a local module (#7). Anything else is r
 `.compiled/`, a `.psd1` or merged `.functions.ps1`, or an unknown subfolder or file kind. Adding an override point is an amendment to this
 rule.
 
-**ADR-AUTO-OVERLAY:4. Config fragments and one resolution order.**
+**ADR-AUTO-OVERLAY#4. Config fragments and one resolution order.**
 
 - A config file in the overlay is a **fragment**: it states only the keys that differ.
 - In built mode, a setting resolves in this fixed order, which extends ADR-AUTO-DEFAULT#6 by one step:
@@ -122,7 +122,7 @@ rule.
   reject.
 - A key the type does not know is rejected, with the type's list of valid keys.
 
-**ADR-AUTO-OVERLAY:5. Function overrides: one per named file.**
+**ADR-AUTO-OVERLAY#5. Function overrides: one per named file.**
 
 - `<Function>.ps1` (or `private/<Function>.ps1`) holds exactly one function named for the file, under the same preconditions as a bundle
   merge (`Get-MergePreconditionViolation`).
@@ -137,14 +137,14 @@ rule.
   - the same parameter types;
   - the same `[OutputType]`.
 
-**ADR-AUTO-OVERLAY:6. Asset overrides.**
+**ADR-AUTO-OVERLAY#6. Asset overrides.**
 
 - `assets/<path>` replaces the bundled file at that path.
 - `Get-CatzcModuleRoot` resolves an asset in the overlay first, then in the bundle. It is the only asset lookup there is
   (ADR-AUTO-ASSETDEP#1), so every inventoried asset read sees the override.
 - An override must replace an existing bundled asset. New assets belong to a local module.
 
-**ADR-AUTO-OVERLAY:7. Local modules.**
+**ADR-AUTO-OVERLAY#7. Local modules.**
 
 - A folder under `.catzc/automation/` that names no bundled module is a **local module**. It follows the same conventions as catzc's own
   modules:
@@ -159,7 +159,7 @@ rule.
 - It carries no `types/`: a bundle has no Roslyn at load, so C# types come only from the built types assembly.
 - It may call any bundled public function. It loads after the bundled modules and their overrides.
 
-**ADR-AUTO-OVERLAY:8. Local tests.**
+**ADR-AUTO-OVERLAY#8. Local tests.**
 
 - `tests/` under any overlay module folder holds the consumer's tests.
 - They run in built mode against the **effective** session (bundle + overrides + local modules), through the one test harness
@@ -167,7 +167,7 @@ rule.
 - A test run needs a test-capable bundle (`vendor_policy: full`: Pester and the TestKit). Without one, the run fails with one assert naming
   the fix.
 
-**ADR-AUTO-OVERLAY:9. Sealed surface.**
+**ADR-AUTO-OVERLAY#9. Sealed surface.**
 
 - The bundle declares what no overlay may change, in one config, `overlay.yml`, owned by the overlay module. Its default seals:
   - the engine-intrinsic configs: `configs`, `dependencies`, `profiles`, `exporter`, `overlay`, and the glossary sources;
@@ -175,7 +175,7 @@ rule.
 - Touching a sealed item throws.
 - Sealing is configuration, so making something overridable is a reviewed config edit, never code.
 
-**ADR-AUTO-OVERLAY:10. Applied in one order, verified as a whole.**
+**ADR-AUTO-OVERLAY#10. Applied in one order, verified as a whole.**
 
 - In built mode the importer applies the overlay in one fixed sequence:
   1. bundled modules;
@@ -191,14 +191,14 @@ rule.
   - `Get-CatzcOverlay` lists every override (kind, module, target, file);
   - `Get-Config -Provenance` shows which layer each key came from.
 
-**ADR-AUTO-OVERLAY:11. Overlay settings and pins.**
+**ADR-AUTO-OVERLAY#11. Overlay settings and pins.**
 
 - `.catzc/catzc.yml` holds the overlay's own settings. Every key has a default declared on its config type, so the file is optional.
 - It may pin the bundle it was written for, as assert-is guards: `bundle.name`, `bundle.version`, `bundle.content_hash`. A mismatch throws
   at load, before any override is applied.
 - The default is no pin.
 
-**ADR-AUTO-OVERLAY:12. Built mode only.**
+**ADR-AUTO-OVERLAY#12. Built mode only.**
 
 - The overlay applies only in built mode.
 - In source mode the catzc tree _is_ `automation/`, and changes are made there directly, so a `.catzc/` folder in a source root is reported

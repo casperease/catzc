@@ -2,9 +2,8 @@
 .SYNOPSIS
     Returns the conventional PowerShell validator name for a config: Assert-<TitleCase(name)>Config.
 .DESCRIPTION
-    The one place the validator naming convention lives: each kebab-case segment of the config name is
-    title-cased (invariant culture) and joined, so 'widget' becomes Assert-WidgetConfig and 'widget-parts'
-    becomes Assert-WidgetPartsConfig.
+    The one place the validator naming convention lives: each kebab-case segment of the config name is title-cased...
+    [comment:1](/docs/references/automation/catzc-base-configextensions/private/Get-ConfigValidatorName.ps1.md#comment1)
 .PARAMETER Name
     The config's kebab-case name, without the .yml extension.
 .EXAMPLE

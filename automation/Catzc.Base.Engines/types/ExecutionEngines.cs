@@ -1,7 +1,6 @@
-// The repository's execution engines — exactly three, pwsh, bash and zsh, declared once
-// ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)). Every list of engines in the codebase — config keys
-// per shell, per-engine fixture columns, an engine argument's allowed values — is Names, so adding or changing an
-// engine is one edit here.
+// The repository's execution engines — exactly three, pwsh, bash and zsh, declared once.
+// [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)
+// [comment:1](/docs/references/automation/catzc-base-engines/types/ExecutionEngines.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -49,8 +48,8 @@ public static class ExecutionEngines
         quote: text => "'" + text.Replace("'", "'\\''") + "'",
         sourceFormat: "source {0} >/dev/null 2>&1");
 
-    // zsh: the third engine, the default login shell on macOS, located through its tools.yml entry. It shares bash's
-    // POSIX quoting and its importer entry, importer.sh, which runs under both.
+    // zsh: the third engine, the default login shell on macOS, located through its tools.yml entry.
+    // [comment:2](/docs/references/automation/catzc-base-engines/types/ExecutionEngines.cs.md#comment2)
     public static readonly ExecutionEngine Zsh = new ExecutionEngine(
         name: "zsh",
         command: "zsh",
