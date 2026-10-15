@@ -36,6 +36,7 @@ the diagrams. By ADR domain:
 - [Design](explanation/design/index.md) — the commit lifecycle, run modes, module aspects, tracks, the thin platform, the server remote
 - [Flow](explanation/flow/index.md) — promotion, the pipeline runner, and the globsets that trigger pipelines
 - [Pipelines](explanation/pipelines/index.md) — how Azure DevOps calls prove their credentials
+- [Repository](explanation/repository/index.md) — how managed root files and repository variants are kept in shape
 
 ## Module reference
 

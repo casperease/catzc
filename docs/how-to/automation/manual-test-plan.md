@@ -39,9 +39,9 @@ There are two ways: run a whole group, or run one check at a time.
 
 ```powershell
 . ./importer.ps1
-Test-Automation -Category Integrity -Level 2                   # every integrity check (the whole plan)
+Test-Automation -Category Integrity -Level 2                    # every integrity check (the whole plan)
 Test-Automation -Category Integrity -Modules Catzc.Azure        # one module's integrity checks
-Test-Automation -Category Integrity -Level 2 -Output Detailed  # one line per assertion
+Test-Automation -Category Integrity -Level 2 -Output Detailed   # one line per assertion
 ```
 
 **Run one check (precise):** take the `Test file` and `FullNameFilter` from the row in its category file and hand them to the single-check

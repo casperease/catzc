@@ -15,6 +15,12 @@ ignorePaths:
   # .vendor/** above.
   - "**/assets/scripts/dotnet-install.*"
   - "**/types/.compiled/**"
+  # Per-slot template configs hold Azure resource names assembled by the naming convention (deweuzctexpedapst:
+  # env, region, org, template, customer, type). They are data, not vocabulary
+  # ([ADR-AUTO-SPELL#4](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell4)), written statically per slot
+  # ([ADR-AZ-DATAMOD#6](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod6)), so the spelling gate and the editor
+  # both skip them here, once.
+  - infrastructure/templates/**/configuration/**
   # IDE-only C# project (Catzc.Types.csproj) MSBuild output — transient, gitignored, never authored.
   - obj/**
   - bin/**

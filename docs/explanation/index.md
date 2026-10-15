@@ -11,6 +11,7 @@ configuration   how configuration is read, cached and addressed
 design          the commit lifecycle, run modes, module aspects, tracks, the thin platform, the server remote
 flow            promotion, the pipeline runner, and the globsets that trigger pipelines
 pipelines       how Azure DevOps calls prove their credentials
+repository      how managed root files and repository variants are kept in shape
 ```
 
 The documentation has four kinds of article. An [ADR](../adr/index.md) records a decision and the rules it sets. A
@@ -59,3 +60,4 @@ The articles are grouped by the ADR domain of the decision they explain:
 - [Design](design/index.md) — the commit lifecycle, run modes, module aspects, tracks, the thin platform, and the server remote.
 - [Flow](flow/index.md) — promotion, the pipeline runner, and the globsets that trigger pipelines.
 - [Pipelines](pipelines/index.md) — how Azure DevOps calls prove their credentials.
+- [Repository](repository/index.md) — how managed root files and repository variants are kept in shape.

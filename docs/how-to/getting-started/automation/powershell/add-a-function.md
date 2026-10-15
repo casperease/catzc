@@ -27,7 +27,7 @@ function Get-Widgets {
         [int] $Limit = 10
     )
 
-    Assert-NotNullOrWhitespace $Source        # validate input at entry
+    Assert-NotNullOrWhitespace $Source         # validate input at entry
     Assert-PathExist $Source -PathType Leaf
 
     $raw = Get-Content $Source -Raw
