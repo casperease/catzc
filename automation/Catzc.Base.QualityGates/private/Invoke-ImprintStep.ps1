@@ -73,6 +73,27 @@ function Invoke-ImprintStep {
                 $outcome.Unfixable[$blockScoped] = "block-scoped namespace — rewrite it as the file-scoped 'namespace <Module>;'"
             }
         }
+        'ps-help' {
+            if ($File.Count -eq 0) {
+                return $outcome
+            }
+            $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
+            $changed = [System.Collections.Generic.List[string]]::new()
+            foreach ($path in $File) {
+                $original = [System.IO.File]::ReadAllText($path)
+                $formatted = Format-FunctionHelpText -Text $original
+                if ($formatted.Text -cne $original) {
+                    if (-not $DryRun) {
+                        [System.IO.File]::WriteAllText($path, $formatted.Text, $utf8NoBom)
+                    }
+                    $changed.Add($path)
+                }
+                if ($formatted.Problems.Count -gt 0) {
+                    $outcome.Unfixable[$path] = "function help needs a hand edit: $($formatted.Problems -join '; ')"
+                }
+            }
+            $outcome.Changed = $changed.ToArray()
+        }
         'comments' {
             if ($File.Count -eq 0) {
                 return $outcome

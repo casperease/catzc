@@ -83,6 +83,18 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*invalid settings file 'C:\gadget.yml'*"
         }
 
+        It 'accepts a settings entry that names one top-level key of a file, and throws on a key that is empty or doubled' -Tag 'ADR-AUTO-CACHE#10' {
+            $config = & $script:make ([ordered]@{
+                    engines   = [ordered]@{ prettier = [ordered]@{ settings = @('widget/tools.yml#widget', 'widget/tools.yml#gadget_two') } }
+                    languages = [ordered]@{ widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' } }
+                })
+            $config.engines['prettier'].settings | Should -Be @('widget/tools.yml#widget', 'widget/tools.yml#gadget_two')
+            $err = { & $script:make ([ordered]@{ engines = [ordered]@{ prettier = [ordered]@{ settings = @('widget/tools.yml#', 'widget/tools.yml#a#b') } } }) } |
+                Should -Throw -PassThru
+            $err.Exception.Message | Should -BeLike "*invalid settings file 'widget/tools.yml#'*"
+            $err.Exception.Message | Should -BeLike "*invalid settings file 'widget/tools.yml#a#b'*"
+        }
+
         It 'accepts every engine it declares' {
             foreach ($engine in [Catzc.Base.Languages.LanguagesConfig]::FormatterEngines) {
                 (& $script:one ([ordered]@{ extensions = @('.wdg'); formatter = $engine })).languages[0].formatter | Should -Be $engine

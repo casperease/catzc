@@ -27,7 +27,8 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] AllowedStepKeys = { "settings" };
     private static readonly Regex CheckName = new Regex("^Test-[A-Z][A-Za-z0-9]*$");
     private static readonly string[] AllowedEngineKeys = { "vscode_extension", "settings" };
-    private static readonly Regex SettingsPath = new Regex("^[A-Za-z0-9_.-]+(/[A-Za-z0-9_.-]+)*$");
+    // A settings entry is a repository-relative file, or `<file>#<key>` for one top-level key of a YAML file.
+    private static readonly Regex SettingsPath = new Regex("^[A-Za-z0-9_.-]+(/[A-Za-z0-9_.-]+)*(#[A-Za-z0-9_]+)?$");
     private static readonly Regex LanguageName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex Extension = new Regex("^\\.[a-z0-9]+$");
     private static readonly Regex AdrFolder = new Regex("^[A-Za-z0-9_-][A-Za-z0-9._-]*(/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$");
@@ -44,7 +45,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     public static IReadOnlyList<string> FormatterEngines => Engines;
 
     // A new imprint step is new mechanism too: its Format-Code adapter and its name here must land together.
-    private static readonly string[] StepNames = { "file-meta", "csharp-namespace", "comments" };
+    private static readonly string[] StepNames = { "file-meta", "csharp-namespace", "comments", "ps-help" };
     public static IReadOnlyList<string> ImprintSteps => StepNames;
 
     // The imprint steps Format-Code runs after every language's formatter, over every language. Empty when the file lists none.

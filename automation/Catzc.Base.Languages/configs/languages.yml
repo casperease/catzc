@@ -64,6 +64,7 @@ languages:
     formatter: psscriptanalyzer
     adr_folder: pwsh
     checks: [Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
+    imprint: [ps-help]
   csharp:
     extensions: [.cs]
     formatter: dotnet-format

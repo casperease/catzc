@@ -56,6 +56,11 @@ function Get-ImprintStepFile {
             $types = @(Get-GitTrackedPath $lookup | Where-Object { $_ -match '^automation/[^/]+/types/[^/]+\.cs$' })
             return , [string[]] @($types | ForEach-Object { [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $_)) })
         }
+        'ps-help' {
+            $lookup = Get-ScopeLookup -RepositoryRoot $root -Path $Path -Command Get-ImprintStepFile
+            $functions = @(Get-GitTrackedPath $lookup | Where-Object { $_ -match '^automation/[^/]+/(?:private/)?[^/]+\.ps1$' })
+            return , [string[]] @($functions | ForEach-Object { [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $_)) })
+        }
         'comments' {
             $scope = @(Get-CommentScope -RepositoryRoot $root -Path $Path)
             return , [string[]] @($scope | ForEach-Object { [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $_.File)) })

@@ -19,7 +19,10 @@ Section `.DESCRIPTION` of the comment-based help.
 
 ```text
 Format-Code's result cache keys a file on its SHA-256 and this stamp (Get-ContentStamp): the engine's name and each
-settings file languages.yml lists for the engine — including the tool registry whose pin names the engine's version,
-so a new pin is a new stamp ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)). No input
-is known here that languages.yml does not declare.
+settings entry languages.yml lists for the engine. An entry is a whole file, or `<file>#<key>` for one top-level key
+of a YAML file; the tool registry is listed by the keys of the tools the engine runs, so that tool's new pin is a new
+stamp and another tool's pin edit is not
+([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)). A missing file or key hashes as
+missing, so adding or removing an input changes the stamp. No input is known here that languages.yml does not
+declare.
 ```

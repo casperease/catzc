@@ -1002,6 +1002,8 @@ terms:
       meaning: "the Consolas monospace font (the VS Code markdown-preview font in vscode-settings.yml)"
     - term: chdir
       meaning: "the 'chdir' alias of Set-Location (listed by Measure-NeverDependOnPwd)"
+    - term: psmoduleinfo
+      meaning: "the PowerShell type accelerator for System.Management.Automation.PSModuleInfo, a loaded module's description"
     - term: pwd
       meaning: "the $PWD present-working-directory automatic variable (e.g. Measure-NeverDependOnPwd)"
     - term: readlink

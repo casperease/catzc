@@ -307,6 +307,7 @@ domains:
       comments-in-docs: { external: ADR-REPO-COMMENTS, concern: [quality-control] }
       file-meta: { external: ADR-REPO-FILEMETA, terminology: filemeta, concern: [quality-control] }
       code-file-meta: { external: ADR-REPO-CODEMETA, terminology: codemeta, concern: [quality-control] }
+      function-help: { external: ADR-REPO-HELP, concern: [quality-control] }
       agent-definitions: { external: ADR-REPO-AGENTS }
       inspiration: { external: ADR-REPO-INSPIRE }
       protected-globs: { external: ADR-REPO-PROTGLOB, terminology: protglob }

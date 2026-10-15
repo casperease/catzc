@@ -304,6 +304,7 @@ skips a repeated scan over an unchanged globset.
 | `ADR-REPO-COMMENTS` | [comments-in-docs](repository/comments-in-docs.md)                     |
 | `ADR-REPO-FILEMETA` | [file-meta](repository/file-meta.md)                                   |
 | `ADR-REPO-CODEMETA` | [code-file-meta](repository/code-file-meta.md)                         |
+| `ADR-REPO-HELP`     | [function-help](repository/function-help.md)                           |
 | `ADR-REPO-AGENTS`   | [agent-definitions](repository/agent-definitions.md)                   |
 | `ADR-REPO-INSPIRE`  | [inspiration](repository/inspiration.md)                               |
 | `ADR-REPO-PROTGLOB` | [protected-globs](repository/protected-globs.md)                       |
