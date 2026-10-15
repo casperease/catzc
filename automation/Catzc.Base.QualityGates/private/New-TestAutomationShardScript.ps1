@@ -2,7 +2,7 @@
 .SYNOPSIS
     Generates one parallel worker's runner script and returns its shard descriptor.
 .DESCRIPTION
-    Writes <RunDirectory>/shard-<N>.ps1 — the script a PesterRunner worker executes as `pwsh -NoProfile -File`...
+    The worker sets strict mode itself, as test scopes chain to it; exit 1 is a failed run, any other code a crash.
     [ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25),
     [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment1)
@@ -21,10 +21,10 @@
     [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment2)
 .PARAMETER EntryParameter
-    Named arguments for -EntryScript, rendered into the dot-source line as `-Name 'value'` (a $true value renders as...
+    Ignored without -EntryScript; the build run passes RepositoryRoot so out/ paths still resolve in the repo.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment3)
 .PARAMETER LanguageExecutable
-    The managed tool per test language and the executable per engine other than pwsh the run's source session located...
+    The worker never locates a tool, because a build's engine has no tools.yml entry; an empty entry means none.
     [comment:4](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment4)
 .OUTPUTS
     [pscustomobject] with ShardIndex, Label, ScriptPath, ResultsPath, RowsPath, FilesPath.
@@ -50,7 +50,7 @@ function New-TestAutomationShardScript {
         [ValidateSet('Minimal', 'Normal', 'Detailed', 'Diagnostic')]
         [string] $Verbosity = 'Detailed',
 
-        # Filter the worker's run to tests whose full name contains this text — the manual single-check path...
+        # The harness never sets this; only the manual single-check path (Invoke-TestFile) filters by name.
         # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment5)
         [string] $FullNameFilter,
 
@@ -65,7 +65,7 @@ function New-TestAutomationShardScript {
 
     $repositoryRoot = Get-RepositoryRoot
 
-    # The one seam between the two runs: which entry script loads the modules.
+    # Source and build runs differ only in this entry line; everything after the load is identical.
     # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment6)
     $entryLine = if ($EntryScript) {
         $entryArguments = foreach ($name in ($EntryParameter.Keys | Sort-Object)) {
@@ -94,7 +94,7 @@ function New-TestAutomationShardScript {
     $includeTagLiteral = ($IncludeTag | ForEach-Object { "'$_'" }) -join ', '
     # Single-quote literal: double any embedded quote (a FullNameFilter is prose — titles carry apostrophes).
     $filterLiteral = "$FullNameFilter" -replace "'", "''"
-    # The build run's entry also reaches the language bridge, so the Go and Python tests start the build...
+    # Passing the entry script on lets the Go and Python tests start the same engine the worker loaded.
     # [comment:7](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment7)
     $entryLiteral = "$EntryScript" -replace "'", "''"
     # The tools this source session located reach the language bridge the same way, as a hashtable literal in...

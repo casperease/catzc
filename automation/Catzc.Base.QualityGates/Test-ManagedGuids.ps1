@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: every guid in tracked text is registered in guids.yml, none is denied, and every entry is live.
 .DESCRIPTION
-    A quality gate over the managed guids: it scans the tracked text (Get-RepositoryGuids over Get-GuidScanFiles)...
+    Scanned files and the registry must lie in the repository globset, so the scan's protection identity covers them.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-AUTO-GUIDS](/docs/adr/automation/managed-guids.md),
     [ADR-REPO-PROTGLOB#6](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob6)
@@ -10,7 +10,7 @@
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-managed-guids/ (Write-QualityGateReport).
 .PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; Registered; Occurrences }) instead of throwing on...
+    Registered and Occurrences let a caller assert on the registry and the scan without parsing the report.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-ManagedGuids.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.

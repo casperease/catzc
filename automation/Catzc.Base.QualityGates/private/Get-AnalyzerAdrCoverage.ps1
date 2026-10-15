@@ -3,7 +3,7 @@
     The (ADR rule id -> enforcing analyzer) rows from configs/analyzer-adr-map.yml — the 'pssa-rule' enforcer
     kind for the rule-coverage report.
 .DESCRIPTION
-    Flattens the analyzer-adr-map config into one row per (analyzer rule, ADR id) pairing, each tagged Kind =...
+    A mapped rule counts as enforcing its ADR on every run, since the L2 analyzer test runs inside Test-Automation.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-AnalyzerAdrCoverage.ps1.md#comment1)
 .OUTPUTS
     [pscustomobject] one per mapping: AdrId (e.g. 'ADR-AUTO-NOPWD#1'), Enforcer (the analyzer rule name), Kind

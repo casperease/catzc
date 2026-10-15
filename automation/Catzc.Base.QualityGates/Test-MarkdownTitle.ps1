@@ -5,7 +5,7 @@
     ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6),
     [ADR-REPO-FORMAT#7](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format7)).
 .DESCRIPTION
-    Runs the same check as Format-MarkdownTitle, read-only, and reports every file whose first line after any YAML...
+    Format-MarkdownTitle fixes every finding but a Duplicate anchor, which the author must reword.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-MarkdownTitle.ps1.md#comment1)
 .PARAMETER Path

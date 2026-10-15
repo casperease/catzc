@@ -3,7 +3,7 @@
     Derives the set of LIVE production identity tokens — the customers, subscriptions, org, deployable units,
     template names, and ADO project the shipped config maps to — that a hermetic LOGIC test must never name.
 .DESCRIPTION
-    The authoritative source of "what is a live identity" is the shipped config itself, not a hand-kept list: reading...
+    Reading the shipped config, not a hand-kept list, keeps the banned set current: a new customer is banned at once.
     [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md),
     [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md),
     [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)
@@ -18,7 +18,7 @@ function Get-LiveIdentityTokens {
 
     $ret = [System.Collections.Generic.List[object]]::new()
     $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-    # MatchMode governs HOW the finder matches a token: 'exact' — a distinctive identity flagged wherever it appears...
+    # Exact flags a token anywhere; position flags ambiguous words like test only when bound to an identity parameter.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md#comment2)
     $add = {
         param($token, $kind, $source, $suggest, $matchMode = 'exact')
@@ -44,7 +44,7 @@ function Get-LiveIdentityTokens {
         param($entry, [string] $skipWhen)
         $skipWhen -and [bool] (& $childOf $entry $skipWhen)
     }
-    # Walks one rule's path from a node: a key segment steps in, a '*' steps into every entry of a map (leaving out...
+    # A star segment fans out over every map entry except those that set skip_when; the path end gives a value or keys.
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md#comment3)
     $walk = {
         param($node, [string[]] $path, [int] $depth, $rule)
@@ -79,7 +79,7 @@ function Get-LiveIdentityTokens {
         }
     }
 
-    # The identities each owning module declares about its own configs (configs/identity-tokens.yml): customers, the...
+    # Owners declare their own identities, so no module's config is named here and an absent module yields no tokens.
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md#comment4)
     foreach ($owner in @(Get-Config -Config identity-tokens -ListOwners)) {
         $declaration = Get-Config -Config identity-tokens -Module $owner.Module
@@ -95,7 +95,7 @@ function Get-LiveIdentityTokens {
         }
     }
 
-    # NOTE: deployable-unit and pipeline names (globs.yml) are deliberately NOT included in Stage 1.
+    # Unit names are left out: generic ones are folder names that appear in tests as legitimate string literals.
     # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md#comment5)
 
     # Shipped template names (infrastructure/templates/<name>).

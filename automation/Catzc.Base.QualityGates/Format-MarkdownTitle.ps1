@@ -4,7 +4,7 @@
     ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6),
     [ADR-REPO-FORMAT#7](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format7)).
 .DESCRIPTION
-    Makes each file's first line after any YAML front matter the H1 `# <repository-relative path>`: a different H1 is...
+    A duplicate heading anchor is reported, not fixed, since only the author can reword it.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-MarkdownTitle.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to title. Default: every in-scope file.
@@ -24,7 +24,7 @@
 .EXAMPLE
     Format-MarkdownTitle -Path docs/references
 #>
-# Uses -DryRun, not ShouldProcess/-WhatIf — see.
+# The repository's preview switch is -DryRun, so ShouldProcess and -WhatIf are deliberately absent.
 # [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
 # [comment:2](/docs/references/automation/catzc-base-qualitygates/Format-MarkdownTitle.ps1.md#comment2)
 function Format-MarkdownTitle {

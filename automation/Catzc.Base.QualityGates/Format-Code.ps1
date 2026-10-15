@@ -2,13 +2,13 @@
 .SYNOPSIS
     Formats the repository's files, each with the formatter engine languages.yml names for its file language.
 .DESCRIPTION
-    Formatting is configured, not programmed: the file-language registry (Catzc.Base.Languages configs/languages.yml)...
+    Adding a language on an existing engine is one line in languages.yml; a new engine is one adapter.
     [ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md),
     [ADR-REPO-FORMAT#4](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format4),
     [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment1)
 .PARAMETER Language
-    The file languages to format.
+    Defaults to every language with a formatter; an undeclared or formatter-less language throws.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment2)
 .PARAMETER Path
     Files or folders to format (a folder: its tracked files). Defaults to every tracked file.
@@ -105,7 +105,7 @@ function Format-Code {
         $split = Split-CachedFile -File $engineFiles.ToArray() -Cache $cache -Stamp $stamp -RepositoryRoot $root
         $pending = @($split.Pending)
 
-        # Announce before the engine runs: a whole-repository pass takes seconds and prints nothing until it ends.
+        # The engine is silent for seconds on a whole-repository pass, hence this line before it starts.
         # [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)
         # [comment:3](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment3)
         $verb = $DryRun ? 'Checking' : 'Formatting'
@@ -113,7 +113,7 @@ function Format-Code {
         $changed = @(Invoke-FormatterEngine -Engine $engine -File $pending -DryRun:$DryRun | ForEach-Object { $_ })
         $changedSet = [System.Collections.Generic.HashSet[string]]::new([string[]] $changed, [System.StringComparer]::OrdinalIgnoreCase)
 
-        # A file the engine left formatted is recorded; under -DryRun a file it would still change is not.
+        # A dry run caches only files already formatted; a real run caches every file under its new bytes.
         # [comment:4](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment4)
         if ($DryRun) {
             Update-ResultCache -Cache $cache -Key $split.Key -Checked $pending -Flagged $changed

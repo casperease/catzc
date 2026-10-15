@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the Bash tests a Bash test folder declares, read from its .bats files without running bats.
 .DESCRIPTION
-    The language bridge's discovery for Bash: Pester discovers the bridge's tests before anything runs, so the Bash...
+    Reads the .bats source text, not bats, so discovery stays fast and offline and works where bash is missing.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-BashTestCases.ps1.md#comment1)
 .PARAMETER Folder
     The absolute path of the Bash test folder (a Get-LanguageTestFolders Folder).

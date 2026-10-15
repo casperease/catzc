@@ -3,7 +3,7 @@ function Get-AutomationSourceFiles {
     .SYNOPSIS
         The canonical set of authored PowerShell files the analysis quality gates cover.
     .DESCRIPTION
-        One source of truth for "what the quality gates analyze", so Test-ScriptAnalyzer and the L2 analyzer test...
+        Formatting covers a wider set (Format-Code); this set leaves out .vendor, .compiled and generated manifests.
         [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment1)
     .OUTPUTS
         [string[]] Absolute paths, in discovery order.
@@ -33,14 +33,14 @@ function Get-AutomationSourceFiles {
 
         $testsPath = Join-Path $moduleDir.FullName 'tests'
         if (Test-Path $testsPath) {
-            # -Recurse so nested test code (tests/types/*.Tests.ps1) is covered too.
+            # Recursion reaches nested test code such as tests/types; tests/assets holds no test files to match.
             # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment2)
             Get-ChildItem -Path $testsPath -Filter '*.Tests.ps1' -File -Recurse |
                 ForEach-Object { $files.Add($_.FullName) }
         }
     }
 
-    # Dot-prefixed folders are skipped by the module loop above because they are not modules, but.internal...
+    # Dot folders are not modules, but .internal and .scriptanalyzer hold authored code that meets the same bar.
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment3)
     $analyzerRoot = Join-Path $automationRoot '.scriptanalyzer'
     if (Test-Path $analyzerRoot) {
@@ -53,7 +53,7 @@ function Get-AutomationSourceFiles {
         }
     }
 
-    # .internal holds the shared code the bootstrap and the Catzc modules both call (the loader, the bootstrap, and...
+    # .internal is authored code the repo ships and runs, so it meets the same bar as .scriptanalyzer above.
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment4)
     $internalRoot = Join-Path $automationRoot '.internal'
     if (Test-Path $internalRoot) {
@@ -66,7 +66,7 @@ function Get-AutomationSourceFiles {
         }
     }
 
-    # Authored files outside the module tree that still ship and run with it meet the same bar: the root importer.ps1...
+    # The analyzer config is the one authored .psd1; generated manifests are gitignored build output and stay out.
     # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment5)
     $importerPath = Join-Path $root 'importer.ps1'
     if (Test-Path $importerPath) {

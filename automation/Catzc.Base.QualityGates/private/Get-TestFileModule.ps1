@@ -3,7 +3,7 @@
     Names the unit a run file belongs to — the first path segment under automation/, or the module of a language
     test folder.
 .DESCRIPTION
-    Maps an absolute run-file path to its owning unit for per-module protection: a module folder name...
+    A Go or Python test folder belongs to the module it is named for, so its tests protect that module.
     [ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestFileModule.ps1.md#comment1)
 .PARAMETER Path

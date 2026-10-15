@@ -2,7 +2,7 @@
 .SYNOPSIS
     Releases a test run's location claimed by Enter-TestRunLocation.
 .DESCRIPTION
-    In place: for each lock the location holds — the user's system-test lock (Enter-SystemTestLock), then the working...
+    The record goes before the mutex so the next holder's record survives; a lock-free worker location frees nothing.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md#comment1)
 .PARAMETER Location
     The location Enter-TestRunLocation returned.
@@ -46,7 +46,7 @@ function Exit-TestRunLocation {
     }
 
     if ($Location.Snapshot) {
-        # Hand the snapshot's result caches home before it goes: the checks this run made in the snapshot are as...
+        # Content-keyed entries stay valid in the working folder, so the snapshot's checks are not lost with it.
         # [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
         # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md#comment2)
         $snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'

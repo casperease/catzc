@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the tests a test run's opt-out tag removes from a run, so the exclusion is visible, never silent.
 .DESCRIPTION
-    The build run (Test-CatzcBuild) excludes every test tagged 'source-only' and must count and list each one it...
+    A test already out by the tier or category filter is neither listed nor counted, so only real opt-outs show.
     [ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md#comment1)
 .PARAMETER Discovery
@@ -41,7 +41,7 @@ function Get-TestOptOutExclusion {
     $excludedByFile = [ordered]@{}
     $runnableFiles = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
-    # Get-TestBlockTag returns its matches as ONE array object (`, $ret`), so its result is used as-is, never wrapped...
+    # Never wrap the Get-TestBlockTag result in @(): that nests its single array object and every count reads 1.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md#comment2)
     foreach ($test in @($Discovery.Tests)) {
         # The test's run file: its test file, or the Go test folder of a Go bridge test.

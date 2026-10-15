@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the repository-relative files the link engine reads.
 .DESCRIPTION
-    With no -Path, every git-tracked file (Get-GitTrackedPath) — the repository as committed, not whatever lies...
+    Without -Path only git-tracked files count, so untracked files are never aligned; exempt classes: .gitattributes.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the returned paths are relative to.
@@ -21,7 +21,7 @@ function Get-LinkScope {
         [string[]] $Path
     )
 
-    # Never enumerate a whole drive: neither the repository root nor a -Path may be a disk root (C:\, /, a UNC share...
+    # A relative -Path resolves against the current location, so a dot run from a drive root would scan the whole drive.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md#comment2)
     $isDiskRoot = {
         param([string] $FullPath)

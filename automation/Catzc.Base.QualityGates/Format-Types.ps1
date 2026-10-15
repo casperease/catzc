@@ -2,7 +2,7 @@
 .SYNOPSIS
     Maintains the file-scoped namespace on each C# type source, derived from its module folder.
 .DESCRIPTION
-    Every automation C# type lives at automation/<Module>/types/<Type>.cs and belongs to namespace <Module> (ADR...
+    The folder is the single source of the namespace, so moving a type between modules is a safe refactor.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md#comment1)
 .PARAMETER Path
     One or more files or directories to process. Defaults to every automation/<Module>/types/*.cs file.
@@ -65,7 +65,7 @@ function Format-Types {
         $module = Split-Path -Path (Split-Path -Path (Split-Path -Path $file -Parent) -Parent) -Leaf
 
         $original = [System.IO.File]::ReadAllText($file)
-        # A block-scoped `namespace X { … }` is not a shape this repo authors, and rewriting it is not a one-line...
+        # A block-scoped namespace is no authored shape and not a one-line fix, so it is reported for a hand edit.
         # [comment:2](/docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md#comment2)
         if ($original -notmatch '(?m)^\s*namespace\s+\S+?\s*;' -and $original -match '(?m)^\s*namespace\s+\S+?\s*\{') {
             $blockScopedFiles.Add($file)

@@ -3,7 +3,7 @@
     Puts every comment residue of the repository's code and config files into its one-liner shape, in place
     ([ADR-REPO-COMMENTS#5](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5)).
 .DESCRIPTION
-    A file keeps one residue per long comment — an insight line, then a line with the comment's ADR citations and the...
+    Fixes only the mechanical cases; an obvious insight or a residue without a page section is listed unfixable.
     [ADR-REPO-COMMENTS#1](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1),
     [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),
     [ADR-REPO-COMMENTS#5](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5),
@@ -16,7 +16,7 @@
 .PARAMETER DryRun
     Report what would change without writing any file.
 .PARAMETER PassThru
-    Return a result object ({ ChangedCount, ChangedFiles, Fixed, Unfixable, DryRun, ElapsedMs }) instead of only the...
+    Read Unfixable here: the changed paths alone hide the residues that still need a person.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Format-Comments.ps1.md#comment2)
 .OUTPUTS
     [string[]] the repository-relative paths changed (or, under -DryRun, that would change); with -PassThru, the result object.
