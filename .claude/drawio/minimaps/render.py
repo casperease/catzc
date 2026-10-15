@@ -18,9 +18,8 @@ import json
 from functools import lru_cache
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
-
 import describe
+from PIL import Image, ImageDraw, ImageFont
 
 REPO = Path(__file__).resolve().parents[3]
 BG, IDLE, BORDER, LABEL, INK, WHITE = "#FFFFFF", "#ECEFF1", "#CFD8DC", "#546E7A", "#263238", "#FFFFFF"

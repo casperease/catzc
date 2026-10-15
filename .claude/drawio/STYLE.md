@@ -19,9 +19,9 @@ raster, and asserts the round-trip. The XML root is
 ```
 
 Keep it at most 1300 wide and grow downward. No gradients. **Every filled shape casts one slight shadow that fades to black**: the model's
-`shadow="1"` switches draw.io's shadow on for the whole diagram, every edge carries `shadow=0;` so lines stay flat, and text casts none.
-The preview rasters (`drawio_png.py`, the minimaps, the sample renderers) draw the same shadow themselves: the shape's silhouette in
-`#000000` at 30 %, offset 2 px right and 3 px down, blurred 2 px, painted just before the shape. Every rendered output is **dark**: the background
+`shadow="1"` switches draw.io's shadow on for the whole diagram, every edge carries `shadow=0;` so lines stay flat, and text casts none. The
+preview rasters (`drawio_png.py`, the minimaps, the sample renderers) draw the same shadow themselves: the shape's silhouette in `#000000`
+at 30 %, offset 2 px right and 3 px down, blurred 2 px, painted just before the shape. Every rendered output is **dark**: the background
 `#1E2430` (dark grey with blue in it) is drawn first, behind everything else, and almost all text is a soft light grey `#CDD3DC` (titles and
 names on a glyph `#DDE2E9`, quiet text `#949FAE`), so a dark-mode and a light-mode viewer show the same page.
 
@@ -116,8 +116,9 @@ Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line
 - Edge: `edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#CDD3DC;endArrow=block;strokeColor=#AAB4C3;shadow=0;`. Give it
   `source`/`target` ids and `<mxGeometry relative="1" as="geometry"/>`. An edge label sits on `labelBackgroundColor=#1E2430`.
 - Thick edge (to a named set): add `strokeWidth=2.5;`. ADR-only edge: add `dashed=1;`. Failure path: `strokeColor=#E57373;`, solid.
-- Span bar (eac's phase brace and the commit-story's top axis): `shape=crossbar;html=1;fillColor=none;strokeColor=#AAB4C3;strokeWidth=1.5;shadow=0;`
-  14 px tall, with a caps label cell centred above it. Use it over bands to group stages (CI, CD); never as an edge.
+- Span bar (eac's phase brace and the commit-story's top axis):
+  `shape=crossbar;html=1;fillColor=none;strokeColor=#AAB4C3;strokeWidth=1.5;shadow=0;` 14 px tall, with a caps label cell centred above it.
+  Use it over bands to group stages (CI, CD); never as an edge.
 
 ## Every diagram: verify, then simplify (applies to ALL makers)
 
@@ -213,9 +214,8 @@ under `docs/.assets/` (the slide descriptions and the minimaps' sister files), `
 ADR-DSGN-TRACK#14) and columns the **value-chain concerns** (ADR-DSGN-TRACK#15), both closed sets in their declared order and always all
 named by capital codes, horizontal: a row by its code, a column by the initials of a hyphenated concern or else the whole concern in
 capitals, never truncated (`BUILD`, `QC`, `RELEASE`, `DEPLOY`, `ACCESS`). The lit rows and columns are named in ink with a tick, the others
-in the label grey. Every
-cell is an idle grey box, empty ones included; a lit cell is filled in the lit colour. The axis titles are not printed on the minimap: the
-map key and the sister `.md` name the axes and expand the codes.
+in the label grey. Every cell is an idle grey box, empty ones included; a lit cell is filled in the lit colour. The axis titles are not
+printed on the minimap: the map key and the sister `.md` name the axes and expand the codes.
 
 ### The sister `.md` of each minimap
 
@@ -318,7 +318,9 @@ A fan-out drawing is a **slide**: glyphs on the picture, words in prose. Every s
 The article and the visual description are read by people, so they carry no audit trail: no line numbers in the prose, no claim tables, no
 "corrected from wave N", no notes about how the slide was made. All of that lives in `<stem>.verify.md`.
 
-### The article (`<stem>.md`)
+### The article
+
+`<stem>.md`
 
 Write it as a short explanation article, in the voice of the ADRs: plain English, present tense, active voice, full sentences, one idea per
 paragraph. Use the ADR's own terms (and the glossary's), real names in backticks, and "cats" for the system in prose. It reads well with the
@@ -356,7 +358,9 @@ otherwise.>
 - Numbers appear in the prose where they matter ("26 modules"), not as line references.
 - No meta-talk: never "the slide shows…" more than once (in the lede), never "this maker", "wave", "pilot", "preview".
 
-### The visual description (`<stem>.visual.md`)
+### The visual description
+
+`<stem>.visual.md`
 
 Describe only what is drawn, never what it means, using this kit's vocabulary: **canvas, drawing area, sidebar, band, span bar, glyph** (by
 its legend phrase: code unit, named set, file, store, runner, gate, environment, external tool, actor, result, failure, ADR-only, commit),
@@ -395,7 +399,9 @@ minimap's lit cells (value-chain stack × value-chain concern), the lens badge, 
 files.>
 ```
 
-### The verification file (`<stem>.verify.md`)
+### The verification file
+
+`<stem>.verify.md`
 
 A table of every claim on the slide and in the article: claim → source (`file:line`) → **confirmed / contradicted / ADR-only**, followed by
 `## Corrections` (what changed against the previous wave, one line each) and `## Drift` (ADR vs code, one line each). Re-verify every

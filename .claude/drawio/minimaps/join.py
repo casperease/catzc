@@ -95,26 +95,26 @@ def lay_out_sidebar(model, palette, concerns):
     as a copy of it when missing), every sidebar cell at its SIDEBAR slot, and a fresh map key below them."""
     model = model.replace('id="minimap-stack"', 'id="minimap-grid"')
     if 'id="minimap-chain"' not in model:
-        grid = re.search(r'<mxCell id="minimap-grid".*?</mxCell>', model, re.S)
-        tree = re.search(r'<mxCell id="minimap-tree".*?</mxCell>', model, re.S)
+        grid = re.search(r'<mxCell id="minimap-grid".*?</mxCell>', model, re.DOTALL)
+        tree = re.search(r'<mxCell id="minimap-tree".*?</mxCell>', model, re.DOTALL)
         if not grid or not tree:
             raise SystemExit("the slide has no minimap-grid or minimap-tree cell")
         chain = re.sub(r'image=[^;"]*;?', "", grid.group(0).replace('id="minimap-grid"', 'id="minimap-chain"'))
         model = model[: tree.end()] + "\n    " + chain + model[tree.end() :]
     for cell_id, (y, height) in SIDEBAR.items():
-        pattern = re.compile(r'(<mxCell id="' + re.escape(cell_id) + r'".*?<mxGeometry\b)([^>]*)(/?>)', re.S)
+        pattern = re.compile(r'(<mxCell id="' + re.escape(cell_id) + r'".*?<mxGeometry\b)([^>]*)(/?>)', re.DOTALL)
         match = pattern.search(model)
         if not match:
             raise SystemExit(f"the slide has no {cell_id} cell")
         attrs = re.sub(r'\s(x|y|width|height)="[^"]*"', "", match.group(2))
         model = model[: match.start(2)] + f' x="{X}" y="{y}" width="{WIDTH}" height="{height}"' + attrs + model[match.end(2) :]
-    model = re.sub(r'\s*<mxCell id="mapkey[^"]*"(?:[^>]*/>|.*?</mxCell>)', "", model, flags=re.S)
+    model = re.sub(r'\s*<mxCell id="mapkey[^"]*"(?:[^>]*/>|.*?</mxCell>)', "", model, flags=re.DOTALL)
     # The ADR chips grow with their lines (11 px text, 14 px a line); the map key starts below them.
-    supports = re.search(r'<mxCell id="supports" value="([^"]*)".*?</mxCell>', model, re.S)
+    supports = re.search(r'<mxCell id="supports" value="([^"]*)".*?</mxCell>', model, re.DOTALL)
     lines = supports.group(1).count("&lt;br&gt;") + 1
     height = max(SIDEBAR["supports"][1], lines * 14 + 4)
     model = model.replace(supports.group(0), re.sub(r'height="[^"]*"', f'height="{height}"', supports.group(0), count=1))
-    supports = re.search(r'<mxCell id="supports".*?</mxCell>', model, re.S)
+    supports = re.search(r'<mxCell id="supports".*?</mxCell>', model, re.DOTALL)
     top = max(MAPKEY_Y, SIDEBAR["supports"][0] + height + 8)
     return model[: supports.end()] + "\n    " + map_key(palette, concerns, top) + model[supports.end() :]
 

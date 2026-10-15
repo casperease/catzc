@@ -26,7 +26,7 @@
     the `tests.level_ms` limits in timeouts.yml (Get-TestTimeLimits).
 .PARAMETER RunBudgetSeconds
     The budget for the whole run, in seconds; the header records the run against it (a devbox run over it fails,
-    ADR-AUTO-TEST#44). Defaults to
+    [ADR-AUTO-TEST#44](/docs/adr/automation/test-automation.md#rule-adr-auto-test44)). Defaults to
     `tests.run_seconds` in timeouts.yml (Get-TestTimeLimits).
 .PARAMETER SlowestCount
     How many slowest passed tests to list. Defaults to 20.

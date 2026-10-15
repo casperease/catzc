@@ -45,23 +45,26 @@ concepts:
       recommendation in docs/adr/azure/caf/, one rule per recommendation.
     realized_by: { kind: prose-only }
     contrasts:
-      well-architected framework: The Cloud Adoption Framework shapes the landing zone; the Well-Architected Framework shapes the workload in it.
+      well-architected framework:
+        The Cloud Adoption Framework shapes the landing zone; the Well-Architected Framework shapes the workload in it.
   management group:
     key: management_group
     domain: azure
     defined_by: ADR-AZ-LZ#1
-    short: An Azure container above subscriptions for policy and access; this repository deploys no management group and nothing at that level.
+    short:
+      An Azure container above subscriptions for policy and access; this repository deploys no management group and nothing at that level.
     realized_by: { kind: prose-only }
   well-architected framework:
     key: well_architected_framework
     domain: azure
     defined_by: ADR-AZ-LZ#5
     short:
-      Microsoft's checklist of a workload's quality in five pillars; each checklist item is a rule in docs/adr/azure/waf/, numbered as Microsoft
-      numbers it.
+      Microsoft's checklist of a workload's quality in five pillars; each checklist item is a rule in docs/adr/azure/waf/, numbered as
+      Microsoft numbers it.
     realized_by: { kind: prose-only }
     contrasts:
-      cloud adoption framework: The Well-Architected Framework shapes the workload; the Cloud Adoption Framework shapes the landing zone it lands in.
+      cloud adoption framework:
+        The Well-Architected Framework shapes the workload; the Cloud Adoption Framework shapes the landing zone it lands in.
   pillar:
     key: pillar
     domain: azure

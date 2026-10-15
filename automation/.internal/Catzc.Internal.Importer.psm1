@@ -234,85 +234,10 @@ function Invoke-Importer {
             Write-LoadTimeSummary
         }
 
-        # Opt-in deep clean (-CleanClone): the whitelisted git clean -fxd (Reset-GitCleanFxd) deletes only the
-        # auto-controlled generated artifacts and keeps — reported — any untracked file that is not the
-        # automation's to delete. Deliberately the FIRST janitor, so the regenerating janitors below
-        # rematerialise what it removed in the same run. Guarded: absent in the bootstrap sandbox.
-        if ($CleanClone -and -not $SkipJanitors -and (Get-Command Reset-GitCleanFxd -ErrorAction Ignore)) {
-            Reset-GitCleanFxd
-        }
-
-        # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff) — see Invoke-TypeCacheJanitor.
+        # The post-import janitors, in their fixed order (Invoke-ImporterJanitors). An isolated copy and a bundle
+        # (-SkipJanitors) skip the whole chain.
         if (-not $SkipJanitors) {
-            Invoke-TypeCacheJanitor -ShowReport:$showStateChanges
-        }
-
-        # Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/adr/index.md) from adrs.yml and
-        # [glossary](/docs/adr/glossary.md) from the glossary sources — committed so GitHub has them, rebuilt BEFORE
-        # Build-Readme (the docs/adr README is generated from the index). See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
-        if (-not $SkipJanitors -and (Get-Command Build-AdrIndex -ErrorAction Ignore)) {
-            Build-AdrIndex -Silent | Out-Null
-            Build-Glossary -Silent | Out-Null
-        }
-
-        # Keep the generated contract pages current (Catzc.Base.Contracts): docs/references/contracts/<unit>.md from the
-        # contract assets' header comments — committed so GitHub has them. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
-        if (-not $SkipJanitors -and (Get-Command Build-ContractReference -ErrorAction Ignore)) {
-            Build-ContractReference -Silent | Out-Null
-        }
-
-        # Keep the generated README copy-ins current (Catzc.Base.Docs). Fast no-op when nothing changed — Build-Readme
-        # rewrites a README only when its composed content differs (compared EOL-insensitively), so a clean tree costs
-        # only a few small file reads. Guarded: absent in the bootstrap sandbox, like Clear-ModuleTypeCache.
-        if (-not $SkipJanitors -and (Get-Command Build-Readme -ErrorAction Ignore)) {
-            Build-Readme -Silent | Out-Null
-        }
-
-        # Keep the managed .gitkeep files current (Catzc.Base.Docs). Every .gitkeep is a committed copy of the
-        # one shared template, pointing at its folder's generated README — reproduced here so a template change
-        # propagates, and a fast no-op on a clean tree. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
-        if (-not $SkipJanitors -and (Get-Command Build-GitKeep -ErrorAction Ignore)) {
-            Build-GitKeep -Silent | Out-Null
-        }
-
-        # Keep the generated cspell dictionaries current (Catzc.Base.QualityGates). They are derived from
-        # configs/terminology.yml — gitignored, not committed — so the registry is the single source of truth and
-        # cspell still resolves them at fixed paths. Fast no-op when nothing changed (writes only on drift).
-        if (-not $SkipJanitors -and (Get-Command Build-TerminologyDictionary -ErrorAction Ignore)) {
-            Build-TerminologyDictionary -Silent | Out-Null
-        }
-
-        # Keep the managed root config files current (Catzc.Base.RootConfig). Every opted-in root file is
-        # reproduced from its single in-repo source of truth — an authored source copied out with a generated-file
-        # header (e.g. the root PSScriptAnalyzerSettings.psd1 from .internal/assets), or a generator's rendered
-        # output (e.g. New-Importer for importer.ps1). Rewrites only on drift, so a clean tree is a fast no-op.
-        # Guarded: absent in the bootstrap sandbox. See [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
-        if (-not $SkipJanitors -and (Get-Command Build-RootConfig -ErrorAction Ignore)) {
-            Build-RootConfig -Silent | Out-Null
-        }
-
-        # Reconcile the session PATH to whatever tools are actually present — including tools installed outside the
-        # installer layer (e.g. nvm-managed node) — and report any running from a non-owned location on one line.
-        # Session-only, quiet on a clean devbox, self-skips in CI. The importer is dot-sourced, so its PATH nudges
-        # land in the caller's live session. Guarded: absent in the bootstrap sandbox (Catzc.Tooling.Core).
-        if (-not $SkipJanitors -and (Get-Command Sync-SessionTools -ErrorAction Ignore)) {
-            Sync-SessionTools
-        }
-
-        # Publish the agent hook when its source changed — after the PATH reconciliation, so `dotnet` is the owned SDK.
-        if (-not $SkipJanitors) {
-            Invoke-AgentHookJanitor
-        }
-
-        # Commit the generated files the importer maintains (automation/.compiled/) — who is running decides
-        # ([ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)): a person's session
-        # commits, an agent's announces what changed and leaves the commit to the person, a test-run snapshot never
-        # commits, and a pipeline is not even asked, so CI imports stay silent. Deliberately the LAST janitor, so
-        # tracked files the janitors above touch (the .compiled DLL swap) are in their final state.
-        # Guarded: absent in the bootstrap sandbox.
-        if (-not $SkipJanitors -and (Get-Command Sync-GeneratedFile -ErrorAction Ignore) -and
-            (Get-SessionActor) -ne 'Pipeline') {
-            Sync-GeneratedFile | Out-Null
+            Invoke-ImporterJanitors -CleanClone:$CleanClone -ShowStateChanges:$showStateChanges
         }
 
         # Warn if PSModulePath contains a network share. The permanent fix is a one-time
@@ -684,6 +609,104 @@ function Invoke-AgentHookJanitor {
     }
     catch {
         Write-ImporterMessage "Agent hook: the Bash time safeguard was not published — $($_.Exception.Message)" -ForegroundColor Red
+    }
+}
+
+function Invoke-ImporterJanitors {
+    <#
+    .SYNOPSIS
+        Runs the post-import janitors in their fixed order, from the opt-in deep clean to the commit of what changed.
+    .DESCRIPTION
+        The tail maintenance of a mono-repo import: the opt-in deep clean first (-CleanClone), then the type-cache
+        janitor, the generated ADR, glossary, contract, README, .gitkeep, dictionary and root-config files, the session
+        PATH, the agent hook, and last the commit of the generated files the importer maintains. Every janitor is a
+        fast no-op on a clean tree and guarded by presence, so the bootstrap sandbox runs the subset it has. The
+        caller skips the whole chain under -SkipJanitors (an isolated copy, a bundle).
+    .PARAMETER CleanClone
+        Run the whitelisted deep clean (Reset-GitCleanFxd) first, so the janitors below rematerialise what it removed.
+    .PARAMETER ShowStateChanges
+        Show the type-cache janitor's end-state report (the importer passes its -Verbose).
+    #>
+    [CmdletBinding()]
+    param(
+        [switch] $CleanClone,
+        [switch] $ShowStateChanges
+    )
+
+    # Opt-in deep clean (-CleanClone): the whitelisted git clean -fxd (Reset-GitCleanFxd) deletes only the
+    # auto-controlled generated artifacts and keeps — reported — any untracked file that is not the
+    # automation's to delete. Deliberately the FIRST janitor, so the regenerating janitors below
+    # rematerialise what it removed in the same run. Guarded: absent in the bootstrap sandbox.
+    if ($CleanClone -and (Get-Command Reset-GitCleanFxd -ErrorAction Ignore)) {
+        Reset-GitCleanFxd
+    }
+
+    # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff) — see Invoke-TypeCacheJanitor.
+    Invoke-TypeCacheJanitor -ShowReport:$ShowStateChanges
+
+    # Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/adr/index.md) from adrs.yml and
+    # [glossary](/docs/adr/glossary.md) from the glossary sources — committed so GitHub has them, rebuilt BEFORE
+    # Build-Readme (the docs/adr README is generated from the index). See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+    if (Get-Command Build-AdrIndex -ErrorAction Ignore) {
+        Build-AdrIndex -Silent | Out-Null
+        Build-Glossary -Silent | Out-Null
+    }
+
+    # Keep the generated contract pages current (Catzc.Base.Contracts): docs/references/contracts/<unit>.md from the
+    # contract assets' header comments — committed so GitHub has them. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+    if (Get-Command Build-ContractReference -ErrorAction Ignore) {
+        Build-ContractReference -Silent | Out-Null
+    }
+
+    # Keep the generated README copy-ins current (Catzc.Base.Docs). Fast no-op when nothing changed — Build-Readme
+    # rewrites a README only when its composed content differs (compared EOL-insensitively), so a clean tree costs
+    # only a few small file reads. Guarded: absent in the bootstrap sandbox, like Clear-ModuleTypeCache.
+    if (Get-Command Build-Readme -ErrorAction Ignore) {
+        Build-Readme -Silent | Out-Null
+    }
+
+    # Keep the managed .gitkeep files current (Catzc.Base.Docs). Every .gitkeep is a committed copy of the
+    # one shared template, pointing at its folder's generated README — reproduced here so a template change
+    # propagates, and a fast no-op on a clean tree. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+    if (Get-Command Build-GitKeep -ErrorAction Ignore) {
+        Build-GitKeep -Silent | Out-Null
+    }
+
+    # Keep the generated cspell dictionaries current (Catzc.Base.QualityGates). They are derived from
+    # configs/terminology.yml — gitignored, not committed — so the registry is the single source of truth and
+    # cspell still resolves them at fixed paths. Fast no-op when nothing changed (writes only on drift).
+    if (Get-Command Build-TerminologyDictionary -ErrorAction Ignore) {
+        Build-TerminologyDictionary -Silent | Out-Null
+    }
+
+    # Keep the managed root config files current (Catzc.Base.RootConfig). Every opted-in root file is
+    # reproduced from its single in-repo source of truth — an authored source copied out with a generated-file
+    # header (e.g. the root PSScriptAnalyzerSettings.psd1 from .internal/assets), or a generator's rendered
+    # output (e.g. New-Importer for importer.ps1). Rewrites only on drift, so a clean tree is a fast no-op.
+    # Guarded: absent in the bootstrap sandbox. See [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
+    if (Get-Command Build-RootConfig -ErrorAction Ignore) {
+        Build-RootConfig -Silent | Out-Null
+    }
+
+    # Reconcile the session PATH to whatever tools are actually present — including tools installed outside the
+    # installer layer (e.g. nvm-managed node) — and report any running from a non-owned location on one line.
+    # Session-only, quiet on a clean devbox, self-skips in CI. The importer is dot-sourced, so its PATH nudges
+    # land in the caller's live session. Guarded: absent in the bootstrap sandbox (Catzc.Tooling.Core).
+    if (Get-Command Sync-SessionTools -ErrorAction Ignore) {
+        Sync-SessionTools
+    }
+
+    # Publish the agent hook when its source changed — after the PATH reconciliation, so `dotnet` is the owned SDK.
+    Invoke-AgentHookJanitor
+
+    # Commit the generated files the importer maintains (automation/.compiled/) — who is running decides
+    # ([ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)): a person's session
+    # commits, an agent's announces what changed and leaves the commit to the person, a test-run snapshot never
+    # commits, and a pipeline is not even asked, so CI imports stay silent. Deliberately the LAST janitor, so
+    # tracked files the janitors above touch (the .compiled DLL swap) are in their final state.
+    # Guarded: absent in the bootstrap sandbox.
+    if ((Get-Command Sync-GeneratedFile -ErrorAction Ignore) -and (Get-SessionActor) -ne 'Pipeline') {
+        Sync-GeneratedFile | Out-Null
     }
 }
 

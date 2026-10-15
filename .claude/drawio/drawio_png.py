@@ -203,7 +203,13 @@ def render(root):
             sw = int(float(s.get("strokeWidth", 1)))
             box = (x0, y0, x1, y1)
             if fill and s.get("shadow") != "0":  # a filled shape casts the kit's shadow; a bare line (span bar) does not
-                drop_shadow(img, box, lambda dd, b, c: paint_shape(dd, s, b, w, h, c, c if stroke else None, sw, dashed))
+                drop_shadow(
+                    img,
+                    box,
+                    lambda dd, b, c, s=s, w=w, h=h, stroke=stroke, sw=sw, dashed=dashed: paint_shape(
+                        dd, s, b, w, h, c, c if stroke else None, sw, dashed
+                    ),
+                )
             paint_shape(d, s, box, w, h, fill, stroke, sw, dashed)
         uri = s.get("image", "")
         if s.get("shape") == "image" and uri.startswith("data:image/png,"):

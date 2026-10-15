@@ -3,8 +3,8 @@
 `Callers in four modules share one resolver: the diagram described`
 
 ```text
-A 1572 x 640 diagram, read left to right through three bands side by side.
-Glyphs: 7 code units (slate), 1 file (olive); 4 flow edges; 5 markers.
+A 1576 x 654 diagram, read left to right through three bands side by side.
+Glyphs: 7 code units (slate), 1 file (olive); 4 flow edges; 5 markers; 1 fraction chip; 1 band group.
 Sidebar: three minimaps and the map key.
 ```
 
@@ -14,47 +14,51 @@ vocabulary of the diagram glyphs; what it means is in
 
 ## At a glance
 
-A 1572 × 640 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through three
+A 1576 × 654 canvas: a 1300 px drawing area on the left and a 272 px sidebar on the right. The drawing reads left to right through three
 bands side by side, labelled `CALLERS`, `CATZC.BASE.CONFIG` and `COMMITTED CONFIG`. It holds eight glyphs, seven code units and one file,
-joined by four flow edges, with five markers and a legend panel along the bottom. The eye lands first on the frame of four stacked code
-units in the left band.
+joined by four flow edges, with five markers, one fraction chip and a legend panel along the bottom. The eye lands first on the nested band
+`FOUR CONSUMERS` of four stacked code units in the left band.
 
 ## Reading path
 
-1. Marker 1, `CALLERS` band: a frame around four code units stacked top to bottom, Catzc.Tooling.Environment, Catzc.Azure.Templates,
-   Catzc.Base.Languages and Catzc.Base.QualityGates.
-2. Right along the one edge that leaves the frame to marker 2, `CATZC.BASE.CONFIG` band: the code unit Get-ConfigValue.
+1. Marker 1, on the top-left corner of the `FOUR CONSUMERS` band inside the `CALLERS` band: four code units stacked top to bottom,
+   Catzc.Tooling.Environment, Catzc.Azure.Templates, Catzc.Base.Languages and Catzc.Base.QualityGates.
+2. Right along the one edge that leaves the band, carrying the chip `4/4`, to marker 2, `CATZC.BASE.CONFIG` band: the code unit
+   Get-ConfigValue.
 3. Down to marker 3: the code unit Resolve-ConfigKeyPath, directly below Get-ConfigValue.
 4. Right from Get-ConfigValue to marker 4: the code unit Get-Config.
 5. Right to marker 5, `COMMITTED CONFIG` band: the file configs/&lt;name&gt;.yml.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                                                                                                             |
-| --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| code unit             | 7     | Catzc.Tooling.Environment, Catzc.Azure.Templates, Catzc.Base.Languages, Catzc.Base.QualityGates (`CALLERS`, in a frame); Get-ConfigValue, Get-Config, Resolve-ConfigKeyPath (`CATZC.BASE.CONFIG`) |
-| file                  | 1     | configs/&lt;name&gt;.yml (`COMMITTED CONFIG`)                                                                                                                                                     |
+| Glyph (legend phrase) | Count | Where                                                                                                                                                                                                               |
+| --------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| code unit             | 7     | Catzc.Tooling.Environment, Catzc.Azure.Templates, Catzc.Base.Languages, Catzc.Base.QualityGates (`CALLERS`, in the `FOUR CONSUMERS` band); Get-ConfigValue, Get-Config, Resolve-ConfigKeyPath (`CATZC.BASE.CONFIG`) |
+| file                  | 1     | configs/&lt;name&gt;.yml (`COMMITTED CONFIG`)                                                                                                                                                                       |
 
-Code units are slate and the file is olive, all with white names. The frame is chrome: a thin rim with no fill.
+Code units are slate and the file is olive, all with white names. The `FOUR CONSUMERS` band is chrome, drawn in the band style like the
+three outer bands. The chip `4/4` is a bold fraction just above the edge from the band to Get-ConfigValue.
 
 ## Edges
 
-| Edge kind | Count | From → to                                                                                                                                          |
-| --------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| flow      | 4     | the callers' frame → Get-ConfigValue, Get-ConfigValue → Get-Config, Get-ConfigValue → Resolve-ConfigKeyPath, Get-Config → configs/&lt;name&gt;.yml |
+| Edge kind | Count | From → to                                                                                                                                                              |
+| --------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| flow      | 4     | the `FOUR CONSUMERS` band → Get-ConfigValue (chip `4/4`), Get-ConfigValue → Get-Config, Get-ConfigValue → Resolve-ConfigKeyPath, Get-Config → configs/&lt;name&gt;.yml |
 
 Every edge is straight; three are horizontal and one runs down. None crosses another.
 
 ## Legend
 
-A full-width panel at the bottom of the drawing area, in two columns, left to right:
+A full-width panel at the bottom of the drawing area, in three columns, left to right:
 
-| Swatch                    | Phrase                     |
-| ------------------------- | -------------------------- |
-| slate rounded box         | code unit                  |
-| olive page, folded corner | file                       |
-| thin arrow                | flow: depends on           |
-| light disc `1`            | marker: a Walkthrough step |
+| Swatch                    | Phrase                                  |
+| ------------------------- | --------------------------------------- |
+| slate rounded box         | code unit                               |
+| olive page, folded corner | file                                    |
+| thin arrow                | flow: depends on                        |
+| light disc `1`            | marker: a Walkthrough step              |
+| small band swatch         | band: one module group                  |
+| bold `4/4`                | fraction chip: callers taking this edge |
 
 ## Sidebar
 

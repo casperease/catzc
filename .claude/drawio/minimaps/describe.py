@@ -41,7 +41,7 @@ class Context:
         self.glossary = references["glossary"]
         self.cell_count = {(c["track"], c["file_language"]): c["file_count"] for c in world["cells"]}
         self.chain_count = {(c["stack"], c["concern"]): c["adr_count"] for c in chain["cells"]}
-        headings = re.findall(r"^### (.+)$", (REPO / GLOSSARY).read_text(encoding="utf-8"), flags=re.M)
+        headings = re.findall(r"^### (.+)$", (REPO / GLOSSARY).read_text(encoding="utf-8"), flags=re.MULTILINE)
         self.anchors = {h.strip(): re.sub(r"[^a-z0-9 -]", "", h.strip().lower()).replace(" ", "-") for h in headings}
         self.declarations = {name: self._declaration(name) for name in ("variants", "languages")}
         no_track, no_language = list(self.buckets)
@@ -56,7 +56,7 @@ class Context:
 
     def _bucket_term(self, label):
         """The glossary term a bucket label names: its singular, e.g. 'Root files' -> 'root file'."""
-        singular = label.lower()[:-1] if label.lower().endswith("s") else label.lower()
+        singular = label.lower().removesuffix("s")
         if singular not in self.anchors:
             raise SystemExit(f"describe: the bucket label '{label}' names no glossary term ('{singular}')")
         return singular

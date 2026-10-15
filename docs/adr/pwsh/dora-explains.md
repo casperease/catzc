@@ -412,13 +412,13 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 > DORA's research ties deployment automation and fast recovery to delivery performance, and both depend on automation that is safe to run
 > again. Writing the replacing cmdlets, guarding list-valued settings, keeping `-Force` to one meaning, and returning one result on both
-> paths make a re-run of any pwsh state function leave the same system and the same output, so a retried stage or a restarted setup needs
-> no cleanup first.
+> paths make a re-run of any pwsh state function leave the same system and the same output, so a retried stage or a restarted setup needs no
+> cleanup first.
 
 - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — a deployment step that can be re-run safely is one
   that can be retried automatically.
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — a retried CI stage converges instead of
-  failing on a duplicate.
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — a retried CI stage converges instead of failing
+  on a duplicate.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one meaning for `-Force` and one result shape per
   function keep every state function readable the same way.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
