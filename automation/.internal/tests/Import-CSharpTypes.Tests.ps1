@@ -202,7 +202,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
                 [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"), "namespace $namespace;`npublic class Gamma { public int X; }")
                 { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                     Should -Not -Throw
-                Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -match 'Using old cached C# types' }
+                Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -match 'Using the old C# types' }
             }
             finally {
                 $env:TF_BUILD = $savedTfBuild
@@ -325,11 +325,11 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootB } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                 Should -Not -Throw
-            Should -Not -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -match 'Using old cached C# types' }
+            Should -Not -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -match 'Using the old C# types' }
             (Get-TypeRecord $rootB).Hash | Should -Be (Get-TypeRecord $rootA).Hash
         }
 
-        It 'on a devbox, a differing digest warns naming both roots, keeps the old types, and does not record' {
+        It 'on a devbox, a differing digest warns naming the changed types, keeps the old types, and does not record' {
             $namespace = "CatzcTestSplit$runId"
             $rootA = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
             $rootB = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { public int Gear; }' } }
@@ -337,7 +337,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootB } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                 Should -Not -Throw
             Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter {
-                $Message -like "Using old cached C# types*already loaded from*$rootA*differ from*$rootB*changed $namespace/Widget*"
+                $Message -like 'Using the old C# types*Widget*'
             }
             Get-TypeRecord $rootB | Should -BeNullOrEmpty
         }
@@ -359,7 +359,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootB } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                 Should -Throw "*not loaded $namespace/Gadget*Restart PowerShell*"
-            Should -Not -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -match 'Using old cached C# types' }
+            Should -Not -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -match 'Using the old C# types' }
         }
 
         It 'a subset root after the full root reuses the loaded types (every needed digest matches)' {
@@ -368,7 +368,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $rootB = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootB } { param($R) Import-CSharpTypes -ModulesRoot $R }
-            Should -Not -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -match 'Using old cached C# types' }
+            Should -Not -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -match 'Using the old C# types' }
             Get-TypeRecord $rootB | Should -Not -BeNullOrEmpty
         }
     }

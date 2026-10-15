@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: the ADR registry (adrs.yml) and the ADR rule files under docs/adr/ agree.
 .DESCRIPTION
-    Unique codes and acyclic domain links are AdrsConfig construction rules, so this gate does not recheck them.
+    Unique codes and acyclic links between domains are AdrsConfig construction rules, so this gate does not recheck them.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md#comment1)
 .PARAMETER OutputFolder

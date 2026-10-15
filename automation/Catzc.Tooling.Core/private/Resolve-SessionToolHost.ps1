@@ -90,7 +90,7 @@ function Resolve-SessionToolHost {
         Write-Message "Session PATH: $($Config.command) now runs from '$chosen'"
     }
 
-    # One result only: an array would give an array Source and break the string Location binding downstream.
+    # One result only: an array would break the string Location binding downstream.
     # [comment:2](/docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md#comment2)
     Get-Command $Config.command -CommandType Application -ErrorAction Ignore | Select-Object -First 1
 }

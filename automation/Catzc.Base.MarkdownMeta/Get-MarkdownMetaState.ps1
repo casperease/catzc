@@ -18,7 +18,7 @@ function Get-MarkdownMetaState {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         [AllowEmptyString()]
         [string] $Text
     )

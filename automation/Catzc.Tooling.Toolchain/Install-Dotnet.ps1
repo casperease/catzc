@@ -71,7 +71,7 @@ function Install-Dotnet {
     }
 
     if ($needsInstall) {
-        # The script comes from the module's assets via Get-CatzcModuleRoot, so source and build mode resolve alike.
+        # The script comes from the module's assets via Get-CatzcModuleRoot, so both run modes resolve alike.
         # [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
         # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment4)
         if ($IsWindows) {

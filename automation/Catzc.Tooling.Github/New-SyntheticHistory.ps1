@@ -6,7 +6,7 @@
     Commits rebuilt from the clean tree hold the token in no blob, path or message, so nothing is left to scrub.
     [comment:1](/docs/references/automation/catzc-tooling-github/New-SyntheticHistory.ps1.md#comment1)
 .PARAMETER Layer
-    A layer that stages no change is skipped, so it adds no commit and no timestamp slot.
+    A layer that stages no change is skipped, so it adds no commit and no timestamp of its own.
     [comment:2](/docs/references/automation/catzc-tooling-github/New-SyntheticHistory.ps1.md#comment2)
 .PARAMETER RepositoryPath
     The repository to rebuild. Defaults to the repository root.

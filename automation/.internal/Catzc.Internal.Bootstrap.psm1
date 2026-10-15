@@ -471,7 +471,8 @@ function Import-CSharpTypes {
         # loaded cross-root) is a hard failure too — the code that uses it is certain to fail later, far from
         # here. A changed or removed type degrades gracefully — keep the already-loaded types this session,
         # warn (orange), and return WITHOUT recording the new hash, so the warning repeats on every re-import
-        # until you restart. Every devbox session, a person's included, takes this path (ADR-AUTO-TYPES#15): one
+        # until you restart. Every devbox session, a person's included, takes this path
+        # ([ADR-AUTO-TYPES#15](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types15)): one
         # yellow line naming the changed types by simple name, and the import goes on.
         if ((Test-IsRunningInPipeline) -or $typeState.MissingTypes.Count) {
             throw "$changeSummary Restart PowerShell to pick up the change."

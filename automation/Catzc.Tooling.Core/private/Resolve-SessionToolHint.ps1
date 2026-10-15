@@ -43,7 +43,7 @@ function Resolve-SessionToolHint {
             $env:PATH = "$env:PATH$sep$dir"
             Write-Message "Session PATH: appended '$dir' so $($Config.command) resolves (session_path_hints)"
         }
-        # One result only: an array would give an array Source and break the string Location binding downstream.
+        # One result only: an array would break the string Location binding downstream.
         # [comment:4](/docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHint.ps1.md#comment4)
         return Get-Command $Config.command -CommandType Application -ErrorAction Ignore | Select-Object -First 1
     }

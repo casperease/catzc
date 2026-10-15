@@ -14,6 +14,7 @@
     [System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.
 #>
 function Get-BodyShaMarkdownMetaFact {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Every meta-kind processor is called with the same State, Path and Kind; this kind needs no path')]
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
     param(

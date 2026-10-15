@@ -15,6 +15,7 @@
     [System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.
 #>
 function Get-DocumentKindMarkdownMetaFact {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Every meta-kind processor is called with the same State, Path and Kind; this kind classifies by path alone')]
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
     param(

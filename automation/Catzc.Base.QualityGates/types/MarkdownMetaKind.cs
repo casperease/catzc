@@ -102,7 +102,8 @@ public sealed class MarkdownMetaKind
         processor = explicitProcessor ?? ConventionName(id, direction);
     }
 
-    // The function a module subscribes by default: Get-<Id>MarkdownMetaFact, or Get-<Id>MarkdownConfigContribution (ADR-REPO-MDMETA#4).
+    // The function a module subscribes by default: Get-<Id>MarkdownMetaFact, or Get-<Id>MarkdownConfigContribution
+    // ([ADR-REPO-MDMETA#4](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta4)).
     public static string ConventionName(string id, MarkdownMetaDirection direction)
     {
         string words = string.Concat(id.Split('-').Select(word => char.ToUpperInvariant(word[0]) + word.Substring(1)));

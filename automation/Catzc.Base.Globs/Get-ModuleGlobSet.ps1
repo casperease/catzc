@@ -116,7 +116,7 @@ function Get-ModuleGlobSet {
         $moduleAspects[$moduleName] = $aspectSets
     }
 
-    # The whole-folder internal scope stays the protection dependency; these single files carry per-module identity.
+    # The whole-folder dependency stays the protection dependency; these single files carry per-module identity.
     # [comment:6](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment6)
     $internalRoot = [System.IO.Path]::Combine($automationRoot, '.internal')
     if ([System.IO.Directory]::Exists($internalRoot)) {

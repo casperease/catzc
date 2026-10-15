@@ -9,7 +9,8 @@ namespace Catzc.Base.MarkdownMeta;
 
 public static class MarkdownMetaBlock
 {
-    // The two parts of the block, each a two-space-indented key under `catzc:` (ADR-REPO-MDMETA#1). The facts come as an
+    // The two parts of the block, each a two-space-indented key under `catzc:`
+    // ([ADR-REPO-MDMETA#1](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta1)). The facts come as an
     // ordered dictionary, so their order is the order written.
     public const string DerivedKey = "derived";
     public const string ConfigKey = "config";

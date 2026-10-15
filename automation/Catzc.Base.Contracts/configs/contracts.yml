@@ -4,7 +4,7 @@
 # [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)
 # [comment:1](/docs/references/automation/catzc-base-contracts/configs/contracts.yml.md#comment1)
 
-# Only full-path is built: selecting manifest-glob or per-folder throws NotImplemented, as a mode needs proof from pwsh and bash.
+# Only full-path is built: selecting manifest-glob or per-folder throws NotImplemented, as a mode needs proof from every engine.
 # [ADR-REPO-CONTRACT#8](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract8)
 # [comment:2](/docs/references/automation/catzc-base-contracts/configs/contracts.yml.md#comment2)
 addressing: full-path

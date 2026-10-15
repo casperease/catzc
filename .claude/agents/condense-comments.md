@@ -55,7 +55,7 @@ The line must:
 - not start with a phrase from `obvious_phrases` in `comments.yml`, such as "this function", "helper that" or "returns the result";
 - hold no link, no citation and no markdown: no backticks, no brackets, no asterisks. Citations stay on the citation line;
 - carry nothing shaped like a citation, not even as an example: a bare ADR code, with or without a rule number, is read by Format-Comments
-  as a citation, moved onto the citation line, and the links gate then fails on it. Name the rule in words instead;
+  as a citation, moved onto the citation line, and the links check then fails on it. Name the rule in words instead;
 - keep the comment marker and the indent exactly as they stand. A residue in comment-based help (under `.DESCRIPTION`, `.PARAMETER` and so
   on) has no `#` marker and keeps its indent. A C# documentation residue keeps its `/// <summary>` prefix, and only the words after it
   change;
@@ -88,7 +88,7 @@ How the checks behave, learned from running them over the whole repository:
 - A `-File` script takes no array argument, so the script holds its own file list, or reads it from a list file under `out/`.
 - The coordinator gives each run a batch prefix; put it on every script, log and backup name, so parallel runs never collide in `out/`.
 - `Test-Spelling` reports `FileCount` as the number of files with issues, so `FileCount 0` with `IssueCount 0` is the clean result, and a
-  file outside the spelling scope makes it throw "matched no files": catch that, note it, and let the other three checks decide.
+  file the spelling check does not cover makes it throw "matched no files": catch that, note it, and let the other three checks decide.
 - The importer recompiles the C# types when a `.cs` file changed. If it throws "C# type sources changed during the import", another run
   edited a type file at that moment: run the same script once more.
 
