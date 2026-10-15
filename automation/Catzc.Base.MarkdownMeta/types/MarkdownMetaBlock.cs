@@ -9,7 +9,8 @@ namespace Catzc.Base.MarkdownMeta;
 
 public static class MarkdownMetaBlock
 {
-    // The two parts of the block, each a two-space-indented key under `catzc:` (ADR-REPO-MDMETA#1).
+    // The two parts of the block, each a two-space-indented key under `catzc:` (ADR-REPO-MDMETA#1). The facts come as an
+    // ordered dictionary, so their order is the order written.
     public const string DerivedKey = "derived";
     public const string ConfigKey = "config";
 
@@ -22,28 +23,29 @@ public static class MarkdownMetaBlock
 
     // Renders the block in its one canonical form: the derived facts in the order given, then the authored config lines as written.
     // A value is a scalar or a list of scalars. No facts and no config lines render no block at all.
-    public static IReadOnlyList<string> Render(IEnumerable<KeyValuePair<string, object>> derived, IReadOnlyList<string> config)
+    public static IReadOnlyList<string> Render(IDictionary derived, IReadOnlyList<string> config)
     {
-        var facts = new List<KeyValuePair<string, object>>(derived ?? new KeyValuePair<string, object>[0]);
         var lines = new List<string>();
-        if (facts.Count == 0 && (config == null || config.Count == 0)) { return lines; }
+        int facts = derived == null ? 0 : derived.Count;
+        if (facts == 0 && (config == null || config.Count == 0)) { return lines; }
         lines.Add(MarkdownDocument.MetaKey + ":");
-        if (facts.Count > 0)
+        if (facts > 0)
         {
             lines.Add("  " + DerivedKey + ":");
-            foreach (KeyValuePair<string, object> fact in facts)
+            foreach (DictionaryEntry fact in derived)
             {
+                string key = Key(fact.Key as string);
                 if (fact.Value is IEnumerable items && !(fact.Value is string))
                 {
                     var list = new List<string>();
                     foreach (object item in items) { list.Add(Scalar(item)); }
-                    if (list.Count == 0) { lines.Add("    " + Key(fact.Key) + ": []"); continue; }
-                    lines.Add("    " + Key(fact.Key) + ":");
+                    if (list.Count == 0) { lines.Add("    " + key + ": []"); continue; }
+                    lines.Add("    " + key + ":");
                     foreach (string item in list) { lines.Add("      - " + item); }
                 }
                 else
                 {
-                    lines.Add("    " + Key(fact.Key) + ": " + Scalar(fact.Value));
+                    lines.Add("    " + key + ": " + Scalar(fact.Value));
                 }
             }
         }

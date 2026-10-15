@@ -26,7 +26,7 @@ function Get-CommentScope {
     $languages = [System.Collections.Generic.HashSet[string]]::new([string[]] @($config.languages), [System.StringComparer]::OrdinalIgnoreCase)
     $candidates = @(Get-LinkScope -RepositoryRoot $RepositoryRoot -Path $Path | Sort-Object)
 
-    # A folder -Path lists disk files: drop what git ignores (build output), keep untracked new sources.
+    # A folder -Path lists disk files: drop what git ignores (build output), keep new untracked files.
     $engineRoot = [System.IO.Path]::GetFullPath($RepositoryRoot).TrimEnd('\', '/')
     $loadedRoot = [System.IO.Path]::GetFullPath((Get-RepositoryRoot)).TrimEnd('\', '/')
     if ($engineRoot -ieq $loadedRoot -and $candidates.Count -gt 0) {

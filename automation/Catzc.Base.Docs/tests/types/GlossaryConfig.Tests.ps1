@@ -37,7 +37,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $c.options.checks | Should -Be @('anchored', 'single', 'avoid', 'enforced', 'forms')
         $c.options.surfaces | Should -Be @('markdown', 'comments', 'help', 'messages')
         $c.options.scope | Should -Be @('**')
-        $c.options.exclude | Should -Be @('docs/adr/research/**', 'docs/references/dora/**', 'out/**', 'automation/.vendor/**')
+        $c.options.exclude | Should -Be @('docs/adr/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**', 'automation/.vendor/**')
     }
 
     It 'keeps concepts in source order' {
@@ -55,7 +55,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $c.options.checks | Should -Be @('avoid')
         $c.options.scope | Should -Be @('docs/**')
         $c.options.surfaces | Should -Be @('markdown', 'comments', 'help', 'messages')
-        $c.options.exclude | Should -Be @('docs/adr/research/**', 'docs/references/dora/**', 'out/**', 'automation/.vendor/**', 'docs/widget/**')
+        $c.options.exclude | Should -Be @('docs/adr/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**', 'automation/.vendor/**', 'docs/widget/**')
     }
 
     It 'accepts an explicit empty checks list (opted in, structural check only)' -Tag 'ADR-REPO-VOCAB#2' {

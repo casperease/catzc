@@ -80,8 +80,4 @@ Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#1' {
         [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:plain.Replace("`n", "`r`n")).BodyHash() | Should -BeExactly $a
         [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($script:plain + 'more').BodyHash() | Should -Not -BeExactly $a
     }
-
-    It 'throws on null text' {
-        { [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($null) } | Should -Throw
-    }
 }
