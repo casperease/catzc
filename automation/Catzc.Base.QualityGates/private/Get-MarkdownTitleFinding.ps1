@@ -63,7 +63,7 @@ function Get-MarkdownTitleFinding {
         $expected = 'an H1 that is the file''s title'
     }
     elseif ($actual -ceq $pathTitle) {
-        # The old form: the path as the H1 and the real title in one backticked line below it.
+        # The old form: the path as the H1 and the real title in one code-span line below it.
         $subtitleIndex = $titleIndex + 1
         while ($subtitleIndex -lt $lines.Count -and $lines[$subtitleIndex].Trim() -eq '') {
             $subtitleIndex++

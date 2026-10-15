@@ -11,7 +11,7 @@ Section `.DESCRIPTION` of the comment-based help.
 
 ```text
 Makes each file's first line after any YAML front matter its title, an H1 that is not the file's path: an H1 that is
-the path followed by one backticked line takes that line's text as its wording (the line goes), and a file with no
+the path followed by one code-span line takes that line's text as its wording (the line goes), and a file with no
 title is reported, since only a person can write one. Then each heading below it is made plain
 words: a trailing group of code spans or a citation moves to its own line below the heading, a dora-explains
 entry's DORA paragraph becomes a > blockquote, and every link to an anchor that changed is re-pointed

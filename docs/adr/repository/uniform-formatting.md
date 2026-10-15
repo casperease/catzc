@@ -160,7 +160,7 @@ lives is a fact the repository can compute, so it sits in the meta block as `pat
 moved file drifts and is rewritten, and no author keeps it in step by hand. Each fact has one home, the words in the H1 and the location
 in the meta block, so neither is typed twice.
 
-An H1 that is the file's own path says nothing a reader cannot already see, so it is not a title. A file with a path H1 and one backticked
+An H1 that is the file's own path says nothing a reader cannot already see, so it is not a title. A file with a path H1 and one code-span
 line below it takes that line's text as its title, and the line goes. A file with a path H1 and nothing to take, or with no H1, has no
 words to promote, so the gate reports it and the author writes the title. The file keeps one title and one heading normal form
 (ADR-REPO-FORMAT#7).
@@ -208,7 +208,7 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - **Links** — `Format-Links` aligns every link mechanically (code links repository-rooted, markdown links relative, rule citations spelled
   `ADR-<CODE>#<n>`) and `Test-Links` checks them; an L2 test asserts `Format-Links` is a no-op over the tracked tree
   ([markdown-links](markdown-links.md)).
-- **Markdown titles** — `Format-MarkdownTitle` makes the H1 of every in-scope Markdown file its title (promoting the backticked line under a
+- **Markdown titles** — `Format-MarkdownTitle` makes the H1 of every in-scope Markdown file its title (promoting the code-span line under a
   path H1), brings its headings into normal form (moving trailing reference groups out, quoting `dora-explains` paragraphs, and re-pointing
   every link to a heading whose anchor changed), and `Test-MarkdownTitle` checks both, including duplicate anchors and files with no title;
   an L1 test asserts the tracked tree has no finding.

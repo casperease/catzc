@@ -22,7 +22,7 @@ Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6' {
         $finding.Fixed | Should -Be $text
     }
 
-    It 'takes the backticked line under a path H1 as the title and drops the line' {
+    It 'takes the code-span line under a path H1 as the title and drops the line' {
         $finding = Get-Finding (Join-Lines '# docs/widget.md', '', '`Widget: a gadget`', '', 'Body.', '')
         $finding.Kind | Should -Be 'PathTitle'
         $finding.Actual | Should -Be '# docs/widget.md'

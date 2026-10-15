@@ -12,7 +12,7 @@ Section `.DESCRIPTION` of the comment-based help.
 ```text
 Every git-tracked *.md file — the repository as committed, so a gitignored generated README is never in scope while
 its tracked source is — minus the files the content tools leave as written (Get-ContentExemptPath: vendored,
-generated, fixture, or contract asset) and those whose OptOut attribute .gitattributes unsets (the meta block's
+generated, fixture, or contract asset) and those whose OptOut attribute .gitattributes marks unset (the meta block's
 -catzc-meta; the title has none). No list of its own: a new exception is declared in the .gitattributes source
 like every other file class.
 ```
