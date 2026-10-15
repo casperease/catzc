@@ -5,8 +5,8 @@
 .DESCRIPTION
     A citation is `ADR-<CODE>#<n>` ([ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)); the colon form
     belongs to a rule's own heading and is no citation. The order is ordinal, so a rerun never moves a code.
-.PARAMETER Document
-    The parsed Markdown file.
+.PARAMETER State
+    What Get-MarkdownMetaState read from the file.
 .PARAMETER Path
     The file's repository-relative path.
 .PARAMETER Kind
@@ -19,7 +19,7 @@ function Get-AdrCodesMarkdownMetaFact {
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
     param(
         [Parameter(Mandatory)]
-        [Catzc.Base.MarkdownMeta.MarkdownDocument] $Document,
+        [pscustomobject] $State,
 
         [Parameter(Mandatory)]
         [string] $Path,
@@ -29,7 +29,7 @@ function Get-AdrCodesMarkdownMetaFact {
     )
 
     $codes = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($match in [regex]::Matches($Document.Body, '(?<![\w-])ADR-[A-Z]+(?:-[A-Z]+)*#\d+')) {
+    foreach ($match in [regex]::Matches($State.Body,'(?<![\w-])ADR-[A-Z]+(?:-[A-Z]+)*#\d+')) {
         [void] $codes.Add($match.Value)
     }
     [ordered]@{ $Kind.keys[0] = [string[]] @($codes) }

@@ -52,6 +52,21 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
             ) -join "`n")
     }
 
+    It 'leaves the source''s front matter, its meta block included, out of the copy' -Tag 'ADR-REPO-README#6' {
+        $original = [System.IO.File]::ReadAllText($script:source)
+        Build-Readme | Out-Null
+        $plain = [System.IO.File]::ReadAllText($script:readme)
+        try {
+            $framed = "---`ncatzc:`n  derived:`n    kind: reference`n---`n`n" + $original
+            [System.IO.File]::WriteAllText($script:source, $framed)
+            Build-Readme | Out-Null
+            [System.IO.File]::ReadAllText($script:readme) | Should -BeExactly $plain
+        }
+        finally {
+            [System.IO.File]::WriteAllText($script:source, $original)
+        }
+    }
+
     It 'rewrites a stale copy' {
         [System.IO.File]::WriteAllText($script:readme, "# Old generated copy`n")
 

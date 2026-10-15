@@ -5,8 +5,8 @@
 .DESCRIPTION
     The first class whose globs match the path wins; a file no class matches is `other`. The classes are data in the
     registry (`settings.classes`), never a list in this function ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
-.PARAMETER Document
-    The parsed Markdown file.
+.PARAMETER State
+    What Get-MarkdownMetaState read from the file.
 .PARAMETER Path
     The file's repository-relative path.
 .PARAMETER Kind
@@ -19,7 +19,7 @@ function Get-DocumentKindMarkdownMetaFact {
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
     param(
         [Parameter(Mandatory)]
-        [Catzc.Base.MarkdownMeta.MarkdownDocument] $Document,
+        [pscustomobject] $State,
 
         [Parameter(Mandatory)]
         [string] $Path,

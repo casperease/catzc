@@ -45,7 +45,9 @@ so a README that is a filesystem link is severed, never written through into its
 
 Every link in a generated README works where the README is opened. Each relative link target is resolved at the source's folder and
 rewritten relative to the README's folder (`MarkdownLinkRebaser`); code spans, fenced blocks, URLs, in-file `#anchors`, and
-repository-rooted `/` targets are left as written. A line under the title links back to the source as the one place to edit.
+repository-rooted `/` targets are left as written. A line under the title links back to the source as the one place to edit. The source's
+front matter, its meta block ([ADR-REPO-MDMETA#1](markdown-meta.md#rule-adr-repo-mdmeta1)) included, is left out of the copy, so a README
+opens with its title.
 
 - [Readable where it is opened](#readable-where-it-is-opened)
 

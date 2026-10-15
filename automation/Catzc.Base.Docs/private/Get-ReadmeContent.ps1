@@ -2,7 +2,8 @@
 .SYNOPSIS
     Composes a generated README: its source article, links rebased to the README's folder, under a line naming the source.
 .DESCRIPTION
-    The source link line goes after the source's title when it has one, else at the top of the README.
+    The source link line goes after the source's title when it has one, else at the top of the README. The source's front matter,
+    its meta block included, is left out of the copy.
     [ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-ReadmeContent.ps1.md#comment1)
 .PARAMETER Mapping
@@ -20,8 +21,9 @@ function Get-ReadmeContent {
 
     $sourcePath = Resolve-RepoPath $Mapping.source
     Assert-PathExist $sourcePath -PathType Leaf
-    $text = [System.IO.File]::ReadAllText($sourcePath) -replace "`r", ''
-    $body = [Catzc.Base.Docs.MarkdownLinkRebaser]::Rebase($text, $Mapping.source, $Mapping.folder)
+    # The copy carries the article, not the source's meta block, so it opens with its title as a reader expects.
+    $text = Remove-MarkdownFrontMatter -Text ([System.IO.File]::ReadAllText($sourcePath) -replace "`r", '')
+    $body =[Catzc.Base.Docs.MarkdownLinkRebaser]::Rebase($text, $Mapping.source, $Mapping.folder)
 
     $sourceLink = [Catzc.Base.Docs.MarkdownLinkRebaser]::RelativeLink($Mapping.folder, $Mapping.source)
     $banner = "> Generated from [$($Mapping.source)]($sourceLink) — edit the source; this copy is rewritten on every import."

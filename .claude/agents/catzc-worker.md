@@ -9,6 +9,12 @@ description: >
   (`build-inspiration-module`), for auditing what a session cost (`session-cost-audit`), for making tests faster (`test-optimization`), or
   for rewriting comment residues' insight lines (`condense-comments`).
 tools: Bash, Read, Glob, Grep, Write, Edit
+catzc:
+  derived:
+    kind: agent
+    body_sha: "5cc9718e3fa7"
+    adrs:
+      - ADR-AUTO-TEST#3
 ---
 
 # .claude/agents/catzc-worker.md

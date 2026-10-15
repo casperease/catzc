@@ -33,29 +33,21 @@ function Invoke-MarkdownMetaEngine {
 
     $entries = foreach ($file in $files) {
         $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $file))
-        $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($text)
-        $block = $document.MetaBlock
+        $state = Get-MarkdownMetaState -Text $text
         $findings = [System.Collections.Generic.List[pscustomobject]]::new()
 
         # A key no kind owns is the author's: report it and leave the file alone.
-        $section = ''
-        foreach ($line in @($block | Select-Object -Skip 1)) {
-            if ($line -match '^  (?<key>[^\s#][^:]*):') {
-                $section = $Matches.key
-                if ($section -notin 'derived', 'config') {
-                    $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.$section"; Expected = 'derived or config' })
-                }
-            }
-            elseif ($section -eq 'derived' -and $line -match '^    (?<key>[^\s#-][^:]*):' -and -not $owned.Contains($Matches.key.Trim('"'))) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.derived.$($Matches.key)"; Expected = 'a key a meta kind owns' })
-            }
+        foreach ($section in $state.Sections | Where-Object { $_ -notin 'derived', 'config' }) {
+            $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.$section"; Expected = 'derived or config' })
+        }
+        foreach ($key in $state.DerivedKeys | Where-Object { -not $owned.Contains($_) }) {
+            $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.derived.$key"; Expected = 'a key a meta kind owns' })
         }
 
         $fixed = $text
         if ($findings.Count -eq 0) {
-            $facts = Get-MarkdownMetaFact -Document $document -Path $file -Config $Config
-            $rendered = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($facts, [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ConfigLines($block))
-            $fixed = $document.WithMetaBlock($rendered)
+            $facts = Get-MarkdownMetaFact -State $state -Path $file -Config $Config
+            $fixed = Format-MarkdownMetaBlock -Text $text -Fact $facts
             if ($fixed -cne $text) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 1; Kind = 'Drift'; Actual = 'the meta block as written'; Expected = 'the imprinted meta block' })
             }

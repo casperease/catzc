@@ -4,8 +4,8 @@
     ([ADR-REPO-MDMETA#3](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta3)).
 .DESCRIPTION
     The hash changes exactly when the body does; front matter and line endings never move it.
-.PARAMETER Document
-    The parsed Markdown file.
+.PARAMETER State
+    What Get-MarkdownMetaState read from the file.
 .PARAMETER Path
     The file's repository-relative path.
 .PARAMETER Kind
@@ -18,7 +18,7 @@ function Get-BodyShaMarkdownMetaFact {
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
     param(
         [Parameter(Mandatory)]
-        [Catzc.Base.MarkdownMeta.MarkdownDocument] $Document,
+        [pscustomobject] $State,
 
         [Parameter(Mandatory)]
         [string] $Path,
@@ -27,5 +27,5 @@ function Get-BodyShaMarkdownMetaFact {
         [Catzc.Base.QualityGates.MarkdownMetaKind] $Kind
     )
 
-    [ordered]@{ $Kind.keys[0] = $Document.BodyHash() }
+    [ordered]@{ $Kind.keys[0] = $State.BodyHash }
 }

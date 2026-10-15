@@ -4,10 +4,10 @@ Describe 'Get-AdrCodesMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#3' 
 
         function script:Get-Codes {
             param([string] $Body)
-            $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($Body)
-            $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ Document = $document; Kind = $script:kind } {
-                param($Document, $Kind)
-                Get-AdrCodesMarkdownMetaFact -Document $Document -Path 'docs/widget.md' -Kind $Kind
+            $state = Get-MarkdownMetaState -Text $Body
+            $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $script:kind } {
+                param($State, $Kind)
+                Get-AdrCodesMarkdownMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
             }
             , @($fact['adrs'])
         }

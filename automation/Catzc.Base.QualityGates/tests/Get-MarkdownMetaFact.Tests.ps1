@@ -1,13 +1,13 @@
 Describe 'Get-MarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#4' {
     BeforeAll {
-        $script:document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("# docs/widget.md`n`nSee ADR-GADGET#1.`n")
+        $script:state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nSee ADR-GADGET#1.`n"
 
         function script:Get-Facts {
             param($Raw, [string] $Path = 'docs/widget.md')
             $config = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new($Raw)
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ Document = $script:document; Config = $config; Path = $Path } {
-                param($Document, $Config, $Path)
-                Get-MarkdownMetaFact -Document $Document -Path $Path -Config $Config
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $script:state; Config = $config; Path = $Path } {
+                param($State, $Config, $Path)
+                Get-MarkdownMetaFact -State $State -Path $Path -Config $Config
             }
         }
     }

@@ -16,10 +16,10 @@ Describe 'Get-DocumentKindMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA
 
         function script:Get-Class {
             param([string] $Path, $Kind = $script:kind)
-            $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("# $Path`n")
-            $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ Document = $document; Kind = $Kind; Path = $Path } {
-                param($Document, $Kind, $Path)
-                Get-DocumentKindMarkdownMetaFact -Document $Document -Path $Path -Kind $Kind
+            $state = Get-MarkdownMetaState -Text "# $Path`n"
+            $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $Kind; Path = $Path } {
+                param($State, $Kind, $Path)
+                Get-DocumentKindMarkdownMetaFact -State $State -Path $Path -Kind $Kind
             }
             $fact['kind']
         }

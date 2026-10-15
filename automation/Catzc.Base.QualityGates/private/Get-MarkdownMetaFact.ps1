@@ -6,8 +6,8 @@
     Each kind's processor is the function the registry names, found in this module's scope; a kind with no such function fails the
     run and names the function it expected. A processor must return exactly the keys its kind declares, so a kind can never write a
     key another kind owns. The facts come back in registry order, which is the order they are written.
-.PARAMETER Document
-    The parsed Markdown file.
+.PARAMETER State
+    What Get-MarkdownMetaState read from the file.
 .PARAMETER Path
     The file's repository-relative path.
 .PARAMETER Config
@@ -20,7 +20,7 @@ function Get-MarkdownMetaFact {
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
     param(
         [Parameter(Mandatory)]
-        [Catzc.Base.MarkdownMeta.MarkdownDocument] $Document,
+        [pscustomobject] $State,
 
         [Parameter(Mandatory)]
         [string] $Path,
@@ -37,7 +37,7 @@ function Get-MarkdownMetaFact {
         }
         $processor = Get-Command -Name $kind.processor -CommandType Function -ErrorAction Ignore
         Assert-NotNull $processor -ErrorText "markdown-meta config: kind '$($kind.id)' is subscribed by '$($kind.processor)', but no such function exists."
-        $produced = & $kind.processor -Document $Document -Path $Path -Kind $kind
+        $produced = & $kind.processor -State $State -Path $Path -Kind $kind
         $expected = @($kind.keys)
         $actual = @($produced.Keys)
         Assert-True (($actual -join ',') -ceq ($expected -join ',')) `

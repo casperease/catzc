@@ -1,3 +1,16 @@
+---
+catzc:
+  derived:
+    kind: adr
+    body_sha: ecd12ed5ec90
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-EXTEND#1
+      - ADR-CONF-LOADING#5
+      - ADR-REPO-FORMAT#5
+      - ADR-REPO-FORMAT#6
+---
+
 # docs/adr/repository/markdown-meta.md
 
 `ADR: Markdown meta — one reserved block of derived facts and authored config in a file's front matter`

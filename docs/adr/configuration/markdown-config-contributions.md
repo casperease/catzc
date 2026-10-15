@@ -1,3 +1,20 @@
+---
+catzc:
+  derived:
+    kind: adr
+    body_sha: "5915fcbf68f8"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-EXTEND#3
+      - ADR-AUTO-OVERLAY#4
+      - ADR-AUTO-OVERLAY#7
+      - ADR-CONF-ADDRESSING#3
+      - ADR-CONF-LOADING#1
+      - ADR-CONF-LOADING#3
+      - ADR-CONF-LOADING#4
+      - ADR-CONF-LOADING#5
+---
+
 # docs/adr/configuration/markdown-config-contributions.md
 
 `ADR: Markdown config contributions — config values stated in a source-controlled Markdown file`

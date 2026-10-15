@@ -165,7 +165,9 @@
       <Version>1.0.0-$(CatzcTypesHash)</Version>
       <InformationalVersion>$(CatzcTypesHash)</InformationalVersion>
     </PropertyGroup>
-    <Message Importance="high" Text="Catzc.Types: stamped version $(Version) from the source hash $(CatzcTypesHash)." />
+    <!-- Normal importance: a stamp that matches is routine and stays out of the editor's Problems view; only the
+         commit-hygiene warning above is meant to be seen. A verbose build (-v n) still shows it. -->
+    <Message Importance="normal" Text="Catzc.Types: stamped version $(Version) from the source hash $(CatzcTypesHash)." />
   </Target>
 
 </Project>

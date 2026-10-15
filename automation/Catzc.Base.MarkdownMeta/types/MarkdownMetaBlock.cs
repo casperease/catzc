@@ -78,6 +78,35 @@ public static class MarkdownMetaBlock
         return lines;
     }
 
+    // The keys at the block's first level, two spaces in: `derived`, `config`, and anything else an author wrote.
+    public static IReadOnlyList<string> SectionKeys(IReadOnlyList<string> block) => KeysAt(block, 2, null);
+
+    // The keys one level down inside `derived`, four spaces in.
+    public static IReadOnlyList<string> DerivedKeys(IReadOnlyList<string> block) => KeysAt(block, 4, DerivedKey);
+
+    static List<string> KeysAt(IReadOnlyList<string> block, int indent, string inside)
+    {
+        var keys = new List<string>();
+        if (block == null) { return keys; }
+        string section = null;
+        string prefix = new string(' ', indent);
+        foreach (string line in block)
+        {
+            if (line.StartsWith("  ", StringComparison.Ordinal) && !line.StartsWith("   ", StringComparison.Ordinal))
+            {
+                int colon = line.IndexOf(':');
+                if (colon > 2 && line[2] != '#') { section = line.Substring(2, colon - 2).Trim(); }
+            }
+            bool atLevel = line.StartsWith(prefix, StringComparison.Ordinal) && line.Length > indent && line[indent] != ' ' && line[indent] != '#';
+            if (!atLevel) { continue; }
+            if (inside != null && section != inside) { continue; }
+            if (inside != null && line[indent] == '-') { continue; }
+            int end = line.IndexOf(':', indent);
+            if (end > indent) { keys.Add(line.Substring(indent, end - indent).Trim().Trim('"')); }
+        }
+        return keys;
+    }
+
     // One value, plain where YAML would read it back as the same string, otherwise double-quoted.
     public static string Scalar(object value)
     {

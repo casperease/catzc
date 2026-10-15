@@ -55,6 +55,12 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#3' {
         @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ConfigLines($block)).Count | Should -Be 0
     }
 
+    It 'lists the keys at the block''s first level and inside derived' {
+        $block = [string[]] @('catzc:', '  derived:', '    kind: gadget', '    "body_sha": x', '    adrs:', '      - ADR-WIDGET#1', '  config:', '    gadgets:', '  other: 2')
+        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::SectionKeys($block) | Should -Be @('derived', 'config', 'other')
+        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::DerivedKeys($block) | Should -Be @('kind', 'body_sha', 'adrs')
+    }
+
     It 'renders no block when there are no facts and no config' {
         @([Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{}, [string[]] @())).Count | Should -Be 0
     }
