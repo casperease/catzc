@@ -1,4 +1,4 @@
-// One entry of configs/build-validation.yml's `validations` list: an ADO build-validation branch policy tied to a DECLARED globset.
+// Globset existence is not checked here, so loading the config stays hermetic; runtime and an integrity test enforce it.
 // [ADR-FLOW-CD-TYPE#4](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)
@@ -17,7 +17,7 @@ public sealed class BuildValidationEntry : Catzc.Base.Objects.DictionaryRecord
     // The declared globset the policy is tied to (its native path projection is the policy's path filter).
     public string globset { get; }
 
-    // The pipeline the policy runs.
+    // Null when absent: the consumer falls back to the globset's pipeline annotation in globs.yml.
     // [comment:2](/docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md#comment2)
     public string pipeline { get; }
 

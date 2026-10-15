@@ -2,7 +2,7 @@
 .SYNOPSIS
     Writes, or removes, an environment variable in a persistent scope (the Windows registry for User/Machine).
 .DESCRIPTION
-    The single seam through which tooling WRITES a persistent environment variable other than PATH (PATH has its own,...
+    The one write seam for persistent variables other than PATH, so tests spare the shared user environment.
     [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)
     [comment:1](/docs/references/automation/catzc-base-environment/Set-PermanentEnvironmentVariable.ps1.md#comment1)
 .PARAMETER Name
@@ -40,7 +40,7 @@ function Set-PermanentEnvironmentVariable {
     }
 
     if ($removing) {
-        # PowerShell hands $null to a.NET string parameter as '', which the scopes the registry backs store as an...
+        # A plain $null arrives as '' and is stored as an empty value; only a real null deletes the variable.
         # [comment:2](/docs/references/automation/catzc-base-environment/Set-PermanentEnvironmentVariable.ps1.md#comment2)
         [System.Environment]::SetEnvironmentVariable($Name, [NullString]::Value, $Scope)
         Write-Message "$Scope environment: removed $Name"

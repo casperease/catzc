@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs Node.js via the platform package manager.
 .DESCRIPTION
-    Installs Node.js (which includes npm) at the locked major version.
+    The package manager differs per platform, and CI is refused: the pipeline UseNode task is the way there.
     [comment:1](/docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md#comment1)
 .PARAMETER Version
     Node.js major version to install. Defaults to the locked version in Get-ToolConfig.
@@ -46,7 +46,7 @@ function Install-NodeJs {
         Assert-IsAdministrator -ErrorText 'Install-NodeJs on Linux requires root (apt-get). Run as root or install node_js manually.'
         Assert-Command apt-get
 
-        # The distro `nodejs` package trails the pinned major badly (Ubuntu jammy ships Node 12), so install from the...
+        # The distro package lags the pin badly, and the repo URL embeds the major, so rewrite it when the pin moves.
         # [comment:2](/docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md#comment2)
         $sourcePath = '/etc/apt/sources.list.d/nodesource.list'
         $gpgKeyPath = '/usr/share/keyrings/nodesource.gpg'

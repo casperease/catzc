@@ -2,7 +2,7 @@
 .SYNOPSIS
     Saves a PowerShell module into the automation/.vendor directory from the configured source.
 .DESCRIPTION
-    Downloads with Save-PSResource from the vendor source (configs/vendor.yml — PSGallery by default, or a custom...
+    Run it in a fresh session: a loaded module locks its files, and build mode stops with a named error.
     [ADR-PWSH-VENDOR](/docs/adr/pwsh/vendor-toolset-dependencies.md), [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md#comment1)
 .PARAMETER Name
@@ -51,7 +51,7 @@ function Install-VendorModule {
     Write-Verbose "Downloading $Name from the vendor source$(if ($RequiredVersion) { " (v$RequiredVersion)" })"
     Save-PSResource @saveParams
 
-    # Prune folders the toolset never loads: legacy.NET Framework builds (we only target PS 7+ /.NET 6+) and...
+    # Drops legacy .NET Framework builds and the 280 MB compatibility_profiles, which no enabled rule reads.
     # [ADR-PWSH-VENDOR#7](/docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor7)
     # [comment:2](/docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md#comment2)
     $moduleDir = Join-Path $vendorRoot $Name

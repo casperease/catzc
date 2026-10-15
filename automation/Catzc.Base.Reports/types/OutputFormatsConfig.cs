@@ -1,4 +1,4 @@
-// The output-format catalogue, configs/output-formats.yml: every kind of file a producer writes under the output root, declared once.
+// Load rejects any two formats whose patterns can overlap; which format a file belongs to is Test-OutputFormats' job.
 // [ADR-REPO-OUTFMT#1](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt1),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-reports/types/OutputFormatsConfig.cs.md#comment1)

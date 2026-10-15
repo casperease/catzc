@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the build-validation branch policies of the repository, optionally for one branch.
 .DESCRIPTION
-    Queries the ADO Policy Configurations REST API and returns one object per build-validation policy (policy type...
+    Read-only: a policy's path filters are its only tie back to a globset, so they are reported as the server has them.
     [ADR-FLOW-CD-TYPE#4](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4),
     [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
     [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md#comment1)

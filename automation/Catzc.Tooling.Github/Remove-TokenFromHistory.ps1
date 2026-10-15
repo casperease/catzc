@@ -3,7 +3,7 @@
     Scrubs a token from a git history's blob content and commit messages with
     git-filter-repo. The fallback route — prefer New-SyntheticHistory.
 .DESCRIPTION
-    Rewrites every commit, replacing the token in file content (and, unless -SkipMessages, in commit messages) with a...
+    Second choice: old commits stay as unreachable objects, and a token in a file path is not touched.
     [comment:1](/docs/references/automation/catzc-tooling-github/Remove-TokenFromHistory.ps1.md#comment1)
 .PARAMETER Token
     The literal token to replace across the history.

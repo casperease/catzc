@@ -2,7 +2,7 @@
 .SYNOPSIS
     Writes a quality gate's report, prints it, and ends the gate: throws once with every issue, or returns the result.
 .DESCRIPTION
-    The one implementation of a quality gate's output, so every gate reports the same way: - a run folder <output...
+    A gate calls this last with the issues it collected and never writes its own report, so all gates report alike.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-reports/Write-QualityGateReport.ps1.md#comment1)
 .PARAMETER Subject
@@ -45,7 +45,7 @@ function Write-QualityGateReport {
     )
 
     $settings = Get-Config -Config reports
-    # A body fill-in on purpose: every gate forwards its own -OutputFolder here, empty when its caller gave none, and...
+    # Filled in here, not by a declared default: gates forward an empty -OutputFolder, which would override the default.
     # [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)
     # [comment:2](/docs/references/automation/catzc-base-reports/Write-QualityGateReport.ps1.md#comment2)
     if (-not $OutputFolder) {

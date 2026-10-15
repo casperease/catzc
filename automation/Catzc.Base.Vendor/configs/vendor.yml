@@ -1,10 +1,10 @@
-# Vendor module source — where Install-VendorModule downloads from and Remove-VendorModules validates against (see ).
+# Read only through the module's functions; the VendorConfig type validates this file on load.
 # [ADR-PWSH-VENDOR](/docs/adr/pwsh/vendor-toolset-dependencies.md)
 # [comment:1](/docs/references/automation/catzc-base-vendor/configs/vendor.yml.md#comment1)
 
-# The registered PSResourceRepository to download from and validate against.
+# PSGallery is the built-in default and needs no url.
 # [comment:2](/docs/references/automation/catzc-base-vendor/configs/vendor.yml.md#comment2)
 source: PSGallery
 
-# Optional custom repository url (an Artifactory / proxy feed).
+# Undefined by default: set it for a private feed, registered under the source name on first use.
 # [comment:3](/docs/references/automation/catzc-base-vendor/configs/vendor.yml.md#comment3)

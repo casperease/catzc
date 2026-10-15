@@ -2,17 +2,17 @@
 .SYNOPSIS
     Adds a directory to PATH persistently and in the current session.
 .DESCRIPTION
-    Cross-platform PATH persistence: - Windows: writes to the User-scope registry PATH.
+    Windows persists in the User registry PATH, Unix in a marked profile block; a path already present is skipped.
     [comment:1](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment1)
 .PARAMETER Path
     The directory to add. Must exist.
 .PARAMETER Prepend
     Place the path at the beginning instead of the end.
 .PARAMETER Label
-    Identity marker for Unix profile blocks.
+    Must equal the Label given to Remove-PermanentPath, or that call cannot find the block to remove.
     [comment:2](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment2)
 .PARAMETER Sync
-    After adding, call Sync-SessionPath to merge any other new registry entries into the current session (Windows only).
+    Also brings in registry entries that other installers added, not only this path; it has no effect on Unix.
     [comment:3](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment3)
 .EXAMPLE
     Add-PermanentPath '/usr/local/go/bin'
@@ -62,7 +62,7 @@ function Add-PermanentPath {
         }
     }
 
-    # --- Persistent PATH --- Get-EnvironmentPath / Set-EnvironmentPath are the registry seam — kept thin so tests...
+    # The registry goes through Get-/Set-EnvironmentPath so tests mock them and never touch the real machine PATH.
     # [comment:4](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment4)
     if ($IsWindows) {
         $userPath = Get-EnvironmentPath -Scope User

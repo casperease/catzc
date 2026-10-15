@@ -2,13 +2,13 @@
 .SYNOPSIS
     Uninstalls Node.js via the platform package manager.
 .DESCRIPTION
-    Removes Node.js (and its bundled npm) through the configured manager — the managed uninstall.
+    It cannot remove a Node.js the configured manager does not own; -Remove -Force escalates to Remove-NodeJs.
     [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)
     [comment:1](/docs/references/automation/catzc-tooling-node/Uninstall-NodeJs.ps1.md#comment1)
 .PARAMETER Version
     Node.js version to uninstall. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Remove
-    After the managed uninstall, escalate to Remove-NodeJs to evict an off-config install the managed path cannot touch.
+    Without -Force this only reports the plan; the eviction of an off-config install needs both switches.
     [ADR-AUTO-REMOVE#4](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)
     [comment:2](/docs/references/automation/catzc-tooling-node/Uninstall-NodeJs.ps1.md#comment2)
 .PARAMETER Force
@@ -26,7 +26,7 @@ function Uninstall-NodeJs {
         [switch] $Force
     )
 
-    # Managed uninstall best-effort; with -Remove a failure (a foreign install) is logged and the escalation...
+    # With -Remove a failed managed uninstall is only logged, since a foreign install is what the escalation is for.
     # [ADR-AUTO-ONEJOB#5](/docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob5),
     # [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)
     # [comment:3](/docs/references/automation/catzc-tooling-node/Uninstall-NodeJs.ps1.md#comment3)

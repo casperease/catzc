@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the inspirations catzc reads for ideas, and whether each is available on this machine.
 .DESCRIPTION
-    Reads the inspirations from configs/inspiration.yml (Get-Config -Config inspiration, whose type declares the...
+    An absent inspiration is reported with Available false, never thrown on, so the work carries on without it.
     [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
     [ADR-REPO-INSPIRE#2](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire2),
     [ADR-REPO-INSPIRE#1](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire1)

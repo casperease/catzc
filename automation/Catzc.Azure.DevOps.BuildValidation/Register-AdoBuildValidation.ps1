@@ -2,7 +2,7 @@
 .SYNOPSIS
     Registers (creates or updates) the build-validation branch policy tied to a globset. Idempotent.
 .DESCRIPTION
-    Binds the globset's native path projection (Get-GlobSetTrigger, ) as the path filter of an ADO build-validation...
+    The existing policy is matched by pipeline plus branch, so a changed filter or name updates it instead of duplicating.
     [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
     [ADR-FLOW-CD-TYPE#4](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4),
     [ADR-AUTO-IDEM](/docs/adr/automation/idempotent-state-functions.md)
@@ -10,7 +10,7 @@
 .PARAMETER GlobSet
     The declared globset the policy is tied to (a name in globs.yml).
 .PARAMETER Pipeline
-    The pipeline (build definition) name to queue.
+    Resolved in order: this parameter, the globset's build-validation.yml entry, then its globs.yml pipeline annotation.
     [comment:2](/docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md#comment2)
 .PARAMETER Branch
     The branch the policy guards. Defaults from build-validation.yml 'branch'.
@@ -21,7 +21,7 @@
 .PARAMETER RepositoryName
     Name of the Azure Repos Git repository. Defaults to this checkout's repository (Get-AdoRepositoryName).
 .PARAMETER DryRun
-    Return the planned action (Create/Update/Unchanged with the resolved pipeline, branch, and path filter) without...
+    The plan still reads the server and needs a registered pipeline; only the write is skipped.
     [comment:3](/docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md#comment3)
 .EXAMPLE
     Register-AdoBuildValidation automation
@@ -83,7 +83,7 @@ function Register-AdoBuildValidation {
     $definition = $definitions | Where-Object { $_.Name -eq $Pipeline } | Select-Object -First 1
     Assert-NotNull $definition -ErrorText "Pipeline '$Pipeline' is not registered in $($context.Organization)/$($context.Project). Run Register-AdoPipeline first."
 
-    # The server-side pre-commit trigger filters on the globset's native path projection...
+    # Filter on the globset's native projection, the same globs the pipeline triggers on, never on a committed marker.
     # [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
     # [comment:4](/docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md#comment4)
     $pathFilters = Get-BuildValidationPathFilter -GlobSet $set

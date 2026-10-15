@@ -2,7 +2,7 @@
 .SYNOPSIS
     Removes vendored modules from automation/.vendor, validating first that each is restorable from the source.
 .DESCRIPTION
-    Doubles as the "committed binaries are available on the network" check.
+    With -Force it refuses the whole run if any target is not on the source, so a removal is always reversible.
     [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-vendor/Remove-VendorModules.ps1.md#comment1)
 .PARAMETER Name

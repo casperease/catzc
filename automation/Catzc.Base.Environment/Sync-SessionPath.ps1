@@ -2,7 +2,7 @@
 .SYNOPSIS
     Rebuilds the session PATH from the registry on Windows. No-op on Unix.
 .DESCRIPTION
-    Reads Machine and User PATH from the Windows registry and rebuilds $env:PATH.
+    Registry entries win: a session-only entry survives only while its directory exists, so uninstalled tools drop out.
     [comment:1](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment1)
 .EXAMPLE
     Sync-SessionPath
@@ -38,7 +38,7 @@ function Sync-SessionPath {
         }
     }
 
-    # Add any registry entries not yet in the session @ so an empty $kept yields an empty array, not $null (HashSet's...
+    # The @() wrap keeps an empty $kept an array, because the HashSet constructor rejects a null collection.
     # [comment:2](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment2)
     $seen = [System.Collections.Generic.HashSet[string]]::new(
         [string[]]@($kept | ForEach-Object { $_.TrimEnd('\', '/') }),
@@ -50,7 +50,7 @@ function Sync-SessionPath {
         }
     }
 
-    # Rewrite the session PATH only when an entry arrives or leaves, and say which — on a clean devbox nothing...
+    # Rewriting only on a real change keeps the import quiet on a clean devbox, where nothing arrives or leaves.
     # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)
     # [comment:3](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment3)
     $added = @($newPaths)

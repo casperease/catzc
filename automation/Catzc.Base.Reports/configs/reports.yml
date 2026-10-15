@@ -1,4 +1,4 @@
-# reports.yml — where a quality gate writes its report (Write-QualityGateReport, ).
+# An empty file means the defaults, so a key is set only to change it; the subject token stands for the gate's name.
 # [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
 # [comment:1](/docs/references/automation/catzc-base-reports/configs/reports.yml.md#comment1)
 {}

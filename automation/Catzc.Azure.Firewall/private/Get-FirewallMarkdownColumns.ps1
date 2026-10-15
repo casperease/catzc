@@ -2,7 +2,7 @@
 .SYNOPSIS
     Builds the ordered, validated Markdown column descriptors for Convert-FirewallCsvToMarkdown.
 .DESCRIPTION
-    Produces the column list in render order — the rule-name column, then the composite columns, then the additional...
+    A requested column with no backing CSV field throws instead of silently dropping out of the output.
     [comment:1](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md#comment1)
 .PARAMETER RuleNameColumn
     CSV column used as the rule name / first table column.
@@ -68,7 +68,7 @@ function Get-FirewallMarkdownColumns {
         }
     }
 
-    # Trim candidates to fields the CSV actually has.
+    # Skipped when no headers are known, as for an empty CSV, so only a known schema can mismatch.
     # [comment:2](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md#comment2)
     if ($Present.Count -gt 0) {
         foreach ($column in $columns) {

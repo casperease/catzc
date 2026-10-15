@@ -2,7 +2,7 @@
 .SYNOPSIS
     Reads the PATH environment variable at the scope given (the Windows registry for User/Machine).
 .DESCRIPTION
-    The single seam through which the PATH helpers (Add-/Remove-PermanentPath, Sync-SessionPath, the tooling...
+    The one read seam for the persistent PATH, kept thin so tests mock it; User and Machine exist on Windows only.
     [comment:1](/docs/references/automation/catzc-base-environment/Get-EnvironmentPath.ps1.md#comment1)
 .PARAMETER Scope
     Which environment scope to read: User (default), Machine, or Process.

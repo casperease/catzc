@@ -1,4 +1,4 @@
-# output-formats.yml — every kind of file a producer writes under the output root, declared once.
+# Patterns of two formats must never overlap, so a file's format never depends on declaration order; load rejects overlaps.
 # [ADR-REPO-OUTFMT](/docs/adr/repository/output-formats.md)
 # [comment:1](/docs/references/automation/catzc-base-reports/configs/output-formats.yml.md#comment1)
 

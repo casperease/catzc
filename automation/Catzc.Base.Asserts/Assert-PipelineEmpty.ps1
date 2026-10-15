@@ -2,7 +2,7 @@
 .SYNOPSIS
     Asserts that the pipeline contains no objects.
 .DESCRIPTION
-    Throws on the first object received.
+    Only a pipeline consumer works here: passing -InputObject directly is an error, not an empty check.
     [comment:1](/docs/references/automation/catzc-base-asserts/Assert-PipelineEmpty.ps1.md#comment1)
 .PARAMETER InputObject
     Pipeline input (do not pass directly).

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Tests whether a module (optionally at a specific version) is available from the configured vendor source.
 .DESCRIPTION
-    Queries the vendor source (configs/vendor.yml — PSGallery by default) with Find-PSResource.
+    The query half of the restorability check: Remove-VendorModules asks it before deleting a vendored module.
     [comment:1](/docs/references/automation/catzc-base-vendor/Test-VendorModuleAvailable.ps1.md#comment1)
 .PARAMETER Name
     The module name to look for on the source.

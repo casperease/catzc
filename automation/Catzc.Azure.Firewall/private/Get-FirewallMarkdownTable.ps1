@@ -2,7 +2,7 @@
 .SYNOPSIS
     Renders the Markdown rule table (header + rows) for Convert-FirewallCsvToMarkdown.
 .DESCRIPTION
-    Builds the '| … |' table from already-sorted rows and the column descriptors from Get-FirewallMarkdownColumns: a...
+    Rows are not sorted here: the caller sorts them, and only the values within a cell are ordered.
     [comment:1](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment1)
 .PARAMETER Rows
     The rule rows, already sorted into evaluation order; each a CSV record (PSObject).
@@ -80,7 +80,7 @@ function Get-FirewallMarkdownTable {
     foreach ($row in $Rows) {
         $cells = foreach ($column in $Columns) {
             $cell = if ($column.Render -eq 'protoport') {
-                # Pair protocols with ports as "protocols:ports" (e.g.
+                # Application rules hold the port in Protocols and have no port field, so they pass through.
                 # [comment:2](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment2)
                 $protocols = @()
                 $ports = @()
@@ -108,7 +108,7 @@ function Get-FirewallMarkdownTable {
                 }
             }
             else {
-                # Gather values per candidate, preserving candidate (group) order.
+                # A rule can fill several candidates, which the firewall unions: order is by group, then within it.
                 # [comment:3](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment3)
                 $values = foreach ($candidate in $column.Candidates) {
                     $raw = [string]$row.$candidate
@@ -123,7 +123,7 @@ function Get-FirewallMarkdownTable {
                 @($values) -join $CellListSeparator
             }
 
-            # Wrap a cell in backticks when Markdown would mangle it: - * or _ at a whitespace boundary (cell...
+            # The pattern spots emphasis marks at a space edge and URL or domain shapes, which MD034 flags as bare URLs.
             # [comment:4](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment4)
             if ($cell -match '^[*_]|[*_]$|\s[*_]|[*_]\s|https?://|ftp://|[a-z0-9-]+\.[a-z]{2,}') {
                 '`' + $cell + '`'

@@ -1,4 +1,4 @@
-// The build-validation branch policies (configs/build-validation.yml): the local config that ties ADO build-validation policies on one...
+// Globset names sit in values, not keys, because they are kebab-case; every violation is collected into one exception.
 // [ADR-FLOW-CD-TYPE#4](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md#comment1)

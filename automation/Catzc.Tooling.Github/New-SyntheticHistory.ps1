@@ -3,10 +3,10 @@
     Rebuilds a repository's history as a fresh, backdated, single-author orphan
     history committed from the current (already-clean) working tree.
 .DESCRIPTION
-    The cleanest way to erase a token from history: don't scrub the old commits, replace them.
+    Commits rebuilt from the clean tree hold the token in no blob, path or message, so nothing is left to scrub.
     [comment:1](/docs/references/automation/catzc-tooling-github/New-SyntheticHistory.ps1.md#comment1)
 .PARAMETER Layer
-    Ordered commit specs, foundational first.
+    A layer that stages no change is skipped, so it adds no commit and no timestamp slot.
     [comment:2](/docs/references/automation/catzc-tooling-github/New-SyntheticHistory.ps1.md#comment2)
 .PARAMETER RepositoryPath
     The repository to rebuild. Defaults to the repository root.
@@ -21,7 +21,7 @@
 .PARAMETER Branch
     The branch the synthetic history becomes. Defaults to main.
 .PARAMETER WorkingBranch
-    The temporary orphan branch name used while building.
+    Holds the orphan history only while it builds, then it is swapped in as the default branch.
     [comment:3](/docs/references/automation/catzc-tooling-github/New-SyntheticHistory.ps1.md#comment3)
 .PARAMETER DryRun
     Return the plan (layer and timestamp count) without touching git.

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Installs Prettier (the prettier formatter engine's CLI) globally via npm.
 .DESCRIPTION
-    Prettier is the engine Format-Code runs for every file language languages.yml gives `formatter: prettier`...
+    A wrong installed version is replaced only with -Force; the right one is left alone.
     [comment:1](/docs/references/automation/catzc-tooling-node/Install-Prettier.ps1.md#comment1)
 .PARAMETER Version
     Prettier version to install. Defaults to the locked version in Get-ToolConfig.

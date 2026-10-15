@@ -2,7 +2,7 @@
 .SYNOPSIS
     Downloads the newest firewall-rule CSV(s) from a blob container — one per requested rule type.
 .DESCRIPTION
-    For each requested -Type (application and/or network), locates the newest matching *.csv in the container and...
+    Newest means the timestamp in the filename, not blob last-modified; a blob without a parseable timestamp is ignored.
     [comment:1](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID the az session must be set to. Asserted, not switched.
@@ -11,10 +11,10 @@
 .PARAMETER ContainerName
     The blob container within the account to search.
 .PARAMETER Type
-    Which rule type(s) to fetch: 'application', 'network', or both (the default when omitted).
+    The type word also filters blob names case-insensitively, so a type with no matching blob throws.
     [comment:2](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment2)
 .PARAMETER DownloadPath
-    Destination directory.
+    Unset, the folder sits under the output root (out locally, the staging directory in a pipeline) and is created.
     [comment:3](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment3)
 .PARAMETER TimestampPattern
     Regex capturing the timestamp substring in the filename. Default '\d{2}-\d{2}-\d{4}-\d{2}-\d{2}'.
@@ -45,7 +45,7 @@ function Get-FirewallCsv {
         [Parameter()]
         [string]$DownloadPath = (Join-Path (Get-OutputRoot) 'download'),
 
-        # One or both rule types.
+        # The type word doubles as the blob name filter: application matches ApplicationRules, network NetworkRules.
         # [comment:4](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment4)
         [Parameter()]
         [ValidateSet('application', 'network')]
@@ -61,7 +61,7 @@ function Get-FirewallCsv {
 
     Assert-AzCliConnected -SubscriptionId $SubscriptionId
 
-    # Pin to absolute: Invoke-Executable runs az from the repo root, so a relative --file would resolve there while...
+    # Absolute, because az runs from the repo root while New-Item uses the current location, so a relative path splits.
     # [comment:5](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment5)
     $DownloadPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($DownloadPath)
 
@@ -69,12 +69,12 @@ function Get-FirewallCsv {
         New-Item -Path $DownloadPath -ItemType Directory -Force | Out-Null
     }
 
-    # Shared args, as a string for Invoke-AzCli.
+    # Login auth rides the AAD session asserted above, so no account key is ever fetched.
     # [comment:6](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment6)
     $common = "--subscription $SubscriptionId --account-name $StorageAccountName --container-name $ContainerName --auth-mode login"
 
     try {
-        # --num-results *: list order is lexicographic by name, not by date — and the dd-MM-yyyy names don't sort...
+        # List every blob: the listing is ordered by name and dd-MM-yyyy names do not sort by date, so the sort decides.
         # [comment:7](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment7)
         $cli = Invoke-AzCli "storage blob list $common --num-results * -o json" -PassThru -Silent
     }
@@ -126,7 +126,7 @@ function Get-FirewallCsv {
 
         Write-Verbose "Downloading $ruleType : $blobName (generated $($pick.Generated.ToString('u'))) -> $destination"
         try {
-            # Quote --name and --file: blob names and the repo path may contain spaces.
+            # Quoted because blob names and the repo path may contain spaces.
             # [comment:8](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment8)
             Invoke-AzCli "storage blob download $common --name `"$blobName`" --file `"$destination`" --overwrite true -o none"
         }
@@ -134,7 +134,7 @@ function Get-FirewallCsv {
             throw "Failed to download blob '$blobName' to '$destination'. Underlying: $_"
         }
 
-        # az can exit 0 yet leave no file (e.g.
+        # az can exit 0 and leave no file, so confirm it landed before emitting an object that claims the path.
         # [comment:9](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment9)
         Assert-PathExist $destination -PathType Leaf -ErrorText "Blob '$blobName' reported success but no file is at '$destination'."
 

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Writes the PATH environment variable at the scope given (the Windows registry for User/Machine).
 .DESCRIPTION
-    The single seam through which the PATH helpers (Add-/Remove-PermanentPath, the tooling uninstallers) WRITE the...
+    The one write seam for the persistent PATH, so tests mock it; it announces each change and skips an equal value.
     [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)
     [comment:1](/docs/references/automation/catzc-base-environment/Set-EnvironmentPath.ps1.md#comment1)
 .PARAMETER Value

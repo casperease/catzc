@@ -3,22 +3,22 @@
     Publishes a verified local history to a brand-new, empty GitHub repository,
     then independently re-scans the remote to prove what landed is token-free.
 .DESCRIPTION
-    Use this when there is no existing repository to purge — you already hold a clean local tree (for example,...
+    Unless armed with -ConfirmRepo equal to -NewRepo, it only returns a plan and creates or pushes nothing.
     [comment:1](/docs/references/automation/catzc-tooling-github/Publish-CleanHistory.ps1.md#comment1)
 .PARAMETER NewRepo
-    The new GitHub repository to create and push to, as owner/name.
+    A name that already exists is refused: replacing an existing repo is Reset-GitHubRepository's job.
     [comment:2](/docs/references/automation/catzc-tooling-github/Publish-CleanHistory.ps1.md#comment2)
 .PARAMETER Branch
     The local branch to push as the default. Defaults to main.
 .PARAMETER Token
-    The token that must be absent from the pushed history.
+    Scanned in the local branch before the push and in the remote after it; any extra commit aborts the run.
     [comment:3](/docs/references/automation/catzc-tooling-github/Publish-CleanHistory.ps1.md#comment3)
 .PARAMETER RepositoryPath
     The local clone to push from. Defaults to the repository root.
 .PARAMETER Visibility
     Visibility of the new repo: 'private' (default) or 'public'.
 .PARAMETER ConfirmRepo
-    Must equal -NewRepo to arm.
+    Any other value, or none, leaves the run a dry run, so a typo can never create a repo.
     [comment:4](/docs/references/automation/catzc-tooling-github/Publish-CleanHistory.ps1.md#comment4)
 .PARAMETER DryRun
     Force a dry run even when -ConfirmRepo matches.

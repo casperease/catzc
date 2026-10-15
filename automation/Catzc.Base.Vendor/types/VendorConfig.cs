@@ -1,4 +1,4 @@
-// The vendor module source (configs/vendor.yml) — where Install-VendorModule downloads vendored modules from and Remove-VendorModules...
+// An unknown key, a missing source or a non-absolute sourceUrl fails at load, all violations in one ArgumentException.
 // [ADR-PWSH-VENDOR](/docs/adr/pwsh/vendor-toolset-dependencies.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md#comment1)
@@ -16,7 +16,7 @@ public sealed class VendorConfig : Catzc.Base.Objects.DictionaryRecord
     // The registered PSResourceRepository to download from and validate against (PSGallery by default).
     public string source { get; }
 
-    // A custom repository url, registered under the `source` name on first use.
+    // Null when the source is a built-in repository that needs no url.
     // [comment:2](/docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md#comment2)
     public string sourceUrl { get; }
 

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Asserts that $LASTEXITCODE is 0.
 .DESCRIPTION
-    Checks the global $LASTEXITCODE variable and throws if it is non-zero.
+    The code is reset after the check unless -DoNotReset, so a stale non-zero value cannot fail a later check.
     [comment:1](/docs/references/automation/catzc-base-asserts/Assert-LastExitCodeWasZero.ps1.md#comment1)
 .PARAMETER DoNotReset
     Keep $LASTEXITCODE intact after the assertion.

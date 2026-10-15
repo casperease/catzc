@@ -208,7 +208,20 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
   `docs/.assets/references/automation/<module-kebab>/<stem>.drawio.png` with `<stem>.drawio.md` and `<stem>.drawio.verify.md`. There is no
   `docs/explanation/` article: the module's reference article embeds the slide under `## What the module does` with a one-paragraph
   lead-in, and the `.drawio.md` carries the words (At a glance, Reading path, Glyphs, Edges, Legend, Where the code and the ADR differ).
-- **No minimaps** on source slides yet (wave 9 decision D4). The sidebar holds only the lens badge (`SRC`) and the Supports chips.
+- **No minimaps** on source slides yet (wave 9 decision D4). The sidebar holds only the lens badge (`SRC`) and the Supports chips. With
+  no minimaps the panel has room, so put one ADR code per line: two codes joined by ` · ` (about 40 characters) overflow the 240 px panel at
+  11 px. Grow the `supports` cell's height to fit.
+- **Save legend rows.** Source slides reach the 8-entry legend cap fast (code unit, private helper, C# type, catzc module, file, failure,
+  flow, marker). A glyph and its own edge kind share one row (`failure, and its failure path`). The `catzc module` frame needs no row
+  when its label names the module.
+- **A gate rhombus holds a name of about 25 characters at 11 px when it is 280 px wide.** Size the rhombus to its name, not to the boxes.
+- **A file the code reads has no edge** when the slide's flow means "calls" (the run.json and options.yml precedents). Place the file
+  under the code unit that reads it, and say so in the description's Edges section.
+- **Name the direction when results flow back.** If the arrows run from a callee to its caller (a result handed up), the legend says
+  `flow: feeds (a result to its caller)`, so the reader doesn't take it for a call.
+- **A PowerShell built-in** (`Invoke-Expression`, `Start-Process`) is a code unit, not an `external tool`, which means a vendor tool.
+- **A computed type is not a box name.** When the code builds a type it looks up at run time (`$type::new($raw)`), draw a `C# type` glyph
+  named for the role (`registered type`) and say in the description that the name varies per config. Don't invent a class name.
 - The flow edge means `flow: calls` on a source slide, or `flow: feeds` when data, not control, moves (one meaning per slide).
 - Lenses share the source's colour meanings, so a stage keeps its colour across all five.
 - If a lens has nothing honest to show (e.g. no operator touches it), draw nothing for it, and say so in the reply.

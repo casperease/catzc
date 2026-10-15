@@ -1,4 +1,4 @@
-// The stored form of an inspiration's root and its resolution to binding form.
+// The platform is a parameter, not a probe, so every branch is deterministic and testable on any OS.
 // [ADR-AUTO-PATH#6](/docs/adr/automation/path-representation.md#rule-adr-auto-path6),
 // [ADR-AUTO-PATH#11](/docs/adr/automation/path-representation.md#rule-adr-auto-path11),
 // [ADR-AUTO-PATH#3](/docs/adr/automation/path-representation.md#rule-adr-auto-path3)
@@ -24,7 +24,7 @@ public static class InspirationRoot
         return root != null && root.StartsWith(WorkspaceAnchor + "/", StringComparison.Ordinal);
     }
 
-    // Every way a stored path breaks communication form, as messages naming 'label'.
+    // A root may carry the {workspace} anchor as its first segment; a path inside a root never does.
     // [comment:2](/docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md#comment2)
     public static string[] Violations(string label, string value, bool allowAnchor)
     {
@@ -57,7 +57,7 @@ public static class InspirationRoot
         return errors.ToArray();
     }
 
-    // Maps a path in either shell's view to the platform's own form, '/'-separated: backslashes become '/', and on Windows a Git Bash...
+    // Only on Windows is a Git Bash '/c/projects' a drive path; elsewhere '/c/...' is a real path and stays as it is.
     // [comment:3](/docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md#comment3)
     public static string ToNative(string path, bool windows)
     {

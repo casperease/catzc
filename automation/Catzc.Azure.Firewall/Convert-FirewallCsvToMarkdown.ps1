@@ -2,7 +2,7 @@
 .SYNOPSIS
     Renders an Azure Firewall rule-export CSV (application or network) as a Markdown document.
 .DESCRIPTION
-    Writes a titled Markdown file: an H1 of the source filename, a line with the CSV generation time and the...
+    Rows come out in firewall evaluation order, and a requested column the CSV lacks throws instead of rendering blank.
     [comment:1](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment1)
 .PARAMETER CsvPath
     Path to the source CSV (Path set).
@@ -15,7 +15,7 @@
 .PARAMETER InputObject
     A Get-FirewallCsv result (Type/Path/Generated/Blob/Modified), accepted from the pipeline (Object set).
 .PARAMETER OutputFolder
-    Destination directory in Object mode; the file is named <original-name>.md.
+    Unset, the file lands under the output root, which is out locally and the staging directory in a pipeline.
     [comment:2](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment2)
 .PARAMETER RuleNameColumn
     CSV column used as the rule name / first table column. Default 'Name'.
@@ -104,7 +104,7 @@ function Convert-FirewallCsvToMarkdown {
         [Parameter()]
         [string]$CellListSeparator = ', ',
 
-        # Rule collection group -> group priority, for evaluation-order sorting (lower = evaluated first).
+        # The export omits group priority, so it is supplied here, and a group not listed sorts last.
         # [comment:3](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment3)
         [Parameter()]
         [hashtable]$GroupPriority = @{
@@ -152,14 +152,14 @@ function Convert-FirewallCsvToMarkdown {
             $MarkdownPath = Join-Path $OutputFolder $markdownName
         }
 
-        # A body fill-in on purpose: in Object mode $CsvPath comes from pipeline input, bound after defaults are...
+        # Filled in the body, not as a default: in Object mode the value arrives from the pipeline after defaults run.
         # [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)
         # [comment:4](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment4)
         if (-not $SourceName) {
             $SourceName = Split-Path -Path $CsvPath -Leaf
         }
 
-        # In Object mode CsvPath comes from the piped object (the Path set is ValidateScript'd); assert it exists...
+        # The piped Object path is not validated by the parameter, so a wrong path fails here, named, not in Import-Csv.
         # [comment:5](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment5)
         Assert-PathExist $CsvPath -PathType Leaf
 
@@ -171,7 +171,7 @@ function Convert-FirewallCsvToMarkdown {
             @()
         }
 
-        # Sort toward firewall evaluation order: rule collection GROUP priority first (from -GroupPriority), then...
+        # An unknown group or a blank collection priority sorts last, never first, so unranked rules do not look urgent.
         # [comment:6](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment6)
         $sortProps = @()
         if ('RuleCollectionGroup' -in $present) {
@@ -197,7 +197,7 @@ function Convert-FirewallCsvToMarkdown {
             $rows = @($rows | Sort-Object -Property $sortProps)
         }
 
-        # Build the ordered, validated column descriptors (rule name, composites, extras).
+        # The schema-mismatch throw for a column with no backing CSV field lives in the helper, not here.
         # [comment:7](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment7)
         $columnParams = @{
             RuleNameColumn         = $RuleNameColumn
@@ -210,13 +210,13 @@ function Convert-FirewallCsvToMarkdown {
 
         $ret = [System.Text.StringBuilder]::new()
 
-        # Title + provenance preamble.
+        # Times are UTC, so the output is the same on a CEST workstation and on a UTC build agent.
         # [comment:8](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment8)
         [void]$ret.AppendLine("# $SourceName")
         [void]$ret.AppendLine()
         $convertedUtc = [datetime]::UtcNow.ToString('yyyy-MM-dd HH:mm', [System.Globalization.CultureInfo]::InvariantCulture)
         if ($null -ne $GeneratedAt) {
-            # PowerShell binds Nullable[datetime] as a plain [datetime], so check for $null and cast — do NOT...
+            # The bound value is a plain datetime, so HasValue and Value do not exist on it.
             # [comment:9](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment9)
             $generatedUtc = ([datetime]$GeneratedAt).ToUniversalTime().ToString('yyyy-MM-dd HH:mm', [System.Globalization.CultureInfo]::InvariantCulture)
             [void]$ret.AppendLine("CSV generated $generatedUtc UTC · converted to Markdown $convertedUtc UTC.")

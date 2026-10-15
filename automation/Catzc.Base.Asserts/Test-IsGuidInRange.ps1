@@ -2,7 +2,7 @@
 .SYNOPSIS
     Tests whether a GUID lies inside an inclusive GUID range.
 .DESCRIPTION
-    Orders GUIDs by their 128 bits as written — the canonical lowercase hyphenated form, compared ordinally — which...
+    Order follows the canonical lowercase text compared ordinally, so the case or braces of an input never matter.
     [comment:1](/docs/references/automation/catzc-base-asserts/Test-IsGuidInRange.ps1.md#comment1)
 .PARAMETER ObjectGuid
     The GUID to test.

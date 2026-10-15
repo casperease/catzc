@@ -2,7 +2,7 @@
 .SYNOPSIS
     Enumerates the vendored modules on disk under automation/.vendor.
 .DESCRIPTION
-    One record per vendored module folder (automation/.vendor/<Name>/<Version>/), reading its name, the committed...
+    Returns an empty array when the vendor folder is absent, so a caller can loop without a null check.
     [comment:1](/docs/references/automation/catzc-base-vendor/private/Get-VendoredModule.ps1.md#comment1)
 .OUTPUTS
     [pscustomobject] with Name, Version, and Path (the module folder to remove).

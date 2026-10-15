@@ -2,7 +2,7 @@
 .SYNOPSIS
     The ADO branch-policy path filters for a globset — its native trigger projection, anchored with '/'.
 .DESCRIPTION
-    The single place the build-validation policy's `filenamePatterns` is derived (used by both Register- and...
+    Register and Unregister share this, so the created filter and the match-to-remove filter can never drift apart.
     [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
     [ADR-FLOW-CD-TYPE#4](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4)
     [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md#comment1)

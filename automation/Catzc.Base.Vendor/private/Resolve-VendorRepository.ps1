@@ -2,7 +2,7 @@
 .SYNOPSIS
     Resolves the PSResourceRepository name the vendor functions download from and validate against.
 .DESCRIPTION
-    Reads configs/vendor.yml (Get-Config -Config vendor).
+    A stripped install fails here with a clear message, not a missing-cmdlet error from deep in a vendor call.
     [comment:1](/docs/references/automation/catzc-base-vendor/private/Resolve-VendorRepository.ps1.md#comment1)
 .OUTPUTS
     [string] The repository name to pass to the PSResourceGet cmdlets.

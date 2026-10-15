@@ -3,18 +3,18 @@
     Tests whether a token is absent from a git history across all three surfaces
     it can hide in: file content (blobs), file paths, and commit messages.
 .DESCRIPTION
-    The reusable verification primitive behind every purge: to prove a secret is gone, it is not enough to scan the...
+    A secret can outlive the working tree in an old blob, a renamed path or a commit message, so all three are scanned.
     [comment:1](/docs/references/automation/catzc-tooling-github/Test-GitHistoryClean.ps1.md#comment1)
 .PARAMETER Token
-    The token to hunt for (e.g.
+    Matched as a literal substring ignoring ASCII case; a binary file is skipped, as git grep -I skips it.
     [comment:2](/docs/references/automation/catzc-tooling-github/Test-GitHistoryClean.ps1.md#comment2)
 .PARAMETER Ref
-    The ref whose reachable history is scanned.
+    Scan the local pushed ref, never a stale tracking ref: it still points at un-purged history and false-alarms.
     [comment:3](/docs/references/automation/catzc-tooling-github/Test-GitHistoryClean.ps1.md#comment3)
 .PARAMETER RepositoryPath
     The git repository to scan. Defaults to the current repository root.
 .PARAMETER ExcludePath
-    Repo-relative path prefixes to ignore on every surface — vendored, third-party trees that legitimately contain...
+    A file content is ignored only when every path it appears under is excluded.
     [comment:4](/docs/references/automation/catzc-tooling-github/Test-GitHistoryClean.ps1.md#comment4)
 .OUTPUTS
     A Catzc.Tooling.Github result object with:

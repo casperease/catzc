@@ -2,7 +2,7 @@
 .SYNOPSIS
     Loads, validates, and caches a module's config by its global lowercase name.
 .DESCRIPTION
-    The single reader for any module's internal config (configs/<name>.yml).
+    The parsed config is cached per path for the session, so every repeat call returns the same reference.
     [comment:1](/docs/references/automation/catzc-base-config/Get-Config.ps1.md#comment1)
 .PARAMETER Config
     The config's global lowercase name (kebab-case), without the .yml extension — e.g. 'ado', 'pipeline-env'.
@@ -37,7 +37,7 @@ function Get-Config {
 
     $entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name; Module; Path }
 
-    # A consumer overlay's fragment of this config (<overlay root>/<Module>/configs/<name>.yml), in build mode only.
+    # The cache key carries the fragment's stamp, so an edited fragment is never served from a stale merge.
     # [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
     # [comment:2](/docs/references/automation/catzc-base-config/Get-Config.ps1.md#comment2)
     $fragmentPath = $null
@@ -53,7 +53,7 @@ function Get-Config {
     }
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configCache')) {
-        # strict-clean probe of the lazy cache entry
+        # Probe through session state, not the bare variable, so strict mode does not throw before the first load.
         # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:3](/docs/references/automation/catzc-base-config/Get-Config.ps1.md#comment3)
         $script:configCache = @{}

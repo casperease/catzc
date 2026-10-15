@@ -2,7 +2,7 @@
 .SYNOPSIS
     Resolves an inspiration's stored root to its binding form, a normalized absolute path.
 .DESCRIPTION
-    An inspiration's root is stored in communication form and resolved only at the point of use: -...
+    Both pwsh and Git Bash views resolve alike: on Windows '/c/projects' is read as 'C:/projects'.
     [ADR-AUTO-PATH#6](/docs/adr/automation/path-representation.md#rule-adr-auto-path6),
     [ADR-AUTO-PATH#3](/docs/adr/automation/path-representation.md#rule-adr-auto-path3),
     [ADR-AUTO-PATH#11](/docs/adr/automation/path-representation.md#rule-adr-auto-path11)

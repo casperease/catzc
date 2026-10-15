@@ -2,7 +2,7 @@
 .SYNOPSIS
     Removes a manually installed Node.js and cleans up system PATH.
 .DESCRIPTION
-    Deletes the Node.js installation folder and removes it from the system-level PATH.
+    Meant for installs absent from Apps and Features or winget; a winget-managed Node.js belongs to Uninstall-NodeJs.
     [comment:1](/docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md#comment1)
 .PARAMETER InstallDir
     Path to the Node.js installation folder. Auto-detected from PATH if omitted.
@@ -24,14 +24,14 @@ function Remove-NodeJs {
 
     $config = Get-ToolConfig -Tool 'node_js'
 
-    # Gate: managed by our tooling system → refuse, redirect to Uninstall-NodeJs.
+    # A managed install is refused, not removed, so the tooling system never loses track of what it installed.
     # [ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)
     # [comment:2](/docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md#comment2)
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Node.js is managed by the tooling system. Use Uninstall-NodeJs instead.'
     }
 
-    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip /...
+    # Elevation is scoped to the mechanism that placed the install, so this branch needs no admin assert.
     # [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
     # [comment:3](/docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md#comment3)
     if ($IsLinux -or $IsMacOS) {
