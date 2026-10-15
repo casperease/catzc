@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns every reason a consumer's local module cannot load.
 .DESCRIPTION
-    A public function named like a loaded command would silently replace it, and that is an override, not a local module.
+    A public function named like a loaded command would silently replace it; that is an override, not a local module.
     [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
     [comment:1](/docs/references/automation/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md#comment1)
 .PARAMETER Path

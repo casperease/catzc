@@ -2,7 +2,7 @@
 .SYNOPSIS
     Validates a parsed config with a PowerShell validator, run in the owning module's scope.
 .DESCRIPTION
-    Runs inside the owning module, so a private validator works; a missing conventional one is silent, a named one throws.
+    Runs in the owning module, so a private validator works; a missing conventional one is silent, a named one throws.
     [comment:1](/docs/references/automation/catzc-base-configextensions/Invoke-ConfigValidator.ps1.md#comment1)
 .PARAMETER Config
     The parsed config (e.g. ConvertFrom-Yaml -Ordered output).
