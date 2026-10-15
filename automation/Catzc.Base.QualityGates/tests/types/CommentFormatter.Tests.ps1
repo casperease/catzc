@@ -152,6 +152,14 @@ Describe 'CommentFormatter' -Tag 'L0', 'logic' {
             $again.Findings.Count | Should -Be 0
         }
 
+        It 'keeps the docs link when the section holds more than the residue: another prose line, or a second residue' -Tag 'ADR-REPO-LINK#9' {
+            $extra = & $format (& $helpText 'A widget line an author wrote.', 'Reads the widget from the gadget store first.', $link) $helpPage
+            $extra.Changed | Should -BeFalse
+            $second = "[comment:2](/$page#comment2)"
+            $two = & $format (& $helpText 'Reads the widget from the gadget store first.', $link, 'The gadget order is stable.', $second) $helpPage
+            $two.Changed | Should -BeFalse
+        }
+
         It 'keeps the docs link when the page does not name the section' -Tag 'ADR-REPO-LINK#9' {
             $result = & $format (& $helpText 'Reads the widget from the gadget store first.', $link) $pageText
             @($result.Findings | Where-Object { "$($_.Kind)" -eq 'LinkInHelp' }).Count | Should -Be 0

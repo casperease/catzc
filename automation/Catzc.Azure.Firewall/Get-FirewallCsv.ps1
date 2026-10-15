@@ -27,6 +27,7 @@ catzc:
     The type word doubles as the blob name filter: application matches ApplicationRules, network NetworkRules.
     [comment:4](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment4)
     The type word also filters blob names case-insensitively, so a type with no matching blob throws.
+    [comment:2](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment2)
 .PARAMETER TimestampPattern
     Regex capturing the timestamp substring in the filename (UTC), the source of truth for generation time. Default '\d{2}-\d{2}-\d{4}-\d{2}-\d{2}'.
 .PARAMETER TimestampFormat

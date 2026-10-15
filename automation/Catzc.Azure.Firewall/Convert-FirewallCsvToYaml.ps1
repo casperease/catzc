@@ -29,6 +29,7 @@ catzc:
 .PARAMETER OutputFolder
     Where the .yaml goes in Object mode; the file is named <original-name>.yaml.
     Unset, the file lands under the output root, which is out locally and the staging directory in a pipeline.
+    [comment:2](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment2)
 .PARAMETER MultiValueFields
     Fields split into YAML arrays on -SplitPattern.
 .PARAMETER SplitPattern

@@ -392,7 +392,8 @@ public static class CommentEngine
         var linkedNumbers = new HashSet<int>(residues.Select(r => r.Number));
         foreach (HelpHeading heading in headings)
         {
-            if (heading.Body < 0 || !IsUniqueInFile(headings, heading.Keyword)) { continue; }
+            // Only a section that is the insight line alone pairs by name; more lines, and the link stays the pairing.
+            if (heading.ProseCount != 1 || !IsUniqueInFile(headings, heading.Keyword)) { continue; }
             bool linked = false;
             for (int i = heading.Line; i <= heading.End; i++) { linked |= DocsLink.IsMatch(lines[i]); }
             if (linked) { continue; }
@@ -405,12 +406,16 @@ public static class CommentEngine
         return residues.OrderBy(r => r.StartLine).ToList();
     }
 
-    // True when the residue is a linked help residue whose page section is the only one naming its help section: its link can go.
+    // True when the residue is a linked help residue that is its whole section, insight and link, and its page section is the only one
+    // naming that help section: its link can go.
     public static bool PairsByName(string text, string extension, string pageText, CommentResidue residue)
     {
         if (residue == null || !residue.Linked || residue.HelpKeyword == null || pageText == null) { return false; }
         Lines lines = Lines.Of(text ?? string.Empty);
-        if (!IsUniqueInFile(HelpHeadings(text, extension, lines), residue.HelpKeyword)) { return false; }
+        List<HelpHeading> headings = HelpHeadings(text, extension, lines);
+        if (!IsUniqueInFile(headings, residue.HelpKeyword)) { return false; }
+        HelpHeading heading = headings.First(h => string.Equals(h.Keyword, residue.HelpKeyword, StringComparison.Ordinal));
+        if (heading.Body != residue.StartLine || heading.ProseCount != residue.LineCount) { return false; }
         List<int> named = SectionsNamed(Page.Parse(pageText), residue.HelpKeyword);
         return named.Count == 1 && named[0] == residue.Number;
     }
@@ -430,6 +435,7 @@ public static class CommentEngine
         public int Line { get; set; }
         public int Body { get; set; }   // the first non-blank line under the keyword, or -1
         public int End { get; set; }    // the last line of the section, before the next keyword or the closer
+        public int ProseCount { get; set; }   // the non-blank lines under the keyword
     }
 
     // Every keyword section of every help block in the file, in order.
@@ -452,7 +458,11 @@ public static class CommentEngine
                     if (!closer) { current = new HelpHeading { Keyword = lines[i].Trim(), Line = i, Body = -1, End = i }; }
                     continue;
                 }
-                if (current != null && current.Body < 0 && lines[i].Trim().Length > 0) { current.Body = i; }
+                if (current != null && lines[i].Trim().Length > 0)
+                {
+                    if (current.Body < 0) { current.Body = i; }
+                    current.ProseCount++;
+                }
             }
             if (current != null) { current.End = endLine; headings.Add(current); }
         }
