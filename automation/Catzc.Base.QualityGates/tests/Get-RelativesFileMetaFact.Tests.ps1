@@ -15,15 +15,19 @@ catzc:
 Describe 'Get-RelativesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#10', 'ADR-PRIN-CONFIG#1' {
     BeforeAll {
         $script:relations = @(
-            @{ name = 'page'; rules = @(@{ files = @('**/*'); paths = @('{page}') }) }
-            @{ name = 'test'; rules = @(@{ files = @('widgets/Catzc.*/*.ps1'); paths = @('widgets/{module}/tests/{stem}.Tests.ps1') }) }
-            @{ name = 'source'; rules = @(@{ files = @('widgets/Catzc.*/tests/*.Tests.ps1'); paths = @('widgets/{module}/{stem}.ps1', 'widgets/{module}/private/{stem}.ps1') }) }
+            @{ name = 'page'; rules = @(@{ paths = @('{page}') }) }
+            @{ name = 'test'; rules = @(@{ classes = @('widget-function'); paths = @('widgets/{module}/tests/{stem}.Tests.ps1') }) }
+            @{ name = 'source'; rules = @(@{ classes = @('widget-test'); paths = @('widgets/{module}/{stem}.ps1', 'widgets/{module}/private/{stem}.ps1') }) }
         )
 
         function script:Get-Kind {
             param($Relations = $script:relations)
             [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                    kinds = [ordered]@{ relatives = @{ settings = @{ relations = $Relations } } }
+                    classes = @(
+                        @{ class = 'widget-test'; files = @('widgets/Catzc.*/tests/*.Tests.ps1') }
+                        @{ class = 'widget-function'; files = @('widgets/Catzc.*/*.ps1', 'widgets/Catzc.*/private/*.ps1') }
+                    )
+                    kinds   = [ordered]@{ relatives = @{ settings = @{ relations = $Relations } } }
                 }).kinds[0]
         }
 
@@ -63,13 +67,18 @@ Describe 'Get-RelativesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#10',
         $relatives['source'] | Should -BeExactly 'widgets/Catzc.Gadget/private/Get-Sprocket.ps1'
     }
 
+    It 'applies a rule only to the classes it names' {
+        New-File 'widgets/Catzc.Gadget/tests/Get-Spring.Tests.ps1'
+        (Get-Relatives 'widgets/Catzc.Gadget/tests/Get-Spring.Tests.ps1').Contains('test') | Should -BeFalse -Because 'a test file is no widget-function'
+    }
+
     It 'leaves a relation out when its file does not exist, so the map can be empty' {
         New-File 'widgets/Catzc.Gadget/Get-Lonely.ps1'
         (Get-Relatives 'widgets/Catzc.Gadget/Get-Lonely.ps1').Count | Should -Be 0
     }
 
     It 'refuses more than eight relations' {
-        $many = 1..9 | ForEach-Object { @{ name = "relation$_"; rules = @(@{ files = @('**/*'); paths = @('nowhere') }) } }
+        $many = 1..9 | ForEach-Object { @{ name = "relation$_"; rules = @(@{ paths = @('nowhere') }) } }
         { Get-Relatives 'widgets/Catzc.Gadget/Get-Cog.ps1' (Get-Kind $many) } | Should -Throw '*at most 8 are allowed*'
     }
 

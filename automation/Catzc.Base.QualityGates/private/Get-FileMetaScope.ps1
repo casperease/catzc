@@ -39,7 +39,7 @@ function Get-FileMetaScope {
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $lookup = Get-ScopeLookup -RepositoryRoot $root -Path $Path -Command Get-FileMetaScope
-    $kindGlobs = @($Config.Imprint() | ForEach-Object { $_.files } | Select-Object -Unique | ForEach-Object { [Catzc.Base.Globs.GlobPattern]::new($_) })
+    $languages = Get-Config -Config languages
 
     $candidates = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($tracked in @(Get-GitTrackedPath $lookup)) {
@@ -53,14 +53,14 @@ function Get-FileMetaScope {
         if ($Resolver.IsExcluded($carrier, $tracked)) {
             continue
         }
-        $applies = $false
-        foreach ($glob in $kindGlobs) {
-            if ($glob.Matches($tracked)) {
-                $applies = $true
-                break
-            }
+        $language = $languages.ForPath($tracked)
+        $languageName = if ($language) {
+            $language.name
         }
-        if ($applies) {
+        else {
+            $null
+        }
+        if ($Config.SelectsAny($tracked, $languageName)) {
             $candidates.Add([pscustomobject]@{ Path = $tracked; Carrier = $carrier })
         }
     }

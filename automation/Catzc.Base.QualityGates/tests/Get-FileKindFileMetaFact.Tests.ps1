@@ -15,17 +15,11 @@ catzc:
 Describe 'Get-FileKindFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR-PRIN-CONFIG#1' {
     BeforeAll {
         $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{
-                    'file-kind' = @{
-                        keys     = @('kind')
-                        settings = @{
-                            classes = @(
-                                @{ class = 'widget'; files = @('docs/widgets/**') }
-                                @{ class = 'gadget'; files = @('docs/**/gadget.md', 'tools/*.md') }
-                            )
-                        }
-                    }
-                }
+                classes = @(
+                    @{ class = 'widget'; files = @('docs/widgets/**') }
+                    @{ class = 'gadget'; files = @('docs/**/gadget.md', 'tools/*.md') }
+                )
+                kinds   = [ordered]@{ 'file-kind' = @{ keys = @('kind') } }
             }).kinds[0]
 
         function script:Get-Class {
@@ -55,15 +49,17 @@ Describe 'Get-FileKindFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', '
         Get-Class -Path 'elsewhere/notes.md' | Should -BeExactly 'other'
     }
 
-    It 'names every file other when the kind declares no classes' {
+    It 'names every file other when the registry declares no classes' {
         $bare = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'file-kind' = @{ keys = @('kind') } } }).kinds[0]
         Get-Class -Path 'docs/widgets/part.md' -Kind $bare | Should -BeExactly 'other'
     }
 
-    It 'rejects a class entry that lacks its files' {
-        $bad = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{ 'file-kind' = @{ keys = @('kind'); settings = @{ classes = @(@{ class = 'widget' }) } } }
-            }).kinds[0]
-        { Get-Class -Path 'docs/a.md' -Kind $bad } | Should -Throw "*entries need 'class' and 'files'*"
+    It 'rejects a class entry that lacks its files, a class listed twice, and a class named other' -ForEach @(
+        @{ Classes = @(@{ class = 'widget' }); Message = "*entries need 'class' and 'files'*" }
+        @{ Classes = @(@{ class = 'widget'; files = @('a/**') }, @{ class = 'widget'; files = @('b/**') }); Message = "*'widget' is listed twice*" }
+        @{ Classes = @(@{ class = 'other'; files = @('a/**') }); Message = "*not 'other'*" }
+    ) {
+        { [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ classes = $Classes; kinds = [ordered]@{ 'file-kind' = @{ keys = @('kind') } } }) } |
+            Should -Throw $Message
     }
 }

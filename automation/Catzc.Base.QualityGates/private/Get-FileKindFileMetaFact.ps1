@@ -12,10 +12,10 @@ catzc:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FILEMETA#3
   config:
-    synopsis: 'The file-kind meta kind''s fact: the class of the file, from the path globs the kind''s settings declare.'
+    synopsis: 'The file-kind meta kind''s fact: the class of the file, from the registry''s ordered classes.'
     description: |-
       The first class whose globs match the path wins; a file no class matches is `other`. The classes are data in the
-      registry (`settings.classes`), never a list in this function ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+      registry (its top-level `classes`), never a list in this function ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
     parameters:
       State: What Get-MarkdownMetaState read from the file.
       Path: The file's repository-relative path.
@@ -39,21 +39,11 @@ function Get-FileKindFileMetaFact {
         [Catzc.Base.QualityGates.FileMetaKind] $Kind
     )
 
-    $class = 'other'
-    $classes = if ($Kind.settings.ContainsKey('classes')) {
-        @($Kind.settings['classes'])
+    $registry = if ($Kind.registry) {
+        $Kind.registry
     }
     else {
-        @()
+        Get-Config -Config file-meta
     }
-    foreach ($candidate in $classes) {
-        Assert-True ($candidate -is [System.Collections.IDictionary] -and $candidate.Contains('class') -and $candidate.Contains('files')) `
-            -ErrorText "file-meta config: kind '$($Kind.id)' settings.classes entries need 'class' and 'files'."
-        $matched = @($candidate['files'] | Where-Object { [Catzc.Base.Globs.GlobPattern]::new($_).Matches($Path) })
-        if ($matched.Count -gt 0) {
-            $class = "$($candidate['class'])"
-            break
-        }
-    }
-    [ordered]@{ $Kind.keys[0] = $class }
+    [ordered]@{ $Kind.keys[0] = $registry.ClassOf($Path) }
 }

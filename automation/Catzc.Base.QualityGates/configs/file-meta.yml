@@ -7,144 +7,113 @@
 #       page: docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md
 # ---
 
+# The file classes, in precedence order: a file is the first class whose globs match it, or other. The one place file-meta names globs.
+classes:
+  # A comment page is marked by its name, the source file's plus .md; first, since a test's page sits under tests/.
+  - {
+      class: comment-page,
+      files:
+        [
+          "docs/references/**/*.ps1.md",
+          "docs/references/**/*.psm1.md",
+          "docs/references/**/*.psd1.md",
+          "docs/references/**/*.cs.md",
+          "docs/references/**/*.yml.md",
+          "docs/references/**/*.yaml.md",
+          "docs/references/**/*.bicep.md",
+        ],
+    }
+  - { class: pester-test, files: ["**/tests/**/*.Tests.ps1"] }
+  - { class: python-test, files: ["**/tests/**/*.py"] }
+  - { class: shell-test, files: ["**/tests/**/*.bats", "**/tests/**/*.sh"] }
+  - { class: go-test, files: ["**/tests/**/*.go"] }
+  - { class: test-asset, files: ["**/tests/**"] }
+  - { class: csharp-type, files: ["automation/**/types/*.cs"] }
+  # A function file is told by its role, from the folder and its verb, before it is told by its visibility.
+  - { class: gate-function, files: ["automation/Catzc.*/Test-*.ps1"] }
+  - { class: writer-function, files: ["automation/Catzc.*/Build-*.ps1", "automation/Catzc.*/New-*.ps1"] }
+  - { class: assert-function, files: ["automation/Catzc.*/Assert-*.ps1"] }
+  - { class: format-function, files: ["automation/Catzc.*/Format-*.ps1"] }
+  - { class: fact-function, files: ["automation/Catzc.*/private/Get-*FileMetaFact.ps1"] }
+  - { class: automation-function, files: ["automation/Catzc.*/*.ps1", "automation/Catzc.*/private/*.ps1"] }
+  - { class: analyzer-rule, files: ["automation/.scriptanalyzer/**"] }
+  - { class: internal-module, files: ["automation/.internal/*.psm1"] }
+  - { class: bicep-template, files: ["infrastructure/templates/**/*.bicep"] }
+  - {
+      class: bicep-template-config,
+      files: ["infrastructure/templates/**/configuration/**/*.yml", "infrastructure/templates/*/options.yml"],
+    }
+  - { class: bicep-module, files: ["infrastructure/modules/*.bicep"] }
+  - { class: yaml-config, files: ["automation/**/configs/*.yml"] }
+  - { class: pipeline-template, files: ["pipelines/*/*.yaml"] }
+  - { class: pipeline, files: ["pipelines/*.yaml", ".github/workflows/*.yml"] }
+  - { class: claude-hook, files: [".claude/hooks/**"] }
+  - { class: asset, files: ["automation/**/assets/**"] }
+  - { class: python-script, files: ["**/*.py"] }
+  - { class: shell-script, files: ["**/*.sh"] }
+  - { class: powershell-script, files: ["**/*.ps1"] }
+  - { class: drawio-kit, files: [".claude/drawio/**"] }
+  - { class: claude-agent, files: [".claude/agents/**"] }
+  - { class: claude-skill, files: [".claude/skills/**"] }
+  - { class: adr, files: ["docs/adr/**"] }
+  - { class: reference, files: ["docs/references/**"] }
+  - { class: how-to, files: ["docs/how-to/**"] }
+  - { class: explanation, files: ["docs/explanation/**"] }
+  - { class: asset-description, files: ["docs/.assets/**"] }
+  - { class: readme, files: ["**/README.md"] }
+  - { class: index, files: ["docs/index.md"] }
+
+# A kind selects files by class and language, never by glob; with no select it applies to every file that carries a head.
 kinds:
   # The repository-relative path of every file that carries a block, first so it is written first; a Markdown H1 is the title.
   file-path:
     keys: [path]
 
-  # The class of the file, the first class whose globs match its path, or other.
+  # The class of the file, from the classes above.
   file-kind:
     keys: [kind]
-    settings:
-      classes:
-        # A comment page is marked by its name, the source file's plus .md; first, since a test's page sits under tests/.
-        - {
-            class: comment-page,
-            files:
-              [
-                "docs/references/**/*.ps1.md",
-                "docs/references/**/*.psm1.md",
-                "docs/references/**/*.psd1.md",
-                "docs/references/**/*.cs.md",
-                "docs/references/**/*.yml.md",
-                "docs/references/**/*.yaml.md",
-                "docs/references/**/*.bicep.md",
-              ],
-          }
-        - { class: pester-test, files: ["**/tests/**/*.Tests.ps1"] }
-        - { class: python-test, files: ["**/tests/**/*.py"] }
-        - { class: shell-test, files: ["**/tests/**/*.bats", "**/tests/**/*.sh"] }
-        - { class: go-test, files: ["**/tests/**/*.go"] }
-        - { class: test-asset, files: ["**/tests/**"] }
-        - { class: csharp-type, files: ["automation/**/types/*.cs"] }
-        # A function file is told by its role, from the folder and its verb, before it is told by its visibility.
-        - { class: gate-function, files: ["automation/Catzc.*/Test-*.ps1"] }
-        - { class: writer-function, files: ["automation/Catzc.*/Build-*.ps1", "automation/Catzc.*/New-*.ps1"] }
-        - { class: assert-function, files: ["automation/Catzc.*/Assert-*.ps1"] }
-        - { class: format-function, files: ["automation/Catzc.*/Format-*.ps1"] }
-        - { class: fact-function, files: ["automation/Catzc.*/private/Get-*FileMetaFact.ps1"] }
-        - { class: automation-function, files: ["automation/Catzc.*/*.ps1", "automation/Catzc.*/private/*.ps1"] }
-        - { class: analyzer-rule, files: ["automation/.scriptanalyzer/**"] }
-        - { class: internal-module, files: ["automation/.internal/*.psm1"] }
-        - { class: bicep-template, files: ["infrastructure/templates/**/*.bicep"] }
-        - {
-            class: bicep-template-config,
-            files: ["infrastructure/templates/**/configuration/**/*.yml", "infrastructure/templates/*/options.yml"],
-          }
-        - { class: bicep-module, files: ["infrastructure/modules/*.bicep"] }
-        - { class: yaml-config, files: ["automation/**/configs/*.yml"] }
-        - { class: pipeline-template, files: ["pipelines/*/*.yaml"] }
-        - { class: pipeline, files: ["pipelines/*.yaml", ".github/workflows/*.yml"] }
-        - { class: claude-hook, files: [".claude/hooks/**"] }
-        - { class: asset, files: ["automation/**/assets/**"] }
-        - { class: python-script, files: ["**/*.py"] }
-        - { class: shell-script, files: ["**/*.sh"] }
-        - { class: powershell-script, files: ["**/*.ps1"] }
-        - { class: drawio-kit, files: [".claude/drawio/**"] }
-        - { class: claude-agent, files: [".claude/agents/**"] }
-        - { class: claude-skill, files: [".claude/skills/**"] }
-        - { class: adr, files: ["docs/adr/**"] }
-        - { class: reference, files: ["docs/references/**"] }
-        - { class: how-to, files: ["docs/how-to/**"] }
-        - { class: explanation, files: ["docs/explanation/**"] }
-        - { class: asset-description, files: ["docs/.assets/**"] }
-        - { class: readme, files: ["**/README.md"] }
-        - { class: index, files: ["docs/index.md"] }
 
   # The hash of the body below the front matter, so it changes exactly when the file does.
   body-sha:
     keys: [body_sha]
-    files: ["**/*.md"]
+    select: [{ languages: [markdown] }]
 
   # The module a code file belongs to, the folder under automation.
   module-name:
     keys: [module]
-    files:
-      - "automation/**/types/*.cs"
-      - "automation/Catzc.*/*.ps1"
-      - "automation/Catzc.*/private/*.ps1"
+    select: [{ classes: [csharp-type, "*-function"] }]
 
   # Whether a PowerShell function file is public or private, from the module's private folder.
   visibility:
     keys: [visibility]
-    files:
-      - "automation/Catzc.*/*.ps1"
-      - "automation/Catzc.*/private/*.ps1"
+    select: [{ classes: ["*-function"] }]
 
-  # The few files a code file points at, as at most eight relations with fixed names; one is written only when its file exists.
+  # The few files a file points at, as at most eight relations with fixed names; one is written only when its file exists.
   relatives:
-    files:
-      - "automation/**/types/*.cs"
-      - "automation/**/*.ps1"
-      - "automation/**/*.yml"
-      - "pipelines/**/*.yaml"
-      - "infrastructure/**/*.bicep"
-      - ".claude/hooks/**/*.cs"
     settings:
       relations:
         - name: page
           rules:
-            - { files: ["**/*"], paths: ["{page}"] }
+            - { paths: ["{page}"] }
         - name: test
           rules:
-            - { files: ["automation/Catzc.*/types/*.cs"], paths: ["automation/{module}/tests/types/{stem}.Tests.ps1"] }
-            - {
-                files: ["automation/Catzc.*/*.ps1", "automation/Catzc.*/private/*.ps1"],
-                paths: ["automation/{module}/tests/{stem}.Tests.ps1"],
-              }
+            - { classes: [csharp-type], paths: ["automation/{module}/tests/types/{stem}.Tests.ps1"] }
+            - { classes: ["*-function"], paths: ["automation/{module}/tests/{stem}.Tests.ps1"] }
         - name: source
           rules:
-            - { files: ["automation/Catzc.*/tests/types/*.Tests.ps1"], paths: ["automation/{module}/types/{stem}.cs"] }
-            - {
-                files: ["automation/Catzc.*/tests/*.Tests.ps1"],
-                paths: ["automation/{module}/{stem}.ps1", "automation/{module}/private/{stem}.ps1"],
-              }
+            - { classes: [pester-test], paths: ["automation/{module}/types/{stem}.cs"] }
+            - { classes: [pester-test], paths: ["automation/{module}/{stem}.ps1", "automation/{module}/private/{stem}.ps1"] }
 
   # The rules an ADR defines in its own rule headings, spelled as citations; they are no citation of the ADR, so adrs never lists them.
   adr-defines:
     keys: [defines]
-    files: ["docs/adr/**/*.md"]
+    select: [{ classes: [adr], languages: [markdown] }]
 
+  # The ADR codes a file cites; a code class also lists bare domain codes and keeps what its head holds (domain_ and held_classes default).
   adr-codes:
     keys: [adrs]
-    files:
-      - "**/*.md"
-      - "automation/**/types/*.cs"
-      - "automation/Catzc.*/*.ps1"
-      - "automation/Catzc.*/private/*.ps1"
-      - "automation/**/tests/**/*.ps1"
-    settings:
-      domain_files:
-        - "automation/**/types/*.cs"
-        - "automation/Catzc.*/*.ps1"
-        - "automation/Catzc.*/private/*.ps1"
-        - "automation/**/tests/**/*.ps1"
-      held_files:
-        - "automation/**/types/*.cs"
-        - "automation/Catzc.*/*.ps1"
-        - "automation/Catzc.*/private/*.ps1"
-        - "automation/**/tests/**/*.ps1"
+    select: [{ languages: [markdown] }, { classes: [csharp-type, "*-function", pester-test] }]
 
   # Every link a Markdown file points out of itself, one spelling, sorted; a link that stays inside the file is not listed. Last: the longest key.
   links:
-    files: ["**/*.md"]
+    select: [{ languages: [markdown] }]

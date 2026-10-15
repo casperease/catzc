@@ -11,7 +11,7 @@ catzc:
     adrs:
       - ADR-REPO-FILEMETA#4
   config:
-    synopsis: Collects the derived facts of one Markdown file from every imprint kind whose globs match it.
+    synopsis: Collects the derived facts of one file from every imprint kind that selects it, by the file's class and language.
     description: |-
       Each kind's processor is the function the registry names, found in this module's scope; a kind with no such function fails the
       run and names the function it expected. A processor must return exactly the keys its kind declares, so a kind can never write a
@@ -39,9 +39,15 @@ function Get-FileMetaFact {
     )
 
     $facts = [ordered]@{}
+    $language = (Get-Config -Config languages).ForPath($Path)
+    $languageName = if ($language) {
+        $language.name
+    }
+    else {
+        $null
+    }
     foreach ($kind in $Config.Imprint()) {
-        $applies = @($kind.files | Where-Object { [Catzc.Base.Globs.GlobPattern]::new($_).Matches($Path) })
-        if ($applies.Count -eq 0) {
+        if (-not $Config.Selects($kind, $Path, $languageName)) {
             continue
         }
         $processor = Get-Command -Name $kind.processor -CommandType Function -ErrorAction Ignore

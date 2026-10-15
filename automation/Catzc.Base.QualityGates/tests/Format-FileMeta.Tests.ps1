@@ -26,8 +26,9 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         )
         Mock Get-FileMetaScope { $script:scope } -ModuleName Catzc.Base.QualityGates
         $script:registry = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{
-                    'file-kind' = @{ keys = @('kind'); settings = @{ classes = @(@{ class = 'gadget'; files = @('docs/**') }) } }
+                classes = @(@{ class = 'gadget'; files = @('docs/**') })
+                kinds   = [ordered]@{
+                    'file-kind' = @{ keys = @('kind') }
                     'body-sha'  = @{ keys = @('body_sha') }
                     'adr-codes' = @{ keys = @('adrs') }
                 }

@@ -29,15 +29,19 @@ public sealed class FileMetaKind
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     public const FileMetaDirection DefaultDirection = FileMetaDirection.Imprint;
-    public const string DefaultFiles = "**/*";
 
     static readonly Regex IdPattern = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$", RegexOptions.Compiled);
     static readonly Regex KeyPattern = new Regex("^[a-z][a-z0-9_]*$", RegexOptions.Compiled);
-    static readonly string[] Allowed = { "direction", "files", "keys", "processor", "target", "settings" };
+    static readonly string[] Allowed = { "direction", "select", "keys", "processor", "target", "settings" };
 
     public string id { get; }
     public FileMetaDirection direction { get; }
-    public IReadOnlyList<string> files { get; }
+
+    // The files the kind applies to: one that any entry selects. With no select, every file (FileSelector.Any).
+    public IReadOnlyList<FileSelector> select { get; }
+
+    // The registry that holds the kind, so a processor reads a file's class from the same registry; null for a kind built alone.
+    public FileMetaConfig registry { get; internal set; }
     public IReadOnlyList<string> keys { get; }
     public string processor { get; }
     public string target { get; }
@@ -53,7 +57,7 @@ public sealed class FileMetaKind
         this.id = id;
         string where = "file-meta config: kind '" + id + "'";
         direction = DefaultDirection;
-        var fileList = new List<string> { DefaultFiles };
+        var selectList = new List<FileSelector> { FileSelector.Any };
         var keyList = new List<string> { id.Replace('-', '_') };
         string explicitProcessor = null;
         string targetConfig = null;
@@ -80,7 +84,15 @@ public sealed class FileMetaKind
                 }
                 direction = parsed;
             }
-            if (Has(raw, "files")) { fileList = Strings(where, "files", raw["files"], null); }
+            if (Has(raw, "select"))
+            {
+                if (!(raw["select"] is IEnumerable entries) || raw["select"] is string)
+                {
+                    throw new ArgumentException(where + ": select must be a list of { classes, languages } entries");
+                }
+                selectList = entries.Cast<object>().Select(entry => FileSelector.Parse(where, entry)).ToList();
+                if (selectList.Count == 0) { throw new ArgumentException(where + ": select must not be empty; omit it to select every file"); }
+            }
             if (Has(raw, "keys")) { keyList = Strings(where, "keys", raw["keys"], KeyPattern); }
             if (Has(raw, "processor")) { explicitProcessor = Convert.ToString(raw["processor"], CultureInfo.InvariantCulture); }
             if (Has(raw, "target")) { targetConfig = Convert.ToString(raw["target"], CultureInfo.InvariantCulture); }
@@ -107,12 +119,28 @@ public sealed class FileMetaKind
             throw new ArgumentException(where + ": processor is empty; omit it to take the function the kind's id names");
         }
 
-        files = fileList;
+        select = selectList;
         keys = keyList;
         target = targetConfig;
         settings = settingMap;
         processor = explicitProcessor ?? ConventionName(id, direction);
     }
+
+    public bool Selects(string fileClass, string language) => select.Any(selector => selector.Selects(fileClass, language));
+
+    // The class patterns a class-list setting names; with no such setting, the classes the kind's own select names.
+    public IReadOnlyList<string> ClassSetting(string name)
+    {
+        if (settings.TryGetValue(name, out object value) && value != null)
+        {
+            return Strings("file-meta config: kind '" + id + "'", "settings." + name, value, null);
+        }
+        return select.SelectMany(selector => selector.classes).Distinct(StringComparer.Ordinal).ToList();
+    }
+
+    // True when the file's class matches one of the patterns.
+    public static bool InClasses(IEnumerable<string> patterns, string fileClass) =>
+        patterns != null && patterns.Any(pattern => FileSelector.ClassMatches(pattern, fileClass));
 
     public static string ConventionName(string id, FileMetaDirection direction)
     {

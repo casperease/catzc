@@ -14,10 +14,10 @@ catzc:
     synopsis: 'The adr-codes meta kind''s fact: the ADR citations the file and its comment page make, sorted and without duplicates.'
     description: |-
       A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation. A rule the file defines itself is
-      listed under `defines`, never here, and a code the ADR index does not register is no citation. A file the kind's `domain_files`
-      setting names also lists a bare `ADR-<CODE>`. A file the `held_files` setting names keeps every code its head already holds, so the
-      A citation is `ADR-<CODE>#<n>` ([ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)); the colon form
-      belongs to a rule's own heading and is no citation. The order is ordinal, so a rerun never moves a code.
+      listed under `defines`, never here, and a code the ADR index does not register is no citation. A file whose class the kind's
+      `domain_classes` setting names also lists a bare `ADR-<CODE>`, and one whose class `held_classes` names keeps every code its head
+      already holds, so the head is where its citations live; both settings default to the classes the kind selects. The spelling is
+      [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5), and the order is ordinal, so a rerun never moves a code.
     parameters:
       State: What Get-MarkdownMetaState read from the file.
       Path: The file's repository-relative path.
@@ -52,13 +52,14 @@ function Get-AdrCodesFileMetaFact {
         $text += "`n" + (Get-MarkdownMetaState -Text ([System.IO.File]::ReadAllText((Join-Path $repositoryRoot $page)))).Body
     }
 
-    $domainFiles = if ($Kind.settings.ContainsKey('domain_files')) {
-        @($Kind.settings['domain_files'])
+    $registry = if ($Kind.registry) {
+        $Kind.registry
     }
     else {
-        @()
+        Get-Config -Config file-meta
     }
-    $withDomain = @($domainFiles | Where-Object { [Catzc.Base.Globs.GlobPattern]::new($_).Matches($Path) }).Count -gt 0
+    $fileClass = $registry.ClassOf($Path)
+    $withDomain = [Catzc.Base.QualityGates.FileMetaKind]::InClasses($Kind.ClassSetting('domain_classes'), $fileClass)
     $pattern = if ($withDomain) {
         '(?<![\w-])ADR-[A-Z]+(?:-[A-Z]+)*(?:#\d+|(?![\w#-]|:\d))'
     }
@@ -88,13 +89,7 @@ function Get-AdrCodesFileMetaFact {
             [void] $codes.Remove($code)
         }
     }
-    $heldFiles = if ($Kind.settings.ContainsKey('held_files')) {
-        @($Kind.settings['held_files'])
-    }
-    else {
-        @()
-    }
-    $held = @($heldFiles | Where-Object { [Catzc.Base.Globs.GlobPattern]::new($_).Matches($Path) }).Count -gt 0
+    $held = [Catzc.Base.QualityGates.FileMetaKind]::InClasses($Kind.ClassSetting('held_classes'), $fileClass)
     if ($held -and $State.PSObject.Properties['DerivedLists'] -and $State.DerivedLists.Contains($Kind.keys[0])) {
         foreach ($code in $State.DerivedLists[$Kind.keys[0]]) {
             [void] $codes.Add($code)

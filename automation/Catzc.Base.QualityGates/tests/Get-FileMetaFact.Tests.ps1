@@ -35,9 +35,29 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
         $facts['adrs'] | Should -Be @('ADR-GADGET#1')
     }
 
-    It 'skips a kind whose globs do not match the file' {
-        $facts = Get-Facts @{ kinds = [ordered]@{ 'body-sha' = @{ keys = @('body_sha'); files = @('other/**') }; 'adr-codes' = @{ keys = @('adrs') } } }
+    It 'skips a kind that selects neither the file''s class nor its language' -ForEach @(
+        @{ Select = @(@{ classes = @('gadget') }) }
+        @{ Select = @(@{ languages = @('yaml') }) }
+        @{ Select = @(@{ classes = @('widget'); languages = @('yaml') }) }
+    ) {
+        $facts = Get-Facts @{
+            classes = @(@{ class = 'widget'; files = @('docs/**') })
+            kinds   = [ordered]@{ 'body-sha' = @{ keys = @('body_sha'); select = $Select }; 'adr-codes' = @{ keys = @('adrs') } }
+        }
         $facts.Keys | Should -Be @('adrs')
+    }
+
+    It 'applies a kind when any select entry matches both the class and the language it names' -ForEach @(
+        @{ Select = @(@{ classes = @('widget') }) }
+        @{ Select = @(@{ classes = @('wid*') }) }
+        @{ Select = @(@{ languages = @('markdown') }) }
+        @{ Select = @(@{ classes = @('gadget') }, @{ classes = @('widget'); languages = @('markdown') }) }
+    ) {
+        $facts = Get-Facts @{
+            classes = @(@{ class = 'widget'; files = @('docs/**') })
+            kinds   = [ordered]@{ 'body-sha' = @{ keys = @('body_sha'); select = $Select } }
+        }
+        $facts.Keys | Should -Be @('body_sha')
     }
 
     It 'names the function a kind expected when no module ships it' {

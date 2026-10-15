@@ -28,10 +28,14 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $script:property = $carriers.Find('json')
         $script:sidecar = $carriers.Find('picture')
         $script:config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{
+                classes = @(
+                    @{ class = 'widget-function'; files = @('automation/**/*.ps1') }
+                    @{ class = 'widget-code'; files = @('automation/**') }
+                )
+                kinds   = [ordered]@{
                     'file-path'   = @{ keys = @('path') }
-                    'module-name' = @{ keys = @('module'); files = @('automation/**') }
-                    visibility    = @{ keys = @('visibility'); files = @('automation/**/*.ps1') }
+                    'module-name' = @{ keys = @('module'); select = @(@{ classes = @('widget-*') }) }
+                    visibility    = @{ keys = @('visibility'); select = @(@{ classes = @('widget-function') }) }
                 }
             })
         $script:run = {

@@ -34,7 +34,7 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
                 }
             })
         $script:resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new($carriers, $languages)
-        $script:config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'file-path' = @{ keys = @('path'); files = @('**/*.wdg', '**/*.gdg', '**/*.stp', '**/*.cog', '**/*.dat', '**/*.pic') } } })
+        $script:config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'file-path' = @{ keys = @('path') } } })
         $script:scope = {
             param([string[]] $Path)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Config = $script:config; Resolver = $script:resolver; Path = $Path } {
@@ -70,8 +70,11 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
         $found[4].Carrier.carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::Sidecar)
     }
 
-    It 'leaves out a file whose class has no carrier, a carrier of none, and a path no imprint kind''s globs match' {
-        $narrow = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'file-path' = @{ keys = @('path'); files = @('docs/read.gdg') } } })
+    It 'leaves out a file whose class has no carrier, a carrier of none, and a file no imprint kind selects' {
+        $narrow = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
+                classes = @(@{ class = 'read-doc'; files = @('docs/read.gdg') })
+                kinds   = [ordered]@{ 'file-path' = @{ keys = @('path'); select = @(@{ classes = @('read-doc') }) } }
+            })
         $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Config = $narrow; Resolver = $script:resolver } {
             param($Root, $Config, $Resolver)
             @(Get-FileMetaScope -RepositoryRoot $Root -Config $Config -Resolver $Resolver)
