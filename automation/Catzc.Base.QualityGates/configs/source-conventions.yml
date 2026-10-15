@@ -1,8 +1,8 @@
-# The source checks Test-SourceConventions runs beside its naming conventions.
+# Report mode is temporary: a check reports only while its work list is drained, then returns to gate at a count of 0.
 # [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md#comment1)
 
-# The engine set is declared once, in the ExecutionEngines model, and never restated.
+# The phrases are regular expressions with placeholders, since the engine names and count are read from the model.
 # [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1),
 # [ADR-AUTO-ENGINE#6](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine6)
 # [comment:2](/docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md#comment2)
@@ -18,7 +18,7 @@ engine_set:
     - '\b{name}(?:(?:,? and |,? or |, |/| \| ){name})+\b'
     - '\[{name}\]'
 
-# A logic (L0) test's fixture data uses neutral ADR codes, never one the ADR index declares.
+# Only string literals inside an L0 block are scanned, and values given to the Tag parameter are left out.
 # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)
 # [comment:3](/docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md#comment3)
 neutral_codes:

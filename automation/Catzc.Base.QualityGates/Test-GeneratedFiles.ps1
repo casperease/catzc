@@ -2,11 +2,11 @@
 .SYNOPSIS
     Quality gate: checks that every generated file equals what its generator would write now.
 .DESCRIPTION
-    One gate for every generator's drift.
+    Each writer runs report-only, composing its content without writing, so a stale file is reported, never fixed.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-GeneratedFiles.ps1.md#comment1)
 .PARAMETER Generator
-    Check only these generators (default: every one).
+    Build-RootConfig selects every managed root file; a generator it renders selects only that generator's files.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-GeneratedFiles.ps1.md#comment2)
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-generated-files).

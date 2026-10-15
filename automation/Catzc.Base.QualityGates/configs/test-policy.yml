@@ -1,8 +1,8 @@
-# What a test may do to the environment it reaches.
+# Every key is optional: an omitted key takes the default declared once on TestPolicyConfig.
 # [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41),
 # [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/test-policy.yml.md#comment1)
 
-# Per target environment, how far an L4 test (the released system, after final approval) may change it: read-only — probes and...
+# An environment not listed is read-only, so a test changes nothing there unless it is named here.
 # [comment:2](/docs/references/automation/catzc-base-qualitygates/configs/test-policy.yml.md#comment2)
 l4_mutation: {}

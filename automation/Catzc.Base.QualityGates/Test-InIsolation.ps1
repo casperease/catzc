@@ -3,7 +3,7 @@
     Copies a module profile into a tmp sandbox and runs its tests in isolation — a clean child pwsh (true
     isolation) or the current session (fast) — so a subset of the toolset is verified deterministically.
 .DESCRIPTION
-    Front half (both modes): resolve the module set with Get-ModuleProfile (a named profile from...
+    Integrity tests need the whole real repo, so a subset sandbox defaults to Logic and the L0 and L1 unit tiers.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md#comment1)
 .PARAMETER ModuleProfile
     A profile from configs/profiles.yml (minimal, base, azure, tooling, full). Default: minimal.
@@ -18,7 +18,7 @@
 .PARAMETER MinLevel
     Lowest tier to run (0-4). Default 0.
 .PARAMETER Destination
-    Sandbox directory.
+    A given Destination is never auto-removed; only the fresh temporary directory is, unless -KeepSandbox.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md#comment2)
 .PARAMETER KeepSandbox
     Keep the sandbox (and its results.xml) after the run instead of deleting it.
@@ -107,7 +107,7 @@ function Test-InIsolation {
             Write-Message "Test-InIsolation: no test folders in the '$(if ($ModuleProfile) { $ModuleProfile } else { 'custom' })' sandbox — nothing to run."
         }
         elseif ($Isolation -eq 'Process') {
-            # Generate a runner and execute it in a clean child pwsh via Invoke-Executable (mockable; honours the...
+            # Going through Invoke-Executable keeps the child mockable and under the unit-test tripwire.
             # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md#comment3)
             $pathLiteral = ($testPaths | ForEach-Object { "'$_'" }) -join ', '
             $tagLiteral = ($excludeTags | ForEach-Object { "'$_'" }) -join ', '
@@ -139,7 +139,7 @@ exit `$r.FailedCount
             }
         }
         else {
-            # InProcess: run the sandbox's tests in THIS session against the already-loaded modules, with the...
+            # The session's loaded modules run the tests: fast, but not a clean session; the root is restored after.
             # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md#comment4)
             $savedRoot = $env:RepositoryRoot
             try {

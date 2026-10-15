@@ -1,21 +1,21 @@
-# Link alignment settings for Format-Links / Test-Links.
+# Every key is optional: an omitted key takes the default declared once on LinksConfig, and a Format-Links parameter overrides it.
 # [ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8),
 # [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 # [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/links.yml.md#comment1)
 
-# How an aligned comment line that outgrows its limit is wrapped: break (continue the comment on a new line before the link, never inside...
+# With break the link is never split from its comment; with off a long line is left alone and only reported.
 # [comment:2](/docs/references/automation/catzc-base-qualitygates/configs/links.yml.md#comment2)
 wrap: break
 
-# Per-extension line-limit overrides, e.g.
+# The default is none: the editorconfig max_line_length decides, so the limit is never stated twice.
 # [comment:3](/docs/references/automation/catzc-base-qualitygates/configs/links.yml.md#comment3)
 line_limit: {}
 
 # The limit for an extension .editorconfig gives no max_line_length. Default: 140 (the prose target).
 default_line_limit: 140
 
-# The string-citation check: a rule citation in a code string literal is spelled ADR-<CODE>#<n>, never with a ':' outside a '### Rule'...
+# In gate mode a colon-form citation fails Test-Links; in report mode it is only listed, and exempt globs may keep it on purpose.
 # [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)
 # [comment:4](/docs/references/automation/catzc-base-qualitygates/configs/links.yml.md#comment4)
 string_citations:

@@ -12,7 +12,7 @@
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-source-conventions/ (Write-QualityGateReport).
 .PARAMETER PassThru
-    EngineSet and NeutralCodes list each check's findings whatever its mode, so report mode stays inspectable.
+    EngineSet and NeutralCodes list each check's findings whatever its mode, so report-mode findings stay visible.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.

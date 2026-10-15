@@ -3,7 +3,7 @@
     Builds the lower-cased text corpus the terminology orphan check searches — one bulk read, not a grep
     per term.
 .DESCRIPTION
-    Concatenates the lower-cased text of the authored tree so orphan detection can confirm each registry term is...
+    The net is wider than Test-Spelling's scope, since narrowing it would manufacture false orphans.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment1)
 .PARAMETER Root
     The repository root to scan under.
@@ -26,7 +26,7 @@ function Get-TerminologyCorpus {
         [string[]] @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.bicep'),
         [System.StringComparer]::OrdinalIgnoreCase)
 
-    # Authored config files with no extension carry approved vocabulary too — a *.stackdump ignore pattern...
+    # No-extension config files are included by name, or a term used only there would read as a false orphan.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment2)
     $names = [System.Collections.Generic.HashSet[string]]::new(
         [string[]] @('.gitignore', '.gitattributes', '.markdownlintignore', '.prettierignore'),
@@ -44,7 +44,7 @@ function Get-TerminologyCorpus {
         '[\\/]docs[\\/]notes[\\/]'
     ) -join '|'
 
-    # The customer/machine-derived config tree (root configuration/, ) and the Bicep template configuration scaffold...
+    # Anchored at the root, so a nested authored configuration folder stays in the corpus instead of being swallowed.
     # [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment3)
     $configurationRegex = @(
@@ -58,7 +58,7 @@ function Get-TerminologyCorpus {
         [void] $excludeSet.Add(($resolved ?? $e))
     }
 
-    # Enumerate with [System.IO] rather than Get-ChildItem — no per-file PSObject wrapping, so a whole-tree scan is...
+    # Raw System.IO enumeration avoids per-file object wrapping, which makes a whole-tree scan markedly faster.
     # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment4)
     $ret = [System.Text.StringBuilder]::new()

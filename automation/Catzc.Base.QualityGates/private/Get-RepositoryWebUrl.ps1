@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns this repository's GitHub web URL (https://github.com/<owner>/<repo>), or $null when it has none.
 .DESCRIPTION
-    Reads the origin remote from <root>/.git/config — no git process — and normalizes an https or ssh GitHub remote...
+    A root without .git/config or with a non-GitHub remote yields null, and the absolute-URL link check is skipped.
     [ADR-REPO-LINK#7](/docs/adr/repository/markdown-links.md#rule-adr-repo-link7)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-RepositoryWebUrl.ps1.md#comment1)
 .PARAMETER RepositoryRoot

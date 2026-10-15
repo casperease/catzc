@@ -1,4 +1,4 @@
-# out/diagrams/wave-9/catzc-base-config/get-config-merge-seal-type.drawio.verify.md
+# docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.verify.md
 
 `Verification: Overlay merges unless sealed; the registered type builds it (source lens, Catzc.Base.Config)`
 

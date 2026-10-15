@@ -2,7 +2,7 @@
 .SYNOPSIS
     Every file besides the analyzed file itself that decides a PSScriptAnalyzer verdict.
 .DESCRIPTION
-    The analyzer's result cache keys each file on its SHA-256 and a stamp of these inputs, so this list must hold...
+    Anything the analysis loads must be listed, or a change to it leaves stale clean entries; a new input is added here.
     [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerInputs.ps1.md#comment1)
 .PARAMETER RepositoryRoot

@@ -1,4 +1,4 @@
-# glossary.yml — the Catzc.Base.QualityGates glossary source: the vocabulary of the quality gates this module owns — the test vocabulary...
+# Holds the test vocabulary of Test-Automation and the link vocabulary of Test-Links, and is checked by Test-Glossary.
 # [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
 # [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/glossary.yml.md#comment1)

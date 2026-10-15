@@ -1,4 +1,4 @@
-# Maps each ENABLED PSScriptAnalyzer rule that enforces an ADR rule to the rule id(s) it enforces, cited in the '#' form (ADR-<CODE>#<n>).
+# Every custom analyzer rule must be listed; ids are checked by an integrity test, so config load stays hermetic.
 # [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md#comment1)
 analyzers:

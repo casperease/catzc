@@ -1,4 +1,4 @@
-# out/diagrams/wave-9/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.verify.md
+# docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.verify.md
 
 `Verification: Each Invoke-<Tool> asserts the locked version before it runs (source lens, Catzc.Tooling.Core)`
 

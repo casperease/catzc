@@ -37,7 +37,7 @@ function Get-ParameterTypeConflict {
                 if (-not $constraint) {
                     continue
                 }
-                # Resolving through .NET makes bool and System.Boolean one type; an unresolved type keeps its written name.
+                # Resolving through .NET makes bool and System.Boolean one type; an unresolved type keeps its name.
                 # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md#comment2)
                 $reflected = $constraint.TypeName.GetReflectionType()
                 if ($reflected -and $reflected.IsArray) {

@@ -72,6 +72,13 @@ The module sits in the Base cluster and stays primitive: it knows nothing about 
 `Catzc.Base.QualityGates` consumes it from above (the trigger-drift and protected integrity tests); the pipeline YAML consumes its
 projection from outside (generated `paths:` registrations).
 
+The diagram below draws module protection from the source, as the test runner uses it. A module's tests are skipped only when its folded
+globset hash matches the hash recorded after its last green run in this session. The hash is held as pending before the workers run and
+promoted only after a green result. In a pipeline nothing is skipped. Its
+[description](../../.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md) walks it step by step.
+
+![Skip a module only if its folded hash matches its last green](../../.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png)
+
 ## Division
 
 The module's public surface, indexed by responsibility.

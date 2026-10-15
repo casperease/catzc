@@ -2,7 +2,7 @@
 .SYNOPSIS
     Derives a completed run's verdict — the Passed/Failed result and its one-line reason — from the run facts.
 .DESCRIPTION
-    The single place that turns the aggregated run facts (the test verdict, the failed-test count, failed-shard...
+    The closing banner and the failure throw both read this one result, so the reason wording lives in one place.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationVerdict.ps1.md#comment1)
 .PARAMETER Rows
     The run's aggregated per-test rows — the over-limit count is recomputed from these on the timing path.
@@ -67,7 +67,7 @@ function Get-TestAutomationVerdict {
         'Passed'
     }
 
-    # Invariant so the duration reads the same on any devbox culture — a da-DK box would otherwise render '42,3s' and...
+    # Invariant culture keeps the duration identical on any devbox: a da-DK box would render a comma against CI's dot.
     # [ADR-AUTO-XPLAT#6](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat6)
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationVerdict.ps1.md#comment2)
     $seconds = [math]::Round($DurationSeconds, 1).ToString([System.Globalization.CultureInfo]::InvariantCulture)

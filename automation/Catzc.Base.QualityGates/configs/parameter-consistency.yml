@@ -1,4 +1,4 @@
-# The parameter names Test-ParameterConsistency lets carry more than one type across the public functions.
+# An exempt name that no longer conflicts is reported, so the list only shrinks to what is real.
 # [ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md),
 # [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/parameter-consistency.yml.md#comment1)

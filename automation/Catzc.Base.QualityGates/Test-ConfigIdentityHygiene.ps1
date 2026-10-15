@@ -4,11 +4,11 @@
     Test-LogicTestIdentity, closing the other half of the language-zone separation
     ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)).
 .DESCRIPTION
-    A shipped `configs/*.yml` or `infrastructure/**` file is the live zone: it names real identities.
+    The forbidden set is derived from the fixture configs, and the scan reads parsed keys and values, never raw text.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md#comment1)
 .PARAMETER Path
-    Config files to check.
+    The terminology registry is skipped by default, since it defines the fixture tokens it would be flagged for.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md#comment2)
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-config-identity-hygiene.

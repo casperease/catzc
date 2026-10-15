@@ -92,6 +92,13 @@ the az **binary** (install and uninstall) and [Catzc.Tooling.Core](catzc-tooling
 that `Invoke-AzCli` and the connect functions call `Assert-Tool 'az_cli'` (from [Catzc.Tooling.Core](catzc-tooling-core.md)) — a single,
 version-locking dependency, not a reimplementation of tool management.
 
+The diagram below draws session verification from the source. Each of the three az checks (connection, subscription access and Bicep)
+has one state call that its query form and its throwing form share, so the two cannot drift. The config-aware wrappers add only the
+`azure.yml` lookup. Its [description](../../.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md)
+walks it step by step.
+
+![Three az checks: Test and Assert share one state call](../../.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png)
+
 ## Division
 
 The module's public functions, sorted into the responsibilities above.

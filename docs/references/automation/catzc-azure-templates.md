@@ -83,6 +83,17 @@ them, so a misnamed config folder or an undefined environment fails the tests ra
 [Catzc.Azure](catzc-azure.md) model — this module owns no configuration of its own; it reads `azure.yml` and `network.yml` through that
 module.
 
+The first diagram below draws template discovery and the build from the source. A template is a folder, and its `options.yml` may override
+only five derived defaults, under a strict schema. The build writes one parameters file per slot and then compiles the template once. The
+second diagram draws a deployment. It works on one immutable context (the plan, the artifacts and the environment), resolved from the live
+az session against `azure.yml`. A dry run stops at the what-if; otherwise the deployment is created. Each slide has a description:
+[template discovery](../../.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md) and
+[deployment](../../.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md).
+
+![A template is a folder; options.yml overrides five defaults](../../.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png)
+
+![One immutable context, resolved from the az session](../../.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.png)
+
 ## Division
 
 The module's public functions, sorted into the responsibilities above. This module owns no config files of its own; it consumes `azure.yml`

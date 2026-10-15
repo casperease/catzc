@@ -1,8 +1,8 @@
-# Managed-GUID registry — the single authored source of every GUID literal the repository carries.
+# A placeholder guid is minted with ConvertTo-Guid so its value spells its sentence; an external guid is registered as-is.
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/guids.yml.md#comment1)
 # cspell:ignore oilzstgq
 
-# The non-allow list: values that are never a legitimate identity.
+# A denied guid can never be registered, and the integrity gate reports it as denied, not merely unregistered.
 # [comment:2](/docs/references/automation/catzc-base-qualitygates/configs/guids.yml.md#comment2)
 denied:
   guid_zero:

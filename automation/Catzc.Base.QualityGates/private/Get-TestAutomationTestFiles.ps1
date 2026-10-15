@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists a run's test files, path by path in the given order, each tests folder's files in ordinal order.
 .DESCRIPTION
-    The work-list behind Test-Automation's phases: every *.Tests.ps1 under each tests/ folder (recursing, so...
+    Throws when no test file is found, since a run with nothing to run is a scoping mistake, never a green.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestFiles.ps1.md#comment1)
 .PARAMETER TestPath
     The run's tests/ folders and language test folders, in run order.

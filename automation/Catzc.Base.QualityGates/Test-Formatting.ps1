@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: checks that formatting would leave the repository unchanged.
 .DESCRIPTION
-    One gate for every formatter's check.
+    No formatter list lives here: Format-Code -DryRun runs whichever engines languages.yml names.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Formatting.ps1.md#comment1)

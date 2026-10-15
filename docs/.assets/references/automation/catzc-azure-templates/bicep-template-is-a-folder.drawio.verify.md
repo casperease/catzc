@@ -1,4 +1,4 @@
-# out/diagrams/wave-9/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
+# docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
 
 `Verification: A template is a folder; options.yml overrides five defaults (source lens, Catzc.Azure.Templates)`
 

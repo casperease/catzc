@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the C# source with a file-scoped `namespace <Namespace>;` line present and correct.
 .DESCRIPTION
-    Pure text in, text out, so it is unit-tested directly; a block-scoped namespace is left alone, never double-declared.
+    A block-scoped namespace is left alone, so the helper never double-declares; Format-Types reports it.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Set-CSharpFileScopedNamespace.ps1.md#comment1)
 .PARAMETER Content
     The C# source text.

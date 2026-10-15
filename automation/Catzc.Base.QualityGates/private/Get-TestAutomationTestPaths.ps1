@@ -3,10 +3,10 @@
     Lists the run's test paths — tests folders and language test folders — foundation-first: modules by dependency
     order, infrastructure last.
 .DESCRIPTION
-    Discovers every automation/<dir>/tests folder in a single.NET directory scan — one enumeration instead of two...
+    If the dependency graph cannot be sorted, the order falls back to ordinal so the run still proceeds.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md#comment1)
 .PARAMETER Modules
-    Narrow to the named automation modules' tests folders and language test folders.
+    Dot-prefixed infrastructure is never a named module, so it appears only when unfiltered.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md#comment2)
 .OUTPUTS
     [string[]] the test paths, foundation-first, infrastructure last. Empty when nothing matches.
@@ -47,7 +47,7 @@ function Get-TestAutomationTestPaths {
         }
     }
 
-    # The language test folders (Go, then Python), each after its module's tests folder (Get-LanguageTestFolders...
+    # Get-LanguageTestFolders throws on a folder matching no module, so every folder here has a module to follow.
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md#comment3)
     foreach ($testFolder in @(Get-LanguageTestFolders)) {
         if ($Modules -and $testFolder.Module -notin $Modules) {

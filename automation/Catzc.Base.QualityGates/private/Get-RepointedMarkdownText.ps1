@@ -2,7 +2,7 @@
 .SYNOPSIS
     Re-points a Markdown file's #fragment links at headings whose anchor changed, and returns the text.
 .DESCRIPTION
-    Every inline link `` — a relative target, or none for the file's own headings — is resolved against the file's...
+    Only the fragment changes; link text, the target as written and all other bytes stay, so no match returns the input.
     [ADR-REPO-FORMAT#7](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format7)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-RepointedMarkdownText.ps1.md#comment1)
 .PARAMETER RelativePath
