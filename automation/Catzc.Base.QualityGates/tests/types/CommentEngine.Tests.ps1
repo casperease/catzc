@@ -192,6 +192,33 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         [Catzc.Base.QualityGates.CommentBlock]::CodeSpan('`widget``') | Should -BeExactly '``` `widget`` ```'
     }
 
+    It 'keeps the whole run a keep_run head opens, and still moves the prose after the blank line' -Tag 'ADR-REPO-COMMENTS#3', 'ADR-REPO-CODEMETA#5' {
+        $head = [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep_run = @{ yaml = @('# catzc:') } })
+        $yaml = "# catzc:`n#   path: docs/widget.yml`n#   module: Catzc.Widget`n`n# The widget registry, one entry per gadget,`n# read once per run.`ngadget: 1`n"
+        $blocks = [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', $head)
+        $blocks.Count | Should -Be 1
+        $blocks[0].StartLine | Should -Be 4
+        $moved = [Catzc.Base.QualityGates.CommentEngine]::Export($yaml, '.yml', 'yaml', 'automation/Catzc.Widget/widget.yml', $script:page, $null, $head, 120)
+        $moved.MovedCount | Should -Be 1
+        $moved.Text.StartsWith("# catzc:`n#   path: docs/widget.yml`n#   module: Catzc.Widget`n`n") | Should -BeTrue
+    }
+
+    It 'reads an unconfigured head as prose, so the run is a block' -Tag 'ADR-REPO-CODEMETA#5' {
+        $yaml = "# catzc:`n#   path: docs/widget.yml`n#   module: Catzc.Widget`n`ngadget: 1`n"
+        [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', [Catzc.Base.QualityGates.CommentsConfig]::new(@{})).Count | Should -Be 1
+    }
+
+    It 'keeps a keep_run head in the middle of prose from hiding the lines after it' -Tag 'ADR-REPO-COMMENTS#3' {
+        $head = [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep_run = @{ yaml = @('# catzc:') } })
+        $yaml = "# A widget note`n# on two lines.`n# catzc:`n# more gadget prose`n# on two lines.`ngadget: 1`n"
+        [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', $head).Count | Should -Be 1
+    }
+
+    It 'does not let a single-line keep head hide the prose directly under it' -Tag 'ADR-REPO-COMMENTS#3' {
+        $yaml = "# cspell:ignore gadgt`n# A widget note`n# on two lines.`ngadget: 1`n"
+        [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', [Catzc.Base.QualityGates.CommentsConfig]::new(@{})).Count | Should -Be 1
+    }
+
     It 'keeps a block whose head the language keeps, and moves nothing below min_lines' -Tag 'ADR-PRIN-CONFIG#1' {
         $kept = [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep = @{ yaml = @('# widget-schema:') }; min_lines = 3 })
         $yaml = "# widget-schema: gadget`n# second line`n# third line`nwidget: 1`n# two lines`n# only`ngadget: 2`n"

@@ -47,6 +47,9 @@ public static class CommentEngine
         Lines lines = Lines.Of(text);
         var blocks = new List<CommentBlock>();
         var run = new List<(int line, string indent, string marker, string prose)>();
+        int keptRunEnd = -2;
+        string keptRunIndent = null;
+        string keptRunMarker = null;
 
         void FlushRun()
         {
@@ -91,13 +94,29 @@ public static class CommentEngine
                 continue;
             }
 
+            string marker = MarkerOf(comment);
+            bool continuesRun = run.Count > 0 && run[run.Count - 1].line == startLine - 1 && run[run.Count - 1].indent == before
+                && run[run.Count - 1].marker == marker;
+            if (config.IsKeptRun(language, comment) && !continuesRun)
+            {
+                // A head that keeps its run (the meta head) stays with the lines directly under it, so they never read as prose.
+                FlushRun();
+                keptRunEnd = startLine;
+                keptRunIndent = before;
+                keptRunMarker = marker;
+                continue;
+            }
+            if (keptRunEnd == startLine - 1 && keptRunIndent == before && keptRunMarker == marker)
+            {
+                keptRunEnd = startLine;
+                continue;
+            }
             if (config.IsKept(language, comment))
             {
                 // A kept line (a spell-checker directive, #Requires, #region) stays where it is and splits the run around it.
                 FlushRun();
                 continue;
             }
-            string marker = MarkerOf(comment);
             string prose = comment.Substring(marker.Length);
             if (prose.StartsWith(" ", StringComparison.Ordinal)) { prose = prose.Substring(1); }
             prose = prose.TrimEnd();

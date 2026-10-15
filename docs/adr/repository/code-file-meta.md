@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
-    body_sha: "7120f49b6e4d"
+    body_sha: "2742f52c4c7b"
     adrs:
       - ADR-REPO-COMMENTS#3
       - ADR-REPO-FILEMETA#1
@@ -57,9 +57,9 @@ leaves unchanged, so the formatter, the step and the formatter again change noth
 
 ### Rule ADR-REPO-CODEMETA:5
 
-The comment engine never moves, flags or rewrites a head: a comment head the engine is configured to keep keeps the whole contiguous run it
-opens ([ADR-REPO-COMMENTS#3](comments-in-docs.md#rule-adr-repo-comments3)), so the head's continuation lines are not a prose comment and
-`Export-Comments` leaves them in the file.
+The comment engine never moves, flags or rewrites a head: the head's opener is configured to keep its whole contiguous run (`keep_run:` in
+`comments.yml`, [ADR-REPO-COMMENTS#3](comments-in-docs.md#rule-adr-repo-comments3)), so the head's continuation lines are not a prose
+comment and `Export-Comments` leaves them in the file.
 
 - [The head is a comment run](#the-head-is-a-comment-run)
 

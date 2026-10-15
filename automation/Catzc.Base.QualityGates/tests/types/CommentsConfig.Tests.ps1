@@ -77,6 +77,18 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.view | Should -Be 'out/gadget-view'
     }
 
+    It 'keeps no run by default, and maps a language''s keep_run heads case-insensitively' -Tag 'ADR-REPO-COMMENTS#3' {
+        $default = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})
+        $default.keep_run.Count | Should -Be 0
+        $default.IsKeptRun('csharp', '// catzc:') | Should -BeFalse
+        $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep_run = @{ csharp = @('// catzc:'); powershell = @('# catzc:') } })
+        $config.IsKeptRun('csharp', '  // CATZC:') | Should -BeTrue
+        $config.IsKeptRun('powershell', '# catzc:') | Should -BeTrue
+        $config.IsKeptRun('powershell', '// catzc:') | Should -BeFalse
+        $config.IsKeptRun('yaml', '# catzc:') | Should -BeFalse
+        $config.IsKept('csharp', '// catzc:') | Should -BeFalse -Because 'a run head is not a single kept line'
+    }
+
     It 'rejects an unknown key, naming the allowed set' -Tag 'ADR-AUTO-DEFAULT#6' {
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown key*languages, min_lines*'
     }
@@ -87,6 +99,8 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ languages = @('yaml', 'YAML') }) } | Should -Throw "*lists 'yaml' twice*"
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep = 'widget' }) } | Should -Throw '*keep must be a map*'
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep = @{ powershell = 'widget' } }) } | Should -Throw '*keep.powershell must be a list*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep_run = 'widget' }) } | Should -Throw '*keep_run must be a map*'
+        { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep_run = @{ csharp = 'widget' } }) } | Should -Throw '*keep_run.csharp must be a list*'
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ obvious_phrases = @('') }) } | Should -Throw '*obvious_phrases has an empty entry*'
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ view = 'docs/view' }) } | Should -Throw '*view*must be a folder under out/*'
         { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @() }) } | Should -Throw '*pages must be a non-empty list*'

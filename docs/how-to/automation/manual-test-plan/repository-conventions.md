@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/repository-conventions.md
     kind: how-to
-    body_sha: f1075dbc8b73
+    body_sha: "3d08ae3bea80"
     adrs:
       - ADR-DSGN-TRACK#1
       - ADR-DSGN-TRACK#12
@@ -17,6 +17,7 @@ catzc:
       - ADR-REPO-CONTRACT#4
       - ADR-REPO-CONTRACT#5
       - ADR-REPO-CONTRACT#9
+      - ADR-REPO-FILEMETA#4
 ---
 
 # Manual test plan — Repository conventions

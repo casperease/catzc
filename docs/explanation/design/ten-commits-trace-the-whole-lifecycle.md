@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/explanation/design/ten-commits-trace-the-whole-lifecycle.md
     kind: explanation
-    body_sha: "64498638b748"
+    body_sha: "923959505b90"
     adrs:
       - ADR-DSGN-LIFE#1
       - ADR-DSGN-LIFE#10
@@ -43,9 +43,9 @@ commit. Read together, the ten numbers show every state a commit can hold and ev
    pipeline kinds and the stretch each one covers. CI covers the first two stages, CD covers everything up to the end of RC, CD+RBC and
    DEPLOY-Non Prod cover the middle stages, and CDe spans all six. The gate definitions, including RC and RBC, belong to the flow model
    ([ADR-FLOW-CD#9](../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9)).
-2. **The gates.** A red vertical line is a manual gate, where a human decides. A dashed grey line is an automatic gate. Each stage has one
-   box: Pre-Commit (L0/L2) is decided by a human in authoring and review, Commit (L0/L2) is the automatic BVT gate, L3-vertical-AT is an
-   automatic gate, and main-AT and release-AT are manual gates. Prod deploy has two boxes, inactive/pre-prod and live/production. Arrows
+2. **The gates.** A red vertical line is a manual gate, where a human decides. A dashed grey line is a gate that runs by itself. Each stage
+   has one box: Pre-Commit (L0/L2) is decided by a human in authoring and review, Commit (L0/L2) is the automatic BVT gate, L3-vertical-AT
+   is an AT gate, and main-AT and release-AT are manual gates. Prod deploy has two boxes, inactive/pre-prod and live/production. Arrows
    between the bands show how work is triggered: pushes such as Direct-Commit and PR-Complete, and pulls such as the mb and rb triggers,
    Manual RC and Manual RBC.
 3. **The pipeline lane.** Under each stage box, the candidates in process are drawn in their state colour. A dashed ghost means the commit
@@ -53,16 +53,16 @@ commit. Read together, the ten numbers show every state a commit can hold and ev
 4. **The discarded lane.** A red row sits under the queue. A candidate that fails a gate drops into it at the stage where it failed, and it
    keeps its number there. Recording where it died is the point: "discarded at BVT" and "discarded at release-uat" are different facts
    ([ADR-DSGN-LIFE#2](../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life2)).
-5. **The environments lane.** Each hexagon is a neutral slot. The commit inside it is its occupant, drawn in that commit's own state colour
-   ([ADR-DSGN-VISUAL#13](../../adr/design/visual-design.md#rule-adr-dsgn-visual13)). In this picture, 8 sits in the BVT slot, 6 is the
+5. **The environments lane.** Each hexagon is an env slot. The commit inside it is its occupant, drawn in that commit's own state colour
+   ([ADR-DSGN-VISUAL#13](../../adr/design/visual-design.md#rule-adr-dsgn-visual13)). In this picture, 8 sits in the BVT env slot, 6 is the
    main-UAT occupant, 5 is the release-UAT occupant, and 4 is both the pre-prod and the production occupant. Slot 9 shows a topic commit
    deployed on demand, and slot 10 shows a commit that was deployed and then discarded.
 6. **The git lane.** This is the only lane where left to right is real time
    ([ADR-DSGN-VISUAL#12](../../adr/design/visual-design.md#rule-adr-dsgn-visual12)). The main line carries the landed commits, and side
    branches carry topic commits. Reading along it, the three newest commits, 7, 8 and 10, are labelled as dirty heads: the tip of main is
    not always a commit that is safe to build on.
-7. **The legend.** Each state has a solid circle, a dashed ghost and a crossed discard. The legend also names the symbols: manual gate,
-   automated gate, deployment slot, push and pull.
+7. **The legend.** Each state has a solid circle, a dashed ghost and a crossed discard. The legend also names the symbols: manual gate, a
+   gate that runs by itself, env slot, push and pull.
 
 ## Why it holds
 

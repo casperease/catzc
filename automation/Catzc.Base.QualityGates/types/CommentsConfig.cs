@@ -18,7 +18,7 @@ public sealed class CommentsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    static readonly string[] AllowedKeys = { "languages", "min_lines", "keep", "pages", "exclude", "obvious_phrases", "view" };
+    static readonly string[] AllowedKeys = { "languages", "min_lines", "keep", "keep_run", "pages", "exclude", "obvious_phrases", "view" };
 
     public static readonly IReadOnlyDictionary<string, string> DefaultExclude = new Dictionary<string, string>(StringComparer.Ordinal)
     {
@@ -53,6 +53,7 @@ public sealed class CommentsConfig
     public IReadOnlyList<string> languages { get; }
     public int min_lines { get; }
     public IReadOnlyDictionary<string, IReadOnlyList<string>> keep { get; }
+    public IReadOnlyDictionary<string, IReadOnlyList<string>> keep_run { get; }
     public IReadOnlyList<CommentPageMap> pages { get; }
     public IReadOnlyDictionary<string, string> exclude { get; }
     public IReadOnlyList<string> obvious_phrases { get; }
@@ -66,6 +67,7 @@ public sealed class CommentsConfig
         languages = DefaultLanguages;
         min_lines = DefaultMinLines;
         var keepLists = new Dictionary<string, IReadOnlyList<string>>(DefaultKeep, StringComparer.OrdinalIgnoreCase);
+        var keepRunLists = new Dictionary<string, IReadOnlyList<string>>(StringComparer.OrdinalIgnoreCase);
         var pageMaps = DefaultPages.Select(d => new CommentPageMap(name + ": pages", new Hashtable { ["source"] = d.source, ["docs"] = d.docs })).ToList();
         obvious_phrases = DefaultObviousPhrases;
         view = DefaultView;
@@ -116,6 +118,23 @@ public sealed class CommentsConfig
                         throw new ArgumentException(name + ": keep has an empty language key");
                     }
                     keepLists[language] = Strings(name, "keep." + language, entry.Value, requireAny: false);
+                }
+            }
+
+            if (raw.Contains("keep_run") && raw["keep_run"] != null)
+            {
+                if (!(raw["keep_run"] is IDictionary keepRunRaw))
+                {
+                    throw new ArgumentException(name + ": keep_run must be a map of language to a list of comment heads");
+                }
+                foreach (DictionaryEntry entry in keepRunRaw)
+                {
+                    string language = Convert.ToString(entry.Key, CultureInfo.InvariantCulture);
+                    if (string.IsNullOrWhiteSpace(language))
+                    {
+                        throw new ArgumentException(name + ": keep_run has an empty language key");
+                    }
+                    keepRunLists[language] = Strings(name, "keep_run." + language, entry.Value, requireAny: false);
                 }
             }
 
@@ -171,6 +190,7 @@ public sealed class CommentsConfig
         }
 
         keep = keepLists;
+        keep_run = keepRunLists;
         pages = pageMaps;
         exclude = excludeMap;
         foreach (string glob in excludeMap.Keys)
@@ -202,6 +222,14 @@ public sealed class CommentsConfig
     {
         string line = commentLine?.Trim() ?? string.Empty;
         return KeepFor(language).Any(head => line.StartsWith(head, StringComparison.OrdinalIgnoreCase));
+    }
+
+    // True when the trimmed comment line starts a head whose whole contiguous run stays in the file (the meta head), case-insensitive.
+    public bool IsKeptRun(string language, string commentLine)
+    {
+        string line = commentLine?.Trim() ?? string.Empty;
+        return language != null && keep_run.TryGetValue(language, out IReadOnlyList<string> heads)
+            && heads.Any(head => line.StartsWith(head, StringComparison.OrdinalIgnoreCase));
     }
 
     // The comment page of a repository-relative file: the first pages map that covers it, or null when none does.

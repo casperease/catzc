@@ -3,11 +3,12 @@ catzc:
   derived:
     path: docs/how-to/automation/manual-test-plan/configs.md
     kind: how-to
-    body_sha: f0c8f3956089
+    body_sha: fccbf8c307fa
     adrs:
       - ADR-CONF-LOADING#4
       - ADR-CONF-LOADING#5
       - ADR-REPO-CONTRACT#8
+      - ADR-REPO-FILEMETA#1
 ---
 
 # Manual test plan — Configs
