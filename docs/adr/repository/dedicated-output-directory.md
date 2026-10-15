@@ -70,7 +70,8 @@ vendored artifact (one assembly for the whole repository) and lives there on pur
 
 ### Rule ADR-REPO-OUTDIR:7
 
-Cleaning all output is one command: `Remove-Item (Join-Path (Get-OutputRoot) '*') -Recurse -Force`. CI and developers use the same path.
+Cleaning all output is one command: `Clear-Output -All`, which keeps only the folder's `.gitkeep` and the plan files
+(ADR-REPO-OUTDIR#10). CI and developers use the same command.
 
 - [Decision](#decision)
 
@@ -109,6 +110,16 @@ A PDF is output: it is rendered from a source, so it belongs under the output ro
 PDF that must be committed opts out with its own `!` line, and a note saying why, in the gitignore registry (`gitignore.yml`).
 
 - [Decision](#decision)
+
+### Rule ADR-REPO-OUTDIR:12
+
+Every file under the output root belongs to one format of `output-formats.yml`, and its format's **area** (`run`, `build`, `cache`,
+`review`, `session`, `log`) sets how long it stays: the newest stamps of a run, the newest build, every cache entry and review artifact,
+session files for seven days. A format overrides the area with `keep` and `max_age`, and the defaults are declared once on the format type.
+`Clear-Output` removes what no format keeps, and reports, never removes, a file no format covers; in a pipeline, whose staging directory is
+fresh for every run, it removes nothing.
+
+- [Retention](#retention)
 
 ## Context
 
@@ -172,6 +183,16 @@ resets every generated artifact and leaves the plans in place, reported like any
 
 A plan's work breaks into workstreams — `### W<n>: <name>` sections such as W0, W1, W2 — each with its own order and gate. A workstream
 lands whole: it is never committed half-done, and its citation never aliases an older label (ADR-PRIN-ONELIVE).
+
+### Retention
+
+A run folder that only grows is noise: a person reads the latest run and compares a few, and two hundred stamps of one gate help no one. So
+every file under the output root is a format, and the format's area says how long it stays. A run keeps its newest stamps, as whole stamp
+folders, so a run's report, rows and results go together. A build keeps its newest version, because the build is regenerated from source.
+A cache stays, because its own keys decide when an entry is stale, and age is not staleness. A review artifact and a plan stay until a person
+retires them. A session's scripts, dumps and logs go after a week, and an appended log stays while it is written. The defaults sit once on
+the format type and a format states only what differs, so retention is configured, not programmed (ADR-PRIN-CONFIG). A file no format
+covers is reported and left alone: removing what nobody declared would guess at its owner.
 
 ## Consequences
 

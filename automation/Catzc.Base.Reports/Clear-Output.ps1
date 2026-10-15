@@ -18,7 +18,7 @@ catzc:
 .DESCRIPTION
     Each format's area sets how many stamps or files stay and how old they may grow; a file no format covers is reported, never removed.
 .PARAMETER All
-    Remove everything under the output root but its .gitkeep, whatever the formats keep.
+    Remove everything under the output root but its .gitkeep and the plan files, which cannot be regenerated, whatever the formats keep.
 .PARAMETER DryRun
     Report what would be removed without removing anything.
 .PARAMETER PassThru
@@ -50,7 +50,7 @@ function Clear-Output {
     elseif ($All) {
         $remove = @(Get-ChildPath $outputRoot -Depth 1 -Exclude @() -PruneVendor $false |
                 ForEach-Object { [System.IO.Path]::GetFileName($_) } |
-                Where-Object { $_ -ne '.gitkeep' } |
+                Where-Object { $_ -ne '.gitkeep' -and $_ -notlike 'plan-*.md' } |
                 Sort-Object)
     }
     else {
