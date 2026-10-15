@@ -106,7 +106,10 @@ function Clear-CompiledType {
             }
             catch {
                 $skipped++; Write-Verbose "Could not delete (in use?): $dll"
+                continue
             }
+            # The manifest belongs to its assembly's build: it goes with it, and stays with a locked one.
+            [System.IO.File]::Delete([System.IO.Path]::ChangeExtension($dll, 'json'))
         }
     }
 
@@ -442,13 +445,24 @@ function Import-CSharpTypes {
             }
             catch {
                 Write-Verbose "Skipped locked stale type DLL: $old"
+                continue
             }
+            [System.IO.File]::Delete([System.IO.Path]::ChangeExtension($old, 'json'))
         }
 
         # Bootstrap code runs only from the importer, where Write-Message may not be loaded yet.
         # [comment:22](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment22)
         $relativeDll = ([System.IO.Path]::GetRelativePath($env:RepositoryRoot, $dll)) -replace '\\', '/'
         Write-ImporterMessage "Built $relativeDll"
+    }
+
+    # The manifest is generated beside its DLL, so a DLL that predates it gets one here; a bundle never writes.
+    $manifest = [System.IO.Path]::ChangeExtension($dll, 'json')
+    if (-not [System.IO.File]::Exists($manifest)) {
+        if ($PrebuiltOnly) {
+            throw "Bundle is missing its prebuilt types manifest ($manifest). The bundle is incomplete or corrupt — rebuild it (Build-Modules ships the manifest beside the DLL)."
+        }
+        Write-TypesAssemblyManifest -Path $dll | Out-Null
     }
 
     # Loads go through a per-user shadow copy, so no session ever locks a build inside the repository.

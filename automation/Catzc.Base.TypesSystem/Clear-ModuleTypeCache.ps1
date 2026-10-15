@@ -122,6 +122,7 @@ function Clear-ModuleTypeCache {
     foreach ($dll in $ret) {
         try {
             [System.IO.File]::Delete($dll)
+            [System.IO.File]::Delete([System.IO.Path]::ChangeExtension($dll, 'json'))
             $removed++
             if (-not $Silent) {
                 Write-Message "Removed stale type assembly: $dll"
@@ -157,6 +158,7 @@ function Clear-ModuleTypeCache {
                 $retried.Add([pscustomobject]@{ Path = $entry.Path; Reason = $reason })
                 continue
             }
+            [System.IO.File]::Delete([System.IO.Path]::ChangeExtension($entry.Path, 'json'))
             $removed++
             if (-not $Silent) {
                 Write-Message "Removed stale type assembly: $($entry.Path)"

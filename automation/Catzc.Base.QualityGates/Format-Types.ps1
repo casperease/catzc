@@ -52,8 +52,10 @@ function Format-Types {
                 $files.Add($item)
             }
             elseif (Test-Path -Path $item -PathType Container) {
-                Get-ChildItem -Path $item -Recurse -Filter '*.cs' -File |
-                    ForEach-Object { $files.Add($_.FullName) }
+                # A types file sits two levels below its module (types/), so a folder as wide as automation is three levels up.
+                foreach ($typeFile in Get-ChildPath $item -File -Filter '*.cs' -Depth 3) {
+                    $files.Add($typeFile)
+                }
             }
             else {
                 $files.Add((Resolve-Path -Path $item).Path)

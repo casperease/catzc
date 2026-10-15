@@ -70,12 +70,16 @@ function Install-VendorModule {
     $moduleDir = Join-Path $vendorRoot $Name
     $prunedFolders = @('net20', 'net35', 'net40', 'net45', 'net451', 'net452',
         'net46', 'net461', 'net462', 'net47', 'net471', 'net472', 'net48', 'compatibility_profiles')
-    Get-ChildItem -Path $moduleDir -Directory -Recurse |
-        Where-Object { $_.Name -in $prunedFolders } |
-        ForEach-Object {
-            Remove-Item $_.FullName -Recurse -Force
-            Write-Message "Removed unused folder: $($_.FullName.Substring($vendorRoot.Length + 1))"
+    # A vendored module's folders reach three levels below the module folder; the walk must enter every one, vendor included.
+    $unusedFolders = @(Get-ChildPath $moduleDir -Directory -Depth 5 -Exclude @() -PruneVendor $false |
+            Where-Object { [System.IO.Path]::GetFileName($_) -in $prunedFolders })
+    foreach ($unusedFolder in $unusedFolders) {
+        # A folder inside an already removed one is gone with it.
+        if ([System.IO.Directory]::Exists($unusedFolder)) {
+            Remove-Item $unusedFolder -Recurse -Force
+            Write-Message "Removed unused folder: $($unusedFolder.Substring($vendorRoot.Length + 1))"
         }
+    }
 
     Write-Message "Installed vendor module: $Name$(if ($RequiredVersion) { " v$RequiredVersion" })"
 }

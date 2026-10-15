@@ -37,8 +37,23 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         [System.IO.File]::WriteAllText($currentDll, 'current')
         $script:staleDll = Join-Path $compiled 'Catzc.Types.deadbeef.dll'
         [System.IO.File]::WriteAllText($staleDll, 'stale')
+        $script:currentManifest = [System.IO.Path]::ChangeExtension($currentDll, 'json')
+        $script:staleManifest = [System.IO.Path]::ChangeExtension($staleDll, 'json')
+        [System.IO.File]::WriteAllText($currentManifest, '{}')
+        [System.IO.File]::WriteAllText($staleManifest, '{}')
 
         $script:fakeRoot = $root
+    }
+
+    It 'removes a superseded build''s manifest with it and keeps the current manifest' -Tag 'logic' {
+        Clear-ModuleTypeCache -AutomationRoot $fakeRoot
+        $staleManifest | Should -Not -Exist
+        $currentManifest | Should -Exist
+    }
+
+    It 'with -DryRun leaves every manifest in place' -Tag 'logic' {
+        Clear-ModuleTypeCache -AutomationRoot $fakeRoot -DryRun | Out-Null
+        $staleManifest | Should -Exist
     }
 
     It 'keeps the current-hash build' -Tag 'logic' {

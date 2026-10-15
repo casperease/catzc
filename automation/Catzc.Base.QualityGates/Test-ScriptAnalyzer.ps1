@@ -70,8 +70,10 @@ function Test-ScriptAnalyzer {
                 Join-Path $root $item
             }
             if (Test-Path -LiteralPath $full -PathType Container) {
-                Get-ChildItem -LiteralPath $full -Recurse -Include '*.ps1', '*.psm1' -File |
-                    ForEach-Object { $files.Add($_.FullName) }
+                # Scripts reach four levels below automation (module, tests, types, file); vendored modules are pruned.
+                foreach ($script in Get-ChildPath $full -File -Filter '*.ps1', '*.psm1' -Depth 4) {
+                    $files.Add($script)
+                }
             }
             else {
                 Assert-PathExist $full -PathType Leaf

@@ -50,6 +50,15 @@ function Get-CommittedTypesDrift {
     elseif ($dlls[0] -ne $expected) {
         $reasons.Add("automation/.compiled/$($dlls[0]) is not the current assembly $expected — run the importer")
     }
+    $expectedManifest = "Catzc.Types.$currentHash.json"
+    $manifests = @(if ([System.IO.Directory]::Exists($compiledRoot)) {
+            foreach ($manifest in [System.IO.Directory]::EnumerateFiles($compiledRoot, 'Catzc.Types.*.json')) {
+                [System.IO.Path]::GetFileName($manifest)
+            }
+        })
+    if ($manifests.Count -ne 1 -or $manifests[0] -ne $expectedManifest) {
+        $reasons.Add("automation/.compiled holds $($manifests.Count) Catzc.Types.*.json ($($manifests -join ', ')); expected exactly $expectedManifest beside the assembly — run the importer")
+    }
     if (Test-GitPathChanged 'automation/.compiled') {
         $reasons.Add('automation/.compiled has pending git changes — commit the rebuilt Catzc.Types.<hash>.dll')
     }

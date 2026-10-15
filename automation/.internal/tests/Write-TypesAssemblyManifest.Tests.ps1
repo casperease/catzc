@@ -4,7 +4,7 @@ Describe 'Write-TypesAssemblyManifest' -Tag 'L0', 'logic' {
         Add-Type -TypeDefinition 'namespace Fx { public class Widget { } public class Gadget { } }' -OutputAssembly $script:dll -OutputType Library
     }
 
-    It 'writes Catzc.Types.<hash>.json beside the assembly and returns its path' {
+    It 'writes the hash-named json beside the assembly and returns its path' {
         $path = Write-TypesAssemblyManifest -Path $dll
         $path | Should -Be (Join-Path $TestDrive 'Catzc.Types.abcd1234.json')
         [System.IO.File]::Exists($path) | Should -BeTrue

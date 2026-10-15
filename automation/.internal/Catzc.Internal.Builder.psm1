@@ -219,7 +219,8 @@ function Get-BuildClosureViolation {
         if (-not [System.IO.Directory]::Exists($moduleDirectory)) {
             continue
         }
-        foreach ($file in [System.IO.Directory]::EnumerateFiles($moduleDirectory, '*.ps1', [System.IO.SearchOption]::AllDirectories)) {
+        # A module's scripts sit at most three levels below its folder (tests/types/ is the deepest).
+        foreach ($file in Get-ChildPath $moduleDirectory -File -Filter '*.ps1' -Depth 3) {
             $relativePath = [System.IO.Path]::GetRelativePath($SourceRoot, $file).Replace('\', '/')
             if ($relativePath.EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase) -or
                 $relativePath.StartsWith("$name/tests/", [System.StringComparison]::Ordinal) -or
@@ -388,7 +389,8 @@ function Get-BuildFileCopy {
         return
     }
     $sourceFull = [System.IO.Path]::GetFullPath($SourceDirectory)
-    foreach ($file in [System.IO.Directory]::EnumerateFiles($sourceFull, '*', [System.IO.SearchOption]::AllDirectories)) {
+    # A named whole-tree walk (ADR-PWSH-ENUM#3): the build copies every shippable file, so nothing is pruned here.
+    foreach ($file in Get-ChildPath $sourceFull -File -Depth 64 -Exclude @() -PruneVendor $false) {
         $relativePath = [System.IO.Path]::GetRelativePath($sourceFull, $file).Replace('\', '/')
         $segments = $relativePath.Split('/')
         $excluded = $false
@@ -556,11 +558,20 @@ function Get-ModuleBuildPlan {
         # [comment:16](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment16)
         $dllPath = ".compiled/Catzc.Types.$typeHash.dll"
         $committed = [System.IO.Path]::Combine($SourceRoot, '.compiled', "Catzc.Types.$typeHash.dll")
+        $manifestPath = ".compiled/Catzc.Types.$typeHash.json"
+        $committedManifest = [System.IO.Path]::Combine($SourceRoot, '.compiled', "Catzc.Types.$typeHash.json")
         if ([System.IO.File]::Exists($committed)) {
             $entries.Add([pscustomobject]@{ Path = $dllPath; Kind = 'Copy'; Source = $committed; Content = $null; Exports = $null; Normalize = $false })
+            if ([System.IO.File]::Exists($committedManifest)) {
+                $entries.Add([pscustomobject]@{ Path = $manifestPath; Kind = 'Copy'; Source = $committedManifest; Content = $null; Exports = $null; Normalize = $false })
+            }
+            else {
+                $violations.Add("automation/.compiled/Catzc.Types.$typeHash.json: the types manifest beside the committed assembly does not exist; run the importer")
+            }
         }
         else {
             $entries.Add([pscustomobject]@{ Path = $dllPath; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })
+            $entries.Add([pscustomobject]@{ Path = $manifestPath; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })
         }
     }
 
@@ -703,7 +714,8 @@ function Clear-StaleBuildFile {
     if (-not [System.IO.Directory]::Exists($BuildRoot)) {
         return $removed
     }
-    foreach ($file in @([System.IO.Directory]::EnumerateFiles($BuildRoot, '*', [System.IO.SearchOption]::AllDirectories))) {
+    # A named whole-tree walk (ADR-PWSH-ENUM#3): a stale file anywhere under the build root must go, so nothing is pruned.
+    foreach ($file in @(Get-ChildPath $BuildRoot -File -Depth 64 -Exclude @() -PruneVendor $false)) {
         $relativePath = [System.IO.Path]::GetRelativePath($BuildRoot, $file).Replace('\', '/')
         if (-not $KeepPath.Contains($relativePath)) {
             try {
@@ -716,7 +728,7 @@ function Clear-StaleBuildFile {
         }
     }
     # Deepest folders first, so a parent empties after its children.
-    $folders = [string[]] @([System.IO.Directory]::EnumerateDirectories($BuildRoot, '*', [System.IO.SearchOption]::AllDirectories))
+    $folders = [string[]] @(Get-ChildPath $BuildRoot -Directory -Depth 64 -Exclude @() -PruneVendor $false)
     [System.Array]::Sort($folders, [System.Comparison[string]] { param($left, $right) $right.Length.CompareTo($left.Length) })
     foreach ($folder in $folders) {
         if (-not [System.IO.Directory]::EnumerateFileSystemEntries($folder).GetEnumerator().MoveNext()) {

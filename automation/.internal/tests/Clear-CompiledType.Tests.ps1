@@ -25,11 +25,18 @@ Describe 'Clear-CompiledType' -Tag 'L0', 'logic' {
         New-Item -Path $compiled -ItemType Directory -Force | Out-Null
         Set-Content (Join-Path $compiled 'Catzc.Types.11111111.dll') 'x'
         Set-Content (Join-Path $compiled 'Catzc.Types.22222222.dll') 'x'
+        Set-Content (Join-Path $compiled 'Catzc.Types.11111111.json') '{}'
+        Set-Content (Join-Path $compiled 'Catzc.Types.22222222.json') '{}'
     }
 
     It 'deletes every compiled DLL under .compiled' {
         InModuleScope Catzc.Internal.Bootstrap -Parameters @{ Root = $root } { param($Root) Clear-CompiledType -ModulesRoot $Root }
         @(Get-ChildItem $compiled -Filter '*.dll').Count | Should -Be 0
+    }
+
+    It 'deletes each DLL''s manifest with it' {
+        InModuleScope Catzc.Internal.Bootstrap -Parameters @{ Root = $root } { param($Root) Clear-CompiledType -ModulesRoot $Root }
+        @(Get-ChildItem $compiled -Filter '*.json').Count | Should -Be 0
     }
 
     It 'does not throw when .compiled is absent' {
@@ -50,6 +57,8 @@ Describe 'Clear-CompiledType' -Tag 'L0', 'logic' {
                 Should -Not -Throw
             $locked | Should -Exist                                    # locked one survives
             Join-Path $compiled 'Catzc.Types.22222222.dll' | Should -Not -Exist   # the rest removed
+            Join-Path $compiled 'Catzc.Types.11111111.json' | Should -Exist       # the locked build keeps its manifest
+            Join-Path $compiled 'Catzc.Types.22222222.json' | Should -Not -Exist
         }
         finally {
             $stream.Dispose()

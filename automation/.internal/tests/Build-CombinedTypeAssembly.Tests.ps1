@@ -82,6 +82,20 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         $again.Path | Should -Be $built.Path
     }
 
+    It 'writes the hash-named manifest beside the DLL, listing its types' {
+        $built.Manifest | Should -Be (Join-Path $output "Catzc.Types.$($built.Hash).json")
+        $manifest = [System.IO.File]::ReadAllText($built.Manifest) | ConvertFrom-Json
+        $manifest.hash | Should -Be $built.Hash
+        @($manifest.types.name) | Should -Be @("$gadget.Lever", "$widget.Sprocket")
+    }
+
+    It 'restores a missing manifest when the DLL of the same hash already exists' {
+        [System.IO.File]::Delete($built.Manifest)
+        $again = Build-CombinedTypeAssembly -AutomationRoot $root -OutputDirectory $output
+        $again.Compiled | Should -BeFalse
+        [System.IO.File]::Exists($again.Manifest) | Should -BeTrue
+    }
+
     It 'compiles only the selected modules, under the subset hash' {
         $subsetOutput = Join-Path $TestDrive 'subset'
         $subset = Build-CombinedTypeAssembly -AutomationRoot $root -Module $widget -OutputDirectory $subsetOutput

@@ -268,7 +268,8 @@ function Build-CombinedTypeAssembly {
     .PARAMETER OutputDirectory
         The directory the Catzc.Types.<hash>.dll is written to; created when missing.
     .OUTPUTS
-        [pscustomobject] with Hash (the 8-char combined hash), Path (the DLL), Files (the source list, in order,
+        [pscustomobject] with Hash (the 8-char combined hash), Path (the DLL), Manifest (the Catzc.Types.<hash>.json beside
+        it, written when missing), Files (the source list, in order,
         from Get-CombinedTypeHash), Snapshot (the per-file digests), and Compiled (whether this call ran the compiler).
         $null when the selection ships no C# type source.
     .EXAMPLE
@@ -300,6 +301,7 @@ function Build-CombinedTypeAssembly {
         return [pscustomobject]@{
             Hash     = $hashResult.CombinedHash
             Path     = $dll
+            Manifest = Write-TypesAssemblyManifest -Path $dll
             Files    = $hashResult.Files
             Snapshot = $hashResult.Snapshot
             Compiled = $false
@@ -367,6 +369,7 @@ function Build-CombinedTypeAssembly {
     [pscustomobject]@{
         Hash     = $frozen.CombinedHash
         Path     = $dll
+        Manifest = Write-TypesAssemblyManifest -Path $dll
         Files    = $hashResult.Files
         Snapshot = $frozen.Snapshot
         Compiled = $compiled
@@ -603,10 +606,14 @@ function Get-TypesAssemblyManifest {
         while ($null -eq $effective.Display -and $null -ne $effective.Base -and $rows.ContainsKey($effective.Base)) {
             $effective = $rows[$effective.Base]
         }
+        $displayNames = [string[]] @()
+        if ($null -ne $effective.Display) {
+            $displayNames = [string[]] $effective.Display.ToArray()
+        }
         [pscustomobject]@{
             Name    = $row.Name
             Aliases = [string[]] @($row.Aliases)
-            Display = if ($null -eq $effective.Display) { [string[]] @() } else { [string[]] $effective.Display.ToArray() }
+            Display = $displayNames
         }
     }
     $sorted = [object[]] @($types)

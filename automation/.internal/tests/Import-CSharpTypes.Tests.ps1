@@ -115,6 +115,36 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -like 'Built *' }
         }
 
+        It 'writes the types manifest beside the DLL it builds' {
+            $namespace = "CatzcTestManifest$runId"
+            $root = New-FixtureRoot @{ $namespace = @{ Omega = 'public class Omega { }' } }
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            $manifests = @([System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json'))
+            $manifests.Count | Should -Be 1
+            @(([System.IO.File]::ReadAllText($manifests[0]) | ConvertFrom-Json).types.name) | Should -Be @("$namespace.Omega")
+        }
+
+        It 'restores a missing manifest beside a DLL that predates it' {
+            $namespace = "CatzcTestRestore$runId"
+            $root = New-FixtureRoot @{ $namespace = @{ Psi = 'public class Psi { }' } }
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            $manifest = @([System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json'))[0]
+            [System.IO.File]::Delete($manifest)
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            [System.IO.File]::Exists($manifest) | Should -BeTrue
+        }
+
+        It 'throws for a bundle whose manifest is missing and never writes one' {
+            $namespace = "CatzcTestBundle$runId"
+            $root = New-FixtureRoot @{ $namespace = @{ Chi = 'public class Chi { }' } }
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            $manifest = @([System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json'))[0]
+            [System.IO.File]::Delete($manifest)
+            { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -PrebuiltOnly } } |
+                Should -Throw '*missing its prebuilt types manifest*'
+            [System.IO.File]::Exists($manifest) | Should -BeFalse
+        }
+
         It 'is a no-op when the types are already loaded with unchanged sources' {
             $namespace = "CatzcTestDelta$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Delta = 'public class Delta { }' } }
