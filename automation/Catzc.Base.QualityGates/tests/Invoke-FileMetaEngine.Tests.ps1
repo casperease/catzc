@@ -14,10 +14,14 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
                 carriers = [ordered]@{
                     powershell = @{ carrier = 'comment-head'; block = @('<#', '#>') }
                     markdown   = @{ carrier = 'front-matter' }
+                    json       = @{ carrier = 'property'; property = '//'; strip = @('GENERATED FILE') }
+                    picture    = @{ files = @('**/*.pic'); carrier = 'sidecar'; sidecar = '{base}.md' }
                 }
             })
         $script:head = $carriers.Find('powershell')
         $script:front = $carriers.Find('markdown')
+        $script:property = $carriers.Find('json')
+        $script:sidecar = $carriers.Find('picture')
         $script:config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{
                     'file-path'   = @{ keys = @('path') }
@@ -83,6 +87,51 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $markdown = $result.Files | Where-Object Path -EQ 'docs/widget.md'
         $markdown.Fixed | Should -BeLike "---`ncatzc:`n  derived:`n    path: docs/widget.md*---*# Widget*"
         $markdown.Fixed | Should -Not -BeLike '*module:*' -Because 'the module kind lists automation/** only'
+    }
+
+    It 'imprints a JSON file''s block as its first property, and finds nothing to change once it is written' {
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.json'), "{`n  `"name`": `"widget`"`n}`n")
+        $entry = [pscustomobject]@{ Path = 'docs/widget.json'; Carrier = $script:property }
+        $first = & $script:run @($entry)
+        $first.Files[0].Findings[0].Kind | Should -Be 'Drift'
+        $first.Files[0].Fixed | Should -BeExactly "{`n  `"//`": `"catzc:\n  derived:\n    path: docs/widget.json`",`n  `"name`": `"widget`"`n}`n"
+
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.json'), $first.Files[0].Fixed)
+        @((& $script:run @($entry)).Files).Count | Should -Be 0
+    }
+
+    It 'replaces an old banner a property carrier strips, and reports a foreign value of the property' {
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/banner.json'), "{`n  `"//`": `"GENERATED FILE - do not edit.`",`n  `"name`": `"widget`"`n}`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/note.json'), "{`n  `"//`": `"a note someone wrote`"`n}`n")
+        $banner = & $script:run @([pscustomobject]@{ Path = 'docs/banner.json'; Carrier = $script:property })
+        $banner.Files[0].Fixed | Should -BeExactly "{`n  `"//`": `"catzc:\n  derived:\n    path: docs/banner.json`",`n  `"name`": `"widget`"`n}`n"
+
+        $note = & $script:run @([pscustomobject]@{ Path = 'docs/note.json'; Carrier = $script:property })
+        $note.Files[0].Findings.Kind | Should -Be @('UnownedHead')
+        $note.Files[0].Findings[0].Actual | Should -BeLike "property '//' holds something else"
+        $note.Files[0].Fixed | Should -BeExactly "{`n  `"//`": `"a note someone wrote`"`n}`n"
+    }
+
+    It 'leaves a JSON text that is no object alone' {
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/list.json'), "[1, 2]`n")
+        $result = & $script:run @([pscustomobject]@{ Path = 'docs/list.json'; Carrier = $script:property })
+        $result.FileCount | Should -Be 1
+        @($result.Files).Count | Should -Be 0
+    }
+
+    It 'asks a sidecar carrier only for the description beside the file, and never reads the file itself' {
+        [System.IO.File]::WriteAllBytes((Join-Path $script:widgetRoot 'docs/gadget.pic'), [byte[]] @(0, 255, 1))
+        [System.IO.File]::WriteAllBytes((Join-Path $script:widgetRoot 'docs/sprocket.pic'), [byte[]] @(0, 255, 2))
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/sprocket.md'), "# Sprocket`n")
+        $result = & $script:run @(
+            [pscustomobject]@{ Path = 'docs/gadget.pic'; Carrier = $script:sidecar }
+            [pscustomobject]@{ Path = 'docs/sprocket.pic'; Carrier = $script:sidecar }
+        )
+        $result.FileCount | Should -Be 2
+        @($result.Files).Count | Should -Be 1
+        $result.Files[0].Path | Should -Be 'docs/gadget.pic'
+        $result.Files[0].Findings[0].Kind | Should -Be 'MissingSidecar'
+        $result.Files[0].Findings[0].Expected | Should -Be 'docs/gadget.md'
     }
 
     It 'checks the entries it is handed, and never asks for a scope of its own' {

@@ -47,12 +47,5 @@ function New-VSCodeExtensions {
         recommendations = $recommendations.ToArray()
     }
 
-    $header = @(
-        '// GENERATED FILE — do not edit. Single source of truth:'
-        '//   automation/Catzc.Base.VSCode/configs/vscode-extensions.yml (the authored recommendations + comments)'
-        '//   automation/Catzc.Base.Languages/configs/languages.yml (the formatter engines'' extensions)'
-        '// Regenerated on import by Build-RootConfig; edit the yml, not this file (VS Code reads the // header fine).'
-    ) -join "`n"
-
-    $header + "`n" + (ConvertTo-Json -InputObject $rendered -Depth 4) + "`n"
+    (ConvertTo-Json -InputObject $rendered -Depth 4) + "`n"
 }

@@ -66,17 +66,9 @@ function New-GoWorkspace {
     }
     $folders.Sort([System.StringComparer]::Ordinal)
 
-    [string[]] $header = @(
-        '// GENERATED FILE — do not edit. Single source of truth:'
-        "//   automation/Catzc.Base.Languages/configs/go.yml (rendered by New-GoWorkspace over the $testsRelative/*/ folders)"
-        '//   the go directive: the go pin in automation/Catzc.Base.Execution/configs/tools.yml'
-        '// Regenerated on import by Build-RootConfig; edit the yml or the folders, not this file.'
-    )
-
     $files = [System.Collections.Generic.List[Catzc.Base.Languages.GoWorkspaceFile]]::new()
 
-    $work = [System.Collections.Generic.List[string]]::new($header)
-    $work.Add('')
+    $work = [System.Collections.Generic.List[string]]::new()
     $work.Add("go $goVersion")
     if ($folders.Count -gt 0) {
         $work.Add('')
@@ -89,8 +81,7 @@ function New-GoWorkspace {
     $files.Add([Catzc.Base.Languages.GoWorkspaceFile]::new('go.work', ($work -join "`n") + "`n"))
 
     foreach ($folder in $folders) {
-        $mod = [System.Collections.Generic.List[string]]::new($header)
-        $mod.Add('')
+        $mod = [System.Collections.Generic.List[string]]::new()
         $mod.Add("module $($config.module_root)/$folder")
         $mod.Add('')
         $mod.Add("go $goVersion")

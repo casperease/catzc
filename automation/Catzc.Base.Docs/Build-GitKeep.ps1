@@ -51,7 +51,8 @@ function Build-GitKeep {
 
     $sourcePath = Get-CatzcModuleRoot 'assets/gitkeep'
     Assert-PathExist $sourcePath
-    $content = [System.IO.File]::ReadAllText($sourcePath)
+    $text = [System.IO.File]::ReadAllText($sourcePath)
+    $sourceRelative = ConvertTo-RepoRelativePath $sourcePath
 
     $repositoryRoot = Get-RepositoryRoot
 
@@ -82,6 +83,7 @@ function Build-GitKeep {
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 
     $ret = foreach ($keep in $found) {
+        $content = Format-GeneratedFileHead -Text $text -Path $keep -Carrier placeholder -Generator Build-GitKeep -Source $sourceRelative
         $changed = Write-FileIfChanged (Resolve-RepoPath $keep) $content -DryRun:$DryRun
 
         if ($changed -and -not $Silent) {

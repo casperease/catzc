@@ -13,7 +13,7 @@ Describe 'RootConfigFile' -Tag 'L0', 'logic' {
         $f.target | Should -Be '.editorconfig'
         $f.source | Should -Be 'a/b/.editorconfig'
         $f.generator | Should -BeNullOrEmpty
-        $f.comment | Should -Be 'none'
+        $f.carrier | Should -BeNullOrEmpty
         $f.optIn | Should -BeFalse
         $f.committed | Should -BeFalse
         $f.copyAsLink | Should -BeFalse
@@ -28,9 +28,9 @@ Describe 'RootConfigFile' -Tag 'L0', 'logic' {
     }
 
     It 'presents as a read-only dictionary (DictionaryRecord)' {
-        $f = [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; comment = 'hash' })
+        $f = [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; carrier = 'dotfile' })
         $f.Contains('target') | Should -BeTrue
-        $f['comment'] | Should -Be 'hash'
+        $f['carrier'] | Should -Be 'dotfile'
     }
 
     It 'throws when target is missing' {
@@ -46,14 +46,21 @@ Describe 'RootConfigFile' -Tag 'L0', 'logic' {
         { [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't' }) } | Should -Throw '*exactly one*'
     }
 
-    It 'throws on an unknown comment style' {
-        { [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; comment = 'block' }) } |
-            Should -Throw '*unknown comment style*'
+    It 'lists the sources of a generator entry, and none for any other entry' {
+        $generated = [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; generator = 'g'; sources = @('a/widget.yml', 'a/gadget.yml') })
+        $generated.sources | Should -Be @('a/widget.yml', 'a/gadget.yml')
+        [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; generator = 'g' }).sources.Count | Should -Be 0
+        [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's' }).sources.Count | Should -Be 0
     }
 
-    It 'throws when a generator entry declares a comment style' {
-        { [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; generator = 'g'; comment = 'hash' }) } |
-            Should -Throw '*must not declare*'
+    It 'throws when a source copy-in lists sources' {
+        { [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; sources = @('a/widget.yml') }) } |
+            Should -Throw '*lists ''sources'' but no ''generator''*'
+    }
+
+    It 'carries the carrier of a source copy-in and of a generator entry' {
+        [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; carrier = 'dotfile' }).carrier | Should -Be 'dotfile'
+        [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; generator = 'g'; carrier = 'go-workspace' }).carrier | Should -Be 'go-workspace'
     }
 
     It 'constructs a generator entry with a wildcard target' {
@@ -84,10 +91,8 @@ Describe 'RootConfigFile' -Tag 'L0', 'logic' {
             Should -Throw '*committed true*'
     }
 
-    It 'throws when a copyAsLink entry declares a comment style, even an explicit none' {
-        { [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; copyAsLink = $true; comment = 'hash' }) } |
-            Should -Throw '*must not declare ''comment''*'
-        { [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; copyAsLink = $true; comment = 'none' }) } |
-            Should -Throw '*must not declare ''comment''*'
+    It 'throws when a copyAsLink entry declares a carrier' {
+        { [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; copyAsLink = $true; carrier = 'dotfile' }) } |
+            Should -Throw '*must not declare ''carrier''*'
     }
 }

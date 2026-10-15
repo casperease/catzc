@@ -33,10 +33,10 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Base.RootConfig {
             [pscustomobject]@{
                 files = @(
-                    [pscustomobject]@{ target = 'fixture.yml'; source = 'sources/fixture.yml'; generator = $null; comment = 'hash'; optIn = $true; committed = $false; copyAsLink = $false }
-                    [pscustomobject]@{ target = 'generated.txt'; source = $null; generator = 'Fake-Generator'; comment = 'none'; optIn = $true; committed = $true; copyAsLink = $false }
-                    [pscustomobject]@{ target = 'linked.yml'; source = 'sources/fixture.yml'; generator = $null; comment = 'none'; optIn = $true; committed = $false; copyAsLink = $true }
-                    [pscustomobject]@{ target = 'opted-out.yml'; source = 'sources/missing.yml'; generator = $null; comment = 'none'; optIn = $false; committed = $false; copyAsLink = $false }
+                    [pscustomobject]@{ target = 'fixture.yml'; source = 'sources/fixture.yml'; sources = @(); generator = $null; carrier = $null; optIn = $true; committed = $false; copyAsLink = $false }
+                    [pscustomobject]@{ target = 'generated.txt'; source = $null; sources = @('sources/fixture.yml'); generator = 'Fake-Generator'; carrier = 'dotfile'; optIn = $true; committed = $true; copyAsLink = $false }
+                    [pscustomobject]@{ target = 'linked.yml'; source = 'sources/fixture.yml'; sources = @(); generator = $null; carrier = $null; optIn = $true; committed = $false; copyAsLink = $true }
+                    [pscustomobject]@{ target = 'opted-out.yml'; source = 'sources/missing.yml'; sources = @(); generator = $null; carrier = $null; optIn = $false; committed = $false; copyAsLink = $false }
                 )
             }
         }
@@ -50,17 +50,15 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         Remove-Item $script:copyTarget, $script:genTarget -Force -ErrorAction Ignore
     }
 
-    It 'copies a source entry out with the hash header naming the source' {
+    It 'copies a source entry out under a generated-from-source head naming the source' {
         Build-RootConfig | Out-Null
         $text = [System.IO.File]::ReadAllText($script:copyTarget)
-        ($text -split "`n")[0] | Should -Match '^# GENERATED FILE'
-        $text | Should -Match ([regex]::Escape('sources/fixture.yml'))
-        $text | Should -Match "alpha: 1`nbeta: 2"
+        $text | Should -BeExactly "# ---`n# catzc:`n#   derived:`n#     path: fixture.yml`n#     kind: generated-from-source`n#     source: sources/fixture.yml`n# ---`n`nalpha: 1`nbeta: 2`n"
     }
 
-    It 'renders a generator entry through the dispatch, verbatim (no header injected)' {
+    It 'renders a generator entry through the dispatch, under a head naming the generator and its sources' {
         Build-RootConfig | Out-Null
-        [System.IO.File]::ReadAllText($script:genTarget) | Should -BeExactly "rendered output`n"
+        [System.IO.File]::ReadAllText($script:genTarget) | Should -BeExactly "# ---`n# catzc:`n#   derived:`n#     path: generated.txt`n#     kind: generated-from-source`n#     generator: Fake-Generator`n#     source: sources/fixture.yml`n# ---`n`nrendered output`n"
         Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'Fake-Generator' -and $Target -eq 'generated.txt' }
     }
 
@@ -95,8 +93,8 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     }
 
     It 'treats a linked target as stale for a copy entry, even with identical content' {
-        # A comment:none entry flipped back from copyAsLink: the composed copy is byte-identical to the source,
-        # so only the is-link check can convert the leftover link back into an independent file.
+        # An entry flipped back from copyAsLink: the leftover link reads the same as the source, so only the is-link
+        # check can convert it back into an independent file.
         $sourceOnDisk = Join-Path $script:fake.Root 'sources/fixture.yml'
         New-Item -ItemType HardLink -Path $script:copyTarget -Target $sourceOnDisk | Out-Null
 
@@ -151,6 +149,11 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         }
         $script:alpha = Join-Path $script:fake.Root 'widgets/alpha/gadget.txt'
         $script:beta = Join-Path $script:fake.Root 'widgets/beta/gadget.txt'
+        # The generated-from-source head a generator's file carries, over the content the generator rendered.
+        $script:headed = {
+            param([string] $Target, [string] $Body)
+            "# ---`n# catzc:`n#   derived:`n#     path: $Target`n#     kind: generated-from-source`n#     generator: New-Widget`n# ---`n`n$Body"
+        }
 
         Mock Write-Message -ModuleName Catzc.Base.RootConfig { }
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
@@ -161,7 +164,7 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Base.RootConfig {
             [pscustomobject]@{
                 files = @(
-                    [pscustomobject]@{ target = 'widgets/*/gadget.txt'; source = $null; generator = 'New-Widget'; comment = 'none'; optIn = $true; committed = $false; copyAsLink = $false }
+                    [pscustomobject]@{ target = 'widgets/*/gadget.txt'; source = $null; sources = @(); generator = 'New-Widget'; carrier = 'dotfile'; optIn = $true; committed = $false; copyAsLink = $false }
                 )
             }
         }
@@ -177,8 +180,8 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
 
     It 'passes the wildcard target to the generator and writes every record' {
         Build-RootConfig | Out-Null
-        [System.IO.File]::ReadAllText($script:alpha) | Should -BeExactly "alpha`n"
-        [System.IO.File]::ReadAllText($script:beta) | Should -BeExactly "beta`n"
+        [System.IO.File]::ReadAllText($script:alpha) | Should -BeExactly (& $script:headed 'widgets/alpha/gadget.txt' "alpha`n")
+        [System.IO.File]::ReadAllText($script:beta) | Should -BeExactly (& $script:headed 'widgets/beta/gadget.txt' "beta`n")
         Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'New-Widget' -and $Target -eq 'widgets/*/gadget.txt' }
     }
 
@@ -194,7 +197,7 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:beta, "stale`n")
         $result = Build-RootConfig -PassThru
         @($result | Where-Object Changed).Target | Should -Be 'widgets/beta/gadget.txt'
-        [System.IO.File]::ReadAllText($script:beta) | Should -BeExactly "beta`n"
+        [System.IO.File]::ReadAllText($script:beta) | Should -BeExactly (& $script:headed 'widgets/beta/gadget.txt' "beta`n")
     }
 
     It '-Target naming one file of the wildcard entry writes only that file' {
@@ -239,8 +242,8 @@ Describe 'Build-RootConfig — the real New-GoWorkspace generator, <_>/ root' -T
         $script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{ "$($script:goRoot)/tests/widget/widget_test.go" = "package widget`n" }
         $script:registry = [Catzc.Base.RootConfig.RootConfigFiles]::new(@{
                 files = @(
-                    @{ target = 'go.work'; generator = 'New-GoWorkspace'; optIn = $true }
-                    @{ target = '*/tests/*/go.mod'; generator = 'New-GoWorkspace'; optIn = $true }
+                    @{ target = 'go.work'; generator = 'New-GoWorkspace'; carrier = 'go-workspace'; optIn = $true }
+                    @{ target = '*/tests/*/go.mod'; generator = 'New-GoWorkspace'; carrier = 'go-workspace'; optIn = $true }
                 )
             })
         Mock Get-Config -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Config -eq 'rootconfig' } { $script:registry }

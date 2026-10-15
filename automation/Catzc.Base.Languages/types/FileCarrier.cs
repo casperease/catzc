@@ -55,7 +55,7 @@ public sealed class FileCarrier
     // Globs of files in this class that carry no block, each with the reason. Empty when none is left out.
     public IReadOnlyDictionary<string, string> exclude { get; }
 
-    // First lines of old heads the formatter removes with their comment run before it writes the head. Empty when none is left to strip.
+    // Beginnings of old heads the formatter removes before it writes the head: the first line of a comment run, or the start of a property's value. Empty when none is left to strip.
     public IReadOnlyList<string> strip { get; }
 
     public FileCarrier(string id, string[] files, CarrierKind carrier, string line, string[] block, Catzc.Base.CodeMeta.HeadAnchor anchor,

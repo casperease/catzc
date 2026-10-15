@@ -33,8 +33,11 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
     // [comment:3](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment3)
     public string generator { get; }
 
-    // Generated-file header style for source copy-ins: "hash" (# ... block) or "none". Default "none".
-    public string comment { get; }
+    // The authored files a generator renders from, named in the generated-file head. Only a generator entry has any; empty otherwise.
+    public string[] sources { get; }
+
+    // The id of the file-carriers entry that says where the generated-file head goes. Default: the entry of the target's file language.
+    public string carrier { get; }
 
     // Is this file managed at all? Opt-out is the default: false leaves the target hand-authored and committed.
     public bool optIn { get; }
@@ -43,7 +46,7 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
     // [comment:4](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment4)
     public bool committed { get; }
 
-    // Requires source, requires committed false, and forbids a declared comment, as a link carries no generated content.
+    // Requires source, requires committed false, and forbids a declared carrier, as a link carries no generated content.
     // [comment:5](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment5)
     public bool copyAsLink { get; }
 
@@ -53,7 +56,8 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
         target = Req(d, "target");
         source = OptStr(d, "source");
         generator = OptStr(d, "generator");
-        comment = OptStr(d, "comment") ?? "none";
+        sources = StrArr(d, "sources");
+        carrier = OptStr(d, "carrier");
         optIn = Flag(d, "optIn");
         committed = Flag(d, "committed");
         copyAsLink = Flag(d, "copyAsLink");
@@ -68,15 +72,10 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
             throw new ArgumentException(string.Format(
                 "root config entry '{0}' has a wildcard target but no 'generator' — only a generator renders a set of files", target));
         }
-        if (comment != "hash" && comment != "none")
+        if (sources.Length > 0 && generator == null)
         {
             throw new ArgumentException(string.Format(
-                "root config entry '{0}' has unknown comment style '{1}' (expected 'hash' or 'none')", target, comment));
-        }
-        if (generator != null && OptStr(d, "comment") != null)
-        {
-            throw new ArgumentException(string.Format(
-                "root config entry '{0}' is generator-produced and must not declare 'comment' — the generator owns its whole output", target));
+                "root config entry '{0}' lists 'sources' but no 'generator' — a source copy-in names its one file with 'source'", target));
         }
         if (copyAsLink && source == null)
         {
@@ -88,10 +87,10 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
             throw new ArgumentException(string.Format(
                 "root config entry '{0}' declares copyAsLink with committed true — a tracked target must be a real file, never a link", target));
         }
-        if (copyAsLink && OptStr(d, "comment") != null)
+        if (copyAsLink && carrier != null)
         {
             throw new ArgumentException(string.Format(
-                "root config entry '{0}' declares copyAsLink and must not declare 'comment' — a link carries no generated content", target));
+                "root config entry '{0}' declares copyAsLink and must not declare 'carrier' — a link carries no generated content", target));
         }
     }
 }

@@ -35,9 +35,6 @@ function Test-GeneratedFiles {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [ValidateSet('Build-AdrIndex', 'Build-Glossary', 'Build-Readme', 'Build-ContractReference', 'Build-GitKeep', 'Build-TerminologyDictionary',
-            'Build-EnglishDictionary', 'Build-RootConfig', 'New-Importer', 'New-GitIgnore', 'New-VSCodeSettings',
-            'New-VSCodeExtensions', 'New-VSCodeLaunch', 'New-VSCodePipelineSchema', 'New-GoWorkspace')]
         [string[]] $Generator,
 
         [string] $OutputFolder,
@@ -47,13 +44,20 @@ function Test-GeneratedFiles {
 
     Assert-SourceTree
 
-    $rootConfigGenerators = @('New-Importer', 'New-GitIgnore', 'New-VSCodeSettings', 'New-VSCodeExtensions', 'New-VSCodeLaunch', 'New-VSCodePipelineSchema', 'New-GoWorkspace')
+    $known = @(Get-GeneratedFileGenerator)
+    foreach ($name in $Generator) {
+        if ($name -notin $known) {
+            throw "Unknown generator '$name'. The generators are: $($known -join ', ') (generated-files.yml lists the writers, rootconfig.yml the root-file generators)."
+        }
+    }
+    $writers = (Get-Config -Config generated-files).writers
+    $rootConfigGenerators = @($known | Where-Object { -not $writers.Contains($_) })
     # @() around the whole if: a one-generator selection must stay an array (.Count under strict mode).
     $selected = @(if ($Generator) {
             $Generator
         }
         else {
-            @('Build-AdrIndex', 'Build-Glossary', 'Build-Readme', 'Build-ContractReference', 'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-EnglishDictionary', 'Build-RootConfig') + $rootConfigGenerators
+            $known
         })
 
     $issues = [System.Collections.Generic.List[string]]::new()
@@ -69,67 +73,44 @@ function Test-GeneratedFiles {
         $issues.Add("${relative}: stale — $Name would change it; regenerate with: $Command")
     }
 
-    # The single-file writers: one result object with Path and Changed.
-    foreach ($name in 'Build-AdrIndex', 'Build-Glossary') {
-        if ($name -in $selected) {
-            $result = & $name -DryRun -PassThru -Silent
-            if ($result.Changed) {
-                & $addStale $result.Path $name $name
+    # Each registered writer is run by its check; the registry (generated-files.yml) says which check and, for a file result, which property holds the path.
+    foreach ($writer in $writers.Values) {
+        $writerName = $writer.name
+        switch ($writer.check) {
+            'file' {
+                if ($writerName -in $selected) {
+                    foreach ($result in @(& $writerName -DryRun -PassThru -Silent)) {
+                        if ($result.Changed) {
+                            & $addStale $result.($writer.result_path) $writerName $writerName
+                        }
+                    }
+                }
             }
-        }
-    }
-
-    # The per-file writers: one result object per file.
-    if ('Build-Readme' -in $selected) {
-        foreach ($result in @(Build-Readme -DryRun -PassThru -Silent)) {
-            if ($result.Changed) {
-                & $addStale $result.Readme 'Build-Readme' 'Build-Readme'
+            'english-dictionary' {
+                # The committed English list, from its stamp: the pin is tools.yml's, read by address (no Tooling edge).
+                if ($writerName -in $selected) {
+                    $assetsFolder = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/assets'
+                    $pinned = "$(Get-ConfigValue -Address 'global.tools.cspell.version')"
+                    foreach ($reason in @(Get-EnglishDictionaryDrift -AssetsFolder $assetsFolder -PinnedCspell $pinned)) {
+                        $issues.Add("automation/Catzc.Base.QualityGates/assets/english.txt.gz: stale — $reason; regenerate with: $writerName (commit the gz and its stamp)")
+                    }
+                }
             }
-        }
-    }
-    if ('Build-ContractReference' -in $selected) {
-        foreach ($result in @(Build-ContractReference -DryRun -PassThru -Silent)) {
-            if ($result.Changed) {
-                & $addStale $result.Path 'Build-ContractReference' 'Build-ContractReference'
-            }
-        }
-    }
-    if ('Build-GitKeep' -in $selected) {
-        foreach ($result in @(Build-GitKeep -DryRun -PassThru -Silent)) {
-            if ($result.Changed) {
-                & $addStale $result.Path 'Build-GitKeep' 'Build-GitKeep'
-            }
-        }
-    }
-    if ('Build-TerminologyDictionary' -in $selected) {
-        foreach ($result in @(Build-TerminologyDictionary -DryRun -PassThru -Silent)) {
-            if ($result.Changed) {
-                & $addStale $result.Path 'Build-TerminologyDictionary' 'Build-TerminologyDictionary'
-            }
-        }
-    }
-
-    # The committed English list, from its stamp: the pin is tools.yml's, read by address (no Tooling edge).
-    if ('Build-EnglishDictionary' -in $selected) {
-        $assetsFolder = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/assets'
-        $pinned = "$(Get-ConfigValue -Address 'global.tools.cspell.version')"
-        foreach ($reason in @(Get-EnglishDictionaryDrift -AssetsFolder $assetsFolder -PinnedCspell $pinned)) {
-            $issues.Add("automation/Catzc.Base.QualityGates/assets/english.txt.gz: stale — $reason; regenerate with: Build-EnglishDictionary (commit the gz and its stamp)")
-        }
-    }
-
-    # The managed root files: Build-RootConfig selects them all, a generator only the files it renders.
-    $rootConfigSelected = @($selected | Where-Object { $_ -eq 'Build-RootConfig' -or $_ -in $rootConfigGenerators })
-    if ($rootConfigSelected.Count -gt 0) {
-        foreach ($result in @(Build-RootConfig -DryRun -PassThru -Silent)) {
-            $name = if ($result.Generator) {
-                "$($result.Generator)"
-            }
-            else {
-                'Build-RootConfig'
-            }
-            if ($result.Changed -and ('Build-RootConfig' -in $selected -or $name -in $selected)) {
-                & $addStale $result.Target $name "Build-RootConfig '$($result.Target)'"
+            'root-config' {
+                # The managed root files: the writer selects them all, a generator only the files it renders.
+                if ($writerName -in $selected -or @($selected | Where-Object { $_ -in $rootConfigGenerators }).Count -gt 0) {
+                    foreach ($result in @(& $writerName -DryRun -PassThru -Silent)) {
+                        $name = if ($result.Generator) {
+                            "$($result.Generator)"
+                        }
+                        else {
+                            $writerName
+                        }
+                        if ($result.Changed -and ($writerName -in $selected -or $name -in $selected)) {
+                            & $addStale $result.Target $name "$writerName '$($result.Target)'"
+                        }
+                    }
+                }
             }
         }
     }

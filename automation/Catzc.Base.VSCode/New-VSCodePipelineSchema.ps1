@@ -30,13 +30,10 @@ function New-VSCodePipelineSchema {
 
     $document = (Get-Config -Config vscode-pipeline-schema).document
 
-    # Strict JSON has no comment syntax, so the provenance marker rides in a '$comment' key the validator ignores.
+    # Strict JSON has no comment syntax, so Build-RootConfig writes the generated-file head into the '$comment' key the validator ignores.
     # [comment:2](/docs/references/automation/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md#comment2)
     $rendered = [ordered]@{}
     $rendered['$schema'] = $document['$schema']
-    $rendered['$comment'] = 'GENERATED FILE — do not edit. Source of truth: ' +
-    'automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml (authored schema + rationale). ' +
-    'Regenerated on import by Build-RootConfig; edit the yml, not this file.'
     foreach ($key in $document.Keys) {
         if ($key -eq '$schema') {
             continue

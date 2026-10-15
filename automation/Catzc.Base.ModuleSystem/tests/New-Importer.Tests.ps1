@@ -68,7 +68,7 @@ Describe 'New-Importer — build mode' -Tag 'L0', 'logic' {
 Describe 'New-Importer — importer.ps1 drift guard' -Tag 'L2', 'integrity', 'source-only' {
     # The committed importer.ps1 is generated from the Invoke-Importer overlay. These guard the two ways it can
     # drift: its parameter set must equal the overlay's (signature = parameter set, no tagging), and its whole
-    # content must equal New-Importer's output. To fix a failure, run New-Importer -Force and commit importer.ps1.
+    # content below its generated-file head must equal New-Importer's output. To fix a failure, run Build-RootConfig and commit importer.ps1.
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
         $script:importer = Join-Path $script:repoRoot 'importer.ps1'

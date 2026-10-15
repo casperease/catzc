@@ -25,16 +25,14 @@ Describe 'New-VSCodePipelineSchema' -Tag 'L0', 'logic' {
     It 'renders strict JSON (no // header) that parses' {
         $text = New-VSCodePipelineSchema
         # Strict JSON — unlike settings/extensions/launch.json there is no leading // comment block.
-        ($text -split "`n") | Should -Not -Contain '// GENERATED FILE — do not edit. Single source of truth:'
         $text | Should -Not -Match '(?m)^//'
         { $text | ConvertFrom-Json } | Should -Not -Throw
     }
 
-    It 'fronts the meta-schema then a $comment provenance marker' {
+    It 'fronts the meta-schema and leaves the $comment key to the generated-file head' {
         $json = New-VSCodePipelineSchema | ConvertFrom-Json
         $json.'$schema' | Should -Be 'http://example.test/schema#'
-        $json.'$comment' | Should -Match 'GENERATED FILE'
-        $json.'$comment' | Should -Match 'vscode-pipeline-schema\.yml'
+        $json.PSObject.Properties.Name | Should -Not -Contain '$comment'
     }
 
     It 'carries the authored schema body verbatim' {

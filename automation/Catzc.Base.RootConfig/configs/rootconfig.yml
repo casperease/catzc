@@ -16,46 +16,78 @@ files:
   # [comment:2](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment2)
   - target: importer.ps1
     generator: New-Importer
+    sources:
+      - automation/.internal/Catzc.Internal.Importer.psm1
     committed: true
     optIn: true
   # Committed like importer.ps1, because a fresh clone needs it before any import has run.
   # [comment:3](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment3)
   - target: importer.sh
     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
-    comment: hash
     committed: true
     optIn: true
   # Gitignored generated copies: a fresh clone materialises them on the first import, and the editor greys them.
   # [comment:4](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment4)
   - target: .vscode/settings.json
     generator: New-VSCodeSettings
+    sources:
+      - automation/Catzc.Base.VSCode/configs/vscode-settings.yml
+      - automation/Catzc.Base.RootConfig/configs/rootconfig.yml
+      - automation/Catzc.Base.Languages/configs/languages.yml
+    carrier: jsonc
     optIn: true
   - target: .vscode/extensions.json
     generator: New-VSCodeExtensions
+    sources:
+      - automation/Catzc.Base.VSCode/configs/vscode-extensions.yml
+      - automation/Catzc.Base.Languages/configs/languages.yml
+    carrier: jsonc
     optIn: true
   - target: .vscode/launch.json
     generator: New-VSCodeLaunch
+    sources:
+      - automation/Catzc.Base.VSCode/configs/vscode-launch.yml
+    carrier: jsonc
     optIn: true
   # A gitignored generated copy like the other editor files, wired in through azure-pipelines.customSchemaFile.
   # [comment:5](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment5)
   - target: .vscode/azure-pipelines-schema.json
     generator: New-VSCodePipelineSchema
+    sources:
+      - automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
+    carrier: json-schema
     optIn: true
   # Gitignored generated copies; the Go root is go/ when present, else .go/.
   # [comment:6](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment6)
   - target: go.work
     generator: New-GoWorkspace
+    sources:
+      - automation/Catzc.Base.Languages/configs/go.yml
+      - automation/Catzc.Base.Execution/configs/tools.yml
+    carrier: go-workspace
     optIn: true
   - target: "*/tests/*/go.mod"
     generator: New-GoWorkspace
+    sources:
+      - automation/Catzc.Base.Languages/configs/go.yml
+      - automation/Catzc.Base.Execution/configs/tools.yml
+    carrier: go-workspace
     optIn: true
   # Gitignored generated copies; uv makes the one .venv and uv.lock beside the workspace root.
   # [comment:7](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment7)
   - target: "*/pyproject.toml"
     generator: New-PythonProject
+    sources:
+      - automation/Catzc.Base.Languages/configs/python.yml
+      - automation/Catzc.Base.Execution/configs/tools.yml
+    carrier: toml
     optIn: true
   - target: "*/tests/*/pyproject.toml"
     generator: New-PythonProject
+    sources:
+      - automation/Catzc.Base.Languages/configs/python.yml
+      - automation/Catzc.Base.Execution/configs/tools.yml
+    carrier: toml
     optIn: true
   - target: .vscode/markdown-preview-dark.css
     source: automation/Catzc.Base.VSCode/assets/markdown-preview-dark.css
@@ -73,7 +105,7 @@ files:
   # [comment:8](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment8)
   - target: .markdownlintignore
     source: automation/Catzc.Base.RootConfig/assets/root/.markdownlintignore
-    comment: hash
+    carrier: dotfile
     optIn: true
   - target: .prettierrc.yml
     source: automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
@@ -81,17 +113,16 @@ files:
     optIn: true
   - target: .prettierignore
     source: automation/Catzc.Base.RootConfig/assets/root/.prettierignore
-    comment: hash
+    carrier: dotfile
     optIn: true
   # A copy forever, never copyAsLink: git refuses to honour a symlinked .gitignore, so there is nothing to flip.
   # [comment:9](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment9)
   - target: .cspell/.gitignore
     source: automation/Catzc.Base.RootConfig/assets/root/.cspell/.gitignore
-    comment: hash
+    carrier: dotfile
     optIn: true
   - target: cspell.yml
     source: automation/Catzc.Base.RootConfig/assets/root/cspell.yml
-    comment: hash
     optIn: true
   # The dotnet manifest parser rejects line comments, so the managed-file marker travels in the source as an ignored property.
   # [comment:10](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment10)
@@ -107,10 +138,14 @@ files:
     optIn: true
   - target: .gitattributes
     source: automation/Catzc.Base.RootConfig/assets/root/.gitattributes
-    comment: hash
+    carrier: dotfile
     committed: true
     optIn: true
   - target: .gitignore
     generator: New-GitIgnore
+    sources:
+      - automation/Catzc.Base.Git/configs/gitignore.yml
+      - automation/Catzc.Base.RootConfig/configs/rootconfig.yml
+    carrier: dotfile
     committed: true
     optIn: true

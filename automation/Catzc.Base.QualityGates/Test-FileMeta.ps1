@@ -56,6 +56,9 @@ function Test-FileMeta {
             elseif ("$($_.Kind)" -eq 'UnownedHead') {
                 'remove it, or declare a meta kind that owns it'
             }
+            elseif ("$($_.Kind)" -eq 'MissingSidecar') {
+                'write the description beside the file, or list the file under the carrier''s exclude with the reason'
+            }
             else {
                 'run Format-FileMeta'
             }

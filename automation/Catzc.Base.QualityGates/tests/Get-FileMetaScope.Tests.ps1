@@ -17,6 +17,7 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
                     gadget = @{ extensions = @('.gdg'); no_formatter = 'gadgets are never formatted' }
                     cog    = @{ extensions = @('.cog'); no_formatter = 'cogs are never formatted' }
                     stamp  = @{ extensions = @('.stp'); no_formatter = 'a stamp is written whole' }
+                    data   = @{ extensions = @('.dat'); no_formatter = 'data is never formatted' }
                 }
             })
         $carriers = [Catzc.Base.Languages.FileCarriersConfig]::new(@{
@@ -24,10 +25,12 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
                     widget = @{ carrier = 'comment-head'; line = '#'; exclude = @{ '**/tests/**' = 'a test carries no head' } }
                     gadget = @{ carrier = 'front-matter' }
                     stamp  = @{ carrier = 'none'; reason = 'written whole' }
+                    data   = @{ carrier = 'property'; property = '//' }
+                    image  = @{ files = @('**/*.pic'); carrier = 'sidecar'; sidecar = '{base}.md' }
                 }
             })
         $script:resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new($carriers, $languages)
-        $script:config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'file-path' = @{ keys = @('path'); files = @('**/*.wdg', '**/*.gdg', '**/*.stp', '**/*.cog') } } })
+        $script:config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'file-path' = @{ keys = @('path'); files = @('**/*.wdg', '**/*.gdg', '**/*.stp', '**/*.cog', '**/*.dat', '**/*.pic') } } })
         $script:scope = {
             param([string[]] $Path)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Config = $script:config; Resolver = $script:resolver; Path = $Path } {
@@ -40,7 +43,7 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
     BeforeEach {
         Mock Get-GitTrackedPath {
             'automation/Widget/get.wdg', 'automation/Widget/tests/get.wdg', 'automation/Widget/assets/vendor.wdg', 'docs/read.gdg', 'docs/own.gdg',
-            'docs/value.stp', 'docs/spin.cog', 'docs/plain.txt', 'docs/other.wdg'
+            'docs/value.stp', 'docs/spin.cog', 'docs/plain.txt', 'docs/other.wdg', 'docs/table.dat', 'docs/image.pic'
         } -ModuleName Catzc.Base.QualityGates
         Mock Get-GitAttributeValue {
             @{
@@ -50,15 +53,17 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
         } -ModuleName Catzc.Base.QualityGates
     }
 
-    It 'keeps the tracked files with an implemented carrier that no exclude, exemption or opt-out takes out' {
+    It 'keeps the tracked files with a carrier that no exclude, exemption or opt-out takes out' {
         $found = & $script:scope
-        $found.Path | Should -Be @('automation/Widget/get.wdg', 'docs/read.gdg', 'docs/other.wdg')
+        $found.Path | Should -Be @('automation/Widget/get.wdg', 'docs/read.gdg', 'docs/other.wdg', 'docs/table.dat', 'docs/image.pic')
     }
 
-    It 'hands each file its carrier entry' {
+    It 'hands each file its carrier entry, a property or a sidecar carrier included' {
         $found = & $script:scope
         $found[0].Carrier.id | Should -BeExactly 'widget'
         $found[1].Carrier.id | Should -BeExactly 'gadget'
+        $found[3].Carrier.carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::Property)
+        $found[4].Carrier.carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::Sidecar)
     }
 
     It 'leaves out a file whose class has no carrier, a carrier of none, and a path no imprint kind''s globs match' {

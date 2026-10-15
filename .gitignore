@@ -1,7 +1,13 @@
-# GENERATED FILE — do not edit. Single source of truth:
-#   automation/Catzc.Base.Git/configs/gitignore.yml (sections; rendered by New-GitIgnore)
-#   automation/Catzc.Base.RootConfig/configs/rootconfig.yml (the injected managed-copies section)
-# Regenerated on import by Build-RootConfig; committed, so a fresh clone ignores correctly from checkout.
+# ---
+# catzc:
+#   derived:
+#     path: ".gitignore"
+#     kind: generated-from-source
+#     generator: New-GitIgnore
+#     source:
+#       - automation/Catzc.Base.Git/configs/gitignore.yml
+#       - automation/Catzc.Base.RootConfig/configs/rootconfig.yml
+# ---
 
 # ── Local, never-committed files ────────────────────────────────────────────────────────────────────────────────────
 # Per-machine working files: local agent instructions, settings and MCP wiring, scratch folders, editor backups, and

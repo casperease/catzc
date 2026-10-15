@@ -1,6 +1,11 @@
-# GENERATED FILE — do not edit. Single source of truth:
-#   automation/Catzc.Base.RootConfig/assets/root/importer.sh
-# Regenerated on import by Build-RootConfig; edit the source, not this copy.
+# ---
+# catzc:
+#   derived:
+#     path: importer.sh
+#     kind: generated-from-source
+#     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
+# ---
+
 # shellcheck shell=bash
 # importer.sh — brings catzc to a bash (or zsh) session. catzc's commands are PowerShell, so this defines one dispatcher,
 # `cats`, that runs any catzc command through pwsh with the repository's importer loaded

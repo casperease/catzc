@@ -90,13 +90,5 @@ function New-VSCodeSettings {
     }
     $settings['search.exclude'] = $exclude
 
-    $header = @(
-        '// GENERATED FILE — do not edit. Single source of truth:'
-        '//   automation/Catzc.Base.VSCode/configs/vscode-settings.yml (the authored settings + comments)'
-        '//   automation/Catzc.Base.RootConfig/configs/rootconfig.yml (the injected search.exclude targets)'
-        '//   automation/Catzc.Base.Languages/configs/languages.yml (each language''s editor formatter)'
-        '// Regenerated on import by Build-RootConfig; edit the yml, not this file (VS Code reads the // header fine).'
-    ) -join "`n"
-
-    $header + "`n" + (ConvertTo-Json -InputObject $settings -Depth 12) + "`n"
+    (ConvertTo-Json -InputObject $settings -Depth 12) + "`n"
 }

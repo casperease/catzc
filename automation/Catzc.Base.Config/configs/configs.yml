@@ -21,6 +21,8 @@ configs:
     type: Catzc.Base.QualityGates.CommentsConfig
   file-meta:
     type: Catzc.Base.QualityGates.FileMetaConfig
+  generated-files:
+    type: Catzc.Base.QualityGates.GeneratedFilesConfig
   test-policy:
     type: Catzc.Base.QualityGates.TestPolicyConfig
   parameter-consistency:

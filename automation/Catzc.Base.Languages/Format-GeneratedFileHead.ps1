@@ -1,0 +1,84 @@
+<#
+.SYNOPSIS
+    Returns the text of a generated file with the meta head that says which generator or source wrote it.
+.DESCRIPTION
+    The head is the one unified form: kind generated-from-source, and the generator and the source when the file has them.
+    The carrier is named by id, or found from the file's language when no id is given.
+.PARAMETER Text
+    The whole content the generator composed, without any head.
+.PARAMETER Path
+    The repository-relative path the content is written to. It names the file in the head and finds its language.
+.PARAMETER Carrier
+    The id of the file-carriers entry that says where the head goes. Default: the entry of the file language of Path.
+.PARAMETER Generator
+    The command that composed the content, when one did.
+.PARAMETER Source
+    The repository-relative authored file or files the content comes from, when it has any.
+.PARAMETER Kind
+    The kind written into the head. Default: generated-from-source.
+.PARAMETER Carriers
+    The carrier registry. Default: the shipped file-carriers.yml.
+.PARAMETER Languages
+    The file-language registry. Default: the shipped languages.yml.
+.OUTPUTS
+    [string] The text with the head written first.
+.EXAMPLE
+    Format-GeneratedFileHead -Text $content -Path .gitignore -Carrier dotfile -Generator New-GitIgnore
+#>
+function Format-GeneratedFileHead {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory, Position = 0)]
+        [AllowEmptyString()]
+        [string] $Text,
+
+        [Parameter(Mandatory)]
+        [string] $Path,
+
+        [string] $Carrier,
+
+        [string] $Generator,
+
+        [string[]] $Source = @(),
+
+        [string] $Kind = 'generated-from-source',
+
+        [Catzc.Base.Languages.FileCarriersConfig] $Carriers = (Get-Config -Config file-carriers),
+
+        [Catzc.Base.Languages.LanguagesConfig] $Languages = (Get-Config -Config languages)
+    )
+
+    $relative = $Path -replace '\\', '/'
+    $id = $Carrier
+    if (-not $id) {
+        $language = $Languages.ForPath($relative)
+        Assert-NotNull $language -ErrorText "Format-GeneratedFileHead: '$relative' has no file language, so name its carrier (a file-carriers.yml id) with -Carrier."
+        $id = $language.name
+    }
+    $entry = $Carriers.Find($id)
+    Assert-NotNull $entry -ErrorText "Format-GeneratedFileHead: '$relative' names the carrier '$id', which file-carriers.yml does not declare."
+
+    $facts = [ordered]@{ path = $relative; kind = $Kind }
+    if ($Generator) {
+        $facts['generator'] = $Generator
+    }
+    if ($Source.Count -eq 1) {
+        $facts['source'] = $Source[0]
+    }
+    elseif ($Source.Count -gt 1) {
+        $facts['source'] = [string[]] $Source
+    }
+
+    switch ($entry.carrier) {
+        ([Catzc.Base.Languages.CarrierKind]::CommentHead) {
+            Format-CodeMetaHead -Text $Text -Form $entry.Form() -Fact $facts
+        }
+        ([Catzc.Base.Languages.CarrierKind]::Property) {
+            Format-PropertyMetaHead -Text $Text -Property $entry.property -Strip $entry.strip -Fact $facts
+        }
+        default {
+            throw "Format-GeneratedFileHead: '$relative' uses the carrier '$id' of kind $($entry.carrier), and only a comment head or a property can be written into generated content."
+        }
+    }
+}

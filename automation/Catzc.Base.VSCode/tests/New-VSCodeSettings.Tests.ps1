@@ -27,9 +27,9 @@ Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'renders a JSONC header and valid JSON carrying the authored settings' {
+    It 'renders valid JSON carrying the authored settings, with no head of its own' {
         $text = New-VSCodeSettings
-        $text | Should -Match '^// GENERATED FILE'
+        $text | Should -Not -Match 'GENERATED'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $json.'editor.tabSize' | Should -Be 4
     }

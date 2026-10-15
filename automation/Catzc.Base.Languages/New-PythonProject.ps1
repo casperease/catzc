@@ -66,17 +66,9 @@ function New-PythonProject {
         return
     }
 
-    [string[]] $header = @(
-        '# GENERATED FILE — do not edit. Single source of truth:'
-        "#   automation/Catzc.Base.Languages/configs/python.yml (rendered by New-PythonProject over the $pythonRoot/tests/*/ folders)"
-        '#   requires-python: the python pin in automation/Catzc.Base.Execution/configs/tools.yml'
-        '# Regenerated on import by Build-RootConfig; edit the yml or the folders, not this file.'
-    )
-
     $files = [System.Collections.Generic.List[Catzc.Base.Languages.PythonWorkspaceFile]]::new()
 
-    $workspace = [System.Collections.Generic.List[string]]::new($header)
-    $workspace.Add('')
+    $workspace = [System.Collections.Generic.List[string]]::new()
     $workspace.Add('[tool.uv.workspace]')
     $workspace.Add('members = [')
     foreach ($folder in $folders) {
@@ -90,8 +82,7 @@ function New-PythonProject {
     $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/pyproject.toml", ($workspace -join "`n") + "`n"))
 
     foreach ($folder in $folders) {
-        $member = [System.Collections.Generic.List[string]]::new($header)
-        $member.Add('')
+        $member = [System.Collections.Generic.List[string]]::new()
         $member.Add('[project]')
         $member.Add("name = `"$folder`"")
         $member.Add('version = "0.0.0"')

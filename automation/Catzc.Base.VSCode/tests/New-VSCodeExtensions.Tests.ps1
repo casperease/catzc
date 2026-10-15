@@ -17,9 +17,9 @@ Describe 'New-VSCodeExtensions' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'renders a JSONC header and valid JSON carrying the recommendations in registry order' {
+    It 'renders valid JSON carrying the recommendations in registry order, with no head of its own' {
         $text = New-VSCodeExtensions
-        $text | Should -Match '^// GENERATED FILE'
+        $text | Should -Not -Match 'GENERATED'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         @($json.recommendations) | Should -Be @('acme.tool-one', 'globex.tool-two')
     }

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/pwsh/powershell-formatting.md
     kind: adr
-    body_sha: "4059799f1d55"
+    body_sha: "95065966d656"
     adrs:
       - ADR-AUTO-NONEST#3
       - ADR-AUTO-NONEST#5

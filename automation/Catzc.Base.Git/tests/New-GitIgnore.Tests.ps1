@@ -31,10 +31,10 @@ Describe 'New-GitIgnore' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'renders the header, the sections in order, and the injected patterns' {
+    It 'renders the sections in order and the injected patterns, with no head of its own' {
         $text = New-GitIgnore -Inject @{ 'rootconfig-committed-false' = @('/.editorconfig', '/cspell.yml') }
-        $text | Should -Match '^# GENERATED FILE'
-        $text | Should -Match ([regex]::Escape('configs/gitignore.yml'))
+        $text | Should -Not -Match 'GENERATED FILE'
+        $text | Should -Match '^# ──'
         $text.IndexOf('Output directory') | Should -BeLessThan $text.IndexOf('Managed copies')
         $text | Should -Match ([regex]::Escape("/.editorconfig`n/cspell.yml"))
     }

@@ -56,7 +56,25 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $result.Subject | Should -Be 'generated-files'
         $result.IssueCount | Should -Be 1
         $result.Issues[0] | Should -Be 'widget/README.md: stale — Build-Readme would change it; regenerate with: Build-Readme'
-        $result.Generators | Should -Be 15
+        $result.Generators | Should -Be 16
+    }
+
+    It 'lists the writers of generated-files.yml and the generators of rootconfig.yml, so no generator is left out' -Tag 'ADR-AUTO-TEST#35' {
+        $known = InModuleScope Catzc.Base.QualityGates { Get-GeneratedFileGenerator }
+        $known | Should -Contain 'Build-AdrIndex'
+        $known | Should -Contain 'Build-RootConfig'
+        $known | Should -Contain 'New-PythonProject'
+        @($known | Select-Object -Unique).Count | Should -Be $known.Count
+
+        $rootGenerators = @((Get-Config -Config rootconfig).files | Where-Object { $_.optIn -and $_.generator } | ForEach-Object { "$($_.generator)" } | Select-Object -Unique)
+        foreach ($name in $rootGenerators) {
+            $known | Should -Contain $name
+        }
+    }
+
+    It 'throws naming the known generators when a generator is unknown' -Tag 'ADR-AUTO-TEST#35' {
+        $thrown = { Test-GeneratedFiles -Generator Build-Widget -OutputFolder $script:reportFolder } | Should -Throw -PassThru
+        $thrown.Exception.Message | Should -BeLike "Unknown generator 'Build-Widget'. The generators are: Build-AdrIndex*"
     }
 
     It 'attributes a rendered root file to its generator and a copied one to Build-RootConfig' {

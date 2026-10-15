@@ -21,13 +21,6 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
         # A folder left with only a generated file is not a member.
         $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'python/tests/catzc-leftover') -Force
         Set-Content -LiteralPath (Join-Path $script:root 'python/tests/catzc-leftover/pyproject.toml') -Value '[project]'
-
-        $script:header = @(
-            '# GENERATED FILE — do not edit. Single source of truth:'
-            '#   automation/Catzc.Base.Languages/configs/python.yml (rendered by New-PythonProject over the python/tests/*/ folders)'
-            '#   requires-python: the python pin in automation/Catzc.Base.Execution/configs/tools.yml'
-            '# Regenerated on import by Build-RootConfig; edit the yml or the folders, not this file.'
-        )
     }
 
     BeforeEach {
@@ -43,8 +36,7 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
     }
 
     It 'renders a virtual workspace root naming every member, with the ruff settings' {
-        (New-PythonProject -Target 'python/pyproject.toml').Content | Should -BeExactly ((@($script:header) + @(
-                    ''
+        (New-PythonProject -Target 'python/pyproject.toml').Content | Should -BeExactly ((@(
                     '[tool.uv.workspace]'
                     'members = ['
                     '    "tests/catzc-gadget",'
@@ -58,8 +50,7 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
     }
 
     It 'renders each member named for its folder, at the python pin, with the pinned dependencies in name order' {
-        (New-PythonProject -Target 'python/tests/catzc-widget/pyproject.toml').Content | Should -BeExactly ((@($script:header) + @(
-                    ''
+        (New-PythonProject -Target 'python/tests/catzc-widget/pyproject.toml').Content | Should -BeExactly ((@(
                     '[project]'
                     'name = "catzc-widget"'
                     'version = "0.0.0"'

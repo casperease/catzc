@@ -1,0 +1,14 @@
+# The writers Test-GeneratedFiles runs report-only; a file result names its stale file in the property result_path (default Path).
+# The generators of the managed root files are the generator keys of rootconfig.yml, so they are never listed here.
+writers:
+  Build-AdrIndex:
+  Build-Glossary:
+  Build-Readme:
+    result_path: Readme
+  Build-ContractReference:
+  Build-GitKeep:
+  Build-TerminologyDictionary:
+  Build-EnglishDictionary:
+    check: english-dictionary
+  Build-RootConfig:
+    check: root-config

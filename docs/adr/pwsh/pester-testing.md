@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/pwsh/pester-testing.md
     kind: adr
-    body_sha: "477255307452"
+    body_sha: b89ae502ac74
     adrs:
       - ADR-AUTO-BASH#5
       - ADR-AUTO-GO#7

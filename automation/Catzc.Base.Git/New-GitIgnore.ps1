@@ -36,10 +36,6 @@ function New-GitIgnore {
     $config = Get-Config -Config gitignore
 
     $lines = [System.Collections.Generic.List[string]]::new()
-    $lines.Add('# GENERATED FILE — do not edit. Single source of truth:')
-    $lines.Add('#   automation/Catzc.Base.Git/configs/gitignore.yml (sections; rendered by New-GitIgnore)')
-    $lines.Add('#   automation/Catzc.Base.RootConfig/configs/rootconfig.yml (the injected managed-copies section)')
-    $lines.Add('# Regenerated on import by Build-RootConfig; committed, so a fresh clone ignores correctly from checkout.')
 
     foreach ($section in $config.sections) {
         # A missing inject provider is a wiring defect, so it throws rather than render an incomplete .gitignore.
@@ -56,7 +52,9 @@ function New-GitIgnore {
             @($section.patterns)
         }
 
-        $lines.Add('')
+        if ($lines.Count -gt 0) {
+            $lines.Add('')
+        }
         foreach ($line in (Format-GitIgnoreSection -Title $section.title -Why $section.why -Pattern $patterns)) {
             $lines.Add($line)
         }

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/pwsh/prefer-foreach-over-foreach-object.md
     kind: adr
-    body_sha: e91950ead172
+    body_sha: "36f1bd3f320b"
     adrs: []
 ---
 

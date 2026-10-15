@@ -153,8 +153,8 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
         Require(errors, id, line == null || (line.Length > 0 && !line.Any(char.IsWhiteSpace)), "line must be a non-empty comment prefix without spaces");
         Require(errors, id, block.Length == 0 || (block.Length == 2 && block.All(b => b.Length > 0)), "block must be the opening and the closing delimiter");
         Require(errors, id, carrier == CarrierKind.CommentHead || !entry.Contains("anchor"), "anchor belongs to a comment-head carrier");
-        Require(errors, id, carrier == CarrierKind.CommentHead || strip.Length == 0, "strip belongs to a comment-head carrier");
-        Require(errors, id, strip.All(opener => opener.Length > 0 && opener.Trim() == opener), "strip lists the first line of each old head, without surrounding spaces");
+        Require(errors, id, carrier == CarrierKind.CommentHead || carrier == CarrierKind.Property || strip.Length == 0, "strip belongs to a comment-head or property carrier");
+        Require(errors, id, strip.All(opener => opener.Length > 0 && opener.Trim() == opener), "strip lists the beginning of each old head, without surrounding spaces");
         Require(errors, id, anchor == Catzc.Base.CodeMeta.HeadAnchor.AfterPreamble ? preambleLines > 0 : preambleLines == 0, "preamble_lines is required, and only allowed, with anchor after-preamble");
         Require(errors, id, carrier == CarrierKind.Property ? !string.IsNullOrEmpty(property) : property == null, "property is required, and only allowed, for a property carrier");
         Require(errors, id, carrier == CarrierKind.Sidecar ? (sidecar != null && sidecar.Contains("{base}")) : sidecar == null, "sidecar is required, and only allowed, for a sidecar carrier, and names {base}");

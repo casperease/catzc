@@ -91,28 +91,24 @@ function Build-RootConfig {
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $null; From = "$($entry.source) (link)" })
         }
         elseif ($entry.source) {
-            # Content from an authored source file, with the generated-file header.
+            # Content from an authored source file, with the generated-file head naming the source.
             $sourcePath = Resolve-RepoPath $entry.source
             Assert-PathExist $sourcePath
 
             # Normalize the source to LF so composition is line-ending agnostic (the write itself canonicalises).
             $content = [System.IO.File]::ReadAllText($sourcePath) -replace "`r`n", "`n" -replace "`r", "`n"
-            if ($entry.comment -eq 'hash') {
-                $header = @(
-                    '# GENERATED FILE — do not edit. Single source of truth:'
-                    "#   $($entry.source)"
-                    '# Regenerated on import by Build-RootConfig; edit the source, not this copy.'
-                    ''
-                ) -join "`n"
-                $content = $header + $content
-            }
+            $content = Format-GeneratedFileHead -Text $content -Path $entry.target -Carrier $entry.carrier -Source $entry.source
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $content; From = $entry.source })
         }
         else {
-            # A generator owns its whole content, header included, and returns one file or one per wildcard match.
+            # A generator owns its whole content below the head and returns one file or one per wildcard match.
             # [comment:7](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment7)
+            foreach ($listed in $entry.sources) {
+                Assert-PathExist (Resolve-RepoPath $listed)
+            }
             $files = @(foreach ($file in @(Get-RootConfigRenderedFile -Entry $entry)) {
-                    [pscustomobject]@{ Target = $file.Target; Content = $file.Content; From = "$($entry.generator) (generator)" }
+                    $content = Format-GeneratedFileHead -Text $file.Content -Path $file.Target -Carrier $entry.carrier -Generator $entry.generator -Source $entry.sources
+                    [pscustomobject]@{ Target = $file.Target; Content = $content; From = "$($entry.generator) (generator)" }
                 })
         }
 

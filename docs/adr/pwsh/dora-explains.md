@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/pwsh/dora-explains.md
     kind: adr
-    body_sha: c9f1095e5ed0
+    body_sha: abe8285c6e7a
     adrs: []
 ---
 

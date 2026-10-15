@@ -22,9 +22,9 @@ Describe 'New-VSCodeLaunch' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'renders a JSONC header and valid JSON carrying version and configurations' {
+    It 'renders valid JSON carrying version and configurations, with no head of its own' {
         $text = New-VSCodeLaunch
-        $text | Should -Match '^// GENERATED FILE'
+        $text | Should -Not -Match 'GENERATED'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
         $json.version | Should -Be '0.2.0'
         $json.configurations[0].name | Should -Be 'Fixture'

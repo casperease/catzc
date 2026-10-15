@@ -7,20 +7,6 @@ catzc:
 ---
 #>
 
-BeforeAll {
-    # The generated-file header every rendered file starts with, naming the tests folder of the Go root.
-    $script:headerFor = {
-        param([string] $TestsFolder)
-        @(
-            '// GENERATED FILE — do not edit. Single source of truth:'
-            "//   automation/Catzc.Base.Languages/configs/go.yml (rendered by New-GoWorkspace over the $TestsFolder/*/ folders)"
-            '//   the go directive: the go pin in automation/Catzc.Base.Execution/configs/tools.yml'
-            '// Regenerated on import by Build-RootConfig; edit the yml or the folders, not this file.'
-        )
-    }
-    $script:header = & $script:headerFor 'go/tests'
-}
-
 Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolate through the seams ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)): a
@@ -53,8 +39,6 @@ Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
 
     It 'renders go.work with the go directive from the tools.yml pin and the sorted use entries' {
         $expected = @(
-            $script:header
-            ''
             'go 1.23'
             ''
             'use ('
@@ -68,8 +52,6 @@ Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
 
     It 'renders each go.mod with its module path, the go directive, and the sorted requires' {
         $expected = @(
-            $script:header
-            ''
             'module acme/go/tests/catzc-widget'
             ''
             'go 1.23'
@@ -105,13 +87,13 @@ Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
     It 'omits the require block when no dependency is declared' {
         Mock Get-Config -ModuleName Catzc.Base.Languages { [Catzc.Base.Languages.GoConfig]::new([ordered]@{}) }
         $content = (New-GoWorkspace -Target 'go/tests/catzc-gadget/go.mod').Content
-        $content | Should -Match ("`n" + 'module catzc/go/tests/catzc-gadget' + "`n`n" + 'go 1\.23' + "`n$")
+        $content | Should -Match ('^module catzc/go/tests/catzc-gadget' + "`n`n" + 'go 1\.23' + "`n$")
         $content | Should -Not -Match 'require'
     }
 
     It 'takes a full 1.N.P pin as it is' {
         Mock Get-ConfigValue -ModuleName Catzc.Base.Languages -ParameterFilter { $Address -eq 'global.tools.go.version' } { '1.23.4' }
-        (New-GoWorkspace -Target 'go.work').Content | Should -Match "`ngo 1\.23\.4`n"
+        (New-GoWorkspace -Target 'go.work').Content | Should -Match "^go 1\.23\.4`n"
     }
 
     It 'throws on a pin that is not a go directive version' -ForEach @('2.0', '1', 'v1.27', '1.27rc1', '') {
@@ -134,8 +116,8 @@ Describe 'New-GoWorkspace — a go/tests/widget/ fixture tree' -Tag 'L0', 'logic
     It 'renders the exact bytes of go.work and go/tests/widget/go.mod, with the pin as the go directive' {
         $files = @(New-GoWorkspace)
         $files.Target | Should -Be @('go.work', 'go/tests/widget/go.mod')
-        $files[0].Content | Should -BeExactly ((@($script:header; ''; 'go 1.27'; ''; 'use ('; "`t./go/tests/widget"; ')') -join "`n") + "`n")
-        $files[1].Content | Should -BeExactly ((@($script:header; ''; 'module catzc/go/tests/widget'; ''; 'go 1.27') -join "`n") + "`n")
+        $files[0].Content | Should -BeExactly ((@('go 1.27'; ''; 'use ('; "`t./go/tests/widget"; ')') -join "`n") + "`n")
+        $files[1].Content | Should -BeExactly ((@('module catzc/go/tests/widget'; ''; 'go 1.27') -join "`n") + "`n")
     }
 
     It 'renders the same bytes on every call' {
@@ -163,8 +145,8 @@ Describe 'New-GoWorkspace — the Go root' -Tag 'L0', 'logic' {
         & $script:addWidget '.go/tests'
         $files = @(New-GoWorkspace)
         $files.Target | Should -Be @('go.work', '.go/tests/widget/go.mod')
-        $files[0].Content | Should -BeExactly ((@((& $script:headerFor '.go/tests'); ''; 'go 1.27'; ''; 'use ('; "`t./.go/tests/widget"; ')') -join "`n") + "`n")
-        $files[1].Content | Should -BeExactly ((@((& $script:headerFor '.go/tests'); ''; 'module catzc/go/tests/widget'; ''; 'go 1.27') -join "`n") + "`n")
+        $files[0].Content | Should -BeExactly ((@('go 1.27'; ''; 'use ('; "`t./.go/tests/widget"; ')') -join "`n") + "`n")
+        $files[1].Content | Should -BeExactly ((@('module catzc/go/tests/widget'; ''; 'go 1.27') -join "`n") + "`n")
     }
 
     It 'defaults to go/ when the repository has a go/ folder, and ignores a .go/ beside it' {
@@ -204,7 +186,7 @@ Describe 'New-GoWorkspace — no Go test folders' -Tag 'L0', 'logic' {
     It 'renders only go.work, with no use block' {
         $files = @(New-GoWorkspace)
         $files.Target | Should -Be @('go.work')
-        $files[0].Content | Should -Match "`ngo 1\.27`n$"
+        $files[0].Content | Should -Match "^go 1\.27`n$"
         $files[0].Content | Should -Not -Match 'use'
     }
 }
@@ -228,6 +210,6 @@ Describe 'New-GoWorkspace — the shipped tools.yml pin' -Tag 'L1', 'integrity' 
     It 'writes the go tool''s tools.yml pin as the go directive of go.work' {
         $pin = "$(Get-ConfigValue -Address 'global.tools.go.version')"
         $pin | Should -Not -BeNullOrEmpty
-        (New-GoWorkspace -Target 'go.work').Content | Should -Match ("`ngo " + [regex]::Escape($pin) + "`n")
+        (New-GoWorkspace -Target 'go.work').Content | Should -Match ("^go " + [regex]::Escape($pin) + "`n")
     }
 }

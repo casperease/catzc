@@ -34,6 +34,9 @@ carriers:
   # JSON has no comments, so the block is an ignored property, as dotnet-tools.json already carries its marker.
   json: { carrier: property, property: "//" }
 
+  # The generated editor files are JSON with comments, so a line-comment head fits where a property would show as an unknown setting.
+  jsonc: { files: [".vscode/settings.json", ".vscode/extensions.json", ".vscode/launch.json"], carrier: comment-head, line: "//" }
+
   jsonl: { carrier: none, reason: "one record per line by definition, so a head would be a record" }
   stamp: { carrier: none, reason: "a stamp is written whole by the generator that records it, and its value is the file" }
   asset: { carrier: none, reason: "a binary file, so the description beside it carries what a reader needs" }

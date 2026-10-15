@@ -53,7 +53,7 @@ function Get-FileMetaScope {
         if ($null -eq $carrier) {
             continue
         }
-        if ($carrier.carrier -ne [Catzc.Base.Languages.CarrierKind]::FrontMatter -and $carrier.carrier -ne [Catzc.Base.Languages.CarrierKind]::CommentHead) {
+        if ($carrier.carrier -eq [Catzc.Base.Languages.CarrierKind]::None) {
             continue
         }
         if ($Resolver.IsExcluded($carrier, $tracked)) {

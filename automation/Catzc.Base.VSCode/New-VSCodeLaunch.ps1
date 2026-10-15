@@ -35,11 +35,5 @@ function New-VSCodeLaunch {
         configurations = @($config.configurations | ForEach-Object { $_.fields })
     }
 
-    $header = @(
-        '// GENERATED FILE — do not edit. Single source of truth:'
-        '//   automation/Catzc.Base.VSCode/configs/vscode-launch.yml (the authored launch profiles + comments)'
-        '// Regenerated on import by Build-RootConfig; edit the yml, not this file (VS Code reads the // header fine).'
-    ) -join "`n"
-
-    $header + "`n" + (ConvertTo-Json -InputObject $rendered -Depth 8) + "`n"
+    (ConvertTo-Json -InputObject $rendered -Depth 8) + "`n"
 }

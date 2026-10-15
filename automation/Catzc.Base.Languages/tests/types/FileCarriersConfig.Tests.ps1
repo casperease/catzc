@@ -30,7 +30,7 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             @($loose | ForEach-Object id) | Should -BeNullOrEmpty -Because 'an entry that is no file language selects its files with files'
             $noForm = @($carriers.carriers | Where-Object { $_.carrier -eq [Catzc.Base.Languages.CarrierKind]::CommentHead -and $null -eq $_.Form() })
             @($noForm | ForEach-Object id) | Should -BeNullOrEmpty -Because 'every comment-head entry yields a head form'
-            foreach ($glob in $carriers.carriers.exclude.Keys) {
+            foreach ($glob in @($carriers.carriers | ForEach-Object { $_.exclude.Keys })) {
                 { [Catzc.Base.Globs.GlobPattern]::new($glob) } | Should -Not -Throw -Because "exclude '$glob' is a valid glob"
             }
         }
@@ -98,7 +98,9 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             $config.Find('widget').strip | Should -Be @('// catzc:')
             $config.Find('widget').Form().Strip | Should -Be @('// catzc:')
             $config.Find('gadget').strip.Count | Should -Be 0
-            { & $script:one ([ordered]@{ carrier = 'front-matter'; strip = @('// catzc:') }) } | Should -Throw '*strip belongs to a comment-head carrier*'
+            { & $script:one ([ordered]@{ carrier = 'front-matter'; strip = @('// catzc:') }) } | Should -Throw '*strip belongs to a comment-head or property carrier*'
+            $property = & $script:make ([ordered]@{ carriers = [ordered]@{ widget = [ordered]@{ carrier = 'property'; property = '$comment'; strip = @('GENERATED FILE') } } })
+            $property.Find('widget').strip | Should -Be @('GENERATED FILE')
             { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; strip = @(' # catzc:') }) } | Should -Throw '*without surrounding spaces*'
         }
 
