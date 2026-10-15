@@ -189,6 +189,7 @@ analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one 
 | `ADR-PWSH-FORMAT`   | [powershell-formatting](pwsh/powershell-formatting.md)                           |
 | `ADR-PWSH-ENV`      | [environment-variable-mechanics](pwsh/environment-variable-mechanics.md)         |
 | `ADR-PWSH-PARAM`    | [parameter-design](pwsh/parameter-design.md)                                     |
+| `ADR-PWSH-ENUM`     | [bounded-enumeration](pwsh/bounded-enumeration.md)                               |
 | `ADR-PWSH-PWD`      | [working-directory-mechanics](pwsh/working-directory-mechanics.md)               |
 | `ADR-PWSH-XPLAT`    | [cross-platform-powershell](pwsh/cross-platform-powershell.md)                   |
 | `ADR-PWSH-CACHE`    | [script-scope-caching](pwsh/script-scope-caching.md)                             |

@@ -330,6 +330,24 @@ the ADRs themselves; this file carries only their DORA rationale.
   positional and switch conventions are widely understood.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## Bounded enumeration
+
+`Bounded enumeration — the PowerShell layer over sensible-defaults`
+
+[ADR-PWSH-ENUM](bounded-enumeration.md)
+
+> DORA's research on continuous integration ties a fast, reliable build to short feedback loops, and a search that walks an unbounded tree
+> grows slower with every file the repository gains. A shallow default depth, pruned folders, and one compiled walker keep each search at a
+> cost its caller chose.
+
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — a bounded search keeps the integration budget
+  from eroding as the tree grows.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — one walk with one set of rules replaces many
+  hand-written loops.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — fast, bounded listings keep the test suite under its time
+  roofs.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Working-directory mechanics
 
 `Working-directory mechanics — the PowerShell layer over never-depend-on-pwd`

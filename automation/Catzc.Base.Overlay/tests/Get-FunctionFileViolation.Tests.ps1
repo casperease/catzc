@@ -31,4 +31,13 @@ Describe 'Get-FunctionFileViolation' -Tag 'L0', 'logic' {
     ) {
         (& $check 'Get-Widget' $Content) -join "`n" | Should -BeLike $Expected
     }
+
+    It 'parses a file once when two calls share one holder' {
+        $path = Join-Path $TestDrive 'Get-Widget.ps1'
+        Set-Content -Path $path -Value 'function Get-Widget { }'
+        $parsed = [Catzc.Base.Repository.ParsedScripts]::new()
+        $null = Get-FunctionFileViolation -Path $path -RelativePath 'widget/Get-Widget.ps1' -ParsedScripts $parsed
+        $null = Get-FunctionFileViolation -Path $path -RelativePath 'widget/Get-Widget.ps1' -ParsedScripts $parsed
+        $parsed.ParseCount | Should -Be 1
+    }
 }

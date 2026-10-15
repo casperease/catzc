@@ -81,7 +81,7 @@ mid-pipeline and passes the items through.
 
 The simple expressions [ADR-AUTO-NONEST#5](../automation/avoid-deep-nesting.md#rule-adr-auto-nonest5) exempts are, in PowerShell, a
 `Join-Path` onto an anchor, a single property access (`$moduleDir.Name`), a straightforward cast, and a short pipeline of two obvious stages
-(`Get-ChildItem … | Select-Object -ExpandProperty FullName`).
+(`Get-ChildPath … | Sort-Object`).
 
 - [Flat steps](#flat-steps)
 

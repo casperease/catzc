@@ -45,19 +45,20 @@ function Get-GitAttributeValue {
     if (-not (Test-Path -LiteralPath (Join-Path $RepositoryRoot '.git'))) {
         return $ret
     }
-    for ($index = 0; $index -lt $Path.Count; $index += 100) {
-        $batch = $Path[$index..([Math]::Min($index + 99, $Path.Count - 1))]
-        $quotedPaths = foreach ($item in $batch) {
-            "`"$item`""
-        }
-        $listing = Invoke-Executable "git -C `"$RepositoryRoot`" -c core.quotepath=off check-attr $($Attribute -join ' ') -- $($quotedPaths -join ' ')" -PassThru -Silent
-        foreach ($line in ($listing.Output -split "`r?`n")) {
-            if ($line -match '^(?<path>.+): (?<name>[^:]+): (?<value>.+)$' -and $Matches['value'] -ne 'unspecified') {
-                if (-not $ret.ContainsKey($Matches['path'])) {
-                    $ret[$Matches['path']] = @{}
-                }
-                $ret[$Matches['path']][$Matches['name']] = $Matches['value']
+    if ($Path.Count -eq 0) {
+        return $ret
+    }
+    # One git process reads every path from stdin, NUL-separated both ways: a process per batch costs about 25 ms each, and no path is quoted or split.
+    $listing = Invoke-Executable "git -C `"$RepositoryRoot`" -c core.quotepath=off check-attr -z --stdin $($Attribute -join ' ')" -InputText (($Path -join "`0") + "`0") -PassThru -Silent
+    $fields = $listing.Output -split "`0"
+    for ($position = 0; $position + 2 -lt $fields.Count; $position += 3) {
+        $itemPath = $fields[$position]
+        $value = $fields[$position + 2]
+        if ($value -ne 'unspecified') {
+            if (-not $ret.ContainsKey($itemPath)) {
+                $ret[$itemPath] = @{}
             }
+            $ret[$itemPath][$fields[$position + 1]] = $value
         }
     }
     $ret

@@ -1,0 +1,55 @@
+# One holder parses a file once. Neutral fixture names
+# ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
+Describe 'ParsedScripts' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:widget = Join-Path $TestDrive 'Get-Widget.ps1'
+        $script:gadget = Join-Path $TestDrive 'Get-Gadget.ps1'
+        $script:broken = Join-Path $TestDrive 'Get-Broken.ps1'
+        [System.IO.File]::WriteAllText($script:widget, "function Get-Widget { 'widget' }`n")
+        [System.IO.File]::WriteAllText($script:gadget, "function Get-Gadget { Get-Widget }`n")
+        [System.IO.File]::WriteAllText($script:broken, "function Get-Broken {`n")
+    }
+
+    It 'parses a file once however often it is asked for, and hands back the same instance' {
+        $parsed = [Catzc.Base.Repository.ParsedScripts]::new()
+        $first = $parsed.Get($script:widget)
+        $second = $parsed.Get($script:widget)
+        [object]::ReferenceEquals($first, $second) | Should -BeTrue
+        $parsed.ParseCount | Should -Be 1
+    }
+
+    It 'parses each distinct file once' {
+        $parsed = [Catzc.Base.Repository.ParsedScripts]::new()
+        $null = $parsed.Get($script:widget), $parsed.Get($script:gadget), $parsed.Get($script:widget), $parsed.Get($script:gadget)
+        $parsed.ParseCount | Should -Be 2
+    }
+
+    It 'keeps the tree of a clean file, with no errors' {
+        $script = [Catzc.Base.Repository.ParsedScripts]::new().Get($script:widget)
+        $script.Ast | Should -BeOfType ([System.Management.Automation.Language.ScriptBlockAst])
+        @($script.Errors).Count | Should -Be 0
+        $script.Path | Should -Be ([System.IO.Path]::GetFullPath($script:widget))
+    }
+
+    It 'keeps the parse errors of a broken file, with the tree it could build' {
+        $script = [Catzc.Base.Repository.ParsedScripts]::new().Get($script:broken)
+        @($script.Errors).Count | Should -BeGreaterThan 0
+        $script.Ast | Should -Not -BeNullOrEmpty
+    }
+
+    It 'reads two spellings of one path as one file' {
+        $parsed = [Catzc.Base.Repository.ParsedScripts]::new()
+        $null = $parsed.Get($script:widget), $parsed.Get((Join-Path $TestDrive 'nested/../Get-Widget.ps1'))
+        $parsed.ParseCount | Should -Be 1
+    }
+
+    It 'refuses an empty path' {
+        { [Catzc.Base.Repository.ParsedScripts]::new().Get('') } | Should -Throw '*a script path is required*'
+    }
+
+    It 'renders the count of parsed files' {
+        $parsed = [Catzc.Base.Repository.ParsedScripts]::new()
+        $null = $parsed.Get($script:widget)
+        "$parsed" | Should -Be 'ParsedScripts { Parsed = 1 }'
+    }
+}

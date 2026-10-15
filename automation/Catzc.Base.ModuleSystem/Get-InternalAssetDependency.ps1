@@ -25,6 +25,8 @@ catzc:
 .PARAMETER Violation
     Lists the non-literal call sites without throwing, so a caller can report every violation at once.
     [comment:2](/docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md#comment2)
+.PARAMETER ParsedScripts
+    The call's shared parse of each script; a caller running several checks over the same files passes one so a file is parsed once.
 .OUTPUTS
     [pscustomobject] One record per call site: Module, Function, ChildPath, File, Line (with -Violation, one
     record per violating call site instead).
@@ -41,7 +43,9 @@ function Get-InternalAssetDependency {
 
         [string[]] $Module,
 
-        [switch] $Violation
+        [switch] $Violation,
+
+        [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
     )
 
     Assert-SourceTree
@@ -87,9 +91,7 @@ function Get-InternalAssetDependency {
         }
 
         foreach ($file in ($files | Sort-Object Relative)) {
-            $tokens = $null
-            $parseErrors = $null
-            $syntaxTree = [System.Management.Automation.Language.Parser]::ParseFile($file.Path, [ref] $tokens, [ref] $parseErrors)
+            $syntaxTree = $ParsedScripts.Get($file.Path).Ast
 
             foreach ($call in [Catzc.Base.Repository.SyntaxSearch]::CommandsNamed($syntaxTree, $helperName, $true)) {
                 # The enclosing function (one function per file); a top-level call falls back to the file name.

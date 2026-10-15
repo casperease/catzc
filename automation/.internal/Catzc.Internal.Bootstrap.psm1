@@ -454,13 +454,9 @@ function Import-CSharpTypes {
     # Loads go through a per-user shadow copy, so no session ever locks a build inside the repository.
     # [comment:23](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment23)
     if (-not $loaded) {
+        Test-TypesAssemblyContent -Path $dll -Expected $arr
         Import-TypesAssembly -Path $dll | Out-Null
         Write-ImporterMessage "Loaded types $(([System.IO.Path]::GetRelativePath($env:RepositoryRoot, $dll)) -replace '\\', '/')" -StateChange
-        foreach ($tf in $arr) {
-            if (-not ([System.Management.Automation.PSTypeName]$tf.Type).Type) {
-                throw "Compiled C# types but '$($tf.Type)' was not produced. $($tf.File) must declare a public class named '$([System.IO.Path]::GetFileNameWithoutExtension($tf.Path))' (the module namespace '$($tf.Module)' is added automatically)."
-            }
-        }
 
         # Registration only, idempotent by remove then add, so a re-import never throws on a duplicate key.
         # [comment:24](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment24)

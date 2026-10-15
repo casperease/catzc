@@ -19,14 +19,15 @@ Describe 'Get-GitAttributeValue' -Tag 'L0', 'logic' {
         Mock Invoke-Executable {
             [pscustomobject]@{
                 ExitCode = 0
-                Output   = @(
-                    'docs/widget.md: linguist-vendored: unspecified'
-                    'docs/widget.md: catzc-fixture: unspecified'
-                    'docs/gadget.md: linguist-vendored: set'
-                    'docs/gadget.md: catzc-fixture: unspecified'
-                    'docs/sprocket.md: linguist-vendored: unspecified'
-                    'docs/sprocket.md: catzc-fixture: unset'
-                ) -join "`n"
+                Output   = (@(
+                        'docs/widget.md', 'linguist-vendored', 'unspecified'
+                        'docs/widget.md', 'catzc-fixture', 'unspecified'
+                        'docs/gadget.md', 'linguist-vendored', 'set'
+                        'docs/gadget.md', 'catzc-fixture', 'unspecified'
+                        'docs/sprocket.md', 'linguist-vendored', 'unspecified'
+                        'docs/sprocket.md', 'catzc-fixture', 'unset'
+                        'docs/odd: name.md', 'catzc-fixture', 'set'
+                    ) -join "`0") + "`0"
             }
         } -ModuleName Catzc.Base.QualityGates
     }
@@ -41,13 +42,33 @@ Describe 'Get-GitAttributeValue' -Tag 'L0', 'logic' {
         $values['docs/sprocket.md']['catzc-fixture'] | Should -Be 'unset'
     }
 
-    It 'asks git once per 100 paths' {
+    It 'asks git once, whatever the number of paths, and hands it every path on stdin' {
         $paths = 1..250 | ForEach-Object { "docs/widget$_.md" }
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Paths = $paths } {
             param($Root, $Paths)
             Get-GitAttributeValue -RepositoryRoot $Root -Path $Paths -Attribute catzc-fixture
         } | Out-Null
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 3 -Exactly -ParameterFilter { $Command -like '*check-attr catzc-fixture --*' }
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Command -like '*check-attr -z --stdin catzc-fixture' -and
+            ($InputText -split "`0" | Where-Object { $_ }).Count -eq 250 -and $InputText.EndsWith("`0")
+        }
+    }
+
+    It 'keeps a path that holds a colon and a space whole, since paths are never split on text' {
+        $values = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot } {
+            param($Root)
+            Get-GitAttributeValue -RepositoryRoot $Root -Path 'docs/odd: name.md' -Attribute catzc-fixture
+        }
+        $values['docs/odd: name.md']['catzc-fixture'] | Should -Be 'set'
+    }
+
+    It 'asks nothing when there are no paths' {
+        $values = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot } {
+            param($Root)
+            Get-GitAttributeValue -RepositoryRoot $Root -Path @() -Attribute catzc-fixture
+        }
+        $values.Count | Should -Be 0
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 0
     }
 
     It 'returns nothing, without asking git, outside a git work tree' {

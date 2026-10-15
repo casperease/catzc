@@ -26,6 +26,8 @@ catzc:
     The file to check.
 .PARAMETER RelativePath
     The file's name as the messages should show it (a repository- or overlay-relative path).
+.PARAMETER ParsedScripts
+    The call's shared parse of each script; a caller checking many files passes one so a file is parsed once.
 .OUTPUTS
     [string] One message per violation; nothing when the file passes.
 .EXAMPLE
@@ -39,13 +41,15 @@ function Get-FunctionFileViolation {
         [string] $Path,
 
         [Parameter(Mandatory)]
-        [string] $RelativePath
+        [string] $RelativePath,
+
+        [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
     )
 
     $expectedName = [System.IO.Path]::GetFileNameWithoutExtension($Path)
-    $tokens = $null
-    $parseErrors = $null
-    $syntaxTree = [System.Management.Automation.Language.Parser]::ParseFile($Path, [ref] $tokens, [ref] $parseErrors)
+    $script = $ParsedScripts.Get($Path)
+    $parseErrors = $script.Errors
+    $syntaxTree = $script.Ast
 
     foreach ($parseError in @($parseErrors)) {
         "${RelativePath}:$($parseError.Extent.StartLineNumber): does not parse ($($parseError.Message))"

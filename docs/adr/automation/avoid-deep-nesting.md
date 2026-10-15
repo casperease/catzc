@@ -60,7 +60,7 @@ $name = (Get-Content $path | ConvertFrom-Json).Items.Where({ $_.Status -eq 'Acti
 ```powershell
 # Conditional with buried logic — the reader must mentally evaluate the entire
 # expression before understanding what the if-statement is actually testing.
-if ((Get-ChildItem $path -Filter '*.ps1' -Recurse | Where-Object { $_.Length -gt 0 }).Count -gt 5) {
+if ((Get-ChildPath $path -File -Filter '*.ps1' | Where-Object { $_ -notlike '*.Tests.ps1' }).Count -gt 5) {
 ```
 
 The same logic, split into named steps, reads top-to-bottom:
@@ -72,7 +72,7 @@ $name    = $active[0].Name.ToLower()
 ```
 
 ```powershell
-$scripts = Get-ChildItem $path -Filter '*.ps1' -Recurse | Where-Object { $_.Length -gt 0 }
+$scripts = Get-ChildPath $path -File -Filter '*.ps1' | Where-Object { $_ -notlike '*.Tests.ps1' }
 if ($scripts.Count -gt 5) {
 ```
 
@@ -160,7 +160,7 @@ $settingsPath = Join-Path $env:RepositoryRoot 'automation/.internal/assets/PSScr
 $moduleName = $moduleDir.Name
 
 # Fine — short pipeline with two obvious stages
-$ps1Files = Get-ChildItem $path -Filter '*.ps1' | Select-Object -exp Fullname
+$ps1Files = Get-ChildPath $path -File -Filter '*.ps1' | Sort-Object
 ```
 
 The rule of thumb: if you have to scan backwards or count parentheses to understand a line, split it.

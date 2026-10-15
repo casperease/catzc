@@ -41,7 +41,7 @@ public class CliRunner
 
     /// <summary> Shell operators are refused, not passed on, because the executable starts directly with no shell.
     /// [comment:3](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment3)
-    public static CliRunner Run(string commandLine, bool silent, string workingDirectory, int timeoutSeconds)
+    public static CliRunner Run(string commandLine, bool silent, string workingDirectory, int timeoutSeconds, string input = null)
     {
         if (timeoutSeconds <= 0)
         {
@@ -57,7 +57,7 @@ public class CliRunner
                 "Break the command into separate Invoke-Executable calls, or use -Direct for shell expressions.");
         }
 
-        return RunDirect(commandLine, parsed.Executable, parsed.Arguments, silent, workingDirectory, timeoutSeconds);
+        return RunDirect(commandLine, parsed.Executable, parsed.Arguments, silent, workingDirectory, timeoutSeconds, input);
     }
 
     /// <summary> Stdin is empty and closed and stdout is never decoded, so a binary stream passes through intact.
@@ -109,7 +109,7 @@ public class CliRunner
     }
 
     private static CliRunner RunDirect(string commandLine, string executable, List<string> arguments, bool silent,
-        string workingDirectory, int timeoutSeconds)
+        string workingDirectory, int timeoutSeconds, string input)
     {
         var runner = new CliRunner();
         var stdoutSb = new StringBuilder();
@@ -117,9 +117,13 @@ public class CliRunner
 
         // Close stdin when no person can answer: a child inheriting a pipe another thread is blocked reading hangs at startup.
         // [comment:6](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment6)
-        var psi = NewStartInfo(executable, arguments, workingDirectory, redirectInput: silent || Console.IsInputRedirected);
+        var psi = NewStartInfo(executable, arguments, workingDirectory, redirectInput: input != null || silent || Console.IsInputRedirected);
+        if (input != null)
+        {
+            psi.StandardInputEncoding = new UTF8Encoding(false);
+        }
 
-        return Execute(commandLine, psi, stdoutSb, stderrSb, silent, timeoutSeconds, runner);
+        return Execute(commandLine, psi, stdoutSb, stderrSb, silent, timeoutSeconds, runner, input);
     }
 
     private static ProcessStartInfo NewStartInfo(string executable, List<string> arguments, string workingDirectory,
@@ -202,7 +206,7 @@ public class CliRunner
     }
 
     private static CliRunner Execute(string commandLine, ProcessStartInfo psi, StringBuilder stdoutSb,
-        StringBuilder stderrSb, bool silent, int timeoutSeconds, CliRunner runner)
+        StringBuilder stderrSb, bool silent, int timeoutSeconds, CliRunner runner, string input)
     {
         var previousEncoding = Console.OutputEncoding;
 
@@ -213,7 +217,7 @@ public class CliRunner
             using (var process = new Process { StartInfo = psi })
             {
                 process.Start();
-                if (psi.RedirectStandardInput)
+                if (psi.RedirectStandardInput && input == null)
                 {
                     process.StandardInput.Close();
                 }
@@ -242,6 +246,16 @@ public class CliRunner
 
                 stdoutThread.Start();
                 stderrThread.Start();
+
+                // Written on its own thread after the readers run: a child that fills its output before it reads all its input cannot deadlock.
+                if (input != null)
+                {
+                    Reader(() =>
+                    {
+                        process.StandardInput.Write(input);
+                        process.StandardInput.Close();
+                    }).Start();
+                }
 
                 Supervise(commandLine, process, timeoutSeconds, stdoutThread, stderrThread);
 

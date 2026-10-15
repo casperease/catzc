@@ -196,6 +196,41 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
         }
     }
 
+    Context 'Stream mode — InputText' {
+        BeforeAll {
+            # sort and cat read stdin to EOF and write it back, so what comes out is what went in.
+            $script:inputReader = if ($IsWindows) {
+                "$env:SystemRoot\System32\sort.exe"
+            }
+            else {
+                'cat'
+            }
+        }
+
+        It 'writes the text to the child''s stdin and closes it, so a reader finishes' {
+            $result = Invoke-Executable $script:inputReader -InputText "pear`nbanana`napple`n" -PassThru -Silent
+            $result.ExitCode | Should -Be 0
+            @($result.Output -split "`r?`n" | Where-Object { $_ } | Sort-Object) | Should -Be @('apple', 'banana', 'pear')
+        }
+
+        It 'delivers an input larger than the pipe buffer without a deadlock' {
+            $lines = 1..20000 | ForEach-Object { "widget-$_" }
+            $result = Invoke-Executable $script:inputReader -InputText (($lines -join "`n") + "`n") -PassThru -Silent -TimeoutSeconds 60
+            $result.ExitCode | Should -Be 0
+            @($result.Output -split "`r?`n" | Where-Object { $_ }).Count | Should -Be 20000
+        }
+
+        It 'closes stdin for an empty text too, so the reader still finishes' {
+            $result = Invoke-Executable $script:inputReader -InputText '' -PassThru -Silent
+            $result.ExitCode | Should -Be 0
+            $result.Output | Should -BeNullOrEmpty
+        }
+
+        It '-InputText and -Direct are mutually exclusive' {
+            { Invoke-Executable $script:inputReader -InputText 'widget' -Direct } | Should -Throw
+        }
+    }
+
     Context 'Stream mode — AsBytes' {
         It 'captures stdout as the exact bytes written, never decoded' -Tag 'L2' {
             # L2: a real child pwsh writes bytes that are not valid UTF-8 (255, 200) next to a CR and LF.

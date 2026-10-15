@@ -86,6 +86,15 @@ Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {
         @($script:records | Where-Object { $_.File -like '*Catzc.Base.Sprocket*' }) | Should -HaveCount 0
     }
 
+    It 'parses each file once when two scans share one holder' {
+        $parsed = [Catzc.Base.Repository.ParsedScripts]::new()
+        $null = Get-InternalAssetDependency -AutomationRoot $script:fake.Automation -ParsedScripts $parsed
+        $first = $parsed.ParseCount
+        $null = Get-InternalAssetDependency -AutomationRoot $script:fake.Automation -ParsedScripts $parsed
+        $first | Should -Be 7
+        $parsed.ParseCount | Should -Be $first
+    }
+
     It '-Module limits the scan to the named module folders' {
         @(Get-InternalAssetDependency -AutomationRoot $script:fake.Automation -Module Catzc.Base.Sprocket) | Should -HaveCount 0
     }

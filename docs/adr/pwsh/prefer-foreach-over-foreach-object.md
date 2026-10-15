@@ -157,7 +157,7 @@ unless streaming is specifically needed.
 1. **Simple property access in a pipeline chain:**
 
    ```powershell
-   $names = Get-ChildItem | ForEach-Object Name
+   $names = Get-ChildPath $path -Directory | ForEach-Object { [System.IO.Path]::GetFileName($_) }
    ```
 
 2. **One-expression transforms in a pipeline:**

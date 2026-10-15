@@ -201,12 +201,14 @@ function Get-BuildClosureViolation {
         [string[]] $Module,
 
         [Parameter(Mandatory)]
-        [System.Collections.Generic.Dictionary[string, bool]] $Index
+        [System.Collections.Generic.Dictionary[string, bool]] $Index,
+
+        [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
     )
 
     $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module), [System.StringComparer]::Ordinal)
 
-    foreach ($call in @(Get-FunctionDependency -AutomationRoot $SourceRoot)) {
+    foreach ($call in @(Get-FunctionDependency -AutomationRoot $SourceRoot -ParsedScripts $ParsedScripts)) {
         if ($call.CrossModule -and $selected.Contains($call.CallerModule) -and -not $selected.Contains($call.TargetModule)) {
             "automation/$($call.CallerModule)/$($call.CallerFile):$($call.CallerLine): $($call.CallerFunction) calls $($call.TargetFunction), which $($call.TargetModule) owns"
         }
@@ -224,9 +226,7 @@ function Get-BuildClosureViolation {
                 -not $Index.ContainsKey($relativePath)) {
                 continue
             }
-            $tokens = $null
-            $parseErrors = $null
-            $syntaxTree = [System.Management.Automation.Language.Parser]::ParseFile($file, [ref] $tokens, [ref] $parseErrors)
+            $syntaxTree = $ParsedScripts.Get($file).Ast
             foreach ($read in [Catzc.Base.Repository.SyntaxSearch]::CommandsNamed($syntaxTree, 'Get-Config', $false)) {
                 $elements = $read.CommandElements
                 # Only the owners present are read, so an owner missing from the build is not a gap.
@@ -285,7 +285,9 @@ function Get-MergedModule {
         [string] $Name,
 
         [Parameter(Mandatory)]
-        [System.Collections.Generic.Dictionary[string, bool]] $Index
+        [System.Collections.Generic.Dictionary[string, bool]] $Index,
+
+        [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
     )
 
     $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, $Name)
@@ -325,7 +327,7 @@ function Get-MergedModule {
     foreach ($entry in $ordered) {
         # Shared with the consumer overlay, which loads a function file into a built module the same way.
         # [comment:12](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment12)
-        foreach ($violation in @(Get-FunctionFileViolation -Path $entry.Path -RelativePath $entry.Relative)) {
+        foreach ($violation in @(Get-FunctionFileViolation -Path $entry.Path -RelativePath $entry.Relative -ParsedScripts $ParsedScripts)) {
             $violations.Add($violation)
         }
         $text = [System.IO.File]::ReadAllText($entry.Path).Replace("`r", '').TrimEnd("`n")
@@ -431,7 +433,9 @@ function Get-ModuleBuildPlan {
         [hashtable] $PackageMetadata,
 
         [Parameter(Mandatory)]
-        [System.Collections.Generic.Dictionary[string, bool]] $Index
+        [System.Collections.Generic.Dictionary[string, bool]] $Index,
+
+        [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
     )
 
     $entries = [System.Collections.Generic.List[object]]::new()
@@ -444,7 +448,7 @@ function Get-ModuleBuildPlan {
             $violations.Add("automation/${name}: the module folder does not exist")
             continue
         }
-        $merged = Get-MergedModule -SourceRoot $SourceRoot -Name $name -Index $Index
+        $merged = Get-MergedModule -SourceRoot $SourceRoot -Name $name -Index $Index -ParsedScripts $ParsedScripts
         foreach ($violation in $merged.Violations) {
             $violations.Add($violation)
         }
@@ -893,14 +897,15 @@ function Invoke-ModuleBuild {
     }
 
     Import-InternalModule Types
-    $plan = Get-ModuleBuildPlan -SourceRoot $sourceRoot -Module $modules -Version $Version -VendorPolicy $VendorPolicy -PackageMetadata $PackageMetadata -Index $index
+    $parsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
+    $plan = Get-ModuleBuildPlan -SourceRoot $sourceRoot -Module $modules -Version $Version -VendorPolicy $VendorPolicy -PackageMetadata $PackageMetadata -Index $index -ParsedScripts $parsedScripts
     if ($plan.Violations.Count -gt 0) {
         throw ("Invoke-ModuleBuild: $($plan.Violations.Count) problem(s) in the source tree prevent the build (merge preconditions, ADR-PWSH-MANIFEST#5):`n  " +
             ($plan.Violations -join "`n  "))
     }
 
     # The closure check: the code itself, not only dependencies.yml, must be satisfied by the selection.
-    $outside = @(Get-BuildClosureViolation -SourceRoot $sourceRoot -Module $modules -Index $index)
+    $outside = @(Get-BuildClosureViolation -SourceRoot $sourceRoot -Module $modules -Index $index -ParsedScripts $parsedScripts)
     if ($outside.Count -gt 0) {
         throw ("Invoke-ModuleBuild: $($outside.Count) call(s) or config read(s) of the selected modules land outside the build (ADR-AUTO-BUNDLE#5). " +
             "Declare the dependency in dependencies.yml so the closure brings the owner in, or add the owning module to the build:`n  " + ($outside -join "`n  "))
@@ -914,7 +919,7 @@ function Invoke-ModuleBuild {
     }
     $missing = [System.Collections.Generic.List[string]]::new()
     $dependencies = @(if ($modules.Count -gt 0) {
-            Get-InternalAssetDependency -AutomationRoot $sourceRoot -Module $modules
+            Get-InternalAssetDependency -AutomationRoot $sourceRoot -Module $modules -ParsedScripts $parsedScripts
         })
     foreach ($dependency in $dependencies) {
         $childPath = ([string] $dependency.ChildPath).Replace('\', '/').TrimEnd('/')

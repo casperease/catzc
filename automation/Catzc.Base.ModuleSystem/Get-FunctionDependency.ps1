@@ -26,6 +26,8 @@ catzc:
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
+.PARAMETER ParsedScripts
+    The call's shared parse of each script; the session cache of the result stays, this only spares a second parse of a file within one build.
 .EXAMPLE
     Get-FunctionDependency
 .EXAMPLE
@@ -35,7 +37,9 @@ catzc:
 #>
 function Get-FunctionDependency {
     param(
-        [string] $AutomationRoot = (Get-CatzcModulesRoot)
+        [string] $AutomationRoot = (Get-CatzcModulesRoot),
+
+        [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
     )
 
     Assert-SourceTree
@@ -69,9 +73,7 @@ function Get-FunctionDependency {
                 continue
             }
 
-            $tokens = $null
-            $errors = $null
-            $ast = [System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$tokens, [ref]$errors)
+            $ast = $ParsedScripts.Get($path).Ast
             $fns = @([Catzc.Base.Repository.SyntaxSearch]::TopLevelFunctions($ast))
 
             $parsed.Add([pscustomobject]@{ Module = $module; FileName = $name; Functions = $fns })

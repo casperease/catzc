@@ -189,6 +189,7 @@ domains:
       powershell-formatting: { external: ADR-PWSH-FORMAT, concern: [quality-control] }
       environment-variable-mechanics: { external: ADR-PWSH-ENV }
       parameter-design: { external: ADR-PWSH-PARAM }
+      bounded-enumeration: { external: ADR-PWSH-ENUM }
       working-directory-mechanics: { external: ADR-PWSH-PWD }
       cross-platform-powershell: { external: ADR-PWSH-XPLAT }
       script-scope-caching: { external: ADR-PWSH-CACHE }

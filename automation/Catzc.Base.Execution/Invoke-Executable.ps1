@@ -33,6 +33,8 @@ catzc:
 .PARAMETER TimeoutSeconds
     Overrides the timeouts.yml limit for one call; -Direct has no limit, since a person at the prompt is its safeguard.
     [comment:8](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment8)
+.PARAMETER InputText
+    Written to the child's stdin, which is then closed: how one process reads a list that would overflow the command line.
 .PARAMETER NoAssert
     With -PassThru the ExitCode stays readable on the result, so the caller can judge it instead.
     [comment:5](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment5)
@@ -80,6 +82,9 @@ function Invoke-Executable {
         [ValidateRange(1, [int]::MaxValue)]
         [int] $TimeoutSeconds,
 
+        [Parameter(ParameterSetName = 'Stream')]
+        [string] $InputText,
+
         [switch] $NoAssert,
         [switch] $Silent,
         [string] $WorkingDirectory = (Get-RepositoryRoot),
@@ -119,6 +124,11 @@ function Invoke-Executable {
         if (-not $PSBoundParameters.ContainsKey('TimeoutSeconds')) {
             $TimeoutSeconds = Get-TimeoutSeconds -Executable ([Catzc.Base.Execution.CliRunner]::ExecutableName($Command))
         }
-        Invoke-ExecutableStreamed @params -TimeoutSeconds $TimeoutSeconds -AsBytes:$AsBytes
+        $streamed = @{ TimeoutSeconds = $TimeoutSeconds; AsBytes = $AsBytes }
+        # An unbound [string] is empty, not null, so only a passed -InputText reaches the child's stdin.
+        if ($PSBoundParameters.ContainsKey('InputText')) {
+            $streamed.InputText = $InputText
+        }
+        Invoke-ExecutableStreamed @params @streamed
     }
 }

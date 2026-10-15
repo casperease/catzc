@@ -477,6 +477,60 @@ function Import-TypesAssembly {
     $shadow
 }
 
+function Test-TypesAssemblyContent {
+    <#
+    .SYNOPSIS
+        Checks that a combined types assembly declares every expected public type, reading its metadata only.
+    .DESCRIPTION
+        The file is read into memory and parsed with System.Reflection.Metadata, so the assembly is never loaded into the
+        process and the file is never locked. A missing type throws; a complete assembly returns nothing.
+    .PARAMETER Path
+        The assembly file to read.
+    .PARAMETER Expected
+        The sources whose types the assembly must hold: objects with Module (the namespace) and Base (the type name), as
+        Get-CombinedTypeHash returns in Files.
+    .EXAMPLE
+        Test-TypesAssemblyContent -Path $dll -Expected $hashResult.Files
+    #>
+    [CmdletBinding()]
+    [OutputType([void])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Path,
+
+        [Parameter(Mandatory)]
+        [object[]] $Expected
+    )
+
+    if (-not [System.IO.File]::Exists($Path)) {
+        throw "Cannot verify the types assembly: '$Path' does not exist."
+    }
+
+    $declared = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    $stream = [System.IO.MemoryStream]::new([System.IO.File]::ReadAllBytes($Path))
+    $peReader = [System.Reflection.PortableExecutable.PEReader]::new($stream)
+    try {
+        $reader = [System.Reflection.Metadata.PEReaderExtensions]::GetMetadataReader($peReader)
+        foreach ($handle in $reader.TypeDefinitions) {
+            $definition = $reader.GetTypeDefinition($handle)
+            $visibility = $definition.Attributes -band [System.Reflection.TypeAttributes]::VisibilityMask
+            if ($visibility -eq [System.Reflection.TypeAttributes]::Public) {
+                [void] $declared.Add($reader.GetString($definition.Namespace) + '.' + $reader.GetString($definition.Name))
+            }
+        }
+    }
+    finally {
+        $peReader.Dispose()
+        $stream.Dispose()
+    }
+
+    foreach ($source in $Expected) {
+        if (-not $declared.Contains("$($source.Module).$($source.Base)")) {
+            throw "Compiled C# types but '$($source.Module).$($source.Base)' was not produced. $($source.Module)/types/$($source.Base).cs must declare a public class named '$($source.Base)' (the module namespace '$($source.Module)' is added automatically)."
+        }
+    }
+}
+
 # The default row and the allowed values live here, not on a C# type: the policy is read while the types assembly is still unloaded.
 $script:TypesLoadDefault = [ordered]@{ Load = 'lazy'; Trigger = 'lookup-hook'; EagerTypes = @(); ShadowCopy = $true }
 $script:TypesLoadHosts = 'console', 'headless'
@@ -597,4 +651,4 @@ function Get-TypesLoadPolicy {
     [pscustomobject]$policy
 }
 
-Export-ModuleMember -Function Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Import-TypesAssembly, Get-TypesLoadPolicy
+Export-ModuleMember -Function Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesLoadPolicy

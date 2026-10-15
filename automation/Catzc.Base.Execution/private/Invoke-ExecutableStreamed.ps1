@@ -29,6 +29,8 @@ catzc:
     Suppress all console output. Output is still captured for -PassThru.
 .PARAMETER TimeoutSeconds
     The run's time limit. Past it CliRunner kills the process tree and throws a TimeoutException.
+.PARAMETER InputText
+    Written to the child's stdin, which is then closed; absent, stdin is left as before.
 .PARAMETER AsBytes
     Returns the CliResult even without -PassThru, since bytes have no other way back to the caller.
     [comment:2](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md#comment2)
@@ -52,6 +54,7 @@ function Invoke-ExecutableStreamed {
         [ValidateRange(1, [int]::MaxValue)]
         [int] $TimeoutSeconds,
         [switch] $AsBytes,
+        [string] $InputText,
         [switch] $DryRun
     )
 
@@ -71,7 +74,9 @@ function Invoke-ExecutableStreamed {
             [Catzc.Base.Execution.CliRunner]::RunBytes($Command, $WorkingDirectory, $TimeoutSeconds)
         }
         else {
-            [Catzc.Base.Execution.CliRunner]::Run($Command, $suppressOutput, $WorkingDirectory, $TimeoutSeconds)
+            # Null leaves stdin as before; a bound -InputText, even an empty one, is written and closed.
+            $stdin = if ($PSBoundParameters.ContainsKey('InputText')) { $InputText } else { $null }
+            [Catzc.Base.Execution.CliRunner]::Run($Command, $suppressOutput, $WorkingDirectory, $TimeoutSeconds, $stdin)
         }
     }
     catch [System.Management.Automation.MethodInvocationException] {
