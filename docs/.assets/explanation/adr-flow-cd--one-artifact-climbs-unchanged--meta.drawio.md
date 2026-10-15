@@ -5,7 +5,7 @@
 ```text
 A 1572 x 600 diagram, read left to right through two bands.
 Glyphs: 1 runner (slate), 1 result, 2 environments, 1 ADR-only gate; 3 flow and 2 ADR-only edges; 6 markers.
-Sidebar: axis minimap (main cell PIPE x DEPLOY), tree minimap, lens badge META, map key.
+Sidebar: world-map grid (5 lit cells), tree (7 lit groups), value-chain map (4 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png) draws, in the vocabulary of the diagram
