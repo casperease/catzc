@@ -225,6 +225,27 @@ Describe 'Format-Code (real vendored analyzer and settings)' -Tag 'L2', 'integri
         $formatted | Should -Match "`n$"
         $formatted | Should -Not -Match "`r"
     }
+
+    It 'formats exactly as the vendored analyzer does with the whole settings file, custom rules included' {
+        $subject = Join-Path $TestDrive 'Get-Gadget.ps1'
+        $offStyle = "function Get-Gadget {`n  if (`$true) { 'x' }`n    `$value=1;   `$value  `n}"
+        [System.IO.File]::WriteAllText($subject, $offStyle)
+        # The engine imports the analyzer on first use, so Invoke-Formatter exists once it has run.
+        $null = Format-Code -Language powershell -Path $subject
+        $formatted = [System.IO.File]::ReadAllText($subject)
+        $settingsFile = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
+        Push-Location (Get-RepositoryRoot)
+        try {
+            $expected = Invoke-Formatter -ScriptDefinition $offStyle -Settings $settingsFile
+        }
+        finally {
+            Pop-Location
+        }
+        $expected = ($expected -replace "`r`n", "`n" -replace '(?m)[ \t]+$', '').TrimEnd("`n") + "`n"
+
+        $formatted | Should -Not -BeExactly $offStyle
+        $formatted | Should -BeExactly $expected
+    }
 }
 
 # The prettier engine over throwaway files, nothing mocked but the console; self-skips when prettier is absent
