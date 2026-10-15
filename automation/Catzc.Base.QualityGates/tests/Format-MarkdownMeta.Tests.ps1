@@ -29,8 +29,8 @@ Describe 'Format-MarkdownMeta and Test-MarkdownMeta' -Tag 'L0', 'logic', 'ADR-RE
 
     It 'keeps the authored config part and the other front matter keys' {
         Format-MarkdownMeta -RepositoryRoot $script:widgetRoot | Out-Null
-        $text = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md'))
-        $text | Should -BeLike "---`nname: gadget`ncatzc:`n  derived:`n    kind: gadget`n    body_sha: *`n    adrs: []`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
+        $text = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) -replace 'body_sha: "?[0-9a-f]{12}"?', 'body_sha: HASH'
+        $text | Should -BeExactly "---`nname: gadget`ncatzc:`n  derived:`n    kind: gadget`n    body_sha: HASH`n    adrs: []`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
     }
 
     It 'changes nothing on a second run' {

@@ -19,7 +19,7 @@ Describe 'Get-MarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#4' {
     }
 
     It 'skips a kind whose globs do not match the file' {
-        $facts = Get-Facts @{ kinds = [ordered]@{ 'body-sha' = @{ files = @('other/**') }; 'adr-codes' = @{} } }
+        $facts = Get-Facts @{ kinds = [ordered]@{ 'body-sha' = @{ keys = @('body_sha'); files = @('other/**') }; 'adr-codes' = @{ keys = @('adrs') } } }
         $facts.Keys | Should -Be @('adrs')
     }
 

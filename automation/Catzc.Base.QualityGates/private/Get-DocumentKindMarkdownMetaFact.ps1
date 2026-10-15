@@ -29,7 +29,13 @@ function Get-DocumentKindMarkdownMetaFact {
     )
 
     $class = 'other'
-    foreach ($candidate in @($Kind.settings['classes'])) {
+    $classes = if ($Kind.settings.ContainsKey('classes')) {
+        @($Kind.settings['classes'])
+    }
+    else {
+        @()
+    }
+    foreach ($candidate in $classes) {
         Assert-True ($candidate -is [System.Collections.IDictionary] -and $candidate.Contains('class') -and $candidate.Contains('files')) `
             -ErrorText "markdown-meta config: kind '$($Kind.id)' settings.classes entries need 'class' and 'files'."
         $matched = @($candidate['files'] | Where-Object { [Catzc.Base.Globs.GlobPattern]::new($_).Matches($Path) })

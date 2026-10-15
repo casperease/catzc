@@ -37,7 +37,7 @@ function Get-MarkdownMetaFact {
         }
         $processor = Get-Command -Name $kind.processor -CommandType Function -ErrorAction Ignore
         Assert-NotNull $processor -ErrorText "markdown-meta config: kind '$($kind.id)' is subscribed by '$($kind.processor)', but no such function exists."
-        $produced = & $processor -Document $Document -Path $Path -Kind $kind
+        $produced = & $kind.processor -Document $Document -Path $Path -Kind $kind
         $expected = @($kind.keys)
         $actual = @($produced.Keys)
         Assert-True (($actual -join ',') -ceq ($expected -join ',')) `

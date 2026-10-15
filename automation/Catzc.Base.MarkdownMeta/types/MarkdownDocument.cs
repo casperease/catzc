@@ -99,10 +99,11 @@ public sealed class MarkdownDocument
     // The document as it was parsed.
     public string ToText() => WithMetaBlock(MetaBlock);
 
-    // The first 12 hex characters of the SHA-256 of the body, its line endings read as LF, so the hash changes exactly when the body does.
+    // The first 12 hex characters of the SHA-256 of the body, its line endings read as LF and its leading blank lines dropped. The blank
+    // line that separates written front matter from the body is no part of the body, so imprinting never changes the hash it records.
     public string BodyHash()
     {
-        byte[] bytes = Encoding.UTF8.GetBytes(Body.Replace("\r\n", "\n"));
+        byte[] bytes = Encoding.UTF8.GetBytes(Body.Replace("\r\n", "\n").TrimStart('\n'));
         using (SHA256 sha = SHA256.Create())
         {
             byte[] hash = sha.ComputeHash(bytes);

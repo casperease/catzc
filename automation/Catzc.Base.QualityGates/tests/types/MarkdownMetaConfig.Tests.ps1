@@ -40,10 +40,10 @@ Describe 'MarkdownMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#2' {
     It 'lists the imprint kinds in order and the gather kinds of one config' {
         $config = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{
                 kinds = [ordered]@{
-                    widget = @{}
-                    gadget = @{ direction = 'gather'; target = 'gadgets'; keys = @('gadgets') }
+                    widget   = @{}
+                    gadget   = @{ direction = 'gather'; target = 'gadgets'; keys = @('gadgets') }
                     sprocket = @{ direction = 'gather'; target = 'other'; keys = @('other') }
-                    doodad = @{}
+                    doodad   = @{}
                 }
             })
         $config.Imprint().id | Should -Be @('widget', 'doodad')

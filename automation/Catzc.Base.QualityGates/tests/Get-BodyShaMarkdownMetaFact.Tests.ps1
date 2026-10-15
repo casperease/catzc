@@ -19,9 +19,9 @@ Describe 'Get-BodyShaMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#3' {
         $framed = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse("---`nname: widget`n---`n# docs/widget.md`n`nbody`n")
         $hash = foreach ($document in $plain, $framed) {
             (InModuleScope Catzc.Base.QualityGates -Parameters @{ Document = $document; Kind = $script:kind } {
-                    param($Document, $Kind)
-                    Get-BodyShaMarkdownMetaFact -Document $Document -Path 'docs/widget.md' -Kind $Kind
-                })['body_sha']
+                param($Document, $Kind)
+                Get-BodyShaMarkdownMetaFact -Document $Document -Path 'docs/widget.md' -Kind $Kind
+            })['body_sha']
         }
         $hash[0] | Should -BeExactly $hash[1]
     }
