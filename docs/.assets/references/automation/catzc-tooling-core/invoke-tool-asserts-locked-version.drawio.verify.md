@@ -57,7 +57,7 @@ contradicts, corrected below.
 - The brief's "one probe and one version read" is contradicted in part. `Assert-Tool` and `Test-Tool` share the same two branches, but there
   are two version reads (`Get-ToolVersion`, and `Get-ExecutableVersion` inside the probe), and `Test-Tool` calls `Get-ToolVersion` directly,
   skipping `Assert-ToolVersion`'s cache and repeating its accepted-prefix rule (C5).
-- The title "Every Invoke-<Tool> asserts the locked version before it runs" (61 characters) is shortened to "Each …" (60).
+- The title "Every `Invoke-<Tool>` asserts the locked version before it runs" (61 characters) is shortened to "Each …" (60).
 
 ## Drift
 

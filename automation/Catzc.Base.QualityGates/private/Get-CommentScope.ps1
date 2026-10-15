@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the files whose long comments live in a comment page, each with its file language and page.
 .DESCRIPTION
-    The one scope Export-Comments, Build-CommentView, Format-Comments and Test-Comments share, so the converter, the...
+    One shared scope, so the converter, the view and the gate cannot disagree on which files hold comments.
     [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-CommentScope.ps1.md#comment1)
 .PARAMETER RepositoryRoot

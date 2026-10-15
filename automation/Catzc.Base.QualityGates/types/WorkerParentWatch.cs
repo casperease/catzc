@@ -1,4 +1,4 @@
-// Ends a test worker process when the process that started it is gone.
+// A reused PID is told apart from the parent by start time, so a recycled PID never keeps an orphaned worker alive.
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment1)
 
 namespace Catzc.Base.QualityGates;
@@ -13,7 +13,7 @@ public static class WorkerParentWatch
     public const string PidVariable = "CATZC_TEST_PARENT_PID";
     public const string StartVariable = "CATZC_TEST_PARENT_START";
 
-    // Start times are compared with slack: on Linux, Process.StartTime is derived from the boot time and can differ by a few...
+    // A reused PID starts far later than the few milliseconds that Linux start times can differ by between reads.
     // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment2)
     private static readonly TimeSpan StartTolerance = TimeSpan.FromSeconds(1);
 
@@ -27,7 +27,7 @@ public static class WorkerParentWatch
         return current.StartTime.ToUniversalTime().Ticks;
     }
 
-    /// <summary> True when the process with this PID exists and started at this time (UTC ticks, within tolerance).
+    /// <summary> The start time guards against PID reuse: a different process on the same PID counts as gone.
     /// [comment:3](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment3)
     public static bool IsAlive(int pid, long startTicksUtc)
     {
@@ -53,7 +53,7 @@ public static class WorkerParentWatch
         }
     }
 
-    /// <summary> Starts watching the parent named by the environment variables.
+    /// <summary> Idempotent: a second call while a watch runs returns true without starting another; false watches nothing.
     /// [comment:4](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment4)
     public static bool Start(int intervalMilliseconds)
     {
@@ -91,7 +91,7 @@ public static class WorkerParentWatch
         {
             Thread.Sleep(intervalMilliseconds);
         }
-        // Kill, not Environment.Exit: exit handlers can block behind a main thread stuck writing to a pipe nobody reads any more, which...
+        // An orphaned worker's main thread may be stuck writing to a pipe nobody reads, so exit handlers could block.
         // [comment:5](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment5)
         using var self = Process.GetCurrentProcess();
         self.Kill();

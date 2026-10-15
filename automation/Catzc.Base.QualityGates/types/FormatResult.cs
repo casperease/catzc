@@ -1,4 +1,4 @@
-// The outcome of formatting one file language (Format-Code -PassThru): the language, the engine languages.yml names for it, every file...
+// Paths are absolute because Format-Code -Path also formats files outside the repository, such as a built module manifest.
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/FormatResult.cs.md#comment1)
 
 using System;

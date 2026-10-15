@@ -31,22 +31,8 @@ function Get-ToolInstallOrder {
     $order = [System.Collections.Generic.List[string]]::new()
     $noDependencies = [System.Collections.Generic.Queue[string]]::new()
 
-    # In-degree: how many tools depend on me being installed first
-    $inDegree = @{}
-    foreach ($name in $dependencies.Keys) {
-        $inDegree[$name] = 0
-    }
-    foreach ($name in $dependencies.Keys) {
-        foreach ($dependencyName in $dependencies[$name]) {
-            $inDegree[$dependencyName] = ($inDegree[$dependencyName] ?? 0) + 0  # ensure key exists
-            $inDegree[$name]++
-        }
-    }
-
     # A tool's in-degree is its own dependency count, since each dependency must be installed before it.
     # [comment:3](/docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md#comment3)
-
-    # Redo properly
     $inDegree = @{}
     foreach ($name in $dependencies.Keys) {
         $inDegree[$name] = $dependencies[$name].Count

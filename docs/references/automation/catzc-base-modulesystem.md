@@ -91,7 +91,7 @@ convention. The cross-module C# type edges that PowerShell call-site analysis ca
 runs against.
 
 The diagram below draws the two dependency graphs from the source. The declared graph in `dependencies.yml` orders the test run and closes
-each profile. The graph observed from the parsed source is checked against it for cycles and for undeclared edges. Its
+each profile. The graph observed from the parsed code is checked against it for cycles and for undeclared edges. Its
 [description](../../.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md) walks it step by
 step, including the one place the test order falls back instead of failing.
 

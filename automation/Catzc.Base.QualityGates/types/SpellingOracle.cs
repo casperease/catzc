@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-/// <summary> The word oracle behind the spell-out-names analyzer rule (Measure-SpellOutIdentifiers), backing.
+/// <summary> Deliberately dumb and fast: the rule picks the identifiers and exemptions, this type only tokenizes and looks up.
 /// [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
 /// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 /// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment1)
 public static class SpellingOracle
 {
-    // Fragments shorter than this are never flagged: single letters are loop indices / type variables, which the ADR exempts.
+    // Single letters are loop indices and type variables, so only fragments of two or more letters can be flagged.
     // [ADR-AUTO-SPELL#2](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell2)
     // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment2)
     public const int MinFragmentLength = 2;
@@ -24,7 +24,7 @@ public static class SpellingOracle
 
     public static int WordCount => _words?.Count ?? 0;
 
-    /// <summary> Load the oracle once: the gzip-compressed English list plus every plain-text term list.
+    /// <summary> A second call is a no-op, so each analyzer shard pays the load once; fixture terms stay separate.
     /// [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)
     /// [comment:3](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment3)
     public static void Initialize(string englishGzPath, IEnumerable<string> termListPaths, IEnumerable<string> fixtureListPaths)
@@ -93,7 +93,7 @@ public static class SpellingOracle
         return _words.Contains(fragment);
     }
 
-    /// <summary> Split an identifier into word fragments and return those (length >= MinFragmentLength) that are not in the dictionary —...
+    /// <summary> Fixture terms count as known only when includeFixtures is set, so a fixture token never blesses production code.
     /// [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)
     /// [comment:4](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment4)
     public static string[] CoinedFragments(string identifier, bool includeFixtures)
@@ -124,7 +124,7 @@ public static class SpellingOracle
         return coined.ToArray();
     }
 
-    /// <summary>Production-scope overload: fixture terms are not accepted.</summary>
+    /// <summary>Production scope never accepts fixture terms, so a fixture token cannot bless a real identifier.</summary>
     /// [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)
     /// [comment:5](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment5)
     public static string[] CoinedFragments(string identifier)
@@ -132,7 +132,7 @@ public static class SpellingOracle
         return CoinedFragments(identifier, false);
     }
 
-    /// <summary> Split on non-letters (snake_case underscores, digits) and case boundaries: a camelCase hump (rule|Collection) and an...
+    /// <summary> Non-letter runs are dropped as separators, so numeric suffixes never form fragments.
     /// [comment:6](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment6)
     public static IEnumerable<string> Tokenize(string identifier)
     {

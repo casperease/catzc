@@ -1,4 +1,4 @@
-// Finds the comment spans of a source file — the only places a code link lives — per language family, by file extension: PowerShell...
+// Comment spans are the only places a code link lives; string-literal spans hold docs paths and citations as data.
 // [ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1),
 // [ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md#comment1)
@@ -39,7 +39,7 @@ public static class CommentLexer
     public static IReadOnlyList<(int Start, int Length)> PowerShellStrings(string text) =>
         string.IsNullOrEmpty(text) ? Array.Empty<(int, int)>() : PowerShellSpans(text, wantComments: false);
 
-    // The string-literal spans of any code file, quotes included: PowerShell's string tokens, the C family's literals, and each YAML...
+    // A YAML value is data however it is quoted, so its whole non-blank text counts; XML yields none, not being code.
     // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md#comment2)
     public static IReadOnlyList<(int Start, int Length)> Strings(string text, string extension)
     {
@@ -66,7 +66,7 @@ public static class CommentLexer
         return spans;
     }
 
-    // The C family's comment spans (wantComments) or string-literal spans (otherwise), from one scan that skips each kind while it looks...
+    // One scan serves both kinds, skipping each while it looks for the other, so a literal never hides a comment.
     // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md#comment3)
     static IReadOnlyList<(int, int)> CFamily(string text, string extension, bool wantComments)
     {
@@ -274,7 +274,7 @@ public static class CommentLexer
         return spans;
     }
 
-    // The comment family's line marker for a span, used to continue a wrapped line comment: '///', '//', '#', or null for a block...
+    // Null for a block comment, whose continuation is plain indentation rather than a repeated marker.
     // [comment:4](/docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md#comment4)
     public static string LineMarker(string comment)
     {

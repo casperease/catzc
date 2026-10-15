@@ -45,7 +45,7 @@ again, so re-grep before landing. Paths are relative to `automation/Catzc.Base.C
 | C6  | Five configs are sealed: configs, glossary, dependencies, profiles, exporter                           | `configs/configs.yml:7,38,47,52,65`                                                                                                                                                                                    | confirmed    |
 | C7  | The registry is validated by `ConfigsConfig` when read                                                 | `private/Get-ConfigRegistry.ps1:28`                                                                                                                                                                                    | confirmed    |
 | C8  | ADR: `Catzc.Base.Config` refuses a sealed fragment via `ConfigsConfig.sealedConfigs`                   | `docs/adr/automation/consumer-overlay.md:162-163` vs `Get-Config.ps1:70` (reads `overridable` from the raw registry entry); `sealedConfigs` is read only by `automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1:20` | contradicted |
-| C9  | ADR-AUTO-OVERLAY:7: sealed configs are declared once in the registry (`overridable: false`)            | `docs/adr/automation/consumer-overlay.md:57-61`; `configs/configs.yml`                                                                                                                                                 | confirmed    |
+| C9  | ADR-AUTO-OVERLAY#7: sealed configs are declared once in the registry (`overridable: false`)            | `docs/adr/automation/consumer-overlay.md:57-61`; `configs/configs.yml`                                                                                                                                                 | confirmed    |
 | C10 | Supports: ADR-AUTO-OVERLAY, ADR-PWSH-CACHE#4, ADR-AUTO-ASSETDEP#1, cited by the drawn code             | `Get-Config.ps1:41,57`; `private/Merge-ConfigFragment.ps1:6`; `private/Get-ConfigRegistry.ps1:6,14`; `configs/configs.yml:2`                                                                                           | confirmed    |
 
 Counts: 27 claims, 26 confirmed, 1 contradicted, 0 ADR-only.
@@ -64,7 +64,7 @@ Counts: 27 claims, 26 confirmed, 1 contradicted, 0 ADR-only.
 - ADR-AUTO-OVERLAY "How this is enforced" (`consumer-overlay.md:162-163`) says `Catzc.Base.Config` refuses a sealed fragment through
   `ConfigsConfig.sealedConfigs`. `Get-Config.ps1:70` instead reads `overridable` off the raw registry entry; only `Assert-CatzcOverlay`
   (`Catzc.Base.Overlay`) uses `sealedConfigs`. Same source of truth (`configs.yml`), two readers of it.
-- The sealed throw cites no rule code; ADR-AUTO-OVERLAY:7 is the rule it enforces.
+- The sealed throw cites no rule code; ADR-AUTO-OVERLAY#7 is the rule it enforces.
 
 ## Cut
 

@@ -1,4 +1,4 @@
-// The parameter names Test-ParameterConsistency lets carry more than one type across the public functions...
+// Omitting exempt exempts no parameter; a name matches case-insensitively and every reason must be non-empty.
 // [ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md),
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

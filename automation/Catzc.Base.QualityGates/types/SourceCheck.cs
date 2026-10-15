@@ -1,4 +1,4 @@
-// The settings every source check shares, read from its key in a QualityGates config (links.yml's string_citations,...
+// Report mode lasts only while a check's work list is drained; gate is the one declared default, and every exempt entry needs a reason.
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 // [ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

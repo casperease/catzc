@@ -1,4 +1,4 @@
-// One entry of comments.yml's `pages:` list: which docs folder holds the comment pages of the files under a source folder.
+// The extension stays in the page name, so a page maps back to exactly one file.
 // [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),
 // [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

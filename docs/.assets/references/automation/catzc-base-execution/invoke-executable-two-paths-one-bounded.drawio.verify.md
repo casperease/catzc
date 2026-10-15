@@ -50,8 +50,8 @@ Counts: 22 claims, 21 confirmed, 1 contradicted, 0 ADR-only.
 
 ## Corrections
 
-- The brief's tripwire gate (`CATZC_BLOCK_REAL_PROCESS`, `Invoke-Executable.ps1:79-85`) is cut: it guards unit tests on both paths alike, so
-  it says nothing about the bound, and keeping it pushed the legend past eight entries.
+- The brief's tripwire check (`CATZC_BLOCK_REAL_PROCESS`, `Invoke-Executable.ps1:79-85`) is cut: it guards unit tests on both paths alike,
+  so it says nothing about the bound, and keeping it pushed the legend past eight entries.
 - The brief named the failure `Kill(entireProcessTree)`; the slide names it `Kill · TimeoutException`, the kill and the throw together.
 - Every scout line number had moved; all the numbers above are new.
 

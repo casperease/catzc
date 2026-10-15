@@ -1,5 +1,5 @@
 // cspell:ignore EXTERNALHELP FORWARDHELPTARGETNAME FORWARDHELPCATEGORY REMOTEHELPRUNSPACE  -- PowerShell help keywords
-// The comment engine behind Export-Comments, Build-CommentView, Format-Comments and Test-Comments: pure functions over a file's text, so...
+// Pure functions over text, so the move and its inverse are provable on fixtures and each comment keeps one living copy.
 // [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),
 // [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
 // [ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)
@@ -130,7 +130,7 @@ public static class CommentEngine
         return false;
     }
 
-    // One block per `.KEYWORD` section body: the lines after the keyword line up to the next keyword line or the closing `#>` line,...
+    // A closing marker sharing a body line leaves the block alone, and trailing blank lines stay in place.
     // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md#comment2)
     static IEnumerable<CommentBlock> HelpSections(Lines lines, int startLine, int endLine)
     {
@@ -217,7 +217,7 @@ public static class CommentEngine
 
     // ---- exporting --------------------------------------------------------------------------------------------
 
-    // text: the file; pagePath: its page, repository-relative; existingPageText: the page as it is, or null.
+    // lineLimit is the file's own limit, which the provisional insight line is cut to fit.
     // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md#comment3)
     public static CommentFileResult Export(string text, string extension, string language, string repoRelativePath, string pagePath,
         string existingPageText, CommentsConfig config, int lineLimit)
@@ -259,7 +259,7 @@ public static class CommentEngine
         yield return prefix + (cites.Count > 0 ? string.Join(", ", cites) + " " : string.Empty) + link;
     }
 
-    // The provisional insight: the block's first sentence without its links and citations (those go on the link line), cut at a word to...
+    // Provisional only: links and citations go on the link line, and a later pass rewrites the cut sentence.
     // [comment:4](/docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md#comment4)
     public static string Insight(string text, int maxLength)
     {
@@ -277,7 +277,7 @@ public static class CommentEngine
         return sentence.Substring(0, cut).TrimEnd() + Ellipsis;
     }
 
-    // The words a file's spell-checker directives ignore (`cspell:ignore w1 w2 -- why`), each once, in order: the page that receives the...
+    // The page ignores these words too, or moved prose would fail a spell check the file itself passed.
     // [comment:5](/docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md#comment5)
     public static IReadOnlyList<string> IgnoredWords(string text, string extension)
     {
@@ -559,7 +559,7 @@ public static class CommentEngine
             return builder.ToString().TrimEnd('\n') + "\n";
         }
 
-        // The page head with one `<!-- cspell:ignore … -->` line holding its own words plus the file's, below the source path; unchanged...
+        // The prefix comes back untouched when the file ignores nothing new, so a rerun leaves the page unchanged.
         // [comment:6](/docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md#comment6)
         static string WithIgnoreLine(string prefix, string repoRelativePath, IReadOnlyList<string> ignoredWords)
         {

@@ -1,4 +1,4 @@
-// One named entry of configs/guids.yml — under `guids:` (a GUID the repository is allowed to carry) or under `denied:` (a value that is...
+// Value uniqueness spans both sections, so GuidsConfig checks it; an entry validates only its own name, keys and fields.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/ManagedGuidEntry.cs.md#comment1)
 

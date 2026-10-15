@@ -48,7 +48,7 @@ throw moved from `Get-AzCliSessionSubscription.ps1:26` to `:25-27`, and `Get-Azu
 | #   | Claim                                                                                                   | Source (`file:line`)                                                                                                                                            | Status       |
 | --- | ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | C1  | Brief sketch: `azure.yml`, `customer.yml` → `Get-Config` → `AzureConfig`                                | `customer.yml` is registered to `CustomerConfig`, not `AzureConfig`: `Catzc.Base.Config/configs/configs.yml:82-83`                                              | contradicted |
-| C2  | The 0-match throw names the undeclared session and lists the declared names                             | `Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1:25-27`; `docs/adr/azure/az-session-verification.md:42-44` (ADR-AZ-SESSION:5)                                  | confirmed    |
+| C2  | The 0-match throw names the undeclared session and lists the declared names                             | `Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1:25-27`; `docs/adr/azure/az-session-verification.md:42-44` (ADR-AZ-SESSION#5)                                  | confirmed    |
 | S1  | Supports: ADR-AZ-SESSION; ADR-AZ-DATAMOD#4, #7, #8, #11; ADR-AZ-CUSTOMER#2, #3, cited by the drawn code | `Get-AzCliSessionSubscription.ps1:6`; `Get-AzureSubscription.ps1:6-7`; `Get-AzureEnvironment.ps1:50`; `types/AzureConfig.cs:2-9`; `types/CustomerConfig.cs:2-5` | confirmed    |
 
 Counts: 28 claims, 27 confirmed, 1 contradicted, 0 ADR-only.
@@ -69,7 +69,7 @@ slide does not draw (validation shape, defaults, naming, overlay, caching), so t
 
 ## Drift
 
-- ADR-AZ-SESSION:5 states one throw, for a session on a subscription azure.yml does not declare. The code adds a second throw for an id
+- ADR-AZ-SESSION#5 states one throw, for a session on a subscription azure.yml does not declare. The code adds a second throw for an id
   declared more than once (`Get-AzCliSessionSubscription.ps1:28-30`, "subscription ids must be unique"). No ADR rule states global
   subscription-id uniqueness (ADR-AZ-DATAMOD says uniqueness is per coordinate, `azure-data-model.md:193-197`), and `AzureConfig` does not
   check it at load, so a duplicate id surfaces only when a session lands on it.

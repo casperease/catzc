@@ -44,6 +44,7 @@ function Test-Spelling {
         [string[]] $Exclude = @(
             'out/**'
             'docs/notes/**'
+            '.unordered/**'
             'infrastructure/templates/**/configuration/**'
             # The gitignored copy double-reports its docs/ source, and its banner holds a kebab filename, not a word.
             # [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)
@@ -73,50 +74,55 @@ function Test-Spelling {
         )
     }
 
-    $quotedPaths = foreach ($p in $Path) {
-        "'$p'"
-    }
     # cspell ignorePaths rejects negation globs, so the gate's content scope is passed as --exclude instead.
     # [comment:8](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment8)
     $excludeArgs = foreach ($e in $Exclude) {
         "--exclude '$e'"
     }
-    $command = (
-        "cspell lint $($quotedPaths -join ' ') $($excludeArgs -join ' ') " +
-        "--config '$configPath' --no-progress --no-color --relative"
-    )
 
-    # -Silent: capture cspell's output instead of streaming it to the console; the report prints the issues.
-    $result = Invoke-Executable $command -PassThru -NoAssert -Silent
+    # Batches keep each command line short: one call with hundreds of paths overflows the OS command-line limit.
+    $batchSize = 50
+    $exitCode = 0
+    $outputs = [System.Collections.Generic.List[string]]::new()
+    for ($start = 0; $start -lt $Path.Count; $start += $batchSize) {
+        $batch = @($Path[$start..([Math]::Min($start + $batchSize, $Path.Count) - 1)])
+        $quotedPaths = foreach ($p in $batch) {
+            "'$p'"
+        }
+        $command = (
+            "cspell lint $($quotedPaths -join ' ') $($excludeArgs -join ' ') " +
+            "--config '$configPath' --no-progress --no-color --relative"
+        )
 
-    # cspell exit codes: 0 = clean, 1 = spelling issues found, >1 = tool error.
-    if ($result.ExitCode -gt 1) {
-        throw "cspell failed (exit $($result.ExitCode)): $($result.Full)"
+        # -Silent: capture cspell's output instead of streaming it to the console; the report prints the issues.
+        $result = Invoke-Executable $command -PassThru -NoAssert -Silent
+
+        # cspell exit codes: 0 = clean, 1 = spelling issues found, >1 = tool error.
+        if ($result.ExitCode -gt 1) {
+            throw "cspell failed (exit $($result.ExitCode)): $($result.Full)"
+        }
+
+        # cspell globs are relative to the working directory, so zero files checked means a bad -Path.
+        # [comment:9](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment9)
+        $checkedMatch = [regex]::Match($result.Full, 'Files checked:\s*(?<n>\d+)')
+        if ($result.ExitCode -ne 0 -and $checkedMatch.Success -and [int]$checkedMatch.Groups['n'].Value -eq 0) {
+            throw "Test-Spelling matched no files for the given paths: $($batch -join ', ')."
+        }
+        $exitCode = [Math]::Max($exitCode, $result.ExitCode)
+        $outputs.Add($result.Full)
     }
+    $full = $outputs -join "`n"
 
-    # cspell globs are relative to the working directory, so zero files checked means a bad -Path.
-    # [comment:9](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment9)
-    $checkedMatch = [regex]::Match($result.Full, 'Files checked:\s*(?<n>\d+)')
-    if ($result.ExitCode -ne 0 -and $checkedMatch.Success -and [int]$checkedMatch.Groups['n'].Value -eq 0) {
-        throw "Test-Spelling matched no files for the given paths: $($Path -join ', ')."
-    }
-
-    $issues = @($result.Full -split '\r?\n' | Where-Object { $_ -match ':\d+:\d+ - ' })
-    if ($result.ExitCode -ne 0 -and $issues.Count -eq 0) {
+    $issues = @($full -split '\r?\n' | Where-Object { $_ -match ':\d+:\d+ - ' })
+    if ($exitCode -ne 0 -and $issues.Count -eq 0) {
         # A failing exit with no parsable issue line: the wording changed — report the raw output, never pass.
-        $issues = @("cspell exited $($result.ExitCode) with no parsable issue line: $($result.Full)")
+        $issues = @("cspell exited $exitCode with no parsable issue line: $full")
     }
-    $issuesMatch = [regex]::Match($result.Full, 'Issues found:\s*(?<issues>\d+)\s+in\s+(?<files>\d+)\s+files?')
-    $fileCount = if ($issuesMatch.Success) {
-        [int]$issuesMatch.Groups['files'].Value
-    }
-    else {
-        @($issues | ForEach-Object { ($_ -split ':')[0] } | Select-Object -Unique).Count
-    }
+    $fileCount = @($issues | ForEach-Object { ($_ -split ':')[0] } | Select-Object -Unique).Count
 
     $facts = [ordered]@{
         FileCount = $fileCount
-        ExitCode  = $result.ExitCode
+        ExitCode  = $exitCode
     }
     Write-QualityGateReport -Subject spelling -Title Test-Spelling -Issues $issues -Facts $facts `
         -OutputFolder $OutputFolder -PassThru:$PassThru

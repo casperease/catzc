@@ -1,4 +1,4 @@
-// The terminology registry (configs/terminology.yml) and its validity rules: a non-empty 'categories' map (each category a mapping with...
+// A category with no scope is global; a scoped one is zone-bound, and cspell enforces that its terms stay under the scope.
 // [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
 // [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5),
 // [ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8)
@@ -17,7 +17,7 @@ public sealed class TerminologyConfig
     // The defined category names, in registry order — one generated dictionary per category.
     public IReadOnlyList<string> categories { get; }
 
-    // Per category, its scope globs (repo-relative, '/'-separated).
+    // An empty list means the category is global, with no location bound.
     // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/TerminologyConfig.cs.md#comment2)
     public IReadOnlyDictionary<string, IReadOnlyList<string>> categoryScopes { get; }
 
@@ -119,7 +119,7 @@ public sealed class TerminologyConfig
             scopes[name] = scopeGlobs;
         }
 
-        // ---- terms: a non-empty map of category -> list of entries; each valid, unique, under a defined category.
+        // The group key is the category, so entries carry no category field of their own.
         // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/TerminologyConfig.cs.md#comment3)
         object termsObj = (raw != null && raw.Contains("terms")) ? raw["terms"] : null;
         IDictionary termsMap = termsObj as IDictionary;

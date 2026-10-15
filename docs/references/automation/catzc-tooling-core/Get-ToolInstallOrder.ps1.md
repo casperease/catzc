@@ -29,8 +29,7 @@ value an array — an if-expression would unroll a one-item list to a scalar
 Above `$inDegree = @{}`.
 
 ```text
-Wait — in-degree is wrong above. In-degree for a node = number of edges pointing TO it.
-DependsOn means "I depend on X" = edge from X to me. So in-degree of me = count of my DependsOn.
-Actually no: in Kahn's for install order, we want: if A depends on B, B must come first.
-So edge is B → A (B must be installed before A). In-degree of A = number of dependencies A has.
+Kahn's algorithm for install order: if A depends on B, B must be installed first, so the edge runs B → A.
+A tool's in-degree is therefore the number of edges pointing at it, which is the count of its own depends_on
+entries, and a tool with no dependencies starts in the ready queue.
 ```

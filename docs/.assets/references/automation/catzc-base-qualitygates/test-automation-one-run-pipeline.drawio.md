@@ -22,7 +22,7 @@ record of a run is truthful whether the run passes, fails or crashes.
 
 1. **`Invoke-TestRun`** is the shared core of `Test-Automation` and `Test-CatzcBuild`, the two kinds of test run (ADR-AUTO-TEST#30). Each
    entry point passes its own name as `-EntryPoint`.
-2. **`Get-TestDiscovery`** runs one discovery-only pass. The count chip says it feeds four later steps: the tag gate, the file selection,
+2. **`Get-TestDiscovery`** runs one discovery-only pass. The count chip says it feeds four later steps: the tag check, the file selection,
    the phase split and the protection decision. No step discovers the tests again.
 3. **`Assert-TestTagGate`** enforces the two mandatory tag axes on every test, whatever the level (ADR-AUTO-TEST#13). It runs before the run
    directory exists, so a tag failure stops the run without writing `run.json`.

@@ -26,7 +26,7 @@
 .EXAMPLE
     Install-Catzc -Scope CurrentUser
 #>
-# Uses -DryRun, not ShouldProcess/-WhatIf — see.
+# -WhatIf narrates to the host and returns no plan, so a test can neither capture nor assert on it.
 # [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
 # [comment:4](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment4)
 function Install-Catzc {

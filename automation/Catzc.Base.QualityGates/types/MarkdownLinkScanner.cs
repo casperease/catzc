@@ -1,4 +1,4 @@
-// Checks and aligns the markdown links of one.md file (, #5, #7).
+// A target that exists on disk but is not committed is reported, since GitHub, which renders these links, would not have it.
 // [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md#comment1)
 
@@ -29,7 +29,7 @@ public sealed class MarkdownLinkScanner
     readonly string selfUrlPrefix;
     readonly HashSet<string> tracked;
 
-    // selfUrlPrefix: this repository's web URL (https://github.com/<owner>/<repo>), or null to skip that check.
+    // A null trackedFiles skips the tracked check, for a scratch root that is no git work tree; a folder is tracked via any file in it.
     // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md#comment2)
     public MarkdownLinkScanner(string repositoryRoot, Func<string, IReadOnlyCollection<string>> anchorsOf, string selfUrlPrefix,
         IEnumerable<string> trackedFiles)
@@ -55,7 +55,7 @@ public sealed class MarkdownLinkScanner
         return set;
     }
 
-    // Scans one markdown file (repoPath is repository-relative, '/'-separated).
+    // Hits are appended at absolute offsets into the original text, not into the aligned text that Scan returns.
     // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md#comment3)
     public string Scan(string text, string repoPath, List<CodeLinkRewriter.Hit> hits)
     {

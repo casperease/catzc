@@ -1,4 +1,4 @@
-// One approved-vocabulary entry from configs/terminology.yml — a term and its meaning.
+// An abbreviation carries its full-word expansion; the entries of the other categories do not.
 // [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
 // [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5),
 // [ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8)
@@ -17,7 +17,7 @@ public sealed class TerminologyTerm : Catzc.Base.Objects.DictionaryRecord
     // One line: what the term is and why it is legitimate vocabulary. Required.
     public string meaning { get; }
 
-    // The group this term is listed under (a defined category).
+    // Supplied by TerminologyConfig from the registry grouping, not read from the entry itself.
     // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/TerminologyTerm.cs.md#comment2)
     public string category { get; }
 

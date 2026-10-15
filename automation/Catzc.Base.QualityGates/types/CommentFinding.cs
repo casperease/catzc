@@ -1,4 +1,4 @@
-// One finding of CommentFormatter: where (repository-relative file, 1-based line), what kind, a human message, and whether...
+// Fixable tells the caller whether Format-Comments rewrites this finding or a person must.
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentFinding.cs.md#comment1)
 

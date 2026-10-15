@@ -1,4 +1,4 @@
-// What a test may do to the environment it reaches (configs/test-policy.yml, ), and the single declaration of its sensible defaults:...
+// An environment not listed is read-only, so synthetic mutation by an L4 test must be granted per environment.
 // [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41),
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

@@ -1,4 +1,4 @@
-// The source checks Test-SourceConventions runs beside its naming and one-function conventions (configs/source-conventions.yml), and the...
+// An omitted check takes every default of its type: gate mode, nothing exempt, no phrases.
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 // [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1),
 // [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3),

@@ -14,8 +14,8 @@ module. The module's reference article embeds it and gives the responsibility in
 ## At a glance
 
 Cats keeps two module graphs. The declared graph is what `dependencies.yml` allows: one shared map built from it orders the modules for
-testing and closes a set of modules over their dependencies. The observed graph is what the code really calls, read from the parsed source
-of every function. The observed graph is checked twice: for cycles on its own, and against the declared allow-list.
+testing and closes a set of modules over their dependencies. The observed graph is what the code really calls, read from the parsed code of
+every function. The observed graph is checked twice: for cycles on its own, and against the declared allow-list.
 
 ## Walkthrough
 
@@ -109,7 +109,7 @@ Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 
-- **The test-order fallback swallows a fail-fast error.** ADR-AUTO-DEPM:4 says the integrity of the declared graph fails fast.
+- **The test-order fallback swallows a fail-fast error.** ADR-AUTO-DEPM#4 says the integrity of the declared graph fails fast.
   `Get-TestAutomationTestPaths` catches any throw from `Get-ModuleTestOrder`, a cycle or a `dependencies.yml` that does not load, and
   carries on in ordinal module order with only a verbose line. The ADR's load-time validation should stop a cyclic declaration first; that
   part is ADR-only on this slide.

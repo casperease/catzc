@@ -1,4 +1,4 @@
-// What CommentFormatter found at one residue of a file, or at one comment that still lives there.
+// Fixable kinds are rewritten by Format-Comments; the rest need a person, or Export-Comments, to resolve.
 // [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentFindingKind.cs.md#comment1)
 

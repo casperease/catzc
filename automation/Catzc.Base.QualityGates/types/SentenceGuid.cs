@@ -4,12 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-/// <summary> Deterministically converts a sentence into a valid GUID whose hex digits best-effort spell the sentence (leet-style: s→5,...
+/// <summary> Never called by production code: it mints readable placeholder GUIDs for the managed-GUID registry.
 /// [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)
 /// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment1)
 public static class SentenceGuid
 {
-    // Visual best-guess map into the hex alphabet.
+    // Extending the table changes only GUIDs minted afterwards, never the ones already registered.
     // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment2)
     private static readonly Dictionary<char, char> Map = new Dictionary<char, char>
     {
@@ -29,7 +29,7 @@ public static class SentenceGuid
         ['q'] = '9',
     };
 
-    // The digit positions where the GUID's dash groups begin and end (8-4-4-4-12).
+    // The leading zero makes leading whitespace a no-op, so words align with the dash groups from the first digit.
     // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment3)
     private static readonly int[] GroupBoundaries = { 0, 8, 12, 16, 20, 32 };
 
@@ -50,7 +50,7 @@ public static class SentenceGuid
 
             if (char.IsWhiteSpace(raw))
             {
-                // Skip one dash down: fill to the next group boundary so the next word starts its own segment.
+                // At a boundary this fills nothing, so runs of whitespace collapse into a single step.
                 // [comment:4](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment4)
                 int boundary = NextGroupBoundary(hex.Length);
                 while (hex.Length < boundary)
@@ -71,7 +71,7 @@ public static class SentenceGuid
             }
             else
             {
-                // No hex look-alike: render '0' rather than skip, so one character is always one digit and a human can decode the...
+                // Rendering zero rather than skipping keeps one digit per character, so the sentence decodes by position.
                 // [comment:5](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment5)
                 hex.Append('0');
             }

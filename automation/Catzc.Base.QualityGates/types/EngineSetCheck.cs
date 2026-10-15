@@ -1,4 +1,4 @@
-// The engine-set check's settings (source-conventions.yml's engine_set) and its prose and C# matchers: the execution engines are...
+// No engine name or count is a literal here: each phrase carries a placeholder the matcher fills from the engines model.
 // [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1),
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
@@ -39,7 +39,7 @@ public sealed class EngineSetCheck : SourceCheck
         name_phrases = Phrases(raw, "name_phrases", NamePlaceholder);
     }
 
-    // Every place in a stretch of prose that restates the engine set, given the model's engine names.
+    // Phrases naming two or more engines but not all of them count as restating the set, as does a wrong engine count.
     // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/EngineSetCheck.cs.md#comment2)
     public IReadOnlyList<(int Offset, string Text, string Message)> FindProse(string text, IReadOnlyCollection<string> names)
     {
@@ -96,7 +96,7 @@ public sealed class EngineSetCheck : SourceCheck
         return found;
     }
 
-    // Every line of C# source that restates the engine set in code: two or more distinct engine names as string literals on one line (an...
+    // Two or more distinct engine names as literals on one line should be a read of the model's engine names instead.
     // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/EngineSetCheck.cs.md#comment3)
     public static IReadOnlyList<(int Offset, string Message)> FindCSharpLists(string text, IReadOnlyCollection<string> names)
     {

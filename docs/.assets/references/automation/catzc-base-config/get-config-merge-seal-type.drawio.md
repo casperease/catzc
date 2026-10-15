@@ -103,5 +103,5 @@ the rules the drawn code cites. Source-lens slides carry no minimaps.
 
 ADR-AUTO-OVERLAY says `Catzc.Base.Config` refuses a fragment of a sealed config through `ConfigsConfig.sealedConfigs`. `Get-Config` reads
 `overridable` from the registry entry itself; only `Assert-CatzcOverlay` in `Catzc.Base.Overlay` reads `sealedConfigs`. Both readers take
-the same declaration in `configs.yml`, as ADR-AUTO-OVERLAY:7 requires, so the behaviour matches and only the named mechanism differs. The
+the same declaration in `configs.yml`, as ADR-AUTO-OVERLAY#7 requires, so the behaviour matches and only the named mechanism differs. The
 sealed throw cites no rule code.

@@ -31,7 +31,7 @@
 .EXAMPLE
     Build-Modules Catzc.Base.Config -DryRun
 #>
-# Uses -DryRun, not ShouldProcess/-WhatIf — see.
+# -WhatIf narrates to the host and returns no plan, so a test can neither capture nor assert on it.
 # [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
 # [comment:5](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment5)
 function Build-Modules {

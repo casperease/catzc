@@ -1,4 +1,4 @@
-// The analyzer -> ADR rule map of configs/analyzer-adr-map.yml: each ENABLED PSScriptAnalyzer rule that enforces an ADR rule, mapped to...
+// Load checks only shape and citation grammar; that each id names a real rule is the integrity test's job, keeping load hermetic.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/AnalyzerAdrMapConfig.cs.md#comment1)

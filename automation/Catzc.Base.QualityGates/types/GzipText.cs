@@ -3,7 +3,7 @@ namespace Catzc.Base.QualityGates;
 using System.IO;
 using System.IO.Compression;
 
-/// <summary> Gzip compress/decompress for UTF-8 text payloads, using only the BCL.
+/// <summary> Kept in one place so the container handling cannot drift between the writer and the reader.
 /// [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)
 /// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/GzipText.cs.md#comment1)
 public static class GzipText

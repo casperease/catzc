@@ -1,4 +1,4 @@
-// The managed-GUID registry, configs/guids.yml: every GUID literal the repository carries, each a named, described entry (`guids:`),...
+// Load checks only shape and uniqueness; that each registered GUID appears in tracked text is the integrity test's job.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/GuidsConfig.cs.md#comment1)
 

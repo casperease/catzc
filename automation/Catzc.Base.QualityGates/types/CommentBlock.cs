@@ -1,4 +1,4 @@
-// One comment block CommentEngine found in a file and may move to the file's comment page: where it is (whole lines, 0-based,...
+// Every property is fixed at construction and the engine is pure over text, so a block is a value the caller can keep.
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentBlock.cs.md#comment1)
 
@@ -53,7 +53,7 @@ public sealed class CommentBlock
         : NextCodeLine != null ? string.Format(CultureInfo.InvariantCulture, "Above {0}.", CodeSpan(NextCodeLine))
         : "At the end of the file.";
 
-    // A Markdown code span that holds the text verbatim, backticks included: its fence is one backtick longer than the longest run...
+    // The fence is one backtick longer than any run inside, so text that holds backticks still renders verbatim.
     // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/CommentBlock.cs.md#comment2)
     public static string CodeSpan(string text)
     {
