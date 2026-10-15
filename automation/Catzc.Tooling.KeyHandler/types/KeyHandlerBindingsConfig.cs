@@ -1,4 +1,4 @@
-// The captured Windows PSReadLine key bindings, configs/key-handler-bindings.yml: a top-level SEQUENCE of { key, function } entries...
+// The YAML has no top-level key, so the sequence is exposed as bindings; a malformed capture fails at read, not mid-import.
 // [comment:1](/docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md#comment1)
 
 using System;

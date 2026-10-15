@@ -219,6 +219,13 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
   under the code unit that reads it, and say so in the description's Edges section.
 - **Name the direction when results flow back.** If the arrows run from a callee to its caller (a result handed up), the legend says
   `flow: feeds (a result to its caller)`, so the reader doesn't take it for a call.
+- **Store access is its own edge kind.** A read or write of a store (a `$script:` map, a cache) is not a call. Draw it as a plain line
+  with `endArrow=none`, legend `store access (reads or writes)`, and keep the flow edge for calls only. Don't stretch the flow phrase
+  to "uses".
+- **`catzc module` covers `Catzc.Internal.*` too.** The `.psm1` modules under `automation/.internal/` get the same frame, labelled
+  with the module name (`Catzc.Internal.Loader`).
+- **Escaping and encoding.** A literal `<Tool>` inside an HTML value is double-escaped (`&amp;lt;Tool&amp;gt;`). A generator script reads
+  and writes UTF-8 explicitly (`encoding="utf-8"`), or a replace on `·` silently misses on Windows.
 - **A PowerShell built-in** (`Invoke-Expression`, `Start-Process`) is a code unit, not an `external tool`, which means a vendor tool.
 - **A computed type is not a box name.** When the code builds a type it looks up at run time (`$type::new($raw)`), draw a `C# type` glyph
   named for the role (`registered type`) and say in the description that the name varies per config. Don't invent a class name.

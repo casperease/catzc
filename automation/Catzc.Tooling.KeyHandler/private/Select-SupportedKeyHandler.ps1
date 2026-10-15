@@ -2,7 +2,7 @@
 .SYNOPSIS
     Classifies captured key bindings by whether their function is supported on the target platform.
 .DESCRIPTION
-    The pure decision core of Import-PSReadLineKeyHandlerSet, separated so it is deterministic and testable without a...
+    Pure on purpose, so the support decision is testable without a PSReadLine session; it never mutates the cached configs.
     [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md),
     [ADR-AUTO-CACHE#5](/docs/adr/automation/caching.md#rule-adr-auto-cache5)
     [comment:1](/docs/references/automation/catzc-tooling-keyhandler/private/Select-SupportedKeyHandler.ps1.md#comment1)
