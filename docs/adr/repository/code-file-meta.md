@@ -3,8 +3,15 @@ catzc:
   derived:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
-    body_sha: "000000000000"
-    adrs: []
+    body_sha: "36f143126f06"
+    adrs:
+      - ADR-REPO-COMMENTS#3
+      - ADR-REPO-FILEMETA#1
+      - ADR-REPO-FILEMETA#2
+      - ADR-REPO-FILEMETA#3
+      - ADR-REPO-FILEMETA#5
+      - ADR-REPO-FORMAT#8
+      - ADR-REPO-LINK#3
 ---
 
 # ADR: Code file meta — a derived head in the first comment run of a C# type file and a PowerShell function file

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/file-meta.md
     kind: adr
-    body_sha: "29f5bf470803"
+    body_sha: "05f6d2a4a525"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#1
@@ -118,7 +118,8 @@ catzc:
 
 `name` belongs to the agent tooling and is untouched. A tool that reads front matter keeps working, because the reserved key is one extra
 top-level key it does not know. The two parts never mix: `derived` is imprinted and rewritten, `config` is authored and kept. The code
-carrier, the form of a head in a C# or PowerShell file, is in [code-file-meta](code-file-meta.md).
+carrier, the form of a head in a C# or PowerShell file, is in [code-file-meta](code-file-meta.md). Which carrier each file class has, or why
+it has none, is one registry, `file-carriers.yml`, so a gap in the coverage is a visible entry.
 
 ### The meta-kind registry
 

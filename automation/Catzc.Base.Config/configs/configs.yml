@@ -103,6 +103,8 @@ configs:
     type: Catzc.Base.Languages.BashConfig
   languages:
     type: Catzc.Base.Languages.LanguagesConfig
+  file-carriers:
+    type: Catzc.Base.Languages.FileCarriersConfig
   maps:
     type: Catzc.Base.Maps.MapsConfig
   contracts:

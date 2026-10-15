@@ -375,8 +375,8 @@ concepts:
     domain: repository
     defined_by: ADR-REPO-CODEMETA#1
     short:
-      The leading comment run of a code file, opened by a catzc line, that holds the file's derived facts, so it is the form a meta block takes in
-      a C# or PowerShell file.
+      The leading comment run of a code file, opened by a catzc line, that holds the file's derived facts, so it is the form a meta block
+      takes in a C# or PowerShell file.
     realized_by: { kind: prose-only }
     contrasts:
       meta block: The meta block is the facts in any file; the meta head is the form they take in a code file.
@@ -385,6 +385,6 @@ concepts:
     domain: repository
     defined_by: ADR-REPO-FORMAT#8
     short:
-      A step a file language's registry entry lists under imprint, which Format-Code runs after the language's formatter to write one derived
-      fact into the file.
+      A step a file language's registry entry lists under imprint, which Format-Code runs after the language's formatter to write one
+      derived fact into the file.
     realized_by: { kind: prose-only }

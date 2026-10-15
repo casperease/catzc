@@ -1,0 +1,53 @@
+# Where each file class keeps its meta block, or the reason it has none; a class with files: wins over a language of the same file.
+# [ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1),
+# [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
+# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
+carriers:
+  # Front matter is the Markdown convention, and the reserved catzc key is the block.
+  markdown: { carrier: front-matter }
+
+  # A line-comment head at the top; a #Requires or help block may follow it.
+  powershell: { carrier: comment-head, line: "#" }
+  csharp: { carrier: comment-head, line: "//" }
+  yaml: { carrier: comment-head, line: "#" }
+  pipeline-yaml: { carrier: comment-head, line: "#" }
+  bicep: { carrier: comment-head, line: "//" }
+  go: { carrier: comment-head, line: "//" }
+
+  # The shebang or the encoding line must stay among the first lines, so the head follows it.
+  python: { carrier: comment-head, line: "#", anchor: after-shebang }
+  bash: { carrier: comment-head, line: "#", anchor: after-shebang }
+
+  # A block comment, below the XML declaration or the doctype, which must stay first.
+  xml: { carrier: comment-head, block: ["<!--", "-->"], anchor: after-prolog }
+  html: { carrier: comment-head, block: ["<!--", "-->"], anchor: after-prolog }
+  css: { carrier: comment-head, block: ["/*", "*/"] }
+
+  # The byte order mark, a blank line and the format line stay first, and the head follows them.
+  solution: { carrier: comment-head, line: "#", anchor: after-preamble, preamble_lines: 2 }
+
+  # JSON has no comments, so the block is an ignored property, as dotnet-tools.json already carries its marker.
+  json: { carrier: property, property: "//" }
+
+  jsonl: { carrier: none, reason: "one record per line by definition, so a head would be a record" }
+  stamp: { carrier: none, reason: "a stamp is written whole by the generator that records it, and its value is the file" }
+  asset: { carrier: none, reason: "a binary file, so the description beside it carries what a reader needs" }
+
+  # Classes of files that belong to no language.
+  diagram: { files: ["docs/.assets/**/*.drawio.png"], carrier: sidecar, sidecar: "{base}.md" }
+  dotfile:
+    {
+      files: ["**/.editorconfig", "**/.gitignore", "**/.gitattributes", "**/.prettierignore", "**/.markdownlintignore"],
+      carrier: comment-head,
+      line: "#",
+    }
+  word-list: { files: [".cspell/*.txt"], carrier: comment-head, line: "#" }
+  json-schema: { files: ["**/azure-pipelines-schema.json"], carrier: property, property: "$comment" }
+  toml: { files: ["**/*.toml"], carrier: comment-head, line: "#" }
+  go-workspace: { files: ["**/go.work", "**/go.mod"], carrier: comment-head, line: "//" }
+  lock-file: { files: ["**/*.lock"], carrier: none, reason: "written whole by the package manager that owns it" }
+  placeholder: { files: ["**/.gitkeep", "**/assets/gitkeep"], carrier: comment-head, line: "#" }
+  delimited-data: { files: ["**/*.csv", "**/*.tsv"], carrier: none, reason: "a header row and records only, so a head would be a record" }
+  license: { files: ["**/LICENSE", "**/LICENSE.txt"], carrier: none, reason: "legal text kept verbatim" }
+  build-output:
+    { files: ["**/*.dll", "**/*.pdb", "**/*.p7s"], carrier: none, reason: "a compiled or signed binary whose identity is its hash" }
