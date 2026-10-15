@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Writers
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-writers/Write-Message.ps1.md
+      test: automation/Catzc.Base.Writers/tests/Write-Message.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#7
       - ADR-AUTO-CONSOLE#8
@@ -95,21 +98,15 @@ function Write-Message {
         $line = "$header $Message"
     }
 
-    # A verbose message (an explicitly-bound -Verbose) routes to the verbose stream instead of the always-on...
-    # [comment:8](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment8)
     if ($PSBoundParameters.ContainsKey('Verbose')) {
         Write-Verbose $line
         return
     }
 
-    # -Warning is sugar for yellow on the information stream, NOT the terminating Write-Warning stream.
-    # [comment:9](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment9)
     if ($Warning) {
         Write-InformationColored $line -ForegroundColor Yellow -NoNewline:$NoNewline
     }
     elseif ($PSBoundParameters.ContainsKey('ForegroundColor')) {
-        # A status line is one solid line, not a rule, so a rainbow input side-grades to its base colour: the shared...
-        # [comment:10](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment10)
         $plan = Resolve-WriterColor -ForegroundColor $ForegroundColor -Bound
         Write-InformationColored $line -ForegroundColor $plan.Base -NoNewline:$NoNewline
     }

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/terminology.yml.md
     kind: comment-page
-    body_sha: "880026415122"
+    body_sha: "43ca183e1145"
     adrs:
       - ADR-AUTO-SPELL#5
       - ADR-AUTO-SPELL#8
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/configs/terminology.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `categories:`.
+Above `categories:`, written with `#`.
 
 ```text
 Terminology registry — the single authored source of approved repository vocabulary.
@@ -34,7 +34,7 @@ requires every term's category to be one defined here.
 
 ## comment:2
 
-Above `categories:`.
+Above `categories:`, written with `#`.
 
 ```text
 categories — the allowed values for a term's `category`, each with what it means. This is the single

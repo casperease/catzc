@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md
+      test: automation/Catzc.Tooling.Provisioning/tests/Get-ToolsStatus.Tests.ps1
   config:
     synopsis: Reports the installation status of all registered tools.
     description: |-
@@ -36,14 +39,10 @@ function Get-ToolsStatus {
         $wingetCache = $wingetResult.Full
     }
 
-    # Parallel version probes — each spawns a subprocess, so run them concurrently.
-    # [comment:9](/docs/references/automation/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md#comment9)
     $versionJobs = @{}
     foreach ($toolName in $allTools.Keys) {
         $config = $allTools[$toolName]
         if (-not $config.HasProbes() -and (Test-Command $config.command)) {
-            # Split the configured version-probe command line into executable + args with PowerShell's tokenizer (it...
-            # [comment:10](/docs/references/automation/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md#comment10)
             $tokens = [System.Management.Automation.PSParser]::Tokenize($config.version_command, [ref]$null) |
                 Where-Object { $_.Type -notin 'NewLine', 'StatementSeparator', 'Comment' }
             $versionExe = $tokens[0].Content
@@ -80,16 +79,12 @@ function Get-ToolsStatus {
     $ret = foreach ($toolName in $allTools.Keys) {
         $config = $allTools[$toolName]
 
-        # Windows-only tools (winget) do not exist elsewhere — skip them off Windows so they are not reported as...
-        # [comment:11](/docs/references/automation/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md#comment11)
         if ($config.windows_only -and -not $IsWindows) {
             continue
         }
 
         $command = Get-ToolCommandSuffix -Tool $toolName
 
-        # Mirror Test-ExpectedPackageManager check order: SystemProvided → ScriptInstall → MSYS2 package (Windows) →...
-        # [comment:12](/docs/references/automation/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md#comment12)
         $expectedManager = if ($config.system_provided) {
             'system'
         }
@@ -173,8 +168,6 @@ function Get-ToolsStatus {
         $action = $null
 
         if ($versionOk -and $managedByExpected) {
-            # Right version, right manager — scope doesn't matter.
-            # [comment:13](/docs/references/automation/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md#comment13)
             $status = 'OK'
             $action = 'None'
         }
@@ -195,8 +188,6 @@ function Get-ToolsStatus {
             $action = "Run Install-$command -Force"
         }
         else {
-            # Wrong version AND installed outside our manager.
-            # [comment:14](/docs/references/automation/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md#comment14)
             $status = 'WrongVersion'
             $hasRemove = [bool](Get-Command "Remove-$command" -ErrorAction SilentlyContinue)
             $action = if ($hasRemove) {
@@ -210,8 +201,6 @@ function Get-ToolsStatus {
         [Catzc.Tooling.Provisioning.ToolStatus]::new($toolName, "$($config.version).x", $installed, $status, $location, $manager, $scope, $action)
     }
 
-    # Chocolatey check — not a tools.yml tool, but a package manager that should not be present (see ADR:...
-    # [comment:15](/docs/references/automation/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md#comment15)
     if ($IsWindows -and (Test-Command choco)) {
         $ret += [Catzc.Tooling.Provisioning.ToolStatus]::new('Chocolatey', $null, 'present', 'Unwanted', (Get-Command choco).Source, $null, $null, 'Run Uninstall-Chocolatey')
     }

@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/LinkFinding.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/LinkFinding.cs.md
 ---
 */
-
-// The replacement is empty when the aligner cannot fix the finding, so an empty one marks a finding for a person.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinkFinding.cs.md#comment1)
 
 using System.Globalization;
 

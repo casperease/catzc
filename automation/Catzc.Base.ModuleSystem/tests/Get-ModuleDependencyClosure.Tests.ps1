@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyClosure.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleDependencyClosure.Tests.ps1.md
+      source: automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyClosure.ps1
 ---
 #>
 
-# Get-ModuleDependencyClosure is private (breadth-first over the declared dependency map).
-# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleDependencyClosure.Tests.ps1.md#comment1)
 Describe 'Get-ModuleDependencyClosure' -Tag 'L0', 'logic' {
     BeforeAll {
         # A -> B, C ; B -> C ; C -> (none) ; D -> (none)

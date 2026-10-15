@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Environment/tests/Sync-SessionPath.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-environment/tests/Sync-SessionPath.Tests.ps1.md
+      source: automation/Catzc.Base.Environment/Sync-SessionPath.ps1
 ---
 #>
 
@@ -12,8 +15,6 @@ Describe 'Sync-SessionPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:originalPath = $env:PATH
 
-        # The persistent PATH is read through the Get-EnvironmentPath seam — mock it so these tests are deterministic...
-        # [comment:1](/docs/references/automation/catzc-base-environment/tests/Sync-SessionPath.Tests.ps1.md#comment1)
         $script:regUser = ''
         $script:regMachine = ''
         Mock Get-EnvironmentPath -ModuleName Catzc.Base.Environment -ParameterFilter { $Scope -eq 'User' } -MockWith { $script:regUser }

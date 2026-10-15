@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/types/GlossaryConfig.cs
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-VOCAB#1
@@ -16,8 +19,6 @@ catzc:
 ---
 #>
 
-# Validates the compiled GlossaryConfig type and the records it builds (GlossaryOptions, GlossaryConcept,...
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md#comment1)
 Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {

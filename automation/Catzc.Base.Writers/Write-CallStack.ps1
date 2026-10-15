@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Writers
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Writers/tests/Write-CallStack.Tests.ps1
   config:
     synopsis: Writes the current call stack in red for debugging.
     examples:

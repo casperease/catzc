@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Format-Links.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Format-Links.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PARAM#4
@@ -19,8 +22,6 @@ catzc:
 ---
 #>
 
-# Format-Links is the link aligner and the repository-wide migration, tested in isolation: every test builds its own...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Format-Links.Tests.ps1.md#comment1)
 Describe 'Format-Links' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {

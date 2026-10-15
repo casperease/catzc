@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Variants
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Variants/tests/Assert-HaveCustomers.Tests.ps1
   config:
     synopsis: Asserts the repo has customer deployments enabled — for all customers, or for specific names — else throws.
     description: |-

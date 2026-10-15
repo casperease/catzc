@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Measure-QualityGates.ps1.md
     kind: comment-page
-    body_sha: "35266fda2b57"
+    body_sha: "780f53b3104e"
     adrs:
       - ADR-AUTO-CONSOLE#10
 ---
 
 # automation/Catzc.Base.QualityGates/Measure-QualityGates.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:3
+## comment:1
 
-Above `Write-Message 'Loading PSScriptAnalyzer (first use this session)...'`.
+Above `Write-Message 'Loading PSScriptAnalyzer (first use this session)...'`, written with `#`.
 
 ```text
 First use this session pays the vendored-module import (several seconds) — announce it

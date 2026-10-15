@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CommentEngine.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
@@ -133,6 +135,8 @@ public static class CommentEngine
     static bool Moves(CommentBlock block, Lines lines, string language, CommentsConfig config)
     {
         if (block.ProseLineCount < config.min_lines) { return false; }
+        // A delimited block that holds a kept head is the comment-based help the help system reads, so it stays whole.
+        if (block.Kind == CommentBlockKind.Block && block.Lines.Any(line => config.IsKept(language, line))) { return false; }
         return !config.IsKept(language, lines[block.StartLine].Trim());
     }
 
@@ -494,7 +498,11 @@ public static class CommentEngine
             return -1;
         }
 
-        public string Join(IEnumerable<string> output) => string.Join(eol, output) + (trailingNewline ? eol : string.Empty);
+        public string Join(IEnumerable<string> output)
+        {
+            string joined = string.Join(eol, output);
+            return joined.Length == 0 ? string.Empty : joined + (trailingNewline ? eol : string.Empty);
+        }
     }
 
     sealed class PageSection

@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBindingsConfig.cs
     kind: csharp-type
     module: Catzc.Tooling.KeyHandler
+    relatives:
+      page: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md
+      test: automation/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerBindingsConfig.Tests.ps1
 ---
 */
-
-// The YAML has no top-level key, so the sequence is exposed as bindings; a malformed capture fails at read, not mid-import.
-// [comment:1](/docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

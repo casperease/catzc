@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/types/RepoRelativePath.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-objects/tests/types/RepoRelativePath.Tests.ps1.md
+      source: automation/Catzc.Base.Objects/types/RepoRelativePath.cs
 ---
 #>
 
-# Neutral, non-reserved path segments only.
-# [comment:1](/docs/references/automation/catzc-base-objects/tests/types/RepoRelativePath.Tests.ps1.md#comment1)
 Describe 'RepoRelativePath' -Tag 'L0', 'logic' {
     It 'strips a leading ./ from a relative path' {
         [Catzc.Base.Objects.RepoRelativePath]::new('./automation/mod/file.ps1').Relative | Should -Be 'automation/mod/file.ps1'

@@ -3,34 +3,31 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NoAzModuleNaming.psm1.md
     kind: comment-page
-    body_sha: a7bcdce9f640
+    body_sha: "7e3550a9939c"
     adrs:
       - ADR-PWSH-FORMAT#6
 ---
 
 # automation/.scriptanalyzer/NoAzModuleNaming.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Measure-NoAzModuleNaming {`, written with `#`.
 
 ```text
-Functions must not use the Verb-Az<Noun> naming pattern of the Az PowerShell
-modules (Get-AzResource, New-AzVM, …). Name Azure-platform functions
-Verb-Azure<Noun> — Azure spelled out, so it cannot collide with Az.* cmdlets.
-
-The only sanctioned Az* prefixes are Verb-AzCli* (az CLI wrappers, e.g.
-Invoke-AzCli, Assert-AzCliIsConnected) and Verb-AzBicep* (az bicep checks).
-Both cover the az CLI itself, not the Az PowerShell modules — see the ADR to
-prefer Az CLI over Az PowerShell modules.
+.SYNOPSIS
+    Custom PSScriptAnalyzer rule: forbid Az PowerShell module naming.
+.DESCRIPTION
+    Azure is spelled out in full so a function name never collides with a cmdlet of the Az modules.
+    [comment:1](/docs/references/automation/scriptanalyzer/NoAzModuleNaming.psm1.md#comment1)
 ```
 
 ## comment:2
 
-Above `$isFunctionDefinition = {`.
+Above `$isFunctionDefinition = {`, written with `#`.
 
 ```text
 Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew

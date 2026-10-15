@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-codemeta/types/HeadAnchor.cs.md
     kind: comment-page
-    body_sha: c54057bf260a
+    body_sha: "5cae5681c9d5"
     adrs:
       - ADR-REPO-CODEMETA#1
 ---
 
 # automation/Catzc.Base.CodeMeta/types/HeadAnchor.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `namespace Catzc.Base.CodeMeta;`.
+Above `namespace Catzc.Base.CodeMeta;`, written with `//`.
 
 ```text
 What must stay above a comment head: nothing, a shebang, an XML or HTML prolog, or a fixed number of preamble lines.

@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-ShippedConfigs.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-ShippedConfigs.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-ShippedConfigs over a fixture code root in $TestDrive, with the registry and Get-Config mocked in the gate's...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-ShippedConfigs.Tests.ps1.md#comment1)
 Describe 'Test-ShippedConfigs' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive 'automation'

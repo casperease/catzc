@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Overlay
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1
     adrs:
       - ADR-AUTO-OVERLAY
   config:

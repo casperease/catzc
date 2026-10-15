@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md
     adrs:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#6
@@ -38,14 +40,10 @@ function Remove-Java {
 
     $config = Get-ToolConfig -Tool 'java'
 
-    # Gate: managed by our tooling system → refuse, redirect to Uninstall-Java.
-    # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment4)
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Java is managed by the tooling system. Use Uninstall-Java instead.'
     }
 
-    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip /...
-    # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment5)
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Java (native package / uv-Python pip / stray binary). Run with -Force to execute.'

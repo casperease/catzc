@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Repository.Tests.ps1.md
-    kind: test-asset
-    body_sha: "69b224c39d54"
+    kind: comment-page
+    body_sha: "41d47ff568e9"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Test-Links.Repository.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Repository code links (automation comments)' -Tag 'L1',...`.
+Above `Describe 'Repository code links (automation comments)' -Tag 'L1',...`, written with `#`.
 
 ```text
 The real repository keeps its links aligned and resolving

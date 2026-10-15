@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
     adrs:
       - ADR-PWSH-ASSERT#1
 ---

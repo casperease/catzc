@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Show-Cats.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Docs/Show-Cats.ps1
 ---
 #>
 

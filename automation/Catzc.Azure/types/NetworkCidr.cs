@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Azure/types/NetworkCidr.cs
     kind: csharp-type
     module: Catzc.Azure
+    relatives:
+      page: docs/references/automation/catzc-azure/types/NetworkCidr.cs.md
     adrs:
       - ADR-AZ-NETWORK
 ---
 */
-
-// Host bits must be unset (10.10.0.0/16, never 10.10.0.1/16) because Azure rejects an address prefix that sets them.
-// [comment:1](/docs/references/automation/catzc-azure/types/NetworkCidr.cs.md#comment1)
 
 using System;
 using System.Net;

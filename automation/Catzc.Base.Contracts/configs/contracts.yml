@@ -3,16 +3,11 @@
 #   derived:
 #     path: automation/Catzc.Base.Contracts/configs/contracts.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-contracts/configs/contracts.yml.md
 # ---
 
-# Every key is optional: an omitted key takes the default declared once in ContractsConfig.
-# [comment:1](/docs/references/automation/catzc-base-contracts/configs/contracts.yml.md#comment1)
-
-# Only full-path is built: selecting manifest-glob or per-folder throws NotImplemented, as a mode needs proof from every engine.
-# [comment:2](/docs/references/automation/catzc-base-contracts/configs/contracts.yml.md#comment2)
 addressing: full-path
 
-# A dot-prefixed root is named here because contracts/ holds no dot-prefixed folder; an unnamed module takes the repository root.
-# [comment:3](/docs/references/automation/catzc-base-contracts/configs/contracts.yml.md#comment3)
 target_roots:
   Catzc.Tooling.Github: .github

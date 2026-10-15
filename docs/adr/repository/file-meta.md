@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/file-meta.md
     kind: adr
-    body_sha: "9af3886d9f5f"
+    body_sha: "9666aafa42e7"
     defines:
       - ADR-REPO-FILEMETA#1
       - ADR-REPO-FILEMETA#2
@@ -14,10 +14,12 @@ catzc:
       - ADR-REPO-FILEMETA#7
       - ADR-REPO-FILEMETA#8
       - ADR-REPO-FILEMETA#9
+      - ADR-REPO-FILEMETA#10
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#1
       - ADR-CONF-LOADING#5
+      - ADR-REPO-COMMENTS#1
       - ADR-REPO-FORMAT#5
       - ADR-REPO-FORMAT#6
       - ADR-REPO-LINK#4
@@ -30,6 +32,7 @@ catzc:
       - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading5
       - docs/adr/repository/code-file-meta.md
       - docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta1
+      - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1
       - docs/adr/repository/markdown-links.md#rule-adr-repo-link4
       - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5
       - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6
@@ -134,11 +137,11 @@ stays inside the file, an anchor in it, the file itself or its own comment page,
 
 ### Rule ADR-REPO-FILEMETA:10
 
-The derived part of a code file points at its **relatives** in one map, `relatives`, of at most eight static named slots: `page` (its comment
-page, [ADR-REPO-COMMENTS#1](comments-in-docs.md#rule-adr-repo-comments1)), `test` (the Pester file that tests it) and `source` (the file a test
-file tests). The slots and the rules that fill them are the `relatives` kind's settings in `file-meta.yml`, so a new slot is a registry entry,
-never a new mechanism. A slot holds a repository-relative path that exists on disk, and a slot with no file is left out. No file carries a
-pointer of its own in its code: the head is the one place a code file names its relatives.
+The derived part of a code file points at its **relatives** in one map, `relatives`, of at most eight relations with fixed names: `page`
+(its comment page, [ADR-REPO-COMMENTS#1](comments-in-docs.md#rule-adr-repo-comments1)), `test` (the Pester file that tests it) and `source`
+(the file a test file tests). The relations and the rules that fill them are the `relatives` kind's settings in `file-meta.yml`, so a new
+relation is a registry entry, never a new mechanism. A relation holds a repository-relative path that exists on disk, and a relation with no
+file is left out. No file carries a pointer of its own in its code: the head is the one place a code file names its relatives.
 
 - [Relatives](#relatives)
 
@@ -261,9 +264,9 @@ stays inside the file tells a reader nothing about where the file leads, so it i
 
 A code file has a handful of companions a reader wants one step away: the page that holds its moved comments, the test that proves it, the
 source a test covers. Writing each as a link in the code would put a pointer in every file and a line to keep in step with the companion.
-The head already holds derived facts, so the companions are one more, a map with a fixed slot per kind of companion: eight at most, so the
-head stays small and a slot has one meaning everywhere. The registry holds the slot list and the path rule of each, and a slot whose file does
-not exist is not written, so an entry in the head is always a working pointer.
+The head already holds derived facts, so the companions are one more, a map with a fixed name per kind of companion: eight at most, so the
+head stays small and a name has one meaning everywhere. The registry holds the list of relations and the path rule of each, and a relation
+whose file does not exist is not written, so an entry in the head is always a working pointer.
 
 ### How this is enforced
 

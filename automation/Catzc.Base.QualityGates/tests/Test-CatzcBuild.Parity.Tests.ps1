@@ -4,13 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.Parity.Tests.ps1.md
     adrs:
       - ADR-DSGN-RUNMODE#2
 ---
 #>
 
-# Parity: every built module is the same module as its source folder — its exported command set equals the folder's...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.Parity.Tests.ps1.md#comment1)
 Describe 'Built modules match their source folders' -Tag 'L2', 'integrity', 'greedy', 'source-only', 'ADR-DSGN-RUNMODE#2' {
     It 'every built module exports exactly its public functions and carries exactly its private ones (Test-BuildArtifact)' {
         # The default selection — the exporter's default profile — so every module it ships is compared.

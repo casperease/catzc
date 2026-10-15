@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/ConvertFrom-AdoPipelineCommand.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Azure.DevOps/ConvertFrom-AdoPipelineCommand.ps1
 ---
 #>
 

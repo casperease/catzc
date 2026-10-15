@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/ConvertTo-TestRunManifestEntry.Tests.ps1
   config:
     synopsis: Derives the run.json entries that come from a worker run.
     description: |-

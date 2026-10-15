@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Timeouts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Timeouts/tests/Assert-IsNotTimeoutExempt.Tests.ps1
   config:
     synopsis: Asserts that a budget GUID runs under its normal time limit here, not an exemption.
     description: |-

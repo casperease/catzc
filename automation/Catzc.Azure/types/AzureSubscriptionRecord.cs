@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Azure/types/AzureSubscriptionRecord.cs
     kind: csharp-type
     module: Catzc.Azure
+    relatives:
+      page: docs/references/automation/catzc-azure/types/AzureSubscriptionRecord.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#3
       - ADR-AZ-DATAMOD
 ---
 */
-
-// The customer stays a raw token here; a test and runtime resolution check it, and AzureConfig checks the tenant.
-// [comment:1](/docs/references/automation/catzc-azure/types/AzureSubscriptionRecord.cs.md#comment1)
 
 using System;
 using System.Collections;

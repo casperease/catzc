@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md
     kind: comment-page
-    body_sha: ef353bfeb8e9
+    body_sha: cbcfa138b727
     adrs:
       - ADR-AUTO-TEST#30
       - ADR-AUTO-TYPES#8
@@ -17,12 +17,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/types/GlossaryConcept.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One defined term of the controlled vocabulary (a configs/glossary.yml `concepts:` entry, keyed by the term). It
@@ -43,7 +43,7 @@ domain, and the relation/contrast targets real concepts are cross-file facts, ch
 
 ## comment:2
 
-Above `public static readonly Regex CitationRe = new...`.
+Above `public static readonly Regex CitationRe = new...`, written with `//`.
 
 ```text
 A rule citation in the '#' form: ADR-<code>[-<NAME>…]#<n>
@@ -53,7 +53,7 @@ A rule citation in the '#' form: ADR-<code>[-<NAME>…]#<n>
 
 ## comment:3
 
-Above `public IReadOnlyList<string> forms { get; }`.
+Above `public IReadOnlyList<string> forms { get; }`, written with `//`.
 
 ```text
 The words allowed to qualify the term's head word ('quality' in 'quality gate'), in entry order. Empty when the
@@ -62,7 +62,7 @@ entry declares no forms; then the qualified-forms check (G6) does not look at th
 
 ## comment:4
 
-Above `public bool verbs { get; }`.
+Above `public bool verbs { get; }`, written with `//`.
 
 ```text
 Whether the head word's -ed and -ing forms are ordinary English for this term ('scoped', 'sourced'), so the

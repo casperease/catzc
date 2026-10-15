@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md
     adrs:
       - ADR-AUTO-CONSOLE#10
       - ADR-AUTO-TEST#32
@@ -117,8 +119,6 @@ function Invoke-TestAutomationWorkers {
     $greedyOffsetMs = @{}
     $serialPhaseOffsetMs = 0
 
-    # The per-file durations the last runs measured on this machine, keyed on the source paths: the shards are dealt...
-    # [comment:17](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment17)
     $repositoryRoot = Get-RepositoryRoot
     $historyPath = Join-Path ([System.IO.Path]::GetDirectoryName([System.IO.Path]::TrimEndingDirectorySeparator($RunDirectory))) 'durations.json'
     $history = Get-TestDurationHistory -Path $historyPath
@@ -140,8 +140,6 @@ function Invoke-TestAutomationWorkers {
     $GreedyFiles = @(Convert-TestRunLocationPath -Location $Location -Path $GreedyFiles)
     $SerialFiles = @(Convert-TestRunLocationPath -Location $Location -Path $SerialFiles)
 
-    # The shard-script arguments every phase shares — including the entry-script seam (which entry script loads the...
-    # [comment:18](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment18)
     $shardArguments = @{
         RunDirectory       = $RunDirectory
         ExcludeTag         = $ExcludeTag
@@ -150,8 +148,6 @@ function Invoke-TestAutomationWorkers {
         LanguageExecutable = Get-LanguageTestExecutable
     } + (Get-TestRunLocationEntry -Location $Location -EntryScript $EntryScript -EntryParameter $EntryParameter)
 
-    # Pool size: explicit -Workers, else ProcessorCount / 4 — measured on all tests, wall clock is flat from PC/4 up...
-    # [comment:19](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment19)
     $workerCount = if ($Workers -gt 0) {
         $Workers
     }
@@ -160,8 +156,6 @@ function Invoke-TestAutomationWorkers {
     }
     $workerCount = [Math]::Max(1, [Math]::Min($workerCount, $ParallelFiles.Count))
 
-    # Deal the parallel files across the shards by measured duration, longest first to the least-loaded shard, so the...
-    # [comment:20](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment20)
     $assignment = @(Select-TestShardAssignment -File $sourceParallelFiles -WorkerCount $workerCount -DurationMs $history -RepositoryRoot $repositoryRoot)
     $shardFiles = @{}
     for ($shardIndex = 0; $shardIndex -lt $workerCount; $shardIndex++) {
@@ -180,8 +174,6 @@ function Invoke-TestAutomationWorkers {
         $shards.Add($shard)
         $shardFileCounts[$shard.Label] = $shardFiles[$shardIndex].Count
     }
-    # Greedy shards: one file each, scheduled through the pool after the parallel phase — machine-hungry files...
-    # [comment:21](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment21)
     $greedyGroupSize = if ($GreedyGroupSize -gt 0) {
         $GreedyGroupSize
     }
@@ -204,8 +196,6 @@ function Invoke-TestAutomationWorkers {
         $shardFileCounts[$serialShard.Label] = $SerialFiles.Count
     }
 
-    # Workers inherit CATZC_TEST_RUN_LOCATION_HELD, so a test driving Invoke-TestFile for real inside this run runs...
-    # [comment:22](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment22)
     $WorkerEnvironment = if ($WorkerEnvironment) {
         $WorkerEnvironment.Clone()
     }
@@ -214,8 +204,6 @@ function Invoke-TestAutomationWorkers {
     }
     $WorkerEnvironment['CATZC_TEST_RUN_LOCATION_HELD'] = '1'
 
-    # Announce before the pool blocks: each worker pays its own importer + Pester load before the first Pester line...
-    # [comment:23](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment23)
     Write-Message "Running $($ParallelFiles.Count) test file(s) across $($shards.Count) parallel worker(s)$(if ($greedyShards.Count) { ", then $($GreedyFiles.Count) greedy file(s) in groups of $greedyGroupSize" })$(if ($serialShard) { ", then $($SerialFiles.Count) serial-tagged file(s)" })..." -NoHeader
 
     $stopwatch.Start()
@@ -227,8 +215,6 @@ function Invoke-TestAutomationWorkers {
         $allShards.AddRange($shards)
     }
 
-    # The greedy phase: single-file shards through the pool, one per worker — machine-hungry files overlap each other...
-    # [comment:24](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment24)
     if ($greedyShards.Count -gt 0) {
         $groupCount = [Math]::Ceiling($greedyShards.Count / $greedyGroupSize)
         Write-Message "Greedy phase: $($greedyShards.Count) file(s) in $groupCount group(s) of up to $greedyGroupSize, one group after another..." -NoHeader
@@ -246,8 +232,6 @@ function Invoke-TestAutomationWorkers {
         }
     }
 
-    # The serial phase runs last, alone — its files mutate state no other worker may see changing underneath it.
-    # [comment:25](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment25)
     if ($serialShard) {
         Write-Message "Serial phase: $($SerialFiles.Count) serial-tagged file(s) in one worker..." -NoHeader
         $serialPhaseOffsetMs = $stopwatch.ElapsedMilliseconds
@@ -259,8 +243,6 @@ function Invoke-TestAutomationWorkers {
     }
     $stopwatch.Stop()
 
-    # Aggregate the rows sidecars, in shard order.
-    # [comment:26](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment26)
     $rows = [System.Collections.Generic.List[object]]::new()
     $failedShardLabels = [System.Collections.Generic.List[string]]::new()
     $shardExitCodes = [ordered]@{}
@@ -289,8 +271,6 @@ function Invoke-TestAutomationWorkers {
             $rows.Add($row)
         }
 
-        # One summary per worker for the end-of-run table: queue number is submission order (greedy after the pool,...
-        # [comment:27](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment27)
         $isSerial = $serialShard -and $shard.Label -eq $serialShard.Label
         # ForEach-Object, not .Label: member enumeration on an empty list throws under strict mode (no greedy files).
         $isGreedy = -not $isSerial -and $shard.Label -in @($greedyShards | ForEach-Object { $_.Label })
@@ -325,8 +305,6 @@ function Invoke-TestAutomationWorkers {
             })
     }
 
-    # Every shard finished: record each file's measured duration for the next run's scheduling, keyed on its source...
-    # [comment:28](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment28)
     $measured = @{}
     $fileEntries = [System.Collections.Generic.List[object]]::new()
     foreach ($shard in $allShards) {

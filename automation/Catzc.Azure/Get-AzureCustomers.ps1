@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure/tests/Get-AzureCustomers.Tests.ps1
     adrs:
       - ADR-AZ-CUSTOMER
   config:

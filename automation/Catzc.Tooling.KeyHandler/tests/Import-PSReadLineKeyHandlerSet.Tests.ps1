@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-keyhandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1.md
+      source: automation/Catzc.Tooling.KeyHandler/Import-PSReadLineKeyHandlerSet.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Import-PSReadLineKeyHandlerSet over fixture configs (Get-Config mocked to the real config types built from fixture...
-# [comment:1](/docs/references/automation/catzc-tooling-keyhandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1.md#comment1)
 Describe 'Import-PSReadLineKeyHandlerSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $sequence = [System.Collections.Generic.List[object]]::new()

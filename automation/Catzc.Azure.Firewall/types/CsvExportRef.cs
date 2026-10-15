@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure.Firewall/types/CsvExportRef.cs
     kind: csharp-type
     module: Catzc.Azure.Firewall
+    relatives:
+      page: docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md
 ---
 */
-
-// This is the one handle passed along the export to convert chain, so a later step never re-derives the kind or the blob.
-// [comment:1](/docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md#comment1)
 
 using System;
 

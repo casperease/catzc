@@ -3,26 +3,26 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md
     kind: comment-page
-    body_sha: "7cf780cdef05"
+    body_sha: "7cab80b49b24"
 ---
 
 # automation/Catzc.Tooling.Core/Install-UvVenvTool.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above ``Invoke-Uv "venv `"$venvDir`" --python $pythonVersion --clear --seed"``.
+Above ``Invoke-Uv "venv `"$venvDir`" --python $pythonVersion --clear --seed"``, written with `#`.
 
 ```text
 --clear rebuilds the venv clean; --seed adds pip/setuptools/wheel so packages that expect `pkg_resources`
 (azure-cli's azure-devops extension) can load.
 ```
 
-## comment:5
+## comment:2
 
-Above `if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains...`.
+Above `if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains...`, written with `#`.
 
 ```text
 APPEND the venv's script directory to PATH (the janitor keeps it there each load via session_path_hints).

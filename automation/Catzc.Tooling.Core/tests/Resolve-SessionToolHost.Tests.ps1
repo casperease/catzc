@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Resolve-SessionToolHost.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Tooling.Core/private/Resolve-SessionToolHost.ps1
 ---
 #>
 

@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Git
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Git/tests/Test-RepositorySnapshot.Tests.ps1
   config:
     synopsis: Returns true when a repository is a test-run snapshot made by New-RepositorySnapshot.
     description: |-

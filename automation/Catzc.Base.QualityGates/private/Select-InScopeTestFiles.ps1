@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Select-InScopeTestFiles.Tests.ps1
   config:
     synopsis: Keeps the test files with a test inside the run's tier and category scope, and returns the dropped files' tests.
     description: |-

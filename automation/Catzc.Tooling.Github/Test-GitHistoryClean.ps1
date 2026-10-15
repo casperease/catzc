@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Tooling.Github
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Github/tests/Test-GitHistoryClean.Tests.ps1
   config:
     synopsis: |-
       Tests whether a token is absent from a git history across all three surfaces

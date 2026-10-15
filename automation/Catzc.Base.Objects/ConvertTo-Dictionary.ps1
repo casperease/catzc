@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Objects
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md
+      test: automation/Catzc.Base.Objects/tests/ConvertTo-Dictionary.Tests.ps1
   config:
     synopsis: |-
       Converts a typed object, PSCustomObject, or dictionary into a nested, mutable structure of ordered
@@ -65,8 +68,6 @@ function ConvertTo-Dictionary {
     }
 
     process {
-        # ConvertTo-YamlSafe is the shared recursive reflector — it already turns any object (typed class,...
-        # [comment:3](/docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md#comment3)
         $dict = ConvertTo-YamlSafe -Value $InputObject -MaxDepth $MaxDepth
         if ($AsPSObject) {
             ConvertTo-PSObjectTree $dict

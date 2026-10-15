@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Repository
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Repository/tests/Assert-SourceTree.Tests.ps1
     adrs:
       - ADR-DSGN-RUNMODE
   config:

@@ -3,11 +3,9 @@
 //   derived:
 //     path: infrastructure/templates/discovery/main.bicep
 //     kind: bicep-template
+//     relatives:
+//       page: docs/references/infrastructure/templates/discovery/main.bicep.md
 // ---
-
-// Kind, address space and subnets are read from network.yml by config address, never copied, so the IP plan has one source.
-// [ADR-AZ-NETWORK#1](/docs/adr/azure/azure-network-model.md#rule-adr-az-network1)
-// [comment:1](/docs/references/infrastructure/templates/discovery/main.bicep.md#comment1)
 
 targetScope = 'subscription'
 
@@ -153,8 +151,6 @@ var privateDnsZoneNames = [
   'privatelink.blob.${environment().suffixes.storage}'
 ]
 
-// The Azure default rules, which deny all other inbound traffic, still apply beneath these two.
-// [comment:2](/docs/references/infrastructure/templates/discovery/main.bicep.md#comment2)
 var securityRules = [
   {
     name: 'allow-virtual-network-inbound'

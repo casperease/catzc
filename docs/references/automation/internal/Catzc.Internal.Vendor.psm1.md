@@ -3,20 +3,21 @@ catzc:
   derived:
     path: docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md
     kind: comment-page
-    body_sha: "311d0c139fb6"
+    body_sha: "778706f0dcc0"
     adrs:
       - ADR-AUTO-CONSOLE#11
       - ADR-PWSH-ANNOUNCE#6
+      - ADR-PWSH-ENUM#6
 ---
 
 # automation/.internal/Catzc.Internal.Vendor.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Set-StrictMode -Version Latest   # this module's scope: every function here...`.
+Above `Set-StrictMode -Version Latest   # this module's scope: every function here...`, written with `#`.
 
 ```text
 Catzc.Internal.Vendor — the shared vendor-module loader.
@@ -32,28 +33,28 @@ the transient bootstrap. Loaded on demand through Import-InternalModule Vendor.
 
 ## comment:2
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Import-VendorModules {`, written with `#`.
 
 ```text
-Loads every automation/.vendor/<Name>/<Version>/ module into the global session, removing any
-system-installed copy from $env:PSModulePath first so the vendored version takes precedence. Skips a
-module already loaded from the vendor path, and throws if its on-disk version changed under a loaded one
-(a session restart is required). Modules named in -Lazy are deferred (the vendor root is prepended to
-PSModulePath so they still autoload on first use).
+.SYNOPSIS
+    Imports third-party modules from a vendor directory.
+.DESCRIPTION
+    The system copy leaves PSModulePath first so the vendored version wins; a changed on-disk version needs a restart.
+    [comment:2](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment2)
+.PARAMETER VendorRoot
+    Path to the vendor directory. Skips silently if the path does not exist.
+.PARAMETER Lazy
+    Deferred modules cost nothing at startup and still autoload on first use, since the vendor root heads PSModulePath.
+    [comment:3](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment3)
+.PARAMETER DiagnoseLoadTime
+    Emit a per-vendor-module import time (surfaced by importer.ps1 -DiagnoseLoadTime).
+.EXAMPLE
+    Import-VendorModules -VendorRoot $vendorRoot -Lazy 'Pester', 'PSScriptAnalyzer'
 ```
 
 ## comment:3
 
-Section `.PARAMETER Lazy` of the comment-based help.
-
-```text
-Module names to defer rather than import eagerly (e.g. Pester, PSScriptAnalyzer) so they do not slow
-shell startup; they autoload on first use from the vendor root.
-```
-
-## comment:4
-
-Above `[switch]$DiagnoseLoadTime`.
+Above `[switch]$DiagnoseLoadTime`, written with `#`.
 
 ```text
 Emit a per-vendor-module import time. Surfaced by importer.ps1 -DiagnoseLoadTime. A vendor import
@@ -62,9 +63,18 @@ antivirus scans on first load — the prime suspect for a slow startup. This iso
 per module so it's measured, not guessed. Off = no overhead.
 ```
 
+## comment:4
+
+Above `$vendorDirs = [System.IO.DirectoryInfo]::new($VendorRoot).GetDirectories()`, written with `#`.
+
+```text
+One level, inline: this module loads before the walker exists
+([ADR-PWSH-ENUM#6](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum6)).
+```
+
 ## comment:5
 
-Above `if ($existing -and $existing.ModuleBase -like "$VendorRoot*") {`.
+Above `if ($existing -and $existing.ModuleBase -like "$VendorRoot*") {`, written with `#`.
 
 ```text
 Already loaded from our vendor path — skip (re-importing can fail
@@ -73,7 +83,7 @@ if the module loaded .NET assemblies that can't be replaced in-process)
 
 ## comment:6
 
-Above `$before = @($env:PSModulePath -split $sep)`.
+Above `$before = @($env:PSModulePath -split $sep)`, written with `#`.
 
 ```text
 Remove system paths for this module from PSModulePath so auto-loading
@@ -82,7 +92,7 @@ cannot resurrect the system version after we import the vendored one
 
 ## comment:7
 
-Above `if ($existing) {`.
+Above `if ($existing) {` (occurrence 2), written with `#`.
 
 ```text
 The load, the system copy it replaced, and the PSModulePath entries it dropped are one state change of

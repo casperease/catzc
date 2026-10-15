@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrChecksConfig.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrChecksConfig.cs.md
+      test: automation/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#35
@@ -14,9 +17,6 @@ catzc:
       - ADR-PRIN-CONFIG#3
 ---
 */
-
-// Every key is optional and an omitted one behaves as its default, so the file states only what deviates from it.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrChecksConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

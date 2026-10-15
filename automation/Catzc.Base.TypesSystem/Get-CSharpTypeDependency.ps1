@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.TypesSystem
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md
+      test: automation/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
     adrs:
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-PESTER#9
@@ -63,19 +66,13 @@ function Get-CSharpTypeDependency {
             continue
         }
 
-        # [System.IO] (sorted) instead of Get-ChildItem/Get-Content — ~20ms-per-call cmdlet overhead the raw.NET...
-        # [comment:5](/docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md#comment5)
         foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs') | Sort-Object)) {
             $csName = [System.IO.Path]::GetFileName($cs)
-            # Strip block comments, line comments, then double- and single-quoted literals, so only real code tokens...
-            # [comment:6](/docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md#comment6)
             $code = [System.IO.File]::ReadAllText($cs)
             $code = [regex]::Replace($code, '(?s)/\*.*?\*/', ' ')
             $code = [regex]::Replace($code, '//[^\r\n]*', ' ')
             $code = [regex]::Replace($code, '"(?:\\.|[^"\\])*"', ' ')
             $code = [regex]::Replace($code, "'(?:\\.|[^'\\])*'", ' ')
-            # Drop the file's own file-scoped namespace declaration ("namespace <module>;").
-            # [comment:7](/docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md#comment7)
             $code = [regex]::Replace($code, '(?m)^\s*namespace\s+[A-Za-z_][A-Za-z0-9_.]*\s*;\s*', ' ')
 
             $seen = [System.Collections.Generic.HashSet[string]]::new()

@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/tests/types/ArtifactsConfig.Tests.ps1.md
-    kind: test-asset
-    body_sha: "53839b6697a6"
+    kind: comment-page
+    body_sha: "4de5e814cbcc"
 ---
 
 # automation/Catzc.Base.ModuleSystem/tests/types/ArtifactsConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Catzc.Base.ModuleSystem.ArtifactsConfig' -Tag 'L0' {`.
+Above `Describe 'Catzc.Base.ModuleSystem.ArtifactsConfig' -Tag 'L0' {`, written with `#`.
 
 ```text
 The artifacts.yml type: constructing it maps and validates the parsed YAML, so a malformed publish-target map

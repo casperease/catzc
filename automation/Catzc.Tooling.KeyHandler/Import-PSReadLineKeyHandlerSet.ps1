@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.KeyHandler
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1
   config:
     synopsis: Applies the captured Windows PSReadLine key bindings on Linux, filtered to Linux-supported functions.
     description: |-

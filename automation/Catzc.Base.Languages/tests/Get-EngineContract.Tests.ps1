@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-languages/tests/Get-EngineContract.Tests.ps1.md
+      source: automation/Catzc.Base.Languages/private/Get-EngineContract.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-EngineContract with the engines' executables mocked: the start arguments come from the execution engine model...
-# [comment:1](/docs/references/automation/catzc-base-languages/tests/Get-EngineContract.Tests.ps1.md#comment1)
 Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive "widget's repo"

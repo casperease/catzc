@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: private
+    relatives:
+      test: automation/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
     adrs:
       - ADR-AZ-DATAMOD#10
       - ADR-CONF-ADDRESSING#1

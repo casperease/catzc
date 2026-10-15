@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md
+      test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateSlots.Tests.ps1
   config:
     synopsis: Returns a template's configured (non-base) slot discriminators as a flat string array.
     description: |-
@@ -57,8 +60,6 @@ function Get-BicepTemplateSlots {
         return @()
     }
 
-    # slots are [ordered] dicts -> use the script-block Where-Object/ForEach-Object form (the `Where-Object prop -EQ`...
-    # [comment:4](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md#comment4)
     $wantCustomer = [string]$Customer
     @($templateDescriptor.slots |
             Where-Object { -not [string]::IsNullOrEmpty($_.slot) } |

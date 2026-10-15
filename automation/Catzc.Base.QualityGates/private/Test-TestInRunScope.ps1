@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Test-TestInRunScope.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Test-TestInRunScope.Tests.ps1
   config:
     synopsis: Whether a discovered test is inside a test run's tier and category scope.
     description: |-
@@ -31,8 +34,6 @@ function Test-TestInRunScope {
         [string[]] $ExcludeTag = @()
     )
 
-    # Get-TestBlockTag returns its matches as ONE array object (`, $ret`), so its result is used as-is, never wrapped...
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Test-TestInRunScope.ps1.md#comment3)
     $level = Get-TestBlockTag -Test $Test -Valid ([Catzc.Base.Timeouts.TestTiers]::Names)
     $category = Get-TestBlockTag -Test $Test -Valid 'logic', 'integrity'
     @(@($level) + @($category) | Where-Object { $_ -in $ExcludeTag }).Count -eq 0

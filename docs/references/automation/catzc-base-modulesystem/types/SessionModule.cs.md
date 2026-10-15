@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/SessionModule.cs.md
     kind: comment-page
-    body_sha: b2415eb74a00
+    body_sha: "66cc733e57c8"
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/SessionModule.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `namespace Catzc.Base.ModuleSystem;`.
+Above `namespace Catzc.Base.ModuleSystem;`, written with `//`.
 
 ```text
 A module loaded into the current PowerShell session, mapped by how it came into play (its ModuleBase

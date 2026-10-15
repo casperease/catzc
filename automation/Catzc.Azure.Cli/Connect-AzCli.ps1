@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Cli
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md
   config:
     synopsis: Logs in to Azure CLI.
     description: Skips login if already authenticated. Use -Force to re-authenticate.
@@ -46,8 +48,6 @@ function Connect-AzCli {
 
     Assert-Tool 'az_cli'
 
-    # Idempotent: skip if already logged in with the correct identity -NoAssert: non-zero exit means "not logged in"...
-    # [comment:3](/docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md#comment3)
     if (-not $Force) {
         $result = Invoke-Executable 'az account show --output json' -PassThru -NoAssert -Silent
         if ($result.ExitCode -eq 0 -and $result.Output) {
@@ -67,8 +67,6 @@ function Connect-AzCli {
         }
     }
 
-    # No post-login assertion needed — Invoke-Executable throws on non-zero exit codes via Assert-LastExitCodeWasZero.
-    # [comment:4](/docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md#comment4)
     Write-Verbose "Authenticating via $($PSCmdlet.ParameterSetName)"
     switch ($PSCmdlet.ParameterSetName) {
         'ServicePrincipal' {

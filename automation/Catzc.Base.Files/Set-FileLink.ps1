@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Files
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-files/Set-FileLink.ps1.md
+      test: automation/Catzc.Base.Files/tests/Set-FileLink.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-XPLAT#7
@@ -55,15 +58,11 @@ function Set-FileLink {
     Assert-PathExist $Target
     $resolvedTarget = [System.IO.Path]::GetFullPath($Target)
 
-    # The no-op path: current means "is a link to the target" — a plain file with identical content is stale, because...
-    # [comment:7](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment7)
     $item = Get-Item -LiteralPath $Path -Force -ErrorAction Ignore
     if ($item -and $item.LinkType -eq 'SymbolicLink') {
         $resolved = $item.ResolveLinkTarget($true)
         if ($resolved) {
             $resolvedActual = [System.IO.Path]::GetFullPath($resolved.FullName)
-            # Path equality is case-insensitive on Windows, case-sensitive elsewhere.
-            # [comment:8](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment8)
             $current = if ($IsWindows) {
                 $resolvedActual -ieq $resolvedTarget
             }
@@ -76,8 +75,6 @@ function Set-FileLink {
         }
     }
     elseif ($item -and $item.LinkType -eq 'HardLink') {
-        # A hard link has no target to read back; link identity plus CR-insensitive content equality is the honest...
-        # [comment:9](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment9)
         $existing = [System.IO.File]::ReadAllText($Path) -replace "`r", ''
         $source = [System.IO.File]::ReadAllText($resolvedTarget) -replace "`r", ''
         if ($existing -ceq $source) {
@@ -105,8 +102,6 @@ function Set-FileLink {
             New-Item -ItemType SymbolicLink -Path $Path -Target $relativeTarget -ErrorAction Stop | Out-Null
         }
         catch {
-            # No symlink privilege — the expected non-admin case.
-            # [comment:10](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment10)
             New-Item -ItemType HardLink -Path $Path -Target $resolvedTarget -ErrorAction Stop | Out-Null
         }
     }

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/Build-Glossary.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-README#7
@@ -11,8 +14,6 @@ catzc:
 ---
 #>
 
-# Build-Glossary renders the merged glossary into one markdown page.
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md#comment1)
 Describe 'Build-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
         $entry = {
@@ -83,8 +84,6 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
     }
 }
 
-# The real glossary page against the real sources.
-# [comment:2](/docs/references/automation/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md#comment2)
 Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README#7' {
     It 'the on-disk glossary is current — no drift from the glossary sources' {
         (Build-Glossary -DryRun -PassThru -Silent).ConceptCount | Should -BeGreaterThan 0

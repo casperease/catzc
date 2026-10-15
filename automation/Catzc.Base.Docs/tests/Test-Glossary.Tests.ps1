@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/Test-Glossary.ps1
     adrs:
       - ADR-AUTO-FAILFAST
       - ADR-AUTO-TEST#19
@@ -17,8 +20,6 @@ catzc:
 ---
 #>
 
-# Test-Glossary orchestrates the six checks; here every check and the glossary readers are mocked, so the tests pin...
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md#comment1)
 Describe 'Test-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
         # Two real entries: the mocked checks keep their typed -Entry parameter, so the glossary must bind to it.
@@ -93,8 +94,6 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
     }
 }
 
-# The real glossary sources against the real ADRs, tests, and tracked files.
-# [comment:2](/docs/references/automation/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md#comment2)
 Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:sources = @(InModuleScope Catzc.Base.Docs { Get-GlossarySources })

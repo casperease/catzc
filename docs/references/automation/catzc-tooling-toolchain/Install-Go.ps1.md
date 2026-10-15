@@ -3,35 +3,35 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md
     kind: comment-page
-    body_sha: "1e3cac59d0e9"
+    body_sha: "23af37e615fb"
 ---
 
 # automation/Catzc.Tooling.Toolchain/Install-Go.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:5
+## comment:1
 
-Above `$probe = Test-Tool 'go' -PassThru`.
+Above `$probe = Test-Tool 'go' -PassThru`, written with `#`.
 
 ```text
 Nothing in the managed home: a Go at the right version elsewhere satisfies the contract and is not ours to
 manage. A wrong version elsewhere does not block the install — the managed home goes first on PATH.
 ```
 
-## comment:6
+## comment:2
 
-Above `$staging = "$installDir.staging"`.
+Above `$staging = "$installDir.staging"`, written with `#`.
 
 ```text
 Download and extract beside the home (same volume), then swap the extracted go/ folder in, so a failed
 download or extraction never leaves a half-written home.
 ```
 
-## comment:7
+## comment:3
 
-Above `if ($isZip) {`.
+Above `if ($isZip) {`, written with `#`.
 
 ```text
 The Windows archive is a .zip, extracted in-process: the tar first on PATH there is often Git's GNU tar,

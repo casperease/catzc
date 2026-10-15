@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-CACHE#10
@@ -69,12 +72,8 @@ function Get-ScriptAnalyzerDiagnostics {
         return @()
     }
 
-    # The vendored analyzer ships inside the code tree, so it resolves from the code root.
-    # [comment:9](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment9)
     $root = Get-RepositoryRoot
 
-    # The result cache: a file the analyzer last found clean, whose bytes and analyzer inputs...
-    # [comment:10](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment10)
     $fullRoot = [System.IO.Path]::GetFullPath($root)
     $stamp = Get-ContentStamp -Label 'script-analyzer' -File (Get-ScriptAnalyzerInputs -RepositoryRoot $fullRoot -SettingsPath $SettingsPath) -RepositoryRoot $fullRoot
     $cachePath = Join-Path (Get-OutputRoot) 'cache/script-analyzer.json'
@@ -92,8 +91,6 @@ function Get-ScriptAnalyzerDiagnostics {
     }
     $analyzerPath = Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer'
 
-    # Shard count tracks CPU but is capped so we don't spawn more process setup than the work can amortize, and never...
-    # [comment:11](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment11)
     $shardCount = [Math]::Max(1, [Math]::Min([Environment]::ProcessorCount - 1, 10))
     $shardCount = [Math]::Min($shardCount, $files.Count)
 
@@ -111,13 +108,9 @@ function Get-ScriptAnalyzerDiagnostics {
         Import-Module $analyzer -Force
 
         Push-Location $root
-        # Invoke-ScriptAnalyzer draws its own Write-Progress bar; this repo bans progress bars (ADR...
-        # [comment:12](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment12)
         $savedProgress = $ProgressPreference
         $ProgressPreference = 'SilentlyContinue'
         try {
-            # Capture non-terminating analyzer errors (-ErrorAction SilentlyContinue + -ErrorVariable) and surface...
-            # [comment:13](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment13)
             $err = $null
             $diagnostics = $shardFiles | Invoke-ScriptAnalyzer -Settings $settings -ErrorVariable err -ErrorAction SilentlyContinue
             if ($err) {
@@ -135,8 +128,6 @@ function Get-ScriptAnalyzerDiagnostics {
         Start-Job -ScriptBlock $worker -ArgumentList @($shards[$i], $root, $analyzerPath, $SettingsPath)
     }
 
-    # Print a dot per interval while shards run, rather than a progress bar (ADR console-output-matters, rule ).
-    # [comment:14](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment14)
     $dotted = $false
     try {
         # Poll for shard completion so the user sees the run is alive rather than a silent wait.
@@ -152,8 +143,6 @@ function Get-ScriptAnalyzerDiagnostics {
 
         $allDiagnostics = @()
         foreach ($job in $jobs) {
-            # A silently-failed shard would drop its files' diagnostics and let violations pass unnoticed — fail...
-            # [comment:15](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment15)
             if ($job.State -ne 'Completed') {
                 $reason = ($job.ChildJobs.JobStateInfo.Reason.Message) -join '; '
                 throw "PSScriptAnalyzer shard job $($job.Id) ended in state '$($job.State)': $reason"

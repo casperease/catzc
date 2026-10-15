@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Github/tests/New-SyntheticHistory.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Tooling.Github/New-SyntheticHistory.ps1
 ---
 #>
 

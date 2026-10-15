@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Firewall
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md
+      test: automation/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1
     adrs:
       - ADR-PWSH-PARAM#4
   config:
@@ -155,14 +158,10 @@ function Convert-FirewallCsvToMarkdown {
             $MarkdownPath = Join-Path $OutputFolder $markdownName
         }
 
-        # A body fill-in on purpose: in Object mode $CsvPath comes from pipeline input, bound after defaults are...
-        # [comment:11](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment11)
         if (-not $SourceName) {
             $SourceName = Split-Path -Path $CsvPath -Leaf
         }
 
-        # In Object mode CsvPath comes from the piped object (the Path set is ValidateScript'd); assert it exists...
-        # [comment:12](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment12)
         Assert-PathExist $CsvPath -PathType Leaf
 
         $rows = @(Import-Csv -Path $CsvPath)
@@ -173,8 +172,6 @@ function Convert-FirewallCsvToMarkdown {
             @()
         }
 
-        # Sort toward firewall evaluation order: rule collection GROUP priority first (from -GroupPriority), then...
-        # [comment:13](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment13)
         $sortProps = @()
         if ('RuleCollectionGroup' -in $present) {
             $sortProps += @{ Expression = {
@@ -199,8 +196,6 @@ function Convert-FirewallCsvToMarkdown {
             $rows = @($rows | Sort-Object -Property $sortProps)
         }
 
-        # Build the ordered, validated column descriptors (rule name, composites, extras).
-        # [comment:14](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment14)
         $columnParams = @{
             RuleNameColumn         = $RuleNameColumn
             CompositeColumns       = $CompositeColumns
@@ -212,14 +207,10 @@ function Convert-FirewallCsvToMarkdown {
 
         $ret = [System.Text.StringBuilder]::new()
 
-        # Title + provenance preamble.
-        # [comment:15](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment15)
         [void]$ret.AppendLine("# $SourceName")
         [void]$ret.AppendLine()
         $convertedUtc = [datetime]::UtcNow.ToString('yyyy-MM-dd HH:mm', [System.Globalization.CultureInfo]::InvariantCulture)
         if ($null -ne $GeneratedAt) {
-            # PowerShell binds Nullable[datetime] as a plain [datetime], so check for $null and cast — do NOT...
-            # [comment:16](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment16)
             $generatedUtc = ([datetime]$GeneratedAt).ToUniversalTime().ToString('yyyy-MM-dd HH:mm', [System.Globalization.CultureInfo]::InvariantCulture)
             [void]$ret.AppendLine("CSV generated $generatedUtc UTC · converted to Markdown $convertedUtc UTC.")
         }

@@ -3,26 +3,26 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md
     kind: comment-page
-    body_sha: ba4b441edc2c
+    body_sha: "8c76190e7354"
 ---
 
 # automation/Catzc.Tooling.Core/Uninstall-Tool.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:7
+## comment:1
 
-Above `if ($config.npm_package) {`.
+Above `if ($config.npm_package) {`, written with `#`.
 
 ```text
 npm-managed tools (cspell, prettier, markdownlint) are removed with npm, not a platform package
 manager. Redirect to Uninstall-$command instead of failing later on a missing winget id.
 ```
 
-## comment:8
+## comment:2
 
-Above `if (-not $Version) {`.
+Above `if (-not $Version) {`, written with `#`.
 
 ```text
 Uninstall targets the version that is ACTUALLY installed, not the locked one. For tools whose
@@ -35,18 +35,18 @@ node "22.22.2" -> "22", python "3.11.9" -> "3.11". Version-independent ids (Micr
 Hashicorp.Terraform) ignore the value. An explicit -Version still wins for removing a named build.
 ```
 
-## comment:9
+## comment:3
 
-Above `if (-not (Test-ExpectedPackageManager -Config $config)) {`.
+Above `if (-not (Test-ExpectedPackageManager -Config $config)) {`, written with `#`.
 
 ```text
 Only uninstall tools managed by the expected package manager.
 Use Remove-<Tool> for tools installed outside our control.
 ```
 
-## comment:10
+## comment:4
 
-Above `$beforeEntries = [System.Collections.Generic.HashSet[string]]::new(`.
+Above `$beforeEntries = [System.Collections.Generic.HashSet[string]]::new(`, written with `#`.
 
 ```text
 Snapshot User PATH before uninstall so we can detect what the
@@ -55,9 +55,9 @@ PATH entries but leave directories on disk — Test-Path alone can't
 tell stale from legitimate.
 ```
 
-## comment:11
+## comment:5
 
-Above `$userPath = Get-EnvironmentPath -Scope User`.
+Above `$userPath = Get-EnvironmentPath -Scope User`, written with `#`.
 
 ```text
 Some uninstallers remove the directory but leave the PATH entry in

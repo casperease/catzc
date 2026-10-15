@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Test-ToolRequiresElevation.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/tests/Test-ToolRequiresElevation.Tests.ps1.md
+      source: automation/Catzc.Tooling.Core/Test-ToolRequiresElevation.ps1
 ---
 #>
 
 Describe 'Test-ToolRequiresElevation' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The production input is the typed record Get-ToolConfig returns, so the tests build one: a flag the record...
-        # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Test-ToolRequiresElevation.Tests.ps1.md#comment1)
         function New-TestToolConfig {
             param([hashtable] $Flags)
             $entry = @{ version = '1.0'; command = 'faketool'; version_command = 'faketool --version'; version_pattern = '(?<ver>.+)' }

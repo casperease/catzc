@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/tests/Install-Zsh.Tests.ps1.md
+      source: automation/Catzc.Tooling.Provisioning/Install-Zsh.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#9
 ---
 #>
 
-# Install-Zsh on a fixture Git tree in $TestDrive: the layout, the tool config, the verified download, and the tar...
-# [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Install-Zsh.Tests.ps1.md#comment1)
 Describe 'Install-Zsh' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:gitHome = Join-Path $TestDrive 'git'
@@ -148,8 +149,6 @@ Describe 'Install-Zsh' -Tag 'L0', 'logic' {
         }
     }
 
-    # The shared apt installer is mocked: it reads the package name from the entry's apt_package, so Install-Zsh...
-    # [comment:2](/docs/references/automation/catzc-tooling-provisioning/tests/Install-Zsh.Tests.ps1.md#comment2)
     Context 'on Linux' {
         BeforeEach {
             Mock Install-Tool -ModuleName Catzc.Tooling.Provisioning { }

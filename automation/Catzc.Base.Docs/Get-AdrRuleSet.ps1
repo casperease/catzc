@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1
   config:
     synopsis: The flat set of ADR rule-sets declared in adrs.yml — one typed record per ADR.
     description: |-

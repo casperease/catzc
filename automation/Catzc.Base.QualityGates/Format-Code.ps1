@@ -6,6 +6,9 @@ catzc:
     kind: format-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE
       - ADR-AUTO-CONSOLE#10
@@ -134,14 +137,10 @@ function Format-Code {
         $split = Split-CachedFile -File $engineFiles.ToArray() -Cache $cache -Stamp $stamp -RepositoryRoot $root
         $pending = @($split.Pending)
 
-        # Announce before the engine runs: a whole-repository pass takes seconds and prints nothing until it ends.
-        # [comment:6](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment6)
         Write-Message "$verb $($pending.Count) $(@($engineGroup.Group | ForEach-Object name) -join ', ') file(s) with $engine ($($split.CachedCount) unchanged since their last check)..."
         $changed = @(Invoke-FormatterEngine -Engine $engine -File $pending -DryRun:$DryRun | ForEach-Object { $_ })
         $changedSet = [System.Collections.Generic.HashSet[string]]::new([string[]] $changed, [System.StringComparer]::OrdinalIgnoreCase)
 
-        # A file the engine left formatted is recorded; under -DryRun a file it would still change is not.
-        # [comment:7](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment7)
         if ($DryRun) {
             Update-ResultCache -Cache $cache -Key $split.Key -Checked $pending -Flagged $changed
         }
@@ -160,8 +159,6 @@ function Format-Code {
         }
     }
 
-    # Imprint steps run after every formatter, so a step never works on text a formatter is about to rewrite: a...
-    # [comment:8](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment8)
     $inScope = if ($Language) {
         @($selected | ForEach-Object name)
     }

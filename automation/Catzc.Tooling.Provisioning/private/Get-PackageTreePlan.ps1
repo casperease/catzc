@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md
+      test: automation/Catzc.Tooling.Provisioning/tests/Get-PackageTreePlan.Tests.ps1
     adrs:
       - ADR-AUTO-REMOVE#2
       - ADR-PWSH-ENUM#3
@@ -45,8 +48,6 @@ function Get-PackageTreePlan {
     $sourceRoot = [System.IO.Path]::GetFullPath($Source)
     $destinationRoot = [System.IO.Path]::GetFullPath($Destination)
 
-    # A named whole-tree walk: a copy plan must see every file, so no folder name is pruned and the depth is the...
-    # [comment:2](/docs/references/automation/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md#comment2)
     $sourceDirectories = [System.Collections.Generic.List[string]]::new()
     foreach ($directory in Get-ChildPath $sourceRoot -Directory -Depth 64 -Exclude @() -PruneVendor $false) {
         $sourceDirectories.Add([System.IO.Path]::GetRelativePath($sourceRoot, $directory).Replace('\', '/'))

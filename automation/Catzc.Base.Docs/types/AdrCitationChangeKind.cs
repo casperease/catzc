@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrCitationChangeKind.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrCitationChangeKind.cs.md
     adrs:
       - ADR-AUTO-TYPES#9
 ---
 */
-
-// Unhandled is the one form found but not rewritten mechanically, such as a citation range that a moved rule splits.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationChangeKind.cs.md#comment1)
 
 namespace Catzc.Base.Docs;
 

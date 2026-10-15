@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/configs/tools.yml.md
     kind: comment-page
-    body_sha: "394f78a2791b"
+    body_sha: "855b897c8e12"
     adrs:
       - ADR-AUTO-BASH#6
 ---
 
 # automation/Catzc.Base.Execution/configs/tools.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `system_provided: true`.
+Above `system_provided: true`, written with `#`.
 
 ```text
 OS-provided (Windows App Installer) — asserted and kept on PATH, never installed by the toolchain. It is
@@ -25,7 +25,7 @@ The hint lets Sync-SessionTools recover it when %LOCALAPPDATA%\Microsoft\Windows
 
 ## comment:2
 
-Above `version: "5"`.
+Above `version: "5"`, written with `#`.
 
 ```text
 Bash 5. Platform-provided — asserted, never installed by the toolchain, so it has no Install-/Uninstall- pair:
@@ -36,7 +36,7 @@ brew's bash 5 (`brew install bash`), which the candidates below find first.
 
 ## comment:3
 
-Above `windows_probes:`.
+Above `windows_probes:`, written with `#`.
 
 ```text
 Located by these candidate paths (no process start), then PATH — never by the bare name alone: on Windows
@@ -47,7 +47,7 @@ pipeline reads the hosted-agent locations.
 
 ## comment:4
 
-Above `version: "5"`.
+Above `version: "5"` (occurrence 2), written with `#`.
 
 ```text
 zsh 5 — the third execution engine ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)) and the checker of
@@ -57,7 +57,7 @@ the repository's *.zsh scripts (Test-ShellScripts runs `zsh -n`,
 
 ## comment:5
 
-Above `depends_on: bash`.
+Above `depends_on: bash`, written with `#`.
 
 ```text
 Windows: Install-Zsh installs the MSYS2 zsh package pinned below, verified against its SHA-256 before anything is
@@ -70,7 +70,7 @@ missing and which needs root; Get-ToolsStatus reports it under apt.
 
 ## comment:6
 
-Above `windows_probes:`.
+Above `windows_probes:` (occurrence 2), written with `#`.
 
 ```text
 Located by these candidate paths (no process start), then PATH: Install-Zsh leaves PATH alone. A devbox prefers
@@ -80,7 +80,7 @@ locations.
 
 ## comment:7
 
-Above `version: "3.13"`.
+Above `version: "3.13"`, written with `#`.
 
 ```text
 3.13, not the latest (3.14): stay one release behind the bleeding edge so dependents that lag the newest
@@ -90,7 +90,7 @@ max_python gate on az_cli (the ToolsConfig type) fails the build if this is bump
 
 ## comment:8
 
-Above `depends_on: uv`.
+Above `depends_on: uv`, written with `#`.
 
 ```text
 Provisioned by uv (`uv python install <version> --default`) — user-space, cross-platform, installing a
@@ -99,7 +99,7 @@ global python/python3 shim into uv's bin (~/.local/bin). depends_on uv so uv is 
 
 ## comment:9
 
-Above `script_install: true`.
+Above `script_install: true`, written with `#`.
 
 ```text
 Installed via vendored install scripts — no package manager, no admin.
@@ -109,7 +109,7 @@ Override per platform with windows_install_dir / unix_install_dir if needed.
 
 ## comment:10
 
-Above `session_host_probes:`.
+Above `session_host_probes:`, written with `#`.
 
 ```text
 Which dotnet home this session runs when several exist (the managed home, then every PATH dir holding
@@ -119,7 +119,7 @@ version first, else a runtime at the locked version. A runtime-only or off-versi
 
 ## comment:11
 
-Above `devbox_version: "2.84"`.
+Above `devbox_version: "2.84"`, written with `#`.
 
 ```text
 Devbox lever (local-only version relaxation). OUTSIDE a CI pipeline, Assert-ToolVersion also accepts an
@@ -131,7 +131,7 @@ locked. This is a team-tuned balancing lever, not a second pin — raise it towa
 
 ## comment:12
 
-Above `depends_on: uv`.
+Above `depends_on: uv` (occurrence 2), written with `#`.
 
 ```text
 Installed user-space into a DEDICATED uv venv (uv venv + uv pip install azure-cli) — no admin on any
@@ -142,7 +142,7 @@ depends_on uv so uv is provisioned first.
 
 ## comment:13
 
-Above `max_python: "3.13"`.
+Above `max_python: "3.13"`, written with `#`.
 
 ```text
 azure-cli 2.87 supports Python only up to 3.13. Its venv runs on the toolchain's `python` pin, so this caps
@@ -151,7 +151,7 @@ how far Python may be bumped — the ToolsConfig type fails the build if python'
 
 ## comment:14
 
-Above `depends_on: uv`.
+Above `depends_on: uv` (occurrence 3), written with `#`.
 
 ```text
 Installed user-space via uv (`uv tool install poetry`) in an isolated env with uv's own Python —
@@ -160,7 +160,7 @@ depends_on uv (not python), which uv brings itself.
 
 ## comment:15
 
-Above `version: "24"`.
+Above `version: "24"`, written with `#`.
 
 ```text
 Node 24 (current LTS). winget has no versioned OpenJS.NodeJS.24 — its versioned packages stop at 23 — so
@@ -170,7 +170,7 @@ past 24, bump `version` to match (and revisit brew's node@24), or the installed 
 
 ## comment:16
 
-Above `apt_package: "nodejs"`.
+Above `apt_package: "nodejs"`, written with `#`.
 
 ```text
 Linux: the distro `nodejs` package lags the pin badly (Ubuntu jammy ships Node 12), so Install-NodeJs
@@ -180,7 +180,7 @@ and then installs this package. `apt_package` stays the package name uninstall/s
 
 ## comment:17
 
-Above `linux_admin_only: true`.
+Above `linux_admin_only: true` (occurrence 2), written with `#`.
 
 ```text
 apt-get needs root; the Windows (winget --scope user) and macOS (brew) installs are user-space, so the
@@ -190,7 +190,7 @@ and reports it instead of failing the whole run.
 
 ## comment:18
 
-Above `session_path_hints:`.
+Above `session_path_hints:` (occurrence 3), written with `#`.
 
 ```text
 nvm-for-windows exposes the active node via this symlink; the janitor points the session at it when
@@ -199,7 +199,7 @@ winget node is absent, so an nvm devbox keeps a working `node` (and node-based s
 
 ## comment:19
 
-Above `version_command: "markdownlint-cli2 --version"`.
+Above `version_command: "markdownlint-cli2 --version"`, written with `#`.
 
 ```text
 markdownlint-cli2 --version prints a banner ("markdownlint-cli2 v0.22.1 (markdownlint v0.40.0)"),
@@ -208,7 +208,7 @@ so the pattern captures the digits after the first 'v' (Get-ToolVersion matches 
 
 ## comment:20
 
-Above `linux_admin_only: true`.
+Above `linux_admin_only: true` (occurrence 3), written with `#`.
 
 ```text
 Linux: HashiCorp apt repo must be configured first.
@@ -218,7 +218,7 @@ Install-Terraform handles this inline. That inline apt path needs root, while th
 
 ## comment:21
 
-Above `admin_only: true`.
+Above `admin_only: true`, written with `#`.
 
 ```text
 Microsoft.OpenJDK.25 ships only a machine-scope (wix) installer — there is no user-scope installer, so a
@@ -228,7 +228,7 @@ provisioning loops skip and report it when not elevated.
 
 ## comment:22
 
-Above `version: "1.27"`.
+Above `version: "1.27"`, written with `#`.
 
 ```text
 Go 1.27, the current stable minor; Install-Go takes its newest patch. Go in this repository is test artifacts
@@ -237,7 +237,7 @@ only (<root>/tests/<module>/, the root go/ or .go/ per go.yml), and it never shi
 
 ## comment:23
 
-Above `script_install: true`.
+Above `script_install: true` (occurrence 2), written with `#`.
 
 ```text
 Installed by Install-Go from the official go.dev archive, verified against the SHA-256 the go.dev release feed
@@ -247,7 +247,7 @@ script-install default — Windows %LOCALAPPDATA%\go, Unix ~/.go — kept apart 
 
 ## comment:24
 
-Above `windows_probes:`.
+Above `windows_probes:` (occurrence 3), written with `#`.
 
 ```text
 Located by the managed home's binary first, then PATH. A pipeline declares no candidates: its Go comes from
@@ -256,7 +256,7 @@ the hosted agent's tool cache, which the native Go task puts on PATH.
 
 ## comment:25
 
-Above `version: "0.11"`.
+Above `version: "0.11"`, written with `#`.
 
 ```text
 ShellCheck 0.11 — the analyzer for the repository's shell scripts (*.sh, the importer.sh dispatcher), run by the
@@ -268,7 +268,7 @@ root (Install-Shellcheck).
 
 ## comment:26
 
-Above `windows_probes:`.
+Above `windows_probes:` (occurrence 4), written with `#`.
 
 ```text
 The user-scope winget portable lands in its package folder, which winget adds to the user PATH; probed first, so a
@@ -277,7 +277,7 @@ fresh install is found before the shell is restarted.
 
 ## comment:27
 
-Above `version: "0.48"`.
+Above `version: "0.48"`, written with `#`.
 
 ```text
 The Bicep CLI 0.48 — the bicep formatter engine Format-Code runs over the infrastructure templates (`bicep format`,
@@ -289,7 +289,7 @@ writes LF on every platform, so its output does not depend on the machine.
 
 ## comment:28
 
-Above `windows_probes:`.
+Above `windows_probes:` (occurrence 5), written with `#`.
 
 ```text
 The user-scope winget portable lands in its package folder, which winget adds to the user PATH; probed first, so a
@@ -298,7 +298,7 @@ fresh install is found before the shell is restarted.
 
 ## comment:29
 
-Above `winget_id: "astral-sh.uv"`.
+Above `winget_id: "astral-sh.uv"`, written with `#`.
 
 ```text
 Astral's uv — the standard Python handler: it provisions Python and runs Python-based CLIs in isolated
@@ -308,7 +308,7 @@ everywhere. Linux uses Astral's standalone installer (user-space, ~/.local/bin) 
 
 ## comment:30
 
-Above `depends_on: python`.
+Above `depends_on: python`, written with `#`.
 
 ```text
 Installed with `uv pip install --python <pin> pyspark` INTO the uv-managed Python, so it stays importable;
@@ -318,7 +318,7 @@ so presence is verified by the import-metadata version probe, not Assert-Command
 
 ## comment:31
 
-Above `admin_only: true`.
+Above `admin_only: true` (occurrence 2), written with `#`.
 
 ```text
 Runtime needs Java, which is admin_only — so PySpark is provisioned in the same elevated run as Java, and
@@ -327,7 +327,7 @@ the non-elevated provision skips and reports it rather than installing a runtime
 
 ## comment:32
 
-Above `version_command: 'python -c "from importlib.metadata import version;...`.
+Above `version_command: 'python -c "from importlib.metadata import version;...`, written with `#`.
 
 ```text
 Read the version from package metadata — no heavy `import pyspark` (which spins up the JVM gateway),

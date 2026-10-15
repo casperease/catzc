@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Test-AdrEngineNeutrality.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
     adrs:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TEST#3
@@ -12,8 +15,6 @@ catzc:
 ---
 #>
 
-# Test-AdrEngineNeutrality over a fixture docs/adr tree in $TestDrive, a fixture AdrsConfig, and a fixture...
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Test-AdrEngineNeutrality.Tests.ps1.md#comment1)
 Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35', 'ADR-AUTO-ENGINE#1' {
     BeforeAll {
         $script:adrs = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

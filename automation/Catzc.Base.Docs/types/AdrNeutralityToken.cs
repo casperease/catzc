@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrNeutralityToken.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrNeutralityToken.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// AdrNeutralityCheck rejects a name that is not kebab-case and a pattern that does not compile; matching is case-sensitive.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrNeutralityToken.cs.md#comment1)
 
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

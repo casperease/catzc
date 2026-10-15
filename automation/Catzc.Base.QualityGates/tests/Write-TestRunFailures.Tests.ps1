@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Write-TestRunFailures.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Write-TestRunFailures.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Write-TestRunFailures.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Write-TestRunFailures over fixture rows and file entries, with the console seam (Write-Message / Write-Header /...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Write-TestRunFailures.Tests.ps1.md#comment1)
 Describe 'Write-TestRunFailures' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:lines = [System.Collections.Generic.List[string]]::new()

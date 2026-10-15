@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md
     kind: comment-page
-    body_sha: "9a8c6c102d01"
+    body_sha: "9c67852ea30c"
 ---
 
 # automation/Catzc.Tooling.Core/Install-Tool.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:6
+## comment:1
 
-Above `if ($config.npm_package) {`.
+Above `if ($config.npm_package) {`, written with `#`.
 
 ```text
 npm-managed tools (cspell, prettier, markdownlint) are installed with npm, not a platform package
@@ -22,18 +22,18 @@ Uninstall-Tool — so the message names Install-$command (what the caller wanted
 detail from deeper in the chain. Bulk provisioning already dispatches these to Install-$command.
 ```
 
-## comment:7
+## comment:2
 
-Above `if ($config.winget_scope -eq 'user') {`.
+Above `if ($config.winget_scope -eq 'user') {`, written with `#`.
 
 ```text
 --force: winget may see a Store stub or stale alias and report "already installed"
 even though no real installation exists. Force ensures it always installs.
 ```
 
-## comment:8
+## comment:3
 
-Above `Assert-IsAdministrator -ErrorText "Install-$command on Linux requires root...`.
+Above `Assert-IsAdministrator -ErrorText "Install-$command on Linux requires root...`, written with `#`.
 
 ```text
 Linux package installation via apt-get requires root. The user-space uv family never routes here:
@@ -41,9 +41,9 @@ Install-Uv bootstraps uv from Astral's standalone release, and the Python-based 
 through uv ([ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)).
 ```
 
-## comment:9
+## comment:4
 
-Above `if ($IsWindows -and -not (Get-Command $config.command -CommandType...`.
+Above `if ($IsWindows -and -not (Get-Command $config.command -CommandType...`, written with `#`.
 
 ```text
 winget portable packages resolve through a symlink in WinGet\Links that must be on PATH; creating that

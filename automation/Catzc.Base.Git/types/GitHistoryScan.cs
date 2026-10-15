@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Git/types/GitHistoryScan.cs
     kind: csharp-type
     module: Catzc.Base.Git
+    relatives:
+      page: docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md
+      test: automation/Catzc.Base.Git/tests/types/GitHistoryScan.Tests.ps1
     adrs:
       - ADR-AUTO-TRACKED
 ---
 */
-
-// Each distinct blob is scanned once, not once per revision that contains it, which is what makes the scan fast.
-// [comment:1](/docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -35,8 +35,6 @@ public sealed class GitHistoryScan
     // The token searched for.
     public string Token { get; }
 
-    // The path in a hit is the blob's first non-excluded path in ordinal order, so hits are stable across runs.
-    // [comment:2](/docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md#comment2)
     public string[] Blobs { get; }
 
     // Distinct repo-relative paths containing the token, ordinal order.

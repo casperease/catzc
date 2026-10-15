@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.Engines/configs/glossary.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-engines/configs/glossary.yml.md
 # ---
 
-# Test-Glossary checks this file, so each concept below is the module's controlled vocabulary for the engine model.
-# [comment:1](/docs/references/automation/catzc-base-engines/configs/glossary.yml.md#comment1)
 concepts:
   execution engine:
     key: execution_engine

@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md
-    kind: test-asset
-    body_sha: "39d8a9c8eabc"
+    kind: comment-page
+    body_sha: "375dc0021c56"
     adrs:
       - ADR-DSGN-RUNMODE#3
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE#3' {`.
+Above `Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE#3' {`, written with `#`.
 
 ```text
 Scope isolation ([ADR-DSGN-RUNMODE#3](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode3)): two catzc modules that
@@ -27,7 +27,7 @@ a production identity.
 
 ## comment:2
 
-Above `$script:probeBlock = {`.
+Above `$script:probeBlock = {`, written with `#`.
 
 ```text
 Sets the probe in each module's script scope (widget, gadget, …), reads every module's variable and the
@@ -36,7 +36,7 @@ global one back, then removes the probes. Self-contained so it also runs in a ch
 
 ## comment:3
 
-Above `Context 'in the loaded session' -Tag 'L1', 'logic' {`.
+Above `Context 'in the loaded session' -Tag 'L1', 'logic' {`, written with `#`.
 
 ```text
 In-process, in whichever mode this session runs: the source run proves the source mode, the build run (where
@@ -45,7 +45,7 @@ this file runs against the built modules) proves build mode.
 
 ## comment:4
 
-Above `Context 'in a fresh build' -Tag 'L2', 'logic', 'greedy', 'source-only' {`.
+Above `Context 'in a fresh build' -Tag 'L2', 'logic', 'greedy', 'source-only' {`, written with `#`.
 
 ```text
 A fresh build entered in a child pwsh. source-only: it builds from the source tree itself (Build-Modules needs

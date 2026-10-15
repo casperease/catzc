@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/Write-Message.ps1.md
     kind: comment-page
-    body_sha: "349fef5fe71c"
+    body_sha: "799d8325540d"
     adrs:
       - ADR-AUTO-CONSOLE#7
 ---
 
 # automation/Catzc.Base.Writers/Write-Message.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:8
+## comment:1
 
-Above `if ($PSBoundParameters.ContainsKey('Verbose')) {`.
+Above `if ($PSBoundParameters.ContainsKey('Verbose')) {`, written with `#`.
 
 ```text
 A verbose message (an explicitly-bound -Verbose) routes to the verbose stream instead of the always-on
@@ -25,9 +25,9 @@ Requiring an EXPLICIT -Verbose keeps ordinary messages on the info stream even w
 $VerbosePreference is Continue. -ForegroundColor does not apply to the verbose stream.
 ```
 
-## comment:9
+## comment:2
 
-Above `if ($Warning) {`.
+Above `if ($Warning) {`, written with `#`.
 
 ```text
 -Warning is sugar for yellow
@@ -36,9 +36,9 @@ information stream, NOT the terminating Write-Warning stream.
 Parameter sets make it exclusive with -ForegroundColor, so at most one of these branches carries a colour.
 ```
 
-## comment:10
+## comment:3
 
-Above `$plan = Resolve-WriterColor -ForegroundColor $ForegroundColor -Bound`.
+Above `$plan = Resolve-WriterColor -ForegroundColor $ForegroundColor -Bound`, written with `#`.
 
 ```text
 A status line is one solid line, not a rule, so a rainbow input side-grades to its base colour: the

@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/modules/diagnostic-setting.bicep
 //     kind: bicep-module
+//     relatives:
+//       page: docs/references/infrastructure/modules/diagnostic-setting.bicep.md
 // ---
-
-// The caller names the resource kind because a setting attaches to a typed resource; the module picks that kind's categories.
-// [comment:1](/docs/references/infrastructure/modules/diagnostic-setting.bicep.md#comment1)
 
 @description('Kind of the target resource.')
 @allowed([

@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/configs/timeout-exemptions.yml.md
     kind: comment-page
-    body_sha: be07c568d106
+    body_sha: "8d3f11adaf5a"
 ---
 
 # automation/Catzc.Base.Timeouts/configs/timeout-exemptions.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `exempt: []`.
+Above `exempt: []`, written with `#`.
 
 ```text
 Time-safeguard exemptions — work that may run past its normal limit while it is being tuned. Loaded by

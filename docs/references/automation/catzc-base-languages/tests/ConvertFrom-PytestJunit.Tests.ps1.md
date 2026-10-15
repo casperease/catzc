@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/tests/ConvertFrom-PytestJunit.Tests.ps1.md
-    kind: test-asset
-    body_sha: ecdc3010c342
+    kind: comment-page
+    body_sha: "9302961a8d12"
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'ConvertFrom-PytestJunit' -Tag 'L0', 'logic' {`.
+Above `Describe 'ConvertFrom-PytestJunit' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 ConvertFrom-PytestJunit over a canned pytest JUnit report in tests/assets: one result per top-level test function,

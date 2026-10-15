@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/GitHubAnchor.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/types/GitHubAnchor.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/types/GitHubAnchor.cs
     adrs:
       - ADR-REPO-LINK#2
 ---
 #>
 
-# The GitHub slug and anchor set a markdown link's #fragment must name.
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/types/GitHubAnchor.Tests.ps1.md#comment1)
 Describe 'GitHubAnchor' -Tag 'L0', 'logic' {
     It 'slugs a rule heading to rule- plus the lowercased code and number' -Tag 'ADR-REPO-LINK#2' {
         [Catzc.Base.Docs.GitHubAnchor]::Slug('Rule ADR-TST-WIDGET:1') | Should -BeExactly 'rule-adr-tst-widget1'

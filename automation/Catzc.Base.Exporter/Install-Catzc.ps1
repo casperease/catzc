@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Exporter
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md
+      test: automation/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1
     adrs:
       - ADR-AUTO-BUNDLE#6
       - ADR-AUTO-DRYRUN#2
@@ -47,8 +50,6 @@ catzc:
 ---
 #>
 
-# Uses -DryRun, not ShouldProcess/-WhatIf — see.
-# [comment:6](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment6)
 function Install-Catzc {
     [CmdletBinding(DefaultParameterSetName = 'Root')]
     [OutputType([pscustomobject])]
@@ -96,14 +97,10 @@ function Install-Catzc {
                 [System.IO.Directory]::Delete($moduleTarget, $true)
             }
             Copy-Directory -Path $Source -Destination $moduleTarget
-            # A copy drops the executable bit, which an engine whose scripts need it (bash) requires on Unix: every...
-            # [comment:7](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment7)
             if (-not $IsWindows) {
                 $execute = [System.IO.UnixFileMode]::UserExecute -bor [System.IO.UnixFileMode]::GroupExecute -bor [System.IO.UnixFileMode]::OtherExecute
                 foreach ($engine in @([Catzc.Base.Engines.ExecutionEngines]::All | Where-Object RequiresExecutableBit)) {
                     foreach ($extension in $engine.ScriptExtensions) {
-                        # A named whole-tree walk: every shebang script of the installed module is re-marked.
-                        # [comment:8](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment8)
                         foreach ($script in Get-ChildPath $moduleTarget -File -Filter "*$extension" -Depth 64 -Exclude @() -PruneVendor $false) {
                             if ([System.IO.File]::ReadLines($script) | Select-Object -First 1 | Where-Object { $_.StartsWith('#!') }) {
                                 [System.IO.File]::SetUnixFileMode($script, [System.IO.File]::GetUnixFileMode($script) -bor $execute)

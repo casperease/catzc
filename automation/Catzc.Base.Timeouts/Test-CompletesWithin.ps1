@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Timeouts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Timeouts/tests/Test-CompletesWithin.Tests.ps1
   config:
     synopsis: Tests whether a script block finishes within a time limit; past it the work is stopped.
     description: |-

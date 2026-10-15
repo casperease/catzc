@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/tests/Get-Contract.Tests.ps1.md
+      source: automation/Catzc.Base.Contracts/Get-Contract.ps1
     adrs:
       - ADR-AUTO-DEFAULT#1
       - ADR-AUTO-DEFAULT#6
@@ -17,8 +20,6 @@ catzc:
 ---
 #>
 
-# Get-Contract lists contracts/<unit>/<version>/<module>/<path> and derives every fact from the asset's name and...
-# [comment:1](/docs/references/automation/catzc-base-contracts/tests/Get-Contract.Tests.ps1.md#comment1)
 Describe 'Get-Contract' -Tag 'L0', 'logic' {
     BeforeAll {
         function Add-Asset {

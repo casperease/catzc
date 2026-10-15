@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
+      test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
     adrs:
       - ADR-AZ-DATAMOD
   config:
@@ -70,8 +73,6 @@ function Get-BicepTemplateConfiguration {
         throw "Invalid -Slot '$Slot' — must be 1-3 lowercase alphanumeric chars (e.g. 001)."
     }
 
-    # One config file per (customer?, env, slot): the coordinate is the file address — root for the shared platform,...
-    # [comment:5](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md#comment5)
     $configName = Get-BicepConfigName $Environment $Slot
     $folder = if ([string]::IsNullOrEmpty($Customer)) {
         $templateDescriptor.configuration_folder

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Maps
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Maps/tests/Resolve-MapLabelTerm.Tests.ps1
     adrs:
       - ADR-DSGN-TRACK#13
       - ADR-DSGN-TRACK#16

@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-config/tests/Get-Config.Tests.ps1.md
-    kind: test-asset
-    body_sha: a39296e2e879
+    kind: comment-page
+    body_sha: "8d460a1e7e22"
     adrs:
       - ADR-AUTO-TEST#14
       - ADR-AUTO-TEST#3
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Config/tests/Get-Config.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `It 'discovers and loads a shipped config from its owning module' {`.
+Above `It 'discovers and loads a shipped config from its owning module' {`, written with `#`.
 
 ```text
 Reads the shipped tools.yml — guards that a real config is discovered in its owning module and loads
@@ -26,7 +26,7 @@ is pinned hermetically below, on a fixture config with no registry entry.
 
 ## comment:2
 
-Above `It 'returns the same cached object reference on repeat calls' {`.
+Above `It 'returns the same cached object reference on repeat calls' {`, written with `#`.
 
 ```text
 Function behaviour, independent of which configs are shipped: memoization, the not-found error
@@ -39,7 +39,7 @@ through the Resolve-ConfigEntry seam, so it never reads a shipped config
 
 ## comment:3
 
-Above `BeforeEach {`.
+Above `BeforeEach {`, written with `#`.
 
 ```text
 A bundled config and a consumer overlay, both fixtures, through the Resolve-ConfigEntry, overlay-root and
@@ -48,7 +48,7 @@ registry seams ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)).
 
 ## comment:4
 
-Above `It 'accepts a valid registry (one type per entry)' {`.
+Above `It 'accepts a valid registry (one type per entry)' {`, written with `#`.
 
 ```text
 Validator logic on inline (synthetic) registries — independent of any shipped configs.yml

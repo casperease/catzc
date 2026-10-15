@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Base.Maps/types/WorldMap.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/WorldMap.cs.md
     adrs:
       - ADR-DSGN-TRACK#1
       - ADR-DSGN-TRACK#6
       - ADR-THES-ONETRUTH#3
 ---
 */
-
-// Two buckets, NoTrack and NoFileLanguage, close the grid so every tracked file sits in exactly one cell.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/WorldMap.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Chocolatey.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Chocolatey.Tests.ps1.md
+      source: automation/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.ps1
     adrs:
       - ADR-AUTO-TEST#33
 ---
 #>
 
 Describe 'Uninstall-Chocolatey' -Tag 'L0', 'logic' {
-    # Hermetic: every boundary outside the repository is mocked — the admin check, the directory delete, the...
-    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Chocolatey.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Assert-IsAdministrator { } -ModuleName Catzc.Tooling.Provisioning
         Mock Remove-Item { } -ModuleName Catzc.Tooling.Provisioning

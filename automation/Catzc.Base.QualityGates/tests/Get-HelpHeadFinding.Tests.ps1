@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-HelpHeadFinding.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.QualityGates/private/Get-HelpHeadFinding.ps1
     adrs:
       - ADR-REPO-HELP#3
       - ADR-REPO-HELP#4

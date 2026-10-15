@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Azure/types/AzureEnvironmentRecord.cs
     kind: csharp-type
     module: Catzc.Azure
+    relatives:
+      page: docs/references/automation/catzc-azure/types/AzureEnvironmentRecord.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-DATAMOD
       - ADR-AZ-NAMING
 ---
 */
-
-// Per-entry shape only: shortcode uniqueness across environments is AzureConfig's, which collects these violations too.
-// [comment:1](/docs/references/automation/catzc-azure/types/AzureEnvironmentRecord.cs.md#comment1)
 
 using System;
 using System.Collections;

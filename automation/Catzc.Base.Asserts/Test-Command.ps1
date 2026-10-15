@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Asserts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Asserts/tests/Test-Command.Tests.ps1
   config:
     synopsis: Tests whether a command exists in the current session.
     parameters:

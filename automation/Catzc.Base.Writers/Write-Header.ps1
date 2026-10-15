@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Writers
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Writers/tests/Write-Header.Tests.ps1
   config:
     synopsis: Writes a header with optional message in a chosen style.
     description: |-

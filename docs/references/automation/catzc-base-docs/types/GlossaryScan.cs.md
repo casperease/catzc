@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GlossaryScan.cs.md
     kind: comment-page
-    body_sha: "24ea4129199e"
+    body_sha: c0c1a863ef8c
 ---
 
 # automation/Catzc.Base.Docs/types/GlossaryScan.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The two glossary checks that read every in-scope file's prose (GlossaryProse):
@@ -29,7 +29,7 @@ text the checks have always reported.
 
 ## comment:2
 
-Above `static readonly HashSet<string> FunctionWords = new HashSet<string>(new[]`.
+Above `static readonly HashSet<string> FunctionWords = new HashSet<string>(new[]`, written with `//`.
 
 ```text
 Words that only point at, count, own, or join a noun — never a qualifier that names a kind of it: articles,
@@ -39,7 +39,7 @@ that only limit the noun ("only slots").
 
 ## comment:3
 
-Above `Qualified = new Regex("(?<![A-Za-z0-9.])(?<q>[A-Za-z0-9]+)(?:[ \\t]+|[...`.
+Above `Qualified = new Regex("(?<![A-Za-z0-9.])(?<q>[A-Za-z0-9]+)(?:[ \\t]+|[...`, written with `//`.
 
 ```text
 The qualifier is the last word before the head ('commit' in 'pre-commit gate'), joined by spaces,
@@ -48,7 +48,7 @@ one line break, or a hyphen. A word after a dot is a keyword, not a qualifier (`
 
 ## comment:4
 
-Above `static IEnumerable<(string, GlossarySegment)> Segments(Source source,...`.
+Above `static IEnumerable<(string, GlossarySegment)> Segments(Source source,...`, written with `//`.
 
 ```text
 Every segment, in a surface the source checks, of every tracked Markdown or PowerShell file the source's scope

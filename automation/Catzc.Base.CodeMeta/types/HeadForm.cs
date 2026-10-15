@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.CodeMeta/types/HeadForm.cs
     kind: csharp-type
     module: Catzc.Base.CodeMeta
+    relatives:
+      page: docs/references/automation/catzc-base-codemeta/types/HeadForm.cs.md
+      test: automation/Catzc.Base.CodeMeta/tests/types/HeadForm.Tests.ps1
     adrs:
       - ADR-REPO-CODEMETA#1
 ---
 */
-
-// The comment syntax of one file class's meta head, handed in as parameters because this module reads no config.
-// [comment:1](/docs/references/automation/catzc-base-codemeta/types/HeadForm.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.Reports/types/OutputPattern.cs
     kind: csharp-type
     module: Catzc.Base.Reports
+    relatives:
+      page: docs/references/automation/catzc-base-reports/types/OutputPattern.cs.md
     adrs:
       - ADR-AUTO-TYPES#14
       - ADR-REPO-OUTFMT#1
 ---
 */
-
-// A stamp segment against a wildcard segment counts as overlapping, so an accepted catalogue is always overlap-free.
-// [comment:1](/docs/references/automation/catzc-base-reports/types/OutputPattern.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

@@ -5,8 +5,6 @@
 #     kind: bicep-template-config
 # ---
 
-# Nonprod class: a serverless database that pauses when idle, registered in the nonprod hub's private DNS zones.
-# [comment:1](/docs/references/infrastructure/templates/expedition/configuration/apex/dev.yml.md#comment1)
 ParametersFile:
   parameters:
     tags:

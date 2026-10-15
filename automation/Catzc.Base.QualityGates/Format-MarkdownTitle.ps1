@@ -6,6 +6,9 @@ catzc:
     kind: format-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Format-MarkdownTitle.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN#2
       - ADR-REPO-FORMAT#6
@@ -38,8 +41,6 @@ catzc:
 ---
 #>
 
-# Uses -DryRun, not ShouldProcess/-WhatIf — see.
-# [comment:3](/docs/references/automation/catzc-base-qualitygates/Format-MarkdownTitle.ps1.md#comment3)
 function Format-MarkdownTitle {
     [CmdletBinding()]
     [OutputType([string[]])]

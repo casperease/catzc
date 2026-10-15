@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AgentEntry.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AgentEntry.cs.md
+      test: automation/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-AGENTS#2
 ---
 */
-
-// Real rule ids, existing commands and the agent file are session facts left to Test-AgentDefinitions, not checked on load.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AgentEntry.cs.md#comment1)
 
 using System;
 using System.Collections;

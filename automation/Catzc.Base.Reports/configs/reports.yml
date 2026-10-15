@@ -3,8 +3,8 @@
 #   derived:
 #     path: automation/Catzc.Base.Reports/configs/reports.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-reports/configs/reports.yml.md
 # ---
 
-# An empty file means the defaults, so a key is set only to change it; the subject token stands for the gate's name.
-# [comment:1](/docs/references/automation/catzc-base-reports/configs/reports.yml.md#comment1)
 {}

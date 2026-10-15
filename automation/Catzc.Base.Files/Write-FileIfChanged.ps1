@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Files
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md
+      test: automation/Catzc.Base.Files/tests/Write-FileIfChanged.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE
       - ADR-AUTO-DRYRUN
@@ -79,8 +82,6 @@ function Write-FileIfChanged {
             [System.IO.Directory]::CreateDirectory($directory) | Out-Null
         }
         if ([System.IO.File]::Exists($Path)) {
-            # Delete-then-write: an in-place write through a linked target would tunnel the composed content into the...
-            # [comment:5](/docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md#comment5)
             [System.IO.File]::Delete($Path)
         }
         $utf8NoBom = [System.Text.UTF8Encoding]::new($false)

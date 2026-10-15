@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-ContentExemptPath.Tests.ps1
     adrs:
       - ADR-REPO-CONTRACT#6
       - ADR-REPO-ROOTCFG#1

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md
+      source: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
     adrs:
       - ADR-AUTO-TEST#14
       - ADR-AUTO-TEST#3
@@ -16,8 +19,6 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
 
-        # Isolate through the seams: mock the config seam (Get-Config) and the generator dispatch, and redirect the...
-        # [comment:1](/docs/references/automation/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md#comment1)
         $script:fake = New-FakeRepositoryRoot -Files @{
             'sources/fixture.yml' = "alpha: 1`nbeta: 2`n"
         }
@@ -28,8 +29,6 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         # The fake root is not the loaded code root, so the derived run mode reads 'build'; pin the source mode.
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { "rendered output`n" }
-        # The link mechanism is its own unit (Set-FileLink.Tests.ps1) — here it is a mocked boundary, so these tests...
-        # [comment:2](/docs/references/automation/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md#comment2)
         Mock Set-FileLink -ModuleName Catzc.Base.RootConfig { $false }
         Mock Get-Config -ModuleName Catzc.Base.RootConfig {
             [pscustomobject]@{
@@ -94,8 +93,6 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     }
 
     It 'treats a linked target as stale for a copy entry, even with identical content' {
-        # An entry flipped back from copyAsLink: the leftover link reads the same as the source, so only the is-link...
-        # [comment:3](/docs/references/automation/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md#comment3)
         $sourceOnDisk = Join-Path $script:fake.Root 'sources/fixture.yml'
         New-Item -ItemType HardLink -Path $script:copyTarget -Target $sourceOnDisk | Out-Null
 
@@ -141,8 +138,6 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
 
-        # A wildcard entry whose generator renders one { Target; Content } record per file; every file is written on...
-        # [comment:4](/docs/references/automation/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md#comment4)
         $script:fake = New-FakeRepositoryRoot -Files @{
             'widgets/alpha/.keep' = ''
             'widgets/beta/.keep'  = ''
@@ -234,8 +229,6 @@ Describe 'Build-RootConfig — the real New-GoWorkspace generator, <_>/ root' -T
     BeforeAll {
         Import-InternalModule TestKit
 
-        # The wiring the L0 tests mock away on both sides: a fixture registry names New-GoWorkspace, the real...
-        # [comment:5](/docs/references/automation/catzc-base-rootconfig/tests/Build-RootConfig.Tests.ps1.md#comment5)
         $script:goRoot = $_
         $script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{ "$($script:goRoot)/tests/widget/widget_test.go" = "package widget`n" }
         $script:registry = [Catzc.Base.RootConfig.RootConfigFiles]::new(@{

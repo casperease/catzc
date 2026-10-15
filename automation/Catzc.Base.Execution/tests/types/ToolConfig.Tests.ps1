@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-execution/tests/types/ToolConfig.Tests.ps1.md
+      source: automation/Catzc.Base.Execution/types/ToolConfig.cs
     adrs:
       - ADR-AUTO-DEPS#1
       - ADR-AUTO-PKGMGR#6
@@ -12,8 +15,6 @@ catzc:
 #>
 
 Describe 'ToolConfig' -Tag 'L0', 'logic' {
-    # The typed record over one tools.yml entry.
-    # [comment:1](/docs/references/automation/catzc-base-execution/tests/types/ToolConfig.Tests.ps1.md#comment1)
     BeforeAll {
         $script:required = @{ version = '1.0'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; winget_id = 'Widget.Widget' }
     }

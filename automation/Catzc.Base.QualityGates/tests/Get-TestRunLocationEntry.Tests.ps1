@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-TestRunLocationEntry.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.QualityGates/private/Get-TestRunLocationEntry.ps1
 ---
 #>
 

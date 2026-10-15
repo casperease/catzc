@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Export-SpellingTriage.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Export-SpellingTriage.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Export-SpellingTriage.ps1
 ---
 #>
 
@@ -16,8 +19,6 @@ Describe 'Export-SpellingTriage' -Tag 'L0', 'logic' {
         }
 
         $script:cspellExit = 1
-        # Build the newline-delimited output by joining real words, so the test's own source carries no coined tokens...
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Export-SpellingTriage.Tests.ps1.md#comment1)
         $script:cspellOut = @('mango', 'banana', 'Apple', 'kiwi') -join "`n"
 
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
@@ -49,8 +50,6 @@ Describe 'Export-SpellingTriage' -Tag 'L0', 'logic' {
         $raw = [System.IO.File]::ReadAllText($script:queuePath)
         $raw | Should -Match '(?m)^- term: banana'
         $raw | Should -Match '(?m)^- term: kiwi'
-        # The stub carries a blank meaning and no category, so a copy-paste into terminology.yml fails to load...
-        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Export-SpellingTriage.Tests.ps1.md#comment2)
         $raw | Should -Match "meaning: ''"
         $raw | Should -Not -Match '(?m)^\s*category:'
     }

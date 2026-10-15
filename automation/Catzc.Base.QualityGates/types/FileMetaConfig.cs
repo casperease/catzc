@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/FileMetaConfig.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
     adrs:
       - ADR-CONF-LOADING#4
       - ADR-REPO-FILEMETA#2
 ---
 */
-
-// The meta-kind registry (file-meta.yml): which kinds of derived fact and of config contribution exist is data, never a list in an engine.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

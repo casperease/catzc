@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Execution
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md
   config:
     synopsis: |-
       Runs a CLI command with live-streamed output, exit code handling, and
@@ -66,8 +68,6 @@ function Invoke-ExecutableStreamed {
 
     Reset-LastExitCode
 
-    # During a Pester run, also suppress the child's streamed output.
-    # [comment:4](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md#comment4)
     $suppressOutput = [bool]$Silent -or [bool](Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore)
 
     # CliRunner is autoloaded at import time from types/ (Bootstrap's Import-CSharpTypes).

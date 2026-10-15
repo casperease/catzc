@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Languages/types/PythonConfig.cs
     kind: csharp-type
     module: Catzc.Base.Languages
+    relatives:
+      page: docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md
+      test: automation/Catzc.Base.Languages/tests/types/PythonConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FOLDERS#7
 ---
 */
-
-// The Python version is not a setting here: it is the tools.yml pin, the one Python version.
-// [comment:1](/docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -41,8 +41,6 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly Regex DistributionName = new Regex(@"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$");
     private static readonly Regex ExactVersion = new Regex(@"^[0-9]+(\.[0-9]+)*$");
 
-    // Null when the file declares none; ResolveRoot then applies the default.
-    // [comment:2](/docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md#comment2)
     public string root { get; }
 
     // The test dependencies every workspace member requires, distribution name -> exact version, in ordinal name order.
@@ -121,8 +119,6 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
         dependencies = requires;
     }
 
-    // The one place the root default lives, so no caller restates python or .python.
-    // [comment:3](/docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md#comment3)
     public string ResolveRoot(string repositoryRoot)
     {
         if (root != null) { return root; }

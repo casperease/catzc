@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/tests/Get-FirewallIpgsYaml.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1
 ---
 #>
 

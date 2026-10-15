@@ -3,30 +3,31 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/FunctionLength.psm1.md
     kind: comment-page
-    body_sha: "33b12dbd62f9"
+    body_sha: "1e2b8cb17f5c"
     adrs:
       - ADR-PWSH-FORMAT#6
 ---
 
 # automation/.scriptanalyzer/FunctionLength.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Measure-FunctionLength {`, written with `#`.
 
 ```text
-Counts lines from the opening brace to closing brace of the function body.
-Comment-based help placed before the function (the project convention) is
-naturally excluded. Functions longer than the limit are likely violating
-single-responsibility.
+.SYNOPSIS
+    Custom PSScriptAnalyzer rule: function body must not exceed 300 lines.
+.DESCRIPTION
+    Help placed before the function is outside the braces, so it never counts toward the limit.
+    [comment:1](/docs/references/automation/scriptanalyzer/FunctionLength.psm1.md#comment1)
 ```
 
 ## comment:2
 
-Above `$isFunctionDefinition = {`.
+Above `$isFunctionDefinition = {`, written with `#`.
 
 ```text
 Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew

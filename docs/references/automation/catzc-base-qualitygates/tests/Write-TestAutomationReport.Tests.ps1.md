@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationReport.Tests.ps1.md
-    kind: test-asset
-    body_sha: "0a47914985c8"
+    kind: comment-page
+    body_sha: aff3894ab09c
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Write-TestAutomationReport.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `function New-Row {`.
+Above `function New-Row {`, written with `#`.
 
 ```text
 Rows are the plain per-test shape ConvertTo-TestAutomationRowSet produces — built directly here,

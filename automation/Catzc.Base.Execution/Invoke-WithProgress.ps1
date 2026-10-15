@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Execution
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md
+      test: automation/Catzc.Base.Execution/tests/Invoke-WithProgress.Tests.ps1
     adrs:
       - ADR-PWSH-ANNOUNCE#1
   config:
@@ -64,8 +67,6 @@ function Invoke-WithProgress {
         Write-Message $Message -NoHeader -NoNewline
     }
 
-    # The dot writer runs in a thread job with its own runspace: it streams to this host, imports the same Writers...
-    # [comment:5](/docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md#comment5)
     $writersPath = (Get-Module Catzc.Base.Writers).Path
     $silenced = [bool](Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore)   # unset outside a test run
     $dotJob = Start-ThreadJob -StreamingHost $Host -ScriptBlock {
@@ -83,8 +84,6 @@ function Invoke-WithProgress {
         & $ScriptBlock
     }
     finally {
-        # Stop and remove without Receive-Job: the dots already streamed, and receiving would replay them.
-        # [comment:6](/docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md#comment6)
         $dotJob | Remove-Job -Force
         Write-Message '' -NoHeader
     }

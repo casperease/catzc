@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Format-MarkdownParagraph.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Format-MarkdownParagraph.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1
     adrs:
       - ADR-REPO-FORMAT#5
 ---
 #>
 
-# Format-MarkdownParagraph must fill text the way Prettier's proseWrap: always does, so the generated ADR index,...
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Format-MarkdownParagraph.Tests.ps1.md#comment1)
 Describe 'Format-MarkdownParagraph' -Tag 'L0', 'logic' {
     It 'fills greedily within the width, prefix included' {
         $lines = Format-MarkdownParagraph -Text ('widget gadget  widget' + "`n" + 'gadget widget') -FirstPrefix '- ' -ContinuationPrefix '  ' -Width 16

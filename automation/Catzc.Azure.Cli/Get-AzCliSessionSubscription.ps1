@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Cli
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
     adrs:
       - ADR-AZ-SESSION
   config:

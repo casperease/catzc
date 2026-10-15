@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Reports/types/OutputFormat.cs
     kind: csharp-type
     module: Catzc.Base.Reports
+    relatives:
+      page: docs/references/automation/catzc-base-reports/types/OutputFormat.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-OUTFMT#1
@@ -12,9 +14,6 @@ catzc:
       - ADR-REPO-OUTFMT#5
 ---
 */
-
-// Construction collects every violation into one throw; that no two formats overlap spans entries, so the catalogue checks it.
-// [comment:1](/docs/references/automation/catzc-base-reports/types/OutputFormat.cs.md#comment1)
 
 using System;
 using System.Collections;

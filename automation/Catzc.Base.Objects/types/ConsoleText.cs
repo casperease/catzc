@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Objects/types/ConsoleText.cs
     kind: csharp-type
     module: Catzc.Base.Objects
+    relatives:
+      page: docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md
+      test: automation/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1
 ---
 */
-
-// PowerShell string casts call the .NET ToString and ignore an ETS one, so each type must override it to delegate here.
-// [comment:1](/docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -155,8 +155,6 @@ public static class ConsoleText
         }
     }
 
-    // Excludes DictionaryRecord's own view members (Keys) and anything hidden, so only declared data is rendered.
-    // [comment:2](/docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md#comment2)
     private static bool IsDataProperty(PropertyInfo property)
     {
         return property != null
@@ -167,8 +165,6 @@ public static class ConsoleText
             && !IsHidden(property);
     }
 
-    // Matched by name, not type: the hook program compiles this file without a System.Management.Automation reference.
-    // [comment:3](/docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md#comment3)
     private static bool IsHidden(PropertyInfo property)
     {
         foreach (object attribute in property.GetCustomAttributes(true))

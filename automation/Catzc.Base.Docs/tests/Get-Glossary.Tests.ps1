@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-Glossary.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Get-Glossary.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/Get-Glossary.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#3
@@ -11,8 +14,6 @@ catzc:
 ---
 #>
 
-# Get-Glossary merges the glossary sources into GlossaryEntry records.
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-Glossary.Tests.ps1.md#comment1)
 Describe 'Get-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
         $concept = {
@@ -47,8 +48,6 @@ Describe 'Get-Glossary' -Tag 'L0', 'logic' {
     }
 
     AfterAll {
-        # The cache is keyed by the REAL repository root, so a fixture glossary left in it would be served to any...
-        # [comment:2](/docs/references/automation/catzc-base-docs/tests/Get-Glossary.Tests.ps1.md#comment2)
         InModuleScope Catzc.Base.Docs { $script:glossaryCache = $null }
     }
 

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Files/tests/Invoke-GitCommit.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Files/Invoke-GitCommit.ps1
 ---
 #>
 

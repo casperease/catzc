@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/configs/identity-tokens.yml.md
     kind: comment-page
-    body_sha: "848594673a69"
+    body_sha: "52298307f3b5"
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Azure/configs/identity-tokens.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `tokens:`.
+Above `tokens:`, written with `#`.
 
 ```text
 The live production identities this module's configs carry — the customers, the org, the subscriptions and the
@@ -28,7 +28,7 @@ keys, match is exact (default) or position, skip_when leaves out a map entry tha
 
 ## comment:2
 
-Above `- config: azure`.
+Above `- config: azure` (occurrence 3), written with `#`.
 
 ```text
 Environment names are ambiguous words ('test', 'dev'), so they match only when bound to an identity parameter.

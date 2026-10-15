@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md
+      test: automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
   config:
     synopsis: Returns tool names from tools.yml in dependency-safe install order.
     description: |-
@@ -28,8 +31,6 @@ function Get-ToolInstallOrder {
     # Build adjacency: tool → list of tools it depends on
     $dependencies = @{}
     foreach ($name in $allTools.Keys) {
-        # depends_on is optional: index it (a dotted read of an absent key throws under strict), and keep the value...
-        # [comment:4](/docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md#comment4)
         $dependency = $allTools[$name]['depends_on']
         $dependencies[$name] = [string[]] @(
             if ($dependency) {
@@ -42,8 +43,6 @@ function Get-ToolInstallOrder {
     $order = [System.Collections.Generic.List[string]]::new()
     $noDependencies = [System.Collections.Generic.Queue[string]]::new()
 
-    # Kahn's algorithm for install order: if A depends on B, B must be installed first, so the edge runs B → A.
-    # [comment:5](/docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md#comment5)
     $inDegree = @{}
     foreach ($name in $dependencies.Keys) {
         $inDegree[$name] = $dependencies[$name].Count

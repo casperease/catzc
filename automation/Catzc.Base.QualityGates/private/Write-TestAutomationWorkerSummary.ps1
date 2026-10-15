@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationWorkerSummary.Tests.ps1
   config:
     synopsis: Writes the end-of-run worker table — one row per worker, on the run's wall-clock timeline.
     description: |-

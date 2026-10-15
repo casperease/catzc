@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Build-CommentView.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Build-CommentView.ps1
     adrs:
       - ADR-AUTO-IDEM#1
       - ADR-PRIN-ONELIVE#1
@@ -12,8 +15,6 @@ catzc:
 ---
 #>
 
-# Build-CommentView writes the inverse of Export-Comments: the annotated copy of every file that carries residues,...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Build-CommentView.Tests.ps1.md#comment1)
 Describe 'Build-CommentView' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {
@@ -40,7 +41,7 @@ Describe 'Build-CommentView' -Tag 'L0', 'logic' {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
     }
 
-    It 'writes the annotated copy of an exported file, equal to the original, and nothing for a file without residues' -Tag 'ADR-REPO-COMMENTS#4' {
+    It 'writes the annotated copy of an exported file, equal to the original, and nothing for a file without a page' -Tag 'ADR-REPO-COMMENTS#4' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
         $written = @(Build-CommentView -RepositoryRoot $root -Path (Join-Path $root 'automation'))

@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Import-TypesAssembly.Tests.ps1.md
-    kind: test-asset
-    body_sha: ed50dd29f07a
+    kind: comment-page
+    body_sha: ff3a0e6a5507
 ---
 
 # automation/.internal/tests/Import-TypesAssembly.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 L1: the fixture DLL is compiled once with Add-Type (Roslyn's cold start). The source DLL lives in TestDrive —

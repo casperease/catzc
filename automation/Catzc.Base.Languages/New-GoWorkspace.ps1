@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.Languages
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md
+      test: automation/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1
     adrs:
       - ADR-CONF-ADDRESSING
       - ADR-REPO-ROOTCFG
@@ -56,8 +59,6 @@ function New-GoWorkspace {
     )
 
     $config = Get-Config -Config go
-    # The one Go version: the go tool's tools.yml pin, read by address (reading config is global access, ).
-    # [comment:4](/docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md#comment4)
     $goVersion = "$(Get-ConfigValue -Address 'global.tools.go.version')"
     if ($goVersion -cnotmatch '^1\.(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*))?$') {
         throw "tools.yml go.version '$goVersion' is not a Go language version for the go directive (1.N or 1.N.P, e.g. '1.27')."

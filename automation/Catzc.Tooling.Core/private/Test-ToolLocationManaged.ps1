@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md
+      test: automation/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
   config:
     synopsis: 'Fast, subprocess-free check: does a resolved tool location belong to the installer layer?'
     description: |-
@@ -49,8 +52,6 @@ function Test-ToolLocationManaged {
         return $loc.StartsWith($dir, [System.StringComparison]::OrdinalIgnoreCase)
     }
 
-    # MSYS2-package tools (zsh) live, on Windows, in the tree they install into (windows_install_dir, the Git for...
-    # [comment:6](/docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md#comment6)
     if ($Config.msys2_url) {
         if (-not $IsWindows) {
             return $true
@@ -71,11 +72,7 @@ function Test-ToolLocationManaged {
         return $loc.StartsWith($venvRoot.TrimEnd('\', '/'), [System.StringComparison]::OrdinalIgnoreCase)
     }
 
-    # uv-managed tools (az_cli, poetry) and uv-provisioned python install their shims to uv's bin (~/.local/bin...
-    # [comment:7](/docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md#comment7)
     if ($Config.uv_tool -or $Config.uv_python) {
-        # uv's shims go to ~/.local/bin; its managed pythons/tool-envs live in the data dir — %APPDATA%\uv (Roaming)...
-        # [comment:8](/docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md#comment8)
         $uvRoots = if ($IsWindows) {
             @((Join-Path $env:USERPROFILE '.local\bin'), (Join-Path $env:APPDATA 'uv'))
         }
@@ -90,8 +87,6 @@ function Test-ToolLocationManaged {
         return $false
     }
 
-    # Otherwise: owned iff the binary sits under the platform package manager's user-scope install root.
-    # [comment:9](/docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md#comment9)
     $roots = if ($IsWindows) {
         @(
             (Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'),

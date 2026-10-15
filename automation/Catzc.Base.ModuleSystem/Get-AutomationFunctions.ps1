@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.ModuleSystem/tests/Get-AutomationFunctions.Tests.ps1
     adrs:
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-PESTER#9

@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md
-    kind: test-asset
-    body_sha: "6f0e577b40b0"
+    kind: comment-page
+    body_sha: "84ddb654f66c"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#9
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Uninstall-Zsh' -Tag 'L0', 'logic' {`.
+Above `Describe 'Uninstall-Zsh' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Uninstall-Zsh on a fixture Git tree in $TestDrive with the layout mocked, so nothing outside $TestDrive changes
@@ -26,7 +26,7 @@ Uninstall-Zsh on a fixture Git tree in $TestDrive with the layout mocked, so not
 
 ## comment:2
 
-Above `Context 'on Linux' {`.
+Above `Context 'on Linux' {`, written with `#`.
 
 ```text
 The shared apt uninstaller is mocked: it reads the package name from the entry's apt_package and owns the

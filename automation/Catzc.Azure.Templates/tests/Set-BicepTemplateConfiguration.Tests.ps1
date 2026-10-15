@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
     adrs:
       - ADR-AUTO-CACHE#6
       - ADR-AUTO-TEST#19
@@ -12,14 +15,10 @@ catzc:
 #>
 
 # cspell:ignore toolong gmweutstsmplst alweutstsmplst
-# These are L0 'logic' tests (mocked config/discovery, no real az/cspell) — they are NOT L2 and should not be:...
-# [comment:1](/docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md#comment1)
 Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixtureTemplates = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
 
-        # The tool/config boundary is mocked once for the whole block — Get-BicepTemplatesRoot reads the current...
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md#comment2)
         Mock Get-BicepTemplatesRoot { $script:templatesRoot } -ModuleName Catzc.Azure.Templates
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
@@ -31,13 +30,9 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     Context 'validation and read-only' {
         # None of these write to the tree, so one copy + one discovery is shared across all of them.
         BeforeAll {
-            # FRESH, UNIQUE root under $TestDrive (Pester auto-cleans it): a unique dir is never re-deleted mid-run,...
-            # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md#comment3)
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot
 
-            # Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here in BeforeAll...
-            # [comment:4](/docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md#comment4)
             InModuleScope Catzc.Base.Config { $script:configCache = $null }
             InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
             Get-BicepTemplates | Out-Null
@@ -74,14 +69,10 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     }
 
     Context 'writes' {
-        # Each test writes to a DISTINCT path (sample/gamma, sample/delta, sample/alpha, sample-customer/acme/alpha),...
-        # [comment:5](/docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md#comment5)
         BeforeAll {
             $script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())
             Copy-Directory $script:fixtureTemplates $script:templatesRoot
 
-            # Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here so the first...
-            # [comment:6](/docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md#comment6)
             InModuleScope Catzc.Base.Config { $script:configCache = $null }
             InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
             Get-BicepTemplates | Out-Null

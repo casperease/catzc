@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/generated-files.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-qualitygates/configs/generated-files.yml.md
 # ---
 
-# The writers Test-GeneratedFiles runs report-only; a file result names its stale file in the property result_path (default Path).
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/generated-files.yml.md#comment1)
 writers:
   Build-AdrIndex:
   Build-Glossary:

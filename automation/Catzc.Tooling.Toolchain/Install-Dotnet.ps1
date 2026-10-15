@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md
+      test: automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-CONSOLE#11
@@ -62,8 +65,6 @@ function Install-Dotnet {
         Join-Path $installDir 'dotnet'
     }
 
-    # Decide whether to run the install script.
-    # [comment:6](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment6)
     $needsInstall = $true
     if (Test-Path $ourBinary) {
         # Check the specific binary (not PATH) — can't use Get-ToolVersion here
@@ -87,8 +88,6 @@ function Install-Dotnet {
         }
     }
     elseif (Test-Command $config.command) {
-        # Nothing in our install dir, but a dotnet is on PATH.
-        # [comment:7](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment7)
         $installed = Get-ToolVersion -Config $config
         if ($installed -and $installed.StartsWith($Version)) {
             Write-Message "Dotnet $Version is already installed"
@@ -97,8 +96,6 @@ function Install-Dotnet {
     }
 
     if ($needsInstall) {
-        # Resolve the vendored install script shipped in this module's assets/
-        # [comment:8](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment8)
         if ($IsWindows) {
             $scriptPath = Get-CatzcModuleRoot 'assets/scripts/dotnet-install.ps1'
             Assert-PathExist $scriptPath
@@ -113,8 +110,6 @@ function Install-Dotnet {
         }
     }
 
-    # Converge the environment on every run that owns the install — session + persistent, both idempotent.
-    # [comment:9](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment9)
     if ($env:DOTNET_ROOT -ne $installDir) {
         $env:DOTNET_ROOT = $installDir
         Write-Message "Session: DOTNET_ROOT='$installDir'"

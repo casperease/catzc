@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Inspiration
     visibility: private
+    relatives:
+      test: automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
     adrs:
       - ADR-AUTO-PATH#11
       - ADR-AUTO-PATH#3

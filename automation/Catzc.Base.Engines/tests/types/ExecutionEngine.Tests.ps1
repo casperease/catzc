@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-engines/tests/types/ExecutionEngine.Tests.ps1.md
+      source: automation/Catzc.Base.Engines/types/ExecutionEngine.cs
     adrs:
       - ADR-AUTO-ENGINE
 ---
 #>
 
-# The execution engine model against its per-engine fixture tables (Get-EngineCaseTable): every case is checked under...
-# [comment:1](/docs/references/automation/catzc-base-engines/tests/types/ExecutionEngine.Tests.ps1.md#comment1)
 BeforeDiscovery {
     $script:startCases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/engine-start.yml') -Applicable)
     $script:locatorCases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/engine-locator.yml') -Applicable)

@@ -3,17 +3,12 @@
 #   derived:
 #     path: automation/Catzc.Base.Exporter/configs/exporter.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-exporter/configs/exporter.yml.md
 # ---
 
-# Tests swap in a fixture exporter.yml through the Get-Config seam, so the repo keeps exactly one real export config.
-# [comment:1](/docs/references/automation/catzc-base-exporter/configs/exporter.yml.md#comment1)
-
-# A devbox build always carries this obviously fake version, so a rebuild overwrites it in place; a pipeline never uses it.
-# [comment:2](/docs/references/automation/catzc-base-exporter/configs/exporter.yml.md#comment2)
 direct_install_version: 6.6.666
 
-# Each bundle versions on its own line, so no bundle's version ever moves another's.
-# [comment:3](/docs/references/automation/catzc-base-exporter/configs/exporter.yml.md#comment3)
 bundles:
   full:
     profile: full
@@ -32,8 +27,6 @@ bundles:
     max_bytes: 2950000
 default_bundle: full
 
-# module_guid is the module's stable identity across versions; the package block feeds the top-level Catzc.psd1.
-# [comment:4](/docs/references/automation/catzc-base-exporter/configs/exporter.yml.md#comment4)
 module_guid: 211b36c7-f7eb-4f3c-93f5-9132b535fa56
 package:
   author: Casper Leon Nielsen

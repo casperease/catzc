@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md
-    kind: test-asset
-    body_sha: cc7e3cff6079
+    kind: comment-page
+    body_sha: "633cfc33305a"
     adrs:
       - ADR-FLOW-CD-GLOBS#10
 ---
 
 # automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'GlobSet independence' -Tag 'L2', 'integrity', 'source-only' {`.
+Above `Describe 'GlobSet independence' -Tag 'L2', 'integrity', 'source-only' {`, written with `#`.
 
 ```text
 Integrity: per-layer independence

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestBlockTag.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestBlockTag.Tests.ps1
   config:
     synopsis: Resolves the tags of one axis for a Pester test — nearest contributing block wins.
     description: |-
@@ -42,8 +45,6 @@ function Get-TestBlockTag {
         $block = $block.Parent
     }
 
-    # The nearest level carrying any tag of this axis wins; return its canonical matches ('-eq' is case-insensitive).
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-TestBlockTag.ps1.md#comment3)
     foreach ($levelTags in $levels) {
         $ret = @(
             foreach ($tag in $levelTags) {

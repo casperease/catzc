@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
+      test: automation/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE#8
       - ADR-AUTO-TYPES#13
@@ -115,12 +118,8 @@ function Sync-GeneratedFile {
         return
     }
 
-    # Which generated paths actually changed decides both the commit's pathspec and its message — the stamp commit...
-    # [comment:6](/docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md#comment6)
     $changed = @($generatedPaths.Keys | Where-Object { Test-GitPathChanged $_ })
 
-    # .compiled must hold exactly the current build.
-    # [comment:7](/docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md#comment7)
     if ($changed -contains 'automation/.compiled') {
         $surplus = @(Clear-ModuleTypeCache -DryRun -Silent)
         if ($surplus.Count) {
@@ -130,8 +129,6 @@ function Sync-GeneratedFile {
         }
     }
 
-    # The build is named for the hash of the working-tree type sources.
-    # [comment:8](/docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md#comment8)
     if ($changed -contains 'automation/.compiled' -and (Test-GitPathChanged 'automation/*/types/*.cs')) {
         Write-Message 'Skipped automation/.compiled: type sources (types/*.cs) differ from HEAD, so this build is not the one HEAD produces. Commit the type sources, then re-import.' -ForegroundColor Yellow
         $changed = @($changed | Where-Object { $_ -ne 'automation/.compiled' })

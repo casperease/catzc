@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md
     kind: comment-page
-    body_sha: ad37168155ca
+    body_sha: "8a2d0a4c5c4b"
 ---
 
 # automation/Catzc.Tooling.Provisioning/Get-ToolsStatus.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:9
+## comment:1
 
-Above `$versionJobs = @{}`.
+Above `$versionJobs = @{}`, written with `#`.
 
 ```text
 Parallel version probes — each spawns a subprocess, so run them concurrently.
@@ -22,9 +22,9 @@ A tool with declared candidate paths is located by the probe instead (Test-Tool 
 name on PATH may not be the tool at all (bash on Windows: the WSL launcher).
 ```
 
-## comment:10
+## comment:2
 
-Above `$tokens =...`.
+Above `$tokens =...`, written with `#`.
 
 ```text
 Split the configured version-probe command line into executable + args with PowerShell's
@@ -32,18 +32,18 @@ tokenizer (it honours quoted arguments, e.g. pyspark's -c "import pyspark; ...")
 probe runs via the call operator instead of Invoke-Expression.
 ```
 
-## comment:11
+## comment:3
 
-Above `if ($config.windows_only -and -not $IsWindows) {`.
+Above `if ($config.windows_only -and -not $IsWindows) {`, written with `#`.
 
 ```text
 Windows-only tools (winget) do not exist elsewhere — skip them off Windows so they are not reported
 as Missing on macOS/Linux.
 ```
 
-## comment:12
+## comment:4
 
-Above `$expectedManager = if ($config.system_provided) {`.
+Above `$expectedManager = if ($config.system_provided) {`, written with `#`.
 
 ```text
 Mirror Test-ExpectedPackageManager check order:
@@ -52,18 +52,18 @@ package elsewhere → unknown. An MSYS2 package installs on Windows only; on ano
 the manager its entry declares there (apt_package on Linux), and with none it is the system's.
 ```
 
-## comment:13
+## comment:5
 
-Above `$status = 'OK'`.
+Above `$status = 'OK'`, written with `#`.
 
 ```text
 Right version, right manager — scope doesn't matter. If winget
 installed Python machine-wide, it works and we control it.
 ```
 
-## comment:14
+## comment:6
 
-Above `$status = 'WrongVersion'`.
+Above `$status = 'WrongVersion'` (occurrence 2), written with `#`.
 
 ```text
 Wrong version AND installed outside our manager. Installing via
@@ -71,9 +71,9 @@ $expectedManager would succeed but the existing binary on Machine PATH
 would shadow it — the user would still run the old version.
 ```
 
-## comment:15
+## comment:7
 
-Above `if ($IsWindows -and (Test-Command choco)) {`.
+Above `if ($IsWindows -and (Test-Command choco)) {`, written with `#`.
 
 ```text
 Chocolatey check — not a tools.yml tool, but a package manager

@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Variants
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Variants/tests/Test-AdoNaming.Tests.ps1
   config:
     synopsis: Tests whether the repo's Azure resource-name order (the `ado_naming` variant) is the one named.
     description: |-

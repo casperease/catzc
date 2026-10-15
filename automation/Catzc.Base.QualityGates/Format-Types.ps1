@@ -6,6 +6,9 @@ catzc:
     kind: format-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1
     adrs:
       - ADR-PWSH-PESTER#9
   config:
@@ -70,8 +73,6 @@ function Format-Types {
         }
     }
     else {
-        # [System.IO] enumeration: each cmdlet call on this path adds about 20ms.
-        # [comment:4](/docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md#comment4)
         $automationRoot = [System.IO.Path]::GetFullPath((Join-Path $root 'automation'))
         foreach ($moduleDirectory in [System.IO.Directory]::EnumerateDirectories($automationRoot)) {
             if ([System.IO.Path]::GetFileName($moduleDirectory).StartsWith('.', [System.StringComparison]::Ordinal)) {
@@ -94,8 +95,6 @@ function Format-Types {
         $module = [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($file)))
 
         $original = [System.IO.File]::ReadAllText($file)
-        # A block-scoped `namespace X { … }` is not a shape this repo authors, and rewriting it is not a one-line...
-        # [comment:5](/docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md#comment5)
         if ($original -notmatch '(?m)^\s*namespace\s+\S+?\s*;' -and $original -match '(?m)^\s*namespace\s+\S+?\s*\{') {
             $blockScopedFiles.Add($file)
             Write-Message "block-scoped namespace (rewrite it by hand as 'namespace $module;'): $file"

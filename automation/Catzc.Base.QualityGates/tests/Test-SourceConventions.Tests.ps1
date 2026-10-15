@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-SourceConventions.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-SourceConventions.ps1
     adrs:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TEST#3
@@ -12,8 +15,6 @@ catzc:
 ---
 #>
 
-# Test-SourceConventions over fixture trees in $TestDrive: the repository root is mocked, so each test writes the...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-SourceConventions.Tests.ps1.md#comment1)
 Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FixtureFile {
@@ -22,16 +23,12 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($full))
             [System.IO.File]::WriteAllText($full, $Content)
         }
-        # Sets the source-conventions config for the next run: both checks in the given mode, the engine-set check...
-        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-SourceConventions.Tests.ps1.md#comment2)
         $script:useMode = {
             param([string] $Mode, [System.Collections.IDictionary] $Exempt = [ordered]@{})
             $engineSet = [ordered]@{ mode = $Mode; exempt = $Exempt; name_phrases = @('\b{name}(?: and {name})+\b') }
             $config = [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{ engine_set = $engineSet; neutral_codes = [ordered]@{ mode = $Mode } })
             Mock Get-Config -ParameterFilter { $Config -eq 'source-conventions' } -ModuleName Catzc.Base.QualityGates -MockWith { $config }.GetNewClosure()
         }
-        # Writes the files both source checks find: a ValidateSet of engines, a partial engine set in prose, and a...
-        # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/Test-SourceConventions.Tests.ps1.md#comment3)
         $script:writeCheckFixtures = {
             New-FixtureFile 'Widget/Set-Widget.ps1' "function Set-Widget { param([ValidateSet('widget', 'gadget')] [string] `$Engine) }"
             New-FixtureFile 'Widget/README.md' "Runs under widget and gadget.`n"
@@ -46,8 +43,6 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates {
             $root = Join-Path $TestDrive 'repo'
-            # A whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the
-            # fixture repository stands in for the tracked files, so nothing is pruned.
             foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @() -PruneVendor $false) {
                 [System.IO.Path]::GetRelativePath($root, $file) -replace '\\', '/'
             }

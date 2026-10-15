@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md
+      test: automation/Catzc.Base.ModuleSystem/tests/Test-FolderConventions.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-FOLDERS
@@ -69,8 +72,6 @@ function Test-FolderConventions {
             }
         }
 
-        # Module-root.ps1: a test is misplaced; the rest are public functions whose file basename is the exported...
-        # [comment:4](/docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md#comment4)
         foreach ($path in ([System.IO.Directory]::EnumerateFiles($moduleDirectory, '*.ps1') | Sort-Object)) {
             $name = [System.IO.Path]::GetFileName($path)
             if ($name -like '*.Tests.ps1') {
@@ -95,8 +96,6 @@ function Test-FolderConventions {
         if ([System.IO.Directory]::Exists($configsDirectory)) {
             foreach ($entry in ([System.IO.Directory]::EnumerateFileSystemEntries($configsDirectory) | Sort-Object)) {
                 $name = [System.IO.Path]::GetFileName($entry)
-                # Dot-prefixed entries are tooling (a schema sidecar, an editor dotfile), not module config.
-                # [comment:5](/docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md#comment5)
                 if ($name -match '^\.') {
                     continue
                 }

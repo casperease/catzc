@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md
     adrs:
       - ADR-AZ-DATAMOD
       - ADR-PWSH-PESTER#9
@@ -46,8 +48,6 @@ function Get-TerminologyCorpus {
         [string[]] @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.bicep'),
         [System.StringComparer]::OrdinalIgnoreCase)
 
-    # Authored config files with no extension carry approved vocabulary too — a *.stackdump ignore pattern...
-    # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment5)
     $names = [System.Collections.Generic.HashSet[string]]::new(
         [string[]] @('.gitignore', '.gitattributes', '.markdownlintignore', '.prettierignore'),
         [System.StringComparer]::OrdinalIgnoreCase)
@@ -65,8 +65,6 @@ function Get-TerminologyCorpus {
         '[\\/]\.unordered[\\/]'
     ) -join '|'
 
-    # The customer/machine-derived config tree (root configuration/, ) and the Bicep template configuration scaffold...
-    # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment6)
     $configurationRegex = @(
         '^[\\/]configuration[\\/]'
         '^[\\/]infrastructure[\\/]templates[\\/].+[\\/]configuration[\\/]'
@@ -78,11 +76,7 @@ function Get-TerminologyCorpus {
         [void] $excludeSet.Add(($resolved ?? $e))
     }
 
-    # Enumerate with [System.IO] rather than Get-ChildItem — no per-file PSObject wrapping, so a whole-tree scan is...
-    # [comment:7](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment7)
     $ret = [System.Text.StringBuilder]::new()
-    # Tracked files reach nine levels below the root, so ten leaves one level of headroom.
-    # [comment:8](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment8)
     foreach ($path in Get-ChildPath $Root -File -Depth 10) {
         if (-not $exts.Contains([System.IO.Path]::GetExtension($path)) -and
             -not $names.Contains([System.IO.Path]::GetFileName($path))) {

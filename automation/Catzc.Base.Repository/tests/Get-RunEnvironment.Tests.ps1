@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Repository/tests/Get-RunEnvironment.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Repository/Get-RunEnvironment.ps1
 ---
 #>
 

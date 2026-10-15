@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/New-TestRunFinalManifest.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/New-TestRunFinalManifest.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/New-TestRunFinalManifest.ps1
     adrs:
       - ADR-AUTO-TEST#32
 ---
 #>
 
-# New-TestRunFinalManifest over fixture inputs: the terminal run.json record, with and without a context, a worker...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/New-TestRunFinalManifest.Tests.ps1.md#comment1)
 Describe 'New-TestRunFinalManifest' -Tag 'L0', 'logic' {
     It 'records the run, its context, and the opt-out exclusion' {
         InModuleScope Catzc.Base.QualityGates {
@@ -37,8 +38,6 @@ Describe 'New-TestRunFinalManifest' -Tag 'L0', 'logic' {
     }
 }
 
-# The run.json a reader sees for a run that collided with another: the terminal manifest built from a snapshot worker...
-# [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/New-TestRunFinalManifest.Tests.ps1.md#comment2)
 Describe 'New-TestRunFinalManifest — a snapshot run, written and read back' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:runDirectory = Join-Path $TestDrive 'run-widget'

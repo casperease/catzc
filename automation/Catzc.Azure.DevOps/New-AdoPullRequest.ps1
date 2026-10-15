@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Azure.DevOps
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md
+      test: automation/Catzc.Azure.DevOps/tests/New-AdoPullRequest.Tests.ps1
     adrs:
       - ADR-FLOW-CD-TYPE
   config:
@@ -91,8 +94,6 @@ function New-AdoPullRequest {
     }
 
     $pr = Invoke-AdoRestMethod -Uri "$apiBase/git/repositories/$($repo.id)/pullrequests?api-version=7.1" -Method Post -Body $body
-    # Postcondition: confirm the PR actually came back created.
-    # [comment:4](/docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md#comment4)
     Assert-NotNull $pr.pullRequestId -ErrorText "Pull request creation returned no pullRequestId for '$Title' ($sourceRef -> $targetRef) — the PR was not created."
     Write-Message "Created PR #$($pr.pullRequestId): $Title ($sourceRef -> $targetRef)"
     $pr

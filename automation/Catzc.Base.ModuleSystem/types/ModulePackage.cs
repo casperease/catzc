@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/ModulePackage.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/ModulePackage.cs.md
 ---
 */
-
-// The unit Copy-Automation excludes by name, which is why package names are unique across all modules.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModulePackage.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

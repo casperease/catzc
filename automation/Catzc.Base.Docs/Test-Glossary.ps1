@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
     adrs:
       - ADR-AUTO-FAILFAST
       - ADR-AUTO-TEST#35

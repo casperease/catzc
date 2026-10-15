@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Templates/tests/Get-AzureNameOrderSet.Tests.ps1
   config:
     synopsis: Returns the named component orders Get-AzureResourceName can assemble names in.
     description: |-

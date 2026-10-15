@@ -4,18 +4,17 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-CatsModules.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Get-CatsModules.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/private/Get-CatsModules.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#3
       - ADR-PWSH-PESTER#4
 ---
 #>
 
-# Get-CatsModules is private, so it is exercised through the module (& (Get-Module …), per ).
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-CatsModules.Tests.ps1.md#comment1)
 Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Fixture modules loaded from a fixture code root: two catzc-shaped modules, one dot-prefixed infrastructure...
-        # [comment:2](/docs/references/automation/catzc-base-docs/tests/Get-CatsModules.Tests.ps1.md#comment2)
         $script:modulesRoot = Join-Path $TestDrive 'modules'
         $outsideRoot = Join-Path $TestDrive 'elsewhere'
         $fixtures = @(
@@ -58,8 +57,6 @@ Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
     }
 }
 
-# Reads the REAL loaded session (nothing mocked), so it runs in both the source run and the build run and proves...
-# [comment:3](/docs/references/automation/catzc-base-docs/tests/Get-CatsModules.Tests.ps1.md#comment3)
 Describe 'Get-CatsModules — loaded catzc modules' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         $script:modules = & (Get-Module Catzc.Base.Docs) { Get-CatsModules }

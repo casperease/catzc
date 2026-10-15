@@ -9,33 +9,7 @@ catzc:
 
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
-<#
-.SYNOPSIS
-    The single implementation of the combined C# type-source hash — enumerate, order, and hash every module's
-    types/*.cs the way the committed automation/.compiled/Catzc.Types.<hash>.dll is keyed.
-.DESCRIPTION
-    Loader and janitor must agree on this hash byte for byte, or the janitor plans the live build for deletion.
-    [comment:1](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment1)
-#>
-
 function Get-CombinedTypeHash {
-    <#
-    .SYNOPSIS
-        Returns the combined 8-char hash of every module's C# type sources, with the per-file snapshot and the
-        source list, in order, that the loader compiles.
-    .PARAMETER AutomationRoot
-        The automation directory. Its non-dot subfolders are the modules whose types/*.cs are hashed.
-    .PARAMETER Module
-        Omitted, every non-dot module is hashed; a named module without a types folder contributes nothing.
-        [comment:2](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment2)
-    .OUTPUTS
-        [pscustomobject] with:
-          CombinedHash  the 8-char lowercase hex hash (the Catzc.Types.<hash>.dll key), or $null when no module
-                        ships a C# type source.
-          Snapshot      an ordered map of "<module>/<bare type>" -> per-file EOL-insensitive digest.
-          Files         the source list, sorted ordinally ([pscustomobject] Module/Base/Key/Path), that the
-                        caller validates and compiles.
-    #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
@@ -45,15 +19,11 @@ function Get-CombinedTypeHash {
         [string[]] $Module
     )
 
-    # An empty HashSet out of an if-expression enumerates to null, which would widen an empty selection to all modules.
-    # [comment:3](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment3)
     $selected = $null
     if ($PSBoundParameters.ContainsKey('Module')) {
         $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module), [System.StringComparer]::OrdinalIgnoreCase)
     }
 
-    # Raw System.IO instead of Get-ChildItem avoids about 20 ms of provider overhead per call.
-    # [comment:4](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment4)
     $files = [System.Collections.Generic.List[object]]::new()
     foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($AutomationRoot)) {
         $moduleName = [System.IO.Path]::GetFileName($moduleDir)
@@ -75,8 +45,6 @@ function Get-CombinedTypeHash {
         }
     }
 
-    # A build keeps unselected modules' sources under .compiled, keyed alike, so the hash equals the full-set hash.
-    # [comment:5](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment5)
     $compiledTypesDir = [System.IO.Path]::Combine($AutomationRoot, '.compiled', 'types')
     if ($null -eq $selected -and [System.IO.Directory]::Exists($compiledTypesDir)) {
         foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($compiledTypesDir)) {
@@ -97,13 +65,9 @@ function Get-CombinedTypeHash {
         return [pscustomobject]@{ CombinedHash = $null; Snapshot = [ordered]@{}; Files = @() }
     }
 
-    # Ordinal comparer, because Sort-Object is culture-aware and the hash must be identical on every machine.
-    # [comment:6](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment6)
     $sortedFiles = [object[]]$files.ToArray()
     [System.Array]::Sort($sortedFiles, [System.Comparison[object]] { param($a, $b) [System.StringComparer]::Ordinal.Compare($a.Key, $b.Key) })
 
-    # CR bytes are stripped first, so a CRLF versus LF checkout never re-keys the committed DLL on a line-ending flip.
-    # [comment:7](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment7)
     $latin1 = [System.Text.Encoding]::Latin1
     $snapshot = [ordered]@{}
     $sha = [System.Security.Cryptography.SHA256]::Create()
@@ -130,21 +94,6 @@ function Get-CombinedTypeHash {
 }
 
 function Get-LoadedTypeDrift {
-    <#
-    .SYNOPSIS
-        Compares the C# types loaded in this process with the type sources of a code root, and says whether they are
-        current.
-    .DESCRIPTION
-        A loaded assembly cannot be swapped in a running process, so a source edited after loading stays stale.
-        [comment:8](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment8)
-    .PARAMETER ModulesRoot
-        The code root (an automation/ folder) whose type sources to compare.
-    .PARAMETER HashResult
-        The Get-CombinedTypeHash result for the root, when the caller has it already; computed otherwise.
-    .OUTPUTS
-        [pscustomobject] { RootKey; Loaded; Current; LoadedHash; SourceHash; Drift; MissingTypes; Summary }. Summary
-        is one sentence naming the hashes or roots, or $null when the types are current.
-    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Reads $global:__CatzcTypes, the per-root session record of loaded types the loader keeps (ADR-AUTO-TYPES#12)')]
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -198,8 +147,6 @@ function Get-LoadedTypeDrift {
         $summary = "C# types changed since they were loaded ($($prior.Hash) -> $($HashResult.CombinedHash))."
     }
     elseif ($loaded -and -not $prior) {
-        # A type no recorded root claims is taken as it is; the rest are compared with the root that recorded them.
-        # [comment:9](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment9)
         $otherRoots = [System.Collections.Generic.List[string]]::new()
         $recordEntries = if ($records) {
             @($records.GetEnumerator())
@@ -255,26 +202,6 @@ function Get-LoadedTypeDrift {
 }
 
 function Build-CombinedTypeAssembly {
-    <#
-    .SYNOPSIS
-        Compiles the selected modules' C# type sources into one hash-named assembly on disk, without loading it.
-    .DESCRIPTION
-        Compiles a frozen copy of the sources, so a save mid-compile cannot make the DLL name differ from its bytes.
-        [comment:10](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment10)
-    .PARAMETER AutomationRoot
-        The automation directory whose non-dot module folders hold the types/*.cs sources.
-    .PARAMETER Module
-        Restricts the compile (and its hash) to these module folders. Omitted, every module's types compile.
-    .PARAMETER OutputDirectory
-        The directory the Catzc.Types.<hash>.dll is written to; created when missing.
-    .OUTPUTS
-        [pscustomobject] with Hash (the 8-char combined hash), Path (the DLL), Manifest (the Catzc.Types.<hash>.json beside
-        it, written when missing), Files (the source list, in order,
-        from Get-CombinedTypeHash), Snapshot (the per-file digests), and Compiled (whether this call ran the compiler).
-        $null when the selection ships no C# type source.
-    .EXAMPLE
-        Build-CombinedTypeAssembly -AutomationRoot $root -Module 'Catzc.Base.Objects' -OutputDirectory "$build/.compiled"
-    #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
@@ -377,17 +304,6 @@ function Build-CombinedTypeAssembly {
 }
 
 function Get-TypesShadowRoot {
-    <#
-    .SYNOPSIS
-        The per-user folder that holds the shadow copies of the combined types assembly.
-    .DESCRIPTION
-        Shared by every session and clone: a copy is named by its source hash, so equal names mean equal types.
-        [comment:11](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment11)
-    .OUTPUTS
-        [string] The folder path (not created here).
-    .EXAMPLE
-        Get-TypesShadowRoot
-    #>
     [OutputType([string])]
     param()
 
@@ -400,26 +316,6 @@ function Get-TypesShadowRoot {
 }
 
 function Import-TypesAssembly {
-    <#
-    .SYNOPSIS
-        Loads a combined types assembly from a per-user shadow copy, never from the file it is given.
-    .DESCRIPTION
-        Windows locks a loaded DLL, so loading in place would pin a superseded build; every load uses a shadow copy.
-        [comment:12](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment12)
-    .PARAMETER Path
-        The assembly to load (normally automation/.compiled/Catzc.Types.<hash>.dll, or a bundle's prebuilt copy).
-    .PARAMETER ShadowRoot
-        The shadow folder. Defaults to Get-TypesShadowRoot; tests pass a throwaway folder.
-    .PARAMETER PruneAfter
-        The age bound keeps a copy another process just wrote but not yet loaded from being pruned under it.
-        [comment:13](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment13)
-    .PARAMETER ShadowCopy
-        $false loads the given file in place, for a system that does not lock a loaded file.
-    .OUTPUTS
-        [string] The path of the loaded assembly: the shadow copy, or the given file when ShadowCopy is $false.
-    .EXAMPLE
-        Import-TypesAssembly -Path (Join-Path $modulesRoot '.compiled/Catzc.Types.762c40fe.dll')
-    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Writes only the per-user shadow cache, an internal load-time detail of the importer; the load itself is announced by the caller (Import-CSharpTypes).')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The binary load is announced by the caller: Import-CSharpTypes writes "Loaded types <dll>" through Write-ImporterMessage -StateChange; the analyzer rule SpellOutIdentifiers runs inside the analyzer engine, where only diagnostic records may be emitted.')]
     [OutputType([string])]
@@ -491,20 +387,6 @@ function Import-TypesAssembly {
 }
 
 function Test-TypesAssemblyContent {
-    <#
-    .SYNOPSIS
-        Checks that a combined types assembly declares every expected public type, reading its metadata only.
-    .DESCRIPTION
-        The file is read into memory and parsed with System.Reflection.Metadata, so the assembly is never loaded into the
-        process and the file is never locked. A missing type throws; a complete assembly returns nothing.
-    .PARAMETER Path
-        The assembly file to read.
-    .PARAMETER Expected
-        The sources whose types the assembly must hold: objects with Module (the namespace) and Base (the type name), as
-        Get-CombinedTypeHash returns in Files.
-    .EXAMPLE
-        Test-TypesAssemblyContent -Path $dll -Expected $hashResult.Files
-    #>
     [CmdletBinding()]
     [OutputType([void])]
     param(
@@ -531,20 +413,6 @@ $script:TypesAliasAttribute = 'Catzc.Base.Objects.PSTypeAliasAttribute'
 $script:TypesDisplayAttribute = 'Catzc.Base.Objects.ConsoleDisplayAttribute'
 
 function Get-TypesAssemblyManifest {
-    <#
-    .SYNOPSIS
-        Lists the public types of a combined types assembly with the facts the importer registers for them, reading metadata only.
-    .DESCRIPTION
-        For each public top-level type: its full name, the PSTypeAlias names it declares, and the ConsoleDisplay properties that
-        apply to it (its own, else the nearest base type's in the same assembly, as the attribute is inherited). The file is read
-        into memory and parsed with System.Reflection.Metadata, so the assembly is never loaded and the file never locked.
-    .PARAMETER Path
-        The assembly file to read.
-    .OUTPUTS
-        [pscustomobject] with Types: the types sorted ordinally by Name, each with Name, Aliases and Display (string arrays).
-    .EXAMPLE
-        (Get-TypesAssemblyManifest -Path $dll).Types
-    #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
@@ -632,19 +500,6 @@ function Get-TypesAssemblyManifest {
 }
 
 function Write-TypesAssemblyManifest {
-    <#
-    .SYNOPSIS
-        Writes the manifest Catzc.Types.<hash>.json beside a combined types assembly, unless it is there already.
-    .DESCRIPTION
-        The manifest is generated from the assembly's own metadata, never edited, and named by the same hash as the assembly, so
-        the two always describe the same build. It is written to a temporary file and moved into place.
-    .PARAMETER Path
-        The assembly (Catzc.Types.<hash>.dll) to describe.
-    .OUTPUTS
-        [string] The manifest path.
-    .EXAMPLE
-        Write-TypesAssemblyManifest -Path $dll
-    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Writes a generated build artifact beside the assembly; the build and the importer announce the build.')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The caller (Build-CombinedTypeAssembly, Import-CSharpTypes) announces the build; the analyzer rule runs where only diagnostic records may be emitted.')]
     [CmdletBinding()]
@@ -691,45 +546,26 @@ $script:TypesLoadTriggers = 'lookup-hook', 'none'
 $script:TypesLoadKeys = 'load', 'trigger', 'shadowCopy', 'eagerTypes'
 
 function Get-TypesLoadPolicy {
-    <#
-    .SYNOPSIS
-        Says whether, when, and how the combined types assembly is loaded in one mode.
-    .DESCRIPTION
-        A setting resolves in the one fixed order: the caller's explicit value, else the mode's row in types-load.yml, else the default row.
-        Only pwsh can load a C# assembly, so any other engine answers Load 'never' without reading the table.
-    .PARAMETER Engine
-        The execution engine's name. Anything but pwsh answers Load 'never'.
-    .PARAMETER HostKind
-        console or headless. Defaults to headless inside a pipeline, else console.
-    .PARAMETER Os
-        windows or unix. Defaults to the running system.
-    .PARAMETER RunMode
-        source or build (Get-CatzcRunMode is not loaded yet when the importer asks, so the caller passes it). Defaults to source.
-    .PARAMETER Load
-        An explicit load, outranking the config.
-    .PARAMETER Trigger
-        An explicit trigger, outranking the config.
-    .PARAMETER ShadowCopy
-        An explicit shadow-copy choice, outranking the config.
-    .PARAMETER EagerType
-        Explicit type names to load at import, outranking the config.
-    .PARAMETER ConfigPath
-        The types-load.yml to read. Defaults to the one beside this module in assets/.
-    .OUTPUTS
-        [pscustomobject] Cell, Engine, Load, Trigger, EagerTypes, ShadowCopy.
-    .EXAMPLE
-        Get-TypesLoadPolicy -HostKind headless -Os unix -RunMode build
-    #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
         [string] $Engine = 'pwsh',
 
         [ValidateSet('console', 'headless')]
-        [string] $HostKind = $(if (Test-IsRunningInPipeline) { 'headless' } else { 'console' }),
+        [string] $HostKind = $(if (Test-IsRunningInPipeline) {
+                'headless'
+            }
+            else {
+                'console'
+            }),
 
         [ValidateSet('windows', 'unix')]
-        [string] $Os = $(if ($IsWindows) { 'windows' } else { 'unix' }),
+        [string] $Os = $(if ($IsWindows) {
+                'windows'
+            }
+            else {
+                'unix'
+            }),
 
         [ValidateSet('source', 'build')]
         [string] $RunMode = 'source',
@@ -759,7 +595,13 @@ function Get-TypesLoadPolicy {
         throw "The types-load config '$ConfigPath' has no 'cells' map."
     }
 
-    $valid = foreach ($h in $script:TypesLoadHosts) { foreach ($o in $script:TypesLoadSystems) { foreach ($r in $script:TypesLoadRunModes) { "$h.$o.$r" } } }
+    $valid = foreach ($h in $script:TypesLoadHosts) {
+        foreach ($o in $script:TypesLoadSystems) {
+            foreach ($r in $script:TypesLoadRunModes) {
+                "$h.$o.$r"
+            }
+        }
+    }
     foreach ($key in $config['cells'].Keys) {
         if ($key -cnotin $valid) {
             throw "The types-load config has a row '$key' that is no mode. The modes are: $($valid -join ', ')."
@@ -772,18 +614,35 @@ function Get-TypesLoadPolicy {
     }
 
     $cell = "$HostKind.$Os.$RunMode"
-    $row = if ($config['cells'].ContainsKey($cell)) { $config['cells'][$cell] } else { @{} }
+    $row = if ($config['cells'].ContainsKey($cell)) {
+        $config['cells'][$cell]
+    }
+    else {
+        @{}
+    }
     $policy = [ordered]@{ Cell = $cell; Engine = $Engine }
     foreach ($name in 'Load', 'Trigger', 'ShadowCopy') {
         $fromConfig = $name.Substring(0, 1).ToLowerInvariant() + $name.Substring(1)
-        $policy[$name] = if ($PSBoundParameters.ContainsKey($name)) { $PSBoundParameters[$name] }
-        elseif ($row.ContainsKey($fromConfig)) { $row[$fromConfig] }
-        else { $script:TypesLoadDefault[$name] }
+        $policy[$name] = if ($PSBoundParameters.ContainsKey($name)) {
+            $PSBoundParameters[$name]
+        }
+        elseif ($row.ContainsKey($fromConfig)) {
+            $row[$fromConfig]
+        }
+        else {
+            $script:TypesLoadDefault[$name]
+        }
     }
     $policy['EagerTypes'] = @(
-        if ($PSBoundParameters.ContainsKey('EagerType')) { $EagerType }
-        elseif ($row.ContainsKey('eagerTypes')) { $row['eagerTypes'] }
-        else { $script:TypesLoadDefault['EagerTypes'] }
+        if ($PSBoundParameters.ContainsKey('EagerType')) {
+            $EagerType
+        }
+        elseif ($row.ContainsKey('eagerTypes')) {
+            $row['eagerTypes']
+        }
+        else {
+            $script:TypesLoadDefault['EagerTypes']
+        }
     )
 
     if ($policy.Load -cnotin $script:TypesLoadLoads) {
@@ -802,20 +661,6 @@ function Get-TypesLoadPolicy {
 }
 
 function Register-DeferredTypes {
-    <#
-    .SYNOPSIS
-        Records a verified types assembly as pending: known, not loaded. Initialize-Types loads it.
-    .DESCRIPTION
-        The record is session-global, so it survives a re-import of this module; it is keyed by code root, like the drift record.
-    .PARAMETER RootKey
-        The full path of the code root the assembly belongs to.
-    .PARAMETER Path
-        The assembly to load later. Its manifest sits beside it.
-    .PARAMETER ShadowCopy
-        Whether the later load goes through the per-user shadow copy.
-    .EXAMPLE
-        Register-DeferredTypes -RootKey $root -Path $dll -ShadowCopy $true
-    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Session-global by design: the pending record must survive a re-import of this module, like $global:__CatzcTypes')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Records in-memory session state only; the importer announces the deferral')]
     [CmdletBinding()]
@@ -836,17 +681,6 @@ function Register-DeferredTypes {
 }
 
 function Initialize-Types {
-    <#
-    .SYNOPSIS
-        Loads every pending types assembly and registers its accelerators and default display properties from the manifest. Idempotent.
-    .DESCRIPTION
-        The first use of a catzc command calls it through the lookup hook, so a session that never uses a type never loads one.
-        The hook is removed first: nothing below may re-enter it.
-    .OUTPUTS
-        [pscustomobject] One per assembly loaded by this call: Path, Loaded, Aliases, Displayed. Nothing when none was pending.
-    .EXAMPLE
-        Initialize-Types
-    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Reads and marks $global:__CatzcDeferredTypes, the session-global pending record')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Loads the assembly the importer already verified and announced; there is nothing to confirm')]
     [CmdletBinding()]
@@ -895,17 +729,6 @@ function Initialize-Types {
 $script:DeferredTypesCommands = [System.Collections.Generic.HashSet[string]]::new()
 
 function Enable-DeferredTypesLoad {
-    <#
-    .SYNOPSIS
-        Makes the first lookup of one of the named commands load the pending types, before the command binds its parameters.
-    .DESCRIPTION
-        A guard inside a function is too late: a typed parameter or an OutputType resolves its type before the body runs. The hook
-        runs before binding and is filtered by name, so only a catzc command pays for it. With nothing pending it clears the hook.
-    .PARAMETER CommandName
-        The commands whose first lookup loads the types.
-    .EXAMPLE
-        Enable-DeferredTypesLoad -CommandName (Get-Command -Module Widget).Name
-    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Reads $global:__CatzcDeferredTypes, the session-global pending record')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Installs an in-memory lookup hook for this session only; the importer announces the deferral')]
     [CmdletBinding()]

@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Measure-QualityGates.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Measure-QualityGates.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Measure-QualityGates.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Measure-QualityGates over fixture quality gates: the real Get-Command lookup and the -OutputFolder probe decide...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Measure-QualityGates.Tests.ps1.md#comment1)
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The fixture gates declare the parameters a real quality gate takes; what they return does not depend on them')]
 param()
 

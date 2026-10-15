@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md
-    kind: test-asset
-    body_sha: b0c8dbfd271c
+    kind: comment-page
+    body_sha: baabc049a1b4
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-CONTRACT#5
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic',...`.
+Above `Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
 A released version folder is immutable ([ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)):
@@ -26,7 +26,7 @@ Fixtures are a widget version folder in TestDrive ([ADR-AUTO-TEST#3](/docs/adr/a
 
 ## comment:2
 
-Above `BeforeDiscovery {`.
+Above `BeforeDiscovery {`, written with `#`.
 
 ```text
 Every released version folder in the repository's contracts/ tree, one test each, discovered from the tree: a folder

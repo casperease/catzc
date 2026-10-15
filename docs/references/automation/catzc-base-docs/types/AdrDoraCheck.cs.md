@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrDoraCheck.cs.md
     kind: comment-page
-    body_sha: "06c0a85434dc"
+    body_sha: "55d1103e9a48"
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-CONFIG#4
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/types/AdrDoraCheck.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System.Collections;`.
+Above `using System.Collections;`, written with `//`.
 
 ```text
 The DORA-coverage check's settings (configs/adr-checks.yml, dora_coverage), read by Test-AdrRegistry: every rule set of a

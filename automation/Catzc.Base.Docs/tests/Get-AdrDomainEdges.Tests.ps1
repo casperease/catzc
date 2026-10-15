@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-AdrDomainEdges.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Get-AdrDomainEdges.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/Get-AdrDomainEdges.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-AdrDomainEdges over a fixture AdrsConfig (Get-Config mocked): the registry's own construction holds the edge...
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-AdrDomainEdges.Tests.ps1.md#comment1)
 Describe 'Get-AdrDomainEdges' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

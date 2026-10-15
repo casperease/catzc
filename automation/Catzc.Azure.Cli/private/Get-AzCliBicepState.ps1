@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Cli
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md
     adrs:
       - ADR-AUTO-PRELOG#5
   config:
@@ -31,8 +33,6 @@ function Get-AzCliBicepState {
 
     $minVersion = Get-AzureBicepMinVersion
 
-    # -Silent: a plumbing probe whose output we capture via -PassThru and parse below, so the "Bicep CLI version X"...
-    # [comment:3](/docs/references/automation/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md#comment3)
     $result = Invoke-AzCli 'bicep version' -PassThru -NoAssert -Silent
     if ($result.ExitCode -ne 0) {
         return [Catzc.Azure.Cli.BicepState]::new($false, $null, $minVersion, $false)

@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-GoTestCases.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Get-GoTestCases.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Get-GoTestCases.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
 # cspell:ignore Testlowercase  -- a Go function name that is not a test (lowercase after Test), on purpose
-# Get-GoTestCases over a fixture Go test folder in $TestDrive (the go config mocked to its defaults): the Go tests...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-GoTestCases.Tests.ps1.md#comment1)
 Describe 'Get-GoTestCases' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FixtureFile {

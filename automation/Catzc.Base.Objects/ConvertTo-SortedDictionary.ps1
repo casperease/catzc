@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Objects
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Objects/tests/ConvertTo-SortedDictionary.Tests.ps1
   config:
     synopsis: Recursively converts dictionaries to ordered form for stable output.
     description: |-

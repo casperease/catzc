@@ -10,10 +10,16 @@ catzc:
 Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:shipped = [System.IO.Path]::Combine((Split-Path $PSScriptRoot -Parent), 'assets', 'types-load.yml')
-        $script:modes = foreach ($h in 'console', 'headless') { foreach ($o in 'windows', 'unix') { foreach ($r in 'source', 'build') { "$h.$o.$r" } } }
+        $script:modes = foreach ($h in 'console', 'headless') {
+            foreach ($o in 'windows', 'unix') {
+                foreach ($r in 'source', 'build') {
+                    "$h.$o.$r"
+                }
+            }
+        }
 
         function script:New-PolicyConfig ([string] $Body) {
-            $path = Join-Path $TestDrive ("types-load-{0}.yml" -f [guid]::NewGuid().ToString('N'))
+            $path = Join-Path $TestDrive ('types-load-{0}.yml' -f [guid]::NewGuid().ToString('N'))
             [System.IO.File]::WriteAllText($path, $Body)
             $path
         }
@@ -55,7 +61,12 @@ Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
 
         It 'keeps every console mode lazy and every headless mode eager' {
             foreach ($mode in $modes) {
-                (Get-ModePolicy $mode).Load | Should -Be $(if ($mode -like 'console.*') { 'lazy' } else { 'eager' })
+                (Get-ModePolicy $mode).Load | Should -Be $(if ($mode -like 'console.*') {
+                        'lazy'
+                    }
+                    else {
+                        'eager'
+                    })
             }
         }
     }
@@ -150,7 +161,12 @@ Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
 
     Context 'mode detection' {
         It 'derives os from the running system when none is given' {
-            (Get-TypesLoadPolicy -HostKind console -RunMode source).Cell | Should -Be $(if ($IsWindows) { 'console.windows.source' } else { 'console.unix.source' })
+            (Get-TypesLoadPolicy -HostKind console -RunMode source).Cell | Should -Be $(if ($IsWindows) {
+                    'console.windows.source'
+                }
+                else {
+                    'console.unix.source'
+                })
         }
 
         It 'derives host as headless inside a pipeline and console outside one' {

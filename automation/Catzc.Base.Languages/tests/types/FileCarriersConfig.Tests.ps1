@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Languages/types/FileCarriersConfig.cs
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-CODEMETA#1

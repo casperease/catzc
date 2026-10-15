@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.DevOps
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.DevOps/tests/Invoke-AdoRestMethod.Tests.ps1
   config:
     synopsis: Calls an Azure DevOps REST API endpoint with authentication and standard error handling.
     description: |-

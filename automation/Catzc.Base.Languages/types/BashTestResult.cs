@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Languages/types/BashTestResult.cs
     kind: csharp-type
     module: Catzc.Base.Languages
+    relatives:
+      page: docs/references/automation/catzc-base-languages/types/BashTestResult.cs.md
+      test: automation/Catzc.Base.Languages/tests/types/BashTestResult.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// The category is derived here, the one place the rule lives: a name starting integrity: is integrity, all else logic.
-// [comment:1](/docs/references/automation/catzc-base-languages/types/BashTestResult.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Reset-LastExitCode.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Execution/Reset-LastExitCode.ps1
 ---
 #>
 

@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure.Cli/types/ConnectionState.cs
     kind: csharp-type
     module: Catzc.Azure.Cli
+    relatives:
+      page: docs/references/automation/catzc-azure-cli/types/ConnectionState.cs.md
 ---
 */
-
-// Pairs the expected ids with the session's actual ones plus the verdict; a point-in-time probe, not a config record.
-// [comment:1](/docs/references/automation/catzc-azure-cli/types/ConnectionState.cs.md#comment1)
 
 using System;
 

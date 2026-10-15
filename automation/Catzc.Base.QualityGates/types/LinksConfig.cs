@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/LinksConfig.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/LinksConfig.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/LinksConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -13,9 +16,6 @@ catzc:
       - ADR-REPO-LINK#8
 ---
 */
-
-// The one declaration of the defaults: every key is optional, so no function restates a value and a missing file acts the same.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinksConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

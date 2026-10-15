@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Engines/types/ExecutionEngines.cs
     kind: csharp-type
     module: Catzc.Base.Engines
+    relatives:
+      page: docs/references/automation/catzc-base-engines/types/ExecutionEngines.cs.md
     adrs:
       - ADR-AUTO-ENGINE
 ---
 */
-
-// Every engine list in the codebase is Names, so adding or changing an engine is one edit here.
-// [comment:1](/docs/references/automation/catzc-base-engines/types/ExecutionEngines.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -59,8 +58,6 @@ public static class ExecutionEngines
         quote: text => "'" + text.Replace("'", "'\\''") + "'",
         sourceFormat: "source {0} >/dev/null 2>&1");
 
-    // Shares bash's POSIX quoting and its importer entry, importer.sh, which runs under both.
-    // [comment:2](/docs/references/automation/catzc-base-engines/types/ExecutionEngines.cs.md#comment2)
     public static readonly ExecutionEngine Zsh = new ExecutionEngine(
         name: "zsh",
         command: "zsh",

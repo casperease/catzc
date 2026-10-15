@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/types/SpellingOracle.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/types/SpellingOracle.cs
     adrs:
       - ADR-AUTO-SPELL#6
       - ADR-AUTO-TEST#1
@@ -39,12 +42,8 @@ Describe 'SpellingOracle.Tokenize' -Tag 'L0', 'logic' {
     }
 }
 
-# source-only: it loads the repository's committed dictionary and.cspell/ lists — the inputs only the source-tree...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/SpellingOracle.Tests.ps1.md#comment1)
 Describe 'SpellingOracle.CoinedFragments (shipped dictionary)' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
-        # Binds to the shipped English list + the generated term lists — an integrity test by construction: it...
-        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/types/SpellingOracle.Tests.ps1.md#comment2)
         $englishPath = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/assets/english.txt.gz'
         $allTermPaths = @(Get-ChildPath (Join-Path (Get-RepositoryRoot) '.cspell') -File -Filter '*.txt' -Depth 1)
         $fixturePaths = @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -eq 'fixture.txt' })
@@ -74,16 +73,12 @@ Describe 'SpellingOracle.CoinedFragments (shipped dictionary)' -Tag 'L1', 'integ
     }
 
     It 'accepts a fixture term only in test scope (ADR-AUTO-SPELL#6)' {
-        # 'capi' is a fixture-category term — test-only vocabulary.
-        # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/types/SpellingOracle.Tests.ps1.md#comment3)
         [Catzc.Base.QualityGates.SpellingOracle]::CoinedFragments('capi', $false) | Should -Be @('capi')
         [Catzc.Base.QualityGates.SpellingOracle]::CoinedFragments('capi', $true) | Should -BeNullOrEmpty
     }
 
     It 'IsKnown is true for a real word and false for a coinage' {
         [Catzc.Base.QualityGates.SpellingOracle]::IsKnown('collection') | Should -BeTrue
-        # A 3-char nonsense token: not in the oracle (IsKnown false), and below cspell's minWordLength so the...
-        # [comment:4](/docs/references/automation/catzc-base-qualitygates/tests/types/SpellingOracle.Tests.ps1.md#comment4)
         [Catzc.Base.QualityGates.SpellingOracle]::IsKnown('zzq') | Should -BeFalse
     }
 }

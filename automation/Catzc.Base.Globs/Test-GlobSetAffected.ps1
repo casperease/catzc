@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Globs
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Globs/tests/Test-GlobSetAffected.Tests.ps1
     adrs:
       - ADR-AUTO-FAILFAST
       - ADR-FLOW-CD-GLOBS#1

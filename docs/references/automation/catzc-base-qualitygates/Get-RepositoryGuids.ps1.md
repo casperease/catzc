@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md
     kind: comment-page
-    body_sha: "1569176b9b07"
+    body_sha: "5bb69339ffa7"
 ---
 
 # automation/Catzc.Base.QualityGates/Get-RepositoryGuids.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:3
+## comment:1
 
-Above `$text = [System.IO.File]::ReadAllText($fullPath)`.
+Above `$text = [System.IO.File]::ReadAllText($fullPath)`, written with `#`.
 
 ```text
 Read the whole file and match once, rather than regex-per-line: a single scan over the text is

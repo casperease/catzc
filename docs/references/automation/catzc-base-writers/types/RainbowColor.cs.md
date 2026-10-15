@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/types/RainbowColor.cs.md
     kind: comment-page
-    body_sha: "56f2cdf1d95d"
+    body_sha: "9aff26768daf"
     adrs:
       - ADR-AUTO-CONSOLE#7
 ---
 
 # automation/Catzc.Base.Writers/types/RainbowColor.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A "<base>-rainbow" colour profile
@@ -31,7 +31,7 @@ profile is reusable for any anchor. See [ADR-AUTO-CONSOLE](/docs/adr/automation/
 
 ## comment:2
 
-Above `public static readonly ConsoleColor[] Ring =`.
+Above `public static readonly ConsoleColor[] Ring =`, written with `//`.
 
 ```text
 The chromatic walk: a 7-hue rainbow over the vivid console colours only. DarkYellow stands in for orange
@@ -42,7 +42,7 @@ decision: chromatic-only stepping). The anchor may still be any colour — only 
 
 ## comment:3
 
-Above `private readonly int baseIndex;`.
+Above `private readonly int baseIndex;`, written with `//`.
 
 ```text
 The anchor's index in the chromatic ring, or -1 when the anchor is non-chromatic (its walk then starts
@@ -51,7 +51,7 @@ at the head of the ring rather than continuing from the anchor).
 
 ## comment:4
 
-Above `public ConsoleColor ColorAt(int index)`.
+Above `public ConsoleColor ColorAt(int index)`, written with `//`.
 
 ```text
 The colour of the character at position index. char 0 is always the literal anchor; a chromatic anchor
@@ -61,7 +61,7 @@ anchor walks from the ring head (black -> red -> orange -> ...).
 
 ## comment:5
 
-Above `public string Wrap(string text)`.
+Above `public string Wrap(string text)`, written with `//`.
 
 ```text
 Render text as the gradient: each character carries its ColorAt colour, one trailing reset. Intended for
@@ -70,7 +70,7 @@ a single-line rule (a header/footer border) — the only place a gradient is dra
 
 ## comment:6
 
-Above `public static RainbowColor FromString(string text)`.
+Above `public static RainbowColor FromString(string text)`, written with `//`.
 
 ```text
 The inverse of ToString: parse a rainbow token into a profile, or return null when the text is not one
@@ -81,7 +81,7 @@ string round-trips. Matching is case-insensitive, matching how a ConsoleColor na
 
 ## comment:7
 
-Above `public static implicit operator ConsoleColor(RainbowColor profile)`.
+Above `public static implicit operator ConsoleColor(RainbowColor profile)`, written with `//`.
 
 ```text
 Side-grade: when only one colour is needed, a profile IS its base colour. This is what lets a profile be

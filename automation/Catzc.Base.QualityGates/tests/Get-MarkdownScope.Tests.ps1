@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-MarkdownScope.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.QualityGates/private/Get-MarkdownScope.ps1
     adrs:
       - ADR-REPO-FILEMETA#5
       - ADR-REPO-FORMAT#6

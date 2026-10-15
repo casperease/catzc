@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-NeutralCodeFinding.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Get-NeutralCodeFinding.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Get-NeutralCodeFinding.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-NeutralCodeFinding over fixture test files: stands in for a code the ADR registry declares, and for a neutral one.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-NeutralCodeFinding.Tests.ps1.md#comment1)
 Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:find = {

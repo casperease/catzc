@@ -9,14 +9,6 @@ catzc:
 
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
-<#
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: forbid return, break, continue inside ForEach-Object.
-.DESCRIPTION
-    Inside a ForEach-Object scriptblock return acts like continue and break ends the script, unlike in a foreach loop.
-    [comment:1](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment1)
-#>
-
 function Measure-NoForEachObjectControlFlow {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
@@ -29,8 +21,6 @@ function Measure-NoForEachObjectControlFlow {
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoForEachObjectControlFlow'
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [comment:2](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment2)
     $isForEachObjectCommand = {
         param($node)
         if ($node -isnot [System.Management.Automation.Language.CommandAst]) {
@@ -42,8 +32,6 @@ function Measure-NoForEachObjectControlFlow {
     $commands = $ScriptBlockAst.FindAll($isForEachObjectCommand, $true)
 
     foreach ($cmd in $commands) {
-        # Positional scriptblocks count as well as -Process, -Begin and -End.
-        # [comment:3](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment3)
         $scriptBlocks = @()
         foreach ($element in $cmd.CommandElements) {
             if ($element -is [System.Management.Automation.Language.ScriptBlockExpressionAst]) {
@@ -52,8 +40,6 @@ function Measure-NoForEachObjectControlFlow {
         }
 
         foreach ($block in $scriptBlocks) {
-            # Only direct children count: inside a nested loop, switch or function the keyword is valid.
-            # [comment:4](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment4)
             $isControlFlowStatement = {
                 param($node)
 
@@ -67,8 +53,6 @@ function Measure-NoForEachObjectControlFlow {
                     return $false
                 }
 
-                # An intervening loop, switch or function owns the keyword, so it does not target our scriptblock.
-                # [comment:5](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment5)
                 $parent = $node.Parent
                 while ($null -ne $parent -and $parent -ne $block) {
                     # foreach/for/while/do loops — return/break/continue are valid here

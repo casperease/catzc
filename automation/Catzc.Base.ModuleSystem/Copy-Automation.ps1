@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md
+      test: automation/Catzc.Base.ModuleSystem/tests/Copy-Automation.Tests.ps1
     adrs:
       - ADR-AUTO-PATH
       - ADR-AUTO-TYPES#9
@@ -137,8 +140,6 @@ function Copy-Automation {
     # ---- conflict pre-scan (fast / faster / fastest) --------------------------------------------------
     if (-not $Force) {
         if ($EmptyDestination) {
-            # An emptiness probe stops at the first entry of any kind, hidden and pruned names included.
-            # [comment:3](/docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md#comment3)
             if ([System.IO.Directory]::Exists($destinationRoot) -and [System.IO.Directory]::EnumerateFileSystemEntries($destinationRoot).GetEnumerator().MoveNext()) {
                 throw "Copy-Automation: -EmptyDestination requires an empty target, but '$destinationRoot' is not empty."
             }
@@ -147,8 +148,6 @@ function Copy-Automation {
             $conflicts = [System.Collections.Generic.List[string]]::new()
             foreach ($item in $plan) {
                 if ($item.IsContainer) {
-                    # A named whole-tree walk: every file the copy would write is checked for a conflict.
-                    # [comment:4](/docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md#comment4)
                     foreach ($file in Get-ChildPath $item.Source -File -Depth 64 -Exclude @() -PruneVendor $false) {
                         $candidate = $item.Target + $file.Substring($item.Source.Length)
                         if (Test-Path -LiteralPath $candidate -PathType Leaf) {

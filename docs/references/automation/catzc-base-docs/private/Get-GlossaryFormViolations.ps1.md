@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-GlossaryFormViolations.ps1.md
     kind: comment-page
-    body_sha: "23581d946b47"
+    body_sha: d2cf80b84c52
 ---
 
 # automation/Catzc.Base.Docs/private/Get-GlossaryFormViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `[string[]]...`.
+Above `[string[]]...`, written with `#`.
 
 ```text
 The scan runs compiled (Catzc.Base.Docs.GlossaryScan): it reads each file's prose through GlossaryProse into the

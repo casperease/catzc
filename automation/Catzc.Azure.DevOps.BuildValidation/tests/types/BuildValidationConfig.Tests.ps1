@@ -4,22 +4,21 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md
+      source: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AZ-CUSTOMER#3
 ---
 #>
 
-# The build-validation.yml type (collect-all-then-throw), plus the shipped-config integrity check: every entry ties...
-# [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md#comment1)
 Describe 'BuildValidationConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {
             param([System.Collections.IDictionary] $config)
             [Catzc.Azure.DevOps.BuildValidation.BuildValidationConfig]::new($config)
         }
-        # Neutral fixture globset/pipeline names (widget/gadget) — the type checks SHAPE only (globset existence is...
-        # [comment:2](/docs/references/automation/catzc-azure-devops-buildvalidation/tests/types/BuildValidationConfig.Tests.ps1.md#comment2)
         $script:valid = [ordered]@{
             branch      = 'main'
             validations = @(

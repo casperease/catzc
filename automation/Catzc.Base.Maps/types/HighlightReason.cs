@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Maps/types/HighlightReason.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/HighlightReason.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// A file lit only by comment sites is a passing mention, so a reader can tell a lit file's subject from a mention.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/HighlightReason.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

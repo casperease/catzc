@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Tooling.Github
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
   config:
     synopsis: |-
       Asserts every precondition for a hard-purge of a GitHub repository is met,

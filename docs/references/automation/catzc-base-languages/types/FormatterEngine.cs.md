@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/FormatterEngine.cs.md
     kind: comment-page
-    body_sha: a29997bc9e1b
+    body_sha: "42255bc55bec"
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FORMAT#8
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Languages/types/FormatterEngine.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One formatter engine's settings in the file-language registry (configs/languages.yml `engines:`): the VS Code
@@ -29,7 +29,7 @@ fields mirror the YAML keys, so the properties are snake_case
 
 ## comment:2
 
-Above `public string vscode_extension { get; }`.
+Above `public string vscode_extension { get; }`, written with `//`.
 
 ```text
 The publisher.name id of the VS Code extension that runs the engine (e.g. esbenp.prettier-vscode). Null when the

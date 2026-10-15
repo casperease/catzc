@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Files/tests/Assert-FileIsLocked.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Files/Assert-FileIsLocked.ps1
 ---
 #>
 

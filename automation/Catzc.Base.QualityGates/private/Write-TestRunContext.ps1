@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Write-TestRunContext.Tests.ps1
   config:
     synopsis: 'Prints a test run''s context block under its banner: one line per fact.'
     description: |-

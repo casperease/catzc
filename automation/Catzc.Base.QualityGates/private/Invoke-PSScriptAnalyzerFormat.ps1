@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-CONSOLE#10
@@ -72,13 +74,9 @@ function Invoke-PSScriptAnalyzerFormat {
         }
     }
 
-    # A cold pass spends about 40 ms a file resolving command names it has not seen, so a large batch is sharded...
-    # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md#comment4)
     $shardCount = [Math]::Min([Math]::Max(1, [Math]::Min([Environment]::ProcessorCount - 1, 4)), [int][Math]::Floor($File.Count / 25))
     if ($shardCount -lt 2) {
         if (-not (Get-Module PSScriptAnalyzer)) {
-            # First use this session pays the vendored-module import (several seconds) — announce it.
-            # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md#comment5)
             Write-Message 'Loading PSScriptAnalyzer (first use this session)...'
             Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
         }

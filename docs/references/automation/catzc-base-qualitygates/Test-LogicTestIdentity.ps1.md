@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md
     kind: comment-page
-    body_sha: "7651be86e801"
+    body_sha: b88c19115ec1
 ---
 
 # automation/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `$exactTokens = @($live.Values | Where-Object { $_.MatchMode -eq 'exact' } |...`.
+Above `$exactTokens = @($live.Values | Where-Object { $_.MatchMode -eq 'exact' } |...`, written with `#`.
 
 ```text
 Parse only files that COULD carry a finding — a provable SUPERSET, so no leak is ever skipped. A finding

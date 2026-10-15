@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md
+      test: automation/Catzc.Azure/tests/Get-AzureSubscription.Tests.ps1
     adrs:
       - ADR-AZ-CUSTOMER
       - ADR-AZ-DATAMOD#4
@@ -46,8 +49,6 @@ function Get-AzureSubscription {
     Assert-True ($azure.tenants.ContainsKey($found.tenant)) -ErrorText "Subscription '$Subscription' references unknown tenant '$($found.tenant)'"
 
     $tenant = [Catzc.Azure.Tenant]::new($found.tenant, $azure.tenants[$found.tenant].id)
-    # The subscription's `customer` field may name a customer by its key OR its 2-char shortcode; normalize to the...
-    # [comment:3](/docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md#comment3)
     $customerToken = Get-AzureSubscriptionCustomer $found
     $customer = if ([string]::IsNullOrEmpty($customerToken)) {
         ''

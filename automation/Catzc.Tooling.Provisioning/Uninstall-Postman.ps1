@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Postman.Tests.ps1
   config:
     synopsis: Uninstalls the Postman desktop app.
     description: |-

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Cli/tests/Invoke-AzCli.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Azure.Cli/Invoke-AzCli.ps1
 ---
 #>
 

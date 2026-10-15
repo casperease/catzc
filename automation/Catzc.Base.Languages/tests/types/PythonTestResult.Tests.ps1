@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/types/PythonTestResult.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Languages/types/PythonTestResult.cs
 ---
 #>
 

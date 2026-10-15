@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-TestTargetSkipReason.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.QualityGates/Get-TestTargetSkipReason.ps1
     adrs:
       - ADR-AUTO-TEST#41
 ---

@@ -3,13 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/terminology.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-qualitygates/configs/terminology.yml.md
 # ---
 
-# Generated cspell word lists derive from this file, so never hand-edit them; every term category must be defined here.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/terminology.yml.md#comment1)
-
-# The optional scope only declares a language zone; cspell reads words, not meaning, so every category acts global today.
-# [comment:2](/docs/references/automation/catzc-base-qualitygates/configs/terminology.yml.md#comment2)
 categories:
   product:
     description: "A real product, tool, protocol, or general technical term this codebase uses that fits no more specific category below."

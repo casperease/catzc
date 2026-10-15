@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md
     kind: comment-page
-    body_sha: eefbe4511add
+    body_sha: caeab4608db0
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FOLDERS#7
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Languages/types/PythonConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The Python test-workspace settings (configs/python.yml), and the single declaration of their sensible defaults.
@@ -41,7 +41,7 @@ Constructing an instance validates the file, collecting every violation into one
 
 ## comment:2
 
-Above `public string root { get; }`.
+Above `public string root { get; }`, written with `//`.
 
 ```text
 The declared Python root folder, repository-relative ('/'-separated). Null when the file declares none;
@@ -50,7 +50,7 @@ ResolveRoot then applies the default.
 
 ## comment:3
 
-Above `public string ResolveRoot(string repositoryRoot)`.
+Above `public string ResolveRoot(string repositoryRoot)`, written with `//`.
 
 ```text
 The Python root folder for a repository, repository-relative: the declared root, else 'python' when the repository

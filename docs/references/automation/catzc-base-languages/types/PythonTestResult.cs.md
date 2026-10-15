@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/PythonTestResult.cs.md
     kind: comment-page
-    body_sha: "86d3258ab34f"
+    body_sha: "8cbea2bb6980"
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TYPES#8
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Languages/types/PythonTestResult.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One Python test's result, as Invoke-PythonTest returns it from pytest's JUnit XML report: a top-level test function

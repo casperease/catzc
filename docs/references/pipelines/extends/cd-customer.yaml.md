@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/pipelines/extends/cd-customer.yaml.md
     kind: comment-page
-    body_sha: "302a044ce009"
+    body_sha: db19b4249f72
     adrs:
       - ADR-AZ-LZ#7
 ---
 
 # pipelines/extends/cd-customer.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `parameters:`.
+Above `parameters:`, written with `#`.
 
 ```text
 Whole-pipeline (extends) template — the ONE shared structure for every customer CD.
@@ -57,7 +57,7 @@ only at the pipeline root, not inside an extends template.
 
 ## comment:2
 
-Above `- template: /pipelines/steps/invoke-automation.yaml`.
+Above `- template: /pipelines/steps/invoke-automation.yaml`, written with `#`.
 
 ```text
 Build only this customer's configuration subfolder (build-once). The customer key IS the
@@ -66,7 +66,7 @@ folder, so -Customers needs no subscription names and tolerates an absent tier.
 
 ## comment:3
 
-Above `- ${{ if gt(length(parameters.Expeditions), 0) }}:`.
+Above `- ${{ if gt(length(parameters.Expeditions), 0) }}:`, written with `#`.
 
 ```text
 A customer without an expedition config passes an empty Expeditions list: Build-Bicep
@@ -75,7 +75,7 @@ throws when no slot matches, so the build, its artifact, and its deploy stage ar
 
 ## comment:4
 
-Above `- ${{ if gt(length(parameters.Expeditions), 0) }}:`.
+Above `- ${{ if gt(length(parameters.Expeditions), 0) }}:` (occurrence 2), written with `#`.
 
 ```text
 --- Deploy expedition (slotted; lands in the discovery spoke) — after discovery, main only -----

@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md
+      test: automation/Catzc.Base.ModuleSystem/tests/New-Importer.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#11
       - ADR-DSGN-RUNMODE
@@ -54,8 +57,6 @@ function New-Importer {
         throw "New-Importer: overlay not found at '$overlayPath' — the repository must carry the .internal toolset first."
     }
 
-    # Read the overlay's parameter block from source (the overlay is not loaded post-import).
-    # [comment:7](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment7)
     $parseErrors = $null
     $ast = [System.Management.Automation.Language.Parser]::ParseFile($overlayPath, [ref] $null, [ref] $parseErrors)
     if ($parseErrors) {
@@ -81,16 +82,10 @@ function New-Importer {
         }
         "    [$typeText] `$$($parameter.Name.VariablePath.UserPath)"
     }
-    # The shim sets $env:RepositoryRoot, but its announcement is delegated: Invoke-Importer names it on its Roots...
-    # [comment:8](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment8)
     $suppression = "[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', " +
     "Justification = 'Invoke-Importer announces RepositoryRoot on its Roots line, the first point a writer is loaded')]"
-    # [CmdletBinding] makes the shim accept -Verbose (forwarded to Invoke-Importer by @PSBoundParameters), which...
-    # [comment:9](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment9)
     $paramBlock = "$suppression`n" + "[CmdletBinding()]`n" + "param(`n" + ($paramLines -join ",`n") + "`n)"
 
-    # Fixed template around the generated param block.
-    # [comment:10](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment10)
     $explanation = @'
 # This shim carries only the importer's outer parameter form and delegates the whole load sequence to
 # Invoke-Importer in automation/.internal/Catzc.Internal.Importer.psm1 (the single living copy). It is
@@ -116,8 +111,6 @@ finally {
 }
 '@
 
-    # LF throughout, one trailing newline.
-    # [comment:11](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment11)
     $content = $explanation + "`n" + $paramBlock + "`n`n" + $body + "`n"
 
     if ($DryRun) {

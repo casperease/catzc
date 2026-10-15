@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/infrastructure/templates/discovery/main.bicep.md
     kind: comment-page
-    body_sha: d346c003a1a3
+    body_sha: "239f47e44093"
     adrs:
       - ADR-AZ-NETWORK#1
 ---
 
 # infrastructure/templates/discovery/main.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `targetScope = 'subscription'`.
+Above `targetScope = 'subscription'`, written with `//`.
 
 ```text
 discovery — the CAF application landing zone. Deployed once per subscription (envs nsub/psub) at
@@ -33,7 +33,7 @@ network security group and nothing is deployed into them.
 
 ## comment:2
 
-Above `var securityRules = [`.
+Above `var securityRules = [`, written with `//`.
 
 ```text
 Inbound: allow traffic inside the virtual networks, deny traffic from the internet. The Azure default

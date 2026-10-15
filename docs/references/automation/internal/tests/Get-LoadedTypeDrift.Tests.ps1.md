@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Get-LoadedTypeDrift.Tests.ps1.md
-    kind: test-asset
-    body_sha: "8505fdc05eee"
+    kind: comment-page
+    body_sha: a8e691394734
     adrs:
       - ADR-AUTO-TYPES#12
 ---
 
 # automation/.internal/tests/Get-LoadedTypeDrift.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 Get-LoadedTypeDrift over fixture code roots in $TestDrive. A fixture source named for a type this process has

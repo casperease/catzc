@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Read-BicepTemplateOptions.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Azure.Templates/private/Read-BicepTemplateOptions.ps1
 ---
 #>
 

@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Invoke-Gofmt.Tests.ps1.md
-    kind: test-asset
-    body_sha: d1405d2964a5
+    kind: comment-page
+    body_sha: ae2c9680b4d6
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#6
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/tests/Invoke-Gofmt.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Invoke-Gofmt' -Tag 'L0', 'logic' {`.
+Above `Describe 'Invoke-Gofmt' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The gofmt engine with its seams mocked ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)):

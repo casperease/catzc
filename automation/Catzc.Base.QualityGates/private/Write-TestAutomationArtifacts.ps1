@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md
   config:
     synopsis: Writes a run's report artifacts and the skip report — best-effort, never masking the run outcome.
     description: |-
@@ -64,8 +66,6 @@ function Write-TestAutomationArtifacts {
         [string] $Location
     )
 
-    # Persist the run report (summary.md + tests.csv) beside the per-shard results — written before any throw, so a...
-    # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md#comment5)
     try {
         Write-TestAutomationReport -Rows $Rows -OutputFolder $RunDirectory -Level $MaxLevel -Limits $Limits `
             -RunResult $RunResult -DurationSeconds $DurationSeconds -TimingsEnforced:$EnforceTimings -Location $Location
@@ -75,8 +75,6 @@ function Write-TestAutomationArtifacts {
         Write-Message "Could not write test report to ${RunDirectory}: $_" -ForegroundColor Yellow -NoHeader
     }
 
-    # Final section: what was skipped (a self-skip, with its reason) or not run (excluded by this run's tier/category...
-    # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md#comment6)
     try {
         Write-TestAutomationSkipReport -Rows $Rows -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category
     }
@@ -84,8 +82,6 @@ function Write-TestAutomationArtifacts {
         Write-Message "Could not render the skip report: $_" -ForegroundColor Yellow -NoHeader
     }
 
-    # ADR rule-enforcement coverage — report-only, same best-effort discipline.
-    # [comment:7](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md#comment7)
     try {
         $ruleIds = Get-CatsAdrRuleIds
         Write-TestAutomationRuleCoverage -Rows $Rows -AnalyzerCoverage @(Get-AnalyzerAdrCoverage) `

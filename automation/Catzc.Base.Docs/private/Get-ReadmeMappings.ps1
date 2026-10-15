@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-docs/private/Get-ReadmeMappings.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Get-ReadmeMappings.Tests.ps1
     adrs:
       - ADR-PWSH-PESTER#9
       - ADR-REPO-README
@@ -64,8 +67,6 @@ function Get-ReadmeMappings {
             continue
         }
 
-        # [System.IO] (sorted) rather than Get-ChildItem — the cmdlet carries ~20ms of per-call provider overhead the...
-        # [comment:3](/docs/references/automation/catzc-base-docs/private/Get-ReadmeMappings.ps1.md#comment3)
         foreach ($dir in ([System.IO.Directory]::EnumerateDirectories($prefixPath) | Sort-Object)) {
             $leaf = [System.IO.Path]::GetFileName($dir)
             if ($leaf.StartsWith('.')) {

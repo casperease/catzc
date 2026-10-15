@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-README#7
@@ -51,14 +54,8 @@ function Test-Markdownlint {
             '!docs/notes'
             '!.unordered'
             '!**/node_modules'
-            # Generated READMEs (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored copies whose...
-            # [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment6)
             '!**/README.md'
-            # is generated from adrs.yml (Build-AdrIndex) — a derived artifact whose source (adrs.yml + the...
-            # [comment:7](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment7)
             '!docs/adr/index.md'
-            # is generated from the configs/glossary.yml sources (Build-Glossary) — likewise derived; the generator...
-            # [comment:8](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment8)
             '!docs/adr/glossary.md'
         ),
 

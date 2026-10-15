@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterViolations.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/private/Get-BicepParameterViolations.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#2
 ---
 #>
 
-# Logic tests for Get-BicepParameterViolations (with its per-entry and Key Vault reference checks): each violation...
-# [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterViolations.Tests.ps1.md#comment1)
 Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
@@ -35,8 +36,6 @@ Describe 'Get-BicepParameterViolations' -Tag 'L0', 'logic' {
         # The subscription id is built at runtime: a literal empty guid is denied in tracked text (Test-ManagedGuids).
         $script:vaultId = "/subscriptions/$([guid]::Empty)/resourceGroups/widget-rg/providers/Microsoft.KeyVault/vaults/widget-kv"
 
-        # A parameters file that satisfies the fixture model: every required parameter, a Key Vault reference for the...
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterViolations.Tests.ps1.md#comment2)
         function New-ConformingParameterSet {
             [ordered]@{
                 widgetName   = @{ value = 'widget-one' }

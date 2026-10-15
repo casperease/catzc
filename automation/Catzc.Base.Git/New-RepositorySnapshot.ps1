@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.Git
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md
+      test: automation/Catzc.Base.Git/tests/New-RepositorySnapshot.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#10
   config:
@@ -88,8 +91,6 @@ function New-RepositorySnapshot {
         try {
             Invoke-Executable "git clone --quiet --shared --no-checkout `"$SourceRoot`" `"$Destination`"" -PassThru -Silent | Out-Null
 
-            # The provenance marker goes in first, so the cleanup below (and any later Remove-RepositorySnapshot)...
-            # [comment:6](/docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md#comment6)
             $marker = [ordered]@{
                 sourceRoot = $SourceRoot
                 commit     = $commit
@@ -121,8 +122,6 @@ function New-RepositorySnapshot {
                 [System.IO.File]::Copy($sourceFile, $targetFile, $true)
             }
 
-            # The gate: the snapshot's status must equal the source's.
-            # [comment:7](/docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md#comment7)
             $statusCommand = 'git --no-optional-locks -C "{0}" -c core.quotepath=off status --porcelain=v2 --untracked-files=all'
             $sourceStatus = @((Invoke-Executable ($statusCommand -f $SourceRoot) -PassThru -Silent).Output -split '\r?\n' | Where-Object { $_ })
             $snapshotStatus = @((Invoke-Executable ($statusCommand -f $Destination) -PassThru -Silent).Output -split '\r?\n' | Where-Object { $_ })
@@ -140,8 +139,6 @@ function New-RepositorySnapshot {
                 $mismatch = [pscustomobject]@{ Count = $differences.Count; Sample = $sample }
             }
 
-            # Status counts relative to HEAD: '1'/'2'/'u' lines are changed entries (deleted when either side of the...
-            # [comment:8](/docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md#comment8)
             $modified = 0
             $deleted = 0
             $untracked = 0

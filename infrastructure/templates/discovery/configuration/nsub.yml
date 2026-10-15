@@ -5,8 +5,6 @@
 #     kind: bicep-template-config
 # ---
 
-# The hub peers to the nonprod spokes and links its private DNS zones to them; ranges come from network.yml.
-# [comment:1](/docs/references/infrastructure/templates/discovery/configuration/nsub.yml.md#comment1)
 ParametersFile:
   parameters:
     tags:

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Invoke-ImprintStep.Tests.ps1
     adrs:
       - ADR-PRIN-CONFIG#2
       - ADR-REPO-FORMAT#8
@@ -44,8 +47,6 @@ function Invoke-ImprintStep {
     $outcome = [pscustomobject]@{ Changed = [string[]] @(); Unfixable = [System.Collections.Generic.Dictionary[string, string]]::new() }
     $absolute = { param([string] $Relative) [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $Relative)) }
 
-    # Each case first returns for an empty list, so a run with no files still proves the step has its adapter, and an...
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md#comment3)
     switch -CaseSensitive ($Step) {
         'file-meta' {
             if ($File.Count -eq 0) {

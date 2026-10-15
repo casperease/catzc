@@ -3,26 +3,26 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md
     kind: comment-page
-    body_sha: "9fb5adcf8f9c"
+    body_sha: "1a55addf289e"
 ---
 
 # automation/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `$probe = Invoke-AzCli "account list-locations --subscription $SubscriptionId...`.
+Above `$probe = Invoke-AzCli "account list-locations --subscription $SubscriptionId...`, written with `#`.
 
 ```text
 A REAL, read-only ARM call scoped to the subscription. Exit zero proves the current login can
 reach it via `--subscription`, whether or not it is the active subscription.
 ```
 
-## comment:5
+## comment:2
 
-Above `$session = Invoke-AzCli 'account show -o none' -PassThru -NoAssert -Silent`.
+Above `$session = Invoke-AzCli 'account show -o none' -PassThru -NoAssert -Silent`, written with `#`.
 
 ```text
 The probe failed. Distinguish "not logged in" from "logged in but cannot reach this subscription"

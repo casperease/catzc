@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Asserts/tests/Assert-YmlNaming.Tests.ps1
   config:
     synopsis: Validates that all property keys in a parsed YAML object use snake_case.
     description: |-

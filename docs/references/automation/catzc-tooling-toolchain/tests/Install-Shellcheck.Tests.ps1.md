@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Shellcheck.Tests.ps1.md
-    kind: test-asset
-    body_sha: "075691e21614"
+    kind: comment-page
+    body_sha: "75f2fa107539"
 ---
 
 # automation/Catzc.Tooling.Toolchain/tests/Install-Shellcheck.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Install-Shellcheck' -Tag 'L0', 'logic' {`.
+Above `Describe 'Install-Shellcheck' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Install-Shellcheck and Uninstall-Shellcheck with the generic engine mocked: on Windows and macOS both delegate to the

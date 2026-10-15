@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Get-AdrCitationGraphViolations.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/private/Get-AdrCitationGraphViolations.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
 ---
 #>
 
-# Get-AdrCitationGraphViolations — a rule summary cites only its own domain or a domain its domain depends on, read...
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-AdrCitationGraphViolations.Tests.ps1.md#comment1)
 Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
     BeforeAll {
         $adrs = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{

@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.VSCode/tests/types/VscodeSettingsConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-vscode/tests/types/VscodeSettingsConfig.Tests.ps1.md
+      source: automation/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
 ---
 #>
 
-# The vscode-settings.yml type: constructing it maps and validates the parsed YAML, so a malformed settings registry...
-# [comment:1](/docs/references/automation/catzc-base-vscode/tests/types/VscodeSettingsConfig.Tests.ps1.md#comment1)
 Describe 'Catzc.Base.VSCode.VscodeSettingsConfig' -Tag 'L0' {
     BeforeAll {
         function Get-ViolationMessage {

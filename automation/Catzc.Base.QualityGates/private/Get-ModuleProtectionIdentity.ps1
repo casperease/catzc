@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-ModuleProtectionIdentity.Tests.ps1
     adrs:
       - ADR-DSGN-ASPECT
       - ADR-FLOW-CD-GLOBS#5
@@ -49,8 +52,6 @@ function Get-ModuleProtectionIdentity {
         [hashtable] $HashCache
     )
 
-    # The tracked-file universe, fetched once for this call on the first set that is not memoized yet (a holder,...
-    # [comment:9](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment9)
     $universe = @{}
     $setHash = {
         param([string] $setName)
@@ -63,8 +64,6 @@ function Get-ModuleProtectionIdentity {
                 Get-GlobSetHash -Name repository -TrackedFile $tracked
             }
             else {
-                # A module name resolves to its live/tests aspect sets; a reserved/single set to one.
-                # [comment:10](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment10)
                 $sets = @(Get-ModuleGlobSet -Name $setName) | Sort-Object Name
                 $fold = [System.Text.StringBuilder]::new()
                 foreach ($set in $sets) {
@@ -93,8 +92,6 @@ function Get-ModuleProtectionIdentity {
     else {
         [void]$constituents.Add($Module.ToLowerInvariant().Replace('.', '-'))
 
-        # declared dependency closure from dependencies.yml (DependenciesConfig: groups: <g> -> ModuleGroup with...
-        # [comment:11](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment11)
         $dependencies = Get-Config -Config dependencies
         $moduleDeclarations = $dependencies.modules
 
@@ -109,8 +106,6 @@ function Get-ModuleProtectionIdentity {
 
         $isKnown = $moduleDeclarations.Contains($Module) -or $memberIntraDependencies.ContainsKey($Module)
         if (-not $isKnown) {
-            # unconstrained (dependencies.yml: "A module NOT listed here is unconstrained") — its true dependency set...
-            # [comment:12](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment12)
             $widen = $true
         }
         else {
@@ -149,8 +144,6 @@ function Get-ModuleProtectionIdentity {
         [void]$constituents.Add('repository')
     }
 
-    # ---- fold: name|hash lines, ordinal by name — the recipe over set hashes ----
-    # [comment:13](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment13)
     $names = [string[]]$constituents
     [System.Array]::Sort($names, [System.StringComparer]::Ordinal)
     $stringBuilder = [System.Text.StringBuilder]::new()

@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepParameterModel.cs
     kind: csharp-type
     module: Catzc.Azure.Templates
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/types/BicepParameterModel.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Keys compare case-insensitively, as ARM matches parameter names.
-// [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepParameterModel.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -47,8 +46,6 @@ public sealed class BicepParameterModel
         Parameters = new ReadOnlyDictionary<string, BicepParameter>(byName);
     }
 
-    // Throws, naming the template, when the text is not a JSON object or a parameter declaration is malformed.
-    // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepParameterModel.cs.md#comment2)
     public static BicepParameterModel Parse(string template, string mainJson)
     {
         if (string.IsNullOrWhiteSpace(mainJson)) { throw new ArgumentException($"main.json of template '{template}' is empty"); }

@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Install-Java.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Java.Tests.ps1.md
+      source: automation/Catzc.Tooling.Toolchain/Install-Java.ps1
 ---
 #>
 
-# Hermetic logic (L1): the tool manager (Install-Tool), the installed-version probe, command resolution and the...
-# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Java.Tests.ps1.md#comment1)
 Describe 'Install-Java' -Tag 'L1', 'logic' {
     BeforeAll {
         # The managed body sets the session JAVA_HOME — restore it so the test leaves the process as it found it.

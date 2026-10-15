@@ -3,26 +3,26 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md
     kind: comment-page
-    body_sha: d14be5b9de76
+    body_sha: "0745db6e4ee9"
 ---
 
 # automation/Catzc.Azure.Cli/Connect-AzCli.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:3
+## comment:1
 
-Above `if (-not $Force) {`.
+Above `if (-not $Force) {`, written with `#`.
 
 ```text
 Idempotent: skip if already logged in with the correct identity
 -NoAssert: non-zero exit means "not logged in" — an expected state, not an error
 ```
 
-## comment:4
+## comment:2
 
-Above `Write-Verbose "Authenticating via $($PSCmdlet.ParameterSetName)"`.
+Above `Write-Verbose "Authenticating via $($PSCmdlet.ParameterSetName)"`, written with `#`.
 
 ```text
 No post-login assertion needed — Invoke-Executable throws on non-zero exit

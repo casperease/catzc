@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#26
       - ADR-AUTO-TEST#30
@@ -119,12 +122,8 @@ function Invoke-TestRun {
 
     # The parent needs Pester only for the discovery pass; each worker imports its own copy for the actual run.
     Import-VendoredPester
-    # Liveness dots: discovery runs before the banner and takes a while, so each stage shows a dot.
-    # [comment:26](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment26)
     Write-Message '.' -NoHeader -NoNewline
 
-    # The run's tests folders, foundation-first — module dependency order, dot-prefixed infrastructure last...
-    # [comment:27](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment27)
     $testPaths = @(Get-TestAutomationTestPaths -Modules $Modules)
     Write-Message '.' -NoHeader -NoNewline
 
@@ -135,26 +134,18 @@ function Invoke-TestRun {
         throw 'No test folders found'
     }
 
-    # One discovery-only pass feeds every pre-run inspection: the tag check below and the phase split...
-    # [comment:28](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment28)
     $discovery = Get-TestDiscovery -TestPath $testPaths
     Write-Message '.' -NoHeader -NoNewline
 
     # Enforce the two mandatory tag axes on every test, regardless of -Level (Assert-TestTagGate).
     Assert-TestTagGate -Discovery $discovery
 
-    # Resolve the run directory — a timestamped subfolder under the report base so each run's artifacts are preserved...
-    # [comment:29](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment29)
     if (-not $OutputFolder) {
         $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) $entryPointKey
     }
-    # Earlier runs whose owning process died never reached their finally: mark them 'abandoned' rather than leave...
-    # [comment:30](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment30)
     Set-AbandonedTestRun -OutputFolder $OutputFolder | Out-Null
     $runDir = New-TestAutomationRunDirectory -OutputFolder $OutputFolder
 
-    # Claim the run's location before anything is filtered (Enter-TestRunLocation; it decides the top tier); the...
-    # [comment:31](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment31)
     $location = Enter-TestRunLocation -EntryPoint $EntryPoint -RunDirectory $runDir -Isolated:$Isolated -KeepSandbox:$KeepSandbox
     $runStartedAt = [DateTimeOffset]::UtcNow.ToString('o')
     $manifestStatus = 'crashed'
@@ -164,23 +155,15 @@ function Invoke-TestRun {
     $optOutExcludedTests = @()
     $context = $null
 
-    # try/finally: the location is released and the terminal manifest stamped on every exit path — pass, fail, or crash.
-    # [comment:32](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment32)
     try {
         $requestedMaxLevel = $MaxLevel
         $MaxLevel = Resolve-TestRunMaxLevel -Location $location -Requested $MaxLevel -MinLevel $MinLevel
 
-        # The run's context — what it is and where it runs — printed under the banner and recorded in run.json...
-        # [comment:33](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment33)
         $context = Get-TestRunContext -EntryPoint $EntryPoint -EntryScript $EntryScript -Location $location -MinLevel $MinLevel `
             -RequestedMaxLevel $requestedMaxLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Suite $Suite -Rule $Rule
 
-        # Build tag filter — exclude tiers outside [MinLevel, MaxLevel] and (when -Category is given) the other...
-        # [comment:34](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment34)
         $excludeTags = Get-TestExcludeTag -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category
 
-        # The run's self-describing state record (run.json): stamped 'running' now, and terminally...
-        # [comment:35](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment35)
         Write-TestRunManifest -RunDirectory $runDir -Manifest ([ordered]@{
                 status     = 'running'
                 startedAt  = $runStartedAt
@@ -193,23 +176,17 @@ function Invoke-TestRun {
                 context    = $context
             }) | Out-Null
 
-        # The work-list: every test file, narrowed by -Rule, by tier and category scope, and by the opt-out tag...
-        # [comment:36](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment36)
         $selection = Select-TestRunFiles -TestPath $testPaths -Discovery $discovery -Rule $Rule -ExcludeTag $excludeTags `
             -OptOutTag $OptOutTag -RunDirectory $runDir -EntryPoint $EntryPoint
         $testFiles = @($selection.Files)
         $excludeTags = @($selection.ExcludeTag)
         $optOutExcludedTests = @($selection.OptOutExcludedTests)
 
-        # Three execution phases — parallel shards, greedy single-file shards, strict serial (see...
-        # [comment:37](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment37)
         $phases = Split-TestAutomationFiles -Discovery $discovery -TestFiles $testFiles
         $parallelFiles = @($phases.Parallel)
         $greedyFiles = @($phases.Greedy)
         $serialFiles = @($phases.Serial)
 
-        # Per-module protection: units whose composite identity is unchanged since their last green run this session...
-        # [comment:38](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment38)
         $protectionKey = "$entryPointKey|L$MinLevel-L$MaxLevel|$Category|$($Rule -join ',')"
         $protectionPlan = Select-ProtectedTestFile -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
             -SerialFiles @($serialFiles) -Discovery $discovery -ProtectionKey $protectionKey
@@ -219,8 +196,6 @@ function Invoke-TestRun {
         $protectedModules = @($protectionPlan.ProtectedModules)
         Write-Message '.' -NoHeader -NoNewline
 
-        # The unit-test tripwire for tool-free levels (L0/L1) travels on each worker's own process environment —...
-        # [comment:39](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment39)
         $workerEnvironment = if ($MaxLevel -lt 2) {
             @{ CATZC_BLOCK_REAL_PROCESS = '1' }
         }
@@ -232,8 +207,6 @@ function Invoke-TestRun {
         Write-TestAutomationHeader -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Title $Title
         Write-TestRunContext -Context $context
 
-        # Shard, run the pool (then the greedy and serial phases), and aggregate the row sidecars — the engine.
-        # [comment:40](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment40)
         $workerRun = if (($parallelFiles.Count + $greedyFiles.Count + $serialFiles.Count) -eq 0) {
             $nothingToRun = if ($testFiles.Count -eq 0) {
                 "No test in scope at L$MinLevel-L$MaxLevel — nothing to run."
@@ -255,18 +228,12 @@ function Invoke-TestRun {
         $failedShardLabels = @($workerRun.FailedShardLabels)
         Write-TestAutomationWorkerSummary -WorkerSummaries @($workerRun.WorkerSummaries) -DurationSeconds $workerRun.DurationSeconds
 
-        # Promote protection for every candidate unit that came back green — per-module attribution over the rows,...
-        # [comment:41](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment41)
         Protect-TestedModule -Candidates @($protectionPlan.Candidates) -Rows $rows `
             -FailedShardLabels $failedShardLabels -ProtectionKey $protectionKey
 
-        # The scope filter's dropped files report their tests as NotRun, once, after protection (which promotes only...
-        # [comment:42](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment42)
         $rows = @($rows) + @($selection.OutOfScopeRows)
 
         $failedCount = @($rows | Where-Object { $_.Result -eq 'Failed' }).Count
-        # A shard can report failure with zero failed test rows — a container/discovery error fails its run without...
-        # [comment:43](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment43)
         $runResult = if ($failedCount -gt 0 -or $failedShardLabels.Count -gt 0) {
             'Failed'
         }
@@ -275,20 +242,13 @@ function Invoke-TestRun {
         }
         $manifestStatus = $runResult.ToLowerInvariant()
 
-        # Validate test durations against the per-level limits and render the over-limit section...
-        # [comment:44](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment44)
         $testTimeLimits = Get-TestTimeLimits
         $limits = $testTimeLimits.LevelMs
         $timingFailure = Write-TestAutomationTimingReport -Rows $rows -Limits $limits -EnforceTimings:$EnforceTimings
-        # A devbox run that outlasts its whole-run budget fails.
-        # [comment:45](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment45)
         $budgetFailure = Test-TestRunOverBudget -DurationSeconds $workerRun.DurationSeconds -BudgetSeconds $testTimeLimits.RunSeconds
         if ($timingFailure -or $budgetFailure) {
             $manifestStatus = 'failed'
         }
-
-        # Persist summary.md/tests.csv + latest.txt and render the skip report — best-effort, never masking the run...
-        # [comment:46](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment46)
 
         Write-TestAutomationArtifacts -Rows $rows -RunDirectory $runDir -OutputFolder $OutputFolder `
             -MaxLevel $MaxLevel -Limits $limits -RunResult $runResult -DurationSeconds $workerRun.DurationSeconds `
@@ -298,8 +258,6 @@ function Invoke-TestRun {
         $passedCount = @($rows | Where-Object { $_.Result -eq 'Passed' }).Count
         $skippedCount = @($rows | Where-Object { $_.Result -eq 'Skipped' }).Count
 
-        # Derive the verdict (Result + one-line reason) once; the closing banner and the failure throw both consume...
-        # [comment:47](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment47)
         $verdict = Get-TestAutomationVerdict -Rows $rows -Limits $limits -RunResult $runResult `
             -FailedCount $failedCount -FailedShardLabels $failedShardLabels -TimingFailure:$timingFailure `
             -BudgetFailure:$budgetFailure -RunBudgetSeconds $testTimeLimits.RunSeconds `
@@ -307,8 +265,6 @@ function Invoke-TestRun {
 
         # Every failed test's and failed file's message, right before the verdict (nothing on a green run).
         Write-TestRunFailures -Rows $rows -Files @($workerRun.Files)
-        # The closing bracket prints on every exit path — pass, fail, and -PassThru alike — so a run is always...
-        # [comment:48](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment48)
         Write-TestAutomationVerdict -Result $verdict.Result -Summary $verdict.Summary `
             -PassedCount $passedCount -FailedCount $failedCount -SkippedCount $skippedCount `
             -DurationSeconds $workerRun.DurationSeconds -ReportPath $runDir

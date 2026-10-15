@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md
     kind: comment-page
-    body_sha: a88fd5053d37
+    body_sha: ef3e7676cfb1
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestTagViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `$validRuleIds = $null`.
+Above `$validRuleIds = $null`, written with `#`.
 
 ```text
 The authoritative rule-id set, resolved once on the first well-formed citation and reused across tests
@@ -21,9 +21,9 @@ The authoritative rule-id set, resolved once on the first well-formed citation a
 citation never reads the shipped ADR tree — keeping these logic tests hermetic. Registry (':') form.
 ```
 
-## comment:5
+## comment:2
 
-Above `$candidates =...`.
+Above `$candidates =...`, written with `#`.
 
 ```text
 Provenance axis (optional): collect every candidate citation — any tag carrying the reserved 'ADR-'

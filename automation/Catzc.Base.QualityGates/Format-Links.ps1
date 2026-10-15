@@ -6,6 +6,8 @@ catzc:
     kind: format-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
     adrs:
       - ADR-REPO-LINK
       - ADR-REPO-LINK#8

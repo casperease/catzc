@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleSubscription.Tests.ps1.md
-    kind: test-asset
-    body_sha: f30e05e58033
+    kind: comment-page
+    body_sha: "0d9946f3b8a6"
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#26
@@ -13,12 +13,12 @@ catzc:
 
 # automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleSubscription.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
@@ -28,7 +28,7 @@ build output folder is wiped per test, since the build tests write into it
 
 ## comment:2
 
-Above `Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName...`.
+Above `Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName...`, written with `#`.
 
 ```text
 Isolate build output to this file's throwaway $TestDrive via the output-root seam
@@ -42,7 +42,7 @@ parallel), and Pester auto-cleans $TestDrive, so no manual output teardown is ne
 
 ## comment:3
 
-Above `Get-BicepTemplate sample-subscription | Out-Null`.
+Above `Get-BicepTemplate sample-subscription | Out-Null`, written with `#`.
 
 ```text
 Warm the discovery + config caches once so the first It doesn't pay the cold Get-BicepTemplate derive

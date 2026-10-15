@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md
     kind: comment-page
-    body_sha: "2e6c5ab811b3"
+    body_sha: "04687311c854"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#9
@@ -15,12 +15,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/types/AdrsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 adrs.yml — the ADR domain-structure registry (RULES ↔ domains wiring). Constructing an instance MAPS and
@@ -54,7 +54,7 @@ model, [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-c
 
 ## comment:2
 
-Above `public static readonly IReadOnlyList<string> Concerns =...`.
+Above `public static readonly IReadOnlyList<string> Concerns =...`, written with `//`.
 
 ```text
 The value-chain concerns, in value-chain order, left to right
@@ -63,7 +63,7 @@ The value-chain concerns, in value-chain order, left to right
 
 ## comment:3
 
-Above `string expectedPrefix = "ADR-" + effective;`.
+Above `string expectedPrefix = "ADR-" + effective;`, written with `//`.
 
 ```text
 The external's domain segment is the effective code: the external is either the

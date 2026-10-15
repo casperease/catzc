@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/tests/types/AzureConfig.Tests.ps1.md
-    kind: test-asset
-    body_sha: "7593c98ad50d"
+    kind: comment-page
+    body_sha: "9ceab45a98b1"
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TEST#3
@@ -13,12 +13,12 @@ catzc:
 
 <!-- cspell:ignore toolong -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:baseConfig = [ordered]@{`.
+Above `$script:baseConfig = [ordered]@{`, written with `#`.
 
 ```text
 Fixture identity — deliberately-distinct tokens (org tst, tenant fixtenant, Greek envs, core_*
@@ -30,7 +30,7 @@ validates the passed dict standalone, so the fixture needs no shipped config.
 
 ## comment:2
 
-Above `It 'every shipped customer — and the non-customer set — serves each...`.
+Above `It 'every shipped customer — and the non-customer set — serves each...`, written with `#`.
 
 ```text
 The load-time type groups customer subscriptions by their RAW customer token (it must not read
@@ -43,7 +43,7 @@ rests on ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)).
 
 ## comment:3
 
-Above `It 'ignores a subscription customer field (not validated at load)' {`.
+Above `It 'ignores a subscription customer field (not validated at load)' {`, written with `#`.
 
 ```text
 A subscription's `customer` field is a cross-asset reference into customer.yml (by key or

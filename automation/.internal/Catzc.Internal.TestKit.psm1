@@ -7,18 +7,9 @@ catzc:
 ---
 #>
 
-# Not loaded at startup: a test loads it on demand through the loader in BeforeAll, and it stays for the session.
-# [comment:1](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment1)
-
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
 function New-ModuleFolder {
-    <#
-    .SYNOPSIS
-        Fabricate one module folder under a (fake) repo root: automation/<Name>/, with public function files at
-        the module root, private/<fn>.ps1 files, and any extra files (path relative to the module folder).
-        Returns the module directory path.
-    #>
     [CmdletBinding()]
     [OutputType([string])]
     param(
@@ -63,16 +54,6 @@ function New-ModuleFolder {
 }
 
 function New-FakeRepositoryRoot {
-    <#
-    .SYNOPSIS
-        Create a fresh temp repository root, populate it, point $env:RepositoryRoot at it and $env:CatzcModulesRoot
-        at its automation/ folder (so the fake tree reads as source mode), and return a handle
-        { Root; Automation; Saved } to pass to Remove-FakeRepositoryRoot. -Modules maps a module name to a spec
-        (@{ Public=..; Private=..; Files=.. }; $null/empty = a bare folder). -Files maps repo-root-relative
-        paths to content (importer.ps1, .editorconfig, …). -WorkingRootOnly moves only $env:RepositoryRoot and
-        leaves the code root on the loaded modules — for a test that writes into a fixture working root while
-        reading the real assets of the loaded code (in either run mode).
-    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: the swap lives inside one test''s lifecycle and Remove-FakeRepositoryRoot restores it (the split form of ADR-AUTO-CONSOLE#12); its output belongs to Pester')]
     [CmdletBinding()]
     [OutputType([hashtable])]
@@ -110,8 +91,6 @@ function New-FakeRepositoryRoot {
         [System.IO.File]::WriteAllText($path, [string] $Files[$relative], $utf8)
     }
 
-    # Both roots move together: run mode is read by comparing them, so moving one alone would not read as source mode.
-    # [comment:2](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment2)
     $saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot = $env:CatzcModulesRoot }
     $automation = Join-Path $root 'automation'
     $env:RepositoryRoot = $root
@@ -122,11 +101,6 @@ function New-FakeRepositoryRoot {
 }
 
 function Remove-FakeRepositoryRoot {
-    <#
-    .SYNOPSIS
-        Restore $env:RepositoryRoot and $env:CatzcModulesRoot to what they were before New-FakeRepositoryRoot and
-        delete the temp tree.
-    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: restores the swap New-FakeRepositoryRoot made inside the same test (the split form of ADR-AUTO-CONSOLE#12); its output belongs to Pester')]
     [CmdletBinding()]
     param(
@@ -142,15 +116,6 @@ function Remove-FakeRepositoryRoot {
 }
 
 function New-BuiltCatzcRoot {
-    <#
-    .SYNOPSIS
-        Build the selected modules into a fresh temp folder for a build-mode test, and return a handle
-        { BuildRoot; WorkingRoot; Saved; Destination; Modules; Build } to pass to Invoke-InBuiltCatzc and
-        Remove-BuiltCatzcRoot.
-    .DESCRIPTION
-        The build is never loaded here: assemblies and env vars are process-global, so only a child pwsh reaches it.
-        [comment:3](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment3)
-    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: builds into a temp folder inside one test''s lifecycle and Remove-BuiltCatzcRoot removes it; its output belongs to Pester')]
     [CmdletBinding()]
     [OutputType([hashtable])]
@@ -200,14 +165,6 @@ function New-BuiltCatzcRoot {
 }
 
 function Invoke-InBuiltCatzc {
-    <#
-    .SYNOPSIS
-        Run a script block in a child pwsh that has entered build mode through the handle's Import-Catzc.ps1, and
-        return the block's output.
-    .DESCRIPTION
-        Results return in a CliXml file, never stdout, so importer console lines cannot corrupt them.
-        [comment:4](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment4)
-    #>
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -279,11 +236,6 @@ exit ([int][bool]$catzcChildOutcome.Error)
 }
 
 function Remove-BuiltCatzcRoot {
-    <#
-    .SYNOPSIS
-        Restore $env:RepositoryRoot and $env:CatzcModulesRoot to what they were before New-BuiltCatzcRoot and
-        delete the build.
-    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: removes the temp build New-BuiltCatzcRoot made inside the same test; its output belongs to Pester')]
     [CmdletBinding()]
     param(

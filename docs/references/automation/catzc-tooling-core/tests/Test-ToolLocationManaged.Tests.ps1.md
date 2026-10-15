@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/tests/Test-ToolLocationManaged.Tests.ps1.md
-    kind: test-asset
-    body_sha: "13c58a0590fb"
+    kind: comment-page
+    body_sha: cd6c7996b751
 ---
 
 # automation/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeEach {`.
+Above `BeforeEach {`, written with `#`.
 
 ```text
 Prefix logic keyed on Windows paths; the Unix branches are analogous and not exercised here.
@@ -24,7 +24,7 @@ on Windows only because the guard was false there).
 
 ## comment:2
 
-Above `$config = Get-ToolConfig -Tool 'java'`.
+Above `$config = Get-ToolConfig -Tool 'java'`, written with `#`.
 
 ```text
 winget installs Microsoft.OpenJDK user-scope under %LOCALAPPDATA%\Programs, NOT under
@@ -33,7 +33,7 @@ winget installs Microsoft.OpenJDK user-scope under %LOCALAPPDATA%\Programs, NOT 
 
 ## comment:3
 
-Above `$config = Get-ToolConfig -Tool 'uv'`.
+Above `$config = Get-ToolConfig -Tool 'uv'`, written with `#`.
 
 ```text
 Install-Uv treats a uv on PATH outside the winget root (its standalone/user bin) as a managed,

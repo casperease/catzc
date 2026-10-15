@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-reports/configs/output-formats.yml.md
     kind: comment-page
-    body_sha: c72dc0bf389c
+    body_sha: "9375ee5a0a0e"
 ---
 
 # automation/Catzc.Base.Reports/configs/output-formats.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `formats:`.
+Above `formats:`, written with `#`.
 
 ```text
 output-formats.yml — every kind of file a producer writes under the output root, declared once

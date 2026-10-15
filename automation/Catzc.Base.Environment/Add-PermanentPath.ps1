@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Environment
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md
+      test: automation/Catzc.Base.Environment/tests/Add-PermanentPath.Tests.ps1
   config:
     synopsis: Adds a directory to PATH persistently and in the current session.
     description: |-
@@ -72,8 +75,6 @@ function Add-PermanentPath {
         }
     }
 
-    # --- Persistent PATH --- Get-EnvironmentPath / Set-EnvironmentPath are the registry seam — kept thin so tests...
-    # [comment:5](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment5)
     if ($IsWindows) {
         $userPath = Get-EnvironmentPath -Scope User
         $userEntries = if ($userPath) {

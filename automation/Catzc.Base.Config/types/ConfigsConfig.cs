@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Config/types/ConfigsConfig.cs
     kind: csharp-type
     module: Catzc.Base.Config
+    relatives:
+      page: docs/references/automation/catzc-base-config/types/ConfigsConfig.cs.md
     adrs:
       - ADR-AUTO-OVERLAY
 ---
 */
-
-// Construction alone enforces the registry shape, so a malformed registry can never produce an instance.
-// [comment:1](/docs/references/automation/catzc-base-config/types/ConfigsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

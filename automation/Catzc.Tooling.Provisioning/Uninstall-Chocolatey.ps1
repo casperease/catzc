@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md
+      test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Chocolatey.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#33
   config:
@@ -47,13 +50,9 @@ function Uninstall-Chocolatey {
     # Remove Chocolatey directory
     Write-Verbose "Removing Chocolatey directory: $chocoDir"
     Remove-Item $chocoDir -Recurse -Force
-    # Remove environment variable the seam announces each removal, and does nothing in a scope where the variable is...
-    # [comment:4](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md#comment4)
     Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope Machine
     Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope User
 
-    # Remove Chocolatey from PATH — through the PATH seams, which announce the change
-    # [comment:5](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md#comment5)
     foreach ($scope in 'Machine', 'User') {
         $path = Get-EnvironmentPath -Scope $scope
         if (-not $path) {

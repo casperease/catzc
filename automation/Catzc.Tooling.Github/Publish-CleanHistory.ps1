@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Github
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Github/tests/Publish-CleanHistory.Tests.ps1
   config:
     synopsis: |-
       Publishes a verified local history to a brand-new, empty GitHub repository,

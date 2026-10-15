@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Tooling.Inspiration/types/InspirationEntry.cs
     kind: csharp-type
     module: Catzc.Tooling.Inspiration
+    relatives:
+      page: docs/references/automation/catzc-tooling-inspiration/types/InspirationEntry.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Every violation is reported in one throw, prefixed with the entry's position, so one load shows all faults.
-// [comment:1](/docs/references/automation/catzc-tooling-inspiration/types/InspirationEntry.cs.md#comment1)
 
 using System;
 using System.Collections;

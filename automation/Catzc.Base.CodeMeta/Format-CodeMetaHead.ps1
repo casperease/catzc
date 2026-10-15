@@ -6,6 +6,8 @@ catzc:
     kind: format-function
     module: Catzc.Base.CodeMeta
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.CodeMeta/tests/Format-CodeMetaHead.Tests.ps1
     adrs:
       - ADR-REPO-FILEMETA#3
   config:

@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Install-Bicep.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Bicep.Tests.ps1.md
+      source: automation/Catzc.Tooling.Toolchain/Install-Bicep.ps1
 ---
 #>
 
-# Install-Bicep and Uninstall-Bicep with the generic engine mocked: on Windows and macOS both delegate to the...
-# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Bicep.Tests.ps1.md#comment1)
 Describe 'Install-Bicep' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Install-Tool -ModuleName Catzc.Tooling.Toolchain { }

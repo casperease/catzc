@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md
     kind: comment-page
-    body_sha: "430aacd48118"
+    body_sha: "09c4f4bb90bf"
     adrs:
       - ADR-PWSH-ASSERT#1
 ---
 
 # automation/Catzc.Base.Timeouts/types/TimeLimitAttribute.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A function's own time limit, declared beside its code on the param block:
@@ -33,7 +33,7 @@ checked when the attribute is created: whole seconds above zero, the pipeline li
 
 ## comment:2
 
-Above `public string Budget`.
+Above `public string Budget`, written with `//`.
 
 ```text
 The work's immutable budget GUID (managed in guids.yml); while timeout-exemptions.yml exempts it, the

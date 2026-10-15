@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/Get-GlobSet.Tests.ps1.md
-    kind: test-asset
-    body_sha: "49c95385abd1"
+    kind: comment-page
+    body_sha: "8b7411899738"
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.Globs/tests/Get-GlobSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`.
+Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`, written with `#`.
 
 ```text
 Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names, so

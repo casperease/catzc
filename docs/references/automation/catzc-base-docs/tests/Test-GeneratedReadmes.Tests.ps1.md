@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md
-    kind: test-asset
-    body_sha: "0cb68fe8c02c"
+    kind: comment-page
+    body_sha: "0192001e640d"
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {`.
+Above `Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-GeneratedReadmes over fixture READMEs in $TestDrive: the mappings, git's ignore check, and the index are mocked,
@@ -25,7 +25,7 @@ and the repository root is redirected to the fixture, so each test pins one rule
 
 ## comment:2
 
-Above `Describe 'Generated READMEs are gitignored, untracked, and current' -Tag...`.
+Above `Describe 'Generated READMEs are gitignored, untracked, and current' -Tag...`, written with `#`.
 
 ```text
 The quality gate over the real repository. readme.yml (expanded by Get-ReadmeMappings) is the registry of folders whose
@@ -40,7 +40,7 @@ answer in both run modes, so the build run skips it.
 
 ## comment:3
 
-Above `if (-not (Get-Command git -ErrorAction Ignore)) {`.
+Above `if (-not (Get-Command git -ErrorAction Ignore)) {`, written with `#`.
 
 ```text
 L2: drives the real git CLI. Self-skip when git is absent or we are not inside a work tree

@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GlossaryConcept.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md
     adrs:
       - ADR-AUTO-TEST#30
       - ADR-AUTO-TYPES#8
@@ -16,9 +18,6 @@ catzc:
       - ADR-REPO-VOCAB#8
 ---
 */
-
-// Only the entry's own shape is checked on load; defined_by, domain and relation targets are cross-file facts for Test-Glossary.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -43,8 +42,6 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // A machine key: snake_case ('test_suite', 'all_tests').
     public static readonly Regex KeyRe = new Regex("^[a-z][a-z0-9]*(_[a-z0-9]+)*$", RegexOptions.Compiled);
 
-    // Only the hash form with a rule number passes, so a bare domain or ADR citation is not accepted as a defining rule.
-    // [comment:2](/docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md#comment2)
     public static readonly Regex CitationRe = new Regex("^ADR-[A-Z]{2,4}(-[A-Z]+)+#[1-9][0-9]*$", RegexOptions.Compiled);
 
     // One qualifier word in a concept's forms ('quality', 'CI').
@@ -80,12 +77,8 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // The avoided phrasings, in entry order. Empty when the entry avoids none.
     public IReadOnlyList<GlossaryAvoid> avoid { get; }
 
-    // Empty means the qualified-forms check skips the term entirely, not that every qualifier is allowed.
-    // [comment:3](/docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md#comment3)
     public IReadOnlyList<string> forms { get; }
 
-    // False by default, since a noun family such as gate takes no verb forms, so its -ed and -ing uses stay checked.
-    // [comment:4](/docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md#comment4)
     public bool verbs { get; }
 
     public GlossaryConcept(string term, IDictionary d)

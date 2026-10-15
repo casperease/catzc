@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md
     kind: comment-page
-    body_sha: dde677df719d
+    body_sha: "7b092eb8ff66"
 ---
 
 # automation/Catzc.Tooling.Core/Test-Tool.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:5
+## comment:1
 
-Above `if ($config.devbox_version -and -not (Test-IsRunningInPipeline)) {`.
+Above `if ($config.devbox_version -and -not (Test-IsRunningInPipeline)) {`, written with `#`.
 
 ```text
 Devbox lever (mirrors Assert-ToolVersion): outside a CI pipeline, also accept an installed version

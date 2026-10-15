@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
     kind: csharp-type
     module: Catzc.Base.Timeouts
+    relatives:
+      page: docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md
+      test: automation/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// The hook compiles this same file, so the Bash hook and the pwsh side share one parser and one set of defaults.
-// [comment:1](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -28,8 +28,6 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] TestKeys = { "level_ms", "run_seconds" };
     private static readonly string[] TestLevels = TestTiers.Names;
 
-    // Each tier's default reflects what its tests touch, from milliseconds for L0 up to ten minutes for L4; L0 to L3 fit in three.
-    // [comment:2](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment2)
     private static readonly Dictionary<string, int> TestLevelDefaults = new Dictionary<string, int>(StringComparer.Ordinal)
     {
         { "L0", 400 },
@@ -40,15 +38,11 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     };
     private const int TestRunDefaultSeconds = 180;
     private static readonly string[] Environments = { "devbox", "pipeline" };
-    // Taken from the engine model, so a new execution engine needs no edit here to get a limit key.
-    // [comment:3](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment3)
     private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
     private static readonly string[] BashKeys = { "foreground", "background" };
     // The shell whose limits the Bash hook enforces, a foreground and a background limit; every other shell has one.
     private const string HookShell = "bash";
 
-    // Tight on a devbox while blockers are tuned together, looser but still bounded in a pipeline; zsh gets the pwsh-side limits.
-    // [comment:4](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment4)
     private static readonly Dictionary<string, int> Defaults = new Dictionary<string, int>(StringComparer.Ordinal)
     {
         { "devbox.bash.foreground", 3 },
@@ -63,12 +57,8 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 
     private readonly Dictionary<string, int> resolved = new Dictionary<string, int>(Defaults, StringComparer.Ordinal);
 
-    // A read-only view for display only: resolve a limit through SecondsFor, never by indexing this map.
-    // [comment:5](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment5)
     public IDictionary limits { get; }
 
-    // Keys are bare names, matched case-insensitively; an empty map means the file declares none.
-    // [comment:6](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment6)
     public IReadOnlyDictionary<string, int> executables { get; }
 
     // Per-command limits in seconds, keyed by the function name (case-insensitive). Empty when the file declares none.
@@ -267,8 +257,6 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
-    // The background flag applies to bash only; environment and shell names match case-insensitively.
-    // [comment:7](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment7)
     public int SecondsFor(string environment, string shell, bool background)
     {
         string env = Axis(environment, Environments, "environment");
@@ -284,8 +272,6 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         return resolved[env + "." + sh + "." + (background ? "background" : "foreground")];
     }
 
-    // Directory and extension are stripped before the lookup, so a full path to dotnet.exe finds the dotnet entry.
-    // [comment:8](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment8)
     public int SecondsForExecutable(string environment, string executable)
     {
         string name = string.IsNullOrWhiteSpace(executable) ? "" : Path.GetFileNameWithoutExtension(executable.Trim());

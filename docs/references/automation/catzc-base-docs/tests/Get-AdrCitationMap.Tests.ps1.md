@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Get-AdrCitationMap.Tests.ps1.md
-    kind: test-asset
-    body_sha: ce82f22c0383
+    kind: comment-page
+    body_sha: "0182b28fdef1"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-LINK#3
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/tests/Get-AdrCitationMap.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-AdrCitationMap' -Tag 'L0', 'logic' {`.
+Above `Describe 'Get-AdrCitationMap' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-AdrCitationMap builds the citation registry the link engine derives every code link from

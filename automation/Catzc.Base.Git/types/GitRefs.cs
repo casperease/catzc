@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Git/types/GitRefs.cs
     kind: csharp-type
     module: Catzc.Base.Git
+    relatives:
+      page: docs/references/automation/catzc-base-git/types/GitRefs.cs.md
+      test: automation/Catzc.Base.Git/tests/types/GitRefs.Tests.ps1
     adrs:
       - ADR-AUTO-TRACKED
 ---
 */
-
-// A reftable ref store or a loose annotated tag is rejected loudly rather than read wrong.
-// [comment:1](/docs/references/automation/catzc-base-git/types/GitRefs.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -25,8 +25,6 @@ public static class GitRefs
     // How many symbolic refs (`ref: <target>`) a lookup follows before it calls the chain a loop.
     private const int MaxSymbolicDepth = 5;
 
-    // A relative gitdir pointer resolves against the checkout root; this is how linked worktrees and submodules work.
-    // [comment:2](/docs/references/automation/catzc-base-git/types/GitRefs.cs.md#comment2)
     public static string GitDirectory(string checkoutRoot)
     {
         var dotGit = Path.Combine(checkoutRoot, ".git");
@@ -46,8 +44,6 @@ public static class GitRefs
         return Path.GetFullPath(pointer.Substring("gitdir:".Length).Trim(), Path.GetFullPath(checkoutRoot));
     }
 
-    // A linked worktree's git directory holds no shared refs; they live in the directory its commondir file names.
-    // [comment:3](/docs/references/automation/catzc-base-git/types/GitRefs.cs.md#comment3)
     public static string CommonDirectory(string gitDirectory)
     {
         var pointer = Path.Combine(gitDirectory, "commondir");
@@ -74,8 +70,6 @@ public static class GitRefs
         return target.StartsWith("refs/heads/", StringComparison.Ordinal) ? target.Substring("refs/heads/".Length) : target;
     }
 
-    // Short names are tried in git's own order: refs/name, tags, heads, remotes; a name that matches nothing throws.
-    // [comment:4](/docs/references/automation/catzc-base-git/types/GitRefs.cs.md#comment4)
     public static string ResolveCommit(string gitDirectory, string name)
     {
         AssertReadable(gitDirectory);
@@ -148,8 +142,6 @@ public static class GitRefs
         return null;
     }
 
-    // A packed object counts as annotated since it cannot be told apart without unpacking: loud, never wrong.
-    // [comment:5](/docs/references/automation/catzc-base-git/types/GitRefs.cs.md#comment5)
     private static bool IsAnnotatedTagObject(string gitDirectory, string id)
     {
         var path = Path.Combine(CommonDirectory(gitDirectory), "objects", id.Substring(0, 2), id.Substring(2));

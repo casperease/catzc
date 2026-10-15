@@ -3,28 +3,28 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
     kind: comment-page
-    body_sha: aca98378be92
+    body_sha: "407e748d1a27"
     adrs:
       - ADR-AUTO-CACHE#8
 ---
 
 # automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:6
+## comment:1
 
-Above `$changed = @($generatedPaths.Keys | Where-Object { Test-GitPathChanged $_ })`.
+Above `$changed = @($generatedPaths.Keys | Where-Object { Test-GitPathChanged $_ })`, written with `#`.
 
 ```text
 Which generated paths actually changed decides both the commit's pathspec and its message — the
 stamp commit stages and names exactly what this sync did, never a sibling path that was clean.
 ```
 
-## comment:7
+## comment:2
 
-Above `if ($changed -contains 'automation/.compiled') {`.
+Above `if ($changed -contains 'automation/.compiled') {`, written with `#`.
 
 ```text
 .compiled must hold exactly the current build
@@ -34,9 +34,9 @@ janitor (a session still holds it) would otherwise be committed next to the new 
 the -1. Hold the .compiled commit back until it is tidy; any other changed generated path still commits.
 ```
 
-## comment:8
+## comment:3
 
-Above `if ($changed -contains 'automation/.compiled' -and (Test-GitPathChanged...`.
+Above `if ($changed -contains 'automation/.compiled' -and (Test-GitPathChanged...`, written with `#`.
 
 ```text
 The build is named for the hash of the working-tree type sources. While any of them differs from HEAD — often

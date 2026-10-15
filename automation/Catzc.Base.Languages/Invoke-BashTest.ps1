@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Languages
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md
+      test: automation/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1
   config:
     synopsis: Runs a catzc module's Bash tests and returns one result per Bash test.
     description: |-
@@ -110,8 +113,6 @@ function Invoke-BashTest {
         throw "bats failed in $relative/ (exit $($run.ExitCode)): $($_.Exception.Message)`n$($run.Full)"
     }
 
-    # bats exits 1 when a test failed; a non-zero exit with no failing test, or no test at all, means it failed...
-    # [comment:5](/docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md#comment5)
     if ($results.Count -eq 0 -or ($run.ExitCode -ne 0 -and -not @($results | Where-Object { $_.Outcome -eq 'fail' }).Count)) {
         throw "bats failed in $relative/ (exit $($run.ExitCode)) with no failing test:`n$($run.Full)"
     }

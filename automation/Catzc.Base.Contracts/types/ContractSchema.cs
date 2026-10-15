@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Contracts/types/ContractSchema.cs
     kind: csharp-type
     module: Catzc.Base.Contracts
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/types/ContractSchema.cs.md
+      test: automation/Catzc.Base.Contracts/tests/types/ContractSchema.Tests.ps1
     adrs:
       - ADR-PWSH-TYPES#1
       - ADR-REPO-CONTRACT#6
 ---
 */
-
-// The BCL has no JSON Schema validator and no package may be added, so this is a bounded subset; any other keyword is a finding.
-// [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractSchema.cs.md#comment1)
 
 using System;
 using System.Collections;

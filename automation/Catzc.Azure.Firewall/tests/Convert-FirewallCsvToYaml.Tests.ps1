@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1.md
+      source: automation/Catzc.Azure.Firewall/Convert-FirewallCsvToYaml.ps1
 ---
 #>
 
@@ -76,8 +79,6 @@ Describe 'Convert-FirewallCsvToYaml' -Tag 'L2', 'logic' {
         It 'records the CSV generation time in the header' {
             $out = Join-Path $TestDrive 'app-gen.yaml'
             Convert-FirewallCsvToYaml -CsvPath $appCsv -YamlPath $out -GeneratedAt ([datetime]'2026-06-16T10:32:00Z')
-            # Literal ':' guards against the locale separator regression — the function formats with...
-            # [comment:1](/docs/references/automation/catzc-azure-firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1.md#comment1)
             (Get-Content $out -Raw) | Should -Match '# CSV generated: 2026-06-16 10:32 UTC'
         }
     }

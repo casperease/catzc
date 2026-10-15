@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Languages/types/LanguagesConfig.cs
     kind: csharp-type
     module: Catzc.Base.Languages
+    relatives:
+      page: docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
+      test: automation/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -15,9 +18,6 @@ catzc:
       - ADR-REPO-FORMAT#8
 ---
 */
-
-// A language carries exactly one of formatter and no_formatter, so a gap in formatting is a visible, reviewed entry.
-// [comment:1](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -47,8 +47,6 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     private readonly Dictionary<string, FileLanguage> byExtension = new Dictionary<string, FileLanguage>(StringComparer.Ordinal);
     private readonly Dictionary<string, string> claimedBy = new Dictionary<string, string>(StringComparer.Ordinal);
 
-    // A new engine is new mechanism: its Format-Code adapter and its name here must land together.
-    // [comment:2](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment2)
     private static readonly string[] Engines = { "prettier", "gofmt", "ruff", "psscriptanalyzer", "dotnet-format", "bicep" };
     public static IReadOnlyList<string> FormatterEngines => Engines;
 
@@ -65,8 +63,6 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // The file languages in declared order. Empty when the file declares none.
     public IReadOnlyList<FileLanguage> languages { get; }
 
-    // An engine the file does not list has no editor formatter.
-    // [comment:3](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment3)
     public IReadOnlyDictionary<string, FormatterEngine> engines { get; }
 
     public LanguagesConfig(IDictionary raw)
@@ -229,8 +225,6 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
-    // The editor's Format Document runs the same engine as Format-Code, so the two cannot disagree.
-    // [comment:4](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment4)
     public IReadOnlyDictionary<string, string> EditorFormatters()
     {
         Dictionary<string, string> result = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -322,8 +316,6 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // The file language of a file path, by its extension, or null when the extension names none or the file has none.
     public FileLanguage ForPath(string path) => ForExtension(ExtensionOf(path));
 
-    // A dotfile whose only dot is its first character, such as .gitkeep, has no extension.
-    // [comment:5](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment5)
     public static string ExtensionOf(string path)
     {
         if (string.IsNullOrEmpty(path)) { return null; }
@@ -396,8 +388,6 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
-        // Only pipeline YAML needs to state one, because VS Code calls that language azure-pipelines.
-        // [comment:6](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment6)
         string vscodeLanguage = name;
         if (entry.Contains("vscode_language") && entry["vscode_language"] != null)
         {

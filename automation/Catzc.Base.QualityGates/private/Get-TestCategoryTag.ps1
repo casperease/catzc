@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestCategoryTag.Tests.ps1
   config:
     synopsis: Resolves a Pester test's category (logic/integrity) from its block hierarchy.
     description: |-

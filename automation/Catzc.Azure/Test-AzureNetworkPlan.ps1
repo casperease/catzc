@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Azure
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-AZ-NETWORK#2

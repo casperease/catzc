@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md
-    kind: test-asset
-    body_sha: "5a4953a46b8d"
+    kind: comment-page
+    body_sha: "3b751653ee2f"
     adrs:
       - ADR-AUTO-ASSETDEP#3
       - ADR-AUTO-TEST#25
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:content | Should -Match 'New-PesterRunConfiguration'`.
+Above `$script:content | Should -Match 'New-PesterRunConfiguration'`, written with `#`.
 
 ```text
 The worker and Invoke-TestFile must share New-PesterRunConfiguration (one living copy of the
@@ -26,7 +26,7 @@ invocation config) and the worker sets strict mode before Pester, so tests run s
 
 ## comment:2
 
-Above `$entry = $script:content.IndexOf("importer.ps1' -SkipJanitors")`.
+Above `$entry = $script:content.IndexOf("importer.ps1' -SkipJanitors")`, written with `#`.
 
 ```text
 The watch type comes from the loaded types, so the watch starts after the entry line; it must start
@@ -35,7 +35,7 @@ before Pester so an orphaned worker never runs a test file unobserved.
 
 ## comment:3
 
-Above `Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2',...`.
+Above `Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2',...`, written with `#`.
 
 ```text
 greedy: spawns a full importer-loading pwsh worker — stacked on the parallel pool that
@@ -47,7 +47,7 @@ nothing mocked — the real-asset test, not source-only, so it runs in the sourc
 
 ## comment:4
 
-Above `$runDirectory = Join-Path $TestDrive 'live-run'`.
+Above `$runDirectory = Join-Path $TestDrive 'live-run'`, written with `#`.
 
 ```text
 The walking skeleton for the whole worker chain: generator → PesterRunner → importer →
@@ -57,7 +57,7 @@ and in ConvertTo-TestAutomationRowSet's own test file.
 
 ## comment:5
 
-Above `$fixture = Join-Path $TestDrive 'ShardFixture.Tests.ps1'`.
+Above `$fixture = Join-Path $TestDrive 'ShardFixture.Tests.ps1'`, written with `#`.
 
 ```text
 A fixture test file exercising all row kinds: a pass, a self-skip, and a tag-excluded test — plus a

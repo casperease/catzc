@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/tests/Test-FunctionDependency.Tests.ps1.md
+      source: automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
     adrs:
       - ADR-AUTO-TEST#35
 ---
 #>
 
-# The integrity invariant — the real repository's function dependency graph is satisfied — needs exactly one scan of...
-# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Test-FunctionDependency.Tests.ps1.md#comment1)
 Describe 'Test-FunctionDependency' -Tag 'L1', 'integrity', 'source-only' {
     It 'the real repository dependency graph is satisfied' {
         $result = Test-FunctionDependency -PassThru -OutputFolder (Join-Path $TestDrive 'function-dependency')

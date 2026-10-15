@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
+      source: automation/Catzc.Base.Globs/private/Get-ChangedFile.ps1
     adrs:
       - ADR-FLOW-CD-GLOBS#4
 ---
 #>
 
 # cspell:ignore nsrc  -- the escape-sequence artifact in the "a.txt`nsrc/b.cs" fixture strings
-# The diff universe: changed paths from `git diff --name-only --no-renames`, repo-relative, quotepath off, renames...
-# [comment:1](/docs/references/automation/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md#comment1)
 Describe 'Get-ChangedFile' -Tag 'L0', 'logic' {
     It 'splits git diff output into paths and drops empty lines' {
         Mock Invoke-Executable {

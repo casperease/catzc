@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrCitationRewrite.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrCitationRewrite.cs.md
     adrs:
       - ADR-AUTO-TYPES#9
 ---
 */
-
-// Changed is false exactly when the text is the input unchanged, so a caller writes the file only when it is true.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationRewrite.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

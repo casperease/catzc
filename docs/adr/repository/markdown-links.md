@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/markdown-links.md
     kind: adr
-    body_sha: "25a253b46c45"
+    body_sha: "275963ff5695"
     defines:
       - ADR-REPO-LINK#1
       - ADR-REPO-LINK#2
@@ -56,8 +56,8 @@ derived from it, so the same checked-in text resolves from any file depth wherev
 
 ### Rule ADR-REPO-LINK:4
 
-Code links point one way: out of code, into an ADR. A comment never links to a reference article or how-to, and an ADR never links into code: its "How this is
-enforced" section names the enforcing functions in code spans.
+Code links point one way: out of code, into an ADR. A comment never links to a reference article or how-to, and an ADR never links into
+code: its "How this is enforced" section names the enforcing functions in code spans.
 
 - [References point one way](#references-point-one-way)
 

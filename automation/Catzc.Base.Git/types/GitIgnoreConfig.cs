@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Git/types/GitIgnoreConfig.cs
     kind: csharp-type
     module: Catzc.Base.Git
+    relatives:
+      page: docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md
+      test: automation/Catzc.Base.Git/tests/types/GitIgnoreConfig.Tests.ps1
     adrs:
       - ADR-CONF-LOADING
       - ADR-REPO-ROOTCFG
 ---
 */
-
-// Construction collects every malformed section into one error, so a bad registry is fixed in one pass.
-// [comment:1](/docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

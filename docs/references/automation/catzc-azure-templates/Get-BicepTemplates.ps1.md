@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md
     kind: comment-page
-    body_sha: "7dfaa6251051"
+    body_sha: e3acb8a92042
     adrs:
       - ADR-AZ-NAMING#2
       - ADR-PWSH-CACHE#4
@@ -13,12 +13,12 @@ catzc:
 
 <!-- cspell:ignore etlco -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:12
+## comment:1
 
-Above `if ($null -eq...`.
+Above `if ($null -eq...`, written with `#`.
 
 ```text
 Filesystem-derived information is cached for the session, lazily on first use, keyed on the discovery
@@ -31,18 +31,18 @@ Get-BicepTemplatesOutputRoot) without colliding with the real cache entry. Calle
 treat the result as read-only (the same object is returned every call).
 ```
 
-## comment:13
+## comment:2
 
-Above `$script:bicepTemplatesCache = @{}`.
+Above `$script:bicepTemplatesCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
 ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
 ```
 
-## comment:14
+## comment:3
 
-Above `$azure = Get-Config -Config azure`.
+Above `$azure = Get-Config -Config azure`, written with `#`.
 
 ```text
 A config lives at the configuration root (`<env>[-<slot>].yml` — the shared platform) or under a
@@ -51,9 +51,9 @@ per config; both checks (subfolder is a defined customer key, the coordinate res
 one subscription) run at discovery via the shared Get-BicepSubscriptionConfigViolations.
 ```
 
-## comment:15
+## comment:4
 
-Above `foreach ($folderPath in...`.
+Above `foreach ($folderPath in...`, written with `#`.
 
 ```text
 Enumerate with [System.IO.Directory] (sorted to keep output deterministic) rather than Get-ChildItem:
@@ -62,9 +62,9 @@ calls — it was the dominant cost of a cold discovery (~0.8s of ~1.2s). The raw
 ~0.1ms. Same approach as Resolve-ConfigEntry.
 ```
 
-## comment:16
+## comment:5
 
-Above `$environmentKind = if ($options.Contains('environment_kind')) {`.
+Above `$environmentKind = if ($options.Contains('environment_kind')) {`, written with `#`.
 
 ```text
 Env-class template classification ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)): the env-class bit
@@ -72,9 +72,9 @@ Env-class template classification ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-m
 per-config dimension, not a template bit — a template may mix slotted and non-slotted configs.
 ```
 
-## comment:17
+## comment:6
 
-Above `$customerDeploymentOption = if ($options.Contains('customer_deployment')) {`.
+Above `$customerDeploymentOption = if ($options.Contains('customer_deployment')) {`, written with `#`.
 
 ```text
 Customer-class bit
@@ -83,9 +83,9 @@ defaults to the have_customers repo variant (Test-HaveCustomers) unless options.
 explicit customer_deployment: true is only allowed when customers are enabled (the repo-level guard).
 ```
 
-## comment:18
+## comment:7
 
-Above `$shortNameOverride = if ($options.Contains('short_name')) {`.
+Above `$shortNameOverride = if ($options.Contains('short_name')) {`, written with `#`.
 
 ```text
 short_name is the Azure id segment every resource name is built from. It is DERIVED from the folder
@@ -95,18 +95,18 @@ override, throws here — naming the template). See
 [ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2).
 ```
 
-## comment:19
+## comment:8
 
-Above `$configEntries = [System.Collections.Generic.List[object]]::new()`.
+Above `$configEntries = [System.Collections.Generic.List[object]]::new()`, written with `#`.
 
 ```text
 Gather every config file with its customer (the subfolder; '' for a configuration-root config).
 Root files first, then the customer subfolders — both sorted, so output stays deterministic.
 ```
 
-## comment:20
+## comment:9
 
-Above `$slots = [System.Collections.Generic.List[object]]::new()`.
+Above `$slots = [System.Collections.Generic.List[object]]::new()`, written with `#`.
 
 ```text
 Each config file is one slot (one resource group). The filename `<env>[-<slot>]` resolves to
@@ -115,9 +115,9 @@ subscription is resolved from the (customer?, env) coordinate — one config fil
 (customer?, env, slot) ⟷ one subscription ⟷ one RG.
 ```
 
-## comment:21
+## comment:10
 
-Above `foreach ($key in @($options.Keys)) {`.
+Above `foreach ($key in @($options.Keys)) {`, written with `#`.
 
 ```text
 Overlay the remaining deployment overrides. short_name is resolved via BicepShortName and

@@ -6,6 +6,9 @@ catzc:
     kind: assert-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md
+      test: automation/Catzc.Tooling.Core/tests/Assert-Tool.Tests.ps1
   config:
     synopsis: Asserts that a tool is installed and at the expected version.
     description: |-
@@ -38,8 +41,6 @@ function Assert-Tool {
     $config = Get-ToolConfig -Tool $Tool
     $command = Get-ToolCommandSuffix -Tool $Tool
 
-    # A tool with declared candidate paths is located by the probe, never by its bare name on PATH (for bash on...
-    # [comment:4](/docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md#comment4)
     if ($config.HasProbes()) {
         $probe = Resolve-ToolExecutable -Tool $Tool
         $remedy = if (Get-Command "Install-$command" -ErrorAction Ignore) {

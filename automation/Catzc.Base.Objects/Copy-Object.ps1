@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Objects
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1
   config:
     synopsis: Deep clones a PowerShell object.
     description: |-

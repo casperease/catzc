@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-files/tests/Set-FileLink.Tests.ps1.md
-    kind: test-asset
-    body_sha: ce03700bdf97
+    kind: comment-page
+    body_sha: "7d6e6a08d497"
     adrs:
       - ADR-AUTO-RETRY#1
 ---
 
 # automation/Catzc.Base.Files/tests/Set-FileLink.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$probeSource = Join-Path $TestDrive 'probe-source.txt'`.
+Above `$probeSource = Join-Path $TestDrive 'probe-source.txt'`, written with `#`.
 
 ```text
 Capability probe: symbolic links need a privilege on Windows (Developer Mode / admin); hard links do
@@ -25,7 +25,7 @@ not. The assertions branch on the probe — deterministic per machine, never a r
 
 ## comment:2
 
-Above `New-Item -ItemType HardLink -Path $script:linkPath -Target $script:sourcePath...`.
+Above `New-Item -ItemType HardLink -Path $script:linkPath -Target $script:sourcePath...`, written with `#`.
 
 ```text
 A hard link (created directly — no privilege needed) goes stale when the source is replaced by a

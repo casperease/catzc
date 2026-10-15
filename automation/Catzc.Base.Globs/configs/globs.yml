@@ -3,14 +3,11 @@
 #   derived:
 #     path: automation/Catzc.Base.Globs/configs/globs.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-globs/configs/globs.yml.md
 # ---
 
-# Nothing is committed per set: each set projects to native path filters and a git-reflected blast radius at run time.
-# [comment:1](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment1)
-
 globsets:
-  # A loose-fileset that overlaps the derived module sets it spans, which that layer exempts by design.
-  # [comment:2](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment2)
   automation:
     description: The automation track - the automation module system under automation/.
     layer: loose-fileset
@@ -18,8 +15,6 @@ globsets:
     include:
       - automation/**
 
-  # It overlaps the per-unit deployable sets below, and exists because ci-infrastructure and the cd pipelines use it.
-  # [comment:3](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment3)
   infrastructure:
     description: The infrastructure track - the Bicep IaC tree, reusable modules and deployable templates.
     layer: loose-fileset
@@ -30,8 +25,6 @@ globsets:
     include:
       - infrastructure/**
 
-  # Configuration is excluded so this marker says template code changed, without firing on one deployment's config edit.
-  # [comment:4](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment4)
   templates:
     description: All infrastructure templates' shared surface - every template excluding deployment configuration.
     layer: loose-fileset
@@ -41,8 +34,6 @@ globsets:
       - infrastructure/templates/*/configuration/*.yml
       - infrastructure/templates/*/configuration/*/**
 
-  # Binds no pipeline: it ships only through a unit that composes it, and a change here re-keys every such unit.
-  # [comment:5](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment5)
   template-azure-subscription-foundation:
     description: Deployable unit - the foundation infrastructure template plus the shared Bicep modules. Not including any configs!
     layer: deployable-unit
@@ -56,8 +47,6 @@ globsets:
       - infrastructure/templates/foundation/configuration/*.yml
       - infrastructure/templates/foundation/configuration/*/**
 
-  # Binds no pipeline, and leaves the shared Bicep modules to the foundation base it composes: a unit owns only its files.
-  # [comment:6](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment6)
   template-azure-subscription-discovery:
     description: Deployable unit - the discovery landing-zone template plus the foundation base it builds on. Not including any configs!
     layer: deployable-unit
@@ -71,8 +60,6 @@ globsets:
       - infrastructure/templates/discovery/configuration/*.yml
       - infrastructure/templates/discovery/configuration/*/**
 
-  # Composing discovery pulls in the foundation base and modules too; it binds no pipeline and ships only through composers.
-  # [comment:7](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment7)
   template-azure-workload-expedition:
     description: Deployable unit - the expedition workload template plus the discovery base it lands in. Not including any configs!
     layer: deployable-unit
@@ -86,8 +73,6 @@ globsets:
       - infrastructure/templates/expedition/configuration/*.yml
       - infrastructure/templates/expedition/configuration/*/**
 
-  # The folder name is the customer key, so adding a customer is adding an entry here: config, never code.
-  # [comment:8](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment8)
   nova:
     description: Deployable unit - customer nova's foundation (shared surface + the nova configuration folder).
     layer: deployable-unit
@@ -117,8 +102,6 @@ globsets:
       - infrastructure/templates/foundation/configuration/flux/**
       - infrastructure/templates/discovery/configuration/flux/**
 
-  # Shaped like a customer unit but keyed by the configuration root files instead of a customer subfolder.
-  # [comment:9](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment9)
   shared:
     description: Deployable unit - the shared platform's foundation (shared surface + the configuration-root files).
     layer: deployable-unit
@@ -129,8 +112,6 @@ globsets:
       - infrastructure/templates/discovery/configuration/*.yml
       - infrastructure/templates/expedition/configuration/*.yml
 
-  # A scan's globset includes its own config, so a lint-rule edit re-keys the set and ends the protected-glob skip.
-  # [comment:10](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment10)
   markdown-scope:
     description: The markdown integrity scan's inputs - in-scope markdown plus the markdownlint config.
     layer: loose-fileset
@@ -142,8 +123,6 @@ globsets:
       - .unordered/**
       - automation/.vendor/**
 
-  # A covering superset is safe: it can only cause a redundant run, never a wrong skip, so scans whose reads span the repo use it.
-  # [comment:11](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment11)
   repository:
     description: The whole repository - every tracked file under every named root.
     layer: loose-fileset

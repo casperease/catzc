@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure/tests/Get-AzureCustomer.Tests.ps1
   config:
     synopsis: Resolves a customer reference (its key OR its shortcode) to the canonical customer record.
     description: |-

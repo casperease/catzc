@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/infrastructure/modules/vm.bicep.md
     kind: comment-page
-    body_sha: d05b845ae536
+    body_sha: e957048a989c
 ---
 
 # infrastructure/modules/vm.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `@description('VM name. Also used as the Windows computer name, so keep it <=...`.
+Above `@description('VM name. Also used as the Windows computer name, so keep it <=...`, written with `//`.
 
 ```text
 Reusable bicep module: a Windows virtual machine with its NIC and a dynamic public IP. Takes an

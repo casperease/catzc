@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/GoWorkspaceFile.cs.md
     kind: comment-page
-    body_sha: aa57d63fbba2
+    body_sha: "3f04bc386939"
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Base.Languages/types/GoWorkspaceFile.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One file New-GoWorkspace renders: the root go.work, or a go/tests/<folder>/go.mod. A result type, so its

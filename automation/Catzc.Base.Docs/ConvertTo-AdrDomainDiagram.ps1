@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Docs/tests/ConvertTo-AdrDomainDiagram.Tests.ps1
   config:
     synopsis: Renders ADR domain dependency edges to PlantUML, Mermaid, or a Markdown table.
     description: |-

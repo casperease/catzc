@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#6
       - ADR-AUTO-TEST#35
@@ -68,14 +71,8 @@ function Test-Spelling {
             'docs/notes/**'
             '.unordered/**'
             'infrastructure/templates/**/configuration/**'
-            # Generated README copy-ins (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored and...
-            # [comment:10](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment10)
             '**/README.md'
-            # is generated from adrs.yml (Build-AdrIndex) — a derived artifact; its source (adrs.yml + the...
-            # [comment:11](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment11)
             'docs/adr/index.md'
-            # is generated from the configs/glossary.yml sources (Build-Glossary) — likewise derived; the sources are...
-            # [comment:12](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment12)
             'docs/adr/glossary.md'
         ),
 
@@ -95,8 +92,6 @@ function Test-Spelling {
         )
     }
 
-    # Content-scope exclusions (out/, docs/notes, generated config trees) — cspell ignorePaths rejects negation...
-    # [comment:13](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment13)
     $excludeArgs = foreach ($e in $Exclude) {
         "--exclude '$e'"
     }
@@ -123,8 +118,6 @@ function Test-Spelling {
             throw "cspell failed (exit $($result.ExitCode)): $($result.Full)"
         }
 
-        # cspell prints a summary ("Files checked: N, Issues found: M in K file(s)").
-        # [comment:14](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment14)
         $checkedMatch = [regex]::Match($result.Full, 'Files checked:\s*(?<n>\d+)')
         if ($result.ExitCode -ne 0 -and $checkedMatch.Success -and [int]$checkedMatch.Groups['n'].Value -eq 0) {
             throw "Test-Spelling matched no files for the given paths: $($batch -join ', ')."

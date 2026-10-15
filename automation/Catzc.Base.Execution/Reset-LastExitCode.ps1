@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Execution
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Execution/tests/Reset-LastExitCode.Tests.ps1
   config:
     synopsis: Removes the global $LASTEXITCODE variable.
     examples:

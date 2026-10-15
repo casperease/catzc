@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md
   config:
     synopsis: Uninstalls a tool using the platform package manager.
     description: |-
@@ -29,8 +31,6 @@ function Uninstall-Tool {
     $config = Get-ToolConfig -Tool $Tool
     $command = Get-ToolCommandSuffix -Tool $Tool
 
-    # npm-managed tools (cspell, prettier, markdownlint) are removed with npm, not a platform package manager.
-    # [comment:7](/docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md#comment7)
     if ($config.npm_package) {
         throw "$Tool is an npm-managed tool. Uninstall-Tool manages winget/brew/apt packages only — use Uninstall-$command (npm) instead."
     }
@@ -41,16 +41,12 @@ function Uninstall-Tool {
         return
     }
 
-    # Uninstall targets the version that is ACTUALLY installed, not the locked one.
-    # [comment:8](/docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md#comment8)
     if (-not $Version) {
         $installed = Get-ToolVersion -Config $config
         $components = ($config.version -split '\.').Count
         $Version = (($installed -split '\.') | Select-Object -First $components) -join '.'
     }
 
-    # Only uninstall tools managed by the expected package manager.
-    # [comment:9](/docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md#comment9)
     if (-not (Test-ExpectedPackageManager -Config $config)) {
         $location = (Get-Command $config.command).Source
         throw "$Tool at '$location' was not installed by the expected package manager. Use Remove-$command to handle it."
@@ -64,8 +60,6 @@ function Uninstall-Tool {
         Assert-Command winget
         $packageId = $config.winget_id -f $Version
 
-        # Snapshot User PATH before uninstall so we can detect what the uninstaller removes.
-        # [comment:10](/docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md#comment10)
         $beforeEntries = [System.Collections.Generic.HashSet[string]]::new(
             [string[]]((Get-EnvironmentPath -Scope User) -split ';' |
                     Where-Object { $_ -ne '' } |
@@ -91,8 +85,6 @@ function Uninstall-Tool {
                     Where-Object { $_ -eq '' -or -not $removed.Contains($_.TrimEnd('\', '/')) }) -join ';'
         }
 
-        # Some uninstallers remove the directory but leave the PATH entry in the registry (e.g.
-        # [comment:11](/docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md#comment11)
         $userPath = Get-EnvironmentPath -Scope User
         if ($userPath) {
             $cleaned = ($userPath -split ';' |

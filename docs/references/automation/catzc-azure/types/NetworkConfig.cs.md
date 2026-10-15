@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/NetworkConfig.cs.md
     kind: comment-page
-    body_sha: d399fcfb0c5d
+    body_sha: "0ddf1598fb36"
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-NETWORK#2
@@ -13,12 +13,12 @@ catzc:
 
 # automation/Catzc.Azure/types/NetworkConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The cross-cutting IP plan (configs/network.yml, [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md)) — the
@@ -43,7 +43,7 @@ quality gate Test-AzureNetworkPlan, not a constructor that reads another config.
 
 ## comment:2
 
-Above `public IReadOnlyDictionary<string, NetworkEnvironment> environments { get; }`.
+Above `public IReadOnlyDictionary<string, NetworkEnvironment> environments { get; }`, written with `//`.
 
 ```text
 The per-environment IP plans, keyed by environment name in file order (a Dictionary enumerates in insertion
@@ -52,7 +52,7 @@ order when nothing is removed, and this one is never mutated after construction)
 
 ## comment:3
 
-Above `public IReadOnlyDictionary<string, NetworkSubscription> subscriptions { get; }`.
+Above `public IReadOnlyDictionary<string, NetworkSubscription> subscriptions { get; }`, written with `//`.
 
 ```text
 The per-subscription hub and spoke networks, keyed by subscription name in file order. Empty when the file has
@@ -61,7 +61,7 @@ no 'subscriptions' key.
 
 ## comment:4
 
-Above `private static void CheckVnetOverlap(Dictionary<string, NetworkEnvironment>...`.
+Above `private static void CheckVnetOverlap(Dictionary<string, NetworkEnvironment>...`, written with `//`.
 
 ```text
 No two virtual networks of the plan share an address: environments and subscriptions alike. A range already

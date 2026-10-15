@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1.md
+      source: automation/Catzc.Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-LINK#2
@@ -12,8 +15,6 @@ catzc:
 ---
 #>
 
-# A note is written as a comment, where a citation is a repository-rooted code link; in a list item of a generated...
-# [comment:1](/docs/references/automation/catzc-base-contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1.md#comment1)
 Describe 'ConvertTo-ContractNoteMarkdown' -Tag 'L0', 'logic' {
     BeforeAll {
         function ConvertTo-Markdown {

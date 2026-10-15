@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md
     kind: comment-page
-    body_sha: fa00ff75c4cd
+    body_sha: "85598377da57"
     adrs:
       - ADR-AUTO-DEPS#1
       - ADR-AUTO-PKGMGR#6
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Execution/types/ToolConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One tool's locked definition from configs/tools.yml — its required version, how to detect it, and the
@@ -39,7 +39,7 @@ over its own properties and its constructor uses the base's OptStr/StrArr/Flag e
 
 ## comment:2
 
-Above `public string devbox_version { get; }`.
+Above `public string devbox_version { get; }`, written with `//`.
 
 ```text
 Devbox lever: outside a CI pipeline, an installed version starting with this prefix is also accepted
@@ -49,7 +49,7 @@ no lever.
 
 ## comment:3
 
-Above `public string uv_tool { get; }`.
+Above `public string uv_tool { get; }`, written with `//`.
 
 ```text
 uv tool/package name — installed with `uv tool install <uv_tool>` into an isolated env (e.g. az_cli,
@@ -58,7 +58,7 @@ poetry). Null when uv-tool is not an install path.
 
 ## comment:4
 
-Above `public bool uv_allow_prerelease { get; }`.
+Above `public bool uv_allow_prerelease { get; }`, written with `//`.
 
 ```text
 True to pass `--prerelease=allow` to the uv install — needed when the package's dependency tree pins a
@@ -67,7 +67,7 @@ pre-release (e.g. azure-cli depends on an azure-batch beta), which uv otherwise 
 
 ## comment:5
 
-Above `public string uv_venv { get; }`.
+Above `public string uv_venv { get; }`, written with `//`.
 
 ```text
 pip package installed into a DEDICATED uv venv (not the shared managed Python, not an isolated uv tool).
@@ -77,7 +77,7 @@ in ~/.local/bin breaks. Null when venv install is not the path.
 
 ## comment:6
 
-Above `public string max_python { get; }`.
+Above `public string max_python { get; }`, written with `//`.
 
 ```text
 Highest Python version this tool supports (runs under). ToolsConfig rejects a toolchain whose python pin
@@ -86,7 +86,7 @@ exceeds it — keeping Python off a bleeding-edge release a dependent cannot use
 
 ## comment:7
 
-Above `public bool system_provided { get; }`.
+Above `public bool system_provided { get; }`, written with `//`.
 
 ```text
 True when the tool is provided by the operating system (e.g. winget/App Installer on Windows). The
@@ -95,7 +95,7 @@ toolchain asserts it and keeps it on PATH via session_path_hints, but never inst
 
 ## comment:8
 
-Above `public bool admin_only { get; }`.
+Above `public bool admin_only { get; }`, written with `//`.
 
 ```text
 True when the tool has only a machine-scope installer, so installing it requires Administrator. Install
@@ -104,7 +104,7 @@ asserts elevation; the provisioning loops skip and report it when not elevated.
 
 ## comment:9
 
-Above `public bool linux_admin_only { get; }`.
+Above `public bool linux_admin_only { get; }`, written with `//`.
 
 ```text
 True when only the Linux install needs root (apt-get), while the Windows and macOS installs are user-space.
@@ -113,7 +113,7 @@ Test-ToolRequiresElevation honours it only on Linux.
 
 ## comment:10
 
-Above `public string msys2_url { get; }`.
+Above `public string msys2_url { get; }`, written with `//`.
 
 ```text
 The MSYS2 package installed on Windows into the Git for Windows tree, so the tool runs on Git Bash's own MSYS2
@@ -125,7 +125,7 @@ path; the two are declared together.
 
 ## comment:11
 
-Above `public string windows_install_dir { get; }`.
+Above `public string windows_install_dir { get; }`, written with `//`.
 
 ```text
 The install directory on Windows, relative to LOCALAPPDATA (Get-ScriptInstallDir): a script-installed tool's
@@ -134,7 +134,7 @@ home, or the tree an msys2 tool installs into. Null when not applicable.
 
 ## comment:12
 
-Above `public string depends_on { get; }`.
+Above `public string depends_on { get; }`, written with `//`.
 
 ```text
 The name of a tool that must be installed first. Null when the tool has no prerequisite. ToolsConfig checks
@@ -143,7 +143,7 @@ it names a declared tool.
 
 ## comment:13
 
-Above `public string[] session_path_hints { get; }`.
+Above `public string[] session_path_hints { get; }`, written with `//`.
 
 ```text
 Extra directories the session janitor (Sync-SessionTools) prepends to PATH to point THIS session at
@@ -153,7 +153,7 @@ it is otherwise unresolvable. Environment variables are expanded. Empty when the
 
 ## comment:14
 
-Above `public string[] session_host_probes { get; }`.
+Above `public string[] session_host_probes { get; }`, written with `//`.
 
 ```text
 Ordered probes the session janitor (Sync-SessionTools) uses to pick WHICH install home of the command this
@@ -166,7 +166,7 @@ SDK at the locked version beats a runtime-only host. Empty when the tool has a s
 
 ## comment:15
 
-Above `public string[] windows_probes { get; }`.
+Above `public string[] windows_probes { get; }`, written with `//`.
 
 ```text
 The candidate executable paths, in order, that locate the tool without starting a process (Test-Tool
@@ -178,7 +178,7 @@ each have their own pair. A tool with no candidates on the running platform is l
 
 ## comment:16
 
-Above `public string[] probe_excludes { get; }`.
+Above `public string[] probe_excludes { get; }`, written with `//`.
 
 ```text
 Executable paths (%VAR% expanded) that never count as the tool, as a candidate or on PATH: for bash, the WSL
@@ -187,7 +187,7 @@ launcher %SystemRoot%\System32\bash.exe, which is not Git Bash. Empty when nothi
 
 ## comment:17
 
-Above `public bool HasProbes()`.
+Above `public bool HasProbes()`, written with `//`.
 
 ```text
 True when the entry declares candidate paths or exclusions, so the tool is located by the probe (Test-Tool,
@@ -196,7 +196,7 @@ Assert-Tool) rather than by the bare command name on PATH.
 
 ## comment:18
 
-Above `public bool HasInstallMechanism()`.
+Above `public bool HasInstallMechanism()`, written with `//`.
 
 ```text
 True when the entry declares how the toolchain gets it: a package-manager id, script_install, a uv shape, an

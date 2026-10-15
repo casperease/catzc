@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Docs/tests/Get-AgentFrontMatter.Tests.ps1
     adrs:
       - ADR-REPO-AGENTS#1
   config:

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Globs
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
     adrs:
       - ADR-FLOW-CD-GLOBS#5
       - ADR-FLOW-CD-GLOBS#9

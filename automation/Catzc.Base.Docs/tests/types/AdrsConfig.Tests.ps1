@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/types/AdrsConfig.cs
     adrs:
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-TRACK#14
@@ -14,8 +17,6 @@ catzc:
 
 Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     BeforeAll {
-        # Neutral fixtures: invented domains/codes, never real ADR vocabulary.
-        # [comment:1](/docs/references/automation/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md#comment1)
         function New-ValidRaw {
             [ordered]@{
                 domains = [ordered]@{

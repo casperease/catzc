@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
-    kind: test-asset
-    body_sha: c7ab0a88f24e
+    kind: comment-page
+    body_sha: a118d549d663
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -13,12 +13,12 @@ catzc:
 
 # automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-WorldMap' -Tag 'L0', 'logic' {`.
+Above `Describe 'Test-WorldMap' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-WorldMap reads the world map Get-WorldMap returns and reports its stack violations
@@ -33,7 +33,7 @@ Get-WorldMap.Tests.ps1.
 
 ## comment:2
 
-Above `Describe 'Test-WorldMap on the repository' -Tag 'L1', 'integrity',...`.
+Above `Describe 'Test-WorldMap on the repository' -Tag 'L1', 'integrity',...`, written with `#`.
 
 ```text
 The repository's own world map, through the quality gate. It reads only the git index and the registries, so its

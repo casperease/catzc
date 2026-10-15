@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
     kind: comment-page
-    body_sha: "87c826981dcb"
+    body_sha: dbac6d937338
     adrs:
       - ADR-AZ-CUSTOMER#3
       - ADR-FLOW-CD-TYPE#4
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `branch: main`.
+Above `branch: main`, written with `#`.
 
 ```text
 Build-validation branch policies tied to globsets — the server-side pre-commit half of a unit's CI

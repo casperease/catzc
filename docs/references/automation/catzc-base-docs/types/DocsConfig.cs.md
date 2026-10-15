@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/DocsConfig.cs.md
     kind: comment-page
-    body_sha: "74d96f618da9"
+    body_sha: ea3398a7b8bd
 ---
 
 # automation/Catzc.Base.Docs/types/DocsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The README copy-in registry (configs/readme.yml) and its validity rules: an optional 'patterns' list of

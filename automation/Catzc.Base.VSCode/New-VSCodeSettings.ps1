@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.VSCode
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md
+      test: automation/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1
     adrs:
       - ADR-REPO-FORMAT#8
       - ADR-REPO-ROOTCFG
@@ -70,16 +73,12 @@ function New-VSCodeSettings {
     foreach ($key in $config.settings.Keys) {
         $settings[$key] = $config.settings[$key]
     }
-    # Machine-resolved settings complete the authored ones, which win on a shared key; sorted, so the render is stable.
-    # [comment:7](/docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md#comment7)
     foreach ($key in ($MachineSetting.Keys | Sort-Object)) {
         if (-not $settings.Contains($key)) {
             $settings[$key] = $MachineSetting[$key]
         }
     }
 
-    # Each language's editor formatter, merged into its [<id>] block (authored keys in the block win); sorted, so the...
-    # [comment:8](/docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md#comment8)
     foreach ($id in ($LanguageFormatter.Keys | Sort-Object)) {
         $key = "[$id]"
         $block = [ordered]@{}

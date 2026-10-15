@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/pipelines/steps/invoke-automation.yaml.md
     kind: comment-page
-    body_sha: "6b45b2665386"
+    body_sha: "16fc292a209a"
 ---
 
 # pipelines/steps/invoke-automation.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `parameters:`.
+Above `parameters:`, written with `#`.
 
 ```text
 Unified step template for running PowerShell automation commands.

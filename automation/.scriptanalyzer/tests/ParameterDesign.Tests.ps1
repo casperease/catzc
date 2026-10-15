@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/ParameterDesign.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/scriptanalyzer/tests/ParameterDesign.Tests.ps1.md
     adrs:
       - ADR-PWSH-PARAM#2
       - ADR-PWSH-PARAM#3
@@ -11,8 +13,6 @@ catzc:
 ---
 #>
 
-# The per-case assertions run the rule functions directly on a parsed AST (L0).
-# [comment:1](/docs/references/automation/scriptanalyzer/tests/ParameterDesign.Tests.ps1.md#comment1)
 BeforeAll {
     Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/ParameterDesign.psm1') -Force
     if (-not (Get-Module PSScriptAnalyzer)) {

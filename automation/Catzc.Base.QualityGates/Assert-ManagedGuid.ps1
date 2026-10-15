@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Assert-ManagedGuid.Tests.ps1
   config:
     synopsis: Asserts a GUID is registered in the managed-GUID registry (configs/guids.yml); throws when it is not.
     description: |-

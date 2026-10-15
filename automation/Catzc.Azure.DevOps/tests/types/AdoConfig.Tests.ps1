@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/types/AdoConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Azure.DevOps/types/AdoConfig.cs
 ---
 #>
 

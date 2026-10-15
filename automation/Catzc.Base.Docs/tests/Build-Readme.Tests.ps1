@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Build-Readme.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Build-Readme.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/Build-Readme.ps1
     adrs:
       - ADR-PWSH-PESTER#2
       - ADR-REPO-README#6
@@ -14,8 +17,6 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
 
-        # Isolate through the seams: mock the config seam (Get-Config) and redirect the repository root to a fixture...
-        # [comment:1](/docs/references/automation/catzc-base-docs/tests/Build-Readme.Tests.ps1.md#comment1)
         $sourceText = @(
             '# Fixture Title'
             ''
@@ -28,8 +29,6 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         $script:source = Join-Path $script:fake.Root 'docs/references/automation/foo.md'
 
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
-        # The fixture repository root is not the loaded code root, which the run-mode guard reads as a built package...
-        # [comment:2](/docs/references/automation/catzc-base-docs/tests/Build-Readme.Tests.ps1.md#comment2)
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'generated-head' } { [Catzc.Base.Languages.GeneratedHeadConfig]::new(@{ keys = @('path', 'kind') }) }
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -ne 'generated-head' } {
@@ -134,11 +133,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
     }
 }
 
-# Reads only the repository's readme.yml, folders, and.gitignore — the same answer in both run modes, so the build...
-# [comment:3](/docs/references/automation/catzc-base-docs/tests/Build-Readme.Tests.ps1.md#comment3)
 Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity', 'source-only' {
-    # The real readme.yml registry is consistent with the repository — every resolved README's source exists...
-    # [comment:4](/docs/references/automation/catzc-base-docs/tests/Build-Readme.Tests.ps1.md#comment4)
     BeforeAll {
         $script:root = Get-RepositoryRoot
         $script:results = @(Build-Readme -DryRun -PassThru -Silent)
@@ -165,8 +160,6 @@ Describe 'Build-Readme — real readme.yml' -Tag 'L2', 'integrity', 'source-only
                 ForEach-Object { [System.IO.Path]::GetFileName($_) } |
                 Where-Object { -not $_.StartsWith('.') })
         $mapped = @($script:results.Folder)
-        # One Should over the violating set — a Should per module pays Pester's per-assertion cost times the whole...
-        # [comment:5](/docs/references/automation/catzc-base-docs/tests/Build-Readme.Tests.ps1.md#comment5)
         $violations = foreach ($module in $modules) {
             if ("automation/$module" -notin $mapped) {
                 "automation/$module has no docs/references/automation/<kebab>.md reference article"

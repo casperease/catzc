@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md
+      test: automation/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-AZ-DATAMOD
@@ -63,8 +66,6 @@ catzc:
 #>
 
 function Deploy-Bicep {
-    # State-changing function deliberately uses -DryRun, not ShouldProcess — see.
-    # [comment:14](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment14)
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
@@ -93,14 +94,10 @@ function Deploy-Bicep {
         [switch] $DryRun
     )
 
-    # In a pipeline the target MUST be pinned explicitly — the session (the service connection) selects it, and the...
-    # [comment:15](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment15)
     if ((Test-IsRunningInPipeline) -and [string]::IsNullOrEmpty($SubscriptionIdAssertIs)) {
         throw "Deploy-Bicep requires -SubscriptionIdAssertIs in a pipeline — the pipeline must pin the subscription GUID its service connection is expected to target, for template '$Template' ($Environment)."
     }
 
-    # The session determines the target; the context resolves and guards it (Get-AzCliSessionSubscription +...
-    # [comment:16](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment16)
     $context = Get-BicepDeploymentContext `
         -Environment $Environment `
         -Template $Template `
@@ -127,15 +124,11 @@ function Deploy-Bicep {
     $templateDescriptor = Get-BicepTemplate $Template
     $configurationDescriptor = Get-BicepTemplateConfiguration $Template $Environment -Slot $Slot -Customer $customerFromContext
 
-    # A template MAY ship infrastructure/templates/<name>/PrePost.psm1 exporting Invoke-BicepPreDeploy /...
-    # [comment:17](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment17)
     $preDeployHook = $null
     $postDeployHook = $null
     if ($null -ne $context.artifacts.prepost_module) {
         Write-Message "Importing per-template PrePost: $($context.artifacts.prepost_module)"
         $prepostModule = Import-Module (Resolve-RepoPath $context.artifacts.prepost_module) -Scope Local -Force -PassThru
-        # The template's hooks run strict like every catzc module, whoever wrote them.
-        # [comment:18](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment18)
         . $prepostModule { Set-StrictMode -Version Latest }
         if ($prepostModule.ExportedCommands.ContainsKey('Invoke-BicepPreDeploy')) {
             $preDeployHook = $prepostModule.ExportedCommands['Invoke-BicepPreDeploy']
@@ -145,8 +138,6 @@ function Deploy-Bicep {
         }
     }
 
-    # The deploy invocation — the arguments this deploy is acting on (incl.
-    # [comment:19](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment19)
     $deployInvocation = [ordered]@{
         Template     = $Template
         Environment  = $Environment
@@ -162,8 +153,6 @@ function Deploy-Bicep {
         EnvironmentDescriptor   = $context.environment
     }
 
-    # PreDeploy runs before the --what-if branch, so it gets -DryRun and must honor it.
-    # [comment:20](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment20)
     if ($preDeployHook) {
         & $preDeployHook @hookSplat -DryRun:$DryRun
     }
@@ -172,8 +161,6 @@ function Deploy-Bicep {
         Deploy-AzureResourceGroup -SubscriptionId $context.environment.subscription.id -Region $context.environment.region -ResourceGroup $context.deployment.resource_group -DryRun:$DryRun | Out-Null
     }
 
-    # The artifact paths are repo-relative where possible (absolute for external pipeline artifacts).
-    # [comment:21](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment21)
     $templateFile = $context.artifacts.template_file
     $parametersFile = $context.artifacts.parameters_file
 
@@ -200,8 +187,6 @@ function Deploy-Bicep {
         ) -join ' '
     }
 
-    # -NoAssert on the az deployment calls: a non-zero exit throws WITH context (the deployment name, the exact az...
-    # [comment:22](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment22)
     if ($DryRun) {
         Write-Message 'DryRun: running az --what-if preview'
         $whatIf = Invoke-AzCli "$baseCommand --what-if" -PassThru -NoAssert

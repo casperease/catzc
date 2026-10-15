@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/test-policy.yml.md
     kind: comment-page
-    body_sha: "2b17b4475560"
+    body_sha: "874b9cb93d7c"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#41
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/configs/test-policy.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `l4_mutation: {}`.
+Above `l4_mutation: {}`, written with `#`.
 
 ```text
 What a test may do to the environment it reaches ([ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)).
@@ -28,7 +28,7 @@ Catzc.Base.QualityGates.TestPolicyConfig
 
 ## comment:2
 
-Above `l4_mutation: {}`.
+Above `l4_mutation: {}`, written with `#`.
 
 ```text
 Per target environment, how far an L4 test (the released system, after final approval) may change it:

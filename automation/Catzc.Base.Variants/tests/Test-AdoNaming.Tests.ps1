@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/tests/Test-AdoNaming.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Variants/Test-AdoNaming.ps1
 ---
 #>
 

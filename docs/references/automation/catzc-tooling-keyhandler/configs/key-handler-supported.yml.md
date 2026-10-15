@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-supported.yml.md
     kind: comment-page
-    body_sha: eec256f06f25
+    body_sha: "76df95b93b6e"
 ---
 
 # automation/Catzc.Tooling.KeyHandler/configs/key-handler-supported.yml
 
 <!-- cspell:ignore begining -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `functions:`.
+Above `functions:`, written with `#`.
 
 ```text
 PSReadLine functions supported on Linux — the allow-list Import-PSReadLineKeyHandlerSet filters

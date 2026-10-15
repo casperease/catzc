@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterModel.Tests.ps1.md
-    kind: test-asset
-    body_sha: d53e7afd1988
+    kind: comment-page
+    body_sha: "105d12a742eb"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#2
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-BicepParameterModel' -Tag 'L0', 'logic' {`.
+Above `Describe 'Get-BicepParameterModel' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Logic tests for Get-BicepParameterModel and the BicepParameterModel/BicepParameter types it returns: the model parsed
@@ -29,7 +29,7 @@ Discovery binds to the fixture templates and the output to this file's $TestDriv
 
 ## comment:2
 
-Above `function Write-FixtureBuild {`.
+Above `function Write-FixtureBuild {`, written with `#`.
 
 ```text
 Written, not copied: a copy keeps the source's timestamp, and the model reads a build as current only when

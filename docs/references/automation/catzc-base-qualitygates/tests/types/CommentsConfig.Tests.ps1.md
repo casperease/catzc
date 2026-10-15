@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/types/CommentsConfig.Tests.ps1.md
-    kind: test-asset
-    body_sha: "2505ce0c5eb7"
+    kind: comment-page
+    body_sha: "061494e70970"
     adrs:
       - ADR-AUTO-DEFAULT#6
 ---
 
 # automation/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'CommentsConfig' -Tag 'L0', 'logic' {`.
+Above `Describe 'CommentsConfig' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 CommentsConfig maps comments.yml and is the one declaration of its sensible defaults

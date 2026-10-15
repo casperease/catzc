@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-AnalyzerAdrMap.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-AnalyzerAdrMap.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-AnalyzerAdrMap over a mocked map, a mocked ADR rule-id set, and fixture rule files in $TestDrive.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-AnalyzerAdrMap.Tests.ps1.md#comment1)
 Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $rules = Join-Path $TestDrive 'scriptanalyzer'

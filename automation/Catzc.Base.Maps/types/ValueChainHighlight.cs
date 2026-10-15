@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.Maps/types/ValueChainHighlight.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/ValueChainHighlight.cs.md
+      test: automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
     adrs:
       - ADR-DSGN-TRACK#12
       - ADR-DSGN-TRACK#16
       - ADR-THES-ONETRUTH#3
 ---
 */
-
-// A rule sits where its ADR sits, so a one-rule reference lights the same cells as its whole ADR.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/ValueChainHighlight.cs.md#comment1)
 
 using System;
 using System.Collections;

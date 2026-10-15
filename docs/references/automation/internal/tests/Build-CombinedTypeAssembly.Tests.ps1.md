@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Build-CombinedTypeAssembly.Tests.ps1.md
-    kind: test-asset
-    body_sha: "6133b0e2728a"
+    kind: comment-page
+    body_sha: f3308993ccf7
 ---
 
 # automation/.internal/tests/Build-CombinedTypeAssembly.Tests.ps1
 
 <!-- cspell:ignore npublic -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {` (occurrence 2), written with `#`.
 
 ```text
 L1: the first Add-Type pays Roslyn's cold start. The assembly is written with -OutputAssembly and never
@@ -25,7 +25,7 @@ true on a second run in the same session.
 
 ## comment:2
 
-Above `$raceRoot = Join-Path $TestDrive 'race'`.
+Above `$raceRoot = Join-Path $TestDrive 'race'`, written with `#`.
 
 ```text
 Another session saving a .cs mid-compile: the live file turns into code that does not compile the moment the

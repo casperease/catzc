@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/tests/Test-CheckedInBinaries.Tests.ps1.md
-    kind: test-asset
-    body_sha: "33d1e7a9fd9f"
+    kind: comment-page
+    body_sha: cddb97f412f4
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {`.
+Above `Describe 'Test-CheckedInBinaries' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-CheckedInBinaries over fixture files in $TestDrive with the git CLI mocked: `ls-files --eol` and
@@ -26,7 +26,7 @@ Test-CheckedInBinaries over fixture files in $TestDrive with the git CLI mocked:
 
 ## comment:2
 
-Above `Describe 'Checked-in binaries are stored as binary, not text' -Tag 'L2',...`.
+Above `Describe 'Checked-in binaries are stored as binary, not text' -Tag 'L2',...`, written with `#`.
 
 ```text
 The real repository through the quality gate (Test-CheckedInBinaries —
@@ -35,7 +35,7 @@ The real repository through the quality gate (Test-CheckedInBinaries —
 
 ## comment:3
 
-Above `if (-not (Get-Command git -ErrorAction Ignore)) {`.
+Above `if (-not (Get-Command git -ErrorAction Ignore)) {`, written with `#`.
 
 ```text
 L2: drives the real git CLI. Self-skip when git is absent or we are not inside a work tree

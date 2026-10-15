@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/New-TestAutomationShardScript.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#3
       - ADR-AUTO-TEST#25
@@ -51,16 +54,12 @@ Describe 'New-TestAutomationShardScript' {
         }
 
         It 'builds its configuration through the one shared builder, strict on' {
-            # The worker and Invoke-TestFile must share New-PesterRunConfiguration (one living copy of the invocation...
-            # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md#comment1)
             $script:content | Should -Match 'New-PesterRunConfiguration'
             $script:content | Should -Match ([regex]::Escape('Set-StrictMode -Version Latest'))
             $script:content | Should -Not -Match ([regex]::Escape('Set-StrictMode -Off'))
         }
 
         It 'watches its parent once the modules are loaded, before Pester runs' {
-            # The watch type comes from the loaded types, so the watch starts after the entry line; it must start...
-            # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md#comment2)
             $entry = $script:content.IndexOf("importer.ps1' -SkipJanitors")
             $watch = $script:content.IndexOf('[Catzc.Base.QualityGates.WorkerParentWatch]::Start(')
             $pester = $script:content.IndexOf('Invoke-Pester')
@@ -158,17 +157,11 @@ Describe 'New-TestAutomationShardScript' {
         }
     }
 
-    # greedy: spawns a full importer-loading pwsh worker — stacked on the parallel pool that oversubscribes the box...
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md#comment3)
     Context 'worker execution (real pwsh through PesterRunner)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP#3' {
         It 'runs a generated shard end to end: results.xml, rows sidecar, and a green exit code' {
-            # The walking skeleton for the whole worker chain: generator → PesterRunner → importer → Pester → row...
-            # [comment:4](/docs/references/automation/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md#comment4)
             $runDirectory = Join-Path $TestDrive 'live-run'
             [void][System.IO.Directory]::CreateDirectory($runDirectory)
 
-            # A fixture test file exercising all row kinds: a pass, a self-skip, and a tag-excluded test — plus a...
-            # [comment:5](/docs/references/automation/catzc-base-qualitygates/tests/New-TestAutomationShardScript.Tests.ps1.md#comment5)
             $fixture = Join-Path $TestDrive 'ShardFixture.Tests.ps1'
             $fixtureContent = @'
 Describe 'ShardFixture' -Tag 'L0', 'logic' {

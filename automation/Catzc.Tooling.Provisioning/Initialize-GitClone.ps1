@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md
+      test: automation/Catzc.Tooling.Provisioning/tests/Initialize-GitClone.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN#2
   config:
@@ -38,8 +41,6 @@ catzc:
 ---
 #>
 
-# Uses -DryRun, not ShouldProcess/-WhatIf — see.
-# [comment:7](/docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md#comment7)
 function Initialize-GitClone {
     [CmdletBinding()]
     param(
@@ -55,14 +56,10 @@ function Initialize-GitClone {
     $workTree = Invoke-Executable 'git rev-parse --is-inside-work-tree' -WorkingDirectory $Repository -PassThru -NoAssert -Silent
     Assert-True ($workTree.ExitCode -eq 0) -ErrorText "'$Repository' is not a git repository. Clone first, then run Initialize-GitClone."
 
-    # The desired clone-local settings.
-    # [comment:8](/docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md#comment8)
     $settings = [ordered]@{ 'pull.rebase' = 'true' }
     if (Test-IsWslSession) {
         $credentialManager = Find-WindowsGitCredentialManager
         if ($credentialManager) {
-            # git runs the helper value through sh, so spaces in the /mnt/c path must be escaped inside the value...
-            # [comment:9](/docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md#comment9)
             $settings['credential.helper'] = $credentialManager -replace ' ', '\ '
         }
         else {
@@ -89,8 +86,6 @@ function Initialize-GitClone {
         Invoke-Executable $command -WorkingDirectory $Repository
     }
 
-    # An unset identity is not this function's to invent, but the very next commit (often the janitor's) fails...
-    # [comment:10](/docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md#comment10)
     foreach ($identityKey in @('user.name', 'user.email')) {
         $identity = Invoke-Executable "git config --get $identityKey" -WorkingDirectory $Repository -PassThru -NoAssert -Silent
         if ($identity.ExitCode -ne 0 -or -not "$($identity.Output)".Trim()) {

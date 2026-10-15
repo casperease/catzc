@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.RootConfig/types/RootConfigFiles.cs
     kind: csharp-type
     module: Catzc.Base.RootConfig
+    relatives:
+      page: docs/references/automation/catzc-base-rootconfig/types/RootConfigFiles.cs.md
+      test: automation/Catzc.Base.RootConfig/tests/types/RootConfigFiles.Tests.ps1
     adrs:
       - ADR-CONF-LOADING
       - ADR-REPO-ROOTCFG
 ---
 */
-
-// Every malformed entry is collected into one error, so a bad registry reports all its faults at once.
-// [comment:1](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFiles.cs.md#comment1)
 
 using System;
 using System.Collections;

@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Azure.Cli
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Cli/tests/Test-AzCliIsConnected.Tests.ps1
   config:
     synopsis: Tests whether the active az CLI session is logged into the named tenant + subscription.
     description: |-

@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-PWSH-PESTER#9
@@ -66,8 +69,6 @@ function Build-GitKeep {
 
     $repositoryRoot = Get-RepositoryRoot
 
-    # Walk the tree for.gitkeep files, skipping git's own store and the vendored modules (not ours to manage).
-    # [comment:5](/docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md#comment5)
     $outputRoot = [System.IO.Path]::Combine($repositoryRoot, 'out')
     $found = [System.Collections.Generic.List[string]]::new()
     $stack = [System.Collections.Generic.Stack[string]]::new()

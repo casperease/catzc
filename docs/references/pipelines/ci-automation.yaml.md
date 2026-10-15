@@ -3,33 +3,29 @@ catzc:
   derived:
     path: docs/references/pipelines/ci-automation.yaml.md
     kind: comment-page
-    body_sha: cbbe35e4da48
+    body_sha: "77798bd827ed"
     adrs:
       - ADR-DSGN-TRACK#1
 ---
 
 # pipelines/ci-automation.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `trigger:`.
+Above `trigger:`, written with `#`.
 
 ```text
-CI pipeline — unit tests, framework integration tests, and Azure auth tests.
-
-Trigger = the 'automation' globset projected into ADO-native path filters (Get-GlobSetTrigger,
-[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)):
-the track is its own root folder (automation/**,
-[ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)), so this fires exactly — and only starts at
-all — when the module system changes. No committed marker to go stale across a squash or concurrent merge.
+Fires exactly, and only, when the module system changes: the track is its own root folder, with no committed marker to go stale.
+[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
+[ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1) [comment:1](/docs/references/pipelines/ci-automation.yaml.md#comment1)
 ```
 
 ## comment:2
 
-Above `jobs:`.
+Above `jobs:`, written with `#`.
 
 ```text
 ---------------------------------------------------------------------------
@@ -39,7 +35,7 @@ Job 1: Unit tests (Pester)
 
 ## comment:3
 
-Above `- task: UseNode@1`.
+Above `- task: UseNode@1`, written with `#`.
 
 ```text
 cspell + markdownlint-cli2 are installed here so the L2 'Repository spelling/markdown integrity'
@@ -49,7 +45,7 @@ integrity tests are the single spell/markdown gate.
 
 ## comment:4
 
-Above `- job: FrameworkTests`.
+Above `- job: FrameworkTests`, written with `#`.
 
 ```text
 ---------------------------------------------------------------------------
@@ -60,7 +56,7 @@ Each step exercises a different edge of the framework through the template.
 
 ## comment:5
 
-Above `- job: AzureAuthTests`.
+Above `- job: AzureAuthTests`, written with `#`.
 
 ```text
 ---------------------------------------------------------------------------
@@ -70,7 +66,7 @@ Job 3: Azure auth mode tests (needs sc-azure-test service connection)
 
 ## comment:6
 
-Above `- job: ToolInstallation`.
+Above `- job: ToolInstallation`, written with `#`.
 
 ```text
 ---------------------------------------------------------------------------
@@ -81,7 +77,7 @@ One step per tool, in dependency order.
 
 ## comment:7
 
-Above `- task: UsePythonVersion@0`.
+Above `- task: UsePythonVersion@0`, written with `#`.
 
 ```text
 Activate pre-cached tool versions on the hosted agent.
@@ -90,7 +86,7 @@ These put the correct version on PATH so Install-* sees it and skips.
 
 ## comment:8
 
-Above `- template: /pipelines/steps/invoke-automation.yaml`.
+Above `- template: /pipelines/steps/invoke-automation.yaml` (occurrence 18), written with `#`.
 
 ```text
 Install remaining tools via our functions.

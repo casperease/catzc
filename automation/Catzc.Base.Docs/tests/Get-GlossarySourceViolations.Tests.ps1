@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-GlossarySourceViolations.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/private/Get-GlossarySourceViolations.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#4
@@ -14,8 +17,6 @@ catzc:
 ---
 #>
 
-# Get-GlossarySourceViolations is private, so it is exercised through the module (InModuleScope, per ).
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md#comment1)
 Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adrs' } -MockWith {

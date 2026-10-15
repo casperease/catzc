@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Globs
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md
+      test: automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-FLOW-CD-GLOBS#10
@@ -49,15 +52,11 @@ function Test-GlobSetIndependence {
         [switch] $PassThru
     )
 
-    # loose-filesets are cross-cutting and overlap-exempt (/10); every other layer is checked.
-    # [comment:4](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment4)
     $exemptLayer = 'loose-fileset'
 
     $sets = @(Get-GlobSet) + @(Get-ModuleGlobSet)
     $tracked = [string[]] @(Get-TrackedFile)
 
-    # OWN members per set (compose ignored, ), computed once as a set for O(1) intersection.
-    # [comment:5](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment5)
     $own = @{}
     foreach ($set in $sets) {
         $own[$set.Name] = [System.Collections.Generic.HashSet[string]]::new(

@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-Spelling.Tests.ps1.md
-    kind: test-asset
-    body_sha: "1c3924ab5899"
+    kind: comment-page
+    body_sha: b6e27572ebcf
     adrs:
       - ADR-AUTO-TEST#14
       - ADR-AUTO-TEST#8
@@ -13,12 +13,12 @@ catzc:
 
 <!-- cspell:ignore mispeld -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$fixture = 'automation/Catzc.Base.QualityGates/tests/assets/spelling/clean.md'`.
+Above `$fixture = 'automation/Catzc.Base.QualityGates/tests/assets/spelling/clean.md'`, written with `#`.
 
 ```text
 cspell globs are relative to the repo root (Test-Spelling's working directory), so use the
@@ -27,7 +27,7 @@ committed clean fixture by its repo-relative path.
 
 ## comment:2
 
-Above `Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {`.
+Above `Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {`, written with `#`.
 
 ```text
 Integrity: the ACTUAL repository content is spell-clean. Unlike the logic test above (real cspell over a
@@ -44,7 +44,7 @@ reads the repository's files, which give the same answer in both run modes.
 
 ## comment:3
 
-Above `$spelledExtensions = @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml',...`.
+Above `$spelledExtensions = @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml',...`, written with `#`.
 
 ```text
 The spelling scan's default content types; cspell.yml ignorePaths drops vendored code. Any such

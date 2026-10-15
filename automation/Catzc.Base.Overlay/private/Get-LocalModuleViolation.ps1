@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Overlay
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md
     adrs:
       - ADR-AUTO-OVERLAY
       - ADR-PWSH-ENUM#3
@@ -44,8 +46,6 @@ function Get-LocalModuleViolation {
     }
 
     $functionFiles = [System.Collections.Generic.List[string]]::new()
-    # A named whole-tree walk: a violation anywhere in the module must show, so nothing is pruned.
-    # [comment:1](/docs/references/automation/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md#comment1)
     $files = [string[]] @(Get-ChildPath $Path -File -Depth 64 -Exclude @() -PruneVendor $false)
     [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
     foreach ($file in $files) {

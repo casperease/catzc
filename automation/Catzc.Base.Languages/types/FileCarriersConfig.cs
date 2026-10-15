@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.Languages/types/FileCarriersConfig.cs
     kind: csharp-type
     module: Catzc.Base.Languages
+    relatives:
+      page: docs/references/automation/catzc-base-languages/types/FileCarriersConfig.cs.md
+      test: automation/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FILEMETA#1
 ---
 */
-
-// Every file class names where its meta block lives or why it has none, so a gap is a visible, reviewed entry.
-// [comment:1](/docs/references/automation/catzc-base-languages/types/FileCarriersConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

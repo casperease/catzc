@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-Automation.Tests.ps1.md
-    kind: test-asset
-    body_sha: c317ff9ce39b
+    kind: comment-page
+    body_sha: e3eb682353ff
     adrs:
       - ADR-AUTO-ASSETDEP#3
       - ADR-AUTO-TEST#35
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Source & test file conventions' -Tag 'L0', 'integrity',...`.
+Above `Describe 'Source & test file conventions' -Tag 'L0', 'integrity',...`, written with `#`.
 
 ```text
 The source and test file conventions over the real tree, through their quality gate (Test-SourceConventions —
@@ -28,7 +28,7 @@ source-only: it reads the per-function source files, which give the same answer 
 
 ## comment:2
 
-Above `Describe 'Test-Automation (vendored Pester)' -Tag 'L1', 'integrity',...`.
+Above `Describe 'Test-Automation (vendored Pester)' -Tag 'L1', 'integrity',...`, written with `#`.
 
 ```text
 The real-asset test of

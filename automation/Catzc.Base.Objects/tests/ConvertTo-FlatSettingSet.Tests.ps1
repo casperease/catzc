@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/ConvertTo-FlatSettingSet.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-objects/tests/ConvertTo-FlatSettingSet.Tests.ps1.md
+      source: automation/Catzc.Base.Objects/ConvertTo-FlatSettingSet.ps1
 ---
 #>
 
-# Real CLR types (PowerShell classes are genuine.NET types, parsed by PowerShell — no Roslyn compile) used to prove...
-# [comment:1](/docs/references/automation/catzc-base-objects/tests/ConvertTo-FlatSettingSet.Tests.ps1.md#comment1)
 class CatzcFlatSettingSetDb {
     [string] $Host
     [int] $Port

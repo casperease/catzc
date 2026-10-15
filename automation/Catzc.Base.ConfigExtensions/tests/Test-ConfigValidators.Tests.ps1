@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-configextensions/tests/Test-ConfigValidators.Tests.ps1.md
+      source: automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-ConfigValidators over a fixture code root in $TestDrive and two in-memory fixture modules whose private...
-# [comment:1](/docs/references/automation/catzc-base-configextensions/tests/Test-ConfigValidators.Tests.ps1.md#comment1)
 Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive 'automation'
@@ -68,8 +69,6 @@ Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {
 }
 
 Describe 'Config validator coverage' -Tag 'L0', 'integrity' {
-    # Title deliberately avoids Pester's <var> name-template syntax — under the importer's strict mode an unmatched...
-    # [comment:2](/docs/references/automation/catzc-base-configextensions/tests/Test-ConfigValidators.Tests.ps1.md#comment2)
     It 'every Assert-*Config validator maps to a configs/*.yml in its module (no orphans)' {
         $result = Test-ConfigValidators -PassThru -OutputFolder (Join-Path $TestDrive 'config-validators')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")

@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GlossaryAvoid.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/GlossaryAvoid.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-VOCAB#5
 ---
 */
-
-// The phrase is stored lower-cased and its replacement is required, so a violation can always name the fix.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryAvoid.cs.md#comment1)
 
 using System;
 using System.Collections;

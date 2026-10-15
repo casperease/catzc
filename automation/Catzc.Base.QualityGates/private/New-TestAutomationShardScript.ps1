@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-TEST#25
@@ -99,8 +102,6 @@ function New-TestAutomationShardScript {
 
     $repositoryRoot = Get-RepositoryRoot
 
-    # The one seam between the two runs: which entry script loads the modules.
-    # [comment:10](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment10)
     $entryLine = if ($EntryScript) {
         $entryArguments = foreach ($name in ($EntryParameter.Keys | Sort-Object)) {
             $value = $EntryParameter[$name]
@@ -128,18 +129,12 @@ function New-TestAutomationShardScript {
     $includeTagLiteral = ($IncludeTag | ForEach-Object { "'$_'" }) -join ', '
     # Single-quote literal: double any embedded quote (a FullNameFilter is prose — titles carry apostrophes).
     $filterLiteral = "$FullNameFilter" -replace "'", "''"
-    # The build run's entry also reaches the language bridge, so the Go and Python tests start the build...
-    # [comment:11](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment11)
     $entryLiteral = "$EntryScript" -replace "'", "''"
-    # The tools this source session located reach the language bridge the same way, as a hashtable literal in...
-    # [comment:12](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment12)
     $languageEntries = foreach ($language in ($LanguageExecutable.Keys | Sort-Object)) {
         "'$language' = '$("$($LanguageExecutable[$language])" -replace "'", "''")'"
     }
     $languageLiteral = '@{ ' + ($languageEntries -join '; ') + ' }'
 
-    # The Pester configuration itself comes from the ONE shared builder (New-PesterRunConfiguration) so this worker...
-    # [comment:13](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment13)
     $content = @"
 `$ErrorActionPreference = 'Stop'
 $entryLine

@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.Variants/types/VariantAspect.cs
     kind: csharp-type
     module: Catzc.Base.Variants
+    relatives:
+      page: docs/references/automation/catzc-base-variants/types/VariantAspect.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-ASPECT
 ---
 */
-
-// The YAML key is the aspect's name (data, not a fixed field), so the record keeps .NET PascalCase, not snake_case.
-// [comment:1](/docs/references/automation/catzc-base-variants/types/VariantAspect.cs.md#comment1)
 
 namespace Catzc.Base.Variants;
 
@@ -23,8 +22,6 @@ public sealed class VariantAspect
     // The aspect's kebab-case name (e.g. live, tests).
     public string Name { get; }
 
-    // The last aspect of a track holds the bare '**' catch-all remainder.
-    // [comment:2](/docs/references/automation/catzc-base-variants/types/VariantAspect.cs.md#comment2)
     public string[] Patterns { get; }
 
     public VariantAspect(string name, string[] patterns)

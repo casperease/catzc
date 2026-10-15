@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/types/Aspect.cs.md
     kind: comment-page
-    body_sha: "3777b37ef2aa"
+    body_sha: "367138ea885f"
     adrs:
       - ADR-DSGN-ASPECT#5
       - ADR-FLOW-CD-GLOBS#4
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Globs/types/Aspect.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Aspects ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)): a unit's tracked files partition into named aspects — pairwise DISJOINT
@@ -37,7 +37,7 @@ See [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md).
 
 ## comment:2
 
-Above `public sealed class CompiledAspect`.
+Above `public sealed class CompiledAspect`, written with `//`.
 
 ```text
 One aspect compiled onto a unit root: the name plus the leaf (include, exclude) rule sets that encode its
@@ -46,7 +46,7 @@ first-match slice. PowerShell (Get-ModuleAspect) builds the GlobSet from these.
 
 ## comment:3
 
-Above `public static IReadOnlyList<CompiledAspect> Compile(IReadOnlyList<Aspect>...`.
+Above `public static IReadOnlyList<CompiledAspect> Compile(IReadOnlyList<Aspect>...`, written with `//`.
 
 ```text
 Compile the ordered aspect convention onto a unit root (e.g. "automation/Catzc.Base.Globs"): each
@@ -57,7 +57,7 @@ earlier aspect" — the remainder.
 
 ## comment:4
 
-Above `public static IReadOnlyList<string> Validate(IReadOnlyList<GlobSet>...`.
+Above `public static IReadOnlyList<string> Validate(IReadOnlyList<GlobSet>...`, written with `//`.
 
 ```text
 Partition check ([ADR-DSGN-ASPECT#5](/docs/adr/design/module-aspects.md#rule-adr-dsgn-aspect5)) over a file universe: every file

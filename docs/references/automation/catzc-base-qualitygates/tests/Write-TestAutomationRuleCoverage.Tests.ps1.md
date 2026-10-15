@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationRuleCoverage.Tests.ps1.md
-    kind: test-asset
-    body_sha: "1820dbe2a4cf"
+    kind: comment-page
+    body_sha: "9c64673977d6"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Write-TestAutomationRuleCoverage.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:allRuleIds = @('ADR-FAKE#1', 'ADR-FAKE#8', 'ADR-FAKE#3',...`.
+Above `$script:allRuleIds = @('ADR-FAKE#1', 'ADR-FAKE#8', 'ADR-FAKE#3',...`, written with `#`.
 
 ```text
 A fake rule universe (not the real docs) keeps this hermetic — the writer is a pure function of its

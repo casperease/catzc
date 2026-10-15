@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/tests/Clear-ModuleTypeCache.Tests.ps1.md
-    kind: test-asset
-    body_sha: "65e58ab864cd"
+    kind: comment-page
+    body_sha: fd534558e021
 ---
 
 # automation/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeEach {`.
+Above `BeforeEach {`, written with `#`.
 
 ```text
 The fixture DLL name (BeforeEach) and the real-repo drift check both use the ONE shared hash
@@ -24,7 +24,7 @@ stamp (see the Import-CSharpTypes test file's 'IDE project build stamps …' tes
 
 ## comment:2
 
-Above `foreach ($m in 'Mod.One', 'Mod.Two') {`.
+Above `foreach ($m in 'Mod.One', 'Mod.Two') {`, written with `#`.
 
 ```text
 Build the fixture with [System.IO] rather than New-Item/Set-Content — the cmdlets carry ~20ms of

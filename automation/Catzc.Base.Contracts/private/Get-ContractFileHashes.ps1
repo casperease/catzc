@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Contracts
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md
     adrs:
       - ADR-AUTO-PATH#2
       - ADR-PWSH-ENUM#3
@@ -40,8 +42,6 @@ function Get-ContractFileHashes {
         [string] $Folder
     )
 
-    # A named whole-tree walk: a frozen contract is hashed in full, so no name is pruned and no depth drops a file.
-    # [comment:2](/docs/references/automation/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md#comment2)
     $files = [string[]] @(Get-ChildPath $Folder -File -Depth 64 -Exclude @() -PruneVendor $false)
     $paths = [string[]] @($files |
             ForEach-Object { [System.IO.Path]::GetRelativePath($Folder, $_) -replace '\\', '/' } |

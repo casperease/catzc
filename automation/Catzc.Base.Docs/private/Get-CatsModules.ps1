@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-docs/private/Get-CatsModules.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Get-CatsModules.Tests.ps1
     adrs:
       - ADR-DSGN-RUNMODE#2
       - ADR-REPO-FOLDERS#4
@@ -39,8 +42,6 @@ function Get-CatsModules {
 
     $root = [System.IO.Path]::GetFullPath($ModulesRoot).TrimEnd('\', '/')
 
-    # Called from inside a module, Get-Module also lists that module's own nested.ps1 function files (one per...
-    # [comment:4](/docs/references/automation/catzc-base-docs/private/Get-CatsModules.ps1.md#comment4)
     $loaded = foreach ($module in (Get-Module)) {
         if (-not $module.ModuleBase -or $module.Name.StartsWith('.')) {
             continue

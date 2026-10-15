@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/GuidsConfig.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/GuidsConfig.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/GuidsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Load checks only shape and uniqueness; that each registered GUID appears in tracked text is the integrity test's job.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/GuidsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

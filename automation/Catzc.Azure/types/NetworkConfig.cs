@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Azure/types/NetworkConfig.cs
     kind: csharp-type
     module: Catzc.Azure
+    relatives:
+      page: docs/references/automation/catzc-azure/types/NetworkConfig.cs.md
+      test: automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-NETWORK
@@ -14,9 +17,6 @@ catzc:
 ---
 */
 
-// Checks this file alone: the cross-asset sync with azure.yml is the quality gate Test-AzureNetworkPlan, not a constructor.
-// [comment:1](/docs/references/automation/catzc-azure/types/NetworkConfig.cs.md#comment1)
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,12 +25,8 @@ namespace Catzc.Azure;
 
 public sealed class NetworkConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    // File order is kept: a Dictionary enumerates in insertion order when nothing is removed, and this one is never mutated.
-    // [comment:2](/docs/references/automation/catzc-azure/types/NetworkConfig.cs.md#comment2)
     public IReadOnlyDictionary<string, NetworkEnvironment> environments { get; }
 
-    // Empty, never null, when the file has no subscriptions key.
-    // [comment:3](/docs/references/automation/catzc-azure/types/NetworkConfig.cs.md#comment3)
     public IReadOnlyDictionary<string, NetworkSubscription> subscriptions { get; }
 
     public NetworkConfig(IDictionary d)
@@ -91,8 +87,6 @@ public sealed class NetworkConfig : Catzc.Base.Objects.DictionaryRecord
         if (errors.Count > 0) { throw new ArgumentException("network configuration validation failed:\n" + string.Join("\n", errors)); }
     }
 
-    // A range already reported invalid is skipped, so one bad range is not reported again as an overlap.
-    // [comment:4](/docs/references/automation/catzc-azure/types/NetworkConfig.cs.md#comment4)
     private static void CheckVnetOverlap(Dictionary<string, NetworkEnvironment> environmentMap,
         Dictionary<string, NetworkSubscription> subscriptionMap, List<string> errors)
     {

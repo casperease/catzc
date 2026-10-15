@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Maps/types/WinAnsi.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md
+      test: automation/Catzc.Base.Maps/tests/types/WinAnsi.Tests.ps1
 ---
 */
-
-// The multiplication sign is encodable but the arrow is not, so MapsConfig rejects any other label at load.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md#comment1)
 
 using System.Collections.Generic;
 
@@ -37,8 +37,6 @@ public static class WinAnsi
         return Typographic.TryGetValue(c, out code) ? code : -1;
     }
 
-    // An empty or null text has no unsupported character, so it answers -1 rather than throwing.
-    // [comment:2](/docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md#comment2)
     public static int IndexOfUnsupported(string text)
     {
         if (string.IsNullOrEmpty(text)) { return -1; }

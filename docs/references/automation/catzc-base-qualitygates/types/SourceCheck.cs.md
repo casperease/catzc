@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/SourceCheck.cs.md
     kind: comment-page
-    body_sha: "863136e3744e"
+    body_sha: ef2e495b535e
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/types/SourceCheck.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The settings every source check shares, read from its key in a QualityGates config (links.yml's string_citations,

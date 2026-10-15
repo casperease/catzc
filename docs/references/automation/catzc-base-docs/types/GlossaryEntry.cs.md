@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GlossaryEntry.cs.md
     kind: comment-page
-    body_sha: d364beacd699
+    body_sha: "9122ef6978ce"
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Base.Docs/types/GlossaryEntry.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One concept of the merged controlled vocabulary ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)) as

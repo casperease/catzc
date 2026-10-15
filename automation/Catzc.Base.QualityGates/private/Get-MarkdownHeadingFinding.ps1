@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-MarkdownHeadingFinding.Tests.ps1
     adrs:
       - ADR-AZ-DATAMOD
       - ADR-PWSH-AUTOVAR
@@ -101,8 +104,6 @@ function Get-MarkdownHeadingFinding {
         $words = $Heading
         $groups = [System.Collections.Generic.List[string]]::new()
         while ($words -match '^(?<head>.*?)\s*\((?<inner>[^()]*`[^()]*)\)\s*$') {
-            # Capture before the next -match overwrites $Matches.
-            # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md#comment4)
             $head = $Matches['head']
             $inner = $Matches['inner']
             if ($head.Trim() -eq '' -or ($inner -replace '`[^`]*`', '') -notmatch $separatorsOnly) {

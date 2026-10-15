@@ -4,13 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1.md
     adrs:
       - ADR-PWSH-ASSERT#1
 ---
 #>
 
-# A function bounds its own long-running work through Get-TimeoutSeconds -Command and its [TimeLimit] decoration,...
-# [comment:1](/docs/references/automation/catzc-base-timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1.md#comment1)
 Describe 'TimeoutSeconds defaults come from the time safeguard' -Tag 'L1', 'integrity', 'ADR-PWSH-ASSERT#1' {
     It 'no function defaults a TimeoutSeconds parameter to a number literal above zero' {
         $root = Get-CatzcModulesRoot

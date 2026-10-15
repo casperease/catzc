@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md
-    kind: test-asset
-    body_sha: a08c61df05cd
+    kind: comment-page
+    body_sha: "8ed1cf7997bb"
 ---
 
 # automation/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 Use where.exe/which as the test command — real executables on all platforms.
@@ -22,7 +22,7 @@ Use where.exe/which as the test command — real executables on all platforms.
 
 ## comment:2
 
-Above `$leaver = 'pwsh -NoProfile -NonInteractive -Command "Start-Process...`.
+Above `$leaver = 'pwsh -NoProfile -NonInteractive -Command "Start-Process...`, written with `#`.
 
 ```text
 L2: the child exits at once, but the grandchild it starts inherits the output pipe and holds it for 20 s
@@ -31,7 +31,7 @@ L2: the child exits at once, but the grandchild it starts inherits the output pi
 
 ## comment:3
 
-Above `($result.Output.Trim() -replace '^/private', '') | Should -Be ($tempDirectory...`.
+Above `($result.Output.Trim() -replace '^/private', '') | Should -Be ($tempDirectory...`, written with `#`.
 
 ```text
 macOS resolves /var, /tmp → /private/var, /private/tmp, so the child's reported cwd carries a
@@ -40,7 +40,7 @@ macOS resolves /var, /tmp → /private/var, /private/tmp, so the child's reporte
 
 ## comment:4
 
-Above `$command = if ($IsWindows) {`.
+Above `$command = if ($IsWindows) {`, written with `#`.
 
 ```text
 where.exe /? outputs help — proves the argument arrived intact.

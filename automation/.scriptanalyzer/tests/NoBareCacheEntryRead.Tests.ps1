@@ -4,13 +4,13 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1.md
     adrs:
       - ADR-PWSH-CACHE#4
 ---
 #>
 
-# The per-case assertions run the rule function directly on a parsed AST (L0).
-# [comment:1](/docs/references/automation/scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1.md#comment1)
 Describe 'Measure-NoBareCacheEntryRead' -Tag 'L0', 'logic', 'ADR-PWSH-CACHE#4' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoBareCacheEntryRead.psm1') -Force

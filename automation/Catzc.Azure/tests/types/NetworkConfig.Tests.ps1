@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md
+      source: automation/Catzc.Azure/types/NetworkConfig.cs
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TEST#3
@@ -14,8 +17,6 @@ catzc:
 
 Describe 'NetworkConfig' -Tag 'L0' {
     BeforeAll {
-        # Fixture network plan — deliberately-distinct Greek env names (alpha/beta/gamma/delta) and neutral...
-        # [comment:1](/docs/references/automation/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md#comment1)
         $script:baseConfig = [ordered]@{
             environments  = [ordered]@{
                 alpha = [ordered]@{ vnet_address_space = '10.10.0.0/16'; default_subnet = '10.10.0.0/24' }

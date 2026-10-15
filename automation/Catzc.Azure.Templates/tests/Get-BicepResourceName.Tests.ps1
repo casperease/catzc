@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepResourceName.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Get-BicepResourceName.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/Get-BicepResourceName.ps1
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#4
@@ -12,8 +15,6 @@ catzc:
 
 # cspell:ignore alweutstsmplst alweutstsmplacst
 Describe 'Get-BicepResourceName' -Tag 'L0', 'logic' {
-    # Read-only resolver tests: the boundary mocks and the config-cache reset are set up ONCE, not per test.
-    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepResourceName.Tests.ps1.md#comment1)
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'

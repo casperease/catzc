@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: private
+    relatives:
+      test: automation/Catzc.Tooling.Toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1
     adrs:
       - ADR-AUTO-REMOVE#7
   config:

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/AzureConfig.cs.md
     kind: comment-page
-    body_sha: "00152a1e78e6"
+    body_sha: "164526347027"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -16,12 +16,12 @@ catzc:
 
 # automation/Catzc.Azure/types/AzureConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The Azure identity layer (configs/azure.yml, [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)): the org, the
@@ -60,7 +60,7 @@ environment is served") and root-config uniqueness are discovery/integrity conce
 
 ## comment:2
 
-Above `public static IReadOnlyDictionary<string, string> DefaultPolicyEnforcement {...`.
+Above `public static IReadOnlyDictionary<string, string> DefaultPolicyEnforcement {...`, written with `//`.
 
 ```text
 The sensible default of policy_enforcement, declared once: production enforces its policies, every other
@@ -69,7 +69,7 @@ environment audits them without enforcing.
 
 ## comment:3
 
-Above `public IReadOnlyDictionary<string, string> policy_enforcement { get; }`.
+Above `public IReadOnlyDictionary<string, string> policy_enforcement { get; }`, written with `//`.
 
 ```text
 The policy enforcement mode per environment class (production, nonproduction), always complete: the keys the
@@ -78,7 +78,7 @@ file omits take DefaultPolicyEnforcement.
 
 ## comment:4
 
-Above `private static IReadOnlyDictionary<string, string>...`.
+Above `private static IReadOnlyDictionary<string, string>...`, written with `//`.
 
 ```text
 The optional policy_enforcement map, completed from DefaultPolicyEnforcement: an omitted map is the default, and a
@@ -87,7 +87,7 @@ partial map keeps its own keys and takes the default for the rest. An unknown ke
 
 ## comment:5
 
-Above `private void CheckCustomerDisjointness(List<string> errors)`.
+Above `private void CheckCustomerDisjointness(List<string> errors)`, written with `//`.
 
 ```text
 A configuration/<customer>/<env>[-<slot>].yml config resolves to the customer's ONE subscription serving the
@@ -96,7 +96,7 @@ env, so no two subscriptions of one customer (by raw token) may serve the same e
 
 ## comment:6
 
-Above `private static List<KeyValuePair<string, IDictionary>> Entries(object value,...`.
+Above `private static List<KeyValuePair<string, IDictionary>> Entries(object value,...`, written with `//`.
 
 ```text
 The entries of a required, non-empty top-level map (name -> mapping); a non-mapping entry passes null so the

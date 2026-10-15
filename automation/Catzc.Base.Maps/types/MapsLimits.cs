@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.Maps/types/MapsLimits.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/MapsLimits.cs.md
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// The defaults are an A4 landscape page, and the header length limits cut a name before it overflows its row or column.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/MapsLimits.cs.md#comment1)
 
 namespace Catzc.Base.Maps;
 

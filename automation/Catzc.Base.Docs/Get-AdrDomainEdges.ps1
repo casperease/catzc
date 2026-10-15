@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Docs/tests/Get-AdrDomainEdges.Tests.ps1
   config:
     synopsis: The ADR domain dependency graph as From/To edges — one per declared `depends_on` link.
     description: |-

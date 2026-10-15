@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrCheck.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrCheck.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Only a mode is configurable here; an omitted mode takes the default CheckMode declares, which is gate.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCheck.cs.md#comment1)
 
 using System.Collections;
 using System.Collections.Generic;

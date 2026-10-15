@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/types/PSTypeAliasAttribute.cs.md
     kind: comment-page
-    body_sha: "37d6060ab127"
+    body_sha: "79cd3e151b0e"
 ---
 
 # automation/Catzc.Base.Objects/types/PSTypeAliasAttribute.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Declares a PowerShell type-accelerator alias for the type it decorates. The type loader
@@ -28,7 +28,7 @@ one alias. BCL only; declares its module namespace (file-scoped), per the type l
 
 ## comment:2
 
-Above `public string Name { get; }`.
+Above `public string Name { get; }`, written with `//`.
 
 ```text
 The accelerator name to register, e.g. "Catzc.Module.Depm". Namespaced with a Catzc. prefix so it never

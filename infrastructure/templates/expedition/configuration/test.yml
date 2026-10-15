@@ -5,8 +5,6 @@
 #     kind: bicep-template-config
 # ---
 
-# Sits in the nonprod hub's shared-services subnet, not a spoke, and registers in that same hub's private DNS zones.
-# [comment:1](/docs/references/infrastructure/templates/expedition/configuration/test.yml.md#comment1)
 ParametersFile:
   parameters:
     tags:

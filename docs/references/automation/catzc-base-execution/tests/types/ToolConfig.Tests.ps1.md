@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/tests/types/ToolConfig.Tests.ps1.md
-    kind: test-asset
-    body_sha: "111d24d5b579"
+    kind: comment-page
+    body_sha: "1cd026481dca"
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 The typed record over one tools.yml entry. It rejects keys it does not map (a dropped key would be invisible

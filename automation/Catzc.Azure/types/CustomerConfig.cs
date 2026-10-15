@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Azure/types/CustomerConfig.cs
     kind: csharp-type
     module: Catzc.Azure
+    relatives:
+      page: docs/references/automation/catzc-azure/types/CustomerConfig.cs.md
+      test: automation/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER
@@ -12,9 +15,6 @@ catzc:
       - ADR-AZ-CUSTOMER#3
 ---
 */
-
-// Self-contained: azure.yml depends on customer.yml, never the reverse, so this type never reads azure.yml.
-// [comment:1](/docs/references/automation/catzc-azure/types/CustomerConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -24,8 +24,6 @@ namespace Catzc.Azure;
 
 public sealed class CustomerConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    // File order is kept: a Dictionary enumerates in insertion order when nothing is removed, and this one is never mutated.
-    // [comment:2](/docs/references/automation/catzc-azure/types/CustomerConfig.cs.md#comment2)
     public IReadOnlyDictionary<string, AzureCustomer> customers { get; }
 
     public CustomerConfig(IDictionary d)

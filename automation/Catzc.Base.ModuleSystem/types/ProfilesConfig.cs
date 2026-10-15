@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/ProfilesConfig.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/ProfilesConfig.cs.md
+      test: automation/Catzc.Base.ModuleSystem/tests/types/ProfilesConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Module-name existence is not checked at load; that is left to Get-ModuleProfile, which expands the seed.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ProfilesConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

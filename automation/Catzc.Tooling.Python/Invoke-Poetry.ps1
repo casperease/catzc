@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Python
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Python/tests/Invoke-Poetry.Tests.ps1
   config:
     synopsis: Runs poetry with the given arguments.
     description: |-

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Files
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-files/Copy-Directory.ps1.md
+      test: automation/Catzc.Base.Files/tests/Copy-Directory.Tests.ps1
     adrs:
       - ADR-PWSH-ENUM#3
   config:
@@ -43,8 +46,6 @@ function Copy-Directory {
 
     [System.IO.Directory]::CreateDirectory($target) | Out-Null
 
-    # Recreate the directory structure first (so empty directories survive), then copy the files.
-    # [comment:3](/docs/references/automation/catzc-base-files/Copy-Directory.ps1.md#comment3)
     foreach ($dir in Get-ChildPath $source -Directory -Depth 64 -Exclude @() -PruneVendor $false) {
         [System.IO.Directory]::CreateDirectory($target + $dir.Substring($sourceLen)) | Out-Null
     }

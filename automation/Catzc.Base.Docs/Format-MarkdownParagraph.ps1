@@ -6,6 +6,8 @@ catzc:
     kind: format-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Docs/tests/Format-MarkdownParagraph.Tests.ps1
     adrs:
       - ADR-REPO-FORMAT#5
   config:

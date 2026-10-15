@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Maps/types/TreemapRect.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/TreemapRect.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// X and Y are the bottom-left corner in PDF points, not the top-left a screen layout would use.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/TreemapRect.cs.md#comment1)
 
 namespace Catzc.Base.Maps;
 

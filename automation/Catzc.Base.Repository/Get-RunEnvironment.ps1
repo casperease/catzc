@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Repository
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Repository/tests/Get-RunEnvironment.Tests.ps1
     adrs:
       - ADR-AUTO-PARITY
   config:

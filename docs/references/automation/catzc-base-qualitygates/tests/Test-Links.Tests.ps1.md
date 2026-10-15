@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Tests.ps1.md
-    kind: test-asset
-    body_sha: "5f46cefc91cb"
+    kind: comment-page
+    body_sha: e7a2277888d4
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-Links' -Tag 'L0', 'logic' {`.
+Above `Describe 'Test-Links' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-Links is the link quality gate ([ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)):

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md
     kind: comment-page
-    body_sha: "38b78b34a9bc"
+    body_sha: d42f84b1340a
     adrs:
       - ADR-AZ-NAMING#4
       - ADR-AZ-NAMING#6
@@ -13,12 +13,12 @@ catzc:
 
 <!-- cspell:ignore weuzctsmplst -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:8
+## comment:1
 
-Above `$omit = if ($specification.Contains('omit')) {`.
+Above `$omit = if ($specification.Contains('omit')) {`, written with `#`.
 
 ```text
 A type may omit components from its render — e.g. the Windows `vm` (15-char cap) drops
@@ -27,9 +27,9 @@ org/customer/role, which the resource group already encodes (see
 segment is never omitted.
 ```
 
-## comment:9
+## comment:2
 
-Above `$envValue = if ($specification.pattern -eq 'long') {`.
+Above `$envValue = if ($specification.pattern -eq 'long') {`, written with `#`.
 
 ```text
 The env-segment is the readable name for the generous `long` pattern, the 2-char shortcode for
@@ -37,9 +37,9 @@ the restricted patterns (kv/storage/vm) — see
 [ADR-AZ-NAMING#4](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming4).
 ```
 
-## comment:10
+## comment:3
 
-Above `$customerValue = ''`.
+Above `$customerValue = ''`, written with `#`.
 
 ```text
 Customer follows the same pattern-chosen split as env: the readable key (-Customer) for the
@@ -47,9 +47,9 @@ generous `long` pattern, the 2-char shortcode (-CustomerShortcode) for the restr
 Only applies when a customer is given (the segment is optional).
 ```
 
-## comment:11
+## comment:4
 
-Above `$checks = [ordered]@{`.
+Above `$checks = [ordered]@{`, written with `#`.
 
 ```text
 Component format checks (case-sensitive, lowercase) — see

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.RootConfig
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.RootConfig/tests/Get-RootConfigRenderedFile.Tests.ps1
     adrs:
       - ADR-REPO-ROOTCFG
   config:

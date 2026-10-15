@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/configs/exporter.yml.md
     kind: comment-page
-    body_sha: eb82abfc099d
+    body_sha: cf39253df0a8
 ---
 
 # automation/Catzc.Base.Exporter/configs/exporter.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `direct_install_version: 6.6.666`.
+Above `direct_install_version: 6.6.666`, written with `#`.
 
 ```text
 The single config for how this repository exports itself as the installable, versioned Catzc build.
@@ -27,7 +27,7 @@ See [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md).
 
 ## comment:2
 
-Above `direct_install_version: 6.6.666`.
+Above `direct_install_version: 6.6.666`, written with `#`.
 
 ```text
 direct_install_version — the numeric MAJOR.MINOR.PATCH placeholder every devbox build carries
@@ -37,7 +37,7 @@ pipeline build never uses it (Resolve-CatzcBuildVersion).
 
 ## comment:3
 
-Above `bundles:`.
+Above `bundles:`, written with `#`.
 
 ```text
 The named bundles. Each is a release identity of its own — this is a mono repo, so every bundle versions on its
@@ -56,7 +56,7 @@ A build lands in out/automation/built/<bundle>/Catzc/<version>/. default_bundle 
 
 ## comment:4
 
-Above `module_guid: 211b36c7-f7eb-4f3c-93f5-9132b535fa56`.
+Above `module_guid: 211b36c7-f7eb-4f3c-93f5-9132b535fa56`, written with `#`.
 
 ```text
 Package identity and metadata — Build-Modules hands these to the build engine, which writes them into the

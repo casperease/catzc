@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Writers/tests/Write-Footer.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Writers/Write-Footer.ps1
 ---
 #>
 

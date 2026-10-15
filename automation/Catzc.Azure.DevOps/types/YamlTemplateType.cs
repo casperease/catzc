@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure.DevOps/types/YamlTemplateType.cs
     kind: csharp-type
     module: Catzc.Azure.DevOps
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/types/YamlTemplateType.cs.md
 ---
 */
-
-// Callers carry it as Nullable, where null means the file is not a Template but a Pipeline or Unknown.
-// [comment:1](/docs/references/automation/catzc-azure-devops/types/YamlTemplateType.cs.md#comment1)
 
 namespace Catzc.Azure.DevOps;
 

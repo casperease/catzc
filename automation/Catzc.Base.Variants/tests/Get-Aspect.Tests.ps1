@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/tests/Get-Aspect.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Variants/Get-Aspect.ps1
 ---
 #>
 

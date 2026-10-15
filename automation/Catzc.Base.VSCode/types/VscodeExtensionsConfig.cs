@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.VSCode/types/VscodeExtensionsConfig.cs
     kind: csharp-type
     module: Catzc.Base.VSCode
+    relatives:
+      page: docs/references/automation/catzc-base-vscode/types/VscodeExtensionsConfig.cs.md
+      test: automation/Catzc.Base.VSCode/tests/types/VscodeExtensionsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-ROOTCFG
 ---
 */
-
-// Every load-time violation is collected into one throw, so a bad registry reports all its problems at once.
-// [comment:1](/docs/references/automation/catzc-base-vscode/types/VscodeExtensionsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrNeutralityCheck.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrNeutralityCheck.cs.md
     adrs:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Whether a listed domain is declared in adrs.yml is the check's own finding, not a load error: this type reads no other config.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrNeutralityCheck.cs.md#comment1)
 
 using System;
 using System.Collections;

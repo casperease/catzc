@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
-    kind: test-asset
-    body_sha: "73c2d4777472"
+    kind: comment-page
+    body_sha: "061339f69a14"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -13,12 +13,12 @@ catzc:
 
 # automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-Contracts' -Tag 'L0', 'logic' {`.
+Above `Describe 'Test-Contracts' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-Contracts runs every asset of each unit's current version folder, and the provided assets of every released
@@ -34,7 +34,7 @@ Get-ContractCheckResults.Tests.ps1, the freeze comparison by Get-ContractFreezeF
 
 ## comment:2
 
-Above `Describe 'Test-Contracts on the repository' -Tag 'L1', 'integrity',...`.
+Above `Describe 'Test-Contracts on the repository' -Tag 'L1', 'integrity',...`, written with `#`.
 
 ```text
 The repository's own contracts/ tree, through the quality gate. It reads only the repository's files, so its answer

@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/PythonWorkspaceFile.cs.md
     kind: comment-page
-    body_sha: "336ea67e73b2"
+    body_sha: "46b3779ff193"
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Base.Languages/types/PythonWorkspaceFile.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One file New-PythonProject renders: the uv workspace root <root>/pyproject.toml, or a member

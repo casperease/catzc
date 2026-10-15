@@ -4,13 +4,13 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1.md
     adrs:
       - ADR-AUTO-NOPWD#6
 ---
 #>
 
-# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a...
-# [comment:1](/docs/references/automation/scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1.md#comment1)
 Describe 'Measure-NoEnvRepositoryRoot' -Tag 'L0', 'logic', 'ADR-AUTO-NOPWD#6' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoEnvRepositoryRoot.psm1') -Force

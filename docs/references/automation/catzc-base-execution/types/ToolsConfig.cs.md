@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/types/ToolsConfig.cs.md
     kind: comment-page
-    body_sha: a60b8892aaf5
+    body_sha: "923aa57c6ad1"
     adrs:
       - ADR-AUTO-DEPS#4
 ---
 
 # automation/Catzc.Base.Execution/types/ToolsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The tool lock file (configs/tools.yml): a map of snake_case tool identity -> ToolConfig, in file order. The

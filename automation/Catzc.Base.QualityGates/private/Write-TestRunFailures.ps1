@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Write-TestRunFailures.Tests.ps1
   config:
     synopsis: |-
       Writes every failure of a finished test run to the console: each failed test with its message, and each test

@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Measure-QualityGates.Tests.ps1.md
-    kind: test-asset
-    body_sha: ccdb96f3b9e9
+    kind: comment-page
+    body_sha: d3867880b6d2
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Measure-QualityGates.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter',...`.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter',...`, written with `#`.
 
 ```text
 Measure-QualityGates over fixture quality gates: the real Get-Command lookup and the -OutputFolder probe decide each call; the

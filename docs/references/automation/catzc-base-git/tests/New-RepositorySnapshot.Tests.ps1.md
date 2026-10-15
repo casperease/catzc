@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/tests/New-RepositorySnapshot.Tests.ps1.md
-    kind: test-asset
-    body_sha: "74a921a36119"
+    kind: comment-page
+    body_sha: d9015df49e2e
 ---
 
 # automation/Catzc.Base.Git/tests/New-RepositorySnapshot.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {`.
+Above `Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {`, written with `#`.
 
 ```text
 L2: drives real git against a throwaway repository that holds every working-tree state a snapshot must

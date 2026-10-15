@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Asserts/tests/Assert-PipelineCount.Tests.ps1
   config:
     synopsis: Asserts the number of objects in the pipeline.
     description: |-

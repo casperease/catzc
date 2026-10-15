@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Initialize-Types.Tests.ps1.md
-    kind: test-asset
-    body_sha: "936786d88a06"
+    kind: comment-page
+    body_sha: "688610b1e86c"
 ---
 
 # automation/.internal/tests/Initialize-Types.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 L1: each case loads a fixture DLL, so the file is locked for the process lifetime. Fixtures live OUTSIDE TestDrive, in a

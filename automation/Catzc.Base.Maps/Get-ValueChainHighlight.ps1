@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Maps
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
     adrs:
       - ADR-AUTO-TEST
       - ADR-DSGN-TRACK#12

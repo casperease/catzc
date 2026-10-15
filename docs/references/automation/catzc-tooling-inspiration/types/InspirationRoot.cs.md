@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md
     kind: comment-page
-    body_sha: "45c0173f67fc"
+    body_sha: "38fb69574f54"
     adrs:
       - ADR-AUTO-PATH#11
       - ADR-AUTO-PATH#3
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The stored form of an inspiration's root and its resolution to binding form. A root is stored in communication
@@ -33,7 +33,7 @@ The platform is a parameter, not a probe, so every branch is deterministic and t
 
 ## comment:2
 
-Above `public static string[] Violations(string label, string value, bool allowAnchor)`.
+Above `public static string[] Violations(string label, string value, bool allowAnchor)`, written with `//`.
 
 ```text
 Every way a stored path breaks communication form, as messages naming 'label'. A root may carry the
@@ -42,7 +42,7 @@ Every way a stored path breaks communication form, as messages naming 'label'. A
 
 ## comment:3
 
-Above `public static string ToNative(string path, bool windows)`.
+Above `public static string ToNative(string path, bool windows)`, written with `//`.
 
 ```text
 Maps a path in either shell's view to the platform's own form, '/'-separated: backslashes become '/', and on

@@ -6,21 +6,24 @@ catzc:
     kind: fact-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-RelativesFileMetaFact.Tests.ps1
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FILEMETA#10
   config:
-    synopsis: 'The relatives meta kind''s fact: the few files a file points at, in static named slots, each only when it exists.'
+    synopsis: 'The relatives meta kind''s fact: the few files a file points at, under fixed names, each only when it exists.'
     description: |-
-      The kind's `slots` setting lists at most eight slots, each a name and rules; a rule applies to the files its `files` globs match and
-      names candidate `paths`, and the first candidate that exists on disk becomes the slot's value. A path takes the tokens `{module}` (the
-      folder under automation), `{name}` (the file name without its last extension), `{stem}` (the name without a trailing `.Tests`) and
-      `{page}` (the file's comment page from comments.yml). A slot no rule fills is left out, so a file with no relatives carries no key.
+      The kind's `relations` setting lists at most eight relations, each a name and rules; a rule applies to the files its `files` globs match and
+      names candidate `paths`, and the first candidate that exists on disk becomes the relation's value. A path takes the tokens `{module}` (the
+      second folder of the path, the module under automation), `{name}` (the file name without its last extension), `{stem}` (the name without a
+      trailing `.Tests`) and `{page}` (the file's comment page from comments.yml). A relation no rule fills is left out, so a file with no
+      relatives carries no key.
     parameters:
       State: What the file's carrier reader returned.
       Path: The file's repository-relative path.
       Kind: The registry entry that subscribed this function.
-    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind, an ordered map of slot to path.'
+    outputs: '[System.Collections.Specialized.OrderedDictionary] one entry per key of the kind, an ordered map of relation name to path.'
 ---
 #>
 
@@ -39,14 +42,15 @@ function Get-RelativesFileMetaFact {
         [Catzc.Base.QualityGates.FileMetaKind] $Kind
     )
 
-    $maxSlots = 8
-    $slots = if ($Kind.settings.ContainsKey('slots')) {
-        @($Kind.settings['slots'])
+    $maxRelations = 8
+    $relations = if ($Kind.settings.ContainsKey('relations')) {
+        @($Kind.settings['relations'])
     }
     else {
         @()
     }
-    Assert-True ($slots.Count -le $maxSlots) -ErrorText "file-meta config: kind '$($Kind.id)' lists $($slots.Count) slots, at most $maxSlots are allowed."
+    Assert-True ($relations.Count -le $maxRelations) `
+        -ErrorText "file-meta config: kind '$($Kind.id)' lists $($relations.Count) relations, at most $maxRelations are allowed."
 
     $root = Get-RepositoryRoot
     $name = [System.IO.Path]::GetFileNameWithoutExtension($Path)
@@ -54,17 +58,17 @@ function Get-RelativesFileMetaFact {
         '{name}' = $name
         '{stem}' = $name -replace '\.Tests$', ''
     }
-    $moduleMatch = [regex]::Match($Path, '^automation/(?<module>[^/]+)/')
+    $moduleMatch = [regex]::Match($Path, '^[^/]+/(?<module>[^/]+)/')
     $tokens['{module}'] = $moduleMatch.Groups['module'].Value
 
     $relatives = [ordered]@{}
-    foreach ($slot in $slots) {
-        Assert-True ($slot -is [System.Collections.IDictionary] -and $slot.Contains('name') -and $slot.Contains('rules')) `
-            -ErrorText "file-meta config: kind '$($Kind.id)' settings.slots entries need 'name' and 'rules'."
+    foreach ($relation in $relations) {
+        Assert-True ($relation -is [System.Collections.IDictionary] -and $relation.Contains('name') -and $relation.Contains('rules')) `
+            -ErrorText "file-meta config: kind '$($Kind.id)' settings.relations entries need 'name' and 'rules'."
         $found = $null
-        foreach ($rule in @($slot['rules'])) {
+        foreach ($rule in @($relation['rules'])) {
             Assert-True ($rule -is [System.Collections.IDictionary] -and $rule.Contains('files') -and $rule.Contains('paths')) `
-                -ErrorText "file-meta config: kind '$($Kind.id)' slot '$($slot['name'])' rules need 'files' and 'paths'."
+                -ErrorText "file-meta config: kind '$($Kind.id)' relation '$($relation['name'])' rules need 'files' and 'paths'."
             $applies = @($rule['files'] | Where-Object { [Catzc.Base.Globs.GlobPattern]::new($_).Matches($Path) })
             if ($applies.Count -eq 0) {
                 continue
@@ -91,7 +95,7 @@ function Get-RelativesFileMetaFact {
             }
         }
         if ($found) {
-            $relatives["$($slot['name'])"] = $found
+            $relatives["$($relation['name'])"] = $found
         }
     }
     [ordered]@{ $Kind.keys[0] = $relatives }

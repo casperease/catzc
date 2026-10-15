@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/types/VscodeSettingsConfig.cs.md
     kind: comment-page
-    body_sha: "7e3202f2b64b"
+    body_sha: "8df00d95ce3c"
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The VS Code workspace-settings registry, configs/vscode-settings.yml — the single authored source that

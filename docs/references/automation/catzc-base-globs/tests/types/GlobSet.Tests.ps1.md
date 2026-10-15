@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md
-    kind: test-asset
-    body_sha: "86ffcc56d621"
+    kind: comment-page
+    body_sha: c75700990ee4
     adrs:
       - ADR-FLOW-CD-GLOBS#4
       - ADR-FLOW-CD-GLOBS#8
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'GlobSet' -Tag 'L0', 'logic' {`.
+Above `Describe 'GlobSet' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The globset record: membership is decided by the scan program — an ordered +/- rule list, last-match-wins

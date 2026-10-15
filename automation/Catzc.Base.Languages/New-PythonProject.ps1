@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.Languages
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md
+      test: automation/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1
     adrs:
       - ADR-AUTO-PY
       - ADR-CONF-ADDRESSING
@@ -50,8 +53,6 @@ function New-PythonProject {
     )
 
     $config = Get-Config -Config python
-    # The one Python version: the python tool's tools.yml pin, read by address (reading config is global access, ).
-    # [comment:3](/docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md#comment3)
     $pythonVersion = "$(Get-ConfigValue -Address 'global.tools.python.version')"
     if ($pythonVersion -cnotmatch '^3\.(0|[1-9][0-9]*)$') {
         throw "tools.yml python.version '$pythonVersion' is not a Python minor version for requires-python (3.N, e.g. '3.13')."

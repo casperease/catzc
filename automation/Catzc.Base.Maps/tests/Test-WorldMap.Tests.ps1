@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
+      source: automation/Catzc.Base.Maps/Test-WorldMap.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -14,8 +17,6 @@ catzc:
 ---
 #>
 
-# Test-WorldMap reads the world map Get-WorldMap returns and reports its stack violations, its undeclared root...
-# [comment:1](/docs/references/automation/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md#comment1)
 Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
     BeforeAll {
         # Each row: path, track, file language, stack violation; every file is live.
@@ -125,8 +126,6 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
     }
 }
 
-# The repository's own world map, through the quality gate.
-# [comment:2](/docs/references/automation/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md#comment2)
 Describe 'Test-WorldMap on the repository' -Tag 'L1', 'integrity', 'source-only' {
     It 'Test-WorldMap passes over the repository' -Tag 'ADR-DSGN-TRACK#1', 'ADR-DSGN-TRACK#3', 'ADR-DSGN-TRACK#13', 'ADR-AUTO-TEST#35' {
         $result = Test-WorldMap -PassThru -OutputFolder (Join-Path $TestDrive 'world-map')

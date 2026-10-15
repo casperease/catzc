@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Azure.Cli
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Cli/tests/Assert-AzCliBicep.Tests.ps1
     adrs:
       - ADR-AUTO-ENTERP
       - ADR-AZ-CLI#1

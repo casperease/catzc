@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GitHubAnchor.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/GitHubAnchor.cs.md
+      test: automation/Catzc.Base.Docs/tests/types/GitHubAnchor.Tests.ps1
     adrs:
       - ADR-REPO-LINK#2
 ---
 */
-
-// A fragment resolves only if it matches GitHub's rendered slug, which drops every character but letters, digits, space, - and _.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/GitHubAnchor.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -54,8 +54,6 @@ public static class GitHubAnchor
         return slug.ToString();
     }
 
-    // Headings inside fenced code are not anchors, and a repeated heading's later copies take -1, -2 suffixes in document order.
-    // [comment:2](/docs/references/automation/catzc-base-docs/types/GitHubAnchor.cs.md#comment2)
     public static IReadOnlyCollection<string> Anchors(string markdown)
     {
         var anchors = new HashSet<string>(StringComparer.Ordinal);

@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md
-    kind: test-asset
-    body_sha: "99ac3a6030f8"
+    kind: comment-page
+    body_sha: "9dc42bd53fcf"
     adrs:
       - ADR-AUTO-ASSETDEP#3
       - ADR-AUTO-ASSETDEP#4
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Internal asset dependency coverage (real tree)' -Tag 'L1',...`.
+Above `Describe 'Internal asset dependency coverage (real tree)' -Tag 'L1',...`, written with `#`.
 
 ```text
 The coverage rule ([ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4))

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Environment
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-environment/Set-PermanentEnvironmentVariable.ps1.md
+      test: automation/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#11
   config:
@@ -58,8 +61,6 @@ function Set-PermanentEnvironmentVariable {
     }
 
     if ($removing) {
-        # PowerShell hands $null to a.NET string parameter as '', which the scopes the registry backs store as an...
-        # [comment:3](/docs/references/automation/catzc-base-environment/Set-PermanentEnvironmentVariable.ps1.md#comment3)
         [System.Environment]::SetEnvironmentVariable($Name, [NullString]::Value, $Scope)
         Write-Message "$Scope environment: removed $Name"
     }

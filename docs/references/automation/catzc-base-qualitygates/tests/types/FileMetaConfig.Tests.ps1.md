@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/types/FileMetaConfig.Tests.ps1.md
-    kind: test-asset
-    body_sha: "40c9a03c4128"
+    kind: comment-page
+    body_sha: "563850a17d3a"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-FILEMETA#2
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {`.
+Above `Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {`, written with `#`.
 
 ```text
 FileMetaConfig maps file-meta.yml and is the one declaration of its defaults

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/FileMetaKind.cs.md
     kind: comment-page
-    body_sha: df7167f4ce88
+    body_sha: "391e2c98da04"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-FILEMETA#2
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/types/FileMetaKind.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One entry of the meta-kind registry; the defaults of an omitted key are declared here, once.
@@ -27,7 +27,7 @@ One entry of the meta-kind registry; the defaults of an omitted key are declared
 
 ## comment:2
 
-Above `public static string ConventionName(string id, FileMetaDirection direction)`.
+Above `public static string ConventionName(string id, FileMetaDirection direction)`, written with `//`.
 
 ```text
 The function a module subscribes by default: Get-<Id>FileMetaFact, or Get-<Id>MarkdownConfigContribution

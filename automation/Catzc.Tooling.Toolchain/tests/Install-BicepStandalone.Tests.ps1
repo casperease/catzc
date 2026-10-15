@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/tests/Install-BicepStandalone.Tests.ps1.md
+      source: automation/Catzc.Tooling.Toolchain/private/Install-BicepStandalone.ps1
     adrs:
       - ADR-AUTO-TEST#6
 ---
 #>
 
-# Install-BicepStandalone (the Linux path of Install-Bicep) with its seams mocked: the GitHub releases API...
-# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Install-BicepStandalone.Tests.ps1.md#comment1)
 Describe 'Install-BicepStandalone' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:fakeHome = Join-Path $TestDrive "home-$([guid]::NewGuid().ToString('N'))"

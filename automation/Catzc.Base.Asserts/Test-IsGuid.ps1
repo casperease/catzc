@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Asserts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Asserts/tests/Test-IsGuid.Tests.ps1
   config:
     synopsis: Tests whether a string is a valid GUID.
     parameters:

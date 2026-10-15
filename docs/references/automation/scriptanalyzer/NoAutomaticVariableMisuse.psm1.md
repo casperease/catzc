@@ -3,31 +3,31 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NoAutomaticVariableMisuse.psm1.md
     kind: comment-page
-    body_sha: "32dbdb63cf5b"
+    body_sha: b7dcd603d49b
     adrs:
       - ADR-PWSH-FORMAT#6
 ---
 
 # automation/.scriptanalyzer/NoAutomaticVariableMisuse.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Measure-NoAutomaticVariableMisuse {`, written with `#`.
 
 ```text
-$? is overwritten by every statement, making it impossible to check
-reliably. Use -ErrorAction Stop and try/catch for cmdlets, or
-Assert-LastExitCodeWasZero for native commands.
-
-See ADR: automatic-variable-pitfalls.
+.SYNOPSIS
+    Custom PSScriptAnalyzer rule: forbid use of $?.
+.DESCRIPTION
+    $? is overwritten by every statement, making it impossible to check reliably.
+    [comment:1](/docs/references/automation/scriptanalyzer/NoAutomaticVariableMisuse.psm1.md#comment1)
 ```
 
 ## comment:2
 
-Above `$isQuestionMarkVariable = {`.
+Above `$isQuestionMarkVariable = {`, written with `#`.
 
 ```text
 Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew

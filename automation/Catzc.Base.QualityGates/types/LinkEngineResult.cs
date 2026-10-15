@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/LinkEngineResult.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/LinkEngineResult.cs.md
 ---
 */
-
-// The engine never writes: Format-Links writes Changed, and Test-Links only reports Findings.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinkEngineResult.cs.md#comment1)
 
 using System.Collections.Generic;
 

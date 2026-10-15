@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md
-    kind: test-asset
-    body_sha: fe8d766b7a7d
+    kind: comment-page
+    body_sha: f00c2a67ad37
     adrs:
       - ADR-AUTO-ASSETDEP#2
       - ADR-AUTO-TEST#3
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {`.
+Above `Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The inventory of internal asset dependencies

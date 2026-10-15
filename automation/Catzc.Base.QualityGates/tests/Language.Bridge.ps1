@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1
     kind: test-asset
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Language.Bridge.ps1.md
     adrs:
       - ADR-AUTO-ENGINE#4
       - ADR-AUTO-TEST#26
@@ -12,8 +14,6 @@ catzc:
 ---
 #>
 
-# The language bridge: one shared Pester file the harness runs once per test folder of a test language beside...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Language.Bridge.ps1.md#comment1)
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'TestFolder', Justification = 'Read in the BeforeDiscovery block, which the analyzer does not follow.')]
 param(
     # go, python or bash.
@@ -29,8 +29,6 @@ param(
     # The managed tool the run's source session located (Get-LanguageTestExecutable); empty when there is none.
     [string] $Executable,
 
-    # The executables of the engines other than pwsh, by engine name, as the run's source session located them; an...
-    # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Language.Bridge.ps1.md#comment2)
     [hashtable] $EngineExecutable = @{}
 )
 
@@ -66,8 +64,6 @@ Describe "$Language tests of $($script:languageSuite.Module)" -Tag 'L2', 'greedy
         EngineTools = $EngineExecutable
     }) {
     BeforeAll {
-        # Every test runs once per execution engine: the same test, a different contract.
-        # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/Language.Bridge.ps1.md#comment3)
         $script:languageOutcomes = @{}
         foreach ($engineName in $Engines) {
             $script:languageOutcomes[$engineName] = & (Get-Module Catzc.Base.QualityGates) {

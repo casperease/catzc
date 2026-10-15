@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md
-    kind: test-asset
-    body_sha: "437b4b115d53"
+    kind: comment-page
+    body_sha: "041a1a0ff043"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AZ-NAMING#2
@@ -13,12 +13,12 @@ catzc:
 
 <!-- cspell:ignore deriv abcdef gadge gadgetry getry gadg -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Context 'Derive (folder name -> short_name)' {`.
+Above `Context 'Derive (folder name -> short_name)' {`, written with `#`.
 
 ```text
 The C# type that owns short_name derivation + validation

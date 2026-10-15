@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md
     adrs:
       - ADR-AUTO-REMOVE#6
   config:
@@ -53,8 +55,6 @@ function Remove-UvPipOrStrayInstall {
         }
     }
 
-    # Stray binary no manager owns — delete just the resolved file (a root-owned path fails the delete loudly rather...
-    # [comment:4](/docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md#comment4)
     if ([System.IO.File]::Exists($Source)) {
         Write-Message "Removing stray '$($Config.command)' at '$Source'"
         [System.IO.File]::Delete($Source)

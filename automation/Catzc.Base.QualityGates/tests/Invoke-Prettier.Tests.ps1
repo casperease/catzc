@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Invoke-Prettier.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Invoke-Prettier.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Invoke-Prettier.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#6
 ---
 #>
 
-# The prettier engine with the tool boundary mocked: never launch a real process in a unit test.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-Prettier.Tests.ps1.md#comment1)
 Describe 'Invoke-Prettier' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'

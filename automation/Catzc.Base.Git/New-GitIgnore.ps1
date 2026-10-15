@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.Git
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-git/New-GitIgnore.ps1.md
+      test: automation/Catzc.Base.Git/tests/New-GitIgnore.Tests.ps1
     adrs:
       - ADR-REPO-ROOTCFG
   config:
@@ -48,8 +51,6 @@ function New-GitIgnore {
     $lines = [System.Collections.Generic.List[string]]::new()
 
     foreach ($section in $config.sections) {
-        # Resolve the section's patterns: static from the registry, or injected by the caller.
-        # [comment:4](/docs/references/automation/catzc-base-git/New-GitIgnore.ps1.md#comment4)
         $patterns = if ($section.inject) {
             if (-not $Inject.ContainsKey($section.inject)) {
                 throw "gitignore section '$($section.id)' names inject provider '$($section.inject)', which the caller did not supply. Providers given: $(if ($Inject.Keys.Count) { $Inject.Keys -join ', ' } else { '(none)' })."

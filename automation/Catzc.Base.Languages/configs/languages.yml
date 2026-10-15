@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.Languages/configs/languages.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-languages/configs/languages.yml.md
 # ---
 
-# Every extension belongs to exactly one file language; an extension no entry lists has no file language.
-# [comment:1](/docs/references/automation/catzc-base-languages/configs/languages.yml.md#comment1)
 engines:
   # Prettier, for every language that names it; the extension reads the same .prettierrc.yml and .editorconfig.
   prettier:
@@ -29,8 +29,6 @@ engines:
       - automation/Catzc.Base.Languages/configs/python.yml
       - automation/Catzc.Base.Execution/configs/tools.yml#uv
       - automation/Catzc.Base.Execution/configs/tools.yml#python
-  # The editor's codeFormatting settings in vscode-settings.yml must keep mirroring the analyzer settings file.
-  # [comment:2](/docs/references/automation/catzc-base-languages/configs/languages.yml.md#comment2)
   psscriptanalyzer:
     vscode_extension: ms-vscode.powershell
     settings:

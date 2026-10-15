@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/tests/types/VscodeSettingsConfig.Tests.ps1.md
-    kind: test-asset
-    body_sha: ac112e8273f0
+    kind: comment-page
+    body_sha: "9132a9d3395e"
 ---
 
 # automation/Catzc.Base.VSCode/tests/types/VscodeSettingsConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Catzc.Base.VSCode.VscodeSettingsConfig' -Tag 'L0' {`.
+Above `Describe 'Catzc.Base.VSCode.VscodeSettingsConfig' -Tag 'L0' {`, written with `#`.
 
 ```text
 The vscode-settings.yml type: constructing it maps and validates the parsed YAML, so a malformed settings

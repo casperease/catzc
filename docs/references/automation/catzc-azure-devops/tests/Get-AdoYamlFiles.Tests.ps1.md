@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/tests/Get-AdoYamlFiles.Tests.ps1.md
-    kind: test-asset
-    body_sha: "4a7d9fcc1a48"
+    kind: comment-page
+    body_sha: "3386c2d57cbd"
     adrs:
       - ADR-AUTO-TEST#20
 ---
 
 # automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$violations = @(foreach ($result in $results) {`.
+Above `$violations = @(foreach ($result in $results) {`, written with `#`.
 
 ```text
 One Should over the violating set — a Should per discovered file pays Pester's
@@ -26,7 +26,7 @@ strict mode.
 
 ## comment:2
 
-Above `It 'excludes .git directory by default' -Tag 'integrity' {`.
+Above `It 'excludes .git directory by default' -Tag 'integrity' {`, written with `#`.
 
 ```text
 Its own integrity tag keeps this a distinct, named check in the manual test plan (a facet worth

@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PRIN-CONFIG#1
@@ -105,8 +108,6 @@ function Test-AdrRegistry {
         }
     }
 
-    # The configured checks: one mode setting each, the same handling for both.
-    # [comment:5](/docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md#comment5)
     $configured = @(
         [pscustomobject]@{
             Name     = 'citation-graph'

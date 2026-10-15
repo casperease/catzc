@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/configs/files.yml.md
     kind: comment-page
-    body_sha: e3b59c48e9b1
+    body_sha: d0d37274d764
 ---
 
 # automation/Catzc.Base.ModuleSystem/configs/files.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `modules:`.
+Above `modules:`, written with `#`.
 
 ```text
 files.yml — module -> packages, for Copy-Automation (Catzc.Base.ModuleSystem).

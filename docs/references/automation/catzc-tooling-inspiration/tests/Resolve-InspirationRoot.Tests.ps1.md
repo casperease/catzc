@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md
-    kind: test-asset
-    body_sha: aab7c4c4953d
+    kind: comment-page
+    body_sha: "686ba78a627b"
     adrs:
       - ADR-AUTO-PATH#11
       - ADR-AUTO-TEST#3
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Resolve-InspirationRoot' -Tag 'L0', 'logic' {`.
+Above `Describe 'Resolve-InspirationRoot' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Resolve-InspirationRoot over a TestDrive workspace with neutral names (widget/gadget,

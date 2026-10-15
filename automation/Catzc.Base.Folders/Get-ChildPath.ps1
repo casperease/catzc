@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Folders
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
   config:
     synopsis: Lists the files and folders below a folder, to a bounded depth, without loading the tree.
     description: |-

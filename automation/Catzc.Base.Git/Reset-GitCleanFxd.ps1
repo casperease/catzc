@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Git
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md
+      test: automation/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN#2
       - ADR-REPO-OUTDIR#10
@@ -40,8 +43,6 @@ catzc:
 ---
 #>
 
-# Uses -DryRun, not ShouldProcess/-WhatIf — see.
-# [comment:4](/docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md#comment4)
 function Reset-GitCleanFxd {
     [CmdletBinding()]
     param(
@@ -50,8 +51,6 @@ function Reset-GitCleanFxd {
 
     Assert-Command git
 
-    # git's own dry run is the source of the candidates: exactly what `git clean -fxd` would remove, no...
-    # [comment:5](/docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md#comment5)
     $listing = Invoke-Executable 'git clean -xdn' -PassThru -Silent
     $candidates = foreach ($line in ($listing.Output -split '\r?\n')) {
         if ($line -match '^Would remove (.+)$') {

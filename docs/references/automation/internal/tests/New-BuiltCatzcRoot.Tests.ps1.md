@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/New-BuiltCatzcRoot.Tests.ps1.md
-    kind: test-asset
-    body_sha: "3e600cf9b5c5"
+    kind: comment-page
+    body_sha: "1f4695deceda"
     adrs:
       - ADR-AUTO-TEST#30
 ---
 
 # automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Invoke-InBuiltCatzc' -Tag 'L1', 'logic', 'ADR-AUTO-TEST#30' {`.
+Above `Describe 'Invoke-InBuiltCatzc' -Tag 'L1', 'logic', 'ADR-AUTO-TEST#30' {`, written with `#`.
 
 ```text
 Invoke-InBuiltCatzc against a stand-in build root: its Import-Catzc.ps1 is a fixture that sets the two roots

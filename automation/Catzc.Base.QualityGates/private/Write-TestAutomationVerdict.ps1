@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationVerdict.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#7
       - ADR-AUTO-FAILFAST
@@ -64,8 +67,6 @@ function Write-TestAutomationVerdict {
         [string] $ReportPath
     )
 
-    # Green-rainbow celebrates a pass, red-rainbow marks a fail — the gradient lives in this one end-of-run verdict...
-    # [comment:8](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md#comment8)
     $anchor = if ($Result -eq 'Passed') {
         'Green'
     }
@@ -76,13 +77,9 @@ function Write-TestAutomationVerdict {
 
     Write-Message '' -NoHeader
     Write-Header "Test Automation $($Result.ToUpperInvariant()) — $Summary" -ForegroundColor $rainbow
-    # Invariant so the duration reads the same on any devbox culture, matching the title's summary.
-    # [comment:9](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md#comment9)
     $detail = [string]::Format([System.Globalization.CultureInfo]::InvariantCulture,
         '{0} passed · {1} skipped · {2} failed · {3:N1}s wall clock', $PassedCount, $SkippedCount, $FailedCount, $DurationSeconds)
     Write-Message $detail -NoHeader
-    # The report pointer rides inside the bracket, on its own default-coloured line — the verdict is where a reader...
-    # [comment:10](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md#comment10)
     if ($ReportPath) {
         Write-Message "Report: $ReportPath" -NoHeader
     }

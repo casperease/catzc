@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/AzureSubscription.cs.md
     kind: comment-page
-    body_sha: be3ac3b7329b
+    body_sha: a29cb678bfb3
 ---
 
 # automation/Catzc.Azure/types/AzureSubscription.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A resolved subscription identity: a named Azure subscription, the Entra tenant that owns it, and —
@@ -24,7 +24,7 @@ so the property names are the YAML keys verbatim.
 
 ## comment:2
 
-Above `public string customer { get; }`.
+Above `public string customer { get; }`, written with `//`.
 
 ```text
 The customer this subscription serves; this value renders into customer resource names. Null for a

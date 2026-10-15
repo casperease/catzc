@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Go.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Tooling.Toolchain/Invoke-Go.ps1
 ---
 #>
 

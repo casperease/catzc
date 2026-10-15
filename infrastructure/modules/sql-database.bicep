@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/modules/sql-database.bicep
 //     kind: bicep-module
+//     relatives:
+//       page: docs/references/infrastructure/modules/sql-database.bicep.md
 // ---
-
-// Zone redundancy and geo-redundant backup are the defaults; a serverless SKU also takes an auto-pause delay and a minimum capacity.
-// [comment:1](/docs/references/infrastructure/modules/sql-database.bicep.md#comment1)
 
 @description('Name of the existing SQL logical server that hosts this database.')
 param serverName string

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/CheckMode.cs.md
     kind: comment-page
-    body_sha: "4dfd6b64c261"
+    body_sha: "10e580dce292"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#35
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/types/CheckMode.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `namespace Catzc.Base.Docs;`.
+Above `namespace Catzc.Base.Docs;`, written with `//`.
 
 ```text
 How a repository check treats what it finds, set per check in its config (adr-checks.yml in Catzc.Base.Docs; links.yml and

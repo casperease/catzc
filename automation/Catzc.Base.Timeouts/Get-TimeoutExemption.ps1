@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Timeouts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Timeouts/tests/Get-TimeoutExemption.Tests.ps1
   config:
     synopsis: Returns the exemption that covers a budget GUID in this run environment, or nothing.
     description: |-

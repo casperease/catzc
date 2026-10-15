@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Templates/tests/Get-BicepTrackTagNameSet.Tests.ps1
   config:
     synopsis: Returns the Azure tag *names* used to record what was last deployed.
     description: |-

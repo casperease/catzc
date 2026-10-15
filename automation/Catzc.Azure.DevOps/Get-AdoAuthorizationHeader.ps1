@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.DevOps
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md
+      test: automation/Catzc.Azure.DevOps/tests/Get-AdoAuthorizationHeader.Tests.ps1
   config:
     synopsis: Returns an Authorization header for Azure DevOps REST API calls.
     description: |-
@@ -53,8 +56,6 @@ function Get-AdoAuthorizationHeader {
         return @{ 'Authorization' = "Basic $base64" }
     }
 
-    # Prove the az session is in the Entra directory that backs the org before minting a token.
-    # [comment:4](/docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md#comment4)
     Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant
 
     $result = Invoke-Executable "az account get-access-token --resource $ResourceUrl --query accessToken -o tsv" -PassThru -NoAssert -Silent

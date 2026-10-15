@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
     adrs:
       - ADR-AUTO-DEPM#4
 ---
 */
-
-// Shared by DependenciesConfig and ModuleGroup, so the module graph and each group graph read and cycle-check alike.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -22,8 +21,6 @@ namespace Catzc.Base.ModuleSystem;
 
 public static class DependencyGraph
 {
-    // A null node is declared with no dependencies, so it reads as empty; a bare string or a map is a violation.
-    // [comment:2](/docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md#comment2)
     public static string[] ReadNames(object value, string owner, string what, List<string> errors)
     {
         if (value == null) { return new string[0]; }
@@ -47,8 +44,6 @@ public static class DependencyGraph
         return names.ToArray();
     }
 
-    // Visiting in declaration order makes the reported cycle deterministic; edges to nodes outside the map are ignored.
-    // [comment:3](/docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md#comment3)
     public static string FindCycle(OrderedDictionary adjacency)
     {
         Dictionary<string, int> color = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);

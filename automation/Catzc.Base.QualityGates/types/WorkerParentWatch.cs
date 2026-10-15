@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/WorkerParentWatch.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/WorkerParentWatch.Tests.ps1
 ---
 */
-
-// A reused PID is told apart from the parent by start time, so a recycled PID never keeps an orphaned worker alive.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment1)
 
 namespace Catzc.Base.QualityGates;
 
@@ -23,8 +23,6 @@ public static class WorkerParentWatch
     public const string PidVariable = "CATZC_TEST_PARENT_PID";
     public const string StartVariable = "CATZC_TEST_PARENT_START";
 
-    // A reused PID starts far later than the few milliseconds that Linux start times can differ by between reads.
-    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment2)
     private static readonly TimeSpan StartTolerance = TimeSpan.FromSeconds(1);
 
     private static readonly object Sync = new object();
@@ -37,8 +35,6 @@ public static class WorkerParentWatch
         return current.StartTime.ToUniversalTime().Ticks;
     }
 
-    /// <summary> The start time guards against PID reuse: a different process on the same PID counts as gone.
-    /// [comment:3](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment3)
     public static bool IsAlive(int pid, long startTicksUtc)
     {
         try
@@ -63,8 +59,6 @@ public static class WorkerParentWatch
         }
     }
 
-    /// <summary> Idempotent: a second call while a watch runs returns true without starting another; false watches nothing.
-    /// [comment:4](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment4)
     public static bool Start(int intervalMilliseconds)
     {
         if (intervalMilliseconds < 1)
@@ -101,8 +95,6 @@ public static class WorkerParentWatch
         {
             Thread.Sleep(intervalMilliseconds);
         }
-        // An orphaned worker's main thread may be stuck writing to a pipe nobody reads, so exit handlers could block.
-        // [comment:5](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment5)
         using var self = Process.GetCurrentProcess();
         self.Kill();
     }

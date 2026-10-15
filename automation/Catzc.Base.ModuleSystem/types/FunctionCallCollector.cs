@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/FunctionCallCollector.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/FunctionCallCollector.cs.md
+      test: automation/Catzc.Base.ModuleSystem/tests/types/FunctionCallCollector.Tests.ps1
 ---
 */
-
-// A function nested in another is only a name on its outer function, and calls anywhere in the body count for the outer one.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/FunctionCallCollector.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

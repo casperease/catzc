@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Save-TestDurationHistory.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Save-TestDurationHistory.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Save-TestDurationHistory.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# The per-machine test duration history: Save-TestDurationHistory merges a run's measurements,...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Save-TestDurationHistory.Tests.ps1.md#comment1)
 Describe 'Save-TestDurationHistory' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:path = Join-Path $TestDrive "history-$([guid]::NewGuid().ToString('N'))/durations.json"

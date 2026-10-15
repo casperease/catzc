@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-docs/Show-Cats.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Show-Cats.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE
       - ADR-AUTO-CONSOLE
@@ -69,8 +72,6 @@ function Show-Cats {
             break
         }
         'adr' {
-            # Plain assignment (not @(...)): the getter returns a comma-wrapped array ( exemplar), which assignment...
-            # [comment:5](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment5)
             $entries = Get-CatsAdrIndex
             if ($Query) {
                 $matched = @($entries | Where-Object { $_.Code -like "*$Query*" -or $_.Title -like "*$Query*" })
@@ -92,8 +93,6 @@ function Show-Cats {
                         }
                         Write-Message "  $($rule.Id)  $summary" -NoHeader
 
-                        # Show what mechanically enforces this rule (tests + analyzer rules), if anything — the...
-                        # [comment:6](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment6)
                         $entryEnforcers = $enforcers[($rule.Id -replace ':', '#')]
                         if ($entryEnforcers) {
                             $parts = @()

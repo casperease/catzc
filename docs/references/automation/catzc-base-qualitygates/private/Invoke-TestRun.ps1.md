@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md
     kind: comment-page
-    body_sha: f3d6a9c7ba07
+    body_sha: "99b7f70d0893"
     adrs:
       - ADR-AUTO-TEST#26
       - ADR-AUTO-TEST#44
@@ -13,39 +13,39 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:26
+## comment:1
 
-Above `Write-Message '.' -NoHeader -NoNewline`.
+Above `Write-Message '.' -NoHeader -NoNewline`, written with `#`.
 
 ```text
 Liveness dots ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)): discovery
 runs before the banner and takes a while, so each stage shows a dot.
 ```
 
-## comment:27
+## comment:2
 
-Above `$testPaths = @(Get-TestAutomationTestPaths -Modules $Modules)`.
+Above `$testPaths = @(Get-TestAutomationTestPaths -Modules $Modules)`, written with `#`.
 
 ```text
 The run's tests folders, foundation-first — module dependency order, dot-prefixed infrastructure last
 (Get-TestAutomationTestPaths owns the scan and the ordering).
 ```
 
-## comment:28
+## comment:3
 
-Above `$discovery = Get-TestDiscovery -TestPath $testPaths`.
+Above `$discovery = Get-TestDiscovery -TestPath $testPaths`, written with `#`.
 
 ```text
 One discovery-only pass feeds every pre-run inspection: the tag check below and the phase split
 (Split-TestAutomationFiles) share it, so the tree is discovered once per run.
 ```
 
-## comment:29
+## comment:4
 
-Above `if (-not $OutputFolder) {`.
+Above `if (-not $OutputFolder) {`, written with `#`.
 
 ```text
 Resolve the run directory — a timestamped subfolder under the report base so each run's artifacts are
@@ -53,45 +53,45 @@ preserved (and cleared with the rest of out/). The shard scripts, per-shard resu
 rows-shard-<N>.json, and summary.md/tests.csv all land here.
 ```
 
-## comment:30
+## comment:5
 
-Above `Set-AbandonedTestRun -OutputFolder $OutputFolder | Out-Null`.
+Above `Set-AbandonedTestRun -OutputFolder $OutputFolder | Out-Null`, written with `#`.
 
 ```text
 Earlier runs whose owning process died never reached their finally: mark them 'abandoned' rather than
 leave them claiming 'running' (Set-AbandonedTestRun reads the owner recorded below).
 ```
 
-## comment:31
+## comment:6
 
-Above `$location = Enter-TestRunLocation -EntryPoint $EntryPoint -RunDirectory...`.
+Above `$location = Enter-TestRunLocation -EntryPoint $EntryPoint -RunDirectory...`, written with `#`.
 
 ```text
 Claim the run's location before anything is filtered (Enter-TestRunLocation; it decides the top tier); the
 finally releases it.
 ```
 
-## comment:32
+## comment:7
 
-Above `try {`.
+Above `try {`, written with `#`.
 
 ```text
 try/finally: the location is released and the terminal manifest stamped on every exit path — pass, fail, or crash.
 The stamp is what makes run.json trustworthy, so it sits in the finally, not in a best-effort catch.
 ```
 
-## comment:33
+## comment:8
 
-Above `$context = Get-TestRunContext -EntryPoint $EntryPoint -EntryScript...`.
+Above `$context = Get-TestRunContext -EntryPoint $EntryPoint -EntryScript...`, written with `#`.
 
 ```text
 The run's context — what it is and where it runs — printed under the banner and recorded in run.json
 (Get-TestRunContext).
 ```
 
-## comment:34
+## comment:9
 
-Above `$excludeTags = Get-TestExcludeTag -MinLevel $MinLevel -MaxLevel $MaxLevel...`.
+Above `$excludeTags = Get-TestExcludeTag -MinLevel $MinLevel -MaxLevel $MaxLevel...`, written with `#`.
 
 ```text
 Build tag filter — exclude tiers outside [MinLevel, MaxLevel] and (when -Category is given) the other
@@ -99,9 +99,9 @@ category, so only the requested category's tests run. ExcludeTag matches an item
 file's per-Context category tags filter correctly. Shared with Test-InIsolation via Get-TestExcludeTag.
 ```
 
-## comment:35
+## comment:10
 
-Above `Write-TestRunManifest -RunDirectory $runDir -Manifest ([ordered]@{`.
+Above `Write-TestRunManifest -RunDirectory $runDir -Manifest ([ordered]@{`, written with `#`.
 
 ```text
 The run's self-describing state record (run.json): stamped 'running' now, and terminally
@@ -110,27 +110,27 @@ which artifact files happen to exist yet (Write-TestRunManifest; the write is at
 and start time) lets a later run tell a live run from one whose process died ('abandoned').
 ```
 
-## comment:36
+## comment:11
 
-Above `$selection = Select-TestRunFiles -TestPath $testPaths -Discovery $discovery...`.
+Above `$selection = Select-TestRunFiles -TestPath $testPaths -Discovery $discovery...`, written with `#`.
 
 ```text
 The work-list: every test file, narrowed by -Rule, by tier and category scope, and by the opt-out tag
 (Select-TestRunFiles). Files dropped for scope come back as NotRun rows, reported once after protection.
 ```
 
-## comment:37
+## comment:12
 
-Above `$phases = Split-TestAutomationFiles -Discovery $discovery -TestFiles $testFiles`.
+Above `$phases = Split-TestAutomationFiles -Discovery $discovery -TestFiles $testFiles`, written with `#`.
 
 ```text
 Three execution phases — parallel shards, greedy single-file shards, strict serial (see
 Split-TestAutomationFiles / [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26)).
 ```
 
-## comment:38
+## comment:13
 
-Above `$protectionKey = "$entryPointKey|L$MinLevel-L$MaxLevel|$Category|$($Rule...`.
+Above `$protectionKey = "$entryPointKey|L$MinLevel-L$MaxLevel|$Category|$($Rule...`, written with `#`.
 
 ```text
 Per-module protection
@@ -142,9 +142,9 @@ parameters, so an L0-L1 green never skips an L2 run and a green run in the sourc
 build run.
 ```
 
-## comment:39
+## comment:14
 
-Above `$workerEnvironment = if ($MaxLevel -lt 2) {`.
+Above `$workerEnvironment = if ($MaxLevel -lt 2) {`, written with `#`.
 
 ```text
 The unit-test tripwire for tool-free levels (L0/L1) travels on each worker's own process environment —
@@ -153,45 +153,45 @@ it — almost always a -ModuleName pointing at the wrong module — so Invoke-Ex
 worker instead of leaking. L2+ legitimately drive real CLIs, so it stays off there.
 ```
 
-## comment:40
+## comment:15
 
-Above `$workerRun = if (($parallelFiles.Count + $greedyFiles.Count +...`.
+Above `$workerRun = if (($parallelFiles.Count + $greedyFiles.Count +...`, written with `#`.
 
 ```text
 Shard, run the pool (then the greedy and serial phases), and aggregate the row sidecars — the engine.
 When protection drained the whole work-list, there is nothing to execute: the run is vacuously green.
 ```
 
-## comment:41
+## comment:16
 
-Above `` Protect-TestedModule -Candidates @($protectionPlan.Candidates) -Rows $rows ` ``.
+Above `` Protect-TestedModule -Candidates @($protectionPlan.Candidates) -Rows $rows ` ``, written with `#`.
 
 ```text
 Promote protection for every candidate unit that came back green — per-module attribution over the
 rows, conservative on anything unattributable (Protect-TestedModule owns the rules).
 ```
 
-## comment:42
+## comment:17
 
-Above `$rows = @($rows) + @($selection.OutOfScopeRows)`.
+Above `$rows = @($rows) + @($selection.OutOfScopeRows)`, written with `#`.
 
 ```text
 The scope filter's dropped files report their tests as NotRun, once, after protection (which promotes only
 from what the workers ran): every report below reads the same rows whether a file was loaded or not.
 ```
 
-## comment:43
+## comment:18
 
-Above `$runResult = if ($failedCount -gt 0 -or $failedShardLabels.Count -gt 0) {`.
+Above `$runResult = if ($failedCount -gt 0 -or $failedShardLabels.Count -gt 0) {`, written with `#`.
 
 ```text
 A shard can report failure with zero failed test rows — a container/discovery error fails its run
 without producing a failed test. Either signal fails the aggregate verdict.
 ```
 
-## comment:44
+## comment:19
 
-Above `$testTimeLimits = Get-TestTimeLimits`.
+Above `$testTimeLimits = Get-TestTimeLimits`, written with `#`.
 
 ```text
 Validate test durations against the per-level limits and render the over-limit section
@@ -199,36 +199,36 @@ Validate test durations against the per-level limits and render the over-limit s
 and the whole-run budget come from the time safeguard's config (Get-TestTimeLimits), never a literal here.
 ```
 
-## comment:45
+## comment:20
 
-Above `$budgetFailure = Test-TestRunOverBudget -DurationSeconds...`.
+Above `$budgetFailure = Test-TestRunOverBudget -DurationSeconds...`, written with `#`.
 
 ```text
 A devbox run that outlasts its whole-run budget fails
 ([ADR-AUTO-TEST#44](/docs/adr/automation/test-automation.md#rule-adr-auto-test44)).
 ```
 
-## comment:46
+## comment:21
 
-Above `Write-TestAutomationArtifacts -Rows $rows -RunDirectory $runDir -OutputFolder...`.
+Above `Write-TestAutomationArtifacts -Rows $rows -RunDirectory $runDir -OutputFolder...`, written with `#`.
 
 ```text
 Persist summary.md/tests.csv + latest.txt and render the skip report — best-effort, never masking
 the run outcome (Write-TestAutomationArtifacts owns the guards).
 ```
 
-## comment:47
+## comment:22
 
-Above `$verdict = Get-TestAutomationVerdict -Rows $rows -Limits $limits -RunResult...`.
+Above `$verdict = Get-TestAutomationVerdict -Rows $rows -Limits $limits -RunResult...`, written with `#`.
 
 ```text
 Derive the verdict (Result + one-line reason) once; the closing banner and the failure throw both
 consume it, so the reason wording lives in exactly one place.
 ```
 
-## comment:48
+## comment:23
 
-Above `` Write-TestAutomationVerdict -Result $verdict.Result -Summary $verdict.Summary ` ``.
+Above `` Write-TestAutomationVerdict -Result $verdict.Result -Summary $verdict.Summary ` ``, written with `#`.
 
 ```text
 The closing bracket prints on every exit path — pass, fail, and -PassThru alike — so a run is always

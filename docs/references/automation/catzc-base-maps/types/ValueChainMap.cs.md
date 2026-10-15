@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/ValueChainMap.cs.md
     kind: comment-page
-    body_sha: c15c4ed1d47e
+    body_sha: "8525e8f48664"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15
@@ -13,12 +13,12 @@ catzc:
 
 # automation/Catzc.Base.Maps/types/ValueChainMap.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The value-chain map: the rows of the value-chain stack crossed with the value-chain concerns, every cell of that grid,
@@ -38,7 +38,7 @@ is its data form ([ADR-THES-ONETRUTH#3](/docs/adr/thesis/one-source-of-truth.md#
 
 ## comment:2
 
-Above `public static ValueChainMap Build(IEnumerable stacks, IEnumerable concerns,...`.
+Above `public static ValueChainMap Build(IEnumerable stacks, IEnumerable concerns,...`, written with `//`.
 
 ```text
 The map of the given rows, columns and ADRs (Catzc.Base.Docs.AdrRuleSet items). An empty or repeated axis name, an

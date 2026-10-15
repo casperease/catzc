@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Contracts
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
     adrs:
       - ADR-REPO-CONTRACT#5
   config:

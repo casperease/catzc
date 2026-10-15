@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleGroupConfig.Tests.ps1
   config:
     synopsis: Returns the declared module GROUPS from configs/dependencies.yml.
     description: |-

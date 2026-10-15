@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Writers
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Writers/tests/Write-EnvironmentDiagnostic.Tests.ps1
   config:
     synopsis: Displays all environment variables sorted by name.
     examples:

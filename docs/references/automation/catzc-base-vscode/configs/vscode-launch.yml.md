@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/configs/vscode-launch.yml.md
     kind: comment-page
-    body_sha: "79242c5e053d"
+    body_sha: e26c6cd7e8c3
 ---
 
 # automation/Catzc.Base.VSCode/configs/vscode-launch.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `version: "0.2.0"`.
+Above `version: "0.2.0"`, written with `#`.
 
 ```text
 VS Code launch-profile registry — the single authored source for .vscode/launch.json. The file the editor
@@ -28,7 +28,7 @@ string plus a non-empty configurations list, each entry carrying name/type/reque
 
 ## comment:2
 
-Above `- name: Debug Module`.
+Above `- name: Debug Module`, written with `#`.
 
 ```text
 Debug the module system end to end: dot-source the importer under the PowerShell debugger, from the

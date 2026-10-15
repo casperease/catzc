@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/modules/vnet-peering.bicep
 //     kind: bicep-module
+//     relatives:
+//       page: docs/references/infrastructure/modules/vnet-peering.bicep.md
 // ---
-
-// A peering is two-sided: the hub deploys hub to spoke and the spoke deploys spoke to hub, each with this module.
-// [comment:1](/docs/references/infrastructure/modules/vnet-peering.bicep.md#comment1)
 
 @description('Name of the existing local virtual network (in the deployment resource group).')
 param virtualNetworkName string

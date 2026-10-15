@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Asserts/tests/Assert-NotNullOrWhitespace.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Asserts/Assert-NotNullOrWhitespace.ps1
 ---
 #>
 

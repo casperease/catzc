@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Assert-TestTagGate.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.QualityGates/private/Assert-TestTagGate.ps1
     adrs:
       - ADR-AUTO-TEST#15
 ---

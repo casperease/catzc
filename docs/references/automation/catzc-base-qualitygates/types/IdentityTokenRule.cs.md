@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/IdentityTokenRule.cs.md
     kind: comment-page
-    body_sha: dca12d803c34
+    body_sha: "0c7e93cf776e"
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.QualityGates/types/IdentityTokenRule.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One live-identity declaration of an identity-tokens source: which values of one of the declaring module's own

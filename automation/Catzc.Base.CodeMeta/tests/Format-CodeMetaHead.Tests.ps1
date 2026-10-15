@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/tests/Format-CodeMetaHead.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.CodeMeta/Format-CodeMetaHead.ps1
     adrs:
       - ADR-REPO-FILEMETA#3
 ---

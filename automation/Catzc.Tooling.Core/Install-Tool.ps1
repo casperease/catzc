@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md
     adrs:
       - ADR-AUTO-UVPY
   config:
@@ -34,8 +36,6 @@ function Install-Tool {
     $config = Get-ToolConfig -Tool $Tool
     $command = Get-ToolCommandSuffix -Tool $Tool
 
-    # npm-managed tools (cspell, prettier, markdownlint) are installed with npm, not a platform package manager, so...
-    # [comment:6](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment6)
     if ($config.npm_package) {
         throw "$Tool is an npm-managed tool. Install-Tool manages winget/brew/apt packages only — use Install-$command (npm) instead."
     }
@@ -70,8 +70,6 @@ function Install-Tool {
         Assert-Command winget
         $packageId = $config.winget_id -f $Version
 
-        # --force: winget may see a Store stub or stale alias and report "already installed" even though no real...
-        # [comment:7](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment7)
         if ($config.winget_scope -eq 'user') {
             Invoke-Executable "winget install --id $packageId --scope user --accept-source-agreements --accept-package-agreements --silent --force"
         }
@@ -88,8 +86,6 @@ function Install-Tool {
     }
     elseif ($IsLinux) {
         Assert-NotNullOrWhitespace $config.apt_package -ErrorText "$Tool has no AptPackage — use Install-$command directly"
-        # Linux package installation via apt-get requires root.
-        # [comment:8](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment8)
         Assert-IsAdministrator -ErrorText "Install-$command on Linux requires root (apt-get). Run as root or install $Tool manually."
         Assert-Command apt-get
         $package = $config.apt_package -f $Version
@@ -102,8 +98,6 @@ function Install-Tool {
 
     Sync-SessionPath
 
-    # winget portable packages resolve through a symlink in WinGet\Links that must be on PATH; creating that symlink...
-    # [comment:9](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment9)
     if ($IsWindows -and -not (Get-Command $config.command -CommandType Application -ErrorAction Ignore)) {
         $pkgRoot = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'
         if (Test-Path $pkgRoot) {

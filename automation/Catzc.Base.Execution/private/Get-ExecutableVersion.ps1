@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Execution
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-execution/private/Get-ExecutableVersion.ps1.md
+      test: automation/Catzc.Base.Execution/tests/Get-ExecutableVersion.Tests.ps1
   config:
     synopsis: Runs one located executable's version command and returns the parsed version — the probe's only process start.
     description: |-
@@ -35,8 +38,6 @@ function Get-ExecutableVersion {
         [string] $Pattern
     )
 
-    # Run in the executable's own folder, never the repository: a tool that reads project files from its working...
-    # [comment:3](/docs/references/automation/catzc-base-execution/private/Get-ExecutableVersion.ps1.md#comment3)
     $folder = [System.IO.Path]::GetDirectoryName($Path)
     $result = Invoke-Executable "`"$Path`" $Arguments".TrimEnd() -WorkingDirectory $folder -PassThru -NoAssert -Silent
 

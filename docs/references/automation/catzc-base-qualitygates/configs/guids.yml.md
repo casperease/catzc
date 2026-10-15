@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/guids.yml.md
     kind: comment-page
-    body_sha: "6a54cd9ee01a"
+    body_sha: fa34b9ef9840
 ---
 
 # automation/Catzc.Base.QualityGates/configs/guids.yml
 
 <!-- cspell:ignore oilzstgq -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `denied:`.
+Above `denied:`, written with `#`.
 
 ```text
 Managed-GUID registry — the single authored source of every GUID literal the repository carries.
@@ -33,7 +33,7 @@ Loaded via Get-Config -Config guids; mapped and validated by the GuidsConfig typ
 
 ## comment:2
 
-Above `denied:`.
+Above `denied:`, written with `#`.
 
 ```text
 The non-allow list: values that are never a legitimate identity. A denied guid can never be registered

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-PythonLint.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-PythonLint.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -11,8 +14,6 @@ catzc:
 ---
 #>
 
-# Test-PythonLint is a quality gate: the L0 cases mock the scope and ruff at the module boundary and read the...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-PythonLint.Tests.ps1.md#comment1)
 Describe 'Test-PythonLint' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:repo = Join-Path $TestDrive 'repo'
@@ -67,8 +68,6 @@ Describe 'Test-PythonLint' -Tag 'L0', 'logic' {
     }
 }
 
-# Integrity: every Python file the repository holds passes ruff check — the Python tests and the agent helpers.
-# [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-PythonLint.Tests.ps1.md#comment2)
 Describe 'Repository Python lint integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'every Python file passes ruff check (Test-PythonLint)' {
         $uv = Resolve-ToolExecutable -Tool uv

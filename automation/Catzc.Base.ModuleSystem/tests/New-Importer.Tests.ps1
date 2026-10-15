@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/New-Importer.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/tests/New-Importer.Tests.ps1.md
+      source: automation/Catzc.Base.ModuleSystem/New-Importer.ps1
 ---
 #>
 
@@ -66,15 +69,11 @@ Describe 'New-Importer — build mode' -Tag 'L0', 'logic' {
 }
 
 Describe 'New-Importer — importer.ps1 drift guard' -Tag 'L2', 'integrity', 'source-only' {
-    # The committed importer.ps1 is generated from the Invoke-Importer overlay.
-    # [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/New-Importer.Tests.ps1.md#comment1)
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
         $script:importer = Join-Path $script:repoRoot 'importer.ps1'
         $script:overlay = Join-Path $script:repoRoot 'automation/.internal/Catzc.Internal.Importer.psm1'
 
-        # The '<name> [<type-as-written>]' list of a param block — the script's own (FunctionName $null) or a named...
-        # [comment:2](/docs/references/automation/catzc-base-modulesystem/tests/New-Importer.Tests.ps1.md#comment2)
         function script:Get-ParamSignature {
             param([string] $Path, [string] $FunctionName)
             $ast = [System.Management.Automation.Language.Parser]::ParseFile($Path, [ref] $null, [ref] $null)

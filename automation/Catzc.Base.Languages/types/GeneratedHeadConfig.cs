@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Languages/types/GeneratedHeadConfig.cs
     kind: csharp-type
     module: Catzc.Base.Languages
+    relatives:
+      test: automation/Catzc.Base.Languages/tests/types/GeneratedHeadConfig.Tests.ps1
 ---
 */
 

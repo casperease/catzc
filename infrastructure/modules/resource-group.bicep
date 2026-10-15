@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/modules/resource-group.bicep
 //     kind: bicep-module
+//     relatives:
+//       page: docs/references/infrastructure/modules/resource-group.bicep.md
 // ---
-
-// Deploys at subscription scope; resources then go in through modules scoped to the new resource group.
-// [comment:1](/docs/references/infrastructure/modules/resource-group.bicep.md#comment1)
 
 targetScope = 'subscription'
 

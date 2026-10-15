@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md
+      source: automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -11,8 +14,6 @@ catzc:
 ---
 #>
 
-# Test-GlobSetIndependence is a quality gate over per-layer independence.
-# [comment:1](/docs/references/automation/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md#comment1)
 Describe 'Test-GlobSetIndependence' -Tag 'L0', 'logic' {
     BeforeAll {
         # A globset fixture: Name, Layer, and SelectOwnMembers over the tracked files by path prefix.

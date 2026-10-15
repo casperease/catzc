@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/tests/Get-ToolConfig.Tests.ps1.md
+      source: automation/Catzc.Tooling.Core/Get-ToolConfig.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'Get-ToolConfig' -Tag 'L0' {
-    # Discovery-time: populates -ForEach data before tests run.
-    # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Get-ToolConfig.Tests.ps1.md#comment1)
     $script:configPath = (Get-Config -Config tools -ListOwners).Path
     $script:allTools = Get-Content $configPath -Raw | ConvertFrom-Yaml
     $script:toolEntries = foreach ($key in $script:allTools.Keys) {
@@ -88,8 +89,6 @@ Describe 'Get-ToolConfig' -Tag 'L0' {
         }
 
         It 'caches across calls' {
-            # Hermetic fixture tool through the Get-Config seam, so the cache test never depends on the shipped...
-            # [comment:2](/docs/references/automation/catzc-tooling-core/tests/Get-ToolConfig.Tests.ps1.md#comment2)
             $script:toolsFixture = [Catzc.Base.Execution.ToolsConfig]::new(@{ faketool = @{
                         version         = '1.0'
                         command         = 'faketool'

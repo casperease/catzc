@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Maps
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15

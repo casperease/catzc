@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/tests/New-GoWorkspace.Tests.ps1.md
-    kind: test-asset
-    body_sha: "2f0cf4211ce5"
+    kind: comment-page
+    body_sha: "75f88b50d291"
     adrs:
       - ADR-AUTO-TEST#6
 ---
 
 # automation/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:root = Join-Path $TestDrive 'repo'`.
+Above `$script:root = Join-Path $TestDrive 'repo'`, written with `#`.
 
 ```text
 Isolate through the seams ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)): a

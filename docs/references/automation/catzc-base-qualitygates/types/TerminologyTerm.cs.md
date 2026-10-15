@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/TerminologyTerm.cs.md
     kind: comment-page
-    body_sha: "1c701d4e8f28"
+    body_sha: ca2933103521
     adrs:
       - ADR-AUTO-SPELL#5
       - ADR-AUTO-SPELL#8
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/types/TerminologyTerm.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One approved-vocabulary entry from configs/terminology.yml — a term and its meaning. Its category is the
@@ -32,7 +32,7 @@ over its own properties and its constructor uses the base's Req/OptStr extractio
 
 ## comment:2
 
-Above `public string category { get; }`.
+Above `public string category { get; }`, written with `//`.
 
 ```text
 The group this term is listed under (a defined category). Supplied by TerminologyConfig from the

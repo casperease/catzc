@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md
-    kind: test-asset
-    body_sha: "42b35fbf7222"
+    kind: comment-page
+    body_sha: "336aefa95e0a"
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Build-Glossary' -Tag 'L0', 'logic' {`.
+Above `Describe 'Build-Glossary' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Build-Glossary renders the merged glossary into one markdown page. The logic tests mock the three inputs — the
@@ -26,7 +26,7 @@ over a fixture ADR), and the adrs.yml domains — and write into $TestDrive. Fix
 
 ## comment:2
 
-Above `Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity',...`.
+Above `Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity',...`, written with `#`.
 
 ```text
 The real glossary page against the real sources. The importer's janitor materialises the

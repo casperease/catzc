@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/Install-Java.ps1.md
+      test: automation/Catzc.Tooling.Toolchain/tests/Install-Java.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#11
   config:
@@ -93,8 +96,6 @@ function Install-Java {
         return
     }
 
-    # Set for current session.
-    # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Install-Java.ps1.md#comment3)
     if ($env:JAVA_HOME -ne $javaHome) {
         $env:JAVA_HOME = $javaHome
         Write-Message "Session: JAVA_HOME='$javaHome'"

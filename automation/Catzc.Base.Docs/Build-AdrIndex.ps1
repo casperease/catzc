@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Build-AdrIndex.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE#5
       - ADR-AUTO-DRYRUN
@@ -153,8 +156,6 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   `dora-explains.md`.
 '@
 
-    # The authored prose above is wrapped for reading here, not for the page: reflow every paragraph and list item...
-    # [comment:6](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment6)
     $reflow = {
         param([string] $Markdown)
         $out = [System.Collections.Generic.List[string]]::new()
@@ -203,8 +204,6 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
     $adrDocsRoot = Resolve-RepoPath 'docs/adr'
     Assert-PathExist $adrDocsRoot
 
-    # Map "<domainFolder>/<slug>" -> the ADR file path relative to docs/adr (forward-slashed), so a ruleset in a...
-    # [comment:7](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment7)
     $pathBySlugKey = @{}
     # An ADR sits at most three levels below docs/adr (domain, subfolder, file); the fourth level is headroom.
     foreach ($file in Get-ChildPath $adrDocsRoot -File -Filter '*.md' -Depth 4) {
@@ -217,8 +216,6 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
         $pathBySlugKey["$topFolder/$slug"] = $relative
     }
 
-    # One aligned code-registry table per domain, in declared order.
-    # [comment:8](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment8)
     $sections = foreach ($domain in $adrs.Domains) {
         $rows = foreach ($ruleSet in $domain.RuleSets) {
             $key = "$($domain.Name)/$($ruleSet.Slug)"

@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Maps/types/WorldMapHighlight.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/WorldMapHighlight.cs.md
+      test: automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
     adrs:
       - ADR-DSGN-TRACK#1
       - ADR-THES-ONETRUTH#3
 ---
 */
-
-// A pin wins over an exception, and an ADR's domain never lights a file: it only picks the value-chain row.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/WorldMapHighlight.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -52,8 +52,6 @@ public sealed class WorldMapHighlight
         Cells = cells == null ? Array.Empty<HighlightedCell>() : (HighlightedCell[])cells.Clone();
     }
 
-    // An unlisted ADR code throws, and so does a pin or exception naming a cell the map lacks, so a stale pin fails loudly.
-    // [comment:2](/docs/references/automation/catzc-base-maps/types/WorldMapHighlight.cs.md#comment2)
     public static WorldMapHighlight ForAdr(WorldMap map, IEnumerable references, IEnumerable pins, IEnumerable exceptions)
     {
         if (map == null) { throw new ArgumentNullException(nameof(map)); }

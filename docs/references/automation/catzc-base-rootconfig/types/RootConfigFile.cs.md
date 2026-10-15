@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md
     kind: comment-page
-    body_sha: a20837094afc
+    body_sha: "634c3ccea400"
 ---
 
 # automation/Catzc.Base.RootConfig/types/RootConfigFile.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One managed root-file entry from configs/rootconfig.yml — a repository-root `target` fully managed by the
@@ -37,7 +37,7 @@ over its own properties and its constructor uses the base's extraction helpers.
 
 ## comment:2
 
-Above `public string target { get; }`.
+Above `public string target { get; }`, written with `//`.
 
 ```text
 Repository-root-relative path of the managed file (e.g. ".editorconfig"), or a wildcard pattern over the
@@ -46,7 +46,7 @@ files a generator renders (e.g. "go/tests/*/go.mod"). Required.
 
 ## comment:3
 
-Above `public string generator { get; }`.
+Above `public string generator { get; }`, written with `//`.
 
 ```text
 Name of the function that renders the target's full content (e.g. "New-Importer"). Exactly one of
@@ -55,7 +55,7 @@ source/generator.
 
 ## comment:4
 
-Above `public bool committed { get; }`.
+Above `public bool committed { get; }`, written with `//`.
 
 ```text
 Keep the managed target tracked in git (true) instead of gitignored (false, the default). For files
@@ -64,7 +64,7 @@ needed before the importer runs (importer.ps1, the git files).
 
 ## comment:5
 
-Above `public bool copyAsLink { get; }`.
+Above `public bool copyAsLink { get; }`, written with `//`.
 
 ```text
 Materialise the target as a filesystem link to the source (Set-FileLink) instead of a generated copy.

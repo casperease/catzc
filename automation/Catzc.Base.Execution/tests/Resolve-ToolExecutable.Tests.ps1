@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md
+      source: automation/Catzc.Base.Execution/Resolve-ToolExecutable.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
-    # The mapping from a tools.yml entry to the probe's plain inputs: the tools config is a fixture dictionary...
-    # [comment:1](/docs/references/automation/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md#comment1)
     BeforeAll {
         $script:windows = [bool]$IsWindows
         $script:tools = @{

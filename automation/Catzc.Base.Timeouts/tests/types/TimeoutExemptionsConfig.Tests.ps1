@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/tests/types/TimeoutExemptionsConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Timeouts/types/TimeoutExemptionsConfig.cs
 ---
 #>
 

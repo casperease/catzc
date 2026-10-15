@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-FixtureIdentityTokens.Tests.ps1
     adrs:
       - ADR-REPO-LANG
   config:
@@ -43,8 +46,6 @@ function Get-FixtureIdentityTokens {
         }
     }
 
-    # Every fixture config tree (tests/assets/config/) — the identity-bearing azure.yml and customer.yml a logic test...
-    # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md#comment4)
     Assert-SourceTree
     $registry = (Get-Config -Config configs).configs
     $automationRoot = Join-Path (Get-RepositoryRoot) 'automation'
@@ -82,8 +83,6 @@ function Get-FixtureIdentityTokens {
         }
     }
 
-    # Neutral in-memory fixtures that never live in a config file — the globset and tool fixtures logic tests...
-    # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md#comment5)
     foreach ($token in 'widget', 'gadget', 'faketool') {
         & $add $token
     }

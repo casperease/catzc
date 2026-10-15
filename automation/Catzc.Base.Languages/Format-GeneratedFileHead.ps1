@@ -6,6 +6,8 @@ catzc:
     kind: format-function
     module: Catzc.Base.Languages
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1
     adrs:
       - ADR-REPO-FILEMETA#7
   config:

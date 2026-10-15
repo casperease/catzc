@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md
-    kind: test-asset
-    body_sha: "31b771fd7439"
+    kind: comment-page
+    body_sha: cb3e570c1a4b
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-PROTGLOB#7
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {`.
+Above `Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {`, written with `#`.
 
 ```text
 The derived globsets ([ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)): folder
@@ -27,7 +27,7 @@ sets never enter GlobsConfig but scope protection and blast radius through the s
 
 ## comment:2
 
-Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`.
+Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`, written with `#`.
 
 ```text
 Neutral fixture globset name (widget), not the real 'automation' set
@@ -37,7 +37,7 @@ set only needs to exist so the shadow-check has a registry to compare the derive
 
 ## comment:3
 
-Above `Describe 'GlobsConfig reserved names' -Tag 'L0', 'logic' {`.
+Above `Describe 'GlobsConfig reserved names' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The reserved-name guard lives in the registry type itself

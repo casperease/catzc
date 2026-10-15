@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-BuildArtifact.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
     adrs:
       - ADR-AUTO-TEST#35
 ---
 #>
 
-# Test-BuildArtifact is a quality gate: each L0 case mocks the build, the child-pwsh probe, the source reads, and the...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-BuildArtifact.Tests.ps1.md#comment1)
 Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
     BeforeAll {
         # A clean observation of a two-module build at <root>: every facet passes.

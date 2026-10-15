@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-Comments.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-Comments.ps1
     adrs:
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-COMMENTS#5
 ---
 #>
 
-# Test-Comments is the gate that every long comment lives in its file's comment page and every residue and section...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Comments.Tests.ps1.md#comment1)
 Describe 'Test-Comments' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {
@@ -55,29 +56,16 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
         $after = & $check $root
         $after.IssueCount | Should -Be 0
-        $after.ResidueCount | Should -Be 1
+        $after.PageCount | Should -Be 1
     }
 
-    It 'reports a residue whose section is missing and a section no residue links' -Tag 'ADR-REPO-COMMENTS#5' {
-        $root = & $newRepository
-        Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
-        $page = & $readFile $root $pageRelative
-        & $writeFile $root $pageRelative ($page.Replace('## comment:1', '## comment:7'))
-        $report = & $check $root
-        $report.IssueCount | Should -Be 2
-        ($report.Issues -join "`n") | Should -BeLike "*comment:1 has no section in $pageRelative*"
-        ($report.Issues -join "`n") | Should -BeLike '*section comment:7 is linked by no residue*'
-    }
-
-    It 'reports a residue that links another file''s page and a number used twice' -Tag 'ADR-REPO-COMMENTS#5' {
+    It 'reports a section whose code line the file no longer has' -Tag 'ADR-REPO-COMMENTS#5' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
         $text = & $readFile $root $file
-        $residue = "    # [comment:1](/$pageRelative#comment1)"
-        $foreign = '    # [comment:2](/docs/references/automation/catzc-widget/Get-Gadget.ps1.md#comment2)'
-        & $writeFile $root $file ($text.Replace($residue, "$residue`n    # Gadget order again.`n$residue`n    # Gadget lookup.`n$foreign"))
-        $issues = (& $check $root).Issues -join "`n"
-        $issues | Should -BeLike '*comment:1 is used twice in the file*'
-        $issues | Should -BeLike "*comment:2 links docs/references/automation/catzc-widget/Get-Gadget.ps1.md, not the file's page*"
+        & $writeFile $root $file ($text.Replace('Sort-Object', 'Sort-Object -Unique'))
+        $report = & $check $root
+        $report.IssueCount | Should -Be 1
+        ($report.Issues -join "`n") | Should -BeLike "*$pageRelative*section comment:1 names a code line*no longer has*"
     }
 }

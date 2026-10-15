@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Exporter
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md
+      test: automation/Catzc.Base.Exporter/tests/Get-CatzcContentHash.Tests.ps1
     adrs:
       - ADR-FLOW-CD-GLOBS#5
       - ADR-PWSH-ENUM#3
@@ -43,8 +46,6 @@ function Get-CatzcContentHash {
     Assert-PathExist $Path -PathType Container
 
     $rootFull = [System.IO.Path]::GetFullPath($Path)
-    # A named whole-tree walk: the hash covers every file, so nothing is pruned and no depth drops one.
-    # [comment:3](/docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md#comment3)
     $files = Get-ChildPath $rootFull -File -Depth 64 -Exclude @() -PruneVendor $false
 
     $relativePaths = [System.Collections.Generic.List[string]]::new()

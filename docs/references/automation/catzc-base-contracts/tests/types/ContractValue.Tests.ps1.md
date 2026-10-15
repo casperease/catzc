@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/tests/types/ContractValue.Tests.ps1.md
-    kind: test-asset
-    body_sha: aa64f9d26eb3
+    kind: comment-page
+    body_sha: "8491e6bf3179"
     adrs:
       - ADR-REPO-CONTRACT#6
 ---
 
 # automation/Catzc.Base.Contracts/tests/types/ContractValue.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'ContractValue' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {`.
+Above `Describe 'ContractValue' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {`, written with `#`.
 
 ```text
 ContractValue reads a parsed JSON or YAML value as one of the JSON kinds and compares two values by JSON equality

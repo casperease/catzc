@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationVerdict.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationVerdict.Tests.ps1
     adrs:
       - ADR-AUTO-XPLAT#6
   config:
@@ -72,8 +75,6 @@ function Get-TestAutomationVerdict {
         'Passed'
     }
 
-    # Invariant so the duration reads the same on any devbox culture — a da-DK box would otherwise render '42,3s' and...
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationVerdict.ps1.md#comment3)
     $seconds = [math]::Round($DurationSeconds, 1).ToString([System.Globalization.CultureInfo]::InvariantCulture)
     $summary = if ($result -eq 'Passed') {
         "$PassedCount passed, $SkippedCount skipped in ${seconds}s"

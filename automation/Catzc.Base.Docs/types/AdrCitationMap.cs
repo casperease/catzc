@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrCitationMap.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md
     adrs:
       - ADR-AUTO
       - ADR-PWSH-ERROR
       - ADR-REPO-LINK#3
 ---
 */
-
-// The code is the source of truth for every link destination, so a moved ADR re-points every link to it.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -38,8 +37,6 @@ public sealed class AdrCitationMap
     // Every registered citation code, ordinally sorted.
     public IReadOnlyList<string> Codes { get; }
 
-    // documents holds every ADR-folder markdown path, code-less ones too, so a slug or stale path resolves to real files.
-    // [comment:2](/docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md#comment2)
     public AdrCitationMap(IDictionary entries, IEnumerable documents)
     {
         if (entries == null) { throw new ArgumentNullException(nameof(entries)); }
@@ -65,8 +62,6 @@ public sealed class AdrCitationMap
             }
             rulesByCode[code] = rules;
 
-            // Every hyphen-prefix of a code names its domain, so a domain code or wildcard is a valid mention, not an unknown ADR.
-            // [comment:3](/docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md#comment3)
             int dash = code.IndexOf('-', 4);
             while (dash > 0)
             {

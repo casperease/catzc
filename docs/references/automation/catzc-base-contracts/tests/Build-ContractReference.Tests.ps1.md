@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md
-    kind: test-asset
-    body_sha: "1137b76ff29a"
+    kind: comment-page
+    body_sha: "76e59be618a5"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-CONTRACT#2
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Build-ContractReference' -Tag 'L0', 'logic' {`.
+Above `Describe 'Build-ContractReference' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Build-ContractReference writes one page per unit, docs/references/contracts/<unit>.md, listing each version folder's
@@ -28,7 +28,7 @@ Fixtures are a widget repository in TestDrive ([ADR-AUTO-TEST#3](/docs/adr/autom
 
 ## comment:2
 
-Above `Describe 'Build-ContractReference — generated contract reference' -Tag 'L1',...`.
+Above `Describe 'Build-ContractReference — generated contract reference' -Tag 'L1',...`, written with `#`.
 
 ```text
 The real contract reference against the real contracts/ tree: the committed pages are what the writer would write now.

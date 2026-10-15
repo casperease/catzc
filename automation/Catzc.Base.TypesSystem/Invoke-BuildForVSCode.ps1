@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.TypesSystem
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md
+      test: automation/Catzc.Base.TypesSystem/tests/Invoke-BuildForVSCode.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES
       - ADR-DSGN-RUNMODE
@@ -64,8 +67,6 @@ function Invoke-BuildForVSCode {
     $project = Join-Path (Get-RepositoryRoot) 'automation/.internal/assets/Catzc.Types.csproj'
     Assert-PathExist $project
 
-    # The stamp task's "stamped version …" line and any analyzer diagnostics stream through.
-    # [comment:3](/docs/references/automation/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md#comment3)
     $result = Invoke-Executable "dotnet build `"$project`" --configuration $Configuration" -PassThru
 
     if ($PassThru) {

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestRunLocationSummary.Tests.ps1
   config:
     synopsis: Renders where a test run executed, for the report header and the run manifest.
     description: |-

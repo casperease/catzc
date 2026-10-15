@@ -3,15 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.Languages/configs/bash.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-languages/configs/bash.yml.md
 # ---
 
-# Black-box Bash tests of the engine; BashConfig validates the shape of this file.
-# [comment:1](/docs/references/automation/catzc-base-languages/configs/bash.yml.md#comment1)
-
-# Left undeclared, root takes the shared default: bash/ when the repository has one, else the dot-prefixed .bash.
-# [comment:2](/docs/references/automation/catzc-base-languages/configs/bash.yml.md#comment2)
-
-# Update-BatsVendor reproduces the vendored copy from this version and hash alone.
-# [comment:3](/docs/references/automation/catzc-base-languages/configs/bash.yml.md#comment3)
 bats_version: "1.14.0"
 bats_sha256: "bb537b70b15b732f6d8827dd6578e3d8ce166636ce1f18ea9a074184fcce9177"

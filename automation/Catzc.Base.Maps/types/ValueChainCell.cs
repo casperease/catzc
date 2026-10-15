@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Maps/types/ValueChainCell.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/ValueChainCell.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#10
@@ -13,9 +15,6 @@ catzc:
       - ADR-DSGN-TRACK#16
 ---
 */
-
-// On the map Adrs holds every ADR of the cell; on a highlight only the requested ADRs that light it.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/ValueChainCell.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -31,8 +30,6 @@ public sealed class ValueChainCell
     // The column: a value-chain concern ([ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)).
     public string Concern { get; }
 
-    // The order differs by use, adrs.yml order on the map and request order on a highlight; an empty grid cell holds none.
-    // [comment:2](/docs/references/automation/catzc-base-maps/types/ValueChainCell.cs.md#comment2)
     public IReadOnlyList<string> Adrs { get; }
 
     // The number of ADRs in the cell.

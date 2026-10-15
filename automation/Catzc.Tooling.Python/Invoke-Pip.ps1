@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Python
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Python/tests/Invoke-Pip.Tests.ps1
   config:
     synopsis: Runs pip through uv (`uv pip`).
     description: |-

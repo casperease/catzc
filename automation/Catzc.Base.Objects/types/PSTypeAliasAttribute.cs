@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Base.Objects/types/PSTypeAliasAttribute.cs
     kind: csharp-type
     module: Catzc.Base.Objects
+    relatives:
+      page: docs/references/automation/catzc-base-objects/types/PSTypeAliasAttribute.cs.md
 ---
 */
-
-// The alias literal lives in the C# source so a search for the alias lands on the declaring type; a type may carry several.
-// [comment:1](/docs/references/automation/catzc-base-objects/types/PSTypeAliasAttribute.cs.md#comment1)
 
 using System;
 
@@ -21,8 +20,6 @@ namespace Catzc.Base.Objects;
     Inherited = false)]
 public sealed class PSTypeAliasAttribute : Attribute
 {
-    // Keep the Catzc. prefix so the alias never reclaims another module's accelerator.
-    // [comment:2](/docs/references/automation/catzc-base-objects/types/PSTypeAliasAttribute.cs.md#comment2)
     public string Name { get; }
 
     public PSTypeAliasAttribute(string name)

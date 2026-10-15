@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Language.Bridge.ps1.md
-    kind: test-asset
-    body_sha: ae064b884f92
+    kind: comment-page
+    body_sha: ac306dc20239
     adrs:
       - ADR-AUTO-ENGINE#4
       - ADR-AUTO-TEST#26
@@ -13,12 +13,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter',...`.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter',...`, written with `#`.
 
 ```text
 The language bridge: one shared Pester file the harness runs once per test folder of a test language beside
@@ -40,7 +40,7 @@ The tests start the engine in processes of their own, so the file runs in the gr
 
 ## comment:2
 
-Above `[hashtable] $EngineExecutable = @{}`.
+Above `[hashtable] $EngineExecutable = @{}`, written with `#`.
 
 ```text
 The executables of the engines other than pwsh, by engine name, as the run's source session located them; an empty
@@ -49,7 +49,7 @@ or missing entry means that engine's run of the tests skips.
 
 ## comment:3
 
-Above `$script:languageOutcomes = @{}`.
+Above `$script:languageOutcomes = @{}`, written with `#`.
 
 ```text
 Every test runs once per execution engine

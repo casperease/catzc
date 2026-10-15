@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Invoke-TestFile.Tests.ps1.md
-    kind: test-asset
-    body_sha: "5000411c1f78"
+    kind: comment-page
+    body_sha: "71ad8910ee6f"
     adrs:
       - ADR-AUTO-TEST#23
       - ADR-AUTO-TEST#25
@@ -13,12 +13,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Invoke-TestFile (real worker)' -Tag 'L2', 'integrity', 'greedy' {`.
+Above `Describe 'Invoke-TestFile (real worker)' -Tag 'L2', 'integrity', 'greedy' {`, written with `#`.
 
 ```text
 L2: drives a real child pwsh worker through the same generator + runner chain as the harness.
@@ -28,7 +28,7 @@ oversubscribes the box (see the test-automation ADR's greedy tag).
 
 ## comment:2
 
-Above `$script:fixture = Join-Path $TestDrive 'StrictHostile.Tests.ps1'`.
+Above `$script:fixture = Join-Path $TestDrive 'StrictHostile.Tests.ps1'`, written with `#`.
 
 ```text
 The strict contract ([ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)): the
@@ -42,7 +42,7 @@ one spawn per distinct concern ([ADR-AUTO-TEST#23](/docs/adr/automation/test-aut
 
 ## comment:3
 
-Above `It 'runs in a snapshot: the worker loads the snapshot, the report and the...`.
+Above `It 'runs in a snapshot: the worker loads the snapshot, the report and the...`, written with `#`.
 
 ```text
 The walking skeleton of the snapshot path

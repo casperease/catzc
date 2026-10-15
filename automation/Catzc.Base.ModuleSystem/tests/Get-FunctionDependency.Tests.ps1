@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependency.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/tests/Get-FunctionDependency.Tests.ps1.md
+      source: automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
 ---
 #>
 
@@ -13,8 +16,6 @@ Describe 'Get-FunctionDependency' -Tag 'L0', 'integrity', 'source-only' {
     }
 
     It 'CrossModule is true when CallerModule != TargetModule' {
-        # One Should over the violating set — a Should per edge costs ~0.5ms × ~1000 cross-module edges, which alone...
-        # [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Get-FunctionDependency.Tests.ps1.md#comment1)
         $violations = foreach ($dependency in $dependencies) {
             if ($dependency.CrossModule -and $dependency.CallerModule -eq $dependency.TargetModule) {
                 $dependency

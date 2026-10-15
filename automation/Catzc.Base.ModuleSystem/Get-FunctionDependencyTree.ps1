@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependencyTree.Tests.ps1
   config:
     synopsis: Returns the transitive closure of all functions that a given function depends on.
     description: |-

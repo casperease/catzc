@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/Get-AdoAuthorizationHeader.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
 ---
 #>
 

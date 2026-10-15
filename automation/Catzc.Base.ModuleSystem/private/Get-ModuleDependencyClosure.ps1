@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyClosure.Tests.ps1
   config:
     synopsis: |-
       Returns the transitive declared-dependency closure of a set of modules — the seeds plus every module they

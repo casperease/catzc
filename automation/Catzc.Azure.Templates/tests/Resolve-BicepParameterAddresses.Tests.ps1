@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Resolve-BicepParameterAddresses.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AZ-DATAMOD#10
@@ -13,8 +16,6 @@ catzc:
 
 Describe 'Resolve-BicepParameterAddresses' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Invoke the private function in the module's scope; the config reader is mocked at its boundary with neutral...
-        # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Resolve-BicepParameterAddresses.Tests.ps1.md#comment1)
         $script:resolve = {
             param([System.Collections.IDictionary] $parameters)
             & (Get-Module Catzc.Azure.Templates) {

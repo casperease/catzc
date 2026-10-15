@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-RelativesFileMetaFact.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.QualityGates/private/Get-RelativesFileMetaFact.ps1
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FILEMETA#10
@@ -12,16 +14,16 @@ catzc:
 
 Describe 'Get-RelativesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#10', 'ADR-PRIN-CONFIG#1' {
     BeforeAll {
-        $script:slots = @(
+        $script:relations = @(
             @{ name = 'page'; rules = @(@{ files = @('**/*'); paths = @('{page}') }) }
             @{ name = 'test'; rules = @(@{ files = @('widgets/Catzc.*/*.ps1'); paths = @('widgets/{module}/tests/{stem}.Tests.ps1') }) }
             @{ name = 'source'; rules = @(@{ files = @('widgets/Catzc.*/tests/*.Tests.ps1'); paths = @('widgets/{module}/{stem}.ps1', 'widgets/{module}/private/{stem}.ps1') }) }
         )
 
         function script:Get-Kind {
-            param($Slots = $script:slots)
+            param($Relations = $script:relations)
             [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                    kinds = [ordered]@{ relatives = @{ settings = @{ slots = $Slots } } }
+                    kinds = [ordered]@{ relatives = @{ settings = @{ relations = $Relations } } }
                 }).kinds[0]
         }
 
@@ -43,7 +45,7 @@ Describe 'Get-RelativesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#10',
         }
     }
 
-    It 'names the page and the test of a function file, in slot order, when both exist' {
+    It 'names the page and the test of a function file, in the order declared, when both exist' {
         New-File 'widgets/Catzc.Gadget/Get-Cog.ps1'
         New-File 'widgets/Catzc.Gadget/tests/Get-Cog.Tests.ps1'
         New-File 'docs/catzc-gadget/Get-Cog.ps1.md'
@@ -61,17 +63,17 @@ Describe 'Get-RelativesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#10',
         $relatives['source'] | Should -BeExactly 'widgets/Catzc.Gadget/private/Get-Sprocket.ps1'
     }
 
-    It 'leaves a slot out when its file does not exist, so the map can be empty' {
+    It 'leaves a relation out when its file does not exist, so the map can be empty' {
         New-File 'widgets/Catzc.Gadget/Get-Lonely.ps1'
         (Get-Relatives 'widgets/Catzc.Gadget/Get-Lonely.ps1').Count | Should -Be 0
     }
 
-    It 'refuses more than eight slots' {
-        $many = 1..9 | ForEach-Object { @{ name = "slot$_"; rules = @(@{ files = @('**/*'); paths = @('nowhere') }) } }
+    It 'refuses more than eight relations' {
+        $many = 1..9 | ForEach-Object { @{ name = "relation$_"; rules = @(@{ files = @('**/*'); paths = @('nowhere') }) } }
         { Get-Relatives 'widgets/Catzc.Gadget/Get-Cog.ps1' (Get-Kind $many) } | Should -Throw '*at most 8 are allowed*'
     }
 
-    It 'rejects a slot without rules' {
+    It 'rejects a relation without rules' {
         { Get-Relatives 'widgets/Catzc.Gadget/Get-Cog.ps1' (Get-Kind @(@{ name = 'page' })) } | Should -Throw "*entries need 'name' and 'rules'*"
     }
 }

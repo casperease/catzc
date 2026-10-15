@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/tests/Install-Zsh.Tests.ps1.md
-    kind: test-asset
-    body_sha: cc61fd83a5b3
+    kind: comment-page
+    body_sha: "8e80877a76e6"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#9
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Install-Zsh' -Tag 'L0', 'logic' {`.
+Above `Describe 'Install-Zsh' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Install-Zsh on a fixture Git tree in $TestDrive: the layout, the tool config, the verified download, and the tar
@@ -27,7 +27,7 @@ fixture package with neutral names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-
 
 ## comment:2
 
-Above `Context 'on Linux' {`.
+Above `Context 'on Linux' {`, written with `#`.
 
 ```text
 The shared apt installer is mocked: it reads the package name from the entry's apt_package, so Install-Zsh names

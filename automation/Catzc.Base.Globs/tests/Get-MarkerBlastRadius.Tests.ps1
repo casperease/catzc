@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-MarkerBlastRadius.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1
 ---
 #>
 

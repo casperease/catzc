@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Environment/tests/Remove-PermanentPath.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-environment/tests/Remove-PermanentPath.Tests.ps1.md
+      source: automation/Catzc.Base.Environment/Remove-PermanentPath.ps1
 ---
 #>
 
@@ -20,8 +23,6 @@ Describe 'Remove-PermanentPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:originalPath = $env:PATH
 
-        # Keep the persistent (Windows User-registry) PATH entirely IN-MEMORY via the...
-        # [comment:1](/docs/references/automation/catzc-base-environment/tests/Remove-PermanentPath.Tests.ps1.md#comment1)
         $script:fakeUserPath = $null
         Mock Get-EnvironmentPath { $script:fakeUserPath } -ModuleName Catzc.Base.Environment
         Mock Set-EnvironmentPath { $script:fakeUserPath = $Value } -ModuleName Catzc.Base.Environment

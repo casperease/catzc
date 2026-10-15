@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/pipelines/cd-nova.yaml.md
     kind: comment-page
-    body_sha: "6e63e338fd9a"
+    body_sha: "8238d511e41c"
 ---
 
 # pipelines/cd-nova.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `trigger:`.
+Above `trigger:`, written with `#`.
 
 ```text
 CD pipeline for customer nova — thin root that extends the shared customer CD template.
@@ -31,11 +31,9 @@ azure.yml exist.
 
 ## comment:2
 
-Above `trigger:`.
+Above `trigger:`, written with `#`.
 
 ```text
-Trigger = the 'nova' globset projected into ADO-native path filters (Get-GlobSetTrigger,
-[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)):
-the foundation, discovery, and expedition templates + modules, plus nova's own configuration subfolder of
-each, minus the other deployments' config.
+Only nova's own configuration subfolders are included and other deployments' config is excluded, so their changes never trigger it.
+[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/pipelines/cd-nova.yaml.md#comment2)
 ```

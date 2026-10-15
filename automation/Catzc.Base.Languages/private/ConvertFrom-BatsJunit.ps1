@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Languages
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Languages/tests/ConvertFrom-BatsJunit.Tests.ps1
   config:
     synopsis: Turns the bats JUnit report into one BashTestResult per Bash test.
     description: |-

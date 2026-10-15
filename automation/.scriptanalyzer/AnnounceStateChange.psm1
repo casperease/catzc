@@ -10,14 +10,6 @@ catzc:
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 . (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
-<#
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: a function that changes the session's state must announce it.
-.DESCRIPTION
-    The rule checks that a writer runs with the change, not what the line says; that wording stays a review concern.
-    [comment:1](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment1)
-#>
-
 # Whether a command binds the named parameter.
 function Test-CommandParameter {
     param($Command, [string] $ParameterName)
@@ -29,8 +21,6 @@ function Test-CommandParameter {
     $false
 }
 
-# The first positional argument is the element right after the command name, and only when it is not a parameter.
-# [comment:2](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment2)
 function Get-CommandArgument {
     param($Command, [string] $ParameterName)
     $elements = $Command.CommandElements
@@ -222,8 +212,6 @@ function Measure-AnnounceStateChange {
         $ScriptBlockAst
     }
 
-    # Another runspace or process owns that state, so a change in a literal job scriptblock is not this session's.
-    # [comment:3](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment3)
     $isInOtherRunspace = {
         param($node)
         $parent = $node.Parent
@@ -261,8 +249,6 @@ function Measure-AnnounceStateChange {
         $false
     }
 
-    # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [comment:4](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment4)
     $isCandidate = {
         param($node)
         $node -is [System.Management.Automation.Language.AssignmentStatementAst] -or
@@ -270,8 +256,6 @@ function Measure-AnnounceStateChange {
         $node -is [System.Management.Automation.Language.CommandAst]
     }
 
-    # Grouped per scope because a writer or a finally restore only counts inside its own or an enclosing block.
-    # [comment:5](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment5)
     $changesByScope = [ordered]@{}
     $restoredByScope = @{}
     $coveredByScope = @{}
@@ -339,13 +323,6 @@ function Measure-AnnounceStateChange {
     return $results.ToArray()
 }
 
-<#
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: persistent environment and registry writes go only through their seams.
-.DESCRIPTION
-    Persistent environment and registry writes go through one mockable seam, so only its own test touches real state.
-    [comment:6](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment6)
-#>
 function Measure-PersistentWriteThroughSeam {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]

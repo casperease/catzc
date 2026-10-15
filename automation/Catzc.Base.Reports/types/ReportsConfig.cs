@@ -5,14 +5,15 @@ catzc:
     path: automation/Catzc.Base.Reports/types/ReportsConfig.cs
     kind: csharp-type
     module: Catzc.Base.Reports
+    relatives:
+      page: docs/references/automation/catzc-base-reports/types/ReportsConfig.cs.md
+      test: automation/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-AUTO-TYPES#8
 ---
 */
 
-// Every key has a default, so an empty reports.yml is valid and the file overrides only what differs.
-// [comment:1](/docs/references/automation/catzc-base-reports/types/ReportsConfig.cs.md#comment1)
 using System;
 using System.Collections;
 using System.Collections.Generic;

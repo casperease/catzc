@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md
-    kind: test-asset
-    body_sha: "19fdc2d36e68"
+    kind: comment-page
+    body_sha: "3a1be640b6ff"
     adrs:
       - ADR-AUTO-TEST#14
       - ADR-CONF-LOADING#1
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Mock Get-Config -ModuleName Catzc.Base.Config -MockWith { $script:fixture }`.
+Above `Mock Get-Config -ModuleName Catzc.Base.Config -MockWith { $script:fixture }`, written with `#`.
 
 ```text
 Get-ConfigValue reads through Get-Config
@@ -26,7 +26,7 @@ reader, not a file.
 
 ## comment:2
 
-Above `(Get-ConfigValue -Address 'global.tools').Contains('python') | Should -BeTrue`.
+Above `(Get-ConfigValue -Address 'global.tools').Contains('python') | Should -BeTrue`, written with `#`.
 
 ```text
 tools.yml loads as the typed ToolsConfig (a read-only tool map); guards the real wiring end to end

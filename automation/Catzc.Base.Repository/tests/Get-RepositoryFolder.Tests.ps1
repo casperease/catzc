@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-repository/tests/Get-RepositoryFolder.Tests.ps1.md
+      source: automation/Catzc.Base.Repository/Get-RepositoryFolder.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-RepositoryFolder over a $TestDrive root (Get-RepositoryRoot mocked): path normalization against the root, never...
-# [comment:1](/docs/references/automation/catzc-base-repository/tests/Get-RepositoryFolder.Tests.ps1.md#comment1)
 Describe 'Get-RepositoryFolder' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Repository { Join-Path $TestDrive 'repo' }

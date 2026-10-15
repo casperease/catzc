@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
   config:

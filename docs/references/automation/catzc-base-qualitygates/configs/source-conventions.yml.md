@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md
     kind: comment-page
-    body_sha: "5bb6902703ff"
+    body_sha: b5b1dc793a03
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-ENGINE#1
@@ -13,12 +13,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/configs/source-conventions.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `engine_set:`.
+Above `engine_set:`, written with `#`.
 
 ```text
 The source checks Test-SourceConventions runs beside its naming conventions. Each check takes:
@@ -32,7 +32,7 @@ Catzc.Base.QualityGates.SourceConventionsConfig
 
 ## comment:2
 
-Above `engine_set:`.
+Above `engine_set:`, written with `#`.
 
 ```text
 The engine set is declared once, in the ExecutionEngines model, and never restated
@@ -48,7 +48,7 @@ Defaults: no phrases.
 
 ## comment:3
 
-Above `neutral_codes:`.
+Above `neutral_codes:`, written with `#`.
 
 ```text
 A logic (L0) test's fixture data uses neutral ADR codes, never one the ADR index declares

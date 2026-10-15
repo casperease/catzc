@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs
     kind: csharp-type
     module: Catzc.Azure.DevOps.BuildValidation
+    relatives:
+      page: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md
+      test: automation/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-FLOW-CD-TYPE#4
 ---
 */
-
-// Globset names sit in values, not keys, because they are kebab-case; every violation is collected into one exception.
-// [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

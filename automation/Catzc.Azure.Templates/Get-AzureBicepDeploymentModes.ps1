@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Templates/tests/Get-AzureBicepDeploymentModes.Tests.ps1
   config:
     synopsis: Returns the supported bicep deployment modes.
     description: |-

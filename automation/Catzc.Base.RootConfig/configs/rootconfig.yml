@@ -3,31 +3,25 @@
 #   derived:
 #     path: automation/Catzc.Base.RootConfig/configs/rootconfig.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md
 # ---
 
-# Both booleans default to false, so a root file stays hand-authored and committed unless an entry opts it in.
-# [comment:1](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment1)
 files:
   - target: PSScriptAnalyzerSettings.psd1
     source: automation/.internal/assets/PSScriptAnalyzerSettings.psd1
     copyAsLink: true
     optIn: true
-  # Swapping this entry between generator and seed form self-heals on the next load, since the importer tail rebuilds from it.
-  # [comment:2](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment2)
   - target: importer.ps1
     generator: New-Importer
     sources:
       - automation/.internal/Catzc.Internal.Importer.psm1
     committed: true
     optIn: true
-  # Committed like importer.ps1, because a fresh clone needs it before any import has run.
-  # [comment:3](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment3)
   - target: importer.sh
     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
     committed: true
     optIn: true
-  # Gitignored generated copies: a fresh clone materialises them on the first import, and the editor greys them.
-  # [comment:4](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment4)
   - target: .vscode/settings.json
     generator: New-VSCodeSettings
     sources:
@@ -49,16 +43,12 @@ files:
       - automation/Catzc.Base.VSCode/configs/vscode-launch.yml
     carrier: jsonc
     optIn: true
-  # A gitignored generated copy like the other editor files, wired in through azure-pipelines.customSchemaFile.
-  # [comment:5](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment5)
   - target: .vscode/azure-pipelines-schema.json
     generator: New-VSCodePipelineSchema
     sources:
       - automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
     carrier: json-schema
     optIn: true
-  # Gitignored generated copies; the Go root is go/ when present, else .go/.
-  # [comment:6](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment6)
   - target: go.work
     generator: New-GoWorkspace
     sources:
@@ -73,8 +63,6 @@ files:
       - automation/Catzc.Base.Execution/configs/tools.yml
     carrier: go-workspace
     optIn: true
-  # Gitignored generated copies; uv makes the one .venv and uv.lock beside the workspace root.
-  # [comment:7](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment7)
   - target: "*/pyproject.toml"
     generator: New-PythonProject
     sources:
@@ -101,8 +89,6 @@ files:
     source: automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
     copyAsLink: true
     optIn: true
-  # These stay copies until symlinks are verified on Linux, as tools may resolve relative references against the real path.
-  # [comment:8](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment8)
   - target: .markdownlintignore
     source: automation/Catzc.Base.RootConfig/assets/root/.markdownlintignore
     carrier: dotfile
@@ -115,8 +101,6 @@ files:
     source: automation/Catzc.Base.RootConfig/assets/root/.prettierignore
     carrier: dotfile
     optIn: true
-  # A copy forever, never copyAsLink: git refuses to honour a symlinked .gitignore, so there is nothing to flip.
-  # [comment:9](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment9)
   - target: .cspell/.gitignore
     source: automation/Catzc.Base.RootConfig/assets/root/.cspell/.gitignore
     carrier: dotfile
@@ -124,14 +108,10 @@ files:
   - target: cspell.yml
     source: automation/Catzc.Base.RootConfig/assets/root/cspell.yml
     optIn: true
-  # The dotnet manifest parser rejects line comments, so the managed-file marker travels in the source as an ignored property.
-  # [comment:10](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment10)
   - target: dotnet-tools.json
     source: automation/Catzc.Base.RootConfig/assets/root/dotnet-tools.json
     copyAsLink: true
     optIn: true
-  # MSBuild needs the Format Version line first, so the managed-file note sits in the source's own comment block.
-  # [comment:11](/docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md#comment11)
   - target: catzc.sln
     source: automation/Catzc.Base.RootConfig/assets/root/catzc.sln
     copyAsLink: true

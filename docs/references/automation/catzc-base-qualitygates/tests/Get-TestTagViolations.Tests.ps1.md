@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-TestTagViolations.Tests.ps1.md
-    kind: test-asset
-    body_sha: "8aae849d6126"
+    kind: comment-page
+    body_sha: "2ad6d68214cf"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Mock Get-CatsAdrRuleIds { @('ADR-WIDGET-GADGET:3', 'ADR-WIDGET-SPROCKET:1') }...`.
+Above `Mock Get-CatsAdrRuleIds { @('ADR-WIDGET-GADGET:3', 'ADR-WIDGET-SPROCKET:1') }...`, written with `#`.
 
 ```text
 A fixture rule-id set (registry ':' form) so the validation is hermetic — it never reads the
@@ -23,7 +23,7 @@ shipped ADR tree. Mocking the whole boundary function is the seam
 
 ## comment:2
 
-Above `function New-Discovery {`.
+Above `function New-Discovery {`, written with `#`.
 
 ```text
 The fake discovery is plain data, so it is built here (Pester scope) and passed INTO InModuleScope

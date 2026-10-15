@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md
     kind: comment-page
-    body_sha: "49c18264397f"
+    body_sha: ac2c3a26550c
     adrs:
       - ADR-PIPE-NAME#1
       - ADR-PIPE-NAME#2
@@ -14,21 +14,21 @@ catzc:
 
 # automation/Catzc.Azure.DevOps/Test-Pipelines.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:8
+## comment:1
 
-Above `if ($extension -eq '.yml') {`.
+Above `if ($extension -eq '.yml') {`, written with `#`.
 
 ```text
 [ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6) — executable YAML
 under pipelines/ is `.yaml`, never `.yml`.
 ```
 
-## comment:9
+## comment:2
 
-Above `$prefix = ($name -split '-', 2)[0]`.
+Above `$prefix = ($name -split '-', 2)[0]`, written with `#`.
 
 ```text
 --- Root of pipelines/ : this is a pipeline entry point. ---
@@ -36,9 +36,9 @@ Above `$prefix = ($name -split '-', 2)[0]`.
 starts with a valid type token.
 ```
 
-## comment:10
+## comment:3
 
-Above `if ($topFolder -notin $templateFolders) {`.
+Above `if ($topFolder -notin $templateFolders) {`, written with `#`.
 
 ```text
 --- Inside a subfolder : must be a per-kind template folder, one level deep. ---
@@ -46,27 +46,27 @@ Above `if ($topFolder -notin $templateFolders) {`.
 is in the closed set, and no deeper nesting.
 ```
 
-## comment:11
+## comment:4
 
-Above `if ($record.Classification -eq 'Pipeline') {`.
+Above `if ($record.Classification -eq 'Pipeline') {`, written with `#`.
 
 ```text
 [ADR-PIPE-NAME#2](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name2) — a
 structural pipeline has no business inside a template folder.
 ```
 
-## comment:12
+## comment:5
 
-Above `elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and...`.
+Above `elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and...`, written with `#`.
 
 ```text
 [ADR-PIPE-NAME#3](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name3) — a
 fragment's structural kind matches its folder (extends/ exempt).
 ```
 
-## comment:13
+## comment:6
 
-Above `foreach ($ref in (Get-PipelineTemplateReference -Path $record.Path)) {`.
+Above `foreach ($ref in (Get-PipelineTemplateReference -Path $record.Path)) {`, written with `#`.
 
 ```text
 [ADR-PIPE-NAME#4](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name4) — template

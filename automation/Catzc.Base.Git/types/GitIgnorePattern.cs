@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Git/types/GitIgnorePattern.cs
     kind: csharp-type
     module: Catzc.Base.Git
+    relatives:
+      page: docs/references/automation/catzc-base-git/types/GitIgnorePattern.cs.md
+      test: automation/Catzc.Base.Git/tests/types/GitIgnorePattern.Tests.ps1
 ---
 */
-
-// The pattern text is never rewritten: what the registry says is what .gitignore gets.
-// [comment:1](/docs/references/automation/catzc-base-git/types/GitIgnorePattern.cs.md#comment1)
 
 using System;
 using System.Collections;

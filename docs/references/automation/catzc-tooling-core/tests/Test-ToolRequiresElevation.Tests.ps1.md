@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/tests/Test-ToolRequiresElevation.Tests.ps1.md
-    kind: test-asset
-    body_sha: "1b2e39a345f4"
+    kind: comment-page
+    body_sha: "48e228b8e9c7"
 ---
 
 # automation/Catzc.Tooling.Core/tests/Test-ToolRequiresElevation.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `function New-TestToolConfig {`.
+Above `function New-TestToolConfig {`, written with `#`.
 
 ```text
 The production input is the typed record Get-ToolConfig returns, so the tests build one: a flag the record

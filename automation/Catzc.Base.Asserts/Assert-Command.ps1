@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Asserts/tests/Assert-Command.Tests.ps1
   config:
     synopsis: Asserts that a command exists on the system.
     parameters:

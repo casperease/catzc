@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-TestSkipReason.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Get-TestSkipReason.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Get-TestSkipReason.ps1
 ---
 #>
 
 Describe 'Get-TestSkipReason' -Tag 'L0', 'logic' {
     BeforeAll {
-        # A Pester test-result object carries.ErrorRecord (a collection of records each exposing.Exception.Message).
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-TestSkipReason.Tests.ps1.md#comment1)
         function New-FakeSkip {
             param([string] $Message, [switch] $NoRecord)
             $records = if ($NoRecord) {

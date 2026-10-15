@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-inspiration/tests/Get-Inspiration.Tests.ps1.md
+      source: automation/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-INSPIRE#1
 ---
 #>
 
-# Get-Inspiration over a fixture config (Get-Config mocked to the real InspirationConfig built from neutral...
-# [comment:1](/docs/references/automation/catzc-tooling-inspiration/tests/Get-Inspiration.Tests.ps1.md#comment1)
 Describe 'Get-Inspiration' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:workspace = [IO.Path]::GetFullPath((Join-Path $TestDrive 'workspace'))

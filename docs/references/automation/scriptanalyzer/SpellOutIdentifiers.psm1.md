@@ -3,9 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md
     kind: comment-page
-    body_sha: "42857c74209e"
+    body_sha: c0dfe28e1797
     adrs:
-      - ADR-AUTO-SPELL#1
       - ADR-AUTO-SPELL#4
       - ADR-AUTO-SPELL#6
       - ADR-PWSH-FORMAT#6
@@ -13,32 +12,24 @@ catzc:
 
 # automation/.scriptanalyzer/SpellOutIdentifiers.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `$script:oracleReady = $false   # declared at load so the guard reads it...`, written with `#`.
 
 ```text
-Backs [ADR-AUTO-SPELL#1](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell1). Every variable
-name, parameter name, and the noun
-of every function name is tokenized (camelCase / PascalCase / snake_case) and each fragment is checked
-against the SpellingOracle — the union of cspell's English words (assets/english.txt.gz) and the approved
-terminology (.cspell/*.txt: the product vocabulary + the conventional-abbreviation allow-list). A fragment that
-is neither a real word nor approved vocabulary is an invented abbreviation and is flagged.
-
-This catches what Test-Spelling cannot: cspell's minWordLength (4) lets short coined tokens (rcg, and
-camelCase fragments <= 3 chars) pass silently; tokenizing identifiers with no length floor catches them.
-
-The oracle (load + tokenize + lookup) is a native C# type because a PowerShell method call costs
-~10 microseconds — looking up thousands of fragments per file in PowerShell would dominate the analyzer's
-runtime. The rule calls the oracle once per identifier.
+.SYNOPSIS
+    Custom PSScriptAnalyzer rule: enforce spelled-out identifier names — no invented local abbreviations.
+.DESCRIPTION
+    Tokenizing with no length floor catches short coined names that the spelling check lets pass.
+    [comment:1](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment1)
 ```
 
 ## comment:2
 
-Above `$script:oracleReady = $false   # declared at load so the guard reads it...`.
+Above `$script:oracleReady = $false   # declared at load so the guard reads it...`, written with `#`.
 
 ```text
 Bring the oracle type into THIS runspace and load its dictionary, once. This must run at rule-invocation
@@ -51,7 +42,7 @@ assembly here. Idempotent: guarded by a module-scope flag, and the load is skipp
 
 ## comment:3
 
-Above `Import-Module (Join-Path $repoRoot...`.
+Above `Import-Module (Join-Path $repoRoot...`, written with `#`.
 
 ```text
 The build for the CURRENT sources — keyed by the one shared hash (Get-CombinedTypeHash), never picked by
@@ -62,7 +53,7 @@ dependencies, so it imports by path even in a bare analyzer process.
 
 ## comment:4
 
-Above `$fixturePaths = [string[]] @($allTermPaths | Where-Object {...`.
+Above `$fixturePaths = [string[]] @($allTermPaths | Where-Object {...`, written with `#`.
 
 ```text
 Fixture terms (.cspell/fixture.txt) are test-only vocabulary
@@ -73,7 +64,7 @@ accepts them only when analyzing a test file, never in production code.
 
 ## comment:5
 
-Above `$script:skipVariables = [System.Collections.Generic.HashSet[string]]::new(`.
+Above `$script:skipVariables = [System.Collections.Generic.HashSet[string]]::new(`, written with `#`.
 
 ```text
 Automatic / preference / well-known variables the language owns — never identifier choices, so never
@@ -82,7 +73,7 @@ flagged. Mirrors the skip set in VariableCasing.psm1.
 
 ## comment:6
 
-Above `$isTestScope = Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst...`.
+Above `$isTestScope = Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst...`, written with `#`.
 
 ```text
 A test file may use fixture vocabulary
@@ -93,7 +84,7 @@ only when the file under analysis is a test (`*.Tests.ps1` or under a `tests/` f
 
 ## comment:7
 
-Above `$reported =...`.
+Above `$reported =...`, written with `#`.
 
 ```text
 Report each distinct coined name once per file, not once per occurrence — a variable read ten times is
@@ -102,7 +93,7 @@ one naming problem.
 
 ## comment:8
 
-Above `$isVariable = {`.
+Above `$isVariable = {`, written with `#`.
 
 ```text
 Every variable reference — assignment targets, parameters, loop variables, and reads — so a coined name
@@ -112,7 +103,7 @@ is caught wherever it is defined. Predicate as a local
 
 ## comment:9
 
-Above `if ($variablePath.DriveName) {`.
+Above `if ($variablePath.DriveName) {`, written with `#`.
 
 ```text
 $env:, $function:, $variable: … — an external/special drive, not an identifier we choose
@@ -121,7 +112,7 @@ $env:, $function:, $variable: … — an external/special drive, not an identifi
 
 ## comment:10
 
-Above `$isFunction = {`.
+Above `$isFunction = {`, written with `#`.
 
 ```text
 The noun of each function name (the verb is checked by PSUseApprovedVerbs). Predicate as a local

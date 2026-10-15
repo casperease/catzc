@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepDeploymentPlan.cs
     kind: csharp-type
     module: Catzc.Azure.Templates
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/types/BicepDeploymentPlan.cs.md
 ---
 */
-
-// The plan holds no file paths; those live in BicepArtifacts, the sibling concern nested in BicepDeploymentContext.
-// [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepDeploymentPlan.cs.md#comment1)
 
 using System;
 

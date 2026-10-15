@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Repository
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Repository/tests/Get-CatzcModulesRoot.Tests.ps1
   config:
     synopsis: Returns the root of the catzc automation tree — the folder that holds the loaded modules.
     description: |-

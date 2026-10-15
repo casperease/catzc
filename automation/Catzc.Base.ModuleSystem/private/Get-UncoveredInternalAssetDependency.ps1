@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#3
       - ADR-AUTO-ASSETDEP#4

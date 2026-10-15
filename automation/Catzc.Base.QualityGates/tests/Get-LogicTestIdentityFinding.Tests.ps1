@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-LogicTestIdentityFinding.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Get-LogicTestIdentityFinding.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Get-LogicTestIdentityFinding.ps1
 ---
 #>
 
 Describe 'Get-LogicTestIdentityFinding' -Tag 'L0', 'logic' {
     BeforeAll {
-        # A SYNTHETIC live-identity map: 'contoso' stands in for a live customer.
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-LogicTestIdentityFinding.Tests.ps1.md#comment1)
         $script:live = @{
             contoso = [pscustomobject]@{ Token = 'contoso'; Kind = 'customer-key'; Source = 'customer.yml'; Suggest = 'a fixture customer (acme)'; MatchMode = 'exact' }
             staging = [pscustomobject]@{ Token = 'staging'; Kind = 'environment'; Source = 'azure.yml'; Suggest = 'a fixture environment (alpha)'; MatchMode = 'position' }

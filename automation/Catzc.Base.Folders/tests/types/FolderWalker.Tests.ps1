@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Folders/types/FolderWalker.cs
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST

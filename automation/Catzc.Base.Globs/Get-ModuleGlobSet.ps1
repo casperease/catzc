@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Globs
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+      test: automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
     adrs:
       - ADR-AUTO-BASH#2
       - ADR-AUTO-GO#2
@@ -85,8 +88,6 @@ function Get-ModuleGlobSet {
         'compiled'       = 'automation/.compiled/**'
         'scriptanalyzer' = 'automation/.scriptanalyzer/**'
     }
-    # The reserved umbrellas are cross-cutting check surfaces, not independent modules: 'internal' overlaps every...
-    # [comment:9](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment9)
     foreach ($reservedName in [Catzc.Base.Globs.GlobsConfig]::ReservedNames) {
         $set = [Catzc.Base.Globs.GlobSet]::new(
             $reservedName, "Derived infra scope - $($reserved[$reservedName])", 'loose-fileset',
@@ -94,16 +95,12 @@ function Get-ModuleGlobSet {
         $derived[$reservedName] = $set
     }
 
-    # The aspect convention: each module folder partitions into disjoint, exhaustive aspect sets (live/tests by...
-    # [comment:10](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment10)
     $aspectList = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
     foreach ($aspectDef in Get-Aspect -Track automation) {
         $aspectList.Add([Catzc.Base.Globs.Aspect]::new($aspectDef.Name, [string[]]$aspectDef.Patterns))
     }
     # bare module name/kebab -> its aspect sets, so a caller can ask for "the module" and get both aspects.
     $moduleAspects = @{}
-    # A module's Go, Python and Bash test folders (<root>/tests/<kebab>/ of each language root,,, ) are part of its...
-    # [comment:11](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment11)
     $goRoot = (Get-Config -Config go).ResolveRoot((Get-RepositoryRoot))
     $pythonRoot = (Get-Config -Config python).ResolveRoot((Get-RepositoryRoot))
     $bashRoot = (Get-Config -Config bash).ResolveRoot((Get-RepositoryRoot))
@@ -143,8 +140,6 @@ function Get-ModuleGlobSet {
         $moduleAspects[$moduleName] = $aspectSets
     }
 
-    # The internal shared modules: one single-file set per automation/.internal/<Name>.psm1 — the file is the...
-    # [comment:12](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment12)
     $internalRoot = [System.IO.Path]::Combine($automationRoot, '.internal')
     if ([System.IO.Directory]::Exists($internalRoot)) {
         foreach ($internalFile in [System.IO.Directory]::EnumerateFiles($internalRoot, '*.psm1')) {
@@ -161,13 +156,9 @@ function Get-ModuleGlobSet {
         }
     }
 
-    # The module layer's catch-all: every tracked file under automation/ that no per-folder module owns and that is...
-    # [comment:13](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment13)
     if ('module-leftovers' -in $declaredNames) {
         throw "Declared globset 'module-leftovers' in globs.yml shadows the derived module-space catch-all — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
     }
-    # Ordinal-sorted so the scan program (the marker body) is byte-identical on every machine, independent of...
-    # [comment:14](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment14)
     $leftoverExcludes = @($moduleFolderGlobs) + @($reserved.Values)
     [System.Array]::Sort($leftoverExcludes, [System.StringComparer]::Ordinal)
     $derived['module-leftovers'] = [Catzc.Base.Globs.GlobSet]::new(

@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/glossary.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-qualitygates/configs/glossary.yml.md
 # ---
 
-# Holds the test vocabulary of Test-Automation and the link vocabulary of Test-Links, and is checked by Test-Glossary.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/glossary.yml.md#comment1)
 concepts:
   tier:
     key: tier

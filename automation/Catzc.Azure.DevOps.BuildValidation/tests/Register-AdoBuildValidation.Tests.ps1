@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps.BuildValidation/tests/Register-AdoBuildValidation.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Register-AdoBuildValidation.Tests.ps1.md
+      source: automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
     adrs:
       - ADR-AUTO-DRYRUN
 ---
 #>
 
-# The write side: idempotent create-or-update of one globset's build-validation policy, everything defaulted from...
-# [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/tests/Register-AdoBuildValidation.Tests.ps1.md#comment1)
 Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:globSet = [Catzc.Base.Globs.GlobSet]::new(

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md
+      test: automation/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1
     adrs:
       - ADR-AUTO-ENGINE#1
   config:
@@ -36,8 +39,6 @@ function Get-EngineCaseTable {
         [switch] $Applicable
     )
 
-    # The engines are declared once: Get throws, naming them, for any other name.
-    # [comment:3](/docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md#comment3)
     if ($Engine) {
         $null = [Catzc.Base.Engines.ExecutionEngines]::Get($Engine)
     }

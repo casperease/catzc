@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Get-DynamicManifestContent.Tests.ps1.md
-    kind: test-asset
-    body_sha: "23598c39eb47"
+    kind: comment-page
+    body_sha: "04e65cc96548"
 ---
 
 # automation/.internal/tests/Get-DynamicManifestContent.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {` (occurrence 3), written with `#`.
 
 ```text
 A merged module — every function in one <Module>.ps1 — loads through its explicit manifest with only the
@@ -22,7 +22,7 @@ listed publics exported and the private still callable from them (shared module 
 
 ## comment:2
 
-Above `BeforeAll {`.
+Above `BeforeAll {` (occurrence 4), written with `#`.
 
 ```text
 A source module: a modules root holding the real shared loader under .internal/assets and one module folder of
@@ -32,7 +32,7 @@ from them but not exported, and each function still reporting its own source fil
 
 ## comment:3
 
-Above `$result = Test-BuildArtifact -Facet Manifest -PassThru -OutputFolder...`.
+Above `$result = Test-BuildArtifact -Facet Manifest -PassThru -OutputFolder...`, written with `#`.
 
 ```text
 The published manifest is a versioned immutable artifact, so its canonical form must equal what the

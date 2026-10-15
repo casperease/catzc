@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/tests/Set-AdoPipelineVariable.Tests.ps1.md
-    kind: test-asset
-    body_sha: "8d3e4c456319"
+    kind: comment-page
+    body_sha: d7426312d2bd
 ---
 
 # automation/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 The ##vso line goes through the writer chokepoint, which a test run silences; lift the guard so the tests can

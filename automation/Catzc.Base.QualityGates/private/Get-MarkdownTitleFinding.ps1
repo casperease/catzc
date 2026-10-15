@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-MarkdownTitleFinding.Tests.ps1
   config:
     synopsis: Checks one Markdown file's title and returns the fixed text.
     description: |-
@@ -92,8 +95,6 @@ function Get-MarkdownTitleFinding {
     }
 
     if ($kind -eq 'PathTitle') {
-        # The H1 takes the subtitle's text without its backticks; the subtitle and the blank lines around it go.
-        # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md#comment3)
         $lines.RemoveRange($titleIndex, $subtitleIndex - $titleIndex + 1)
         $lines.Insert($titleIndex, $expected)
         $next = $titleIndex + 1

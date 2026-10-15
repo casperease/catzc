@@ -10,16 +10,6 @@ catzc:
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 . (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
-<#
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: enforce spelled-out identifier names — no invented local abbreviations.
-.DESCRIPTION
-    Tokenizing with no length floor catches short coined names that the spelling check lets pass.
-    [comment:1](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment1)
-#>
-
-# Runs at rule time, not module load: the analyzer's runspace does not inherit the importer's loaded assemblies.
-# [comment:2](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment2)
 $script:oracleReady = $false   # declared at load so the guard reads it strict-clean
 function Initialize-SpellingOracle {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Runs inside the analyzer engine, whose custom rules may emit only diagnostic records; it binds the committed types assembly the importer already loaded and announced, and in a bare analyzer shard process there is no console session to announce to')]
@@ -31,8 +21,6 @@ function Initialize-SpellingOracle {
     $repoRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..' '..'))
 
     if (-not ('Catzc.Base.QualityGates.SpellingOracle' -as [type])) {
-        # Keyed by the shared source hash, never by file age, and loaded as a shadow copy so no host locks a build.
-        # [comment:3](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment3)
         Import-Module (Join-Path $repoRoot 'automation/.internal/Catzc.Internal.Types.psm1')
         $automationRoot = Join-Path $repoRoot 'automation'
         $combinedHash = (Get-CombinedTypeHash $automationRoot).CombinedHash
@@ -51,16 +39,12 @@ function Initialize-SpellingOracle {
     else {
         [string[]] @()
     }
-    # Kept apart from the main vocabulary so the oracle accepts fixture terms only when analysing a test file.
-    # [comment:4](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment4)
     $fixturePaths = [string[]] @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -eq 'fixture.txt' })
     $termPaths = [string[]] @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -ne 'fixture.txt' })
     [Catzc.Base.QualityGates.SpellingOracle]::Initialize($englishPath, [string[]] $termPaths, [string[]] $fixturePaths)
     $script:oracleReady = $true
 }
 
-# Automatic / preference / well-known variables the language owns — never identifier choices, so never flagged.
-# [comment:5](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment5)
 $script:skipVariables = [System.Collections.Generic.HashSet[string]]::new(
     [string[]]@(
         '_', 'PSItem', 'this', 'null', 'true', 'false',
@@ -89,26 +73,18 @@ function Measure-SpellOutIdentifiers {
 
     Initialize-SpellingOracle
 
-    # A test file may use fixture vocabulary; production code may not.
-    # [comment:6](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment6)
     $isTestScope = Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst -IncludeTestsFolder
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-SpellOutIdentifiers'
-    # A name read ten times is one naming problem, so each coined name is reported once per file.
-    # [comment:7](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment7)
     $reported = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
-    # Every reference, not only definitions, so a coined name is caught wherever it is defined; predicate as a local.
-    # [comment:8](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment8)
     $isVariable = {
         param($node)
         $node -is [System.Management.Automation.Language.VariableExpressionAst]
     }
     foreach ($variable in $ScriptBlockAst.FindAll($isVariable, $true)) {
         $variablePath = $variable.VariablePath
-        # $env:, $function:, $variable: … — an external/special drive, not an identifier we choose.
-        # [comment:9](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment9)
         if ($variablePath.DriveName) {
             continue
         }
@@ -132,8 +108,6 @@ function Measure-SpellOutIdentifiers {
         }
     }
 
-    # The noun of each function name (the verb is checked by PSUseApprovedVerbs).
-    # [comment:10](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment10)
     $isFunction = {
         param($node)
         $node -is [System.Management.Automation.Language.FunctionDefinitionAst]

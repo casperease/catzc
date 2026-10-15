@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Azure.DevOps/types/YamlClassificationResult.cs
     kind: csharp-type
     module: Catzc.Azure.DevOps
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/types/YamlClassificationResult.cs.md
 ---
 */
 
@@ -24,8 +26,6 @@ public sealed class YamlClassificationResult
     // The template sub-kind. Null for non-Template files (Pipeline/Unknown).
     public Nullable<YamlTemplateType> TemplateType { get; }
 
-    // Strings are parsed to the enums here, so a caller holding string literals binds without converting first.
-    // [comment:1](/docs/references/automation/catzc-azure-devops/types/YamlClassificationResult.cs.md#comment1)
     public YamlClassificationResult(string classification, string templateType)
     {
         Classification = (YamlClassification)Enum.Parse(typeof(YamlClassification), classification, true);

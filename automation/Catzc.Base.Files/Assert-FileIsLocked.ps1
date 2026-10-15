@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Files
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Files/tests/Assert-FileIsLocked.Tests.ps1
   config:
     synopsis: Asserts that a file is held open by another handle (locked); throws otherwise.
     description: |-

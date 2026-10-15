@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Asserts/tests/Test-IsGuidInRange.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Asserts/Test-IsGuidInRange.ps1
 ---
 #>
 

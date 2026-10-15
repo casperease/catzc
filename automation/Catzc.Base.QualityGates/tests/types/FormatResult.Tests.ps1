@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/FormatResult.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.QualityGates/types/FormatResult.cs
     adrs:
       - ADR-REPO-FORMAT#8
 ---

@@ -9,14 +9,6 @@ catzc:
 
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
-<#
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: forbid writing to the console past the information stream.
-.DESCRIPTION
-    A raw write bypasses the stream, so it escapes output control, Pester silencing and the caller header.
-    [comment:1](/docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md#comment1)
-#>
-
 function Measure-NoRawConsoleWrite {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
@@ -36,8 +28,6 @@ function Measure-NoRawConsoleWrite {
         'Write', 'WriteLine', 'Clear', 'ResetColor', 'SetCursorPosition', 'Beep', 'SetWindowSize',
         'SetWindowPosition', 'SetBufferSize', 'MoveBufferArea', 'OpenStandardOutput', 'OpenStandardError'
     )
-    # Reading Out or Error to restore around a SetOut capture writes nothing, so only a write through them flags.
-    # [comment:2](/docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md#comment2)
     $consoleWriterMembers = @('Out', 'Error')
     $writerMethods = @('Write', 'WriteLine', 'WriteAsync', 'WriteLineAsync', 'Flush')
 
@@ -49,8 +39,6 @@ function Measure-NoRawConsoleWrite {
         $node.Expression.TypeName.FullName -in $consoleTypes
     }
 
-    # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [comment:3](/docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md#comment3)
     $isCandidate = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst] -or

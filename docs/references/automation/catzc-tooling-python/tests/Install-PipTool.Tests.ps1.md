@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-python/tests/Install-PipTool.Tests.ps1.md
-    kind: test-asset
-    body_sha: b11d32ad7bc7
+    kind: comment-page
+    body_sha: "884456f1f5d2"
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Mock Get-ToolConfig { [pscustomobject]@{ command = 'widget'; pip_package =...`.
+Above `Mock Get-ToolConfig { [pscustomobject]@{ command = 'widget'; pip_package =...`, written with `#`.
 
 ```text
 Neutral fixture tool ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) — a

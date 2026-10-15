@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-repository/tests/Get-RepositoryFolder.Tests.ps1.md
-    kind: test-asset
-    body_sha: f6a05df2c4b8
+    kind: comment-page
+    body_sha: "9246243597b9"
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-RepositoryFolder' -Tag 'L0', 'logic' {`.
+Above `Describe 'Get-RepositoryFolder' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-RepositoryFolder over a $TestDrive root (Get-RepositoryRoot mocked): path normalization against the root, never

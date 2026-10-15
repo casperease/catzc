@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Contracts/types/ContractValue.cs
     kind: csharp-type
     module: Catzc.Base.Contracts
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/types/ContractValue.cs.md
+      test: automation/Catzc.Base.Contracts/tests/types/ContractValue.Tests.ps1
     adrs:
       - ADR-REPO-CONTRACT#6
 ---
 */
-
-// A CLR type outside the seven JSON kinds makes Kind throw: the parsers never produce one, so meeting one is a misuse.
-// [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractValue.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -58,8 +58,6 @@ public static class ContractValue
             "contract value: a {0} is not a JSON or YAML value", value.GetType().FullName));
     }
 
-    // A rendering longer than DescribeLimit characters is cut there, so a finding stays on one line.
-    // [comment:2](/docs/references/automation/catzc-base-contracts/types/ContractValue.cs.md#comment2)
     public const int DescribeLimit = 80;
 
     public static string Describe(object value)

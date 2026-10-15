@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/FunctionCall.cs.md
     kind: comment-page
-    body_sha: "5ba04fecab56"
+    body_sha: "419ea8ddb7b7"
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/FunctionCall.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One statically named command call inside a function body: the command name as written and the line it starts on.

@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Maps/types/SquarifiedTreemap.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/SquarifiedTreemap.cs.md
+      test: automation/Catzc.Base.Maps/tests/types/SquarifiedTreemap.Tests.ps1
     adrs:
       - ADR-PWSH-TYPES#1
 ---
 */
-
-// Heaviest first with ordinal key ties, so the same weights give the same rectangles in whatever order they arrive.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/SquarifiedTreemap.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -21,8 +21,6 @@ namespace Catzc.Base.Maps;
 
 public static class SquarifiedTreemap
 {
-    // A zero weight gets no rectangle, while a negative, NaN or infinite weight, a duplicate or empty key, or an empty box throws.
-    // [comment:2](/docs/references/automation/catzc-base-maps/types/SquarifiedTreemap.cs.md#comment2)
     public static TreemapRect[] Layout(string[] keys, double[] weights, double x, double y, double width, double height)
     {
         if (keys == null) { throw new ArgumentNullException(nameof(keys)); }
@@ -102,8 +100,6 @@ public static class SquarifiedTreemap
         return Math.Max(side2 * max / sum2, sum2 / (side2 * min));
     }
 
-    // The last row takes the whole remaining box, so rounding never leaves a sliver or overflows the bounds.
-    // [comment:3](/docs/references/automation/catzc-base-maps/types/SquarifiedTreemap.cs.md#comment3)
     private static void Place(List<int> row, string[] keys, double[] weights, double scale, bool last, List<TreemapRect> result,
         ref double rx, ref double ry, ref double rw, ref double rh)
     {

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Variants
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Variants/tests/Get-AdoNaming.Tests.ps1
   config:
     synopsis: Returns the active Azure resource-name component order for this repo ('standard' or 'classic').
     description: |-

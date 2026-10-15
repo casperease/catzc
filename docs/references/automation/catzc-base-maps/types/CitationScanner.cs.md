@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md
     kind: comment-page
-    body_sha: "2d2a717d0041"
+    body_sha: "19b1496bb479"
     adrs:
       - ADR-REPO-LINK#3
 ---
 
 # automation/Catzc.Base.Maps/types/CitationScanner.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Finds the ADR citations in a file's text and maps each to its domain through the adrs index (the external codes of
@@ -29,7 +29,7 @@ before the ADR, ADR-...-* as a wildcard), and lowercase text. Only the file kind
 
 ## comment:2
 
-Above `public static IReadOnlyDictionary<string, string> Index(IDictionary raw)`.
+Above `public static IReadOnlyDictionary<string, string> Index(IDictionary raw)`, written with `//`.
 
 ```text
 The adrs index as an ordinal code -> domain map, from any dictionary (a PowerShell hashtable). A key that is not
@@ -38,7 +38,7 @@ an ADR code, or an empty domain, throws.
 
 ## comment:3
 
-Above `public static CitationSite[] Sites(string path, string text,...`.
+Above `public static CitationSite[] Sites(string path, string text,...`, written with `//`.
 
 ```text
 Every citation in a file's text whose code the index lists, one site per occurrence, in line order: its line and
@@ -49,7 +49,7 @@ a C# /// doc comment; a comment after the header is a passing mention (KindComme
 
 ## comment:4
 
-Above `public static string Canonical(string reference)`.
+Above `public static string Canonical(string reference)`, written with `//`.
 
 ```text
 A reference in any of the three forms as its canonical citation (ADR-<CODE> or ADR-<CODE>#n); null when the text
@@ -58,7 +58,7 @@ is not one.
 
 ## comment:5
 
-Above `public static bool Covers(string requested, string cited)`.
+Above `public static bool Covers(string requested, string cited)`, written with `//`.
 
 ```text
 True when a requested citation covers a cited one: a bare request covers every citation of its ADR; a one-rule

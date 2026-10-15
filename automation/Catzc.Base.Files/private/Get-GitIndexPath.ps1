@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Files
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Files/tests/Get-GitIndexPath.Tests.ps1
   config:
     synopsis: Returns the absolute path of the repository's git index file.
     description: |-

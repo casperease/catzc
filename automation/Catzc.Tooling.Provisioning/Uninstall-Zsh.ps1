@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md
+      test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
     adrs:
       - ADR-AUTO-IDEM#2
       - ADR-AUTO-REMOVE#2
@@ -64,8 +67,6 @@ function Uninstall-Zsh {
     }
     [System.IO.File]::Delete($layout.Manifest)
 
-    # Children before parents: a child sorts after its parent, so the reverse ordinal order removes the deepest first.
-    # [comment:3](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md#comment3)
     $directories = [System.Collections.Generic.List[string]]::new([string[]] @($manifest.Directories))
     $directories.Sort([System.StringComparer]::Ordinal)
     $directories.Reverse()

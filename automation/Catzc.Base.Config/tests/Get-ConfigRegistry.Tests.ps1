@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-config/tests/Get-ConfigRegistry.Tests.ps1.md
+      source: automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#3
       - ADR-PWSH-PESTER#3
@@ -11,8 +14,6 @@ catzc:
 ---
 #>
 
-# Get-ConfigRegistry is private, so it is exercised through the module (InModuleScope, per ).
-# [comment:1](/docs/references/automation/catzc-base-config/tests/Get-ConfigRegistry.Tests.ps1.md#comment1)
 Describe 'Get-ConfigRegistry' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
@@ -46,8 +47,6 @@ Describe 'Get-ConfigRegistry' -Tag 'L0', 'logic' {
     }
 }
 
-# Reads the SHIPPED configs.yml through the real lookup (nothing mocked), so it runs in both the source run and the...
-# [comment:2](/docs/references/automation/catzc-base-config/tests/Get-ConfigRegistry.Tests.ps1.md#comment2)
 Describe 'Get-ConfigRegistry — shipped configs.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     AfterAll {
         InModuleScope Catzc.Base.Config { $script:configRegistryCache = $null }

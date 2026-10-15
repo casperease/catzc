@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Variants
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Variants/tests/Assert-HaveCustomer.Tests.ps1
   config:
     synopsis: Asserts one named customer is enabled for the repo, else throws (singular cover over Assert-HaveCustomers).
     description: |-

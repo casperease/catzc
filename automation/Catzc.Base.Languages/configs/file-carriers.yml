@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.Languages/configs/file-carriers.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-languages/configs/file-carriers.yml.md
 # ---
 
-# Where each file class keeps its meta block, or the reason it has none; a class with files: wins over a language of the same file.
-# [comment:1](/docs/references/automation/catzc-base-languages/configs/file-carriers.yml.md#comment1)
 carriers:
   # Front matter is the Markdown convention, and the reserved catzc key is the block.
   markdown: { carrier: front-matter }

@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md
-    kind: test-asset
-    body_sha: "3ed3b17e89ed"
+    kind: comment-page
+    body_sha: d6378d1c74a8
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-FLOW-CD-GLOBS#1
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Native-trigger projection coverage' -Tag 'L2', 'integrity',...`.
+Above `Describe 'Native-trigger projection coverage' -Tag 'L2', 'integrity',...`, written with `#`.
 
 ```text
 Coverage of the native-trigger projection over THIS repo's real tree

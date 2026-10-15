@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-PythonLint.ps1.md
     kind: comment-page
-    body_sha: c25a857d6808
+    body_sha: c11a569779b3
 ---
 
 # automation/Catzc.Base.QualityGates/Test-PythonLint.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:3
+## comment:1
 
-Above `$check = Invoke-PythonWorkspaceTool -Tool 'ruff check --output-format...`.
+Above `$check = Invoke-PythonWorkspaceTool -Tool 'ruff check --output-format...`, written with `#`.
 
 ```text
 --output-format concise prints one '<file>:<line>:<column>: <code> <message>' line per finding; exit 1 means

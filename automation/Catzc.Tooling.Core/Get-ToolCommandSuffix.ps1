@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Core/tests/Get-ToolCommandSuffix.Tests.ps1
   config:
     synopsis: Maps a snake_case tool key from tools.yml to its PascalCase command suffix.
     description: |-

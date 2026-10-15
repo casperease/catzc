@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md
+      test: automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
     adrs:
       - ADR-PWSH-CACHE#4
   config:
@@ -33,8 +36,6 @@ function Assert-ToolVersion {
 
     # Cached for session lifetime. Reset by reimporting (.\importer.ps1).
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:toolVersionCache')) {
-        # strict-clean probe of the lazy cache entry
-        # [comment:4](/docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md#comment4)
         $script:toolVersionCache = @{}
     }
 
@@ -51,8 +52,6 @@ function Assert-ToolVersion {
         throw "$Tool is not functional — '$($config.version_command)' did not return a valid version. Run Install-$command."
     }
 
-    # Accepted prefixes: always the locked version; on a devbox (non-pipeline) also the optional devbox_version lever...
-    # [comment:5](/docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md#comment5)
     $accepted = [System.Collections.Generic.List[string]]::new()
     $accepted.Add($config.version)
     if ($config.devbox_version -and -not (Test-IsRunningInPipeline)) {

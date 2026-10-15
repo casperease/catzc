@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationTestPaths.Tests.ps1
   config:
     synopsis: |-
       Lists the run's test paths — tests folders and language test folders — foundation-first: modules by dependency
@@ -65,8 +68,6 @@ function Get-TestAutomationTestPaths {
         }
     }
 
-    # The language test folders (Go, then Python), each after its module's tests folder (Get-LanguageTestFolders...
-    # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md#comment4)
     foreach ($testFolder in @(Get-LanguageTestFolders)) {
         if ($Modules -and $testFolder.Module -notin $Modules) {
             continue

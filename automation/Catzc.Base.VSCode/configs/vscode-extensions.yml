@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.VSCode/configs/vscode-extensions.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md
 # ---
 
-# Edit this file, never extensions.json: the editor reads a gitignored copy that Build-RootConfig regenerates from it.
-# [comment:1](/docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md#comment1)
 # cspell:ignore azuretools azureresourcegroups streetsidesoftware rosshamish kuskus kusto shd101wyy esbenp tomoki redhat Anson Levett iliazeus gopls
 recommendations:
   # YAML language support — schema-validated editing of the configs/*.yml registries and pipeline YAML.
@@ -25,17 +25,9 @@ recommendations:
   - editorconfig.editorconfig
   # Markdown Preview Enhanced — the preview the vscode-settings registry themes.
   - shd101wyy.markdown-preview-enhanced
-  # Colors by pattern only, so it does not interpret ANSI escape codes; the ANSI extension below handles those.
-  # [comment:2](/docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md#comment2)
   - ibm.output-colorizer
-  # Only takes effect on out log files because the vscode-settings registry associates them with the ansi language.
-  # [comment:3](/docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md#comment3)
   - iliazeus.vscode-ansi
-  # Formatter-engine extensions are absent on purpose: the generator adds them from languages.yml, the one place they are named.
-  # [comment:4](/docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md#comment4)
   - ms-python.python
-  # It works through catzc.sln, whose project compiles and analyzes the C# types the importer builds with Add-Type.
-  # [comment:5](/docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md#comment5)
   - ms-dotnettools.csdevkit
   # Bicep — language service and validation for the infrastructure templates.
   - ms-azuretools.vscode-bicep
@@ -43,6 +35,4 @@ recommendations:
   - redhat.vscode-xml
   # PDF viewing for reference material in docs.
   - tomoki1207.pdf
-  # Core VS Code links only http, https and file URLs outside markdown, so a rule in vscode-settings.yml does the rest.
-  # [comment:6](/docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md#comment6)
   - DanLevett.regex-robin

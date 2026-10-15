@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Contracts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
     adrs:
       - ADR-AUTO-PATH#2
       - ADR-REPO-CONTRACT#2

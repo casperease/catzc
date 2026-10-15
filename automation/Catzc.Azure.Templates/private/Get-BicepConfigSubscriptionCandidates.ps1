@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md
     adrs:
       - ADR-AZ-DATAMOD
   config:
@@ -54,8 +56,6 @@ function Get-BicepConfigSubscriptionCandidates {
         if ([string]::IsNullOrEmpty($token)) {
             continue
         }
-        # Customer config: match the raw token first (the common, by-key binding), and only resolve a non-matching...
-        # [comment:3](/docs/references/automation/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md#comment3)
         if ($token -ceq $Customer -or (Get-AzureCustomer $token).key -ceq $Customer) {
             $ret.Add($subscriptionName)
         }

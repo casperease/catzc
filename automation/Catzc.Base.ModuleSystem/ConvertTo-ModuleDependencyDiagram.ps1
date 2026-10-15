@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.ModuleSystem/tests/ConvertTo-ModuleDependencyDiagram.Tests.ps1
   config:
     synopsis: Renders module dependency edges to JSON, YAML, Markdown, or PlantUML.
     description: |-

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Environment
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md
+      test: automation/Catzc.Base.Environment/tests/Sync-SessionPath.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#11
   config:
@@ -59,8 +62,6 @@ function Sync-SessionPath {
         }
     }
 
-    # Add any registry entries not yet in the session @ so an empty $kept yields an empty array, not $null (HashSet's...
-    # [comment:4](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment4)
     $seen = [System.Collections.Generic.HashSet[string]]::new(
         [string[]]@($kept | ForEach-Object { $_.TrimEnd('\', '/') }),
         [System.StringComparer]::OrdinalIgnoreCase
@@ -71,8 +72,6 @@ function Sync-SessionPath {
         }
     }
 
-    # Rewrite the session PATH only when an entry arrives or leaves, and say which — on a clean devbox nothing...
-    # [comment:5](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment5)
     $added = @($newPaths)
     $dropped = @($currentPaths | Where-Object { $_ -notin @($kept) })
     if ($added.Count -or $dropped.Count) {

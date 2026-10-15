@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepSlot.cs
     kind: csharp-type
     module: Catzc.Azure.Templates
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/types/BicepSlot.cs.md
 ---
 */
-
-// A template fans out into one slot per deployable coordinate, each resolving to one subscription and one resource group.
-// [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepSlot.cs.md#comment1)
 
 using System;
 
@@ -25,16 +24,10 @@ public sealed class BicepSlot
     // The environment this slot deploys into. Always present.
     public string environment { get; }
 
-    // The empty string, never null, marks the base slot, because downstream compares slots by value.
-    // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepSlot.cs.md#comment2)
     public string slot { get; }
 
-    // Always present: discovery resolves it from the coordinate to exactly one subscription.
-    // [comment:3](/docs/references/automation/catzc-azure-templates/types/BicepSlot.cs.md#comment3)
     public string subscription { get; }
 
-    // The empty string, never null, marks a shared configuration-root slot, because downstream filters by value.
-    // [comment:4](/docs/references/automation/catzc-azure-templates/types/BicepSlot.cs.md#comment4)
     public string customer { get; }
 
     public BicepSlot(string name, string environment, string slot, string subscription, string customer)

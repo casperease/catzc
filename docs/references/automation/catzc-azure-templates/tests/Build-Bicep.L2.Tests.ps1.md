@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.L2.Tests.ps1.md
-    kind: test-asset
-    body_sha: f0b94546ed60
+    kind: comment-page
+    body_sha: "2eec70cc401b"
     adrs:
       - ADR-AUTO-TEST#26
       - ADR-AUTO-TEST#8
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Azure.Templates/tests/Build-Bicep.L2.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic',...`.
+Above `Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic',...`, written with `#`.
 
 ```text
 Walking-skeleton L2 coverage for Build-Bicep: the few real `az bicep build` threads that exercise something
@@ -53,7 +53,7 @@ files on out/template/<name> — which is what previously forced the serial tag.
 
 ## comment:2
 
-Above `Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName...`.
+Above `Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName...`, written with `#`.
 
 ```text
 Isolate build output to this file's throwaway $TestDrive
@@ -65,7 +65,7 @@ Pester auto-cleans $TestDrive, so the per-test output teardown below is belt-and
 
 ## comment:3
 
-Above `Join-Path $script:outputRoot 'main.json' | Should -Exist`.
+Above `Join-Path $script:outputRoot 'main.json' | Should -Exist`, written with `#`.
 
 ```text
 main.json is the integration concern: the real compiler ran and Build-Bicep wired --outdir. The

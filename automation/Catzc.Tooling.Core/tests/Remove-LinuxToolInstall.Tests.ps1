@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/tests/Remove-LinuxToolInstall.Tests.ps1.md
+      source: automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
     adrs:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#6
@@ -14,16 +17,12 @@ catzc:
 
 Describe 'Remove-LinuxToolInstall' -Tag 'L1', 'logic' {
     BeforeEach {
-        # A neutral fixture tool — never a real tool identity.
-        # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Remove-LinuxToolInstall.Tests.ps1.md#comment1)
         $script:config = [pscustomobject]@{ command = 'widget'; pip_package = 'widgetlib' }
 
         Mock Write-Message { } -ModuleName Catzc.Tooling.Core
         Mock Assert-IsAdministrator { } -ModuleName Catzc.Tooling.Core
         Mock Get-Command { [pscustomobject]@{ Source = '/usr/bin/widget' } } -ParameterFilter { $Name -eq 'widget' } -ModuleName Catzc.Tooling.Core
 
-        # Defaults: the tool is on PATH; dpkg / uv are absent; every external probe reports "not found".
-        # [comment:2](/docs/references/automation/catzc-tooling-core/tests/Remove-LinuxToolInstall.Tests.ps1.md#comment2)
         Mock Test-Command { $false } -ModuleName Catzc.Tooling.Core
         Mock Test-Command { $true } -ParameterFilter { $Command -eq 'widget' } -ModuleName Catzc.Tooling.Core
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 1; Output = '' } } -ModuleName Catzc.Tooling.Core
@@ -68,8 +67,6 @@ Describe 'Remove-LinuxToolInstall' -Tag 'L1', 'logic' {
     }
 
     It 'deletes a stray on-PATH binary no manager owns, user-space' -Tag 'ADR-AUTO-REMOVE#6', 'ADR-AUTO-REMOVE#7' {
-        # dpkg / uv both absent (defaults) — fall through to the stray-file delete.
-        # [comment:3](/docs/references/automation/catzc-tooling-core/tests/Remove-LinuxToolInstall.Tests.ps1.md#comment3)
         $strayPath = Join-Path $TestDrive 'widget'
         [System.IO.File]::WriteAllText($strayPath, 'binary')
         Mock Get-Command { [pscustomobject]@{ Source = $strayPath } } -ParameterFilter { $Name -eq 'widget' } -ModuleName Catzc.Tooling.Core

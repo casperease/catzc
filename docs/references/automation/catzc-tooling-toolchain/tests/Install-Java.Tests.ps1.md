@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Java.Tests.ps1.md
-    kind: test-asset
-    body_sha: "12cc2ab32dcb"
+    kind: comment-page
+    body_sha: "153a0c001554"
 ---
 
 # automation/Catzc.Tooling.Toolchain/tests/Install-Java.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Install-Java' -Tag 'L1', 'logic' {`.
+Above `Describe 'Install-Java' -Tag 'L1', 'logic' {`, written with `#`.
 
 ```text
 Hermetic logic (L1): the tool manager (Install-Tool), the installed-version probe, command resolution and the

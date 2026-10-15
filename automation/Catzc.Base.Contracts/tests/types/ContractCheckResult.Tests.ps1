@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/types/ContractCheckResult.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/tests/types/ContractCheckResult.Tests.ps1.md
+      source: automation/Catzc.Base.Contracts/types/ContractCheckResult.cs
     adrs:
       - ADR-AUTO-TYPES#14
       - ADR-REPO-CONTRACT#4
 ---
 #>
 
-# ContractCheckResult is the result of checking one contract asset: Passed is derived from the findings, and it...
-# [comment:1](/docs/references/automation/catzc-base-contracts/tests/types/ContractCheckResult.Tests.ps1.md#comment1)
 Describe 'ContractCheckResult' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:asset = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.0.0', 'Catzc.Widget', 'gadget.md',

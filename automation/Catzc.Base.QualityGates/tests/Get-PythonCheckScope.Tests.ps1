@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-PythonCheckScope.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Get-PythonCheckScope.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Get-PythonCheckScope.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-PythonCheckScope with the test folders and the git index mocked: the Python checks read the test folders and...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-PythonCheckScope.Tests.ps1.md#comment1)
 Describe 'Get-PythonCheckScope' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:repo = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo'))

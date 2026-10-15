@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md
     kind: comment-page
-    body_sha: a91432fb48d7
+    body_sha: "7e09d8bdc468"
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AUTO-TYPES#9
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Azure.Templates/types/BicepParameter.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One parameter of a compiled Bicep template: the contract `az bicep build` writes into the `parameters` section of
@@ -36,7 +36,7 @@ type, the allowed values, and the bounds are.
 
 ## comment:2
 
-Above `public static readonly IReadOnlyList<string> Types = Array.AsReadOnly(new[]`.
+Above `public static readonly IReadOnlyList<string> Types = Array.AsReadOnly(new[]`, written with `//`.
 
 ```text
 The parameter types ARM declares, spelled the way Bicep and the ARM documentation spell them. ARM reads the
@@ -45,7 +45,7 @@ type case-insensitively (main.json writes "securestring"); the model stores this
 
 ## comment:3
 
-Above `public static BicepParameter FromArmDeclaration(string name, JsonElement...`.
+Above `public static BicepParameter FromArmDeclaration(string name, JsonElement...`, written with `//`.
 
 ```text
 Builds the parameter from its main.json declaration. A declaration that names a user-defined type
@@ -54,7 +54,7 @@ Builds the parameter from its main.json declaration. A declaration that names a 
 
 ## comment:4
 
-Above `public static object ToComparable(JsonElement value)`.
+Above `public static object ToComparable(JsonElement value)`, written with `//`.
 
 ```text
 Normalizes a JSON value for comparison against AllowedValues: a string stays a string, an integer becomes a

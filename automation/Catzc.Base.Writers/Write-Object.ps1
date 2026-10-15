@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Writers
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Writers/tests/Write-Object.Tests.ps1
   config:
     synopsis: Pretty-prints any object to the console with type info and smart formatting.
     description: |-

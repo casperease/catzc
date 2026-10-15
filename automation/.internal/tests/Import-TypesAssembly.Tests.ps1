@@ -4,12 +4,12 @@ catzc:
   derived:
     path: automation/.internal/tests/Import-TypesAssembly.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/internal/tests/Import-TypesAssembly.Tests.ps1.md
 ---
 #>
 
 Describe 'Import-TypesAssembly' -Tag 'L1', 'logic' {
-    # L1: the fixture DLL is compiled once with Add-Type (Roslyn's cold start).
-    # [comment:1](/docs/references/automation/internal/tests/Import-TypesAssembly.Tests.ps1.md#comment1)
     BeforeAll {
         $script:runId = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
         $script:namespace = "CatzcShadowWidget$runId"

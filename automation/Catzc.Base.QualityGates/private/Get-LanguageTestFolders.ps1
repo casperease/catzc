@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestFolders.Tests.ps1
     adrs:
       - ADR-AUTO-BASH#2
       - ADR-AUTO-GO#2
@@ -59,8 +62,6 @@ function Get-LanguageTestFolders {
         [pscustomobject]@{ Language = 'bash'; Root = (Get-Config -Config bash).ResolveRoot($repositoryRoot); Pattern = '*.bats' }
     )
 
-    # The catzc modules of the source tree, by kebab name: the folders under <repository>/automation/, read from the...
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md#comment3)
     $modulesByKebab = @{}
     $automationRoot = [System.IO.Path]::Combine($repositoryRoot, 'automation')
     if ([System.IO.Directory]::Exists($automationRoot)) {

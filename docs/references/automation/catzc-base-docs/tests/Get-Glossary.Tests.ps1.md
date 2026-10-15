@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Get-Glossary.Tests.ps1.md
-    kind: test-asset
-    body_sha: d0b66565f819
+    kind: comment-page
+    body_sha: "412bc13add97"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#3
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/tests/Get-Glossary.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-Glossary' -Tag 'L0', 'logic' {`.
+Above `Describe 'Get-Glossary' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-Glossary merges the glossary sources into GlossaryEntry records. Discovery is mocked at Get-GlossarySources
@@ -29,7 +29,7 @@ neutral (widget/gadget, [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.m
 
 ## comment:2
 
-Above `InModuleScope Catzc.Base.Docs { $script:glossaryCache = $null }`.
+Above `InModuleScope Catzc.Base.Docs { $script:glossaryCache = $null }` (occurrence 2), written with `#`.
 
 ```text
 The cache is keyed by the REAL repository root, so a fixture glossary left in it would be served to any later

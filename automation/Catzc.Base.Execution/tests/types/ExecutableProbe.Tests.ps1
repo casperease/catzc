@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-execution/tests/types/ExecutableProbe.Tests.ps1.md
+      source: automation/Catzc.Base.Execution/types/ExecutableProbe.cs
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'ExecutableProbe' -Tag 'L0', 'logic' {
-    # The existence-check record.
-    # [comment:1](/docs/references/automation/catzc-base-execution/tests/types/ExecutableProbe.Tests.ps1.md#comment1)
 
     It 'reads a found executable as Found with its path' {
         $probe = [Catzc.Base.Execution.ExecutableProbe]::new('widget', '/opt/widget/bin/widget', 'probe', '2.1.0', '2', $true, 3, 120, 'Person')

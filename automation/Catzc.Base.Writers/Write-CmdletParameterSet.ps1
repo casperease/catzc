@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Writers
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Writers/tests/Write-CmdletParameterSet.Tests.ps1
   config:
     synopsis: Writes all bound parameters of the calling function to the console.
     description: |-

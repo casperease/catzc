@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Files
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Files/tests/Get-GitCurrentCommit.Tests.ps1
   config:
     synopsis: Returns the current git commit hash (full 40-char SHA).
     description: |-

@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/LinkKind.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/LinkKind.cs.md
     adrs:
       - ADR-REPO-LINK#1
 ---
 */
-
-// A flags enum, so Both is Code | Markdown and the engine tests HasFlag instead of special-casing Both.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinkKind.cs.md#comment1)
 
 using System;
 

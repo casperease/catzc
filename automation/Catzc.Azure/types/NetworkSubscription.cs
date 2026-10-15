@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Azure/types/NetworkSubscription.cs
     kind: csharp-type
     module: Catzc.Azure
+    relatives:
+      page: docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-NETWORK
 ---
 */
-
-// Which kind a subscription needs and which environments it serves are azure.yml facts, joined by Test-AzureNetworkPlan.
-// [comment:1](/docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -36,8 +35,6 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
 
     private static readonly string[] HubSubnetNames = { "GatewaySubnet", "AzureFirewallSubnet", "shared-services" };
 
-    // Exactly these and no others: the two Azure-reserved subnets, which hold no deployments, plus shared-services.
-    // [comment:2](/docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md#comment2)
     public static IReadOnlyList<string> HubSubnets => HubSubnetNames;
 
     // The subscription name (the map key; an azure.yml subscription).
@@ -166,8 +163,6 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
-    // Includes names with an invalid range, so a bad-range subnet is reported once as a bad range, not also as missing.
-    // [comment:3](/docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md#comment3)
     private static List<string> SubnetNames(IDictionary d)
     {
         List<string> names = new List<string>();
@@ -197,8 +192,6 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
-    // Skipped when subnets is missing or empty, since that is already reported; the rest must be named for an environment.
-    // [comment:4](/docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md#comment4)
     private static void CheckSpoke(string where, List<string> names, List<string> errors)
     {
         if (names.Count == 0) { return; }

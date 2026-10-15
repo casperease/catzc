@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Vendor
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md
+      test: automation/Catzc.Base.Vendor/tests/Install-VendorModule.Tests.ps1
     adrs:
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-VENDOR
@@ -66,8 +69,6 @@ function Install-VendorModule {
     Write-Verbose "Downloading $Name from the vendor source$(if ($RequiredVersion) { " (v$RequiredVersion)" })"
     Save-PSResource @saveParams
 
-    # Prune folders the toolset never loads: legacy.NET Framework builds (we only target PS 7+ /.NET 6+) and...
-    # [comment:3](/docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md#comment3)
     $moduleDir = Join-Path $vendorRoot $Name
     $prunedFolders = @('net20', 'net35', 'net40', 'net45', 'net451', 'net452',
         'net46', 'net461', 'net462', 'net47', 'net471', 'net472', 'net48', 'compatibility_profiles')

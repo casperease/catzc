@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/MapsLimits.cs.md
     kind: comment-page
-    body_sha: d4f04fdd8aca
+    body_sha: "4a9e3ca18e0d"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Maps/types/MapsLimits.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `namespace Catzc.Base.Maps;`.
+Above `namespace Catzc.Base.Maps;`, written with `//`.
 
 ```text
 The world-map limits (the `limits` section of configs/maps.yml): the page size in PDF points, the smallest font size

@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Import-Catzc.Tests.ps1.md
-    kind: test-asset
-    body_sha: ed0518f258e5
+    kind: comment-page
+    body_sha: b70681c5cb17
 ---
 
 # automation/.internal/tests/Import-Catzc.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Import-Catzc loads a full build (walking skeleton)' -Tag 'L2',...`.
+Above `Describe 'Import-Catzc loads a full build (walking skeleton)' -Tag 'L2',...`, written with `#`.
 
 ```text
 Import-Catzc loads a build: Test-BuildArtifact builds the selection once into a temporary destination (Build-Modules,
@@ -24,7 +24,7 @@ the build root, the types DLL and its accelerators, every shipped config, help, 
 
 ## comment:2
 
-Above `It 'a reduced build ships the full type set and loads exactly its modules...`.
+Above `It 'a reduced build ships the full type set and loads exactly its modules...`, written with `#`.
 
 ```text
 A build of one module and its dependency closure still ships the full type set: the selected modules'

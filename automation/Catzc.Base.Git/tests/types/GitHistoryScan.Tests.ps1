@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Git/tests/types/GitHistoryScan.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md
+      source: automation/Catzc.Base.Git/types/GitHistoryScan.cs
 ---
 #>
 
 Describe 'GitHistoryScan' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Builds a `git cat-file --batch` stream by hand.
-        # [comment:1](/docs/references/automation/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md#comment1)
         function script:New-ObjectId {
             param([int] $Number)
             '{0:x40}' -f $Number
@@ -40,8 +41,6 @@ Describe 'GitHistoryScan' -Tag 'L0', 'logic' {
             New-Text ($lines -join "`n")
         }
 
-        # A two-commit history: commit 1 (root): widget.txt (clean), gadget/ (a tree holding notes.txt with the...
-        # [comment:2](/docs/references/automation/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md#comment2)
         $ids = @{}
         foreach ($name in 'clean', 'secret', 'binary', 'gadgetTree', 'vendorTree', 'tree1', 'tree2', 'commit1', 'commit2', 'unreachable') {
             $ids[$name] = New-ObjectId ($ids.Count + 1)

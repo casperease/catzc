@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/MapsHighlight.cs.md
     kind: comment-page
-    body_sha: "37197cea93b9"
+    body_sha: "80eb6f98e58e"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Maps/types/MapsHighlight.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The world-map highlight settings (the `highlight` section of configs/maps.yml): the reviewed pins, which light a cell
@@ -33,7 +33,7 @@ section and builds one.
 
 ## comment:2
 
-Above `public static readonly IReadOnlyList<string> DefaultCitationExclude =`.
+Above `public static readonly IReadOnlyList<string> DefaultCitationExclude =`, written with `//`.
 
 ```text
 The files whose citations light nothing by default: the generated slide descriptions and every other asset, the
@@ -42,7 +42,7 @@ explanation articles the slides illustrate, and the drawing tooling that makes t
 
 ## comment:3
 
-Above `public IReadOnlyList<string> citation_exclude { get; }`.
+Above `public IReadOnlyList<string> citation_exclude { get; }`, written with `//`.
 
 ```text
 The globs (repository-relative, '/'-separated) of the files whose citations light nothing. Default:

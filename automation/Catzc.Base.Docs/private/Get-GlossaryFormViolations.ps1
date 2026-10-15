@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-docs/private/Get-GlossaryFormViolations.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Get-GlossaryFormViolations.Tests.ps1
     adrs:
       - ADR-REPO-VOCAB#8
   config:
@@ -61,7 +64,5 @@ function Get-GlossaryFormViolations {
         [hashtable] $SurfaceCache = @{}
     )
 
-    # The scan runs compiled (Catzc.Base.Docs.GlossaryScan): it reads each file's prose through GlossaryProse into...
-    # [comment:4](/docs/references/automation/catzc-base-docs/private/Get-GlossaryFormViolations.ps1.md#comment4)
     [string[]] [Catzc.Base.Docs.GlossaryScan]::Forms([Catzc.Base.Docs.GlossaryEntry[]] @($Entry), [string[]] @($TrackedFile), $Root, $SurfaceCache)
 }

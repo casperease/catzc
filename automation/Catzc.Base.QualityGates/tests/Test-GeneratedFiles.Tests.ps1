@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-GeneratedFiles.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
     adrs:
       - ADR-AUTO-TEST#35
 ---
 #>
 
-# Test-GeneratedFiles is a quality gate: each L0 case mocks every generator at the module boundary and reads the...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-GeneratedFiles.Tests.ps1.md#comment1)
 Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }

@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GlossaryOptions.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/GlossaryOptions.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-VOCAB#2
       - ADR-REPO-VOCAB#3
 ---
 */
-
-// Default excludes are always added to a source's own, so no source can scan research text, generated output or vendored code.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryOptions.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -86,8 +85,6 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
         if (errors.Count > 0) { throw new ArgumentException(string.Join("; ", errors)); }
     }
 
-    // An explicit empty list is allowed, so a source can opt out of every check and still get the structural check.
-    // [comment:2](/docs/references/automation/catzc-base-docs/types/GlossaryOptions.cs.md#comment2)
     private static IReadOnlyList<string> ClosedList(IDictionary d, string key, IReadOnlyList<string> allowed, List<string> errors)
     {
         if (d == null || !d.Contains(key)) { return allowed; }

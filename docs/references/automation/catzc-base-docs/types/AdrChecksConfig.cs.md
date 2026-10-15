@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrChecksConfig.cs.md
     kind: comment-page
-    body_sha: d8c3e4808833
+    body_sha: c2d0a9b81cc6
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#35
@@ -15,12 +15,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/types/AdrChecksConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 adr-checks.yml — the settings of the ADR checks over the rule registries, and the single declaration of their sensible defaults

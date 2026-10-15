@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationHeader.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationHeader.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Write-TestAutomationHeader.ps1
 ---
 #>
 
@@ -11,8 +14,6 @@ catzc:
 param()
 
 Describe 'Write-TestAutomationHeader' -Tag 'L0', 'logic' {
-    # The writers' chokepoint returns early during a run ($global:__PesterRunning); lift it so the banner's...
-    # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationHeader.Tests.ps1.md#comment1)
     BeforeAll {
         $global:__PesterRunning = $false
 

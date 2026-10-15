@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Vendor
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Vendor/tests/Assert-VendorModuleAvailable.Tests.ps1
   config:
     synopsis: Asserts a module (optionally at a specific version) is available from the configured vendor source.
     description: |-

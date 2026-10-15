@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
     kind: csharp-type
     module: Catzc.Tooling.KeyHandler
+    relatives:
+      page: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md
+      test: automation/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerSupportedConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// The allow-list lets a Windows-only function be skipped rather than throw; a blank function name is rejected at load.
-// [comment:1](/docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerSupportedConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

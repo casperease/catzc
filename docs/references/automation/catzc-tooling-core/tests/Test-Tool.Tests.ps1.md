@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/tests/Test-Tool.Tests.ps1.md
-    kind: test-asset
-    body_sha: "13145f773628"
+    kind: comment-page
+    body_sha: "330a4a562231"
 ---
 
 # automation/Catzc.Tooling.Core/tests/Test-Tool.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 Hermetic: every collaborator mocked in module scope, so the assertion binds to the version-check LOGIC
@@ -22,7 +22,7 @@ Hermetic: every collaborator mocked in module scope, so the assertion binds to t
 
 ## comment:2
 
-Above `function New-TestToolConfig {`.
+Above `function New-TestToolConfig {`, written with `#`.
 
 ```text
 Get-ToolConfig returns the typed record, so the mocks do too: every key the entry omits reads as its

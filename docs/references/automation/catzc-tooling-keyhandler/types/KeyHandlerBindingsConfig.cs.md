@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md
     kind: comment-page
-    body_sha: "8da8c45e43eb"
+    body_sha: "012b985164f7"
 ---
 
 # automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBindingsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The captured Windows PSReadLine key bindings, configs/key-handler-bindings.yml: a top-level SEQUENCE of

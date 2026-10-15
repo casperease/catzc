@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestOptOutExclusion.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#31
   config:
@@ -54,8 +57,6 @@ function Get-TestOptOutExclusion {
     $excludedByFile = [ordered]@{}
     $runnableFiles = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
-    # Get-TestBlockTag returns its matches as ONE array object (`, $ret`), so its result is used as-is, never wrapped...
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md#comment3)
     foreach ($test in @($Discovery.Tests)) {
         # The test's run file: its test file, or the Go test folder of a Go bridge test.
         $file = Get-TestRunFile -Test $test

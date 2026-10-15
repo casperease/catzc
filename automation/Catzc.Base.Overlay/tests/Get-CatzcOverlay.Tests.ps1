@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Overlay/tests/Get-CatzcOverlay.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Overlay/Get-CatzcOverlay.ps1
 ---
 #>
 

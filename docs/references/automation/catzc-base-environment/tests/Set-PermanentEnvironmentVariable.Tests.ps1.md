@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1.md
-    kind: test-asset
-    body_sha: "8ae7ed26ac9d"
+    kind: comment-page
+    body_sha: c09a9991973f
 ---
 
 # automation/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Set-PermanentEnvironmentVariable / Get-PermanentEnvironmentVariable...`.
+Above `Describe 'Set-PermanentEnvironmentVariable / Get-PermanentEnvironmentVariable...`, written with `#`.
 
 ```text
 Vertical system test (L3): the persistent-environment seam against the REAL user environment — state outside the

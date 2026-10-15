@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1.md
 ---
 #>
 
@@ -31,8 +33,6 @@ AfterAll {
 
 Describe 'Get-ForeignCatzcModule' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Two fixture code roots: an active one and another one, each holding catzc-named modules, plus a non-catzc...
-        # [comment:1](/docs/references/automation/internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1.md#comment1)
         $script:packageRoot = Join-Path $TestDrive 'package'
         $script:activeRoot = Join-Path $packageRoot 'automation'
         $script:otherRoot = Join-Path $TestDrive 'other/automation'

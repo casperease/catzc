@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md
     kind: comment-page
-    body_sha: "2e7551947bfb"
+    body_sha: cdf657694cda
     adrs:
       - ADR-AUTO-ENGINE#2
 ---
 
 # automation/Catzc.Base.Timeouts/types/BoundedCommand.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Whether a command line runs inside a time limit, in each execution engine's grammar — the check behind the Bash
@@ -35,7 +35,7 @@ The verdict is one of: allow, no-limit, over-limit, compound.
 
 ## comment:2
 
-Above `public static string Check(string command, string engine, int limitSeconds,...`.
+Above `public static string Check(string command, string engine, int limitSeconds,...`, written with `//`.
 
 ```text
 The verdict for a command in an engine (pwsh | bash | zsh) against a limit in seconds. requested describes what
@@ -44,7 +44,7 @@ the command asked for, for a log line.
 
 ## comment:3
 
-Above `if (!IsSingleCommand(posix ? body : command, engine))`.
+Above `if (!IsSingleCommand(posix ? body : command, engine))`, written with `//`.
 
 ```text
 a POSIX engine: the one command after the prefix; pwsh: the call itself at the top level (the block's own
@@ -53,7 +53,7 @@ statements are inside the limit, so they never count).
 
 ## comment:4
 
-Above `public static bool TryParseBound(string command, string engine, out double?...`.
+Above `public static bool TryParseBound(string command, string engine, out double?...`, written with `//`.
 
 ```text
 Parses the engine's time-limit wrapper. bash: `timeout [options] <duration> <rest>`, with seconds the duration
@@ -63,7 +63,7 @@ null for the configured default, and body the block's content. False when the co
 
 ## comment:5
 
-Above `public static bool IsSingleCommand(string text, string engine)`.
+Above `public static bool IsSingleCommand(string text, string engine)`, written with `//`.
 
 ```text
 True when the text is one command in the engine's grammar: no statement separator outside quotes and nested
@@ -73,7 +73,7 @@ redirection). pwsh separators: &&, ||, ;, |, newline (a single & is the call ope
 
 ## comment:6
 
-Above `private static bool IsPosix(string engine)`.
+Above `private static bool IsPosix(string engine)`, written with `//`.
 
 ```text
 True when the engine bounds a call with a GNU `timeout` prefix (the POSIX engines), false when with a pwsh wrapper call.

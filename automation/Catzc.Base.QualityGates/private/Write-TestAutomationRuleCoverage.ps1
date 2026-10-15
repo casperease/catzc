@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationRuleCoverage.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationRuleCoverage.Tests.ps1
     adrs:
       - ADR-AUTO-NOPWD
   config:
@@ -55,8 +58,6 @@ function Write-TestAutomationRuleCoverage {
         New-Item -ItemType Directory -Path $OutputFolder -Force | Out-Null
     }
 
-    # Enforcers per rule id, split by kind.
-    # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationRuleCoverage.ps1.md#comment4)
     $testEnforcers = @{}
     $analyzerEnforcers = @{}
 

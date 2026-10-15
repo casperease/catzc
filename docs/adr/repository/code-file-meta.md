@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
-    body_sha: "4f07949c0da5"
+    body_sha: "2d41051720f3"
     defines:
       - ADR-REPO-CODEMETA#1
       - ADR-REPO-CODEMETA#2
@@ -89,10 +89,10 @@ in the file.
 
 ## Context
 
-A C# type file and a PowerShell function file each open with a comment: an insight line, the citations it rests on and a link to its comment
-page. What the file says about itself beyond that, its path, its module and its tier, is either missing or stated twice. The C# namespace is
-already derived from the folder and written by a formatter, which shows the shape: a fact the repository can compute is better written by a
-tool than typed by a person.
+A C# type file and a PowerShell function file each open with a comment that cites the rules it rests on. What the file says about itself
+beyond that, its path, its module, its tier and the files that belong to it, is either missing or stated twice. The C# namespace is already
+derived from the folder and written by a formatter, which shows the shape: a fact the repository can compute is better written by a tool
+than typed by a person.
 
 A Markdown file solves the same need with a block in its front matter ([file-meta](file-meta.md)). Code has no front matter, but it has
 comments, and a leading comment run is the place a reader looks first.

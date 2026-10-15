@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownMetaBlock.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
     adrs:
       - ADR-REPO-FILEMETA#3
 ---
@@ -29,6 +31,19 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         $facts = [ordered]@{ kind = 'gadget'; adrs = [string[]] @(); links = $null; title = '' }
         [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($facts, [string[]] @()) | Should -Be @('catzc:', '  derived:', '    kind: gadget')
         [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{ adrs = [string[]] @() }, [string[]] @()).Count | Should -Be 0
+    }
+
+    It 'renders a map as indented slots, and leaves out an empty map' {
+        $facts = [ordered]@{ kind = 'gadget'; relatives = [ordered]@{ page = 'docs/gadget.md'; test = 'tests/gadget.Tests.ps1' } }
+        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($facts, [string[]] @()) | Should -Be @(
+            'catzc:'
+            '  derived:'
+            '    kind: gadget'
+            '    relatives:'
+            '      page: docs/gadget.md'
+            '      test: tests/gadget.Tests.ps1'
+        )
+        [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render([ordered]@{ relatives = [ordered]@{} }, [string[]] @()).Count | Should -Be 0
     }
 
     It 'quotes a string that YAML would read as something else' -ForEach @(

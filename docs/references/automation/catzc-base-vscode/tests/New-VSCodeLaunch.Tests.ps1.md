@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/tests/New-VSCodeLaunch.Tests.ps1.md
-    kind: test-asset
-    body_sha: "7e7b52fc47ac"
+    kind: comment-page
+    body_sha: "60d526e2a1f8"
     adrs:
       - ADR-PWSH-PESTER#2
 ---
 
 # automation/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Mock Get-Config -ModuleName Catzc.Base.VSCode {`.
+Above `Mock Get-Config -ModuleName Catzc.Base.VSCode {`, written with `#`.
 
 ```text
 Isolate through the config seam

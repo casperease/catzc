@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/ArtifactsConfig.cs.md
+      test: automation/Catzc.Base.ModuleSystem/tests/types/ArtifactsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#24
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// The targets are inert config surface: no publish code reads them yet, but the file still loads validated.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ArtifactsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

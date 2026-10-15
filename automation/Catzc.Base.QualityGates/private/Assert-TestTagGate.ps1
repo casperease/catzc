@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Assert-TestTagGate.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#13
   config:

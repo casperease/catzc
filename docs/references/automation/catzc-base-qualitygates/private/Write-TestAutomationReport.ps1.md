@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md
     kind: comment-page
-    body_sha: "79036b4b8ddc"
+    body_sha: "32c8b6f05067"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Write-TestAutomationReport.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:6
+## comment:1
 
-Above `$csvRows = @($Rows |`.
+Above `$csvRows = @($Rows |`, written with `#`.
 
 ```text
 tests.csv — one row per test, slowest first (the report's columns; failure detail stays in summary.md).
@@ -21,9 +21,9 @@ Rules carries the ADR provenance citations, so tests.csv is the backtrack table:
 find every test that enforces it.
 ```
 
-## comment:7
+## comment:2
 
-Above `$now = [datetime]::Now.ToString('yyyy-MM-dd HH:mm:ss',...`.
+Above `$now = [datetime]::Now.ToString('yyyy-MM-dd HH:mm:ss',...`, written with `#`.
 
 ```text
 InvariantCulture: a bare ':' in a .NET date format is the culture's time-separator placeholder, which

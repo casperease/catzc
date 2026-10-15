@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md
     kind: comment-page
-    body_sha: "3030e9524efc"
+    body_sha: efd41089d13f
     adrs:
       - ADR-AUTO-BASH#2
       - ADR-AUTO-GO#2
@@ -14,12 +14,12 @@ catzc:
 
 # automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:9
+## comment:1
 
-Above `foreach ($reservedName in [Catzc.Base.Globs.GlobsConfig]::ReservedNames) {`.
+Above `foreach ($reservedName in [Catzc.Base.Globs.GlobsConfig]::ReservedNames) {`, written with `#`.
 
 ```text
 The reserved umbrellas are cross-cutting check surfaces, not independent modules: 'internal' overlaps
@@ -30,9 +30,9 @@ pairwise-disjoint per-folder modules
 ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)).
 ```
 
-## comment:10
+## comment:2
 
-Above `$aspectList = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()`.
+Above `$aspectList = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()`, written with `#`.
 
 ```text
 The aspect convention ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)): each module folder partitions into
@@ -42,9 +42,9 @@ disjoint, exhaustive aspect sets
 unit root by AspectPartition.
 ```
 
-## comment:11
+## comment:3
 
-Above `$goRoot = (Get-Config -Config go).ResolveRoot((Get-RepositoryRoot))`.
+Above `$goRoot = (Get-Config -Config go).ResolveRoot((Get-RepositoryRoot))`, written with `#`.
 
 ```text
 A module's Go, Python and Bash test folders (<root>/tests/<kebab>/ of each language root,
@@ -55,9 +55,9 @@ aspect: a change to them re-keys the module they verify,
 never its live aspect.
 ```
 
-## comment:12
+## comment:4
 
-Above `$internalRoot = [System.IO.Path]::Combine($automationRoot, '.internal')`.
+Above `$internalRoot = [System.IO.Path]::Combine($automationRoot, '.internal')`, written with `#`.
 
 ```text
 The internal shared modules: one single-file set per automation/.internal/<Name>.psm1 — the file is
@@ -65,9 +65,9 @@ the registration, exactly as the folder is for a module. The whole-folder 'inter
 remains the protection dependency; these carry the per-module identity.
 ```
 
-## comment:13
+## comment:5
 
-Above `if ('module-leftovers' -in $declaredNames) {`.
+Above `if ('module-leftovers' -in $declaredNames) {`, written with `#`.
 
 ```text
 The module layer's catch-all: every tracked file under automation/ that no per-folder module owns and
@@ -79,9 +79,9 @@ set ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd
 never declared; a declared set may not shadow it.
 ```
 
-## comment:14
+## comment:6
 
-Above `$leftoverExcludes = @($moduleFolderGlobs) + @($reserved.Values)`.
+Above `$leftoverExcludes = @($moduleFolderGlobs) + @($reserved.Values)`, written with `#`.
 
 ```text
 Ordinal-sorted so the scan program (the marker body) is byte-identical on every machine, independent of

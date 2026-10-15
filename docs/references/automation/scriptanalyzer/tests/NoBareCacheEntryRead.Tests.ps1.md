@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1.md
-    kind: test-asset
-    body_sha: "514a9895d0fb"
+    kind: comment-page
+    body_sha: "76d14f1b2920"
     adrs:
       - ADR-PWSH-CACHE#4
 ---
 
 # automation/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Measure-NoBareCacheEntryRead' -Tag 'L0', 'logic', 'ADR-PWSH-CACHE#4' {`.
+Above `Describe 'Measure-NoBareCacheEntryRead' -Tag 'L0', 'logic', 'ADR-PWSH-CACHE#4' {`, written with `#`.
 
 ```text
 The per-case assertions run the rule function directly on a parsed AST (L0). The engine-wiring proof lives once,

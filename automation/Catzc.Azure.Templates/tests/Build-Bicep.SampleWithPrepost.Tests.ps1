@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#20
@@ -20,8 +22,6 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
             }
         }
-        # The merge seam injects the vnet ranges from the network fixture — resolve the expected, per-env values...
-        # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md#comment1)
         $script:alphaNetwork = (Get-Config -Config network).environments.alpha
         $script:betaNetwork = (Get-Config -Config network).environments.beta
 
@@ -40,13 +40,9 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
 
-        # Warm the path-keyed session caches once, not per test.
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md#comment2)
         Get-Config -Config azure | Out-Null
         Get-BicepTemplates | Out-Null
 
-        # ONE build of ALL environments is the single observation every assertion below is a facet of — not a rebuild...
-        # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md#comment3)
         $script:configRoot = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates/sample-with-prepost/configuration'
         if (Test-Path $script:outputRoot) {
             Remove-Item $script:outputRoot -Recurse -Force
@@ -86,8 +82,6 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
     }
 
     It 'injects an ARM Key Vault reference for sharedReference, derived from fixture identity not config' {
-        # The config does NOT carry the value — the hook injects an ARM KV *reference* (the production pattern for...
-        # [comment:4](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1.md#comment4)
         $configuration = Get-Content (Join-Path $script:configRoot 'alpha.yml') -Raw | ConvertFrom-Yaml
         $configuration.ParametersFile.parameters.Contains('sharedReference') | Should -BeFalse -Because 'the KV reference is injected by the hook, not carried by config'
 

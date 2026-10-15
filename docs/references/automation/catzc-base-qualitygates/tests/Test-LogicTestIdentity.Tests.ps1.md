@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-LogicTestIdentity.Tests.ps1.md
-    kind: test-asset
-    body_sha: "37635a5728b7"
+    kind: comment-page
+    body_sha: dd3bde32dec4
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TEST#3
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-LogicTestIdentity' -Tag 'L1', 'integrity', 'source-only' {`.
+Above `Describe 'Test-LogicTestIdentity' -Tag 'L1', 'integrity', 'source-only' {`, written with `#`.
 
 ```text
 The integrity block binds the REAL shipped config (the live-identity set is derived from it), so it also names

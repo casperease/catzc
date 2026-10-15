@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/WorldMapHighlight.cs.md
     kind: comment-page
-    body_sha: "1ecaf509ba80"
+    body_sha: "329eba9a7924"
     adrs:
       - ADR-DSGN-TRACK#1
       - ADR-THES-ONETRUTH#3
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Maps/types/WorldMapHighlight.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A world-map highlight: the cells a request lights. A request is either ADR references or a drawing's files
@@ -36,7 +36,7 @@ The cells keep the map's order (rows, then columns), so the result is determinis
 
 ## comment:2
 
-Above `public static WorldMapHighlight ForAdr(WorldMap map, IEnumerable references,...`.
+Above `public static WorldMapHighlight ForAdr(WorldMap map, IEnumerable references,...`, written with `//`.
 
 ```text
 The cells ADR references light (each ADR-<CODE>, ADR-<CODE>#n or ADR-<CODE>:n), with the reviewed pins and

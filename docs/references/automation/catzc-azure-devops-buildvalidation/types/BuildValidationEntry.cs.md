@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
     kind: comment-page
-    body_sha: "33dd43542c5c"
+    body_sha: "8ccffbfb5dbe"
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#3
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One entry of configs/build-validation.yml's `validations` list: an ADO build-validation branch policy tied to a
@@ -34,7 +34,7 @@ config load to the globs registry; it is enforced at runtime (Get-GlobSet throws
 
 ## comment:2
 
-Above `public string pipeline { get; }`.
+Above `public string pipeline { get; }`, written with `//`.
 
 ```text
 The pipeline the policy runs. Null when absent: the consumer falls back to the globset's `pipeline:`

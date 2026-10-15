@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/ConvertTo-SortedDictionary.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1
 ---
 #>
 

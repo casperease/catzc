@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-vscode/tests/New-VSCodeSettings.Tests.ps1.md
+      source: automation/Catzc.Base.VSCode/New-VSCodeSettings.ps1
     adrs:
       - ADR-PWSH-PESTER#2
       - ADR-REPO-FORMAT#8
@@ -13,8 +16,6 @@ catzc:
 # cspell:ignore gopls  -- the Go language server and its VS Code settings key
 Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the config seam: a small fixture registry with an authored search.exclude carrying an...
-        # [comment:1](/docs/references/automation/catzc-base-vscode/tests/New-VSCodeSettings.Tests.ps1.md#comment1)
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
                     settings = [ordered]@{
@@ -103,8 +104,6 @@ Describe 'New-VSCodeSettings — real vscode-settings.yml' -Tag 'L1', 'integrity
     }
 
     It 'hides no Go test source from the explorer, search, the watcher, or gopls, for the <_>/ root' -ForEach @('go', '.go') {
-        # The managed Go targets (go.work and the generated go.mod files) are injected like every managed target; the...
-        # [comment:2](/docs/references/automation/catzc-base-vscode/tests/New-VSCodeSettings.Tests.ps1.md#comment2)
         $text = New-VSCodeSettings -ManagedTarget 'go.work', '*/tests/*/go.mod'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json -AsHashtable
         $source = "$_/tests/widget/widget_test.go"

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-FileKindFileMetaFact.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.QualityGates/private/Get-FileKindFileMetaFact.ps1
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FILEMETA#3

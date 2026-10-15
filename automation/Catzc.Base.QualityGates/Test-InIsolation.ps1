@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Test-InIsolation.Tests.ps1
   config:
     synopsis: |-
       Copies a module profile into a tmp sandbox and runs its tests in isolation — a clean child pwsh (true
@@ -121,8 +124,6 @@ function Test-InIsolation {
             Write-Message "Test-InIsolation: no test folders in the '$(if ($ModuleProfile) { $ModuleProfile } else { 'custom' })' sandbox — nothing to run."
         }
         elseif ($Isolation -eq 'Process') {
-            # Generate a runner and execute it in a clean child pwsh via Invoke-Executable (mockable; honours the...
-            # [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md#comment5)
             $pathLiteral = ($testPaths | ForEach-Object { "'$_'" }) -join ', '
             $tagLiteral = ($excludeTags | ForEach-Object { "'$_'" }) -join ', '
             $runner = Join-Path $sandbox '.isolation-run.ps1'
@@ -153,8 +154,6 @@ exit `$r.FailedCount
             }
         }
         else {
-            # InProcess: run the sandbox's tests in THIS session against the already-loaded modules, with the...
-            # [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md#comment6)
             $savedRoot = $env:RepositoryRoot
             try {
                 $env:RepositoryRoot = $sandbox

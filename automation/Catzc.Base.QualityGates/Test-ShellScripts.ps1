@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1
     adrs:
       - ADR-AUTO-BASH#6
       - ADR-AUTO-ENGINE#2
@@ -90,8 +93,6 @@ function Test-ShellScripts {
         if ($bytes -contains 13) {
             $issues.Add("${script}: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)")
         }
-        # A script with a shebang is meant to run directly, which on Unix needs the executable bit in git; a sourced...
-        # [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md#comment6)
         $shebang = $bytes.Length -ge 2 -and $bytes[0] -eq 35 -and $bytes[1] -eq 33
         if ($shebang -and $tracked.Contains($script) -and -not $executable.Contains($script)) {
             $issues.Add("${script}: has a shebang but is not executable in git (mode 100644) — run: git update-index --chmod=+x $script")
@@ -119,8 +120,6 @@ function Test-ShellScripts {
             throw "Test-ShellScripts needs ShellCheck at the tools.yml pin '$($shellcheck.Required)' (found: $($shellcheck.Version ?? 'none')). Run Install-Shellcheck."
         }
         $quoted = ($analysed | ForEach-Object { "`"$_`"" }) -join ' '
-        # --format=gcc prints one '<file>:<line>:<column>: <severity>: <message> [SC<code>]' line per finding; exit 1...
-        # [comment:7](/docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md#comment7)
         $check = Invoke-Executable "`"$($shellcheck.Path)`" --format=gcc --external-sources $quoted" -WorkingDirectory $repositoryRoot -PassThru -NoAssert -Silent
         if ($check.ExitCode -notin 0, 1) {
             throw "ShellCheck could not check the shell scripts (exit $($check.ExitCode)):`n$($check.Full)"
@@ -132,8 +131,6 @@ function Test-ShellScripts {
         }
     }
 
-    # ShellCheck does not read zsh, so a *.zsh file takes zsh's own syntax check: -n parses without running...
-    # [comment:8](/docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md#comment8)
     if ($zshScripts.Count -gt 0) {
         $zsh = Resolve-ToolExecutable -Tool zsh
         if (-not ($zsh.Found -and $zsh.VersionOk)) {

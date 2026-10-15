@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Import-VendoredPester.Tests.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-CONSOLE#11

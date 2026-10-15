@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-LinkScope.Tests.ps1
   config:
     synopsis: Lists the repository-relative files the link engine reads.
     description: |-
@@ -31,8 +34,6 @@ function Get-LinkScope {
         [string[]] $Path
     )
 
-    # Never enumerate a whole drive: neither the repository root nor a -Path may be a disk root (C:\, /, a UNC share...
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md#comment3)
     $isDiskRoot = {
         param([string] $FullPath)
         $FullPath.TrimEnd('\', '/') -eq ([System.IO.Path]::GetPathRoot($FullPath)).TrimEnd('\', '/')

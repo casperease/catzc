@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepDeploymentContext.cs
     kind: csharp-type
     module: Catzc.Azure.Templates
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/types/BicepDeploymentContext.cs.md
 ---
 */
-
-// A DoNotRun template yields no context at all: the producer returns null instead of this type.
-// [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepDeploymentContext.cs.md#comment1)
 
 using System;
 

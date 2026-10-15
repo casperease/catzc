@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationRuleCoverage.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationRuleCoverage.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Write-TestAutomationRuleCoverage.ps1
     adrs:
       - ADR-AUTO-TEST#28
 ---
@@ -11,8 +14,6 @@ catzc:
 
 Describe 'Write-TestAutomationRuleCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#28' {
     BeforeAll {
-        # A fake rule universe (not the real docs) keeps this hermetic — the writer is a pure function of its inputs.
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationRuleCoverage.Tests.ps1.md#comment1)
         $script:allRuleIds = @('ADR-FAKE#1', 'ADR-FAKE#8', 'ADR-FAKE#3', 'ADR-FAKE#2', 'ADR-FAKE#10')
         $script:rows = @(
             [pscustomobject]@{ ExpandedPath = 'M.a cites error'; Rules = 'ADR-FAKE#1' }

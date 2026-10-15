@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md
     kind: comment-page
-    body_sha: "3f2618ebc006"
+    body_sha: "08bdadd3ea73"
     adrs:
       - ADR-AUTO-SPELL#2
       - ADR-AUTO-SPELL#6
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/types/SpellingOracle.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `public static class SpellingOracle`.
+Above `public static class SpellingOracle`, written with `///`.
 
 ```text
 <summary>
@@ -42,7 +42,7 @@ scopes); this type is deliberately dumb and fast — it only tokenizes and looks
 
 ## comment:2
 
-Above `public const int MinFragmentLength = 2;`.
+Above `public const int MinFragmentLength = 2;`, written with `//`.
 
 ```text
 Fragments shorter than this are never flagged: single letters are loop indices / type variables
@@ -51,7 +51,7 @@ Fragments shorter than this are never flagged: single letters are loop indices /
 
 ## comment:3
 
-Above `public static void Initialize(string englishGzPath, IEnumerable<string>...`.
+Above `public static void Initialize(string englishGzPath, IEnumerable<string>...`, written with `///`.
 
 ```text
 <summary>
@@ -66,7 +66,7 @@ with '#' (the generated-file header) and blank lines are skipped; every other to
 
 ## comment:4
 
-Above `public static string[] CoinedFragments(string identifier, bool includeFixtures)`.
+Above `public static string[] CoinedFragments(string identifier, bool includeFixtures)`, written with `///`.
 
 ```text
 <summary>
@@ -80,7 +80,7 @@ spelled-out identifier. Fixture terms count as known only when <paramref name="i
 
 ## comment:5
 
-Above `public static string[] CoinedFragments(string identifier)`.
+Above `public static string[] CoinedFragments(string identifier)`, written with `///`.
 
 ```text
 <summary>Production-scope overload: fixture terms are not accepted
@@ -89,7 +89,7 @@ Above `public static string[] CoinedFragments(string identifier)`.
 
 ## comment:6
 
-Above `public static IEnumerable<string> Tokenize(string identifier)`.
+Above `public static IEnumerable<string> Tokenize(string identifier)`, written with `///`.
 
 ```text
 <summary>

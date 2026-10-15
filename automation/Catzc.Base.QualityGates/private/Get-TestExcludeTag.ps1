@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1
   config:
     synopsis: |-
       Computes the Pester ExcludeTag list for a tier range + category — shared by Test-Automation and

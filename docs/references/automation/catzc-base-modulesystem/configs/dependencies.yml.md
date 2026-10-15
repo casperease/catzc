@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md
     kind: comment-page
-    body_sha: "39e5c5fd29ac"
+    body_sha: "9743c3492c70"
 ---
 
 # automation/Catzc.Base.ModuleSystem/configs/dependencies.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `groups:`.
+Above `groups:`, written with `#`.
 
 ```text
 Declared (ALLOWED) module dependency graph, validated at load (the DependenciesConfig type) and enforced
@@ -34,7 +34,7 @@ of truth (the infra system is pre-production).
 
 ## comment:2
 
-Above `Base:`.
+Above `Base:`, written with `#`.
 
 ```text
 The Catzc.Base cluster — small focused libraries held together as one concept. Foundation-first:
@@ -43,7 +43,7 @@ each member lists the members it may depend on (its internal DAG layer).
 
 ## comment:3
 
-Above `AzureExt:`.
+Above `AzureExt:`, written with `#`.
 
 ```text
 The Azure-extension cluster — all the Azure modules except the root `Catzc.Azure`. Its internal
@@ -53,7 +53,7 @@ to the `Tooling` group) are declared per-member in `modules:` below.
 
 ## comment:4
 
-Above `Tooling:`.
+Above `Tooling:`, written with `#`.
 
 ```text
 The Tooling cluster — manages the non-vendored external CLI tools. Core is the foundation (config +

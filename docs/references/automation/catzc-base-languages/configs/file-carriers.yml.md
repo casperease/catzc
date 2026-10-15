@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/configs/file-carriers.yml.md
     kind: comment-page
-    body_sha: a631a03ab8f5
+    body_sha: "5511923651f8"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-CONFIG#1
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.Languages/configs/file-carriers.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `carriers:`.
+Above `carriers:`, written with `#`.
 
 ```text
 Where each file class keeps its meta block, or the reason it has none; a class with files: wins over a language of the same file.

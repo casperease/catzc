@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Execution
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md
+      test: automation/Catzc.Base.Execution/tests/Wait-Mutex.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#10
       - ADR-AUTO-CONSOLE#8
@@ -89,8 +92,6 @@ function Wait-Mutex {
     $dotsWritten = $false
 
     while ($true) {
-        # Wait in observation-sized slices: up to the announce threshold first, then one dot interval per slice — a...
-        # [comment:5](/docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md#comment5)
         $waitSeconds = if ($announced) {
             $DotIntervalSeconds
         }

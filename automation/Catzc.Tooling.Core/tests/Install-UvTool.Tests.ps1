@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Install-UvTool.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/tests/Install-UvTool.Tests.ps1.md
+      source: automation/Catzc.Tooling.Core/Install-UvTool.ps1
 ---
 #>
 
 Describe 'Install-UvTool' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Get-ToolConfig returns the typed record, so the mocks do too: an optional key the entry omits reads as its...
-        # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Install-UvTool.Tests.ps1.md#comment1)
         function New-TestToolConfig {
             param([hashtable] $Keys)
             $entry = @{ version = '2.87'; command = 'az'; version_command = 'az --version'; version_pattern = '(?<ver>.+)' }

@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/FilesConfig.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/FilesConfig.cs.md
+      test: automation/Catzc.Base.ModuleSystem/tests/types/FilesConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Each package name is globally unique across all modules, because a package is the unit -ExcludePackages drops.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/FilesConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Format-Types.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Format-Types.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
 ---
 #>
 
-# Format-Types maintains each C# type source's file-scoped namespace from its module folder; its -DryRun is the C#...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Format-Types.Tests.ps1.md#comment1)
 Describe 'Format-Types' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeType = {

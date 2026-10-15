@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/MarkdownLinkRebaser.cs.md
     kind: comment-page
-    body_sha: "9609576333ae"
+    body_sha: "78ccf8b2ed35"
     adrs:
       - ADR-REPO-README#6
 ---
 
 # automation/Catzc.Base.Docs/types/MarkdownLinkRebaser.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Rebases the relative links of a markdown article for a copy of it in another folder: every relative link target is
@@ -28,7 +28,7 @@ Pure: paths are repository-relative and '/'-separated, so the result does not de
 
 ## comment:2
 
-Above `public static string Rebase(string text, string sourceRepoPath, string...`.
+Above `public static string Rebase(string text, string sourceRepoPath, string...`, written with `//`.
 
 ```text
 The article's text with every relative link rebased from sourceRepoPath's folder to folderRepoPath.

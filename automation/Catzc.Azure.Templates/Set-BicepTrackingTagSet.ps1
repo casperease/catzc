@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md
+      test: automation/Catzc.Azure.Templates/tests/Set-BicepTrackingTagSet.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-PWSH-DRYRUN#1
@@ -42,8 +45,6 @@ catzc:
 #>
 
 function Set-BicepTrackingTagSet {
-    # State-changing function deliberately uses -DryRun, not ShouldProcess — see.
-    # [comment:5](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment5)
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
@@ -118,8 +119,6 @@ function Set-BicepTrackingTagSet {
         return
     }
 
-    # -NoAssert: take the result in hand so a failure throws WITH context (scope, command, az stderr) from here,...
-    # [comment:6](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment6)
     $result = Invoke-AzCli $command -PassThru -NoAssert
     if ($result.ExitCode -ne 0) {
         $detail = @(

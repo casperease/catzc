@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Variants/types/VariantsConfig.cs
 ---
 #>
 

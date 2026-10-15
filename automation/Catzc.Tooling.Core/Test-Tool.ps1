@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md
+      test: automation/Catzc.Tooling.Core/tests/Test-Tool.Tests.ps1
   config:
     synopsis: Tests whether a tool is installed at the expected version.
     description: |-
@@ -69,8 +72,6 @@ function Test-Tool {
         if ($installed.StartsWith($config.version)) {
             return $true
         }
-        # Devbox lever (mirrors Assert-ToolVersion): outside a CI pipeline, also accept an installed version matching...
-        # [comment:5](/docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md#comment5)
         if ($config.devbox_version -and -not (Test-IsRunningInPipeline)) {
             return $installed.StartsWith($config.devbox_version)
         }

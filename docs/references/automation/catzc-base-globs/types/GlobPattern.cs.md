@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md
     kind: comment-page
-    body_sha: "6ea2df73d4da"
+    body_sha: "87088394ff85"
     adrs:
       - ADR-FLOW-CD-GLOBS#2
       - ADR-FLOW-CD-GLOBS#3
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Globs/types/GlobPattern.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One glob pattern of the durable-sha-globs dialect: repo-relative, '/'-separated; '**' is the only
@@ -32,7 +32,7 @@ See [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
 
 ## comment:2
 
-Above `wildcard.IsMatch(string.Empty);`.
+Above `wildcard.IsMatch(string.Empty);`, written with `//`.
 
 ```text
 WildcardPattern parses lazily; force the parse so a malformed segment (e.g. an unclosed
@@ -41,7 +41,7 @@ WildcardPattern parses lazily; force the parse so a malformed segment (e.g. an u
 
 ## comment:3
 
-Above `private bool MatchFrom(int patternIndex, string[] path, int pathIndex)`.
+Above `private bool MatchFrom(int patternIndex, string[] path, int pathIndex)`, written with `//`.
 
 ```text
 The '**' walk: align pattern segments to path segments left to right; at a '**', try every number of

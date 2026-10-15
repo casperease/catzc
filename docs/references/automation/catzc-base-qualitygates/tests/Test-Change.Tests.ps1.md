@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-Change.Tests.ps1.md
-    kind: test-asset
-    body_sha: "9a51a86cb60b"
+    kind: comment-page
+    body_sha: "082af78a09ca"
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Test-Change.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter',...`.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter',...`, written with `#`.
 
 ```text
 Test-Change wiring: the plan's two halves (Get-ChangeTestFile, Get-ChangeCheckPlan) are their own units and are mocked
@@ -26,7 +26,7 @@ and the [string[]] -Path test decide how each is called. Neutral fixture names
 
 ## comment:2
 
-Above `function global:Test-WidgetLint {`.
+Above `function global:Test-WidgetLint {`, written with `#`.
 
 ```text
 A gate that takes the changed files, one that only runs whole, and one that throws.

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Variants
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-variants/Get-EnabledCustomers.ps1.md
+      test: automation/Catzc.Base.Variants/tests/Get-EnabledCustomers.Tests.ps1
   config:
     synopsis: Returns the repo's enabled-customer set from the `have_customers` variant.
     description: |-
@@ -34,8 +37,6 @@ function Get-EnabledCustomers {
         return @()
     }
 
-    # Anything non-bool is 'all' or a name list.
-    # [comment:3](/docs/references/automation/catzc-base-variants/Get-EnabledCustomers.ps1.md#comment3)
     $names = @($value | Where-Object { -not [string]::IsNullOrEmpty("$_") } | ForEach-Object { "$_" })
     if ($names.Count -eq 0) {
         return @()

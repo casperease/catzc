@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GlossaryScan.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/GlossaryScan.cs.md
 ---
 */
-
-// A file's prose is read once per run via the surface cache, and hits come sorted by file, line and message, de-duplicated.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryScan.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -26,8 +25,6 @@ public static class GlossaryScan
     static readonly Regex Number = new Regex(@"^\d+$", RegexOptions.Compiled);
     static readonly Regex Whitespace = new Regex(@"\s+", RegexOptions.Compiled);
 
-    // Function words never count as qualifiers, so a phrase like the gate or only slots does not demand a listed form.
-    // [comment:2](/docs/references/automation/catzc-base-docs/types/GlossaryScan.cs.md#comment2)
     static readonly HashSet<string> FunctionWords = new HashSet<string>(new[]
     {
         "a", "an", "the", "this", "that", "these", "those", "each", "every", "any", "all", "no", "some", "both", "either",
@@ -96,8 +93,6 @@ public static class GlossaryScan
                     e.Concept.defined_by,
                     Allowed = new HashSet<string>(e.Concept.forms, StringComparer.OrdinalIgnoreCase),
                     Forms = string.Join(", ", e.Concept.forms.Select(f => f + " " + head).Concat(new[] { head })),
-                    // A word after a dot is a keyword, not a qualifier, so a help line such as .PARAMETER Slot is not flagged.
-                    // [comment:3](/docs/references/automation/catzc-base-docs/types/GlossaryScan.cs.md#comment3)
                     Qualified = new Regex("(?<![A-Za-z0-9.])(?<q>[A-Za-z0-9]+)(?:[ \\t]+|[ \\t]*\\n[ \\t]*|-)(?<w>" + Regex.Escape(head) + "s?)(?![\\w-])", RegexOptions.IgnoreCase),
                     // A verb form counts after a hyphen too (`double-gated`).
                     e.Concept.verbs,
@@ -152,8 +147,6 @@ public static class GlossaryScan
         return ordered;
     }
 
-    // A file's prose is parsed on first use and cached, so many sources over one file cost a single read.
-    // [comment:4](/docs/references/automation/catzc-base-docs/types/GlossaryScan.cs.md#comment4)
     static IEnumerable<(string, GlossarySegment)> Segments(Source source, IEnumerable<string> trackedFiles, string root, IDictionary surfaceCache)
     {
         Catzc.Base.Globs.GlobPattern[] scope = source.Options.scope.Select(p => new Catzc.Base.Globs.GlobPattern(p)).ToArray();

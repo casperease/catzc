@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/configs/go.yml.md
     kind: comment-page
-    body_sha: "6260b077e224"
+    body_sha: "1dfc696f8d7c"
     adrs:
       - ADR-AUTO-DEFAULT#6
 ---
 
 # automation/Catzc.Base.Languages/configs/go.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `module_root: catzc/go/tests`.
+Above `module_root: catzc/go/tests`, written with `#`.
 
 ```text
 The Go test workspace — the one declared source that New-GoWorkspace renders the repository-root go.work and every
@@ -33,7 +33,7 @@ installed.
 
 ## comment:2
 
-Above `module_root: catzc/go/tests`.
+Above `module_root: catzc/go/tests`, written with `#`.
 
 ```text
 root — the Go root folder, repository-relative: the test modules live in <root>/tests/<module>/, and go.work stays at
@@ -44,7 +44,7 @@ Declare it (e.g. `root: test/go`) only to place the Go root elsewhere.
 
 ## comment:3
 
-Above `module_root: catzc/go/tests`.
+Above `module_root: catzc/go/tests`, written with `#`.
 
 ```text
 The module-path prefix: the folder <root>/tests/<folder>/ is the Go module <module_root>/<folder>. Default:
@@ -53,7 +53,7 @@ catzc/go/tests.
 
 ## comment:4
 
-Above `dependencies: {}`.
+Above `dependencies: {}`, written with `#`.
 
 ```text
 The test dependencies every go.mod requires: module path -> version (vX.Y.Z). The go.mod files are rendered and

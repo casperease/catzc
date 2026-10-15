@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GlossaryConfig.cs.md
     kind: comment-page
-    body_sha: e43e684063d0
+    body_sha: b8ea5cda5305
     adrs:
       - ADR-AZ-CUSTOMER#3
       - ADR-REPO-VOCAB#3
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/types/GlossaryConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One glossary source (a module's configs/glossary.yml) — the controlled vocabulary that module opts into

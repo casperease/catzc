@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-TestRunFile.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Get-TestRunFile.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Get-TestRunFile.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-TestRunFile over fake Pester test objects (the shape the harness reads:.Block.BlockContainer.Data...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-TestRunFile.Tests.ps1.md#comment1)
 Describe 'Get-TestRunFile' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FakeTest {

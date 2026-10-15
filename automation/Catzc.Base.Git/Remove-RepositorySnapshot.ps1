@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Git
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-git/Remove-RepositorySnapshot.ps1.md
+      test: automation/Catzc.Base.Git/tests/Remove-RepositorySnapshot.Tests.ps1
     adrs:
       - ADR-PWSH-ENUM#3
   config:
@@ -42,8 +45,6 @@ function Remove-RepositorySnapshot {
         [System.IO.Directory]::Delete($Path, $true)
     }
     catch [System.UnauthorizedAccessException] {
-        # A named whole-tree walk: the read-only files are mostly git objects under.git, so nothing is pruned.
-        # [comment:2](/docs/references/automation/catzc-base-git/Remove-RepositorySnapshot.ps1.md#comment2)
         foreach ($file in Get-ChildPath $Path -File -Depth 64 -Exclude @() -PruneVendor $false) {
             [System.IO.File]::SetAttributes($file, [System.IO.FileAttributes]::Normal)
         }

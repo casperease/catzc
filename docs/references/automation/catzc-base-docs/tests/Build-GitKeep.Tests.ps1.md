@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md
-    kind: test-asset
-    body_sha: "9b8aee642cd0"
+    kind: comment-page
+    body_sha: "4d1d384d1c2c"
     adrs:
       - ADR-AUTO-ASSETDEP#3
 ---
 
 # automation/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:fake = New-FakeRepositoryRoot -Modules @{ 'Catzc.Fixture' = @{} }...`.
+Above `$script:fake = New-FakeRepositoryRoot -Modules @{ 'Catzc.Fixture' = @{} }...`, written with `#`.
 
 ```text
 Redirect the repository root to a fixture tree (TestKit) so the walk and the writes bind inside it.
@@ -25,7 +25,7 @@ out/.gitkeep itself but does not descend), and one under a vendored module (not 
 
 ## comment:2
 
-Above ``$script:expected = "This widget folder is kept by a fixture .gitkeep.`n"``.
+Above ``$script:expected = "This widget folder is kept by a fixture .gitkeep.`n"``, written with `#`.
 
 ```text
 A fixture source through the asset seam, so the logic never reads the shipped assets/gitkeep
@@ -34,7 +34,7 @@ A fixture source through the asset seam, so the logic never reads the shipped as
 
 ## comment:3
 
-Above `Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity',...`.
+Above `Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity',...`, written with `#`.
 
 ```text
 Reads the SHIPPED assets/gitkeep through Build-GitKeep's real lookup (nothing mocked on the read) and writes
@@ -44,7 +44,7 @@ only into a fixture repository, so it runs in both the source run and the build 
 
 ## comment:4
 
-Above `$script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{...`.
+Above `$script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{...`, written with `#`.
 
 ```text
 -WorkingRootOnly: the .gitkeep files live in the fixture working root, but the asset under test is the one
@@ -53,7 +53,7 @@ shipped in the loaded Catzc.Base.Docs, so the code root stays on the loaded modu
 
 ## comment:5
 
-Above `Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L1', 'integrity',...`.
+Above `Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L1', 'integrity',...`, written with `#`.
 
 ```text
 Reads only the repository's own .gitkeep files and readme.yml mappings — the same answer in both run modes,

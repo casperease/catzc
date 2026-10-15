@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Contracts
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/Publish-ContractRelease.ps1.md
+      test: automation/Catzc.Base.Contracts/tests/Publish-ContractRelease.Tests.ps1
     adrs:
       - ADR-AUTO-BUNDLE#7
       - ADR-AUTO-PATH#2
@@ -83,8 +86,6 @@ function Publish-ContractRelease {
     }
 
     try {
-        # A named whole-tree walk: the freeze copies the whole draft, so no name is pruned and no depth drops a file.
-        # [comment:2](/docs/references/automation/catzc-base-contracts/Publish-ContractRelease.ps1.md#comment2)
         $files = [string[]] @(Get-ChildPath $draft -File -Depth 64 -Exclude @() -PruneVendor $false)
         $null = [System.IO.Directory]::CreateDirectory($target)
         foreach ($file in $files) {

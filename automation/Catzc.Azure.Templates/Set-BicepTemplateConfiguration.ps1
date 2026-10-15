@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
+      test: automation/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-AZ-DATAMOD
@@ -50,8 +53,6 @@ catzc:
 #>
 
 function Set-BicepTemplateConfiguration {
-    # State-changing function deliberately uses -DryRun, not ShouldProcess — see.
-    # [comment:7](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment7)
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
     [CmdletBinding()]
@@ -91,8 +92,6 @@ function Set-BicepTemplateConfiguration {
         throw "Invalid -Slot '$Slot' — must be 1-3 lowercase alphanumeric chars (e.g. 001)."
     }
 
-    # The coordinate must conform to the conventional tree (the same cross-layer rule discovery enforces): the...
-    # [comment:8](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment8)
     $loc = if ([string]::IsNullOrEmpty($Customer)) {
         "configuration/$Environment.yml"
     }

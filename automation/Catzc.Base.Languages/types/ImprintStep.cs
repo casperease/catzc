@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Languages/types/ImprintStep.cs
     kind: csharp-type
     module: Catzc.Base.Languages
+    relatives:
+      page: docs/references/automation/catzc-base-languages/types/ImprintStep.cs.md
     adrs:
       - ADR-REPO-FORMAT#8
 ---
 */
-
-// One imprint step of the file-language registry: its name, and the files whose bytes change what it writes.
-// [comment:1](/docs/references/automation/catzc-base-languages/types/ImprintStep.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

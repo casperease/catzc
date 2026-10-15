@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Get-CatsRuleEnforcers.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-CatsRuleEnforcers over a fixture test tree in $TestDrive and a mocked analyzer map: the AST reader credits only...
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-CatsRuleEnforcers.Tests.ps1.md#comment1)
 Describe 'Get-CatsRuleEnforcers' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'

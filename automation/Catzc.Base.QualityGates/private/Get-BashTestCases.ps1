@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-BashTestCases.Tests.ps1
   config:
     synopsis: Lists the Bash tests a Bash test folder declares, read from its .bats files without running bats.
     description: |-

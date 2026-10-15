@@ -6,6 +6,9 @@ catzc:
     kind: assert-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md
+      test: automation/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
     adrs:
       - ADR-AZ-DATAMOD#9
   config:
@@ -70,8 +73,6 @@ function Assert-BicepTemplate {
         $folders = @($targetFolder)
     }
     else {
-        # [System.IO.Directory] (sorted) instead of Get-ChildItem — see Get-BicepTemplates for the ~20ms-per-call...
-        # [comment:7](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment7)
         $folders = @([System.IO.Directory]::EnumerateDirectories($root) | Sort-Object)
     }
 
@@ -107,8 +108,6 @@ function Assert-BicepTemplate {
             'standard'
         }
 
-        # Customer-class bit — defaults to the have_customers variant unless options.yml sets it; an explicit...
-        # [comment:8](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment8)
         $customerDeploymentOption = if ($options.Contains('customer_deployment')) {
             [bool]$options.customer_deployment
         }
@@ -125,8 +124,6 @@ function Assert-BicepTemplate {
             [bool](Test-HaveCustomers)
         }
 
-        # short_name is derived from the folder name unless options.yml overrides it.
-        # [comment:9](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment9)
         $shortNameOverride = if ($options.Contains('short_name')) {
             "$($options.short_name)"
         }
@@ -224,8 +221,6 @@ function Assert-BicepTemplate {
                 $errors.Add("[$name] -Build requested but 'az' is not installed")
             }
             else {
-                # The full build (render + compile) so the rendered parameters files can be checked against the...
-                # [comment:10](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment10)
                 $built = $false
                 try {
                     Build-Bicep $name | Out-Null

@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/TerminologyTerm.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/TerminologyTerm.cs.md
     adrs:
       - ADR-AUTO-SPELL
       - ADR-AUTO-SPELL#5
       - ADR-AUTO-SPELL#8
 ---
 */
-
-// An abbreviation carries its full-word expansion; the entries of the other categories do not.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/TerminologyTerm.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -28,8 +27,6 @@ public sealed class TerminologyTerm : Catzc.Base.Objects.DictionaryRecord
     // One line: what the term is and why it is legitimate vocabulary. Required.
     public string meaning { get; }
 
-    // Supplied by TerminologyConfig from the registry grouping, not read from the entry itself.
-    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/TerminologyTerm.cs.md#comment2)
     public string category { get; }
 
     // The full word an abbreviation stands for. Required when category is 'abbreviation', else absent.

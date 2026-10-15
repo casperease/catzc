@@ -3,35 +3,20 @@
 #   derived:
 #     path: automation/Catzc.Azure/configs/azure.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-azure/configs/azure.yml.md
 # ---
 
 # yaml-language-server: $schema=.not-azure-schema.json
-# The empty schema pin stops the editor matching the Azure Developer CLI schema by filename and demanding a name key.
-# [comment:1](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment1)
 
-# Placeholder GUIDs: replace them with real tenant and subscription IDs per deployment target.
-# [comment:2](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment2)
-
-# The resource-name component order is not set here; it lives in code, so changing it means re-editing every typed name.
-# [comment:3](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment3)
 org: zct
 
-# Asserted before every az bicep build, so a too-old or missing Bicep fails fast instead of silently emitting no main.json.
-# [comment:4](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment4)
 bicep_min_version: "0.43.8"
-
-# Omitted keys take the default declared on AzureConfig: production enforces its policies, nonproduction only audits them.
-# [comment:5](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment5)
 
 tenants:
   placeholder:
     id: fa0e0000-7e0a-0700-1d00-000000000000
 
-# A subscription binds a customer by key or shortcode; which customers deploy is the have_customers variant in variants.yml.
-# [comment:6](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment6)
-
-# The map key is the deploy handle, the config file name and the env segment of relaxed resource names, so it must be unique.
-# [comment:7](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment7)
 environments:
   dev:
     shortcode: de
@@ -49,8 +34,6 @@ environments:
     shortcode: pr
     region: westeurope
     region_code: weu
-  # Exactly one per subscription, its identity env; subscription-kind templates such as foundation deploy to it once.
-  # [comment:8](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment8)
   nsub:
     shortcode: ns
     region: westeurope
@@ -62,11 +45,7 @@ environments:
     region_code: weu
     per_subscription: true
 
-# A subscription is resolved from a config's location, never spelled into a path, and verified against the az session at deploy.
-# [comment:9](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment9)
 subscriptions:
-  # The only non-customer subscriptions, so every root config's env resolves to exactly one of them.
-  # [comment:10](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment10)
   shared_nonprod:
     id: 50a0ed00-de00-50b0-0000-000000000000
     tenant: placeholder
@@ -81,8 +60,6 @@ subscriptions:
       - preprod
       - prod
       - psub
-  # Their configs live in a per-customer subfolder of configuration, one pair of subscriptions per customer.
-  # [comment:11](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment11)
   apex_nonprod:
     id: a0e00000-de00-50b0-0000-000000000000
     tenant: placeholder

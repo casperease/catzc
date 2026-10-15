@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Enter-TestRunLocation.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE#10
       - ADR-AUTO-ENGINE#2
@@ -140,15 +143,11 @@ function Enter-TestRunLocation {
     Write-Message "Running in an isolated snapshot instead: $destination" -ForegroundColor Yellow
     $location.Snapshot = New-RepositorySnapshot -SourceRoot $sourceRoot -Destination $destination
 
-    # The snapshot starts with the working folder's quality-check result caches (out/cache), which it would not...
-    # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment6)
     $sourceCache = Join-Path (Get-OutputRoot) 'cache'
     if ([System.IO.Directory]::Exists($sourceCache)) {
         Copy-Directory $sourceCache (Join-Path $location.Snapshot.Path 'out/cache')
     }
 
-    # Prime the snapshot with one full import, as a fresh clone's first import does: the janitors materialise the...
-    # [comment:7](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment7)
     Write-Message 'Priming the snapshot: one import materialises its generated files...'
     $start = ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.NonInteractiveArguments) -join ' '
     try {

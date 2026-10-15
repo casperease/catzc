@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/internal/tests/New-BuiltCatzcRoot.Tests.ps1.md
     adrs:
       - ADR-AUTO-TEST#30
 ---
@@ -85,8 +87,6 @@ Describe 'New-BuiltCatzcRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
     }
 }
 
-# Invoke-InBuiltCatzc against a stand-in build root: its Import-Catzc.ps1 is a fixture that sets the two roots the...
-# [comment:1](/docs/references/automation/internal/tests/New-BuiltCatzcRoot.Tests.ps1.md#comment1)
 Describe 'Invoke-InBuiltCatzc' -Tag 'L1', 'logic', 'ADR-AUTO-TEST#30' {
     BeforeAll {
         Import-InternalModule TestKit

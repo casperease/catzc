@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps.BuildValidation/tests/Unregister-AdoBuildValidation.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Unregister-AdoBuildValidation.Tests.ps1.md
+      source: automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-IDEM#2
 ---
 #>
 
-# Removal by the globset tie (the native path-filter projection): deletes the matched policy, no-ops when absent, and...
-# [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/tests/Unregister-AdoBuildValidation.Tests.ps1.md#comment1)
 Describe 'Unregister-AdoBuildValidation' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:globSet = [Catzc.Base.Globs.GlobSet]::new(

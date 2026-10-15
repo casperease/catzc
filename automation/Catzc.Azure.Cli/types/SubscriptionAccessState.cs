@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure.Cli/types/SubscriptionAccessState.cs
     kind: csharp-type
     module: Catzc.Azure.Cli
+    relatives:
+      page: docs/references/automation/catzc-azure-cli/types/SubscriptionAccessState.cs.md
 ---
 */
-
-// A real ARM probe decides access, not local session state, so this is a point-in-time check of the login.
-// [comment:1](/docs/references/automation/catzc-azure-cli/types/SubscriptionAccessState.cs.md#comment1)
 
 using System;
 
@@ -19,8 +18,6 @@ public sealed class SubscriptionAccessState
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // On a failed probe this separates not logged in from logged in without access to the subscription.
-    // [comment:2](/docs/references/automation/catzc-azure-cli/types/SubscriptionAccessState.cs.md#comment2)
     public bool logged_in { get; }
 
     // The verdict: true only when the scoped ARM probe against the subscription succeeded.

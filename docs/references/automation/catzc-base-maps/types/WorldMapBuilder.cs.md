@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/WorldMapBuilder.cs.md
     kind: comment-page
-    body_sha: ec81c0113268
+    body_sha: "407db4d461eb"
     adrs:
       - ADR-AUTO-TYPES#4
       - ADR-DSGN-TRACK#1
@@ -13,12 +13,12 @@ catzc:
 
 # automation/Catzc.Base.Maps/types/WorldMapBuilder.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Builds the world map from plain inputs, so a logic test needs no disk: the tracks (variants.yml), the file languages
@@ -53,7 +53,7 @@ The registry types are named in full, so the module dependency gate sees each cr
 
 ## comment:2
 
-Above `public static WorldMap Build(IEnumerable tracks, IEnumerable fileLanguages,...`.
+Above `public static WorldMap Build(IEnumerable tracks, IEnumerable fileLanguages,...`, written with `//`.
 
 ```text
 adrFiles: each ADR code's own file (ADR-<CODE> -> repository-relative path). citationExclude: the globs of the files

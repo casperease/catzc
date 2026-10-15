@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md
+      test: automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-DSGN-RUNMODE
@@ -54,8 +57,6 @@ function Test-FunctionDependency {
 
     Assert-SourceTree
 
-    # Parse every source.ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/call provider...
-    # [comment:6](/docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md#comment6)
     $parsed = [System.Collections.Generic.List[object]]::new()
     $definitions = @{}
     $issues = [System.Collections.Generic.List[string]]::new()
@@ -70,8 +71,6 @@ function Test-FunctionDependency {
         $files = Get-ChildPath $moduleDir -File -Filter '*.ps1' -Depth 3 | Sort-Object
         foreach ($path in $files) {
             $name = [System.IO.Path]::GetFileName($path)
-            # Match assets/private against the MODULE-RELATIVE path, not the absolute one: an absolute temp/CI path...
-            # [comment:7](/docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md#comment7)
             $rel = $path.Substring($moduleDir.Length)
             if ($name -like '*.Tests.ps1' -or $rel -match '[/\\]assets[/\\]') {
                 continue
@@ -94,8 +93,6 @@ function Test-FunctionDependency {
                     continue
                 }
 
-                # Two PUBLIC (module-root) definitions of one name is a real collision — the module imported last...
-                # [comment:8](/docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md#comment8)
                 $existing = $definitions[$fn.Name]
                 if (-not $isPrivate -and -not $existing.Private) {
                     $issues.Add("Duplicate public function '$($fn.Name)' in $($existing.Module)/$($existing.File) and $module/$name (exported names must be unique).")
@@ -108,8 +105,6 @@ function Test-FunctionDependency {
         }
     }
 
-    # Check each collected call → flag any that resolve to nothing.
-    # [comment:9](/docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md#comment9)
     $isLoadedCommand = [System.Collections.Generic.Dictionary[string, bool]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
     foreach ($entry in $parsed) {

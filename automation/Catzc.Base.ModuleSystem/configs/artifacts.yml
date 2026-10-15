@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.ModuleSystem/configs/artifacts.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-modulesystem/configs/artifacts.yml.md
 # ---
 
-# Inert config surface: nothing reads these keys yet, as the CI publish step and the BVT promotion are still to come.
-# [comment:1](/docs/references/automation/catzc-base-modulesystem/configs/artifacts.yml.md#comment1)
 ado: { enabled: false, organization: "", project: "", feed: "" }
 github: { enabled: false, owner: "", repository: "", feed: "" }
 artifactory: { enabled: false, url: "", repository: "" }

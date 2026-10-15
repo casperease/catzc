@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/file-meta.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md
 # ---
 
-# The meta-kind registry: each entry is one kind of derived fact imprinted into a file's meta block, with defaults on FileMetaKind.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md#comment1)
 kinds:
   # The repository-relative path of every file that carries a block, first so it is written first; a Markdown H1 is the title.
   file-path:
@@ -17,6 +17,20 @@ kinds:
     keys: [kind]
     settings:
       classes:
+        # A comment page is marked by its name, the source file's plus .md; first, since a test's page sits under tests/.
+        - {
+            class: comment-page,
+            files:
+              [
+                "docs/references/**/*.ps1.md",
+                "docs/references/**/*.psm1.md",
+                "docs/references/**/*.psd1.md",
+                "docs/references/**/*.cs.md",
+                "docs/references/**/*.yml.md",
+                "docs/references/**/*.yaml.md",
+                "docs/references/**/*.bicep.md",
+              ],
+          }
         - { class: pester-test, files: ["**/tests/**/*.Tests.ps1"] }
         - { class: python-test, files: ["**/tests/**/*.py"] }
         - { class: shell-test, files: ["**/tests/**/*.bats", "**/tests/**/*.sh"] }
@@ -50,21 +64,6 @@ kinds:
         - { class: claude-agent, files: [".claude/agents/**"] }
         - { class: claude-skill, files: [".claude/skills/**"] }
         - { class: adr, files: ["docs/adr/**"] }
-        # A comment page keeps its source file's name and extension plus.md, so the name marks it; it wins over reference.
-        # [comment:2](/docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md#comment2)
-        - {
-            class: comment-page,
-            files:
-              [
-                "docs/references/**/*.ps1.md",
-                "docs/references/**/*.psm1.md",
-                "docs/references/**/*.psd1.md",
-                "docs/references/**/*.cs.md",
-                "docs/references/**/*.yml.md",
-                "docs/references/**/*.yaml.md",
-                "docs/references/**/*.bicep.md",
-              ],
-          }
         - { class: reference, files: ["docs/references/**"] }
         - { class: how-to, files: ["docs/how-to/**"] }
         - { class: explanation, files: ["docs/explanation/**"] }
@@ -92,7 +91,7 @@ kinds:
       - "automation/Catzc.*/*.ps1"
       - "automation/Catzc.*/private/*.ps1"
 
-  # The few files a code file points at, in at most eight static slots; a slot is written only when its file exists.
+  # The few files a code file points at, as at most eight relations with fixed names; one is written only when its file exists.
   relatives:
     files:
       - "automation/**/types/*.cs"
@@ -102,7 +101,7 @@ kinds:
       - "infrastructure/**/*.bicep"
       - ".claude/hooks/**/*.cs"
     settings:
-      slots:
+      relations:
         - name: page
           rules:
             - { files: ["**/*"], paths: ["{page}"] }
@@ -126,8 +125,6 @@ kinds:
     keys: [defines]
     files: ["docs/adr/**/*.md"]
 
-  # The ADR codes the file cites, its comment page's too, sorted and without duplicates, less the rules it defines; a long key, so late.
-  # [comment:3](/docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md#comment3)
   adr-codes:
     keys: [adrs]
     files:

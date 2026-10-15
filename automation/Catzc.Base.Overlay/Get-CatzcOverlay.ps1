@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Overlay
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-overlay/Get-CatzcOverlay.ps1.md
+      test: automation/Catzc.Base.Overlay/tests/Get-CatzcOverlay.Tests.ps1
     adrs:
       - ADR-AUTO-OVERLAY
       - ADR-PWSH-ENUM#3
@@ -59,8 +62,6 @@ function Get-CatzcOverlay {
             continue
         }
 
-        # A named whole-tree walk: every file of a consumer module is classified, so nothing is pruned.
-        # [comment:1](/docs/references/automation/catzc-base-overlay/Get-CatzcOverlay.ps1.md#comment1)
         $files = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @() -PruneVendor $false)
         [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
         foreach ($file in $files) {

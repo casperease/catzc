@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
+      source: automation/Catzc.Base.Globs/types/Aspect.cs
     adrs:
       - ADR-DSGN-ASPECT
 ---
 #>
 
-# Aspects: the ordered first-match partition of a unit's tracked files.
-# [comment:1](/docs/references/automation/catzc-base-globs/tests/types/Aspect.Tests.ps1.md#comment1)
 Describe 'Aspect / AspectPartition' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:convention = {

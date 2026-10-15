@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1
     adrs:
       - ADR-REPO-FILEMETA#5
   config:

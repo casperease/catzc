@@ -3,28 +3,28 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md
     kind: comment-page
-    body_sha: "69724d2e06f0"
+    body_sha: "5df2510ace91"
     adrs:
       - ADR-PWSH-ERROR#8
 ---
 
 # automation/Catzc.Azure.Templates/Deploy-Bicep.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:14
+## comment:1
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStat...`.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStat...`, written with `#`.
 
 ```text
 State-changing function deliberately uses -DryRun, not ShouldProcess — see
 [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
 ```
 
-## comment:15
+## comment:2
 
-Above `if ((Test-IsRunningInPipeline) -and...`.
+Above `if ((Test-IsRunningInPipeline) -and...`, written with `#`.
 
 ```text
 In a pipeline the target MUST be pinned explicitly — the session (the service connection) selects
@@ -33,9 +33,9 @@ can never silently retarget an existing pipeline's deploy. Fail fast at the call
 See [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md).
 ```
 
-## comment:16
+## comment:3
 
-Above `` $context = Get-BicepDeploymentContext ` ``.
+Above `` $context = Get-BicepDeploymentContext ` ``, written with `#`.
 
 ```text
 The session determines the target; the context resolves and guards it (Get-AzCliSessionSubscription
@@ -43,9 +43,9 @@ The session determines the target; the context resolves and guards it (Get-AzCli
 context so config, artifacts, and tags all agree.
 ```
 
-## comment:17
+## comment:4
 
-Above `$preDeployHook = $null`.
+Above `$preDeployHook = $null`, written with `#`.
 
 ```text
 A template MAY ship infrastructure/templates/<name>/PrePost.psm1 exporting Invoke-BicepPreDeploy /
@@ -53,18 +53,18 @@ Invoke-BicepPostDeploy. Resolve whichever it exports; absent hooks are no-ops. T
 assets/PrePost.psm1 starter is never loaded — it exists only to be copied into a template.
 ```
 
-## comment:18
+## comment:5
 
-Above `. $prepostModule { Set-StrictMode -Version Latest }`.
+Above `. $prepostModule { Set-StrictMode -Version Latest }`, written with `#`.
 
 ```text
 The template's hooks run strict like every catzc module, whoever wrote them
 ([ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)).
 ```
 
-## comment:19
+## comment:6
 
-Above `$deployInvocation = [ordered]@{`.
+Above `$deployInvocation = [ordered]@{`, written with `#`.
 
 ```text
 The deploy invocation — the arguments this deploy is acting on (incl. Mode). DryRun is passed
@@ -73,18 +73,18 @@ to hide in a bag). Computed descriptor objects stay separate.
 See [ADR-PWSH-PREPOST](/docs/adr/pwsh/prepost-extension-modules.md).
 ```
 
-## comment:20
+## comment:7
 
-Above `if ($preDeployHook) {`.
+Above `if ($preDeployHook) {`, written with `#`.
 
 ```text
 PreDeploy runs before the --what-if branch, so it gets -DryRun and must honor it. PostDeploy
 only runs after a real deploy, so it never receives DryRun.
 ```
 
-## comment:21
+## comment:8
 
-Above `$templateFile = $context.artifacts.template_file`.
+Above `$templateFile = $context.artifacts.template_file`, written with `#`.
 
 ```text
 The artifact paths are repo-relative where possible (absolute for external pipeline artifacts).
@@ -93,9 +93,9 @@ resolves there and an absolute one is honored as-is — either way independent o
 Quoted in case a path contains spaces.
 ```
 
-## comment:22
+## comment:9
 
-Above `if ($DryRun) {`.
+Above `if ($DryRun) {`, written with `#`.
 
 ```text
 -NoAssert on the az deployment calls: a non-zero exit throws WITH context (the deployment name,

@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrRuleSet.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrRuleSet.cs.md
     adrs:
       - ADR-AUTO-TYPES
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-TRACK#15
 ---
 */
-
-// Code and Concerns are the effective values: a ruleset override if given, else the domain default, so readers never resolve them.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrRuleSet.cs.md#comment1)
 
 using System.Collections.Generic;
 

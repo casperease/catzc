@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md
     kind: comment-page
-    body_sha: bfd29fc5caf8
+    body_sha: "8457dfdf5b65"
 ---
 
 # automation/Catzc.Base.Execution/types/ExecutableProbe.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One executable's existence check (Find-Executable): where the executable was found and how, the version it
@@ -26,7 +26,7 @@ executable carries a Path while a missing one carries none.
 
 ## comment:2
 
-Above `public string Version { get; }`.
+Above `public string Version { get; }`, written with `//`.
 
 ```text
 The version the executable reports, parsed by the version pattern. Null when not found or when the output
@@ -35,7 +35,7 @@ does not match.
 
 ## comment:3
 
-Above `public long VersionMs { get; }`.
+Above `public long VersionMs { get; }`, written with `//`.
 
 ```text
 Milliseconds spent running the version command. 0 when nothing was found, or when the version came from

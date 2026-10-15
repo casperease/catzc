@@ -9,14 +9,6 @@ catzc:
 
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
-<#
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: forbid raw ##vso[task.…] logging commands.
-.DESCRIPTION
-    A raw logging command is error-prone (silent name rewrites, forgotten flags), so one validating setter emits it.
-    [comment:1](/docs/references/automation/scriptanalyzer/NoRawVsoCommand.psm1.md#comment1)
-#>
-
 function Measure-NoRawVsoCommand {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
@@ -30,8 +22,6 @@ function Measure-NoRawVsoCommand {
     $ruleName = 'Measure-NoRawVsoCommand'
     $exemptFunction = 'Set-AdoPipelineVariable'
 
-    # Allows whitespace inside the marker, so a spaced spelling of the command is caught too.
-    # [comment:2](/docs/references/automation/scriptanalyzer/NoRawVsoCommand.psm1.md#comment2)
     $vsoPattern = '##vso\s*\[\s*task\.'
 
     # Find all string literals: bare strings ('…'/"…") and expandable strings ("$x…").

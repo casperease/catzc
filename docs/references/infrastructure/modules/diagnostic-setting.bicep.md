@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/infrastructure/modules/diagnostic-setting.bicep.md
     kind: comment-page
-    body_sha: "2459dc87f557"
+    body_sha: d3aa109a893d
 ---
 
 # infrastructure/modules/diagnostic-setting.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `@description('Kind of the target resource.')`.
+Above `@description('Kind of the target resource.')`, written with `//`.
 
 ```text
 Reusable bicep module: a diagnostic setting that sends a resource's logs and metrics to a Log

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Repository/tests/Assert-SourceTree.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Repository/Assert-SourceTree.ps1
 ---
 #>
 

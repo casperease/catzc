@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Contracts
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/private/Read-ContractData.ps1.md
     adrs:
       - ADR-REPO-CONTRACT#6
   config:
@@ -53,7 +55,5 @@ function Read-ContractData {
     catch {
         throw "'$Path' does not parse as ${format}: $($_.Exception.Message)"
     }
-    # WriteObject without enumeration hands a top-level array over whole; Write-Output -NoEnumerate would wrap the...
-    # [comment:3](/docs/references/automation/catzc-base-contracts/private/Read-ContractData.ps1.md#comment3)
     $PSCmdlet.WriteObject($data, $false)
 }

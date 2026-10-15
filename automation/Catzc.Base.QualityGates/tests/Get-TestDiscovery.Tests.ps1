@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-TestDiscovery.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Get-TestDiscovery.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Get-TestDiscovery.ps1
 ---
 #>
 
@@ -24,8 +27,6 @@ Describe 'DiscoveryFixture' -Tag 'L0', 'logic' {
             Get-TestDiscovery -TestPath $Path
         }
 
-        # Both tests are discovered, none ran (the throwing bodies prove SkipRun held), and the block chain is live —...
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-TestDiscovery.Tests.ps1.md#comment1)
         $discovery.Tests | Should -HaveCount 2
         @($discovery.Tests.Result) | Should -Be @('NotRun', 'NotRun')
         $discovery.Tests[0].Block.Tag | Should -Contain 'L0'

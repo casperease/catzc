@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.Docs/configs/glossary.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-docs/configs/glossary.yml.md
 # ---
 
-# Every option is defaulted (all checks, the whole repository, every surface), so this source states only concepts.
-# [comment:1](/docs/references/automation/catzc-base-docs/configs/glossary.yml.md#comment1)
 concepts:
   domain rules:
     key: domain_rules
@@ -60,8 +60,6 @@ concepts:
     defined_by: ADR-REPO-LANG#1
     short: One of the three registers — design, test, live — each with its own terminology and identities; a token belongs to exactly one.
     realized_by: { kind: prose-only }
-    # landing, dns and availability are Azure's own terms (landing zone, DNS zone, availability zone), not language zones.
-    # [comment:2](/docs/references/automation/catzc-base-docs/configs/glossary.yml.md#comment2)
     forms: [language, design, test, live, landing, dns, availability]
     contrasts:
       domain: An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.

@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Asserts/tests/Assert-IsGuid.Tests.ps1
   config:
     synopsis: Asserts that a string is a valid GUID.
     parameters:

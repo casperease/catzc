@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Maps/types/MapsPin.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/MapsPin.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Only the shape is validated at load; whether the track and file language exist is checked where the map is built.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/MapsPin.cs.md#comment1)
 
 namespace Catzc.Base.Maps;
 

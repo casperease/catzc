@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.RootConfig/types/RootConfigFile.cs
     kind: csharp-type
     module: Catzc.Base.RootConfig
+    relatives:
+      page: docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md
+      test: automation/Catzc.Base.RootConfig/tests/types/RootConfigFile.Tests.ps1
     adrs:
       - ADR-AUTO-PATH
 ---
 */
-
-// A wildcard target is allowed only on a generator entry, and every record it returns must match the target pattern.
-// [comment:1](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -22,15 +22,11 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly char[] WildcardCharacters = { '*', '?', '[' };
 
-    // A wildcard pattern here names a set of files, and only a generator entry may use one.
-    // [comment:2](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment2)
     public string target { get; }
 
     // Authored source file copied out to the target (repo-relative). Exactly one of source/generator.
     public string source { get; }
 
-    // Exactly one of source or generator supplies the content; the constructor rejects both and neither.
-    // [comment:3](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment3)
     public string generator { get; }
 
     // The authored files a generator renders from, named in the generated-file head. Only a generator entry has any; empty otherwise.
@@ -42,12 +38,8 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
     // Is this file managed at all? Opt-out is the default: false leaves the target hand-authored and committed.
     public bool optIn { get; }
 
-    // True only for files git or the bootstrap reads before the importer runs, since a fresh clone needs them tracked.
-    // [comment:4](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment4)
     public bool committed { get; }
 
-    // Requires source, requires committed false, and forbids a declared carrier, as a link carries no generated content.
-    // [comment:5](/docs/references/automation/catzc-base-rootconfig/types/RootConfigFile.cs.md#comment5)
     public bool copyAsLink { get; }
 
     public RootConfigFile(IDictionary d)

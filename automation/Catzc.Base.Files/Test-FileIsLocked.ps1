@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Files
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Files/tests/Test-FileIsLocked.Tests.ps1
   config:
     synopsis: Tests whether a file is held open by another handle (locked).
     description: |-

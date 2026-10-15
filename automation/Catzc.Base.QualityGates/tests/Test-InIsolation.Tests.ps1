@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-InIsolation.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-InIsolation.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-InIsolation.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#3
 ---
@@ -70,8 +73,6 @@ Describe 'Test-InIsolation' -Tag 'L0', 'logic' {
     }
 }
 
-# The real-asset test of for Test-InIsolation's lazy Pester load: the vendored Pester under the code root.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-InIsolation.Tests.ps1.md#comment1)
 Describe 'Test-InIsolation (vendored Pester)' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         Mock Get-Module -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'Pester' } { }

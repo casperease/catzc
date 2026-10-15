@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/tests/Test-CompletesWithin.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Timeouts/Test-CompletesWithin.ps1
 ---
 #>
 

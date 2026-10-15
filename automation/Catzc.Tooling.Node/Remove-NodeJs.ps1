@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Node
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md
     adrs:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#6
@@ -37,14 +39,10 @@ function Remove-NodeJs {
 
     $config = Get-ToolConfig -Tool 'node_js'
 
-    # Gate: managed by our tooling system → refuse, redirect to Uninstall-NodeJs.
-    # [comment:4](/docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md#comment4)
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Node.js is managed by the tooling system. Use Uninstall-NodeJs instead.'
     }
 
-    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip /...
-    # [comment:5](/docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md#comment5)
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Node.js (native package / uv-Python pip / stray binary). Run with -Force to execute.'

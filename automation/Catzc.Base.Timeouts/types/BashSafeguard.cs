@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Timeouts/types/BashSafeguard.cs
     kind: csharp-type
     module: Catzc.Base.Timeouts
+    relatives:
+      page: docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md
+      test: automation/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1
     adrs:
       - ADR-AUTO-FAILFAST#7
 ---
 */
-
-// The hook only ever denies and never rewrites a command, since an allow skips the prompt and a rewrite can dodge deny rules.
-// [comment:1](/docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md#comment1)
 
 using System;
 using System.Globalization;
@@ -23,15 +23,11 @@ public static class BashSafeguard
 {
     public const string ConfigRelativePath = "automation/Catzc.Base.Timeouts/configs/timeouts.yml";
 
-    // Must stay in step with Test-IsRunningInPipeline: any non-empty value in either variable means a pipeline.
-    // [comment:2](/docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md#comment2)
     public static string EnvironmentOf(string tfBuild, string githubActions)
     {
         return string.IsNullOrEmpty(tfBuild) && string.IsNullOrEmpty(githubActions) ? "Devbox" : "Pipeline";
     }
 
-    // logLine is a tab-separated denial record, null when allowed; the records make up the tuning list of blockers.
-    // [comment:3](/docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md#comment3)
     public static string Decide(string payload, TimeoutsConfig config, string environment, out string logLine)
     {
         if (config == null) { throw new ArgumentNullException("config"); }

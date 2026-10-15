@@ -3,8 +3,8 @@
 #   derived:
 #     path: automation/Catzc.Base.Maps/configs/maps.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-maps/configs/maps.yml.md
 # ---
 
-# Every key has a default on MapsConfig, so set a key only to change it; an empty file is valid.
-# [comment:1](/docs/references/automation/catzc-base-maps/configs/maps.yml.md#comment1)
 {}

@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Install-Shellcheck.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Shellcheck.Tests.ps1.md
+      source: automation/Catzc.Tooling.Toolchain/Install-Shellcheck.ps1
 ---
 #>
 
-# Install-Shellcheck and Uninstall-Shellcheck with the generic engine mocked: on Windows and macOS both delegate to...
-# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Shellcheck.Tests.ps1.md#comment1)
 Describe 'Install-Shellcheck' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Install-Tool -ModuleName Catzc.Tooling.Toolchain { }

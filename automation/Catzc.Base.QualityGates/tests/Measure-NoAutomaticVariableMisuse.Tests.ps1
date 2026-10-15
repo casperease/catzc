@@ -4,14 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Measure-NoAutomaticVariableMisuse.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Measure-NoAutomaticVariableMisuse.Tests.ps1.md
 ---
 #>
 
 BeforeAll {
     $rulePath = Join-Path -Path $PSScriptRoot -ChildPath '..\..' -AdditionalChildPath '.scriptanalyzer', 'NoAutomaticVariableMisuse.psm1' | Resolve-Path
     Import-Module $rulePath -Force
-    # Empty settings prevents PSSA from auto-discovering PSScriptAnalyzerSettings.psd1 (which already lists this rule...
-    # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Measure-NoAutomaticVariableMisuse.Tests.ps1.md#comment1)
     $script:emptySettings = @{ IncludeRules = @('Measure-NoAutomaticVariableMisuse') }
 }
 

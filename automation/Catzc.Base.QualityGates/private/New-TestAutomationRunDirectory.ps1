@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/New-TestAutomationRunDirectory.Tests.ps1
   config:
     synopsis: Creates and returns a fresh timestamped run directory under the report base.
     description: |-

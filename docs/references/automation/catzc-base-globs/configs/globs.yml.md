@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/configs/globs.yml.md
     kind: comment-page
-    body_sha: "24cde5833be9"
+    body_sha: fd68d24c241c
     adrs:
       - ADR-DSGN-TRACK#5
       - ADR-FLOW-CD-GLOBS#10
@@ -15,12 +15,12 @@ catzc:
 
 # automation/Catzc.Base.Globs/configs/globs.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `globsets:`.
+Above `globsets:`, written with `#`.
 
 ```text
 The globset registry — THE single source of truth mapping every area-of-control onto its files under
@@ -49,7 +49,7 @@ include minus exclude, evaluated against `git ls-files`.
 
 ## comment:2
 
-Above `automation:`.
+Above `automation:`, written with `#`.
 
 ```text
 The automation track — the automation module system under automation/. A loose-fileset
@@ -60,7 +60,7 @@ overlaps the derived module sets it spans, which is exactly what the loose-files
 
 ## comment:3
 
-Above `infrastructure:`.
+Above `infrastructure:`, written with `#`.
 
 ```text
 The infrastructure track — the Bicep IaC tree. A loose-fileset with a demonstrated use: ci-infrastructure
@@ -69,7 +69,7 @@ verifies it and the cd-* pipelines deploy from it; it overlaps the per-unit depl
 
 ## comment:4
 
-Above `templates:`.
+Above `templates:`, written with `#`.
 
 ```text
 The all-templates shared surface: every deployable template EXCEPT its deployment configuration —
@@ -80,7 +80,7 @@ below carry those).
 
 ## comment:5
 
-Above `template-azure-subscription-foundation:`.
+Above `template-azure-subscription-foundation:`, written with `#`.
 
 ```text
 The base deployable unit ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)): the foundation template
@@ -92,7 +92,7 @@ template's verify blast-radius scope, and a change here re-keys every unit that 
 
 ## comment:6
 
-Above `template-azure-subscription-discovery:`.
+Above `template-azure-subscription-discovery:`, written with `#`.
 
 ```text
 The landing-zone base unit: the discovery template WITHOUT any deployment configuration. It composes
@@ -103,7 +103,7 @@ binds no pipeline; it ships only through the configured units that compose it.
 
 ## comment:7
 
-Above `template-azure-workload-expedition:`.
+Above `template-azure-workload-expedition:`, written with `#`.
 
 ```text
 The workload base unit: the expedition template WITHOUT any deployment configuration. It composes the
@@ -113,7 +113,7 @@ binds no pipeline; it ships only through the configured units that compose it.
 
 ## comment:8
 
-Above `nova:`.
+Above `nova:`, written with `#`.
 
 ```text
 Per-customer deployable units
@@ -124,7 +124,7 @@ Adding a customer is adding an entry here — config, never code.
 
 ## comment:9
 
-Above `shared:`.
+Above `shared:`, written with `#`.
 
 ```text
 The shared-platform unit — the configuration-ROOT files (the non-customer deployment), deployed by
@@ -133,7 +133,7 @@ cd-shared. The same shape as a customer unit, keyed by the root instead of a sub
 
 ## comment:10
 
-Above `markdown-scope:`.
+Above `markdown-scope:`, written with `#`.
 
 ```text
 The markdown scan scope: exactly what Test-Markdownlint reads - every in-scope markdown file plus the
@@ -144,7 +144,7 @@ durable SHA is unchanged since the last green run in the session.
 
 ## comment:11
 
-Above `repository:`.
+Above `repository:`, written with `#`.
 
 ```text
 The whole repository: every tracked file under every named root (automation/, infrastructure/, docs/,

@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/templates/expedition/main.bicep
 //     kind: bicep-template
+//     relatives:
+//       page: docs/references/infrastructure/templates/expedition/main.bicep.md
 // ---
-
-// Reached only through private endpoints in a discovery network, and registered in the hub's private DNS zones.
-// [comment:1](/docs/references/infrastructure/templates/expedition/main.bicep.md#comment1)
 
 @description('Azure region. Defaults to the resource group location; it must match the region of the network.')
 param location string = resourceGroup().location

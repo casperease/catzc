@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Languages/types/BashConfig.cs
     kind: csharp-type
     module: Catzc.Base.Languages
+    relatives:
+      page: docs/references/automation/catzc-base-languages/types/BashConfig.cs.md
+      test: automation/Catzc.Base.Languages/tests/types/BashConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FOLDERS#7
 ---
 */
-
-// A mistyped key fails at load: construction collects every violation into one ArgumentException.
-// [comment:1](/docs/references/automation/catzc-base-languages/types/BashConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -95,8 +95,6 @@ public sealed class BashConfig : Catzc.Base.Objects.DictionaryRecord
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
     }
 
-    // The one place the root default lives, so no caller restates bash or .bash.
-    // [comment:2](/docs/references/automation/catzc-base-languages/types/BashConfig.cs.md#comment2)
     public string ResolveRoot(string repositoryRoot)
     {
         if (root != null) { return root; }

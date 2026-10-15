@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md
+      source: automation/Catzc.Base.Writers/private/Write-InformationColored.ps1
 ---
 #>
 
@@ -11,8 +14,6 @@ catzc:
 param()
 
 Describe 'Write-InformationColored' -Tag 'L0', 'logic' {
-    # Write-InformationColored is a PRIVATE writer (the module's information-stream chokepoint), so it is reached...
-    # [comment:1](/docs/references/automation/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md#comment1)
     BeforeAll { $global:__PesterRunning = $false }
     AfterAll { $global:__PesterRunning = $true }
 

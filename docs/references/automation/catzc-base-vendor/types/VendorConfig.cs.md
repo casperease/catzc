@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md
     kind: comment-page
-    body_sha: "47c10e006b1d"
+    body_sha: e339ea80dbd6
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Base.Vendor/types/VendorConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The vendor module source (configs/vendor.yml) — where Install-VendorModule downloads vendored modules from and
@@ -32,7 +32,7 @@ Constructing an instance validates the file, collecting every violation into one
 
 ## comment:2
 
-Above `public string sourceUrl { get; }`.
+Above `public string sourceUrl { get; }`, written with `//`.
 
 ```text
 A custom repository url, registered under the `source` name on first use. Null when the source is a

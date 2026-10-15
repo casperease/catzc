@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrDoraCheck.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrDoraCheck.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-CONFIG#4
 ---
 */
-
-// Each exempt domain or folder carries a reason for having no DORA section, so an exemption is never silent.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrDoraCheck.cs.md#comment1)
 
 using System.Collections;
 using System.Collections.Generic;

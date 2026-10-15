@@ -3,37 +3,37 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md
     kind: comment-page
-    body_sha: "5b3f8d25018f"
+    body_sha: "2facff868b86"
     adrs:
       - ADR-AUTO-CONSOLE#10
 ---
 
 # automation/Catzc.Base.QualityGates/Format-Code.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:6
+## comment:1
 
-Above `Write-Message "$verb $($pending.Count) $(@($engineGroup.Group |...`.
+Above `Write-Message "$verb $($pending.Count) $(@($engineGroup.Group |...`, written with `#`.
 
 ```text
 Announce before the engine runs: a whole-repository pass takes seconds and prints nothing until it ends
 ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)).
 ```
 
-## comment:7
+## comment:2
 
-Above `if ($DryRun) {`.
+Above `if ($DryRun) {`, written with `#`.
 
 ```text
 A file the engine left formatted is recorded; under -DryRun a file it would still change is not. Writing,
 the engine has just formatted every file, so each is recorded under the key of its bytes now.
 ```
 
-## comment:8
+## comment:3
 
-Above `$inScope = if ($Language) {`.
+Above `$inScope = if ($Language) {`, written with `#`.
 
 ```text
 Imprint steps run after every formatter, so a step never works on text a formatter is about to rewrite: a global step runs over

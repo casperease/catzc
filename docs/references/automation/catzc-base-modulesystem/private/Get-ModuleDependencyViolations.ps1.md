@@ -3,26 +3,26 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md
     kind: comment-page
-    body_sha: db4c688fc7bf
+    body_sha: eaa67b4c30f1
 ---
 
 # automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `$resolveAllowed = {`.
+Above `$resolveAllowed = {`, written with `#`.
 
 ```text
 Resolves a source module to { Constrained; Allowed }. A source with no constraint (not a declared
 module and not a group member) is skipped by callers regardless of its (empty) Allowed set.
 ```
 
-## comment:5
+## comment:2
 
-Above `$typeEdges = Get-CSharpTypeDependency`.
+Above `$typeEdges = Get-CSharpTypeDependency`, written with `#`.
 
 ```text
 Same allow-list, applied to cross-module C# type references (one combined types assembly, so the

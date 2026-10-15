@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/configs/contracts.yml.md
     kind: comment-page
-    body_sha: "0b2cd4e4847c"
+    body_sha: "4da7dff5c38b"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PWSH-PARAM#4
@@ -14,12 +14,12 @@ catzc:
 
 # automation/Catzc.Base.Contracts/configs/contracts.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `addressing: full-path`.
+Above `addressing: full-path`, written with `#`.
 
 ```text
 Contracts settings for Get-Contract ([ADR-REPO-CONTRACT](/docs/adr/repository/api-contracts.md)).
@@ -33,7 +33,7 @@ overrides the resolved value per call
 
 ## comment:2
 
-Above `addressing: full-path`.
+Above `addressing: full-path`, written with `#`.
 
 ```text
 How one contract asset addresses many files
@@ -45,7 +45,7 @@ How one contract asset addresses many files
 
 ## comment:3
 
-Above `target_roots:`.
+Above `target_roots:`, written with `#`.
 
 ```text
 Each owning module's target root: the repository-relative folder its assets' paths are relative to

@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#26
       - ADR-AUTO-TEST#30
@@ -178,8 +181,6 @@ function Test-Automation {
         throw "MinLevel ($MinLevel) cannot exceed MaxLevel ($MaxLevel)."
     }
 
-    # -Suite: run a test suite — the named globset's declared verify scope resolves to the module list and tier...
-    # [comment:17](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment17)
     if ($Suite) {
         if ($Modules.Count -gt 0) {
             throw 'Pass -Suite or -Modules, not both — a test suite resolves its own module scope.'
@@ -189,8 +190,6 @@ function Test-Automation {
         $MaxLevel = $suiteScope.Level
     }
 
-    # The harness itself — discovery, tag checks, sharding, workers, rows, reports — is the core both runs share...
-    # [comment:18](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment18)
     Invoke-TestRun -EntryPoint 'Test-Automation' -Title 'Test Automation' -MinLevel $MinLevel -MaxLevel $MaxLevel `
         -Modules $Modules -Category $Category -Workers $Workers -GreedyGroupSize $GreedyGroupSize -TimeoutSeconds $TimeoutSeconds -Output $Output `
         -PassThru:$PassThru -EnforceTimings:$EnforceTimings -Rule $Rule -Suite $Suite -OutputFolder $OutputFolder `

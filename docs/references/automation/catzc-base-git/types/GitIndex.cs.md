@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-git/types/GitIndex.cs.md
     kind: comment-page
-    body_sha: "0133eb836114"
+    body_sha: "350e468ab517"
 ---
 
 # automation/Catzc.Base.Git/types/GitIndex.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The tracked paths of a git index file (.git/index), read in-process: what `git ls-files` prints, without
@@ -26,7 +26,7 @@ Reads index versions 2-4 (v4 prefix-compressed paths included) of a SHA-1 reposi
 
 ## comment:2
 
-Above `public string[] Paths { get; }`.
+Above `public string[] Paths { get; }`, written with `//`.
 
 ```text
 The tracked paths, repo-relative and '/'-separated, in index (byte-sorted) order; an unmerged path,
@@ -35,7 +35,7 @@ which the index holds once per conflict stage, is listed once.
 
 ## comment:3
 
-Above `public string[] ExecutablePaths { get; }`.
+Above `public string[] ExecutablePaths { get; }`, written with `//`.
 
 ```text
 The tracked paths stored executable (git mode 100755), in the same order and form as Paths — what
@@ -44,7 +44,7 @@ The tracked paths stored executable (git mode 100755), in the same order and for
 
 ## comment:4
 
-Above `public string[] Under(IEnumerable<string> pathspecs) => Select(Paths,...`.
+Above `public string[] Under(IEnumerable<string> pathspecs) => Select(Paths,...`, written with `//`.
 
 ```text
 The tracked paths at or under the given literal, repo-relative paths ('.' is the whole repository) —
@@ -53,7 +53,7 @@ the `git ls-files -- <paths>` answer, in index order, each path once.
 
 ## comment:5
 
-Above `var bodyLength = content.Length - HashLength;`.
+Above `var bodyLength = content.Length - HashLength;`, written with `//`.
 
 ```text
 The trailer is the SHA-1 of everything before it — all zeros when git skips it (index.skipHash). A

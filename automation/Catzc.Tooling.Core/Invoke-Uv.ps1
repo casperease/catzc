@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md
   config:
     synopsis: Runs uv with the given arguments.
     description: |-
@@ -47,8 +49,6 @@ function Invoke-Uv {
     }
 
     if ($Prerelease) {
-        # Pre-release resolution is a deliberate, config-driven relaxation of the version lock — surface it so it is...
-        # [comment:4](/docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md#comment4)
         Write-Message "uv: allowing pre-release/dev package versions (--prerelease=allow) for: uv $Arguments"
         $Arguments = "$Arguments --prerelease=allow"
     }

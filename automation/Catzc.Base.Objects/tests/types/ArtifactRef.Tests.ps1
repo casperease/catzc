@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Objects/types/ArtifactRef.cs
     adrs:
       - ADR-AUTO-PATH#10
 ---

@@ -6,6 +6,8 @@ catzc:
     kind: fact-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-FileKindFileMetaFact.Tests.ps1
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FILEMETA#3

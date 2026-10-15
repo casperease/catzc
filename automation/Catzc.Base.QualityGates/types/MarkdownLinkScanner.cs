@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/MarkdownLinkScanner.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md
     adrs:
       - ADR-REPO-LINK#2
       - ADR-X
 ---
 */
-
-// A target that exists on disk but is not committed is reported, since GitHub, which renders these links, would not have it.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -42,8 +41,6 @@ public sealed class MarkdownLinkScanner
     readonly string selfUrlPrefix;
     readonly HashSet<string> tracked;
 
-    // A null trackedFiles skips the tracked check, for a scratch root that is no git work tree; a folder is tracked via any file in it.
-    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md#comment2)
     public MarkdownLinkScanner(string repositoryRoot, Func<string, IReadOnlyCollection<string>> anchorsOf, string selfUrlPrefix,
         IEnumerable<string> trackedFiles)
     {
@@ -68,8 +65,6 @@ public sealed class MarkdownLinkScanner
         return set;
     }
 
-    // Hits are appended at absolute offsets into the original text, not into the aligned text that Scan returns.
-    // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md#comment3)
     public string Scan(string text, string repoPath, List<CodeLinkRewriter.Hit> hits)
     {
         if (string.IsNullOrEmpty(text)) { return text; }

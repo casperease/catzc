@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure/types/AzureSubscription.cs
     kind: csharp-type
     module: Catzc.Azure
+    relatives:
+      page: docs/references/automation/catzc-azure/types/AzureSubscription.cs.md
 ---
 */
-
-// A mid node of the identity graph, so its property names are the YAML keys verbatim.
-// [comment:1](/docs/references/automation/catzc-azure/types/AzureSubscription.cs.md#comment1)
 
 using System;
 
@@ -25,8 +24,6 @@ public sealed class AzureSubscription
     // The Azure subscription GUID. Always present.
     public string id { get; }
 
-    // Null for a platform subscription, so a typed null check separates the two kinds; otherwise it renders into resource names.
-    // [comment:2](/docs/references/automation/catzc-azure/types/AzureSubscription.cs.md#comment2)
     public string customer { get; }
 
     // The Entra tenant that owns this subscription. Always present.

@@ -3,8 +3,8 @@
 #   derived:
 #     path: automation/Catzc.Tooling.Inspiration/configs/inspiration.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-tooling-inspiration/configs/inspiration.yml.md
 # ---
 
-# An empty file or an omitted inspirations key takes the one eac default; set the key only to change it.
-# [comment:1](/docs/references/automation/catzc-tooling-inspiration/configs/inspiration.yml.md#comment1)
 {}

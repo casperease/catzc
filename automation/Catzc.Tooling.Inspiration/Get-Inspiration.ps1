@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Inspiration
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-INSPIRE#1

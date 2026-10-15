@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/AnalyzerAdrMapConfig.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/AnalyzerAdrMapConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#3
       - ADR-PWSH-ERROR#3
 ---
 */
-
-// Load checks only shape and citation grammar; that each id names a real rule is the integrity test's job, keeping load hermetic.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/AnalyzerAdrMapConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

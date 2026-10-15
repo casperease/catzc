@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps.BuildValidation/tests/Get-AdoBuildValidations.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Get-AdoBuildValidations.Tests.ps1.md
+      source: automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
 ---
 #>
 
-# The read side: policy configurations filtered to build-validation policies of THIS repository, optionally one...
-# [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/tests/Get-AdoBuildValidations.Tests.ps1.md#comment1)
 Describe 'Get-AdoBuildValidations' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ParameterFilter { $Config -eq 'ado' } -MockWith {

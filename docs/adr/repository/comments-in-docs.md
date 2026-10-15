@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/comments-in-docs.md
     kind: adr
-    body_sha: "821e3f810c7b"
+    body_sha: da8f190cff2b
     defines:
       - ADR-REPO-COMMENTS#1
       - ADR-REPO-COMMENTS#2
@@ -14,6 +14,7 @@ catzc:
       - ADR-REPO-CODEMETA#1
       - ADR-REPO-CODEMETA#2
       - ADR-REPO-FILEMETA#1
+      - ADR-REPO-FILEMETA#10
       - ADR-REPO-FORMAT#8
     links:
       - docs/adr/principles/configure-not-program.md
@@ -42,8 +43,8 @@ the rest of its prose, and the file's meta head lists them (ADR-REPO-CODEMETA#2)
 The move loses nothing. Each moved comment becomes one section of the page, `## comment:<n>`, holding its lines exactly as they stood in the
 file, comment markers and common indent removed, inside a fenced `text` block so no formatter rewrites them. Above the fence one line names
 where the comment stood: the code line it sat above (and which occurrence of that line, when the file repeats it), or the end of the file,
-and the comment marker it was written with. A section's number is its address for life: a new comment takes the next number after the
-page's highest, a number is never reused, and a section a person edits stays as edited.
+and the comment marker it was written with. A section's number is its address for life: a new comment takes the next number after the page's
+highest, a number is never reused, and a section a person edits stays as edited.
 
 - [A lossless move](#a-lossless-move)
 
@@ -55,15 +56,15 @@ comment that moves, the comment heads each language keeps — is configured ther
 kept head keeps only its own line, but a head the configuration lists to keep its run (`keep_run:`) keeps the whole contiguous run it opens,
 and the front matter of a block comment that opens with such a head is kept whole, so the meta head of a code file
 ([ADR-REPO-CODEMETA#1](code-file-meta.md#rule-adr-repo-codemeta1)) is never moved as prose, while prose directly under a kept spell-checker
-line still is.
+line still is. A delimited block that holds a kept head, such as the comment-based help a script analyzer rule carries, stays whole.
 
 - [Where a page lives](#where-a-page-lives)
 
 ### Rule ADR-REPO-COMMENTS:4
 
 The file with its comments inline is a generated view, never a second copy kept by hand: `Build-CommentView` writes it under `out/`, at the
-file's repository path, from the file and its page, putting every section back above the code line it names as line comments. The view of
-an exported file reads as the file before the move, and exporting an exported file changes nothing.
+file's repository path, from the file and its page, putting every section back above the code line it names as line comments. The view of an
+exported file reads as the file before the move, and exporting an exported file changes nothing.
 
 - [The view](#the-view)
 
@@ -79,8 +80,8 @@ one in its meta block, whose `kind` is `comment-page` ([ADR-REPO-FILEMETA#1](fil
 ## Context
 
 The repository's code carries a great deal of prose. Configuration files open with a page of explanation before their first key, and a
-branch is often preceded by a paragraph on why it exists. That prose is valuable — it is how a reader learns why the code is shaped as it
-is — but in the file it competes with the code for the reader's attention.
+branch is often preceded by a paragraph on why it exists. That prose is valuable — it is how a reader learns why the code is shaped as it is
+— but in the file it competes with the code for the reader's attention.
 
 Prose and code also change at different rates and are reviewed for different things. A long comment in a code file is reviewed as code,
 formatted by a code formatter, and spell-checked line by line between statements; the same text in a Markdown page is reviewed as prose,
@@ -90,8 +91,8 @@ rendered on GitHub, and linked from the module's reference article.
 
 A marker in the code, even a short one, is still something the code carries on behalf of the prose: a line to keep in step, to keep within a
 length, to keep unlinked from the wrong page. The file's meta head already carries derived facts about the file, so the pointer to the page
-is one more of them (`relatives.page`), computed from the configured page map, and the code keeps only code and the comments that fit on
-one line. The page does the pairing instead: each section says which code line its comment sat above.
+is one more of them (`relatives.page`), computed from the configured page map, and the code keeps only code and the comments that fit on one
+line. The page does the pairing instead: each section says which code line its comment sat above.
 
 The price is that a section is addressed by the line beneath it, so editing that line can orphan the section. `Test-Comments` reports the
 orphan, and the fix is the same one-line edit of the section's context line a reviewer would make by hand.
@@ -119,8 +120,8 @@ the gitignored output folder from the two sources that are reviewed — the file
 ## Decision
 
 A code or configuration file carries only comments of one line; a longer comment moves, verbatim and numbered, to the file's comment page
-under `docs/references/` and leaves nothing behind, and the file's meta head names the page. The full file is a generated view under
-`out/`. Tools make the move and a gate holds it.
+under `docs/references/` and leaves nothing behind, and the file's meta head names the page. The full file is a generated view under `out/`.
+Tools make the move and a gate holds it.
 
 ### How this is enforced
 

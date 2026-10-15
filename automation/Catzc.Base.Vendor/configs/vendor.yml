@@ -3,14 +3,8 @@
 #   derived:
 #     path: automation/Catzc.Base.Vendor/configs/vendor.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-vendor/configs/vendor.yml.md
 # ---
 
-# Read only through the module's functions; the VendorConfig type validates this file on load.
-# [comment:1](/docs/references/automation/catzc-base-vendor/configs/vendor.yml.md#comment1)
-
-# PSGallery is the built-in default and needs no url.
-# [comment:2](/docs/references/automation/catzc-base-vendor/configs/vendor.yml.md#comment2)
 source: PSGallery
-
-# Undefined by default: set it for a private feed, registered under the source name on first use.
-# [comment:3](/docs/references/automation/catzc-base-vendor/configs/vendor.yml.md#comment3)

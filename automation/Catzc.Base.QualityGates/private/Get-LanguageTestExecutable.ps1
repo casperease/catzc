@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestExecutable.Tests.ps1
     adrs:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-ENGINE#4
@@ -45,8 +48,6 @@ function Get-LanguageTestExecutable {
 
     $languages = @(Get-LanguageTestFolders | ForEach-Object Language | Select-Object -Unique)
     $executables = @{ go = ''; python = '' }
-    # The engines other than the running pwsh, which every language's tests also run under (: the model's engines,...
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md#comment3)
     $pwsh = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name
     foreach ($engine in [Catzc.Base.Engines.ExecutionEngines]::All) {
         if ($engine.Name -eq $pwsh) {

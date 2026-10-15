@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md
+      test: automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1
     adrs:
       - ADR-AZ-DATAMOD
   config:
@@ -105,8 +108,6 @@ function Get-BicepDeploymentContext {
         return $null
     }
 
-    # The deploy target is the az session's subscription (in a pipeline: exactly what the service connection logged...
-    # [comment:7](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment7)
     $sessionSubscription = Get-AzCliSessionSubscription
     if (-not [string]::IsNullOrEmpty($SubscriptionIdAssertIs)) {
         Assert-IsGuid $SubscriptionIdAssertIs
@@ -117,8 +118,6 @@ function Get-BicepDeploymentContext {
     $subscription = $sessionSubscription.name
     $customer = $sessionSubscription.customer
 
-    # The slot addressed is (session customer?, env, slot) — it must exist as a config, and the session subscription...
-    # [comment:8](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment8)
     $wantSlot = [string]$Slot
     $slotMatch = @($templateDescriptor.slots | Where-Object { $_.environment -eq $Environment -and $_.slot -eq $wantSlot -and $_.customer -eq $customer })
     if ($slotMatch.Count -eq 0) {
@@ -179,8 +178,6 @@ function Get-BicepDeploymentContext {
         $templateDescriptor.deployment_target,
         $resourceGroup)   # $null for Subscription-target — the plan exposes resource_group = $null
 
-    # Verify the artifacts as absolute paths above (this process touches the filesystem directly), but STORE them...
-    # [comment:9](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment9)
     $prepostArtifact = $null
     if ($null -ne $templateDescriptor.prepost_module) {
         $prepostInBuild = Join-Path $buildFolder (Split-Path $templateDescriptor.prepost_module -Leaf)

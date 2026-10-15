@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md
     kind: comment-page
-    body_sha: "13921c7abd10"
+    body_sha: efbe38d34e1f
     adrs:
       - ADR-REPO-LINK#2
 ---
 
 # automation/Catzc.Base.Docs/types/AdrCitationRewriter.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Rewrites the ADR references in one file's text through a code map and a rule map: rule citations (ADR-<CODE>#<n>,
@@ -32,7 +32,7 @@ repository-relative and '/'-separated, so the result depends only on the text, t
 
 ## comment:2
 
-Above `public AdrCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows,...`.
+Above `public AdrCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows,...`, written with `//`.
 
 ```text
 codeRows: one dictionary per code-map row (old_code, new_code, old_path, new_path, kind; '-' for none), paths
@@ -43,7 +43,7 @@ the code map does not name it; null when the code map names every path.
 
 ## comment:3
 
-Above `string RewriteCitation(Match match)`.
+Above `string RewriteCitation(Match match)`, written with `//`.
 
 ```text
 A citation and its list continuation, each rule mapped; an inherited '#<n>' stays bare while it keeps the code
@@ -53,7 +53,7 @@ when a range (#1 to #6) holds a rule the rule map moves (SplitsRange reports it 
 
 ## comment:4
 
-Above `bool SplitsRange(Match match)`.
+Above `bool SplitsRange(Match match)`, written with `//`.
 
 ```text
 True when the citation's list holds a range (#1 to #6, #1–#6) that spans a rule the rule map moves: the range
@@ -62,7 +62,7 @@ cannot be rewritten endpoint by endpoint.
 
 ## comment:5
 
-Above `string RewriteReference(string pathPart, string fragment, Form form, string...`.
+Above `string RewriteReference(string pathPart, string fragment, Form form, string...`, written with `//`.
 
 ```text
 A path reference (pathPart, then '#' + fragment when one is given) mapped and written back in its own form;
@@ -71,7 +71,7 @@ null when it does not point into docs/adr/ or nothing changes.
 
 ## comment:6
 
-Above `(string Path, string Fragment) MapTarget(string adrPath, string fragment,...`.
+Above `(string Path, string Fragment) MapTarget(string adrPath, string fragment,...`, written with `//`.
 
 ```text
 The docs/adr-relative path and fragment a reference points to after the maps: a rule anchor follows its rule

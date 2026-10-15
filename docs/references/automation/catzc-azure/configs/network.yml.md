@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/configs/network.yml.md
     kind: comment-page
-    body_sha: "8857c38dd887"
+    body_sha: cdc1a6c15994
 ---
 
 # automation/Catzc.Azure/configs/network.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `environments:`.
+Above `environments:`, written with `#`.
 
 ```text
 Global cross-cutting network configuration — the IP address plan, side by side with azure.yml. The

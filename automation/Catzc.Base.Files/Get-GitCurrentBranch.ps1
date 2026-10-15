@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Files
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Files/tests/Get-GitCurrentBranch.Tests.ps1
   config:
     synopsis: Returns the current git branch name (or 'HEAD' when detached).
     description: |-

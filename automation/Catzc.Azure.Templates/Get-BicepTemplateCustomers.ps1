@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateCustomers.Tests.ps1
   config:
     synopsis: Returns a template's configured customer names as a flat string array.
     description: |-

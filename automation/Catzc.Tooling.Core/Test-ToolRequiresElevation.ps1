@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Core/tests/Test-ToolRequiresElevation.Tests.ps1
   config:
     synopsis: Tests whether installing (or uninstalling) a tool on the current platform requires elevation.
     description: |-

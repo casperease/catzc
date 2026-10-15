@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/tests/Install-DevBoxTools.Tests.ps1.md
-    kind: test-asset
-    body_sha: "58279fb06b4b"
+    kind: comment-page
+    body_sha: "2d6ff3d9c96a"
 ---
 
 # automation/Catzc.Tooling.Provisioning/tests/Install-DevBoxTools.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 Pure orchestration over mocked seams. With an empty install order the version-locked loop is a no-op,
@@ -23,7 +23,7 @@ decision points that are pure logic: the "usable but unmanaged" report and the m
 
 ## comment:2
 
-Above `function New-TestToolConfig {`.
+Above `function New-TestToolConfig {`, written with `#`.
 
 ```text
 Get-ToolConfig returns the typed record, so the mocks do too: every flag the entry omits reads as its

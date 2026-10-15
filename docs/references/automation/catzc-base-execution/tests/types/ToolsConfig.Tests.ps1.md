@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md
-    kind: test-asset
-    body_sha: c697df88f81e
+    kind: comment-page
+    body_sha: "2c3e915007f1"
     adrs:
       - ADR-AUTO-TEST#14
       - ADR-AUTO-TEST#3
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Context 'integrity (shipped tools.yml)' -Tag 'integrity' {`.
+Above `Context 'integrity (shipped tools.yml)' -Tag 'integrity' {`, written with `#`.
 
 ```text
 Reads the shipped tools.yml — guards real repository content
@@ -25,7 +25,7 @@ Reads the shipped tools.yml — guards real repository content
 
 ## comment:2
 
-Above `Context 'logic (inline configs)' -Tag 'logic' {`.
+Above `Context 'logic (inline configs)' -Tag 'logic' {`, written with `#`.
 
 ```text
 Constructor logic on an inline (synthetic) config — independent of any shipped asset

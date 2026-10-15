@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Vendor
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Vendor/tests/Resolve-VendorRepository.Tests.ps1
   config:
     synopsis: Resolves the PSResourceRepository name the vendor functions download from and validate against.
     description: |-

@@ -3,14 +3,10 @@
 #   derived:
 #     path: pipelines/cd-shared.yaml
 #     kind: pipeline
+#     relatives:
+#       page: docs/references/pipelines/cd-shared.yaml.md
 # ---
 
-# Stage order is the safety property: foundation owns the Key Vault the others use, and expedition lands in discovery's network.
-# [ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md), [ADR-AZ-LZ#7](/docs/adr/azure/landing-zones.md#rule-adr-az-lz7),
-# [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md) [comment:1](/docs/references/pipelines/cd-shared.yaml.md#comment1)
-
-# Root ymls and customer subfolders sit at one folder depth, so ADO may drop a root yml; Test-GlobSetAffected is the exact backstop.
-# [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/pipelines/cd-shared.yaml.md#comment2)
 trigger:
   branches:
     include: [main]
@@ -56,8 +52,6 @@ stages:
         steps:
           - checkout: self
 
-          # -Shared builds only the configuration-root slots; customer subfolders are built by their own customer CD.
-          # [comment:3](/docs/references/pipelines/cd-shared.yaml.md#comment3)
           - template: /pipelines/steps/invoke-automation.yaml
             parameters:
               DisplayName: "Build-Bicep foundation -Shared"

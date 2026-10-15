@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-ShellScripts.Tests.ps1.md
-    kind: test-asset
-    body_sha: "4af45054e44a"
+    kind: comment-page
+    body_sha: "250d5008a32d"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {`.
+Above `Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-ShellScripts is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
@@ -28,7 +28,7 @@ read the collected issues; the report goes to $TestDrive. Neutral fixture names
 
 ## comment:2
 
-Above `Describe 'Repository shell script integrity' -Tag 'L2', 'integrity',...`.
+Above `Describe 'Repository shell script integrity' -Tag 'L2', 'integrity',...`, written with `#`.
 
 ```text
 Integrity: every shell script the repository holds is LF and passes the pinned ShellCheck. L2 because it drives the

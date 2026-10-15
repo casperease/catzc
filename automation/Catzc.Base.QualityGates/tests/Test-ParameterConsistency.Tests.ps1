@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-ParameterConsistency.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-ParameterConsistency.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-ParameterConsistency.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
 ---
 #>
 
-# Test-ParameterConsistency is a quality gate: the logic block mocks the file set, the conflict finder (its own...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-ParameterConsistency.Tests.ps1.md#comment1)
 Describe 'Test-ParameterConsistency' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
@@ -46,8 +47,6 @@ Describe 'Test-ParameterConsistency' -Tag 'L0', 'logic' {
     }
 }
 
-# The real public functions, through the gate.
-# [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-ParameterConsistency.Tests.ps1.md#comment2)
 Describe 'Parameter consistency of the public functions' -Tag 'L0', 'integrity', 'source-only' {
     BeforeAll {
         $script:result = Test-ParameterConsistency -PassThru -OutputFolder (Join-Path $TestDrive 'parameter-consistency')

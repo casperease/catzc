@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Variants/types/VariantsConfig.cs
     kind: csharp-type
     module: Catzc.Base.Variants
+    relatives:
+      page: docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md
+      test: automation/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-ASPECT
@@ -14,9 +17,6 @@ catzc:
       - ADR-REPO-VARIANT
 ---
 */
-
-// Every key is optional and an unknown key throws, so a typo fails fast at load; an absent key is null.
-// [comment:1](/docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -40,8 +40,6 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     // How changes reach main: 'main-direct' or 'main-via-pr'. Null when unset.
     public string git_workspace { get; }
 
-    // Null when unset; Get-EnabledCustomers is its single interpreter.
-    // [comment:2](/docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md#comment2)
     public object have_customers { get; }
 
     // Per-track ordered aspect classifications. Null when unset.

@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
     kind: csharp-type
     module: Catzc.Base.VSCode
+    relatives:
+      page: docs/references/automation/catzc-base-vscode/types/VscodePipelineSchemaConfig.cs.md
+      test: automation/Catzc.Base.VSCode/tests/types/VscodePipelineSchemaConfig.Tests.ps1
     adrs:
       - ADR-REPO-ROOTCFG
 ---
 */
-
-// The schema is passed through as-is, so only the rules that keep it free of per-task false positives are checked.
-// [comment:1](/docs/references/automation/catzc-base-vscode/types/VscodePipelineSchemaConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

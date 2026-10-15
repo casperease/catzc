@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Toolchain/tests/Install-Bicep.Tests.ps1
     adrs:
       - ADR-AUTO-PKGMGR
       - ADR-REPO-FORMAT#8

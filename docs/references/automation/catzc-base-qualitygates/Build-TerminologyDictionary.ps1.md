@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md
     kind: comment-page
-    body_sha: "9f6184a1ea60"
+    body_sha: e2f11e10d89e
     adrs:
       - ADR-AUTO-SPELL#6
       - ADR-REPO-OUTDIR#8
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:10
+## comment:1
 
-Above `$categories = @($config.categories)`.
+Above `$categories = @($config.categories)`, written with `#`.
 
 ```text
 One dictionary per category
@@ -27,9 +27,9 @@ cspell.yml can reference — and scope — them independently. The category set 
 emitted (even when it has no terms) so the generated file set stays stable.
 ```
 
-## comment:11
+## comment:2
 
-Above `$cspellDir = Join-Path (Get-RepositoryRoot) '.cspell'`.
+Above `$cspellDir = Join-Path (Get-RepositoryRoot) '.cspell'`, written with `#`.
 
 ```text
 The generated dictionaries live at the repository root's .cspell/<category>.txt (see .cspell/README.md).
@@ -37,9 +37,9 @@ They are gitignored, so a fresh clone or a deleted .cspell/ has none; [System.IO
 not create the directory, so self-heal it before writing.
 ```
 
-## comment:12
+## comment:3
 
-Above `$words = [string[]] @(`.
+Above `$words = [string[]] @(`, written with `#`.
 
 ```text
 The accepted tokens are the terms themselves (an abbreviation's expansion is a real word cspell
@@ -47,18 +47,18 @@ already knows, so it is not registered). Lower-case, de-duplicate, and ordinal-s
 for a deterministic list.
 ```
 
-## comment:13
+## comment:4
 
-Above `$text = if ($words.Count -gt 0) {`.
+Above `$text = if ($words.Count -gt 0) {`, written with `#`.
 
 ```text
 A generated-file head (cspell treats '#' lines as comments) names the generator and the single source —
 mirrored by .cspell/README.md. It is part of the content, so it is drift-compared too.
 ```
 
-## comment:14
+## comment:5
 
-Above `$dictPath = Join-Path $cspellDir "$category.txt"`.
+Above `$dictPath = Join-Path $cspellDir "$category.txt"`, written with `#`.
 
 ```text
 Gitignored, generated artifact at the repository root's .cspell/

@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/SourceCheck.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/SourceCheck.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/SourceCheck.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-CONFIG#4
 ---
 */
-
-// Report mode lasts only while a check's work list is drained; gate is the one declared default, and every exempt entry needs a reason.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/SourceCheck.cs.md#comment1)
 
 using System;
 using System.Collections;

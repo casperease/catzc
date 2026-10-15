@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md
+      source: automation/Catzc.Base.Execution/types/ToolsConfig.cs
     adrs:
       - ADR-AUTO-DEPS#4
       - ADR-AUTO-TEST#14
@@ -12,8 +15,6 @@ catzc:
 #>
 
 Describe 'ToolsConfig' -Tag 'L0' {
-    # Reads the shipped tools.yml — guards real repository content.
-    # [comment:1](/docs/references/automation/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md#comment1)
     Context 'integrity (shipped tools.yml)' -Tag 'integrity' {
         It 'accepts the shipped tools.yml (all snake_case)' {
             $path = Join-Path $PSScriptRoot '../../configs/tools.yml'
@@ -22,8 +23,6 @@ Describe 'ToolsConfig' -Tag 'L0' {
         }
     }
 
-    # Constructor logic on an inline (synthetic) config — independent of any shipped asset.
-    # [comment:2](/docs/references/automation/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md#comment2)
     Context 'logic (inline configs)' -Tag 'logic' {
         BeforeAll {
             $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Execution.ToolsConfig]::new($raw) }

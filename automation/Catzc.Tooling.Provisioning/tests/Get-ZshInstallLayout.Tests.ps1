@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/tests/Get-ZshInstallLayout.Tests.ps1.md
+      source: automation/Catzc.Tooling.Provisioning/private/Get-ZshInstallLayout.ps1
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-ZshInstallLayout over a fixture zsh entry: Get-ToolConfig is mocked, so the shipped tools.yml is never read,...
-# [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Get-ZshInstallLayout.Tests.ps1.md#comment1)
 Describe 'Get-ZshInstallLayout' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = [pscustomobject]@{

@@ -4,11 +4,10 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-AzureResourceName.Content.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Get-AzureResourceName.Content.Tests.ps1.md
 ---
 #>
-
-# Data-driven coverage for Get-AzureResourceName, sourced from tests/assets/Get-AzureResourceName.Content.yml.
-# [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-AzureResourceName.Content.Tests.ps1.md#comment1)
 
 Describe 'Get-AzureResourceName (tests/assets/Get-AzureResourceName.Content.yml)' -Tag 'L0', 'logic' {
     BeforeDiscovery {

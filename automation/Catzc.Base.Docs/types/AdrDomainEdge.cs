@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrDomainEdge.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrDomainEdge.cs.md
+      test: automation/Catzc.Base.Docs/tests/types/AdrDomainEdge.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#9
 ---
 */
-
-// The constructor guards the edge invariant: both ends non-empty and distinct, so no domain depends on itself.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrDomainEdge.cs.md#comment1)
 
 using System;
 

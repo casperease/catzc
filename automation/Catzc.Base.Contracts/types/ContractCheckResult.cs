@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.Contracts/types/ContractCheckResult.cs
     kind: csharp-type
     module: Catzc.Base.Contracts
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/types/ContractCheckResult.cs.md
+      test: automation/Catzc.Base.Contracts/tests/types/ContractCheckResult.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-CONTRACT#4
       - ADR-REPO-CONTRACT#6
 ---
 */
-
-// Passed is derived from Findings, never set apart from them; a blank finding is rejected, and no findings at all is a pass.
-// [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractCheckResult.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

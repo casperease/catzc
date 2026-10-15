@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: private
+    relatives:
+      test: automation/Catzc.Tooling.Provisioning/tests/Find-WindowsGitCredentialManager.Tests.ps1
   config:
     synopsis: Locates the Windows Git Credential Manager from inside a WSL session.
     description: |-

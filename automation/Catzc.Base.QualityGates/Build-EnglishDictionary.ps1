@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Build-EnglishDictionary.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#10
       - ADR-AUTO-DRYRUN
@@ -68,13 +71,9 @@ function Build-EnglishDictionary {
     Assert-Command npm
     Assert-Command cspell
 
-    # Locate cspell's bundled tries under the global node_modules.
-    # [comment:10](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment10)
     $nodeRoot = (& npm root -g).Trim()
     Assert-NotNullOrWhitespace $nodeRoot
 
-    # cspell bundles the tries under its own nested @cspell/dict-* folders, and the exact folder casing (dict-en_us...
-    # [comment:11](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment11)
     $triePaths = foreach ($trieName in 'en_US.trie.gz', 'en_GB.trie.gz') {
         # The trie sits five levels down (cspell, node_modules, @cspell, package, file); the walk must enter node_modules.
         $found = Get-ChildPath $nodeRoot -File -Filter $trieName -Depth 5 -Exclude @() -PruneVendor $false |
@@ -85,8 +84,6 @@ function Build-EnglishDictionary {
         $found
     }
 
-    # Record what the committed dictionary is flattened from, so a drift check can detect staleness WITHOUT...
-    # [comment:12](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment12)
     $cspellVersion = (Invoke-Executable 'cspell --version' -PassThru -Silent).Output.Trim()
     $dictVersions = [ordered]@{}
     foreach ($trie in $triePaths) {
@@ -94,8 +91,6 @@ function Build-EnglishDictionary {
         $dictVersions[$package.name] = $package.version
     }
 
-    # cspell-trie reads a trie and prints its words.
-    # [comment:13](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment13)
     Write-Message 'Flattening cspell English dictionaries (en_US, en_GB) via cspell-trie — this can take a while...'
 
     $set = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
@@ -107,8 +102,6 @@ function Build-EnglishDictionary {
             Invoke-Executable "npx --yes cspell-trie@10 reader '$trie' -o '$tmp'" | Out-Null
             Assert-PathExist $tmp
 
-            # Keep only lower-cased, pure-alpha words of length >= 2.
-            # [comment:14](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment14)
             foreach ($line in [System.IO.File]::ReadLines($tmp)) {
                 $word = $line.ToLowerInvariant()
                 if ($word.Length -ge 2 -and $word -cmatch '^[a-z]+$') {
@@ -134,8 +127,6 @@ function Build-EnglishDictionary {
     $outPath = Join-Path $assetsDir 'english.txt.gz'
     $stampPath = Join-Path $assetsDir 'english.stamp'
 
-    # The stamp locks the artifact to its source versions.
-    # [comment:15](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment15)
     $stamp = [ordered]@{
         cspell     = $cspellVersion
         dicts      = $dictVersions
@@ -143,8 +134,6 @@ function Build-EnglishDictionary {
     }
     $stampContent = ($stamp | ConvertTo-Json -Depth 5) + "`n"
 
-    # Idempotency is decided on the DECOMPRESSED content (gzip container bytes are not the contract), so a re-run...
-    # [comment:16](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment16)
     $existing = $null
     if (Test-Path $outPath) {
         $existing = [System.Text.Encoding]::UTF8.GetString([Catzc.Base.QualityGates.GzipText]::Decompress([System.IO.File]::ReadAllBytes($outPath)))

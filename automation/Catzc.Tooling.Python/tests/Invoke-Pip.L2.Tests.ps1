@@ -4,11 +4,11 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Python/tests/Invoke-Pip.L2.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-python/tests/Invoke-Pip.L2.Tests.ps1.md
 ---
 #>
 
-# The chain is Invoke-Pip → Invoke-Uv → uv pip <args>: uv is the tool that must exist, and it needs a discoverable...
-# [comment:1](/docs/references/automation/catzc-tooling-python/tests/Invoke-Pip.L2.Tests.ps1.md#comment1)
 Describe 'Invoke-Pip' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:uvAvailable = Test-Tool 'uv'

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md
+      source: automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-DSGN-TRACK#12
@@ -12,8 +15,6 @@ catzc:
 ---
 #>
 
-# Get-ValueChainHighlight lights the value-chain map cells of ADR codes.
-# [comment:1](/docs/references/automation/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md#comment1)
 Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $adr = {

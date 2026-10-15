@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/configs/glossary.yml.md
     kind: comment-page
-    body_sha: b2e453e72ed2
+    body_sha: "608312b8a5e6"
     adrs:
       - ADR-REPO-VOCAB#2
 ---
 
 # automation/Catzc.Azure.Templates/configs/glossary.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `concepts:`.
+Above `concepts:`, written with `#`.
 
 ```text
 glossary.yml — the Catzc.Azure.Templates glossary source: the vocabulary of the Bicep template configuration this module

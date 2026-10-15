@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/types/ExporterBundle.cs.md
     kind: comment-page
-    body_sha: "8bf510e3fc7b"
+    body_sha: "9bb1164dfed1"
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Base.Exporter/types/ExporterBundle.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One named bundle of configs/exporter.yml (`bundles.<name>`): a release identity of its own — which modules it

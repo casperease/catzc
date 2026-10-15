@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.DevOps
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md
   config:
     synopsis: Lists all registered pipeline definitions from Azure DevOps.
     description: |-
@@ -47,8 +49,6 @@ function Get-AdoPipelineDefinitions {
 
     $count = ($definitions | Measure-Object).Count
 
-    # includeAllProperties should return process.yamlFilename inline.
-    # [comment:3](/docs/references/automation/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md#comment3)
     $hasProcessDetails = $definitions | Where-Object { $_.process.yamlFilename } | Select-Object -First 1
     if (-not $hasProcessDetails -and $count -gt 0) {
         Write-Message "Found $count pipeline definitions, fetching details individually"

@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/types/AgentEntry.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/types/AgentEntry.cs
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-AGENTS#2
 ---
 #>
 
-# Validates the compiled AgentEntry type directly — the constructor stops a malformed agents.yml entry from ever...
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/types/AgentEntry.Tests.ps1.md#comment1)
 Describe 'AgentEntry' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS#2' {
     It 'constructs and exposes name, supported_by, and checks' {
         $entry = [Catzc.Base.Docs.AgentEntry]::new([ordered]@{

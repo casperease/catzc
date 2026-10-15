@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
     kind: csharp-type
     module: Catzc.Azure.DevOps.BuildValidation
+    relatives:
+      page: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#3
       - ADR-FLOW-CD-TYPE#4
 ---
 */
-
-// Globset existence is not checked here, so loading the config stays hermetic; runtime and an integrity test enforce it.
-// [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -28,8 +27,6 @@ public sealed class BuildValidationEntry : Catzc.Base.Objects.DictionaryRecord
     // The declared globset the policy is tied to (its native path projection is the policy's path filter).
     public string globset { get; }
 
-    // Null when absent: the consumer falls back to the globset's pipeline annotation in globs.yml.
-    // [comment:2](/docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md#comment2)
     public string pipeline { get; }
 
     // Whether the policy blocks the merge. Defaults to true.

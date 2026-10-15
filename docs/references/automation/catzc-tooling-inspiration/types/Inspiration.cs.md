@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-inspiration/types/Inspiration.cs.md
     kind: comment-page
-    body_sha: ca22062be748
+    body_sha: "6c2db7b08ae8"
     adrs:
       - ADR-AUTO-PATH#5
       - ADR-REPO-INSPIRE#1
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Tooling.Inspiration/types/Inspiration.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One inspiration as Get-Inspiration reports it on this machine: its id, where its root resolves here, whether that

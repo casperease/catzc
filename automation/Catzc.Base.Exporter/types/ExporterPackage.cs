@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Exporter/types/ExporterPackage.cs
     kind: csharp-type
     module: Catzc.Base.Exporter
+    relatives:
+      page: docs/references/automation/catzc-base-exporter/types/ExporterPackage.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Every violation is collected into one ArgumentException, so a bad package block is reported whole, not one key at a time.
-// [comment:1](/docs/references/automation/catzc-base-exporter/types/ExporterPackage.cs.md#comment1)
 
 using System;
 using System.Collections;

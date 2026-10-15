@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md
+      test: automation/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
     adrs:
       - ADR-AUTO-REMOVE#3
   config:
@@ -50,8 +53,6 @@ function Test-ExpectedPackageManager {
         return [bool](Test-Command $Config.command)
     }
 
-    # 1.
-    # [comment:12](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment12)
     if ($Config.script_install -or ($Config.msys2_url -and $IsWindows)) {
         $expectedDir = [System.IO.Path]::GetFullPath((Get-ScriptInstallDir -Config $Config)).TrimEnd('\', '/')
         if ($Path) {
@@ -88,8 +89,6 @@ function Test-ExpectedPackageManager {
         return (Get-Command $Config.command).Source -like "$venvRoot*"
     }
 
-    # uv-provisioned Python — managed only when uv reports an installed uv-MANAGED CPython.
-    # [comment:13](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment13)
     if ($Config.uv_python) {
         if (-not (Test-Command uv)) {
             return $false
@@ -98,19 +97,13 @@ function Test-ExpectedPackageManager {
         return [bool]$result.Output
     }
 
-    # 3.
-    # [comment:14](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment14)
     if ($IsWindows -and $Config.winget_id) {
         if (-not (Test-Command winget)) {
             return $false
         }
 
-        # Build a search prefix that matches any version of this tool.
-        # [comment:15](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment15)
         $baseId = ($Config.winget_id -replace '\{0\}', '').TrimEnd('.', '-')
 
-        # For IDs without a format placeholder the version may be hardcoded as the last segment (e.g.,...
-        # [comment:16](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment16)
         if ($Config.winget_id -notmatch '\{0\}') {
             $parts = $baseId -split '\.'
             if ($parts.Count -gt 2 -and $parts[-1] -match '^\d') {
@@ -145,8 +138,6 @@ function Test-ExpectedPackageManager {
         return $result.ExitCode -eq 0
     }
 
-    # 3.
-    # [comment:17](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment17)
     if ($Config.pip_package) {
         if (-not (Test-Command uv)) {
             return $false
@@ -164,8 +155,6 @@ function Test-ExpectedPackageManager {
         return $result.ExitCode -eq 0
     }
 
-    # 5.
-    # [comment:18](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment18)
     if ($Config.msys2_url) {
         return [bool](Test-Command $Config.command)
     }

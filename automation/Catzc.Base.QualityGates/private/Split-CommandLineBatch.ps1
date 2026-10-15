@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Split-CommandLineBatch.Tests.ps1
   config:
     synopsis: Splits a list of command-line arguments into batches whose joined length stays under a limit.
     description: |-

@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Git/types/GitIndex.cs
     kind: csharp-type
     module: Catzc.Base.Git
+    relatives:
+      page: docs/references/automation/catzc-base-git/types/GitIndex.cs.md
+      test: automation/Catzc.Base.Git/tests/types/GitIndex.Tests.ps1
     adrs:
       - ADR-AUTO-TRACKED
 ---
 */
-
-// A split or sparse index is rejected loudly rather than read wrong; equal index bytes never yield a stale listing.
-// [comment:1](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -34,12 +34,8 @@ public sealed class GitIndex
     // The SHA-256 of the index file's bytes (uppercase hex) — the cache key.
     public string ContentHash { get; }
 
-    // An unmerged path is held once per conflict stage in the index but listed once here, as git ls-files lists it.
-    // [comment:2](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment2)
     public string[] Paths { get; }
 
-    // Same order and form as Paths, so this is an ordered subsequence of Paths: only the mode 100755 entries.
-    // [comment:3](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment3)
     public string[] ExecutablePaths { get; }
 
     // git's mode for an executable regular file (octal 100755).
@@ -70,8 +66,6 @@ public sealed class GitIndex
         }
     }
 
-    // Pathspecs are literal prefixes, not globs; '.' means the whole repository, and each path comes back once.
-    // [comment:4](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment4)
     public string[] Under(IEnumerable<string> pathspecs) => Select(Paths, pathspecs);
 
     // The executable tracked paths at or under the given paths, in the same form as Under.
@@ -119,8 +113,6 @@ public sealed class GitIndex
             throw new InvalidDataException($"Unsupported git index version {version} (versions 2-4 are read).");
         }
 
-        // A mismatch means a corrupt file or a SHA-256 repository, whose 32-byte object ids this reader does not parse.
-        // [comment:5](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment5)
         var bodyLength = content.Length - HashLength;
         var trailer = content.AsSpan(bodyLength);
         if (trailer.IndexOfAnyExcept((byte)0) >= 0 && !trailer.SequenceEqual(SHA1.HashData(content.AsSpan(0, bodyLength))))

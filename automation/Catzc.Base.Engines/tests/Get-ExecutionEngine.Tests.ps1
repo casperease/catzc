@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Engines/tests/Get-ExecutionEngine.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Engines/Get-ExecutionEngine.ps1
 ---
 #>
 

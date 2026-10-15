@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md
     kind: comment-page
-    body_sha: "64223a461dc5"
+    body_sha: "17dc9d5925fa"
 ---
 
 # automation/Catzc.Base.QualityGates/types/PesterRunner.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `namespace Catzc.Base.QualityGates;`.
+Above `namespace Catzc.Base.QualityGates;`, written with `//`.
 
 ```text
 Runs N Pester worker processes (pwsh -NoProfile -File <script>) concurrently with pooled live output.
@@ -25,7 +25,7 @@ wall clock runs in parallel. The instance is its own result: Run populates Resul
 
 ## comment:2
 
-Above `public long StartOffsetMs { get; internal set; }`.
+Above `public long StartOffsetMs { get; internal set; }`, written with `//`.
 
 ```text
 Wall-clock timing relative to this Run call: when the worker process started (offset from the
@@ -35,7 +35,7 @@ carries up to one poll interval (~50ms) of slop.
 
 ## comment:3
 
-Above `public static PesterRunner Run(string[] runnerScripts, string[] labels, int...`.
+Above `public static PesterRunner Run(string[] runnerScripts, string[] labels, int...`, written with `///`.
 
 ```text
 <summary>
@@ -49,7 +49,7 @@ anything to the console.
 
 ## comment:4
 
-Above `int running = 0;`.
+Above `int running = 0;`, written with `//`.
 
 ```text
 Reap: a worker completes when its process has exited and both readers drained to EOF
@@ -58,7 +58,7 @@ Reap: a worker completes when its process has exited and both readers drained to
 
 ## comment:5
 
-Above `if (!silent)`.
+Above `if (!silent)`, written with `//`.
 
 ```text
 Advance the live token: flush every completed worker's remaining backlog in submission
@@ -68,7 +68,7 @@ order, then make the first unfinished worker write-through so its output streams
 
 ## comment:6
 
-Above `RedirectStandardInput = true`.
+Above `RedirectStandardInput = true`, written with `//`.
 
 ```text
 A worker is never interactive. It gets an empty, closed stdin rather than the caller's: a child
@@ -78,7 +78,7 @@ probes its std handles), and a test's own `& git` would inherit the worker's std
 
 ## comment:7
 
-Above `psi.Environment[WorkerParentWatch.PidVariable] =...`.
+Above `psi.Environment[WorkerParentWatch.PidVariable] =...`, written with `//`.
 
 ```text
 Who started this worker, so it can end itself if this process dies without reaping it

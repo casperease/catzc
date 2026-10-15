@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/tests/types/HeadForm.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.CodeMeta/types/HeadForm.cs
     adrs:
       - ADR-REPO-CODEMETA#1
 ---

@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Maps/types/PdfNumber.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/PdfNumber.cs.md
+      test: automation/Catzc.Base.Maps/tests/types/PdfNumber.Tests.ps1
 ---
 */
-
-// Invariant culture and no exponent, so the same value gives the same bytes in any session; a PDF number has no exponent form.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/PdfNumber.cs.md#comment1)
 
 using System;
 using System.Globalization;

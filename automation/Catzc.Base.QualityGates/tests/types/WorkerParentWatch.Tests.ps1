@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/WorkerParentWatch.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/types/WorkerParentWatch.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/types/WorkerParentWatch.cs
     adrs:
       - ADR-PWSH-ENV#4
 ---
@@ -28,8 +31,6 @@ Describe 'WorkerParentWatch' -Tag 'logic' {
 
     Context 'starting a watch' -Tag 'L0' {
         BeforeAll {
-            # Process-scope only, snapshot and restore: under the harness these hold the real parent, and only the...
-            # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/WorkerParentWatch.Tests.ps1.md#comment1)
             $script:savedPid = $env:CATZC_TEST_PARENT_PID
             $script:savedStart = $env:CATZC_TEST_PARENT_START
         }

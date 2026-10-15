@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md
-    kind: test-asset
-    body_sha: d263cb4bb555
+    kind: comment-page
+    body_sha: "5137d2bb55de"
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {`.
+Above `Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-AgentDefinitions over a fixture .claude/ tree in $TestDrive and a fixture AgentsConfig (Get-Config,
@@ -26,7 +26,7 @@ integrity block at the end of this file.
 
 ## comment:2
 
-Above `Describe 'Test-AgentDefinitions — real agent definitions' -Tag 'L1',...`.
+Above `Describe 'Test-AgentDefinitions — real agent definitions' -Tag 'L1',...`, written with `#`.
 
 ```text
 The real tree: every agent file, the shipped agents.yml, the real rule ids and commands, and .claude/CLAUDE.md.

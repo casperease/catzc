@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Cli
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Cli/tests/Install-AzCliBicep.Tests.ps1
     adrs:
       - ADR-AZ-CLI#1
   config:

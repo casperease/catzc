@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Templates/tests/Get-AzureNamePatternSet.Tests.ps1
   config:
     synopsis: The three Azure resource-name patterns the generator (Get-AzureResourceName) renders.
     description: |-

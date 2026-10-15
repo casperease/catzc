@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/EngineSetCheck.cs.md
     kind: comment-page
-    body_sha: "8f01a4ef78f3"
+    body_sha: "0ff811458b2f"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-ENGINE#1
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/types/EngineSetCheck.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The engine-set check's settings (source-conventions.yml's engine_set) and its prose and C# matchers: the execution
@@ -38,7 +38,7 @@ in the config. Matching ignores case. Property names mirror the YAML keys (snake
 
 ## comment:2
 
-Above `public IReadOnlyList<(int Offset, string Text, string Message)>...`.
+Above `public IReadOnlyList<(int Offset, string Text, string Message)>...`, written with `//`.
 
 ```text
 Every place in a stretch of prose that restates the engine set, given the model's engine names. Each result is
@@ -47,7 +47,7 @@ the offset into the text, the matched text, and the message.
 
 ## comment:3
 
-Above `public static IReadOnlyList<(int Offset, string Message)>...`.
+Above `public static IReadOnlyList<(int Offset, string Message)>...`, written with `//`.
 
 ```text
 Every line of C# source that restates the engine set in code: two or more distinct engine names as string

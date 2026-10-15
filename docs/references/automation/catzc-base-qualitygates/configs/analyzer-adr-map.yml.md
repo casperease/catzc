@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md
     kind: comment-page
-    body_sha: eecfc11d89a6
+    body_sha: "44eac6826be0"
     adrs:
       - ADR-AZ-CUSTOMER#3
 ---
 
 # automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `analyzers:`.
+Above `analyzers:`, written with `#`.
 
 ```text
 Maps each ENABLED PSScriptAnalyzer rule that enforces an ADR rule to the rule id(s) it enforces, cited in

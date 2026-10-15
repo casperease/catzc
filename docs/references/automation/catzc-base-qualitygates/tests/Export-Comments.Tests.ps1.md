@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md
-    kind: test-asset
-    body_sha: "0757aacdc5f7"
+    kind: comment-page
+    body_sha: c448ff6d5893
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
@@ -13,12 +13,12 @@ catzc:
 
 <!-- cspell:ignore ngadget -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Export-Comments' -Tag 'L0', 'logic' {`.
+Above `Describe 'Export-Comments' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Export-Comments moves a file's long comments into its comment page, one-way and losslessly

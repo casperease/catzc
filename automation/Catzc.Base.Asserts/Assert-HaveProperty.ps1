@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Asserts/tests/Assert-HaveProperty.Tests.ps1
   config:
     synopsis: Asserts that an object has a named property, or a nested chain of properties.
     parameters:

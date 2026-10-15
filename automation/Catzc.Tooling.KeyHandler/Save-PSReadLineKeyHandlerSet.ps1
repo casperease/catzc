@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.KeyHandler
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.KeyHandler/tests/Save-PSReadLineKeyHandlerSet.Tests.ps1
   config:
     synopsis: Captures the current session's PSReadLine key bindings to configs/key-handler-bindings.yml.
     description: |-

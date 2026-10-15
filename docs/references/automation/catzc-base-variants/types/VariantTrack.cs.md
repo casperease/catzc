@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/types/VariantTrack.cs.md
     kind: comment-page
-    body_sha: "04436d086961"
+    body_sha: c77d074b1dc0
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#6
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Variants/types/VariantTrack.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One track of the `tracks` variant (configs/variants.yml, [ADR-DSGN-TRACK](/docs/adr/design/tracks.md)): a named
@@ -29,7 +29,7 @@ YAML key. VariantsConfig validates the entry and builds one; Get-Track returns t
 
 ## comment:2
 
-Above `public IReadOnlyList<string> languages { get; }`.
+Above `public IReadOnlyList<string> languages { get; }`, written with `//`.
 
 ```text
 The file-language names of the track's declared tech-stack, in declared order. Empty when the track declares

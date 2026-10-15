@@ -3,33 +3,31 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md
     kind: comment-page
-    body_sha: "98b2d84d73e2"
+    body_sha: bd87b0cb6bd8
     adrs:
       - ADR-PWSH-FORMAT#6
 ---
 
 # automation/.scriptanalyzer/NoForEachObjectControlFlow.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Measure-NoForEachObjectControlFlow {`, written with `#`.
 
 ```text
-return/break/continue have completely different semantics inside a
-ForEach-Object scriptblock than inside a foreach loop:
-- return exits the scriptblock (acts like continue), not the function
-- break/continue act on the enclosing loop or terminate the script
-If you need control flow, use a foreach statement instead.
-
-See ADR: prefer-foreach-over-foreach-object.
+.SYNOPSIS
+    Custom PSScriptAnalyzer rule: forbid return, break, continue inside ForEach-Object.
+.DESCRIPTION
+    Inside a ForEach-Object scriptblock return acts like continue and break ends the script, unlike in a foreach loop.
+    [comment:1](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment1)
 ```
 
 ## comment:2
 
-Above `$isForEachObjectCommand = {`.
+Above `$isForEachObjectCommand = {`, written with `#`.
 
 ```text
 Find all ForEach-Object / % command invocations
@@ -39,7 +37,7 @@ Predicate as a local, not inlined in FindAll's parens — dodges a cross-version
 
 ## comment:3
 
-Above `$scriptBlocks = @()`.
+Above `$scriptBlocks = @()`, written with `#`.
 
 ```text
 Collect all scriptblock arguments to this ForEach-Object call.
@@ -48,7 +46,7 @@ These are the -Process, -Begin, -End blocks or positional scriptblock args.
 
 ## comment:4
 
-Above `$isControlFlowStatement = {`.
+Above `$isControlFlowStatement = {`, written with `#`.
 
 ```text
 Find return, break, continue statements that are direct children of THIS
@@ -60,7 +58,7 @@ Predicate as a local, not inlined in FindAll's parens — dodges a cross-version
 
 ## comment:5
 
-Above `$parent = $node.Parent`.
+Above `$parent = $node.Parent`, written with `#`.
 
 ```text
 Walk up the AST to check if there is an intervening loop/switch/function

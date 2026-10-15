@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/infrastructure/modules/virtual-network.bicep.md
     kind: comment-page
-    body_sha: be14d9600cee
+    body_sha: e83064f03359
 ---
 
 # infrastructure/modules/virtual-network.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `@description('A subnet of the virtual network.')`.
+Above `@description('A subnet of the virtual network.')`, written with `//`.
 
 ```text
 Reusable bicep module: a virtual network with its subnets declared inline. A virtual network owns its

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-PythonTestCases.Tests.ps1
   config:
     synopsis: Lists the Python tests a Python test folder declares, read from its test_*.py files without running Python.
     description: |-

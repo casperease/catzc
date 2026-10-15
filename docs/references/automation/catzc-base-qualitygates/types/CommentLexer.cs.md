@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md
     kind: comment-page
-    body_sha: cf7275ee41ab
+    body_sha: "43bd9672b6fc"
     adrs:
       - ADR-REPO-LINK#1
       - ADR-REPO-LINK#6
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/types/CommentLexer.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Finds the comment spans of a source file — the only places a code link lives
@@ -34,7 +34,7 @@ Spans are (Start, Length) offsets into the text, in document order.
 
 ## comment:2
 
-Above `public static IReadOnlyList<(int Start, int Length)> Strings(string text,...`.
+Above `public static IReadOnlyList<(int Start, int Length)> Strings(string text,...`, written with `//`.
 
 ```text
 The string-literal spans of any code file, quotes included: PowerShell's string tokens, the C family's
@@ -44,7 +44,7 @@ Empty for XML, whose text is not code.
 
 ## comment:3
 
-Above `static IReadOnlyList<(int, int)> CFamily(string text, string extension, bool...`.
+Above `static IReadOnlyList<(int, int)> CFamily(string text, string extension, bool...`, written with `//`.
 
 ```text
 The C family's comment spans (wantComments) or string-literal spans (otherwise), from one scan that skips each
@@ -53,7 +53,7 @@ kind while it looks for the other.
 
 ## comment:4
 
-Above `public static string LineMarker(string comment)`.
+Above `public static string LineMarker(string comment)`, written with `//`.
 
 ```text
 The comment family's line marker for a span, used to continue a wrapped line comment: '///', '//', '#',

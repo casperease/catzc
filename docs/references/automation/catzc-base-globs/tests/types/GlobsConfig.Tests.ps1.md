@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
-    kind: test-asset
-    body_sha: cd9950da5dee
+    kind: comment-page
+    body_sha: "116b4fb7f05e"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-FLOW-CD-GLOBS#4
@@ -15,12 +15,12 @@ catzc:
 
 <!-- cspell:ignore dedupe -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'GlobsConfig' -Tag 'L0', 'logic' {`.
+Above `Describe 'GlobsConfig' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The globs.yml registry guard: strict shape (unknown keys rejected), every entry a valid GlobSet with a
@@ -31,7 +31,7 @@ resolving acyclically to declared sets
 
 ## comment:2
 
-Above `$script:program = {`.
+Above `$script:program = {`, written with `#`.
 
 ```text
 Render a set's flattened scan program as '+ pattern' / '- pattern' lines
@@ -41,7 +41,7 @@ ordered membership program, the durable behaviour the removed marker rendering u
 
 ## comment:3
 
-Above `$c = & $script:make @{`.
+Above `$c = & $script:make @{`, written with `#`.
 
 ```text
 Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names

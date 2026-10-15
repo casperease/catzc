@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.RootConfig
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.RootConfig/tests/Test-RootConfigFiles.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-ROOTCFG

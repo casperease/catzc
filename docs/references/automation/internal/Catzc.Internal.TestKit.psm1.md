@@ -3,20 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md
     kind: comment-page
-    body_sha: "89fb9f9b2301"
+    body_sha: bf00f776e752
     adrs:
-      - ADR-AUTO-TEST#30
       - ADR-DSGN-RUNMODE#4
 ---
 
 # automation/.internal/Catzc.Internal.TestKit.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Set-StrictMode -Version Latest   # this module's scope: every function here...`.
+Above `Set-StrictMode -Version Latest   # this module's scope: every function here...`, written with `#`.
 
 ```text
 Catzc.Internal.TestKit — an on-demand fixture library for Pester tests.
@@ -36,7 +35,33 @@ loads it on demand through the loader, in BeforeAll, and it stays for the sessio
 
 ## comment:2
 
-Above `$saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot =...`.
+Above `[CmdletBinding()]`, written with `#`.
+
+```text
+.SYNOPSIS
+    Fabricate one module folder under a (fake) repo root: automation/<Name>/, with public function files at
+    the module root, private/<fn>.ps1 files, and any extra files (path relative to the module folder).
+    Returns the module directory path.
+```
+
+## comment:3
+
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChan...`, written with `#`.
+
+```text
+.SYNOPSIS
+    Create a fresh temp repository root, populate it, point $env:RepositoryRoot at it and $env:CatzcModulesRoot
+    at its automation/ folder (so the fake tree reads as source mode), and return a handle
+    { Root; Automation; Saved } to pass to Remove-FakeRepositoryRoot. -Modules maps a module name to a spec
+    (@{ Public=..; Private=..; Files=.. }; $null/empty = a bare folder). -Files maps repo-root-relative
+    paths to content (importer.ps1, .editorconfig, …). -WorkingRootOnly moves only $env:RepositoryRoot and
+    leaves the code root on the loaded modules — for a test that writes into a fixture working root while
+    reading the real assets of the loaded code (in either run mode).
+```
+
+## comment:4
+
+Above `$saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot =...`, written with `#`.
 
 ```text
 Both roots move together, so the fake tree reads as source mode (Get-CatzcRunMode compares them,
@@ -44,31 +69,49 @@ Both roots move together, so the fake tree reads as source mode (Get-CatzcRunMod
 repository's own automation/ folder.
 ```
 
-## comment:3
+## comment:5
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChan...` (occurrence 2), written with `#`.
 
 ```text
-Runs Build-Modules (Catzc.Base.Exporter) with the 'full' vendor policy — so Pester and PSScriptAnalyzer ship
-with the build — into <temp>/catzc-built-<guid>/. -Module and -ModuleProfile combine as in Build-Modules;
-neither builds the default bundle's profile. The build is never loaded into this session: a test reaches
-it only through Invoke-InBuiltCatzc's child pwsh, because loaded assemblies and $env: are process-global
-([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)). WorkingRoot is the
--RepositoryRoot the child passes to Import-Catzc.ps1 — the current
-repository root by default, so out/ and test fixtures keep resolving there. Building reads the source tree,
-so the session must be in source mode.
+.SYNOPSIS
+    Restore $env:RepositoryRoot and $env:CatzcModulesRoot to what they were before New-FakeRepositoryRoot and
+    delete the temp tree.
 ```
 
-## comment:4
+## comment:6
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChan...` (occurrence 3), written with `#`.
 
 ```text
-The child runs `pwsh -NoProfile -NonInteractive -File <runner>`; the runner dot-sources
-<BuildRoot>/Import-Catzc.ps1 -RepositoryRoot <WorkingRoot>, then invokes the block with -ArgumentList.
-The block's output — or the error it threw — travels back through a CliXml file, never stdout, so the
-importer's own console lines cannot corrupt it. Values cross the process boundary serialized (CliXml):
-strings, numbers, and collections of them round-trip as themselves; richer objects arrive as property
-bags. The block cannot see the caller's variables; pass them with -ArgumentList. A throw inside the
-block, or a child that never wrote its result, throws here with the child's error and output tail.
+.SYNOPSIS
+    Build the selected modules into a fresh temp folder for a build-mode test, and return a handle
+    { BuildRoot; WorkingRoot; Saved; Destination; Modules; Build } to pass to Invoke-InBuiltCatzc and
+    Remove-BuiltCatzcRoot.
+.DESCRIPTION
+    The build is never loaded here: assemblies and env vars are process-global, so only a child pwsh reaches it.
+    [comment:3](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment3)
+```
+
+## comment:7
+
+Above `[CmdletBinding()]` (occurrence 5), written with `#`.
+
+```text
+.SYNOPSIS
+    Run a script block in a child pwsh that has entered build mode through the handle's Import-Catzc.ps1, and
+    return the block's output.
+.DESCRIPTION
+    Results return in a CliXml file, never stdout, so importer console lines cannot corrupt them.
+    [comment:4](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment4)
+```
+
+## comment:8
+
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChan...` (occurrence 4), written with `#`.
+
+```text
+.SYNOPSIS
+    Restore $env:RepositoryRoot and $env:CatzcModulesRoot to what they were before New-BuiltCatzcRoot and
+    delete the build.
 ```

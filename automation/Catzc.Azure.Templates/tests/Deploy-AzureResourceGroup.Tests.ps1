@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Deploy-AzureResourceGroup.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/Deploy-AzureResourceGroup.ps1
 ---
 #>
 
 # cspell:ignore nproperties
 Describe 'Deploy-AzureResourceGroup' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The caller resolves the subscription + region and passes them in; this function never re-resolves from...
-        # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Deploy-AzureResourceGroup.Tests.ps1.md#comment1)
         $script:subId = '50a0ed00-de00-50b0-0000-000000000000'
     }
 

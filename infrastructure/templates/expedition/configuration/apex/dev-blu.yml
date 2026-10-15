@@ -5,8 +5,6 @@
 #     kind: bicep-template-config
 # ---
 
-# A second deployment beside the base dev slot: its own resource group, in the same apex nonprod spoke.
-# [comment:1](/docs/references/infrastructure/templates/expedition/configuration/apex/dev-blu.yml.md#comment1)
 ParametersFile:
   parameters:
     tags:

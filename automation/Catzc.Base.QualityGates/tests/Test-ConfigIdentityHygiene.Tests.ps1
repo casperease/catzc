@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-ConfigIdentityHygiene.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -11,8 +14,6 @@ catzc:
 ---
 #>
 
-# Integrity — it reads the real shipped config (and derives from the real fixture configs).
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-ConfigIdentityHygiene.Tests.ps1.md#comment1)
 Describe 'Test-ConfigIdentityHygiene' -Tag 'L1', 'integrity', 'source-only' {
     It 'the shipped config is free of test-fixture identities, and no fixture identity is a live one' {
         $result = Test-ConfigIdentityHygiene -PassThru -OutputFolder (Join-Path $TestDrive 'config-identity-hygiene')

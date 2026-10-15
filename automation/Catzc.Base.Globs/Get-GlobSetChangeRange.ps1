@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Globs
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
     adrs:
       - ADR-FLOW-CD-DETECT
       - ADR-REPO-PROTGLOB#5

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TEST#16
@@ -12,12 +14,8 @@ catzc:
 ---
 #>
 
-# Integrity for the SHIPPED bicep templates (infrastructure/templates/): that they are NAMED so discovery finds them,...
-# [comment:1](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md#comment1)
 Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
     BeforeAll {
-        # Discovery is itself a check: it enforces the naming conventions, options.yml schema, and the cross-layer...
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md#comment2)
         $script:discoveryError = $null
         $script:templates = @()
         try {
@@ -43,8 +41,6 @@ Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
                 ForEach-Object { "$($_.Name): $((@($_.Group | ForEach-Object { $_.name })) -join ', ')" }
         )
 
-        # Full structural validation WITHOUT building (no -Build): main.bicep present, options.yml schema +...
-        # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md#comment3)
         $script:validationError = $null
         try {
             Assert-BicepTemplate
@@ -75,8 +71,6 @@ Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
     }
 
     It 'every shipped template is structurally valid WITHOUT building it (Assert-BicepTemplate, no -Build)' {
-        # Deliberately no -Build: this validates the files (main.bicep, options schema, identity references,...
-        # [comment:4](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md#comment4)
         $validationError | Should -BeNullOrEmpty -Because "shipped templates must satisfy Assert-BicepTemplate (no build):`n$validationError"
     }
 }

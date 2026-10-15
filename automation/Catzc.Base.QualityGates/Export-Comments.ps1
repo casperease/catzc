@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1

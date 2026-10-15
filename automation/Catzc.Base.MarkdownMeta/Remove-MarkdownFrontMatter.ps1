@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.MarkdownMeta
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.MarkdownMeta/tests/Remove-MarkdownFrontMatter.Tests.ps1
   config:
     synopsis: Returns a Markdown text without its YAML front matter.
     description: |-

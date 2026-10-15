@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#33
   config:

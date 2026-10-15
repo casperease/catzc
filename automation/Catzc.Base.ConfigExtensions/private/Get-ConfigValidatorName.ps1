@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ConfigExtensions
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.ConfigExtensions/tests/Get-ConfigValidatorName.Tests.ps1
   config:
     synopsis: 'Returns the conventional PowerShell validator name for a config: Assert-<TitleCase(name)>Config.'
     description: |-

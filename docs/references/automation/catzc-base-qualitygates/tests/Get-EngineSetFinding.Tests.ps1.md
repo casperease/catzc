@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-EngineSetFinding.Tests.ps1.md
-    kind: test-asset
-    body_sha: "436d1fb35005"
+    kind: comment-page
+    body_sha: a0cbd0833e8e
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Get-EngineSetFinding.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-EngineSetFinding' -Tag 'L0', 'logic' {`.
+Above `Describe 'Get-EngineSetFinding' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-EngineSetFinding over fixture texts, with a fixture engine set — widget, gadget and sprocket stand in for the

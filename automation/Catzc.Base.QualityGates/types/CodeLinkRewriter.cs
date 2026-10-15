@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CodeLinkRewriter.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md
     adrs:
       - ADR-REPO-LINK#3
       - ADR-REPO-LINK#9
 ---
 */
-
-// The citation code is the source of truth: the destination is derived from it, so a stale path is re-pointed.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -31,11 +30,7 @@ public sealed class CodeLinkRewriter
     // One reference in a comment. Alternation order matters: an existing link swallows the citation in its text.
     static readonly Regex Reference = new Regex(
         @"(?<link>\[(?<text>[^\]\r\n]*)\]\((?<dest>[^)\s]+)\))" +
-        // A path starts a word, so a placeholder like root/docs/adr/index.md, glued to other characters, is not a reference.
-        // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment2)
         @"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?docs/adr/[A-Za-z0-9_\-./]+?\.md)(?<frag>#[A-Za-z0-9_\-]+)?(?![\w/])" +
-        // A dash before a citation is allowed only in a rule range, so any other glued dash joins a word.
-        // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment3)
         @"|(?<cite>(?<!\w)(?<!(?:^|\D)-)(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:(?<sep>[:#])(?<rule>\d+))?(?(rule)(?!\d)|(?![\w*]|-[A-Z*<])))" +
         @"|(?<slug>(?<![^\s(\[{,;:'""*])(?<name>[a-z0-9]+(?:-[a-z0-9]+)*)\.md(?![\w/]))",
         RegexOptions.Compiled);
@@ -76,8 +71,6 @@ public sealed class CodeLinkRewriter
         }
     }
 
-    // Unregistered codes are skipped when tolerated, because test comments name fixture ADRs on purpose.
-    // [comment:5](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment5)
     public string Rewrite(string comment, bool tolerateUnknownCodes, List<Hit> hits, List<string> inserted)
     {
         if (string.IsNullOrEmpty(comment) || MetaHead.IsMatch(comment)) { return comment; }
@@ -182,8 +175,6 @@ public sealed class CodeLinkRewriter
         return output.ToString();
     }
 
-    // A closing parenthesis is taken only when the separator opened it; zero means no citation follows the path.
-    // [comment:6](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment6)
     int Adjacent(string comment, int at, bool[] literal, out string code, out int? rule)
     {
         code = null;
@@ -201,8 +192,6 @@ public sealed class CodeLinkRewriter
         return closed && !opened ? adjacent.Length - 1 : adjacent.Length;
     }
 
-    // The same reference spelled twice merges into one canonical link; zero when the link points elsewhere.
-    // [comment:7](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment7)
     int RepeatedLink(string comment, int at, bool[] literal, string canonical)
     {
         if (at >= comment.Length) { return 0; }

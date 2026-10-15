@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestOutcomes.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Get-LanguageTestOutcomes.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1
     adrs:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-LanguageTestOutcomes with the language runners mocked: every discovered test takes the outcome of its result,...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-LanguageTestOutcomes.Tests.ps1.md#comment1)
 Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:package = 'catzc/go/tests/catzc-widget'
@@ -106,8 +107,6 @@ Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
         Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { -not $EntryScript }
     }
 
-    # Every engine other than the running pwsh, from the model.
-    # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Get-LanguageTestOutcomes.Tests.ps1.md#comment2)
     It 'runs the tests under the <Engine> engine with the executable handed down' -ForEach @(
         @([Catzc.Base.Engines.ExecutionEngines]::Names | Where-Object { $_ -ne [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name } | ForEach-Object { @{ Engine = $_ } })
     ) {

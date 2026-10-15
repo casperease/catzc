@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Install-Go.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Go.Tests.ps1.md
+      source: automation/Catzc.Tooling.Toolchain/Install-Go.ps1
 ---
 #>
 
-# Hermetic logic (L1): the release feed (Get-GoRelease), the verified download, the version and tar runs...
-# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Go.Tests.ps1.md#comment1)
 Describe 'Install-Go' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:goHome = Join-Path $TestDrive 'go-home'

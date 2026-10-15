@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Install-Git.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/tests/Install-Git.Tests.ps1.md
+      source: automation/Catzc.Tooling.Provisioning/Install-Git.ps1
 ---
 #>
 
 Describe 'Install-Git' -Tag 'L0', 'logic' {
-    # Install-Git is mostly a live-download integration (GitHub API + verified download + self-extracting installer);...
-    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Install-Git.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Invoke-RestMethod { } -ModuleName Catzc.Tooling.Provisioning
         Mock Save-VerifiedDownload { } -ModuleName Catzc.Tooling.Provisioning

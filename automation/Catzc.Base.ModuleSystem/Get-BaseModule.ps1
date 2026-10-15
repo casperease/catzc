@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.ModuleSystem/tests/Get-BaseModule.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-RUNMODE

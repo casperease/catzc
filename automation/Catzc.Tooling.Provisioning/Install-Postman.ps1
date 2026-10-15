@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md
+      test: automation/Catzc.Tooling.Provisioning/tests/Install-Postman.Tests.ps1
   config:
     synopsis: Installs the Postman desktop app (user-space, no admin required).
     description: |-
@@ -45,8 +48,6 @@ function Install-Postman {
 
         $setupPath = Join-Path ([IO.Path]::GetTempPath()) 'Postman-win64-setup.exe'
 
-        # Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download is...
-        # [comment:4](/docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md#comment4)
         Write-Message 'Downloading Postman from dl.pstmn.io'
         Invoke-WebRequest -Uri 'https://dl.pstmn.io/download/latest/win64' -OutFile $setupPath -UseBasicParsing
         Assert-PathExist $setupPath
@@ -90,8 +91,6 @@ function Install-Postman {
 
         $tarPath = Join-Path ([IO.Path]::GetTempPath()) 'postman-linux-x64.tar.gz'
 
-        # Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download is...
-        # [comment:5](/docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md#comment5)
         Write-Message 'Downloading Postman from dl.pstmn.io'
         Invoke-WebRequest -Uri 'https://dl.pstmn.io/download/latest/linux_64' -OutFile $tarPath -UseBasicParsing
         Assert-PathExist $tarPath

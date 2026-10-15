@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Go.Tests.ps1
   config:
     synopsis: Uninstalls the Go toolchain installed by Install-Go.
     description: |-

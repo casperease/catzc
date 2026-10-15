@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Firewall
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md
+      test: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownTable.Tests.ps1
   config:
     synopsis: Renders the Markdown rule table (header + rows) for Convert-FirewallCsvToMarkdown.
     description: |-
@@ -86,8 +89,6 @@ function Get-FirewallMarkdownTable {
     foreach ($row in $Rows) {
         $cells = foreach ($column in $Columns) {
             $cell = if ($column.Render -eq 'protoport') {
-                # Pair protocols with ports as "protocols:ports" (e.g.
-                # [comment:5](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment5)
                 $protocols = @()
                 $ports = @()
                 foreach ($candidate in $column.Candidates) {
@@ -114,8 +115,6 @@ function Get-FirewallMarkdownTable {
                 }
             }
             else {
-                # Gather values per candidate, preserving candidate (group) order.
-                # [comment:6](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment6)
                 $values = foreach ($candidate in $column.Candidates) {
                     $raw = [string]$row.$candidate
                     if (-not [string]::IsNullOrWhiteSpace($raw)) {
@@ -129,8 +128,6 @@ function Get-FirewallMarkdownTable {
                 @($values) -join $CellListSeparator
             }
 
-            # Wrap a cell in backticks when Markdown would mangle it: - * or _ at a whitespace boundary (cell...
-            # [comment:7](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment7)
             if ($cell -match '^[*_]|[*_]$|\s[*_]|[*_]\s|https?://|ftp://|[a-z0-9-]+\.[a-z]{2,}') {
                 '`' + $cell + '`'
             }

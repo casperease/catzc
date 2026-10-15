@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Github/tests/Remove-TokenFromHistory.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1
 ---
 #>
 

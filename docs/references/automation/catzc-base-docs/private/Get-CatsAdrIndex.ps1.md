@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-CatsAdrIndex.ps1.md
     kind: comment-page
-    body_sha: b8fec19ddf32
+    body_sha: ed6c00018bbd
     adrs:
       - ADR-PWSH-CACHE#4
 ---
 
 # automation/Catzc.Base.Docs/private/Get-CatsAdrIndex.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `$script:catsAdrIndexCache = @{}`.
+Above `$script:catsAdrIndexCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry

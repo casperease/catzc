@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md
+      source: automation/Catzc.Base.Reports/Write-QualityGateReport.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
 ---
 #>
 
-# Write-QualityGateReport is every quality gate's output.
-# [comment:1](/docs/references/automation/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md#comment1)
 Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ModuleName Catzc.Base.Reports -ParameterFilter { $Config -eq 'reports' } -MockWith {

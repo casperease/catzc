@@ -4,14 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Links.Untracked.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Untracked.Tests.ps1.md
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-LINK#2
 ---
 #>
 
-# A markdown link must resolve on GitHub, which has only what git tracks.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Untracked.Tests.ps1.md#comment1)
 Describe 'Test-Links — untracked link targets' -Tag 'L0', 'logic', 'ADR-REPO-LINK#2' {
     BeforeAll {
         $script:writeFile = {

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md
+      source: automation/Catzc.Base.Maps/Get-ValueChainMap.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-DSGN-TRACK#14
@@ -13,8 +16,6 @@ catzc:
 ---
 #>
 
-# Get-ValueChainMap builds the value-chain map from the registry's closed sets and its ADRs.
-# [comment:1](/docs/references/automation/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md#comment1)
 Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:stacks = @([Catzc.Base.Docs.AdrsConfig]::Stacks)
@@ -49,8 +50,6 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
     }
 }
 
-# The registry's own value-chain map.
-# [comment:2](/docs/references/automation/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md#comment2)
 Describe 'Get-ValueChainMap — the real registry' -Tag 'L1', 'integrity', 'source-only' {
     It 'places every ADR of adrs.yml in at least one cell of its ADR domain''s row' -Tag 'ADR-DSGN-TRACK#14', 'ADR-DSGN-TRACK#15' {
         $map = Get-ValueChainMap

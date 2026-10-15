@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md
     adrs:
       - ADR-AUTO-TRACKED#1
       - ADR-FLOW-CD-GLOBS#4
@@ -27,8 +29,6 @@ function Get-GuidScanFiles {
     [CmdletBinding()]
     param()
 
-    # The universe and its exclusions (automation/.vendor, automation/.compiled, the registry) are the catzc source...
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md#comment3)
     Assert-SourceTree
 
     $tracked = Get-GitTrackedPath '.'

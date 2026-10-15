@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/GeneratedFilesConfig.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/types/GeneratedFilesConfig.Tests.ps1
 ---
 */
 

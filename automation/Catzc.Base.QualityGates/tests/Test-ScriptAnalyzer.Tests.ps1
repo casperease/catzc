@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-ScriptAnalyzer.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#3
       - ADR-AUTO-NOPWD#1
@@ -13,13 +16,9 @@ catzc:
 
 Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
     BeforeAll {
-        # A real file so the -Path collection (Resolve-Path) resolves; the analysis helper is mocked, so the file's...
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-ScriptAnalyzer.Tests.ps1.md#comment1)
         $script:targetFile = Join-Path $TestDrive 'subject.ps1'
         Set-Content -Path $script:targetFile -Value 'function Get-Thing { }' -Encoding utf8
 
-        # Mock the analysis boundary — the sharded background-job runner — never run the real (slow) analyzer in a...
-        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-ScriptAnalyzer.Tests.ps1.md#comment2)
         Mock Get-ScriptAnalyzerDiagnostics -ModuleName Catzc.Base.QualityGates { $script:diagnostics }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
@@ -96,11 +95,7 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
     }
 }
 
-# The real-asset test of: the gate runs over throwaway files with nothing mocked, so it reads the shipped settings...
-# [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/Test-ScriptAnalyzer.Tests.ps1.md#comment3)
 Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP#3' {
-    # One real-analyzer run over a clean + a violating file proves the boundary end-to-end: the real analyzer flags...
-    # [comment:4](/docs/references/automation/catzc-base-qualitygates/tests/Test-ScriptAnalyzer.Tests.ps1.md#comment4)
     It 'flags a real aliased-cmdlet violation and passes the clean fixture (real PSScriptAnalyzer, repo rule set)' {
         $clean = Join-Path $TestDrive 'Get-Thing.ps1'
         Set-Content -Path $clean -Value "function Get-Thing {`n    `$value = 1`n    `$value`n}" -Encoding utf8

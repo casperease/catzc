@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Java.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Tooling.Toolchain/Invoke-Java.ps1
 ---
 #>
 

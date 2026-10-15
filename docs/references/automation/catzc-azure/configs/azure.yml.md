@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/configs/azure.yml.md
     kind: comment-page
-    body_sha: "7f44e182d95c"
+    body_sha: "997ea952a44f"
     adrs:
       - ADR-AZ-DATAMOD#11
 ---
 
 # automation/Catzc.Azure/configs/azure.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `org: zct`.
+Above `org: zct`, written with `#`.
 
 ```text
 (Pins an empty, match-anything schema. Without it the editor matches this file to the Azure
@@ -24,7 +24,7 @@ Above `org: zct`.
 
 ## comment:2
 
-Above `org: zct`.
+Above `org: zct`, written with `#`.
 
 ```text
 Global Azure identity for the templating system.
@@ -35,7 +35,7 @@ Loaded by Get-Config -Config azure; validated by the AzureConfig type.
 
 ## comment:3
 
-Above `org: zct`.
+Above `org: zct`, written with `#`.
 
 ```text
 Vertical / organization shortcode — global, one per repo. The <org> component of every Azure
@@ -46,7 +46,7 @@ resource name (see [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)). P
 
 ## comment:4
 
-Above `bicep_min_version: "0.43.8"`.
+Above `bicep_min_version: "0.43.8"`, written with `#`.
 
 ```text
 Minimum Bicep CLI version required to build/deploy templates. Asserted before every `az bicep build`
@@ -56,7 +56,7 @@ install`, rather than silently emitting no main.json. MAJOR.MINOR.PATCH.
 
 ## comment:5
 
-Above `tenants:`.
+Above `tenants:`, written with `#`.
 
 ```text
 policy_enforcement — the enforcementMode of the policy assignments the templates make, per environment class:
@@ -69,7 +69,7 @@ policy_enforcement: { production: Default, nonproduction: Default }
 
 ## comment:6
 
-Above `environments:`.
+Above `environments:`, written with `#`.
 
 ```text
 Customer DEFINITIONS live in configs/customer.yml (the catalogue), not here — see
@@ -80,7 +80,7 @@ is the `have_customers` variant in variants.yml.
 
 ## comment:7
 
-Above `environments:`.
+Above `environments:`, written with `#`.
 
 ```text
 Environments. The map KEY is the readable env name (the deploy handle, the config-file name, and
@@ -94,7 +94,7 @@ is its 3-letter name component (`weu`).
 
 ## comment:8
 
-Above `nsub:`.
+Above `nsub:`, written with `#`.
 
 ```text
 Per-subscription environments (per_subscription: true) — exactly one per subscription (the sub's
@@ -104,7 +104,7 @@ nonprod subscription, psub = the prod subscription. Standard envs (above) are ma
 
 ## comment:9
 
-Above `subscriptions:`.
+Above `subscriptions:`, written with `#`.
 
 ```text
 Subscriptions. A template's configuration tree addresses subscriptions by convention
@@ -124,7 +124,7 @@ env addresses once-per-subscription templates (environment_kind: subscription).
 
 ## comment:10
 
-Above `shared_nonprod:`.
+Above `shared_nonprod:`, written with `#`.
 
 ```text
 The shared platform pair — the only non-customer subscriptions, so every root config's env resolves
@@ -133,7 +133,7 @@ to exactly one of them (nonprod serves dev/test/nsub; prod serves preprod/prod/p
 
 ## comment:11
 
-Above `apex_nonprod:`.
+Above `apex_nonprod:`, written with `#`.
 
 ```text
 Customer subscriptions — carry a `customer` key; their configs live under the

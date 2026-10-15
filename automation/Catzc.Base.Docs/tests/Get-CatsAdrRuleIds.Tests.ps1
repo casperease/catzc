@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-CatsAdrRuleIds.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Get-CatsAdrRuleIds.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/Get-CatsAdrRuleIds.ps1
 ---
 #>
 
 Describe 'Get-CatsAdrRuleIds' -Tag 'L0', 'logic' {
     BeforeAll {
-        # A fixture ADR tree: an index beside two ADR files it lists (paths relative to the index folder), plus a...
-        # [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-CatsAdrRuleIds.Tests.ps1.md#comment1)
         $script:adrRoot = Join-Path $TestDrive 'adr'
         [System.IO.Directory]::CreateDirectory((Join-Path $script:adrRoot 'principles')) | Out-Null
         [System.IO.Directory]::CreateDirectory((Join-Path $script:adrRoot 'automation')) | Out-Null

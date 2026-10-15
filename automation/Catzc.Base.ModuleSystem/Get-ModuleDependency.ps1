@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1
   config:
     synopsis: Compiles a module-level dependency edge map from function-level dependencies.
     description: |-

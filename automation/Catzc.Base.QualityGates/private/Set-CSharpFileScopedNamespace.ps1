@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Set-CSharpFileScopedNamespace.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Set-CSharpFileScopedNamespace.Tests.ps1
   config:
     synopsis: Returns the C# source with a file-scoped `namespace <Namespace>;` line present and correct.
     description: |-
@@ -58,8 +61,6 @@ function Set-CSharpFileScopedNamespace {
         $joined
     }
 
-    # An existing namespace declaration: correct a file-scoped one in place (no-op when already right); leave a...
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Set-CSharpFileScopedNamespace.ps1.md#comment3)
     for ($i = 0; $i -lt $lines.Count; $i++) {
         if ($lines[$i] -match '^\s*namespace\s+\S') {
             if (($lines[$i] -match '^\s*namespace\s+(\S+?)\s*;\s*$') -and ($Matches[1] -ne $Namespace)) {

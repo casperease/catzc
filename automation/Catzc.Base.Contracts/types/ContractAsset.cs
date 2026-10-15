@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Contracts/types/ContractAsset.cs
     kind: csharp-type
     module: Catzc.Base.Contracts
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/types/ContractAsset.cs.md
+      test: automation/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1
     adrs:
       - ADR-AUTO-PATH#1
       - ADR-AUTO-PATH#2
@@ -14,9 +17,6 @@ catzc:
       - ADR-REPO-CONTRACT#7
 ---
 */
-
-// Construction rejects any path that is not relative and '/'-separated, or that has a '.', '..' or empty segment.
-// [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractAsset.cs.md#comment1)
 
 using System;
 using System.Text.RegularExpressions;

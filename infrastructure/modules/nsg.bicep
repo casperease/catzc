@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/modules/nsg.bicep
 //     kind: bicep-module
+//     relatives:
+//       page: docs/references/infrastructure/modules/nsg.bicep.md
 // ---
-
-// The Azure default rules (allow VNet inbound, deny all other inbound) always apply beneath the rules the caller passes.
-// [comment:1](/docs/references/infrastructure/modules/nsg.bicep.md#comment1)
 
 @description('Network security group name (1-80 characters, unique within the resource group).')
 param name string

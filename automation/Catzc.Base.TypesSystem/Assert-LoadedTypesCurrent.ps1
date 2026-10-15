@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.TypesSystem
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.TypesSystem/tests/Assert-LoadedTypesCurrent.Tests.ps1
     adrs:
       - ADR-AUTO-FAILFAST#3
       - ADR-AUTO-TYPES#7

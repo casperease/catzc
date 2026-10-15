@@ -3,14 +3,11 @@
 #   derived:
 #     path: automation/Catzc.Base.ModuleSystem/configs/dependencies.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md
 # ---
 
-# A module not listed under modules is unconstrained, and a group target permits an edge to any member of that group.
-# [comment:1](/docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md#comment1)
-
 groups:
-  # Foundation-first: each member lists only the members it may depend on, its layer in the group's internal DAG.
-  # [comment:2](/docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md#comment2)
   Base:
     Catzc.Base.Asserts: []
     Catzc.Base.Engines: []
@@ -22,7 +19,8 @@ groups:
     Catzc.Base.CodeMeta: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts, Catzc.Base.MarkdownMeta]
     Catzc.Base.Config: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.Folders: [Catzc.Base.Config, Catzc.Base.Objects]
-    Catzc.Base.Reports: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts, Catzc.Base.Folders]
+    Catzc.Base.Reports:
+      [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts, Catzc.Base.Folders]
     Catzc.Base.ConfigExtensions: [Catzc.Base.Reports, Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Asserts]
     Catzc.Base.Variants: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.Docs:
@@ -64,7 +62,8 @@ groups:
         Catzc.Base.Asserts,
         Catzc.Base.Folders,
       ]
-    Catzc.Base.Files: [Catzc.Base.Git, Catzc.Base.Execution, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Asserts, Catzc.Base.Folders]
+    Catzc.Base.Files:
+      [Catzc.Base.Git, Catzc.Base.Execution, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Asserts, Catzc.Base.Folders]
     Catzc.Base.Overlay: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Asserts, Catzc.Base.Folders]
     Catzc.Base.Globs:
       [
@@ -80,7 +79,15 @@ groups:
         Catzc.Base.Asserts,
       ]
     Catzc.Base.TypesSystem:
-      [Catzc.Base.Repository, Catzc.Base.Files, Catzc.Base.Execution, Catzc.Base.Reports, Catzc.Base.Writers, Catzc.Base.Asserts, Catzc.Base.Folders]
+      [
+        Catzc.Base.Repository,
+        Catzc.Base.Files,
+        Catzc.Base.Execution,
+        Catzc.Base.Reports,
+        Catzc.Base.Writers,
+        Catzc.Base.Asserts,
+        Catzc.Base.Folders,
+      ]
     Catzc.Base.ModuleSystem:
       [
         Catzc.Base.TypesSystem,
@@ -98,7 +105,15 @@ groups:
         Catzc.Base.Folders,
       ]
     Catzc.Base.Git:
-      [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts, Catzc.Base.Folders]
+      [
+        Catzc.Base.Config,
+        Catzc.Base.Objects,
+        Catzc.Base.Repository,
+        Catzc.Base.Execution,
+        Catzc.Base.Writers,
+        Catzc.Base.Asserts,
+        Catzc.Base.Folders,
+      ]
     Catzc.Base.VSCode: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.RootConfig:
       [
@@ -179,8 +194,6 @@ groups:
         Catzc.Base.Folders,
       ]
 
-  # Edges to Base, to the Catzc.Azure root and to Tooling are declared per member under modules, not in this DAG.
-  # [comment:3](/docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md#comment3)
   AzureExt:
     Catzc.Azure.Cli: []
     Catzc.Azure.DevOps: [Catzc.Azure.Cli]
@@ -188,8 +201,6 @@ groups:
     Catzc.Azure.Firewall: [Catzc.Azure.Cli]
     Catzc.Azure.Templates: [Catzc.Azure.Cli]
 
-  # Provisioning reaches the per-tool installers by dynamic dispatch, so no static edge shows, yet it may depend on them.
-  # [comment:4](/docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md#comment4)
   Tooling:
     Catzc.Tooling.Core: []
     Catzc.Tooling.Environment: []

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md
+      source: automation/Catzc.Base.Exporter/Install-Catzc.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
@@ -11,8 +14,6 @@ catzc:
 
 Describe 'Install-Catzc' -Tag 'L0', 'logic' {
     BeforeEach {
-        # A fixture build (neutral names, ).
-        # [comment:1](/docs/references/automation/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md#comment1)
         $script:source = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))/Catzc/1.2.3"
         [System.IO.Directory]::CreateDirectory((Join-Path $source 'Catzc.Base.Widget')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $source 'Catzc.Base.Widget/Catzc.Base.Widget.ps1'), 'function Get-Widget { }')

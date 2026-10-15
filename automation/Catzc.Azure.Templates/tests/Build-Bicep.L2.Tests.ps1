@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Build-Bicep.L2.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.L2.Tests.ps1.md
     adrs:
       - ADR-AUTO-TEST#26
       - ADR-AUTO-TEST#8
@@ -11,12 +13,8 @@ catzc:
 ---
 #>
 
-# Walking-skeleton L2 coverage for Build-Bicep: the few real `az bicep build` threads that exercise something the...
-# [comment:1](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.L2.Tests.ps1.md#comment1)
 Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greedy' {
     BeforeAll {
-        # Isolate build output to this file's throwaway $TestDrive so the real-az builds never share...
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.L2.Tests.ps1.md#comment2)
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
@@ -45,8 +43,6 @@ Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greed
             Remove-Item $script:outputRoot -Recurse -Force
         }
         Build-Bicep sample-customer | Out-Null
-        # main.json is the integration concern: the real compiler ran and Build-Bicep wired --outdir.
-        # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.L2.Tests.ps1.md#comment3)
         Join-Path $script:outputRoot 'main.json' | Should -Exist
     }
 

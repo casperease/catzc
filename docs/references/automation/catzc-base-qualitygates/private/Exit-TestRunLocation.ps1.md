@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md
     kind: comment-page
-    body_sha: "9a87039c96b7"
+    body_sha: "873d0a9f0bde"
     adrs:
       - ADR-AUTO-CACHE#10
 ---
 
 # automation/Catzc.Base.QualityGates/private/Exit-TestRunLocation.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:3
+## comment:1
 
-Above `$snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'`.
+Above `$snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'`, written with `#`.
 
 ```text
 Hand the snapshot's result caches home before it goes: the checks this run made in the snapshot are as

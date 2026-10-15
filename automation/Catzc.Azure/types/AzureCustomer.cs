@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Azure/types/AzureCustomer.cs
     kind: csharp-type
     module: Catzc.Azure
+    relatives:
+      page: docs/references/automation/catzc-azure/types/AzureCustomer.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER
 ---
 */
-
-// Per-entry shape only: catalogue-wide rules, shortcode uniqueness and key not equal to any shortcode, belong to CustomerConfig.
-// [comment:1](/docs/references/automation/catzc-azure/types/AzureCustomer.cs.md#comment1)
 
 using System;
 using System.Collections;

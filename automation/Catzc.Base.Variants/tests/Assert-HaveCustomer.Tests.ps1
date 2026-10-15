@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/tests/Assert-HaveCustomer.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Variants/Assert-HaveCustomer.ps1
 ---
 #>
 

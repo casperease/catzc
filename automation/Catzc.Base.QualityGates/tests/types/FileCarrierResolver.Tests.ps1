@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.QualityGates/types/FileCarrierResolver.cs
     adrs:
       - ADR-REPO-FILEMETA#5
 ---

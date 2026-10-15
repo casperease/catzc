@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Objects
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md
   config:
     synopsis: Recursively flattens a nested object into dot-notation key/value pairs.
     description: |-
@@ -50,8 +52,6 @@ function Expand-ObjectProperties {
         return
     }
 
-    # IDictionary and array are checked before PSCustomObject: a top-level value arrives here wrapped in a PSObject...
-    # [comment:4](/docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md#comment4)
     if ($Value -is [System.Collections.IDictionary]) {
         foreach ($key in $Value.Keys) {
             $path = if ($Prefix) {
@@ -93,8 +93,6 @@ function Expand-ObjectProperties {
         return
     }
 
-    # Complex CLR object (e.g.
-    # [comment:5](/docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md#comment5)
     if (-not $Value.GetType().IsValueType -and $Value -isnot [string] -and $Value -isnot [System.Collections.IEnumerable]) {
         $properties = @($Value.PSObject.Properties | Where-Object { $_.MemberType -in @('Property', 'NoteProperty') })
         if ($properties) {

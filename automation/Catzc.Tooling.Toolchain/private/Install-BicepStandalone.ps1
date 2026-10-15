@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: private
+    relatives:
+      test: automation/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1
     adrs:
       - ADR-AUTO-PKGMGR
   config:

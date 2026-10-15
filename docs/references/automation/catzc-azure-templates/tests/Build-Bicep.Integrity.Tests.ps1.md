@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md
-    kind: test-asset
-    body_sha: a352845c3309
+    kind: comment-page
+    body_sha: "404a7b2eb747"
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TEST#16
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {`.
+Above `Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {`, written with `#`.
 
 ```text
 Integrity for the SHIPPED bicep templates (infrastructure/templates/): that they are NAMED so discovery
@@ -41,7 +41,7 @@ iterate with foreach (test-automation Gotchas).
 
 ## comment:2
 
-Above `$script:discoveryError = $null`.
+Above `$script:discoveryError = $null`, written with `#`.
 
 ```text
 Discovery is itself a check: it enforces the naming conventions, options.yml schema, and the
@@ -51,7 +51,7 @@ failure abort the whole block, so each facet below reports cleanly.
 
 ## comment:3
 
-Above `$script:validationError = $null`.
+Above `$script:validationError = $null`, written with `#`.
 
 ```text
 Full structural validation WITHOUT building (no -Build): main.bicep present, options.yml schema +
@@ -60,7 +60,7 @@ short_name, env-class, identity references, and parameter alignment — every pr
 
 ## comment:4
 
-Above `$validationError | Should -BeNullOrEmpty -Because "shipped templates must...`.
+Above `$validationError | Should -BeNullOrEmpty -Because "shipped templates must...`, written with `#`.
 
 ```text
 Deliberately no -Build: this validates the files (main.bicep, options schema, identity references,

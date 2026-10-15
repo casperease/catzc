@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Maps/types/MapsConfig.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/MapsConfig.cs.md
+      test: automation/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -12,9 +15,6 @@ catzc:
       - ADR-WIDGET-GADGET#3
 ---
 */
-
-// Construction collects every violation into one ArgumentException, and an unknown key (a typo) fails at load.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/MapsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

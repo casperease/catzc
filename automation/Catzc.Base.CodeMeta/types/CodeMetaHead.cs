@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.CodeMeta/types/CodeMetaHead.cs
     kind: csharp-type
     module: Catzc.Base.CodeMeta
+    relatives:
+      page: docs/references/automation/catzc-base-codemeta/types/CodeMetaHead.cs.md
+      test: automation/Catzc.Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1
     adrs:
       - ADR-REPO-CODEMETA#1
       - ADR-REPO-FILEMETA#6
 ---
 */
-
-// Reads and writes a code file's meta head as pure text work, so every behaviour is proved on strings and no file is touched.
-// [comment:1](/docs/references/automation/catzc-base-codemeta/types/CodeMetaHead.cs.md#comment1)
 
 using System;
 using System.Collections;

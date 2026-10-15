@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Get-PackageTreePlan.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/tests/Get-PackageTreePlan.Tests.ps1.md
+      source: automation/Catzc.Tooling.Provisioning/private/Get-PackageTreePlan.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-PackageTreePlan over two fixture trees in $TestDrive.
-# [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Get-PackageTreePlan.Tests.ps1.md#comment1)
 Describe 'Get-PackageTreePlan' -Tag 'L0', 'logic' {
     BeforeAll {
         function Set-FixtureFile {

@@ -3,44 +3,44 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md
     kind: comment-page
-    body_sha: "86f052170fff"
+    body_sha: "1dd29ba69af6"
 ---
 
 # automation/Catzc.Tooling.Core/private/Test-ToolLocationManaged.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:6
+## comment:1
 
-Above `if ($Config.msys2_url) {`.
+Above `if ($Config.msys2_url) {`, written with `#`.
 
 ```text
 MSYS2-package tools (zsh) live, on Windows, in the tree they install into (windows_install_dir, the Git for Windows
 tree Install-Git provides); elsewhere they are the system's, owned wherever the OS puts them.
 ```
 
-## comment:7
+## comment:2
 
-Above `if ($Config.uv_tool -or $Config.uv_python) {`.
+Above `if ($Config.uv_tool -or $Config.uv_python) {`, written with `#`.
 
 ```text
 uv-managed tools (az_cli, poetry) and uv-provisioned python install their shims to uv's bin
 (~/.local/bin cross-platform); managed pythons may also resolve to uv's data dir directly.
 ```
 
-## comment:8
+## comment:3
 
-Above `$uvRoots = if ($IsWindows) {`.
+Above `$uvRoots = if ($IsWindows) {`, written with `#`.
 
 ```text
 uv's shims go to ~/.local/bin; its managed pythons/tool-envs live in the data dir — %APPDATA%\uv
 (Roaming) on Windows, ~/.local/share/uv on Unix (verified via `uv tool dir` / `uv python dir`).
 ```
 
-## comment:9
+## comment:4
 
-Above `$roots = if ($IsWindows) {`.
+Above `$roots = if ($IsWindows) {`, written with `#`.
 
 ```text
 Otherwise: owned iff the binary sits under the platform package manager's user-scope install root. npm/pip

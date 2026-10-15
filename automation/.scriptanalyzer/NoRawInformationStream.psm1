@@ -9,14 +9,6 @@ catzc:
 
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
-<#
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: forbid calling Write-Information directly.
-.DESCRIPTION
-    A direct Write-Information skips the Pester guard, so its output leaks into test output and loses the caller header.
-    [comment:1](/docs/references/automation/scriptanalyzer/NoRawInformationStream.psm1.md#comment1)
-#>
-
 function Measure-NoRawInformationStream {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
@@ -30,8 +22,6 @@ function Measure-NoRawInformationStream {
     $ruleName = 'Measure-NoRawInformationStream'
     $exemptFunctions = @('Write-InformationColored', 'Write-ImporterMessage')
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [comment:2](/docs/references/automation/scriptanalyzer/NoRawInformationStream.psm1.md#comment2)
     $isCommand = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]

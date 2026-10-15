@@ -3,14 +3,12 @@
 #   derived:
 #     path: automation/Catzc.Base.VSCode/configs/vscode-launch.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-vscode/configs/vscode-launch.yml.md
 # ---
 
-# Edit this file, never launch.json: the editor reads a gitignored copy that Build-RootConfig regenerates from it.
-# [comment:1](/docs/references/automation/catzc-base-vscode/configs/vscode-launch.yml.md#comment1)
 version: "0.2.0"
 configurations:
-  # Launching from the repository root is what lets breakpoints in any module function bind after the importer is dot-sourced.
-  # [comment:2](/docs/references/automation/catzc-base-vscode/configs/vscode-launch.yml.md#comment2)
   - name: Debug Module
     type: PowerShell
     request: launch

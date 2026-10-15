@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Node
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md
   config:
     synopsis: Installs Node.js via the platform package manager.
     description: |-
@@ -63,8 +65,6 @@ function Install-NodeJs {
         Assert-IsAdministrator -ErrorText 'Install-NodeJs on Linux requires root (apt-get). Run as root or install node_js manually.'
         Assert-Command apt-get
 
-        # The distro `nodejs` package trails the pinned major badly (Ubuntu jammy ships Node 12), so install from the...
-        # [comment:3](/docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md#comment3)
         $sourcePath = '/etc/apt/sources.list.d/nodesource.list'
         $gpgKeyPath = '/usr/share/keyrings/nodesource.gpg'
         $repoLine = "deb [signed-by=$gpgKeyPath] https://deb.nodesource.com/node_$Version.x nodistro main"

@@ -4,14 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1.md
     adrs:
       - ADR-REPO-CONTRACT#3
       - ADR-REPO-CONTRACT#4
 ---
 #>
 
-# One test per binding contract asset, generated at discovery, so Test-Automation proves every contract with no...
-# [comment:1](/docs/references/automation/catzc-base-contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1.md#comment1)
 BeforeDiscovery {
     $script:assetCases = @(foreach ($asset in InModuleScope Catzc.Base.Contracts { Get-ContractBindingAssets -Version 0.0.0 -RepositoryRoot (Get-RepositoryRoot) }) {
             @{

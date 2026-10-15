@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md
+      source: automation/Catzc.Tooling.Toolchain/Uninstall-Java.ps1
     adrs:
       - ADR-AUTO-REMOVE#4
       - ADR-AUTO-REMOVE#5
@@ -11,12 +14,8 @@ catzc:
 ---
 #>
 
-# Hermetic logic (L1): every boundary that touches state outside the repository is mocked — the tool manager...
-# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md#comment1)
 Describe 'Uninstall-Java' -Tag 'L1', 'logic' {
     BeforeAll {
-        # The managed body clears the session JAVA_HOME — restore it so the test leaves the process as it found it.
-        # [comment:2](/docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md#comment2)
         $script:savedProcessJavaHome = $env:JAVA_HOME
     }
     AfterAll {

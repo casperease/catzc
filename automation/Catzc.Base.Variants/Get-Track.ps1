@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Variants
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
     adrs:
       - ADR-DSGN-TRACK
       - ADR-DSGN-TRACK#1

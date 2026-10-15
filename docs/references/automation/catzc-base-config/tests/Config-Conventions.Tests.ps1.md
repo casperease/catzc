@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-config/tests/Config-Conventions.Tests.ps1.md
-    kind: test-asset
-    body_sha: dff65e2d82c2
+    kind: comment-page
+    body_sha: f19dc6584a50
     adrs:
       - ADR-AUTO-TEST#35
 ---
 
 # automation/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Config conventions' -Tag 'L0', 'integrity' {`.
+Above `Describe 'Config conventions' -Tag 'L0', 'integrity' {`, written with `#`.
 
 ```text
 Poka-yoke backstop for the config registry (see ADR module-config-loading): every shipped config has a
@@ -24,7 +24,7 @@ registered C# config type and loads through it (Test-ShippedConfigs).
 
 ## comment:2
 
-Above `$result = Test-ShippedConfigs -PassThru -OutputFolder (Join-Path $TestDrive...`.
+Above `$result = Test-ShippedConfigs -PassThru -OutputFolder (Join-Path $TestDrive...`, written with `#`.
 
 ```text
 The quality gate (Test-ShippedConfigs, in Catzc.Base.QualityGates: Catzc.Base.Reports depends on

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestSkipReason.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestSkipReason.Tests.ps1
   config:
     synopsis: Extracts the human-readable reason a Pester test was skipped.
     description: |-
@@ -34,8 +37,6 @@ function Get-TestSkipReason {
 
     $message = "$($records[-1].Exception.Message)".Trim()
 
-    # Set-ItResult renders "is skipped, because <reason>" — pull out the reason.
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-TestSkipReason.ps1.md#comment3)
     if ($message -match 'because\s+(.+?)\s*$') {
         $found = $Matches[1]
         return $found

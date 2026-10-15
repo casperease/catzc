@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md
     kind: comment-page
-    body_sha: "74371658e8c9"
+    body_sha: d46bcccdd685
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:6
+## comment:1
 
-Above `$add = {`.
+Above `$add = {`, written with `#`.
 
 ```text
 MatchMode governs HOW the finder matches a token: 'exact' — a distinctive identity flagged wherever it
@@ -21,27 +21,27 @@ appears as a literal; 'position' — an ambiguous identity (an environment name 
 ONLY when bound to an identity parameter (-Environment/-Env/-Shortcode), never as bare prose.
 ```
 
-## comment:7
+## comment:2
 
-Above `$walk = {`.
+Above `$walk = {`, written with `#`.
 
 ```text
 Walks one rule's path from a node: a key segment steps in, a '*' steps into every entry of a map (leaving
 out an entry that sets skip_when), and the end of the path yields the scalar or the map's keys.
 ```
 
-## comment:8
+## comment:3
 
-Above `foreach ($owner in @(Get-Config -Config identity-tokens -ListOwners)) {`.
+Above `foreach ($owner in @(Get-Config -Config identity-tokens -ListOwners)) {`, written with `#`.
 
 ```text
 The identities each owning module declares about its own configs (configs/identity-tokens.yml): customers,
 the org, subscriptions, environments (position match — ambiguous words such as 'test'), the ADO project.
 ```
 
-## comment:9
+## comment:4
 
-Above `$templatesRoot = Join-Path (Get-RepositoryRoot) 'infrastructure/templates'`.
+Above `$templatesRoot = Join-Path (Get-RepositoryRoot) 'infrastructure/templates'`, written with `#`.
 
 ```text
 NOTE: deployable-unit and pipeline names (globs.yml) are deliberately NOT included in Stage 1. The

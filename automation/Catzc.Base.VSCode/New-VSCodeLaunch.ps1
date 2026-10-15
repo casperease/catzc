@@ -6,6 +6,8 @@ catzc:
     kind: writer-function
     module: Catzc.Base.VSCode
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1
     adrs:
       - ADR-REPO-ROOTCFG
   config:

@@ -3,13 +3,10 @@
 #   derived:
 #     path: pipelines/cd-apex.yaml
 #     kind: pipeline
+#     relatives:
+#       page: docs/references/pipelines/cd-apex.yaml.md
 # ---
 
-# Structure lives in the shared template; this root holds only selection data and triggers, which ADO honors only at the root.
-# [comment:1](/docs/references/pipelines/cd-apex.yaml.md#comment1)
-
-# The deeper apex include sits under the broader exclude of other deployments' config, so ADO keeps it in the trigger.
-# [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/pipelines/cd-apex.yaml.md#comment2)
 trigger:
   branches:
     include: [main]

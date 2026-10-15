@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.Globs/types/DurableHash.cs
     kind: csharp-type
     module: Catzc.Base.Globs
+    relatives:
+      page: docs/references/automation/catzc-base-globs/types/DurableHash.cs.md
     adrs:
       - ADR-FLOW-CD-GLOBS
       - ADR-FLOW-CD-GLOBS#5
 ---
 */
-
-// Native code because a per-byte PowerShell pipeline over a tracked binary takes minutes; CR stripping keeps CRLF and LF equal.
-// [comment:1](/docs/references/automation/catzc-base-globs/types/DurableHash.cs.md#comment1)
 
 using System;
 using System.IO;
@@ -23,8 +22,6 @@ namespace Catzc.Base.Globs;
 
 public static class DurableHash
 {
-    // Null for an absent file, not an exception: the caller folds a distinct missing marker for a tracked-but-deleted member.
-    // [comment:2](/docs/references/automation/catzc-base-globs/types/DurableHash.cs.md#comment2)
     public static string HashFile(string path)
     {
         if (!File.Exists(path)) { return null; }

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Variants
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Variants/tests/Get-Aspect.Tests.ps1
     adrs:
       - ADR-DSGN-ASPECT
   config:

@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md
-    kind: test-asset
-    body_sha: bf303b5f96a6
+    kind: comment-page
+    body_sha: "4e57cea0beba"
     adrs:
       - ADR-FLOW-CD-GLOBS#1
 ---
 
 # automation/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {`.
+Above `Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-GlobSetTrigger: project a globset's scan program into vendor-native path filters
@@ -25,7 +25,7 @@ ordered '!'-negation paths (exact), ADO order-independent include/exclude (last-
 
 ## comment:2
 
-Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`.
+Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`, written with `#`.
 
 ```text
 A base drops configuration/*/**; a unit re-adds its own configuration/widget/** on top. GitHub keeps
@@ -36,7 +36,7 @@ through GlobsConfig (the real path — ResolveCompose is internal).
 
 ## comment:3
 
-Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`.
+Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{` (occurrence 2), written with `#`.
 
 ```text
 The 'shared'-shaped case: base excludes configuration/*.yml, the unit re-adds the identical pattern.

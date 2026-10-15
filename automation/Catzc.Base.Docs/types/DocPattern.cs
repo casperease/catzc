@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Docs/types/DocPattern.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/DocPattern.cs.md
+      test: automation/Catzc.Base.Docs/tests/types/DocPattern.Tests.ps1
     adrs:
       - ADR-AUTO-PATH
 ---
 */
-
-// The kebab placeholder is the folder leaf lowercased with dots turned to hyphens, so Catzc.Base.Docs becomes catzc-base-docs.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/DocPattern.cs.md#comment1)
 
 using System;
 using System.Collections;

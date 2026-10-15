@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Execution/types/ToolsConfig.cs
     kind: csharp-type
     module: Catzc.Base.Execution
+    relatives:
+      page: docs/references/automation/catzc-base-execution/types/ToolsConfig.cs.md
+      test: automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEPS#4
 ---
 */
-
-// The YAML root is the tool map itself, and validation collects every violation into one exception.
-// [comment:1](/docs/references/automation/catzc-base-execution/types/ToolsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

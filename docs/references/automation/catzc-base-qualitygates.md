@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates.md
     kind: reference
-    body_sha: "9a14fc93241c"
+    body_sha: "9f8a3f50e4a6"
     links:
       - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
       - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png
@@ -83,9 +83,9 @@ lint quality gate (`Test-PythonLint`, `ruff check`) over every `.py` file the re
 (`Test-ShellScripts`: LF, the executable bit, and ShellCheck) over every shell script it tracks
 ([bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md)), and the link aligner and quality gate, which keep code links
 repository-rooted and markdown links relative and resolving ([markdown-links](../../adr/repository/markdown-links.md)), and the comment
-converters and their quality gate, which move every long comment into its file's comment page, keep the one insight line left behind in
-shape, and write the annotated view ([comments-in-docs](../../adr/repository/comments-in-docs.md)). The responsibility owns the invocation
-of each tool, not the tool itself or its per-tool configuration.
+converters and their quality gate, which move every long comment into its file's comment page, leaving nothing behind in the file, and write
+the annotated view ([comments-in-docs](../../adr/repository/comments-in-docs.md)). The responsibility owns the invocation of each tool, not
+the tool itself or its per-tool configuration.
 
 ### responsibility:4 — Terminology and dictionaries
 
@@ -179,7 +179,6 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Format-Links`                |
 |                                                 | `Test-Links`                  |
 |                                                 | `Export-Comments`             |
-|                                                 | `Format-Comments`             |
 |                                                 | `Build-CommentView`           |
 |                                                 | `Test-Comments`               |
 | config                                          | `links.yml`                   |

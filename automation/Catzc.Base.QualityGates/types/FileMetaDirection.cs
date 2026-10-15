@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/FileMetaDirection.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/FileMetaDirection.cs.md
     adrs:
       - ADR-REPO-FILEMETA#2
 ---
 */
-
-// Imprint writes derived facts into a file's meta block; gather reads config contributions out of it.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/FileMetaDirection.cs.md#comment1)
 
 namespace Catzc.Base.QualityGates;
 

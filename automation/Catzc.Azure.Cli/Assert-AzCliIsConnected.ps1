@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Azure.Cli
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Cli/tests/Assert-AzCliIsConnected.Tests.ps1
     adrs:
       - ADR-AZ-DATAMOD
   config:

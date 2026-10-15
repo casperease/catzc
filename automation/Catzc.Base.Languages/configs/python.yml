@@ -3,16 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.Languages/configs/python.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-languages/configs/python.yml.md
 # ---
 
-# Every key but the dependencies is optional; the Python version is the tools.yml pin, never declared here.
-# [comment:1](/docs/references/automation/catzc-base-languages/configs/python.yml.md#comment1)
-
-# Left undeclared, root takes the shared default: python/ when the repository has one, else the dot-prefixed .python.
-# [comment:2](/docs/references/automation/catzc-base-languages/configs/python.yml.md#comment2)
-
-# The lock is not committed, so exact pins keep every machine on the same versions.
-# [comment:3](/docs/references/automation/catzc-base-languages/configs/python.yml.md#comment3)
 dependencies:
   pytest: "9.1.1"
   ruff: "0.17.0"

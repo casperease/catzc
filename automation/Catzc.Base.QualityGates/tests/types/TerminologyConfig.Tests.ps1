@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/TerminologyConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/types/TerminologyConfig.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/types/TerminologyConfig.cs
     adrs:
       - ADR-AUTO-SPELL#6
 ---
 #>
 
-# Validates the compiled TerminologyConfig / TerminologyTerm types directly — the constructor is the gate that stops...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/TerminologyConfig.Tests.ps1.md#comment1)
 Describe 'TerminologyConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:cats = @{

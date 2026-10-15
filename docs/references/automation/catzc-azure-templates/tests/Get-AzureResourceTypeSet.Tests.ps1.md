@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Get-AzureResourceTypeSet.Tests.ps1.md
-    kind: test-asset
-    body_sha: "9dda45136d79"
+    kind: comment-page
+    body_sha: "3cf6047a9daf"
 ---
 
 # automation/Catzc.Azure.Templates/tests/Get-AzureResourceTypeSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$types = Get-AzureResourceTypeSet`.
+Above `$types = Get-AzureResourceTypeSet` (occurrence 7), written with `#`.
 
 ```text
 The restricted storage/vm patterns can't spare the widened 5th char — derived from pattern,

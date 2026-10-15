@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/tests/Get-AdoYamlFiles.Tests.ps1.md
+      source: automation/Catzc.Azure.DevOps/Get-AdoYamlFiles.ps1
     adrs:
       - ADR-AUTO-TEST#20
 ---
@@ -182,8 +185,6 @@ Describe 'Get-AdoYamlFiles' -Tag 'L0' {
         }
 
         It 'uses forward slashes in RelativePath' {
-            # One Should over the violating set — a Should per discovered file pays Pester's per-assertion cost times...
-            # [comment:1](/docs/references/automation/catzc-azure-devops/tests/Get-AdoYamlFiles.Tests.ps1.md#comment1)
             $violations = @(foreach ($result in $results) {
                     if ($result.RelativePath -match '\\') {
                         $result.RelativePath
@@ -211,8 +212,6 @@ Describe 'Get-AdoYamlFiles' -Tag 'L0' {
             $errors | Should -BeNullOrEmpty
         }
 
-        # Its own integrity tag keeps this a distinct, named check in the manual test plan (a facet worth citing on...
-        # [comment:2](/docs/references/automation/catzc-azure-devops/tests/Get-AdoYamlFiles.Tests.ps1.md#comment2)
         It 'excludes .git directory by default' -Tag 'integrity' {
             $gitFiles = @($results | Where-Object { $_.RelativePath -match '^\\.git/' -or $_.RelativePath -match '^\.git/' })
             $gitFiles | Should -BeNullOrEmpty

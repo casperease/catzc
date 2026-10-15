@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/ConvertTo-ModuleDependencyDiagram.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.ModuleSystem/ConvertTo-ModuleDependencyDiagram.ps1
 ---
 #>
 

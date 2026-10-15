@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/private/Get-GlossaryEnforcementViolations.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#4
@@ -12,8 +15,6 @@ catzc:
 ---
 #>
 
-# Get-GlossaryEnforcementViolations is private, so it is exercised through the module (InModuleScope, per ).
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1.md#comment1)
 Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         # One merged glossary entry from the widget's source: realized as a tag unless said otherwise.

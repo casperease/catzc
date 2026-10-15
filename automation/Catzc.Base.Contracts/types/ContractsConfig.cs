@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Contracts/types/ContractsConfig.cs
     kind: csharp-type
     module: Catzc.Base.Contracts
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md
+      test: automation/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -14,9 +17,6 @@ catzc:
       - ADR-REPO-CONTRACT#8
 ---
 */
-
-// An omitted key, or a fresh checkout with no file, behaves exactly like the default, so no function restates a value.
-// [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -33,12 +33,8 @@ public sealed class ContractsConfig
     // The target root of a module that target_roots does not name: the repository root, as the empty path.
     public const string DefaultTargetRoot = "";
 
-    // A declared mode is valid in the file but cannot be selected until it is also in BuiltAddressingModes.
-    // [comment:2](/docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md#comment2)
     public static readonly string[] AddressingModes = { "full-path", "manifest-glob", "per-folder" };
 
-    // A mode joins this list only once proven from every engine, since a contract is resolved under each of them.
-    // [comment:3](/docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md#comment3)
     public static readonly string[] BuiltAddressingModes = { "full-path" };
 
     private static readonly string[] AllowedKeys = { "addressing", "target_roots" };
@@ -103,8 +99,6 @@ public sealed class ContractsConfig
         }
     }
 
-    // A declared root is checked as the constructor checks it, so a caller's own map is held to the same form.
-    // [comment:4](/docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md#comment4)
     public static string ResolveTargetRoot(IDictionary targetRoots, string module)
     {
         if (targetRoots == null || module == null || !targetRoots.Contains(module))

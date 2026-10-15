@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1.md
+      source: automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
     adrs:
       - ADR-AUTO-TEST#35
 ---
 #>
 
-# Test-AdoPipelineTriggerGlob is a quality gate (, drift detection): each pipeline's actual trigger vs its globset's...
-# [comment:1](/docs/references/automation/catzc-base-globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1.md#comment1)
 Describe 'Test-AdoPipelineTriggerGlob' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-RepositoryRoot { 'X:/repo' } -ModuleName Catzc.Base.Globs

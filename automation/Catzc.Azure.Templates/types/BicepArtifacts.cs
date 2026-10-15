@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepArtifacts.cs
     kind: csharp-type
     module: Catzc.Azure.Templates
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/types/BicepArtifacts.cs.md
 ---
 */
-
-// Paths are stored repo-root-relative where possible, so a consumer resolves them back to absolute before use.
-// [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepArtifacts.cs.md#comment1)
 
 using System;
 

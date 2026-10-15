@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md
     adrs:
       - ADR-AUTO-PKGMGR
       - ADR-AUTO-UVPY
@@ -51,8 +53,6 @@ function Install-UvStandalone {
     $asset = $release.assets | Where-Object { $_.name -eq $assetName } | Select-Object -First 1
     Assert-NotNull $asset -ErrorText "astral-sh/uv release $($release.tag_name) has no asset '$assetName'."
 
-    # The GitHub release asset carries its published SHA-256 ('digest'); hard-fail rather than run an unverified...
-    # [comment:4](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment4)
     $digest = if ($asset.PSObject.Properties['digest']) {
         $asset.digest
     }
@@ -71,8 +71,6 @@ function Install-UvStandalone {
         $binDirectory = Join-Path $env:HOME '.local/bin'
         [System.IO.Directory]::CreateDirectory($binDirectory) | Out-Null
         foreach ($binary in 'uv', 'uvx') {
-            # Select-Object -First 1 is $null on no match (indexing an empty array throws under strict), so the...
-            # [comment:5](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment5)
             $found = Get-ChildPath $extractDirectory -File -Filter $binary -Depth 3 |
                 Select-Object -First 1
             Assert-NotNullOrWhitespace $found -ErrorText "'$binary' was not found in the extracted uv archive."
@@ -86,8 +84,6 @@ function Install-UvStandalone {
         Remove-Item $extractDirectory -Recurse -Force -ErrorAction Ignore
     }
 
-    # The uv tool-bin is normally on the persistent PATH already; make it resolve in this session.
-    # [comment:6](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment6)
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $binDirectory) {
         $env:PATH = "$binDirectory$([System.IO.Path]::PathSeparator)$env:PATH"
     }

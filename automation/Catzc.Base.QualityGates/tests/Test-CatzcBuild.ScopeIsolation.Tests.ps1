@@ -4,19 +4,17 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md
     adrs:
       - ADR-DSGN-RUNMODE#3
 ---
 #>
 
-# Scope isolation: two catzc modules that hold a $script: variable of the same name never see each other's value — in...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md#comment1)
 Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE#3' {
     BeforeAll {
         $script:probeName = 'catzcScopeIsolationProbe'
 
-        # Sets the probe in each module's script scope (widget, gadget, …), reads every module's variable and the...
-        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md#comment2)
         $script:probeBlock = {
             param([string] $ProbeName)
             $modules = @(Get-Module 'Catzc.*' | Where-Object { $_.Name -notlike 'Catzc.Internal.*' -and $_.Name -ne 'Catzc' } |
@@ -43,8 +41,6 @@ Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE#3' {
         }
     }
 
-    # In-process, in whichever mode this session runs: the source run proves the source mode, the build run (where...
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md#comment3)
     Context 'in the loaded session' -Tag 'L1', 'logic' {
         It 'gives each module its own value for the same variable name, invisible to the session' {
             $result = & $script:probeBlock $script:probeName
@@ -56,8 +52,6 @@ Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE#3' {
         }
     }
 
-    # A fresh build entered in a child pwsh.
-    # [comment:4](/docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md#comment4)
     Context 'in a fresh build' -Tag 'L2', 'logic', 'greedy', 'source-only' {
         BeforeAll {
             $script:buildAvailable = [bool](Get-Command Build-Modules -ErrorAction Ignore)

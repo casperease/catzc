@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
-    kind: test-asset
-    body_sha: fdd3a58eeebc
+    kind: comment-page
+    body_sha: "86a7078e2057"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-FLOW-CD-GLOBS#1
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-ChangedGlobSet' -Tag 'L0', 'logic' {`.
+Above `Describe 'Get-ChangedGlobSet' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-ChangedGlobSet: the computed area-of-control of a diff
@@ -26,7 +26,7 @@ program selects a changed path, reflected from git at real refs instead of from 
 
 ## comment:2
 
-Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`.
+Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`, written with `#`.
 
 ```text
 Neutral fixture globset names (widget/gadget/report), not the shipped set names, so this logic test

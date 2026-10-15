@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Maps/types/MapPlacement.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// The cell is exact (root folder gives the track, extension the file language); only the lighting follows a fixed order.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -45,8 +44,6 @@ public sealed class MapPlacement
     // The column: a file-language name, or WorldMap.NoFileLanguage.
     public string FileLanguage { get; }
 
-    // False for test, vendored, verification-track and trackless files, so only live files can break a track's tech-stack.
-    // [comment:2](/docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md#comment2)
     public bool Live { get; }
 
     // True when the file is live, has an extension, and its file language is not one its track declares.
@@ -61,8 +58,6 @@ public sealed class MapPlacement
     // The ADR citations that light the file, canonical (ADR-<CODE> or ADR-<CODE>#n), distinct, in ordinal order.
     public IReadOnlyList<string> Citations { get; }
 
-    // For files.yml and globset bases the sites sit in the owner's or globset's files, not in this file; empty for an ADR file.
-    // [comment:3](/docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md#comment3)
     public IReadOnlyList<CitationSite> Sites { get; }
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

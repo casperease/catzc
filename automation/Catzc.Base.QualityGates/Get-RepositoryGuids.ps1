@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
   config:
     synopsis: Scans every tracked text file for GUID literals and returns one record per occurrence.
     description: |-
@@ -39,8 +42,6 @@ function Get-RepositoryGuids {
             continue
         }
 
-        # Read the whole file and match once, rather than regex-per-line: a single scan over the text is ~3x faster...
-        # [comment:3](/docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md#comment3)
         $text = [System.IO.File]::ReadAllText($fullPath)
         $lineNumber = 1
         $scanPos = 0

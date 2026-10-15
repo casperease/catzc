@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Execution
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Execution/tests/Get-LastExitCode.Tests.ps1
   config:
     synopsis: Returns the current $LASTEXITCODE value, or warns if none exists.
     examples:

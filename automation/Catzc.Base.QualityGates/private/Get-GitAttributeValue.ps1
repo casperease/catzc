@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-GitAttributeValue.Tests.ps1
   config:
     synopsis: Reads the given .gitattributes attributes for many repository paths at once.
     description: |-

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Convert-TestRunLocationPath.Tests.ps1
   config:
     synopsis: Maps paths between a test run's working folder and the root of the location it runs in.
     description: |-

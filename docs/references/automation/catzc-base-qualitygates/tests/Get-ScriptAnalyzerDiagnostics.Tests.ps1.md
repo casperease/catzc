@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1.md
-    kind: test-asset
-    body_sha: eef5b45272e1
+    kind: comment-page
+    body_sha: d6ed233558eb
     adrs:
       - ADR-AUTO-ASSETDEP#3
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)' -Tag 'L2',...`.
+Above `Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)' -Tag 'L2',...`, written with `#`.
 
 ```text
 L2: drives the real PSScriptAnalyzer across background-job shards (the whole point of the helper), over
@@ -27,7 +27,7 @@ so it runs in both the source and the build run.
 
 ## comment:2
 
-Above `It 'shards the real analyzer across a batch: clean file yields none,...`.
+Above `It 'shards the real analyzer across a batch: clean file yields none,...`, written with `#`.
 
 ```text
 One sharded run over a clean + a violating file proves everything the helper must do: the clean file

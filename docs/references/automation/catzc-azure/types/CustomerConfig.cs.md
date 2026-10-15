@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/CustomerConfig.cs.md
     kind: comment-page
-    body_sha: "709edd3052ec"
+    body_sha: bbd9e1107b03
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#2
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Azure/types/CustomerConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The customer catalogue (configs/customer.yml, [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)) — the
@@ -39,7 +39,7 @@ on customer.yml, never the reverse; [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-cu
 
 ## comment:2
 
-Above `public IReadOnlyDictionary<string, AzureCustomer> customers { get; }`.
+Above `public IReadOnlyDictionary<string, AzureCustomer> customers { get; }`, written with `//`.
 
 ```text
 The catalogue, keyed by customer key in file order (a Dictionary enumerates in insertion order when nothing

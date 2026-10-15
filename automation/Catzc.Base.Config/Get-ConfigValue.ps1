@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Config
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
     adrs:
       - ADR-AUTO-ENVVAR#7
       - ADR-CONF-ADDRESSING#3

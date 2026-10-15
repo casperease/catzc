@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.DevOps.BuildValidation
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.DevOps.BuildValidation/tests/Sync-AdoBuildValidations.Tests.ps1
   config:
     synopsis: Registers every build-validation branch policy declared in build-validation.yml. Idempotent.
     description: |-

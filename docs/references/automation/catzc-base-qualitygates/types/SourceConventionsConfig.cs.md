@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/SourceConventionsConfig.cs.md
     kind: comment-page
-    body_sha: "0b98a1081636"
+    body_sha: "91ad250195d9"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-ENGINE#1
@@ -13,12 +13,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/types/SourceConventionsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The source checks Test-SourceConventions runs beside its naming and one-function conventions

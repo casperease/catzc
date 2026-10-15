@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/ParameterConsistencyConfig.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/ParameterConsistencyConfig.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/ParameterConsistencyConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-PWSH-PARAM
 ---
 */
-
-// Omitting exempt exempts no parameter; a name matches case-insensitively and every reason must be non-empty.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/ParameterConsistencyConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

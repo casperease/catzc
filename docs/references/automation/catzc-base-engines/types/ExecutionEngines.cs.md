@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-engines/types/ExecutionEngines.cs.md
     kind: comment-page
-    body_sha: "215866436a3b"
+    body_sha: a3b53b0b7832
 ---
 
 # automation/Catzc.Base.Engines/types/ExecutionEngines.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The repository's execution engines — exactly three, pwsh, bash and zsh, declared once
@@ -24,7 +24,7 @@ engine is one edit here.
 
 ## comment:2
 
-Above `public static readonly ExecutionEngine Zsh = new ExecutionEngine(`.
+Above `public static readonly ExecutionEngine Zsh = new ExecutionEngine(`, written with `//`.
 
 ```text
 zsh: the third engine, the default login shell on macOS, located through its tools.yml entry. It shares bash's

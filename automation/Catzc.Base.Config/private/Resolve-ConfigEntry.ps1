@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Config
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-config/private/Resolve-ConfigEntry.ps1.md
     adrs:
       - ADR-AUTO-OVERLAY
       - ADR-PWSH-CACHE#4
@@ -43,8 +45,6 @@ function Resolve-ConfigEntry {
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configIndex')) {
-        # strict-clean probe of the lazy cache entry
-        # [comment:3](/docs/references/automation/catzc-base-config/private/Resolve-ConfigEntry.ps1.md#comment3)
         $script:configIndex = @{}
         $automationRoot = Get-CatzcModulesRoot
         $moduleDirs = [System.Collections.Generic.List[string]]::new([string[]] @([System.IO.Directory]::EnumerateDirectories($automationRoot)))

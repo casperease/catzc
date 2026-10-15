@@ -3,45 +3,31 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NoRawPipelineDetection.psm1.md
     kind: comment-page
-    body_sha: faaac236943f
+    body_sha: eedf6f528a1f
     adrs:
-      - ADR-FLOW-CD-DETECT#1
       - ADR-PWSH-FORMAT#6
 ---
 
 # automation/.scriptanalyzer/NoRawPipelineDetection.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Measure-NoRawPipelineDetection {`, written with `#`.
 
 ```text
-Whether code is running inside a CI/CD pipeline is detected by checking the
-agent-set environment variables TF_BUILD (Azure DevOps) and GITHUB_ACTIONS
-(GitHub Actions). That detection logic must live in exactly one place —
-Test-IsRunningInPipeline — so the checked variables stay an implementation
-detail and both platforms are always covered.
-
-This rule flags any direct reference to $env:TF_BUILD or $env:GITHUB_ACTIONS
-that appears OUTSIDE the function Test-IsRunningInPipeline. The canonical
-detector is the one sanctioned place that reads them, so it is exempt.
-
-Test files (*.Tests.ps1) are exempt: they legitimately set and restore these
-variables to drive Test-IsRunningInPipeline through both contexts in isolation.
-
-Note: $env:BUILD_ARTIFACTSTAGINGDIRECTORY is deliberately NOT flagged — it
-answers "where does output go," not "am I in a pipeline," and its read is
-confined to Get-OutputRoot.
-
-See ADR: [ADR-FLOW-CD-DETECT#1](/docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1).
+.SYNOPSIS
+    Custom PSScriptAnalyzer rule: forbid raw pipeline-detection env reads.
+.DESCRIPTION
+    One detector owns the agent variables, so the checked set stays hidden and both platforms are always covered.
+    [comment:1](/docs/references/automation/scriptanalyzer/NoRawPipelineDetection.psm1.md#comment1)
 ```
 
 ## comment:2
 
-Above `$isVariable = {`.
+Above `$isVariable = {`, written with `#`.
 
 ```text
 Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew

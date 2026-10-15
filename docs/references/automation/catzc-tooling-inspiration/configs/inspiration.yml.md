@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-inspiration/configs/inspiration.yml.md
     kind: comment-page
-    body_sha: "1a9255df99bb"
+    body_sha: "10cb072ee225"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-PATH#11
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Tooling.Inspiration/configs/inspiration.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `{}`.
+Above `{}`, written with `#`.
 
 ```text
 inspiration.yml — the inspirations catzc reads for ideas, never as a reference implementation

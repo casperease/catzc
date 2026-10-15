@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Azure.DevOps/types/PipelineEnvConfig.cs
     kind: csharp-type
     module: Catzc.Azure.DevOps
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/types/PipelineEnvConfig.cs.md
+      test: automation/Catzc.Azure.DevOps/tests/types/PipelineEnvConfig.Tests.ps1
 ---
 */
-
-// The YAML has no top-level key, so the sequence is exposed as variables and every violation throws at once.
-// [comment:1](/docs/references/automation/catzc-azure-devops/types/PipelineEnvConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs
     kind: csharp-type
     module: Catzc.Base.Objects
+    relatives:
+      page: docs/references/automation/catzc-base-objects/types/ConsoleDisplayAttribute.cs.md
 ---
 */
-
-// One list drives both the text form and the prompt columns; an unknown property name throws when the type is rendered.
-// [comment:1](/docs/references/automation/catzc-base-objects/types/ConsoleDisplayAttribute.cs.md#comment1)
 
 using System;
 

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Cli
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md
+      test: automation/Catzc.Azure.Cli/tests/Invoke-AzCli.Tests.ps1
   config:
     synopsis: Runs az with the given arguments.
     description: |-
@@ -47,8 +50,6 @@ function Invoke-AzCli {
         Assert-Tool 'az_cli'
     }
 
-    # Disable az dynamic extension install for this call: a command needing an uninstalled extension then exits...
-    # [comment:3](/docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md#comment3)
     $dynamicInstallVar = 'AZURE_EXTENSION_USE_DYNAMIC_INSTALL'
     $priorDynamicInstall = [Environment]::GetEnvironmentVariable($dynamicInstallVar, 'Process')
     if (-not $DryRun) {

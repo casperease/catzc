@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md
     kind: comment-page
-    body_sha: "0b9f7ad1dd71"
+    body_sha: bd2d0d8211b0
 ---
 
 # automation/Catzc.Base.RootConfig/configs/rootconfig.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `files:`.
+Above `files:`, written with `#`.
 
 ```text
 Root config registry — repository-root files fully managed by the source-of-truth automation. Each entry
@@ -40,7 +40,7 @@ via Get-Config -Config rootconfig; the shape is validated by Catzc.Base.RootConf
 
 ## comment:2
 
-Above `- target: importer.ps1`.
+Above `- target: importer.ps1`, written with `#`.
 
 ```text
 importer.ps1 has TWO valid source-of-truth forms, swapped by editing this entry alone:
@@ -55,7 +55,7 @@ importer.ps1 has TWO valid source-of-truth forms, swapped by editing this entry 
 
 ## comment:3
 
-Above `- target: importer.sh`.
+Above `- target: importer.sh`, written with `#`.
 
 ```text
 importer.sh — the bash (and zsh) entry: sourced, it defines the `cats` dispatcher that runs catzc commands through
@@ -65,7 +65,7 @@ it before any import.
 
 ## comment:4
 
-Above `- target: .vscode/settings.json`.
+Above `- target: .vscode/settings.json`, written with `#`.
 
 ```text
 The three generated .vscode/ files are gitignored generated copies (committed: false) — the editor greys
@@ -75,7 +75,7 @@ registries (settings/extensions/launch).
 
 ## comment:5
 
-Above `- target: .vscode/azure-pipelines-schema.json`.
+Above `- target: .vscode/azure-pipelines-schema.json`, written with `#`.
 
 ```text
 The Azure Pipelines schema the extension validates our .yaml against (wired via
@@ -84,7 +84,7 @@ azure-pipelines.customSchemaFile in vscode-settings.yml). Gitignored generated c
 
 ## comment:6
 
-Above `- target: go.work`.
+Above `- target: go.work`, written with `#`.
 
 ```text
 The Go test workspace (Catzc.Base.Languages, New-GoWorkspace): go.work at the repository root, and one go.mod
@@ -93,7 +93,7 @@ per Go test module under the Go root (go.yml `root`: go/ when present, else .go/
 
 ## comment:7
 
-Above `- target: "*/pyproject.toml"`.
+Above `- target: "*/pyproject.toml"`, written with `#`.
 
 ```text
 The Python test workspace (Catzc.Base.Languages, New-PythonProject): the uv workspace root pyproject.toml in the Python
@@ -103,7 +103,7 @@ Gitignored generated copies; uv makes the one .venv and uv.lock beside the works
 
 ## comment:8
 
-Above `- target: .markdownlintignore`.
+Above `- target: .markdownlintignore`, written with `#`.
 
 ```text
 The ignore files and cspell.yml stay generated COPIES until the symlink path is verified on Linux (the
@@ -114,7 +114,7 @@ symbolic link; see the plan's step 12 and the generated-root-configs ADR.
 
 ## comment:9
 
-Above `- target: .cspell/.gitignore`.
+Above `- target: .cspell/.gitignore`, written with `#`.
 
 ```text
 The nested ignore for the generated .cspell/ dictionaries. A generated COPY forever, never copyAsLink:
@@ -124,7 +124,7 @@ apply — there is nothing to flip to.
 
 ## comment:10
 
-Above `- target: dotnet-tools.json`.
+Above `- target: dotnet-tools.json`, written with `#`.
 
 ```text
 JSON has no comment syntax (and the dotnet manifest parser rejects // line comments), so the managed-file
@@ -133,7 +133,7 @@ marker travels IN the authored source as an ignored "//" property.
 
 ## comment:11
 
-Above `- target: catzc.sln`.
+Above `- target: catzc.sln`, written with `#`.
 
 ```text
 MSBuild's solution parser requires the 'Format Version' line at the top, so the managed-file note lives

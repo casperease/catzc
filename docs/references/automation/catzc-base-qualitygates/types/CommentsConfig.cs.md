@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/CommentsConfig.cs.md
     kind: comment-page
-    body_sha: "555740a0b167"
+    body_sha: "773b12d7fe2e"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -14,20 +14,20 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/types/CommentsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The comment-page settings (configs/comments.yml), and the single declaration of their sensible defaults: every
 key is optional, and an omitted key — or a fresh checkout with no file — behaves exactly like the default, so no
 function restates a value ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)).
-A file carries one line per comment and the prose lives in the file's comment page, so each has one living copy
-([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)); what moves, where it
-goes and what a residue line may not say are configured here, not programmed
+A file carries no long comment and the prose lives in the file's comment page, so each has one living copy
+([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)); what moves and where it
+goes are configured here, not programmed
 ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
   languages        — the file languages (languages.yml names) whose files carry comment pages; the comment syntax
                      itself is CommentLexer's, the one place that knows it
@@ -39,8 +39,7 @@ goes and what a residue line may not say are configured here, not programmed
   pages            — the ordered source-folder -> docs-folder maps (CommentPageMap); the first match wins
   exclude          — repository-relative glob (the durable-sha-globs dialect) -> why its files keep their comments:
                      a test's prose is its own subject, and an asset is copied or published verbatim elsewhere, where a
-                     docs link would be foreign; a key given here replaces the default map
-  obvious_phrases  — a residue line that starts with one of these states the obvious and is refused
+                     page of this repository would be foreign; a key given here replaces the default map
   view             — the gitignored folder, under out/, the annotated view is written to
                      ([ADR-REPO-OUTDIR#1](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir1))
 Property names mirror the YAML keys

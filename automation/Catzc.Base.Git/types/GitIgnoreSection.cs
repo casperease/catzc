@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Git/types/GitIgnoreSection.cs
     kind: csharp-type
     module: Catzc.Base.Git
+    relatives:
+      page: docs/references/automation/catzc-base-git/types/GitIgnoreSection.cs.md
+      test: automation/Catzc.Base.Git/tests/types/GitIgnoreSection.Tests.ps1
 ---
 */
-
-// Exactly one of patterns or inject per section, never both, so each rule has a single source of truth.
-// [comment:1](/docs/references/automation/catzc-base-git/types/GitIgnoreSection.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -31,8 +31,6 @@ public sealed class GitIgnoreSection : Catzc.Base.Objects.DictionaryRecord
     // Static patterns, in registry order. Exactly one of patterns/inject.
     public IReadOnlyList<GitIgnorePattern> patterns { get; }
 
-    // Set instead of patterns, never with them; the name must match a provider the caller supplies at render time.
-    // [comment:2](/docs/references/automation/catzc-base-git/types/GitIgnoreSection.cs.md#comment2)
     public string inject { get; }
 
     public GitIgnoreSection(IDictionary d)

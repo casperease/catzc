@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Docs/tests/Get-GlossaryAnchorViolations.Tests.ps1
     adrs:
       - ADR-REPO-VOCAB#1
   config:

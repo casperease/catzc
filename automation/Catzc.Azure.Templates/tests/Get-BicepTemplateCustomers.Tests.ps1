@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateCustomers.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateCustomers.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/Get-BicepTemplateCustomers.ps1
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#4
@@ -11,8 +14,6 @@ catzc:
 #>
 
 Describe 'Get-BicepTemplateCustomers' -Tag 'L0', 'logic' {
-    # Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked config is...
-    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateCustomers.Tests.ps1.md#comment1)
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
@@ -48,8 +49,6 @@ Describe 'Get-BicepTemplateCustomers' -Tag 'L0', 'logic' {
 }
 
 Describe 'Customer ArgumentCompleter wiring' -Tag 'L0', 'logic' {
-    # Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked config is...
-    # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateCustomers.Tests.ps1.md#comment2)
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
@@ -62,8 +61,6 @@ Describe 'Customer ArgumentCompleter wiring' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
     }
 
-    # The naming and file-addressing paths take -Customer (the deploy paths are session-determined); each exposes the...
-    # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateCustomers.Tests.ps1.md#comment3)
     $commands = @(
         'Get-BicepResourceName'
         'Get-BicepTemplateConfiguration'

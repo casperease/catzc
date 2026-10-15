@@ -3,46 +3,46 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md
     kind: comment-page
-    body_sha: "5bdf9391976d"
+    body_sha: "436b6c1a68a9"
     adrs:
       - ADR-AUTO-TEST#25
 ---
 
 # automation/Catzc.Base.QualityGates/private/New-TestAutomationShardScript.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:10
+## comment:1
 
-Above `$entryLine = if ($EntryScript) {`.
+Above `$entryLine = if ($EntryScript) {`, written with `#`.
 
 ```text
 The one seam between the two runs: which entry script loads the modules. Source run (default) —
 the repository importer; build run — the build's Import-Catzc.ps1 with its named arguments.
 ```
 
-## comment:11
+## comment:2
 
-Above `$entryLiteral = "$EntryScript" -replace "'", "''"`.
+Above `$entryLiteral = "$EntryScript" -replace "'", "''"`, written with `#`.
 
 ```text
 The build run's entry also reaches the language bridge, so the Go and Python tests start the build
 (New-PesterRunConfiguration).
 ```
 
-## comment:12
+## comment:3
 
-Above `$languageEntries = foreach ($language in ($LanguageExecutable.Keys |...`.
+Above `$languageEntries = foreach ($language in ($LanguageExecutable.Keys |...`, written with `#`.
 
 ```text
 The tools this source session located reach the language bridge the same way, as a hashtable literal in
 language order: a build's engine cannot locate them.
 ```
 
-## comment:13
+## comment:4
 
-Above `$content = @"`.
+Above `$content = @"`, written with `#`.
 
 ```text
 The Pester configuration itself comes from the ONE shared builder (New-PesterRunConfiguration) so this

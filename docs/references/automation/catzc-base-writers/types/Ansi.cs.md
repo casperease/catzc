@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/types/Ansi.cs.md
     kind: comment-page
-    body_sha: "1b5e066a0064"
+    body_sha: "3377702bc161"
     adrs:
       - ADR-AUTO-CONSOLE#7
 ---
 
 # automation/Catzc.Base.Writers/types/Ansi.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Single source of the ConsoleColor -> ANSI SGR foreground-escape map, shared by every writer that emits
@@ -27,7 +27,7 @@ See [ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr
 
 ## comment:2
 
-Above `private const char Esc = (char)27;`.
+Above `private const char Esc = (char)27;`, written with `//`.
 
 ```text
 The ESC control byte (0x1B) that opens every SGR sequence. Built from its code point rather than an
@@ -36,7 +36,7 @@ escape literal so the source carries no raw control character.
 
 ## comment:3
 
-Above `public static readonly string Reset = Esc + "[0m";`.
+Above `public static readonly string Reset = Esc + "[0m";`, written with `//`.
 
 ```text
 SGR reset — closes a coloured run. CI log renderers reset ANSI at newlines, so a multi-line caller
@@ -45,7 +45,7 @@ re-opens the colour per line rather than spanning the newline.
 
 ## comment:4
 
-Above `private static readonly int[] Codes =`.
+Above `private static readonly int[] Codes =`, written with `//`.
 
 ```text
 SGR foreground code per ConsoleColor, indexed by (int)color (Black = 0 .. White = 15). The enum's
@@ -54,7 +54,7 @@ declaration order is NOT the ANSI order, so this is a deliberate remap, not (30 
 
 ## comment:5
 
-Above `public static string Code(ConsoleColor color)`.
+Above `public static string Code(ConsoleColor color)`, written with `//`.
 
 ```text
 The opening escape for a colour (e.g. ESC[91m for Red); empty string for an out-of-range value,
@@ -63,7 +63,7 @@ so a caller can treat "no colour" as "pass the text through unchanged".
 
 ## comment:6
 
-Above `public static string Wrap(string text, ConsoleColor color)`.
+Above `public static string Wrap(string text, ConsoleColor color)`, written with `//`.
 
 ```text
 Wrap one run of text in a colour and reset. Single-line by contract: multi-line wrapping (re-opening

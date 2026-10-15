@@ -6,6 +6,8 @@ catzc:
     kind: writer-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1
     adrs:
       - ADR-REPO-README#7
       - ADR-REPO-VOCAB

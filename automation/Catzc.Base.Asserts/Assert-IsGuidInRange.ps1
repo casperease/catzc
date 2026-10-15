@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Asserts/tests/Assert-IsGuidInRange.Tests.ps1
   config:
     synopsis: Asserts that a GUID lies inside an inclusive GUID range.
     description: The throwing form of Test-IsGuidInRange, which defines the ordering.

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Environment
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
+      test: automation/Catzc.Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
     adrs:
       - ADR-AUTO-ENVVAR#7
   config:
@@ -70,8 +73,6 @@ function Write-EnvironmentSet {
         [switch] $Persist
     )
 
-    # 1) Resolve every channel into a flat list of env-var assignments.
-    # [comment:4](/docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md#comment4)
     $entries = [System.Collections.Generic.List[hashtable]]::new()
 
     foreach ($name in $Set.Keys) {
@@ -127,8 +128,6 @@ function Write-EnvironmentSet {
         $origins[$entry.Name] = $entry.Origin
     }
 
-    # 3) Apply.
-    # [comment:5](/docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md#comment5)
     $scoped = -not $Persist
 
     $snapshot = [ordered]@{}

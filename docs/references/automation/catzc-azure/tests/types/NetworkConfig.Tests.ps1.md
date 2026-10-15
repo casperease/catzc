@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md
-    kind: test-asset
-    body_sha: "9f27221a5509"
+    kind: comment-page
+    body_sha: "6730189523e6"
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TEST#3
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:baseConfig = [ordered]@{`.
+Above `$script:baseConfig = [ordered]@{`, written with `#`.
 
 ```text
 Fixture network plan — deliberately-distinct Greek env names (alpha/beta/gamma/delta) and neutral

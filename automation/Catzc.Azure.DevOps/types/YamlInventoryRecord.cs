@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure.DevOps/types/YamlInventoryRecord.cs
     kind: csharp-type
     module: Catzc.Azure.DevOps
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/types/YamlInventoryRecord.cs.md
 ---
 */
-
-// The registration fields are null or absent when the file backs no registered pipeline.
-// [comment:1](/docs/references/automation/catzc-azure-devops/types/YamlInventoryRecord.cs.md#comment1)
 
 using System;
 
@@ -55,8 +54,6 @@ public sealed class YamlInventoryRecord
     // The YAML parse error, if any. Null when the file parsed cleanly.
     public string ParseError { get; }
 
-    // Takes primitives, not a YamlFileRecord, so a test mocking the file scan with a plain pscustomobject still binds.
-    // [comment:2](/docs/references/automation/catzc-azure-devops/types/YamlInventoryRecord.cs.md#comment2)
     public YamlInventoryRecord(string root, string path, string relativePath, string relativeDirectory, string classification, string templateType, bool isRegistered, string pipelineName, Nullable<int> pipelineId, string pipelineDirectory, string[] topLevelKeys, string parseError)
     {
         if (string.IsNullOrWhiteSpace(root)) { throw new ArgumentException("YamlInventoryRecord.Root is required"); }

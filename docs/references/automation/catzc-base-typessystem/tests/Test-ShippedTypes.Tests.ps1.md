@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/tests/Test-ShippedTypes.Tests.ps1.md
-    kind: test-asset
-    body_sha: "732cc6187651"
+    kind: comment-page
+    body_sha: b92ee29f2c31
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-ShippedTypes' -Tag 'L0', 'logic' {`.
+Above `Describe 'Test-ShippedTypes' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-ShippedTypes over a fixture code root in $TestDrive: one file named for a type the session has (System.String

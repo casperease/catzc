@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Docs/types/DocsConfig.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/DocsConfig.cs.md
+      test: automation/Catzc.Base.Docs/tests/types/DocsConfig.Tests.ps1
     adrs:
       - ADR-CONF-LOADING
       - ADR-REPO-README
 ---
 */
-
-// Patterns and mappings are each optional but need at least one entry across both; a malformed shape throws at the first fault.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/DocsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

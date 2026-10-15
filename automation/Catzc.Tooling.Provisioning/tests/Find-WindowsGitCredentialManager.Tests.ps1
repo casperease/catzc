@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Find-WindowsGitCredentialManager.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Tooling.Provisioning/private/Find-WindowsGitCredentialManager.ps1
 ---
 #>
 

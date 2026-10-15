@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/tests/Remove-SystemInstallation.Tests.ps1.md
+      source: automation/Catzc.Tooling.Core/Remove-SystemInstallation.ps1
     adrs:
       - ADR-AUTO-TEST#33
 ---
 #>
 
-# Hermetic logic (L1): every boundary that touches state outside the repository is mocked — the install directory...
-# [comment:1](/docs/references/automation/catzc-tooling-core/tests/Remove-SystemInstallation.Tests.ps1.md#comment1)
 Describe 'Remove-SystemInstallation' -Tag 'L1', 'logic', 'ADR-AUTO-TEST#33' {
     BeforeAll {
         $script:installDir = if ($IsWindows) {

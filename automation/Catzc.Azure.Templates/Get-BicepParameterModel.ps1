@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
   config:
     synopsis: |-
       Returns a template's Bicep parameter model: every parameter its compiled main.json declares, with type,

@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -69,8 +72,6 @@ function Test-LogicTestIdentity {
             Sort-Object
     }
 
-    # Parse only files that COULD carry a finding — a provable SUPERSET, so no leak is ever skipped.
-    # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md#comment4)
     $exactTokens = @($live.Values | Where-Object { $_.MatchMode -eq 'exact' } | ForEach-Object { $_.Token })
     $tokenRegex = if ($exactTokens.Count) {
         [regex]::new('\b(' + (($exactTokens | ForEach-Object { [regex]::Escape($_) }) -join '|') + ')\b',

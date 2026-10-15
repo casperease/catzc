@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/Get-ContractAssetNote.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/tests/Get-ContractAssetNote.Tests.ps1.md
+      source: automation/Catzc.Base.Contracts/private/Get-ContractAssetNote.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-CONTRACT#6
 ---
 #>
 
-# A contract asset's note is the header comment its file can carry without changing what its check compares: a YAML...
-# [comment:1](/docs/references/automation/catzc-base-contracts/tests/Get-ContractAssetNote.Tests.ps1.md#comment1)
 Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
     BeforeAll {
         # The lines of a fixture file, each ended by LF.

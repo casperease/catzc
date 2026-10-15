@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.DevOps
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.DevOps/tests/Get-AdoRepositoryName.Tests.ps1
     adrs:
       - ADR-PWSH-PARAM#4
   config:

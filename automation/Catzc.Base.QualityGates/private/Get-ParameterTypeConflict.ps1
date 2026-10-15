@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-ParameterTypeConflict.Tests.ps1
   config:
     synopsis: Finds the parameter names that carry more than one type across the given function files.
     description: |-
@@ -50,8 +53,6 @@ function Get-ParameterTypeConflict {
                 if (-not $constraint) {
                     continue
                 }
-                # Resolve through.NET where the type is loaded, so an accelerator and its full name are one type...
-                # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md#comment3)
                 $reflected = $constraint.TypeName.GetReflectionType()
                 if ($reflected -and $reflected.IsArray) {
                     $reflected = $reflected.GetElementType()

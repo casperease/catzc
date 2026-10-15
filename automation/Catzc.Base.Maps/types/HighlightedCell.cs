@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Maps/types/HighlightedCell.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/HighlightedCell.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Touched is true only when every reason is a passing mention, so a cell lit by mentions alone is told apart.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/HighlightedCell.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

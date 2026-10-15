@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Exporter
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
     adrs:
       - ADR-AUTO-BUNDLE#6
       - ADR-GH-RELEASE

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Cli
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Cli/tests/Get-AzCliConnectionState.Tests.ps1
   config:
     synopsis: Returns the az CLI session's connection state relative to a given subscription and/or tenant.
     description: |-

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Format-TierRange.Tests.ps1
   config:
     synopsis: 'Formats a tier range the way a test run names it: ''L2'' for one tier, ''L0-L2'' for a range.'
     parameters:

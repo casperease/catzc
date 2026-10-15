@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Objects/types/DictionaryRecord.cs
     kind: csharp-type
     module: Catzc.Base.Objects
+    relatives:
+      page: docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md
+      test: automation/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1
 ---
 */
-
-// A key counts as present only when its property exists and is non-null, so nulling an optional makes Contains false.
-// [comment:1](/docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -68,8 +68,6 @@ public abstract class DictionaryRecord
         }
     }
 
-    // Skipping the base's own view members is what stops Keys and ToHashtable from recursing into get_Keys forever.
-    // [comment:2](/docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md#comment2)
     private static bool IsDataProp(PropertyInfo p)
     {
         return p != null

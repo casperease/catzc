@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md
+      test: automation/Catzc.Azure.Templates/tests/Get-AzureResourceName.Tests.ps1
     adrs:
       - ADR-AZ-NAMING
       - ADR-AZ-NAMING#4
@@ -88,8 +91,6 @@ function Get-AzureResourceName {
     }
     $pattern = $patterns[$specification.pattern]
 
-    # A type may omit components from its render — e.g.
-    # [comment:8](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment8)
     $omit = if ($specification.Contains('omit')) {
         @($specification.omit)
     }
@@ -97,8 +98,6 @@ function Get-AzureResourceName {
         @()
     }
 
-    # The env-segment is the readable name for the generous `long` pattern, the 2-char shortcode for the restricted...
-    # [comment:9](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment9)
     $envValue = if ($specification.pattern -eq 'long') {
         $Env
     }
@@ -109,8 +108,6 @@ function Get-AzureResourceName {
         $Shortcode
     }
 
-    # Customer follows the same pattern-chosen split as env: the readable key (-Customer) for the generous `long`...
-    # [comment:10](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment10)
     $customerValue = ''
     if ((-not [string]::IsNullOrEmpty($Customer)) -and ('customer' -notin $omit)) {
         $customerValue = if ($specification.pattern -eq 'long') {
@@ -124,8 +121,6 @@ function Get-AzureResourceName {
         }
     }
 
-    # Component format checks (case-sensitive, lowercase) — see.
-    # [comment:11](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment11)
     $checks = [ordered]@{
         Env        = @{ value = $Env; pattern = '^[a-z][a-z0-9]+$'; desc = '2+ alphanumeric, leading letter' }
         RegionCode = @{ value = $RegionCode; pattern = '^[a-z]{3}$'; desc = '3 lowercase letters' }

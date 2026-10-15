@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-languages/tests/New-PythonProject.Tests.ps1.md
+      source: automation/Catzc.Base.Languages/New-PythonProject.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# New-PythonProject over a fixture repository in $TestDrive, with its two declared configs mocked: python.yml...
-# [comment:1](/docs/references/automation/catzc-base-languages/tests/New-PythonProject.Tests.ps1.md#comment1)
 Describe 'New-PythonProject' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

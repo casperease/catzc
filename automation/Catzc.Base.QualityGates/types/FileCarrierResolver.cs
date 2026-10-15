@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/FileCarrierResolver.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/FileCarrierResolver.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1
     adrs:
       - ADR-REPO-FILEMETA#5
 ---
 */
-
-// Finds the carrier entry of a repository path, with every glob compiled once, so a scan of all tracked files stays cheap.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/FileCarrierResolver.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

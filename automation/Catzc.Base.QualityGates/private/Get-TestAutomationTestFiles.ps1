@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationTestFiles.Tests.ps1
   config:
     synopsis: Lists a run's test files, path by path in the given order, each tests folder's files in ordinal order.
     description: |-

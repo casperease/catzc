@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-README

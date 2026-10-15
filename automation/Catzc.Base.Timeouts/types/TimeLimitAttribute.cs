@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Timeouts/types/TimeLimitAttribute.cs
     kind: csharp-type
     module: Catzc.Base.Timeouts
+    relatives:
+      page: docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md
+      test: automation/Catzc.Base.Timeouts/tests/types/TimeLimitAttribute.Tests.ps1
     adrs:
       - ADR-PWSH-ASSERT#1
 ---
 */
-
-// The values are checked on creation: whole seconds above zero, and the pipeline limit no lower than the devbox one.
-// [comment:1](/docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md#comment1)
 
 using System;
 
@@ -51,8 +51,6 @@ public sealed class TimeLimitAttribute : Attribute
         }
     }
 
-    // An exempt budget makes the exemption ceiling win over the declared limit; empty when the function has no budget.
-    // [comment:2](/docs/references/automation/catzc-base-timeouts/types/TimeLimitAttribute.cs.md#comment2)
     public string Budget
     {
         get { return budget; }

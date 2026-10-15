@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-CatzcBuild.ps1
     adrs:
       - ADR-AUTO-TEST#30
 ---
@@ -11,8 +14,6 @@ catzc:
 
 Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
     BeforeAll {
-        # Build-Modules (Catzc.Base.Exporter) is the boundary: mocked here, so this test file proves the wiring...
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.Tests.ps1.md#comment1)
         $script:harness = 'Catzc.Base.QualityGates'
     }
 

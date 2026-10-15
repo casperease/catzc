@@ -4,16 +4,14 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoRawInformationStream.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/scriptanalyzer/tests/NoRawInformationStream.Tests.ps1.md
 ---
 #>
 
-# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a...
-# [comment:1](/docs/references/automation/scriptanalyzer/tests/NoRawInformationStream.Tests.ps1.md#comment1)
 Describe 'Measure-NoRawInformationStream' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoRawInformationStream.psm1') -Force
-        # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module once...
-        # [comment:2](/docs/references/automation/scriptanalyzer/tests/NoRawInformationStream.Tests.ps1.md#comment2)
         if (-not (Get-Module PSScriptAnalyzer)) {
             Import-Module (Join-Path $env:RepositoryRoot 'automation/.vendor/PSScriptAnalyzer') -Force
         }

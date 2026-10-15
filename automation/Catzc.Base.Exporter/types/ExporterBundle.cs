@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.Exporter/types/ExporterBundle.cs
     kind: csharp-type
     module: Catzc.Base.Exporter
+    relatives:
+      page: docs/references/automation/catzc-base-exporter/types/ExporterBundle.cs.md
     adrs:
       - ADR-AUTO-BUNDLE
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// A footprint limit is opt-in: a bundle that ships to a constrained target states one, and the others go unchecked.
-// [comment:1](/docs/references/automation/catzc-base-exporter/types/ExporterBundle.cs.md#comment1)
 
 using System;
 using System.Collections;

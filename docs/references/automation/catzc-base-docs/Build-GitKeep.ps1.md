@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md
     kind: comment-page
-    body_sha: "4f3a1075c7e1"
+    body_sha: fc62cc6dc0b6
     adrs:
       - ADR-PWSH-PESTER#9
 ---
 
 # automation/Catzc.Base.Docs/Build-GitKeep.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:5
+## comment:1
 
-Above `$outputRoot = [System.IO.Path]::Combine($repositoryRoot, 'out')`.
+Above `$outputRoot = [System.IO.Path]::Combine($repositoryRoot, 'out')`, written with `#`.
 
 ```text
 Walk the tree for .gitkeep files, skipping git's own store and the vendored modules (not ours to

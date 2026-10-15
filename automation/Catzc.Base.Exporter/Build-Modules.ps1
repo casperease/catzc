@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.Exporter
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md
+      test: automation/Catzc.Base.Exporter/tests/Build-Modules.Tests.ps1
     adrs:
       - ADR-AUTO-BUNDLE#1
       - ADR-AUTO-DRYRUN#2
@@ -57,8 +60,6 @@ catzc:
 ---
 #>
 
-# Uses -DryRun, not ShouldProcess/-WhatIf — see.
-# [comment:9](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment9)
 function Build-Modules {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '', Justification = 'Builds a set of modules; the plural is the contract name (ADR-AUTO-BUNDLE#1)')]
     [CmdletBinding()]
@@ -121,15 +122,11 @@ function Build-Modules {
         $engineArguments.ModuleProfile = $ModuleProfile
     }
 
-    # The engine is an.internal module, loaded on demand and not part of the post-import command set, so it is...
-    # [comment:10](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment10)
     Import-InternalModule Builder
     $engine = 'Invoke-ModuleBuild'
     $result = & $engine @engineArguments
 
     if (-not $DryRun) {
-        # The footprint limits describe the bundle as declared.
-        # [comment:11](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment11)
         $isDeclaredBundle = -not ($PSBoundParameters.ContainsKey('Module') -or $PSBoundParameters.ContainsKey('ModuleProfile') -or
             $PSBoundParameters.ContainsKey('VendorPolicy'))
         if ($isDeclaredBundle) {

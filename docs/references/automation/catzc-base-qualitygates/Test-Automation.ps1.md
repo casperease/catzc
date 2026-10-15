@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md
     kind: comment-page
-    body_sha: "01561ab017be"
+    body_sha: "8dc164acfb05"
     adrs:
       - ADR-AUTO-TEST#30
       - ADR-AUTO-TEST#37
@@ -11,21 +11,21 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/Test-Automation.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:17
+## comment:1
 
-Above `if ($Suite) {`.
+Above `if ($Suite) {`, written with `#`.
 
 ```text
 -Suite: run a test suite — the named globset's declared verify scope resolves to the module list and tier
 (Resolve-TestSuite, [ADR-AUTO-TEST#37](/docs/adr/automation/test-automation.md#rule-adr-auto-test37)).
 ```
 
-## comment:18
+## comment:2
 
-Above `Invoke-TestRun -EntryPoint 'Test-Automation' -Title 'Test Automation'...`.
+Above `Invoke-TestRun -EntryPoint 'Test-Automation' -Title 'Test Automation'...`, written with `#`.
 
 ```text
 The harness itself — discovery, tag checks, sharding, workers, rows, reports — is the core both runs

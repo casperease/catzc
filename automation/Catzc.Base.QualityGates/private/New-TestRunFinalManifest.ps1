@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/New-TestRunFinalManifest.Tests.ps1
   config:
     synopsis: Builds a test run's terminal run.json record.
     description: |-

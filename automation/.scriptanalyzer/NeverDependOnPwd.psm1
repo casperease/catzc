@@ -9,14 +9,6 @@ catzc:
 
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
-<#
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: never depend on $PWD.
-.DESCRIPTION
-    Push-Location and Pop-Location pass: they restore the caller's directory, a bare Set-Location does not.
-    [comment:1](/docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md#comment1)
-#>
-
 function Measure-NeverDependOnPwd {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
@@ -29,8 +21,6 @@ function Measure-NeverDependOnPwd {
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NeverDependOnPwd'
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [comment:2](/docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md#comment2)
     $isVariable = {
         param($node)
         $node -is [System.Management.Automation.Language.VariableExpressionAst]
@@ -48,8 +38,6 @@ function Measure-NeverDependOnPwd {
         }
     }
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [comment:3](/docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md#comment3)
     $isCommand = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]

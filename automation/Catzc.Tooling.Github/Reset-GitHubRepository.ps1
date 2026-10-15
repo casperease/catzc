@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Github
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Github/tests/Reset-GitHubRepository.Tests.ps1
   config:
     synopsis: |-
       Hard-purges a GitHub repository — deletes it, recreates it (optionally under a

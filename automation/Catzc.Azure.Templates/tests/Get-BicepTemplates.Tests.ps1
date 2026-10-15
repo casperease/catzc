@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/Get-BicepTemplates.ps1
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#4
@@ -12,11 +15,7 @@ catzc:
 
 # cspell:ignore sampl deriv
 Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
-    # Read-only discovery tests: boundary mocks + config-cache reset run ONCE, not per test.
-    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md#comment1)
     BeforeAll {
-        # Discover from the test fixtures, never the shipped infrastructure/templates — and resolve identity...
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md#comment2)
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
@@ -31,8 +30,6 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
     It 'discovers from the test fixtures (tests/assets/templates), not the shipped templates' {
         $sample = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample' } | Select-Object -First 1
         $sample.folder | Should -BeLike '*tests*assets*templates*sample*'
-        # Must NOT be the shipped repo-root infrastructure/templates tree.
-        # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md#comment3)
         $shippedRoot = Join-Path (Get-RepositoryRoot) 'infrastructure/templates'
         $sample.folder | Should -Not -BeLike "$shippedRoot*"
     }

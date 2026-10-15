@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/configs/adrs.yml.md
     kind: comment-page
-    body_sha: "8da1b4b31523"
+    body_sha: "96d4a2de82c7"
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/configs/adrs.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `domains:`.
+Above `domains:`, written with `#`.
 
 ```text
 adrs.yml — the AUTHORED source of the ADR domain structure (RULES ↔ domains wiring).
@@ -44,7 +44,7 @@ this file (Build-AdrIndex) — see [ADR-REPO-README](/docs/adr/repository/genera
 
 ## comment:2
 
-Above `code: FLOW-CD`.
+Above `code: FLOW-CD`, written with `#`.
 
 ```text
 compound domain code — the root ADR cites [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md), the
@@ -53,7 +53,7 @@ rest `ADR-FLOW-CD-<NAME>`
 
 ## comment:3
 
-Above `reliability: { external: ADR-AZ-WAFRE, terminology: wafre }`.
+Above `reliability: { external: ADR-AZ-WAFRE, terminology: wafre }`, written with `#`.
 
 ```text
 Vendor recommendation, one rule per vendor item: the Well-Architected Framework pillars (azure/waf/) and the Cloud Adoption

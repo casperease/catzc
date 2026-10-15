@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/tests/New-Importer.Tests.ps1.md
-    kind: test-asset
-    body_sha: "3e994f3d953c"
+    kind: comment-page
+    body_sha: "020d591aa738"
 ---
 
 # automation/Catzc.Base.ModuleSystem/tests/New-Importer.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {` (occurrence 2), written with `#`.
 
 ```text
 The committed importer.ps1 is generated from the Invoke-Importer overlay. These guard the two ways it can
@@ -23,7 +23,7 @@ content below its generated-file head must equal New-Importer's output. To fix a
 
 ## comment:2
 
-Above `function script:Get-ParamSignature {`.
+Above `function script:Get-ParamSignature {`, written with `#`.
 
 ```text
 The '<name> [<type-as-written>]' list of a param block — the script's own (FunctionName $null) or a

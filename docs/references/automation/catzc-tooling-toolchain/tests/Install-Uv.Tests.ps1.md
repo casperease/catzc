@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md
-    kind: test-asset
-    body_sha: eed1842aa557
+    kind: comment-page
+    body_sha: "566571b5acf9"
     adrs:
       - ADR-PWSH-ENV#4
 ---
 
 # automation/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:newAsset = {`.
+Above `$script:newAsset = {`, written with `#`.
 
 ```text
 A release fixture the resolver walks: newest first (the GitHub API order), one release per line of
@@ -25,7 +25,7 @@ carry assets so the test is agnostic to the machine it runs on.
 
 ## comment:2
 
-Above `$script:savedHome = $env:HOME`.
+Above `$script:savedHome = $env:HOME`, written with `#`.
 
 ```text
 The helper reads $env:HOME (the uv tool-bin anchor) and prepends to $env:PATH — snapshot both and
@@ -35,7 +35,7 @@ restore after each test
 
 ## comment:3
 
-Above `Mock Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -ParameterFilter {...`.
+Above `Mock Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -ParameterFilter {...`, written with `#`.
 
 ```text
 The tar boundary: plant the extracted tree (a versioned folder holding uv and uvx) into the -C

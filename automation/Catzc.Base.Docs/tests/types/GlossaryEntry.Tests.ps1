@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/GlossaryEntry.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/types/GlossaryEntry.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/types/GlossaryEntry.cs
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-VOCAB#2
@@ -11,8 +14,6 @@ catzc:
 ---
 #>
 
-# Validates the compiled GlossaryEntry result type — one merged concept with its owning module, source path, and...
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/types/GlossaryEntry.Tests.ps1.md#comment1)
 Describe 'GlossaryEntry' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:source = [Catzc.Base.Docs.GlossaryConfig]::new([ordered]@{

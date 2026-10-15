@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/modules/sql-server.bicep
 //     kind: bicep-module
+//     relatives:
+//       page: docs/references/infrastructure/modules/sql-server.bicep.md
 // ---
-
-// Entra-only authentication is the default; a SQL login is an opt-in break-glass with a Key Vault password reference.
-// [comment:1](/docs/references/infrastructure/modules/sql-server.bicep.md#comment1)
 
 @description('SQL logical server name (1-63 lowercase, globally unique).')
 param name string

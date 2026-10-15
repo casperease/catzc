@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md
-    kind: test-asset
-    body_sha: "0c2cb3d06a80"
+    kind: comment-page
+    body_sha: "5ab69958a603"
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#4
@@ -13,12 +13,12 @@ catzc:
 
 <!-- cspell:ignore sampl deriv -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 Read-only discovery tests: boundary mocks + config-cache reset run ONCE, not per test. Discovery
@@ -31,7 +31,7 @@ inside their own It, independent of this setup.
 
 ## comment:2
 
-Above `Mock Get-BicepTemplatesRoot {`.
+Above `Mock Get-BicepTemplatesRoot {`, written with `#`.
 
 ```text
 Discover from the test fixtures, never the shipped infrastructure/templates — and resolve
@@ -40,7 +40,7 @@ identity (env/customer validation) from the test config fixture, never the shipp
 
 ## comment:3
 
-Above `$shippedRoot = Join-Path (Get-RepositoryRoot) 'infrastructure/templates'`.
+Above `$shippedRoot = Join-Path (Get-RepositoryRoot) 'infrastructure/templates'`, written with `#`.
 
 ```text
 Must NOT be the shipped repo-root infrastructure/templates tree. (Matched against the actual

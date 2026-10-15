@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1.md
-    kind: test-asset
-    body_sha: d76202b17b9b
+    kind: comment-page
+    body_sha: cbc642860fa8
     adrs:
       - ADR-PWSH-PESTER#3
 ---
 
 # automation/Catzc.Azure.Templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:azure = [ordered]@{`.
+Above `$script:azure = [ordered]@{`, written with `#`.
 
 ```text
 Fixture azure: a non-customer pair (the shared platform) + a customer pair (acme) + a second
@@ -24,7 +24,7 @@ rogue non-customer subscription that overlaps core_lower on beta (the root-ambig
 
 ## comment:2
 
-Above `Mock Get-AzureCustomers { @('acme', 'globex') } -ModuleName...`.
+Above `Mock Get-AzureCustomers { @('acme', 'globex') } -ModuleName...`, written with `#`.
 
 ```text
 The customer catalogue reads are whole-boundary mocks

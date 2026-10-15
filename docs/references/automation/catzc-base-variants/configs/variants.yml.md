@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/configs/variants.yml.md
     kind: comment-page
-    body_sha: fdca10449365
+    body_sha: bb802cc658de
     adrs:
       - ADR-DSGN-TRACK#2
       - ADR-DSGN-TRACK#6
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Variants/configs/variants.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `ado_naming: standard`.
+Above `ado_naming: standard`, written with `#`.
 
 ```text
 Repo-wide variants — settings fixed for the importer session (see [ADR-REPO-VARIANT](/docs/adr/repository/repo-variants.md)).
@@ -27,7 +27,7 @@ by the VariantsConfig type.
 
 ## comment:2
 
-Above `ado_naming: standard`.
+Above `ado_naming: standard`, written with `#`.
 
 ```text
 Azure resource-name component order — the segment order every generated resource name uses.
@@ -38,7 +38,7 @@ be re-edited to match — deliberately not a casual flip.
 
 ## comment:3
 
-Above `git_workspace: main-direct`.
+Above `git_workspace: main-direct`, written with `#`.
 
 ```text
 Git workspace mode — how changes reach main:
@@ -51,7 +51,7 @@ stop condition: main-via-pr AND currently on main. Going 1 -> 1+ authors is when
 
 ## comment:4
 
-Above `have_customers: all`.
+Above `have_customers: all`, written with `#`.
 
 ```text
 Enabled-customer set for the repo:
@@ -66,7 +66,7 @@ per-customer foundation), so it enables all of them; a repo with no customer tem
 
 ## comment:5
 
-Above `aspects:`.
+Above `aspects:`, written with `#`.
 
 ```text
 Aspects ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)) — per-track/per-container conventions. Each is an ordered, first-match
@@ -80,7 +80,7 @@ construction of the ordering.
 
 ## comment:6
 
-Above `tracks:`.
+Above `tracks:`, written with `#`.
 
 ```text
 Tracks ([ADR-DSGN-TRACK](/docs/adr/design/tracks.md)) — the repository's root concerns, the one declaration of what a

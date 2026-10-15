@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.ModuleSystem/configs/profiles.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-modulesystem/configs/profiles.yml.md
 # ---
 
-# An empty seed expands to the whole repository, so a profile that lists no modules is the full profile.
-# [comment:1](/docs/references/automation/catzc-base-modulesystem/configs/profiles.yml.md#comment1)
 profiles:
   minimal:
     - Catzc.Base.Asserts

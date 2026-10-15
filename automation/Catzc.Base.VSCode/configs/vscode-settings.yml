@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.VSCode/configs/vscode-settings.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md
 # ---
 
-# Edit this file, never settings.json: the editor reads a gitignored copy that Build-RootConfig regenerates from it.
-# [comment:1](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment1)
 settings:
   # Markdown settings (built-in preview)
   markdown.preview.fontFamily: "Consolas, 'Courier New', monospace"
@@ -18,14 +18,10 @@ settings:
   markdown.preview.scrollEditorWithPreview: true
   markdown.preview.markEditorSelection: true
 
-  # These are warnings only and http or https links are never checked, so Test-Links stays the real gate.
-  # [comment:2](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment2)
   markdown.validate.enabled: true
   markdown.validate.fileLinks.enabled: warning
   markdown.validate.fragmentLinks.enabled: warning
   markdown.validate.fileLinks.markdownFragmentLinks: warning
-  # Off because VS Code misreads every footnote use as an undefined reference link; markdownlint MD052 gates the real ones.
-  # [comment:3](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment3)
   markdown.validate.referenceLinks.enabled: ignore
   # Offer to rewrite relative links in .md files when a linked file or folder is moved or renamed
   markdown.updateLinksOnFileMove.enabled: prompt
@@ -41,18 +37,12 @@ settings:
   # PowerShell: use project PSScriptAnalyzer settings for analysis (squiggles)
   powershell.scriptAnalysis.settingsPath: ./automation/.internal/assets/PSScriptAnalyzerSettings.psd1
 
-  # Format Document reads these settings and not the psd1, so they must stay in sync or formatter and analyzer disagree.
-  # [comment:4](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment4)
   powershell.codeFormatting.pipelineIndentationStyle: IncreaseIndentationForFirstPipeline
   # Expand aliases on format — the psd1 enforces PSAvoidUsingCmdletAliases.
   powershell.codeFormatting.autoCorrectAliases: true
   # Leave casing alone — PSUseCorrectCasing is disabled in the psd1 (false positives on Pester params).
   powershell.codeFormatting.useCorrectCasing: false
-  # Matches the psd1 IgnoreAssignmentOperatorInsideHashTable setting, so the analyzer accepts the aligned equals sign.
-  # [comment:5](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment5)
   powershell.codeFormatting.alignPropertyValuePairs: true
-  # Matches the psd1 IgnoreOneLineBlock setting, so no block keeps its braces on a single line after formatting.
-  # [comment:6](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment6)
   powershell.codeFormatting.ignoreOneLineBlock: false
   # Honour .editorconfig / 4-space indent; don't let VS Code guess indentation from file contents.
   "[powershell]":
@@ -60,23 +50,17 @@ settings:
     editor.tabSize: 4
     editor.insertSpaces: true
 
-  # The analyzer config sits under the manifest glob, so a more specific false entry keeps it searchable.
-  # [comment:7](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment7)
   search.exclude:
     automation/.vendor: true
     automation/**/*.psd1: true
     automation/.internal/assets/PSScriptAnalyzerSettings.psd1: false
 
-  # The out directory stays watched so the explorer shows each new run report as it lands; the analyzer config is hand-edited.
-  # [comment:8](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment8)
   files.watcherExclude:
     "**/automation/**/*.psd1": true
     "**/automation/.internal/assets/PSScriptAnalyzerSettings.psd1": false
     "**/python/.venv/**": true
     "**/node_modules/**": true
 
-  # Format-on-save stays off: formatting runs on demand and Test-Formatting enforces it; the formatter itself is injected.
-  # [comment:9](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment9)
   "[markdown]":
     editor.quickSuggestions:
       comments: "on"
@@ -84,8 +68,6 @@ settings:
       other: "on"
     editor.wordWrap: "off"
 
-  # The markdownlintignore file takes the ignore language, so it reads as gitignore syntax and not as Markdown.
-  # [comment:10](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment10)
   files.associations:
     "**/LICENSE": plaintext
     "**/*.yml": yaml
@@ -93,35 +75,23 @@ settings:
     "**/.markdownlintignore": ignore
     "**/out/**/*.log": ansi
 
-  # The value must be the image-preview viewType, not default: default is the text editor and fails on a binary PNG.
-  # [comment:11](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment11)
   workbench.editorAssociations:
     "*.drawio.png": imagePreview.previewEditor
 
-  # The azure-pipelines language is one prettier-vscode skips by default, so documentSelectors must opt these files in.
-  # [comment:12](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment12)
   prettier.documentSelectors:
     - "**/*.yaml"
 
-  # The extension has no severity or ignore knob, so replacing its schema is the only way to drop the false warnings.
-  # [comment:13](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment13)
   azure-pipelines.customSchemaFile: ./.vscode/azure-pipelines-schema.json
 
-  # The rule drops the heading fragment when it opens the ADR file, because the editor opens files by line, not heading.
-  # [comment:14](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment14)
   regexrobin.rules:
     - regex: '\[[^\]\r\n]+\]\(/(docs/adr/[^)#\s]+\.md)(#[^)\s]*)?\)'
       editor:
         - link: "file:///${workspaceFolder}/$1"
           hoverMessage: "Open $1$2"
 
-  # GOTOOLCHAIN=local stops the editor downloading the toolchain go.work asks for; the managed go comes from go.goroot.
-  # [comment:15](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment15)
   go.toolsEnvVars:
     GOTOOLCHAIN: local
 
-  # No terminal is activated into the venv: it stays the catzc pwsh session, and tests run through Test-Automation.
-  # [comment:16](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment16)
   python.terminal.activateEnvironment: false
   python-envs.terminal.autoActivationType: "off"
   # The test explorer discovers the Python tests with pytest, from the tests folder of the test project.
@@ -132,8 +102,6 @@ settings:
   # C# Dev Kit loads the IDE-only catzc.sln at the root, never a project it finds on its own.
   dotnet.defaultSolution: catzc.sln
 
-  # Code Spell Checker finds the single repo dictionary in the root cspell.yml on its own, so no path setting is needed.
-  # [comment:17](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment17)
   cSpell.enabled: true
   # Information = blue squiggle (Error = red, Warning = yellow).
   cSpell.diagnosticLevel: Information

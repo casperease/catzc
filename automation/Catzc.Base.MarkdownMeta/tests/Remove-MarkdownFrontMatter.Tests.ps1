@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/tests/Remove-MarkdownFrontMatter.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.MarkdownMeta/Remove-MarkdownFrontMatter.ps1
     adrs:
       - ADR-REPO-FILEMETA#1
 ---

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.ConfigExtensions/tests/Get-ConfigValidatorName.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.ConfigExtensions/private/Get-ConfigValidatorName.ps1
 ---
 #>
 

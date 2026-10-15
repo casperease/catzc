@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md
+      source: automation/Catzc.Base.Files/Get-GitChangedPath.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'Get-GitChangedPath' -Tag 'L0', 'logic' {
-    # git status is the mocked boundary: the -z porcelain it would print, NUL-separated.
-    # [comment:1](/docs/references/automation/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md#comment1)
     BeforeEach {
         $script:porcelain = ''
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Files { 'C:\widget-repo' }

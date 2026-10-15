@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md
     kind: comment-page
-    body_sha: a0993515cac1
+    body_sha: bade05ffcf7d
 ---
 
 # automation/Catzc.Base.Objects/types/DictionaryRecord.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The shared base for typed data records that mirror an [ordered]@{} / [pscustomobject] config shape. It
@@ -32,7 +32,7 @@ it gives a record three capabilities a loose dictionary lacks or had for free:
 
 ## comment:2
 
-Above `private static bool IsDataProp(PropertyInfo p)`.
+Above `private static bool IsDataProp(PropertyInfo p)`, written with `//`.
 
 ```text
 A "data" property is one the DERIVED record declares — not this base's own view members (Keys, the

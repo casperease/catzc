@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.Maps/types/MapsPalette.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/MapsPalette.cs.md
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// The defaults are the diagram kit's dark tokens, so the slide minimaps share one look with the PDFs.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/MapsPalette.cs.md#comment1)
 
 namespace Catzc.Base.Maps;
 

@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md
     kind: comment-page
-    body_sha: cdd2a0b3e570
+    body_sha: ac40c5649ac6
 ---
 
 # automation/Catzc.Tooling.Core/Assert-Tool.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `if ($config.HasProbes()) {`.
+Above `if ($config.HasProbes()) {`, written with `#`.
 
 ```text
 A tool with declared candidate paths is located by the probe, never by its bare name on PATH (for bash on

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Contracts
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/private/Get-ContractVersionAsset.ps1.md
     adrs:
       - ADR-PWSH-ENUM#3
       - ADR-REPO-CONTRACT#2
@@ -68,8 +70,6 @@ function Get-ContractVersionAsset {
     $assets = foreach ($moduleFolder in $moduleFolders) {
         $module = [System.IO.Path]::GetFileName($moduleFolder)
         $root = [Catzc.Base.Contracts.ContractsConfig]::ResolveTargetRoot($TargetRoot, $module)
-        # A named whole-tree walk: every asset of the version is listed, so no name is pruned and no depth drops one.
-        # [comment:2](/docs/references/automation/catzc-base-contracts/private/Get-ContractVersionAsset.ps1.md#comment2)
         $files = [string[]] @(Get-ChildPath $moduleFolder -File -Depth 64 -Exclude @() -PruneVendor $false)
         $paths = [string[]] @($files | ForEach-Object { [System.IO.Path]::GetRelativePath($moduleFolder, $_) -replace '\\', '/' })
         [System.Array]::Sort($paths, [System.StringComparer]::Ordinal)

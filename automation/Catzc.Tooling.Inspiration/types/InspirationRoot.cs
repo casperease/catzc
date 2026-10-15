@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
     kind: csharp-type
     module: Catzc.Tooling.Inspiration
+    relatives:
+      page: docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md
+      test: automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
     adrs:
       - ADR-AUTO-PATH#11
       - ADR-AUTO-PATH#3
       - ADR-AUTO-PATH#6
 ---
 */
-
-// The platform is a parameter, not a probe, so every branch is deterministic and testable on any OS.
-// [comment:1](/docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -35,8 +35,6 @@ public static class InspirationRoot
         return root != null && root.StartsWith(WorkspaceAnchor + "/", StringComparison.Ordinal);
     }
 
-    // A root may carry the {workspace} anchor as its first segment; a path inside a root never does.
-    // [comment:2](/docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md#comment2)
     public static string[] Violations(string label, string value, bool allowAnchor)
     {
         List<string> errors = new List<string>();
@@ -68,8 +66,6 @@ public static class InspirationRoot
         return errors.ToArray();
     }
 
-    // Only on Windows is a Git Bash '/c/projects' a drive path; elsewhere '/c/...' is a real path and stays as it is.
-    // [comment:3](/docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md#comment3)
     public static string ToNative(string path, bool windows)
     {
         if (path == null) { throw new ArgumentNullException(nameof(path)); }

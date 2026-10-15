@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Reports/types/OutputRetention.cs
     kind: csharp-type
     module: Catzc.Base.Reports
+    relatives:
+      test: automation/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1
 ---
 */
 

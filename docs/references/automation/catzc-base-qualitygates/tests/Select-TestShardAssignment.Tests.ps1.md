@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Select-TestShardAssignment.Tests.ps1.md
-    kind: test-asset
-    body_sha: "558a7614e3b1"
+    kind: comment-page
+    body_sha: "83105447c674"
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Select-TestShardAssignment.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Select-TestShardAssignment' -Tag 'L0', 'logic' {`.
+Above `Describe 'Select-TestShardAssignment' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Longest-first scheduling of the parallel test files over the worker shards. Neutral fixture names
@@ -24,7 +24,7 @@ Longest-first scheduling of the parallel test files over the worker shards. Neut
 
 ## comment:2
 
-Above `$shards[0] | Should -Be @((& $script:path 'widget'), (& $script:path 'gadget'))`.
+Above `$shards[0] | Should -Be @((& $script:path 'widget'), (& $script:path 'gadget'))`, written with `#`.
 
 ```text
 widget 9 s on one shard, sprocket 5 + gizmo 4 on the other (9 s each); the two 1 s files then go one to each,

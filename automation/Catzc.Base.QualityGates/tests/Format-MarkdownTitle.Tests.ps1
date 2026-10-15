@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Format-MarkdownTitle.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Format-MarkdownTitle.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-CONTRACT#6
@@ -97,8 +100,6 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', '
     }
 
     It 're-points links in the whole scope when -Path narrows the check' {
-        # Filter on the bound parameters, not on $Path: an unbound -Path resolves $Path from a caller's scope (the...
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Format-MarkdownTitle.Tests.ps1.md#comment1)
         Mock Get-MarkdownScope { , [string[]] @('docs/widget.md') } -ModuleName Catzc.Base.QualityGates -ParameterFilter {
             $PesterBoundParameters.ContainsKey('Path')
         }

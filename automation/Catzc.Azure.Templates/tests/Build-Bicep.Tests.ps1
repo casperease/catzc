@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/Build-Bicep.ps1
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#26
@@ -13,11 +16,7 @@ catzc:
 
 # cspell:ignore alweutstsmplst
 Describe 'Build-Bicep' -Tag 'L0', 'logic' {
-    # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the build output...
-    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md#comment1)
     BeforeAll {
-        # Own output root through the seam: any other file building the 'sample' fixture from a sibling worker can...
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md#comment2)
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep/template/sample'
         Mock Get-BicepTemplatesOutputRoot {
             Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep'
@@ -45,8 +44,6 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
-        # Warm the discovery and config caches once, here — the cold re-derive the reset above forces is one-time...
-        # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md#comment3)
         Get-BicepTemplates | Out-Null
         Get-Config -Config azure | Out-Null
     }
@@ -118,8 +115,6 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     }
 
     It 'asserts the Bicep CLI is available before building' {
-        # The Bicep CLI guard (Assert-AzCliBicep, in Catzc.Azure.Cli) throws -> Build-Bicep stops before any az bicep...
-        # [comment:4](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md#comment4)
         Mock Assert-AzCliBicep { throw 'Bicep CLI not available. Run az bicep install.' } -ModuleName Catzc.Azure.Templates
         { Build-Bicep sample -Environments alpha } | Should -Throw '*az bicep install*'
         Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.Templates -Times 0 -ParameterFilter { $Arguments -match 'bicep build' }
@@ -139,8 +134,6 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
 
 Describe 'Build-Bicep (real az)' -Tag 'L2', 'logic' {
     BeforeAll {
-        # Own output root through the seam (see the mocked-az block's note) — same isolated root as that block: one...
-        # [comment:5](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md#comment5)
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep/template/sample'
     }
 

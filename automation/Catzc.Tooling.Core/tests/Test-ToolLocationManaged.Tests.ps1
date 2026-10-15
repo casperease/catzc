@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/tests/Test-ToolLocationManaged.Tests.ps1.md
+      source: automation/Catzc.Tooling.Core/private/Test-ToolLocationManaged.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
-    # Prefix logic keyed on Windows paths; the Unix branches are analogous and not exercised here.
-    # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Test-ToolLocationManaged.Tests.ps1.md#comment1)
     BeforeEach {
         if (-not $IsWindows) {
             Set-ItResult -Skipped -Because 'windows_only_paths'
@@ -28,8 +29,6 @@ Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
 
     It 'treats a winget user-scope installer package (%LOCALAPPDATA%\Programs, e.g. OpenJDK) as managed' {
         InModuleScope Catzc.Tooling.Core {
-            # winget installs Microsoft.OpenJDK user-scope under %LOCALAPPDATA%\Programs, NOT under...
-            # [comment:2](/docs/references/automation/catzc-tooling-core/tests/Test-ToolLocationManaged.Tests.ps1.md#comment2)
             $config = Get-ToolConfig -Tool 'java'
             $loc = Join-Path $env:LOCALAPPDATA 'Programs\Microsoft\jdk-17.0.10.7-hotspot\bin\java.exe'
             Test-ToolLocationManaged -Config $config -Location $loc | Should -BeTrue
@@ -38,8 +37,6 @@ Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
 
     It 'treats a standalone uv under ~/.local/bin as managed' {
         InModuleScope Catzc.Tooling.Core {
-            # Install-Uv treats a uv on PATH outside the winget root (its standalone/user bin) as a managed,...
-            # [comment:3](/docs/references/automation/catzc-tooling-core/tests/Test-ToolLocationManaged.Tests.ps1.md#comment3)
             $config = Get-ToolConfig -Tool 'uv'
             $loc = Join-Path $env:USERPROFILE '.local\bin\uv.exe'
             Test-ToolLocationManaged -Config $config -Location $loc | Should -BeTrue

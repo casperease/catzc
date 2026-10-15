@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-LogicTestIdentityFinding.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-PWSH-FORMAT#6
@@ -61,8 +64,6 @@ function Get-LogicTestIdentityFinding {
     $parseErrors = $null
     $ast = [System.Management.Automation.Language.Parser]::ParseFile($Path, [ref]$parseTokens, [ref]$parseErrors)
 
-    # Predicates bound to locals (never inlined in a.FindAll(...) call) —.
-    # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment6)
     $isCommandNode = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]
@@ -73,8 +74,6 @@ function Get-LogicTestIdentityFinding {
     }
     $commands = $ast.FindAll($isCommandNode, $true)
 
-    # Walk the Pester block commands once: note whether the file carries a `logic` tag anywhere, and collect the...
-    # [comment:7](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment7)
     $hasLogic = $false
     $integrityRanges = [System.Collections.Generic.List[object]]::new()
     foreach ($command in $commands) {
@@ -133,8 +132,6 @@ function Get-LogicTestIdentityFinding {
         $false
     }
 
-    # Exact pass — a distinctive identity (customer / subscription / org / template / project) flagged as a bare...
-    # [comment:8](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment8)
     $literals = $ast.FindAll($isStringLiteral, $true)
     foreach ($literal in $literals) {
         $value = $literal.Value
@@ -165,8 +162,6 @@ function Get-LogicTestIdentityFinding {
             })
     }
 
-    # Position pass — an ambiguous identity (an environment name or shortcode, like 'test'/'dev') is flagged ONLY...
-    # [comment:9](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment9)
     $identityParameters = 'Environment', 'Env', 'Shortcode'
     foreach ($command in $commands) {
         $elements = $command.CommandElements

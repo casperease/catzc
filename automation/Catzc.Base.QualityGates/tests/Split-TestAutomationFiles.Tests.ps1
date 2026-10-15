@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.QualityGates/private/Split-TestAutomationFiles.ps1
     adrs:
       - ADR-AUTO-TEST#26
 ---

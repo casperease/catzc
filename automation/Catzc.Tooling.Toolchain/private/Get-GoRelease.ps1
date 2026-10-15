@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: private
+    relatives:
+      test: automation/Catzc.Tooling.Toolchain/tests/Get-GoRelease.Tests.ps1
   config:
     synopsis: Resolves the official Go archive for a locked version from the go.dev release feed.
     description: |-

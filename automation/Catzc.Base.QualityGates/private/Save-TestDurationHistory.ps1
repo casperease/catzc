@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Save-TestDurationHistory.Tests.ps1
   config:
     synopsis: Merges a run's measured per-file durations into the test duration history.
     description: |-

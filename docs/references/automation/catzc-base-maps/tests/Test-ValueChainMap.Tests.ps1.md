@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
-    kind: test-asset
-    body_sha: "04ffdccc0746"
+    kind: comment-page
+    body_sha: c7880f07478b
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -14,12 +14,12 @@ catzc:
 
 # automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {`.
+Above `Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-ValueChainMap reads the value-chain map Get-ValueChainMap returns and reports axes that are not the registry's
@@ -34,7 +34,7 @@ sets AdrsConfig declares, read from the type.
 
 ## comment:2
 
-Above `Describe 'Test-ValueChainMap on the repository' -Tag 'L1', 'integrity',...`.
+Above `Describe 'Test-ValueChainMap on the repository' -Tag 'L1', 'integrity',...`, written with `#`.
 
 ```text
 The registry's own value-chain map, through the quality gate. It reads only adrs.yml and maps.yml, so its answer

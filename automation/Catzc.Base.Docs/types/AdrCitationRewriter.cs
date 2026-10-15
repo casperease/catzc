@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrCitationRewriter.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md
     adrs:
       - ADR-REPO-LINK#2
 ---
 */
-
-// The rule map decides before the code map, and matching also runs inside fenced blocks, so the result depends only on text and maps.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -52,8 +51,6 @@ public sealed class AdrCitationRewriter
     readonly AdrCitationMap citations;
     readonly Regex reference;
 
-    // citations may be null only when the code map names every path; otherwise it supplies a moved rule's new path.
-    // [comment:2](/docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md#comment2)
     public AdrCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows, AdrCitationMap citations)
     {
         if (codeRows == null) { throw new ArgumentNullException(nameof(codeRows)); }
@@ -185,8 +182,6 @@ public sealed class AdrCitationRewriter
         }
     }
 
-    // An inherited bare rule number keeps the code before it, and takes its own code only when its rule moved elsewhere.
-    // [comment:3](/docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md#comment3)
     string RewriteCitation(Match match)
     {
         if (SplitsRange(match)) { return null; }
@@ -207,8 +202,6 @@ public sealed class AdrCitationRewriter
         return rewritten == match.Value ? null : rewritten;
     }
 
-    // A range spanning a moved rule cannot be rewritten endpoint by endpoint, so it is reported and left as written.
-    // [comment:4](/docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md#comment4)
     bool SplitsRange(Match match)
     {
         string oldCode = match.Groups["code"].Value;
@@ -264,8 +257,6 @@ public sealed class AdrCitationRewriter
         return angle ? "<" + result + ">" : result;
     }
 
-    // Null means leave the text alone: the reference points outside docs/adr/ or mapping it changes nothing.
-    // [comment:5](/docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md#comment5)
     string RewriteReference(string pathPart, string fragment, Form form, string self)
     {
         string target;
@@ -303,8 +294,6 @@ public sealed class AdrCitationRewriter
         return newFragment == null ? newPathPart : newPathPart + "#" + newFragment;
     }
 
-    // A rule anchor follows its rule, even to another file; any other path follows the file and folder map.
-    // [comment:6](/docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md#comment6)
     (string Path, string Fragment) MapTarget(string adrPath, string fragment, bool inFile)
     {
         string newPath = MapPath(adrPath);

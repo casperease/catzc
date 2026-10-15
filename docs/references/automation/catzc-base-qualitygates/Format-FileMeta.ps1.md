@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md
     kind: comment-page
-    body_sha: b885b6b8b4d0
+    body_sha: "17f14415274e"
     adrs:
       - ADR-AUTO-DRYRUN#2
 ---
 
 # automation/Catzc.Base.QualityGates/Format-FileMeta.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:3
+## comment:1
 
-Above `function Format-FileMeta {`.
+Above `function Format-FileMeta {`, written with `#`.
 
 ```text
 The repository's preview switch is -DryRun, so ShouldProcess and -WhatIf are deliberately absent.

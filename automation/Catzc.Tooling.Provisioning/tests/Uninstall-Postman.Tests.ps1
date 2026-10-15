@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Postman.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Postman.Tests.ps1.md
+      source: automation/Catzc.Tooling.Provisioning/Uninstall-Postman.ps1
 ---
 #>
 
 Describe 'Uninstall-Postman' -Tag 'L0', 'logic' {
-    # All filesystem/CLI boundaries are mocked: nothing is removed for real and no process launches (the L0 tripwire...
-    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Postman.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Remove-Item { } -ModuleName Catzc.Tooling.Provisioning
         Mock Assert-Command { } -ModuleName Catzc.Tooling.Provisioning

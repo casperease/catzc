@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md
     kind: comment-page
-    body_sha: "48783500490c"
+    body_sha: d38451e453fd
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-CONFIG#1
@@ -14,18 +14,18 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/configs/comments.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `languages: [powershell, yaml, pipeline-yaml, csharp, bicep]`.
+Above `languages: [powershell, yaml, pipeline-yaml, csharp, bicep]`, written with `#`.
 
 ```text
-Comment-page settings for Export-Comments / Format-Comments / Build-CommentView / Test-Comments.
+Comment-page settings for Export-Comments / Build-CommentView / Test-Comments.
 
-A file carries one line per comment — the insight, the ADR citations, and a link — and the prose lives in the
-file's comment page under docs/references, so each has exactly one living copy
+A file carries no long comment — the prose lives in the file's comment page under docs/references, and the file's
+head names the page, so each comment has exactly one living copy
 ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)). Every key is optional:
 an omitted key takes the sensible default declared once on Catzc.Base.QualityGates.CommentsConfig
 ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). The comment syntax of
@@ -35,7 +35,7 @@ each language is CommentLexer's, the one place that knows it; this file decides 
 
 ## comment:2
 
-Above `languages: [powershell, yaml, pipeline-yaml, csharp, bicep]`.
+Above `languages: [powershell, yaml, pipeline-yaml, csharp, bicep]`, written with `#`.
 
 ```text
 The file languages (languages.yml names) whose files carry comment pages. A language CommentLexer cannot read
@@ -44,7 +44,7 @@ The file languages (languages.yml names) whose files carry comment pages. A lang
 
 ## comment:3
 
-Above `keep:`.
+Above `keep:`, written with `#`.
 
 ```text
 Per language, the comment lines that never move: a prefix of a trimmed comment line (marker included for a line
@@ -55,7 +55,16 @@ language keeps the default. Tool directives (`cspell:`) stay with the code they 
 
 ## comment:4
 
-Above `pages:`.
+Above `keep_run:`, written with `#`.
+
+```text
+A head listed here keeps the whole run of comment lines it opens, which is how the meta head stays in the file.
+[ADR-REPO-CODEMETA#5](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta5)
+```
+
+## comment:5
+
+Above `pages:`, written with `#`.
 
 ```text
 Where a file's comment page lives, first match wins. `source` is a folder, or `<prefix>/*` for each immediate
@@ -66,31 +75,22 @@ lowercased with dots turned to hyphens. The page keeps the file's name and exten
 (automation/Catzc.Base.QualityGates/Format-Code.ps1 -> docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md).
 ```
 
-## comment:5
+## comment:6
 
-Above `exclude:`.
+Above `exclude:`, written with `#`.
 
 ```text
 Files that keep their comments: repository-relative glob (the durable-sha-globs dialect) -> why. An asset is copied or
-published verbatim elsewhere (a root-config template, the hook's C# source, a standalone script), where a residue's docs link
-would be foreign. A test is not listed, so its prose moves to a comment page like any other file's. Listing this key replaces
+published verbatim elsewhere (a root-config template, the hook's C# source, a standalone script), where a page of this
+repository would be foreign. A test is not listed, so its prose moves to a comment page like any other file's. Listing this key replaces
 the default map, so only the asset entry is kept.
-```
-
-## comment:6
-
-Above `view: out/annotated`.
-
-```text
-The gitignored folder, under out/, Build-CommentView writes the annotated view to
-([ADR-REPO-OUTDIR#1](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir1)).
 ```
 
 ## comment:7
 
-Above `keep_run:`.
+Above `view: out/annotated`, written with `#`.
 
 ```text
-A head listed here keeps the whole run of comment lines it opens, which is how the meta head stays in the file.
-[ADR-REPO-CODEMETA#5](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta5)
+The gitignored folder, under out/, Build-CommentView writes the annotated view to
+([ADR-REPO-OUTDIR#1](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir1)).
 ```

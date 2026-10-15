@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Files
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1
   config:
     synopsis: 'Returns the repository paths that differ from HEAD: what the working tree has changed.'
     description: |-

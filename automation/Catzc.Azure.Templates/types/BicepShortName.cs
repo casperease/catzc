@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepShortName.cs
     kind: csharp-type
     module: Catzc.Azure.Templates
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md
+      test: automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#9
       - ADR-AZ-NAMING
@@ -12,9 +15,6 @@ catzc:
       - ADR-AZ-NAMING#6
 ---
 */
-
-// Only the short_name is Azure-facing; the kebab-case folder name never reaches a resource name.
-// [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md#comment1)
 
 using System;
 using System.Text;
@@ -25,8 +25,6 @@ public sealed class BicepShortName
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // Five keeps the worst-case tight storage name at 23 of 24 characters, with a byte to spare.
-    // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md#comment2)
     public const int MaxLength = 5;
 
     // The template's on-disk folder name (the readable, kebab-case identifier). Always present.
@@ -45,8 +43,6 @@ public sealed class BicepShortName
         this.overridden = overridden;
     }
 
-    // Throws, naming the template, on a malformed override or when the folder cannot derive a valid name without one.
-    // [comment:3](/docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md#comment3)
     public static BicepShortName Resolve(string folder, string overrideValue)
     {
         if (string.IsNullOrWhiteSpace(folder)) { throw new ArgumentException("BicepShortName requires a folder name"); }
@@ -73,8 +69,6 @@ public sealed class BicepShortName
         return new BicepShortName(folder, derived, false);
     }
 
-    // Pure and total: an all-punctuation folder yields an empty string, which Resolve rejects and so prompts an override.
-    // [comment:4](/docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md#comment4)
     public static string Derive(string folder)
     {
         if (folder == null) { throw new ArgumentException("BicepShortName.Derive requires a folder name"); }
@@ -90,8 +84,6 @@ public sealed class BicepShortName
         return sb.ToString();
     }
 
-    // Mirrors the options.yml schema regex, so a name that passes here also passes Read-BicepTemplateOptions.
-    // [comment:5](/docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md#comment5)
     public static bool IsValid(string value)
     {
         if (string.IsNullOrEmpty(value)) { return false; }

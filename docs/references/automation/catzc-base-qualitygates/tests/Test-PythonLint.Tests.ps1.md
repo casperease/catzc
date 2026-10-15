@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-PythonLint.Tests.ps1.md
-    kind: test-asset
-    body_sha: "5f348a8e3db7"
+    kind: comment-page
+    body_sha: "6d12d5cc0bb7"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-PythonLint' -Tag 'L0', 'logic' {`.
+Above `Describe 'Test-PythonLint' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-PythonLint is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
@@ -27,7 +27,7 @@ $TestDrive. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-a
 
 ## comment:2
 
-Above `Describe 'Repository Python lint integrity' -Tag 'L2', 'integrity',...`.
+Above `Describe 'Repository Python lint integrity' -Tag 'L2', 'integrity',...`, written with `#`.
 
 ```text
 Integrity: every Python file the repository holds passes ruff check — the Python tests and the agent helpers. L2

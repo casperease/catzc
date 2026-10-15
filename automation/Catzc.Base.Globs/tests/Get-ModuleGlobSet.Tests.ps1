@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md
+      source: automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
     adrs:
       - ADR-AUTO-BASH#2
       - ADR-AUTO-GO#2
@@ -14,8 +17,6 @@ catzc:
 ---
 #>
 
-# The derived globsets: folder = module = set (readme-kebab name), one single-file set per internal.psm1 module,...
-# [comment:1](/docs/references/automation/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md#comment1)
 Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
@@ -26,8 +27,6 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
             'automation/.internal/Catzc.Internal.Alpha.psm1' = 'function Test-InternalAlpha {}'
             'automation/.internal/Catzc.Internal.Beta.psm1'  = 'function Test-InternalBeta {}'
         }
-        # Neutral fixture globset name (widget), not the real 'automation' set; this declared set only needs to exist...
-        # [comment:2](/docs/references/automation/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md#comment2)
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**') } }
             })
@@ -131,8 +130,6 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
     }
 }
 
-# The reserved-name guard lives in the registry type itself.
-# [comment:3](/docs/references/automation/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md#comment3)
 Describe 'GlobsConfig reserved names' -Tag 'L0', 'logic' {
     It 'rejects a declared set named after a reserved infra scope' {
         {

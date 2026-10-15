@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Enter-SystemTestLock.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Enter-SystemTestLock.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Enter-SystemTestLock.ps1
     adrs:
       - ADR-AUTO-TEST#33
 ---
@@ -12,12 +15,8 @@ catzc:
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The lock-holding helper''s Name parameter is consumed via $using: inside its Start-ThreadJob scriptblock, which this rule does not trace')]
 param()
 
-# L1: real named mutexes, held and abandoned from thread jobs.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Enter-SystemTestLock.Tests.ps1.md#comment1)
 Describe 'Enter-SystemTestLock' -Tag 'L1', 'logic', 'ADR-AUTO-TEST#33' {
     BeforeAll {
-        # A lock held by another thread: a mutex is re-entrant on its owning thread, so a held lock is only...
-        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Enter-SystemTestLock.Tests.ps1.md#comment2)
         $script:holdLock = {
             param([string] $Name)
             $acquired = [System.Threading.ManualResetEventSlim]::new($false)

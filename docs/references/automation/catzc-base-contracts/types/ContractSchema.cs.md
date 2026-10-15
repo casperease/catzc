@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/types/ContractSchema.cs.md
     kind: comment-page
-    body_sha: "3afc2d46d2ba"
+    body_sha: "0afe717d6ec7"
     adrs:
       - ADR-PWSH-TYPES#1
       - ADR-REPO-CONTRACT#6
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Contracts/types/ContractSchema.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The schema check of a contract asset ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)):

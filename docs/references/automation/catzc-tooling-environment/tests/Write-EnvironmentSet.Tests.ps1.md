@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-environment/tests/Write-EnvironmentSet.Tests.ps1.md
-    kind: test-asset
-    body_sha: "85e87ccfe512"
+    kind: comment-page
+    body_sha: "14874f986e4b"
 ---
 
 # automation/Catzc.Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Should -Invoke Set-ProcessEnvironmentVariable -ModuleName...`.
+Above `Should -Invoke Set-ProcessEnvironmentVariable -ModuleName...` (occurrence 9), written with `#`.
 
 ```text
 The finally restores-to-unset: the seam is called with an empty/null value for that name

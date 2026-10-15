@@ -3,28 +3,28 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md
     kind: comment-page
-    body_sha: "915416a63012"
+    body_sha: "25a228011c9c"
     adrs:
       - ADR-AUTO-CONSOLE#11
 ---
 
 # automation/Catzc.Base.Environment/Sync-SessionPath.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `$seen = [System.Collections.Generic.HashSet[string]]::new(`.
+Above `$seen = [System.Collections.Generic.HashSet[string]]::new(`, written with `#`.
 
 ```text
 Add any registry entries not yet in the session
 @() so an empty $kept yields an empty array, not $null (HashSet's ctor rejects a null collection).
 ```
 
-## comment:5
+## comment:2
 
-Above `$added = @($newPaths)`.
+Above `$added = @($newPaths)`, written with `#`.
 
 ```text
 Rewrite the session PATH only when an entry arrives or leaves, and say which

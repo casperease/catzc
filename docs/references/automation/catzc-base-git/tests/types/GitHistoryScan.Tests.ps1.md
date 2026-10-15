@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md
-    kind: test-asset
-    body_sha: "149154f7a7e9"
+    kind: comment-page
+    body_sha: d118d67a879c
 ---
 
 # automation/Catzc.Base.Git/tests/types/GitHistoryScan.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `function script:New-ObjectId {`.
+Above `function script:New-ObjectId {`, written with `#`.
 
 ```text
 Builds a `git cat-file --batch` stream by hand. Object ids are made up (any 40 hex digits): the scan
@@ -22,7 +22,7 @@ indexes the stream by id and never re-hashes content.
 
 ## comment:2
 
-Above `$ids = @{}`.
+Above `$ids = @{}`, written with `#`.
 
 ```text
 A two-commit history:

@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/types/ContractSchema.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/tests/types/ContractSchema.Tests.ps1.md
+      source: automation/Catzc.Base.Contracts/types/ContractSchema.cs
     adrs:
       - ADR-REPO-CONTRACT#6
 ---
 #>
 
-# ContractSchema validates a parsed value against a bounded JSON Schema subset: type, required, properties,...
-# [comment:1](/docs/references/automation/catzc-base-contracts/tests/types/ContractSchema.Tests.ps1.md#comment1)
 Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
     BeforeAll {
         function Get-SchemaFinding {

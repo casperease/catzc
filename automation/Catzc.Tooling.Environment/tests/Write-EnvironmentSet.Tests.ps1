@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-environment/tests/Write-EnvironmentSet.Tests.ps1.md
+      source: automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
 ---
 #>
 
@@ -122,8 +125,6 @@ Describe 'Write-EnvironmentSet' -Tag 'L0' {
 
             Write-EnvironmentSet -Set @{} -Value @{ WES_TEST_UNSET = '1' } -ScriptBlock { }
 
-            # The finally restores-to-unset: the seam is called with an empty/null value for that name (a...
-            # [comment:1](/docs/references/automation/catzc-tooling-environment/tests/Write-EnvironmentSet.Tests.ps1.md#comment1)
             Should -Invoke Set-ProcessEnvironmentVariable -ModuleName Catzc.Tooling.Environment -ParameterFilter {
                 $Name -eq 'WES_TEST_UNSET' -and [string]::IsNullOrEmpty($Value)
             }

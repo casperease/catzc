@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/modules/private-endpoint.bicep
 //     kind: bicep-module
+//     relatives:
+//       page: docs/references/infrastructure/modules/private-endpoint.bicep.md
 // ---
-
-// The DNS zone group registers the endpoint address, and the zones may live in the hub's subscription, not this one.
-// [comment:1](/docs/references/infrastructure/modules/private-endpoint.bicep.md#comment1)
 
 @description('Private endpoint name (2-64 characters, unique within the resource group).')
 param name string

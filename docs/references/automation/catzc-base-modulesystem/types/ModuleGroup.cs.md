@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md
     kind: comment-page
-    body_sha: "895ab2006d77"
+    body_sha: "47684d3e87c2"
     adrs:
       - ADR-AUTO-DEPM#3
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One declared module group of configs/dependencies.yml (`groups: <name>: <member>: [members]`): a named set of

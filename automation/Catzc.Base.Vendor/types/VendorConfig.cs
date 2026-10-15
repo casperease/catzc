@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Vendor/types/VendorConfig.cs
     kind: csharp-type
     module: Catzc.Base.Vendor
+    relatives:
+      page: docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md
+      test: automation/Catzc.Base.Vendor/tests/types/VendorConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-PWSH-VENDOR
 ---
 */
-
-// An unknown key, a missing source or a non-absolute sourceUrl fails at load, all violations in one ArgumentException.
-// [comment:1](/docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -27,8 +27,6 @@ public sealed class VendorConfig : Catzc.Base.Objects.DictionaryRecord
     // The registered PSResourceRepository to download from and validate against (PSGallery by default).
     public string source { get; }
 
-    // Null when the source is a built-in repository that needs no url.
-    // [comment:2](/docs/references/automation/catzc-base-vendor/types/VendorConfig.cs.md#comment2)
     public string sourceUrl { get; }
 
     public VendorConfig(IDictionary d)

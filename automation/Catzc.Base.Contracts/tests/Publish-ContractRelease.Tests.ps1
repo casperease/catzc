@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/Publish-ContractRelease.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/tests/Publish-ContractRelease.Tests.ps1.md
+      source: automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-ENUM#3
@@ -11,8 +14,6 @@ catzc:
 ---
 #>
 
-# Publish-ContractRelease freezes a unit's draft as a released version folder: an exact copy plus its.frozen record,...
-# [comment:1](/docs/references/automation/catzc-base-contracts/tests/Publish-ContractRelease.Tests.ps1.md#comment1)
 Describe 'Publish-ContractRelease' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#5' {
     BeforeAll {
         function Add-File {
@@ -28,8 +29,6 @@ Describe 'Publish-ContractRelease' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#5' {
             if (-not [System.IO.Directory]::Exists($folder)) {
                 return @()
             }
-            # A whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the
-            # frozen copy is compared file for file, so nothing is pruned.
             $paths = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @() -PruneVendor $false |
                     ForEach-Object { [System.IO.Path]::GetRelativePath($folder, $_) -replace '\\', '/' })
             [System.Array]::Sort($paths, [System.StringComparer]::Ordinal)

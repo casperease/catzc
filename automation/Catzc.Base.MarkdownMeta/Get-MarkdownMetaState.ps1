@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.MarkdownMeta
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.MarkdownMeta/tests/Get-MarkdownMetaState.Tests.ps1
     adrs:
       - ADR-REPO-FILEMETA#1
       - ADR-REPO-FILEMETA#3

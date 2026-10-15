@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GlossaryOptions.cs.md
     kind: comment-page
-    body_sha: e0b077b943f7
+    body_sha: "1f8295ac3f17"
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-VOCAB#2
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/types/GlossaryOptions.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A glossary source's parameters (the optional configs/glossary.yml `options:` mapping), with every key defaulted:
@@ -32,7 +32,7 @@ source's own, so no source can scan DORA's research text or out/. Scope and excl
 
 ## comment:2
 
-Above `private static IReadOnlyList<string> ClosedList(IDictionary d, string key,...`.
+Above `private static IReadOnlyList<string> ClosedList(IDictionary d, string key,...`, written with `//`.
 
 ```text
 A list option restricted to a closed set; absent -> the whole set. An explicit empty list is allowed (a source

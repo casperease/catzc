@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.CodeMeta
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.CodeMeta/tests/Get-CodeMetaState.Tests.ps1
     adrs:
       - ADR-REPO-CODEMETA#1
   config:

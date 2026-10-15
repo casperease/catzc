@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/tests/types/VscodePipelineSchemaConfig.Tests.ps1.md
-    kind: test-asset
-    body_sha: "34045e4e54ad"
+    kind: comment-page
+    body_sha: dbb5c6f2ca2b
 ---
 
 # automation/Catzc.Base.VSCode/tests/types/VscodePipelineSchemaConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Catzc.Base.VSCode.VscodePipelineSchemaConfig' -Tag 'L0' {`.
+Above `Describe 'Catzc.Base.VSCode.VscodePipelineSchemaConfig' -Tag 'L0' {`, written with `#`.
 
 ```text
 The vscode-pipeline-schema.yml type: constructing it maps and validates the parsed YAML, so a schema that would

@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/FileMetaKind.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/FileMetaKind.cs.md
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-FILEMETA#2
       - ADR-REPO-FILEMETA#4
 ---
 */
-
-// One entry of the meta-kind registry; the defaults of an omitted key are declared here, once.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/FileMetaKind.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -115,8 +114,6 @@ public sealed class FileMetaKind
         processor = explicitProcessor ?? ConventionName(id, direction);
     }
 
-    // The function a module subscribes by default: Get-<Id>FileMetaFact, or Get-<Id>MarkdownConfigContribution.
-    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/FileMetaKind.cs.md#comment2)
     public static string ConventionName(string id, FileMetaDirection direction)
     {
         string words = string.Concat(id.Split('-').Select(word => char.ToUpperInvariant(word[0]) + word.Substring(1)));

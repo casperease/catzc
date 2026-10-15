@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Select-RuleTaggedFiles.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Select-RuleTaggedFiles.ps1
     adrs:
       - ADR-AUTO-TEST#27
 ---
@@ -11,8 +14,6 @@ catzc:
 
 Describe 'Select-RuleTaggedFiles' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#27' {
     BeforeAll {
-        # Fake discovery tests keyed by file, each with a block-chain the resolver walks.
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Select-RuleTaggedFiles.Tests.ps1.md#comment1)
         function New-FakeTest {
             param([string] $File, [string[]] $Tags)
             $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }

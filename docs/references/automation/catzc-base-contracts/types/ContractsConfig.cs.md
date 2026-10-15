@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md
     kind: comment-page
-    body_sha: "8a1181fd5a34"
+    body_sha: a2f5ef401d9f
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -15,12 +15,12 @@ catzc:
 
 # automation/Catzc.Base.Contracts/types/ContractsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The contracts settings (configs/contracts.yml), and the single declaration of their sensible defaults: every key is
@@ -47,7 +47,7 @@ Property names mirror the YAML keys (snake_case,
 
 ## comment:2
 
-Above `public static readonly string[] AddressingModes = { "full-path",...`.
+Above `public static readonly string[] AddressingModes = { "full-path",...`, written with `//`.
 
 ```text
 Every declared addressing mode: full-path (the asset's own path), manifest-glob (a glob in a manifest names the
@@ -56,7 +56,7 @@ files), per-folder (one asset applies to each file of its folder).
 
 ## comment:3
 
-Above `public static readonly string[] BuiltAddressingModes = { "full-path" };`.
+Above `public static readonly string[] BuiltAddressingModes = { "full-path" };`, written with `//`.
 
 ```text
 The modes that are built. A mode joins this list only once it is proven from every engine (ExecutionEngines),
@@ -65,7 +65,7 @@ since a contract is resolved under each of them.
 
 ## comment:4
 
-Above `public static string ResolveTargetRoot(IDictionary targetRoots, string module)`.
+Above `public static string ResolveTargetRoot(IDictionary targetRoots, string module)`, written with `//`.
 
 ```text
 The target root of one module: its entry in targetRoots, else DefaultTargetRoot. targetRoots is the resolved

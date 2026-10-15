@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md
     kind: comment-page
-    body_sha: "2a12e14ec9f7"
+    body_sha: "1bd5d0ba42ef"
 ---
 
 # automation/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:3
+## comment:1
 
-Above ``$result = Invoke-Executable "dotnet build `"$project`" --configuration...``.
+Above ``$result = Invoke-Executable "dotnet build `"$project`" --configuration...``, written with `#`.
 
 ```text
 The stamp task's "stamped version …" line and any analyzer diagnostics stream through. A non-zero exit

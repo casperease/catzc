@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md
     kind: comment-page
-    body_sha: "9ddb315ecdf6"
+    body_sha: "31ed3a23fc1d"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `foreach ($testFolder in @(Get-LanguageTestFolders)) {`.
+Above `foreach ($testFolder in @(Get-LanguageTestFolders)) {`, written with `#`.
 
 ```text
 The language test folders (Go, then Python), each after its module's tests folder (Get-LanguageTestFolders

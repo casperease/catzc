@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md
+      test: automation/Catzc.Azure.Templates/tests/Get-BicepResourceName.Tests.ps1
     adrs:
       - ADR-AZ-NAMING#8
   config:
@@ -78,12 +81,8 @@ function Get-BicepResourceName {
 
     $templateDescriptor = Get-BicepTemplate $Template
     $azure = Get-Config -Config azure
-    # Naming needs only the environment's IDENTITY (shortcode/region_code), never a subscription — so it reads...
-    # [comment:6](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment6)
     $envEntry = $azure.environments[$Environment]
 
-    # The namer picks the env form by pattern (name for generous, shortcode for restricted); env and slot are...
-    # [comment:7](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment7)
     $nameArgs = @{
         Env        = $Environment
         Shortcode  = $envEntry.shortcode
@@ -97,8 +96,6 @@ function Get-BicepResourceName {
         $nameArgs['Slot'] = $Slot
     }
     if (-not [string]::IsNullOrEmpty($Customer)) {
-        # Resolve the customer (given by key OR 2-char shortcode) to its canonical key + shortcode from customer.yml:...
-        # [comment:8](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment8)
         $resolvedCustomer = Get-AzureCustomer $Customer
         $nameArgs['Customer'] = $resolvedCustomer.key
         $nameArgs['CustomerShortcode'] = $resolvedCustomer.shortcode

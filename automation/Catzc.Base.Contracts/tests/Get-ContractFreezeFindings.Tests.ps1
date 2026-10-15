@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md
+      source: automation/Catzc.Base.Contracts/private/Get-ContractFreezeFindings.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-CONTRACT#5
 ---
 #>
 
-# A released version folder is immutable: Get-ContractFreezeFindings compares its files with the.frozen record...
-# [comment:1](/docs/references/automation/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md#comment1)
 Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#5' {
     BeforeAll {
         function Add-File {
@@ -113,8 +114,6 @@ Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#5' 
     }
 }
 
-# Every released version folder in the repository's contracts/ tree, one test each, discovered from the tree: a...
-# [comment:2](/docs/references/automation/catzc-base-contracts/tests/Get-ContractFreezeFindings.Tests.ps1.md#comment2)
 BeforeDiscovery {
     $contractsRoot = Join-Path (Get-RepositoryRoot) 'contracts'
     $script:releasedCases = @(if ([System.IO.Directory]::Exists($contractsRoot)) {

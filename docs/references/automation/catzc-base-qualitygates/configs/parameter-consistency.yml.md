@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/parameter-consistency.yml.md
     kind: comment-page
-    body_sha: "1dc57b53c8c3"
+    body_sha: "2a5f985b2258"
     adrs:
       - ADR-AUTO-DEFAULT#6
 ---
 
 # automation/Catzc.Base.QualityGates/configs/parameter-consistency.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `exempt:`.
+Above `exempt:`, written with `#`.
 
 ```text
 The parameter names Test-ParameterConsistency lets carry more than one type across the public functions. A name is

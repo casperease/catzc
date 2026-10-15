@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.VSCode/tests/New-VSCodePipelineSchema.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-vscode/tests/New-VSCodePipelineSchema.Tests.ps1.md
+      source: automation/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1
     adrs:
       - ADR-PWSH-PESTER#2
 ---
@@ -11,8 +14,6 @@ catzc:
 
 Describe 'New-VSCodePipelineSchema' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the config seam: a small fixture schema registry.
-        # [comment:1](/docs/references/automation/catzc-base-vscode/tests/New-VSCodePipelineSchema.Tests.ps1.md#comment1)
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodePipelineSchemaConfig]::new([ordered]@{
                     '$schema'  = 'http://example.test/schema#'

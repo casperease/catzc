@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/types/RootConfigFiles.cs.md
     kind: comment-page
-    body_sha: "74ab3eb16473"
+    body_sha: e074da723ab0
 ---
 
 # automation/Catzc.Base.RootConfig/types/RootConfigFiles.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The root-config registry (configs/rootconfig.yml) and its validity rules: a required 'files' list of

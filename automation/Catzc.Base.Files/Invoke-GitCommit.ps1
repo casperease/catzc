@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Files
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Files/tests/Invoke-GitCommit.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-IDEM

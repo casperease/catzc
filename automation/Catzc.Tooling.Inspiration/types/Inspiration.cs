@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Tooling.Inspiration/types/Inspiration.cs
     kind: csharp-type
     module: Catzc.Tooling.Inspiration
+    relatives:
+      page: docs/references/automation/catzc-tooling-inspiration/types/Inspiration.cs.md
     adrs:
       - ADR-AUTO-PATH#5
       - ADR-REPO-INSPIRE#1
 ---
 */
-
-// Root is absolute because an inspiration lives outside the repository; the portable form stays in inspiration.yml.
-// [comment:1](/docs/references/automation/catzc-tooling-inspiration/types/Inspiration.cs.md#comment1)
 
 using System;
 

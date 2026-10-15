@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Writers
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md
   config:
     synopsis: |-
       Normalises a writer's -ForegroundColor argument into a colour plan — a plain ConsoleColor or a rainbow
@@ -45,8 +47,6 @@ function Resolve-WriterColor {
     if ($ForegroundColor -is [Catzc.Base.Writers.RainbowColor]) {
         return @{ HasColor = $true; IsRainbow = $true; Rainbow = $ForegroundColor; Base = $ForegroundColor.Base }
     }
-    # A 'rainbow' / '<base>-rainbow' bareword resolves to a gradient profile (the ToString round-trip); any other...
-    # [comment:3](/docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md#comment3)
     if ($ForegroundColor -is [string]) {
         $found = [Catzc.Base.Writers.RainbowColor]::FromString($ForegroundColor)
         if ($found) {

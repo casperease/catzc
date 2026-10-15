@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Vendor/tests/Assert-VendorModuleAvailable.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Vendor/Assert-VendorModuleAvailable.ps1
 ---
 #>
 

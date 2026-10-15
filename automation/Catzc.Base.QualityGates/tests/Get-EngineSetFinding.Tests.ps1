@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-EngineSetFinding.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Get-EngineSetFinding.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Get-EngineSetFinding.ps1
     adrs:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-EngineSetFinding over fixture texts, with a fixture engine set — widget, gadget and sprocket stand in for the...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-EngineSetFinding.Tests.ps1.md#comment1)
 Describe 'Get-EngineSetFinding' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:check = [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{

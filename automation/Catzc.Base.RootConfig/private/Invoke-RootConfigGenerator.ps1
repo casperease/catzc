@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.RootConfig
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
     adrs:
       - ADR-AUTO-GO#6
       - ADR-AUTO-PY#4
@@ -42,13 +44,9 @@ function Invoke-RootConfigGenerator {
 
     switch ($Name) {
         'New-Importer' {
-            # The importer.ps1 shim, rendered from the Invoke-Importer overlay's param block (-DryRun returns the...
-            # [comment:12](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment12)
             New-Importer -DryRun
         }
         'New-GitIgnore' {
-            # The root.gitignore, rendered from the gitignore section registry (Catzc.Base.Git).
-            # [comment:13](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment13)
             $config = Get-Config -Config rootconfig
             $ignoredCopies = @(foreach ($entry in @(Get-RootConfigTargets -Config $config)) {
                     if (-not $entry.committed) {
@@ -58,21 +56,15 @@ function Invoke-RootConfigGenerator {
             New-GitIgnore -Inject @{ 'rootconfig-committed-false' = $ignoredCopies }
         }
         'New-VSCodeSettings' {
-            # The VS Code workspace settings, rendered from the vscode-settings registry (Catzc.Base.VSCode).
-            # [comment:14](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment14)
             $config = Get-Config -Config rootconfig
             $managedTargets = @(foreach ($entry in @(Get-RootConfigTargets -Config $config)) {
                     $entry.target
                 })
-            # The managed Go toolchain, when found at the pin: the Go extension and gopls otherwise run whichever go...
-            # [comment:15](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment15)
             $machineSetting = @{}
             $go = Resolve-ToolExecutable -Tool go
             if ($go.Found -and $go.VersionOk) {
                 $machineSetting['go.goroot'] = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($go.Path))
             }
-            # The Python test workspace's one environment, under the resolved Python root and in this platform's...
-            # [comment:16](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment16)
             $pythonRoot = (Get-Config -Config python).ResolveRoot((Get-RepositoryRoot))
             $machineSetting['python.defaultInterpreterPath'] = if ($IsWindows) {
                 "`${workspaceFolder}/$pythonRoot/.venv/Scripts/python.exe"
@@ -80,8 +72,6 @@ function Invoke-RootConfigGenerator {
             else {
                 "`${workspaceFolder}/$pythonRoot/.venv/bin/python"
             }
-            # Each language's editor formatter, from the file-language registry: Format Document runs the engine...
-            # [comment:17](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment17)
             $languageFormatter = [ordered]@{}
             $editorFormatters = (Get-Config -Config languages).EditorFormatters()
             foreach ($id in $editorFormatters.Keys) {
@@ -90,8 +80,6 @@ function Invoke-RootConfigGenerator {
             New-VSCodeSettings -ManagedTarget $managedTargets -MachineSetting $machineSetting -LanguageFormatter $languageFormatter
         }
         'New-VSCodeExtensions' {
-            # The VS Code extension recommendations, rendered from the vscode-extensions registry...
-            # [comment:18](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment18)
             $engineExtension = @((Get-Config -Config languages).engines.Values | Where-Object vscode_extension | ForEach-Object vscode_extension)
             New-VSCodeExtensions -EngineExtension $engineExtension
         }
@@ -100,18 +88,12 @@ function Invoke-RootConfigGenerator {
             New-VSCodeLaunch
         }
         'New-VSCodePipelineSchema' {
-            # The repo-controlled Azure Pipelines JSON Schema, rendered from the vscode-pipeline-schema registry...
-            # [comment:19](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment19)
             New-VSCodePipelineSchema
         }
         'New-GoWorkspace' {
-            # The Go test workspace (Catzc.Base.Languages): the root go.work and one go.mod per go/tests/<folder>/,...
-            # [comment:20](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment20)
             New-GoWorkspace -Target $Target
         }
         'New-PythonProject' {
-            # The Python test workspace (Catzc.Base.Languages): the uv workspace root and one member per Python test...
-            # [comment:21](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment21)
             New-PythonProject -Target $Target
         }
         default {

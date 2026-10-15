@@ -6,6 +6,8 @@ catzc:
     kind: format-function
     module: Catzc.Base.MarkdownMeta
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.MarkdownMeta/tests/Format-MarkdownMetaBlock.Tests.ps1
     adrs:
       - ADR-REPO-FILEMETA#3
   config:

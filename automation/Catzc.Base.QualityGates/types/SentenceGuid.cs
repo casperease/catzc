@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/SentenceGuid.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/SentenceGuid.Tests.ps1
     adrs:
       - ADR-PWSH-TYPES#1
 ---
@@ -16,12 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-/// <summary> Never called by production code: it mints readable placeholder GUIDs for the managed-GUID registry.
-/// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment1)
 public static class SentenceGuid
 {
-    // Extending the table changes only GUIDs minted afterwards, never the ones already registered.
-    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment2)
     private static readonly Dictionary<char, char> Map = new Dictionary<char, char>
     {
         ['a'] = 'a',
@@ -40,8 +39,6 @@ public static class SentenceGuid
         ['q'] = '9',
     };
 
-    // The leading zero makes leading whitespace a no-op, so words align with the dash groups from the first digit.
-    // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment3)
     private static readonly int[] GroupBoundaries = { 0, 8, 12, 16, 20, 32 };
 
     public static Guid Convert(string sentence)
@@ -61,8 +58,6 @@ public static class SentenceGuid
 
             if (char.IsWhiteSpace(raw))
             {
-                // At a boundary this fills nothing, so runs of whitespace collapse into a single step.
-                // [comment:4](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment4)
                 int boundary = NextGroupBoundary(hex.Length);
                 while (hex.Length < boundary)
                 {
@@ -82,8 +77,6 @@ public static class SentenceGuid
             }
             else
             {
-                // Rendering zero rather than skipping keeps one digit per character, so the sentence decodes by position.
-                // [comment:5](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment5)
                 hex.Append('0');
             }
         }

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Maps
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Maps/tests/Get-WorldMapOutputRoot.Tests.ps1
     adrs:
       - ADR-PWSH-PESTER#2
       - ADR-REPO-OUTDIR#2

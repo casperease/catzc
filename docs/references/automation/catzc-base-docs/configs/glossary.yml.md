@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/configs/glossary.yml.md
     kind: comment-page
-    body_sha: "40c27be356ed"
+    body_sha: "6fb3d150ed69"
     adrs:
       - ADR-REPO-VOCAB#2
 ---
 
 # automation/Catzc.Base.Docs/configs/glossary.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `concepts:`.
+Above `concepts:`, written with `#`.
 
 ```text
 glossary.yml — the Catzc.Base.Docs glossary source: the repository-wide vocabulary this module owns, the words
@@ -26,7 +26,7 @@ all five checks, the whole repository, every text surface
 
 ## comment:2
 
-Above `forms: [language, design, test, live, landing, dns, availability]`.
+Above `forms: [language, design, test, live, landing, dns, availability]`, written with `#`.
 
 ```text
 landing, dns and availability are Azure's own terms (a CAF landing zone, a private DNS zone, an availability zone), not

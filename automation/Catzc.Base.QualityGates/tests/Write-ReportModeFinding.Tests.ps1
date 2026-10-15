@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Write-ReportModeFinding.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Write-ReportModeFinding.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Write-ReportModeFinding.ps1
     adrs:
       - ADR-PRIN-CONFIG#4
 ---
 #>
 
-# Write-ReportModeFinding prints a report-mode check's work list and never fails the run.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Write-ReportModeFinding.Tests.ps1.md#comment1)
 Describe 'Write-ReportModeFinding' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:printed = [System.Collections.Generic.List[string]]::new()

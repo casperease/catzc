@@ -3,15 +3,12 @@
 #   derived:
 #     path: automation/Catzc.Base.Docs/configs/adr-checks.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-docs/configs/adr-checks.yml.md
 # ---
-
-# Every key is optional and defaults on AdrChecksConfig, so this file lists only what deviates from the default.
-# [comment:1](/docs/references/automation/catzc-base-docs/configs/adr-checks.yml.md#comment1)
 
 engine_neutrality:
   domains: [automation]
-  # Only engine built-ins are listed, since naming a catzc command (Verb-Noun) in a rule summary is allowed.
-  # [comment:2](/docs/references/automation/catzc-base-docs/configs/adr-checks.yml.md#comment2)
   tokens:
     env-variable: '\$env:'
     pwsh-variable: '\$(?!env:)[A-Za-z_][A-Za-z0-9_]*'

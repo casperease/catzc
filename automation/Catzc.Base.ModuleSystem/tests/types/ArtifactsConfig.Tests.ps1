@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/types/ArtifactsConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/tests/types/ArtifactsConfig.Tests.ps1.md
+      source: automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
 ---
 #>
 
-# The artifacts.yml type: constructing it maps and validates the parsed YAML, so a malformed publish-target map never...
-# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/types/ArtifactsConfig.Tests.ps1.md#comment1)
 Describe 'Catzc.Base.ModuleSystem.ArtifactsConfig' -Tag 'L0' {
     BeforeAll {
         $script:valid = {

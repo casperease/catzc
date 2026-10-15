@@ -3,13 +3,9 @@
 #   derived:
 #     path: pipelines/extends/cd-customer.yaml
 #     kind: pipeline-template
+#     relatives:
+#       page: docs/references/pipelines/extends/cd-customer.yaml.md
 # ---
-
-# Every entry pins its subscription with subscriptionIdAssertIs, so a mis-wired service connection fails loudly, not silently.
-# [ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md),
-# [ADR-PIPE-TEMPLATE](/docs/adr/pipelines/custom-template-discipline.md), [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),
-# [ADR-AZ-LZ#7](/docs/adr/azure/landing-zones.md#rule-adr-az-lz7)
-# [comment:1](/docs/references/pipelines/extends/cd-customer.yaml.md#comment1)
 
 parameters:
   - name: Customer
@@ -32,8 +28,6 @@ stages:
         steps:
           - checkout: self
 
-          # The customer key is the folder, so -Customers needs no subscription names and tolerates an absent tier.
-          # [comment:2](/docs/references/pipelines/extends/cd-customer.yaml.md#comment2)
           - template: /pipelines/steps/invoke-automation.yaml
             parameters:
               DisplayName: "Build-Bicep foundation -Customers ${{ parameters.Customer }}"
@@ -48,8 +42,6 @@ stages:
           - publish: out/template/discovery
             artifact: discovery
 
-          # Build-Bicep throws when no slot matches, so an empty Expeditions list skips the build, its artifact and its deploy stage.
-          # [comment:3](/docs/references/pipelines/extends/cd-customer.yaml.md#comment3)
           - ${{ if gt(length(parameters.Expeditions), 0) }}:
               - template: /pipelines/steps/invoke-automation.yaml
                 parameters:
@@ -114,8 +106,6 @@ stages:
                           'Deploy-Bicep -Environment ${{ d.env }} -Template discovery -SubscriptionIdAssertIs ${{ d.subscriptionIdAssertIs
                           }} -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
-  # An empty Expeditions list inserts no stage at all, because an ADO stage needs at least one job.
-  # [comment:4](/docs/references/pipelines/extends/cd-customer.yaml.md#comment4)
   - ${{ if gt(length(parameters.Expeditions), 0) }}:
       - stage: Deploy_Expedition
         displayName: "Deploy expedition (${{ parameters.Customer }})"

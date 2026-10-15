@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
     adrs:
       - ADR-PWSH-ERROR#3
   config:
@@ -39,8 +42,6 @@ function Get-TestTagViolations {
         $Discovery
     )
 
-    # The authoritative rule-id set, resolved once on the first well-formed citation and reused across tests...
-    # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md#comment4)
     $validRuleIds = $null
 
     $violations = foreach ($test in $Discovery.Tests) {
@@ -68,8 +69,6 @@ function Get-TestTagViolations {
             $reasons += "category resolves to $($categoryTags.Count) (need exactly one of logic|integrity)$detail"
         }
 
-        # Provenance axis (optional): collect every candidate citation — any tag carrying the reserved 'ADR-' marker...
-        # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md#comment5)
         $candidates = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
         foreach ($tag in $test.Tag) {
             if ($tag -like 'ADR-*') {

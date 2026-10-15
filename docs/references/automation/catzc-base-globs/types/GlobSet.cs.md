@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/types/GlobSet.cs.md
     kind: comment-page
-    body_sha: a348a5d6a6db
+    body_sha: e46532d94541
     adrs:
       - ADR-FLOW-CD-GLOBS#10
       - ADR-FLOW-CD-GLOBS#4
@@ -14,12 +14,12 @@ catzc:
 
 # automation/Catzc.Base.Globs/types/GlobSet.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One named globset: an area-of-control's mapping onto files under version control — a kebab-case name, a
@@ -46,7 +46,7 @@ See [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md).
 
 ## comment:2
 
-Above `public static readonly string[] DeclaredLayers = { "deployable-unit",...`.
+Above `public static readonly string[] DeclaredLayers = { "deployable-unit",...`, written with `//`.
 
 ```text
 The layers ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)) — three kinds of thing:
@@ -63,7 +63,7 @@ constructs them), but GlobsConfig rejects it in the declared registry. Within ev
 
 ## comment:3
 
-Above `private IReadOnlyList<ScanRule> cachedProgram;`.
+Above `private IReadOnlyList<ScanRule> cachedProgram;`, written with `//`.
 
 ```text
 The flattened scan program, built lazily from composed + own rules and cached (composed is immutable
@@ -72,7 +72,7 @@ after ResolveCompose, which clears this). One rule: select (+) or drop (-) a pat
 
 ## comment:4
 
-Above `public readonly struct ScanRule`.
+Above `public readonly struct ScanRule`, written with `//`.
 
 ```text
 A single scan-program rule
@@ -81,7 +81,7 @@ A single scan-program rule
 
 ## comment:5
 
-Above `internal void ResolveCompose(IReadOnlyList<GlobSet> resolved)`.
+Above `internal void ResolveCompose(IReadOnlyList<GlobSet> resolved)`, written with `//`.
 
 ```text
 Called by GlobsConfig after construction, with the referenced sets in Compose order. Clears the cached
@@ -90,7 +90,7 @@ program so it rebuilds against the resolved composition.
 
 ## comment:6
 
-Above `public bool Matches(string repoRelativePath)`.
+Above `public bool Matches(string repoRelativePath)`, written with `//`.
 
 ```text
 Membership ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)): evaluate the scan program
@@ -100,7 +100,7 @@ belongs when its last matching rule is '+'.
 
 ## comment:7
 
-Above `public bool OwnMatches(string repoRelativePath)`.
+Above `public bool OwnMatches(string repoRelativePath)`, written with `//`.
 
 ```text
 OWN membership ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)): the set's own program only —
@@ -113,7 +113,7 @@ is "depends on a base," a deliberate cross-layer overlap, not a peer overlap.
 
 ## comment:8
 
-Above `public string[] SelectMembers(IReadOnlyList<string> tracked)`.
+Above `public string[] SelectMembers(IReadOnlyList<string> tracked)`, written with `//`.
 
 ```text
 The members of a tracked-file universe (`git ls-files`, fetched once by the caller and passed in — never
@@ -123,7 +123,7 @@ instead of one Matches call per path from PowerShell.
 
 ## comment:9
 
-Above `public string[] SelectOwnMembers(IReadOnlyList<string> tracked)`.
+Above `public string[] SelectOwnMembers(IReadOnlyList<string> tracked)`, written with `//`.
 
 ```text
 The OWN members (OwnMatches, compose ignored) of a tracked-file universe, in ordinal order — the per-layer
@@ -132,7 +132,7 @@ independence check's input ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-gl
 
 ## comment:10
 
-Above `public IReadOnlyList<ScanRule> ScanProgram()`.
+Above `public IReadOnlyList<ScanRule> ScanProgram()`, written with `//`.
 
 ```text
 The flattened scan program ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)/8): the composed sets'

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
+      test: automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependency.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE#2
       - ADR-AUTO-CACHE#4
@@ -43,19 +46,13 @@ function Get-FunctionDependency {
 
     Assert-SourceTree
 
-    # Filesystem-derived information — cached for the session, lazily on first use, keyed on the resolved automation...
-    # [comment:5](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment5)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:functionDependencyCache')) {
-        # strict-clean probe of the lazy cache entry
-        # [comment:6](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment6)
         $script:functionDependencyCache = @{}
     }
     if ($script:functionDependencyCache.ContainsKey($AutomationRoot)) {
         return $script:functionDependencyCache[$AutomationRoot]
     }
 
-    # Enumerate + parse every source.ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/ call...
-    # [comment:7](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment7)
     $parsed = [System.Collections.Generic.List[object]]::new()
     $definitions = @{}
 

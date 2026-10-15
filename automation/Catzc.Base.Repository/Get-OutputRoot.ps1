@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Repository
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Repository/tests/Get-OutputRoot.Tests.ps1
   config:
     synopsis: Returns the path to the output directory for the current execution context.
     description: |-

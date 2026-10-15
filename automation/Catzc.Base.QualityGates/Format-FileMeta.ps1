@@ -6,6 +6,9 @@ catzc:
     kind: format-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN#2
       - ADR-REPO-FILEMETA#3
@@ -30,8 +33,6 @@ catzc:
 ---
 #>
 
-# The repository's preview switch is -DryRun, so ShouldProcess and -WhatIf are deliberately absent.
-# [comment:3](/docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md#comment3)
 function Format-FileMeta {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.TypesSystem
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md
+      test: automation/Catzc.Base.TypesSystem/tests/Build-BashTimeoutHook.Tests.ps1
     adrs:
       - ADR-AUTO-FAILFAST#7
       - ADR-DSGN-RUNMODE
@@ -50,8 +53,6 @@ function Build-BashTimeoutHook {
     Assert-PathExist $csproj
     $projectXml = [xml](Get-Content -LiteralPath $csproj -Raw)
 
-    # The sources are this folder's *.cs/*.csproj plus every linked <Compile Include> (the module types the hook...
-    # [comment:5](/docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md#comment5)
     $sources = @(Get-ChildPath $project -File -Filter '*.cs', '*.csproj' -Depth 1 | Sort-Object { [System.IO.Path]::GetFileName($_) })
     Assert-True ($sources.Count -gt 0) -ErrorText "No hook files (*.cs, *.csproj) in $project"
     $linked = @($projectXml.SelectNodes('//Compile/@Include') | ForEach-Object Value | Sort-Object)
@@ -63,8 +64,6 @@ function Build-BashTimeoutHook {
     }
     $sourceHash = $hashLines -join "`n"
 
-    # The program's name is the project's AssemblyName — the one place it is set.
-    # [comment:6](/docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md#comment6)
     $assemblyName = $projectXml.Project.PropertyGroup.AssemblyName | Where-Object { $_ } | Select-Object -First 1
     Assert-NotNullOrWhitespace $assemblyName -ErrorText "No <AssemblyName> in $csproj — it names the published hook program."
     $programBase = Join-Path $OutputDirectory $assemblyName
@@ -86,8 +85,6 @@ function Build-BashTimeoutHook {
         throw 'dotnet is not on PATH. Install the .NET SDK (Install-Dotnet), then re-run Build-BashTimeoutHook.'
     }
 
-    # --disable-build-servers: no MSBuild node or compiler server outlives the publish.
-    # [comment:7](/docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md#comment7)
     Invoke-Executable "dotnet publish `"$csproj`" --configuration Release --output `"$OutputDirectory`" --verbosity quiet --disable-build-servers" -Silent
     $program = & $findProgram
     Assert-NotNullOrWhitespace $program -ErrorText "dotnet publish succeeded but produced no runnable '$assemblyName' program in $OutputDirectory."

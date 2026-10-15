@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/tests/Invoke-ModuleBuild.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/internal/tests/Invoke-ModuleBuild.Tests.ps1.md
     adrs:
       - ADR-PWSH-ENUM#3
 ---
@@ -14,8 +16,6 @@ BeforeAll {
     Import-InternalModule TestKit
     Import-InternalModule Builder
 
-    # A neutral fixture source tree: two selectable modules (widget, gadget), one that is never selected (gizmo,...
-    # [comment:1](/docs/references/automation/internal/tests/Invoke-ModuleBuild.Tests.ps1.md#comment1)
     $script:helpText = "<#`r`n.SYNOPSIS`r`n    Returns the widget.`r`n#>`r`nfunction Get-Widget {`r`n    Get-WidgetCore`r`n}`r`n`r`n"
     $script:fake = New-FakeRepositoryRoot -Modules @{
         'Catzc.Base.Widget' = @{
@@ -34,8 +34,6 @@ BeforeAll {
             Public = 'Get-Gadget'
             Files  = @{
                 'types/Lever.cs'       = "namespace Catzc.Base.Gadget;`npublic class Lever { }`n"
-                # Reaches into widget twice: a call and a config read — what the closure check follows.
-                # [comment:2](/docs/references/automation/internal/tests/Invoke-ModuleBuild.Tests.ps1.md#comment2)
                 'Get-GadgetWidget.ps1' = "function Get-GadgetWidget {`n    Get-Widget`n    Get-Config -Config widget`n    Get-Config -Config widget -ListOwners`n}`n"
             }
         }
@@ -81,8 +79,6 @@ BeforeAll {
     [System.IO.File]::WriteAllBytes((Join-Path $compiled "Catzc.Types.$fullHash.dll"), [byte[]] @(77, 90, 1, 2, 3))
     [System.IO.File]::WriteAllText((Join-Path $compiled "Catzc.Types.$fullHash.json"), "{`"hash`":`"$fullHash`"}`n")
 
-    # The build ships what git tracks, so the fixture is a committed repository.
-    # [comment:3](/docs/references/automation/internal/tests/Invoke-ModuleBuild.Tests.ps1.md#comment3)
     foreach ($gitCommand in @(
             'git init -q'
             'git config core.autocrlf true'
@@ -108,8 +104,6 @@ BeforeAll {
         PackageMetadata = $metadata
     }
 
-    # Boundaries: the source-tree guard (the fixture root is not the session's code root), the profile/closure...
-    # [comment:4](/docs/references/automation/internal/tests/Invoke-ModuleBuild.Tests.ps1.md#comment4)
     Mock Assert-SourceTree { } -ModuleName Catzc.Internal.Builder
     Mock Get-GitCurrentCommit { 'f00df00df00df00df00df00df00df00df00df00d' } -ModuleName Catzc.Internal.Builder
     Mock Get-ModuleProfile -ModuleName Catzc.Internal.Builder -RemoveParameterValidation Name {
@@ -130,8 +124,6 @@ BeforeAll {
     function script:Get-FileSnapshot {
         param([string] $Root)
         $snapshot = @{}
-        # A whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a snapshot
-        # compares every file of a build, so nothing is pruned.
         foreach ($file in Get-ChildPath $Root -File -Depth 64 -Exclude @() -PruneVendor $false) {
             $snapshot[[System.IO.Path]::GetRelativePath($Root, $file).Replace('\', '/')] = [System.IO.File]::GetLastWriteTimeUtc($file).Ticks
         }
@@ -163,8 +155,6 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
             $script:destination = Join-Path $TestDrive 'build'
             $script:result = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Module 'Catzc.Base.Gadget' -Destination $destination
             $script:root = $result.BuildRoot
-            # A whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the
-            # assertions cover every file of the build, so nothing is pruned.
             $script:files = @(foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @() -PruneVendor $false) {
                     [System.IO.Path]::GetRelativePath($root, $file).Replace('\', '/')
                 })

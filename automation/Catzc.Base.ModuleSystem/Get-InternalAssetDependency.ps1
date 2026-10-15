@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md
+      test: automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Tests.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#2
       - ADR-DSGN-RUNMODE
@@ -68,8 +71,6 @@ function Get-InternalAssetDependency {
     Assert-SourceTree
     Assert-PathExist $AutomationRoot -PathType Container
 
-    # The helper's own parameter metadata decides how each argument binds: which names (or unambiguous prefixes, or...
-    # [comment:4](/docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md#comment4)
     $helperName = 'Get-CatzcModuleRoot'
     $helperParameters = (Get-Command $helperName -CommandType Function).Parameters
     $resolveParameter = {

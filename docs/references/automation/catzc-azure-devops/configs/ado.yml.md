@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/configs/ado.yml.md
     kind: comment-page
-    body_sha: b8843ba8a09d
+    body_sha: e619b9b777fc
 ---
 
 # automation/Catzc.Azure.DevOps/configs/ado.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `organization: "https://dev.azure.com/Catzc"`.
+Above `organization: "https://dev.azure.com/Catzc"`, written with `#`.
 
 ```text
 Azure DevOps coupling for this repo's automation — the data that binds it to a specific ADO
@@ -25,7 +25,7 @@ directory before minting an ADO token (its az-login fallback path).
 
 ## comment:2
 
-Above `tenant: "fa0e0000-7e0a-0700-1d00-000000000000"`.
+Above `tenant: "fa0e0000-7e0a-0700-1d00-000000000000"`, written with `#`.
 
 ```text
 Entra (Azure AD) tenant GUID backing the DevOps organization. The identity coupling: the az session

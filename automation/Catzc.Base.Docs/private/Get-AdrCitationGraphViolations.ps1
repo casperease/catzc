@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
   config:
     synopsis: Lists every rule-summary citation that leaves its domain for a domain the registry does not declare it depends on.
     description: |-

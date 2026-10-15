@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Writers
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md
+      test: automation/Catzc.Base.Writers/tests/Write-InformationColored.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#8
       - ADR-PWSH-ANNOUNCE#1
@@ -63,8 +66,6 @@ function Write-InformationColored {
         [switch] $NoNewline
     )
 
-    # Suppress during Pester runs (flag set by Test-Automation).
-    # [comment:4](/docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md#comment4)
     if (Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore) {
         return
     }
@@ -72,8 +73,6 @@ function Write-InformationColored {
     $text = [string]$MessageData
 
     if ($PSBoundParameters.ContainsKey('ForegroundColor')) {
-        # The ConsoleColor -> ANSI SGR map lives once, in the Ansi type (shared with the rainbow writer), so this...
-        # [comment:5](/docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md#comment5)
         $ansi = [Catzc.Base.Writers.Ansi]::Code($ForegroundColor)
 
         if ($ansi) {

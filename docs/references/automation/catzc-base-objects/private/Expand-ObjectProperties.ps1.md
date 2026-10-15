@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md
     kind: comment-page
-    body_sha: "16edba9f7197"
+    body_sha: a57eb9def1d6
 ---
 
 # automation/Catzc.Base.Objects/private/Expand-ObjectProperties.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `if ($Value -is [System.Collections.IDictionary]) {`.
+Above `if ($Value -is [System.Collections.IDictionary]) {`, written with `#`.
 
 ```text
 IDictionary and array are checked before PSCustomObject: a top-level value arrives here wrapped in a
@@ -23,9 +23,9 @@ SyncRoot, ...) instead of its entries. Matching the more specific shapes first k
 dictionary and an array an array, wrapped or not.
 ```
 
-## comment:5
+## comment:2
 
-Above `if (-not $Value.GetType().IsValueType -and $Value -isnot [string] -and $Value...`.
+Above `if (-not $Value.GetType().IsValueType -and $Value -isnot [string] -and $Value...`, written with `#`.
 
 ```text
 Complex CLR object (e.g. a typed/validated config model): reflect over its public

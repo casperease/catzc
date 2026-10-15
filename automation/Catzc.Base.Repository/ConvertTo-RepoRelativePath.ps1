@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Repository
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
+      test: automation/Catzc.Base.Repository/tests/ConvertTo-RepoRelativePath.Tests.ps1
     adrs:
       - ADR-AUTO-PATH
       - ADR-AUTO-PATH#5
@@ -46,8 +49,6 @@ function ConvertTo-RepoRelativePath {
 
     $full = [IO.Path]::GetFullPath($Path)
 
-    # 1.
-    # [comment:3](/docs/references/automation/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md#comment3)
     $outputRoot = [IO.Path]::GetFullPath((Get-OutputRoot))
     $fromOutput = [IO.Path]::GetRelativePath($outputRoot, $full)
     if ($fromOutput -ne $full -and -not $fromOutput.StartsWith('..')) {

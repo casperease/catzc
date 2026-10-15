@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/configs/adr-checks.yml.md
     kind: comment-page
-    body_sha: "6ce41028f450"
+    body_sha: b77f3da07532
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#35
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/configs/adr-checks.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `engine_neutrality:`.
+Above `engine_neutrality:`, written with `#`.
 
 ```text
 adr-checks.yml — the settings of the ADR checks over the rule registries under docs/adr/. Every key is optional: an omitted key takes
@@ -42,7 +42,7 @@ ships in report mode while its findings are worked off, and its mode line is rem
 
 ## comment:2
 
-Above `tokens:`.
+Above `tokens:`, written with `#`.
 
 ```text
 Engine-specific syntax a rule summary must not carry. Naming a catzc command (Verb-Noun) is allowed, so only engine built-ins are

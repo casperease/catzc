@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1
   config:
     synopsis: Asserts all tools are available at the correct version.
     description: |-

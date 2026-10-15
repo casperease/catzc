@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md
     adrs:
       - ADR-AUTO-ASSETDEP#3
       - ADR-AUTO-ASSETDEP#4
@@ -11,8 +13,6 @@ catzc:
 ---
 #>
 
-# The coverage rule over the real tree, through its quality gate (Test-InternalAssetDependency — ): every...
-# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md#comment1)
 Describe 'Internal asset dependency coverage (real tree)' -Tag 'L1', 'integrity', 'source-only', 'ADR-AUTO-ASSETDEP#4' {
     It 'every call site is literal and every internal asset dependency has a both-runs test citing ADR-AUTO-ASSETDEP#3' {
         $result = Test-InternalAssetDependency -PassThru -OutputFolder (Join-Path $TestDrive 'internal-asset-dependency')

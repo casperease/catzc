@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1.md
-    kind: test-asset
-    body_sha: "8bb697b7c7e6"
+    kind: comment-page
+    body_sha: "433d62e959f7"
 ---
 
 # automation/.scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Measure-NoAzModuleNaming' -Tag 'L0', 'logic' {`.
+Above `Describe 'Measure-NoAzModuleNaming' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
@@ -24,7 +24,7 @@ only re-paid its warmup.
 
 ## comment:2
 
-Above `if (-not (Get-Module PSScriptAnalyzer)) {`.
+Above `if (-not (Get-Module PSScriptAnalyzer)) {`, written with `#`.
 
 ```text
 The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module

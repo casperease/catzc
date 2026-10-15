@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-languages/tests/Invoke-BashTest.Tests.ps1.md
+      source: automation/Catzc.Base.Languages/Invoke-BashTest.ps1
     adrs:
       - ADR-AUTO-TEST#6
 ---
@@ -11,8 +14,6 @@ catzc:
 
 Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the seams: a fixture repository root in $TestDrive with a stub vendored runner and its...
-        # [comment:1](/docs/references/automation/catzc-base-languages/tests/Invoke-BashTest.Tests.ps1.md#comment1)
         $script:root = Join-Path $TestDrive 'repo'
         $script:bashRoot = Join-Path $script:root 'bash'
         $null = New-Item -ItemType Directory -Path (Join-Path $script:bashRoot 'tests/catzc-widget') -Force

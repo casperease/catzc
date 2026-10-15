@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Node
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-node/Uninstall-NodeJs.ps1.md
+      test: automation/Catzc.Tooling.Node/tests/Uninstall-NodeJs.Tests.ps1
     adrs:
       - ADR-AUTO-ONEJOB#5
       - ADR-AUTO-REMOVE#4
@@ -39,8 +42,6 @@ function Uninstall-NodeJs {
         [switch] $Force
     )
 
-    # Managed uninstall best-effort; with -Remove a failure (a foreign install) is logged and the escalation...
-    # [comment:4](/docs/references/automation/catzc-tooling-node/Uninstall-NodeJs.ps1.md#comment4)
     try {
         Uninstall-Tool -Tool 'node_js' -Version $Version
     }

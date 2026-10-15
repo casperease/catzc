@@ -24,7 +24,9 @@ namespace $($script:space) {
             [System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { -not $_.IsDynamic -and $_.GetType("$($script:space).Widget", $false) }
         }
         function script:New-Expected ([string[]] $Bases) {
-            @(foreach ($base in $Bases) { [pscustomobject]@{ Module = $script:space; Base = $base } })
+            @(foreach ($base in $Bases) {
+                    [pscustomobject]@{ Module = $script:space; Base = $base }
+                })
         }
     }
 

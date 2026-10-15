@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleIndexed.Tests.ps1.md
-    kind: test-asset
-    body_sha: e62ec7ac09fd
+    kind: comment-page
+    body_sha: d9e7e838d042
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#4
@@ -13,12 +13,12 @@ catzc:
 
 <!-- cspell:ignore weutstsidxst -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
@@ -28,7 +28,7 @@ build output folder is wiped per test, since the build tests write into it
 
 ## comment:2
 
-Above `Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates`.
+Above `Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates`, written with `#`.
 
 ```text
 Devbox path: under CI the real Test-IsRunningInPipeline returns $true ($env:GITHUB_ACTIONS), and the
@@ -38,7 +38,7 @@ $env:BUILD_BUILDID and throws on GitHub Actions.
 
 ## comment:3
 
-Above `Get-BicepTemplate sample-indexed | Out-Null`.
+Above `Get-BicepTemplate sample-indexed | Out-Null`, written with `#`.
 
 ```text
 Warm the discovery + config caches once, so the first It doesn't pay the cold Get-BicepTemplate
@@ -49,7 +49,7 @@ here reads the same fixture template, and BeforeEach wipes only the build output
 
 ## comment:4
 
-Above `{ Get-BicepTemplateConfiguration sample-indexed alpha } | Should -Throw "*no...`.
+Above `{ Get-BicepTemplateConfiguration sample-indexed alpha } | Should -Throw "*no...`, written with `#`.
 
 ```text
 alpha with no -Slot resolves to config 'alpha', which this indexed-only template does not

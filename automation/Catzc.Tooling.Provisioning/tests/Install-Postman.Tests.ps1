@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Install-Postman.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/tests/Install-Postman.Tests.ps1.md
+      source: automation/Catzc.Tooling.Provisioning/Install-Postman.ps1
 ---
 #>
 
 Describe 'Install-Postman' -Tag 'L0', 'logic' {
-    # Like Install-Git, the actual install is a live download (dl.pstmn.io) best proven by an L2/manual run.
-    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Install-Postman.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Invoke-WebRequest { } -ModuleName Catzc.Tooling.Provisioning
         Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0 } } -ModuleName Catzc.Tooling.Provisioning

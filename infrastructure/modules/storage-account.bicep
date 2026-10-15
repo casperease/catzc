@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/modules/storage-account.bicep
 //     kind: bicep-module
+//     relatives:
+//       page: docs/references/infrastructure/modules/storage-account.bicep.md
 // ---
-
-// Public network, shared-key and anonymous blob access are all off, so data is reached through a private endpoint.
-// [comment:1](/docs/references/infrastructure/modules/storage-account.bicep.md#comment1)
 
 @description('Storage account name (3-24 lowercase alphanumeric, globally unique).')
 param name string

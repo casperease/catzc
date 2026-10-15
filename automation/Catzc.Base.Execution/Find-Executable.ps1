@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Execution
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1
     adrs:
       - ADR-PWSH-CACHE
   config:

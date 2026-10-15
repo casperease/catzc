@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Exit-TestRunLocation.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE#10
   config:
@@ -59,8 +62,6 @@ function Exit-TestRunLocation {
     }
 
     if ($Location.Snapshot) {
-        # Hand the snapshot's result caches home before it goes: the checks this run made in the snapshot are as...
-        # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md#comment3)
         $snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'
         if ([System.IO.Directory]::Exists($snapshotCache)) {
             foreach ($file in [System.IO.Directory]::GetFiles($snapshotCache, '*.json')) {

@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Remove-MacToolInstall.ps1.md
     kind: comment-page
-    body_sha: db6418b76a87
+    body_sha: "7c353656a0e1"
 ---
 
 # automation/Catzc.Tooling.Core/Remove-MacToolInstall.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:3
+## comment:1
 
-Above `if (Test-Command brew) {`.
+Above `if (Test-Command brew) {`, written with `#`.
 
 ```text
 1. Homebrew-owned shadow — a binary under the brew prefix, symlinked into the Cellar. The symlink target

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentName.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentName.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
 ---
 #>
 
@@ -38,8 +41,6 @@ Describe 'Get-BicepDeploymentName' -Tag 'L0', 'logic' {
         }
     }
 
-    # Get-BicepDeploymentName picks the platform by which run-id DATA var is present (GITHUB_RUN_ID → GitHub Actions,...
-    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentName.Tests.ps1.md#comment1)
     Context 'pipeline (Azure DevOps)' {
         BeforeEach {
             Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Azure.Templates

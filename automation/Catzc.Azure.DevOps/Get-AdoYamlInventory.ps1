@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.DevOps
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md
   config:
     synopsis: Combines YAML file scanning with ADO pipeline registration data.
     description: |-
@@ -67,8 +69,6 @@ function Get-AdoYamlInventory {
         }
     }
 
-    # ADO YamlPaths are relative to the repo root, but RelativePaths are relative to the scan root.
-    # [comment:4](/docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md#comment4)
     $pathPrefix = ''
     foreach ($file in $files) {
         foreach ($definition in $definitions) {

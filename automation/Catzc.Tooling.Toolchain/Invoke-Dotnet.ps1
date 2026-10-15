@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Toolchain/tests/Invoke-Dotnet.Tests.ps1
   config:
     synopsis: Runs dotnet with the given arguments.
     description: |-

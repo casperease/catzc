@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/SentenceGuid.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/types/SentenceGuid.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/types/SentenceGuid.cs
 ---
 #>
 
@@ -61,8 +64,6 @@ Describe 'SentenceGuid' -Tag 'L0', 'logic' {
     }
 
     It 'yields the all-zeros GUID for an input with no mappable characters' {
-        # Compared as [guid]::Empty, not a literal — the all-zeros GUID is on the registry's denied list and never...
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/SentenceGuid.Tests.ps1.md#comment1)
         $result = [Catzc.Base.QualityGates.SentenceGuid]::Convert('!!! ??? ,,,')
         $result | Should -Be ([guid]::Empty)
     }

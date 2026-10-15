@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md
     kind: comment-page
-    body_sha: c38a285465ad
+    body_sha: d51bad6c5a97
     adrs:
       - ADR-AUTO-TYPES#9
       - ADR-AZ-NAMING#2
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Azure.Templates/types/BicepShortName.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A template's `short_name` — the 2-5 char, lowercase-alnum Azure id segment every resource name is built
@@ -37,7 +37,7 @@ keeps default validation and derivation logic here rather than a loose dictionar
 
 ## comment:2
 
-Above `public const int MaxLength = 5;`.
+Above `public const int MaxLength = 5;`, written with `//`.
 
 ```text
 The maximum short_name length. Keeping this at 5 keeps the worst-case tight (storage) name at 23/24
@@ -46,7 +46,7 @@ with a byte to spare ([ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md),
 
 ## comment:3
 
-Above `public static BicepShortName Resolve(string folder, string overrideValue)`.
+Above `public static BicepShortName Resolve(string folder, string overrideValue)`, written with `//`.
 
 ```text
 Resolve a template's short_name from its folder name and an optional options.yml override.
@@ -58,7 +58,7 @@ cannot be a valid short_name (fewer than 2 [a-z0-9] chars, or a leading digit) a
 
 ## comment:4
 
-Above `public static string Derive(string folder)`.
+Above `public static string Derive(string folder)`, written with `//`.
 
 ```text
 The derivation: lowercase, keep only [a-z0-9] (drop hyphens and any other punctuation), take the first
@@ -68,7 +68,7 @@ at Resolve, prompting an override).
 
 ## comment:5
 
-Above `public static bool IsValid(string value)`.
+Above `public static bool IsValid(string value)`, written with `//`.
 
 ```text
 A well-formed short_name: 2-MaxLength chars, a leading letter then lowercase-alnum. Mirrors the

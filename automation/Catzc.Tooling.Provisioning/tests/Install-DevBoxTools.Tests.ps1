@@ -4,15 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Install-DevBoxTools.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/tests/Install-DevBoxTools.Tests.ps1.md
+      source: automation/Catzc.Tooling.Provisioning/Install-DevBoxTools.ps1
 ---
 #>
 
 Describe 'Install-DevBoxTools' -Tag 'L0', 'logic' {
-    # Pure orchestration over mocked seams.
-    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Install-DevBoxTools.Tests.ps1.md#comment1)
     BeforeAll {
-        # Get-ToolConfig returns the typed record, so the mocks do too: every flag the entry omits reads as its...
-        # [comment:2](/docs/references/automation/catzc-tooling-provisioning/tests/Install-DevBoxTools.Tests.ps1.md#comment2)
         function New-TestToolConfig {
             param([hashtable] $Keys)
             $entry = @{ version = '1.0'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)' }

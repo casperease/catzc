@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/tests/Test-RootConfigIntegrity.Tests.ps1.md
-    kind: test-asset
-    body_sha: "0f52ca847c10"
+    kind: comment-page
+    body_sha: a04230723fbf
     adrs:
       - ADR-AUTO-TEST#35
 ---
 
 # automation/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Managed root config files agree with .gitignore and git tracking'...`.
+Above `Describe 'Managed root config files agree with .gitignore and git tracking'...`, written with `#`.
 
 ```text
 Integrity test for managed root config files, through the quality gates Test-RootConfigFiles and
@@ -34,7 +34,7 @@ generated-README integrity test (Test-GeneratedReadmes.Tests.ps1). See
 
 ## comment:2
 
-Above `if (-not (Get-Command git -ErrorAction Ignore)) {`.
+Above `if (-not (Get-Command git -ErrorAction Ignore)) {`, written with `#`.
 
 ```text
 L2: drives the real git CLI. Self-skip when git is absent or we are not inside a work tree
@@ -43,7 +43,7 @@ L2: drives the real git CLI. Self-skip when git is absent or we are not inside a
 
 ## comment:3
 
-Above `Describe 'Root PSScriptAnalyzerSettings.psd1 link' -Tag 'L1', 'integrity',...`.
+Above `Describe 'Root PSScriptAnalyzerSettings.psd1 link' -Tag 'L1', 'integrity',...`, written with `#`.
 
 ```text
 The root PSScriptAnalyzerSettings.psd1 has a consumer-format contract of its own: PSScriptAnalyzer requires

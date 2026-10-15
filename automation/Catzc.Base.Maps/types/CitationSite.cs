@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Maps/types/CitationSite.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/CitationSite.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// The kind tells a subject citation from a passing mention, so a highlight can say why a lit file cites the request.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/CitationSite.cs.md#comment1)
 
 namespace Catzc.Base.Maps;
 

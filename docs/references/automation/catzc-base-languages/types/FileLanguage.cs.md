@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/FileLanguage.cs.md
     kind: comment-page
-    body_sha: "825d83022a18"
+    body_sha: "2e755b88ce63"
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#6
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Languages/types/FileLanguage.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One file language of the registry (configs/languages.yml): the language a tracked file is written in, named by its
@@ -28,7 +28,7 @@ YAML key. LanguagesConfig validates the entry and builds one; Get-FileLanguage r
 
 ## comment:2
 
-Above `public IReadOnlyList<string> extensions { get; }`.
+Above `public IReadOnlyList<string> extensions { get; }`, written with `//`.
 
 ```text
 The extensions that name the language: lowercase, each with its leading dot (e.g. .ps1). Every extension
@@ -37,7 +37,7 @@ belongs to exactly one file language.
 
 ## comment:3
 
-Above `public string no_formatter { get; }`.
+Above `public string no_formatter { get; }`, written with `//`.
 
 ```text
 Why the language has no formatter (e.g. binary files). Null when it has one: an entry carries exactly one of
@@ -46,7 +46,7 @@ formatter and no_formatter.
 
 ## comment:4
 
-Above `public IReadOnlyList<string> checks { get; }`.
+Above `public IReadOnlyList<string> checks { get; }`, written with `//`.
 
 ```text
 The quality gates that check a changed file of the language (e.g. Test-ScriptAnalyzer), in the order Test-Change

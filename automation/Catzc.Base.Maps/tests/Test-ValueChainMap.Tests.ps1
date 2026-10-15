@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
+      source: automation/Catzc.Base.Maps/Test-ValueChainMap.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -13,8 +16,6 @@ catzc:
 ---
 #>
 
-# Test-ValueChainMap reads the value-chain map Get-ValueChainMap returns and reports axes that are not the registry's...
-# [comment:1](/docs/references/automation/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md#comment1)
 Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $adr = {
@@ -93,8 +94,6 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
     }
 }
 
-# The registry's own value-chain map, through the quality gate.
-# [comment:2](/docs/references/automation/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md#comment2)
 Describe 'Test-ValueChainMap on the repository' -Tag 'L1', 'integrity', 'source-only' {
     It 'Test-ValueChainMap passes over the registry' -Tag 'ADR-DSGN-TRACK#14', 'ADR-DSGN-TRACK#15', 'ADR-DSGN-TRACK#16', 'ADR-AUTO-TEST#35' {
         $result = Test-ValueChainMap -PassThru -OutputFolder (Join-Path $TestDrive 'value-chain-map')

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-ShellScripts.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-ShellScripts.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -11,8 +14,6 @@ catzc:
 ---
 #>
 
-# Test-ShellScripts is a quality gate: the L0 cases run over a fixture repository in $TestDrive with the index, the...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-ShellScripts.Tests.ps1.md#comment1)
 Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'
@@ -169,8 +170,6 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
     }
 }
 
-# Integrity: every shell script the repository holds is LF and passes the pinned ShellCheck.
-# [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-ShellScripts.Tests.ps1.md#comment2)
 Describe 'Repository shell script integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'every shell script is LF and passes ShellCheck (Test-ShellScripts)' {
         $shellcheck = Resolve-ToolExecutable -Tool shellcheck

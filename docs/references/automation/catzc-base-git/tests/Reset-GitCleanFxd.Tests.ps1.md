@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-git/tests/Reset-GitCleanFxd.Tests.ps1.md
-    kind: test-asset
-    body_sha: b30e566bb149
+    kind: comment-page
+    body_sha: a9174a567c9c
 ---
 
 # automation/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeEach {`.
+Above `BeforeEach {`, written with `#`.
 
 ```text
 git's own dry-run listing is the one external boundary (plus the deleting clean calls); the

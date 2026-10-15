@@ -3,29 +3,31 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/VariableCasing.psm1.md
     kind: comment-page
-    body_sha: "1f0ae2e5e936"
+    body_sha: "1a55363585a6"
     adrs:
       - ADR-PWSH-FORMAT#6
 ---
 
 # automation/.scriptanalyzer/VariableCasing.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `$script:skipVariables = [System.Collections.Generic.HashSet[string]]::new(`, written with `#`.
 
 ```text
-PascalCase: parameters, $global: scoped variables.
-camelCase: local (unscoped), $script:, and $private: scoped variables.
-Scriptblock params and automatic variables are skipped.
+.SYNOPSIS
+    Custom PSScriptAnalyzer rule: enforce variable casing conventions.
+.DESCRIPTION
+    Scriptblock parameters and automatic variables are skipped, as their names are not the author's choice.
+    [comment:1](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment1)
 ```
 
 ## comment:2
 
-Above `$isParameter = {`.
+Above `$isParameter = {`, written with `#`.
 
 ```text
 Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew
@@ -34,7 +36,7 @@ Predicate as a local, not inlined in FindAll's parens — dodges a cross-version
 
 ## comment:3
 
-Above `$parentOfScript = $p.Parent.Parent.Parent`.
+Above `$parentOfScript = $p.Parent.Parent.Parent`, written with `#`.
 
 ```text
 Skip scriptblock params (e.g. { param($n) ... } in FindAll predicates)
@@ -44,7 +46,7 @@ Scriptblock:    ParamBlockAst → ScriptBlockAst → ScriptBlockExpressionAst
 
 ## comment:4
 
-Above `$isAssignment = {`.
+Above `$isAssignment = {`, written with `#`.
 
 ```text
 Check variable assignments

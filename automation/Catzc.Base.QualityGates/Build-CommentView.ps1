@@ -6,6 +6,8 @@ catzc:
     kind: writer-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
     adrs:
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-OUTDIR#1

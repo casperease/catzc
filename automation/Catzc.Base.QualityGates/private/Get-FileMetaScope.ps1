@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-FileMetaScope.Tests.ps1
   config:
     synopsis: Lists the tracked files that carry a meta block, each with the carrier entry that says where it goes.
     description: |-

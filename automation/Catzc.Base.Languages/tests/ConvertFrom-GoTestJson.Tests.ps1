@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/ConvertFrom-GoTestJson.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-languages/tests/ConvertFrom-GoTestJson.Tests.ps1.md
+      source: automation/Catzc.Base.Languages/private/ConvertFrom-GoTestJson.ps1
 ---
 #>
 
 Describe 'ConvertFrom-GoTestJson' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Canned `go test -json` streams (tests/assets), recorded from a widget package (pass, fail, skip, and a...
-        # [comment:1](/docs/references/automation/catzc-base-languages/tests/ConvertFrom-GoTestJson.Tests.ps1.md#comment1)
         $script:widgetStream = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'assets/go-test-widget.jsonl')
         $script:buildFailedStream = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'assets/go-test-gadget-build-failed.jsonl')
         $script:convert = {

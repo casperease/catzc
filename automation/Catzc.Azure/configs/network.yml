@@ -3,10 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Azure/configs/network.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-azure/configs/network.yml.md
 # ---
-
-# The single source of truth for vnet and subnet ranges: templates read it at build time, never a copy in their own config.
-# [comment:1](/docs/references/automation/catzc-azure/configs/network.yml.md#comment1)
 
 environments:
   dev:

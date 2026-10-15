@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md
+      test: automation/Catzc.Tooling.Core/tests/Sync-SessionTools.Tests.ps1
   config:
     synopsis: |-
       Reconciles the current session's PATH to the tools that are actually present, and reports any running from
@@ -38,8 +41,6 @@ function Sync-SessionTools {
         [switch] $Silent
     )
 
-    # Session PATH nudging is noise — and could shadow image-provided tools — in CI, where the pipeline owns tool...
-    # [comment:5](/docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md#comment5)
     if (Test-IsRunningInPipeline) {
         return
     }
@@ -55,8 +56,6 @@ function Sync-SessionTools {
         $config = Get-ToolConfig -Tool $toolName
 
         $cmd = Get-Command $config.command -CommandType Application -ErrorAction Ignore | Select-Object -First 1
-        # When several installs exist, run the best one (tools.yml session_host_probes — for dotnet an SDK at the...
-        # [comment:6](/docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md#comment6)
         $hosted = Resolve-SessionToolHost -Config $config
         if ($hosted) {
             $cmd = $hosted
@@ -76,8 +75,6 @@ function Sync-SessionTools {
     }
 
     if (-not $Silent -and $foreignNames.Count -gt 0) {
-        # The fact and WHICH tools is the advisory — it stays on the always-on information stream.
-        # [comment:7](/docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md#comment7)
         Write-Message "Session tools not managed by the installer layer: $($foreignNames -join '; ')"
         Write-Message "Locations: $($foreignLocations -join '; ')" -Verbose:($VerbosePreference -eq 'Continue')
     }

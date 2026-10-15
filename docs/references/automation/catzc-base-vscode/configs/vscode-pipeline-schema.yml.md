@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md
     kind: comment-page
-    body_sha: "2fbd56815ffc"
+    body_sha: "74006b1741eb"
 ---
 
 # automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$schema: http://json-schema.org/draft-07/schema#`.
+Above `$schema: http://json-schema.org/draft-07/schema#`, written with `#`.
 
 ```text
 Azure Pipelines schema — the authored SOURCE OF TRUTH for .vscode/azure-pipelines-schema.json, the schema
@@ -47,7 +47,7 @@ anyOf/oneOf, every `#/definitions/` $ref resolves).
 
 ## comment:2
 
-Above `properties:`.
+Above `properties:`, written with `#`.
 
 ```text
 Top level is a full pipeline OR any template fragment (parameters/steps/jobs/stages/variables only), so the
@@ -57,7 +57,7 @@ empty schema — it accepts any value — used wherever a key is polymorphic (st
 
 ## comment:3
 
-Above `type: object`.
+Above `type: object` (occurrence 2), written with `#`.
 
 ```text
 One loose object shape for every step kind — no oneOf/anyOf across task variants, because that branch

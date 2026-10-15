@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md
     kind: comment-page
-    body_sha: da481fe42112
+    body_sha: e81718986e90
     adrs:
       - ADR-AUTO-ENVVAR#1
       - ADR-AUTO-GO#6
@@ -11,21 +11,21 @@ catzc:
 
 # automation/Catzc.Base.Languages/Invoke-GoTest.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:7
+## comment:1
 
-Above `$goPath = if ($GoExecutable) {`.
+Above `$goPath = if ($GoExecutable) {`, written with `#`.
 
 ```text
 The managed go, by its path: the caller's, already located and checked, or located here from its tools.yml entry
 (Resolve-ToolExecutable); never a bare go off PATH.
 ```
 
-## comment:8
+## comment:2
 
-Above `$environment = Get-EngineContract -Engine $Engine -EngineExecutable...`.
+Above `$environment = Get-EngineContract -Engine $Engine -EngineExecutable...`, written with `#`.
 
 ```text
 How the tests start the engine (Get-EngineContract) is an external contract with the go test processes

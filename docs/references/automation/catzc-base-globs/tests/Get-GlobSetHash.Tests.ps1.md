@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md
-    kind: test-asset
-    body_sha: "3fd662cdf69e"
+    kind: comment-page
+    body_sha: "25dcad567406"
     adrs:
       - ADR-FLOW-CD-GLOBS#5
 ---
@@ -12,12 +12,12 @@ catzc:
 
 <!-- cspell:ignore ntwo -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {`.
+Above `Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {`, written with `#`.
 
 ```text
 The durable SHA ([ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)):

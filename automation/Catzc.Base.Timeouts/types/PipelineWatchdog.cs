@@ -5,11 +5,11 @@ catzc:
     path: automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs
     kind: csharp-type
     module: Catzc.Base.Timeouts
+    relatives:
+      page: docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md
+      test: automation/Catzc.Base.Timeouts/tests/types/PipelineWatchdog.Tests.ps1
 ---
 */
-
-// The stop is issued in C# because the timer fires on a thread with no runspace; Dispose it once the pipeline returns.
-// [comment:1](/docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md#comment1)
 
 using System;
 using System.Management.Automation;
@@ -34,8 +34,6 @@ public sealed class PipelineWatchdog : IDisposable
         if (pipeline == null) { throw new ArgumentNullException("pipeline"); }
         if (limit <= TimeSpan.Zero) { throw new ArgumentOutOfRangeException("limit", "the limit must be positive"); }
 
-        // Without the gate a limit passing as the pipeline returns could Stop a disposed one; that thread-pool exception ends the process.
-        // [comment:2](/docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md#comment2)
         timer = new Timer(_ =>
         {
             lock (gate)

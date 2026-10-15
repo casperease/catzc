@@ -4,16 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Git/tests/types/GitIndex.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-git/tests/types/GitIndex.Tests.ps1.md
+      source: automation/Catzc.Base.Git/types/GitIndex.cs
 ---
 #>
 
 # cspell:ignore blåbær  -- the non-ASCII fixture path
-# The index reader against hand-built index bytes in git's on-disk layout (DIRC v2-v4) — every shape a real...
-# [comment:1](/docs/references/automation/catzc-base-git/tests/types/GitIndex.Tests.ps1.md#comment1)
 Describe 'GitIndex' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Builds index bytes.
-        # [comment:2](/docs/references/automation/catzc-base-git/tests/types/GitIndex.Tests.ps1.md#comment2)
         function New-GitIndexBytes {
             param([object[]] $Entry = @(), [int] $Version = 2, [byte[]] $Extension = @(), [switch] $ZeroChecksum)
 

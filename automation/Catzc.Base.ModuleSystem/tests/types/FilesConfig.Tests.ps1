@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/types/FilesConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/tests/types/FilesConfig.Tests.ps1.md
+      source: automation/Catzc.Base.ModuleSystem/types/FilesConfig.cs
 ---
 #>
 
-# The files.yml type (module -> packages, for Copy-Automation): constructing it maps and validates the parsed YAML,...
-# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/types/FilesConfig.Tests.ps1.md#comment1)
 Describe 'Catzc.Base.ModuleSystem.FilesConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {

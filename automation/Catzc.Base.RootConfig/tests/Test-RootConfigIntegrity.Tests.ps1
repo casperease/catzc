@@ -4,21 +4,19 @@ catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-rootconfig/tests/Test-RootConfigIntegrity.Tests.ps1.md
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-ROOTCFG
 ---
 #>
 
-# Integrity test for managed root config files, through the quality gates Test-RootConfigFiles and...
-# [comment:1](/docs/references/automation/catzc-base-rootconfig/tests/Test-RootConfigIntegrity.Tests.ps1.md#comment1)
 Describe 'Managed root config files agree with .gitignore and git tracking' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
         $script:skip = $null
 
-        # L2: drives the real git CLI.
-        # [comment:2](/docs/references/automation/catzc-base-rootconfig/tests/Test-RootConfigIntegrity.Tests.ps1.md#comment2)
         if (-not (Get-Command git -ErrorAction Ignore)) {
             $script:skip = 'tool_git_missing'
         }
@@ -55,8 +53,6 @@ Describe 'Managed root config files agree with .gitignore and git tracking' -Tag
     }
 }
 
-# The root PSScriptAnalyzerSettings.psd1 has a consumer-format contract of its own: PSScriptAnalyzer requires a...
-# [comment:3](/docs/references/automation/catzc-base-rootconfig/tests/Test-RootConfigIntegrity.Tests.ps1.md#comment3)
 Describe 'Root PSScriptAnalyzerSettings.psd1 link' -Tag 'L1', 'integrity', 'source-only' {
     It 'parses as a settings hashtable through the link' {
         $result = Test-RootAnalyzerSettings -PassThru -OutputFolder (Join-Path $TestDrive 'root-analyzer-settings')

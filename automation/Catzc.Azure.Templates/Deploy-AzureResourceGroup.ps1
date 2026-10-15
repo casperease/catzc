@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1
   config:
     synopsis: Idempotently ensures a resource group exists in a given subscription and region.
     description: |-

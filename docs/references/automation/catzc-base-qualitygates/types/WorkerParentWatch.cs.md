@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md
     kind: comment-page
-    body_sha: e7555955a7f5
+    body_sha: "42518164a2ae"
 ---
 
 # automation/Catzc.Base.QualityGates/types/WorkerParentWatch.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `namespace Catzc.Base.QualityGates;`.
+Above `namespace Catzc.Base.QualityGates;`, written with `//`.
 
 ```text
 Ends a test worker process when the process that started it is gone. PesterRunner hands every worker its own
@@ -25,7 +25,7 @@ terminal, a killed console) never leaves workers behind holding files and runnin
 
 ## comment:2
 
-Above `private static readonly TimeSpan StartTolerance = TimeSpan.FromSeconds(1);`.
+Above `private static readonly TimeSpan StartTolerance = TimeSpan.FromSeconds(1);`, written with `//`.
 
 ```text
 Start times are compared with slack: on Linux, Process.StartTime is derived from the boot time and can
@@ -34,7 +34,7 @@ differ by a few milliseconds between reads of the same process. A reused PID sta
 
 ## comment:3
 
-Above `public static bool IsAlive(int pid, long startTicksUtc)`.
+Above `public static bool IsAlive(int pid, long startTicksUtc)`, written with `///`.
 
 ```text
 <summary>
@@ -44,7 +44,7 @@ True when the process with this PID exists and started at this time (UTC ticks, 
 
 ## comment:4
 
-Above `public static bool Start(int intervalMilliseconds)`.
+Above `public static bool Start(int intervalMilliseconds)`, written with `///`.
 
 ```text
 <summary>
@@ -56,7 +56,7 @@ a watch runs returns true without starting another.
 
 ## comment:5
 
-Above `using var self = Process.GetCurrentProcess();`.
+Above `using var self = Process.GetCurrentProcess();`, written with `//`.
 
 ```text
 Kill, not Environment.Exit: exit handlers can block behind a main thread stuck writing to a pipe nobody

@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/tests/NoRawConsoleWrite.Tests.ps1.md
-    kind: test-asset
-    body_sha: "3d5f86485803"
+    kind: comment-page
+    body_sha: a52fc2c0041f
 ---
 
 # automation/.scriptanalyzer/tests/NoRawConsoleWrite.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Measure-NoRawConsoleWrite' -Tag 'L0', 'logic' {`.
+Above `Describe 'Measure-NoRawConsoleWrite' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
@@ -23,7 +23,7 @@ lives once, for all custom rules, in CustomRuleWiring.Tests.ps1.
 
 ## comment:2
 
-Above `if (-not (Get-Module PSScriptAnalyzer)) {`.
+Above `if (-not (Get-Module PSScriptAnalyzer)) {`, written with `#`.
 
 ```text
 The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module

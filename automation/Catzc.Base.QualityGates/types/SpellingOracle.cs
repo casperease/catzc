@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/SpellingOracle.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1
     adrs:
       - ADR-AUTO-SPELL
       - ADR-AUTO-SPELL#2
@@ -20,12 +23,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-/// <summary> Deliberately dumb and fast: the rule picks the identifiers and exemptions, this type only tokenizes and looks up.
-/// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment1)
 public static class SpellingOracle
 {
-    // Single letters are loop indices and type variables, so only fragments of two or more letters can be flagged.
-    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment2)
     public const int MinFragmentLength = 2;
 
     private static readonly object Gate = new object();
@@ -36,8 +35,6 @@ public static class SpellingOracle
 
     public static int WordCount => _words?.Count ?? 0;
 
-    /// <summary> A second call is a no-op, so each analyzer shard pays the load once; fixture terms stay separate.
-    /// [comment:3](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment3)
     public static void Initialize(string englishGzPath, IEnumerable<string> termListPaths, IEnumerable<string> fixtureListPaths)
     {
         if (_words != null)
@@ -104,8 +101,6 @@ public static class SpellingOracle
         return _words.Contains(fragment);
     }
 
-    /// <summary> Fixture terms count as known only when includeFixtures is set, so a fixture token never blesses production code.
-    /// [comment:4](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment4)
     public static string[] CoinedFragments(string identifier, bool includeFixtures)
     {
         EnsureLoaded();
@@ -134,15 +129,11 @@ public static class SpellingOracle
         return coined.ToArray();
     }
 
-    /// <summary>Production scope never accepts fixture terms, so a fixture token cannot bless a real identifier.</summary>
-    /// [comment:5](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment5)
     public static string[] CoinedFragments(string identifier)
     {
         return CoinedFragments(identifier, false);
     }
 
-    /// <summary> Non-letter runs are dropped as separators, so numeric suffixes never form fragments.
-    /// [comment:6](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment6)
     public static IEnumerable<string> Tokenize(string identifier)
     {
         var builder = new StringBuilder();

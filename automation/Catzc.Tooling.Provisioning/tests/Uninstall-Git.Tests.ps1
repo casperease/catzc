@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Git.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Git.Tests.ps1.md
+      source: automation/Catzc.Tooling.Provisioning/Uninstall-Git.ps1
 ---
 #>
 
 Describe 'Uninstall-Git' -Tag 'L0', 'logic' {
-    # Every filesystem/PATH/CLI boundary is mocked so nothing is removed for real and no process launches (the L0...
-    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Git.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Remove-Item { } -ModuleName Catzc.Tooling.Provisioning
         Mock Remove-PermanentPath { } -ModuleName Catzc.Tooling.Provisioning

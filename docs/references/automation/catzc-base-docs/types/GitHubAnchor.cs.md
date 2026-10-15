@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GitHubAnchor.cs.md
     kind: comment-page
-    body_sha: c8ee7d9eaed9
+    body_sha: "1166443dc18a"
     adrs:
       - ADR-REPO-LINK#2
 ---
 
 # automation/Catzc.Base.Docs/types/GitHubAnchor.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 GitHub's heading anchors: the slug GitHub renders for a markdown heading, and the full anchor set of a
@@ -31,7 +31,7 @@ headings; an explicit <a id="…"> or <a name="…"> is an anchor too.
 
 ## comment:2
 
-Above `public static IReadOnlyCollection<string> Anchors(string markdown)`.
+Above `public static IReadOnlyCollection<string> Anchors(string markdown)`, written with `//`.
 
 ```text
 Every anchor a markdown document exposes: heading slugs (with GitHub's -1/-2 duplicate suffixes) plus

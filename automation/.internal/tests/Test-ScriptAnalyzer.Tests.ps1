@@ -4,27 +4,23 @@ catzc:
   derived:
     path: automation/.internal/tests/Test-ScriptAnalyzer.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/internal/tests/Test-ScriptAnalyzer.Tests.ps1.md
     adrs:
       - ADR-AUTO-CACHE#10
       - ADR-PWSH-FORMAT#5
 ---
 #>
 
-# greedy: the analysis shards across min(ProcessorCount - 1, 10) background pwsh processes of its own — stacked on...
-# [comment:1](/docs/references/automation/internal/tests/Test-ScriptAnalyzer.Tests.ps1.md#comment1)
 Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
 
-        # Draw the exact files from the one shared selector (Get-AutomationSourceFiles), so this gate cannot drift...
-        # [comment:2](/docs/references/automation/internal/tests/Test-ScriptAnalyzer.Tests.ps1.md#comment2)
         $script:targetFiles = [System.Collections.Generic.List[string]]::new()
         foreach ($file in (& (Get-Module Catzc.Base.QualityGates) { Get-AutomationSourceFiles } | Sort-Object)) {
             $script:targetFiles.Add($file)
         }
 
-        # The one analysis engine Test-ScriptAnalyzer runs (Get-ScriptAnalyzerDiagnostics): the file list sharded...
-        # [comment:3](/docs/references/automation/internal/tests/Test-ScriptAnalyzer.Tests.ps1.md#comment3)
         $allDiagnostics = & (Get-Module Catzc.Base.QualityGates) {
             param($Files, $Settings)
             @(Get-ScriptAnalyzerDiagnostics -Path $Files -SettingsPath $Settings)

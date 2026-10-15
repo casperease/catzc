@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Azure/types/NetworkEnvironment.cs
     kind: csharp-type
     module: Catzc.Azure
+    relatives:
+      page: docs/references/automation/catzc-azure/types/NetworkEnvironment.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-NETWORK
 ---
 */
-
-// Per-entry shape only: NetworkConfig builds one per entry and collects its violations with the file's.
-// [comment:1](/docs/references/automation/catzc-azure/types/NetworkEnvironment.cs.md#comment1)
 
 using System;
 using System.Collections;

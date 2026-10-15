@@ -4,13 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.Overlay/tests/Overlay.Fixture.ps1
     kind: test-asset
+    relatives:
+      page: docs/references/automation/catzc-base-overlay/tests/Overlay.Fixture.ps1.md
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
-
-# Shared fixture of the overlay tests: a bundled module Catzc.Base.Widget (a dynamic module in the session, so its...
-# [comment:1](/docs/references/automation/catzc-base-overlay/tests/Overlay.Fixture.ps1.md#comment1)
 
 $script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
 $script:modulesRoot = Join-Path $fixtureRoot 'bundle'
@@ -26,10 +25,6 @@ function script:New-OverlayFixtureModule {
     param()
 
     New-Module -Name Catzc.Base.Widget -ScriptBlock {
-        <#
-        .SYNOPSIS
-            The fixture module's public function.
-        #>
         function Get-Widget {
             [OutputType([string])]
             param(
@@ -40,10 +35,6 @@ function script:New-OverlayFixtureModule {
             )
             "bundled:$Name/$Count/$(Get-WidgetCore)"
         }
-        <#
-        .SYNOPSIS
-            The fixture module's private function.
-        #>
         function Get-WidgetCore {
             [OutputType([string])]
             param()

@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md
+      test: automation/Catzc.Base.ModuleSystem/tests/types/DependenciesConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEPM
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Load rules read this one file only, so a declared module missing on disk is a Test-ModuleDependency finding.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -28,8 +28,6 @@ public sealed class DependenciesConfig : Catzc.Base.Objects.DictionaryRecord
     // Group name -> ModuleGroup, in declaration order; read-only (empty when the file declares no groups).
     public OrderedDictionary groups { get; }
 
-    // Each target is a group or a module name, kept in declaration order; the dictionary itself is read-only.
-    // [comment:2](/docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md#comment2)
     public OrderedDictionary modules { get; }
 
     public DependenciesConfig(IDictionary raw)
@@ -109,8 +107,6 @@ public sealed class DependenciesConfig : Catzc.Base.Objects.DictionaryRecord
                 }
             }
 
-            // Group references are a lower layer and cannot form a module-level cycle, so only module edges are walked.
-            // [comment:3](/docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md#comment3)
             OrderedDictionary adjacency = new OrderedDictionary(StringComparer.OrdinalIgnoreCase);
             foreach (DictionaryEntry entry in moduleMap)
             {

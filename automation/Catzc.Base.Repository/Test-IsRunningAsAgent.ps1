@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Repository
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Repository/tests/Test-IsRunningAsAgent.Tests.ps1
   config:
     synopsis: Returns true if the current session is driven by an AI coding agent rather than a person.
     description: |-

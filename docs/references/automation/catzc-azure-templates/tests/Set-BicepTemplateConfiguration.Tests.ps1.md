@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Set-BicepTemplateConfiguration.Tests.ps1.md
-    kind: test-asset
-    body_sha: e4a15bc8b598
+    kind: comment-page
+    body_sha: "24b4f8fe326e"
     adrs:
       - ADR-AUTO-CACHE#6
       - ADR-AUTO-TEST#19
@@ -14,12 +14,12 @@ catzc:
 
 <!-- cspell:ignore toolong gmweutstsmplst alweutstsmplst -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {`.
+Above `Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 These are L0 'logic' tests (mocked config/discovery, no real az/cspell) — they are NOT L2 and should not
@@ -36,7 +36,7 @@ the cache warm:
 
 ## comment:2
 
-Above `Mock Get-BicepTemplatesRoot { $script:templatesRoot } -ModuleName...`.
+Above `Mock Get-BicepTemplatesRoot { $script:templatesRoot } -ModuleName...`, written with `#`.
 
 ```text
 The tool/config boundary is mocked once for the whole block — Get-BicepTemplatesRoot reads the
@@ -45,7 +45,7 @@ current $script:templatesRoot at call time, so each context just repoints that v
 
 ## comment:3
 
-Above `$script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())`.
+Above `$script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())`, written with `#`.
 
 ```text
 FRESH, UNIQUE root under $TestDrive (Pester auto-cleans it): a unique dir is never re-deleted
@@ -58,7 +58,7 @@ Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse: ~15x faster per 
 
 ## comment:4
 
-Above `InModuleScope Catzc.Base.Config { $script:configCache = $null }`.
+Above `InModuleScope Catzc.Base.Config { $script:configCache = $null }`, written with `#`.
 
 ```text
 Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here in
@@ -71,7 +71,7 @@ gate. These tests never mutate the tree, so the cache stays valid for all of the
 
 ## comment:5
 
-Above `BeforeAll {`.
+Above `BeforeAll {` (occurrence 3), written with `#`.
 
 ```text
 Each test writes to a DISTINCT path (sample/gamma, sample/delta, sample/alpha,
@@ -84,7 +84,7 @@ the unique-dir / AV-race rationale.
 
 ## comment:6
 
-Above `InModuleScope Catzc.Base.Config { $script:configCache = $null }`.
+Above `InModuleScope Catzc.Base.Config { $script:configCache = $null }` (occurrence 2), written with `#`.
 
 ```text
 Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here so the

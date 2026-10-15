@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/infrastructure/modules/nsg.bicep.md
     kind: comment-page
-    body_sha: "11a43e56100a"
+    body_sha: "5c9e3b705c1b"
 ---
 
 # infrastructure/modules/nsg.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `@description('Network security group name (1-80 characters, unique within the...`.
+Above `@description('Network security group name (1-80 characters, unique within the...`, written with `//`.
 
 ```text
 Reusable bicep module: a network security group. The caller passes the rules in the ARM

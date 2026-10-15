@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md
+      test: automation/Catzc.Tooling.Provisioning/tests/Install-Git.Tests.ps1
   config:
     synopsis: Installs Git (user-space on Windows, package manager elsewhere).
     description: |-
@@ -54,8 +57,6 @@ function Install-Git {
         $asset = $release.assets | Where-Object { $_.name -match '^PortableGit-.*-64-bit\.7z\.exe$' }
         Assert-NotNull $asset -ErrorText "No PortableGit 64-bit archive found in release $($release.tag_name)"
 
-        # git is a sanctioned 'latest' base tool, so there is no committed hash to pin — but every Git for Windows...
-        # [comment:5](/docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md#comment5)
         $digest = if ($asset.PSObject.Properties['digest']) {
             $asset.digest
         }
@@ -67,8 +68,6 @@ function Install-Git {
         $exePath = Join-Path ([IO.Path]::GetTempPath()) $asset.name
         Save-VerifiedDownload -Uri $asset.browser_download_url -OutFile $exePath -Sha256 $digest | Out-Null
 
-        # PortableGit.7z.exe is a self-extracting archive.
-        # [comment:6](/docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md#comment6)
         Write-Message "Extracting to '$installDir'"
         Invoke-Executable "$exePath -o`"$installDir`" -y"
         Remove-Item $exePath -Force
@@ -95,8 +94,6 @@ function Install-Git {
         Write-Message 'Git installed successfully via brew'
     }
     elseif ($IsLinux) {
-        # Idempotent guard first (as on macOS) — a box that already has git (e.g.
-        # [comment:7](/docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md#comment7)
         if ((Test-Command git) -and -not $Force) {
             Write-Message 'Git is already installed'
             return

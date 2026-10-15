@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md
     kind: comment-page
-    body_sha: "322b3c3655f6"
+    body_sha: "1965e4d7647d"
 ---
 
 # automation/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:3
+## comment:1
 
-Above `$rendered = [ordered]@{}`.
+Above `$rendered = [ordered]@{}`, written with `#`.
 
 ```text
 Front the schema with its meta-schema declaration, then the authored body in registry order. The '$comment'

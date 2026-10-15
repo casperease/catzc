@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Tooling.Inspiration/configs/glossary.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-tooling-inspiration/configs/glossary.yml.md
 # ---
 
-# Every option is defaulted, so this file only lists the concepts; Test-Glossary checks it.
-# [comment:1](/docs/references/automation/catzc-tooling-inspiration/configs/glossary.yml.md#comment1)
 concepts:
   inspiration:
     key: inspiration

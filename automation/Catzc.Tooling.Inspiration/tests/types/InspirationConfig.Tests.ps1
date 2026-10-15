@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md
+      source: automation/Catzc.Tooling.Inspiration/types/InspirationConfig.cs
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-PATH#6
@@ -12,8 +15,6 @@ catzc:
 ---
 #>
 
-# InspirationConfig and its InspirationEntry over neutral fixtures (widget/gadget, ): the mapping, the one declared...
-# [comment:1](/docs/references/automation/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md#comment1)
 Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-REPO-INSPIRE#5' {
     BeforeAll {
         function New-Entry {

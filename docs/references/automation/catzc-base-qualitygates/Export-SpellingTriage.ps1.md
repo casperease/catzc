@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md
     kind: comment-page
-    body_sha: "1019da1698d6"
+    body_sha: e6fad7eb5a6c
     adrs:
       - ADR-AUTO-SPELL#6
       - ADR-AUTO-SPELL#7
@@ -11,30 +11,30 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/Export-SpellingTriage.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:9
+## comment:1
 
-Above `$command = (`.
+Above `$command = (`, written with `#`.
 
 ```text
 --words-only prints just the flagged tokens (one per line); --unique de-duplicates; --no-summary keeps
 the trailing "Issues found" line out of the token stream.
 ```
 
-## comment:10
+## comment:2
 
-Above `$result = Invoke-Executable $command -PassThru -NoAssert -Silent`.
+Above `$result = Invoke-Executable $command -PassThru -NoAssert -Silent`, written with `#`.
 
 ```text
 -Silent: capture cspell's output instead of streaming it. Exit 0 = clean, 1 = tokens flagged (expected),
 >1 = tool error.
 ```
 
-## comment:11
+## comment:3
 
-Above `$lines = [System.Collections.Generic.List[string]]::new()`.
+Above `$lines = [System.Collections.Generic.List[string]]::new()`, written with `#`.
 
 ```text
 Emit paste-ready stubs. The blank meaning/category are intentional: a stub pasted into

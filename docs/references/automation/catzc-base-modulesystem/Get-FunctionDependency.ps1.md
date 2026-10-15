@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
     kind: comment-page
-    body_sha: eec7cd0d79d8
+    body_sha: "21cbd7522c30"
     adrs:
       - ADR-AUTO-CACHE#2
       - ADR-AUTO-CACHE#4
@@ -16,12 +16,12 @@ catzc:
 
 # automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:5
+## comment:1
 
-Above `if ($null -eq...`.
+Above `if ($null -eq...`, written with `#`.
 
 ```text
 Filesystem-derived information — cached for the session, lazily on first use, keyed on the resolved automation
@@ -35,18 +35,18 @@ cannot collide with the real tree
 read-only ([ADR-AUTO-CACHE#5](/docs/adr/automation/caching.md#rule-adr-auto-cache5)).
 ```
 
-## comment:6
+## comment:2
 
-Above `$script:functionDependencyCache = @{}`.
+Above `$script:functionDependencyCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
 ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
 ```
 
-## comment:7
+## comment:3
 
-Above `$parsed = [System.Collections.Generic.List[object]]::new()`.
+Above `$parsed = [System.Collections.Generic.List[object]]::new()`, written with `#`.
 
 ```text
 Enumerate + parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/

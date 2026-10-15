@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Get-Config.Integrity.Tests.ps1.md
-    kind: test-asset
-    body_sha: "6ea7c7a225b4"
+    kind: comment-page
+    body_sha: "6db24447c9bc"
 ---
 
 # automation/Catzc.Azure.Templates/tests/Get-Config.Integrity.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Shipped asset integrity' -Tag 'L0', 'integrity' {`.
+Above `Describe 'Shipped asset integrity' -Tag 'L0', 'integrity' {`, written with `#`.
 
 ```text
 Integrity tests for the SHIPPED config assets + real templates. Unlike the logic unit tests, these
@@ -24,7 +24,7 @@ Resolve-ConfigEntry (config discovery) / Get-BicepTemplatesRoot seams. Nothing e
 
 ## comment:2
 
-Above `$violations = foreach ($t in (Get-BicepTemplates)) {`.
+Above `$violations = foreach ($t in (Get-BicepTemplates)) {`, written with `#`.
 
 ```text
 One Should over the violating set — a Should per template slot pays Pester's per-assertion
@@ -33,7 +33,7 @@ cost times the whole discovered template tree.
 
 ## comment:3
 
-Above `try {`.
+Above `try {`, written with `#`.
 
 ```text
 slot.customer is the raw token from the subscription (a key or shortcode); it must

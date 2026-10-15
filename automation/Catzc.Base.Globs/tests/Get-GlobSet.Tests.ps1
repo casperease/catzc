@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-GlobSet.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-globs/tests/Get-GlobSet.Tests.ps1.md
+      source: automation/Catzc.Base.Globs/Get-GlobSet.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
@@ -12,8 +15,6 @@ catzc:
 # The typed read of globs.yml: all sets in registry order, named lookup, throwing on an unknown name.
 Describe 'Get-GlobSet' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names, so this...
-        # [comment:1](/docs/references/automation/catzc-base-globs/tests/Get-GlobSet.Tests.ps1.md#comment1)
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
                     'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**') }

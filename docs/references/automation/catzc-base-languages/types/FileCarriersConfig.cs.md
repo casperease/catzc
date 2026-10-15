@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/FileCarriersConfig.cs.md
     kind: comment-page
-    body_sha: c43229993d38
+    body_sha: "4c24139142ab"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-CONFIG#1
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.Languages/types/FileCarriersConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Every file class names where its meta block lives or why it has none, so a gap is a visible, reviewed entry.

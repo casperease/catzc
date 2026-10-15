@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Globs
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-globs/Get-MarkerBlastRadius.ps1.md
+      test: automation/Catzc.Base.Globs/tests/Get-MarkerBlastRadius.Tests.ps1
     adrs:
       - ADR-FLOW-CD-GLOBS#1
       - ADR-REPO-PROTGLOB
@@ -55,8 +58,6 @@ function Get-MarkerBlastRadius {
         return
     }
 
-    # Declared sets first (registry order), then the derived module sets — the same one-answer-per-set shape either way.
-    # [comment:4](/docs/references/automation/catzc-base-globs/Get-MarkerBlastRadius.ps1.md#comment4)
     foreach ($set in @(Get-GlobSet) + @(Get-ModuleGlobSet)) {
         foreach ($file in $files) {
             if ($set.Matches($file)) {

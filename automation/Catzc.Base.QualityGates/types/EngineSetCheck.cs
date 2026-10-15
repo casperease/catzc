@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/EngineSetCheck.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/EngineSetCheck.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// No engine name or count is a literal here: each phrase carries a placeholder the matcher fills from the engines model.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/EngineSetCheck.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -50,8 +50,6 @@ public sealed class EngineSetCheck : SourceCheck
         name_phrases = Phrases(raw, "name_phrases", NamePlaceholder);
     }
 
-    // Phrases naming two or more engines but not all of them count as restating the set, as does a wrong engine count.
-    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/EngineSetCheck.cs.md#comment2)
     public IReadOnlyList<(int Offset, string Text, string Message)> FindProse(string text, IReadOnlyCollection<string> names)
     {
         var found = new List<(int, string, string)>();
@@ -107,8 +105,6 @@ public sealed class EngineSetCheck : SourceCheck
         return found;
     }
 
-    // Two or more distinct engine names as literals on one line should be a read of the model's engine names instead.
-    // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/EngineSetCheck.cs.md#comment3)
     public static IReadOnlyList<(int Offset, string Message)> FindCSharpLists(string text, IReadOnlyCollection<string> names)
     {
         var found = new List<(int, string)>();

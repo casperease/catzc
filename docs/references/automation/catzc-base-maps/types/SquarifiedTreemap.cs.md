@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/SquarifiedTreemap.cs.md
     kind: comment-page
-    body_sha: "0f212045c983"
+    body_sha: "726fe6f1b591"
     adrs:
       - ADR-PWSH-TYPES#1
 ---
 
 # automation/Catzc.Base.Maps/types/SquarifiedTreemap.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A deterministic squarified treemap: it tiles a bounding box with one rectangle per item, each with an area
@@ -31,7 +31,7 @@ rectangle; a negative, NaN or infinite weight, a duplicate or empty key, or an e
 
 ## comment:2
 
-Above `public static TreemapRect[] Layout(string[] keys, double[] weights, double x,...`.
+Above `public static TreemapRect[] Layout(string[] keys, double[] weights, double x,...`, written with `//`.
 
 ```text
 The rectangles of the items with a positive weight inside the box (x, y is its bottom-left corner), heaviest
@@ -40,7 +40,7 @@ first, ties in ordinal key order.
 
 ## comment:3
 
-Above `private static void Place(List<int> row, string[] keys, double[] weights,...`.
+Above `private static void Place(List<int> row, string[] keys, double[] weights,...`, written with `//`.
 
 ```text
 Lays a row along the shorter side of the remaining box: a column at the left of a wide box (top to bottom), a band

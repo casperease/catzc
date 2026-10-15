@@ -4,19 +4,18 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-ReadmeMappings.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Get-ReadmeMappings.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1
     adrs:
       - ADR-PWSH-PESTER#4
 ---
 #>
 
-# Get-ReadmeMappings is private, so it is exercised through the module (InModuleScope, per ).
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-ReadmeMappings.Tests.ps1.md#comment1)
 Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
     BeforeAll {
         # The source-tree guard is its own unit (below); here the fixture stands in for the source tree in either run mode.
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
-        # Fixture repo: automation/<modules> + a dot-dir; reference articles, as the sources, for two of the three...
-        # [comment:2](/docs/references/automation/catzc-base-docs/tests/Get-ReadmeMappings.Tests.ps1.md#comment2)
         $script:root = Join-Path $TestDrive ([guid]::NewGuid())
         foreach ($d in 'automation/Catzc.Azure.DevOps', 'automation/Catzc.Base.Files', 'automation/Catzc.NoDoc', 'automation/.vendor', 'docs/references/automation') {
             [System.IO.Directory]::CreateDirectory((Join-Path $script:root $d)) | Out-Null
@@ -77,8 +76,6 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
     }
 
     It 'throws on an unsupported glob (only a trailing /* is supported)' {
-        # No Root plumbing: the glob-shape check throws before RepositoryRoot is ever read, so a literal placeholder...
-        # [comment:3](/docs/references/automation/catzc-base-docs/tests/Get-ReadmeMappings.Tests.ps1.md#comment3)
         InModuleScope Catzc.Base.Docs {
             $config = [pscustomobject]@{
                 patterns = @([pscustomobject]@{ glob = 'automation/**/deep'; source = 'x/{kebab}.md' })

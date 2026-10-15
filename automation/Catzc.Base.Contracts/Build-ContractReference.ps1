@@ -6,6 +6,8 @@ catzc:
     kind: writer-function
     module: Catzc.Base.Contracts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
     adrs:
       - ADR-REPO-CONTRACT#2
       - ADR-REPO-CONTRACT#5

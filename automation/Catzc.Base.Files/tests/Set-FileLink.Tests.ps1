@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Files/tests/Set-FileLink.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-files/tests/Set-FileLink.Tests.ps1.md
+      source: automation/Catzc.Base.Files/Set-FileLink.ps1
     adrs:
       - ADR-AUTO-RETRY#1
 ---
@@ -11,8 +14,6 @@ catzc:
 
 Describe 'Set-FileLink' -Tag 'L1', 'logic' {
     BeforeAll {
-        # Capability probe: symbolic links need a privilege on Windows (Developer Mode / admin); hard links do not.
-        # [comment:1](/docs/references/automation/catzc-base-files/tests/Set-FileLink.Tests.ps1.md#comment1)
         $probeSource = Join-Path $TestDrive 'probe-source.txt'
         Set-Content -Path $probeSource -Value 'probe'
         $script:canCreateSymbolicLink = $true
@@ -68,8 +69,6 @@ Describe 'Set-FileLink' -Tag 'L1', 'logic' {
     }
 
     It 'heals a hard link orphaned by a git-style rewrite of the source' {
-        # A hard link (created directly — no privilege needed) goes stale when the source is replaced by a new file...
-        # [comment:2](/docs/references/automation/catzc-base-files/tests/Set-FileLink.Tests.ps1.md#comment2)
         New-Item -ItemType HardLink -Path $script:linkPath -Target $script:sourcePath | Out-Null
         [System.IO.File]::Delete($script:sourcePath)
         [System.IO.File]::WriteAllText($script:sourcePath, "beta`n")

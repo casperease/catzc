@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Docs/types/MarkdownLinkRebaser.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/MarkdownLinkRebaser.cs.md
+      test: automation/Catzc.Base.Docs/tests/types/MarkdownLinkRebaser.Tests.ps1
     adrs:
       - ADR-REPO-README#6
 ---
 */
-
-// Pure and repository-relative, so the result never depends on OS or disk; code, URLs, anchors and rooted links stay as written.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/MarkdownLinkRebaser.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -29,8 +29,6 @@ public static class MarkdownLinkRebaser
     static readonly Regex Fence = new Regex(@"^ {0,3}(`{3,}|~{3,})", RegexOptions.Compiled);
     static readonly Regex Scheme = new Regex(@"^[a-zA-Z][a-zA-Z0-9+.\-]*:", RegexOptions.Compiled);
 
-    // An empty folderRepoPath is the repository root, and a null or empty text comes back unchanged.
-    // [comment:2](/docs/references/automation/catzc-base-docs/types/MarkdownLinkRebaser.cs.md#comment2)
     public static string Rebase(string text, string sourceRepoPath, string folderRepoPath)
     {
         if (string.IsNullOrEmpty(text)) { return text; }

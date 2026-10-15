@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Resolve-AdrLinkTarget.Tests.ps1.md
-    kind: test-asset
-    body_sha: f3a95d80503d
+    kind: comment-page
+    body_sha: fceb6a0a7cef
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-LINK#2
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/tests/Resolve-AdrLinkTarget.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Resolve-AdrLinkTarget' -Tag 'L0', 'logic', 'ADR-REPO-LINK#2' {`.
+Above `Describe 'Resolve-AdrLinkTarget' -Tag 'L0', 'logic', 'ADR-REPO-LINK#2' {`, written with `#`.
 
 ```text
 Resolve-AdrLinkTarget — a markdown link in a file under docs/adr/, resolved relative to its file

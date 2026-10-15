@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestRuleTags.ps1.md
     kind: comment-page
-    body_sha: be440c28f856
+    body_sha: "3941eb2d4d4b"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestRuleTags.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:5
+## comment:1
 
-Above `$levels = [System.Collections.Generic.List[object]]::new()`.
+Above `$levels = [System.Collections.Generic.List[object]]::new()`, written with `#`.
 
 ```text
 The tag levels to union: the test's own It-tags, then each ancestor block (root excluded) — the same walk
@@ -21,9 +21,9 @@ Get-TestBlockTag makes, but accumulating across every level instead of stopping 
 contributes, because provenance is a set (a Describe rule and an inner It rule both hold).
 ```
 
-## comment:6
+## comment:2
 
-Above `if ($tag -cmatch '^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$') {`.
+Above `if ($tag -cmatch '^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$') {`, written with `#`.
 
 ```text
 Strict, case-sensitive citation grammar: only a well-formed 'ADR-<CODE>#<n>' contributes. A

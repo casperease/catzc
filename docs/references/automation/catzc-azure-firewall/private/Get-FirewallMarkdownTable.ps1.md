@@ -3,26 +3,26 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md
     kind: comment-page
-    body_sha: "10e17f62117e"
+    body_sha: fc9d82aa260d
 ---
 
 # automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownTable.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:5
+## comment:1
 
-Above `$protocols = @()`.
+Above `$protocols = @()`, written with `#`.
 
 ```text
 Pair protocols with ports as "protocols:ports" (e.g. TCP/UDP:53, 8053). App rules
 carry the port inside Protocols already and have no port field, so they pass through.
 ```
 
-## comment:6
+## comment:2
 
-Above `$values = foreach ($candidate in $column.Candidates) {`.
+Above `$values = foreach ($candidate in $column.Candidates) {`, written with `#`.
 
 ```text
 Gather values per candidate, preserving candidate (group) order. A rule can populate
@@ -30,9 +30,9 @@ more than one candidate (e.g. IP groups and addresses); the firewall unions them
 For sorted composites this gives two-level ordering: by group, then sorted within group.
 ```
 
-## comment:7
+## comment:3
 
-Above `if ($cell -match...`.
+Above `if ($cell -match...`, written with `#`.
 
 ```text
 Wrap a cell in backticks when Markdown would mangle it:

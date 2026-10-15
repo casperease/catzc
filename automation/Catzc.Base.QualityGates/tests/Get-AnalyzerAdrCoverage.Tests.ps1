@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Get-AnalyzerAdrCoverage.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Get-AnalyzerAdrCoverage.ps1
     adrs:
       - ADR-AUTO-TEST#28
       - ADR-AUTO-TEST#35
@@ -31,8 +34,6 @@ Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#28' {
     }
 }
 
-# source-only: it cross-checks the map against the repository's ADR tree and.scriptanalyzer rule files, which gives...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-AnalyzerAdrCoverage.Tests.ps1.md#comment1)
 Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-only', 'ADR-PWSH-FORMAT#7' {
     BeforeAll {
         $script:result = Test-AnalyzerAdrMap -PassThru -OutputFolder (Join-Path $TestDrive 'analyzer-adr-map')

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-Markdownlint.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-Markdownlint.ps1
     adrs:
       - ADR-AUTO-TEST#14
       - ADR-AUTO-TEST#35
@@ -118,8 +121,6 @@ Describe 'Test-Markdownlint (real markdownlint-cli2)' -Tag 'L2', 'logic' {
     }
 }
 
-# Integrity: the ACTUAL repository markdown is lint-clean.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Markdownlint.Tests.ps1.md#comment1)
 Describe 'Repository markdown integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'the real repository markdown is lint-clean (real markdownlint-cli2, default content scope)' {
         if (-not (Get-Command markdownlint-cli2 -ErrorAction Ignore)) {

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md
+      test: automation/Catzc.Tooling.Provisioning/tests/Install-DevBoxTools.Tests.ps1
   config:
     synopsis: Provisions the local development environment with all required tools.
     description: |-
@@ -28,8 +31,6 @@ function Install-DevBoxTools {
         [switch] $Force
     )
 
-    # Remove Chocolatey if present — this toolset uses winget on Windows.
-    # [comment:7](/docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md#comment7)
     Uninstall-Chocolatey
 
     # Report tools that work but aren't managed by us — left untouched.
@@ -39,8 +40,6 @@ function Install-DevBoxTools {
         Write-Message "Skipping $($tool.Tool) — $($tool.Installed) already installed, not managed by tools system"
     }
 
-    # Git first: a base tool (not version-locked, not in tools.yml) that the locked set builds on — on Windows its...
-    # [comment:8](/docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md#comment8)
     Install-Git -Force:$Force
 
     # Version-locked tools (from tools.yml, dependency-ordered via DependsOn)
@@ -53,8 +52,6 @@ function Install-DevBoxTools {
             continue
         }
 
-        # Platform-provided tools (winget; bash — the OS's, or Git Bash on Windows) are never installed — assert...
-        # [comment:9](/docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md#comment9)
         if ($config.system_provided) {
             Assert-True (Test-Tool $toolName -SkipVersionCheck) -ErrorText (
                 "$toolName is required but is provided by the platform, not the toolchain — install it and re-run " +
@@ -64,16 +61,12 @@ function Install-DevBoxTools {
             continue
         }
 
-        # Elevation-bound tools (admin_only machine-scope installers, or apt-get-routed Linux installs —...
-        # [comment:10](/docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md#comment10)
         if ((Test-ToolRequiresElevation $config) -and -not (Test-IsAdministrator)) {
             Write-Message "Skipping $toolName — requires elevation on this platform. Re-run Install-DevBoxTools elevated to install it."
             $skipped.Add($toolName) | Out-Null
             continue
         }
 
-        # A tool whose declared dependency was skipped this run — and whose dependency's command is not available...
-        # [comment:11](/docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md#comment11)
         if ($config.depends_on -and $skipped.Contains([string] $config.depends_on)) {
             $dependencyCommand = (Get-ToolConfig -Tool $config.depends_on).command
             if (-not (Test-Command $dependencyCommand)) {

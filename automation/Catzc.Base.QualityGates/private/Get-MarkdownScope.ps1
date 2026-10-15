@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownScope.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-MarkdownScope.Tests.ps1
     adrs:
       - ADR-REPO-FILEMETA#5
       - ADR-REPO-FORMAT#6
@@ -45,8 +48,6 @@ function Get-MarkdownScope {
         return , [string[]] @()
     }
 
-    # Every class comes from.gitattributes.
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownScope.ps1.md#comment3)
     $exemptPaths = Get-ContentExemptPath -RepositoryRoot $root -Path $markdown
     $exempt = [System.Collections.Generic.HashSet[string]]::new([string[]] @($exemptPaths))
     $attributes = if ($OptOut) {

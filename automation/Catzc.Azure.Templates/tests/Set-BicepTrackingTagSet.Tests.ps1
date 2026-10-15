@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Set-BicepTrackingTagSet.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Set-BicepTrackingTagSet.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1
     adrs:
       - ADR-PWSH-PESTER#3
 ---
@@ -15,8 +18,6 @@ Describe 'Set-BicepTrackingTagSet' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        # The scope subscription is the az session's — the whole-boundary session mock.
-        # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Set-BicepTrackingTagSet.Tests.ps1.md#comment1)
         Mock Get-AzCliSessionSubscription {
             [ordered]@{ name = 'core_lower'; id = '50a0ed00-de00-50b0-0000-000000000000'; customer = ''
                 tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }

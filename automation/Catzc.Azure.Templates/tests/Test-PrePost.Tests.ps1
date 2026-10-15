@@ -4,11 +4,10 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Test-PrePost.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Test-PrePost.Tests.ps1.md
 ---
 #>
-
-# Tests for the PrePost starter (Catzc.Azure.Templates/assets/PrePost.psm1) — the copy-in template that authors clone...
-# [comment:1](/docs/references/automation/catzc-azure-templates/tests/Test-PrePost.Tests.ps1.md#comment1)
 
 BeforeAll {
     Import-Module (Join-Path $PSScriptRoot '../assets/PrePost.psm1') -Force
@@ -29,8 +28,6 @@ Describe 'Invoke-BicepPrepareParameterSet (starter no-op)' -Tag 'L0', 'logic' {
     }
 
     It 'requires BuildInvocation, TemplateDescriptor, and ConfigurationDescriptor' {
-        # Null the parameter under test (supplying the others) so mandatory binding THROWS rather than PROMPTS —...
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Test-PrePost.Tests.ps1.md#comment2)
         { Invoke-BicepPrepareParameterSet -BuildInvocation $null -TemplateDescriptor @{} -ConfigurationDescriptor @{} } | Should -Throw
         { Invoke-BicepPrepareParameterSet -BuildInvocation @{} -TemplateDescriptor $null -ConfigurationDescriptor @{} } | Should -Throw
         { Invoke-BicepPrepareParameterSet -BuildInvocation @{} -TemplateDescriptor @{} -ConfigurationDescriptor $null } | Should -Throw
@@ -69,8 +66,6 @@ Describe 'Invoke-BicepPostDeploy (starter no-op)' -Tag 'L0', 'logic' {
     }
 
     It 'requires DeploymentOutput' {
-        # Pass DeploymentOutput explicitly as $null (rather than omitting it) so mandatory binding throws instead of...
-        # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Test-PrePost.Tests.ps1.md#comment3)
         {
             Invoke-BicepPostDeploy `
                 -DeployInvocation ([ordered]@{}) `

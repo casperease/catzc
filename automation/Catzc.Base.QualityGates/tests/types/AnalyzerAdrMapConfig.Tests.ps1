@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/AnalyzerAdrMapConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
     adrs:
       - ADR-PWSH-FORMAT#7
 ---

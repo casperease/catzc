@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Maps/types/PdfPage.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/PdfPage.cs.md
+      test: automation/Catzc.Base.Maps/tests/types/PdfPage.Tests.ps1
     adrs:
       - ADR-PWSH-TYPES#1
 ---
 */
-
-// A character outside WinAnsi throws instead of printing a wrong glyph; the origin is the bottom-left corner.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/PdfPage.cs.md#comment1)
 
 using System;
 using System.Text;
@@ -80,8 +80,6 @@ public sealed class PdfPage
     public PdfPage Line(double x1, double y1, double x2, double y2) =>
         Append(PdfNumber.Format(x1) + " " + PdfNumber.Format(y1) + " m " + PdfNumber.Format(x2) + " " + PdfNumber.Format(y2) + " l S");
 
-    // Bytes from 0x80 up are written as octal escapes, so the content stream stays pure ASCII.
-    // [comment:2](/docs/references/automation/catzc-base-maps/types/PdfPage.cs.md#comment2)
     public PdfPage Text(PdfFont font, double size, double x, double y, string text)
     {
         if (double.IsNaN(size) || size <= 0)
@@ -103,8 +101,6 @@ public sealed class PdfPage
         }
     }
 
-    // A character with no WinAnsi code throws, named by its code point and index, rather than being dropped or replaced.
-    // [comment:3](/docs/references/automation/catzc-base-maps/types/PdfPage.cs.md#comment3)
     public static string Escape(string text)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }

@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.Engines/types/ExecutionEngine.cs
     kind: csharp-type
     module: Catzc.Base.Engines
+    relatives:
+      page: docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md
+      test: automation/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1
     adrs:
       - ADR-AUTO-ENGINE
       - ADR-AUTO-FAILFAST#7
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// No public constructor, so the three instances in ExecutionEngines are the only engines and no caller invents a fourth.
-// [comment:1](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -23,8 +23,6 @@ namespace Catzc.Base.Engines;
 
 public sealed class ExecutionEngine
 {
-    // A tools.yml entry brings the existence check of Resolve-ToolExecutable; the ps-home engine is the running host.
-    // [comment:2](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment2)
     public const string LocateByPsHome = "ps-home";
     public const string LocateByTool = "tool";
 
@@ -55,8 +53,6 @@ public sealed class ExecutionEngine
     // The statement that turns the engine's strict mode on.
     public string StrictMode { get; }
 
-    // The mechanism differs per engine: a pwsh function, the timeout command prefix in bash and zsh.
-    // [comment:3](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment3)
     public string TimeSafeguard { get; }
 
     // True when the engine's scripts must have LF line endings to run.
@@ -68,8 +64,6 @@ public sealed class ExecutionEngine
     // The repository-root script that loads the engine's entry points into a session (importer.ps1, importer.sh).
     public string ImporterEntry { get; }
 
-    // Command text is identical in every engine; only this prefix differs, since bash and zsh reach pwsh through cats.
-    // [comment:4](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment4)
     public string CommandPrefix { get; }
 
     private readonly Func<string, string> quote;
@@ -103,8 +97,6 @@ public sealed class ExecutionEngine
         return windows ? Command + ".exe" : Command;
     }
 
-    // An embedded single quote is written differently per engine ('' in pwsh, '\'' in bash and zsh), so never hand-quote.
-    // [comment:5](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment5)
     public string Quote(string text)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }
@@ -118,8 +110,6 @@ public sealed class ExecutionEngine
         return string.Format(CultureInfo.InvariantCulture, sourceFormat, Quote(entry));
     }
 
-    // The command is catzc command text, the same in every engine: the argument order is fixed, only the prefix varies.
-    // [comment:6](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment6)
     public string[] StartArguments(string entry, string command)
     {
         if (string.IsNullOrWhiteSpace(command)) { throw new ArgumentException("StartArguments needs a command", nameof(command)); }

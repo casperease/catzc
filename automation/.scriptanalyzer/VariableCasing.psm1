@@ -10,14 +10,6 @@ catzc:
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 . (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
-<#
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: enforce variable casing conventions.
-.DESCRIPTION
-    Scriptblock parameters and automatic variables are skipped, as their names are not the author's choice.
-    [comment:1](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment1)
-#>
-
 # Automatic / preference / well-known variables that should not be flagged
 $script:skipVariables = [System.Collections.Generic.HashSet[string]]::new(
     [string[]]@(
@@ -50,8 +42,6 @@ function Measure-VariableCasing {
 
     # Collect all parameter names (for excluding from local-variable check)
     $paramNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [comment:2](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment2)
     $isParameter = {
         param($node)
         $node -is [System.Management.Automation.Language.ParameterAst]
@@ -62,8 +52,6 @@ function Measure-VariableCasing {
         $name = $p.Name.VariablePath.UserPath
         $paramNames.Add($name) | Out-Null
 
-        # Only a param block under a function definition is checked; one under a scriptblock is a predicate's.
-        # [comment:3](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment3)
         $parentOfScript = $p.Parent.Parent.Parent
         if ($parentOfScript -isnot [System.Management.Automation.Language.FunctionDefinitionAst]) {
             continue
@@ -80,8 +68,6 @@ function Measure-VariableCasing {
         }
     }
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [comment:4](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment4)
     $isAssignment = {
         param($node)
         $node -is [System.Management.Automation.Language.AssignmentStatementAst]

@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/HighlightedCell.cs.md
     kind: comment-page
-    body_sha: d05e2d3dfb2e
+    body_sha: "4360f996ecaf"
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Base.Maps/types/HighlightedCell.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One lit cell of a world-map highlight: the cell (a track and a file language), the files in it that the request

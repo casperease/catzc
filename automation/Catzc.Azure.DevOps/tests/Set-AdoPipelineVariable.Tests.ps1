@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/tests/Set-AdoPipelineVariable.Tests.ps1.md
+      source: automation/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1
 ---
 #>
 
@@ -11,8 +14,6 @@ catzc:
 param()
 
 Describe 'Set-AdoPipelineVariable' -Tag 'L0', 'logic' {
-    # The ##vso line goes through the writer chokepoint, which a test run silences; lift the guard so the tests can...
-    # [comment:1](/docs/references/automation/catzc-azure-devops/tests/Set-AdoPipelineVariable.Tests.ps1.md#comment1)
     BeforeAll {
         $script:guard = Get-Variable -Name '__PesterRunning' -Scope Global -ErrorAction Ignore
         $script:savedGuard = if ($script:guard) {

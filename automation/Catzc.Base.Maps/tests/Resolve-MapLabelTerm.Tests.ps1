@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Resolve-MapLabelTerm.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Maps/private/Resolve-MapLabelTerm.ps1
 ---
 #>
 

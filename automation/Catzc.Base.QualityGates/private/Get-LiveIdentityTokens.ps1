@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-LiveIdentityTokens.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-CONF-LOADING
@@ -45,8 +48,6 @@ function Get-LiveIdentityTokens {
 
     $ret = [System.Collections.Generic.List[object]]::new()
     $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-    # MatchMode governs HOW the finder matches a token: 'exact' — a distinctive identity flagged wherever it appears...
-    # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md#comment6)
     $add = {
         param($token, $kind, $source, $suggest, $matchMode = 'exact')
         $value = "$token"
@@ -71,8 +72,6 @@ function Get-LiveIdentityTokens {
         param($entry, [string] $skipWhen)
         $skipWhen -and [bool] (& $childOf $entry $skipWhen)
     }
-    # Walks one rule's path from a node: a key segment steps in, a '*' steps into every entry of a map (leaving out...
-    # [comment:7](/docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md#comment7)
     $walk = {
         param($node, [string[]] $path, [int] $depth, $rule)
         if ($null -eq $node) {
@@ -106,8 +105,6 @@ function Get-LiveIdentityTokens {
         }
     }
 
-    # The identities each owning module declares about its own configs (configs/identity-tokens.yml): customers, the...
-    # [comment:8](/docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md#comment8)
     foreach ($owner in @(Get-Config -Config identity-tokens -ListOwners)) {
         $declaration = Get-Config -Config identity-tokens -Module $owner.Module
         foreach ($rule in $declaration.tokens) {
@@ -121,9 +118,6 @@ function Get-LiveIdentityTokens {
             }
         }
     }
-
-    # NOTE: deployable-unit and pipeline names (globs.yml) are deliberately NOT included in Stage 1.
-    # [comment:9](/docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md#comment9)
 
     # Shipped template names (infrastructure/templates/<name>).
     $templatesRoot = Join-Path (Get-RepositoryRoot) 'infrastructure/templates'

@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/infrastructure/templates/discovery/options.yml.md
     kind: comment-page
-    body_sha: "3860a5338d18"
+    body_sha: "51994793db3c"
 ---
 
 # infrastructure/templates/discovery/options.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `short_name: disco`.
+Above `short_name: disco`, written with `#`.
 
 ```text
 Per-template options for 'discovery' — the CAF application landing zone: the hub-and-spoke network, the

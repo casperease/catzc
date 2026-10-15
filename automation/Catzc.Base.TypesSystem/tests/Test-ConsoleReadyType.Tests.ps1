@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-typessystem/tests/Test-ConsoleReadyType.Tests.ps1.md
+      source: automation/Catzc.Base.TypesSystem/private/Test-ConsoleReadyType.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-ConsoleReadyType — whether a shipped type renders as a readable line in pwsh: it overrides ToString, or it is...
-# [comment:1](/docs/references/automation/catzc-base-typessystem/tests/Test-ConsoleReadyType.Tests.ps1.md#comment1)
 Describe 'Test-ConsoleReadyType' -Tag 'L0', 'logic' {
     BeforeAll {
         if (-not ([System.Management.Automation.PSTypeName]'ConsoleReadyWidgetProbe').Type) {

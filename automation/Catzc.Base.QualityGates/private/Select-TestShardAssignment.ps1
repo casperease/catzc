@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Select-TestShardAssignment.Tests.ps1
   config:
     synopsis: |-
       Assigns a run's parallel test files to worker shards by their measured duration, longest first, so the shards

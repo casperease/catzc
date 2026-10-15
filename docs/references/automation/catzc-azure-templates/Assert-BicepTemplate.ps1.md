@@ -3,37 +3,37 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md
     kind: comment-page
-    body_sha: aad913b54f52
+    body_sha: "1cff1a11cd39"
     adrs:
       - ADR-AZ-DATAMOD#9
 ---
 
 # automation/Catzc.Azure.Templates/Assert-BicepTemplate.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:7
+## comment:1
 
-Above `$folders = @([System.IO.Directory]::EnumerateDirectories($root) | Sort-Object)`.
+Above `$folders = @([System.IO.Directory]::EnumerateDirectories($root) | Sort-Object)`, written with `#`.
 
 ```text
 [System.IO.Directory] (sorted) instead of Get-ChildItem — see Get-BicepTemplates for the
 ~20ms-per-call Get-ChildItem overhead this avoids.
 ```
 
-## comment:8
+## comment:2
 
-Above `$customerDeploymentOption = if ($options.Contains('customer_deployment')) {`.
+Above `$customerDeploymentOption = if ($options.Contains('customer_deployment')) {`, written with `#`.
 
 ```text
 Customer-class bit — defaults to the have_customers variant unless options.yml sets it; an explicit
 customer_deployment: true is only allowed when customers are enabled (see customer-model ADR).
 ```
 
-## comment:9
+## comment:3
 
-Above `$shortNameOverride = if ($options.Contains('short_name')) {`.
+Above `$shortNameOverride = if ($options.Contains('short_name')) {`, written with `#`.
 
 ```text
 short_name is derived from the folder name unless options.yml overrides it. BicepShortName owns the
@@ -41,9 +41,9 @@ derivation + format validation (throws on a malformed override, or a folder that
 valid short_name without one); the resolved value feeds the global-uniqueness check.
 ```
 
-## comment:10
+## comment:4
 
-Above `$built = $false`.
+Above `$built = $false`, written with `#`.
 
 ```text
 The full build (render + compile) so the rendered parameters files can be checked against the

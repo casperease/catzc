@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Get-CatsAdrRuleIds.Tests.ps1.md
-    kind: test-asset
-    body_sha: "19470c09e320"
+    kind: comment-page
+    body_sha: "9110c2f64094"
 ---
 
 # automation/Catzc.Base.Docs/tests/Get-CatsAdrRuleIds.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:adrRoot = Join-Path $TestDrive 'adr'`.
+Above `$script:adrRoot = Join-Path $TestDrive 'adr'`, written with `#`.
 
 ```text
 A fixture ADR tree: an index beside two ADR files it lists (paths relative to the index folder),

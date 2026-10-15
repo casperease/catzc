@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Test-Terminology.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1
     adrs:
       - ADR-AUTO-SPELL
       - ADR-AUTO-SPELL#5
@@ -60,13 +63,9 @@ function Test-Terminology {
     Assert-SourceTree
 
     $root = Get-RepositoryRoot
-    # The registry's own file inside the scanned corpus — a corpus exclusion, not an asset read (the registry itself...
-    # [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-Terminology.ps1.md#comment6)
     $registryPath = Join-Path $root 'automation/Catzc.Base.QualityGates/configs/terminology.yml'
     $issues = [System.Collections.Generic.List[string]]::new()
 
-    # ---- Check 3 (justification / no-coinage): loading validates every entry via TerminologyConfig ---- A missing...
-    # [comment:7](/docs/references/automation/catzc-base-qualitygates/Test-Terminology.ps1.md#comment7)
     $config = $null
     try {
         $config = Get-Config -Config terminology
@@ -76,8 +75,6 @@ function Test-Terminology {
     }
 
     if ($config) {
-        # ---- Check 1 (no drift): every generated dictionary must match the registry ----
-        # [comment:8](/docs/references/automation/catzc-base-qualitygates/Test-Terminology.ps1.md#comment8)
         $generated = Build-TerminologyDictionary -DryRun -PassThru
         foreach ($stale in @($generated | Where-Object Changed)) {
             $issues.Add(
@@ -86,8 +83,6 @@ function Test-Terminology {
             )
         }
 
-        # ---- Check 2 (no orphans): every term must be referenced somewhere else in the tree ---- One bulk scan of...
-        # [comment:9](/docs/references/automation/catzc-base-qualitygates/Test-Terminology.ps1.md#comment9)
         $cspellDir = Join-Path $root '.cspell'
         $dictPaths = @($config.categories | ForEach-Object { Join-Path $cspellDir "$_.txt" })
         $corpus = Get-TerminologyCorpus -Root $root -Exclude (@($registryPath) + $dictPaths)

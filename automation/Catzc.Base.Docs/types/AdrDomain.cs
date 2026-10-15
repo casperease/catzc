@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrDomain.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrDomain.cs.md
     adrs:
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15
 ---
 */
-
-// Built and validated only by AdrsConfig; Stack and Concerns are the domain defaults that a ruleset may override.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrDomain.cs.md#comment1)
 
 using System.Collections.Generic;
 

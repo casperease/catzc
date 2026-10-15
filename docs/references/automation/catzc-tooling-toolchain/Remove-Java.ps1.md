@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md
     kind: comment-page
-    body_sha: "11a8d4820de8"
+    body_sha: "4fef1899bf76"
     adrs:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#6
@@ -11,21 +11,21 @@ catzc:
 
 # automation/Catzc.Tooling.Toolchain/Remove-Java.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `if (Test-ExpectedPackageManager -Config $config) {`.
+Above `if (Test-ExpectedPackageManager -Config $config) {`, written with `#`.
 
 ```text
 Gate: managed by our tooling system → refuse, redirect to Uninstall-Java
 ([ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)).
 ```
 
-## comment:5
+## comment:2
 
-Above `if ($IsLinux -or $IsMacOS) {`.
+Above `if ($IsLinux -or $IsMacOS) {`, written with `#`.
 
 ```text
 Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md
     kind: comment-page
-    body_sha: "8495ecbf437b"
+    body_sha: "7f5aa1c12590"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-ENGINE#1
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The time safeguards (configs/timeouts.yml) — how long a call may run before it is stopped. Registered in
@@ -51,7 +51,7 @@ Constructing an instance validates the file, collecting every violation into one
 
 ## comment:2
 
-Above `private static readonly Dictionary<string, int> TestLevelDefaults = new...`.
+Above `private static readonly Dictionary<string, int> TestLevelDefaults = new...`, written with `//`.
 
 ```text
 The sensible test-run defaults: an L0 logic test is milliseconds, an L1 integrity test a couple of seconds, an L2
@@ -62,7 +62,7 @@ minutes.
 
 ## comment:3
 
-Above `private static readonly string[] Shells = new...`.
+Above `private static readonly string[] Shells = new...`, written with `//`.
 
 ```text
 The shells a limit is keyed by: the execution engines, declared once
@@ -71,7 +71,7 @@ The shells a limit is keyed by: the execution engines, declared once
 
 ## comment:4
 
-Above `private static readonly Dictionary<string, int> Defaults = new...`.
+Above `private static readonly Dictionary<string, int> Defaults = new...`, written with `//`.
 
 ```text
 The sensible defaults: tight on a devbox, where the blockers are tuned together; looser in a pipeline, where
@@ -81,7 +81,7 @@ not govern it.
 
 ## comment:5
 
-Above `public IDictionary limits { get; }`.
+Above `public IDictionary limits { get; }`, written with `//`.
 
 ```text
 The resolved limits, defaults filled in: limits[devbox|pipeline][bash] is { foreground, background },
@@ -91,7 +91,7 @@ SecondsFor.
 
 ## comment:6
 
-Above `public IReadOnlyDictionary<string, int> executables { get; }`.
+Above `public IReadOnlyDictionary<string, int> executables { get; }`, written with `//`.
 
 ```text
 Per-executable limits in seconds, keyed by the bare executable name (case-insensitive). Empty when the file
@@ -100,7 +100,7 @@ declares none.
 
 ## comment:7
 
-Above `public int SecondsFor(string environment, string shell, bool background)`.
+Above `public int SecondsFor(string environment, string shell, bool background)`, written with `//`.
 
 ```text
 The limit for a shell call in an environment. environment is devbox | pipeline and shell is pwsh | bash | zsh
@@ -109,7 +109,7 @@ The limit for a shell call in an environment. environment is devbox | pipeline a
 
 ## comment:8
 
-Above `public int SecondsForExecutable(string environment, string executable)`.
+Above `public int SecondsForExecutable(string environment, string executable)`, written with `//`.
 
 ```text
 The limit for an executable that pwsh code runs: its own entry when it has one, otherwise the environment's

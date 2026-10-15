@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/SourceConventionsConfig.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/SourceConventionsConfig.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-ENGINE#1
@@ -12,9 +15,6 @@ catzc:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// An omitted check takes every default of its type: gate mode, nothing exempt, no phrases.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/SourceConventionsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

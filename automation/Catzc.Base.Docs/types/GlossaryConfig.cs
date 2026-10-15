@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GlossaryConfig.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/GlossaryConfig.cs.md
+      test: automation/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1
     adrs:
       - ADR-AZ-CUSTOMER#3
       - ADR-REPO-VOCAB
       - ADR-REPO-VOCAB#3
 ---
 */
-
-// Load reads this one file only; cross-source facts such as term uniqueness and defined_by belong to Test-Glossary.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

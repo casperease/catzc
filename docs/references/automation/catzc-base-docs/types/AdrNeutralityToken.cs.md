@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrNeutralityToken.cs.md
     kind: comment-page
-    body_sha: a500c7131628
+    body_sha: "0659863137bc"
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Base.Docs/types/AdrNeutralityToken.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System.Collections.Generic;`.
+Above `using System.Collections.Generic;`, written with `//`.
 
 ```text
 One forbidden token of the engine-neutrality check (configs/adr-checks.yml, engine_neutrality.tokens): a kebab-case name and a

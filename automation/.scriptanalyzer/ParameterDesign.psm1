@@ -9,15 +9,6 @@ catzc:
 
 Set-StrictMode -Version Latest   # this module's scope: the rules run strict inside the analyzer engine
 
-<#
-.SYNOPSIS
-    Custom PSScriptAnalyzer rules for a function's parameter surface
-    ([ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md)).
-.DESCRIPTION
-    Two checks over the functions in a module function file — a.ps1 directly under automation/<Module>/ (public) or...
-    [comment:1](/docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md#comment1)
-#>
-
 function Test-ModuleFunctionFile {
     param([System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst)
     $file = $ScriptBlockAst.Extent.File
@@ -29,8 +20,6 @@ function Test-ModuleFunctionFile {
 
 function Get-ParameterFunction {
     param([System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst)
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [comment:2](/docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md#comment2)
     $isFunction = {
         param($node)
         $node -is [System.Management.Automation.Language.FunctionDefinitionAst] -and $null -ne $node.Body.ParamBlock
@@ -83,8 +72,6 @@ function Measure-PrimaryArgumentPosition {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    # Private helpers are called by name inside their module, so only public ones need a positional primary argument.
-    # [comment:3](/docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md#comment3)
     if (-not (Test-ModuleFunctionFile $ScriptBlockAst) -or $ScriptBlockAst.Extent.File.Replace('\', '/') -match '/private/') {
         return @()
     }
@@ -142,8 +129,6 @@ function Measure-NoOptionalBooleanParameter {
             if ($attributeText -match '\bMandatory\b(?!\s*=\s*\$false)') {
                 continue
             }
-            # A [bool] whose default reads the configuration is a configurable setting
-            # ([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)), not opt-in behaviour.
             if ($parameter.DefaultValue -and $parameter.DefaultValue.Extent.Text -match '\bGet-Config(Value)?\b') {
                 continue
             }

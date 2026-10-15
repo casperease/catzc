@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Exporter/types/ExporterConfig.cs
     kind: csharp-type
     module: Catzc.Base.Exporter
+    relatives:
+      page: docs/references/automation/catzc-base-exporter/types/ExporterConfig.cs.md
+      test: automation/Catzc.Base.Exporter/tests/types/ExporterConfig.Tests.ps1
     adrs:
       - ADR-AUTO-BUNDLE
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Every key is required and an unknown key throws, so a typo fails fast at load instead of falling to a default.
-// [comment:1](/docs/references/automation/catzc-base-exporter/types/ExporterConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

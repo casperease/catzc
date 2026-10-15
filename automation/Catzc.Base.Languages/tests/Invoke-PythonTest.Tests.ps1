@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/Invoke-PythonTest.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-languages/tests/Invoke-PythonTest.Tests.ps1.md
+      source: automation/Catzc.Base.Languages/Invoke-PythonTest.ps1
     adrs:
       - ADR-AUTO-TEST#6
 ---
@@ -11,8 +14,6 @@ catzc:
 
 Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Isolate through the seams: a fixture repository root in $TestDrive, a mocked tool probe...
-        # [comment:1](/docs/references/automation/catzc-base-languages/tests/Invoke-PythonTest.Tests.ps1.md#comment1)
         $script:root = Join-Path $TestDrive 'repo'
         $script:pythonRoot = Join-Path $script:root 'python'
         $script:folder = Join-Path $script:pythonRoot 'tests/catzc-widget'

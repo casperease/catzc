@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/tests/New-CatzcNuGetPackage.Tests.ps1.md
-    kind: test-asset
-    body_sha: "50e4f7f4a705"
+    kind: comment-page
+    body_sha: "207896489921"
     adrs:
       - ADR-AUTO-TEST#20
       - ADR-AUTO-TEST#3
@@ -13,12 +13,12 @@ catzc:
 
 <!-- cspell:ignore nfunction -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:source = Join-Path $TestDrive...`.
+Above `$script:source = Join-Path $TestDrive...`, written with `#`.
 
 ```text
 A minimal fixture build (neutral names,

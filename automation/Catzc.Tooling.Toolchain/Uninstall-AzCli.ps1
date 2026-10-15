@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md
+      test: automation/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
     adrs:
       - ADR-AUTO-ONEJOB#5
       - ADR-AUTO-REMOVE#4
@@ -37,8 +40,6 @@ function Uninstall-AzCli {
         [switch] $Force
     )
 
-    # Managed uninstall best-effort.
-    # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md#comment4)
     try {
         Uninstall-UvVenvTool -Tool 'az_cli'
     }

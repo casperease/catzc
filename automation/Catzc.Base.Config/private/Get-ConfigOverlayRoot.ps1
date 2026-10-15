@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Config
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md
+      test: automation/Catzc.Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1
     adrs:
       - ADR-PWSH-CACHE
       - ADR-PWSH-CACHE#4
@@ -26,8 +29,6 @@ function Get-ConfigOverlayRoot {
     param()
 
     $anchors = "$(Get-RepositoryRoot)|$(Get-CatzcModulesRoot)"
-    # strict-clean probe of the lazy cache entry
-    # [comment:3](/docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md#comment3)
     if ($ExecutionContext.SessionState.PSVariable.GetValue('script:configOverlayAnchors') -ne $anchors) {
         $script:configOverlayRoot = Get-CatzcOverlayRoot
         $script:configOverlayAnchors = $anchors

@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/LinkKind.cs.md
     kind: comment-page
-    body_sha: "06c3fe5dd6b5"
+    body_sha: "8333c7b0fe8a"
     adrs:
       - ADR-REPO-LINK#1
 ---
 
 # automation/Catzc.Base.QualityGates/types/LinkKind.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The two kinds of link ([ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1)), fixed by the file a link lives in:

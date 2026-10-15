@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-exporter/tests/New-CatzcNuGetPackage.Tests.ps1.md
+      source: automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
     adrs:
       - ADR-AUTO-TEST#20
       - ADR-AUTO-TEST#3
@@ -14,8 +17,6 @@ catzc:
 InModuleScope Catzc.Base.Exporter {
     Describe 'New-CatzcNuGetPackage' -Tag 'L0', 'logic' {
         BeforeAll {
-            # A minimal fixture build (neutral names, ), packed ONCE: every assertion below is a facet of the one...
-            # [comment:1](/docs/references/automation/catzc-base-exporter/tests/New-CatzcNuGetPackage.Tests.ps1.md#comment1)
             $script:source = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))/Catzc/1.2.3"
             $write = {
                 param($relative, $content)

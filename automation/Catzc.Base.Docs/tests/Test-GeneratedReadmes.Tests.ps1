@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-README
 ---
 #>
 
-# Test-GeneratedReadmes over fixture READMEs in $TestDrive: the mappings, git's ignore check, and the index are...
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md#comment1)
 Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
@@ -91,15 +92,11 @@ Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
     }
 }
 
-# The quality gate over the real repository.
-# [comment:2](/docs/references/automation/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md#comment2)
 Describe 'Generated READMEs are gitignored, untracked, and current' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
         $script:skip = $null
 
-        # L2: drives the real git CLI.
-        # [comment:3](/docs/references/automation/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md#comment3)
         if (-not (Get-Command git -ErrorAction Ignore)) {
             $script:skip = 'tool_git_missing'
         }

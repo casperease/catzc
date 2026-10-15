@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/tests/Update-BatsVendor.Tests.ps1.md
+      source: automation/Catzc.Tooling.Toolchain/Update-BatsVendor.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-ENUM#3
 ---
 #>
 
-# Update-BatsVendor with the download and tar mocked: the mocked tar lays out a fixture release in the staging...
-# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Update-BatsVendor.Tests.ps1.md#comment1)
 Describe 'Update-BatsVendor' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive "repo-$([guid]::NewGuid().ToString('N'))"
@@ -43,8 +44,6 @@ Describe 'Update-BatsVendor' -Tag 'L0', 'logic' {
 
     It 'replaces the vendored folder with the runner''s files only, and removes the staging folder' {
         Update-BatsVendor
-        # A whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the vendored
-        # runner is compared file for file, so nothing is pruned.
         $files = @(Get-ChildPath $script:target -File -Depth 64 -Exclude @() -PruneVendor $false | ForEach-Object {
                 [System.IO.Path]::GetRelativePath($script:target, $_).Replace('\', '/')
             } | Sort-Object)

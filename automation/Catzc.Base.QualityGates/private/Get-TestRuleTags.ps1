@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestRuleTags.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1
     adrs:
       - ADR-PWSH-ERROR#3
   config:
@@ -38,8 +41,6 @@ function Get-TestRuleTags {
         $Test
     )
 
-    # The tag levels to union: the test's own It-tags, then each ancestor block (root excluded) — the same walk...
-    # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Get-TestRuleTags.ps1.md#comment5)
     $levels = [System.Collections.Generic.List[object]]::new()
     $levels.Add($Test.Tag)
     $block = $Test.Block
@@ -51,8 +52,6 @@ function Get-TestRuleTags {
     $ids = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($levelTags in $levels) {
         foreach ($tag in $levelTags) {
-            # Strict, case-sensitive citation grammar: only a well-formed 'ADR-<CODE>#<n>' contributes.
-            # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/Get-TestRuleTags.ps1.md#comment6)
             if ($tag -cmatch '^ADR-[A-Z]+(?:-[A-Z]+)*#\d+$') {
                 [void]$ids.Add($tag)
             }

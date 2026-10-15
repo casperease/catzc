@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-AzureNamePatternSet.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Azure.Templates/Get-AzureNamePatternSet.ps1
 ---
 #>
 

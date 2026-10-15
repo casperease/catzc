@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md
   config:
     synopsis: |-
       Returns the violations of one parameters-file entry against its declaration in the template's compiled
@@ -58,8 +60,6 @@ function Get-BicepParameterEntryViolations {
         return Get-BicepKeyVaultReferenceViolations -Reference $reference
     }
 
-    # A secure parameter takes its value from a Key Vault at deploy time.
-    # [comment:3](/docs/references/automation/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md#comment3)
     if ($Parameter.IsSecure) {
         return "is a $($Parameter.Type) parameter set to a literal value — it takes only a Key Vault reference"
     }

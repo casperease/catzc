@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/tests/Install-UvTool.Tests.ps1.md
-    kind: test-asset
-    body_sha: fc1b34c4dc02
+    kind: comment-page
+    body_sha: "57da6465711f"
 ---
 
 # automation/Catzc.Tooling.Core/tests/Install-UvTool.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `function New-TestToolConfig {`.
+Above `function New-TestToolConfig {`, written with `#`.
 
 ```text
 Get-ToolConfig returns the typed record, so the mocks do too: an optional key the entry omits reads as its

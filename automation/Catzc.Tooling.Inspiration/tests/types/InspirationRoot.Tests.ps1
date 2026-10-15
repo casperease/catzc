@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-inspiration/tests/types/InspirationRoot.Tests.ps1.md
+      source: automation/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
     adrs:
       - ADR-AUTO-PATH#11
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# InspirationRoot over neutral fixture paths (widget/gadget, ): the {workspace} anchor resolves to the parent of the...
-# [comment:1](/docs/references/automation/catzc-tooling-inspiration/tests/types/InspirationRoot.Tests.ps1.md#comment1)
 Describe 'Catzc.Tooling.Inspiration.InspirationRoot' -Tag 'L0', 'logic' {
     Context 'ToNative' {
         It 'maps a Git Bash drive path to a drive path on Windows' {

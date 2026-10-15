@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md
+      test: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
     adrs:
       - ADR-AUTO-ONEJOB#5
       - ADR-AUTO-REMOVE#4
@@ -48,8 +51,6 @@ function Uninstall-Dotnet {
         [switch] $Force
     )
 
-    # Managed uninstall best-effort; with -Remove a failure is logged and the escalation proceeds, without -Remove it...
-    # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md#comment5)
     try {
         $config = Get-ToolConfig -Tool 'dotnet'
 

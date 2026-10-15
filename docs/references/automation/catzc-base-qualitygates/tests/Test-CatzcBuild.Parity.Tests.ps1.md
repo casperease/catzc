@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.Parity.Tests.ps1.md
-    kind: test-asset
-    body_sha: "1b1aaab2545b"
+    kind: comment-page
+    body_sha: ba385d230a39
     adrs:
       - ADR-DSGN-RUNMODE#2
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Built modules match their source folders' -Tag 'L2', 'integrity',...`.
+Above `Describe 'Built modules match their source folders' -Tag 'L2', 'integrity',...`, written with `#`.
 
 ```text
 Parity ([ADR-DSGN-RUNMODE#2](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode2)): every built module is the same

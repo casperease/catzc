@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationReport.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationReport.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Write-TestAutomationReport.ps1
 ---
 #>
 
 Describe 'Write-TestAutomationReport' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Rows are the plain per-test shape ConvertTo-TestAutomationRowSet produces — built directly here, since the...
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationReport.Tests.ps1.md#comment1)
         function New-Row {
             param($Path, $Result, $Ms, $Level, $File, $Line, $Message, $Stack, $Rules = '')
             [pscustomobject]@{

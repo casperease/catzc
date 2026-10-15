@@ -3,19 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/internal/Catzc.Internal.Loader.psm1.md
     kind: comment-page
-    body_sha: "2b32ee4296ca"
-    adrs:
-      - ADR-FLOW-CD-DETECT#1
+    body_sha: "47e98bc8fa99"
 ---
 
 # automation/.internal/Catzc.Internal.Loader.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Set-StrictMode -Version Latest   # this module's scope: every function here...`.
+Above `Set-StrictMode -Version Latest   # this module's scope: every function here...`, written with `#`.
 
 ```text
 Catzc.Internal.Loader — the always-loaded entry point for .internal shared code.
@@ -32,31 +30,42 @@ C#-types pre-pass and the Catzc modules both call.
 
 ## comment:2
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChan...`, written with `#`.
 
 ```text
-Trusts the importer has already cleared PSModulePath and set the error preferences, so it just imports
-the module by path into the global scope. Idempotent: a no-op when the module is already loaded, so a
-cover function on the hot path pays nothing. The importer passes -Force on its own initial load so a
-devbox re-import (the cache-ADR invalidation boundary) picks up edits — the same "re-run the importer to
-invalidate" contract the C# type cache follows.
+.SYNOPSIS
+    Loads a .internal shared module once into the global session (idempotent).
+.DESCRIPTION
+    Idempotent, so a hot-path cover function pays nothing; only the importer's first load passes -Force.
+    [comment:2](/docs/references/automation/internal/Catzc.Internal.Loader.psm1.md#comment2)
+.PARAMETER Name
+    The bare area name of the shared module — 'Types' resolves to .internal/Catzc.Internal.Types.psm1.
+.PARAMETER Force
+    Reload even when the module is already loaded (the importer's initial load uses this).
+.EXAMPLE
+    Import-InternalModule Types
+    Ensures Catzc.Internal.Types is loaded, then the caller can use Get-CombinedTypeHash.
 ```
 
 ## comment:3
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `[CmdletBinding()]` (occurrence 2), written with `#`.
 
 ```text
-The one pipeline-detection function
-([ADR-FLOW-CD-DETECT#1](/docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1)). It detects Azure
-DevOps Pipelines and GitHub Actions by the environment variables each platform's agent sets. It lives in
-this loader, which both run modes import first and never remove, so the C#-types pre-pass in the bootstrap
-and every Catzc module ask the same function.
+.SYNOPSIS
+    Returns true if the current session is running inside a CI/CD pipeline.
+.DESCRIPTION
+    It lives in the always-loaded loader so the bootstrap pre-pass and every module ask the same function.
+    [comment:3](/docs/references/automation/internal/Catzc.Internal.Loader.psm1.md#comment3)
+.EXAMPLE
+    Test-IsRunningInPipeline
+.EXAMPLE
+    if (Test-IsRunningInPipeline) { Write-Verbose 'Running in CI' }
 ```
 
 ## comment:4
 
-Above `[bool]$env:TF_BUILD -or [bool]$env:GITHUB_ACTIONS`.
+Above `[bool]$env:TF_BUILD -or [bool]$env:GITHUB_ACTIONS`, written with `#`.
 
 ```text
 Azure DevOps sets TF_BUILD=True

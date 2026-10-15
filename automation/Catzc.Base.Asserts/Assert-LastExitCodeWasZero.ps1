@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Asserts/tests/Assert-LastExitCodeWasZero.Tests.ps1
   config:
     synopsis: Asserts that $LASTEXITCODE is 0.
     description: |-

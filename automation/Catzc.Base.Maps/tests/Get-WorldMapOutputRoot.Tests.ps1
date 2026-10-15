@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Get-WorldMapOutputRoot.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Maps/Get-WorldMapOutputRoot.ps1
 ---
 #>
 

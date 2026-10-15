@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps.BuildValidation/tests/Sync-AdoBuildValidations.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Sync-AdoBuildValidations.Tests.ps1.md
+      source: automation/Catzc.Azure.DevOps.BuildValidation/Sync-AdoBuildValidations.ps1
 ---
 #>
 
-# The config-driven reconcile: one Register-AdoBuildValidation per build-validation.yml entry, with overrides and...
-# [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/tests/Sync-AdoBuildValidations.Tests.ps1.md#comment1)
 Describe 'Sync-AdoBuildValidations' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ParameterFilter { $Config -eq 'build-validation' } -MockWith {

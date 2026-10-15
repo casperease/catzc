@@ -3,16 +3,14 @@
 #   derived:
 #     path: automation/Catzc.Base.Docs/configs/readme.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-docs/configs/readme.yml.md
 # ---
 
-# A folder not covered here keeps a hand-authored, committed README, and is un-ignored in .gitignore.
-# [comment:1](/docs/references/automation/catzc-base-docs/configs/readme.yml.md#comment1)
 patterns:
   - glob: automation/*
     source: docs/references/automation/{kebab}.md
 mappings:
-  # Source and README share a folder, so no link is rebased and index.md's relative links hold as written.
-  # [comment:2](/docs/references/automation/catzc-base-docs/configs/readme.yml.md#comment2)
   - folder: docs/adr
     source: docs/adr/index.md
   - folder: pipelines
@@ -27,8 +25,6 @@ mappings:
     source: docs/references/infrastructure/discovery.md
   - folder: infrastructure/templates/expedition
     source: docs/references/infrastructure/expedition.md
-  # Every folder with a .gitkeep needs a reference article, because the generic .gitkeep points readers at this README.
-  # [comment:3](/docs/references/automation/catzc-base-docs/configs/readme.yml.md#comment3)
   - folder: out
     source: docs/references/out.md
   - folder: .cspell

@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/ManagedGuidEntry.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/ManagedGuidEntry.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Value uniqueness spans both sections, so GuidsConfig checks it; an entry validates only its own name, keys and fields.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/ManagedGuidEntry.cs.md#comment1)
 
 using System;
 using System.Collections;

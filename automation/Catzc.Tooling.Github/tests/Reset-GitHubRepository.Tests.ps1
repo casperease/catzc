@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Github/tests/Reset-GitHubRepository.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Tooling.Github/Reset-GitHubRepository.ps1
 ---
 #>
 

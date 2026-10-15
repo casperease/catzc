@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-keyhandler/tests/Select-SupportedKeyHandler.Tests.ps1.md
-    kind: test-asset
-    body_sha: "3ae120e3fa55"
+    kind: comment-page
+    body_sha: "357bdd78420d"
     adrs:
       - ADR-AUTO-TEST#22
       - ADR-AUTO-TEST#3
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Select-SupportedKeyHandler' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#22' {`.
+Above `Describe 'Select-SupportedKeyHandler' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#22' {`, written with `#`.
 
 ```text
 Neutral fixture function names (widget/gadget) — Select-SupportedKeyHandler is pure classification logic,

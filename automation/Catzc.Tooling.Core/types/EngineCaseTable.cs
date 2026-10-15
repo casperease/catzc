@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Tooling.Core/types/EngineCaseTable.cs
     kind: csharp-type
     module: Catzc.Tooling.Core
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md
+      test: automation/Catzc.Tooling.Core/tests/types/EngineCaseTable.Tests.ps1
     adrs:
       - ADR-AUTO-ENGINE#1
 ---
 */
-
-// Construction collects every violation into one ArgumentException, so a case can never silently skip an engine.
-// [comment:1](/docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -21,8 +21,6 @@ namespace Catzc.Tooling.Core;
 
 public sealed class EngineCaseTable
 {
-    // Read from the one engine declaration, so a table cannot invent a column of its own.
-    // [comment:2](/docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md#comment2)
     private static readonly IReadOnlyList<string> Engines = Catzc.Base.Engines.ExecutionEngines.Names;
 
     private const string NotApplicablePrefix = "n/a:";
@@ -36,8 +34,6 @@ public sealed class EngineCaseTable
     // The case names, in file order.
     public IReadOnlyList<string> Cases { get; }
 
-    // Exactly one of fields and not_applicable is null per row: a case either fills the engine or names why it does not.
-    // [comment:3](/docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md#comment3)
     public IReadOnlyList<Hashtable> Rows { get { return rows; } }
 
     public EngineCaseTable(IDictionary d)

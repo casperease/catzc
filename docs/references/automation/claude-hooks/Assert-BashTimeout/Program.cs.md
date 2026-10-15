@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md
     kind: comment-page
-    body_sha: "605398973015"
+    body_sha: "2276d83149dc"
     adrs:
       - ADR-AUTO-FAILFAST#7
 ---
 
 # .claude/hooks/Assert-BashTimeout/Program.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Claude Code PreToolUse hook: denies a Bash call that does not run inside the time safeguard
@@ -33,7 +33,7 @@ does. Build-BashTimeoutHook publishes it to .claude/hooks/bin/, from where the r
 
 ## comment:2
 
-Above `private static IDictionary LoadYaml(string path)`.
+Above `private static IDictionary LoadYaml(string path)`, written with `//`.
 
 ```text
 timeouts.yml as the nested IDictionary TimeoutsConfig takes, typed the way the module's YAML loader types it:

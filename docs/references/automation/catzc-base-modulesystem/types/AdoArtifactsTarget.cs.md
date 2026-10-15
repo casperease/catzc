@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/AdoArtifactsTarget.cs.md
     kind: comment-page
-    body_sha: "9ec80b2104d3"
+    body_sha: e64e7a761816
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/AdoArtifactsTarget.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `namespace Catzc.Base.ModuleSystem;`.
+Above `namespace Catzc.Base.ModuleSystem;`, written with `//`.
 
 ```text
 The Azure DevOps Artifacts publish target of configs/artifacts.yml (`ado:`): the organization, project, and feed

@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/ArtifactsTarget.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/ArtifactsTarget.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// An enabled target needs somewhere to publish, so its coordinates may be empty only while it is disabled.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ArtifactsTarget.cs.md#comment1)
 
 using System;
 using System.Collections;

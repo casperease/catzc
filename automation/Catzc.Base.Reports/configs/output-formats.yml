@@ -3,10 +3,9 @@
 #   derived:
 #     path: automation/Catzc.Base.Reports/configs/output-formats.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-reports/configs/output-formats.yml.md
 # ---
-
-# Patterns of two formats must never overlap, so a file's format never depends on declaration order; load rejects overlaps.
-# [comment:1](/docs/references/automation/catzc-base-reports/configs/output-formats.yml.md#comment1)
 
 # The area sets how long a format's files stay (OutputFormat's area defaults); keep and max_age override it, and Clear-Output applies it.
 

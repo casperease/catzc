@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Timeouts/types/BoundedCommand.cs
     kind: csharp-type
     module: Catzc.Base.Timeouts
+    relatives:
+      page: docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md
+      test: automation/Catzc.Base.Timeouts/tests/types/BoundedCommand.Tests.ps1
     adrs:
       - ADR-AUTO-ENGINE#2
 ---
 */
-
-// A limit must wrap all the work: one command under a GNU timeout prefix, or one wrapper call in pwsh whose block holds many.
-// [comment:1](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment1)
 
 using System;
 using System.Globalization;
@@ -34,8 +34,6 @@ public static class BoundedCommand
     private static readonly Regex PwshSecondsName = new Regex(
         @"(?:^|\s)-Seconds\b", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
-    // requested describes what the command asked for, so the caller can put it in a log line.
-    // [comment:2](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment2)
     public static string Check(string command, string engine, int limitSeconds, out string requested)
     {
         double? seconds;
@@ -51,8 +49,6 @@ public static class BoundedCommand
             requested = (posix ? "timeout " : "-Seconds ") + seconds.Value.ToString(CultureInfo.InvariantCulture) + " s";
             return OverLimit;
         }
-        // In pwsh the block's own statements sit inside the limit, so only the top-level call must be a single command.
-        // [comment:3](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment3)
         if (!IsSingleCommand(posix ? body : command, engine))
         {
             requested = "compound command";
@@ -62,8 +58,6 @@ public static class BoundedCommand
         return Allow;
     }
 
-    // seconds is null when a pwsh call omits -Seconds and takes the configured default; false means the command is not wrapped.
-    // [comment:4](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment4)
     public static bool TryParseBound(string command, string engine, out double? seconds, out string body)
     {
         seconds = null;
@@ -73,8 +67,6 @@ public static class BoundedCommand
         return posix ? TryParseBash(command, out seconds, out body) : TryParsePwsh(command, out seconds, out body);
     }
 
-    // The & of 2>&1 and &> is a redirection, and a lone & in pwsh is the call operator, so neither counts as a separator.
-    // [comment:5](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment5)
     public static bool IsSingleCommand(string text, string engine)
     {
         bool posix = IsPosix(engine);
@@ -82,8 +74,6 @@ public static class BoundedCommand
         return posix ? IsSingleBash(text) : IsSinglePwsh(text);
     }
 
-    // The engine model declares each time safeguard once, and Get throws, naming the engines, for any other name.
-    // [comment:6](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment6)
     private static bool IsPosix(string engine)
     {
         string normalized = engine == null ? "" : engine.Trim().ToLowerInvariant();

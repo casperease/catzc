@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GlossaryEntry.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/GlossaryEntry.cs.md
+      test: automation/Catzc.Base.Docs/tests/types/GlossaryEntry.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-VOCAB
 ---
 */
-
-// A result type, not a YAML mirror: the concept travels with its owner, source path and options, so a gate needs no lookup.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryEntry.cs.md#comment1)
 
 using System;
 using System.Text.RegularExpressions;

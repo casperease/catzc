@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Variants
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Variants/tests/Get-GitWorkspace.Tests.ps1
   config:
     synopsis: Returns the repo's git workspace mode ('main-direct' or 'main-via-pr').
     description: |-

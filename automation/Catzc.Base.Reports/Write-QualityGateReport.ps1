@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Reports
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-reports/Write-QualityGateReport.ps1.md
+      test: automation/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PWSH-PARAM#4
@@ -60,8 +63,6 @@ function Write-QualityGateReport {
     )
 
     $settings = Get-Config -Config reports
-    # A body fill-in on purpose: every gate forwards its own -OutputFolder here, empty when its caller gave none, and...
-    # [comment:3](/docs/references/automation/catzc-base-reports/Write-QualityGateReport.ps1.md#comment3)
     if (-not $OutputFolder) {
         $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) $settings.FolderFor($Subject)
     }

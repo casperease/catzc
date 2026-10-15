@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1.md
-    kind: test-asset
-    body_sha: "745ce9a72949"
+    kind: comment-page
+    body_sha: "5d3e4a6d0386"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#4
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {`.
+Above `Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-GlossaryEnforcementViolations is private, so it is exercised through the module (InModuleScope, per

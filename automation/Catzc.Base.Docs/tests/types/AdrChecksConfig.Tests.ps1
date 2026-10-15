@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/AdrChecksConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/types/AdrChecksConfig.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/types/AdrChecksConfig.cs
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#3
@@ -12,8 +15,6 @@ catzc:
 ---
 #>
 
-# AdrChecksConfig — the ADR checks' settings (adr-checks.yml): every key optional with its default declared once on...
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/types/AdrChecksConfig.Tests.ps1.md#comment1)
 Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     Context 'defaults' -Tag 'ADR-AUTO-DEFAULT#6' {
         It 'gives every check the gate mode and empty lists when the file states nothing' {

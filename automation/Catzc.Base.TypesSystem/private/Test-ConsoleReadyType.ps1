@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.TypesSystem
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1
   config:
     synopsis: Whether a shipped C# type renders as one readable line in pwsh, rather than as its full name.
     description: |-

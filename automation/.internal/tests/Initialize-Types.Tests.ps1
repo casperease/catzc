@@ -4,12 +4,12 @@ catzc:
   derived:
     path: automation/.internal/tests/Initialize-Types.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/internal/tests/Initialize-Types.Tests.ps1.md
 ---
 #>
 
 Describe 'Initialize-Types' -Tag 'L1', 'logic' {
-    # L1: each case loads a fixture DLL, so the file is locked for the process lifetime.
-    # [comment:1](/docs/references/automation/internal/tests/Initialize-Types.Tests.ps1.md#comment1)
     BeforeAll {
         $script:fixtureRoot = Join-Path ([System.IO.Path]::GetTempPath()) "inittypes-$([guid]::NewGuid().ToString('N'))"
         [System.IO.Directory]::CreateDirectory($script:fixtureRoot) | Out-Null
@@ -140,9 +140,15 @@ Describe 'Enable-DeferredTypesLoad' -Tag 'L1', 'logic' {
             Register-DeferredTypes -RootKey 'root-a' -Path $dll -ShadowCopy $false
             $space
         }
-        function script:Test-WidgetLoaded ([string] $Space) { [bool] ([System.Management.Automation.PSTypeName]"$Space.Widget").Type }
-        function script:Invoke-FixtureWidget { 'widget' }
-        function script:Invoke-FixtureOther { 'other' }
+        function script:Test-WidgetLoaded ([string] $Space) {
+            [bool] ([System.Management.Automation.PSTypeName]"$Space.Widget").Type
+        }
+        function script:Invoke-FixtureWidget {
+            'widget'
+        }
+        function script:Invoke-FixtureOther {
+            'other'
+        }
     }
     AfterAll {
         $global:__CatzcDeferredTypes = $script:savedRecord

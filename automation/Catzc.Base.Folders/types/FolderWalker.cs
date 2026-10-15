@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Folders/types/FolderWalker.cs
     kind: csharp-type
     module: Catzc.Base.Folders
+    relatives:
+      test: automation/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
 ---
 */
 

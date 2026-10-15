@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md
-    kind: test-asset
-    body_sha: "2b47af2952a5"
+    kind: comment-page
+    body_sha: "3d98195dff3f"
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#4
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `[System.IO.Directory]::CreateDirectory($script:tempArtifacts) | Out-Null`.
+Above `[System.IO.Directory]::CreateDirectory($script:tempArtifacts) | Out-Null`, written with `#`.
 
 ```text
 Static fixtures + boundary mocks set up ONCE (not per test). The only per-test state is the hook
@@ -29,7 +29,7 @@ change, so rebuilding them every test was pure filesystem-cmdlet tax (~5 cmdlet 
 
 ## comment:2
 
-Above `$prepostContent = @'`.
+Above `$prepostContent = @'`, written with `#`.
 
 ```text
 A real per-template PrePost.psm1 fixture. Under the current model there is NO default hook
@@ -40,7 +40,7 @@ template's own hooks actually ran (and with the right context).
 
 ## comment:3
 
-Above `InModuleScope Catzc.Base.Config { $script:configCache = $null }`.
+Above `InModuleScope Catzc.Base.Config { $script:configCache = $null }`, written with `#`.
 
 ```text
 Reset $configCache ONCE (not per test): the mocked config is the same fixture azure.yml every test,
@@ -50,7 +50,7 @@ real-config entry from a prior test file is gone; the fixture config then stays 
 
 ## comment:4
 
-Above `Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates`.
+Above `Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates`, written with `#`.
 
 ```text
 These exercise the DEVBOX path; without this, the real Test-IsRunningInPipeline returns $true under
@@ -59,7 +59,7 @@ CI ($env:GITHUB_ACTIONS) and Deploy-Bicep throws "requires -SubscriptionIdAssert
 
 ## comment:5
 
-Above `Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter {...`.
+Above `Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter {...`, written with `#`.
 
 ```text
 'customer' is mocked alongside azure/network so template discovery validates the sample-customer
@@ -71,7 +71,7 @@ share a worker and pre-populate the template-descriptor cache
 
 ## comment:6
 
-Above `Get-Config -Config azure | Out-Null`.
+Above `Get-Config -Config azure | Out-Null`, written with `#`.
 
 ```text
 Warm the fixture config + template-discovery caches ONCE, under the mocks above, so the cold derive
@@ -81,7 +81,7 @@ is paid here and not by whichever test happens to run first
 
 ## comment:7
 
-Above `foreach ($m in 'pre-called.json', 'post-called.json') {`.
+Above `foreach ($m in 'pre-called.json', 'post-called.json') {`, written with `#`.
 
 ```text
 Clear ONLY the hook marker files so each test starts clean — the hooks write these, and several

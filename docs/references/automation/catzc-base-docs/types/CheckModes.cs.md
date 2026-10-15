@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/CheckModes.cs.md
     kind: comment-page
-    body_sha: "623355b2026a"
+    body_sha: aa661f311f91
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-ONELIVE#1
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/types/CheckModes.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The one parser of a check's mode setting (CheckMode), shared by every check config: adr-checks.yml in Catzc.Base.Docs, and
@@ -28,7 +28,7 @@ default(CheckMode), Gate, the default CheckMode declares once
 
 ## comment:2
 
-Above `public static CheckMode Parse(IDictionary raw, out string error)`.
+Above `public static CheckMode Parse(IDictionary raw, out string error)`, written with `//`.
 
 ```text
 The mode under the 'mode' key of a check's settings map, matched by name, case-insensitively; raw may be null. An

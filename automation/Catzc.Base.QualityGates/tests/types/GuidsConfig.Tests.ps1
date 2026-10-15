@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/GuidsConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/types/GuidsConfig.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/types/GuidsConfig.cs
 ---
 #>
 
 Describe 'Catzc.Base.QualityGates.GuidsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The all-zeros GUID is itself denied (it must not appear as a tracked literal), so build it at runtime — the...
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/GuidsConfig.Tests.ps1.md#comment1)
         $script:zeroGuid = "$([guid]::Empty)"
 
         function New-GuidsConfig {

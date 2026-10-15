@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
+      source: automation/Catzc.Base.Contracts/Test-Contracts.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -15,8 +18,6 @@ catzc:
 ---
 #>
 
-# Test-Contracts runs every asset of each unit's current version folder, and the provided assets of every released...
-# [comment:1](/docs/references/automation/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md#comment1)
 Describe 'Test-Contracts' -Tag 'L0', 'logic' {
     BeforeAll {
         function Add-File {
@@ -212,8 +213,6 @@ Describe 'Test-Contracts' -Tag 'L0', 'logic' {
     }
 }
 
-# The repository's own contracts/ tree, through the quality gate.
-# [comment:2](/docs/references/automation/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md#comment2)
 Describe 'Test-Contracts on the repository' -Tag 'L1', 'integrity', 'source-only' {
     It 'Test-Contracts passes over the current version folder of every unit' -Tag 'ADR-REPO-CONTRACT#4', 'ADR-AUTO-TEST#35' {
         $result = Test-Contracts -PassThru -OutputFolder (Join-Path $TestDrive 'contracts')

@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Measure-NoForEachObjectControlFlow.Tests.ps1.md
-    kind: test-asset
-    body_sha: e57fe099c408
+    kind: comment-page
+    body_sha: "82807f113be5"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Measure-NoForEachObjectControlFlow.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:emptySettings = @{ IncludeRules =...`.
+Above `$script:emptySettings = @{ IncludeRules =...`, written with `#`.
 
 ```text
 Empty settings prevents PSSA from auto-discovering PSScriptAnalyzerSettings.psd1

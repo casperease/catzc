@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/types/CliRunner.cs.md
     kind: comment-page
-    body_sha: "74a77c995054"
+    body_sha: a48373545e11
 ---
 
 # automation/Catzc.Base.Execution/types/CliRunner.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A streaming process runner: it parses a command string and runs the executable directly (no shell, via
@@ -26,7 +26,7 @@ caller through Get-TimeoutSeconds).
 
 ## comment:2
 
-Above `public byte[] StdoutBytes { get; private set; }`.
+Above `public byte[] StdoutBytes { get; private set; }`, written with `//`.
 
 ```text
 The captured stdout as the exact bytes the process wrote — set by RunBytes only (null for a text run), for
@@ -35,7 +35,7 @@ a binary stream such as `git cat-file --batch`, whose object sizes count bytes, 
 
 ## comment:3
 
-Above `public static CliRunner Run(string commandLine, bool silent, string...`.
+Above `public static CliRunner Run(string commandLine, bool silent, string...`, written with `///`.
 
 ```text
 <summary>
@@ -48,7 +48,7 @@ outlives timeoutSeconds.
 
 ## comment:4
 
-Above `public static CliRunner RunBytes(string commandLine, string workingDirectory,...`.
+Above `public static CliRunner RunBytes(string commandLine, string workingDirectory,...`, written with `///`.
 
 ```text
 <summary>
@@ -60,7 +60,7 @@ safeguard as Run; stdin is empty and closed.
 
 ## comment:5
 
-Above `public static string ExecutableName(string commandLine)`.
+Above `public static string ExecutableName(string commandLine)`, written with `///`.
 
 ```text
 <summary>
@@ -71,7 +71,7 @@ empty string for a blank command — the name its time limit is looked up by.
 
 ## comment:6
 
-Above `var psi = NewStartInfo(executable, arguments, workingDirectory,...`.
+Above `var psi = NewStartInfo(executable, arguments, workingDirectory,...`, written with `//`.
 
 ```text
 A child inheriting a stdin pipe that another thread is blocked reading hangs at startup (Git for
@@ -82,7 +82,7 @@ visible run from a terminal keeps it, so interactive prompts still work.
 
 ## comment:7
 
-Above `var psi = new ProcessStartInfo`.
+Above `var psi = new ProcessStartInfo`, written with `//`.
 
 ```text
 Resolve the executable on PATH. Process.Start with UseShellExecute=false
@@ -92,7 +92,7 @@ Tools like az, poetry, npm, pyspark are .cmd scripts on Windows.
 
 ## comment:8
 
-Above `private static Thread Reader(Action read)`.
+Above `private static Thread Reader(Action read)`, written with `//`.
 
 ```text
 An output reader: a background thread, so one still blocked on a pipe a leftover process holds can never keep
@@ -102,7 +102,7 @@ would end the host.
 
 ## comment:9
 
-Above `private static readonly TimeSpan DrainLimit = TimeSpan.FromSeconds(5);`.
+Above `private static readonly TimeSpan DrainLimit = TimeSpan.FromSeconds(5);`, written with `//`.
 
 ```text
 How long the output readers may take to reach end-of-stream once the process has exited. The rest of a
@@ -112,7 +112,7 @@ that a process the command started (a detached server, a grandchild) still holds
 
 ## comment:10
 
-Above `private static void Supervise(string commandLine, Process process, int...`.
+Above `private static void Supervise(string commandLine, Process process, int...`, written with `//`.
 
 ```text
 Waits for the process within its time limit, then — bounded too — for its output readers. Past the limit it
@@ -122,7 +122,7 @@ IOException naming the cause, instead of hanging the caller for that holder's li
 
 ## comment:11
 
-Above `private static string ResolveExecutable(string name)`.
+Above `private static string ResolveExecutable(string name)`, written with `///`.
 
 ```text
 <summary>
@@ -136,7 +136,7 @@ Returns the original name if already a full path or not found.
 
 ## comment:12
 
-Above `private static ParsedCommand ParseCommand(string commandLine)`.
+Above `private static ParsedCommand ParseCommand(string commandLine)`, written with `///`.
 
 ```text
 <summary>

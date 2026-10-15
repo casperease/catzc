@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/ConvertTo-TestAutomationRowSet.ps1
 ---
 #>
 
 Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Build a Pester-shaped test-result object without running Pester — just the members the reducer reads...
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1.md#comment1)
         function New-FakeTest {
             param($Path, $Result, $Ms, $Tags, $File, $Line, $Message, $Stack)
             $block = [pscustomobject]@{

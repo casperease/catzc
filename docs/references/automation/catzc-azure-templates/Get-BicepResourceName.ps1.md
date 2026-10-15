@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md
     kind: comment-page
-    body_sha: b4361d548d63
+    body_sha: "9ff2ea485afa"
     adrs:
       - ADR-AZ-NAMING#8
 ---
@@ -12,12 +12,12 @@ catzc:
 
 <!-- cspell:ignore deweuzctsmplst -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:6
+## comment:1
 
-Above `$envEntry = $azure.environments[$Environment]`.
+Above `$envEntry = $azure.environments[$Environment]`, written with `#`.
 
 ```text
 Naming needs only the environment's IDENTITY (shortcode/region_code), never a subscription — so it
@@ -26,18 +26,18 @@ is a resolution axis only and is never a name component
 ([ADR-AZ-NAMING#8](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming8)).
 ```
 
-## comment:7
+## comment:2
 
-Above `$nameArgs = @{`.
+Above `$nameArgs = @{`, written with `#`.
 
 ```text
 The namer picks the env form by pattern (name for generous, shortcode for restricted); env and
 slot are separate segments. We pass both forms + the slot and let it choose.
 ```
 
-## comment:8
+## comment:3
 
-Above `$resolvedCustomer = Get-AzureCustomer $Customer`.
+Above `$resolvedCustomer = Get-AzureCustomer $Customer`, written with `#`.
 
 ```text
 Resolve the customer (given by key OR 2-char shortcode) to its canonical key + shortcode from

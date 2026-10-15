@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepCustomerClassViolations.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Get-BicepCustomerClassViolations.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/private/Get-BicepCustomerClassViolations.ps1
 ---
 #>
 
 Describe 'Get-BicepCustomerClassViolations' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Invoke the private function in the module's scope.
-        # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepCustomerClassViolations.Tests.ps1.md#comment1)
         $script:check = {
             param($customer, $customerDeployment)
             & (Get-Module Catzc.Azure.Templates) {

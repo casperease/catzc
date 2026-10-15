@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Tooling.Inspiration/types/InspirationConfig.cs
     kind: csharp-type
     module: Catzc.Tooling.Inspiration
+    relatives:
+      page: docs/references/automation/catzc-tooling-inspiration/types/InspirationConfig.cs.md
+      test: automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-REPO-INSPIRE
 ---
 */
-
-// An empty file and an omitted inspirations key take the eac default; an explicit empty list declares none.
-// [comment:1](/docs/references/automation/catzc-tooling-inspiration/types/InspirationConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

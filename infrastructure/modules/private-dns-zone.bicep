@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/modules/private-dns-zone.bicep
 //     kind: bicep-module
+//     relatives:
+//       page: docs/references/infrastructure/modules/private-dns-zone.bicep.md
 // ---
-
-// The hub owns the zones and links every spoke, so an endpoint registered in a zone resolves from any linked VNet.
-// [comment:1](/docs/references/infrastructure/modules/private-dns-zone.bicep.md#comment1)
 
 @description('Zone name, e.g. privatelink.database.windows.net.')
 param name string

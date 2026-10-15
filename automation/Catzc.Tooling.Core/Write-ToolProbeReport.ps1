@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
     adrs:
       - ADR-PWSH-ANNOUNCE#7
   config:

@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/TreemapRect.cs.md
     kind: comment-page
-    body_sha: "3f9def9298ba"
+    body_sha: "074f8a140c4b"
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Base.Maps/types/TreemapRect.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `namespace Catzc.Base.Maps;`.
+Above `namespace Catzc.Base.Maps;`, written with `//`.
 
 ```text
 One rectangle of a SquarifiedTreemap layout: the item it stands for (its key and weight) and where it sits, in PDF

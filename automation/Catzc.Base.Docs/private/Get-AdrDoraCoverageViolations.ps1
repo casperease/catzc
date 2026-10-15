@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
   config:
     synopsis: Lists every rule set whose domain's DORA file has no section, or more than one, linking its ADR.
     description: |-

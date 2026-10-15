@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Base.Maps/types/ValueChainReason.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/ValueChainReason.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15
 ---
 */
-
-// Override is true when the ADR declares its own concerns instead of taking its ADR domain's default.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/ValueChainReason.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

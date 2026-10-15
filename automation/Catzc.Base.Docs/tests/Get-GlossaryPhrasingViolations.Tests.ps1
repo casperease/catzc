@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/private/Get-GlossaryPhrasingViolations.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#4
@@ -12,12 +15,8 @@ catzc:
 ---
 #>
 
-# Get-GlossaryPhrasingViolations is private, so it is exercised through the module (InModuleScope, per ).
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1.md#comment1)
 Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {
     BeforeAll {
-        # One entry from the widget's source avoiding 'widget bundle' (say 'widget suite'), with the source's...
-        # [comment:2](/docs/references/automation/catzc-base-docs/tests/Get-GlossaryPhrasingViolations.Tests.ps1.md#comment2)
         $script:entry = {
             param([System.Collections.IDictionary] $options = @{})
             $concept = [Catzc.Base.Docs.GlossaryConcept]::new('widget suite', [ordered]@{

@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.RootConfig
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md
+      test: automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-DSGN-RUNMODE
@@ -107,8 +110,6 @@ function Build-RootConfig {
 
     $ret = foreach ($entry in $entries) {
         if ($entry.copyAsLink) {
-            # A link entry skips content composition entirely: the target IS the source, verified or (re)created as a...
-            # [comment:10](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment10)
             $sourcePath = Resolve-RepoPath $entry.source
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $null; From = "$($entry.source) (link)" })
         }
@@ -123,8 +124,6 @@ function Build-RootConfig {
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $content; From = $entry.source })
         }
         else {
-            # A generator's rendered output (which owns its whole content below the head): one file, or one record...
-            # [comment:11](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment11)
             foreach ($listed in $entry.sources) {
                 Assert-PathExist (Resolve-RepoPath $listed)
             }
@@ -149,16 +148,12 @@ function Build-RootConfig {
                 $changed = Set-FileLink -Path $targetPath -Target $sourcePath -DryRun:$DryRun
             }
             else {
-                # A target that is currently a LINK is stale regardless of content equality: a comment:none entry...
-                # [comment:12](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment12)
                 $item = Get-Item -LiteralPath $targetPath -Force -ErrorAction Ignore
                 $targetIsLink = [bool] ($item -and $item.LinkType)
                 if ($targetIsLink -and -not $DryRun) {
                     [System.IO.File]::Delete($targetPath)
                 }
 
-                # Canonicalise, EOL-insensitively compare, and write-on-change via the one shared primitive...
-                # [comment:13](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment13)
                 $changed = Write-FileIfChanged -Path $targetPath -Content $file.Content -DryRun:$DryRun
                 if ($targetIsLink) {
                     $changed = $true

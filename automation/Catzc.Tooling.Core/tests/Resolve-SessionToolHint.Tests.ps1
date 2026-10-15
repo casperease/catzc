@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Resolve-SessionToolHint.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/tests/Resolve-SessionToolHint.Tests.ps1.md
+      source: automation/Catzc.Tooling.Core/private/Resolve-SessionToolHint.ps1
 ---
 #>
 
 Describe 'Resolve-SessionToolHint' -Tag 'L0', 'logic' {
-    # Fixture uses a.cmd shim + PATHEXT resolution — a Windows shape.
-    # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Resolve-SessionToolHint.Tests.ps1.md#comment1)
     BeforeEach {
         $script:origPath = $env:PATH
         if (-not $IsWindows) {

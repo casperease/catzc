@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/DiskModule.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/DiskModule.cs.md
 ---
 */
-
-// This is the facet Copy-Automation copies: a repository-root-relative folder path plus its named packages.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/DiskModule.cs.md#comment1)
 
 using System.Collections.Generic;
 

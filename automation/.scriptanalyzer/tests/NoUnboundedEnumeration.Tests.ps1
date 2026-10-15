@@ -4,14 +4,14 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1.md
     adrs:
       - ADR-PWSH-ENUM#1
       - ADR-PWSH-ENUM#3
 ---
 #>
 
-# The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a...
-# [comment:1](/docs/references/automation/scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1.md#comment1)
 Describe 'Measure-NoUnboundedEnumeration' -Tag 'L0', 'logic', 'ADR-PWSH-ENUM#1', 'ADR-PWSH-ENUM#3' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/NoUnboundedEnumeration.psm1') -Force

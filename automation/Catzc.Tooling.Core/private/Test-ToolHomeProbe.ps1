@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: private
+    relatives:
+      test: automation/Catzc.Tooling.Core/tests/Test-ToolHomeProbe.Tests.ps1
   config:
     synopsis: Tests whether a tool's install home satisfies one session_host_probes entry at the locked version.
     description: |-

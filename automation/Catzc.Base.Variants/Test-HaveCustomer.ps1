@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Variants
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Variants/tests/Test-HaveCustomer.Tests.ps1
   config:
     synopsis: Tests whether one named customer is enabled for the repo (singular cover over Test-HaveCustomers).
     description: |-

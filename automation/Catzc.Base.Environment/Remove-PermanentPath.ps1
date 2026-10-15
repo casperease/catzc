@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Environment
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-environment/Remove-PermanentPath.ps1.md
+      test: automation/Catzc.Base.Environment/tests/Remove-PermanentPath.Tests.ps1
     adrs:
       - ADR-PWSH-DRYRUN#1
   config:
@@ -64,8 +67,6 @@ function Remove-PermanentPath {
         Write-Message "Session PATH: removed '$Path'"
     }
 
-    # --- Persistent PATH --- Get-EnvironmentPath / Set-EnvironmentPath are the registry seam — kept thin so tests...
-    # [comment:5](/docs/references/automation/catzc-base-environment/Remove-PermanentPath.ps1.md#comment5)
     if ($IsWindows) {
         $userPath = Get-EnvironmentPath -Scope User
         if ($userPath) {

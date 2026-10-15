@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md
     kind: comment-page
-    body_sha: "69e8ec14f316"
+    body_sha: "676e97f3373f"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:3
+## comment:1
 
-Above `Assert-SourceTree`.
+Above `Assert-SourceTree`, written with `#`.
 
 ```text
 The universe and its exclusions (automation/.vendor, automation/.compiled, the registry) are the catzc

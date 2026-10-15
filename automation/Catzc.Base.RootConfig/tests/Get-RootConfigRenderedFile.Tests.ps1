@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/tests/Get-RootConfigRenderedFile.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-rootconfig/tests/Get-RootConfigRenderedFile.Tests.ps1.md
+      source: automation/Catzc.Base.RootConfig/private/Get-RootConfigRenderedFile.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-RootConfigRenderedFile over a mocked generator dispatch: a single-file generator's string and a multi-file...
-# [comment:1](/docs/references/automation/catzc-base-rootconfig/tests/Get-RootConfigRenderedFile.Tests.ps1.md#comment1)
 Describe 'Get-RootConfigRenderedFile' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:render = {

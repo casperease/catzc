@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md
     kind: comment-page
-    body_sha: "84fa0b849f5c"
+    body_sha: "306d60263b29"
     adrs:
       - ADR-PWSH-PESTER#9
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:5
+## comment:1
 
-Above `$names = [System.Collections.Generic.HashSet[string]]::new(`.
+Above `$names = [System.Collections.Generic.HashSet[string]]::new(`, written with `#`.
 
 ```text
 Authored config files with no extension carry approved vocabulary too — a *.stackdump ignore pattern in
@@ -24,9 +24,9 @@ them by name so a term referenced only here is not a false orphan (orphan detect
 authored tree, wider than the lint scope). [System.IO.Path]::GetExtension('.gitignore') is '.gitignore'.
 ```
 
-## comment:6
+## comment:2
 
-Above `$configurationRegex = @(`.
+Above `$configurationRegex = @(`, written with `#`.
 
 ```text
 The customer/machine-derived config tree (root configuration/,
@@ -36,9 +36,9 @@ anchored so a nested AUTHORED 'configuration' folder (e.g. docs/adr/configuratio
 and can justify a term (a bare '[/]configuration[/]' substring would wrongly swallow the ADR folder).
 ```
 
-## comment:7
+## comment:3
 
-Above `$ret = [System.Text.StringBuilder]::new()`.
+Above `$ret = [System.Text.StringBuilder]::new()`, written with `#`.
 
 ```text
 Enumerate with [System.IO] rather than Get-ChildItem — no per-file PSObject wrapping, so a whole-tree
@@ -46,9 +46,9 @@ scan is markedly faster ([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#ru
 Directory/name filtering is done inline on the raw path string.
 ```
 
-## comment:8
+## comment:4
 
-Above `foreach ($path in Get-ChildPath $Root -File -Depth 10) {`.
+Above `foreach ($path in Get-ChildPath $Root -File -Depth 10) {`, written with `#`.
 
 ```text
 Tracked files reach nine levels below the root, so ten leaves one level of headroom. The corpus is searched for words,

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleSubscription.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleSubscription.Tests.ps1.md
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#26
@@ -13,11 +15,7 @@ catzc:
 #>
 
 Describe 'Build-Bicep (sample-subscription)' -Tag 'L0', 'logic' {
-    # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the build output...
-    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleSubscription.Tests.ps1.md#comment1)
     BeforeAll {
-        # Isolate build output to this file's throwaway $TestDrive via the output-root seam, so it never shares...
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleSubscription.Tests.ps1.md#comment2)
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
         $script:outputRoot = Join-Path $TestDrive 'out/template/sample-subscription'
 
@@ -42,8 +40,6 @@ Describe 'Build-Bicep (sample-subscription)' -Tag 'L0', 'logic' {
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
-        # Warm the discovery + config caches once so the first It doesn't pay the cold Get-BicepTemplate derive...
-        # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Build-Bicep.SampleSubscription.Tests.ps1.md#comment3)
         Get-BicepTemplate sample-subscription | Out-Null
     }
 

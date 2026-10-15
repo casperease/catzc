@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/IdentityTokensConfig.cs.md
     kind: comment-page
-    body_sha: "8e6e8cfb5048"
+    body_sha: "8858db31548b"
 ---
 
 # automation/Catzc.Base.QualityGates/types/IdentityTokensConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One identity-tokens source (a module's configs/identity-tokens.yml): the live production identities that module's

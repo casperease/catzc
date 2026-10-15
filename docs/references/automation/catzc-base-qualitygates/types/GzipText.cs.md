@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/GzipText.cs.md
     kind: comment-page
-    body_sha: "5a3143ae1390"
+    body_sha: bf24a2013655
     adrs:
       - ADR-PWSH-TYPES#1
 ---
 
 # automation/Catzc.Base.QualityGates/types/GzipText.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `public static class GzipText`.
+Above `public static class GzipText`, written with `///`.
 
 ```text
 <summary>

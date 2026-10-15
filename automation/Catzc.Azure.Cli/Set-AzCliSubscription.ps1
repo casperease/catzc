@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Cli
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-cli/Set-AzCliSubscription.ps1.md
   config:
     synopsis: Sets the active Azure CLI subscription.
     description: Skips if the requested subscription is already active.
@@ -26,8 +28,6 @@ function Set-AzCliSubscription {
 
     Assert-Tool 'az_cli'
 
-    # Idempotent: skip if already on the requested subscription -NoAssert: non-zero exit means "not logged in" —...
-    # [comment:2](/docs/references/automation/catzc-azure-cli/Set-AzCliSubscription.ps1.md#comment2)
     $result = Invoke-Executable 'az account show --output json' -PassThru -NoAssert -Silent
     if ($result.ExitCode -eq 0 -and $result.Output) {
         $account = $result.Output | ConvertFrom-Json

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLockHolder.ps1.md
   config:
     synopsis: Reads the test-run lock record and describes who holds the working folder.
     description: |-
@@ -49,8 +51,6 @@ function Get-TestRunLockHolder {
         }
     }
 
-    # ConvertFrom-Json turns ISO timestamps into [datetime] (kind kept from the 'Z'/offset suffix); a string cast...
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLockHolder.ps1.md#comment3)
     $toInstant = {
         param($value)
         if ($value -is [datetime]) {

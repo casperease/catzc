@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/IdentityTokenRule.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/IdentityTokenRule.cs.md
     adrs:
       - ADR-AUTO-TEST#3
 ---
 */
-
-// Match mode position flags a token only beside an identity parameter, so ambiguous words such as test do not trip the gate.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/IdentityTokenRule.cs.md#comment1)
 
 using System;
 using System.Collections;

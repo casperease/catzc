@@ -9,14 +9,6 @@ catzc:
 
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
-<#
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: module function files read the repository root through Get-RepositoryRoot.
-.DESCRIPTION
-    One accessor reads the root, so where the root comes from can change in one place; a write is not flagged.
-    [comment:1](/docs/references/automation/scriptanalyzer/NoEnvRepositoryRoot.psm1.md#comment1)
-#>
-
 function Measure-NoEnvRepositoryRoot {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
@@ -39,8 +31,6 @@ function Measure-NoEnvRepositoryRoot {
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoEnvRepositoryRoot'
 
-    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [comment:2](/docs/references/automation/scriptanalyzer/NoEnvRepositoryRoot.psm1.md#comment2)
     $isVariable = {
         param($node)
         $node -is [System.Management.Automation.Language.VariableExpressionAst]

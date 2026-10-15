@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/ConvertTo-Guid.Tests.ps1
   config:
     synopsis: Converts a sentence into a valid GUID whose hex digits best-effort spell the sentence.
     description: |-

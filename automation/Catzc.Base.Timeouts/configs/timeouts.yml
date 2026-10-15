@@ -3,13 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.Timeouts/configs/timeouts.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-timeouts/configs/timeouts.yml.md
 # ---
 
-# Every value is a positive whole number of seconds; there is no no-limit value, so every call runs inside a safeguard.
-# [comment:1](/docs/references/automation/catzc-base-timeouts/configs/timeouts.yml.md#comment1)
-
-# Only tools whose ordinary runs outlast the default belong here; a key is the bare name, so a full path matches it too.
-# [comment:2](/docs/references/automation/catzc-base-timeouts/configs/timeouts.yml.md#comment2)
 executables:
   pwsh: 360 # isolated test runs (Test-InIsolation) and snapshot imports — a full snapshot run takes about 250 s
   dotnet: 600 # builds

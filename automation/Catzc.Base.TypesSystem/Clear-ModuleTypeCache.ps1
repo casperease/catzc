@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.TypesSystem
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md
+      test: automation/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE#8
       - ADR-DSGN-RUNMODE
@@ -88,8 +91,6 @@ function Clear-ModuleTypeCache {
 
     $compiledDir = Join-Path $AutomationRoot '.compiled'
 
-    # Pipeline: nothing is deleted (CI makes no source-control changes), so more than one Catzc.Types.*.dll means two...
-    # [comment:9](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment9)
     if (Test-IsRunningInPipeline) {
         # @(): an if-expression unrolls a 0/1-item list.
         $typeDlls = @(if (Test-Path $compiledDir -PathType Container) {
@@ -118,8 +119,6 @@ function Clear-ModuleTypeCache {
         return
     }
 
-    # Keep exactly the current build (Catzc.Types.<combinedHash8>.dll) and prune every other Catzc.Types.*.dll.
-    # [comment:10](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment10)
     Import-InternalModule Types
     $combinedHash = (Get-CombinedTypeHash $AutomationRoot).CombinedHash
     $keep = if ($combinedHash) {
@@ -160,8 +159,6 @@ function Clear-ModuleTypeCache {
         }
     }
 
-    # The kill switch: stop each process holding a build that would not delete, then retry the delete.
-    # [comment:11](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment11)
     if ($StopLockingProcesses -and $failed.Count) {
         $retried = [System.Collections.Generic.List[pscustomobject]]::new()
         foreach ($entry in $failed) {
@@ -204,8 +201,6 @@ function Clear-ModuleTypeCache {
     }
 
     if ($failed.Count) {
-        # Who holds each surviving file — best-effort: the lookup only enriches the message, so a Restart Manager...
-        # [comment:12](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment12)
         $details = foreach ($entry in $failed) {
             $name = [System.IO.Path]::GetFileName($entry.Path)
             $holders = try {

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md
+      test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE
       - ADR-AZ-CUSTOMER
@@ -71,11 +74,7 @@ function Get-BicepTemplates {
     $infrastructureRoot = Get-BicepTemplatesRoot
     $outputRoot = Get-BicepTemplatesOutputRoot
 
-    # Filesystem-derived information is cached for the session, lazily on first use, keyed on the discovery root +...
-    # [comment:12](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment12)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:bicepTemplatesCache')) {
-        # strict-clean probe of the lazy cache entry
-        # [comment:13](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment13)
         $script:bicepTemplatesCache = @{}
     }
     $cacheKey = "$infrastructureRoot|$outputRoot"
@@ -87,13 +86,9 @@ function Get-BicepTemplates {
         return @()
     }
 
-    # A config lives at the configuration root (`<env>[-<slot>].yml` — the shared platform) or under a...
-    # [comment:14](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment14)
     $azure = Get-Config -Config azure
 
     $templates = [System.Collections.Generic.List[object]]::new()
-    # Enumerate with [System.IO.Directory] (sorted to keep output deterministic) rather than Get-ChildItem: the...
-    # [comment:15](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment15)
     foreach ($folderPath in ([System.IO.Directory]::EnumerateDirectories($infrastructureRoot) | Sort-Object)) {
         $name = [System.IO.Path]::GetFileName($folderPath)
 
@@ -104,8 +99,6 @@ function Get-BicepTemplates {
         Assert-PathExist $configurationFolder -PathType Container
 
         $options = Read-BicepTemplateOptions $folderPath
-        # Env-class template classification: the env-class bit (standard/subscription, default standard).
-        # [comment:16](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment16)
         $environmentKind = if ($options.Contains('environment_kind')) {
             "$($options.environment_kind)"
         }
@@ -113,8 +106,6 @@ function Get-BicepTemplates {
             'standard'
         }
 
-        # Customer-class bit: whether this is a customer template.
-        # [comment:17](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment17)
         $customerDeploymentOption = if ($options.Contains('customer_deployment')) {
             [bool]$options.customer_deployment
         }
@@ -131,8 +122,6 @@ function Get-BicepTemplates {
             [bool](Test-HaveCustomers)
         }
 
-        # short_name is the Azure id segment every resource name is built from.
-        # [comment:18](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment18)
         $shortNameOverride = if ($options.Contains('short_name')) {
             "$($options.short_name)"
         }
@@ -141,8 +130,6 @@ function Get-BicepTemplates {
         }
         $shortName = [Catzc.Azure.Templates.BicepShortName]::Resolve($name, $shortNameOverride)
 
-        # Gather every config file with its customer (the subfolder; '' for a configuration-root config).
-        # [comment:19](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment19)
         $configEntries = [System.Collections.Generic.List[object]]::new()
         foreach ($file in @([System.IO.Directory]::EnumerateFiles($configurationFolder, '*.yml') | Sort-Object)) {
             $configEntries.Add([pscustomobject]@{ file = $file; customer = '' })
@@ -154,8 +141,6 @@ function Get-BicepTemplates {
             }
         }
 
-        # Each config file is one slot (one resource group).
-        # [comment:20](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment20)
         $slots = [System.Collections.Generic.List[object]]::new()
         $configurationFiles = [System.Collections.Generic.List[string]]::new()
         foreach ($entry in $configEntries) {
@@ -218,8 +203,6 @@ function Get-BicepTemplates {
             customer_deployment  = $customerDeployment
         }
 
-        # Overlay the remaining deployment overrides.
-        # [comment:21](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment21)
         foreach ($key in @($options.Keys)) {
             if ($key -in 'short_name', 'environment_kind', 'customer_deployment') {
                 continue

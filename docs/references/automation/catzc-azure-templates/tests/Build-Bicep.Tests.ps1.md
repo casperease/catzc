@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Build-Bicep.Tests.ps1.md
-    kind: test-asset
-    body_sha: "3f519cde61ac"
+    kind: comment-page
+    body_sha: f0827ce54949
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#26
@@ -14,12 +14,12 @@ catzc:
 
 <!-- cspell:ignore alweutstsmplst -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
@@ -29,7 +29,7 @@ build output folder is wiped per test, since the build tests write into it
 
 ## comment:2
 
-Above `$script:outputRoot = Join-Path (Get-RepositoryRoot)...`.
+Above `$script:outputRoot = Join-Path (Get-RepositoryRoot)...`, written with `#`.
 
 ```text
 Own output root through the seam: any other file building the 'sample' fixture from a sibling
@@ -39,7 +39,7 @@ worker can race the shared out/template/sample
 
 ## comment:3
 
-Above `Get-BicepTemplates | Out-Null`.
+Above `Get-BicepTemplates | Out-Null`, written with `#`.
 
 ```text
 Warm the discovery and config caches once, here — the cold re-derive the reset above forces is
@@ -51,7 +51,7 @@ over the L0 limit).
 
 ## comment:4
 
-Above `Mock Assert-AzCliBicep { throw 'Bicep CLI not available. Run az bicep...`.
+Above `Mock Assert-AzCliBicep { throw 'Bicep CLI not available. Run az bicep...`, written with `#`.
 
 ```text
 The Bicep CLI guard (Assert-AzCliBicep, in Catzc.Azure.Cli) throws -> Build-Bicep stops before any
@@ -60,7 +60,7 @@ az bicep build runs. Mock the guard boundary (its own az-version behaviour is co
 
 ## comment:5
 
-Above `$script:outputRoot = Join-Path (Get-RepositoryRoot)...`.
+Above `$script:outputRoot = Join-Path (Get-RepositoryRoot)...` (occurrence 2), written with `#`.
 
 ```text
 Own output root through the seam (see the mocked-az block's note) — same isolated root as that

@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-ParameterConsistency.Tests.ps1.md
-    kind: test-asset
-    body_sha: a4a07e8b8d01
+    kind: comment-page
+    body_sha: "12a627caf7e2"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/tests/Test-ParameterConsistency.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-ParameterConsistency' -Tag 'L0', 'logic' {`.
+Above `Describe 'Test-ParameterConsistency' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-ParameterConsistency is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
@@ -27,7 +27,7 @@ runs the gate over the real public functions. Neutral fixture names
 
 ## comment:2
 
-Above `Describe 'Parameter consistency of the public functions' -Tag 'L0',...`.
+Above `Describe 'Parameter consistency of the public functions' -Tag 'L0',...`, written with `#`.
 
 ```text
 The real public functions, through the gate.

@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-engines/configs/glossary.yml.md
     kind: comment-page
-    body_sha: bd8e9e4606e4
+    body_sha: c88a4eeb03e7
     adrs:
       - ADR-REPO-VOCAB#2
 ---
 
 # automation/Catzc.Base.Engines/configs/glossary.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `concepts:`.
+Above `concepts:`, written with `#`.
 
 ```text
 glossary.yml — the Catzc.Base.Engines glossary source: the vocabulary of the execution engine model this module owns

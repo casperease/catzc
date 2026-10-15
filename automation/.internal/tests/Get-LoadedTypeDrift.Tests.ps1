@@ -4,14 +4,14 @@ catzc:
   derived:
     path: automation/.internal/tests/Get-LoadedTypeDrift.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/internal/tests/Get-LoadedTypeDrift.Tests.ps1.md
     adrs:
       - ADR-AUTO-TYPES#12
       - ADR-AUTO-TYPES#15
 ---
 #>
 
-# Get-LoadedTypeDrift over fixture code roots in $TestDrive.
-# [comment:1](/docs/references/automation/internal/tests/Get-LoadedTypeDrift.Tests.ps1.md#comment1)
 BeforeAll {
     Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Types.psm1') -Force
 }

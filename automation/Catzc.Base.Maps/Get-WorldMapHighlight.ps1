@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Maps
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
     adrs:
       - ADR-DSGN-TRACK#1
       - ADR-DSGN-TRACK#3

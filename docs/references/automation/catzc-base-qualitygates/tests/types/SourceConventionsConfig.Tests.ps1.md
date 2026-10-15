@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/types/SourceConventionsConfig.Tests.ps1.md
-    kind: test-asset
-    body_sha: "68b9afe4d21c"
+    kind: comment-page
+    body_sha: a23a990e0593
     adrs:
       - ADR-AUTO-DEFAULT#6
 ---
 
 # automation/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'SourceConventionsConfig' -Tag 'L0' {`.
+Above `Describe 'SourceConventionsConfig' -Tag 'L0' {`, written with `#`.
 
 ```text
 SourceConventionsConfig maps source-conventions.yml: an omitted check takes every default of its type

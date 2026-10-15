@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Python/tests/Install-Python.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Tooling.Python/Install-Python.ps1
 ---
 #>
 

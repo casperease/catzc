@@ -4,18 +4,17 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Test-GlobSetAffected.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-globs/tests/Test-GlobSetAffected.Tests.ps1.md
+      source: automation/Catzc.Base.Globs/Test-GlobSetAffected.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-PROTGLOB#5
 ---
 #>
 
-# The in-pipeline "is there anything here for us to process?" check — reflects the context's diff and reports whether...
-# [comment:1](/docs/references/automation/catzc-base-globs/tests/Test-GlobSetAffected.Tests.ps1.md#comment1)
 Describe 'Test-GlobSetAffected' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Neutral fixture names (widget/gadget), not the shipped set names, so this logic test owns its inputs.
-        # [comment:2](/docs/references/automation/catzc-base-globs/tests/Test-GlobSetAffected.Tests.ps1.md#comment2)
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
                     'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**') }

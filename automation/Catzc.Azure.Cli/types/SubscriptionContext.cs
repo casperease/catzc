@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure.Cli/types/SubscriptionContext.cs
     kind: csharp-type
     module: Catzc.Azure.Cli
+    relatives:
+      page: docs/references/automation/catzc-azure-cli/types/SubscriptionContext.cs.md
 ---
 */
-
-// Captured so the active subscription can be saved and later restored around a subscription switch.
-// [comment:1](/docs/references/automation/catzc-azure-cli/types/SubscriptionContext.cs.md#comment1)
 
 using System;
 

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Get-DotnetInstallHolder.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Tooling.Toolchain/private/Get-DotnetInstallHolder.ps1
 ---
 #>
 

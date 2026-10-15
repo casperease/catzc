@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Writers
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Writers/tests/Write-Footer.Tests.ps1
   config:
     synopsis: Writes a closing footer line in a chosen style.
     description: |-

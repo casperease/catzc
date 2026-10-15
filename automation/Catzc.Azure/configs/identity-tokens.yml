@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Azure/configs/identity-tokens.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-azure/configs/identity-tokens.yml.md
 # ---
 
-# A hermetic logic test must never name these live identities; it uses the fixture each suggestion names instead.
-# [comment:1](/docs/references/automation/catzc-azure/configs/identity-tokens.yml.md#comment1)
 tokens:
   - config: customer
     path: customers
@@ -26,8 +26,6 @@ tokens:
     take: keys
     kind: subscription
     suggest: a fixture subscription (core_lower / acme_lower)
-  # Words like test and dev are ambiguous, so they match only when bound to an identity parameter, hence match: position.
-  # [comment:2](/docs/references/automation/catzc-azure/configs/identity-tokens.yml.md#comment2)
   - config: azure
     path: environments
     take: keys

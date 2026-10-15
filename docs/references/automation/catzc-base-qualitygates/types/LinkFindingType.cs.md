@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/LinkFindingType.cs.md
     kind: comment-page
-    body_sha: f3467c7f474f
+    body_sha: "19d36db4ee84"
 ---
 
 # automation/Catzc.Base.QualityGates/types/LinkFindingType.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `namespace Catzc.Base.QualityGates;`.
+Above `namespace Catzc.Base.QualityGates;`, written with `//`.
 
 ```text
 What the link engine found at one place in a file

@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md
     kind: comment-page
-    body_sha: "6a72ffb45cde"
+    body_sha: "268c6162b3b9"
     adrs:
       - ADR-PWSH-ENUM#3
 ---
 
 # automation/Catzc.Base.Contracts/private/Get-ContractDotFolderFindings.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:2
+## comment:1
 
-Above `$folders = [string[]] @(Get-ChildPath $contractsRoot -Directory -Depth 64...`.
+Above `$folders = [string[]] @(Get-ChildPath $contractsRoot -Directory -Depth 64...`, written with `#`.
 
 ```text
 A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): this gate

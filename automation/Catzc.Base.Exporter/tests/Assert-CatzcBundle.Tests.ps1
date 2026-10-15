@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-exporter/tests/Assert-CatzcBundle.Tests.ps1.md
+      source: automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
@@ -12,8 +15,6 @@ catzc:
 # cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
     BeforeAll {
-        # A hand-made, well-formed build of two neutral modules: widget is selected (its type source ships under...
-        # [comment:1](/docs/references/automation/catzc-base-exporter/tests/Assert-CatzcBundle.Tests.ps1.md#comment1)
         $script:newFixtureBuild = {
             $root = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))/Catzc/1.2.3"
             $write = {
@@ -56,8 +57,6 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Root = $root; TypesHash = $typesHash; Build = $build }
         }
 
-        # Rewrites build.json after a fixture mutation, keeping the content hash current so only the mutated property...
-        # [comment:2](/docs/references/automation/catzc-base-exporter/tests/Assert-CatzcBundle.Tests.ps1.md#comment2)
         $script:resealBuild = {
             param($fixture)
             $buildFile = Join-Path $fixture.Root 'build.json'

@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Azure.DevOps
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md
+      test: automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PIPE-NAME
@@ -110,24 +113,18 @@ function Test-Pipelines {
             continue
         }
 
-        # — executable YAML under pipelines/ is `.yaml`, never `.yml`.
-        # [comment:8](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment8)
         if ($extension -eq '.yml') {
             $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#6' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
             continue
         }
 
         if ($segments.Count -eq 0) {
-            # --- Root of pipelines/: this is a pipeline entry point.
-            # [comment:9](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment9)
             $prefix = ($name -split '-', 2)[0]
             if ($prefix -notin $typePrefixes) {
                 $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#1' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
             }
         }
         else {
-            # --- Inside a subfolder: must be a per-kind template folder, one level deep.
-            # [comment:10](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment10)
             if ($topFolder -notin $templateFolders) {
                 $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#3' -Message "Template folder '$topFolder' is not one of: $($templateFolders -join ' | ')."))
             }
@@ -135,21 +132,15 @@ function Test-Pipelines {
                 $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#2' -Message "Templates live directly in '$topFolder/', not nested deeper ('$dir/')."))
             }
             else {
-                # — a structural pipeline has no business inside a template folder.
-                # [comment:11](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment11)
                 if ($record.Classification -eq 'Pipeline') {
                     $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#2' -Message "A pipeline (trigger/pr/… shape) must live flat in pipelines/, not inside '$topFolder/'."))
                 }
-                # — a fragment's structural kind matches its folder (extends/ exempt).
-                # [comment:12](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment12)
                 elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and "$($record.TemplateType)" -ne $folderKind[$topFolder]) {
                     $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#3' -Message "A '$($record.TemplateType)' template does not belong in '$topFolder/' (expected $($folderKind[$topFolder]))."))
                 }
             }
         }
 
-        # — template references are absolute (/pipelines/<kind>/<name>.yaml).
-        # [comment:13](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment13)
         foreach ($ref in (Get-PipelineTemplateReference -Path $record.Path)) {
             if ($ref -notmatch '^/pipelines/') {
                 $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#4' -Message "Template reference '$ref' must be an absolute path starting with /pipelines/."))

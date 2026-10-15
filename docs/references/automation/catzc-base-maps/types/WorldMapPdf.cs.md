@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md
     kind: comment-page
-    body_sha: "931d3b97a590"
+    body_sha: d6159c1acf1b
     adrs:
       - ADR-DSGN-TRACK#3
       - ADR-DSGN-TRACK#7
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.Maps/types/WorldMapPdf.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Draws the world map onto PdfDocument pages: the grid page (rows are the tracks, columns the file languages, each cell
@@ -38,7 +38,7 @@ and the highlight, so the bytes are the same on every run.
 
 ## comment:2
 
-Above `public static string ColumnLabel(string fileLanguage, MapsConfig config)`.
+Above `public static string ColumnLabel(string fileLanguage, MapsConfig config)`, written with `//`.
 
 ```text
 The printed header of a column: the unlisted-file label for the catch-all column, else the file-language name cut
@@ -47,7 +47,7 @@ to max_column_label.
 
 ## comment:3
 
-Above `public static string Truncate(string text, int maxChars)`.
+Above `public static string Truncate(string text, int maxChars)`, written with `//`.
 
 ```text
 The text cut to at most maxChars characters: unchanged when it fits, else its first maxChars - 1 characters and
@@ -56,7 +56,7 @@ the marker.
 
 ## comment:4
 
-Above `public static string Fit(string text, PdfFont font, double size, double...`.
+Above `public static string Fit(string text, PdfFont font, double size, double...`, written with `//`.
 
 ```text
 The text as it fits maxWidth points: at the given size when it fits, else at a smaller size (in half points) no
@@ -67,7 +67,7 @@ nothing, so the label is left out.
 
 ## comment:5
 
-Above `public static string[] FitLines(string text, PdfFont font, double size,...`.
+Above `public static string[] FitLines(string text, PdfFont font, double size,...`, written with `//`.
 
 ```text
 The text as it fits maxWidth points on at most two lines, in this order: on one line at the given size; else
@@ -79,7 +79,7 @@ left out. A text with no break is fitted on one line as Fit does. Empty (and fit
 
 ## comment:6
 
-Above `private static string[] BestBreak(string text, PdfFont font)`.
+Above `private static string[] BestBreak(string text, PdfFont font)`, written with `//`.
 
 ```text
 The two lines of the break in text that leaves the wider line narrowest, the first on a tie; null when the text
@@ -88,7 +88,7 @@ has no space or hyphen with something on both sides.
 
 ## comment:7
 
-Above `public static string ShadeOf(int count, int maxCount, MapsPalette palette)`.
+Above `public static string ShadeOf(int count, int maxCount, MapsPalette palette)`, written with `//`.
 
 ```text
 The fill of a cell with the given count: the palette's cell colour when empty, else a point on the scale from
@@ -97,7 +97,7 @@ cell to shade, logarithmic in the count so a few files and a thousand both read.
 
 ## comment:8
 
-Above `public static void AddGridPage(PdfDocument doc, WorldMap map, MapsConfig...`.
+Above `public static void AddGridPage(PdfDocument doc, WorldMap map, MapsConfig...`, written with `//`.
 
 ```text
 The grid page: title, headers, shaded cells with their counts, the stack-violation marks, the highlight outlines
@@ -106,7 +106,7 @@ and the legend, in that order over the background.
 
 ## comment:9
 
-Above `public static void AddTreePage(PdfDocument doc, WorldMap map, MapsConfig...`.
+Above `public static void AddTreePage(PdfDocument doc, WorldMap map, MapsConfig...`, written with `//`.
 
 ```text
 The tree page: the tracks as a squarified treemap by file count, each with a name band and its non-empty cells
@@ -115,7 +115,7 @@ laid out inside by file count, then the stack-violation marks, the highlight out
 
 ## comment:10
 
-Above `private static void ColumnHeader(PdfPage page, string text, double x, double...`.
+Above `private static void ColumnHeader(PdfPage page, string text, double x, double...`, written with `//`.
 
 ```text
 A column header fitted into its box on one or two lines (FitLines), each line centred, the block set on the box's
@@ -124,7 +124,7 @@ vertical middle, in the current fill colour.
 
 ## comment:11
 
-Above `private static void Legend(PdfPage page, MapsConfig config, int maxCount,...`.
+Above `private static void Legend(PdfPage page, MapsConfig config, int maxCount,...`, written with `//`.
 
 ```text
 The legend band: the file-count scale, the stack-violation mark and, with a highlight, the lit-cell outline with

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.TypesSystem
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.TypesSystem/tests/Stop-FileLockingProcess.Tests.ps1
   config:
     synopsis: Stops the processes holding a file open, so the file can be deleted — the type-cache kill switch.
     description: |-

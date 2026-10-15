@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-docs/private/Get-CatsAdrIndex.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Get-CatsAdrIndex.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE
       - ADR-PWSH-CACHE#4
@@ -36,8 +39,6 @@ function Get-CatsAdrIndex {
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrIndexCache')) {
-        # strict-clean probe of the lazy cache entry
-        # [comment:4](/docs/references/automation/catzc-base-docs/private/Get-CatsAdrIndex.ps1.md#comment4)
         $script:catsAdrIndexCache = @{}
     }
     if ($script:catsAdrIndexCache.ContainsKey($IndexPath)) {

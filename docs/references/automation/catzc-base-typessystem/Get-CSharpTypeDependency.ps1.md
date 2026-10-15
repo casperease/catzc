@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md
     kind: comment-page
-    body_sha: "43cb30895775"
+    body_sha: "0a6d03d0ce3c"
     adrs:
       - ADR-PWSH-PESTER#9
 ---
 
 # automation/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:5
+## comment:1
 
-Above `foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs') |...`.
+Above `foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs') |...`, written with `#`.
 
 ```text
 [System.IO] (sorted) instead of Get-ChildItem/Get-Content — ~20ms-per-call cmdlet overhead the raw
@@ -23,18 +23,18 @@ Above `foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs')
 ([ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)).
 ```
 
-## comment:6
+## comment:2
 
-Above `$code = [System.IO.File]::ReadAllText($cs)`.
+Above `$code = [System.IO.File]::ReadAllText($cs)`, written with `#`.
 
 ```text
 Strip block comments, line comments, then double- and single-quoted literals, so only real code
 tokens are scanned. A heuristic, but reliable here: references are FQN with no 'using' aliasing.
 ```
 
-## comment:7
+## comment:3
 
-Above `$code = [regex]::Replace($code,...`.
+Above `$code = [regex]::Replace($code,...`, written with `#`.
 
 ```text
 Drop the file's own file-scoped namespace declaration ("namespace <module>;"). It names THIS file's

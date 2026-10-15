@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Dotnet.Tests.ps1.md
-    kind: test-asset
-    body_sha: "1218cb0b81ad"
+    kind: comment-page
+    body_sha: e2acd9025c38
     adrs:
       - ADR-AUTO-ASSETDEP#3
 ---
 
 # automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Install-Dotnet — shipped install scripts' -Tag 'L1', 'integrity',...`.
+Above `Describe 'Install-Dotnet — shipped install scripts' -Tag 'L1', 'integrity',...`, written with `#`.
 
 ```text
 Drives Install-Dotnet to the point where it resolves the vendored install script, then reads the REAL script
@@ -27,7 +27,7 @@ script's presence check is the stop point: it records the resolved path and halt
 
 ## comment:2
 
-Above `Describe 'Install-Dotnet' -Tag 'L1', 'logic' {`.
+Above `Describe 'Install-Dotnet' -Tag 'L1', 'logic' {`, written with `#`.
 
 ```text
 Hermetic logic (L1): the install script, the version probes, the PATH seam (Add-PermanentPath) and the persistent

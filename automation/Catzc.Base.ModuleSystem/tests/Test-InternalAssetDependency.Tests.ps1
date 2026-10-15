@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/tests/Test-InternalAssetDependency.Tests.ps1.md
+      source: automation/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-InternalAssetDependency over a mocked inventory: the violation and coverage engines have their own tests, so...
-# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Test-InternalAssetDependency.Tests.ps1.md#comment1)
 Describe 'Test-InternalAssetDependency' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }

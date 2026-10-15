@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Files/tests/Test-GitPathChanged.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Files/Test-GitPathChanged.ps1
 ---
 #>
 

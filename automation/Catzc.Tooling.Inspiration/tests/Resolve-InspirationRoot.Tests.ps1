@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md
+      source: automation/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
     adrs:
       - ADR-AUTO-PATH#11
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Resolve-InspirationRoot over a TestDrive workspace with neutral names (widget/gadget, ); Get-RepositoryRoot is the...
-# [comment:1](/docs/references/automation/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md#comment1)
 Describe 'Resolve-InspirationRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:workspace = [IO.Path]::GetFullPath((Join-Path $TestDrive 'widgets'))

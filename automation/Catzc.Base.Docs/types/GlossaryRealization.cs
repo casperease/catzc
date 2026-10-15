@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Base.Docs/types/GlossaryRealization.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/GlossaryRealization.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-VOCAB#3
       - ADR-REPO-VOCAB#6
 ---
 */
-
-// Every kind except prose-only needs a locating pattern, and a pattern is never a URL; a prose-only term carries none.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryRealization.cs.md#comment1)
 
 using System;
 using System.Collections;

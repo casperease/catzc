@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/PesterRunner.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/types/PesterRunner.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/types/PesterRunner.cs
 ---
 #>
 
@@ -31,8 +34,6 @@ Describe 'PesterRunner' -Tag 'logic' {
         }
     }
 
-    # greedy: runs real pwsh worker pools of its own — stacked on the parallel pool that oversubscribes the box (see...
-    # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/PesterRunner.Tests.ps1.md#comment1)
     Context 'execution (real pwsh workers)' -Tag 'L2', 'greedy' {
         It 'captures stdout, stderr, exit code, and a handed-off env var per worker, in submission order' {
             # One pool run covers capture, submission-order results, env hand-off, and exit codes.
@@ -56,8 +57,6 @@ Describe 'PesterRunner' -Tag 'logic' {
             $runner.Results[1].ExitCode | Should -Be 3
             $runner.Results[2].Stdout | Should -Match 'env=hand-off'
 
-            # Wall-clock timing per worker: started at/after the pool's start, ran for a measured duration (reap-loop...
-            # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/types/PesterRunner.Tests.ps1.md#comment2)
             foreach ($result in $runner.Results) {
                 $result.StartOffsetMs | Should -BeGreaterOrEqual 0
                 $result.DurationMs | Should -BeGreaterThan 0
@@ -65,8 +64,6 @@ Describe 'PesterRunner' -Tag 'logic' {
         }
 
         It 'runs workers concurrently up to maxParallel' {
-            # Each worker drops its own marker, then waits for the OTHER's marker: only a genuinely concurrent pool...
-            # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/types/PesterRunner.Tests.ps1.md#comment3)
             $firstMarker = Join-Path $TestDrive 'first.marker'
             $secondMarker = Join-Path $TestDrive 'second.marker'
             $first = Join-Path $TestDrive 'first.ps1'
@@ -110,8 +107,6 @@ exit 0
         }
 
         It 'replays a buffered worker after the live worker, preserving submission order on the console' {
-            # Worker 0 is live but slow; worker 1 finishes first and must buffer.
-            # [comment:4](/docs/references/automation/catzc-base-qualitygates/tests/types/PesterRunner.Tests.ps1.md#comment4)
             $fastDone = Join-Path $TestDrive 'fast-done.marker'
             $slow = Join-Path $TestDrive 'slow.ps1'
             $fast = Join-Path $TestDrive 'fast.ps1'
@@ -154,8 +149,6 @@ Write-Output 'ALPHA-MARK'
             $environment = @{ CATZC_TEST_PARENT_PID = '1'; CATZC_TEST_PARENT_START = '1' }
             $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(@($echo), @('echo'), 1, $environment, 120, $true)
 
-            # The start time is checked through the watch's own tolerant comparison, not textually — on Linux it can...
-            # [comment:5](/docs/references/automation/catzc-base-qualitygates/tests/types/PesterRunner.Tests.ps1.md#comment5)
             $runner.Results[0].Stdout -match "pid=$PID start=(\d+)" | Should -BeTrue -Because $runner.Results[0].Stdout
             [Catzc.Base.QualityGates.WorkerParentWatch]::IsAlive($PID, [long]$Matches[1]) | Should -BeTrue
         }

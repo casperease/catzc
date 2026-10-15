@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-FixtureIdentityTokens.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Get-FixtureIdentityTokens.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Get-FixtureIdentityTokens.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-FixtureIdentityTokens over a fixture automation tree in $TestDrive (Get-RepositoryRoot mocked): the fixture...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-FixtureIdentityTokens.Tests.ps1.md#comment1)
 Describe 'Get-FixtureIdentityTokens' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:config = Join-Path $TestDrive 'repo/automation/Catzc.Widget/tests/assets/config'

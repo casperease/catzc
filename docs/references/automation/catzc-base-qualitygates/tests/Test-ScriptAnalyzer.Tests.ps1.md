@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-ScriptAnalyzer.Tests.ps1.md
-    kind: test-asset
-    body_sha: "74320ef25a0d"
+    kind: comment-page
+    body_sha: ac79e0ba1fc7
     adrs:
       - ADR-AUTO-ASSETDEP#3
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:targetFile = Join-Path $TestDrive 'subject.ps1'`.
+Above `$script:targetFile = Join-Path $TestDrive 'subject.ps1'`, written with `#`.
 
 ```text
 A real file so the -Path collection (Resolve-Path) resolves; the analysis helper is mocked, so the
@@ -24,7 +24,7 @@ file's contents are irrelevant.
 
 ## comment:2
 
-Above `Mock Get-ScriptAnalyzerDiagnostics -ModuleName Catzc.Base.QualityGates {...`.
+Above `Mock Get-ScriptAnalyzerDiagnostics -ModuleName Catzc.Base.QualityGates {...`, written with `#`.
 
 ```text
 Mock the analysis boundary — the sharded background-job runner — never run the real (slow) analyzer
@@ -35,7 +35,7 @@ each case sets $script:diagnostics for the mock to return.
 
 ## comment:3
 
-Above `Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'integrity',...`.
+Above `Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'integrity',...`, written with `#`.
 
 ```text
 The real-asset test of
@@ -51,7 +51,7 @@ that oversubscribes the box (see the test-automation ADR's greedy tag).
 
 ## comment:4
 
-Above `It 'flags a real aliased-cmdlet violation and passes the clean fixture (real...`.
+Above `It 'flags a real aliased-cmdlet violation and passes the clean fixture (real...`, written with `#`.
 
 ```text
 One real-analyzer run over a clean + a violating file proves the boundary end-to-end: the real analyzer

@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/CommentFileResult.cs.md
     kind: comment-page
-    body_sha: "2ef1b4a9c8fc"
+    body_sha: bd33f2160b25
     adrs:
       - ADR-AUTO-TYPES#9
 ---
 
 # automation/Catzc.Base.QualityGates/types/CommentFileResult.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 What CommentEngine.Export decided for one file: the file's new text and its page's new text (each null when

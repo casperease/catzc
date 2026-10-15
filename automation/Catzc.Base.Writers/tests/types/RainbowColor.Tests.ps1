@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Writers/tests/types/RainbowColor.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-writers/tests/types/RainbowColor.Tests.ps1.md
+      source: automation/Catzc.Base.Writers/types/RainbowColor.cs
     adrs:
       - ADR-AUTO-CONSOLE#7
 ---
 #>
 
-# The <base>-rainbow colour profile: char 0 is the anchor, the walk steps a chromatic-only ring (legible on a dark...
-# [comment:1](/docs/references/automation/catzc-base-writers/tests/types/RainbowColor.Tests.ps1.md#comment1)
 Describe 'RainbowColor' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:green = [Catzc.Base.Writers.RainbowColor]::new([System.ConsoleColor]::Green)

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1
   config:
     synopsis: Returns the locked configuration for a CLI tool as a validated ToolConfig.
     description: |-

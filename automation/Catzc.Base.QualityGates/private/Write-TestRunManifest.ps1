@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Write-TestRunManifest.Tests.ps1
   config:
     synopsis: Writes a run directory's run.json — the atomic, self-describing record of a Test-Automation run's state.
     description: |-

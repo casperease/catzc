@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/Deploy-Bicep.ps1
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#4
@@ -15,14 +18,10 @@ Describe 'Deploy-Bicep' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tempArtifacts = Join-Path ([IO.Path]::GetTempPath()) ('catzc-deploy-' + [Guid]::NewGuid())
 
-        # Static fixtures + boundary mocks set up ONCE (not per test).
-        # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md#comment1)
         [System.IO.Directory]::CreateDirectory($script:tempArtifacts) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:tempArtifacts 'main.json'), '{}')
         [System.IO.File]::WriteAllText((Join-Path $script:tempArtifacts 'parameters.alpha.json'), '{}')
 
-        # A real per-template PrePost.psm1 fixture.
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md#comment2)
         $prepostContent = @'
 function Invoke-BicepPreDeploy {
     param($DeployInvocation, $TemplateDescriptor, $ConfigurationDescriptor, $EnvironmentDescriptor, [switch]$DryRun)
@@ -36,18 +35,12 @@ function Invoke-BicepPostDeploy {
 '@
         [System.IO.File]::WriteAllText((Join-Path $script:tempArtifacts 'PrePost.psm1'), $prepostContent)
 
-        # Reset $configCache ONCE (not per test): the mocked config is the same fixture azure.yml every test, so a...
-        # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md#comment3)
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
-        # These exercise the DEVBOX path; without this, the real Test-IsRunningInPipeline returns $true under CI...
-        # [comment:4](/docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md#comment4)
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
-        # 'customer' is mocked alongside azure/network so template discovery validates the sample-customer fixture...
-        # [comment:5](/docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md#comment5)
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-RepositoryRoot) "automation/Catzc.Azure.Templates/tests/assets/config/$Config.yml"
@@ -97,15 +90,11 @@ function Invoke-BicepPostDeploy {
             }
         } -ModuleName Catzc.Azure.Templates
 
-        # Warm the fixture config + template-discovery caches ONCE, under the mocks above, so the cold derive is paid...
-        # [comment:6](/docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md#comment6)
         Get-Config -Config azure | Out-Null
         Get-BicepTemplates | Out-Null
     }
 
     BeforeEach {
-        # Clear ONLY the hook marker files so each test starts clean — the hooks write these, and several tests...
-        # [comment:7](/docs/references/automation/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md#comment7)
         foreach ($m in 'pre-called.json', 'post-called.json') {
             $p = Join-Path $script:tempArtifacts $m
             if ([System.IO.File]::Exists($p)) {

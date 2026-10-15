@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/GzipText.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/GzipText.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/GzipText.Tests.ps1
     adrs:
       - ADR-PWSH-TYPES#1
 ---
@@ -15,8 +18,6 @@ namespace Catzc.Base.QualityGates;
 using System.IO;
 using System.IO.Compression;
 
-/// <summary> Kept in one place so the container handling cannot drift between the writer and the reader.
-/// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/GzipText.cs.md#comment1)
 public static class GzipText
 {
     public static byte[] Compress(byte[] data)

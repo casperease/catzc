@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/tests/CustomRuleWiring.Tests.ps1.md
-    kind: test-asset
-    body_sha: "46220395126a"
+    kind: comment-page
+    body_sha: "34e26fb9f40d"
 ---
 
 # automation/.scriptanalyzer/tests/CustomRuleWiring.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawVsoCommand',...`.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawVsoCommand',...`, written with `#`.
 
 ```text
 Shared wiring check for the repo's AST-direct custom rules. Each check's per-case behaviour is proven at L0 by
@@ -30,7 +30,7 @@ file does.
 
 ## comment:2
 
-Above `$script:analyzerSettings = @{ CustomRulePath = [string[]] $script:rulePaths;...`.
+Above `$script:analyzerSettings = @{ CustomRulePath = [string[]] $script:rulePaths;...`, written with `#`.
 
 ```text
 Explicit settings: without them the engine also discovers the generated root PSScriptAnalyzerSettings.psd1
@@ -39,7 +39,7 @@ from the working directory and loads its custom rules a second time, doubling ev
 
 ## comment:3
 
-Above ``$longBody = (1..301 | ForEach-Object { '    $null = 1' }) -join "`n"``.
+Above ``$longBody = (1..301 | ForEach-Object { '    $null = 1' }) -join "`n"``, written with `#`.
 
 ```text
 One fixture that trips every check at once: an Az-named function nested in another function, a raw

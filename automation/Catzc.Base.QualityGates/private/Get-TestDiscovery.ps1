@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestDiscovery.Tests.ps1
   config:
     synopsis: Runs a discovery-only Pester pass over the given test paths and returns the result.
     description: |-

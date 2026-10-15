@@ -3,28 +3,28 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
     kind: comment-page
-    body_sha: "1484d599f30d"
+    body_sha: c1e0f8f84b93
     adrs:
       - ADR-PWSH-CACHE#4
 ---
 
 # automation/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `$cached =...`.
+Above `$cached =...`, written with `#`.
 
 ```text
 strict-clean
 ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
 ```
 
-## comment:5
+## comment:2
 
-Above `$isCommand = { param($node) $node -is...`.
+Above `$isCommand = { param($node) $node -is...`, written with `#`.
 
 ```text
 Test enforcers — the `-Tag` citations of Describe/Context/It, read by AST so a citation-shaped fixture

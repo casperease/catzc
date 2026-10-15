@@ -3,26 +3,26 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
     kind: comment-page
-    body_sha: ccf93815669a
+    body_sha: d9ba83379060
 ---
 
 # automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `$entries = [System.Collections.Generic.List[hashtable]]::new()`.
+Above `$entries = [System.Collections.Generic.List[hashtable]]::new()`, written with `#`.
 
 ```text
 1) Resolve every channel into a flat list of env-var assignments. Each entry:
    @{ Name; Value; Secret; Origin; Address }  (Address is $null unless address-sourced).
 ```
 
-## comment:5
+## comment:2
 
-Above `$scoped = -not $Persist`.
+Above `$scoped = -not $Persist`, written with `#`.
 
 ```text
 3) Apply. Scoped snapshots each target's current value, sets all, invokes the block, and restores in a

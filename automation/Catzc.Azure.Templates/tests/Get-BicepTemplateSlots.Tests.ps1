@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateSlots.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateSlots.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/Get-BicepTemplateSlots.ps1
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#4
@@ -11,8 +14,6 @@ catzc:
 #>
 
 Describe 'Get-BicepTemplateSlots' -Tag 'L0', 'logic' {
-    # Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked config is...
-    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateSlots.Tests.ps1.md#comment1)
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
@@ -46,8 +47,6 @@ Describe 'Get-BicepTemplateSlots' -Tag 'L0', 'logic' {
     }
 
     It 'filters slots by customer (omitted = configuration-root slots only)' {
-        # sample-customer's root config carries no slot; acme MIXES a base config (alpha) and a slotted one...
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateSlots.Tests.ps1.md#comment2)
         @(Get-BicepTemplateSlots 'sample-customer') | Should -BeNullOrEmpty
         @(Get-BicepTemplateSlots 'sample-customer' -Customer 'acme') | Should -Be @('001')
     }
@@ -63,8 +62,6 @@ Describe 'Get-BicepTemplateSlots' -Tag 'L0', 'logic' {
 }
 
 Describe 'Slot ArgumentCompleter wiring' -Tag 'L0', 'logic' {
-    # Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked config is...
-    # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateSlots.Tests.ps1.md#comment3)
     BeforeAll {
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Templates/tests/assets/templates'
@@ -77,8 +74,6 @@ Describe 'Slot ArgumentCompleter wiring' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
     }
 
-    # Every deploy/name path that takes a slot exposes the completer; the private RG helper carries it too for...
-    # [comment:4](/docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateSlots.Tests.ps1.md#comment4)
     $commands = @(
         'Deploy-Bicep'
         'Get-BicepResourceName'

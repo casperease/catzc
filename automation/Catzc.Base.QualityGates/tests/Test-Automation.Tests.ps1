@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-Automation.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-Automation.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#3
       - ADR-AUTO-TEST#35
@@ -12,8 +15,6 @@ catzc:
 ---
 #>
 
-# The source and test file conventions over the real tree, through their quality gate (Test-SourceConventions — ).
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Automation.Tests.ps1.md#comment1)
 Describe 'Source & test file conventions' -Tag 'L0', 'integrity', 'source-only' {
     BeforeAll {
         $script:result = Test-SourceConventions -PassThru -OutputFolder (Join-Path $TestDrive 'source-conventions')
@@ -46,8 +47,6 @@ Describe 'Module dependencies' -Tag 'L0', 'integrity', 'source-only' {
     }
 }
 
-# The real-asset test of for Test-Automation's one internal asset: the vendored Pester under the code root.
-# [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-Automation.Tests.ps1.md#comment2)
 Describe 'Test-Automation (vendored Pester)' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         Mock Get-Module -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'Pester' } { }

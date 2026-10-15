@@ -3,10 +3,9 @@
 #   derived:
 #     path: pipelines/ci-automation-expected-failures.yaml
 #     kind: pipeline
+#     relatives:
+#       page: docs/references/pipelines/ci-automation-expected-failures.yaml.md
 # ---
-
-# Every step must fail yet uses continueOnError, so the job succeeds overall while each guardrail step shows amber.
-# [comment:1](/docs/references/pipelines/ci-automation-expected-failures.yaml.md#comment1)
 
 trigger:
   branches:
@@ -37,8 +36,6 @@ jobs:
           pwsh: true
         continueOnError: true
 
-      # The throw propagates, so the step goes amber, which is the expected result for a multiline command without DisplayName.
-      # [comment:2](/docs/references/pipelines/ci-automation-expected-failures.yaml.md#comment2)
       - task: PowerShell@2
         displayName: "Guard: multiline without DisplayName"
         inputs:

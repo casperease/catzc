@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Measure-QualityGates.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Measure-QualityGates.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#10
   config:
@@ -49,8 +52,6 @@ function Measure-QualityGates {
     try {
         if ($AnalyzerRules) {
             if (-not (Get-Module PSScriptAnalyzer)) {
-                # First use this session pays the vendored-module import (several seconds) — announce it.
-                # [comment:3](/docs/references/automation/catzc-base-qualitygates/Measure-QualityGates.ps1.md#comment3)
                 Write-Message 'Loading PSScriptAnalyzer (first use this session)...'
                 Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
             }

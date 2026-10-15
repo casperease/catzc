@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Test-ManagedGuid.Tests.ps1
   config:
     synopsis: Answers whether a GUID is registered in the managed-GUID registry (configs/guids.yml).
     description: |-

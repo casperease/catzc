@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md
     kind: comment-page
-    body_sha: "8bc8a00ecd56"
+    body_sha: "564ddddb2d8d"
     adrs:
       - ADR-AUTO-ONEJOB#5
       - ADR-AUTO-REMOVE#5
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Tooling.Toolchain/Uninstall-AzCli.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `try {`.
+Above `try {`, written with `#`.
 
 ```text
 Managed uninstall best-effort. With -Remove a failure (a foreign install the manager cannot touch — the

@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Test-AnalyzerAdrMap.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PWSH-FORMAT#7
@@ -45,8 +48,6 @@ function Test-AnalyzerAdrMap {
 
     Assert-SourceTree
     $map = Get-Config -Config analyzer-adr-map
-    # The rule ids in '#' citation form, so they compare to the map.
-    # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md#comment4)
     $ruleIds = Get-CatsAdrRuleIds
     [string[]] $citations = $ruleIds -replace ':', '#'
     $validIds = [System.Collections.Generic.HashSet[string]]::new($citations, [System.StringComparer]::Ordinal)

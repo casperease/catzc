@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md
     kind: comment-page
-    body_sha: f1f7616772cc
+    body_sha: "21766fca03aa"
     adrs:
       - ADR-AUTO-TEST#13
       - ADR-AUTO-TEST#41
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Timeouts/types/TestTiers.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `namespace Catzc.Base.Timeouts;`.
+Above `namespace Catzc.Base.Timeouts;`, written with `//`.
 
 ```text
 The test tiers, once: the tier tags a test may carry and the top tier a run includes by default
@@ -28,7 +28,7 @@ time safeguards because their config validates the tier keys and sits below the 
 
 ## comment:2
 
-Above `public static readonly string[] Names = { "L0", "L1", "L2", "L3", "L4" };`.
+Above `public static readonly string[] Names = { "L0", "L1", "L2", "L3", "L4" };`, written with `//`.
 
 ```text
 Every tier tag, lowest first: L0/L1 the code alone, L2 local tools, L3 state outside the repository, L4 the released

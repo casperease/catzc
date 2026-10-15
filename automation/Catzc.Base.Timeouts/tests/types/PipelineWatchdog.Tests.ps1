@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/tests/types/PipelineWatchdog.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-timeouts/tests/types/PipelineWatchdog.Tests.ps1.md
+      source: automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs
 ---
 #>
 
@@ -25,8 +28,6 @@ Describe 'PipelineWatchdog' -Tag 'L0', 'logic' {
     }
 
     It 'never stops a pipeline after Dispose, even when the limit passes as the pipeline returns' {
-        # The limit is set to land around the moment each short pipeline returns, so across the runs the timer fires...
-        # [comment:1](/docs/references/automation/catzc-base-timeouts/tests/types/PipelineWatchdog.Tests.ps1.md#comment1)
         foreach ($run in 1..200) {
             $pipeline = [PowerShell]::Create([System.Management.Automation.RunspaceMode]::CurrentRunspace).AddScript('1')
             $watchdog = [Catzc.Base.Timeouts.PipelineWatchdog]::new($pipeline, [timespan]::FromTicks(1000 + ($run % 20) * 500))

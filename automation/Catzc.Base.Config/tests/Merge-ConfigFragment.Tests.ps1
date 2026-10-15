@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Config/tests/Merge-ConfigFragment.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Config/private/Merge-ConfigFragment.ps1
 ---
 #>
 

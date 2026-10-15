@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestRunFile.Tests.ps1
   config:
     synopsis: 'Names the run file a discovered or executed Pester test belongs to: its test file, or its language test folder.'
     description: |-

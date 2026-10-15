@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/tests/Test-ModuleDependency.Tests.ps1.md
+      source: automation/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
     adrs:
       - ADR-AUTO-TEST#35
 ---
 #>
 
 # cspell:ignore tpols
-# Test-ModuleDependency is a quality gate: each L0 case runs it with -PassThru over mocked boundaries and reads the...
-# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Test-ModuleDependency.Tests.ps1.md#comment1)
 Describe 'Test-ModuleDependency' {
     Context 'logic (mocked boundaries)' -Tag 'L0', 'logic' {
         It 'reports no issues when actual edges are a subset of declared' {

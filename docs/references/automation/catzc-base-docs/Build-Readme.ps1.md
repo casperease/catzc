@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Build-Readme.ps1.md
     kind: comment-page
-    body_sha: e6ab36dd79f5
+    body_sha: "0c03e9388d1d"
 ---
 
 # automation/Catzc.Base.Docs/Build-Readme.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:6
+## comment:1
 
-Above `$changed = Write-FileIfChanged -Path $readmePath -Content (Get-ReadmeContent...`.
+Above `$changed = Write-FileIfChanged -Path $readmePath -Content (Get-ReadmeContent...`, written with `#`.
 
 ```text
 Delete-then-write on a change (Write-FileIfChanged): a README that is still a filesystem link to its

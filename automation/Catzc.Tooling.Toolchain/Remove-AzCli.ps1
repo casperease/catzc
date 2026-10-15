@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md
+      test: automation/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
     adrs:
       - ADR-AUTO-REMOVE
       - ADR-AUTO-REMOVE#3
@@ -48,14 +51,10 @@ function Remove-AzCli {
 
     $config = Get-ToolConfig -Tool 'az_cli'
 
-    # Gate: managed by our tooling system → refuse, redirect to Uninstall-AzCli.
-    # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md#comment4)
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Azure CLI is managed by the tooling system. Use Uninstall-AzCli instead.'
     }
 
-    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip /...
-    # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md#comment5)
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Azure CLI (native package / uv-Python pip / stray binary). Run with -Force to execute.'

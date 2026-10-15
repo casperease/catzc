@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/tests/Assert-CatzcBundle.Tests.ps1.md
-    kind: test-asset
-    body_sha: b4b0196bc991
+    kind: comment-page
+    body_sha: "6bf61ae741ff"
     adrs:
       - ADR-AUTO-TEST#3
 ---
@@ -12,12 +12,12 @@ catzc:
 
 <!-- cspell:ignore nfunction -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:newFixtureBuild = {`.
+Above `$script:newFixtureBuild = {`, written with `#`.
 
 ```text
 A hand-made, well-formed build of two neutral modules
@@ -29,7 +29,7 @@ ships the full type set). typesHash comes from the one implementation, over the 
 
 ## comment:2
 
-Above `$script:resealBuild = {`.
+Above `$script:resealBuild = {`, written with `#`.
 
 ```text
 Rewrites build.json after a fixture mutation, keeping the content hash current so only the mutated

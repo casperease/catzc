@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/tests/Get-AzCliSessionSubscription.Tests.ps1.md
-    kind: test-asset
-    body_sha: "93975c5ef087"
+    kind: comment-page
+    body_sha: "3a9fe16d66bb"
     adrs:
       - ADR-PWSH-PESTER#3
 ---
 
 # automation/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 The session read is a whole-function boundary mock

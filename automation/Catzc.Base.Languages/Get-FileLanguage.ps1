@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Languages
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
     adrs:
       - ADR-DSGN-TRACK#6
   config:

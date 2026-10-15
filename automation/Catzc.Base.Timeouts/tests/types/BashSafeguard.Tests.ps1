@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-timeouts/tests/types/BashSafeguard.Tests.ps1.md
+      source: automation/Catzc.Base.Timeouts/types/BashSafeguard.cs
 ---
 #>
 
@@ -81,8 +84,6 @@ Describe 'BashSafeguard' -Tag 'L0', 'logic' {
 
     Context 'background calls' {
         BeforeDiscovery {
-            # The command grammar's cases live in the per-engine fixture table, one source for BoundedCommand and...
-            # [comment:1](/docs/references/automation/catzc-base-timeouts/tests/types/BashSafeguard.Tests.ps1.md#comment1)
             $script:bashCases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/bounded-command.yml') -Engine bash -Applicable)
         }
 

@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/tests/Install-Git.Tests.ps1.md
-    kind: test-asset
-    body_sha: "4402b0fb67d3"
+    kind: comment-page
+    body_sha: "4a4314849a9c"
 ---
 
 # automation/Catzc.Tooling.Provisioning/tests/Install-Git.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeEach {`.
+Above `BeforeEach {`, written with `#`.
 
 ```text
 Install-Git is mostly a live-download integration (GitHub API + verified download + self-extracting

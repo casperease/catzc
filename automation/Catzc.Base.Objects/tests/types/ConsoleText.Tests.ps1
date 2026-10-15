@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md
+      source: automation/Catzc.Base.Objects/types/ConsoleText.cs
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TYPES#9
 ---
 #>
 
-# ConsoleText — the shared console rendering behind every catzc type's ToString, so an object held in pwsh reads as...
-# [comment:1](/docs/references/automation/catzc-base-objects/tests/types/ConsoleText.Tests.ps1.md#comment1)
 Describe 'ConsoleText' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
     BeforeAll {
         if (-not ([System.Management.Automation.PSTypeName]'ConsoleTextWidgetProbe').Type) {

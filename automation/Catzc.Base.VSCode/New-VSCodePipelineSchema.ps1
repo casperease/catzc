@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.VSCode
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md
+      test: automation/Catzc.Base.VSCode/tests/New-VSCodePipelineSchema.Tests.ps1
     adrs:
       - ADR-REPO-ROOTCFG
   config:
@@ -39,8 +42,6 @@ function New-VSCodePipelineSchema {
 
     $document = (Get-Config -Config vscode-pipeline-schema).document
 
-    # Front the schema with its meta-schema declaration, then the authored body in registry order.
-    # [comment:3](/docs/references/automation/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md#comment3)
     $rendered = [ordered]@{}
     $rendered['$schema'] = $document['$schema']
     foreach ($key in $document.Keys) {

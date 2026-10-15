@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Firewall
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md
+      test: automation/Catzc.Azure.Firewall/tests/Get-FirewallIpgsYaml.Tests.ps1
   config:
     synopsis: Enumerates the IP Groups across one or more (subscription, resource group) targets into a single YAML.
     description: |-
@@ -69,12 +72,8 @@ function Get-FirewallIpgsYaml {
     )
 
     begin {
-        # Assert once that the ip-group extension is present (fail fast with remediation instead of an exit-2 / hang).
-        # [comment:8](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment8)
         Assert-AzCliExtension 'ip-group'
 
-        # Numeric sort key from an address's first IP (handles CIDR a.b.c.d/p, range a-b, or a single IP); pad each...
-        # [comment:9](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment9)
         $addressSortKey = {
             param([string]$Address)
             $first = ($Address -split '[-/]')[0].Trim()
@@ -109,8 +108,6 @@ function Get-FirewallIpgsYaml {
             throw "No IP Groups found in resource group '$ResourceGroupName' (subscription $SubscriptionId). Wrong RG or missing access?"
         }
 
-        # Register this target's source once (keyed by RG name).
-        # [comment:10](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment10)
         if ($allSources.Contains($ResourceGroupName)) {
             if ($allSources[$ResourceGroupName].subscriptionId -ne $SubscriptionId) {
                 throw "Source name collision: resource group '$ResourceGroupName' appears in two subscriptions ($($allSources[$ResourceGroupName].subscriptionId) and $SubscriptionId). Source names (resource group names) must be unique across targets."
@@ -121,8 +118,6 @@ function Get-FirewallIpgsYaml {
         }
 
         foreach ($g in $groups) {
-            # IP Group names are unique within a source but not necessarily across sources — guard the shared 'ipgs'...
-            # [comment:11](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment11)
             if ($allIpgs.Contains($g.name)) {
                 throw "IP Group name collision: '$($g.name)' exists under more than one source ('$($allIpgs[$g.name].source)' and '$ResourceGroupName'). IP Group names must be unique across targets."
             }

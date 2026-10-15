@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md
+      test: automation/Catzc.Tooling.Core/tests/Install-UvTool.Tests.ps1
   config:
     synopsis: Installs a CLI as an isolated uv tool.
     description: |-
@@ -56,8 +59,6 @@ function Install-UvTool {
         }
     }
 
-    # uv resolves the package's own compatible Python and installs it in an isolated env.
-    # [comment:3](/docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md#comment3)
     Invoke-Uv "tool install $($config.uv_tool)==$Version.*" -Prerelease:$config.uv_allow_prerelease
 
     Sync-SessionPath

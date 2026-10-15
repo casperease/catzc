@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/GeneratedWriter.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/GeneratedWriter.cs.md
     adrs:
       - ADR-AUTO-DEFAULT#6
 ---
 */
-
-// One writer Test-GeneratedFiles runs report-only; every default is declared here once.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/GeneratedWriter.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -29,8 +28,6 @@ public sealed class GeneratedWriter : Catzc.Base.Objects.DictionaryRecord
     // The writer's command name.
     public string name { get; }
 
-    // A check names a result shape, not a command, so a new writer of a known shape is a registry entry and no code.
-    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/GeneratedWriter.cs.md#comment2)
     public string check { get; }
 
     // The property of a file result that holds the stale file's path. Default: Path. Null for a check that reads no result path.

@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-docs/Build-Readme.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Build-Readme.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-CONF-LOADING
@@ -90,8 +93,6 @@ function Build-Readme {
     $ret = foreach ($mapping in $mappings) {
         $readmePath = Resolve-RepoPath "$($mapping.folder)/README.md"
 
-        # Delete-then-write on a change (Write-FileIfChanged): a README that is still a filesystem link to its source...
-        # [comment:6](/docs/references/automation/catzc-base-docs/Build-Readme.ps1.md#comment6)
         $changed = Write-FileIfChanged -Path $readmePath -Content (Get-ReadmeContent -Mapping $mapping) -DryRun:$DryRun
 
         if (-not $Silent) {

@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Reports/types/OutputFormatsConfig.cs
     kind: csharp-type
     module: Catzc.Base.Reports
+    relatives:
+      page: docs/references/automation/catzc-base-reports/types/OutputFormatsConfig.cs.md
+      test: automation/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-OUTFMT#1
 ---
 */
-
-// Load rejects any two formats whose patterns can overlap; which format a file belongs to is Test-OutputFormats' job.
-// [comment:1](/docs/references/automation/catzc-base-reports/types/OutputFormatsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

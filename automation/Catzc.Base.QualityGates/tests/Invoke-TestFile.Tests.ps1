@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Invoke-TestFile.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Invoke-TestFile.ps1
     adrs:
       - ADR-AUTO-TEST#23
       - ADR-AUTO-TEST#25
@@ -74,14 +77,10 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
     }
 }
 
-# L2: drives a real child pwsh worker through the same generator + runner chain as the harness.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-TestFile.Tests.ps1.md#comment1)
 Describe 'Invoke-TestFile (real worker)' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
 
-        # The strict contract: the worker runs every test strict, and a test that genuinely needs non-strict...
-        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-TestFile.Tests.ps1.md#comment2)
         $script:fixture = Join-Path $TestDrive 'StrictHostile.Tests.ps1'
         $fixtureContent = @'
 Describe 'StrictHostile' -Tag 'L0', 'logic' {
@@ -124,8 +123,6 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
         ([System.IO.File]::ReadAllText((Join-Path $run.RunDirectory 'run.json')) | ConvertFrom-Json).status | Should -Be 'failed'
     }
 
-    # The walking skeleton of the snapshot path: a real snapshot, primed, a real worker loading it.
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/Invoke-TestFile.Tests.ps1.md#comment3)
     It 'runs in a snapshot: the worker loads the snapshot, the report and the rows come home, the snapshot is removed' {
         Mock Write-Message -ModuleName Catzc.Base.Git { }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }

@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.VSCode/tests/types/VscodePipelineSchemaConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-vscode/tests/types/VscodePipelineSchemaConfig.Tests.ps1.md
+      source: automation/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
 ---
 #>
 
-# The vscode-pipeline-schema.yml type: constructing it maps and validates the parsed YAML, so a schema that would...
-# [comment:1](/docs/references/automation/catzc-base-vscode/tests/types/VscodePipelineSchemaConfig.Tests.ps1.md#comment1)
 Describe 'Catzc.Base.VSCode.VscodePipelineSchemaConfig' -Tag 'L0' {
     BeforeAll {
         $script:valid = {

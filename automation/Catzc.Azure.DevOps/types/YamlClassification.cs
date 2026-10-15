@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure.DevOps/types/YamlClassification.cs
     kind: csharp-type
     module: Catzc.Azure.DevOps
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/types/YamlClassification.cs.md
 ---
 */
-
-// Only the coarse kind lives here; a Template is refined further by YamlTemplateType.
-// [comment:1](/docs/references/automation/catzc-azure-devops/types/YamlClassification.cs.md#comment1)
 
 namespace Catzc.Azure.DevOps;
 

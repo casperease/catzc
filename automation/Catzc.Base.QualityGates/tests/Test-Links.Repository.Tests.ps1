@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Links.Repository.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Repository.Tests.ps1.md
     adrs:
       - ADR-REPO-LINK
       - ADR-REPO-LINK#2
@@ -15,8 +17,6 @@ catzc:
 ---
 #>
 
-# The real repository keeps its links aligned and resolving.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Links.Repository.Tests.ps1.md#comment1)
 Describe 'Repository code links (automation comments)' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         $script:result = Test-Links -Path (Join-Path (Get-RepositoryRoot) 'automation') -Kind Code -PassThru `

@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Maps/types/MapCell.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/MapCell.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#1
@@ -12,9 +14,6 @@ catzc:
       - ADR-DSGN-TRACK#6
 ---
 */
-
-// The cell only carries the stack-violation result: WorldMapBuilder decides it per file, never the cell itself.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/MapCell.cs.md#comment1)
 
 namespace Catzc.Base.Maps;
 

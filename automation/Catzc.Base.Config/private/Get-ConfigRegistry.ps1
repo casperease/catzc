@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Config
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-config/private/Get-ConfigRegistry.ps1.md
+      test: automation/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-PWSH-CACHE#4
@@ -25,8 +28,6 @@ function Get-ConfigRegistry {
     [OutputType([System.Collections.IDictionary])]
     param()
 
-    # strict-clean
-    # [comment:3](/docs/references/automation/catzc-base-config/private/Get-ConfigRegistry.ps1.md#comment3)
     $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:configRegistryCache')
     if ($null -ne $cached) {
         return $cached

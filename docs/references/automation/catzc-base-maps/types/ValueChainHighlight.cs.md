@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/ValueChainHighlight.cs.md
     kind: comment-page
-    body_sha: "409d2c8e752d"
+    body_sha: "870806179829"
     adrs:
       - ADR-DSGN-TRACK#12
       - ADR-DSGN-TRACK#16
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.Maps/types/ValueChainHighlight.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A value-chain highlight: the lit cells of the value-chain map for ADR references

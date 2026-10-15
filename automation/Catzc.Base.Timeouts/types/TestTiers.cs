@@ -5,21 +5,19 @@ catzc:
     path: automation/Catzc.Base.Timeouts/types/TestTiers.cs
     kind: csharp-type
     module: Catzc.Base.Timeouts
+    relatives:
+      page: docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md
+      test: automation/Catzc.Base.Timeouts/tests/types/TestTiers.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#13
       - ADR-AUTO-TEST#41
 ---
 */
 
-// It lives here because the timeout config validates the tier keys and sits below the test tooling in the dependency graph.
-// [comment:1](/docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md#comment1)
-
 namespace Catzc.Base.Timeouts;
 
 public static class TestTiers
 {
-    // Order matters, lowest first: L4 alone runs against the released system after final approval, so a default run stops below it.
-    // [comment:2](/docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md#comment2)
     public static readonly string[] Names = { "L0", "L1", "L2", "L3", "L4" };
 
     // The highest tier number.

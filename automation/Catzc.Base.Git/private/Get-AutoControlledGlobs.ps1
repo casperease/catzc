@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Git
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md
+      test: automation/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
     adrs:
       - ADR-CONF-LOADING#6
       - ADR-REPO-OUTDIR#10
@@ -54,21 +57,15 @@ function Get-AutoControlledGlobs {
         }
     }
 
-    # Generated module manifests (dynamic-module-manifests; the vendored.psd1 are committed, so they can never appear...
-    # [comment:6](/docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md#comment6)
     $ret.Add('automation/*/*.psd1')
 
     # Generated READMEs (generated-readmes): a gitignored README.md is a generated copy by construction.
     $ret.Add('README.md')
     $ret.Add('*/README.md')
 
-    # Generated cspell dictionaries, regenerated at the importer tail.
-    # [comment:7](/docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md#comment7)
     $ret.Add('.cspell')
     $ret.Add('.cspell/*')
 
-    # The output root — transient by contract (dedicated-output-directory) — except the authored plan files, which...
-    # [comment:8](/docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md#comment8)
     $ret.Add('out')
     $ret.Add('out/*')
     $ret.Add('!out/plan-*.md')
@@ -86,8 +83,6 @@ function Get-AutoControlledGlobs {
     # The compiled-type build scratch — only *.tmp is gitignored there; the hash-keyed DLL is committed.
     $ret.Add('automation/.compiled/*.tmp')
 
-    # drawio editor autosave shadows ('.$<name>.drawio.png.bkp') — disposable copies the editor writes beside a...
-    # [comment:9](/docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md#comment9)
     $ret.Add('**/.$*.drawio.png.bkp')
 
     , $ret.ToArray()

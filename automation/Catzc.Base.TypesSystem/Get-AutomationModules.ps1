@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.TypesSystem
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-typessystem/Get-AutomationModules.ps1.md
+      test: automation/Catzc.Base.TypesSystem/tests/Get-AutomationModules.Tests.ps1
     adrs:
       - ADR-DSGN-RUNMODE
       - ADR-PWSH-PESTER#9
@@ -43,8 +46,6 @@ function Get-AutomationModules {
 
     Assert-PathExist $AutomationRoot -PathType Container
 
-    # [System.IO] (sorted ordinally) instead of Get-ChildItem -Directory — the cmdlet carries ~20ms of per-call...
-    # [comment:4](/docs/references/automation/catzc-base-typessystem/Get-AutomationModules.ps1.md#comment4)
     $names = [System.Collections.Generic.List[string]]::new()
     foreach ($dir in [System.IO.Directory]::EnumerateDirectories($AutomationRoot)) {
         $name = [System.IO.Path]::GetFileName($dir)

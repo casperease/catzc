@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/GoConfig.cs.md
     kind: comment-page
-    body_sha: "90450cc4d9cf"
+    body_sha: "860c5428e23e"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.Languages/types/GoConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The Go test-workspace settings (configs/go.yml), and the single declaration of their sensible defaults: every
@@ -43,7 +43,7 @@ Constructing an instance validates the file, collecting every violation into one
 
 ## comment:2
 
-Above `public string root { get; }`.
+Above `public string root { get; }`, written with `//`.
 
 ```text
 The declared Go root folder, repository-relative ('/'-separated). Null when the file declares none; ResolveRoot
@@ -52,7 +52,7 @@ then applies the default.
 
 ## comment:3
 
-Above `public IReadOnlyDictionary<string, string> dependencies { get; }`.
+Above `public IReadOnlyDictionary<string, string> dependencies { get; }`, written with `//`.
 
 ```text
 The test dependencies every go.mod requires, module path -> version, in ordinal path order. Empty when the
@@ -61,7 +61,7 @@ file declares none.
 
 ## comment:4
 
-Above `public string ResolveRoot(string repositoryRoot)`.
+Above `public string ResolveRoot(string repositoryRoot)`, written with `//`.
 
 ```text
 The Go root folder for a repository, repository-relative: the declared root, else 'go' when the repository has

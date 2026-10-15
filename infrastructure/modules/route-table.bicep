@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/modules/route-table.bicep
 //     kind: bicep-module
+//     relatives:
+//       page: docs/references/infrastructure/modules/route-table.bicep.md
 // ---
-
-// Routes are passed in the ARM routes shape, where nextHopIpAddress is optional.
-// [comment:1](/docs/references/infrastructure/modules/route-table.bicep.md#comment1)
 
 @description('Route table name (1-80 characters, unique within the resource group).')
 param name string

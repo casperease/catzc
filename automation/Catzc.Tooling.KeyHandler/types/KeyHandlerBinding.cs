@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBinding.cs
     kind: csharp-type
     module: Catzc.Tooling.KeyHandler
+    relatives:
+      page: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBinding.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Key and function are the only two keys the capture writes, so any other key is a violation, reported with the position.
-// [comment:1](/docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBinding.cs.md#comment1)
 
 using System;
 using System.Collections;

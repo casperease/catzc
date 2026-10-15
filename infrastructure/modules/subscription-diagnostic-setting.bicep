@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/modules/subscription-diagnostic-setting.bicep
 //     kind: bicep-module
+//     relatives:
+//       page: docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md
 // ---
-
-// The workspace may live in another subscription; resource-level diagnostics belong to the separate diagnostic-setting module.
-// [comment:1](/docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md#comment1)
 
 targetScope = 'subscription'
 

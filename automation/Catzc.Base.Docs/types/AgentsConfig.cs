@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AgentsConfig.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AgentsConfig.cs.md
+      test: automation/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-CONF-LOADING#4
@@ -12,9 +15,6 @@ catzc:
       - ADR-REPO-AGENTS#4
 ---
 */
-
-// Load checks only the file's own shape; agent files, rule ids, commands and CLAUDE.md are cross-checked by Test-AgentDefinitions.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AgentsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

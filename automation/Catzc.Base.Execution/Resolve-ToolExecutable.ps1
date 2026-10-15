@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Execution
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1
     adrs:
       - ADR-CONF-LOADING#6
   config:

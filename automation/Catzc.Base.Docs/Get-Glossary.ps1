@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-docs/Get-Glossary.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Get-Glossary.Tests.ps1
     adrs:
       - ADR-PWSH-CACHE
       - ADR-PWSH-CACHE#4
@@ -39,8 +42,6 @@ function Get-Glossary {
     param()
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:glossaryCache')) {
-        # strict-clean probe of the lazy cache entry
-        # [comment:3](/docs/references/automation/catzc-base-docs/Get-Glossary.ps1.md#comment3)
         $script:glossaryCache = @{}
     }
     $cacheKey = Get-RepositoryRoot

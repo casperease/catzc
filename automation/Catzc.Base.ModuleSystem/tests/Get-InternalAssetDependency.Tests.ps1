@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md
+      source: automation/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#2
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# The inventory of internal asset dependencies — one record per Get-CatzcModuleRoot call site, derived from the code...
-# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Get-InternalAssetDependency.Tests.ps1.md#comment1)
 Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

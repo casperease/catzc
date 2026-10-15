@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Config
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-config/Get-Config.ps1.md
+      test: automation/Catzc.Base.Config/tests/Get-Config.Tests.ps1
     adrs:
       - ADR-AUTO-OVERLAY
       - ADR-PWSH-CACHE#4
@@ -62,8 +65,6 @@ function Get-Config {
 
     $entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name; Module; Path }
 
-    # A consumer overlay's fragment of this config (<overlay root>/<Module>/configs/<name>.yml), in build mode only.
-    # [comment:4](/docs/references/automation/catzc-base-config/Get-Config.ps1.md#comment4)
     $fragmentPath = $null
     $cacheKey = $entry.Path
     $overlayRoot = Get-ConfigOverlayRoot
@@ -77,8 +78,6 @@ function Get-Config {
     }
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configCache')) {
-        # strict-clean probe of the lazy cache entry
-        # [comment:5](/docs/references/automation/catzc-base-config/Get-Config.ps1.md#comment5)
         $script:configCache = @{}
     }
     if ($script:configCache.ContainsKey($cacheKey)) {

@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md
-    kind: test-asset
-    body_sha: "1007301a2b42"
+    kind: comment-page
+    body_sha: "3b6725043936"
 ---
 
 # automation/.internal/tests/Set-RedirectedOutputEncoding.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:sandbox = Join-Path ([System.IO.Path]::GetTempPath())...`.
+Above `$script:sandbox = Join-Path ([System.IO.Path]::GetTempPath())...`, written with `#`.
 
 ```text
 An isolated sandbox = importer + the .internal shared modules + vendor, with no application modules, imported in a
@@ -23,7 +23,7 @@ standard output, which is the case under test.
 
 ## comment:2
 
-Above ``$childScript = ". '$script:sandbox/importer.ps1' -Verbose 4>&1 6>`$null; " +``.
+Above ``$childScript = ". '$script:sandbox/importer.ps1' -Verbose 4>&1 6>`$null; " +``, written with `#`.
 
 ```text
 ONE cold import, with its verbose load record merged into the captured output. The child gets its own console

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Get-ScriptAnalyzerDiagnostics.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#3
 ---
@@ -19,8 +22,6 @@ Describe 'Get-ScriptAnalyzerDiagnostics' -Tag 'L0', 'logic' {
     }
 }
 
-# L2: drives the real PSScriptAnalyzer across background-job shards (the whole point of the helper), over throwaway...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1.md#comment1)
 Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)' -Tag 'L2', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         $script:settings = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
@@ -35,8 +36,6 @@ Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)' -Tag 'L2', 'in
         }
     }
 
-    # One sharded run over a clean + a violating file proves everything the helper must do: the clean file yields...
-    # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1.md#comment2)
     It 'shards the real analyzer across a batch: clean file yields none, violation file yields its rule + path' {
         $clean = Join-Path $TestDrive 'Get-Clean.ps1'
         Set-Content -Path $clean -Value "function Get-Clean {`n    `$value = 1`n    `$value`n}" -Encoding utf8

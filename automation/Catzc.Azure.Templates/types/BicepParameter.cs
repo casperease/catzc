@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepParameter.cs
     kind: csharp-type
     module: Catzc.Azure.Templates
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AUTO-TYPES#9
 ---
 */
-
-// Nested object or array shapes (items, properties) are not modelled, only the top-level type, allowed values and bounds.
-// [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -25,8 +24,6 @@ public sealed class BicepParameter
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // ARM reads the type case-insensitively, so the model stores this one canonical spelling.
-    // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md#comment2)
     public static readonly IReadOnlyList<string> Types = Array.AsReadOnly(new[]
     {
         "string", "int", "bool", "object", "array", "secureString", "secureObject",
@@ -76,8 +73,6 @@ public sealed class BicepParameter
         MaxLength = maxLength;
     }
 
-    // A user-defined type reference takes its type and any constraint the declaration omits from the definition.
-    // [comment:3](/docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md#comment3)
     public static BicepParameter FromArmDeclaration(string name, JsonElement declaration, JsonElement definitions)
     {
         if (declaration.ValueKind != JsonValueKind.Object)
@@ -125,8 +120,6 @@ public sealed class BicepParameter
         return new BicepParameter(name, type, hasDefault, nullable, allowedValues, minValue, maxValue, minLength, maxLength);
     }
 
-    // A value with no native comparable form (fractional number, object, array) falls back to its compact JSON text.
-    // [comment:4](/docs/references/automation/catzc-azure-templates/types/BicepParameter.cs.md#comment4)
     public static object ToComparable(JsonElement value)
     {
         switch (value.ValueKind)

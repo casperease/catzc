@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Files
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md
+      test: automation/Catzc.Base.Files/tests/Get-GitTrackedPath.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE#9
       - ADR-AUTO-TRACKED
@@ -54,13 +57,9 @@ function Get-GitTrackedPath {
     }
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:gitIndexCache')) {
-        # strict-clean probe of the lazy cache entry
-        # [comment:5](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment5)
         $script:gitIndexCache = @{}
     }
 
-    # The key is the index's content, not the session: the index changes mid-session (a commit, a `git add`), so a...
-    # [comment:6](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment6)
     $content = [System.IO.File]::ReadAllBytes($indexPath)
     $index = $script:gitIndexCache[$indexPath]
     if ($null -eq $index -or $index.ContentHash -ne [Catzc.Base.Git.GitIndex]::HashContent($content)) {

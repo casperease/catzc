@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.Globs/types/Aspect.cs
     kind: csharp-type
     module: Catzc.Base.Globs
+    relatives:
+      page: docs/references/automation/catzc-base-globs/types/Aspect.cs.md
+      test: automation/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
     adrs:
       - ADR-DSGN-ASPECT
       - ADR-DSGN-ASPECT#5
       - ADR-FLOW-CD-GLOBS#4
 ---
 */
-
-// The last aspect is the non-live catch-all, so a file live does not explicitly claim can never silently ship.
-// [comment:1](/docs/references/automation/catzc-base-globs/types/Aspect.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -45,8 +45,6 @@ public sealed class Aspect
     }
 }
 
-// The exclude set is what turns first-match order into a disjoint slice; PowerShell builds the GlobSet from these.
-// [comment:2](/docs/references/automation/catzc-base-globs/types/Aspect.cs.md#comment2)
 public sealed class CompiledAspect
 {
     public string Name { get; }
@@ -63,8 +61,6 @@ public sealed class CompiledAspect
 
 public static class AspectPartition
 {
-    // Each aspect excludes every earlier aspect's patterns, so the last catch-all becomes the remainder under the root.
-    // [comment:3](/docs/references/automation/catzc-base-globs/types/Aspect.cs.md#comment3)
     public static IReadOnlyList<CompiledAspect> Compile(IReadOnlyList<Aspect> aspects, string unitRoot)
     {
         if (aspects == null || aspects.Count == 0)
@@ -89,8 +85,6 @@ public static class AspectPartition
         return root.Length == 0 ? pattern : root + "/" + pattern;
     }
 
-    // A file claimed by two aspects breaks disjointness, and one claimed by none breaks exhaustiveness.
-    // [comment:4](/docs/references/automation/catzc-base-globs/types/Aspect.cs.md#comment4)
     public static IReadOnlyList<string> Validate(IReadOnlyList<GlobSet> aspectSets, IEnumerable<string> universe)
     {
         List<string> violations = new List<string>();

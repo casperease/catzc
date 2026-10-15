@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#2
       - ADR-AUTO-ASSETDEP#3

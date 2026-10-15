@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationReport.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#44
   config:
@@ -70,8 +73,6 @@ function Write-TestAutomationReport {
         New-Item -ItemType Directory -Path $OutputFolder -Force | Out-Null
     }
 
-    # tests.csv — one row per test, slowest first (the report's columns; failure detail stays in summary.md).
-    # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment6)
     $csvRows = @($Rows |
             Select-Object ExpandedPath, Result, DurationMs, Level, Category, Rules, File, Line |
             Sort-Object -Property DurationMs -Descending)
@@ -102,8 +103,6 @@ function Write-TestAutomationReport {
     $notRunCount = @($Rows | Where-Object { $_.Result -eq 'NotRun' }).Count
 
     $pesterVersion = (Get-Module Pester | Select-Object -First 1).Version
-    # InvariantCulture: a bare ':' in a.NET date format is the culture's time-separator placeholder, which renders as...
-    # [comment:7](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment7)
     $now = [datetime]::Now.ToString('yyyy-MM-dd HH:mm:ss', [System.Globalization.CultureInfo]::InvariantCulture)
     $os = [System.Runtime.InteropServices.RuntimeInformation]::OSDescription.Trim()
     $totalSeconds = [math]::Round($DurationSeconds, 2)

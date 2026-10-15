@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Tooling.Provisioning/types/ToolStatusKind.cs
     kind: csharp-type
     module: Catzc.Tooling.Provisioning
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/types/ToolStatusKind.cs.md
 ---
 */
-
-// Missing and WrongVersion are hard failures, while Usable is only a migrate-me hint, so the split is load-bearing.
-// [comment:1](/docs/references/automation/catzc-tooling-provisioning/types/ToolStatusKind.cs.md#comment1)
 
 namespace Catzc.Tooling.Provisioning;
 

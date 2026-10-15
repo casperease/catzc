@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-NOPWD#1
@@ -66,18 +69,12 @@ function Test-ScriptAnalyzer {
     )
 
     $root = Get-RepositoryRoot
-    # The one settings file ships inside the code tree, so it resolves from the code root.
-    # [comment:8](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment8)
     $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
     Assert-PathExist $settingsPath
 
-    # Resolve the file set — same coverage as the L2 analyzer test (module root *.ps1 non-test, private/, tests/...
-    # [comment:9](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment9)
     $files = [System.Collections.Generic.List[string]]::new()
     if ($Path) {
         foreach ($item in $Path) {
-            # A relative path is repository-relative, never $PWD-relative.
-            # [comment:10](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment10)
             $full = if ([System.IO.Path]::IsPathRooted($item)) {
                 $item
             }
@@ -97,15 +94,11 @@ function Test-ScriptAnalyzer {
         }
     }
     else {
-        # The canonical checked set — shared with the L2 analyzer test so they cannot drift.
-        # [comment:11](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment11)
         foreach ($f in (Get-AutomationSourceFiles)) {
             $files.Add($f)
         }
     }
 
-    # Analyze, sharded across background processes with live progress (Get-ScriptAnalyzerDiagnostics) — a serial pass...
-    # [comment:12](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment12)
     Write-Message "Analyzing $($files.Count) PowerShell file(s) with PSScriptAnalyzer..."
     $diagnostics = @(Get-ScriptAnalyzerDiagnostics -Path $files -SettingsPath $settingsPath -NoCache:$NoCache)
 

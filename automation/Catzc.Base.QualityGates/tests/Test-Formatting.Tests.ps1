@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-Formatting.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-Formatting.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -12,8 +15,6 @@ catzc:
 ---
 #>
 
-# Test-Formatting is a quality gate: each L0 case mocks the registry and Format-Code at the module boundary and reads...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Formatting.Tests.ps1.md#comment1)
 Describe 'Test-Formatting' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
@@ -79,8 +80,6 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
     }
 }
 
-# Integrity: the real repository is formatted — every language languages.yml gives a formatter, and the C# type...
-# [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-Formatting.Tests.ps1.md#comment2)
 Describe 'Repository formatting integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'formatting leaves the repository unchanged (Test-Formatting)' {
         $go = Resolve-ToolExecutable -Tool go

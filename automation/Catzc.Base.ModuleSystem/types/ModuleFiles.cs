@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/ModuleFiles.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/ModuleFiles.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Paths must be repository-root-relative and forward-slashed: not rooted, no backslash and no parent segment.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModuleFiles.cs.md#comment1)
 
 using System;
 using System.Collections;

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Engines
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Engines/tests/Get-ExecutionEngine.Tests.ps1
     adrs:
       - ADR-AUTO-ENGINE
   config:

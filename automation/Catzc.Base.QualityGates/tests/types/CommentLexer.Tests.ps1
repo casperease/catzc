@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/types/CommentLexer.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/types/CommentLexer.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/types/CommentLexer.cs
     adrs:
       - ADR-REPO-LINK#1
       - ADR-REPO-LINK#6
 ---
 #>
 
-# CommentLexer finds the comment spans a code link may live in and must never mistake a string for one.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/types/CommentLexer.Tests.ps1.md#comment1)
 Describe 'CommentLexer' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:commentTexts = {

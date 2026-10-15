@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Overlay
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Overlay/tests/Get-FunctionFileViolation.Tests.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-OVERLAY

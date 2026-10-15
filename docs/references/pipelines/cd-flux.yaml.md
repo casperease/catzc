@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/pipelines/cd-flux.yaml.md
     kind: comment-page
-    body_sha: "6998cf4edc8d"
+    body_sha: a0457d45a845
 ---
 
 # pipelines/cd-flux.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `trigger:`.
+Above `trigger:`, written with `#`.
 
 ```text
 CD pipeline for customer flux — thin root that extends the shared customer CD template.
@@ -31,11 +31,9 @@ azure.yml exist.
 
 ## comment:2
 
-Above `trigger:`.
+Above `trigger:`, written with `#`.
 
 ```text
-Trigger = the 'flux' globset projected into ADO-native path filters (Get-GlobSetTrigger,
-[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)):
-the foundation, discovery, and expedition templates + modules, plus flux's own configuration subfolder of
-foundation and discovery (flux has no expedition config), minus the other deployments' config.
+Flux has no expedition config, so its own include covers only foundation and discovery; other deployments' config is excluded.
+[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/pipelines/cd-flux.yaml.md#comment2)
 ```

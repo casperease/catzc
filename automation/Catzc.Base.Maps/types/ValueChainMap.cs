@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Maps/types/ValueChainMap.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/ValueChainMap.cs.md
+      test: automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
     adrs:
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15
@@ -12,9 +15,6 @@ catzc:
       - ADR-THES-ONETRUTH#3
 ---
 */
-
-// Strays and Unplaced record what the axes cannot place instead of dropping it, so Test-ValueChainMap can report it.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/ValueChainMap.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -79,8 +79,6 @@ public sealed class ValueChainMap
         }
     }
 
-    // An empty or repeated axis name, a non-AdrRuleSet item or a repeated ADR code throws rather than building a skewed grid.
-    // [comment:2](/docs/references/automation/catzc-base-maps/types/ValueChainMap.cs.md#comment2)
     public static ValueChainMap Build(IEnumerable stacks, IEnumerable concerns, IEnumerable ruleSets)
     {
         string[] rows = Axis(stacks, "row of the value-chain stack");

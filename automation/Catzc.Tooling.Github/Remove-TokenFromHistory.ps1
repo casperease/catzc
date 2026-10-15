@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Github
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Github/tests/Remove-TokenFromHistory.Tests.ps1
   config:
     synopsis: |-
       Scrubs a token from a git history's blob content and commit messages with

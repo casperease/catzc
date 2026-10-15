@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure/tests/Get-AzureSubscriptionCustomer.Tests.ps1
   config:
     synopsis: Returns the customer a subscription is bound to (its `customer` field), or '' if it has none.
     description: |-

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-FormatScope.Tests.ps1
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-CONFIG#4

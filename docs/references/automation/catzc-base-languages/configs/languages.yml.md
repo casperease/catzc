@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/configs/languages.yml.md
     kind: comment-page
-    body_sha: a8aa2d81ef19
+    body_sha: bc55e83376ef
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-DSGN-TRACK#6
@@ -14,12 +14,12 @@ catzc:
 
 # automation/Catzc.Base.Languages/configs/languages.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `engines:`.
+Above `engines:`, written with `#`.
 
 ```text
 The file-language registry — every file language the repository's tracked files are written in, each named by its
@@ -61,7 +61,7 @@ YAML is two file languages: executable pipeline YAML is `.yaml`, configuration d
 
 ## comment:2
 
-Above `psscriptanalyzer:`.
+Above `psscriptanalyzer:`, written with `#`.
 
 ```text
 PSScriptAnalyzer's formatter through the PowerShell extension, whose codeFormatting settings (vscode-settings.yml)

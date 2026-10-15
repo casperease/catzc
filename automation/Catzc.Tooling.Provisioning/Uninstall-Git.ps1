@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Git.Tests.ps1
   config:
     synopsis: Uninstalls Git installed by Install-Git.
     description: |-

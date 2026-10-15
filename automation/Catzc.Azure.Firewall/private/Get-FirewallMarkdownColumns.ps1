@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Firewall
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md
+      test: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownColumns.Tests.ps1
   config:
     synopsis: Builds the ordered, validated Markdown column descriptors for Convert-FirewallCsvToMarkdown.
     description: |-
@@ -77,8 +80,6 @@ function Get-FirewallMarkdownColumns {
         }
     }
 
-    # Trim candidates to fields the CSV actually has.
-    # [comment:3](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md#comment3)
     if ($Present.Count -gt 0) {
         foreach ($column in $columns) {
             $column.Candidates = @($column.Candidates | Where-Object { $_ -in $Present })

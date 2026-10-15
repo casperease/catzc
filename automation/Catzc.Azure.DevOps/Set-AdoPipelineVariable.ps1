@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.DevOps
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1
     adrs:
       - ADR-PWSH-ANNOUNCE#1
   config:

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/tests/Assert-ToolVersion.Tests.ps1.md
+      source: automation/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
@@ -11,8 +14,6 @@ catzc:
 
 # cspell:ignore lockedtool
 Describe 'Assert-ToolVersion' -Tag 'L0', 'logic' {
-    # Hermetic: every collaborator is mocked in the module scope, so the assertion binds to the version-check LOGIC...
-    # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Assert-ToolVersion.Tests.ps1.md#comment1)
     BeforeEach {
         # The per-session pass cache would short-circuit repeated tool checks — clear it between cases.
         & (Get-Module Catzc.Tooling.Core) { $script:toolVersionCache = @{} }

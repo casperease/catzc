@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Invoke-WithProgress.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Execution/Invoke-WithProgress.ps1
 ---
 #>
 

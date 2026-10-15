@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Repository/types/SyntaxSearch.cs
     kind: csharp-type
     module: Catzc.Base.Repository
+    relatives:
+      test: automation/Catzc.Base.Repository/tests/types/SyntaxSearch.Tests.ps1
 ---
 */
 

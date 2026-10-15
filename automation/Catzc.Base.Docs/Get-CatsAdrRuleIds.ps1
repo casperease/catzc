@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Get-CatsAdrRuleIds.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE
       - ADR-AUTO-NOPWD#1
@@ -45,8 +48,6 @@ function Get-CatsAdrRuleIds {
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrRuleIdsCache')) {
-        # strict-clean probe of the lazy cache entry
-        # [comment:5](/docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md#comment5)
         $script:catsAdrRuleIdsCache = @{}
     }
     if ($script:catsAdrRuleIdsCache.ContainsKey($IndexPath)) {
@@ -55,8 +56,6 @@ function Get-CatsAdrRuleIds {
 
     Assert-PathExist $IndexPath
 
-    # Index rows carry ADR paths relative to the index's own folder (docs/adr/), so resolve against it rather than a...
-    # [comment:6](/docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md#comment6)
     $adrRoot = Split-Path $IndexPath -Parent
     $ids = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($entry in (Get-CatsAdrIndex -IndexPath $IndexPath)) {

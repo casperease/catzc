@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Firewall
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md
+      test: automation/Catzc.Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
   config:
     synopsis: Downloads the newest firewall-rule CSV(s) from a blob container — one per requested rule type.
     description: |-
@@ -77,21 +80,15 @@ function Get-FirewallCsv {
 
     Assert-AzCliConnected -SubscriptionId $SubscriptionId
 
-    # Pin to absolute: Invoke-Executable runs az from the repo root, so a relative --file would resolve there while...
-    # [comment:10](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment10)
     $DownloadPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($DownloadPath)
 
     if (-not (Test-Path -Path $DownloadPath)) {
         New-Item -Path $DownloadPath -ItemType Directory -Force | Out-Null
     }
 
-    # Shared args, as a string for Invoke-AzCli.
-    # [comment:11](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment11)
     $common = "--subscription $SubscriptionId --account-name $StorageAccountName --container-name $ContainerName --auth-mode login"
 
     try {
-        # --num-results *: list order is lexicographic by name, not by date — and the dd-MM-yyyy names don't sort...
-        # [comment:12](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment12)
         $cli = Invoke-AzCli "storage blob list $common --num-results * -o json" -PassThru -Silent
     }
     catch {
@@ -142,16 +139,12 @@ function Get-FirewallCsv {
 
         Write-Verbose "Downloading $ruleType : $blobName (generated $($pick.Generated.ToString('u'))) -> $destination"
         try {
-            # Quote --name and --file: blob names and the repo path may contain spaces.
-            # [comment:13](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment13)
             Invoke-AzCli "storage blob download $common --name `"$blobName`" --file `"$destination`" --overwrite true -o none"
         }
         catch {
             throw "Failed to download blob '$blobName' to '$destination'. Underlying: $_"
         }
 
-        # az can exit 0 yet leave no file (e.g.
-        # [comment:14](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment14)
         Assert-PathExist $destination -PathType Leaf -ErrorText "Blob '$blobName' reported success but no file is at '$destination'."
 
         [Catzc.Azure.Firewall.CsvExportRef]::new($ruleType, $destination, $pick.Generated, $blobName, $blob.properties.lastModified)

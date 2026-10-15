@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1.md
-    kind: test-asset
-    body_sha: "66792c7a5d67"
+    kind: comment-page
+    body_sha: "2f1012a7ac60"
     adrs:
       - ADR-PWSH-ASSERT#1
 ---
 
 # automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'TimeoutSeconds defaults come from the time safeguard' -Tag 'L1',...`.
+Above `Describe 'TimeoutSeconds defaults come from the time safeguard' -Tag 'L1',...`, written with `#`.
 
 ```text
 A function bounds its own long-running work through Get-TimeoutSeconds -Command and its [TimeLimit] decoration, never

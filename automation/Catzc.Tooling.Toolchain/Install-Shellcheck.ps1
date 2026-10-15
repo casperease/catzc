@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Toolchain/tests/Install-Shellcheck.Tests.ps1
     adrs:
       - ADR-AUTO-ENGINE
   config:

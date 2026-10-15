@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Contracts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Tests.ps1
     adrs:
       - ADR-PWSH-VERBS#2
       - ADR-PWSH-VERBS#6

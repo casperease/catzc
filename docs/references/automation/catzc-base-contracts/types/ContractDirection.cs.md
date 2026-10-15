@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/types/ContractDirection.cs.md
     kind: comment-page
-    body_sha: "58df7bddc887"
+    body_sha: "93057ef1b5c9"
     adrs:
       - ADR-REPO-CONTRACT#1
       - ADR-REPO-CONTRACT#7
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Contracts/types/ContractDirection.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `namespace Catzc.Base.Contracts;`.
+Above `namespace Catzc.Base.Contracts;`, written with `//`.
 
 ```text
 The direction of a contract asset ([ADR-REPO-CONTRACT#1](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract1),

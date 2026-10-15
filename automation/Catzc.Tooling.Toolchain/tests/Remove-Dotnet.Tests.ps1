@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Remove-Dotnet.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Tooling.Toolchain/Remove-Dotnet.ps1
     adrs:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#7

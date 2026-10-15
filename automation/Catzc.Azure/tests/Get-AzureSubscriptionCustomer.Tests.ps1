@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Azure/tests/Get-AzureSubscriptionCustomer.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Azure/Get-AzureSubscriptionCustomer.ps1
 ---
 #>
 

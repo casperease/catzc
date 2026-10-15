@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Variants/Get-Track.ps1
     adrs:
       - ADR-DSGN-TRACK#17
 ---

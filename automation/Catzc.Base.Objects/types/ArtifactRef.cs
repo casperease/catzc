@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Objects/types/ArtifactRef.cs
     kind: csharp-type
     module: Catzc.Base.Objects
+    relatives:
+      page: docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md
+      test: automation/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
     adrs:
       - ADR-AUTO-PATH#10
 ---
 */
-
-// Identity is artifact-relative because ADO strips the out/template/ prefix on publish, so only the artifact root survives.
-// [comment:1](/docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md#comment1)
 
 using System;
 using System.IO;
@@ -40,8 +40,6 @@ public sealed class ArtifactRef
         this.absolute = absolute;
     }
 
-    // A file outside the artifact root is a bug, so this throws rather than degrade to an absolute path.
-    // [comment:2](/docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md#comment2)
     public static ArtifactRef Materialize(string rawPath, string artifactRoot)
     {
         if (string.IsNullOrWhiteSpace(rawPath)) { throw new ArgumentException("rawPath is required"); }
@@ -58,8 +56,6 @@ public sealed class ArtifactRef
         return new ArtifactRef(fromRoot, full);
     }
 
-    // The stored absolute path is only the producer's; the consumer must resolve against its own downloaded root.
-    // [comment:3](/docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md#comment3)
     public string ResolveAt(string artifactRoot)
     {
         if (string.IsNullOrWhiteSpace(artifactRoot)) { throw new ArgumentException("artifactRoot is required"); }

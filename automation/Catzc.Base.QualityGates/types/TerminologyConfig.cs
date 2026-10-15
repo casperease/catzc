@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/TerminologyConfig.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/TerminologyConfig.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/TerminologyConfig.Tests.ps1
     adrs:
       - ADR-AUTO-SPELL
       - ADR-AUTO-SPELL#5
       - ADR-AUTO-SPELL#8
 ---
 */
-
-// A category with no scope is global; a scoped one is zone-bound, and cspell enforces that its terms stay under the scope.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/TerminologyConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -28,8 +28,6 @@ public sealed class TerminologyConfig
     // The defined category names, in registry order — one generated dictionary per category.
     public IReadOnlyList<string> categories { get; }
 
-    // An empty list means the category is global, with no location bound.
-    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/TerminologyConfig.cs.md#comment2)
     public IReadOnlyDictionary<string, IReadOnlyList<string>> categoryScopes { get; }
 
     // Every approved-vocabulary entry, in registry order.
@@ -130,8 +128,6 @@ public sealed class TerminologyConfig
             scopes[name] = scopeGlobs;
         }
 
-        // The group key is the category, so entries carry no category field of their own.
-        // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/TerminologyConfig.cs.md#comment3)
         object termsObj = (raw != null && raw.Contains("terms")) ? raw["terms"] : null;
         IDictionary termsMap = termsObj as IDictionary;
         if (termsMap == null || termsMap.Count == 0)

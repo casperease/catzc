@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
+      test: automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentName.Tests.ps1
     adrs:
       - ADR-FLOW-CD-DETECT#1
   config:
@@ -64,8 +67,6 @@ function Get-BicepDeploymentName {
     $commit = 'xxxxxxx'
 
     if (Test-IsRunningInPipeline) {
-        # We already know we're in a pipeline (the one sanctioned detector said so); here we only read each...
-        # [comment:4](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md#comment4)
         if ($env:GITHUB_RUN_ID) {
             Assert-NotNullOrWhitespace $env:GITHUB_SHA
             $buildId = $env:GITHUB_RUN_ID

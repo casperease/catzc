@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/tests/Remove-LinuxToolInstall.Tests.ps1.md
-    kind: test-asset
-    body_sha: "475d96f1e629"
+    kind: comment-page
+    body_sha: "107dce8802af"
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:config = [pscustomobject]@{ command = 'widget'; pip_package =...`.
+Above `$script:config = [pscustomobject]@{ command = 'widget'; pip_package =...`, written with `#`.
 
 ```text
 A neutral fixture tool
@@ -24,7 +24,7 @@ A neutral fixture tool
 
 ## comment:2
 
-Above `Mock Test-Command { $false } -ModuleName Catzc.Tooling.Core`.
+Above `Mock Test-Command { $false } -ModuleName Catzc.Tooling.Core`, written with `#`.
 
 ```text
 Defaults: the tool is on PATH; dpkg / uv are absent; every external probe reports "not found".
@@ -33,7 +33,7 @@ Individual tests enable the mechanism they exercise.
 
 ## comment:3
 
-Above `$strayPath = Join-Path $TestDrive 'widget'`.
+Above `$strayPath = Join-Path $TestDrive 'widget'`, written with `#`.
 
 ```text
 dpkg / uv both absent (defaults) — fall through to the stray-file delete. Point the command at a real

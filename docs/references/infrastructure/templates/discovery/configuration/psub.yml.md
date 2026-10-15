@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/infrastructure/templates/discovery/configuration/psub.yml.md
     kind: comment-page
-    body_sha: "61e60c8ee61f"
+    body_sha: a63f865eb97f
 ---
 
 # infrastructure/templates/discovery/configuration/psub.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `ParametersFile:`.
+Above `ParametersFile:`, written with `#`.
 
 ```text
 discovery, shared prod subscription (env psub): the prod hub. The kind and the ranges come from network.yml

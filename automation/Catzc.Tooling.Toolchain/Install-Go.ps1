@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md
+      test: automation/Catzc.Tooling.Toolchain/tests/Install-Go.Tests.ps1
   config:
     synopsis: Installs the Go toolchain from the official go.dev archive into a user-space home.
     description: |-
@@ -60,8 +63,6 @@ function Install-Go {
         }
     }
     else {
-        # Nothing in the managed home: a Go at the right version elsewhere satisfies the contract and is not ours to...
-        # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment5)
         $probe = Test-Tool 'go' -PassThru
         if ($probe.Version -and $probe.Version.StartsWith($Version)) {
             Write-Message "Go $Version is already installed at '$($probe.Path)'"
@@ -76,8 +77,6 @@ function Install-Go {
             Assert-Command tar -ErrorText 'Install-Go extracts the Go archive with tar, which is not on PATH.'
         }
 
-        # Download and extract beside the home (same volume), then swap the extracted go/ folder in, so a failed...
-        # [comment:6](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment6)
         $staging = "$installDir.staging"
         if (Test-Path -LiteralPath $staging) {
             Remove-Item -LiteralPath $staging -Recurse -Force
@@ -87,8 +86,6 @@ function Install-Go {
         Save-VerifiedDownload -Uri "https://go.dev/dl/$($release.filename)" -OutFile $archive -Sha256 $release.sha256 | Out-Null
 
         Write-Message "Extracting $($release.version) to '$installDir'"
-        # The Windows archive is a.zip, extracted in-process: the tar first on PATH there is often Git's GNU tar,...
-        # [comment:7](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment7)
         if ($isZip) {
             [System.IO.Compression.ZipFile]::ExtractToDirectory($archive, $staging)
         }

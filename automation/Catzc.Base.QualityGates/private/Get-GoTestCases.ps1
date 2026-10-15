@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-GoTestCases.Tests.ps1
   config:
     synopsis: Lists the Go tests a Go test folder declares, read from its *_test.go files without running go.
     description: |-

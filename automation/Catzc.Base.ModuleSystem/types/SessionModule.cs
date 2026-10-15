@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/SessionModule.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/SessionModule.cs.md
 ---
 */
-
-// The runtime facet, for introspection and collision reporting rather than copying; residue means genuinely foreign.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/SessionModule.cs.md#comment1)
 
 namespace Catzc.Base.ModuleSystem;
 

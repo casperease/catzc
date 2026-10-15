@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/ModuleDependencyEdge.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyEdge.cs.md
 ---
 */
-
-// A declared edge has CallCount 0 and no Functions, and its To may be a group name rather than a module.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyEdge.cs.md#comment1)
 
 using System;
 

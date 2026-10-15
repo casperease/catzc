@@ -3,33 +3,31 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md
     kind: comment-page
-    body_sha: cfd94b653878
+    body_sha: "3ec3199d26a6"
     adrs:
-      - ADR-AUTO-NOPWD#1
       - ADR-PWSH-FORMAT#6
-      - ADR-PWSH-PWD#2
 ---
 
 # automation/.scriptanalyzer/NeverDependOnPwd.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Measure-NeverDependOnPwd {`, written with `#`.
 
 ```text
-Flags:
-- References to $PWD (use $PSScriptRoot or $env:RepositoryRoot instead)
-- Bare Set-Location / cd calls (use Push-Location / Pop-Location instead)
-See [ADR-AUTO-NOPWD#1](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1) and
-[ADR-PWSH-PWD#2](/docs/adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd2)
+.SYNOPSIS
+    Custom PSScriptAnalyzer rule: never depend on $PWD.
+.DESCRIPTION
+    Push-Location and Pop-Location pass: they restore the caller's directory, a bare Set-Location does not.
+    [comment:1](/docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md#comment1)
 ```
 
 ## comment:2
 
-Above `$isVariable = {`.
+Above `$isVariable = {`, written with `#`.
 
 ```text
 Flag $PWD references
@@ -39,7 +37,7 @@ Predicate as a local, not inlined in FindAll's parens — dodges a cross-version
 
 ## comment:3
 
-Above `$isCommand = {`.
+Above `$isCommand = {`, written with `#`.
 
 ```text
 Flag Set-Location / cd calls (Push-Location / Pop-Location are fine)

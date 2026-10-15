@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/private/Get-BicepSubscriptionConfigViolations.ps1
     adrs:
       - ADR-PWSH-PESTER#3
 ---
@@ -11,8 +14,6 @@ catzc:
 
 Describe 'Get-BicepSubscriptionConfigViolations' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Fixture azure: a non-customer pair (the shared platform) + a customer pair (acme) + a second rogue...
-        # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1.md#comment1)
         $script:azure = [ordered]@{
             subscriptions = [ordered]@{
                 core_lower = [ordered]@{ environments = @('alpha', 'beta', 'nsub') }
@@ -22,8 +23,6 @@ Describe 'Get-BicepSubscriptionConfigViolations' -Tag 'L0', 'logic' {
                 acme_upper = [ordered]@{ customer = 'acme'; environments = @('gamma', 'psub') }
             }
         }
-        # The customer catalogue reads are whole-boundary mocks — the rule needs the key list, and the candidates...
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1.md#comment2)
         Mock Get-AzureCustomers { @('acme', 'globex') } -ModuleName Catzc.Azure.Templates
         Mock Get-AzureCustomer { [ordered]@{ key = $Name; shortcode = ''; details = '' } } -ModuleName Catzc.Azure.Templates
         $script:run = {

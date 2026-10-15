@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/PdfPage.cs.md
     kind: comment-page
-    body_sha: "83d4c8bc7ddf"
+    body_sha: "47c2defbc4e4"
     adrs:
       - ADR-PWSH-TYPES#1
 ---
 
 # automation/Catzc.Base.Maps/types/PdfPage.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One page of a PdfDocument: its size in points and the content-stream operators drawn on it, in call order. The
@@ -28,7 +28,7 @@ go through PdfNumber, so the bytes do not depend on the culture
 
 ## comment:2
 
-Above `public PdfPage Text(PdfFont font, double size, double x, double y, string text)`.
+Above `public PdfPage Text(PdfFont font, double size, double x, double y, string text)`, written with `//`.
 
 ```text
 One line of text in the fill colour, its baseline starting at (x, y) (BT Tf Td Tj ET). The text must be WinAnsi;
@@ -37,7 +37,7 @@ One line of text in the fill colour, its baseline starting at (x, y) (BT Tf Td T
 
 ## comment:3
 
-Above `public static string Escape(string text)`.
+Above `public static string Escape(string text)`, written with `//`.
 
 ```text
 The text as the body of a PDF literal string: WinAnsi codes, with '(', ')' and '\' escaped and 0x80-0xFF as

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/types/BicepShortName.cs
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AZ-NAMING#2
@@ -12,8 +15,6 @@ catzc:
 
 # cspell:ignore deriv abcdef gadge gadgetry getry gadg
 Describe 'BicepShortName' -Tag 'L0', 'logic' {
-    # The C# type that owns short_name derivation + validation.
-    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/types/BicepShortName.Tests.ps1.md#comment1)
 
     Context 'Derive (folder name -> short_name)' {
         It 'takes the first 5 [a-z0-9] characters' {

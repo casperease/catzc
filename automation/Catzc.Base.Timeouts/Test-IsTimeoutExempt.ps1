@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Timeouts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Timeouts/tests/Test-IsTimeoutExempt.Tests.ps1
   config:
     synopsis: Tests whether a budget GUID is exempt from its normal time limit in this run environment.
     description: The boolean form of Get-TimeoutExemption, which defines the lookup.

@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Base.Maps/types/WorldMapGridLayout.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/WorldMapGridLayout.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#7
       - ADR-DSGN-TRACK#8
 ---
 */
-
-// File-language names take two header lines, so a name that wraps leaves every column the same height; row 0 is the top row.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/WorldMapGridLayout.cs.md#comment1)
 
 using System;
 using System.Globalization;

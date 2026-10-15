@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Languages
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md
+      test: automation/Catzc.Base.Languages/tests/Invoke-PythonTest.Tests.ps1
     adrs:
       - ADR-AUTO-ENGINE
       - ADR-AUTO-ENVVAR#1
@@ -83,8 +86,6 @@ function Invoke-PythonTest {
 
     $root = Get-RepositoryRoot
     $folderName = $Module.ToLowerInvariant().Replace('.', '-')
-    # The Python root from python.yml (PythonConfig.ResolveRoot: the declared root, else python/ when present,...
-    # [comment:9](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment9)
     $pythonRelative = (Get-Config -Config python).ResolveRoot($root)
     $pythonRoot = Join-Path $root $pythonRelative
     $relative = "$pythonRelative/tests/$folderName"
@@ -98,8 +99,6 @@ function Invoke-PythonTest {
         }
     }
 
-    # The managed uv, by its path: the caller's, already located and checked, or located here from its tools.yml...
-    # [comment:10](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment10)
     $uvPath = if ($UvExecutable) {
         Assert-PathExist $UvExecutable -PathType Leaf
         $UvExecutable
@@ -118,8 +117,6 @@ function Invoke-PythonTest {
 
     $report = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-pytest-$([guid]::NewGuid().ToString('N')).xml"
 
-    # How the tests start the engine (Get-EngineContract) is an external contract with the test processes: set for...
-    # [comment:11](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment11)
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['UV_PYTHON_DOWNLOADS'] = 'never'
     $environment['PYTHONDONTWRITEBYTECODE'] = '1'
@@ -167,8 +164,6 @@ function Invoke-PythonTest {
         throw "pytest failed in $relative/ (exit $($run.ExitCode)): $($_.Exception.Message)`n$($run.Full)"
     }
 
-    # pytest exits 1 when a test failed; any other non-zero exit, or 1 with no failing test, means it failed around...
-    # [comment:12](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment12)
     if ($run.ExitCode -ne 0 -and -not ($run.ExitCode -eq 1 -and @($results | Where-Object { $_.Outcome -eq 'fail' }).Count)) {
         throw "pytest failed in $relative/ (exit $($run.ExitCode)) with no failing test:`n$($run.Full)"
     }

@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Initialize-GitClone.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/tests/Initialize-GitClone.Tests.ps1.md
+      source: automation/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
 ---
 #>
 
 Describe 'Initialize-GitClone' -Tag 'L0', 'logic' {
-    # Every git invocation goes through Invoke-Executable, so one mock covers the whole external boundary: rev-parse...
-    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Initialize-GitClone.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Assert-Command { } -ModuleName Catzc.Tooling.Provisioning
         Mock Test-IsWslSession { $false } -ModuleName Catzc.Tooling.Provisioning

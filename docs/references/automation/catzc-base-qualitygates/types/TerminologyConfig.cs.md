@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/TerminologyConfig.cs.md
     kind: comment-page
-    body_sha: d3634e190ef9
+    body_sha: "8058b5d5a3d1"
     adrs:
       - ADR-AUTO-SPELL#5
       - ADR-AUTO-SPELL#8
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/types/TerminologyConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The terminology registry (configs/terminology.yml) and its validity rules: a non-empty 'categories' map
@@ -36,7 +36,7 @@ See [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md)
 
 ## comment:2
 
-Above `public IReadOnlyDictionary<string, IReadOnlyList<string>> categoryScopes {...`.
+Above `public IReadOnlyDictionary<string, IReadOnlyList<string>> categoryScopes {...`, written with `//`.
 
 ```text
 Per category, its scope globs (repo-relative, '/'-separated). An empty list means the category is
@@ -45,7 +45,7 @@ GLOBAL (no location bound). Keyed by category name.
 
 ## comment:3
 
-Above `object termsObj = (raw != null && raw.Contains("terms")) ? raw["terms"] : null;`.
+Above `object termsObj = (raw != null && raw.Contains("terms")) ? raw["terms"] : null;`, written with `//`.
 
 ```text
 ---- terms: a non-empty map of category -> list of entries; each valid, unique, under a defined

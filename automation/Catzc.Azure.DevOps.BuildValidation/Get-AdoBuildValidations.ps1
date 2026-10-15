@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.DevOps.BuildValidation
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.DevOps.BuildValidation/tests/Get-AdoBuildValidations.Tests.ps1
     adrs:
       - ADR-FLOW-CD-GLOBS
       - ADR-FLOW-CD-TYPE#4

@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Get-ModuleProtectionIdentity.Tests.ps1.md
-    kind: test-asset
-    body_sha: "4a3a652e9f90"
+    kind: comment-page
+    body_sha: "1f64d06bb315"
     adrs:
       - ADR-REPO-PROTGLOB#8
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Get-ModuleProtectionIdentity.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {`.
+Above `Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The composite protection identity
@@ -27,7 +27,7 @@ test units. Memoized per run.
 
 ## comment:2
 
-Above `$script:dependencies =...`.
+Above `$script:dependencies =...`, written with `#`.
 
 ```text
 a small declared graph: Base group {Alpha <- Beta}; Gamma declared against the Base group;
@@ -36,7 +36,7 @@ a small declared graph: Base group {Alpha <- Beta}; Gamma declared against the B
 
 ## comment:3
 
-Above `$byName = Get-Variable -Name Name -ValueOnly -ErrorAction Ignore`.
+Above `$byName = Get-Variable -Name Name -ValueOnly -ErrorAction Ignore`, written with `#`.
 
 ```text
 StrictMode-safe: read the bound auto-variable without referencing an unset $Name/$GlobSet

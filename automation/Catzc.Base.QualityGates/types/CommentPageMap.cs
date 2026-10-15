@@ -5,15 +5,14 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CommentPageMap.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/CommentPageMap.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-README#7
 ---
 */
-
-// The extension stays in the page name, so a page maps back to exactly one file.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentPageMap.cs.md#comment1)
 
 using System;
 using System.Collections;

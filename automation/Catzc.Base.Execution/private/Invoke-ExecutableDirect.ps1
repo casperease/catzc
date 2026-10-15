@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Execution
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md
   config:
     synopsis: Runs a CLI command directly with no output capture or stream separation.
     description: |-
@@ -51,8 +53,6 @@ function Invoke-ExecutableDirect {
 
     Reset-LastExitCode
 
-    # Run directly — output flows straight to the console handle.
-    # [comment:4](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md#comment4)
     Push-Location $WorkingDirectory
     try {
         & {

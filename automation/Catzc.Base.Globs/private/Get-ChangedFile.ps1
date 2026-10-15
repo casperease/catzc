@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Globs
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
     adrs:
       - ADR-FLOW-CD-GLOBS#4
   config:

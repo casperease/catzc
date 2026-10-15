@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/ProfilesConfig.cs.md
     kind: comment-page
-    body_sha: "2741cc263f90"
+    body_sha: "00f0c5f499f9"
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/ProfilesConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The named module sets of configs/profiles.yml, for Copy-Automation -ModuleProfile, Test-InIsolation and the

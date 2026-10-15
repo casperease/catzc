@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/types/ContractFragment.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/tests/types/ContractFragment.Tests.ps1.md
+      source: automation/Catzc.Base.Contracts/types/ContractFragment.cs
     adrs:
       - ADR-REPO-CONTRACT#6
 ---
 #>
 
-# ContractFragment checks that a real file contains a fragment: JSON and YAML by key subset, any other text by its...
-# [comment:1](/docs/references/automation/catzc-base-contracts/tests/types/ContractFragment.Tests.ps1.md#comment1)
 Describe 'ContractFragment' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
     Context 'a key subset of JSON and YAML' {
         BeforeAll {

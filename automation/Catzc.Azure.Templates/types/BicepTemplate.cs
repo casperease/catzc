@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Azure.Templates/types/BicepTemplate.cs
     kind: csharp-type
     module: Catzc.Azure.Templates
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md
     adrs:
       - ADR-AZ-CUSTOMER
 ---
 */
-
-// Mirrors a template's config keys in snake_case, overlaid with options.yml, so it is built from the merged dictionary.
-// [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -63,8 +62,6 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     // The kind of environment this template targets (e.g. per-subscription vs shared). Always present.
     public string environment_kind { get; }
 
-    // Defaults to the have_customers repo variant, and is always present as a bool.
-    // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md#comment2)
     public bool customer_deployment { get; }
 
     // The short name used when composing resource names. Always present.
@@ -76,8 +73,6 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     // Supporting resource files the template carries. Null when the template has no resources/ folder.
     public string[] resources { get; }
 
-    // The constructor validates required keys, so a malformed template cannot produce an instance.
-    // [comment:3](/docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md#comment3)
     public BicepTemplate(IDictionary d)
     {
         if (d == null) { throw new ArgumentException("BicepTemplate requires a dictionary"); }

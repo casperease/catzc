@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Disconnect-AzCli.ps1.md
     kind: comment-page
-    body_sha: f24f8dc6e88b
+    body_sha: "2ef2e941d69b"
 ---
 
 # automation/Catzc.Azure.Cli/Disconnect-AzCli.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:2
+## comment:1
 
-Above `$result = Invoke-Executable 'az account show --output json' -PassThru...`.
+Above `$result = Invoke-Executable 'az account show --output json' -PassThru...`, written with `#`.
 
 ```text
 Idempotent: skip if not logged in

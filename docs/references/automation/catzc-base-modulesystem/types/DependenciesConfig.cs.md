@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/DependenciesConfig.cs.md
     kind: comment-page
-    body_sha: b28d6eb72253
+    body_sha: "610774cd171a"
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The declared (ALLOWED) module dependency graph, configs/dependencies.yml
@@ -38,7 +38,7 @@ dictionary the YAML parses into, so a name declared twice in different case is a
 
 ## comment:2
 
-Above `public OrderedDictionary modules { get; }`.
+Above `public OrderedDictionary modules { get; }`, written with `//`.
 
 ```text
 Consumer module -> the names it may depend on (string[]: each a group or a module), in declaration
@@ -47,7 +47,7 @@ order; read-only.
 
 ## comment:3
 
-Above `OrderedDictionary adjacency = new...`.
+Above `OrderedDictionary adjacency = new...`, written with `//`.
 
 ```text
 Acyclic over declared MODULE edges only (targets that are themselves declared modules, never a

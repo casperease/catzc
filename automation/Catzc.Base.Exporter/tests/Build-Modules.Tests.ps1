@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Exporter/tests/Build-Modules.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-exporter/tests/Build-Modules.Tests.ps1.md
+      source: automation/Catzc.Base.Exporter/Build-Modules.ps1
 ---
 #>
 
 Describe 'Build-Modules' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The engine (Catzc.Internal.Builder) is loaded on demand and is a mocked boundary here; a stub makes the...
-        # [comment:1](/docs/references/automation/catzc-base-exporter/tests/Build-Modules.Tests.ps1.md#comment1)
         $script:stubbedEngine = $false
         if (-not (Get-Command Invoke-ModuleBuild -ErrorAction Ignore)) {
             $null = New-Item -Path Function:\global:Invoke-ModuleBuild -Value {

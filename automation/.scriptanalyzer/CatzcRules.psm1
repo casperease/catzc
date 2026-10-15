@@ -34,19 +34,8 @@ $checks = @(
     'NoUnboundedEnumeration'
 )
 
-# Declared null at load so the strict-mode guard can read it before the first root block fills it.
-# [comment:1](/docs/references/automation/scriptanalyzer/CatzcRules.psm1.md#comment1)
 $script:measures = $null
 
-<#
-.SYNOPSIS
-    The one custom PSScriptAnalyzer rule the settings load: runs every repository check once per file.
-.DESCRIPTION
-    One entry rule acting only on the root block, so each check runs once per file instead of once per script block.
-    [comment:2](/docs/references/automation/scriptanalyzer/CatzcRules.psm1.md#comment2)
-.PARAMETER ScriptBlockAst
-    The script block the engine hands the rule; only a file's root block (no parent) is acted on.
-#>
 function Measure-CatzcRules {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
@@ -61,8 +50,6 @@ function Measure-CatzcRules {
         return
     }
 
-    # Nested loading keeps the Measure-* functions out of the engine's view, which would run each per block.
-    # [comment:3](/docs/references/automation/scriptanalyzer/CatzcRules.psm1.md#comment3)
     if ($null -eq $script:measures) {
         $script:measures = @(foreach ($check in $checks) {
                 $module = Import-Module (Join-Path $PSScriptRoot "$check.psm1") -PassThru

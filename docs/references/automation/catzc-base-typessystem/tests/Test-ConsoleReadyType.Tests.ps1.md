@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/tests/Test-ConsoleReadyType.Tests.ps1.md
-    kind: test-asset
-    body_sha: "9607a1b9baf1"
+    kind: comment-page
+    body_sha: b65b88b012f4
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-ConsoleReadyType' -Tag 'L0', 'logic' {`.
+Above `Describe 'Test-ConsoleReadyType' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-ConsoleReadyType — whether a shipped type renders as a readable line in pwsh: it overrides ToString(), or it is

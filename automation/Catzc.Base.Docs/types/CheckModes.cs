@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Docs/types/CheckModes.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/CheckModes.cs.md
+      test: automation/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-ONELIVE#1
 ---
 */
-
-// One parser keeps one accepted spelling and one error text for every check config, and an omitted mode means Gate.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/CheckModes.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -22,8 +22,6 @@ namespace Catzc.Base.Docs;
 
 public static class CheckModes
 {
-    // An unknown mode name does not throw: it yields Gate and sets error, so the caller reports the one message itself.
-    // [comment:2](/docs/references/automation/catzc-base-docs/types/CheckModes.cs.md#comment2)
     public static CheckMode Parse(IDictionary raw, out string error)
     {
         error = null;

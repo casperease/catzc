@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Core/tests/Save-VerifiedDownload.Tests.ps1
   config:
     synopsis: Downloads a file over HTTPS and verifies its SHA-256, rejecting a mismatch.
     description: |-

@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Test-PythonLint.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
     adrs:
       - ADR-AUTO-PY#8
   config:
@@ -45,8 +48,6 @@ function Test-PythonLint {
     $scope = @(Get-PythonCheckScope)
     $issues = [System.Collections.Generic.List[string]]::new()
     if ($scope.Count -gt 0) {
-        # --output-format concise prints one '<file>:<line>:<column>: <code> <message>' line per finding; exit 1...
-        # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-PythonLint.ps1.md#comment3)
         $check = Invoke-PythonWorkspaceTool -Tool 'ruff check --output-format concise' -File $scope
         if ($check.ExitCode -notin 0, 1) {
             throw "ruff could not check the Python files (exit $($check.ExitCode)):`n$($check.Full)"

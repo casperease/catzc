@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/tests/Test-LoadedTypesCurrent.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-typessystem/tests/Test-LoadedTypesCurrent.Tests.ps1.md
+      source: automation/Catzc.Base.TypesSystem/Test-LoadedTypesCurrent.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#6
@@ -11,8 +14,6 @@ catzc:
 ---
 #>
 
-# Test-LoadedTypesCurrent with the one measurement (Get-LoadedTypeDrift, in Catzc.Internal.Types) mocked at the...
-# [comment:1](/docs/references/automation/catzc-base-typessystem/tests/Test-LoadedTypesCurrent.Tests.ps1.md#comment1)
 Describe 'Test-LoadedTypesCurrent' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#15' {
     BeforeEach {
         Mock Import-InternalModule -ModuleName Catzc.Base.TypesSystem { }

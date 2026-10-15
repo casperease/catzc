@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-DevBoxTools.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-DevBoxTools.Tests.ps1.md
+      source: automation/Catzc.Tooling.Provisioning/Uninstall-DevBoxTools.ps1
 ---
 #>
 
 Describe 'Uninstall-DevBoxTools' -Tag 'L0', 'logic' {
-    # Pure orchestration: assert it delegates to the per-tool uninstallers.
-    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-DevBoxTools.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Uninstall-Postman { } -ModuleName Catzc.Tooling.Provisioning
         Mock Uninstall-Git { } -ModuleName Catzc.Tooling.Provisioning

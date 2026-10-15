@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/LinkFindingType.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/LinkFindingType.cs.md
     adrs:
       - ADR-REPO-LINK
       - ADR-X
 ---
 */
-
-// Overlong is informational: a line still over its limit after the aligner did what it can, with no mechanical fix.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinkFindingType.cs.md#comment1)
 
 namespace Catzc.Base.QualityGates;
 

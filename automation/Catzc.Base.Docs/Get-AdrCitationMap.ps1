@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Get-AdrCitationMap.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE
       - ADR-PWSH-CACHE#4
@@ -42,8 +45,6 @@ function Get-AdrCitationMap {
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:adrCitationMapCache')) {
-        # strict-clean probe of the lazy cache entry
-        # [comment:3](/docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md#comment3)
         $script:adrCitationMapCache = @{}
     }
     if ($script:adrCitationMapCache.ContainsKey($root)) {

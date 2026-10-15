@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md
+      source: automation/Catzc.Base.Globs/Get-GlobSetHash.ps1
     adrs:
       - ADR-FLOW-CD-GLOBS#5
 ---
 #>
 
 # cspell:ignore ntwo  -- the escape-sequence artifact in the "one`ntwo" CRLF/LF fixture strings
-# The durable SHA: 64-hex-lowercase, EOL-insensitive, path-folded, ordinal, with the <path>|missing marker for an...
-# [comment:1](/docs/references/automation/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md#comment1)
 Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

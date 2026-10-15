@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md
+      source: automation/Catzc.Tooling.Github/Assert-GitHubPurgeReady.ps1
 ---
 #>
 
@@ -21,8 +24,6 @@ Describe 'Assert-GitHubPurgeReady' -Tag 'L1', 'logic' {
         Mock -ModuleName Catzc.Tooling.Github Write-Message {}
         Mock -ModuleName Catzc.Tooling.Github Test-Path { $true }
 
-        # A mock body runs in the module's session state, so it cannot reference a test-scope helper — each result...
-        # [comment:1](/docs/references/automation/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md#comment1)
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { throw "unexpected command: $Command" }
 
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = ''; Errors = '' } } -ParameterFilter { $Command -eq 'gh auth status' }

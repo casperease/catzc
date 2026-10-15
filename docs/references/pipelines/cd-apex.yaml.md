@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/pipelines/cd-apex.yaml.md
     kind: comment-page
-    body_sha: "8354a8c8e73a"
+    body_sha: "76442505190b"
 ---
 
 # pipelines/cd-apex.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `trigger:`.
+Above `trigger:`, written with `#`.
 
 ```text
 CD pipeline for customer apex — thin root that extends the shared customer CD template.
@@ -32,12 +32,9 @@ azure.yml exist.
 
 ## comment:2
 
-Above `trigger:`.
+Above `trigger:`, written with `#`.
 
 ```text
-Trigger = the 'apex' globset projected into ADO-native path filters (Get-GlobSetTrigger,
-[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)):
-the foundation, discovery, and expedition templates + modules, plus apex's own configuration subfolder of
-each, minus the other deployments' config. A deeper-folder include (configuration/apex/**) over the broader
-exclude, so ADO keeps it.
+The deeper apex include sits under the broader exclude of other deployments' config, so ADO keeps it in the trigger.
+[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/pipelines/cd-apex.yaml.md#comment2)
 ```

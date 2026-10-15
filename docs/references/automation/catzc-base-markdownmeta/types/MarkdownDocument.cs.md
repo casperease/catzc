@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-markdownmeta/types/MarkdownDocument.cs.md
     kind: comment-page
-    body_sha: "6c5c42586009"
+    body_sha: "743d2e0f83bb"
 ---
 
 # automation/Catzc.Base.MarkdownMeta/types/MarkdownDocument.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `public string BodyHash()`.
+Above `public string BodyHash()`, written with `//`.
 
 ```text
 The first 12 hex characters of the SHA-256 of the body, its line endings read as LF and its leading blank lines dropped. The blank

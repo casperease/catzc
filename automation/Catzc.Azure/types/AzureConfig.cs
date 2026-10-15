@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Azure/types/AzureConfig.cs
     kind: csharp-type
     module: Catzc.Azure
+    relatives:
+      page: docs/references/automation/catzc-azure/types/AzureConfig.cs.md
+      test: automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -16,9 +19,6 @@ catzc:
       - ADR-AZ-NAMING#6
 ---
 */
-
-// Hermetic: a subscription's customer reference is not resolved here, and completeness is an integrity concern, not a load rule.
-// [comment:1](/docs/references/automation/catzc-azure/types/AzureConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -43,8 +43,6 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
     // The policy enforcement modes, spelled as the Azure policy assignment's enforcementMode takes them.
     private static readonly string[] PolicyEnforcementModes = { "Default", "DoNotEnforce" };
 
-    // Declared once here: production enforces its policies, while every other environment only audits them.
-    // [comment:2](/docs/references/automation/catzc-azure/types/AzureConfig.cs.md#comment2)
     public static IReadOnlyDictionary<string, string> DefaultPolicyEnforcement { get; } = new ReadOnlyDictionary<string, string>(
         new Dictionary<string, string>(StringComparer.Ordinal) { { "production", "Default" }, { "nonproduction", "DoNotEnforce" } });
 
@@ -63,8 +61,6 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
     // The environments, keyed by readable name.
     public IReadOnlyDictionary<string, AzureEnvironmentRecord> environments { get; }
 
-    // Always complete: a key the file omits takes its default, so readers never test for presence.
-    // [comment:3](/docs/references/automation/catzc-azure/types/AzureConfig.cs.md#comment3)
     public IReadOnlyDictionary<string, string> policy_enforcement { get; }
 
     public AzureConfig(IDictionary d)
@@ -121,8 +117,6 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
         throw new ArgumentException("azure configuration validation failed:\n" + string.Join("\n", errors));
     }
 
-    // An omitted map is the full default and a partial map keeps its own keys; an unknown key or mode is a violation.
-    // [comment:4](/docs/references/automation/catzc-azure/types/AzureConfig.cs.md#comment4)
     private static IReadOnlyDictionary<string, string> PolicyEnforcement(IDictionary d, List<string> errors)
     {
         Dictionary<string, string> modes = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -194,8 +188,6 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
-    // A customer-folder config must resolve to exactly one subscription, so grouping is by the raw customer token.
-    // [comment:5](/docs/references/automation/catzc-azure/types/AzureConfig.cs.md#comment5)
     private void CheckCustomerDisjointness(List<string> errors)
     {
         Dictionary<string, Dictionary<string, string>> servedBy = new Dictionary<string, Dictionary<string, string>>(StringComparer.Ordinal);
@@ -221,8 +213,6 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
-    // A non-mapping entry passes null on purpose, so the record reports it instead of the loop skipping it.
-    // [comment:6](/docs/references/automation/catzc-azure/types/AzureConfig.cs.md#comment6)
     private static List<KeyValuePair<string, IDictionary>> Entries(object value, string key, List<string> errors)
     {
         List<KeyValuePair<string, IDictionary>> entries = new List<KeyValuePair<string, IDictionary>>();

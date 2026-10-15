@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#26
@@ -14,18 +17,12 @@ catzc:
 #>
 
 Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
-    # The config/template boundary is mocked ONCE for the whole block and the config cache reset ONCE: every test...
-    # [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md#comment1)
     BeforeAll {
-        # Own output root through the seam: any other file building the 'sample' fixture from a sibling worker can...
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md#comment2)
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context/template/sample'
         Mock Get-BicepTemplatesOutputRoot {
             Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context'
         } -ModuleName Catzc.Azure.Templates
 
-        # Mock Build-Bicep to materialize stub artifacts without invoking az ([System.IO], not the file cmdlets:...
-        # [comment:3](/docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md#comment3)
         Mock Build-Bicep {
             $outputFolder = (Get-BicepTemplate $Template).output_folder
             [System.IO.Directory]::CreateDirectory($outputFolder) | Out-Null
@@ -35,8 +32,6 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
             $outputFolder
         } -ModuleName Catzc.Azure.Templates
 
-        # The deploy target is the az session's subscription — the whole-boundary session mock stands in for the...
-        # [comment:4](/docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md#comment4)
         Mock Get-AzCliSessionSubscription {
             [ordered]@{ name = 'core_lower'; id = '50a0ed00-de00-50b0-0000-000000000000'; customer = ''
                 tenant = [ordered]@{ name = 'fixtenant'; id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
@@ -54,8 +49,6 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
-        # Warm the fixture config + template-discovery caches ONCE, under the mocks above, so the cold derive is paid...
-        # [comment:5](/docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md#comment5)
         Get-Config -Config azure | Out-Null
         Get-BicepTemplates | Out-Null
     }
@@ -149,8 +142,6 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
-    # Boundary mocked + config cache reset ONCE (see the devbox block's note); per-test only the build folder is wiped.
-    # [comment:6](/docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md#comment6)
     BeforeAll {
         # Own output root through the seam (see the devbox block's note).
         $script:sampleCustomerOutputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context/template/sample-customer'
@@ -239,8 +230,6 @@ Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-BicepDeploymentContext (pipeline)' -Tag 'L0', 'logic' {
-    # Boundary mocked + config cache reset ONCE (see the devbox block's note).
-    # [comment:7](/docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md#comment7)
     BeforeAll {
         Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Azure.Templates
         Mock Get-AzCliSessionSubscription {
@@ -304,8 +293,6 @@ Describe 'Get-BicepDeploymentContext (pipeline)' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-BicepDeploymentContext (DoNotRun guard)' -Tag 'L0', 'logic' {
-    # Boundary mocked + config cache reset ONCE (see the devbox block's note); per-test only the build folder is...
-    # [comment:8](/docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md#comment8)
     BeforeAll {
         # Own output root through the seam (see the devbox block's note).
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context/template/sample'
@@ -329,8 +316,6 @@ Describe 'Get-BicepDeploymentContext (DoNotRun guard)' -Tag 'L0', 'logic' {
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
-        # Stand in for a template whose options.yml declared deployment_mode: DoNotRun, but keep the rest of the real...
-        # [comment:9](/docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md#comment9)
         Mock Get-BicepTemplate {
             $real = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample' } | Select-Object -First 1
             # BicepTemplate is immutable (get-only) — reconstruct the DoNotRun variant via the ctor.

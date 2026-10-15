@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Timeouts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Timeouts/tests/Get-TestTimeLimits.Tests.ps1
     adrs:
       - ADR-AUTO-FAILFAST#7
   config:

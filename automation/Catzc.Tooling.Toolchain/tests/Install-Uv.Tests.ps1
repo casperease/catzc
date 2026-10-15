@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md
+      source: automation/Catzc.Tooling.Toolchain/Install-Uv.ps1
     adrs:
       - ADR-PWSH-ENV#4
 ---
@@ -80,8 +83,6 @@ Describe 'Install-Uv' -Tag 'L1', 'logic' {
 
 Describe 'Install-UvStandalone' -Tag 'L1', 'logic' {
     BeforeAll {
-        # A release fixture the resolver walks: newest first (the GitHub API order), one release per line of the...
-        # [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md#comment1)
         $script:newAsset = {
             param($tag)
             foreach ($architecture in 'x86_64', 'aarch64') {
@@ -101,8 +102,6 @@ Describe 'Install-UvStandalone' -Tag 'L1', 'logic' {
     }
 
     BeforeEach {
-        # The helper reads $env:HOME (the uv tool-bin anchor) and prepends to $env:PATH — snapshot both and restore...
-        # [comment:2](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md#comment2)
         $script:savedHome = $env:HOME
         $script:savedPath = $env:PATH
         $env:HOME = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
@@ -111,8 +110,6 @@ Describe 'Install-UvStandalone' -Tag 'L1', 'logic' {
         Mock Invoke-RestMethod -ModuleName Catzc.Tooling.Toolchain { $script:releases }
         Mock Save-VerifiedDownload -ModuleName Catzc.Tooling.Toolchain { }
         Mock Assert-Command -ModuleName Catzc.Tooling.Toolchain { }
-        # The tar boundary: plant the extracted tree (a versioned folder holding uv and uvx) into the -C directory...
-        # [comment:3](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Uv.Tests.ps1.md#comment3)
         Mock Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $Command -like 'tar *' } -MockWith {
             $null = $Command -match '-C "([^"]+)"'
             $extracted = Join-Path $Matches[1] 'uv-x86_64-unknown-linux-gnu'

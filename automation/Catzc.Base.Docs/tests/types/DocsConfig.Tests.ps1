@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/types/DocsConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/types/DocsConfig.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/types/DocsConfig.cs
 ---
 #>
 
-# Validates the compiled DocsConfig / DocMapping / DocPattern types directly — the constructor is the gate that stops...
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/types/DocsConfig.Tests.ps1.md#comment1)
 Describe 'DocsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {

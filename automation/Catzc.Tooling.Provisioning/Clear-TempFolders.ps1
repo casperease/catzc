@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md
+      test: automation/Catzc.Tooling.Provisioning/tests/Clear-TempFolders.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN
   config:
@@ -59,8 +62,6 @@ function Clear-TempFolders {
             continue
         }
 
-        # Delete via.NET, NOT Remove-Item: across tens of thousands of temp entries Remove-Item's per-item cmdlet...
-        # [comment:5](/docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md#comment5)
         $removed = 0
         $skipped = 0
         foreach ($file in [System.IO.Directory]::GetFiles($folder)) {

@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/types/ContractValue.cs.md
     kind: comment-page
-    body_sha: cc0526de0c61
+    body_sha: "6bb3c2144092"
     adrs:
       - ADR-REPO-CONTRACT#6
 ---
 
 # automation/Catzc.Base.Contracts/types/ContractValue.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The value model the contract checks compare: a parsed JSON or YAML document as PowerShell hands it over
@@ -38,7 +38,7 @@ A location in a value is named in JSONPath form: $ is the document, .key or ['ke
 
 ## comment:2
 
-Above `public const int DescribeLimit = 80;`.
+Above `public const int DescribeLimit = 80;`, written with `//`.
 
 ```text
 A value as a finding names it, on one line: a string quoted ('gadget'), any other scalar as its text, an object as

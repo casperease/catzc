@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure/tests/Get-AzureCustomers.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure/tests/Get-AzureCustomers.Tests.ps1.md
+      source: automation/Catzc.Azure/Get-AzureCustomers.ps1
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#4
@@ -11,8 +14,6 @@ catzc:
 #>
 
 Describe 'Get-AzureCustomers' -Tag 'L0', 'logic' {
-    # Read-only resolver tests: the config mock + cache reset run ONCE, not per test — the mocked config is identical...
-    # [comment:1](/docs/references/automation/catzc-azure/tests/Get-AzureCustomers.Tests.ps1.md#comment1)
     BeforeAll {
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure'

@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Save-VerifiedDownload.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/tests/Save-VerifiedDownload.Tests.ps1.md
+      source: automation/Catzc.Tooling.Core/Save-VerifiedDownload.ps1
 ---
 #>
 
 Describe 'Save-VerifiedDownload' -Tag 'L0', 'logic' {
-    # SHA-256('abc') = ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad (NIST test vector).
-    # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Save-VerifiedDownload.Tests.ps1.md#comment1)
 
     It 'returns the path when the SHA-256 matches (tolerates a sha256: prefix)' {
         InModuleScope Catzc.Tooling.Core {

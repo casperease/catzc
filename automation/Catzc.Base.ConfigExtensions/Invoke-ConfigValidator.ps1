@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ConfigExtensions
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1
   config:
     synopsis: Validates a parsed config with a PowerShell validator, run in the owning module's scope.
     description: |-

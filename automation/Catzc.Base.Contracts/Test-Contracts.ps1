@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Contracts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-CONTRACT#10

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationSkipReport.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationSkipReport.Tests.ps1
   config:
     synopsis: Prints the end-of-run skip report — what was skipped or not run, and why.
     description: |-
@@ -60,8 +63,6 @@ function Write-TestAutomationSkipReport {
     Write-Message '' -NoHeader
     Write-Header 'Skipped & not run' -ForegroundColor Cyan
 
-    # Skipped — actively skipped during the run, each with the reason from Set-ItResult -Because (an `It -Skip`...
-    # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationSkipReport.ps1.md#comment5)
     if ($skipped.Count -gt 0) {
         Write-Message "  Skipped ($($skipped.Count)) — ran, then skipped from inside the test:" -NoHeader
         foreach ($row in $skipped) {
@@ -75,8 +76,6 @@ function Write-TestAutomationSkipReport {
         }
     }
 
-    # Not run — excluded by this run's tier/category scope, never executed.
-    # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationSkipReport.ps1.md#comment6)
     if ($notRun.Count -gt 0) {
         $scopeParts = @("-MaxLevel $MaxLevel")
         if ($MinLevel -gt 0) {

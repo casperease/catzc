@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Vendor/tests/Resolve-VendorRepository.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Vendor/private/Resolve-VendorRepository.ps1
 ---
 #>
 

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Sync-SessionTools.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Tooling.Core/Sync-SessionTools.ps1
 ---
 #>
 

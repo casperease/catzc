@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/pipelines/ci-infrastructure.yaml.md
     kind: comment-page
-    body_sha: "3f39e363227f"
+    body_sha: f4fb119b9079
     adrs:
       - ADR-AUTO-TEST#37
       - ADR-AZ-DATAMOD#9
@@ -11,37 +11,22 @@ catzc:
 
 # pipelines/ci-infrastructure.yaml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `trigger:`.
+Above `trigger:`, written with `#`.
 
 ```text
-CI pipeline for the infrastructure templates (foundation / discovery / expedition).
-
-CI = the CI engine alone: build + verify, no artifact, no deploy (see
-[ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md)). For each template it runs Assert-BicepTemplate (the explicit
-author/CI-facing validation: options.yml schema, env-class + slot classification, identity refs,
-parameter alignment) and then Build-Bicep (compile main.bicep + render every per-slot parameter file +
-run the UNDEFINED gate). Finally it runs the infrastructure globset's test suite (Test-Automation -Suite infrastructure).
-Building needs no auth — `az bicep build` is offline — so Mode stays 'none'.
-
-One pipeline covers all three templates; it is fast enough to stay inside the 5-10 min pre-commit
-budget. Revisit per-template CI only if build time grows.
-
-The CI engine runs in two trigger contexts on the same code:
-  - pre-commit  : as an ADO build validation on PRs to main (the gate)
-  - post-commit : the same build + verify on the merged commit
-Trigger = the 'infrastructure' globset projected into ADO-native path filters (Get-GlobSetTrigger,
-[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)): the track is its own root folder (infrastructure/**), so this starts only on a
-real change.
+Build and verify only, no artifact and no deploy; az bicep build is offline, so Mode stays none and no auth is needed.
+[ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md),
+[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:1](/docs/references/pipelines/ci-infrastructure.yaml.md#comment1)
 ```
 
 ## comment:2
 
-Above `- template: /pipelines/steps/invoke-automation.yaml`.
+Above `- template: /pipelines/steps/invoke-automation.yaml` (occurrence 7), written with `#`.
 
 ```text
 The infrastructure globset's test suite: its verify scope (Catzc.Azure.Templates up to L2,

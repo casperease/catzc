@@ -3,11 +3,9 @@
 #   derived:
 #     path: pipelines/ci-automation.yaml
 #     kind: pipeline
+#     relatives:
+#       page: docs/references/pipelines/ci-automation.yaml.md
 # ---
-
-# Fires exactly, and only, when the module system changes: the track is its own root folder, with no committed marker to go stale.
-# [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
-# [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1) [comment:1](/docs/references/pipelines/ci-automation.yaml.md#comment1)
 
 trigger:
   branches:
@@ -21,8 +19,6 @@ pr:
   paths:
     include: [automation/**]
 
-# The L2 run includes the spelling and markdown integrity tests, so Node and their tools are set up before it.
-# [comment:2](/docs/references/pipelines/ci-automation.yaml.md#comment2)
 jobs:
   - job: UnitTests
     displayName: "Unit Tests"
@@ -31,8 +27,6 @@ jobs:
     steps:
       - checkout: self
 
-      # The L2 integrity tests are the single spell and markdown gate; they self-skip when cspell or markdownlint is absent.
-      # [comment:3](/docs/references/pipelines/ci-automation.yaml.md#comment3)
       - task: UseNode@1
         inputs:
           version: "22.x"
@@ -52,8 +46,6 @@ jobs:
         parameters:
           RunCommand: "Test-Automation -Level 2 -EnforceTimings"
 
-  # No Azure auth here: each step exercises a different edge of the framework through the template.
-  # [comment:4](/docs/references/pipelines/ci-automation.yaml.md#comment4)
   - job: FrameworkTests
     displayName: "Framework Integration Tests"
     pool:
@@ -164,8 +156,6 @@ jobs:
             Assert-True ($output -match 'RuntimeException')
             Write-Message 'Write-Exception output verified'
 
-  # Each Azure auth mode needs the sc-azure-test service connection to be authenticated before its assertions run.
-  # [comment:5](/docs/references/pipelines/ci-automation.yaml.md#comment5)
   - job: AzureAuthTests
     displayName: "Azure Auth Tests"
     pool:
@@ -207,8 +197,6 @@ jobs:
             Write-Message 'SYSTEM_ACCESSTOKEN is available'
           ExposeAccessToken: true
 
-  # One step per tool, in dependency order, so an install never runs before the runtime it depends on.
-  # [comment:6](/docs/references/pipelines/ci-automation.yaml.md#comment6)
   - job: ToolInstallation
     displayName: "Tool Installation (Linux)"
     pool:
@@ -216,8 +204,6 @@ jobs:
     steps:
       - checkout: self
 
-      # These put the correct version on PATH, so Install-* sees it and skips.
-      # [comment:7](/docs/references/pipelines/ci-automation.yaml.md#comment7)
       - task: UsePythonVersion@0
         inputs:
           versionSpec: "3.13"
@@ -239,8 +225,6 @@ jobs:
           DisplayName: "Tools status (before)"
           RunCommand: 'Get-ToolsStatus | Write-Object -Name "Before"'
 
-      # Python, Dotnet and NodeJs use the native ADO tasks above; pip tools need Python on PATH, apt tools use sudo.
-      # [comment:8](/docs/references/pipelines/ci-automation.yaml.md#comment8)
       - template: /pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Install-AzCli (pip, depends on Python)"

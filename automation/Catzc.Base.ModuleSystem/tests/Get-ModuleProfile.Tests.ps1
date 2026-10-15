@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleProfile.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleProfile.Tests.ps1.md
+      source: automation/Catzc.Base.ModuleSystem/Get-ModuleProfile.ps1
 ---
 #>
 
@@ -65,8 +68,6 @@ Describe 'Get-ModuleProfile — real profiles.yml' -Tag 'L2', 'integrity' {
         $names = @((Get-Config -Config profiles).profiles.Keys)
         $names.Count | Should -BeGreaterThan 0
         $allowed = @((Get-BaseModule).Name) + @('.internal', '.compiled', '.vendor') | Select-Object -Unique
-        # One Should over the violating set — a Should per profile × module pays Pester's per-assertion cost times...
-        # [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/Get-ModuleProfile.Tests.ps1.md#comment1)
         $violations = foreach ($name in $names) {
             $resolved = Get-ModuleProfile -Name $name
             if (@($resolved).Count -eq 0) {

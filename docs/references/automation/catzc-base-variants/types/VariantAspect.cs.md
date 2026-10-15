@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/types/VariantAspect.cs.md
     kind: comment-page
-    body_sha: "9a5fb898f78d"
+    body_sha: "4cc432932323"
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Base.Variants/types/VariantAspect.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `namespace Catzc.Base.Variants;`.
+Above `namespace Catzc.Base.Variants;`, written with `//`.
 
 ```text
 One aspect of a track's ordered classification in the `aspects` variant (configs/variants.yml,
@@ -28,7 +28,7 @@ returns them.
 
 ## comment:2
 
-Above `public string[] Patterns { get; }`.
+Above `public string[] Patterns { get; }`, written with `//`.
 
 ```text
 The aspect's glob patterns, relative to the unit root. The last aspect of a track is the bare '**'

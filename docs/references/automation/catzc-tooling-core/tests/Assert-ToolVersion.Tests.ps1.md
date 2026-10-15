@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/tests/Assert-ToolVersion.Tests.ps1.md
-    kind: test-asset
-    body_sha: "28c54d1ca2a0"
+    kind: comment-page
+    body_sha: d3e87b42d1d4
     adrs:
       - ADR-AUTO-TEST#3
 ---
@@ -12,12 +12,12 @@ catzc:
 
 <!-- cspell:ignore lockedtool -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeEach {`.
+Above `BeforeEach {`, written with `#`.
 
 ```text
 Hermetic: every collaborator is mocked in the module scope, so the assertion binds to the version-check

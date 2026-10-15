@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/tests/Test-RootConfigFiles.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-rootconfig/tests/Test-RootConfigFiles.Tests.ps1.md
+      source: automation/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-RootConfigFiles over fixture root files in $TestDrive: the registry entries, git's ignore check, and the index...
-# [comment:1](/docs/references/automation/catzc-base-rootconfig/tests/Test-RootConfigFiles.Tests.ps1.md#comment1)
 Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive 'repo'

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/tests/Get-MarkdownMetaState.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1
     adrs:
       - ADR-REPO-FILEMETA#1
 ---

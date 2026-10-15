@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md
     kind: comment-page
-    body_sha: "63e4879b81d1"
+    body_sha: "399ecfd1d4c9"
     adrs:
       - ADR-REPO-LINK#3
 ---
 
 # automation/Catzc.Base.Docs/types/AdrCitationMap.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The ADR citation registry as one immutable lookup: each citation code (ADR-<CODE>) to its ADR's
@@ -28,7 +28,7 @@ moved ADR re-points every link to it.
 
 ## comment:2
 
-Above `public AdrCitationMap(IDictionary entries, IEnumerable documents)`.
+Above `public AdrCitationMap(IDictionary entries, IEnumerable documents)`, written with `//`.
 
 ```text
 entries: code -> { path = '<repo-relative, /-separated .md path>'; rules = <int[]> }.
@@ -38,7 +38,7 @@ so a slug or stale path can be resolved against the files that actually exist.
 
 ## comment:3
 
-Above `int dash = code.IndexOf('-', 4);`.
+Above `int dash = code.IndexOf('-', 4);`, written with `//`.
 
 ```text
 Every hyphen-prefix of a code (ADR-AUTO for

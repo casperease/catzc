@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md
     kind: comment-page
-    body_sha: "6db5e5f9b3f7"
+    body_sha: dedf00873437
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Azure/types/NetworkSubscription.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One subscription's network in configs/network.yml ([ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md)): a hub
@@ -33,7 +33,7 @@ serves, are azure.yml facts, so that join is the quality gate Test-AzureNetworkP
 
 ## comment:2
 
-Above `public static IReadOnlyList<string> HubSubnets => HubSubnetNames;`.
+Above `public static IReadOnlyList<string> HubSubnets => HubSubnetNames;`, written with `//`.
 
 ```text
 The subnets a hub carries, exactly: the two reserved Azure subnets (nothing is deployed into them) and
@@ -42,7 +42,7 @@ shared-services.
 
 ## comment:3
 
-Above `private static List<string> SubnetNames(IDictionary d)`.
+Above `private static List<string> SubnetNames(IDictionary d)`, written with `//`.
 
 ```text
 The subnet names as written, including those with an invalid range, so a subnet with a bad range is reported
@@ -51,7 +51,7 @@ once (as a bad range), not also as missing. Empty when subnets is missing or not
 
 ## comment:4
 
-Above `private static void CheckSpoke(string where, List<string> names, List<string>...`.
+Above `private static void CheckSpoke(string where, List<string> names, List<string>...`, written with `//`.
 
 ```text
 A spoke carries private-endpoints; every other subnet is a workload subnet named for an environment. Skipped

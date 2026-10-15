@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1.md
+      source: automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-GlobSetTriggerCoverage over mocked globsets, projections, and members; the include patterns are real...
-# [comment:1](/docs/references/automation/catzc-base-globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1.md#comment1)
 Describe 'Test-GlobSetTriggerCoverage' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }

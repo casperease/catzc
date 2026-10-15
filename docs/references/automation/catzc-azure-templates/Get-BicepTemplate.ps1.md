@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Get-BicepTemplate.ps1.md
     kind: comment-page
-    body_sha: ffa8883cf466
+    body_sha: e121ef42d80b
 ---
 
 # automation/Catzc.Azure.Templates/Get-BicepTemplate.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:2
+## comment:1
 
-Above `$template = (Get-BicepTemplates) | Where-Object { $_.name -eq $Name } |...`.
+Above `$template = (Get-BicepTemplates) | Where-Object { $_.name -eq $Name } |...`, written with `#`.
 
 ```text
 Parenthesise the call so its (comma-wrapped, array-preserving) output is collected and then

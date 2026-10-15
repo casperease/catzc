@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md
     kind: comment-page
-    body_sha: "408b8c709651"
+    body_sha: "4a5ce799dba2"
 ---
 
 # automation/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `$ruleIds = Get-CatsAdrRuleIds`.
+Above `$ruleIds = Get-CatsAdrRuleIds`, written with `#`.
 
 ```text
 The rule ids in '#' citation form, so they compare to the map. Plain assignment receives the comma-wrapped

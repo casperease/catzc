@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/ConvertTo-PesterRunTarget.Tests.ps1.md
-    kind: test-asset
-    body_sha: "574759800482"
+    kind: comment-page
+    body_sha: e0c0bc81eb0a
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
 # automation/Catzc.Base.QualityGates/tests/ConvertTo-PesterRunTarget.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {`.
+Above `Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 ConvertTo-PesterRunTarget over a fixture repository in $TestDrive (Get-RepositoryRoot and Get-LanguageTestFolders

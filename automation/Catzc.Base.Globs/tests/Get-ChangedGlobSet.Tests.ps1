@@ -4,18 +4,17 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md
+      source: automation/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-FLOW-CD-GLOBS#1
 ---
 #>
 
-# Get-ChangedGlobSet: the computed area-of-control of a diff — the declared sets whose scan program selects a changed...
-# [comment:1](/docs/references/automation/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md#comment1)
 Describe 'Get-ChangedGlobSet' -Tag 'L0', 'logic' {
     BeforeAll {
-        # Neutral fixture globset names (widget/gadget/report), not the shipped set names, so this logic test owns...
-        # [comment:2](/docs/references/automation/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md#comment2)
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
                     'widget' = @{ description = 'the widget surface'; layer = 'loose-fileset'; include = @('src/**') }

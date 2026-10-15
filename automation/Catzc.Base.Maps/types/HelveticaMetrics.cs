@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Maps/types/HelveticaMetrics.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/HelveticaMetrics.cs.md
     adrs:
       - ADR-PWSH-TYPES#1
 ---
 */
-
-// An unlisted character is measured at the widest Latin letter, so a measured label is never narrower than the drawn one.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/HelveticaMetrics.cs.md#comment1)
 
 using System;
 

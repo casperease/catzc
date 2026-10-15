@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/AdoArtifactsTarget.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/AdoArtifactsTarget.cs.md
 ---
 */
-
-// Validation is the shared target shape, so this type only declares the organization, project and feed coordinates.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/AdoArtifactsTarget.cs.md#comment1)
 
 namespace Catzc.Base.ModuleSystem;
 

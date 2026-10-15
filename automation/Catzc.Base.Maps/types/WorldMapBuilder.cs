@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Maps/types/WorldMapBuilder.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/WorldMapBuilder.cs.md
+      test: automation/Catzc.Base.Maps/tests/types/WorldMapBuilder.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#4
       - ADR-DSGN-TRACK#1
@@ -12,9 +15,6 @@ catzc:
       - ADR-DSGN-TRACK#6
 ---
 */
-
-// Plain inputs, no disk: a logic test feeds it directly, and the first matching aspect and the fixed highlight order decide placement.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/WorldMapBuilder.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -29,8 +29,6 @@ public static class WorldMapBuilder
     // The track whose files fall back to their globset's citations.
     public const string PipelinesTrack = "pipelines";
 
-    // A null citationExclude means none, and an excluded file still sits in its cell: only its citations light nothing.
-    // [comment:2](/docs/references/automation/catzc-base-maps/types/WorldMapBuilder.cs.md#comment2)
     public static WorldMap Build(IEnumerable tracks, IEnumerable fileLanguages, IEnumerable paths, IDictionary aspects, IDictionary adrIndex,
         IDictionary adrFiles, IDictionary texts, IDictionary rootOwners, IEnumerable globSets, IEnumerable citationExclude = null)
     {

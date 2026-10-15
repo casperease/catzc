@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Objects/Copy-Object.ps1
 ---
 #>
 

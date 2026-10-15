@@ -4,20 +4,19 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Change.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-Change.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-Change.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Test-Change wiring: the plan's two halves (Get-ChangeTestFile, Get-ChangeCheckPlan) are their own units and are...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Change.Tests.ps1.md#comment1)
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The fixture gates declare -PassThru so they take the call a real quality gate takes; what they return does not depend on it')]
 param()
 
 Describe 'Test-Change' -Tag 'L1', 'logic' {
     BeforeAll {
-        # A gate that takes the changed files, one that only runs whole, and one that throws.
-        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-Change.Tests.ps1.md#comment2)
         function global:Test-WidgetLint {
             param([string[]] $Path, [switch] $PassThru)
             [pscustomobject]@{ Issues = @("$($Path -join ', '): widget too wide") }

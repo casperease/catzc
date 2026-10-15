@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Install-UvVenvTool.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Tooling.Core/Install-UvVenvTool.ps1
 ---
 #>
 

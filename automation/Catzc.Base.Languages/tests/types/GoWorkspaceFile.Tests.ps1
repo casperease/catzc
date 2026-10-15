@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/types/GoWorkspaceFile.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Languages/types/GoWorkspaceFile.cs
 ---
 #>
 

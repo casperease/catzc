@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-PipelineTrigger.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md
+      source: automation/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
     adrs:
       - ADR-FLOW-CD-GLOBS#1
 ---
 #>
 
-# Get-PipelineTrigger: read a pipeline/workflow YAML's actual trigger path filters — the on-disk side the drift...
-# [comment:1](/docs/references/automation/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md#comment1)
 Describe 'Get-PipelineTrigger' -Tag 'L0', 'logic' {
     It 'extracts ADO trigger and pr include/exclude path filters' {
         $script:yaml = @'

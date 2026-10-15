@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/BaseModule.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/BaseModule.cs.md
     adrs:
       - ADR-AUTO-TYPES#9
 ---
 */
-
-// The platform's own logic selects on the kind and pins it at call sites, which is why this is a native C# type.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/BaseModule.cs.md#comment1)
 
 using System;
 
@@ -22,8 +21,6 @@ public abstract class BaseModule
     // Once here for every kind (DiskModule, SessionModule, …): the rendering names the derived kind.
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // The folder name for a disk module, dot included for hidden ones; the loaded module name for a session module.
-    // [comment:2](/docs/references/automation/catzc-base-modulesystem/types/BaseModule.cs.md#comment2)
     public string Name { get; }
 
     // On disk: named | hidden. In session (by provenance): imported | vendored | builtin | residue.

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Execution
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md
+      test: automation/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-TEST
@@ -82,8 +85,6 @@ catzc:
 ---
 #>
 
-# Uses -DryRun, not ShouldProcess/-WhatIf — see.
-# [comment:11](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment11)
 function Invoke-Executable {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingInvokeExpression', '', Justification = 'By design — executes CLI commands via private helpers')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseOutputTypeCorrectly', '', Justification = 'Returns string in -DryRun, Catzc.Base.Execution.CliResult in -PassThru')]
@@ -114,8 +115,6 @@ function Invoke-Executable {
         [switch] $DryRun
     )
 
-    # Unit-test tripwire (sibling to -DryRun: both prevent a launch — DryRun returns the command, this throws).
-    # [comment:12](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment12)
     if ($env:CATZC_BLOCK_REAL_PROCESS -and -not $DryRun) {
         throw (
             "Blocked a real process launch during a unit test: '$Command'. A Mock did not intercept it — " +

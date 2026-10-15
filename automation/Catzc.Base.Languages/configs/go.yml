@@ -3,18 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.Languages/configs/go.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-languages/configs/go.yml.md
 # ---
 
-# Every key is optional: an omitted key takes the default declared once on GoConfig.
-# [comment:1](/docs/references/automation/catzc-base-languages/configs/go.yml.md#comment1)
-
-# Left undeclared, root takes the shared default: go/ when the repository has one, else the dot-prefixed .go.
-# [comment:2](/docs/references/automation/catzc-base-languages/configs/go.yml.md#comment2)
-
-# Each tests folder becomes the Go module at this prefix plus the folder name, so changing it renames every module.
-# [comment:3](/docs/references/automation/catzc-base-languages/configs/go.yml.md#comment3)
 module_root: catzc/go/tests
 
-# The go.mod files are rendered and never tidied, so a dependency's own requirements are declared here too.
-# [comment:4](/docs/references/automation/catzc-base-languages/configs/go.yml.md#comment4)
 dependencies: {}

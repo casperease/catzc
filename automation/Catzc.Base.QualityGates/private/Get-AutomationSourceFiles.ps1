@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md
   config:
     synopsis: The canonical set of authored PowerShell files the analysis quality gates cover.
     description: Formatting covers a wider set (Format-Code); this set leaves out .vendor, .compiled and generated manifests.
@@ -42,16 +44,12 @@ function Get-AutomationSourceFiles {
 
         $testsPath = Join-Path $moduleDir 'tests'
         if (Test-Path $testsPath) {
-            # Test files sit at most two levels below tests/ (tests/types); the third level is headroom, and...
-            # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment2)
             foreach ($script in Get-ChildPath $testsPath -File -Filter '*.Tests.ps1' -Depth 3) {
                 $files.Add($script)
             }
         }
     }
 
-    # Dot folders are not modules, but .internal and .scriptanalyzer hold authored code that meets the same bar.
-    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment3)
     $analyzerRoot = Join-Path $automationRoot '.scriptanalyzer'
     if (Test-Path $analyzerRoot) {
         foreach ($script in Get-ChildPath $analyzerRoot -File -Filter '*.psm1' -Depth 1) {
@@ -65,8 +63,6 @@ function Get-AutomationSourceFiles {
         }
     }
 
-    # .internal is authored code the repo ships and runs, so it meets the same bar as .scriptanalyzer above.
-    # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment4)
     $internalRoot = Join-Path $automationRoot '.internal'
     if (Test-Path $internalRoot) {
         foreach ($script in Get-ChildPath $internalRoot -File -Filter '*.psm1' -Depth 1) {
@@ -80,8 +76,6 @@ function Get-AutomationSourceFiles {
         }
     }
 
-    # The analyzer config is the one authored .psd1; generated manifests are gitignored build output and stay out.
-    # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment5)
     $importerPath = Join-Path $root 'importer.ps1'
     if (Test-Path $importerPath) {
         $files.Add($importerPath)

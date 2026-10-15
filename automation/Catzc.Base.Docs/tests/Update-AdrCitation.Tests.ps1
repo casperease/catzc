@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/Update-AdrCitation.ps1
     adrs:
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-IDEM#1
@@ -13,8 +16,6 @@ catzc:
 ---
 #>
 
-# Update-AdrCitation rewrites one file's ADR references through a code map and a rule map.
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md#comment1)
 Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

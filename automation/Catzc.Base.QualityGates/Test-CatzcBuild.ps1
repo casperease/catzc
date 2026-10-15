@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#30
       - ADR-AUTO-TEST#31
@@ -107,8 +110,6 @@ function Test-CatzcBuild {
         throw 'Build-Modules resolved the selection to no modules — nothing to build or test.'
     }
 
-    # The harness's own module rides in every build: workers reach its configuration builder and row reducer through...
-    # [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md#comment6)
     $harnessModule = $MyInvocation.MyCommand.Module.Name
     $buildSelection = $selection
     if ($harnessModule -notin $testedModules) {

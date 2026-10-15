@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/types/PdfNumber.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Maps/types/PdfNumber.cs
 ---
 #>
 

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Export-SpellingTriage.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-SPELL#5
@@ -100,15 +103,11 @@ function Export-SpellingTriage {
     $excludeArgs = foreach ($e in $Exclude) {
         "--exclude '$e'"
     }
-    # --words-only prints just the flagged tokens (one per line); --unique de-duplicates; --no-summary keeps the...
-    # [comment:9](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment9)
     $command = (
         "cspell lint $($quotedPaths -join ' ') $($excludeArgs -join ' ') " +
         "--config '$configPath' --words-only --unique --no-summary --no-progress --no-color"
     )
 
-    # -Silent: capture cspell's output instead of streaming it.
-    # [comment:10](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment10)
     $result = Invoke-Executable $command -PassThru -NoAssert -Silent
     if ($result.ExitCode -gt 1) {
         throw "cspell failed (exit $($result.ExitCode)): $($result.Full)"
@@ -149,8 +148,6 @@ function Export-SpellingTriage {
     }
 
     if (-not $DryRun) {
-        # Emit paste-ready stubs.
-        # [comment:11](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment11)
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add('# Terminology triage queue — spell-checker-flagged tokens awaiting classification.')
         $lines.Add('#')

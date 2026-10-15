@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md
+      source: automation/Catzc.Base.Config/Get-ConfigValue.ps1
     adrs:
       - ADR-AUTO-TEST#14
       - ADR-CONF-ADDRESSING#4
@@ -26,8 +29,6 @@ Describe 'Get-ConfigValue' -Tag 'L0' {
         }
 
         BeforeEach {
-            # Get-ConfigValue reads through Get-Config; mock the reader, not a file.
-            # [comment:1](/docs/references/automation/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md#comment1)
             Mock Get-Config -ModuleName Catzc.Base.Config -MockWith { $script:fixture }
         }
 
@@ -128,8 +129,6 @@ namespace CatzcGetConfigValueTest {
 
     Context 'against a real shipped config' -Tag 'integrity' {
         It 'resolves a real config subtree through the live Get-Config' {
-            # tools.yml loads as the typed ToolsConfig (a read-only tool map); guards the real wiring end to end.
-            # [comment:2](/docs/references/automation/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md#comment2)
             (Get-ConfigValue -Address 'global.tools').Contains('python') | Should -BeTrue
         }
     }

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md
     kind: comment-page
-    body_sha: "66a4ee63ef9d"
+    body_sha: e428f4876a58
     adrs:
       - ADR-FLOW-CD-GLOBS#7
       - ADR-FLOW-CD-GLOBS#8
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Globs/types/GlobsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The globset registry (configs/globs.yml) and its validity rules: a non-empty 'globsets' map of
@@ -33,7 +33,7 @@ See [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md).
 
 ## comment:2
 
-Above `public static readonly string[] ReservedNames = { "internal", "vendor",...`.
+Above `public static readonly string[] ReservedNames = { "internal", "vendor",...`, written with `//`.
 
 ```text
 Names reserved for the DERIVED globsets
@@ -44,7 +44,7 @@ shadow a reserved name — the declared registry and the derived sets share one 
 
 ## comment:3
 
-Above `foreach (GlobSet set in sets)`.
+Above `foreach (GlobSet set in sets)`, written with `//`.
 
 ```text
 ---- compose resolution ([ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8)): every reference
@@ -54,7 +54,7 @@ names a declared set, never itself, and
 
 ## comment:4
 
-Above `if (errors.Count > 0)`.
+Above `if (errors.Count > 0)`, written with `//`.
 
 ```text
 A broken compose graph makes Matches() unsafe (a cycle would recurse forever), so fail now with
@@ -63,7 +63,7 @@ everything collected so far — the final validation gate.
 
 ## comment:5
 
-Above `private static string FindComposeCycle(GlobSet set, Dictionary<string,...`.
+Above `private static string FindComposeCycle(GlobSet set, Dictionary<string,...`, written with `//`.
 
 ```text
 Depth-first walk of the compose references; returns the cycle path when one exists, else null.

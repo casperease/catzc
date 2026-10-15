@@ -3,35 +3,35 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md
     kind: comment-page
-    body_sha: "115d3a378d8d"
+    body_sha: d97fcc2d48b2
 ---
 
 # automation/Catzc.Tooling.Core/Sync-SessionTools.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:5
+## comment:1
 
-Above `if (Test-IsRunningInPipeline) {`.
+Above `if (Test-IsRunningInPipeline) {`, written with `#`.
 
 ```text
 Session PATH nudging is noise — and could shadow image-provided tools — in CI, where the pipeline owns
 tool provisioning. Do nothing there.
 ```
 
-## comment:6
+## comment:2
 
-Above `$hosted = Resolve-SessionToolHost -Config $config`.
+Above `$hosted = Resolve-SessionToolHost -Config $config`, written with `#`.
 
 ```text
 When several installs exist, run the best one (tools.yml session_host_probes — for dotnet an SDK at the
 locked version, else a runtime at the locked version). The other installs are left in place.
 ```
 
-## comment:7
+## comment:3
 
-Above `Write-Message "Session tools not managed by the installer layer:...`.
+Above `Write-Message "Session tools not managed by the installer layer:...`, written with `#`.
 
 ```text
 The fact and WHICH tools is the advisory — it stays on the always-on information stream. Each tool's

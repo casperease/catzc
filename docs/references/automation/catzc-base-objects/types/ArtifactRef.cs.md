@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md
     kind: comment-page
-    body_sha: a398463ae54c
+    body_sha: "60145a2c5c62"
     adrs:
       - ADR-AUTO-PATH#10
 ---
 
 # automation/Catzc.Base.Objects/types/ArtifactRef.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 An immutable, dual-form descriptor for a published-artifact file — one build stage produces it and writes
@@ -38,7 +38,7 @@ Materialize(rawPath, artifactRoot) is the controlled factory (converts once, pro
 
 ## comment:2
 
-Above `public static ArtifactRef Materialize(string rawPath, string artifactRoot)`.
+Above `public static ArtifactRef Materialize(string rawPath, string artifactRoot)`, written with `//`.
 
 ```text
 The controlled factory: take a raw path (absolute, or relative to the artifact root) and the artifact
@@ -48,7 +48,7 @@ so it throws rather than degrade.
 
 ## comment:3
 
-Above `public string ResolveAt(string artifactRoot)`.
+Above `public string ResolveAt(string artifactRoot)`, written with `//`.
 
 ```text
 Re-resolve to an absolute path under the GIVEN (consumer's) artifact root. This is how the other end

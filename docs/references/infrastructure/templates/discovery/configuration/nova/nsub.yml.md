@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/infrastructure/templates/discovery/configuration/nova/nsub.yml.md
     kind: comment-page
-    body_sha: edf3853e8444
+    body_sha: c6d4ff513794
 ---
 
 # infrastructure/templates/discovery/configuration/nova/nsub.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `ParametersFile:`.
+Above `ParametersFile:`, written with `#`.
 
 ```text
 discovery, nova nonprod subscription (env nsub, customer nova): a spoke. The kind and the ranges come from

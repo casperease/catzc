@@ -3,15 +3,13 @@
 #   derived:
 #     path: automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md
 # ---
 
-# Replaces the bundled schema to kill its false positives: offline, the extension surfaces every per-task anyOf branch failure.
-# [comment:1](/docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md#comment1)
 $schema: http://json-schema.org/draft-07/schema#
 title: Azure Pipelines (catzc, relaxed)
 type: object
-# The root stays open because a template fragment is valid too, and an empty schema marks every polymorphic key.
-# [comment:2](/docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md#comment2)
 properties:
   name: { type: string }
   trigger: {}
@@ -30,8 +28,6 @@ definitions:
     type: array
     items: { $ref: "#/definitions/step" }
   step:
-    # A per-task oneOf or anyOf fan-out is what produced the false positives, so every step kind shares one loose shape.
-    # [comment:3](/docs/references/automation/catzc-base-vscode/configs/vscode-pipeline-schema.yml.md#comment3)
     type: object
     properties:
       # A real task reference (Name@Major) OR a template expression — never the exact-version anyOf.

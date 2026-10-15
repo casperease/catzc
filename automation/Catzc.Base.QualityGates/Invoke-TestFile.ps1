@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
     adrs:
       - ADR-AUTO-NOPWD
       - ADR-AUTO-TEST#25
@@ -123,15 +126,11 @@ function Invoke-TestFile {
             [System.IO.Path]::GetFullPath($full)
         })
 
-    # A timestamped run folder under out/test-file/, like the harness's out/test-automation/<stamp>/.
-    # [comment:11](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment11)
     $reportBase = Join-Path (Get-OutputRoot -EnsureExists) 'test-file'
     Set-AbandonedTestRun -OutputFolder $reportBase | Out-Null
     $runDirectory = Join-Path $reportBase ((Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0, 6))
     New-Item -ItemType Directory -Path $runDirectory -Force | Out-Null
 
-    # Claim where the run executes — in place, or in a snapshot when another run holds the working folder...
-    # [comment:12](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment12)
     $location = Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -RunDirectory $runDirectory -Isolated:$Isolated -KeepSandbox:$KeepSandbox
     $runStartedAt = [DateTimeOffset]::UtcNow.ToString('o')
     $manifestStatus = 'crashed'
@@ -144,8 +143,6 @@ function Invoke-TestFile {
         try {
             # The worker loads from the root the run executes in (Get-TestRunLocationEntry); the test files map to it alike.
             $entry = Get-TestRunLocationEntry -Location $location
-            # Every tier asked for that the location allows: in place that includes the L3 system tests; a snapshot...
-            # [comment:13](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment13)
             $effectiveMaxLevel = Resolve-TestRunMaxLevel -Location $location -Requested $MaxLevel
             $excludeTag = @(Get-TestExcludeTag -MinLevel 0 -MaxLevel $effectiveMaxLevel)
             $shard = New-TestAutomationShardScript -ShardIndex 0 -TestPath @(Convert-TestRunLocationPath -Location $location -Path $resolved) `
@@ -197,8 +194,6 @@ function Invoke-TestFile {
         $manifestStatus = $result.ToLowerInvariant()
         if ($exitCode -ne 0) {
             $failedShardLabels = @($shard.Label)
-            # Every failure's message, on the console at every -Output level (the worker's own output does not reach...
-            # [comment:14](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment14)
             $files = if ([System.IO.File]::Exists($shard.FilesPath)) {
                 @([System.IO.File]::ReadAllText($shard.FilesPath) | ConvertFrom-Json)
             }

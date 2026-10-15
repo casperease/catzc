@@ -3,38 +3,31 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md
     kind: comment-page
-    body_sha: "16f03376eb82"
+    body_sha: b2817ebe7ae5
     adrs:
-      - ADR-PWSH-CACHE#4
       - ADR-PWSH-FORMAT#6
 ---
 
 # automation/.scriptanalyzer/NoBareCacheEntryRead.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Measure-NoBareCacheEntryRead {`, written with `#`.
 
 ```text
-A module function file holds one function and no top-level statements
-([ADR-PWSH-ONEFUNC](/docs/adr/pwsh/one-function-per-file.md)), so nothing declares
-a $script: cache entry at import: the first call reads a variable that was never set, and strict mode throws.
-The function must either assign the cache entry before reading it, or probe it with
-`$ExecutionContext.SessionState.PSVariable.GetValue('script:<entry>')`
-([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)).
-
-Scope: everything except a .psm1 and a Pester file. A .psm1 module can declare its cache entries at load, and a
-Pester file shares state through $script: on purpose. Within a function, a read is accepted when the same function
-probes that cache entry with GetValue('script:<entry>') anywhere, or assigns it (a plain `$script:<entry> = …`)
-earlier in the text, or when the script declares that cache entry at top level, outside any function.
+.SYNOPSIS
+    Custom PSScriptAnalyzer rule: a function file reads a lazy $script: cache entry only after probing or assigning it.
+.DESCRIPTION
+    Nothing declares a cache entry at import, so the first read of an unset entry throws under strict mode.
+    [comment:1](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment1)
 ```
 
 ## comment:2
 
-Above `$path = "$($ScriptBlockAst.Extent.File)"`.
+Above `$path = "$($ScriptBlockAst.Extent.File)"`, written with `#`.
 
 ```text
 Skip a .psm1 (it can declare its cache entries at load) and a Pester file — by name, or by its Describe calls when
@@ -43,7 +36,7 @@ an editor buffer has no file name. Any other in-memory definition is analysed.
 
 ## comment:3
 
-Above `$isFunction = {`.
+Above `$isFunction = {`, written with `#`.
 
 ```text
 Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew
@@ -52,7 +45,7 @@ Predicates as locals, not inlined in FindAll's parens — dodges a cross-version
 
 ## comment:4
 
-Above `$declared =...`.
+Above `$declared =...`, written with `#`.
 
 ```text
 Cache entries the script itself declares at load (a top-level `$script:<entry> = …`, outside any function). This

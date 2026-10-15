@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/types/RepoRelativePath.cs.md
     kind: comment-page
-    body_sha: b825cfca4e59
+    body_sha: adf3199054ab
     adrs:
       - ADR-AUTO-PATH#3
       - ADR-AUTO-PATH#5
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.Objects/types/RepoRelativePath.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A path value that carries both forms of the path-representation contract ([ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)):
@@ -36,7 +36,7 @@ that escapes the root (a leading '..') has no valid communication form and throw
 
 ## comment:2
 
-Above `public string Relative { get; }`.
+Above `public string Relative { get; }`, written with `//`.
 
 ```text
 The canonical stored form: repo-root-relative with forward slashes when a relative form exists,
@@ -45,7 +45,7 @@ otherwise a normalized absolute path (the degrade case). This is the only field 
 
 ## comment:3
 
-Above `public bool IsRooted { get; }`.
+Above `public bool IsRooted { get; }`, written with `//`.
 
 ```text
 True when there is no repo-relative form and Relative holds a normalized absolute path
@@ -54,7 +54,7 @@ True when there is no repo-relative form and Relative holds a normalized absolut
 
 ## comment:4
 
-Above `IsRooted = true;`.
+Above `IsRooted = true;`, written with `//`.
 
 ```text
 No repo-relative form (a path outside the root, e.g. system temp or a pipeline staging area):
@@ -64,7 +64,7 @@ current directory because the path is already rooted.
 
 ## comment:5
 
-Above `private static string NormalizeRelative(string relative)`.
+Above `private static string NormalizeRelative(string relative)`, written with `//`.
 
 ```text
 Collapse '.', '..', a leading './', and duplicate separators in a RELATIVE path with no base directory.
@@ -74,7 +74,7 @@ which never-depend-on-pwd forbids — so the segments are walked by hand.
 
 ## comment:6
 
-Above `public string ToAbsolute(string repositoryRoot)`.
+Above `public string ToAbsolute(string repositoryRoot)`, written with `//`.
 
 ```text
 Resolve to the absolute binding form against the repository root. An already-rooted (degraded) value is

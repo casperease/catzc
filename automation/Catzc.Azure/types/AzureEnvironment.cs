@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure/types/AzureEnvironment.cs
     kind: csharp-type
     module: Catzc.Azure
+    relatives:
+      page: docs/references/automation/catzc-azure/types/AzureEnvironment.cs.md
 ---
 */
-
-// The root of the identity graph, so its property names are the YAML keys verbatim and the codes compose resource names.
-// [comment:1](/docs/references/automation/catzc-azure/types/AzureEnvironment.cs.md#comment1)
 
 using System;
 

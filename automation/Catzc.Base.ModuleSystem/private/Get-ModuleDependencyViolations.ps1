@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md
   config:
     synopsis: Collects conformance violations of the real code against the declared dependency graph.
     description: |-
@@ -56,8 +58,6 @@ function Get-ModuleDependencyViolations {
         }
     }
 
-    # Resolves a source module to { Constrained; Allowed }.
-    # [comment:4](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md#comment4)
     $resolveAllowed = {
         param([string] $From)
 
@@ -111,8 +111,6 @@ function Get-ModuleDependencyViolations {
         }
     }
 
-    # Same allow-list, applied to cross-module C# type references (one combined types assembly, so the compiler...
-    # [comment:5](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md#comment5)
     $typeEdges = Get-CSharpTypeDependency
     foreach ($edge in $typeEdges) {
         $resolved = & $resolveAllowed $edge.From

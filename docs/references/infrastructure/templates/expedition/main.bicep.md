@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/infrastructure/templates/expedition/main.bicep.md
     kind: comment-page
-    body_sha: "0227d1cda920"
+    body_sha: ef636b89241d
 ---
 
 # infrastructure/templates/expedition/main.bicep
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `@description('Azure region. Defaults to the resource group location; it must...`.
+Above `@description('Azure region. Defaults to the resource group location; it must...`, written with `//`.
 
 ```text
 expedition — the Well-Architected workload: a storage account and a SQL server with one database,

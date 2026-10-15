@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrRuleSet.cs.md
     kind: comment-page
-    body_sha: a237320d42f9
+    body_sha: d00114a8500f
     adrs:
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-TRACK#15
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/types/AdrRuleSet.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System.Collections.Generic;`.
+Above `using System.Collections.Generic;`, written with `//`.
 
 ```text
 One ADR rule-set (an ADR) as declared in adrs.yml: its internal kebab Slug, full External citation code

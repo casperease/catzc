@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Get-ContentStamp.ps1.md
     adrs:
       - ADR-AUTO-CACHE#10
   config:
@@ -58,8 +60,6 @@ function Get-ContentStamp {
                 $parseErrors = $null
                 [void] [System.Management.Automation.Language.Parser]::ParseFile($path, [ref] $tokens, [ref] $parseErrors)
                 if (-not $parseErrors) {
-                    # Comments go; a run of line ends (what a removed comment line leaves) counts as one, since a...
-                    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-ContentStamp.ps1.md#comment3)
                     $previousWasLineEnd = $true
                     $code = foreach ($token in $tokens) {
                         if ($token.Kind -eq [System.Management.Automation.Language.TokenKind]::Comment) {

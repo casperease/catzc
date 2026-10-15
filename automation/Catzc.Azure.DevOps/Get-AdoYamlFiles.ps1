@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.DevOps
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md
+      test: automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
     adrs:
       - ADR-PWSH-PESTER#9
   config:
@@ -50,8 +53,6 @@ function Get-AdoYamlFiles {
 
     Write-Message "Scanning for YAML files in: $scanRoot"
 
-    # Recurse with [System.IO], PRUNING excluded directories during the walk rather than enumerating the whole tree...
-    # [comment:5](/docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md#comment5)
     $excludeSet = [System.Collections.Generic.HashSet[string]]::new(
         [string[]]$Exclude, [System.StringComparer]::OrdinalIgnoreCase)
     $ret = [System.Collections.Generic.List[string]]::new()
@@ -92,8 +93,6 @@ function Get-AdoYamlFiles {
                 $parseError = 'File is empty'
             }
             else {
-                # ADO template expressions (${{ if }}, ${{ each }}, ${{ parameters.x }}) are not valid YAML.
-                # [comment:6](/docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md#comment6)
                 $counter = @{ i = 0 }
                 $sanitized = [regex]::Replace($content, '\$\{\{.+?\}\}', { $counter.i++; "__ado_expr_$($counter.i)__" })
                 $yaml = $sanitized | ConvertFrom-Yaml -Ordered

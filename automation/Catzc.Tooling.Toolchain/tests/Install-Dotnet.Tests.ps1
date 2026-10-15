@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/tests/Install-Dotnet.Tests.ps1.md
+      source: automation/Catzc.Tooling.Toolchain/Install-Dotnet.ps1
     adrs:
       - ADR-AUTO-ASSETDEP#3
 ---
 #>
 
-# Drives Install-Dotnet to the point where it resolves the vendored install script, then reads the REAL script...
-# [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Dotnet.Tests.ps1.md#comment1)
 Describe 'Install-Dotnet — shipped install scripts' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP#3' {
     BeforeAll {
         $script:installDirectory = Join-Path $TestDrive 'dotnet-widget'
@@ -67,8 +68,6 @@ Describe 'Install-Dotnet — shipped install scripts' -Tag 'L1', 'integrity', 'A
     }
 }
 
-# Hermetic logic (L1): the install script, the version probes, the PATH seam (Add-PermanentPath) and the persistent...
-# [comment:2](/docs/references/automation/catzc-tooling-toolchain/tests/Install-Dotnet.Tests.ps1.md#comment2)
 Describe 'Install-Dotnet' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:savedDotnetRoot = $env:DOTNET_ROOT

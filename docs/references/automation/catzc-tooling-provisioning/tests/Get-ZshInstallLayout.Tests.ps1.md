@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/tests/Get-ZshInstallLayout.Tests.ps1.md
-    kind: test-asset
-    body_sha: "59df52932881"
+    kind: comment-page
+    body_sha: "49e2849deee3"
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TEST#3
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-ZshInstallLayout' -Tag 'L0', 'logic' {`.
+Above `Describe 'Get-ZshInstallLayout' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-ZshInstallLayout over a fixture zsh entry: Get-ToolConfig is mocked, so the shipped tools.yml is never read

@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Format-MarkdownTitle.Tests.ps1.md
-    kind: test-asset
-    body_sha: b6b1d9d8af87
+    kind: comment-page
+    body_sha: "79785be145fe"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Mock Get-MarkdownScope { , [string[]] @('docs/widget.md') } -ModuleName...`.
+Above `Mock Get-MarkdownScope { , [string[]] @('docs/widget.md') } -ModuleName...`, written with `#`.
 
 ```text
 Filter on the bound parameters, not on $Path: an unbound -Path resolves $Path from a caller's scope (the test

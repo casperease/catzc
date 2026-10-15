@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.Languages/types/GoConfig.cs
     kind: csharp-type
     module: Catzc.Base.Languages
+    relatives:
+      page: docs/references/automation/catzc-base-languages/types/GoConfig.cs.md
+      test: automation/Catzc.Base.Languages/tests/types/GoConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FOLDERS#4
 ---
 */
-
-// An omitted key behaves exactly like its default, so no function restates a value.
-// [comment:1](/docs/references/automation/catzc-base-languages/types/GoConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -41,15 +41,11 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly Regex DependencyPath = new Regex(@"^[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+(/[A-Za-z0-9._~-]+)*$");
     private static readonly Regex DependencyVersion = new Regex(@"^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\+incompatible)?$");
 
-    // Null when the file declares none; ResolveRoot then applies the default.
-    // [comment:2](/docs/references/automation/catzc-base-languages/types/GoConfig.cs.md#comment2)
     public string root { get; }
 
     // The module-path prefix: a folder <root>/tests/<folder>/ is the Go module <module_root>/<folder>.
     public string module_root { get; }
 
-    // Ordinal path order keeps a rendering independent of the order of keys in the file.
-    // [comment:3](/docs/references/automation/catzc-base-languages/types/GoConfig.cs.md#comment3)
     public IReadOnlyDictionary<string, string> dependencies { get; }
 
     public GoConfig(IDictionary raw)
@@ -128,8 +124,6 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
         dependencies = requires;
     }
 
-    // The one place the root default lives, so no caller restates go or .go.
-    // [comment:4](/docs/references/automation/catzc-base-languages/types/GoConfig.cs.md#comment4)
     public string ResolveRoot(string repositoryRoot)
     {
         if (root != null) { return root; }

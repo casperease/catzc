@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/LinkFinding.cs.md
     kind: comment-page
-    body_sha: b45719ced3fb
+    body_sha: db9f99c1c594
 ---
 
 # automation/Catzc.Base.QualityGates/types/LinkFinding.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System.Globalization;`.
+Above `using System.Globalization;`, written with `//`.
 
 ```text
 One finding of the link engine: where (repository-relative file, 1-based line and column), which link kind,

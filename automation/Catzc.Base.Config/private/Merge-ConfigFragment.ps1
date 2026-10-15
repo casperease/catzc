@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Config
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Config/tests/Merge-ConfigFragment.Tests.ps1
     adrs:
       - ADR-AUTO-OVERLAY
   config:

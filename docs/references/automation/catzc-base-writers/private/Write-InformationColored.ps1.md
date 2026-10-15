@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md
     kind: comment-page
-    body_sha: d702d2160b0d
+    body_sha: cdfb0a2d31e2
 ---
 
 # automation/Catzc.Base.Writers/private/Write-InformationColored.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `if (Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly...`.
+Above `if (Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly...`, written with `#`.
 
 ```text
 Suppress during Pester runs (flag set by Test-Automation). The single chokepoint for all writers,
@@ -21,9 +21,9 @@ so nothing routed through here can leak into test output. See .DESCRIPTION for w
 Read through Get-Variable: the flag is unset outside a test run, and strict mode rejects an unset variable.
 ```
 
-## comment:5
+## comment:2
 
-Above `$ansi = [Catzc.Base.Writers.Ansi]::Code($ForegroundColor)`.
+Above `$ansi = [Catzc.Base.Writers.Ansi]::Code($ForegroundColor)`, written with `#`.
 
 ```text
 The ConsoleColor -> ANSI SGR map lives once, in the Ansi type (shared with the rainbow writer),

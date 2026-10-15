@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/types/FunctionCallCollector.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/tests/types/FunctionCallCollector.Tests.ps1.md
+      source: automation/Catzc.Base.ModuleSystem/types/FunctionCallCollector.cs
 ---
 #>
 
-# FunctionCallCollector attributes every statically named call in a file to the top-level function whose body holds...
-# [comment:1](/docs/references/automation/catzc-base-modulesystem/tests/types/FunctionCallCollector.Tests.ps1.md#comment1)
 Describe 'FunctionCallCollector' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:collect = {

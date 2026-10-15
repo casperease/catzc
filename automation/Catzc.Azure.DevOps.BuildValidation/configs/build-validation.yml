@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md
 # ---
 
-# Entries are a list, not a map, because globset names are kebab-case and map keys must be snake_case.
-# [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md#comment1)
 branch: main
 validations:
   - globset: automation

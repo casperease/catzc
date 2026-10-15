@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Dotnet.Tests.ps1.md
+      source: automation/Catzc.Tooling.Toolchain/Uninstall-Dotnet.ps1
     adrs:
       - ADR-AUTO-REMOVE#4
       - ADR-AUTO-REMOVE#5
@@ -46,8 +49,6 @@ Describe 'Uninstall-Dotnet' -Tag 'L1', 'logic' {
         { Uninstall-Dotnet } | Should -Throw '*boom*'
     }
 
-    # The installed path: every boundary that touches state outside the repository is mocked — the folder delete, the...
-    # [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Dotnet.Tests.ps1.md#comment1)
     Context 'an installed SDK' {
         BeforeAll {
             $script:savedDotnetRoot = $env:DOTNET_ROOT

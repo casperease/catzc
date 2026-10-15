@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.Globs/types/GlobPattern.cs
     kind: csharp-type
     module: Catzc.Base.Globs
+    relatives:
+      page: docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md
+      test: automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
     adrs:
       - ADR-FLOW-CD-GLOBS
       - ADR-FLOW-CD-GLOBS#2
       - ADR-FLOW-CD-GLOBS#3
 ---
 */
-
-// The constructor is the gate: a malformed pattern never yields an instance, and the dialect has no escape character.
-// [comment:1](/docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md#comment1)
 
 using System;
 using System.Management.Automation;
@@ -76,8 +76,6 @@ public sealed class GlobPattern
             WildcardPattern wildcard = WildcardPattern.Get(segment, WildcardOptions.None);
             try
             {
-                // WildcardPattern parses lazily, so force the parse: a malformed segment must fail here, not at first match.
-                // [comment:2](/docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md#comment2)
                 wildcard.IsMatch(string.Empty);
             }
             catch (WildcardPatternException ex)
@@ -99,8 +97,6 @@ public sealed class GlobPattern
         return MatchFrom(0, repoRelativePath.Split('/'), 0);
     }
 
-    // A '**' tries every count of consumed path segments, zero included, and backtracks on failure.
-    // [comment:3](/docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md#comment3)
     private bool MatchFrom(int patternIndex, string[] path, int pathIndex)
     {
         while (patternIndex < segments.Length)

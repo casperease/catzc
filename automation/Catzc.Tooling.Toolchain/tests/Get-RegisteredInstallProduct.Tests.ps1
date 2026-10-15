@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1.md
+      source: automation/Catzc.Tooling.Toolchain/private/Get-RegisteredInstallProduct.ps1
     adrs:
       - ADR-AUTO-REMOVE#7
 ---
@@ -11,8 +14,6 @@ catzc:
 
 Describe 'Get-RegisteredInstallProduct' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#7' {
     BeforeEach {
-        # Two uninstall-registry views: the bundle registers only in the 32-bit one, its MSI in the 64-bit one, under...
-        # [comment:1](/docs/references/automation/catzc-tooling-toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1.md#comment1)
         $script:entries = @{
             '{widget-msi}'    = [pscustomobject]@{ DisplayName = 'Microsoft Widget Runtime - 6.0 (x64)'; DisplayVersion = '48.1'; WindowsInstaller = 1 }
             '{widget-bundle}' = [pscustomobject]@{

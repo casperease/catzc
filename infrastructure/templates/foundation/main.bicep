@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/templates/foundation/main.bicep
 //     kind: bicep-template
+//     relatives:
+//       page: docs/references/infrastructure/templates/foundation/main.bicep.md
 // ---
-
-// The Key Vault holds the shared SQL admin password that consuming templates reference.
-// [comment:1](/docs/references/infrastructure/templates/foundation/main.bicep.md#comment1)
 
 param location string = resourceGroup().location
 

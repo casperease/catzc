@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Install-Java.ps1.md
     kind: comment-page
-    body_sha: f26b7447431b
+    body_sha: "552beeb31318"
     adrs:
       - ADR-AUTO-CONSOLE#11
 ---
 
 # automation/Catzc.Tooling.Toolchain/Install-Java.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:3
+## comment:1
 
-Above `if ($env:JAVA_HOME -ne $javaHome) {`.
+Above `if ($env:JAVA_HOME -ne $javaHome) {`, written with `#`.
 
 ```text
 Set for current session. Each change is announced where it happens, and only when it changes something

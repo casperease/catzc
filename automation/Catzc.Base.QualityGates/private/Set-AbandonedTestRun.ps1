@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/private/Set-AbandonedTestRun.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Set-AbandonedTestRun.Tests.ps1
   config:
     synopsis: Marks every run under a report folder that says 'running' but whose owning process is gone as 'abandoned'.
     description: |-
@@ -61,8 +64,6 @@ function Set-AbandonedTestRun {
             continue
         }
 
-        # ConvertFrom-Json turns an ISO timestamp into a local DateTime, which would be written back with the local...
-        # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Set-AbandonedTestRun.ps1.md#comment3)
         $abandoned = [ordered]@{}
         foreach ($key in $manifest.Keys) {
             $value = $manifest[$key]

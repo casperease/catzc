@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Contracts/types/ContractFragment.cs
     kind: csharp-type
     module: Catzc.Base.Contracts
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/types/ContractFragment.cs.md
+      test: automation/Catzc.Base.Contracts/tests/types/ContractFragment.Tests.ps1
     adrs:
       - ADR-REPO-CONTRACT#6
 ---
 */
-
-// Matching is a key subset: the target may hold more keys and elements, and a null in the fragment pins only that its key exists.
-// [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractFragment.cs.md#comment1)
 
 using System;
 using System.Collections;

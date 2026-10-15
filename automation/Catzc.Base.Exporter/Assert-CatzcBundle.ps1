@@ -6,6 +6,9 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Exporter
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md
+      test: automation/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
     adrs:
       - ADR-AUTO-BUNDLE#5
       - ADR-PWSH-ENUM#3
@@ -71,8 +74,6 @@ function Assert-CatzcBundle {
         }
     }
 
-    # Every file once, build-relative and forward-slashed: the tests/ scan and the shipped type sources read it.
-    # [comment:3](/docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md#comment3)
     $files = foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @() -PruneVendor $false) {
         [System.IO.Path]::GetRelativePath($root, $file).Replace('\', '/')
     }
@@ -117,8 +118,6 @@ function Assert-CatzcBundle {
                 }
             }
 
-            # Stage the sources build.json records in the one layout Get-CombinedTypeHash reads...
-            # [comment:4](/docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md#comment4)
             $staging = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "catzc-types-$([System.Guid]::NewGuid().ToString('N'))")
             try {
                 $sourcesComplete = $true

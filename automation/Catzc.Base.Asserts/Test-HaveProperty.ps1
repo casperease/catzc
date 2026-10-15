@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Asserts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Asserts/tests/Test-HaveProperty.Tests.ps1
   config:
     synopsis: Tests whether an object has a specific property, or a nested chain of properties.
     parameters:

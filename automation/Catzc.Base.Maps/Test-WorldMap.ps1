@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Maps
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-DSGN-TRACK#1

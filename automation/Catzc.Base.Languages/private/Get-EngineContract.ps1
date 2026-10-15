@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Languages
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md
+      test: automation/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
     adrs:
       - ADR-AUTO-ENGINE
       - ADR-AUTO-GO#3
@@ -78,8 +81,6 @@ function Get-EngineContract {
         Resolve-EngineExecutable -Engine $model.Name
     }
 
-    # The entry the engine itself loads: pwsh the PowerShell entry; any other engine its own importer in the...
-    # [comment:4](/docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md#comment4)
     $entry = if ($model.Name -eq [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) {
         $powerShellEntry
     }

@@ -3,51 +3,31 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md
     kind: comment-page
-    body_sha: "6505e8983e4f"
+    body_sha: "30e4288af2cd"
     adrs:
-      - ADR-PWSH-ANNOUNCE#1
       - ADR-PWSH-FORMAT#6
 ---
 
 # automation/.scriptanalyzer/NoRawConsoleWrite.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Measure-NoRawConsoleWrite {`, written with `#`.
 
 ```text
-Every write to the console goes through the information stream, by way of the writer chokepoint
-(Write-Message -> Write-InformationColored -> Write-Information) —
-[ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1). Only there
-is the
-output controllable ($InformationPreference, -InformationAction, 6> redirection), silenced during a Pester
-run (the chokepoint guard), and headed with its caller. A write that goes around the stream bypasses all
-three, so this rule flags every way to do it:
-
-  - the commands Write-Host, Out-Host, Write-Progress and Clear-Host (and the clear / cls aliases);
-  - the [Console] write methods (Write, WriteLine, Clear, ResetColor, SetCursorPosition, Beep, ...), a write
-    through the raw writers ([Console]::Out.Write(...), [Console]::Error.WriteLine(...)), the raw streams
-    OpenStandardOutput / OpenStandardError, and any assignment to a [Console] property (title, colours,
-    cursor, encoding);
-  - the host's write methods ($Host.UI.Write*), the raw-UI mutators ($Host.UI.RawUI.Set* / Flush* /
-    Scroll*), and any assignment under $Host.UI.RawUI.
-
-Reading console state ([Console]::CursorLeft, $Host.UI.RawUI.WindowSize) is not a write and passes, and so is
-redirecting the console writer to capture output ([Console]::SetOut around a test). An inline dot without a
-line break is Write-Message '.' -NoHeader -NoNewline, so no case needs a raw write.
-
-This supersedes the built-in PSAvoidUsingWriteHost, which is excluded in PSScriptAnalyzerSettings.psd1: one
-rule owns the console bypass, and it covers every route, not only Write-Host.
-
-See ADR: [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1).
+.SYNOPSIS
+    Custom PSScriptAnalyzer rule: forbid writing to the console past the information stream.
+.DESCRIPTION
+    A raw write bypasses the stream, so it escapes output control, Pester silencing and the caller header.
+    [comment:1](/docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md#comment1)
 ```
 
 ## comment:2
 
-Above `$consoleWriterMembers = @('Out', 'Error')`.
+Above `$consoleWriterMembers = @('Out', 'Error')`, written with `#`.
 
 ```text
 [Console]::Out / [Console]::Error are raw writers only when written through; reading them (to save and
@@ -56,7 +36,7 @@ restore around a SetOut capture) writes nothing.
 
 ## comment:3
 
-Above `$isCandidate = {`.
+Above `$isCandidate = {`, written with `#`.
 
 ```text
 Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew

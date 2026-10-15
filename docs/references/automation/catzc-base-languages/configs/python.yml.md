@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/configs/python.yml.md
     kind: comment-page
-    body_sha: c3fa75021763
+    body_sha: "3b56749bfdc1"
     adrs:
       - ADR-AUTO-DEFAULT#6
 ---
 
 # automation/Catzc.Base.Languages/configs/python.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `dependencies:`.
+Above `dependencies:`, written with `#`.
 
 ```text
 The Python test workspace — the one declared source that New-PythonProject renders the uv workspace from: the root
@@ -34,7 +34,7 @@ one Python version, rendered as every member's requires-python.
 
 ## comment:2
 
-Above `dependencies:`.
+Above `dependencies:`, written with `#`.
 
 ```text
 root — the Python root folder, repository-relative: the test folders live in <root>/tests/<module>/, and the workspace
@@ -45,7 +45,7 @@ tooling folder. Declare it (e.g. `root: test/python`) only to place the Python r
 
 ## comment:3
 
-Above `dependencies:`.
+Above `dependencies:`, written with `#`.
 
 ```text
 The test dependencies every member requires: distribution name -> exact version. pytest runs the tests and ruff formats

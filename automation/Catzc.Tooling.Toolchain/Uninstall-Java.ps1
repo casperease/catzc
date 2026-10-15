@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-toolchain/Uninstall-Java.ps1.md
+      test: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
     adrs:
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-ONEJOB#5
@@ -40,13 +43,9 @@ function Uninstall-Java {
         [switch] $Force
     )
 
-    # Managed uninstall best-effort; with -Remove a failure is logged and the escalation proceeds, without -Remove it...
-    # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Java.ps1.md#comment5)
     try {
         Uninstall-Tool -Tool 'java' -Version $Version
 
-        # Clean up JAVA_HOME.
-        # [comment:6](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Java.ps1.md#comment6)
         if ($env:JAVA_HOME) {
             $env:JAVA_HOME = $null
             Write-Message 'Session: removed JAVA_HOME'

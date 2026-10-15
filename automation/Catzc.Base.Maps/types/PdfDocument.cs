@@ -5,13 +5,14 @@ catzc:
     path: automation/Catzc.Base.Maps/types/PdfDocument.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/PdfDocument.cs.md
+      test: automation/Catzc.Base.Maps/tests/types/PdfDocument.Tests.ps1
     adrs:
       - ADR-PWSH-TYPES#1
 ---
 */
 
-// No dates and a body-hash /ID, so the same pages always give the same bytes; the xref holds each object's exact offset.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/PdfDocument.cs.md#comment1)
 // cspell:ignore startxref endstream nendobj
 
 using System;

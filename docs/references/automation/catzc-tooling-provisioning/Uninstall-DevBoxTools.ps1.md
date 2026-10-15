@@ -3,35 +3,35 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md
     kind: comment-page
-    body_sha: "54d221153886"
+    body_sha: "255c52fcf955"
 ---
 
 # automation/Catzc.Tooling.Provisioning/Uninstall-DevBoxTools.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:5
+## comment:1
 
-Above `$order = @(Get-ToolInstallOrder)`.
+Above `$order = @(Get-ToolInstallOrder)`, written with `#`.
 
 ```text
 Version-locked tools in reverse dependency order. @() guards the empty/null case: [array]::Reverse
 throws on $null, and a single-element result would otherwise unwrap to a scalar (not an array).
 ```
 
-## comment:6
+## comment:2
 
-Above `if ((Test-ToolRequiresElevation $config) -and -not (Test-IsAdministrator)) {`.
+Above `if ((Test-ToolRequiresElevation $config) -and -not (Test-IsAdministrator)) {`, written with `#`.
 
 ```text
 Elevation-bound tools (admin_only machine-scope, or apt-get-routed Linux installs) need the same
 elevation to uninstall — skip and report in a non-elevated run.
 ```
 
-## comment:7
+## comment:3
 
-Above `$uninstallCmd = "Uninstall-$(Get-ToolCommandSuffix -Tool $toolName)"`.
+Above `$uninstallCmd = "Uninstall-$(Get-ToolCommandSuffix -Tool $toolName)"`, written with `#`.
 
 ```text
 Map the snake_case tools.yml key to its PascalCase command suffix, exactly as Install-DevBoxTools does

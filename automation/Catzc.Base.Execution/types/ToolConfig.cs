@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Execution/types/ToolConfig.cs
     kind: csharp-type
     module: Catzc.Base.Execution
+    relatives:
+      page: docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md
+      test: automation/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEPS#1
       - ADR-AUTO-PKGMGR#6
 ---
 */
-
-// An unknown key would be invisible to every caller, so the constructor rejects it and lists all violations at once.
-// [comment:1](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -36,8 +36,6 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // The locked version the tool must satisfy. Required.
     public string version { get; }
 
-    // A pipeline ignores this lever and enforces version alone, so a devbox-only version never passes CI.
-    // [comment:2](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment2)
     public string devbox_version { get; }
 
     // The command/executable name used to invoke the tool. Required.
@@ -67,20 +65,12 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // npm package name. Null when npm is not an install path.
     public string npm_package { get; }
 
-    // Isolated env per tool, so its dependencies cannot collide with the shared managed Python.
-    // [comment:3](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment3)
     public string uv_tool { get; }
 
-    // Without it uv refuses a pre-release in the dependency tree, such as the azure-batch beta behind azure-cli.
-    // [comment:4](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment4)
     public bool uv_allow_prerelease { get; }
 
-    // A uv-tool shim in the local bin breaks CLIs that expect python.exe beside their launcher, as az.bat does.
-    // [comment:5](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment5)
     public string uv_venv { get; }
 
-    // ToolsConfig rejects a python pin above this, keeping Python off a release a dependent cannot use.
-    // [comment:6](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment6)
     public string max_python { get; }
 
     // True when this tool is Python itself, provisioned by `uv python install --default`. Null/false otherwise.
@@ -89,66 +79,42 @@ public sealed class ToolConfig : Catzc.Base.Objects.DictionaryRecord
     // True when the tool is installed via a bespoke script rather than a package manager.
     public bool script_install { get; }
 
-    // Asserted and kept on PATH through session_path_hints, but never installed, as winget is on Windows.
-    // [comment:7](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment7)
     public bool system_provided { get; }
 
     // True when the tool exists only on Windows — skipped on macOS/Linux by the provisioning and status loops.
     public bool windows_only { get; }
 
-    // Install asserts elevation, and the provisioning loops skip and report the tool when not elevated.
-    // [comment:8](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment8)
     public bool admin_only { get; }
 
-    // Test-ToolRequiresElevation honours it only on Linux, because the Windows and macOS installs stay user-space.
-    // [comment:9](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment9)
     public bool linux_admin_only { get; }
 
-    // Declared together with msys2_sha256, which the download is verified against before anything is extracted.
-    // [comment:10](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment10)
     public string msys2_url { get; }
     public string msys2_sha256 { get; }
 
-    // Relative to LOCALAPPDATA, and also the tree an msys2 tool installs into, not only a script-installed tool's home.
-    // [comment:11](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment11)
     public string windows_install_dir { get; }
 
     // The install directory on Unix. Null when not applicable.
     public string unix_install_dir { get; }
 
-    // ToolsConfig checks that it names a declared tool, so a typo fails validation instead of a later install.
-    // [comment:12](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment12)
     public string depends_on { get; }
 
-    // Applies only when the tool is otherwise unresolvable on PATH, such as nvm-managed node under ProgramFiles.
-    // [comment:13](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment13)
     public string[] session_path_hints { get; }
 
-    // The first probe any home satisfies wins, so a dotnet SDK at the locked version beats a runtime-only host.
-    // [comment:14](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment14)
     public string[] session_host_probes { get; }
 
-    // The first existing candidate wins, then PATH; a tool with no candidates on this platform is found on PATH alone.
-    // [comment:15](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment15)
     public string[] windows_probes { get; }
     public string[] windows_pipeline_probes { get; }
     public string[] unix_probes { get; }
     public string[] unix_pipeline_probes { get; }
 
-    // For bash this is the WSL launcher in System32, which is not Git Bash and must never count as the tool.
-    // [comment:16](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment16)
     public string[] probe_excludes { get; }
 
-    // A tool without probes is located by its bare command name on PATH instead.
-    // [comment:17](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment17)
     public bool HasProbes()
     {
         return windows_probes.Length > 0 || windows_pipeline_probes.Length > 0 || unix_probes.Length > 0
             || unix_pipeline_probes.Length > 0 || probe_excludes.Length > 0;
     }
 
-    // ToolsConfig requires it of every shipped entry, so a tool nobody can install fails validation.
-    // [comment:18](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment18)
     public bool HasInstallMechanism()
     {
         return winget_id != null || brew_formula != null || apt_package != null || pip_package != null

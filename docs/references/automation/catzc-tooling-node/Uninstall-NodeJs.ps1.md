@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-node/Uninstall-NodeJs.ps1.md
     kind: comment-page
-    body_sha: "20e47d9821ef"
+    body_sha: "6bb2016d2353"
     adrs:
       - ADR-AUTO-ONEJOB#5
       - ADR-AUTO-REMOVE#5
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Tooling.Node/Uninstall-NodeJs.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `try {`.
+Above `try {`, written with `#`.
 
 ```text
 Managed uninstall best-effort; with -Remove a failure (a foreign install) is logged and the escalation

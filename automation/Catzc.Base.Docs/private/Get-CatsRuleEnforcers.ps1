@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1
     adrs:
       - ADR-AUTO-NOPWD#1
       - ADR-CONF-LOADING#6
@@ -42,8 +45,6 @@ function Get-CatsRuleEnforcers {
     # The test citations are read from the source tree's *.Tests.ps1 files, which a built package does not ship.
     Assert-SourceTree
 
-    # strict-clean
-    # [comment:4](/docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md#comment4)
     $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:catsRuleEnforcersCache')
     if ($null -ne $cached) {
         return $cached
@@ -69,8 +70,6 @@ function Get-CatsRuleEnforcers {
         }
     }
 
-    # Test enforcers — the `-Tag` citations of Describe/Context/It, read by AST so a citation-shaped fixture string...
-    # [comment:5](/docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md#comment5)
     $isCommand = { param($node) $node -is [System.Management.Automation.Language.CommandAst] }
     $isString = { param($node) $node -is [System.Management.Automation.Language.StringConstantExpressionAst] }
     $automationRoot = Resolve-RepoPath 'automation'

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Clear-TempFolders.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/tests/Clear-TempFolders.Tests.ps1.md
+      source: automation/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
 ---
 #>
 
@@ -25,8 +28,6 @@ Describe 'Clear-TempFolders' -Tag 'L0', 'logic' {
     }
 
     It 'leaves a locked file in place and counts it as skipped' {
-        # FileShare.None is a MANDATORY lock only on Windows; on Unix it is advisory and does not block delete, so...
-        # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Clear-TempFolders.Tests.ps1.md#comment1)
         if (-not $IsWindows) {
             Set-ItResult -Skipped -Because 'windows_only_file_lock'; return
         }
@@ -71,8 +72,6 @@ Describe 'Clear-TempFolders' -Tag 'L0', 'logic' {
         New-Item -ItemType Directory -Path $folder | Out-Null
         Set-Content -Path (Join-Path $folder 'once.tmp') -Value 'x'
 
-        # The third entry is the same folder with a trailing separator (dedup must canonicalize it away).
-        # [comment:2](/docs/references/automation/catzc-tooling-provisioning/tests/Clear-TempFolders.Tests.ps1.md#comment2)
         $result = Clear-TempFolders -Path @($folder, $folder, ($folder + [System.IO.Path]::DirectorySeparatorChar))
 
         $result.Removed | Should -Be 1

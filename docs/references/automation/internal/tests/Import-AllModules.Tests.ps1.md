@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Import-AllModules.Tests.ps1.md
-    kind: test-asset
-    body_sha: "450a2b29c764"
+    kind: comment-page
+    body_sha: "04d9bb4ffa57"
     adrs:
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-TEST#26
@@ -11,12 +11,12 @@ catzc:
 
 # automation/.internal/tests/Import-AllModules.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$sandbox = Join-Path ([System.IO.Path]::GetTempPath())...`.
+Above `$sandbox = Join-Path ([System.IO.Path]::GetTempPath())...`, written with `#`.
 
 ```text
 Build an isolated sandbox = importer + the .internal shared modules (loader, bootstrap, …) + vendor, with
@@ -28,7 +28,7 @@ needs from a single import, then asserts the facets in separate It blocks.
 
 ## comment:2
 
-Above `Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.internal')...`.
+Above `Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.internal')...`, written with `#`.
 
 ```text
 Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse: .vendor (Pester + powershell-yaml, ~88
@@ -37,7 +37,7 @@ files) copies in ~190ms vs ~1.25s with the cmdlet.
 
 ## comment:3
 
-Above `$script:moduleListExpr =`.
+Above `$script:moduleListExpr =`, written with `#`.
 
 ```text
 Expression (run inside the child) that lists the loaded application modules and their exported functions.
@@ -46,7 +46,7 @@ Bootstrap and the vendored modules are filtered out; $_ is escaped so it evaluat
 
 ## comment:4
 
-Above `param([Parameter(Mandatory)][string]$Capture)`.
+Above `param([Parameter(Mandatory)][string]$Capture)`, written with `#`.
 
 ```text
 ONE cold import in a child pwsh; $Capture is evaluated AFTER the import and returned as parsed JSON. The
@@ -57,7 +57,7 @@ import's announcements are information records
 
 ## comment:5
 
-Above `BeforeAll {`.
+Above `BeforeAll {` (occurrence 2), written with `#`.
 
 ```text
 One import of a rich tree covers discovery, public export, the public/private boundary, a private
@@ -67,7 +67,7 @@ falsely-giving-positives on a private name shared across modules (the import sim
 
 ## comment:6
 
-Above `($modules | Where-Object { $_.Name -eq 'PrivA' }).Exported | Should -Contain...`.
+Above `($modules | Where-Object { $_.Name -eq 'PrivA' }).Exported | Should -Contain...`, written with `#`.
 
 ```text
 The import above succeeded with PrivA and PrivB each defining a private Get-Shared; both modules
@@ -76,7 +76,7 @@ loaded and neither exports it — proving the collision guard ignores module-sco
 
 ## comment:7
 
-Above `BeforeAll {`.
+Above `BeforeAll {` (occurrence 3), written with `#`.
 
 ```text
 Mutate the populated tree every way an author can, then re-import: one cold import must reflect a
@@ -85,7 +85,7 @@ changed body, an added function, a deleted function, and a deleted module.
 
 ## comment:8
 
-Above `Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {`.
+Above `Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {`, written with `#`.
 
 ```text
 Greedy: one child pwsh dot-sources three importers in sequence (process-global module state), so it consumes the
@@ -95,7 +95,7 @@ machine beyond its own process and carries an L2-scale budget
 
 ## comment:9
 
-Above `function New-EvictionRoot {`.
+Above `function New-EvictionRoot {`, written with `#`.
 
 ```text
 Two complete sandbox roots (importer + .internal + .vendor) — stand-ins for a source tree and a build.

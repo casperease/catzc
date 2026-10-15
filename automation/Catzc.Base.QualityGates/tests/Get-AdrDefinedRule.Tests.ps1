@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-AdrDefinedRule.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.QualityGates/private/Get-AdrDefinedRule.ps1
     adrs:
       - ADR-REPO-LINK#5
 ---

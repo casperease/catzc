@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Timeouts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Timeouts/tests/Assert-CompletesWithin.Tests.ps1
   config:
     synopsis: Asserts that a script block finishes within a time limit; past it the work is stopped and the assert throws.
     description: |-

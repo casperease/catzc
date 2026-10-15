@@ -10,14 +10,6 @@ catzc:
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 . (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
-<#
-.SYNOPSIS
-    Custom PSScriptAnalyzer rule: a function file reads a lazy $script: cache entry only after probing or assigning it.
-.DESCRIPTION
-    Nothing declares a cache entry at import, so the first read of an unset entry throws under strict mode.
-    [comment:1](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment1)
-#>
-
 function Measure-NoBareCacheEntryRead {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
@@ -29,16 +21,12 @@ function Measure-NoBareCacheEntryRead {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
 
-    # A Describe call marks a Pester file when an editor buffer has no file name; other in-memory code is analysed.
-    # [comment:2](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment2)
     $path = "$($ScriptBlockAst.Extent.File)"
     if ($path.EndsWith('.psm1', [System.StringComparison]::OrdinalIgnoreCase) -or
         (Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst)) {
         return $results.ToArray()
     }
 
-    # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [comment:3](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment3)
     $isFunction = {
         param($node)
         $node -is [System.Management.Automation.Language.FunctionDefinitionAst]
@@ -52,8 +40,6 @@ function Measure-NoBareCacheEntryRead {
         $node -is [System.Management.Automation.Language.VariableExpressionAst] -and $node.VariablePath.IsScript
     }
 
-    # Covers a psm1 analysed as an in-memory buffer, where the file name and so the skip above is lost.
-    # [comment:4](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment4)
     $declared = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($assignment in $ScriptBlockAst.FindAll($isAssignment, $false)) {
         $left = $assignment.Left

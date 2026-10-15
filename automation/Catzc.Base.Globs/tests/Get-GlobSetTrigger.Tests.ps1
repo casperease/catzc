@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md
+      source: automation/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
     adrs:
       - ADR-FLOW-CD-GLOBS#1
 ---
 #>
 
-# Get-GlobSetTrigger: project a globset's scan program into vendor-native path filters — GitHub ordered '!'-negation...
-# [comment:1](/docs/references/automation/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md#comment1)
 Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {
     It 'projects a simple single-include set to both dialects' {
         $t = & (Get-Module Catzc.Base.Globs) {
@@ -33,8 +34,6 @@ Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {
     }
 
     It 'nets a base exclude that a later include re-adds to an ADO include (the compose re-add case)' {
-        # A base drops configuration/*/**; a unit re-adds its own configuration/widget/** on top.
-        # [comment:2](/docs/references/automation/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md#comment2)
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
                     'base' = @{ description = 'b'; layer = 'deployable-unit'; include = @('lib/**'); exclude = @('lib/configuration/*/**') }
@@ -49,8 +48,6 @@ Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {
     }
 
     It 'collapses an exclude re-added at the SAME pattern to a net include (no contradictory ADO entry)' {
-        # The 'shared'-shaped case: base excludes configuration/*.yml, the unit re-adds the identical pattern.
-        # [comment:3](/docs/references/automation/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md#comment3)
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = [ordered]@{
                     'base' = @{ description = 'b'; layer = 'deployable-unit'; include = @('lib/**'); exclude = @('lib/configuration/*.yml') }

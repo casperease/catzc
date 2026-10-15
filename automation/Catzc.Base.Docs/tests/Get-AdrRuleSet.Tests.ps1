@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Get-AdrRuleSet.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md
+      source: automation/Catzc.Base.Docs/Get-AdrRuleSet.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#35
@@ -11,8 +14,6 @@ catzc:
 ---
 #>
 
-# Get-AdrRuleSet over a fixture AdrsConfig (Get-Config mocked): the flattening and effective codes are AdrsConfig...
-# [comment:1](/docs/references/automation/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md#comment1)
 Describe 'Get-AdrRuleSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
@@ -50,8 +51,6 @@ Describe 'Get-AdrRuleSet' -Tag 'L0', 'logic' {
     }
 }
 
-# Integrity: adrs.yml and the ADR rule files agree, through the quality gate Test-AdrRegistry.
-# [comment:2](/docs/references/automation/catzc-base-docs/tests/Get-AdrRuleSet.Tests.ps1.md#comment2)
 Describe 'Get-AdrRuleSet integrity' -Tag 'L1', 'integrity', 'ADR-CONF-LOADING#4' {
     It 'Test-AdrRegistry reports no issue: one ADR file per rule set, headed by its external code, none unregistered' {
         (Test-AdrRegistry -PassThru -OutputFolder (Join-Path $TestDrive 'adr-registry')).IssueCount | Should -Be 0

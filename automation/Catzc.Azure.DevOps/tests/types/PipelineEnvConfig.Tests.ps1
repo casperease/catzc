@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/types/PipelineEnvConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/tests/types/PipelineEnvConfig.Tests.ps1.md
+      source: automation/Catzc.Azure.DevOps/types/PipelineEnvConfig.cs
 ---
 #>
 
-# The pipeline-env.yml type: constructing it maps and validates the parsed YAML, so a malformed whitelist never loads...
-# [comment:1](/docs/references/automation/catzc-azure-devops/tests/types/PipelineEnvConfig.Tests.ps1.md#comment1)
 Describe 'Catzc.Azure.DevOps.PipelineEnvConfig' -Tag 'L0' {
     BeforeAll {
         function Get-ViolationMessage {

@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation/tests/Unregister-AdoBuildValidation.Tests.ps1.md
-    kind: test-asset
-    body_sha: f1b9f73afd14
+    kind: comment-page
+    body_sha: "9b1995a20422"
     adrs:
       - ADR-AUTO-IDEM#2
 ---
 
 # automation/Catzc.Azure.DevOps.BuildValidation/tests/Unregister-AdoBuildValidation.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Unregister-AdoBuildValidation' -Tag 'L0', 'logic' {`.
+Above `Describe 'Unregister-AdoBuildValidation' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Removal by the globset tie (the native path-filter projection): deletes the matched policy, no-ops when

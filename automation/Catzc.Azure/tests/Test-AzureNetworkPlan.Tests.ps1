@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md
+      source: automation/Catzc.Azure/Test-AzureNetworkPlan.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AZ-NETWORK#2
@@ -12,8 +15,6 @@ catzc:
 ---
 #>
 
-# Test-AzureNetworkPlan and its join (Get-NetworkPlanViolations) over typed fixture configs with Greek environment...
-# [comment:1](/docs/references/automation/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md#comment1)
 Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
     BeforeAll {
         $environment = { param($code) [ordered]@{ shortcode = $code; region = 'westeurope'; region_code = 'weu' } }
@@ -56,8 +57,6 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
             }
             [ordered]@{ kind = 'spoke'; vnet_address_space = "10.$Octet.0.0/16"; subnets = $subnets }
         }
-        # The plan for the fixture: environment entries by name, plus the subscription block (the in-sync one when...
-        # [comment:2](/docs/references/automation/catzc-azure/tests/Test-AzureNetworkPlan.Tests.ps1.md#comment2)
         $script:plan = {
             param([string[]] $Names, [System.Collections.IDictionary] $Subscriptions)
             $map = [ordered]@{}

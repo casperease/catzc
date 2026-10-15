@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/CatzcRules.psm1.md
     kind: comment-page
-    body_sha: fcfaf4a5a410
+    body_sha: "675d40d989f6"
 ---
 
 # automation/.scriptanalyzer/CatzcRules.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `$script:measures = $null`.
+Above `$script:measures = $null`, written with `#`.
 
 ```text
 The check modules' Measure-* functions, loaded on the first root block (see Measure-CatzcRules); declared at load so
@@ -22,27 +22,21 @@ the guard reads it strict-clean.
 
 ## comment:2
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Measure-CatzcRules {`, written with `#`.
 
 ```text
-PSScriptAnalyzer calls a script rule once for every ScriptBlockAst in a file (the file, each function body, each
-script block literal) and pays a fixed cost per call, even for a rule that does nothing. This entry rule acts only
-on the file's root block and hands it to each check, so every check runs once per file and walks the whole tree
-from there.
-
-The engine loads this module far more often than it hands it a root block (measured: 404 loads for 124 files),
-and loading the check modules costs ~65 ms per load — ~4x the checks' own run time. So the checks load lazily,
-on the first root block a loaded copy of this module sees, never at module load.
-
-Each check lives in its own module next to this one, with its own tests, and keeps its own RuleName on the records
-it emits. Diagnostics, SuppressMessageAttribute('Measure-<Check>', …) and analyzer-adr-map.yml all name the check,
-never this entry rule. Add a new check module to $checks above (every Measure-* function it exports runs); the
-engine-wiring test (CustomRuleWiring.Tests.ps1) proves each check fires through the engine.
+.SYNOPSIS
+    The one custom PSScriptAnalyzer rule the settings load: runs every repository check once per file.
+.DESCRIPTION
+    One entry rule acting only on the root block, so each check runs once per file instead of once per script block.
+    [comment:2](/docs/references/automation/scriptanalyzer/CatzcRules.psm1.md#comment2)
+.PARAMETER ScriptBlockAst
+    The script block the engine hands the rule; only a file's root block (no parent) is acted on.
 ```
 
 ## comment:3
 
-Above `if ($null -eq $script:measures) {`.
+Above `if ($null -eq $script:measures) {`, written with `#`.
 
 ```text
 Each check module loads nested in this one, so its Measure-* functions are visible here but not exported to the

@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md
     kind: comment-page
-    body_sha: "5c4fe675c1cc"
+    body_sha: f694fa908eab
 ---
 
 # automation/Catzc.Azure/Get-AzureSubscription.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:3
+## comment:1
 
-Above `$customerToken = Get-AzureSubscriptionCustomer $found`.
+Above `$customerToken = Get-AzureSubscriptionCustomer $found`, written with `#`.
 
 ```text
 The subscription's `customer` field may name a customer by its key OR its 2-char shortcode; normalize

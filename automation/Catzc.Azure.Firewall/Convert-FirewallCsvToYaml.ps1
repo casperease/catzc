@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Firewall
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md
+      test: automation/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1
     adrs:
       - ADR-PWSH-PARAM#4
   config:
@@ -92,14 +95,10 @@ function Convert-FirewallCsvToYaml {
             $YamlPath = Join-Path $OutputFolder $yamlName
         }
 
-        # A body fill-in on purpose: in Object mode $CsvPath comes from pipeline input, bound after defaults are...
-        # [comment:6](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment6)
         if (-not $SourceName) {
             $SourceName = Split-Path -Path $CsvPath -Leaf
         }
 
-        # In Object mode CsvPath comes from the piped object (the Path set is ValidateScript'd); assert it exists...
-        # [comment:7](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment7)
         Assert-PathExist $CsvPath -PathType Leaf
 
         $rules = Import-Csv -Path $CsvPath | ForEach-Object {
@@ -125,8 +124,6 @@ function Convert-FirewallCsvToYaml {
 
         $yaml = ConvertTo-Yaml -Data $rules
 
-        # Provenance as a YAML comment header — visible to readers, ignored by parsers, so the parsed shape stays a...
-        # [comment:8](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment8)
         $header = [System.Collections.Generic.List[string]]::new()
         $header.Add("# Source: $SourceName")
         if ($null -ne $GeneratedAt) {

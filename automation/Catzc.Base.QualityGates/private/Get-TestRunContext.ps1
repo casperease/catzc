@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-TestRunContext.Tests.ps1
   config:
     synopsis: 'Collects the facts that say what a test run is and where it runs: its context block.'
     description: |-

@@ -6,6 +6,8 @@ catzc:
     kind: writer-function
     module: Catzc.Tooling.Github
     visibility: public
+    relatives:
+      test: automation/Catzc.Tooling.Github/tests/New-SyntheticHistory.Tests.ps1
   config:
     synopsis: |-
       Rebuilds a repository's history as a fresh, backdated, single-author orphan

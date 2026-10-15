@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Timeouts
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Timeouts/tests/Invoke-WithTimeout.Tests.ps1
   config:
     synopsis: 'Runs a script block inside a time safeguard: past its limit it is stopped and the call throws.'
     description: |-

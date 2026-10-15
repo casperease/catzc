@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md
     kind: comment-page
-    body_sha: "78fb1eab09ea"
+    body_sha: "964a8351c982"
 ---
 
 # automation/Catzc.Base.Objects/types/ConsoleText.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The shared console rendering of every catzc C# type, so an object held in pwsh reads as one clean line
@@ -39,7 +39,7 @@ A rendering never throws for a value: a getter that throws renders as !<Exceptio
 
 ## comment:2
 
-Above `private static bool IsDataProperty(PropertyInfo property)`.
+Above `private static bool IsDataProperty(PropertyInfo property)`, written with `//`.
 
 ```text
 A public readable non-indexer property the type declares — not DictionaryRecord's own view members
@@ -48,7 +48,7 @@ A public readable non-indexer property the type declares — not DictionaryRecor
 
 ## comment:3
 
-Above `private static bool IsHidden(PropertyInfo property)`.
+Above `private static bool IsHidden(PropertyInfo property)`, written with `//`.
 
 ```text
 PowerShell's [Hidden], matched by name so this file stays BCL-only: the Bash time-safeguard hook compiles

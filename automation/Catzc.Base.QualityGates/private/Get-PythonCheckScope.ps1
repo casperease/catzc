@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Get-PythonCheckScope.Tests.ps1
     adrs:
       - ADR-AUTO-PY#8
   config:

@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrCitationChange.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrCitationChange.cs.md
     adrs:
       - ADR-AUTO-TYPES#9
 ---
 */
-
-// An Unhandled change carries no new text: the reference is left as written for a person to resolve.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationChange.cs.md#comment1)
 
 using System;
 

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md
+      test: automation/Catzc.Tooling.Core/tests/Resolve-SessionToolHost.Tests.ps1
   config:
     synopsis: Points the current session at the best install home of a tool, chosen by its session_host_probes.
     description: |-
@@ -107,7 +110,5 @@ function Resolve-SessionToolHost {
         Write-Message "Session PATH: $($Config.command) now runs from '$chosen'"
     }
 
-    # -First 1: the command may still resolve in more than one PATH dir — an array's.Source would break the [string]...
-    # [comment:3](/docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md#comment3)
     Get-Command $Config.command -CommandType Application -ErrorAction Ignore | Select-Object -First 1
 }

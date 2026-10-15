@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Writers
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Writers/tests/Write-Exception.Tests.ps1
   config:
     synopsis: Displays exception details for use in catch blocks.
     description: |-

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Objects
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Objects/tests/ConvertTo-FlatSettingSet.Tests.ps1
   config:
     synopsis: Flattens a nested object into an ordered dictionary of dot-notation key/value pairs.
     description: |-

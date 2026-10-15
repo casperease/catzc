@@ -2,20 +2,20 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/tests/Get-Contract.Repository.Tests.ps1.md
-    kind: test-asset
-    body_sha: a8353f2eb60b
+    kind: comment-page
+    body_sha: "4735ce043b94"
     adrs:
       - ADR-REPO-CONTRACT#2
 ---
 
 # automation/Catzc.Base.Contracts/tests/Get-Contract.Repository.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Get-Contract on the repository' -Tag 'L1', 'integrity',...`.
+Above `Describe 'Get-Contract on the repository' -Tag 'L1', 'integrity',...`, written with `#`.
 
 ```text
 Get-Contract runs on the repository's own contracts/ tree

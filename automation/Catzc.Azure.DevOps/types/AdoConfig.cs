@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Azure.DevOps/types/AdoConfig.cs
     kind: csharp-type
     module: Catzc.Azure.DevOps
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/types/AdoConfig.cs.md
+      test: automation/Catzc.Azure.DevOps/tests/types/AdoConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// Any key beyond organization, project and tenant fails fast at load, so a misspelled key is never silently ignored.
-// [comment:1](/docs/references/automation/catzc-azure-devops/types/AdoConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

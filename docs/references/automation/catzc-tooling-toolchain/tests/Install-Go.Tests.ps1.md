@@ -2,18 +2,18 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Go.Tests.ps1.md
-    kind: test-asset
-    body_sha: "2d01226bc590"
+    kind: comment-page
+    body_sha: ff7dee7c80a0
 ---
 
 # automation/Catzc.Tooling.Toolchain/tests/Install-Go.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Install-Go' -Tag 'L1', 'logic' {`.
+Above `Describe 'Install-Go' -Tag 'L1', 'logic' {`, written with `#`.
 
 ```text
 Hermetic logic (L1): the release feed (Get-GoRelease), the verified download, the version and tar runs

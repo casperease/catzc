@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Docs/tests/Get-GlossarySources.Tests.ps1
     adrs:
       - ADR-CONF-LOADING#1
       - ADR-REPO-VOCAB#2

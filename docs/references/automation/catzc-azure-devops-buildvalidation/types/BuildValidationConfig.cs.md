@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationConfig.cs.md
     kind: comment-page
-    body_sha: "2ce207278724"
+    body_sha: "61cf9dc806ca"
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-FLOW-CD-TYPE#4
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The build-validation branch policies (configs/build-validation.yml): the local config that ties ADO

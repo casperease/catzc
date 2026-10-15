@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vendor/configs/vendor.yml.md
     kind: comment-page
-    body_sha: a94697cc3926
+    body_sha: "6c4b6dc89aff"
 ---
 
 # automation/Catzc.Base.Vendor/configs/vendor.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `source: PSGallery`.
+Above `source: PSGallery`, written with `#`.
 
 ```text
 Vendor module source — where Install-VendorModule downloads from and Remove-VendorModules validates against
@@ -23,7 +23,7 @@ validated by the VendorConfig type. Read only through the module's functions.
 
 ## comment:2
 
-Above `source: PSGallery`.
+Above `source: PSGallery`, written with `#`.
 
 ```text
 The registered PSResourceRepository to download from and validate against. PSGallery is the built-in default
@@ -32,7 +32,7 @@ and needs no url.
 
 ## comment:3
 
-At the end of the file.
+At the end of the file, written with `#`.
 
 ```text
 Optional custom repository url (an Artifactory / proxy feed). Undefined by default — set it to point the

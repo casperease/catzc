@@ -3,13 +3,13 @@
 #   derived:
 #     path: automation/Catzc.Base.Execution/configs/tools.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-execution/configs/tools.yml.md
 # ---
 
 winget:
   version: "1"
   command: winget
-  # winget is the install prerequisite of the winget-based tools, so the hint recovers it when WindowsApps leaves PATH.
-  # [comment:1](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment1)
   system_provided: true
   windows_only: true
   version_command: "winget --version"
@@ -18,15 +18,11 @@ winget:
     - "%LOCALAPPDATA%\\Microsoft\\WindowsApps"
 
 bash:
-  # Never installed by the toolchain: macOS ships bash 3.2, so a Mac devbox needs brew's bash 5.
-  # [comment:2](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment2)
   version: "5"
   command: bash
   system_provided: true
   version_command: "bash --version"
   version_pattern: "version (?<ver>[\\d.]+)"
-  # Never the bare name alone: bash on a Windows PATH is usually the WSL launcher, which probe_excludes rules out.
-  # [comment:3](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment3)
   windows_probes:
     - "%LOCALAPPDATA%\\Programs\\Git\\bin\\bash.exe"
     - "%LOCALAPPDATA%\\Git\\bin\\bash.exe"
@@ -46,12 +42,8 @@ bash:
     - "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\bash.exe"
 
 zsh:
-  # zsh is the third execution engine, and the checker of the repository's zsh scripts.
-  # [comment:4](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment4)
   version: "5"
   command: zsh
-  # Install-Zsh must run after Install-Git, whose force install replaces the tree; depends_on bash orders it there.
-  # [comment:5](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment5)
   depends_on: bash
   linux_admin_only: true
   apt_package: "zsh"
@@ -60,8 +52,6 @@ zsh:
   windows_install_dir: "Git"
   version_command: "zsh --version"
   version_pattern: "^zsh (?<ver>[\\d.]+)"
-  # Install-Zsh leaves PATH alone, so these candidates are the only way a fresh install is found.
-  # [comment:6](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment6)
   windows_probes:
     - "%LOCALAPPDATA%\\Git\\usr\\bin\\zsh.exe"
     - "%LOCALAPPDATA%\\Programs\\Git\\usr\\bin\\zsh.exe"
@@ -77,12 +67,8 @@ zsh:
     - "/bin/zsh"
 
 python:
-  # One release behind the latest: the az_cli venv runs on this Python, and the max_python gate fails a bump past it.
-  # [comment:7](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment7)
   version: "3.13"
   command: python
-  # uv installs a global python and python3 shim into its own bin, so uv has to be present first.
-  # [comment:8](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment8)
   depends_on: uv
   uv_python: true
   version_command: "python --version"
@@ -91,12 +77,8 @@ python:
 dotnet:
   version: "10.0"
   command: dotnet
-  # The install dir defaults per platform, and windows_install_dir or unix_install_dir overrides it when needed.
-  # [comment:9](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment9)
   script_install: true
   windows_install_dir: "Microsoft\\dotnet"
-  # A machine-wide dotnet precedes the user PATH on Windows, so an SDK at the locked version wins; a runtime-only host never does.
-  # [comment:10](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment10)
   session_host_probes:
     - "sdk/{version}"
     - "shared/Microsoft.NETCore.App/{version}"
@@ -105,16 +87,10 @@ dotnet:
 
 az_cli:
   version: "2.87"
-  # A pipeline ignores this lever and enforces version alone, so main builds stay locked while a devbox may run 2.84.
-  # [comment:11](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment11)
   devbox_version: "2.84"
   command: az
-  # az.bat runs the python.exe beside it, so a dedicated venv is needed; a uv tool shim would grab uv's default python.
-  # [comment:12](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment12)
   depends_on: uv
   uv_venv: azure-cli
-  # The venv runs on the python pin, so this caps how far Python may be bumped; ToolsConfig fails the build past it.
-  # [comment:13](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment13)
   max_python: "3.13"
   # azure-cli's dependency tree pins a pre-release (azure-batch beta), which uv refuses by default.
   uv_allow_prerelease: true
@@ -127,32 +103,22 @@ az_cli:
 poetry:
   version: "2.4"
   command: poetry
-  # Depends on uv, not python: uv brings its own Python for the isolated tool env.
-  # [comment:14](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment14)
   depends_on: uv
   uv_tool: poetry
   version_command: "poetry --version"
   version_pattern: "^Poetry \\(version (?<ver>.+)\\)$"
 
 node_js:
-  # The LTS alias moves with each LTS, so bump version when the LTS passes 24, or the installed version fails the pin.
-  # [comment:15](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment15)
   version: "24"
   command: node
   depends_on: winget
   winget_id: "OpenJS.NodeJS.LTS"
   winget_scope: user
   brew_formula: "node@{0}"
-  # The distro nodejs package lags the pin badly, so Install-NodeJs configures the NodeSource apt repo for the locked major.
-  # [comment:16](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment16)
   apt_package: "nodejs"
-  # Elevation is Linux-only, so a non-elevated Linux provision skips and reports the tool instead of failing the run.
-  # [comment:17](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment17)
   linux_admin_only: true
   version_command: "node --version"
   version_pattern: "^v(?<ver>.+)$"
-  # The janitor points the session at this nvm symlink only when winget node is absent, so an nvm devbox keeps node.
-  # [comment:18](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment18)
   session_path_hints:
     - "%ProgramFiles%\\nodejs"
 
@@ -169,8 +135,6 @@ markdownlint:
   command: markdownlint-cli2
   depends_on: node_js
   npm_package: markdownlint-cli2
-  # The banner holds two versions, so the pattern takes the digits after the first v; the match is unanchored.
-  # [comment:19](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment19)
   version_command: "markdownlint-cli2 --version"
   version_pattern: "v(?<ver>[\\d.]+)"
 
@@ -189,8 +153,6 @@ terraform:
   winget_id: "Hashicorp.Terraform"
   winget_scope: user
   brew_formula: "hashicorp/tap/terraform"
-  # Install-Terraform configures the HashiCorp apt repo inline, which needs root, so elevation is Linux-only.
-  # [comment:20](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment20)
   linux_admin_only: true
   version_command: "terraform --version"
   version_pattern: "^Terraform v(?<ver>[\\d.]+)"
@@ -200,8 +162,6 @@ java:
   command: java
   depends_on: winget
   winget_id: "Microsoft.OpenJDK.{0}"
-  # Only a machine-scope installer exists, so a user-scope install finds none and the tool needs Administrator.
-  # [comment:21](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment21)
   admin_only: true
   brew_formula: "openjdk@{0}"
   apt_package: "openjdk-{0}-jdk"
@@ -209,25 +169,17 @@ java:
   version_pattern: "(?<ver>[\\d.]+)"
 
 go:
-  # Go here is test artifacts only and never ships; Install-Go takes the newest patch of this minor.
-  # [comment:22](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment22)
   version: "1.27"
   command: go
-  # The archive is verified against the SHA-256 the go.dev release feed publishes, and the home stays apart from GOPATH.
-  # [comment:23](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment23)
   script_install: true
   version_command: "go version"
   version_pattern: "go version go(?<ver>[\\d.]+)"
-  # A pipeline lists no candidates, because its Go comes from the hosted agent's tool cache and is already on PATH.
-  # [comment:24](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment24)
   windows_probes:
     - "%LOCALAPPDATA%\\go\\bin\\go.exe"
   unix_probes:
     - "%HOME%/.go/bin/go"
 
 shellcheck:
-  # Bash scripts take the checks that read them, so Test-ShellScripts runs this over every shell script.
-  # [comment:25](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment25)
   version: "0.11"
   command: shellcheck
   depends_on: winget
@@ -237,14 +189,10 @@ shellcheck:
   linux_admin_only: true
   version_command: "shellcheck --version"
   version_pattern: "version: (?<ver>[\\d.]+)"
-  # Probed first, so a fresh install is found before a restarted shell picks up the PATH entry winget adds.
-  # [comment:26](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment26)
   windows_probes:
     - "%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\koalaman.shellcheck_Microsoft.Winget.Source_8wekyb3d8bbwe\\shellcheck.exe"
 
 bicep:
-  # Linux has no distribution package, so Install-Bicep places the verified release binary in the local bin without root.
-  # [comment:27](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment27)
   version: "0.48"
   command: bicep
   depends_on: winget
@@ -253,8 +201,6 @@ bicep:
   brew_formula: "azure/bicep/bicep"
   version_command: "bicep --version"
   version_pattern: "Bicep CLI version (?<ver>[\\d.]+)"
-  # Probed first, so a fresh install is found before a restarted shell picks up the PATH entry winget adds.
-  # [comment:28](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment28)
   windows_probes:
     - "%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Microsoft.Bicep_Microsoft.Winget.Source_8wekyb3d8bbwe\\bicep.exe"
   # Linux: the verified release binary Install-Bicep places in the user bin, probed before PATH is re-read.
@@ -266,8 +212,6 @@ uv:
   command: uv
   # depends_on winget only for the fresh-machine winget bootstrap; a standalone uv self-updates (Install-Uv).
   depends_on: winget
-  # Linux uses Astral's standalone installer in user-space, not the generic apt path.
-  # [comment:29](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment29)
   winget_id: "astral-sh.uv"
   winget_scope: user
   brew_formula: "uv"
@@ -277,14 +221,8 @@ uv:
 py_spark:
   version: "4.1"
   command: pyspark
-  # The launcher lives inside the package, not on PATH, so presence is verified by the metadata version probe.
-  # [comment:30](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment30)
   depends_on: python
   pip_package: pyspark
-  # A non-elevated provision skips and reports it, rather than installing a runtime that cannot start without Java.
-  # [comment:31](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment31)
   admin_only: true
-  # Reads the dist-info metadata instead of importing pyspark, which would spin up the JVM gateway.
-  # [comment:32](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment32)
   version_command: 'python -c "from importlib.metadata import version; print(version(''pyspark''))"'
   version_pattern: "^(?<ver>[\\d.]+)$"

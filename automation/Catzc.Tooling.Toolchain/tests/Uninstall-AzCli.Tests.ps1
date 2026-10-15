@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Tooling.Toolchain/Uninstall-AzCli.ps1
     adrs:
       - ADR-AUTO-REMOVE#4
       - ADR-AUTO-REMOVE#5

@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1.md
-    kind: test-asset
-    body_sha: cb8dbd5838e7
+    kind: comment-page
+    body_sha: "52bb0a59caa2"
     adrs:
       - ADR-REPO-CONTRACT#3
       - ADR-REPO-CONTRACT#4
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeDiscovery {`.
+Above `BeforeDiscovery {`, written with `#`.
 
 ```text
 One test per binding contract asset, generated at discovery, so Test-Automation proves every contract with no

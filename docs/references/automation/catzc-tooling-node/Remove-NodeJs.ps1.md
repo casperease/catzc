@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md
     kind: comment-page
-    body_sha: "518c3eb7bfde"
+    body_sha: "5dc751198321"
     adrs:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#6
@@ -11,21 +11,21 @@ catzc:
 
 # automation/Catzc.Tooling.Node/Remove-NodeJs.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `if (Test-ExpectedPackageManager -Config $config) {`.
+Above `if (Test-ExpectedPackageManager -Config $config) {`, written with `#`.
 
 ```text
 Gate: managed by our tooling system → refuse, redirect to Uninstall-NodeJs
 ([ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)).
 ```
 
-## comment:5
+## comment:2
 
-Above `if ($IsLinux -or $IsMacOS) {`.
+Above `if ($IsLinux -or $IsMacOS) {`, written with `#`.
 
 ```text
 Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip

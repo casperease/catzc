@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.Contracts/types/ContractDirection.cs
     kind: csharp-type
     module: Catzc.Base.Contracts
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/types/ContractDirection.cs.md
     adrs:
       - ADR-REPO-CONTRACT#1
       - ADR-REPO-CONTRACT#7
 ---
 */
-
-// DependedOn is what an outside platform expects of our files; Provided is what an outside consumer may rely on.
-// [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractDirection.cs.md#comment1)
 
 namespace Catzc.Base.Contracts;
 

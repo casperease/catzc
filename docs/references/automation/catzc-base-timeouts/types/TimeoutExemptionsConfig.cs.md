@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md
     kind: comment-page
-    body_sha: "9b6d773e44ef"
+    body_sha: "6e29c1e735c6"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-ENGINE#1
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.Timeouts/types/TimeoutExemptionsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The time-safeguard exemptions (configs/timeout-exemptions.yml) — work, identified by an immutable managed GUID, that
@@ -48,7 +48,7 @@ another module).
 
 ## comment:2
 
-Above `private static readonly string[] Shells = new...`.
+Above `private static readonly string[] Shells = new...`, written with `//`.
 
 ```text
 The shells a ceiling is keyed by: the execution engines, declared once
@@ -57,7 +57,7 @@ The shells a ceiling is keyed by: the execution engines, declared once
 
 ## comment:3
 
-Above `private static readonly Dictionary<string, int> Defaults = new...`.
+Above `private static readonly Dictionary<string, int> Defaults = new...`, written with `//`.
 
 ```text
 The sensible defaults: an exempt budget may run up to ten minutes on a devbox and an hour in a pipeline, in every
@@ -66,7 +66,7 @@ shell.
 
 ## comment:4
 
-Above `public IReadOnlyList<Hashtable> exempt { get { return entries; } }`.
+Above `public IReadOnlyList<Hashtable> exempt { get { return entries; } }`, written with `//`.
 
 ```text
 The exemptions in file order, each normalized: from and to (equal for a single), environments and shells

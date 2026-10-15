@@ -6,6 +6,9 @@ catzc:
     kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-asserts/Assert-PathExist.ps1.md
+      test: automation/Catzc.Base.Asserts/tests/Assert-PathExist.Tests.ps1
   config:
     synopsis: Asserts that a filesystem path exists.
     parameters:
@@ -31,8 +34,6 @@ function Assert-PathExist {
     )
 
     if (-not (Test-Path -Path $Path -PathType $PathType)) {
-        # Not $ErrorText ??...: a [string] param coerces $null to '', and ?? only coalesces $null, so the default...
-        # [comment:2](/docs/references/automation/catzc-base-asserts/Assert-PathExist.ps1.md#comment2)
         $message = if ($ErrorText) {
             $ErrorText
         }

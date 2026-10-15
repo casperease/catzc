@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.Writers/tests/Write-Header.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.Writers/Write-Header.ps1
 ---
 #>
 

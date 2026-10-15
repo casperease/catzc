@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1
   config:
     synopsis: The subset of test files that carry a test citing one of the given ADR rules — the -Rule work-list filter.
     description: |-

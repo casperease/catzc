@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.DevOps.BuildValidation
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md
+      test: automation/Catzc.Azure.DevOps.BuildValidation/tests/Register-AdoBuildValidation.Tests.ps1
     adrs:
       - ADR-AUTO-IDEM
       - ADR-FLOW-CD-GLOBS
@@ -101,8 +104,6 @@ function Register-AdoBuildValidation {
     $definition = $definitions | Where-Object { $_.Name -eq $Pipeline } | Select-Object -First 1
     Assert-NotNull $definition -ErrorText "Pipeline '$Pipeline' is not registered in $($context.Organization)/$($context.Project). Run Register-AdoPipeline first."
 
-    # The server-side pre-commit trigger filters on the globset's native path projection...
-    # [comment:5](/docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md#comment5)
     $pathFilters = Get-BuildValidationPathFilter -GlobSet $set
     $desired = @{
         isEnabled  = $true

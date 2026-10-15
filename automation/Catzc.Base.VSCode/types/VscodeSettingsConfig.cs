@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
     kind: csharp-type
     module: Catzc.Base.VSCode
+    relatives:
+      page: docs/references/automation/catzc-base-vscode/types/VscodeSettingsConfig.cs.md
+      test: automation/Catzc.Base.VSCode/tests/types/VscodeSettingsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-ROOTCFG
 ---
 */
-
-// Settings are VS Code's own keys passed through as-is, so only the map structure is validated, never a setting's value.
-// [comment:1](/docs/references/automation/catzc-base-vscode/types/VscodeSettingsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationTimingReport.Tests.ps1
   config:
     synopsis: Renders the over-limit timing section of a Test-Automation run and returns whether it fails the run.
     description: |-

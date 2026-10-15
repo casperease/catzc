@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.VSCode/tests/types/VscodeLaunchConfig.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.VSCode/types/VscodeLaunchConfig.cs
 ---
 #>
 

@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md
     kind: comment-page
-    body_sha: "1cea31bce2bb"
+    body_sha: "8cd67c187a87"
     adrs:
       - ADR-AUTO-TYPES#8
 ---
 
 # automation/Catzc.Base.Maps/types/MapPlacement.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Where one tracked file sits on the world map, and what lights it. The cell is exact: the root folder gives the track
@@ -27,7 +27,7 @@ step that produced them. A result type, so the properties are PascalCase
 
 ## comment:2
 
-Above `public bool Live { get; }`.
+Above `public bool Live { get; }`, written with `//`.
 
 ```text
 True when the file is in its track's live aspect; false for a test file, a vendored file, a file of a
@@ -36,7 +36,7 @@ verification track, and a file under no track.
 
 ## comment:3
 
-Above `public IReadOnlyList<CitationSite> Sites { get; }`.
+Above `public IReadOnlyList<CitationSite> Sites { get; }`, written with `//`.
 
 ```text
 Where those citations sit (CitationSite): in the file itself for BasisCitations, in the owner's or the globset's

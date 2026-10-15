@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateNames.Tests.ps1
   config:
     synopsis: Returns the names of all discovered bicep templates as a flat string array.
     description: |-

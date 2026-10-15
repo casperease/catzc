@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-RepointedMarkdownText.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.QualityGates/private/Get-RepointedMarkdownText.ps1
     adrs:
       - ADR-REPO-FORMAT#7
 ---

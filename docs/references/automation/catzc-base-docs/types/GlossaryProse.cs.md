@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md
     kind: comment-page
-    body_sha: "2b2c01a46520"
+    body_sha: "721b082d9d0e"
     adrs:
       - ADR-REPO-FORMAT#6
       - ADR-REPO-VOCAB#5
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/types/GlossaryProse.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The prose of one file, as the glossary checks read it (G4, G6): never a regex over source text
@@ -35,7 +35,7 @@ file's own repository path ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-for
 
 ## comment:2
 
-Above `List<Ast> carriers = new List<Ast>();`.
+Above `List<Ast> carriers = new List<Ast>();`, written with `//`.
 
 ```text
 The argument elements that carry a message: everything after the command name of a writer, the operand of
@@ -44,7 +44,7 @@ throw, and the value of -ErrorText / -Because on any command.
 
 ## comment:3
 
-Above `bool inExpandable = false;`.
+Above `bool inExpandable = false;`, written with `//`.
 
 ```text
 A string inside an expandable string's sub-expression is code, not message text: its parent string

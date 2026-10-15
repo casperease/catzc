@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Docs
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-docs/Update-AdrCitation.ps1.md
+      test: automation/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-IDEM
@@ -96,8 +99,6 @@ function Update-AdrCitation {
     $citations = Get-AdrCitationMap -RepositoryRoot $root
     $rewriter = [Catzc.Base.Docs.AdrCitationRewriter]::new($codeRows, $ruleRows, $citations)
 
-    # Decode strictly, so a file that is not UTF-8 fails here instead of being re-encoded; the byte order mark is...
-    # [comment:5](/docs/references/automation/catzc-base-docs/Update-AdrCitation.ps1.md#comment5)
     $bytes = [System.IO.File]::ReadAllBytes($file)
     $hasBom = $bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF
     $offset = if ($hasBom) {

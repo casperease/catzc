@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Python
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-python/Install-Python.ps1.md
+      test: automation/Catzc.Tooling.Python/tests/Install-Python.Tests.ps1
   config:
     synopsis: Provisions Python via uv.
     description: |-
@@ -51,8 +54,6 @@ function Install-Python {
         }
     }
 
-    # uv resolves the newest matching CPython, installs it, and (--default) writes the global python/python3 shims...
-    # [comment:3](/docs/references/automation/catzc-tooling-python/Install-Python.ps1.md#comment3)
     $reinstall = if ($Force) {
         ' --reinstall'
     }

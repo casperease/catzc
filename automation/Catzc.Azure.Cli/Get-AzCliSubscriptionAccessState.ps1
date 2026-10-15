@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Cli
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md
+      test: automation/Catzc.Azure.Cli/tests/Get-AzCliSubscriptionAccessState.Tests.ps1
     adrs:
       - ADR-AZ-CLI#1
   config:
@@ -50,15 +53,11 @@ function Get-AzCliSubscriptionAccessState {
 
     Assert-IsGuid $SubscriptionId
 
-    # A REAL, read-only ARM call scoped to the subscription.
-    # [comment:4](/docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md#comment4)
     $probe = Invoke-AzCli "account list-locations --subscription $SubscriptionId -o none" -PassThru -NoAssert -Silent
     if ($probe.ExitCode -eq 0) {
         return [Catzc.Azure.Cli.SubscriptionAccessState]::new($true, $true, $SubscriptionId, $null)
     }
 
-    # The probe failed.
-    # [comment:5](/docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md#comment5)
     $session = Invoke-AzCli 'account show -o none' -PassThru -NoAssert -Silent
 
     [Catzc.Azure.Cli.SubscriptionAccessState]::new(($session.ExitCode -eq 0), $false, $SubscriptionId, ($probe.Errors | Select-Object -First 1))

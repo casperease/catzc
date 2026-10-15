@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Writers
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md
   config:
     synopsis: |-
       Emits an ordered set of header/footer lines through the writer chokepoint, applying a colour plan — a
@@ -33,8 +35,6 @@ function Write-FramedLine {
     )
 
     if ($Color.IsRainbow) {
-        # A rule line takes the per-character gradient; a titled line takes the base colour (the profile side-grades...
-        # [comment:3](/docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md#comment3)
         $rendered = foreach ($s in $Segment) {
             if ($s.Rule) {
                 $Color.Rainbow.Wrap($s.Text)

@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.ConfigExtensions
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-DSGN-RUNMODE#2

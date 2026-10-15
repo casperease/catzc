@@ -5,13 +5,13 @@ catzc:
     path: automation/Catzc.Base.Docs/types/DocMapping.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/DocMapping.cs.md
+      test: automation/Catzc.Base.Docs/tests/types/DocMapping.Tests.ps1
     adrs:
       - ADR-AUTO-PATH
 ---
 */
-
-// Both paths are root-relative and slash-separated, so source and folder compare the same on every OS.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/DocMapping.cs.md#comment1)
 
 using System;
 using System.Collections;

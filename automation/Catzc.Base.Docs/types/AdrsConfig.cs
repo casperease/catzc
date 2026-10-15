@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Docs/types/AdrsConfig.cs
     kind: csharp-type
     module: Catzc.Base.Docs
+    relatives:
+      page: docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md
+      test: automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#9
@@ -15,9 +18,6 @@ catzc:
       - ADR-FLOW-CD
 ---
 */
-
-// Loading reads no other file and throws once with every violation; folder and token cross-checks live in Test-AdrRegistry.
-// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -36,8 +36,6 @@ public sealed class AdrsConfig
     // The rows of the value-chain stack, top to bottom ([ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14)).
     public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });
 
-    // Declared once, in value-chain order; domain and ruleset concern lists may only name entries from this list.
-    // [comment:2](/docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md#comment2)
     public static readonly IReadOnlyList<string> Concerns = Array.AsReadOnly(new[] { "automation", "build", "quality-control", "release", "deploy", "access" });
 
     public IReadOnlyList<AdrDomain> Domains { get; }
@@ -182,8 +180,6 @@ public sealed class AdrsConfig
                     string effective = leaf != null ? leaf : code;
                     string terminology = r.Contains("terminology") && r["terminology"] != null ? r["terminology"].ToString() : null;
 
-                    // A prefix test is enough for a compound code such as FLOW-CD, so no dash position is needed to split it.
-                    // [comment:3](/docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md#comment3)
                     string expectedPrefix = "ADR-" + effective;
                     bool domainSegmentMatches = string.Equals(external, expectedPrefix, StringComparison.Ordinal)
                         || external.StartsWith(expectedPrefix + "-", StringComparison.Ordinal);

@@ -4,11 +4,11 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1.md
 ---
 #>
 
-# Test-AnalyzedFileIsTest is the one test-file scope check the custom analyzer rules share: by file name when the...
-# [comment:1](/docs/references/automation/scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1.md#comment1)
 Describe 'Test-AnalyzedFileIsTest' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1')

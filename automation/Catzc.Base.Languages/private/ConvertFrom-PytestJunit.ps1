@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Languages
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1
   config:
     synopsis: Turns pytest's JUnit XML report into one PythonTestResult per top-level test function.
     description: |-

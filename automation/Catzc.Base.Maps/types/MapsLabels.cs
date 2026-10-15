@@ -5,6 +5,8 @@ catzc:
     path: automation/Catzc.Base.Maps/types/MapsLabels.cs
     kind: csharp-type
     module: Catzc.Base.Maps
+    relatives:
+      page: docs/references/automation/catzc-base-maps/types/MapsLabels.cs.md
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -13,9 +15,6 @@ catzc:
       - ADR-DSGN-TRACK#8
 ---
 */
-
-// Each label names a defined term in its head, so Test-WorldMap and Test-ValueChainMap can check the printed text.
-// [comment:1](/docs/references/automation/catzc-base-maps/types/MapsLabels.cs.md#comment1)
 
 namespace Catzc.Base.Maps;
 

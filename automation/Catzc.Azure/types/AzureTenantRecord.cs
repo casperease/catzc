@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Azure/types/AzureTenantRecord.cs
     kind: csharp-type
     module: Catzc.Azure
+    relatives:
+      page: docs/references/automation/catzc-azure/types/AzureTenantRecord.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-DATAMOD
 ---
 */
-
-// Per-entry shape only: AzureConfig builds one per entry and collects its violations with the file's.
-// [comment:1](/docs/references/automation/catzc-azure/types/AzureTenantRecord.cs.md#comment1)
 
 using System;
 using System.Collections;

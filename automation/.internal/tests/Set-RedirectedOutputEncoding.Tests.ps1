@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/tests/Set-RedirectedOutputEncoding.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md
     adrs:
       - ADR-PWSH-ANNOUNCE#1
       - ADR-PWSH-ANNOUNCE#6
@@ -11,8 +13,6 @@ catzc:
 #>
 
 BeforeAll {
-    # An isolated sandbox = importer + the.internal shared modules + vendor, with no application modules, imported in...
-    # [comment:1](/docs/references/automation/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md#comment1)
     $script:sandbox = Join-Path ([System.IO.Path]::GetTempPath()) "redirected-encoding-$([guid]::NewGuid().ToString('N'))"
     $sandboxAuto = Join-Path $script:sandbox 'automation'
     [System.IO.Directory]::CreateDirectory($sandboxAuto) | Out-Null
@@ -20,8 +20,6 @@ BeforeAll {
     Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.internal') (Join-Path $sandboxAuto '.internal')
     Copy-Directory (Join-Path $env:RepositoryRoot 'automation/.vendor') (Join-Path $sandboxAuto '.vendor')
 
-    # ONE cold import, with its verbose load record merged into the captured output.
-    # [comment:2](/docs/references/automation/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md#comment2)
     $childScript = ". '$script:sandbox/importer.ps1' -Verbose 4>&1 6>`$null; " +
     "'codepage=' + [Console]::OutputEncoding.CodePage; 'redirected=' + [Console]::IsOutputRedirected"
     $startInfo = [System.Diagnostics.ProcessStartInfo]::new('pwsh')

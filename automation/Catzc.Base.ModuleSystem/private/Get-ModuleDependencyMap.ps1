@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: private
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md
   config:
     synopsis: |-
       Builds the declared module -> dependency-set map from configs/dependencies.yml (the edges of the declared
@@ -43,8 +45,6 @@ function Get-ModuleDependencyMap {
         $groupMembers[$group] = @($groups[$group].Keys)
     }
 
-    # module -> the set of modules it depends on.
-    # [comment:4](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md#comment4)
     $dependencyMap = @{}
     foreach ($moduleName in $Module) {
         $dependencyMap[$moduleName] = [System.Collections.Generic.HashSet[string]]::new()
@@ -62,8 +62,6 @@ function Get-ModuleDependencyMap {
         }
     }
 
-    # 2) Per-module allowed deps.
-    # [comment:5](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md#comment5)
     foreach ($moduleName in $allowed.Keys) {
         if (-not $dependencyMap.ContainsKey($moduleName)) {
             continue

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.DevOps.BuildValidation
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.DevOps.BuildValidation/tests/Unregister-AdoBuildValidation.Tests.ps1
     adrs:
       - ADR-AUTO-IDEM#2
       - ADR-FLOW-CD-GLOBS

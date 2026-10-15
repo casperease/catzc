@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.MarkdownMeta/types/MarkdownDocument.cs
     kind: csharp-type
     module: Catzc.Base.MarkdownMeta
+    relatives:
+      page: docs/references/automation/catzc-base-markdownmeta/types/MarkdownDocument.cs.md
+      test: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownDocument.Tests.ps1
     adrs:
       - ADR-REPO-FILEMETA#1
 ---
@@ -111,8 +114,6 @@ public sealed class MarkdownDocument
     // The document as it was parsed.
     public string ToText() => WithMetaBlock(MetaBlock);
 
-    // The first 12 hex characters of the SHA-256 of the body, its line endings read as LF and its leading blank lines dropped.
-    // [comment:1](/docs/references/automation/catzc-base-markdownmeta/types/MarkdownDocument.cs.md#comment1)
     public string BodyHash()
     {
         byte[] bytes = Encoding.UTF8.GetBytes(Body.Replace("\r\n", "\n").TrimStart('\n'));

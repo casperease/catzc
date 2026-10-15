@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Test-TestTitles.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#25
       - ADR-AUTO-TEST#35

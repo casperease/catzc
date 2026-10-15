@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/tests/types/RootConfigFiles.Tests.ps1
     kind: pester-test
+    relatives:
+      source: automation/Catzc.Base.RootConfig/types/RootConfigFiles.cs
 ---
 #>
 

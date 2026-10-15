@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md
     kind: comment-page
-    body_sha: "1c41a7f8825d"
+    body_sha: c61e96b1f0f9
 ---
 
 # automation/Catzc.Base.Git/types/GitHistoryScan.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A token hunt over a git history in one pass: every commit message, every path and every distinct file content
@@ -30,7 +30,7 @@ a blob or path whose every path lies under an excluded prefix is ignored.
 
 ## comment:2
 
-Above `public string[] Blobs { get; }`.
+Above `public string[] Blobs { get; }`, written with `//`.
 
 ```text
 Content hits, one per matching line of each distinct blob: `<blob>:<path>:<line>`, where path is the

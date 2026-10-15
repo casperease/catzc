@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md
     kind: comment-page
-    body_sha: fae676a217fa
+    body_sha: "791ea099cb4d"
 ---
 
 # automation/Catzc.Azure.Templates/types/BicepTemplate.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A discovered deployable template — one folder of Bicep under the templates tree, plus the deployment
@@ -28,7 +28,7 @@ Req/OptStr/StrArr extraction helpers.
 
 ## comment:2
 
-Above `public bool customer_deployment { get; }`.
+Above `public bool customer_deployment { get; }`, written with `//`.
 
 ```text
 Whether this is a customer template (its configs deploy into customer subscriptions). Defaults to the
@@ -37,7 +37,7 @@ have_customers repo variant; see [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-custome
 
 ## comment:3
 
-Above `public BicepTemplate(IDictionary d)`.
+Above `public BicepTemplate(IDictionary d)`, written with `//`.
 
 ```text
 Constructed from the parsed-and-overlaid configuration dictionary; the constructor validates required

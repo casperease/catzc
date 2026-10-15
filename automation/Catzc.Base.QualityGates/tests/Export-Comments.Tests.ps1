@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Export-Comments.ps1
     adrs:
       - ADR-AUTO-DRYRUN#1
       - ADR-AUTO-IDEM#1
@@ -15,8 +18,6 @@ catzc:
 #>
 
 # cspell:ignore ngadget  -- the escape-sequence artifact in the "`ngadget" fixture strings
-# Export-Comments moves a file's long comments into its comment page, one-way and losslessly, tested in isolation:...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Export-Comments.Tests.ps1.md#comment1)
 Describe 'Export-Comments' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {
@@ -41,7 +42,6 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
             $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120', '') -join "`n"))
             & $script:writeFile $root 'automation/Catzc.Widget/Get-Widget.ps1' $script:source
-            & $script:writeFile $root 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1' "# A test's long prose`n# stays where it is.`n"
             & $script:writeFile $root 'automation/Catzc.Widget/assets/root/gadget.yml' "# A template's header, copied verbatim,`n# stays where it is.`ngadget: 1`n"
             $root
         }
@@ -49,13 +49,12 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
     }
 
-    It 'moves the long comment into the page and leaves the residue in the file' -Tag 'ADR-REPO-COMMENTS#1' {
+    It 'moves the long comment into the page and leaves nothing in the file' -Tag 'ADR-REPO-COMMENTS#1' {
         $root = & $newRepository
         $changed = Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation')
         $changed | Should -Be @('automation/Catzc.Widget/Get-Widget.ps1')
         $text = & $readFile $root 'automation/Catzc.Widget/Get-Widget.ps1'
-        $text.Contains('    # Sorted first, so the gadget order is stable across runs and the cache key never changes.') | Should -BeTrue
-        $text.Contains("    # [comment:1](/$pageRelative#comment1)") | Should -BeTrue
+        $text | Should -BeExactly "function Get-Widget {`n    Get-Gadget | Sort-Object`n}`n"
         $page = & $readFile $root $pageRelative
         $page.Contains('# Sorted first') | Should -BeFalse -Because 'the page holds the prose without its comment marker'
         $page.Contains("across runs and the cache key never changes.`n" + '```') | Should -BeTrue
@@ -67,7 +66,7 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
         & $readFile $root 'automation/Catzc.Widget/assets/root/gadget.yml' | Should -BeExactly "# A template's header, copied verbatim,`n# stays where it is.`ngadget: 1`n"
     }
 
-    It 'leaves test files alone, and a second run changes nothing' -Tag 'ADR-AUTO-IDEM#1' {
+    It 'changes nothing on a second run' -Tag 'ADR-AUTO-IDEM#1' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
         $before = & $readFile $root 'automation/Catzc.Widget/Get-Widget.ps1'
@@ -75,7 +74,6 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Should -BeNullOrEmpty
         & $readFile $root 'automation/Catzc.Widget/Get-Widget.ps1' | Should -BeExactly $before
         & $readFile $root $pageRelative | Should -BeExactly $pageBefore
-        & $readFile $root 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1' | Should -BeExactly "# A test's long prose`n# stays where it is.`n"
     }
 
     It 'writes nothing under -DryRun and returns the would-be results under -PassThru' -Tag 'ADR-AUTO-DRYRUN#1' {

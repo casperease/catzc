@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Variants
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Variants/tests/Test-GitWorkspace.Tests.ps1
   config:
     synopsis: Tests whether the repo's git workspace mode (the `git_workspace` variant) is the one named.
     description: |-

@@ -5,15 +5,15 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/TestPolicyConfig.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/TestPolicyConfig.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/TestPolicyConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#41
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// An environment not listed is read-only, so synthetic mutation by an L4 test must be granted per environment.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/TestPolicyConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepTemplateSlots.Tests.ps1.md
-    kind: test-asset
-    body_sha: "37ff42a2cd3f"
+    kind: comment-page
+    body_sha: da9d3f63e812
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#4
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Azure.Templates/tests/Get-BicepTemplateSlots.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked
@@ -26,7 +26,7 @@ config is identical every test and no test mutates it, so the cache stays warm
 
 ## comment:2
 
-Above `@(Get-BicepTemplateSlots 'sample-customer') | Should -BeNullOrEmpty`.
+Above `@(Get-BicepTemplateSlots 'sample-customer') | Should -BeNullOrEmpty`, written with `#`.
 
 ```text
 sample-customer's root config carries no slot; acme MIXES a base config (alpha) and a slotted
@@ -35,7 +35,7 @@ one (alpha-001), so only the acme view offers a slot discriminator.
 
 ## comment:3
 
-Above `BeforeAll {`.
+Above `BeforeAll {` (occurrence 2), written with `#`.
 
 ```text
 Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked
@@ -45,7 +45,7 @@ config is identical every test and no test mutates it, so the cache stays warm
 
 ## comment:4
 
-Above `$commands = @(`.
+Above `$commands = @(`, written with `#`.
 
 ```text
 Every deploy/name path that takes a slot exposes the completer; the private RG helper carries it

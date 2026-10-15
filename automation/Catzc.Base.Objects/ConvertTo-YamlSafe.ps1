@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Objects
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Objects/tests/ConvertTo-YamlSafe.Tests.ps1
   config:
     synopsis: |-
       Recursively converts an object into a YAML-safe structure of ordered

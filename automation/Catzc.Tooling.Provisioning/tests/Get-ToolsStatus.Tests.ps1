@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Get-ToolsStatus.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/tests/Get-ToolsStatus.Tests.ps1.md
+      source: automation/Catzc.Tooling.Provisioning/Get-ToolsStatus.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
 Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
-    # The probed branch: a tool with candidate paths takes its location and version from the probe record (Test-Tool...
-    # [comment:1](/docs/references/automation/catzc-tooling-provisioning/tests/Get-ToolsStatus.Tests.ps1.md#comment1)
     BeforeAll {
         $script:tools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{
                 widget = @{
@@ -19,8 +20,6 @@ Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
                     version_pattern = 'version (?<ver>[\d.]+)'; unix_probes = @('/opt/widget'); windows_probes = @('C:\widget.exe')
                 }
             })
-        # The MSYS2 package for Windows and an apt package for Linux, and nothing for macOS, so each platform takes...
-        # [comment:2](/docs/references/automation/catzc-tooling-provisioning/tests/Get-ToolsStatus.Tests.ps1.md#comment2)
         $script:twoMechanismTools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{
                 gadget = @{
                     version = '5'; command = 'gadget'; version_command = 'gadget --version'; version_pattern = 'gadget (?<ver>[\d.]+)'

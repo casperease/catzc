@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/types/SourceCheck.Tests.ps1.md
-    kind: test-asset
-    body_sha: "775d66ed25ae"
+    kind: comment-page
+    body_sha: d8e22f2b444a
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-CONFIG#4
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/tests/types/SourceCheck.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'SourceCheck' -Tag 'L0', 'logic' {`.
+Above `Describe 'SourceCheck' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 SourceCheck maps the settings every source check shares — its mode and exempt globs — and is the one declaration of

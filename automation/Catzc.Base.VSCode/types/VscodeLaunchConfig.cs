@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.VSCode/types/VscodeLaunchConfig.cs
     kind: csharp-type
     module: Catzc.Base.VSCode
+    relatives:
+      page: docs/references/automation/catzc-base-vscode/types/VscodeLaunchConfig.cs.md
+      test: automation/Catzc.Base.VSCode/tests/types/VscodeLaunchConfig.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-ROOTCFG
 ---
 */
-
-// Profile names must be unique case-insensitively, and all violations surface in one throw, not one at a time.
-// [comment:1](/docs/references/automation/catzc-base-vscode/types/VscodeLaunchConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

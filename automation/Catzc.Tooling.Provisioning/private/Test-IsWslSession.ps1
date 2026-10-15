@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: private
+    relatives:
+      test: automation/Catzc.Tooling.Provisioning/tests/Test-IsWslSession.Tests.ps1
   config:
     synopsis: Tests whether the current session runs inside WSL (Windows Subsystem for Linux).
     description: |-

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md
     kind: comment-page
-    body_sha: "0a7d3e3e2889"
+    body_sha: d1b3363cb76a
     adrs:
       - ADR-AUTO-FAILFAST#7
       - ADR-AUTO-TYPES#8
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Engines/types/ExecutionEngine.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 One of the repository's execution engines — the shells its own code runs under
@@ -32,7 +32,7 @@ A model type, so its properties are PascalCase
 
 ## comment:2
 
-Above `public const string LocateByPsHome = "ps-home";`.
+Above `public const string LocateByPsHome = "ps-home";`, written with `//`.
 
 ```text
 How the engine's executable is found: beside the running PowerShell ($PSHOME), or through its tools.yml entry
@@ -41,7 +41,7 @@ How the engine's executable is found: beside the running PowerShell ($PSHOME), o
 
 ## comment:3
 
-Above `public string TimeSafeguard { get; }`.
+Above `public string TimeSafeguard { get; }`, written with `//`.
 
 ```text
 How a call is bounded in time in this engine
@@ -50,7 +50,7 @@ How a call is bounded in time in this engine
 
 ## comment:4
 
-Above `public string CommandPrefix { get; }`.
+Above `public string CommandPrefix { get; }`, written with `//`.
 
 ```text
 What goes before a catzc command in this engine: nothing in pwsh, where the commands are native; "cats " in bash
@@ -60,7 +60,7 @@ every engine.
 
 ## comment:5
 
-Above `public string Quote(string text)`.
+Above `public string Quote(string text)`, written with `//`.
 
 ```text
 The text as one literal string in the engine's own quoting: single quotes, with an embedded single quote written
@@ -69,7 +69,7 @@ the engine's way ('' in pwsh, '\'' in bash and zsh).
 
 ## comment:6
 
-Above `public string[] StartArguments(string entry, string command)`.
+Above `public string[] StartArguments(string entry, string command)`, written with `//`.
 
 ```text
 The arguments (after the executable) that start the engine non-interactively, load the entry script, and run the

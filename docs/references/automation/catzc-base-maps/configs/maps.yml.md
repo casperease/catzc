@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/configs/maps.yml.md
     kind: comment-page
-    body_sha: bdea7fff0333
+    body_sha: "936cd8ed35f6"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-DSGN-TRACK#13
@@ -15,12 +15,12 @@ catzc:
 
 # automation/Catzc.Base.Maps/configs/maps.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `{}`.
+Above `{}`, written with `#`.
 
 ```text
 maps.yml — the map settings: the palette, the limits, the printed labels of the world map and the value-chain map,

@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
     adrs:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TEST#3
@@ -157,8 +160,6 @@ function Test-SourceConventions {
             }
         }
 
-        # tests/types/ holds the native-type tests, named for their type (which has no verb) — so each must name a...
-        # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md#comment4)
         $typesTestDirectory = Join-Path $testsDirectory 'types'
         if ([System.IO.Directory]::Exists($typesTestDirectory)) {
             foreach ($path in ([System.IO.Directory]::EnumerateFiles($typesTestDirectory, '*.Tests.ps1') | Sort-Object)) {

@@ -4,11 +4,11 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/tests/CustomRuleWiring.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/scriptanalyzer/tests/CustomRuleWiring.Tests.ps1.md
 ---
 #>
 
-# Shared wiring check for the repo's AST-direct custom rules.
-# [comment:1](/docs/references/automation/scriptanalyzer/tests/CustomRuleWiring.Tests.ps1.md#comment1)
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawVsoCommand', '', Justification = 'Fixture intentionally contains a raw ##vso[task.*] string to prove the rule fires through the engine.')]
 param()
 
@@ -20,12 +20,8 @@ Describe 'Custom PSScriptAnalyzer rules — engine wiring' -Tag 'L2', 'logic' {
         # The shipped wiring: exactly what the settings file hands the engine.
         $settings = Import-PowerShellDataFile (Join-Path $env:RepositoryRoot 'automation/.internal/assets/PSScriptAnalyzerSettings.psd1')
         $script:rulePaths = @($settings.CustomRulePath | ForEach-Object { Join-Path $env:RepositoryRoot $_ })
-        # Explicit settings: without them the engine also discovers the generated root PSScriptAnalyzerSettings.psd1...
-        # [comment:2](/docs/references/automation/scriptanalyzer/tests/CustomRuleWiring.Tests.ps1.md#comment2)
         $script:analyzerSettings = @{ CustomRulePath = [string[]] $script:rulePaths; IncludeRules = [string[]] @('Measure-*') }
 
-        # One fixture that trips every check at once: an Az-named function nested in another function, a raw...
-        # [comment:3](/docs/references/automation/scriptanalyzer/tests/CustomRuleWiring.Tests.ps1.md#comment3)
         $longBody = (1..301 | ForEach-Object { '    $null = 1' }) -join "`n"
         $fixture = @"
 function Get-Widget { function Get-AzWidget { } }

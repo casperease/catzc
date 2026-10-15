@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
     kind: comment-page
-    body_sha: "5d865d845cc3"
+    body_sha: "98b2238f79a4"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -16,12 +16,12 @@ catzc:
 
 # automation/Catzc.Base.Languages/types/LanguagesConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The file-language registry (configs/languages.yml): every file language the repository's tracked files are written
@@ -60,7 +60,7 @@ Constructing an instance validates the file, collecting every violation into one
 
 ## comment:2
 
-Above `private static readonly string[] Engines = { "prettier", "gofmt", "ruff",...`.
+Above `private static readonly string[] Engines = { "prettier", "gofmt", "ruff",...`, written with `//`.
 
 ```text
 The formatter engines a language may name: one Format-Code adapter each. A new engine is new mechanism — its
@@ -70,7 +70,7 @@ adapter and its name here land together
 
 ## comment:3
 
-Above `public IReadOnlyDictionary<string, FormatterEngine> engines { get; }`.
+Above `public IReadOnlyDictionary<string, FormatterEngine> engines { get; }`, written with `//`.
 
 ```text
 The engines' own settings, by engine name: the VS Code extension that runs the same engine in the editor. An
@@ -79,7 +79,7 @@ engine the file does not list has no editor formatter.
 
 ## comment:4
 
-Above `public IReadOnlyDictionary<string, string> EditorFormatters()`.
+Above `public IReadOnlyDictionary<string, string> EditorFormatters()`, written with `//`.
 
 ```text
 The editor formatter of every language whose engine names a VS Code extension, keyed by the language's VS Code
@@ -89,7 +89,7 @@ language id: what the editor's Format Document runs, the same engine Format-Code
 
 ## comment:5
 
-Above `public static string ExtensionOf(string path)`.
+Above `public static string ExtensionOf(string path)`, written with `//`.
 
 ```text
 The extension of a file path, lowercase with its leading dot, or null when it has none. A dotfile whose only dot
@@ -98,7 +98,7 @@ is its first character (.gitkeep, .editorconfig) has no extension.
 
 ## comment:6
 
-Above `string vscodeLanguage = name;`.
+Above `string vscodeLanguage = name;`, written with `//`.
 
 ```text
 The VS Code language id defaults to the language's own name; an entry states it only where the editor's id

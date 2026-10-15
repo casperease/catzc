@@ -3,13 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/source-conventions.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md
 # ---
 
-# Report mode is temporary: a check reports only while its work list is drained, then returns to gate at a count of 0.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md#comment1)
-
-# The phrases are regular expressions with placeholders, since the engine names and count are read from the model.
-# [comment:2](/docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md#comment2)
 engine_set:
   exempt:
     automation/Catzc.Base.Engines/types/**: the model itself, the one place the engines are declared
@@ -23,8 +20,6 @@ engine_set:
     - '\b{name}(?:(?:,? and |,? or |, |/| \| ){name})+\b'
     - '\[{name}\]'
 
-# Only string literals inside an L0 block are scanned, and values given to the Tag parameter are left out.
-# [comment:3](/docs/references/automation/catzc-base-qualitygates/configs/source-conventions.yml.md#comment3)
 neutral_codes:
   exempt:
     automation/.scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1: it asserts the analyzer's exact message, which cites its real rule

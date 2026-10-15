@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: private
+    relatives:
+      test: automation/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1
     adrs:
       - ADR-AUTO-ENTERP#4
   config:

@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Get-ToolCommandSuffix.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/tests/Get-ToolCommandSuffix.Tests.ps1.md
+      source: automation/Catzc.Tooling.Core/Get-ToolCommandSuffix.ps1
 ---
 #>
 
 Describe 'Get-ToolCommandSuffix' -Tag 'L0', 'logic' {
-    # Each snake_case tools.yml key must map to the PascalCase suffix of its Install-/Uninstall-/Invoke- commands.
-    # [comment:1](/docs/references/automation/catzc-tooling-core/tests/Get-ToolCommandSuffix.Tests.ps1.md#comment1)
     It 'maps snake_case key <Tool> to PascalCase suffix <Expected>' -ForEach @(
         @{ Tool = 'python'; Expected = 'Python' }
         @{ Tool = 'dotnet'; Expected = 'Dotnet' }

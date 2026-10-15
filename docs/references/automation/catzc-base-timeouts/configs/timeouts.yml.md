@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/configs/timeouts.yml.md
     kind: comment-page
-    body_sha: "939eae7cc477"
+    body_sha: "5242912b6ef5"
     adrs:
       - ADR-PWSH-ASSERT#1
 ---
 
 # automation/Catzc.Base.Timeouts/configs/timeouts.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `executables:`.
+Above `executables:`, written with `#`.
 
 ```text
 Time safeguards — how long a call may run before it is stopped. Loaded by Get-Config -Config timeouts and
@@ -53,7 +53,7 @@ legitimately needs longer gets an entry under `executables` or a budget, not a r
 
 ## comment:2
 
-Above `executables:`.
+Above `executables:`, written with `#`.
 
 ```text
 Per-executable limits, keyed by the executable's name without directory or extension (`dotnet`, not

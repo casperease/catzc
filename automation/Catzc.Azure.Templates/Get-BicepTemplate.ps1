@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/Get-BicepTemplate.ps1.md
+      test: automation/Catzc.Azure.Templates/tests/Get-BicepTemplate.Tests.ps1
   config:
     synopsis: Returns the descriptor for a single bicep template by name.
     parameters:
@@ -27,8 +30,6 @@ function Get-BicepTemplate {
         [string] $Name
     )
 
-    # Parenthesise the call so its (comma-wrapped, array-preserving) output is collected and then enumerated...
-    # [comment:2](/docs/references/automation/catzc-azure-templates/Get-BicepTemplate.ps1.md#comment2)
     $template = (Get-BicepTemplates) | Where-Object { $_.name -eq $Name } | Select-Object -First 1
     Assert-True ($null -ne $template) -ErrorText "Template '$Name' was not found"
     $template

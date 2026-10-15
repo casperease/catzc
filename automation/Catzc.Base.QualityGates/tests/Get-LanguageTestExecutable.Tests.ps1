@@ -4,13 +4,14 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestExecutable.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Get-LanguageTestExecutable.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Get-LanguageTestExecutable.ps1
     adrs:
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# Get-LanguageTestExecutable with the test folder discovery and the tool probe mocked: the source session hands down...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Get-LanguageTestExecutable.Tests.ps1.md#comment1)
 Describe 'Get-LanguageTestExecutable' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:folders = @(

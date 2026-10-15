@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.Globs/types/GlobsConfig.cs
     kind: csharp-type
     module: Catzc.Base.Globs
+    relatives:
+      page: docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md
+      test: automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
     adrs:
       - ADR-FLOW-CD-GLOBS
       - ADR-FLOW-CD-GLOBS#7
@@ -12,9 +15,6 @@ catzc:
       - ADR-REPO-PROTGLOB
 ---
 */
-
-// Construction validates the whole registry and collects every error before throwing, so one run shows all faults.
-// [comment:1](/docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -29,8 +29,6 @@ public sealed class GlobsConfig
     // The config's own repo-relative path (named in lookup errors).
     public const string ConfigPath = "automation/Catzc.Base.Globs/configs/globs.yml";
 
-    // Declared and derived sets share one name space, so a declared set may not take a reserved name.
-    // [comment:2](/docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md#comment2)
     public static readonly string[] ReservedNames = { "internal", "vendor", "compiled", "scriptanalyzer" };
 
     // Every globset, in registry order.
@@ -145,8 +143,6 @@ public sealed class GlobsConfig
             map[set.Name] = set;
         }
 
-        // Effective membership is the union through the references, so each must name another declared set, acyclically.
-        // [comment:3](/docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md#comment3)
         foreach (GlobSet set in sets)
         {
             List<GlobSet> resolved = new List<GlobSet>();
@@ -178,8 +174,6 @@ public sealed class GlobsConfig
             }
         }
 
-        // A cycle would make Matches recurse forever, so fail here, before any set is exposed, with every error collected.
-        // [comment:4](/docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md#comment4)
         if (errors.Count > 0)
         {
             throw new ArgumentException("globs config validation failed:\n" + string.Join("\n", errors));
@@ -214,8 +208,6 @@ public sealed class GlobsConfig
         }
     }
 
-    // Walks the name map only, so a reference that did not resolve (already reported) cannot throw here.
-    // [comment:5](/docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md#comment5)
     private static string FindComposeCycle(GlobSet set, Dictionary<string, GlobSet> map, List<string> path)
     {
         if (path.Contains(set.Name))

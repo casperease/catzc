@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Globs
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md
     adrs:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-PROTGLOB
@@ -54,15 +56,11 @@ function Protect-GlobSet {
     }
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:protectedGlobSets')) {
-        # strict-clean probe of the lazy cache entries
-        # [comment:7](/docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md#comment7)
         $script:protectedGlobSets = @{}
         $script:pendingGlobProtections = @{}
     }
 
     $key = "$Test|$Name"
-    # NOTE: never name this local $hash — PowerShell variables are case-insensitive, so it would silently overwrite...
-    # [comment:8](/docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md#comment8)
     $identity = $script:pendingGlobProtections[$key]
     if (-not $identity) {
         $identity = if ($Hash) {

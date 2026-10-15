@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md
+      test: automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
     adrs:
       - ADR-AUTO-ENTERP#4
       - ADR-AUTO-IDEM#1
@@ -59,8 +62,6 @@ function Install-Zsh {
     )
 
     if ($IsLinux) {
-        # The shared apt installer: it installs the package the entry's apt_package names, and checks presence before...
-        # [comment:6](/docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md#comment6)
         Install-Tool -Tool zsh -Force:$Force
         Assert-Tool zsh
         return
@@ -97,8 +98,6 @@ function Install-Zsh {
         throw "zsh at '$($layout.Executable)' is not the pinned package '$package' (installed: $($installed ?? 'not by Install-Zsh')). Run Install-Zsh -Force to replace it."
     }
 
-    # Past the early return, a manifest is either a -Force replacement or an install that was cut short: either way...
-    # [comment:7](/docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md#comment7)
     if ($installed) {
         Write-Verbose "Removing the installed zsh ($installed) before installing $package"
         Uninstall-Zsh
@@ -119,8 +118,6 @@ function Install-Zsh {
         # Relative names from the work folder, so the command line carries no drive-letter path.
         Invoke-Executable "`"$tar`" -xf `"$package`" -C package" -WorkingDirectory $work -Silent
 
-        # An MSYS2 package keeps its metadata files (.PKGINFO and its siblings) at the archive root and its payload...
-        # [comment:8](/docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md#comment8)
         foreach ($metadata in [System.IO.Directory]::GetFiles($staging)) {
             [System.IO.File]::Delete($metadata)
         }

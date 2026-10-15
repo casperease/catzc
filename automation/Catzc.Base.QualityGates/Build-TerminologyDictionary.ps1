@@ -6,6 +6,9 @@ catzc:
     kind: writer-function
     module: Catzc.Base.QualityGates
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md
+      test: automation/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1
     adrs:
       - ADR-AUTO-DRYRUN
       - ADR-AUTO-SPELL
@@ -75,23 +78,17 @@ function Build-TerminologyDictionary {
 
     $config = Get-Config -Config terminology
 
-    # One dictionary per category: each category's terms generate their own cspell word list, so cspell.yml can...
-    # [comment:10](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment10)
     $categories = @($config.categories)
 
     # The per-file status lines are verbose-level detail — shown only when this function is run with -Verbose.
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 
-    # The generated dictionaries live at the repository root's.cspell/<category>.txt (see.cspell/README.md).
-    # [comment:11](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment11)
     $cspellDir = Join-Path (Get-RepositoryRoot) '.cspell'
     if (-not $DryRun) {
         [void][System.IO.Directory]::CreateDirectory($cspellDir)
     }
 
     $ret = foreach ($category in $categories) {
-        # The accepted tokens are the terms themselves (an abbreviation's expansion is a real word cspell already...
-        # [comment:12](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment12)
         $words = [string[]] @(
             $config.terms |
                 Where-Object { $_.category -eq $category } |
@@ -100,8 +97,6 @@ function Build-TerminologyDictionary {
         )
         [System.Array]::Sort($words, [System.StringComparer]::Ordinal)
 
-        # A generated-file head (cspell treats '#' lines as comments) names the generator and the single source —...
-        # [comment:13](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment13)
         $text = if ($words.Count -gt 0) {
             ($words -join "`n") + "`n"
         }
@@ -110,8 +105,6 @@ function Build-TerminologyDictionary {
         }
         $content = Format-GeneratedFileHead -Text $text -Path ".cspell/$category.txt" -Carrier word-list -Generator Build-TerminologyDictionary -Source 'automation/Catzc.Base.QualityGates/configs/terminology.yml'
 
-        # Gitignored, generated artifact at the repository root's.cspell/, at the fixed path cspell.yml references.
-        # [comment:14](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment14)
         $dictPath = Join-Path $cspellDir "$category.txt"
 
         $existing = if (Test-Path $dictPath) {

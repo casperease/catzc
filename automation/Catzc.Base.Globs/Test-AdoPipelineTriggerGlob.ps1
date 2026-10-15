@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Globs
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-FLOW-CD-GLOBS#1

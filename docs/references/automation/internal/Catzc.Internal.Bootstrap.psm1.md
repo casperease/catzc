@@ -3,43 +3,41 @@ catzc:
   derived:
     path: docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md
     kind: comment-page
-    body_sha: "5177b120af56"
+    body_sha: "6b6fde003fd4"
     adrs:
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-TYPES#15
-      - ADR-DSGN-RUNMODE#5
-      - ADR-PWSH-ANNOUNCE#1
       - ADR-PWSH-ANNOUNCE#6
+      - ADR-PWSH-ENUM#6
       - ADR-REPO-FORMAT#1
 ---
 
 # automation/.internal/Catzc.Internal.Bootstrap.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Write-ImporterMessage {`, written with `#`.
 
 ```text
-The importer and its .internal bootstrap run before the module system (and Write-Message) are available,
-so this is their writer chokepoint: the bootstrap's counterpart of Write-InformationColored, and like it the
-one place besides it that may call Write-Information
-([ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)). It
-prepends '[Importer.ps1] ' so
-importer output reads consistently with the rest of the toolset's '[Caller] ...' messages, carries the
-colour as embedded ANSI, and is silent during a Pester run ($global:__PesterRunning), exactly as the Writers
-chokepoint is. .internal code only ever runs from the importer. An empty message writes a blank line.
-
-A -StateChange line is one of the importer's own load announcements, which go to the verbose stream instead
-([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)): shown
-when the import runs with -Verbose (Set-ImporterVerbosity), silent otherwise.
+.SYNOPSIS
+    Writes a bootstrap/importer console message, prefixed to match Write-Message's [Caller] style.
+.DESCRIPTION
+    Runs before Write-Message exists, so this is the bootstrap's one writer chokepoint, silent during a Pester run.
+    [comment:1](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment1)
+.PARAMETER Message
+    The message text.
+.PARAMETER ForegroundColor
+    Optional text color (e.g. DarkGray for diagnostics, Yellow for warnings). Not applied to a -StateChange line.
+.PARAMETER StateChange
+    The line announces a state change of the importer's own load sequence: write it on the verbose stream.
 ```
 
 ## comment:2
 
-Above `$script:importerVerbose = $false`.
+Above `$script:importerVerbose = $false`, written with `#`.
 
 ```text
 Whether Write-ImporterMessage -StateChange lines are shown. Module state, so it lives exactly as long as the
@@ -48,48 +46,57 @@ bootstrap: a fresh import starts it at $false and the importer's teardown remove
 
 ## comment:3
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Set-ImporterVerbosity {`, written with `#`.
 
 ```text
--Verbose on the importer sets $VerbosePreference only in Invoke-Importer's own scope; the bootstrap and vendor
-module functions that announce the load do not inherit it. Invoke-Importer hands the setting over here once,
-and Write-ImporterMessage reads it for every -StateChange line.
+.SYNOPSIS
+    Sets whether the importer's state-change lines (Write-ImporterMessage -StateChange) are shown.
+.DESCRIPTION
+    The bootstrap and vendor functions do not inherit -Verbose, so Invoke-Importer hands the setting over here once.
+    [comment:3](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment3)
+.PARAMETER Enabled
+    Show the state-change lines on the verbose stream.
 ```
 
 ## comment:4
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Clear-CompiledType {`, written with `#`.
 
 ```text
-Removes every <ModulesRoot>/.compiled/*.dll (the single combined types assembly). Run by the importer's
--ClearCompiledTypes switch BEFORE modules load, so Import-CSharpTypes finds no cached DLL and compiles all
-modules' types fresh from source — "build from source", not "trust the committed/cached DLL".
-
-Distinct from Catzc.Base.TypesSystem's Clear-ModuleTypeCache: that is a post-import janitor that KEEPS the
-current build and skips in CI; this wipes every build (current included) pre-import and runs in any
-context. Best-effort: a DLL still locked (a loaded build on Windows, a concurrent process) is
-skipped — never stalls.
+.SYNOPSIS
+    Deletes the compiled C# type assembly so the next import rebuilds it from source.
+.DESCRIPTION
+    Unlike Clear-ModuleTypeCache it wipes every build before import in any context, skipping only locked DLLs.
+    [comment:4](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment4)
+.PARAMETER ModulesRoot
+    Path to the automation directory (the parent of .compiled/).
 ```
 
 ## comment:5
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function New-DynamicManifest {`, written with `#`.
 
 ```text
-By default the manifest is derived from the module folder: private/*.ps1 then root *.ps1 (each group
-ordinal-sorted, forward-slashed) become the file list in PrivateData.CatzcFiles, its one NestedModule is the shared
-loader .internal/assets/Import-ModuleFiles.ps1 (which parses each listed file in memory and dot-sources it into the
-module's session state — far cheaper than one nested script file per function), and the root *.ps1 basenames
-become FunctionsToExport. A caller
-whose module is not one-function-per-file on disk — a built module whose functions are merged into one
-<Module>.ps1 — passes both lists explicitly with -NestedModule and -FunctionToExport instead; the folder is
-then not enumerated. Either way the text comes from the one canonical emitter (Get-DynamicManifestContent)
-and is written only on drift.
+.SYNOPSIS
+    Writes a module's generated <Module>.psd1 and returns its path.
+.DESCRIPTION
+    A caller whose module is not one function per file passes both lists explicitly, and the folder is not enumerated.
+    [comment:5](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment5)
+.PARAMETER ModulePath
+    The module folder; the manifest is <ModulePath>/<leaf>.psd1.
+.PARAMETER ExportPrivates
+    Export every function ('*'), so tests can reach privates.
+.PARAMETER ReadOnly
+    Never write: assert the manifest is already present and return its path.
+.PARAMETER NestedModule
+    Explicit NestedModules, relative to ModulePath with forward slashes, in load order. Requires -FunctionToExport.
+.PARAMETER FunctionToExport
+    Explicit FunctionsToExport names. Requires -NestedModule.
 ```
 
 ## comment:6
 
-Above `[switch]$ReadOnly,`.
+Above `[switch]$ReadOnly,`, written with `#`.
 
 ```text
 Read-only load (a bundle): never generate or write the manifest — it must already be present
@@ -98,7 +105,7 @@ Read-only load (a bundle): never generate or write the manifest — it must alre
 
 ## comment:7
 
-Above `$privateRelative = [string[]] @(foreach ($f in $privateFiles) {`.
+Above `$privateRelative = [string[]] @(foreach ($f in $privateFiles) {`, written with `#`.
 
 ```text
 The shared loader (the manifest's one NestedModule) dot-sources each listed .ps1 into the module's session
@@ -109,7 +116,7 @@ commit.
 
 ## comment:8
 
-Above `$content = Get-DynamicManifestContent -NestedModule $script:moduleFilesLoader...`.
+Above `$content = Get-DynamicManifestContent -NestedModule $script:moduleFilesLoader...`, written with `#`.
 
 ```text
 Canonical, formatter-stable text — no hand-padded alignment
@@ -119,7 +126,7 @@ invariant.
 
 ## comment:9
 
-Above `$script:moduleFilesLoader = '../.internal/assets/Import-ModuleFiles.ps1'`.
+Above `$script:moduleFilesLoader = '../.internal/assets/Import-ModuleFiles.ps1'`, written with `#`.
 
 ```text
 The shared loader every derived manifest names as its one NestedModule, relative to the module folder: a module
@@ -128,34 +135,31 @@ folder sits directly under the modules root, beside .internal.
 
 ## comment:10
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `[CmdletBinding()]` (occurrence 4), written with `#`.
 
 ```text
-The janitors' write-on-drift pattern: the manifest is a pure derivation, so an unchanged module yields
-identical bytes and the write is skipped. Beyond saving ~40 writes per import, this is what lets
-Test-Automation's parallel workers dot-source the importer concurrently — the parent's own import
-regenerated every manifest just before spawning, so the workers all compare-equal and none writes, and
-there is no cross-process race on the .psd1 files. UTF-8 without BOM.
+.SYNOPSIS
+    Writes rendered manifest text to its .psd1 only when it differs, and returns the path.
+.DESCRIPTION
+    An unchanged module yields identical bytes and no write, so parallel workers never race on the manifest files.
+    [comment:10](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment10)
 ```
 
 ## comment:11
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `[CmdletBinding()]` (occurrence 5), written with `#`.
 
 ```text
-The manifest is generated on every import, so it is canonical by construction: the '=' column is computed
-from the longest key rather than hand-padded
-([ADR-REPO-FORMAT#1](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format1)), the text uses LF
-endings with a trailing newline,
-and it is formatter-stable — running Invoke-Formatter over it is a no-op (guarded by the L2 tests). Callers
-pass ordinal-sorted, forward-slashed inputs, so the bytes are identical on every platform and every build
-of a commit. -ModuleFile, when given, renders as PrivateData = @{ CatzcFiles = @(...) }: the files the shared
-loader (Import-ModuleFiles.ps1) dot-sources, in that order.
+.SYNOPSIS
+    Renders a module manifest hashtable as canonical .psd1 text.
+.DESCRIPTION
+    Canonical by construction: the alignment column derives from the longest key and the text is formatter-stable.
+    [comment:11](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment11)
 ```
 
 ## comment:12
 
-Above `$fields = [ordered]@{`.
+Above `$fields = [ordered]@{`, written with `#`.
 
 ```text
 Ordered fields with their value literals. The '=' column width is derived from the longest key, so a new
@@ -165,48 +169,27 @@ field re-aligns automatically and no alignment is maintained by hand
 
 ## comment:13
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Import-CSharpTypes {`, written with `#`.
 
 ```text
-Autoloads all modules' types/ folders as a SINGLE assembly (automation/.compiled/Catzc.Types.<hash>.dll),
-so a type in one module can reference a type in another — a shared base class, a layered record graph.
-Each .cs file is named for the BARE type it must produce and declares the file-scoped namespace of its
-module ("namespace <module>;"), maintained by Format-Types and checked by Test-Formatting. The loader compiles the
-sources AS AUTHORED (Add-Type -Path, one compilation unit per file, so each file's file-scoped namespace is
-legal) and derives the expected type as <module>.<filename>: types/CliRunner.cs in module Catzc.Base.Execution
--> type Catzc.Base.Execution.CliRunner. The loader requires each source's declared namespace to match its
-module folder (the same invariant Test-Formatting enforces) and identifies the type from the filename.
-
-Because everything is ONE assembly, there are NO cross-ASSEMBLY references — only cross-NAMESPACE
-references inside it, which the compiler and CLR resolve unconditionally. The combined assembly is a leaf
-in the assembly-reference graph (nothing references it by assembly identity; PowerShell resolves
-[Namespace.Type] by FQN), so the Roslyn-assigned random assembly name is irrelevant and Add-Type stays the
-compiler. The module dependency graph is NOT enforced by the compiler here — it is policed by
-Get-CSharpTypeDependency / Test-ModuleDependency in the L1 integrity tests.
-
-The assembly is committed as automation/.compiled/Catzc.Types.<combinedHash8>.dll (deterministic per the
-combined source hash, like .vendor) so a fresh checkout and CI load it without invoking Roslyn. The
-combined hash folds in each file's MODULE and bare type name (not just content), so moving a .cs between
-modules (new namespace) or renaming it (new type) re-keys the assembly even when the content is identical.
-States:
-
-  1. A type already in the AppDomain (types survive module reimport) -> compare the combined source hash to
-     what was recorded for this root; a change throws in a pipeline and warns on a devbox (restart
-     required), otherwise it is a no-op.
-  2. Loaded on behalf of a DIFFERENT root (the other run mode) -> compare the per-file digests of every type
-     this root needs to the root that recorded them. All equal reuses the loaded types and records this
-     root; a changed digest or a needed type missing from the AppDomain takes the contract of state 1,
-     naming both roots.
-  3. Not loaded -> load the cached DLL if its hash matches, else compile all sources to the hash-named DLL
-     (Build-CombinedTypeAssembly — Roslyn, once per combined hash) and load it. Then verify EVERY expected
-     type resolved, else throw.
-
-Runs once from Bootstrap (not a Catzc module) as a pre-pass before any module's functions import.
+.SYNOPSIS
+    Compiles and loads EVERY module's native C# types (types/*.cs) into ONE hash-keyed assembly.
+.DESCRIPTION
+    One assembly lets a type in one module reference a type in another; the module graph is policed by tests.
+    [comment:13](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment13)
+.PARAMETER ModulesRoot
+    The automation directory. Its non-dot subfolders are the modules; the assembly is written to its .compiled/.
+.PARAMETER DiagnoseLoadTime
+    Emit a single combined compile/cache-load timing line (surfaced by importer.ps1 -DiagnoseLoadTime).
+.PARAMETER PrebuiltOnly
+    A bundle: the prebuilt DLL and manifest must exist, and the run mode for the types-load policy is build.
+.PARAMETER HostKind
+    console or headless, the host axis of the types-load policy. Only the interactive importer passes console.
 ```
 
 ## comment:14
 
-Above `[switch]$PrebuiltOnly`.
+Above `[switch]$PrebuiltOnly,`, written with `#`.
 
 ```text
 Prebuilt-only load (a bundle): load the shipped combined-types assembly, and throw if it is absent —
@@ -215,7 +198,7 @@ never invoke Roslyn and never write. A bundle ships the DLL, so a read-only inst
 
 ## comment:15
 
-Above `Import-InternalModule Types`.
+Above `Import-InternalModule Types`, written with `#`.
 
 ```text
 The enumeration, deterministic ordering, per-file EOL-insensitive digest, combined hash, and per-file
@@ -227,7 +210,7 @@ Import-InternalModule call is a no-op guard that keeps this callable if the modu
 
 ## comment:16
 
-Above `$arr = [object[]]@(foreach ($file in $hashResult.Files) {`.
+Above `$arr = [object[]]@(foreach ($file in $hashResult.Files) {`, written with `#`.
 
 ```text
 Validate each source and derive its FQN (<module>.<filename>). These two poka-yokes are the loader's job,
@@ -240,7 +223,7 @@ ordinally sorted.
 
 ## comment:17
 
-Above `if (-not (Get-Variable -Name '__CatzcTypes' -Scope Global -ValueOnly...`.
+Above `if (-not (Get-Variable -Name '__CatzcTypes' -Scope Global -ValueOnly...`, written with `#`.
 
 ```text
 A loaded assembly cannot be reloaded. Whether the types in this process are current for THIS ModulesRoot is
@@ -255,7 +238,7 @@ strip CR).
 
 ## comment:18
 
-Above `if ((Test-IsRunningInPipeline) -or $typeState.MissingTypes.Count) {`.
+Above `if ((Test-IsRunningInPipeline) -or $typeState.MissingTypes.Count) {`, written with `#`.
 
 ```text
 A loaded assembly cannot be swapped in the AppDomain. In a pipeline a stale-types load is a HARD
@@ -270,7 +253,7 @@ yellow line naming the changed types by simple name, and the import goes on.
 
 ## comment:19
 
-Above `$didCompile = $false`.
+Above `$didCompile = $false`, written with `#`.
 
 ```text
 Ensure the committed, hash-keyed DLL exists on disk — recompile if missing (deleted, git-cleaned, or a
@@ -280,7 +263,7 @@ when the types are already in the AppDomain (idempotent, self-healing re-import)
 
 ## comment:20
 
-Above `$built = Build-CombinedTypeAssembly -AutomationRoot $ModulesRoot...`.
+Above `$built = Build-CombinedTypeAssembly -AutomationRoot $ModulesRoot...`, written with `#`.
 
 ```text
 The ONE compile path (Build-CombinedTypeAssembly in Catzc.Internal.Types, shared with a build): it
@@ -291,7 +274,7 @@ throw, never a DLL whose name keys a set of sources other than the ones validate
 
 ## comment:21
 
-Above `foreach ($old in [System.IO.Directory]::EnumerateFiles($compiledDir,...`.
+Above `foreach ($old in [System.IO.Directory]::EnumerateFiles($compiledDir,...`, written with `#`.
 
 ```text
 Prune superseded-hash builds — the .compiled dir's old Catzc.Types.*.dll. Best-effort: a DLL still
@@ -300,7 +283,7 @@ locked (the live build on Windows, or a concurrent process) is skipped, never fa
 
 ## comment:22
 
-Above `$relativeDll = ([System.IO.Path]::GetRelativePath($env:RepositoryRoot, $dll))...`.
+Above `$relativeDll = ([System.IO.Path]::GetRelativePath($env:RepositoryRoot, $dll))...`, written with `#`.
 
 ```text
 Announce the real build (a freshly created, committable artifact) — always, not only under
@@ -310,7 +293,7 @@ through Write-ImporterMessage like the rest of bootstrap (Write-Message may not 
 
 ## comment:23
 
-Above `if (-not $loaded) {`.
+Above `$deferred = $false`, written with `#`.
 
 ```text
 Load the assembly if not already in the AppDomain (a reimport keeps the live copy). Verify EVERY type.
@@ -326,7 +309,7 @@ committed DLL, the artifact a reader recognizes.
 
 ## comment:24
 
-Above `$aliasAttrType =...`.
+Above `foreach ($result in @(Initialize-Types)) {`, written with `#`.
 
 ```text
 Publish [PSTypeAlias("Name")] accelerators from the freshly loaded types, so `[Name]` resolves to the
@@ -337,30 +320,26 @@ the decorated types/*.cs, so a workspace search for it lands on the source. Idem
 only ever reclaims our own accelerator, never another module's.
 ```
 
-## comment:26
+## comment:25
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Assert-UniqueModuleFunctionName {`, written with `#`.
 
 ```text
-PowerShell does NOT error on a command-name clash — the command imported last silently shadows the rest.
-This pre-pass turns that silent collision into a fast, loud failure before any module (or C# type) loads.
-It catches two cases and collects all of them into one error:
-
-1. Two automation modules exporting the same name — a caller of Get-Foo would get whichever module sorted
-   last.
-2. An automation function whose name would shadow an already-imported shipped command. Vendored modules and
-   built-ins load before our modules, so a clash means our -Scope Global import silently overrides them.
-   The check is scoped to shipped commands by module path (under .vendor/ or $PSHOME), so a user's
-   unrelated session module never blocks the import and our own modules are naturally excluded.
-
-The checked set mirrors New-DynamicManifest's exports: module-root *.ps1 are always exported; private/*.ps1
-join the set only under -ExportPrivates (which exports '*'). Without the flag, two modules each owning a
-private of the same name is legal (privates are module-scoped, not exported) and is not a collision.
+.SYNOPSIS
+    Fails the import when an exported function name collides — across automation modules, or with a shipped
+    (vendored/built-in) command that is already imported.
+.DESCRIPTION
+    PowerShell silently lets the last imported command shadow the rest, so this turns a clash into a loud failure.
+    [comment:26](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment26)
+.PARAMETER ModuleDirs
+    The discovered module directories (dot-prefixed infrastructure already excluded).
+.PARAMETER ExportPrivates
+    When set, private/ functions are exported too, so they join the uniqueness check.
 ```
 
-## comment:27
+## comment:26
 
-Above `$shipped = @{}`.
+Above `$shipped = @{}`, written with `#`.
 
 ```text
 2) An automation function shadowing an already-imported SHIPPED command (vendored module or built-in).
@@ -370,9 +349,9 @@ Above `$shipped = @{}`.
    or stale on a devbox re-import) are naturally excluded (their base is neither).
 ```
 
-## comment:28
+## comment:27
 
-Above `$isShipped = ($base -like "$PSHOME*") -or ($base -match '[\\/]\.vendor[\\/]')...`.
+Above `$isShipped = ($base -like "$PSHOME*") -or ($base -match '[\\/]\.vendor[\\/]')...`, written with `#`.
 
 ```text
 Shipped = a command that loads BEFORE our automation modules and would be silently shadowed by our
@@ -381,35 +360,39 @@ modules (loaded by the importer before this check). The .internal modules sit di
 so their ModuleBase ENDS at .internal (no trailing separator) — match that too.
 ```
 
-## comment:29
+## comment:28
 
-Section `.DESCRIPTION` of the comment-based help.
+Above `function Get-ForeignCatzcModule {`, written with `#`.
 
 ```text
-A catzc module is one named 'Catzc' (the package module) or 'Catzc.*'. It belongs to a root when its
-ModuleBase is that root or lies under it; the package module also belongs when its ModuleBase is the
-root's parent (a package whose code root is its automation/ subfolder). Paths compare as normalized full
-paths, case-insensitively, as Get-CatzcRunMode does. Vendored third-party modules never carry a catzc name,
-so the name filter alone keeps them out — Import-VendorModules owns their reload. The single predicate
-behind both the run-mode eviction (Import-AllModules) and the exclusivity assert (Invoke-Importer's tail).
+.SYNOPSIS
+    Returns every loaded catzc module that does not come from the given code root.
+.DESCRIPTION
+    The package module also belongs when its ModuleBase is the root's parent, since its code root is automation/.
+    [comment:29](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment29)
+.PARAMETER ModulesRoot
+    The active code root (CatzcModulesRoot).
+.PARAMETER IncludeInternal
+    Include the Catzc.Internal.* loader modules (they belong to a root through its .internal folder).
+```
+
+## comment:29
+
+Above `function Import-AllModules {`, written with `#`.
+
+```text
+.SYNOPSIS
+    Imports all module directories under a given root path.
+.DESCRIPTION
+    Running importer modules are never touched mid-load; the exclusivity assert reports any that are foreign.
+    [comment:30](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment30)
+.PARAMETER ModulesRoot
+    Path to the directory containing module folders.
 ```
 
 ## comment:30
 
-Section `.DESCRIPTION` of the comment-based help.
-
-```text
-Before anything loads it evicts the other run mode
-([ADR-DSGN-RUNMODE#5](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode5)): every catzc module loaded from a
-different root is removed, and a Catzc.Internal.* module from a different root is re-imported from this
-root's .internal (Import-InternalModule -Force semantics, anchored at this root). The running importer
-modules (Importer, Bootstrap) are never touched mid-load; the shims import them from the active root by
-construction, and Invoke-Importer's exclusivity assert reports any that are not.
-```
-
-## comment:31
-
-Above `[switch]$DiagnoseLoadTime,`.
+Above `[switch]$DiagnoseLoadTime,` (occurrence 2), written with `#`.
 
 ```text
 Emit a per-module load-time breakdown: manifest generation, a raw-read probe (cold file I/O), and
@@ -418,18 +401,27 @@ module(s) are slow and whether the cost is file I/O (raw-read column) or parse (
 manifest enumeration is native .NET and consistently ~1-7ms. Off = no overhead.
 ```
 
-## comment:32
+## comment:31
 
-Above `[switch]$Bundle`.
+Above `[switch]$Bundle,`, written with `#`.
 
 ```text
 Read-only bundle load: manifests must be pre-generated (never written), and the combined-types DLL
 must be shipped (never compiled). Passed by Invoke-Importer -Bundle; off for the mono repo.
 ```
 
+## comment:32
+
+Above `$moduleDirs = [System.IO.DirectoryInfo]::new($ModulesRoot).GetDirectories() |`, written with `#`.
+
+```text
+One level, inline: this module loads before the walker exists
+([ADR-PWSH-ENUM#6](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum6)).
+```
+
 ## comment:33
 
-Above `Assert-UniqueModuleFunctionName -ModuleDirs $moduleDirs...`.
+Above `Assert-UniqueModuleFunctionName -ModuleDirs $moduleDirs...`, written with `#`.
 
 ```text
 Fail fast on duplicate exported function names BEFORE any module or C# type loads — a collision would
@@ -438,7 +430,7 @@ otherwise be silent (the module imported last shadows the others).
 
 ## comment:34
 
-Above `$stale = @(Get-Module |`.
+Above `$stale = @(Get-Module |`, written with `#`.
 
 ```text
 Remove previously loaded automation modules (handles deleted/renamed modules). Exclude Bootstrap, the
@@ -449,7 +441,7 @@ functions call them); they live under the automation root, so without this they 
 
 ## comment:35
 
-Above `$rootInternal =...`.
+Above `$rootInternal =...`, written with `#`.
 
 ```text
 Evict the other run mode: a catzc module loaded from a different root (a build when loading the source
@@ -466,7 +458,7 @@ with its parent; Invoke-Importer's exclusivity assert (after the load) proves no
 
 ## comment:36
 
-Above `Import-CSharpTypes -ModulesRoot $ModulesRoot...`.
+Above `Import-CSharpTypes -ModulesRoot $ModulesRoot...`, written with `#`.
 
 ```text
 Native C# types (every module's types/*.cs) compile/load ONCE, before any module's functions, into a
@@ -476,7 +468,7 @@ type in one module can reference a type in another. Module import order below is
 
 ## comment:37
 
-Above `$readMs = 0`.
+Above `$readMs = 0`, written with `#`.
 
 ```text
 Diagnostic probe: read every .ps1 this module imports, raw, BEFORE Import-Module. This pays
@@ -488,7 +480,7 @@ set Import-Module will load (root + private .ps1, no tests), so the warming is r
 
 ## comment:38
 
-Above `. $importedModule { Set-StrictMode -Version Latest }`.
+Above `. $importedModule { Set-StrictMode -Version Latest }`, written with `#`.
 
 ```text
 A session-level Set-StrictMode does not reach module code, so strict mode is set in each module's own
@@ -498,7 +490,7 @@ script scope, which every function in the module inherits
 
 ## comment:39
 
-Above `$summary = "Loaded $($imported.Count) modules from '$ModulesRoot'"`.
+Above `$summary = "Loaded $($imported.Count) modules from '$ModulesRoot'"`, written with `#`.
 
 ```text
 Loading and unloading modules changes the session, so it is announced

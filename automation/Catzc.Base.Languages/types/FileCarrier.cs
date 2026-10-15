@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.Languages/types/FileCarrier.cs
     kind: csharp-type
     module: Catzc.Base.Languages
+    relatives:
+      page: docs/references/automation/catzc-base-languages/types/FileCarrier.cs.md
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
 ---
 */
-
-// The properties are snake_case because they mirror the YAML keys; FileCarriersConfig validates an entry and builds one.
-// [comment:1](/docs/references/automation/catzc-base-languages/types/FileCarrier.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

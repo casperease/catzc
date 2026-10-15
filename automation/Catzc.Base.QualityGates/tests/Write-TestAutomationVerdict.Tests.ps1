@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationVerdict.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationVerdict.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
     adrs:
       - ADR-AUTO-CONSOLE#7
       - ADR-PWSH-PESTER#4
@@ -14,8 +17,6 @@ catzc:
 param()
 
 Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-AUTO-CONSOLE#7' {
-    # The writers' chokepoint returns early during a run ($global:__PesterRunning); lift it so the banner's...
-    # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationVerdict.Tests.ps1.md#comment1)
     BeforeAll {
         $global:__PesterRunning = $false
 
@@ -24,8 +25,6 @@ Describe 'Write-TestAutomationVerdict' -Tag 'L0', 'logic', 'ADR-AUTO-CONSOLE#7' 
             $Text -replace "`e\[[0-9;]*m", ''
         }
 
-        # The presenter is a private (module-scoped) function, so it is invoked through InModuleScope.
-        # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Write-TestAutomationVerdict.Tests.ps1.md#comment2)
         function Get-VerdictRaw {
             param($Result, $Summary, $PassedCount = 0, $FailedCount = 0, $SkippedCount = 0, $DurationSeconds = 0, $ReportPath = '')
             InModuleScope Catzc.Base.QualityGates -Parameters @{ R = $Result; S = $Summary; P = $PassedCount; F = $FailedCount; K = $SkippedCount; D = $DurationSeconds; RP = $ReportPath } {

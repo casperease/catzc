@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Test-Spelling.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/Test-Spelling.ps1
     adrs:
       - ADR-AUTO-TEST#14
       - ADR-AUTO-TEST#35
@@ -126,8 +129,6 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
             Set-ItResult -Skipped -Because 'tool_cspell_missing'
             return
         }
-        # cspell globs are relative to the repo root (Test-Spelling's working directory), so use the committed clean...
-        # [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Test-Spelling.Tests.ps1.md#comment1)
         $fixture = 'automation/Catzc.Base.QualityGates/tests/assets/spelling/clean.md'
         $result = Test-Spelling -Path $fixture -OutputFolder (Join-Path $TestDrive 'reports') -PassThru
         $result.IssueCount | Should -Be 0
@@ -135,12 +136,8 @@ Describe 'Test-Spelling (real cspell)' -Tag 'L2', 'logic' {
     }
 }
 
-# Integrity: the ACTUAL repository content is spell-clean.
-# [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/Test-Spelling.Tests.ps1.md#comment2)
 Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {
     It 'the repository globset covers every tracked file the spelling scan reads' -Tag 'ADR-REPO-PROTGLOB#6' {
-        # The spelling scan's default content types; cspell.yml ignorePaths drops vendored code.
-        # [comment:3](/docs/references/automation/catzc-base-qualitygates/tests/Test-Spelling.Tests.ps1.md#comment3)
         $spelledExtensions = @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml', '.json', '.cs', '.bicep', '.go', '.py')
         $spelled = foreach ($file in (Get-GitTrackedPath '.')) {
             if ($file.StartsWith('automation/.vendor/')) {

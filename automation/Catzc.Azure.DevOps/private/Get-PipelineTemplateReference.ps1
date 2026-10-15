@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.DevOps
     visibility: private
+    relatives:
+      test: automation/Catzc.Azure.DevOps/tests/Get-PipelineTemplateReference.Tests.ps1
     adrs:
       - ADR-PIPE-NAME#4
   config:

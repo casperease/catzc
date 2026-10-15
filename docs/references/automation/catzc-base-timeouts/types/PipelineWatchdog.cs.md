@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md
     kind: comment-page
-    body_sha: "3e0b880639d1"
+    body_sha: "254b38dd639b"
 ---
 
 # automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A one-shot timer that stops a PowerShell pipeline once it outlives its limit — the mechanism behind
@@ -26,7 +26,7 @@ Dispose the watchdog once the pipeline returns, so a pipeline that finished in t
 
 ## comment:2
 
-Above `timer = new Timer(_ =>`.
+Above `timer = new Timer(_ =>`, written with `//`.
 
 ```text
 The stop and Dispose share one gate: Timer.Dispose does not wait for a callback already running, so without

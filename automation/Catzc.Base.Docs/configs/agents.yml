@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.Docs/configs/agents.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-docs/configs/agents.yml.md
 # ---
 
-# Test-AgentDefinitions checks this registry against the agent files, the rule ids, the commands and CLAUDE.md.
-# [comment:1](/docs/references/automation/catzc-base-docs/configs/agents.yml.md#comment1)
 standard: catzc-worker
 agents:
   # The standard agent: one task from a coordinator's brief, each file verified with the gates before the next.

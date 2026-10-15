@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Maps
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
+      test: automation/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE#6
       - ADR-AUTO-TRACKED
@@ -96,8 +99,6 @@ function Get-WorldMap {
     }
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:worldMapTextCache')) {
-        # strict-clean probe of the lazy cache entry
-        # [comment:4](/docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md#comment4)
         $script:worldMapTextCache = @{}
     }
     $texts = @{}

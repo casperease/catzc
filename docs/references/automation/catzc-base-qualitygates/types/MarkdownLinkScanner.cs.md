@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md
     kind: comment-page
-    body_sha: "0470b07ea2fa"
+    body_sha: "70e6dc39258d"
     adrs:
       - ADR-REPO-LINK#2
 ---
 
 # automation/Catzc.Base.QualityGates/types/MarkdownLinkScanner.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 Checks and aligns the markdown links of one .md file
@@ -31,7 +31,7 @@ have it. Code links are not checked this way — no hosted renderer follows a co
 
 ## comment:2
 
-Above `public MarkdownLinkScanner(string repositoryRoot, Func<string,...`.
+Above `public MarkdownLinkScanner(string repositoryRoot, Func<string,...`, written with `//`.
 
 ```text
 selfUrlPrefix: this repository's web URL (https://github.com/<owner>/<repo>), or null to skip that check.
@@ -41,7 +41,7 @@ not a git work tree). A folder counts as tracked when any tracked file lies unde
 
 ## comment:3
 
-Above `public string Scan(string text, string repoPath, List<CodeLinkRewriter.Hit>...`.
+Above `public string Scan(string text, string repoPath, List<CodeLinkRewriter.Hit>...`, written with `//`.
 
 ```text
 Scans one markdown file (repoPath is repository-relative, '/'-separated). Returns the aligned text; hits are

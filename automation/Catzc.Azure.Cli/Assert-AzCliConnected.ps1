@@ -6,6 +6,8 @@ catzc:
     kind: assert-function
     module: Catzc.Azure.Cli
     visibility: public
+    relatives:
+      test: automation/Catzc.Azure.Cli/tests/Assert-AzCliConnected.Tests.ps1
   config:
     synopsis: Asserts the active az CLI session matches a given subscription and/or tenant.
     description: |-

@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Exporter
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Exporter/tests/Resolve-CatzcBuildVersion.Tests.ps1
     adrs:
       - ADR-AUTO-BUNDLE#7
       - ADR-PWSH-ERROR#2

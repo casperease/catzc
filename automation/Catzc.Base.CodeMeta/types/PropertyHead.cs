@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.CodeMeta/types/PropertyHead.cs
     kind: csharp-type
     module: Catzc.Base.CodeMeta
+    relatives:
+      page: docs/references/automation/catzc-base-codemeta/types/PropertyHead.cs.md
+      test: automation/Catzc.Base.CodeMeta/tests/types/PropertyHead.Tests.ps1
     adrs:
       - ADR-REPO-FILEMETA#8
 ---
@@ -134,8 +137,6 @@ public sealed class PropertyHead
         return new PropertyHead(property, text, newLine, members, open, close, headIndex, block, foreign);
     }
 
-    // A text that is no object, or whose property holds foreign data, comes back untouched, so the imprint never damages what it does not own.
-    // [comment:1](/docs/references/automation/catzc-base-codemeta/types/PropertyHead.cs.md#comment1)
     public string WithFacts(IDictionary derived)
     {
         if (!IsObject || Foreign) { return text; }

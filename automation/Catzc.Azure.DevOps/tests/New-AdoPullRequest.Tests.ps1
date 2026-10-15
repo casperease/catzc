@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/New-AdoPullRequest.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-devops/tests/New-AdoPullRequest.Tests.ps1.md
+      source: automation/Catzc.Azure.DevOps/New-AdoPullRequest.ps1
 ---
 #>
 
@@ -13,8 +16,6 @@ Describe 'New-AdoPullRequest' -Tag 'L0', 'logic' {
             @{ organization = 'https://dev.azure.com/org'; project = 'proj' }
         } -ModuleName Catzc.Azure.DevOps
 
-        # Mock the REST boundary: repo lookup returns one repo; the PR POST returns a PR object.
-        # [comment:1](/docs/references/automation/catzc-azure-devops/tests/New-AdoPullRequest.Tests.ps1.md#comment1)
         Mock Invoke-AdoRestMethod {
             if ($Uri -like '*pullrequests*') {
                 return [PSCustomObject]@{ pullRequestId = 42 }

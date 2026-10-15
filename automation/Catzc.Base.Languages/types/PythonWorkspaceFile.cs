@@ -5,14 +5,13 @@ catzc:
     path: automation/Catzc.Base.Languages/types/PythonWorkspaceFile.cs
     kind: csharp-type
     module: Catzc.Base.Languages
+    relatives:
+      page: docs/references/automation/catzc-base-languages/types/PythonWorkspaceFile.cs.md
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-ROOTCFG
 ---
 */
-
-// The renderer only composes content; Build-RootConfig owns the write.
-// [comment:1](/docs/references/automation/catzc-base-languages/types/PythonWorkspaceFile.cs.md#comment1)
 
 using System;
 

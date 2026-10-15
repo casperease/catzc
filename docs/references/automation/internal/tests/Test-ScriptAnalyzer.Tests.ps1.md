@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/internal/tests/Test-ScriptAnalyzer.Tests.ps1.md
-    kind: test-asset
-    body_sha: "8ba832684d3d"
+    kind: comment-page
+    body_sha: "3df484ba0b86"
     adrs:
       - ADR-AUTO-CACHE#10
       - ADR-PWSH-FORMAT#5
@@ -11,12 +11,12 @@ catzc:
 
 # automation/.internal/tests/Test-ScriptAnalyzer.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {`.
+Above `Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {`, written with `#`.
 
 ```text
 greedy: the analysis shards across min(ProcessorCount - 1, 10) background pwsh processes of its own —
@@ -26,7 +26,7 @@ tests' wall clock against the level time limits); the greedy phase runs it after
 
 ## comment:2
 
-Above `$script:targetFiles = [System.Collections.Generic.List[string]]::new()`.
+Above `$script:targetFiles = [System.Collections.Generic.List[string]]::new()`, written with `#`.
 
 ```text
 Draw the exact files from the one shared selector (Get-AutomationSourceFiles), so this gate cannot
@@ -41,7 +41,7 @@ manifests are excluded as build output. Sorted here for stable, reproducible sha
 
 ## comment:3
 
-Above `$allDiagnostics = & (Get-Module Catzc.Base.QualityGates) {`.
+Above `$allDiagnostics = & (Get-Module Catzc.Base.QualityGates) {`, written with `#`.
 
 ```text
 The one analysis engine Test-ScriptAnalyzer runs (Get-ScriptAnalyzerDiagnostics): the file list sharded

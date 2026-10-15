@@ -4,11 +4,12 @@ catzc:
   derived:
     path: automation/Catzc.Base.Git/tests/New-RepositorySnapshot.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-git/tests/New-RepositorySnapshot.Tests.ps1.md
+      source: automation/Catzc.Base.Git/New-RepositorySnapshot.ps1
 ---
 #>
 
-# L2: drives real git against a throwaway repository that holds every working-tree state a snapshot must reproduce —...
-# [comment:1](/docs/references/automation/catzc-base-git/tests/New-RepositorySnapshot.Tests.ps1.md#comment1)
 Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.Git

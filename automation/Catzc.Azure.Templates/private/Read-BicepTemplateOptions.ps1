@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Azure.Templates
     visibility: private
+    relatives:
+      test: automation/Catzc.Azure.Templates/tests/Read-BicepTemplateOptions.Tests.ps1
   config:
     synopsis: Reads a template's optional `options.yml` and returns the validated deployment overrides.
     description: |-

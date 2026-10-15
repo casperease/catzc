@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Languages
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.Languages/tests/ConvertFrom-GoTestJson.Tests.ps1
   config:
     synopsis: Turns a `go test -json` event stream (the test2json format) into one GoTestResult per top-level Go test.
     description: |-

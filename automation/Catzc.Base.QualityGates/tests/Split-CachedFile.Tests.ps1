@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Split-CachedFile.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/tests/Split-CachedFile.Tests.ps1.md
+      source: automation/Catzc.Base.QualityGates/private/Split-CachedFile.ps1
     adrs:
       - ADR-AUTO-CACHE#10
       - ADR-AUTO-TEST#3
 ---
 #>
 
-# The result-cache halves shared by Format-Code and the analyzer: Split-CachedFile reads, Update-ResultCache writes,...
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/tests/Split-CachedFile.Tests.ps1.md#comment1)
 Describe 'Split-CachedFile' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE#10' {
     BeforeEach {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive "repo-$([guid]::NewGuid().ToString('N'))"))

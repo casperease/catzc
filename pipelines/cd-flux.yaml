@@ -3,13 +3,10 @@
 #   derived:
 #     path: pipelines/cd-flux.yaml
 #     kind: pipeline
+#     relatives:
+#       page: docs/references/pipelines/cd-flux.yaml.md
 # ---
 
-# Dev-only, with no expedition config: the Expeditions list is empty, so Deploy_Expedition runs no job.
-# [comment:1](/docs/references/pipelines/cd-flux.yaml.md#comment1)
-
-# Flux has no expedition config, so its own include covers only foundation and discovery; other deployments' config is excluded.
-# [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/pipelines/cd-flux.yaml.md#comment2)
 trigger:
   branches:
     include: [main]

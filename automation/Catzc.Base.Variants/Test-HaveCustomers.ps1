@@ -6,6 +6,9 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Variants
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-variants/Test-HaveCustomers.ps1.md
+      test: automation/Catzc.Base.Variants/tests/Test-HaveCustomers.Tests.ps1
   config:
     synopsis: Tests whether the repo has customer deployments enabled — for all customers, or for specific names.
     description: |-
@@ -50,8 +53,6 @@ function Test-HaveCustomers {
     if ($isAll) {
         return $true
     }
-    # Enabled names and the query names are both lowercase-validated, so plain (case-insensitive) membership is...
-    # [comment:3](/docs/references/automation/catzc-base-variants/Test-HaveCustomers.ps1.md#comment3)
     foreach ($customer in $Name) {
         if ("$customer" -notin $enabledList) {
             return $false

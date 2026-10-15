@@ -5,11 +5,10 @@ catzc:
     path: automation/Catzc.Azure.Cli/types/BicepState.cs
     kind: csharp-type
     module: Catzc.Azure.Cli
+    relatives:
+      page: docs/references/automation/catzc-azure-cli/types/BicepState.cs.md
 ---
 */
-
-// A point-in-time probe of the local Bicep toolchain against the minimum version, not a config record.
-// [comment:1](/docs/references/automation/catzc-azure-cli/types/BicepState.cs.md#comment1)
 
 using System;
 

@@ -4,6 +4,9 @@ catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md
+      source: automation/Catzc.Base.Contracts/Build-ContractReference.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-CONTRACT#2
@@ -15,8 +18,6 @@ catzc:
 ---
 #>
 
-# Build-ContractReference writes one page per unit, docs/references/contracts/<unit>.md, listing each version...
-# [comment:1](/docs/references/automation/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md#comment1)
 Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
     BeforeAll {
         function Add-File {
@@ -143,8 +144,6 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
     }
 }
 
-# The real contract reference against the real contracts/ tree: the committed pages are what the writer would write now.
-# [comment:2](/docs/references/automation/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md#comment2)
 Describe 'Build-ContractReference — generated contract reference' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README#7' {
     It 'every unit''s page is current — no drift from its assets' {
         $results = @(Build-ContractReference -DryRun -PassThru -Silent)

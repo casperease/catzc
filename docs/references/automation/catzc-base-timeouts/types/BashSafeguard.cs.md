@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md
     kind: comment-page
-    body_sha: "603892a40fe7"
+    body_sha: f61e2a4e3bac
     adrs:
       - ADR-AUTO-FAILFAST#7
 ---
 
 # automation/Catzc.Base.Timeouts/types/BashSafeguard.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The Bash time safeguard's verdict on one Claude Code Bash call
@@ -37,7 +37,7 @@ a subagent (payload `agent_id`) reports it to its coordinator, a pipeline fixes 
 
 ## comment:2
 
-Above `public static string EnvironmentOf(string tfBuild, string githubActions)`.
+Above `public static string EnvironmentOf(string tfBuild, string githubActions)`, written with `//`.
 
 ```text
 The run environment, by the same test as Test-IsRunningInPipeline: either variable set to any non-empty
@@ -46,7 +46,7 @@ value means a pipeline.
 
 ## comment:3
 
-Above `public static string Decide(string payload, TimeoutsConfig config, string...`.
+Above `public static string Decide(string payload, TimeoutsConfig config, string...`, written with `//`.
 
 ```text
 The verdict for one hook payload: null to let the call through, or the reason to deny it. logLine is a

@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md
+      test: automation/Catzc.Tooling.Provisioning/tests/Uninstall-DevBoxTools.Tests.ps1
   config:
     synopsis: Removes all tools installed by Install-DevBoxTools.
     description: |-
@@ -28,8 +31,6 @@ function Uninstall-DevBoxTools {
     Uninstall-Postman
     Uninstall-Git
 
-    # Version-locked tools in reverse dependency order.
-    # [comment:5](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment5)
     $order = @(Get-ToolInstallOrder)
     [array]::Reverse($order)
 
@@ -46,15 +47,11 @@ function Uninstall-DevBoxTools {
             continue
         }
 
-        # Elevation-bound tools (admin_only machine-scope, or apt-get-routed Linux installs) need the same elevation...
-        # [comment:6](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment6)
         if ((Test-ToolRequiresElevation $config) -and -not (Test-IsAdministrator)) {
             Write-Message "Skipping $toolName — requires elevation on this platform to uninstall. Re-run elevated."
             continue
         }
 
-        # Map the snake_case tools.yml key to its PascalCase command suffix, exactly as Install-DevBoxTools does...
-        # [comment:7](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment7)
         $uninstallCmd = "Uninstall-$(Get-ToolCommandSuffix -Tool $toolName)"
         if (-not (Get-Command $uninstallCmd -ErrorAction SilentlyContinue)) {
             throw "No $uninstallCmd function found for tool '$toolName' defined in tools.yml"

@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.ModuleSystem/configs/glossary.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-modulesystem/configs/glossary.yml.md
 # ---
 
-# Every option is defaulted: all five checks, the whole repository and every text surface, so a bare run checks everything.
-# [comment:1](/docs/references/automation/catzc-base-modulesystem/configs/glossary.yml.md#comment1)
 concepts:
   deployable-unit:
     key: deployable_unit

@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
     kind: csharp-type
     module: Catzc.Base.ModuleSystem
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md
     adrs:
       - ADR-AUTO-DEPM#3
 ---
 */
-
-// A group is closed: every dependency must be a member of the same group, so cross-group edges live under modules.
-// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModuleGroup.cs.md#comment1)
 
 using System;
 using System.Collections;

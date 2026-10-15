@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.KeyHandler
     visibility: private
+    relatives:
+      test: automation/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
     adrs:
       - ADR-AUTO-CACHE#5
       - ADR-AUTO-TEST

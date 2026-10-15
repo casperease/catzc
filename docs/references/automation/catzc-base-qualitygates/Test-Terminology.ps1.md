@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-Terminology.ps1.md
     kind: comment-page
-    body_sha: "6c7d5173a586"
+    body_sha: cd1bd54bdc93
     adrs:
       - ADR-AUTO-SPELL#5
       - ADR-AUTO-SPELL#8
@@ -11,39 +11,39 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/Test-Terminology.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:6
+## comment:1
 
-Above `$registryPath = Join-Path $root...`.
+Above `$registryPath = Join-Path $root...`, written with `#`.
 
 ```text
 The registry's own file inside the scanned corpus — a corpus exclusion, not an asset read (the registry
 itself is loaded through Get-Config), so it names the file in the repository tree being scanned.
 ```
 
-## comment:7
+## comment:2
 
-Above `$config = $null`.
+Above `$config = $null`, written with `#`.
 
 ```text
 ---- Check 3 (justification / no-coinage): loading validates every entry via TerminologyConfig ----
 A missing category/meaning, an abbreviation without an expansion, or an unknown category throws here.
 ```
 
-## comment:8
+## comment:3
 
-Above `$generated = Build-TerminologyDictionary -DryRun -PassThru`.
+Above `$generated = Build-TerminologyDictionary -DryRun -PassThru`, written with `#`.
 
 ```text
 ---- Check 1 (no drift): every generated dictionary must match the registry
 ([ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5)) ----
 ```
 
-## comment:9
+## comment:4
 
-Above `$cspellDir = Join-Path $root '.cspell'`.
+Above `$cspellDir = Join-Path $root '.cspell'`, written with `#`.
 
 ```text
 ---- Check 2 (no orphans): every term must be referenced somewhere else in the tree

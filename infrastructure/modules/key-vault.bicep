@@ -3,10 +3,9 @@
 //   derived:
 //     path: infrastructure/modules/key-vault.bicep
 //     kind: bicep-module
+//     relatives:
+//       page: docs/references/infrastructure/modules/key-vault.bicep.md
 // ---
-
-// Access is RBAC only, so a role assignment, never a vault access policy, grants entry.
-// [comment:1](/docs/references/infrastructure/modules/key-vault.bicep.md#comment1)
 
 @description('Key vault name (3-24 alphanumeric/hyphen, starts with a letter, globally unique).')
 param name string

@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md
-    kind: test-asset
-    body_sha: ec537ce47c65
+    kind: comment-page
+    body_sha: bb48820b67cc
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#26
@@ -14,12 +14,12 @@ catzc:
 
 # automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeAll {`.
+Above `BeforeAll {`, written with `#`.
 
 ```text
 The config/template boundary is mocked ONCE for the whole block and the config cache reset ONCE: every
@@ -32,7 +32,7 @@ which a couple of tests depend on being clean.
 
 ## comment:2
 
-Above `$script:outputRoot = Join-Path (Get-RepositoryRoot)...`.
+Above `$script:outputRoot = Join-Path (Get-RepositoryRoot)...`, written with `#`.
 
 ```text
 Own output root through the seam: any other file building the 'sample' fixture from a sibling
@@ -43,7 +43,7 @@ under the repo because the repo-relative artifact contract is asserted below.
 
 ## comment:3
 
-Above `Mock Build-Bicep {`.
+Above `Mock Build-Bicep {`, written with `#`.
 
 ```text
 Mock Build-Bicep to materialize stub artifacts without invoking az ([System.IO], not the file cmdlets:
@@ -52,7 +52,7 @@ Mock Build-Bicep to materialize stub artifacts without invoking az ([System.IO],
 
 ## comment:4
 
-Above `Mock Get-AzCliSessionSubscription {`.
+Above `Mock Get-AzCliSessionSubscription {`, written with `#`.
 
 ```text
 The deploy target is the az session's subscription — the whole-boundary session mock stands in
@@ -62,7 +62,7 @@ for the service connection / az account set
 
 ## comment:5
 
-Above `Get-Config -Config azure | Out-Null`.
+Above `Get-Config -Config azure | Out-Null`, written with `#`.
 
 ```text
 Warm the fixture config + template-discovery caches ONCE, under the mocks above, so the cold derive
@@ -72,7 +72,7 @@ is paid here and not by whichever test happens to run first
 
 ## comment:6
 
-Above `BeforeAll {`.
+Above `BeforeAll {` (occurrence 2), written with `#`.
 
 ```text
 Boundary mocked + config cache reset ONCE (see the devbox block's note); per-test only the build folder
@@ -81,7 +81,7 @@ is wiped.
 
 ## comment:7
 
-Above `BeforeAll {`.
+Above `BeforeAll {` (occurrence 3), written with `#`.
 
 ```text
 Boundary mocked + config cache reset ONCE (see the devbox block's note). None of these tests mutate the
@@ -91,7 +91,7 @@ torn down once.
 
 ## comment:8
 
-Above `BeforeAll {`.
+Above `BeforeAll {` (occurrence 4), written with `#`.
 
 ```text
 Boundary mocked + config cache reset ONCE (see the devbox block's note); per-test only the build folder
@@ -100,7 +100,7 @@ is wiped (one test builds into it).
 
 ## comment:9
 
-Above `Mock Get-BicepTemplate {`.
+Above `Mock Get-BicepTemplate {`, written with `#`.
 
 ```text
 Stand in for a template whose options.yml declared deployment_mode: DoNotRun, but keep

@@ -4,14 +4,15 @@ catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterModel.Tests.ps1.md
+      source: automation/Catzc.Azure.Templates/Get-BicepParameterModel.ps1
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#2
 ---
 #>
 
-# Logic tests for Get-BicepParameterModel and the BicepParameterModel/BicepParameter types it returns: the model...
-# [comment:1](/docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterModel.Tests.ps1.md#comment1)
 Describe 'Get-BicepParameterModel' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
@@ -30,8 +31,6 @@ Describe 'Get-BicepParameterModel' -Tag 'L0', 'logic' {
         $script:outputFolder = (Get-BicepTemplate sample).output_folder
         $script:mainJson = Join-Path $script:outputFolder 'main.json'
 
-        # Written, not copied: a copy keeps the source's timestamp, and the model reads a build as current only when...
-        # [comment:2](/docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterModel.Tests.ps1.md#comment2)
         function Write-FixtureBuild {
             [System.IO.Directory]::CreateDirectory($script:outputFolder) | Out-Null
             [System.IO.File]::WriteAllText($script:mainJson, $script:fixtureJson)

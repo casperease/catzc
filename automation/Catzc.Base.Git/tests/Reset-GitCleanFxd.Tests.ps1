@@ -4,12 +4,13 @@ catzc:
   derived:
     path: automation/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
     kind: pester-test
+    relatives:
+      page: docs/references/automation/catzc-base-git/tests/Reset-GitCleanFxd.Tests.ps1.md
+      source: automation/Catzc.Base.Git/Reset-GitCleanFxd.ps1
 ---
 #>
 
 Describe 'Reset-GitCleanFxd' -Tag 'L0', 'logic' {
-    # git's own dry-run listing is the one external boundary (plus the deleting clean calls); the whitelist itself is...
-    # [comment:1](/docs/references/automation/catzc-base-git/tests/Reset-GitCleanFxd.Tests.ps1.md#comment1)
     BeforeEach {
         Mock Assert-Command { } -ModuleName Catzc.Base.Git
         Mock Get-AutoControlledGlobs { @('out', 'out/*', '*/README.md', '.vscode', '.vscode/*') } -ModuleName Catzc.Base.Git

@@ -5,6 +5,9 @@ catzc:
     path: automation/Catzc.Base.QualityGates/types/CommentsConfig.cs
     kind: csharp-type
     module: Catzc.Base.QualityGates
+    relatives:
+      page: docs/references/automation/catzc-base-qualitygates/types/CommentsConfig.cs.md
+      test: automation/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
@@ -13,9 +16,6 @@ catzc:
       - ADR-REPO-OUTDIR#1
 ---
 */
-
-// Every key is optional and a fresh checkout without the file behaves like the defaults, so no function restates a value.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -34,7 +34,7 @@ public sealed class CommentsConfig
     public static readonly IReadOnlyDictionary<string, string> DefaultExclude = new Dictionary<string, string>(StringComparer.Ordinal)
     {
         ["**/tests/**"] = "a test's prose is its own subject",
-        ["**/assets/**"] = "an asset is copied or published verbatim elsewhere, where a docs link would be foreign",
+        ["**/assets/**"] = "an asset is copied or published verbatim elsewhere, where a page of this repository would be foreign",
     };
 
     public const int DefaultMinLines = 2;

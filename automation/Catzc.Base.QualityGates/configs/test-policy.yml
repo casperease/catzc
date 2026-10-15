@@ -3,11 +3,8 @@
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/test-policy.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-qualitygates/configs/test-policy.yml.md
 # ---
 
-# Every key is optional: an omitted key takes the default declared once on TestPolicyConfig.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/test-policy.yml.md#comment1)
-
-# An environment not listed is read-only, so a test changes nothing there unless it is named here.
-# [comment:2](/docs/references/automation/catzc-base-qualitygates/configs/test-policy.yml.md#comment2)
 l4_mutation: {}

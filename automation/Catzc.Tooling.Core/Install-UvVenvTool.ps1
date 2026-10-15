@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md
+      test: automation/Catzc.Tooling.Core/tests/Install-UvVenvTool.Tests.ps1
   config:
     synopsis: Installs a CLI into a dedicated uv venv.
     description: |-
@@ -53,15 +56,11 @@ function Install-UvVenvTool {
         Join-Path $venvDir 'bin'
     }
 
-    # --clear rebuilds the venv clean; --seed adds pip/setuptools/wheel so packages that expect `pkg_resources`...
-    # [comment:4](/docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md#comment4)
     Invoke-Uv "venv `"$venvDir`" --python $pythonVersion --clear --seed"
     Invoke-Uv "pip install --python `"$venvDir`" $($config.uv_venv)==$Version.*" -Prerelease:$config.uv_allow_prerelease
 
     Sync-SessionPath
 
-    # APPEND the venv's script directory to PATH (the janitor keeps it there each load via session_path_hints).
-    # [comment:5](/docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md#comment5)
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $scriptsDir) {
         $env:PATH = "$env:PATH$([System.IO.Path]::PathSeparator)$scriptsDir"
         Write-Message "Session PATH: appended '$scriptsDir'"

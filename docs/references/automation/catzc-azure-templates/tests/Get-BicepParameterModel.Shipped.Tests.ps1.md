@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md
-    kind: test-asset
-    body_sha: "3d0da6898682"
+    kind: comment-page
+    body_sha: "449c3741c093"
     adrs:
       - ADR-AUTO-TEST#17
       - ADR-AUTO-TEST#19
@@ -16,12 +16,12 @@ catzc:
 
 # automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `BeforeDiscovery {`.
+Above `BeforeDiscovery {`, written with `#`.
 
 ```text
 L2 integrity for the SHIPPED bicep templates' parameter contract
@@ -48,7 +48,7 @@ out/template/<name> with another test file or a developer's build. greedy, not s
 
 ## comment:2
 
-Above `if (Get-Command az -ErrorAction Ignore) {`.
+Above `if (Get-Command az -ErrorAction Ignore) {`, written with `#`.
 
 ```text
 The Bicep CLI is verified once here for the whole template set, not once per Build-Bicep call

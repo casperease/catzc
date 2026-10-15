@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+    relatives:
+      test: automation/Catzc.Base.QualityGates/tests/Test-TestRunOverBudget.Tests.ps1
     adrs:
       - ADR-AUTO-FAILFAST#7
       - ADR-AUTO-TEST#44

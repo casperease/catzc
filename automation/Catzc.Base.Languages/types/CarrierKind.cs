@@ -5,13 +5,12 @@ catzc:
     path: automation/Catzc.Base.Languages/types/CarrierKind.cs
     kind: csharp-type
     module: Catzc.Base.Languages
+    relatives:
+      page: docs/references/automation/catzc-base-languages/types/CarrierKind.cs.md
     adrs:
       - ADR-REPO-FILEMETA#1
 ---
 */
-
-// Where a file keeps its meta block: in its own text (front matter, comment head, ignored property), beside it (sidecar), or nowhere.
-// [comment:1](/docs/references/automation/catzc-base-languages/types/CarrierKind.cs.md#comment1)
 
 namespace Catzc.Base.Languages;
 

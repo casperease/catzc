@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md
+      test: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleTestOrder.Tests.ps1
   config:
     synopsis: |-
       Returns all automation module names in foundation-first order — a topological sort of the declared
@@ -31,17 +34,11 @@ function Get-ModuleTestOrder {
     [OutputType([string[]])]
     param()
 
-    # Ordinal-sort the module set ourselves (not relying on the caller's order) so the topological sort's tie-break...
-    # [comment:5](/docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md#comment5)
     $modules = [string[]] @(Get-AutomationModules)
     [System.Array]::Sort($modules, [System.StringComparer]::Ordinal)
 
-    # module -> the set of modules it must run AFTER — the declared-graph edges (group-internal layering plus each...
-    # [comment:6](/docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md#comment6)
     $dependencyMap = Get-ModuleDependencyMap -Module $modules
 
-    # Kahn's topological sort.
-    # [comment:7](/docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md#comment7)
     $inDegree = @{}
     foreach ($module in $modules) {
         $inDegree[$module] = $dependencyMap[$module].Count

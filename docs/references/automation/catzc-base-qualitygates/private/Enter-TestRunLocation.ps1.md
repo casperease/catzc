@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md
     kind: comment-page
-    body_sha: "3d85e3687517"
+    body_sha: fcca4c9c5e1b
     adrs:
       - ADR-AUTO-CACHE#10
       - ADR-AUTO-ENGINE#2
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/private/Enter-TestRunLocation.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:6
+## comment:1
 
-Above `$sourceCache = Join-Path (Get-OutputRoot) 'cache'`.
+Above `$sourceCache = Join-Path (Get-OutputRoot) 'cache'`, written with `#`.
 
 ```text
 The snapshot starts with the working folder's quality-check result caches (out/cache), which it would not
@@ -26,9 +26,9 @@ tree and a file the snapshot changed is simply a new key. Without them every sna
 analyse every file from cold. The snapshot's own updates stay in the snapshot.
 ```
 
-## comment:7
+## comment:2
 
-Above `Write-Message 'Priming the snapshot: one import materialises its generated...`.
+Above `Write-Message 'Priming the snapshot: one import materialises its generated...`, written with `#`.
 
 ```text
 Prime the snapshot with one full import, as a fresh clone's first import does: the janitors materialise

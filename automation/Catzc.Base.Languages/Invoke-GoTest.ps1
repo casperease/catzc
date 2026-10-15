@@ -6,6 +6,9 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Languages
     visibility: public
+    relatives:
+      page: docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md
+      test: automation/Catzc.Base.Languages/tests/Invoke-GoTest.Tests.ps1
     adrs:
       - ADR-AUTO-ENGINE
       - ADR-AUTO-ENVVAR#1
@@ -90,8 +93,6 @@ function Invoke-GoTest {
         throw "$relative/go.mod is missing — it is generated; regenerate with: Build-RootConfig"
     }
 
-    # The managed go, by its path: the caller's, already located and checked, or located here from its tools.yml...
-    # [comment:7](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment7)
     $goPath = if ($GoExecutable) {
         Assert-PathExist $GoExecutable -PathType Leaf
         $GoExecutable
@@ -108,8 +109,6 @@ function Invoke-GoTest {
     }
     $goCommand = "`"$goPath`""
 
-    # How the tests start the engine (Get-EngineContract) is an external contract with the go test processes: set for...
-    # [comment:8](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment8)
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['GOTOOLCHAIN'] = 'local'
     $saved = @{}

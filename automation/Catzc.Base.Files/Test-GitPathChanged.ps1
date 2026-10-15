@@ -6,6 +6,8 @@ catzc:
     kind: gate-function
     module: Catzc.Base.Files
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Files/tests/Test-GitPathChanged.Tests.ps1
   config:
     synopsis: Tests whether anything under the given repository paths differs from HEAD.
     description: |-

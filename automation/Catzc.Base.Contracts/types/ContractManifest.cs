@@ -5,14 +5,14 @@ catzc:
     path: automation/Catzc.Base.Contracts/types/ContractManifest.cs
     kind: csharp-type
     module: Catzc.Base.Contracts
+    relatives:
+      page: docs/references/automation/catzc-base-contracts/types/ContractManifest.cs.md
+      test: automation/Catzc.Base.Contracts/tests/types/ContractManifest.Tests.ps1
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-CONTRACT#7
 ---
 */
-
-// Every violation is collected into one ArgumentException, and an unknown key throws; that a named asset exists is Get-Contract's check.
-// [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractManifest.cs.md#comment1)
 
 using System;
 using System.Collections;

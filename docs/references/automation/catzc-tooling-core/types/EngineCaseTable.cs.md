@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md
     kind: comment-page
-    body_sha: "39d18eb1956a"
+    body_sha: "56a014811357"
     adrs:
       - ADR-AUTO-ENGINE#1
 ---
 
 # automation/Catzc.Tooling.Core/types/EngineCaseTable.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 A per-engine fixture table: one row per case, one column per execution engine (ExecutionEngines), so the
@@ -39,7 +39,7 @@ The columns are the repository's execution engines, read from their one declarat
 
 ## comment:2
 
-Above `private static readonly IReadOnlyList<string> Engines =...`.
+Above `private static readonly IReadOnlyList<string> Engines =...`, written with `//`.
 
 ```text
 The columns: the execution engines, declared once
@@ -48,7 +48,7 @@ The columns: the execution engines, declared once
 
 ## comment:3
 
-Above `public IReadOnlyList<Hashtable> Rows { get { return rows; } }`.
+Above `public IReadOnlyList<Hashtable> Rows { get { return rows; } }`, written with `//`.
 
 ```text
 One row per case and engine, in file order: case, engine, fields (the column's map, or null) and not_applicable

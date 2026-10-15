@@ -6,6 +6,8 @@ catzc:
     kind: automation-function
     module: Catzc.Base.Files
     visibility: public
+    relatives:
+      test: automation/Catzc.Base.Files/tests/Get-FileLockingProcess.Tests.ps1
   config:
     synopsis: Lists the processes that hold a file open (lock it).
     description: |-

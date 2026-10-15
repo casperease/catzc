@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
-    kind: test-asset
-    body_sha: "816d258762fa"
+    kind: comment-page
+    body_sha: abb8735bc8ea
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#20
@@ -11,12 +11,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `Describe 'Test-Glossary' -Tag 'L0', 'logic' {`.
+Above `Describe 'Test-Glossary' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-Glossary orchestrates the six checks; here every check and the glossary readers are mocked, so the tests pin
@@ -27,7 +27,7 @@ themselves are covered by their own L0 files; the real-tree run is the L2 integr
 
 ## comment:2
 
-Above `Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity',...`.
+Above `Describe 'Test-Glossary — real glossary sources' -Tag 'L2', 'integrity',...`, written with `#`.
 
 ```text
 The real glossary sources against the real ADRs, tests, and tracked files. G1 and G4 reach git (the tracked-file

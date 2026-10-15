@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/types/AdrDomain.cs.md
     kind: comment-page
-    body_sha: "2e0ec1e6f073"
+    body_sha: "0a0e9b77f768"
     adrs:
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-TRACK#14
@@ -12,12 +12,12 @@ catzc:
 
 # automation/Catzc.Base.Docs/types/AdrDomain.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System.Collections.Generic;`.
+Above `using System.Collections.Generic;`, written with `//`.
 
 ```text
 One ADR domain (a docs/adr/<area>/ folder) from adrs.yml: its Name, 2-4 letter Code, Role, the reader-facing

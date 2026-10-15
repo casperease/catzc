@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md
     kind: comment-page
-    body_sha: "679f88c9df71"
+    body_sha: f944fad90de3
 ---
 
 # automation/Catzc.Azure.DevOps/New-AdoPullRequest.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:4
+## comment:1
 
-Above `Assert-NotNull $pr.pullRequestId -ErrorText "Pull request creation returned...`.
+Above `Assert-NotNull $pr.pullRequestId -ErrorText "Pull request creation returned...`, written with `#`.
 
 ```text
 Postcondition: confirm the PR actually came back created. A non-throwing response with no id means the

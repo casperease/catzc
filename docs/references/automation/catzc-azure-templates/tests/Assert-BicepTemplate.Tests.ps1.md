@@ -2,8 +2,8 @@
 catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md
-    kind: test-asset
-    body_sha: b74433de42f0
+    kind: comment-page
+    body_sha: "30315b4286c9"
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-REPO-OUTDIR#3
@@ -13,12 +13,12 @@ catzc:
 
 <!-- cspell:ignore brkn -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `InModuleScope Catzc.Base.Config { $script:configCache = $null }`.
+Above `InModuleScope Catzc.Base.Config { $script:configCache = $null }`, written with `#`.
 
 ```text
 Reset the caches ONCE (not per test): the mocked config is the SAME fixture azure.yml for every
@@ -30,7 +30,7 @@ drop any stale template-cache entry too, for good measure.)
 
 ## comment:2
 
-Above `BeforeAll {`.
+Above `BeforeAll {` (occurrence 2), written with `#`.
 
 ```text
 These never mutate the tree, so they validate the COMMITTED fixtures directly — no per-test
@@ -40,7 +40,7 @@ Assert-BicepTemplate only reads; it cannot corrupt them.
 
 ## comment:3
 
-Above `$script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())`.
+Above `$script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())`, written with `#`.
 
 ```text
 Validate against a writable COPY of the fixtures so a test can introduce a deliberate violation
@@ -56,7 +56,7 @@ Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse: ~15x faster per 
 
 ## comment:4
 
-Above `[System.IO.File]::WriteAllText((Join-Path $script:templatesRoot...`.
+Above `[System.IO.File]::WriteAllText((Join-Path $script:templatesRoot...`, written with `#`.
 
 ```text
 Add a slotted config beside sample's existing non-slotted ones — no longer a violation.
@@ -65,7 +65,7 @@ beta resolves to core_lower, so beta-001 is a valid slotted root config.
 
 ## comment:5
 
-Above `[System.IO.Directory]::CreateDirectory((Join-Path $script:templatesRoot...`.
+Above `[System.IO.Directory]::CreateDirectory((Join-Path $script:templatesRoot...`, written with `#`.
 
 ```text
 globex is a defined customer with NO subscription in the fixture azure.yml, so a
@@ -74,7 +74,7 @@ configuration/globex/ config can never resolve to a subscription id.
 
 ## comment:6
 
-Above `[System.IO.File]::WriteAllText((Join-Path $script:templatesRoot...`.
+Above `[System.IO.File]::WriteAllText((Join-Path $script:templatesRoot...` (occurrence 8), written with `#`.
 
 ```text
 One config trips two rules at once: a per-subscription env on a standard template (env-class)
@@ -83,7 +83,7 @@ AND a parameter main.bicep does not declare.
 
 ## comment:7
 
-Above `BeforeAll {`.
+Above `BeforeAll {` (occurrence 3), written with `#`.
 
 ```text
 The build and the parameter check are each covered on their own (Build-Bicep.*.Tests.ps1,

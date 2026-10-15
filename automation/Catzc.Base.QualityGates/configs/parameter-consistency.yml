@@ -3,10 +3,10 @@
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/parameter-consistency.yml
 #     kind: yaml-config
+#     relatives:
+#       page: docs/references/automation/catzc-base-qualitygates/configs/parameter-consistency.yml.md
 # ---
 
-# An exempt name that no longer conflicts is reported, so the list only shrinks to what is real.
-# [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/parameter-consistency.yml.md#comment1)
 exempt:
   As: the output format of a diagram converter, typed per diagram (an enum where the format set is closed, text where it is open)
   Config: a config's name to load (Get-Config) versus a loaded config's content to validate (Invoke-ConfigValidator)

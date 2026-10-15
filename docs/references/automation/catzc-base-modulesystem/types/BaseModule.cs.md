@@ -3,19 +3,19 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/types/BaseModule.cs.md
     kind: comment-page
-    body_sha: badf79992097
+    body_sha: "667e3561134d"
     adrs:
       - ADR-AUTO-TYPES#9
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/BaseModule.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
 
-Above `using System;`.
+Above `using System;`, written with `//`.
 
 ```text
 The internal model type for an automation "module" — one concept with four kinds (native C# per
@@ -27,7 +27,7 @@ SessionModule). Get-BaseModule returns these; Copy-Automation and module introsp
 
 ## comment:2
 
-Above `public string Name { get; }`.
+Above `public string Name { get; }`, written with `//`.
 
 ```text
 The module name. For a disk module the folder name (e.g. 'Catzc.Base.Config', '.vendor'); for a session

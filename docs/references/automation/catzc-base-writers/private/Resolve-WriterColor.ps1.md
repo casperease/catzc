@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md
     kind: comment-page
-    body_sha: "596002b27dc8"
+    body_sha: "4426264fdb44"
 ---
 
 # automation/Catzc.Base.Writers/private/Resolve-WriterColor.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
-(Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:3
+## comment:1
 
-Above `if ($ForegroundColor -is [string]) {`.
+Above `if ($ForegroundColor -is [string]) {`, written with `#`.
 
 ```text
 A 'rainbow' / '<base>-rainbow' bareword resolves to a gradient profile (the ToString round-trip); any
