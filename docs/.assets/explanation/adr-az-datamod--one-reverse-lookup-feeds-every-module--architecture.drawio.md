@@ -30,19 +30,19 @@ band, which three edges enter and one leaves.
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                       |
-| --------------------- | ----- | ------------------------------------------------------------------------------------------- |
-| external tool         | 2     | service connection, az session (session band, upper row)                                    |
+| Glyph (legend phrase) | Count | Where                                                                                                     |
+| --------------------- | ----- | --------------------------------------------------------------------------------------------------------- |
+| external tool         | 2     | service connection, az session (session band, upper row)                                                  |
 | code unit             | 3     | Catzc.Azure.Cli (identity, upper), Catzc.Azure (identity, lower), Catzc.Azure.Templates (templates, tall) |
-| file                  | 2     | azure.yml (identity band, lower left), configuration tree (templates band, bottom)           |
-| result                | 1     | resource-group name (templates band, upper right)                                           |
+| file                  | 2     | azure.yml (identity band, lower left), configuration tree (templates band, bottom)                        |
+| result                | 1     | resource-group name (templates band, upper right)                                                         |
 
 External tools are neutral, code units slate, files olive and the result green, all with light names.
 
 ## Edges
 
-| Edge kind   | Count | From → to                                                                                                                   |
-| ----------- | ----- | --------------------------------------------------------------------------------------------------------------------------- |
+| Edge kind   | Count | From → to                                                                                                                                                                                                                   |
+| ----------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | flow: feeds | 8     | service connection → az session → Catzc.Azure.Cli → Catzc.Azure.Templates → resource-group name; azure.yml → Catzc.Azure → Catzc.Azure.Cli; Catzc.Azure → Catzc.Azure.Templates; configuration tree → Catzc.Azure.Templates |
 
 Six edges are horizontal and two vertical (Catzc.Azure up into Catzc.Azure.Cli, configuration tree up into Catzc.Azure.Templates). None
@@ -52,14 +52,14 @@ crosses another; the three edges into the tall code unit enter it at three diffe
 
 A full-width panel at the bottom of the drawing area, in three columns, left to right:
 
-| Swatch                       | Phrase                     |
-| ---------------------------- | -------------------------- |
-| slate rounded box            | code unit                  |
-| olive page with folded corner | file                      |
-| neutral square box           | external tool              |
-| green rounded box            | result                     |
-| thin arrow                   | flow: feeds                |
-| light disc `1`               | marker: a Walkthrough step |
+| Swatch                        | Phrase                     |
+| ----------------------------- | -------------------------- |
+| slate rounded box             | code unit                  |
+| olive page with folded corner | file                       |
+| neutral square box            | external tool              |
+| green rounded box             | result                     |
+| thin arrow                    | flow: feeds                |
+| light disc `1`                | marker: a Walkthrough step |
 
 ## Sidebar
 

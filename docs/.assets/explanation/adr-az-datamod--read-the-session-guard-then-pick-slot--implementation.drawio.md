@@ -8,8 +8,8 @@ Glyphs: 5 code units (slate), 1 file (olive), 1 gate (neutral), 2 failures; 4 fl
 Sidebar: three minimaps and the map key.
 ```
 
-This describes what the [diagram](adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png) draws, in the
-vocabulary of the diagram glyphs; what it means is in [the article](../../explanation/azure/read-the-session-guard-then-pick-slot.md).
+This describes what the [diagram](adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png) draws, in the vocabulary
+of the diagram glyphs; what it means is in [the article](../../explanation/azure/read-the-session-guard-then-pick-slot.md).
 
 ## At a glance
 
@@ -30,21 +30,21 @@ units stacked in a column. The eye lands first on the gate in the narrow guard b
 
 ## Glyphs
 
-| Glyph (legend phrase) | Count | Where                                                                                                                              |
-| --------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Glyph (legend phrase) | Count | Where                                                                                                                                                                                  |
+| --------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | code unit             | 5     | Get-CurrentAzSubscription, Get-AzCliSessionSubscription (session band, upper row); Get-AzureEnvironment, Get-Bicep…Configuration, Get-BicepResourceGroupName (slot band, in the frame) |
-| file                  | 1     | azure.yml (session band, lower row)                                                                                                |
-| gate                  | 1     | -SubscriptionIdAssertIs (guard band)                                                                                               |
-| failure               | 2     | undeclared subscription (session band, lower right), wrong subscription (guard band, below the gate)                               |
+| file                  | 1     | azure.yml (session band, lower row)                                                                                                                                                    |
+| gate                  | 1     | -SubscriptionIdAssertIs (guard band)                                                                                                                                                   |
+| failure               | 2     | undeclared subscription (session band, lower right), wrong subscription (guard band, below the gate)                                                                                   |
 
 Code units are slate, the file olive, the gate neutral and the failures red. The frame is chrome: no fill and a thin band-coloured rim.
 
 ## Edges
 
-| Edge kind                | Count | From → to                                                                                                                  |
-| ------------------------ | ----- | -------------------------------------------------------------------------------------------------------------------------- |
-| flow: feeds the next step | 4    | Get-CurrentAzSubscription → Get-AzCliSessionSubscription; azure.yml → Get-AzCliSessionSubscription; Get-AzCliSessionSubscription → -SubscriptionIdAssertIs; -SubscriptionIdAssertIs → the frame |
-| failure path             | 2     | Get-AzCliSessionSubscription → undeclared subscription; -SubscriptionIdAssertIs → wrong subscription                       |
+| Edge kind                 | Count | From → to                                                                                                                                                                                       |
+| ------------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| flow: feeds the next step | 4     | Get-CurrentAzSubscription → Get-AzCliSessionSubscription; azure.yml → Get-AzCliSessionSubscription; Get-AzCliSessionSubscription → -SubscriptionIdAssertIs; -SubscriptionIdAssertIs → the frame |
+| failure path              | 2     | Get-AzCliSessionSubscription → undeclared subscription; -SubscriptionIdAssertIs → wrong subscription                                                                                            |
 
 The edges along the upper row are horizontal; the edge from azure.yml and both failure paths are vertical. None crosses another.
 
@@ -52,14 +52,14 @@ The edges along the upper row are horizontal; the edge from azure.yml and both f
 
 A full-width panel at the bottom of the drawing area, in three columns, left to right:
 
-| Swatch                        | Phrase                    |
-| ----------------------------- | ------------------------- |
-| slate rounded box             | code unit                 |
-| olive page with folded corner | file                      |
-| neutral rhombus               | gate                      |
-| red rounded box               | failure                   |
-| thin arrow                    | flow: feeds the next step |
-| red arrow                     | failure path              |
+| Swatch                        | Phrase                     |
+| ----------------------------- | -------------------------- |
+| slate rounded box             | code unit                  |
+| olive page with folded corner | file                       |
+| neutral rhombus               | gate                       |
+| red rounded box               | failure                    |
+| thin arrow                    | flow: feeds the next step  |
+| red arrow                     | failure path               |
 | light disc `1`                | marker: a Walkthrough step |
 
 ## Sidebar

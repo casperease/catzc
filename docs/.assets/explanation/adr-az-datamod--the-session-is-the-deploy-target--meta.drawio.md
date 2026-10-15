@@ -8,8 +8,8 @@ Glyphs: 1 external tool (neutral), 1 gate (neutral), 1 result, 1 failure; 2 flow
 Sidebar: three minimaps and the map key.
 ```
 
-This describes what the [diagram](adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png) draws, in the vocabulary of the
-diagram glyphs; what it means is in [the article](../../explanation/azure/the-session-is-the-deploy-target.md).
+This describes what the [diagram](adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png) draws, in the vocabulary of the diagram
+glyphs; what it means is in [the article](../../explanation/azure/the-session-is-the-deploy-target.md).
 
 ## At a glance
 
@@ -38,10 +38,10 @@ The external tool and the gate are neutral, dark with a light rim; the result is
 
 ## Edges
 
-| Edge kind                   | Count | From → to                                               |
-| --------------------------- | ----- | ------------------------------------------------------- |
-| flow: decides the next step | 2     | az session → subscription guard → deploy target         |
-| failure path                | 1     | subscription guard → mis-wired connection               |
+| Edge kind                   | Count | From → to                                       |
+| --------------------------- | ----- | ----------------------------------------------- |
+| flow: decides the next step | 2     | az session → subscription guard → deploy target |
+| failure path                | 1     | subscription guard → mis-wired connection       |
 
 Every edge is straight: the two flow edges run horizontally on one line, and the failure path runs vertically down from the gate.
 
@@ -49,15 +49,15 @@ Every edge is straight: the two flow edges run horizontally on one line, and the
 
 A full-width panel at the bottom of the drawing area, in three columns, left to right:
 
-| Swatch                  | Phrase                      |
-| ----------------------- | --------------------------- |
-| neutral square box      | external tool               |
-| neutral rhombus         | gate                        |
-| green rounded box       | result                      |
-| red rounded box         | failure                     |
-| thin arrow              | flow: decides the next step |
-| red arrow               | failure path                |
-| light disc `1`          | marker: a Walkthrough step  |
+| Swatch             | Phrase                      |
+| ------------------ | --------------------------- |
+| neutral square box | external tool               |
+| neutral rhombus    | gate                        |
+| green rounded box  | result                      |
+| red rounded box    | failure                     |
+| thin arrow         | flow: decides the next step |
+| red arrow          | failure path                |
+| light disc `1`     | marker: a Walkthrough step  |
 
 ## Sidebar
 

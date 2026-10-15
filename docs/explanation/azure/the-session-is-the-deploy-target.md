@@ -14,9 +14,9 @@ Supports ADR-AZ-DATAMOD#7 (meta lens).
 ```
 
 Cats deploys a Bicep template into whatever subscription the az session is signed in to. No deploy call, pipeline step or config path names
-the subscription: in a pipeline it is exactly what the service connection logged into, and on a devbox it is what `az account set` chose.
-A guard can state which subscription the session is expected to target, and in a pipeline it must, but the guard only confirms the target.
-It never picks one.
+the subscription: in a pipeline it is exactly what the service connection logged into, and on a devbox it is what `az account set` chose. A
+guard can state which subscription the session is expected to target, and in a pipeline it must, but the guard only confirms the target. It
+never picks one.
 
 ![The az session is the deploy target, and the guard only checks it](../../.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png)
 

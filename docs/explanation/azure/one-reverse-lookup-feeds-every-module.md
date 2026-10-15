@@ -42,8 +42,8 @@ The diagram is described element by element in
    tenant and customer, `Get-AzureEnvironment` asserts that a subscription serves an environment, and `Get-AzureResourceName` assembles
    every name. `Catzc.Azure.Cli` depends on it, and it depends on Base alone.
 6. **Catzc.Azure.Templates.** The deploy surface. `Get-BicepDeploymentContext` composes the plan, the artifacts and the identity from the
-   session's subscription, and `Deploy-Bicep` reads that one resolved identity off the context so config, artifacts and tags all agree.
-   The module depends on `Catzc.Azure.Cli` for the session and on `Catzc.Azure` for the joins.
+   session's subscription, and `Deploy-Bicep` reads that one resolved identity off the context so config, artifacts and tags all agree. The
+   module depends on `Catzc.Azure.Cli` for the session and on `Catzc.Azure` for the joins.
 7. **Configuration tree.** A template's configs live at `configuration/[<customer>/]<env>[-<slot>].yml`, one file per slot. The session's
    customer decides whether the deploy reads the customer's subfolder or the configuration root; the environment and the slot are the
    deploy's own arguments.
@@ -52,8 +52,8 @@ The diagram is described element by element in
 
 ## Why it holds
 
-- The cross-layer joins live in PowerShell and resolve on demand; the deploy-time subscription is the az session's, reverse-resolved
-  against `azure.yml` by `Get-AzCliSessionSubscription` (ADR-AZ-DATAMOD#7).
+- The cross-layer joins live in PowerShell and resolve on demand; the deploy-time subscription is the az session's, reverse-resolved against
+  `azure.yml` by `Get-AzCliSessionSubscription` (ADR-AZ-DATAMOD#7).
 - Customer is a configuration axis, the subfolder, and at deploy time it is derived from the session subscription, never a deploy argument;
   it addresses the customer's config and renders into the names (ADR-AZ-DATAMOD#4).
 - The subscription is never a name component; the customer that renders is derived from it (ADR-AZ-NAMING#8).

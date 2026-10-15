@@ -41,8 +41,8 @@ The diagram is described element by element in
 4. **ConvertTo-RepoRelativePath.** The crosser into communication form. It relativizes against the output root first, then the repository
    root, and returns a normalized absolute path when the input lies under neither. The binding helpers `Get-RepositoryFile` and
    `Get-RepositoryFolder` are one call to `Resolve-RepoPath` each, so the normalization lives in one place.
-5. **output root.** `Get-OutputRoot` is `{root}/out` on a devbox and `BUILD_ARTIFACTSTAGINGDIRECTORY` in a pipeline, which is why `out/`
-   is a reserved anchor: both crossers treat it as the output root, never as a folder under the repository root.
+5. **output root.** `Get-OutputRoot` is `{root}/out` on a devbox and `BUILD_ARTIFACTSTAGINGDIRECTORY` in a pipeline, which is why `out/` is
+   a reserved anchor: both crossers treat it as the output root, never as a folder under the repository root.
 6. **repository root.** `Get-RepositoryRoot` returns `$env:RepositoryRoot`, the working root the importer sets. Both crossers resolve
    against it, never against the current directory.
 7. **artifact root.** When a build stage publishes a file and a deploy stage downloads it, the publish step strips the `out/template/`

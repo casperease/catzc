@@ -154,13 +154,13 @@
     <mxCell id="lg-frac-t" value="fraction chip: members with the edge" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1"><mxGeometry x="1088" y="477" width="190" height="20" as="geometry" /></mxCell>
     <mxCell id="lg-rule" value="#2" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#262E3B;strokeColor=#AAB4C3;fontColor=#CDD3DC;fontStyle=1;fontSize=10.5;" vertex="1" parent="1"><mxGeometry x="1052" y="506" width="30" height="18" as="geometry" /></mxCell>
     <mxCell id="lg-rule-t" value="rule chip: ADR-WIDGET-DEMO#n" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1"><mxGeometry x="1088" y="505" width="190" height="20" as="geometry" /></mxCell>
-    <mxCell id="minimap-grid" value="world map" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#262E3B;strokeColor=#3A4555;dashed=1;fontColor=#949FAE;fontSize=11;" vertex="1" parent="1">
+    <mxCell id="minimap-grid" value="world map" style="shape=image;imageAspect=0;rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#262E3B;strokeColor=#3A4555;dashed=1;fontColor=#949FAE;fontSize=11;" vertex="1" parent="1">
       <mxGeometry x="1316" y="16" width="240" height="150" as="geometry" />
     </mxCell>
-    <mxCell id="minimap-tree" value="tree" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#262E3B;strokeColor=#3A4555;dashed=1;fontColor=#949FAE;fontSize=11;" vertex="1" parent="1">
+    <mxCell id="minimap-tree" value="tree" style="shape=image;imageAspect=0;rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#262E3B;strokeColor=#3A4555;dashed=1;fontColor=#949FAE;fontSize=11;" vertex="1" parent="1">
       <mxGeometry x="1316" y="182" width="240" height="150" as="geometry" />
     </mxCell>
-    <mxCell id="minimap-chain" value="value-chain map" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#262E3B;strokeColor=#3A4555;dashed=1;fontColor=#949FAE;fontSize=11;" vertex="1" parent="1">
+    <mxCell id="minimap-chain" value="value-chain map" style="shape=image;imageAspect=0;rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#262E3B;strokeColor=#3A4555;dashed=1;fontColor=#949FAE;fontSize=11;" vertex="1" parent="1">
       <mxGeometry x="1316" y="348" width="240" height="110" as="geometry" />
     </mxCell>
     <mxCell id="lens-badge" value="ARCH" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#1E2430;fillColor=#E6EAF0;strokeColor=none;" vertex="1" parent="1">

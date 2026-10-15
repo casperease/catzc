@@ -33,10 +33,9 @@ The diagram is described element by element in
    source-controlled config and long-lived records hold relative paths only (#6), and a folder beside the repository is written
    `{workspace}/<name>` (#11). Two types check them when a value is constructed.
 2. **The two crossers.** `ConvertTo-RepoRelativePath` and `Resolve-RepoPath` are the only sanctioned crossers (#4), a function is named by
-   the form it produces (#7), and `out/` re-anchors on the output root (#9). No gate checks that code goes through them; the chip is
-   dashed.
-3. **Binding form.** A path is absolute only on the line that uses it (#3). Nothing can tell a stored absolute path from a bound one by
-   its shape, so this rule too is review-only.
+   the form it produces (#7), and `out/` re-anchors on the output root (#9). No gate checks that code goes through them; the chip is dashed.
+3. **Binding form.** A path is absolute only on the line that uses it (#3). Nothing can tell a stored absolute path from a bound one by its
+   shape, so this rule too is review-only.
 4. **RepoRelativePath.** The type in `Catzc.Base.Objects` that holds a repository-relative path. Its constructor collapses `.`, `..`, a
    leading `./` and duplicate separators without touching the current directory, throws when a relative path escapes the root or names the
    root itself, and keeps a rooted input as a normalized absolute path, the degrade case.

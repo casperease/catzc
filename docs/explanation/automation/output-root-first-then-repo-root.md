@@ -46,8 +46,8 @@ The diagram is described element by element in
    is never stored, returned or logged.
 7. **ConvertTo-RepoRelativePath.** The path in hand on the binding side, absolute, `.\` or `..`, goes through the three tests above and
    lands in communication form.
-8. **ArtifactRef.Materialize.** The controlled factory takes the raw path and the artifact root, resolves the raw path against the root
-   when it is relative, relativizes it, and throws when the file does not live under the root.
+8. **ArtifactRef.Materialize.** The controlled factory takes the raw path and the artifact root, resolves the raw path against the root when
+   it is relative, relativizes it, and throws when the file does not live under the root.
 9. **ArtifactRef.** The immutable result: `relative`, artifact-internal with forward slashes, and `absolute`, resolved in the producing
    context for audit. The constructor rejects a rooted or escaping relative, so a deserialized manifest cannot smuggle one in.
 10. **ResolveAt / ExistsAt.** The consumer combines its own artifact root with `relative` and asks whether a file or folder exists there
@@ -64,11 +64,11 @@ The diagram is described element by element in
 
 ## Where the code and the ADR differ
 
-- The ADR defines binding form as a normalized absolute path, and `Resolve-RepoPath` promises a full path for every result; a rooted
-  input is returned exactly as given, so `C:\x\.\y` passes through un-normalized.
+- The ADR defines binding form as a normalized absolute path, and `Resolve-RepoPath` promises a full path for every result; a rooted input
+  is returned exactly as given, so `C:\x\.\y` passes through un-normalized.
 - The ADR says `ExistsAt` asserts that the file exists; the method returns a Boolean.
-- The ADR says a path-bearing type converts once in its constructor and exposes both forms; `RepoRelativePath` stores only the relative
-  form and derives the absolute on demand. `ArtifactRef` holds both.
+- The ADR says a path-bearing type converts once in its constructor and exposes both forms; `RepoRelativePath` stores only the relative form
+  and derives the absolute on demand. `ArtifactRef` holds both.
 - The ADR names `ArtifactRef` the primary enforcement; today only its tests call it.
 
 ## See also

@@ -33,15 +33,15 @@ The diagram is described element by element in
 1. **Get-CurrentAzSubscription.** Runs `az account show` and returns the session's active subscription as an object with its id, name and
    tenant. With no active context it throws and names `az login` and `az account set` as the remedy.
 2. **Get-AzCliSessionSubscription.** The reverse lookup in `Catzc.Azure.Cli`. It calls `Get-CurrentAzSubscription`, finds the `azure.yml`
-   subscription whose id matches, and returns `{ name, id, customer, tenant }` from `Get-AzureSubscription`. The `customer` is the
-   canonical customer key, or the empty string for a non-customer subscription. `Get-BicepDeploymentContext` calls it first, before any
-   guard or slot work.
+   subscription whose id matches, and returns `{ name, id, customer, tenant }` from `Get-AzureSubscription`. The `customer` is the canonical
+   customer key, or the empty string for a non-customer subscription. `Get-BicepDeploymentContext` calls it first, before any guard or slot
+   work.
 3. **azure.yml.** The declared subscriptions, read through `Get-Config -Config azure`. The lookup compares the session's id with every
    declared subscription's `id`.
 4. **Undeclared subscription.** When no declared subscription carries the session's id, the lookup throws, naming the session's
    subscription, the declared ones and `az account set`. An id declared more than once throws too, since subscription ids must be unique.
-5. **-SubscriptionIdAssertIs.** When the parameter is set, it must be a GUID and must equal the resolved session's id. When it is unset,
-   the check is skipped. The session's `name` and `customer` are then taken as the deploy's subscription and customer.
+5. **-SubscriptionIdAssertIs.** When the parameter is set, it must be a GUID and must equal the resolved session's id. When it is unset, the
+   check is skipped. The session's `name` and `customer` are then taken as the deploy's subscription and customer.
 6. **Wrong subscription.** When the ids differ, the context throws: the session targets one subscription, the caller expected another, and
    in a pipeline that means the service connection is wired to the wrong subscription.
 7. **Get-AzureEnvironment.** Called with the environment argument and the session's subscription name. It asserts that the subscription
@@ -49,9 +49,9 @@ The diagram is described element by element in
    context checks that the template has a config for the (customer, env, slot) coordinate and throws with the coordinate otherwise.
 8. **Get-BicepTemplateConfiguration.** Reads the slot's config file. With a customer it is `configuration/<customer>/<env>[-<slot>].yml`;
    without one it is the configuration-root file. The coordinate is the file address, with no resolution machinery.
-9. **Get-BicepResourceGroupName.** For a ResourceGroup-target template, derives the resource-group name from the template, the
-   environment, the slot and the session's customer through the namer. Nothing is hand-typed; a Subscription-target template leaves the
-   resource group unset.
+9. **Get-BicepResourceGroupName.** For a ResourceGroup-target template, derives the resource-group name from the template, the environment,
+   the slot and the session's customer through the namer. Nothing is hand-typed; a Subscription-target template leaves the resource group
+   unset.
 
 ## Why it holds
 

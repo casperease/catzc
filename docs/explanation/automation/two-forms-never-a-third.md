@@ -14,10 +14,10 @@ A path has two forms, never a third, and one pair of crossers moves it between t
 Supports ADR-AUTO-PATH#1, #2, #3, #4 and #10 (meta lens).
 ```
 
-Every path that moves through cats is either data or an address. As data it is in communication form: relative to the repository root or
-the output root, slash-separated, with no `.` or `..` segments, so it reads the same on a workstation and on a build agent. As an address it
-is in binding form: a normalized absolute path that exists only on the line that reads, writes, or hands the path to a tool. Two functions,
-and only two, move a path from one form to the other, so normalization is a guarantee rather than a hope.
+Every path that moves through cats is either data or an address. As data it is in communication form: relative to the repository root or the
+output root, slash-separated, with no `.` or `..` segments, so it reads the same on a workstation and on a build agent. As an address it is
+in binding form: a normalized absolute path that exists only on the line that reads, writes, or hands the path to a tool. Two functions, and
+only two, move a path from one form to the other, so normalization is a guarantee rather than a hope.
 
 ![A path has two forms, never a third](../../.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.png)
 
@@ -26,8 +26,8 @@ The diagram is described element by element in
 
 ## Walkthrough
 
-1. **Communication form.** A path that is returned to a caller, held on a record, written into a config or printed in a log is relative
-   and normalized. It is portable, comparable with `-eq`, and committable. `ConvertTo-RepoRelativePath` produces it from any path in hand.
+1. **Communication form.** A path that is returned to a caller, held on a record, written into a config or printed in a log is relative and
+   normalized. It is portable, comparable with `-eq`, and committable. `ConvertTo-RepoRelativePath` produces it from any path in hand.
 2. **The two crossers.** `ConvertTo-RepoRelativePath` takes a path out of binding form, and `Resolve-RepoPath` takes it back in. Both
    collapse `.` and `..`, fix separators and anchor on a known root, never on the current directory, and the pair round-trips. No other
    function hand-builds a communicated path by joining a root onto a raw argument.
@@ -36,9 +36,9 @@ The diagram is described element by element in
 4. **A hybrid form.** A value such as `{root}/./sub`, absolute but not normalized, is neither form and always a bug. Nothing in cats
    produces it, which is why it is joined to nothing: the crossers normalize on both ways across the boundary, and code review holds the
    rule that nothing goes around them.
-5. **Published artifact.** A file that a build stage produces and a later deploy stage downloads crosses a different boundary, and it
-   stands apart from the two crossers. `ArtifactRef` carries both of its forms and anchors the relative one on the artifact root, not on
-   `out/`, because the publish step strips the output-root prefix.
+5. **Published artifact.** A file that a build stage produces and a later deploy stage downloads crosses a different boundary, and it stands
+   apart from the two crossers. `ArtifactRef` carries both of its forms and anchors the relative one on the artifact root, not on `out/`,
+   because the publish step strips the output-root prefix.
 
 ## Why it holds
 
