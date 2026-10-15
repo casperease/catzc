@@ -1,7 +1,23 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md
+    kind: comment-page
+    body_sha: a896ee616397
+    adrs:
+      - ADR-AUTO-CONSOLE#11
+      - ADR-AUTO-CONSOLE#12
+      - ADR-AUTO-TEST#33
+      - ADR-PWSH-ANNOUNCE#6
+      - ADR-PWSH-ANNOUNCE#8
+      - ADR-PWSH-ANNOUNCE#9
+      - ADR-PWSH-FORMAT#6
+---
+
 # automation/.scriptanalyzer/AnnounceStateChange.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

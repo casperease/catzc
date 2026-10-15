@@ -1,7 +1,18 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md
+    kind: comment-page
+    body_sha: "16f03376eb82"
+    adrs:
+      - ADR-PWSH-CACHE#4
+      - ADR-PWSH-FORMAT#6
+---
+
 # automation/.scriptanalyzer/NoBareCacheEntryRead.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

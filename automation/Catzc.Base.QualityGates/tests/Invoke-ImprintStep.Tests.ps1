@@ -67,7 +67,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
             }
             Should -Invoke Format-Types -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $DryRun -and $PassThru -and ($Path -join '|') -eq "$typeFile|$block" }
             $outcome.Changed | Should -Be @($typeFile)
-            $outcome.Unfixable[$block] | Should -BeLike "block-scoped namespace*"
+            $outcome.Unfixable[$block] | Should -BeLike 'block-scoped namespace*'
         }
     }
 

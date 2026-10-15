@@ -3,9 +3,10 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md
     kind: comment-page
-    body_sha: "598af1b30f2d"
+    body_sha: "2f58cc94390b"
     adrs:
       - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-COMMENTS#3
       - ADR-REPO-FILEMETA#2
 ---
 

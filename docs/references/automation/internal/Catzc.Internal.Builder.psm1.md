@@ -1,7 +1,19 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/internal/Catzc.Internal.Builder.psm1.md
+    kind: comment-page
+    body_sha: b9f267c69aad
+    adrs:
+      - ADR-AUTO-ASSETDEP#4
+      - ADR-AUTO-BUNDLE#5
+      - ADR-PWSH-MANIFEST#5
+---
+
 # automation/.internal/Catzc.Internal.Builder.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

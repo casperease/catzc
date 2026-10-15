@@ -62,7 +62,7 @@ Describe 'Get-ImprintStepFile' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
             Get-ImprintStepFile -Step file-meta -RepositoryRoot $Root -Path $Inside, $Outside
         } | Out-Null
         Should -Invoke Get-FileMetaScope -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
-            @($Path).Count -eq 1 -and @($Path)[0] -eq (Join-Path $script:root 'docs')
+            @($Path).Count -eq 1 -and ($Path | Select-Object -First 1) -eq (Join-Path $script:root 'docs')
         }
     }
 
