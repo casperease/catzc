@@ -1,13 +1,13 @@
-Describe 'Get-BodyShaMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
+Describe 'Get-BodyShaFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {
-        $script:kind = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{ kinds = [ordered]@{ 'body-sha' = @{ keys = @('body_sha') } } }).kinds[0]
+        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'body-sha' = @{ keys = @('body_sha') } } }).kinds[0]
     }
 
     It 'returns the body hash under the kind''s key' {
         $state = Get-MarkdownMetaState -Text "---`nname: widget`n---`n# docs/widget.md`n`nbody`n"
         $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $script:kind } {
             param($State, $Kind)
-            Get-BodyShaMarkdownMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
+            Get-BodyShaFileMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
         }
         $fact.Keys | Should -Be @('body_sha')
         $fact['body_sha'] | Should -BeExactly $state.BodyHash
@@ -20,7 +20,7 @@ Describe 'Get-BodyShaMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3'
         $hash = foreach ($state in $plain, $framed) {
             (InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $script:kind } {
                 param($State, $Kind)
-                Get-BodyShaMarkdownMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
+                Get-BodyShaFileMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
             })['body_sha']
         }
         $hash[0] | Should -BeExactly $hash[1]

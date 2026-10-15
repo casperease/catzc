@@ -14,7 +14,7 @@
 .OUTPUTS
     [System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.
 #>
-function Get-AdrCodesMarkdownMetaFact {
+function Get-AdrCodesFileMetaFact {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Every meta-kind processor is called with the same State, Path and Kind; this kind needs no path')]
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
@@ -26,7 +26,7 @@ function Get-AdrCodesMarkdownMetaFact {
         [string] $Path,
 
         [Parameter(Mandatory)]
-        [Catzc.Base.QualityGates.MarkdownMetaKind] $Kind
+        [Catzc.Base.QualityGates.FileMetaKind] $Kind
     )
 
     $codes = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)

@@ -14,7 +14,7 @@
 .OUTPUTS
     [System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.
 #>
-function Get-DocumentKindMarkdownMetaFact {
+function Get-DocumentKindFileMetaFact {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Every meta-kind processor is called with the same State, Path and Kind; this kind classifies by path alone')]
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
@@ -26,7 +26,7 @@ function Get-DocumentKindMarkdownMetaFact {
         [string] $Path,
 
         [Parameter(Mandatory)]
-        [Catzc.Base.QualityGates.MarkdownMetaKind] $Kind
+        [Catzc.Base.QualityGates.FileMetaKind] $Kind
     )
 
     $class = 'other'
@@ -38,7 +38,7 @@ function Get-DocumentKindMarkdownMetaFact {
     }
     foreach ($candidate in $classes) {
         Assert-True ($candidate -is [System.Collections.IDictionary] -and $candidate.Contains('class') -and $candidate.Contains('files')) `
-            -ErrorText "markdown-meta config: kind '$($Kind.id)' settings.classes entries need 'class' and 'files'."
+            -ErrorText "file-meta config: kind '$($Kind.id)' settings.classes entries need 'class' and 'files'."
         $matched = @($candidate['files'] | Where-Object { [Catzc.Base.Globs.GlobPattern]::new($_).Matches($Path) })
         if ($matched.Count -gt 0) {
             $class = "$($candidate['class'])"

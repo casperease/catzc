@@ -1,3 +1,17 @@
+---
+catzc:
+  derived:
+    path: docs/explanation/design/each-pipeline-shape-runs-a-stretch-of-the-ladder.md
+    kind: explanation
+    body_sha: cebebf5daac9
+    adrs:
+      - ADR-DSGN-LIFE#1
+      - ADR-DSGN-LIFE#2
+      - ADR-DSGN-LIFE#8
+      - ADR-FLOW-CD#10
+      - ADR-FLOW-CD#9
+---
+
 # Each pipeline shape runs a stretch of the same ladder
 
 ```text

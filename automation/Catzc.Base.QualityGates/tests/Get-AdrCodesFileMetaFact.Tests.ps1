@@ -1,13 +1,13 @@
-Describe 'Get-AdrCodesMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
+Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {
-        $script:kind = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{ kinds = [ordered]@{ 'adr-codes' = @{ keys = @('adrs') } } }).kinds[0]
+        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'adr-codes' = @{ keys = @('adrs') } } }).kinds[0]
 
         function script:Get-Codes {
             param([string] $Body)
             $state = Get-MarkdownMetaState -Text $Body
             $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $script:kind } {
                 param($State, $Kind)
-                Get-AdrCodesMarkdownMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
+                Get-AdrCodesFileMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
             }
             , @($fact['adrs'])
         }

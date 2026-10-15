@@ -12,34 +12,34 @@ using System.Text.RegularExpressions;
 namespace Catzc.Base.QualityGates;
 
 [Catzc.Base.Objects.ConsoleDisplay("id", "direction", "keys", "target")]
-public sealed class MarkdownMetaKind
+public sealed class FileMetaKind
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public const MarkdownMetaDirection DefaultDirection = MarkdownMetaDirection.Imprint;
-    public const string DefaultFiles = "**/*.md";
+    public const FileMetaDirection DefaultDirection = FileMetaDirection.Imprint;
+    public const string DefaultFiles = "**/*";
 
     static readonly Regex IdPattern = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$", RegexOptions.Compiled);
     static readonly Regex KeyPattern = new Regex("^[a-z][a-z0-9_]*$", RegexOptions.Compiled);
     static readonly string[] Allowed = { "direction", "files", "keys", "processor", "target", "settings" };
 
     public string id { get; }
-    public MarkdownMetaDirection direction { get; }
+    public FileMetaDirection direction { get; }
     public IReadOnlyList<string> files { get; }
     public IReadOnlyList<string> keys { get; }
     public string processor { get; }
     public string target { get; }
     public IReadOnlyDictionary<string, object> settings { get; }
 
-    public MarkdownMetaKind(string id, IDictionary raw)
+    public FileMetaKind(string id, IDictionary raw)
     {
         if (id == null || !IdPattern.IsMatch(id))
         {
             throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                "markdown-meta config: kind id '{0}' must be lowercase words joined by '-'", id));
+                "file-meta config: kind id '{0}' must be lowercase words joined by '-'", id));
         }
         this.id = id;
-        string where = "markdown-meta config: kind '" + id + "'";
+        string where = "file-meta config: kind '" + id + "'";
         direction = DefaultDirection;
         var fileList = new List<string> { DefaultFiles };
         var keyList = new List<string> { id.Replace('-', '_') };
@@ -61,10 +61,10 @@ public sealed class MarkdownMetaKind
             if (Has(raw, "direction"))
             {
                 string value = Convert.ToString(raw["direction"], CultureInfo.InvariantCulture);
-                if (!Enum.TryParse(value, true, out MarkdownMetaDirection parsed) || int.TryParse(value, out _))
+                if (!Enum.TryParse(value, true, out FileMetaDirection parsed) || int.TryParse(value, out _))
                 {
                     throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                        "{0}: direction '{1}' is not one of: {2}", where, value, string.Join(", ", Enum.GetNames(typeof(MarkdownMetaDirection))).ToLowerInvariant()));
+                        "{0}: direction '{1}' is not one of: {2}", where, value, string.Join(", ", Enum.GetNames(typeof(FileMetaDirection))).ToLowerInvariant()));
                 }
                 direction = parsed;
             }
@@ -82,11 +82,11 @@ public sealed class MarkdownMetaKind
             }
         }
 
-        if (direction == MarkdownMetaDirection.Gather && string.IsNullOrWhiteSpace(targetConfig))
+        if (direction == FileMetaDirection.Gather && string.IsNullOrWhiteSpace(targetConfig))
         {
             throw new ArgumentException(where + ": a gather kind names the config it feeds in 'target'");
         }
-        if (direction == MarkdownMetaDirection.Imprint && targetConfig != null)
+        if (direction == FileMetaDirection.Imprint && targetConfig != null)
         {
             throw new ArgumentException(where + ": only a gather kind has a 'target'");
         }
@@ -102,12 +102,12 @@ public sealed class MarkdownMetaKind
         processor = explicitProcessor ?? ConventionName(id, direction);
     }
 
-    // The function a module subscribes by default: Get-<Id>MarkdownMetaFact, or Get-<Id>MarkdownConfigContribution
+    // The function a module subscribes by default: Get-<Id>FileMetaFact, or Get-<Id>MarkdownConfigContribution
     // ([ADR-REPO-FILEMETA#4](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta4)).
-    public static string ConventionName(string id, MarkdownMetaDirection direction)
+    public static string ConventionName(string id, FileMetaDirection direction)
     {
         string words = string.Concat(id.Split('-').Select(word => char.ToUpperInvariant(word[0]) + word.Substring(1)));
-        return direction == MarkdownMetaDirection.Imprint ? "Get-" + words + "MarkdownMetaFact" : "Get-" + words + "MarkdownConfigContribution";
+        return direction == FileMetaDirection.Imprint ? "Get-" + words + "FileMetaFact" : "Get-" + words + "MarkdownConfigContribution";
     }
 
     static bool Has(IDictionary raw, string key) => raw.Contains(key) && raw[key] != null;

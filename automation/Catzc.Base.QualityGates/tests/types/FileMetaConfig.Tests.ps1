@@ -1,21 +1,28 @@
-# MarkdownMetaConfig maps markdown-meta.yml and is the one declaration of its defaults
+# FileMetaConfig maps file-meta.yml and is the one declaration of its defaults
 # ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key behaves exactly like the default,
 # and a malformed value fails at construction with the allowed set.
-Describe 'MarkdownMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
+Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
     It 'takes the declared defaults for every omitted key of a kind' -Tag 'ADR-AUTO-DEFAULT#6' {
-        $config = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{ kinds = [ordered]@{ 'body-sha' = $null } })
+        $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'body-sha' = $null } })
         $kind = $config.kinds[0]
         $kind.id | Should -BeExactly 'body-sha'
-        $kind.direction | Should -Be ([Catzc.Base.QualityGates.MarkdownMetaDirection]::Imprint)
-        $kind.files | Should -Be @('**/*.md')
+        $kind.direction | Should -Be ([Catzc.Base.QualityGates.FileMetaDirection]::Imprint)
+        $kind.files | Should -Be @('**/*')
         $kind.keys | Should -Be @('body_sha')
-        $kind.processor | Should -BeExactly 'Get-BodyShaMarkdownMetaFact'
+        $kind.processor | Should -BeExactly 'Get-BodyShaFileMetaFact'
         $kind.target | Should -BeNullOrEmpty
         $kind.settings.Count | Should -Be 0
     }
 
+    It 'defaults to every file, root-level and dot-prefixed files included, so a kind for one carrier lists its own globs' -Tag 'ADR-REPO-FILEMETA#2' {
+        $default = [Catzc.Base.QualityGates.FileMetaKind]::DefaultFiles
+        foreach ($path in 'importer.sh', '.gitignore', 'docs/adr/widget.md', 'automation/Catzc.Base.Widget/types/Gadget.cs') {
+            [Catzc.Base.Globs.GlobPattern]::new($default).Matches($path) | Should -BeTrue -Because $path
+        }
+    }
+
     It 'maps every key it is given, in file order' {
-        $config = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{
+        $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{
                     widget = @{ keys = @('size', 'shape'); files = @('docs/**'); settings = @{ limit = 3 } }
                     gadget = @{ direction = 'gather'; target = 'gadgets'; processor = 'Get-CustomGadget' }
@@ -25,20 +32,20 @@ Describe 'MarkdownMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         $config.kinds[0].keys | Should -Be @('size', 'shape')
         $config.kinds[0].files | Should -Be @('docs/**')
         $config.kinds[0].settings['limit'] | Should -Be 3
-        $config.kinds[1].direction | Should -Be ([Catzc.Base.QualityGates.MarkdownMetaDirection]::Gather)
+        $config.kinds[1].direction | Should -Be ([Catzc.Base.QualityGates.FileMetaDirection]::Gather)
         $config.kinds[1].processor | Should -BeExactly 'Get-CustomGadget'
     }
 
     It 'names the subscribed function from the kind''s id' -ForEach @(
-        @{ Id = 'body-sha'; Direction = 'Imprint'; Expected = 'Get-BodyShaMarkdownMetaFact' }
-        @{ Id = 'widget'; Direction = 'Imprint'; Expected = 'Get-WidgetMarkdownMetaFact' }
+        @{ Id = 'body-sha'; Direction = 'Imprint'; Expected = 'Get-BodyShaFileMetaFact' }
+        @{ Id = 'widget'; Direction = 'Imprint'; Expected = 'Get-WidgetFileMetaFact' }
         @{ Id = 'gadget-list'; Direction = 'Gather'; Expected = 'Get-GadgetListMarkdownConfigContribution' }
     ) -Tag 'ADR-REPO-FILEMETA#4' {
-        [Catzc.Base.QualityGates.MarkdownMetaKind]::ConventionName($Id, [Catzc.Base.QualityGates.MarkdownMetaDirection]$Direction) | Should -BeExactly $Expected
+        [Catzc.Base.QualityGates.FileMetaKind]::ConventionName($Id, [Catzc.Base.QualityGates.FileMetaDirection]$Direction) | Should -BeExactly $Expected
     }
 
     It 'lists the imprint kinds in order and the gather kinds of one config' {
-        $config = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{
+        $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{
                     widget   = @{}
                     gadget   = @{ direction = 'gather'; target = 'gadgets'; keys = @('gadgets') }
@@ -66,6 +73,6 @@ Describe 'MarkdownMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
         @{ Raw = @{ kinds = @{ widget = @{ settings = 'x' } } }; Message = '*settings must be a map*' }
         @{ Raw = @{ kinds = [ordered]@{ widget = @{ keys = @('size') }; gadget = @{ keys = @('size') } } }; Message = '*derived key ''size'' is owned by both ''widget'' and ''gadget''*' }
     ) {
-        { [Catzc.Base.QualityGates.MarkdownMetaConfig]::new($Raw) } | Should -Throw $Message
+        { [Catzc.Base.QualityGates.FileMetaConfig]::new($Raw) } | Should -Throw $Message
     }
 }

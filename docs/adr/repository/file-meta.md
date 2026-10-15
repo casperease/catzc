@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/file-meta.md
     kind: adr
-    body_sha: "05f6d2a4a525"
+    body_sha: "3421c67efc73"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#1
@@ -32,8 +32,9 @@ the tooling owns: every other front-matter key belongs to the tool that reads it
 A **meta kind** is one entry of the meta-kind registry (`file-meta.yml`), validated by its own C# type, with every default declared once on
 that type ([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)). An entry names the kind's id, its direction
 (`imprint` writes derived facts into the file, `gather` reads config contributions out of it), the globs of files it applies to, the keys it
-owns and their order, and, for a gather kind, the config it feeds. The globs tie a kind to a carrier: a kind for Markdown files lists
-Markdown globs and a kind for code files lists code globs. Which kinds exist is data, never a list inside an engine.
+owns and their order, and, for a gather kind, the config it feeds. A kind that applies to every file, such as the path, takes the default
+glob of all files, and the carrier registry decides which files carry a block at all. The globs tie a kind to a carrier: a kind for Markdown
+files lists Markdown globs and a kind for code files lists code globs. Which kinds exist is data, never a list inside an engine.
 
 - [The meta-kind registry](#the-meta-kind-registry)
 

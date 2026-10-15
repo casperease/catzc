@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Computes the meta block of every in-scope Markdown file — the one place Format-MarkdownMeta and Test-MarkdownMeta share
+    Computes the meta block of every in-scope Markdown file — the one place Format-FileMeta and Test-FileMeta share
     ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
     Each file's `derived` part is rebuilt from the imprint kinds of the registry, and its authored `config` part is kept as written.
@@ -16,7 +16,7 @@
     [pscustomobject] @{ FileCount; Files } — Files holds every file with a finding: @{ Path; Findings; Fixed }, each
     finding @{ Path; Line; Kind; Actual; Expected }.
 #>
-function Invoke-MarkdownMetaEngine {
+function Invoke-FileMetaEngine {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
@@ -25,7 +25,7 @@ function Invoke-MarkdownMetaEngine {
 
         [string[]] $Path,
 
-        [Catzc.Base.QualityGates.MarkdownMetaConfig] $Config = (Get-Config -Config markdown-meta)
+        [Catzc.Base.QualityGates.FileMetaConfig] $Config = (Get-Config -Config file-meta)
     )
 
     $files = Get-MarkdownScope -RepositoryRoot $RepositoryRoot -Path $Path -OptOut catzc-meta
@@ -46,7 +46,7 @@ function Invoke-MarkdownMetaEngine {
 
         $fixed = $text
         if ($findings.Count -eq 0) {
-            $facts = Get-MarkdownMetaFact -State $state -Path $file -Config $Config
+            $facts = Get-FileMetaFact -State $state -Path $file -Config $Config
             $fixed = Format-MarkdownMetaBlock -Text $text -Fact $facts
             if ($fixed -cne $text) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 1; Kind = 'Drift'; Actual = 'the meta block as written'; Expected = 'the imprinted meta block' })

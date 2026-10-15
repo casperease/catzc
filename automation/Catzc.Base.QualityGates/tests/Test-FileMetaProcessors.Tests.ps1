@@ -1,9 +1,9 @@
-# Test-MarkdownMetaProcessors over in-memory registries and fixture processor functions defined in the module scope.
+# Test-FileMetaProcessors over in-memory registries and fixture processor functions defined in the module scope.
 # Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
-Describe 'Test-MarkdownMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
+Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
     BeforeAll {
         InModuleScope Catzc.Base.QualityGates {
-            function script:Get-WidgetMarkdownMetaFact {
+            function script:Get-WidgetFileMetaFact {
             }
             function script:Get-GadgetMarkdownConfigContribution {
             }
@@ -16,17 +16,17 @@ Describe 'Test-MarkdownMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4'
             foreach ($id in $Kinds.Keys) {
                 $all[$id] = $Kinds[$id]
             }
-            $registry = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{ kinds = $all })
+            $registry = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = $all })
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Registry = $registry; Folder = (Join-Path $TestDrive 'out'); PassThru = $PassThru } {
                 param($Registry, $Folder, $PassThru)
-                Test-MarkdownMetaProcessors -Config $Registry -OutputFolder $Folder -PassThru:$PassThru
+                Test-FileMetaProcessors -Config $Registry -OutputFolder $Folder -PassThru:$PassThru
             }
         }
     }
 
     AfterAll {
         InModuleScope Catzc.Base.QualityGates {
-            Remove-Item Function:\Get-WidgetMarkdownMetaFact, Function:\Get-GadgetMarkdownConfigContribution -ErrorAction Ignore
+            Remove-Item Function:\Get-WidgetFileMetaFact, Function:\Get-GadgetMarkdownConfigContribution -ErrorAction Ignore
         }
     }
 
@@ -42,7 +42,7 @@ Describe 'Test-MarkdownMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4'
     It 'names a kind whose function does not exist' {
         $kinds = [ordered]@{ widget = @{}; gadget = @{ direction = 'gather'; target = 'widgets' }; sprocket = @{} }
         { Invoke-Gate $kinds } |
-            Should -Throw "*kind 'sprocket' is subscribed by 'Get-SprocketMarkdownMetaFact', but no such function exists*"
+            Should -Throw "*kind 'sprocket' is subscribed by 'Get-SprocketFileMetaFact', but no such function exists*"
     }
 
     It 'names a convention-named function no kind subscribes' {
@@ -54,16 +54,16 @@ Describe 'Test-MarkdownMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4'
     It 'counts the kinds and the processor functions under -PassThru' {
         $kinds = [ordered]@{ widget = @{} }
         $result = Invoke-Gate $kinds -PassThru
-        $result.Subject | Should -Be 'markdown-meta-processors'
+        $result.Subject | Should -Be 'file-meta-processors'
         $result.KindCount | Should -Be 5
         $result.IssueCount | Should -Be 1
         $result.ProcessorCount | Should -Be 6
     }
 }
 
-Describe 'Markdown meta processor coverage' -Tag 'L0', 'integrity', 'ADR-REPO-FILEMETA#4' {
+Describe 'File meta processor coverage' -Tag 'L0', 'integrity', 'ADR-REPO-FILEMETA#4' {
     It 'every kind of the shipped registry has its function and every processor function has its kind' {
-        $result = Test-MarkdownMetaProcessors -PassThru -OutputFolder (Join-Path $TestDrive 'markdown-meta-processors')
+        $result = Test-FileMetaProcessors -PassThru -OutputFolder (Join-Path $TestDrive 'file-meta-processors')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

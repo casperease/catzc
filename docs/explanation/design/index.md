@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/explanation/design/index.md
     kind: explanation
-    body_sha: ca279b70ec15
+    body_sha: "8baab60578b3"
     adrs: []
 ---
 

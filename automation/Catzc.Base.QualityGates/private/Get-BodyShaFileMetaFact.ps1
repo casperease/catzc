@@ -13,7 +13,7 @@
 .OUTPUTS
     [System.Collections.Specialized.OrderedDictionary] one entry per key of the kind.
 #>
-function Get-BodyShaMarkdownMetaFact {
+function Get-BodyShaFileMetaFact {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Every meta-kind processor is called with the same State, Path and Kind; this kind needs no path')]
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
@@ -25,7 +25,7 @@ function Get-BodyShaMarkdownMetaFact {
         [string] $Path,
 
         [Parameter(Mandatory)]
-        [Catzc.Base.QualityGates.MarkdownMetaKind] $Kind
+        [Catzc.Base.QualityGates.FileMetaKind] $Kind
     )
 
     [ordered]@{ $Kind.keys[0] = $State.BodyHash }

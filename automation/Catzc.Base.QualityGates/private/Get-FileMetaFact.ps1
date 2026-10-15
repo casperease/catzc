@@ -15,7 +15,7 @@
 .OUTPUTS
     [System.Collections.Specialized.OrderedDictionary] key to value, in registry order.
 #>
-function Get-MarkdownMetaFact {
+function Get-FileMetaFact {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
     param(
@@ -26,7 +26,7 @@ function Get-MarkdownMetaFact {
         [string] $Path,
 
         [Parameter(Mandatory)]
-        [Catzc.Base.QualityGates.MarkdownMetaConfig] $Config
+        [Catzc.Base.QualityGates.FileMetaConfig] $Config
     )
 
     $facts = [ordered]@{}
@@ -36,12 +36,12 @@ function Get-MarkdownMetaFact {
             continue
         }
         $processor = Get-Command -Name $kind.processor -CommandType Function -ErrorAction Ignore
-        Assert-NotNull $processor -ErrorText "markdown-meta config: kind '$($kind.id)' is subscribed by '$($kind.processor)', but no such function exists."
+        Assert-NotNull $processor -ErrorText "file-meta config: kind '$($kind.id)' is subscribed by '$($kind.processor)', but no such function exists."
         $produced = & $kind.processor -State $State -Path $Path -Kind $kind
         $expected = @($kind.keys)
         $actual = @($produced.Keys)
         Assert-True (($actual -join ',') -ceq ($expected -join ',')) `
-            -ErrorText "markdown-meta config: '$($kind.processor)' returned keys [$($actual -join ', ')], but kind '$($kind.id)' declares [$($expected -join ', ')]."
+            -ErrorText "file-meta config: '$($kind.processor)' returned keys [$($actual -join ', ')], but kind '$($kind.id)' declares [$($expected -join ', ')]."
         foreach ($key in $expected) {
             $facts[$key] = $produced[$key]
         }

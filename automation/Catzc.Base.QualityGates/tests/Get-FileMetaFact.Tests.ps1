@@ -1,13 +1,13 @@
-Describe 'Get-MarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
+Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
     BeforeAll {
         $script:state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nSee ADR-GADGET#1.`n"
 
         function script:Get-Facts {
             param($Raw, [string] $Path = 'docs/widget.md')
-            $config = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new($Raw)
+            $config = [Catzc.Base.QualityGates.FileMetaConfig]::new($Raw)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $script:state; Config = $config; Path = $Path } {
                 param($State, $Config, $Path)
-                Get-MarkdownMetaFact -State $State -Path $Path -Config $Config
+                Get-FileMetaFact -State $State -Path $Path -Config $Config
             }
         }
     }
@@ -25,18 +25,18 @@ Describe 'Get-MarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
 
     It 'names the function a kind expected when no module ships it' {
         { Get-Facts @{ kinds = [ordered]@{ widget = @{} } } } |
-            Should -Throw "*kind 'widget' is subscribed by 'Get-WidgetMarkdownMetaFact', but no such function exists*"
+            Should -Throw "*kind 'widget' is subscribed by 'Get-WidgetFileMetaFact', but no such function exists*"
     }
 
     It 'uses the function an entry names instead of the convention' {
-        Mock Get-DocumentKindMarkdownMetaFact { [ordered]@{ kind = 'widget' } } -ModuleName Catzc.Base.QualityGates
-        $facts = Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('kind'); processor = 'Get-DocumentKindMarkdownMetaFact' } } }
+        Mock Get-DocumentKindFileMetaFact { [ordered]@{ kind = 'widget' } } -ModuleName Catzc.Base.QualityGates
+        $facts = Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('kind'); processor = 'Get-DocumentKindFileMetaFact' } } }
         $facts['kind'] | Should -BeExactly 'widget'
     }
 
     It 'rejects a processor that returns keys its kind does not declare' {
-        Mock Get-DocumentKindMarkdownMetaFact { [ordered]@{ surprise = 'x' } } -ModuleName Catzc.Base.QualityGates
-        { Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('kind'); processor = 'Get-DocumentKindMarkdownMetaFact' } } } } |
+        Mock Get-DocumentKindFileMetaFact { [ordered]@{ surprise = 'x' } } -ModuleName Catzc.Base.QualityGates
+        { Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('kind'); processor = 'Get-DocumentKindFileMetaFact' } } } } |
             Should -Throw "*returned keys ``[surprise``], but kind 'gadget' declares ``[kind``]*"
     }
 }

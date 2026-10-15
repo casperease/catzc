@@ -1,15 +1,15 @@
-# The meta-kind registry: each entry is one kind of derived fact imprinted into a Markdown file's meta block.
-# Every key of an entry is optional; the defaults are declared once on MarkdownMetaKind.
+# The meta-kind registry: each entry is one kind of derived fact imprinted into a file's meta block, with defaults on FileMetaKind.
 # [ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2),
 # [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 kinds:
-  # The repository-relative path of the file, first so it is written first; the H1 is the title.
+  # The repository-relative path of every file that carries a block, first so it is written first; a Markdown H1 is the title.
   file-path:
     keys: [path]
 
   # The class of the file, the first class whose globs match its path, or other.
   document-kind:
     keys: [kind]
+    files: ["**/*.md"]
     settings:
       classes:
         - { class: agent, files: [".claude/agents/**"] }
@@ -24,7 +24,9 @@ kinds:
   # The hash of the body below the front matter, so it changes exactly when the file does.
   body-sha:
     keys: [body_sha]
+    files: ["**/*.md"]
 
   # The ADR codes the body cites, sorted and without duplicates.
   adr-codes:
     keys: [adrs]
+    files: ["**/*.md"]

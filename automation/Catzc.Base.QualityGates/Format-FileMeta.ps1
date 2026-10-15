@@ -18,15 +18,15 @@
     [string[]] the repository-relative paths changed (or, under -DryRun, that would change); with -PassThru, the result
     object.
 .EXAMPLE
-    Format-MarkdownMeta
+    Format-FileMeta
 .EXAMPLE
-    Format-MarkdownMeta -DryRun -PassThru
+    Format-FileMeta -DryRun -PassThru
 .EXAMPLE
-    Format-MarkdownMeta -Path docs/references
+    Format-FileMeta -Path docs/references
 #>
 # The repository's preview switch is -DryRun, so ShouldProcess and -WhatIf are deliberately absent.
 # [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
-function Format-MarkdownMeta {
+function Format-FileMeta {
     [CmdletBinding()]
     [OutputType([string[]])]
     param(
@@ -41,7 +41,7 @@ function Format-MarkdownMeta {
 
     Assert-SourceTree
 
-    $result = Invoke-MarkdownMetaEngine -RepositoryRoot $RepositoryRoot -Path $Path
+    $result = Invoke-FileMetaEngine -RepositoryRoot $RepositoryRoot -Path $Path
     $toFix = @($result.Files | Where-Object { @($_.Findings | Where-Object Kind -EQ 'Drift').Count -gt 0 })
 
     $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
@@ -64,7 +64,7 @@ function Format-MarkdownMeta {
     else {
         'formatted'
     }
-    Write-Message "Markdown meta: $verb $($toFix.Count) of $($result.FileCount) file(s)."
+    Write-Message "File meta: $verb $($toFix.Count) of $($result.FileCount) file(s)."
 
     $changedFiles = [string[]] @($toFix | ForEach-Object { $_.Path } | Sort-Object)
     if ($PassThru) {

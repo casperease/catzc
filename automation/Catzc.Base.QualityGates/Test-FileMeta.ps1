@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    The Markdown meta quality gate: fails on any in-scope file whose meta block differs from what Format-MarkdownMeta would write
+    The file meta quality gate: fails on any in-scope file whose meta block differs from what Format-FileMeta would write
     ([ADR-REPO-FORMAT#9](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format9),
     [ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
@@ -11,17 +11,17 @@
 .PARAMETER RepositoryRoot
     The repository root paths are relative to. Default: the loaded repository root.
 .PARAMETER OutputFolder
-    The report base folder. Defaults to <out>/test-markdown-meta.
+    The report base folder. Defaults to <out>/test-file-meta.
 .PARAMETER PassThru
     Return a result object ({ Subject; IssueCount; Issues; ReportPath; FileCount }) instead of throwing.
 .OUTPUTS
     Throws on any violation; with -PassThru, returns the result object.
 .EXAMPLE
-    Test-MarkdownMeta
+    Test-FileMeta
 .EXAMPLE
-    (Test-MarkdownMeta -PassThru).Issues
+    (Test-FileMeta -PassThru).Issues
 #>
-function Test-MarkdownMeta {
+function Test-FileMeta {
     [CmdletBinding()]
     param(
         [string[]] $Path,
@@ -35,17 +35,17 @@ function Test-MarkdownMeta {
 
     Assert-SourceTree
 
-    $result = Invoke-MarkdownMetaEngine -RepositoryRoot $RepositoryRoot -Path $Path
+    $result = Invoke-FileMetaEngine -RepositoryRoot $RepositoryRoot -Path $Path
     $issues = @($result.Files | ForEach-Object { $_.Findings } | ForEach-Object {
             $remedy = if ("$($_.Kind)" -eq 'Unowned') {
                 'move it under config, or remove it'
             }
             else {
-                'run Format-MarkdownMeta'
+                'run Format-FileMeta'
             }
             "$($_.Path):$($_.Line) [$($_.Kind)] expected '$($_.Expected)', found '$($_.Actual)' — $remedy"
         })
 
-    Write-QualityGateReport -Subject markdown-meta -Title Test-MarkdownMeta -Issues $issues `
+    Write-QualityGateReport -Subject file-meta -Title Test-FileMeta -Issues $issues `
         -Facts ([ordered]@{ FileCount = $result.FileCount }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

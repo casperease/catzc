@@ -1,3 +1,22 @@
+---
+catzc:
+  derived:
+    path: docs/explanation/design/ten-commits-trace-the-whole-lifecycle.md
+    kind: explanation
+    body_sha: "64498638b748"
+    adrs:
+      - ADR-DSGN-LIFE#1
+      - ADR-DSGN-LIFE#10
+      - ADR-DSGN-LIFE#2
+      - ADR-DSGN-LIFE#5
+      - ADR-DSGN-LIFE#6
+      - ADR-DSGN-LIFE#7
+      - ADR-DSGN-LIFE#8
+      - ADR-DSGN-VISUAL#12
+      - ADR-DSGN-VISUAL#13
+      - ADR-FLOW-CD#9
+---
+
 # Ten numbered commits trace the whole lifecycle across pipeline, environments and git
 
 ```text

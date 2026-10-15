@@ -3,17 +3,17 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-markdownmeta.md
     kind: reference
-    body_sha: "11ac0385e0e9"
+    body_sha: "0de04e1f42fa"
     adrs: []
 ---
 
 # Catzc.Base.MarkdownMeta
 
 The pure core of the Markdown meta block: the one reserved `catzc` front-matter key of a tracked Markdown file, its derived facts and its
-authored config contributions ([markdown-meta](../../adr/repository/file-meta.md)). The module reads no config and no file: every text and
-every declaration reaches it as a parameter, so it sits below [Catzc.Base.Config](catzc-base-config.md), which can then call it when it
-gathers config contributions. The registry of meta kinds, the processors and the `Format-MarkdownMeta` and `Test-MarkdownMeta` commands live
-above `Catzc.Base.Config`, in the module that reads the registry.
+authored config contributions ([file-meta](../../adr/repository/file-meta.md)). The module reads no config and no file: every text and every
+declaration reaches it as a parameter, so it sits below [Catzc.Base.Config](catzc-base-config.md), which can then call it when it gathers
+config contributions. The registry of meta kinds, the processors and the `Format-FileMeta` and `Test-FileMeta` commands live above
+`Catzc.Base.Config`, in the module that reads the registry.
 
 ## Responsibilities
 

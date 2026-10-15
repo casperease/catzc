@@ -1,6 +1,6 @@
-Describe 'Get-DocumentKindMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR-PRIN-CONFIG#1' {
+Describe 'Get-DocumentKindFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR-PRIN-CONFIG#1' {
     BeforeAll {
-        $script:kind = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{
+        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{
                     'document-kind' = @{
                         keys     = @('kind')
@@ -19,7 +19,7 @@ Describe 'Get-DocumentKindMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEME
             $state = Get-MarkdownMetaState -Text "# $Path`n"
             $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $Kind; Path = $Path } {
                 param($State, $Kind, $Path)
-                Get-DocumentKindMarkdownMetaFact -State $State -Path $Path -Kind $Kind
+                Get-DocumentKindFileMetaFact -State $State -Path $Path -Kind $Kind
             }
             $fact['kind']
         }
@@ -42,12 +42,12 @@ Describe 'Get-DocumentKindMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEME
     }
 
     It 'names every file other when the kind declares no classes' {
-        $bare = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{ kinds = [ordered]@{ 'document-kind' = @{ keys = @('kind') } } }).kinds[0]
+        $bare = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'document-kind' = @{ keys = @('kind') } } }).kinds[0]
         Get-Class -Path 'docs/widgets/part.md' -Kind $bare | Should -BeExactly 'other'
     }
 
     It 'rejects a class entry that lacks its files' {
-        $bad = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{
+        $bad = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{ 'document-kind' = @{ keys = @('kind'); settings = @{ classes = @(@{ class = 'widget' }) } } }
             }).kinds[0]
         { Get-Class -Path 'docs/a.md' -Kind $bad } | Should -Throw "*entries need 'class' and 'files'*"

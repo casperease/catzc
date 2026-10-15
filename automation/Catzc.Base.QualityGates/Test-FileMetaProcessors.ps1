@@ -4,25 +4,25 @@
     ([ADR-REPO-FILEMETA#4](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta4)).
 .DESCRIPTION
     A kind whose function is missing fails the run that reads the registry, and a function no kind names is never called, so this gate
-    lists both orphans. A function is a processor candidate when it is named Get-<Kind>MarkdownMetaFact or
+    lists both orphans. A function is a processor candidate when it is named Get-<Kind>FileMetaFact or
     Get-<Kind>MarkdownConfigContribution.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
 .PARAMETER Config
     The meta-kind registry. Default: the shipped one.
 .PARAMETER OutputFolder
-    The report base folder. Defaults to out/test-markdown-meta-processors/ (Write-QualityGateReport).
+    The report base folder. Defaults to out/test-file-meta-processors/ (Write-QualityGateReport).
 .PARAMETER PassThru
     Return the result ({ Subject; IssueCount; Issues; ReportPath; KindCount; ProcessorCount }) instead of throwing on issues.
 .OUTPUTS
     [pscustomobject] With -PassThru only.
 .EXAMPLE
-    Test-MarkdownMetaProcessors
+    Test-FileMetaProcessors
 #>
-function Test-MarkdownMetaProcessors {
+function Test-FileMetaProcessors {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [Catzc.Base.QualityGates.MarkdownMetaConfig] $Config = (Get-Config -Config markdown-meta),
+        [Catzc.Base.QualityGates.FileMetaConfig] $Config = (Get-Config -Config file-meta),
 
         [string] $OutputFolder,
 
@@ -41,7 +41,7 @@ function Test-MarkdownMetaProcessors {
     }
 
     # piped, not member-enumerated: .Name over an empty result throws in a strict scope
-    $processors = @(Get-Command -Name 'Get-?*MarkdownMetaFact', 'Get-?*MarkdownConfigContribution' -CommandType Function -ErrorAction Ignore |
+    $processors = @(Get-Command -Name 'Get-?*FileMetaFact', 'Get-?*MarkdownConfigContribution' -CommandType Function -ErrorAction Ignore |
             Select-Object -ExpandProperty Name | Sort-Object -Unique)
     foreach ($processor in $processors) {
         if (-not $named.Contains($processor)) {
@@ -49,6 +49,6 @@ function Test-MarkdownMetaProcessors {
         }
     }
 
-    Write-QualityGateReport -Subject 'markdown-meta-processors' -Title 'Test-MarkdownMetaProcessors' -Issues $issues `
+    Write-QualityGateReport -Subject 'file-meta-processors' -Title 'Test-FileMetaProcessors' -Issues $issues `
         -Facts ([ordered]@{ KindCount = $kinds.Count; ProcessorCount = $processors.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

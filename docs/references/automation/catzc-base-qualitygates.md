@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates.md
     kind: reference
-    body_sha: "5120fe9a211b"
+    body_sha: "9a14fc93241c"
     adrs: []
 ---
 
@@ -155,9 +155,9 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Format-Code`                 |
 |                                                 | `Format-MarkdownTitle`        |
 |                                                 | `Test-MarkdownTitle`          |
-|                                                 | `Format-MarkdownMeta`         |
-|                                                 | `Test-MarkdownMeta`           |
-|                                                 | `Test-MarkdownMetaProcessors` |
+|                                                 | `Format-FileMeta`             |
+|                                                 | `Test-FileMeta`               |
+|                                                 | `Test-FileMetaProcessors`     |
 |                                                 | `Format-Types`                |
 |                                                 | `Test-PythonLint`             |
 |                                                 | `Test-ShellScripts`           |
