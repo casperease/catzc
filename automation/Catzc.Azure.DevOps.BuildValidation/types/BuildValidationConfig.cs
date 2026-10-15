@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Azure.DevOps.BuildValidation
     adrs:
       - ADR-AUTO-TYPES#8

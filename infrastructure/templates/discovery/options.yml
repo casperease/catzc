@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/discovery/options.yml
-#     kind: template-config
+#     kind: bicep-template-config
 # ---
 
 # Deployed once per subscription at subscription scope, so the template creates its own resource group.

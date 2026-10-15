@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1
-    kind: function
+    kind: writer-function
     module: Catzc.Base.TypesSystem
     visibility: public
     adrs:

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/Get-Contract.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Contracts
     visibility: public
     adrs:

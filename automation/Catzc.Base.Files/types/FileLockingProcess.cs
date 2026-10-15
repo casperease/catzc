@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/types/FileLockingProcess.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Files
     adrs: []
 ---

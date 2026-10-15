@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/discovery/configuration/nsub.yml
-#     kind: template-config
+#     kind: bicep-template-config
 # ---
 
 # The hub peers to the nonprod spokes and links its private DNS zones to them; ranges come from network.yml.

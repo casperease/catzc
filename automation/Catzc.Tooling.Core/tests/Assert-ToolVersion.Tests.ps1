@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

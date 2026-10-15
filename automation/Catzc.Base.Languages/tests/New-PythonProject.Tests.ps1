@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

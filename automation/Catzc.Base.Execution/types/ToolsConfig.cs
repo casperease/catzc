@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/types/ToolsConfig.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Execution
     adrs:
       - ADR-AUTO-DEPS#4

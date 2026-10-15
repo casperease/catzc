@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/types/DiskModule.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.ModuleSystem
     adrs: []
 ---

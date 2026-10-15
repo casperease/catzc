@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
-    kind: function
+    kind: writer-function
     module: Catzc.Base.RootConfig
     visibility: public
     adrs:

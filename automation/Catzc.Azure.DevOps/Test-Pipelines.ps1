@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/Test-Pipelines.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Azure.DevOps
     visibility: public
     adrs:

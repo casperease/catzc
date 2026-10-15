@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/glossary.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Holds the test vocabulary of Test-Automation and the link vocabulary of Test-Links, and is checked by Test-Glossary.

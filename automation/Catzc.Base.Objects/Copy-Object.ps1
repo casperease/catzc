@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Objects/Copy-Object.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Objects
     visibility: public
     adrs: []

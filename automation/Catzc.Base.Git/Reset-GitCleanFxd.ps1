@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/Reset-GitCleanFxd.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Git
     visibility: public
     adrs:

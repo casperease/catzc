@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/Get-PropertyMetaState.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.CodeMeta
     visibility: public
     adrs:

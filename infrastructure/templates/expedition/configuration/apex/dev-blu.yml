@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/expedition/configuration/apex/dev-blu.yml
-#     kind: template-config
+#     kind: bicep-template-config
 # ---
 
 # A second deployment beside the base dev slot: its own resource group, in the same apex nonprod spoke.

@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/migrate_dark.py"
-#     kind: script
+#     kind: python-script
 # ---
 
 # cspell:ignore mxfile pnginfo IEND FAFAFA

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Reports/types/ReportsConfig.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Reports
     adrs:
       - ADR-AUTO-TEST#35

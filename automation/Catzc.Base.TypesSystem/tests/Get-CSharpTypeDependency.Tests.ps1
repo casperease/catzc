@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

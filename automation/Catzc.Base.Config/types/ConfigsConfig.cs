@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Config/types/ConfigsConfig.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Config
     adrs:
       - ADR-AUTO-OVERLAY

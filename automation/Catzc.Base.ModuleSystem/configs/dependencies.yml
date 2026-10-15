@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.ModuleSystem/configs/dependencies.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # A module not listed under modules is unconstrained, and a group target permits an edge to any member of that group.
@@ -22,7 +22,7 @@ groups:
     Catzc.Base.CodeMeta: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts, Catzc.Base.MarkdownMeta]
     Catzc.Base.Config: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.Folders: [Catzc.Base.Config, Catzc.Base.Objects]
-    Catzc.Base.Reports: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts]
+    Catzc.Base.Reports: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts, Catzc.Base.Folders]
     Catzc.Base.ConfigExtensions: [Catzc.Base.Reports, Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Asserts]
     Catzc.Base.Variants: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.Docs:

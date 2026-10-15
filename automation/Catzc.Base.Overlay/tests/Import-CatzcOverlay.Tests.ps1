@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

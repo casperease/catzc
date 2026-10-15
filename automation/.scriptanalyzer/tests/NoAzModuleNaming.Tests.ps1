@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

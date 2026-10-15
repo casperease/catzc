@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/Export-WorldMapPdf.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Maps
     visibility: public
     adrs:

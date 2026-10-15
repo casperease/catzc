@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/types/Aspect.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Globs
     adrs:
       - ADR-DSGN-ASPECT

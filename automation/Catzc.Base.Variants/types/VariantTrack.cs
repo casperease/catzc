@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Variants/types/VariantTrack.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Variants
     adrs:
       - ADR-AUTO-TYPES#8

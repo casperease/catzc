@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/types/BicepTemplate.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Azure.Templates
     adrs:
       - ADR-AZ-CUSTOMER

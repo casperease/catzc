@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/ConvertTo-YamlSafe.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

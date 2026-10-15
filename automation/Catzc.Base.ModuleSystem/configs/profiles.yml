@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.ModuleSystem/configs/profiles.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # An empty seed expands to the whole repository, so a profile that lists no modules is the full profile.

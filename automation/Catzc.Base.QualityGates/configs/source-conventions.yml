@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/source-conventions.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Report mode is temporary: a check reports only while its work list is drained, then returns to gate at a count of 0.

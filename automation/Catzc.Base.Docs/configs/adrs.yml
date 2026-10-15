@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Docs/configs/adrs.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # The only place the registry is edited: index.md is regenerated from it, and a leaf code overrides the domain default.

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Vendor/tests/Remove-VendorModules.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

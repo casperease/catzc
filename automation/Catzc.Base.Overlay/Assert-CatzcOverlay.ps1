@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Base.Overlay
     visibility: public
     adrs:

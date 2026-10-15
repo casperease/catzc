@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Config/Get-Config.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Config
     visibility: public
     adrs:

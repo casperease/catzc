@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/private/Resolve-BicepConfigName.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Azure.Templates
     visibility: private
     adrs:

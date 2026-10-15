@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Engines/configs/glossary.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Test-Glossary checks this file, so each concept below is the module's controlled vocabulary for the engine model.

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

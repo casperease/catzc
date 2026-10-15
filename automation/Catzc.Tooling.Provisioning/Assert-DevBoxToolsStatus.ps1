@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Tooling.Provisioning
     visibility: public
     adrs: []

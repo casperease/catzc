@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/Test-GitPathChanged.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.Files
     visibility: public
     adrs: []

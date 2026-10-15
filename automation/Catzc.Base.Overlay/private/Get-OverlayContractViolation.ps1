@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Overlay/private/Get-OverlayContractViolation.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Base.Overlay
     visibility: private
     adrs:

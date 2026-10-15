@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Github/Assert-GitHubPurgeReady.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Tooling.Github
     visibility: public
     adrs: []

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.ConfigExtensions
     visibility: public
     adrs:

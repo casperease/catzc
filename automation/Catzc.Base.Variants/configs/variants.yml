@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Variants/configs/variants.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Edit a value and re-run the importer to apply it; read only through the module's Get-, Test- and Assert- primitives.

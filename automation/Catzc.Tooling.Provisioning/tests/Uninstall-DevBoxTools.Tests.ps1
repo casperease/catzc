@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-DevBoxTools.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

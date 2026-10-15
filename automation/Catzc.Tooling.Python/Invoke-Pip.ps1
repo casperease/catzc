@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Python/Invoke-Pip.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Tooling.Python
     visibility: public
     adrs: []

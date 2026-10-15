@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Reports/types/OutputPattern.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Reports
     adrs:
       - ADR-AUTO-TYPES#14

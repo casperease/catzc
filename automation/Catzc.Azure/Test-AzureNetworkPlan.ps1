@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/Test-AzureNetworkPlan.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Azure
     visibility: public
     adrs:

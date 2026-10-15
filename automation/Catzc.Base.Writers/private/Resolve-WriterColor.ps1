@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/private/Resolve-WriterColor.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Base.Writers
     visibility: private
     adrs: []

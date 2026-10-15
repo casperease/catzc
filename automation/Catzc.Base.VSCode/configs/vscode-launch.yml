@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.VSCode/configs/vscode-launch.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Edit this file, never launch.json: the editor reads a gitignored copy that Build-RootConfig regenerates from it.

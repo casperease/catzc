@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/foundation/configuration/nsub.yml
-#     kind: template-config
+#     kind: bicep-template-config
 # ---
 
 # foundation, shared nonprod subscription (env nsub). One config file ⟷ one resource group.

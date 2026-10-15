@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/Save-PSReadLineKeyHandlerSet.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Tooling.KeyHandler
     visibility: public
     adrs: []

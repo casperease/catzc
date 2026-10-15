@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Timeouts
     adrs: []
 ---

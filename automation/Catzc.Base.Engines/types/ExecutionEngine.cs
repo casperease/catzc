@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Engines/types/ExecutionEngine.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Engines
     adrs:
       - ADR-AUTO-ENGINE

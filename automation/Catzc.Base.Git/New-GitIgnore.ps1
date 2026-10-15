@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/New-GitIgnore.ps1
-    kind: function
+    kind: writer-function
     module: Catzc.Base.Git
     visibility: public
     adrs:

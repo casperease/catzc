@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Base.Git
     visibility: private
     adrs:

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/Test-ExpectedPackageManager.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Tooling.Core
     visibility: public
     adrs:

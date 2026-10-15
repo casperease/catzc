@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

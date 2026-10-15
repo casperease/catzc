@@ -1,0 +1,92 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Reports/tests/types/OutputRetention.Tests.ps1
+    kind: pester-test
+---
+#>
+
+Describe 'Catzc.Base.Reports.OutputRetention' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR#7' {
+    BeforeAll {
+        $script:now = [datetime]::new(2026, 10, 15, 12, 0, 0, [System.DateTimeKind]::Utc)
+        function script:New-Format {
+            param([string] $Area, [string[]] $Patterns, [hashtable] $Extra = @{})
+            $format = @{ area = $Area; patterns = $Patterns; producer = 'New-Widget'; audience = 'a person'; validator = @{ kind = 'text' } }
+            foreach ($key in $Extra.Keys) {
+                $format[$key] = $Extra[$key]
+            }
+            $format
+        }
+        $script:config = [Catzc.Base.Reports.OutputFormatsConfig]::new(@{ formats = [ordered]@{
+                    'widget-report' = (New-Format run @('test-*/{stamp}/*.md') @{ keep = '2' })
+                    'widget-rows'   = (New-Format run @('test-*/{stamp}/rows-*.json') @{ keep = '2' })
+                    'widget-latest' = (New-Format run @('test-*/latest.txt'))
+                    'widget-bundle' = (New-Format build @('built/*/Gadget/*') @{ target = 'folder' })
+                    'widget-cache'  = (New-Format cache @('cache/*.json'))
+                    'widget-note'   = (New-Format session @('*.ps1'))
+                    'widget-plan'   = (New-Format session @('*.md') @{ max_age = '30d' })
+                }
+            })
+        function script:New-File {
+            param([string] $Path, [double] $DaysOld = 0)
+            [Catzc.Base.Reports.OutputFile]::new($Path, $script:now.AddDays(-$DaysOld))
+        }
+        function script:Get-Plan {
+            param([object[]] $Files, [bool] $Pipeline = $false)
+            [Catzc.Base.Reports.OutputRetention]::Plan([Catzc.Base.Reports.OutputFile[]] $Files, $script:config, $script:now, $Pipeline)
+        }
+    }
+
+    It 'keeps the newest stamps of each run folder as whole folders, whatever formats a stamp holds' {
+        $files = @(
+            New-File 'test-widget/20261015-100000/report.md'
+            New-File 'test-widget/20261015-100000/rows-1.json'
+            New-File 'test-widget/20261014-100000/report.md'
+            New-File 'test-widget/20261013-100000/report.md'
+            New-File 'test-widget/20261013-100000/rows-1.json'
+            New-File 'test-gadget/20261001-100000/report.md'
+            New-File 'test-widget/latest.txt'
+        )
+        $plan = Get-Plan $files
+        $plan.Remove | Should -Be @('test-widget/20261013-100000')
+        $plan.Uncovered.Count | Should -Be 0
+    }
+
+    It 'ages out session files by their last write, and a format''s max_age overrides the area' {
+        $plan = Get-Plan @(
+            New-File 'run-widget.ps1' 8
+            New-File 'run-gadget.ps1' 2
+            New-File 'plan-widget.md' 20
+            New-File 'plan-gadget.md' 31
+        )
+        $plan.Remove | Should -Be @('plan-gadget.md', 'run-widget.ps1')
+    }
+
+    It 'keeps the newest folder target per parent and every cache entry' {
+        $plan = Get-Plan @(
+            New-File 'built/widget/Gadget/1.0.0/Gadget.psd1' 3
+            New-File 'built/widget/Gadget/1.0.1/Gadget.psd1' 1
+            New-File 'built/widget/Gadget/1.0.1/private/Get-Gadget.ps1' 1
+            New-File 'built/other/Gadget/0.9.0/Gadget.psd1' 9
+            New-File 'cache/widget.json' 400
+        )
+        $plan.Remove | Should -Be @('built/widget/Gadget/1.0.0')
+    }
+
+    It 'reports a file no format covers and never removes it' {
+        $plan = Get-Plan @(New-File 'stray/widget.bin' 900)
+        $plan.Remove.Count | Should -Be 0
+        $plan.Uncovered | Should -Be @('stray/widget.bin')
+    }
+
+    It 'removes nothing in a pipeline unless the format applies there' {
+        $files = @(
+            New-File 'test-widget/20261015-100000/report.md'
+            New-File 'test-widget/20261014-100000/report.md'
+            New-File 'test-widget/20261013-100000/report.md'
+            New-File 'run-widget.ps1' 8
+        )
+        (Get-Plan $files -Pipeline $true).Remove.Count | Should -Be 0
+    }
+}

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/MarkdownLinkScanner.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.QualityGates
     adrs:
       - ADR-REPO-LINK#2

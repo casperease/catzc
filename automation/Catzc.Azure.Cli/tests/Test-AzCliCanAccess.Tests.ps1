@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/tests/Test-AzCliCanAccess.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

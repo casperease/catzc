@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/Invoke-AdoRestMethod.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

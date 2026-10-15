@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Tooling.Provisioning
     visibility: public
     adrs:

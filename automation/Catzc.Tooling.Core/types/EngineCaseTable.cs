@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/types/EngineCaseTable.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Tooling.Core
     adrs:
       - ADR-AUTO-ENGINE#1

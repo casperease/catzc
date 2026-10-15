@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/contact_sheet.py"
-#     kind: script
+#     kind: python-script
 # ---
 
 # cspell:ignore textbbox arialbd

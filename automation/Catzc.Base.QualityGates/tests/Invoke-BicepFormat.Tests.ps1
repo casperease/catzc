@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Invoke-BicepFormat.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

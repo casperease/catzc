@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/private/Get-ExecutableVersion.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Base.Execution
     visibility: private
     adrs: []

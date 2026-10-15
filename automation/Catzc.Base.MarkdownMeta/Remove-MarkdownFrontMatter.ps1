@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/Remove-MarkdownFrontMatter.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.MarkdownMeta
     visibility: public
     adrs: []

@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/file-meta.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # The meta-kind registry: each entry is one kind of derived fact imprinted into a file's meta block, with defaults on FileMetaKind.
@@ -17,23 +17,36 @@ kinds:
     keys: [kind]
     settings:
       classes:
-        - { class: test, files: ["**/tests/**"] }
-        - { class: type, files: ["automation/**/types/*.cs"] }
-        - { class: function, files: ["automation/Catzc.*/*.ps1", "automation/Catzc.*/private/*.ps1"] }
+        - { class: pester-test, files: ["**/tests/**/*.Tests.ps1"] }
+        - { class: python-test, files: ["**/tests/**/*.py"] }
+        - { class: shell-test, files: ["**/tests/**/*.bats", "**/tests/**/*.sh"] }
+        - { class: go-test, files: ["**/tests/**/*.go"] }
+        - { class: test-asset, files: ["**/tests/**"] }
+        - { class: csharp-type, files: ["automation/**/types/*.cs"] }
+        # A function file is told by its role, from the folder and its verb, before it is told by its visibility.
+        - { class: gate-function, files: ["automation/Catzc.*/Test-*.ps1"] }
+        - { class: writer-function, files: ["automation/Catzc.*/Build-*.ps1", "automation/Catzc.*/New-*.ps1"] }
+        - { class: assert-function, files: ["automation/Catzc.*/Assert-*.ps1"] }
+        - { class: format-function, files: ["automation/Catzc.*/Format-*.ps1"] }
+        - { class: fact-function, files: ["automation/Catzc.*/private/Get-*FileMetaFact.ps1"] }
+        - { class: public-function, files: ["automation/Catzc.*/*.ps1"] }
+        - { class: private-function, files: ["automation/Catzc.*/private/*.ps1"] }
         - { class: analyzer-rule, files: ["automation/.scriptanalyzer/**"] }
         - { class: internal-module, files: ["automation/.internal/*.psm1"] }
-        - { class: template, files: ["infrastructure/templates/**/*.bicep"] }
+        - { class: bicep-template, files: ["infrastructure/templates/**/*.bicep"] }
         - {
-            class: template-config,
+            class: bicep-template-config,
             files: ["infrastructure/templates/**/configuration/**/*.yml", "infrastructure/templates/*/options.yml"],
           }
         - { class: bicep-module, files: ["infrastructure/modules/*.bicep"] }
-        - { class: config, files: ["automation/**/configs/*.yml"] }
+        - { class: yaml-config, files: ["automation/**/configs/*.yml"] }
         - { class: pipeline-template, files: ["pipelines/*/*.yaml"] }
         - { class: pipeline, files: ["pipelines/*.yaml", ".github/workflows/*.yml"] }
         - { class: claude-hook, files: [".claude/hooks/**"] }
         - { class: asset, files: ["automation/**/assets/**"] }
-        - { class: script, files: ["**/*.py", "**/*.sh", "**/*.ps1"] }
+        - { class: python-script, files: ["**/*.py"] }
+        - { class: shell-script, files: ["**/*.sh"] }
+        - { class: powershell-script, files: ["**/*.ps1"] }
         - { class: drawio-kit, files: [".claude/drawio/**"] }
         - { class: claude-agent, files: [".claude/agents/**"] }
         - { class: claude-skill, files: [".claude/skills/**"] }

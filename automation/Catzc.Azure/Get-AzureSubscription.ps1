@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/Get-AzureSubscription.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Azure
     visibility: public
     adrs:

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/Get-LastExitCode.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Execution
     visibility: public
     adrs: []

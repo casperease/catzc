@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.ModuleSystem
     adrs:
       - ADR-AUTO-TEST#24

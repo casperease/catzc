@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/types/Inspiration.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Tooling.Inspiration
     adrs:
       - ADR-AUTO-PATH#5

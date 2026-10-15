@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/Get-TypesAssemblyManifest.Tests.ps1
+    kind: pester-test
+---
+#>
+
 Describe 'Get-TypesAssemblyManifest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:space = 'Fixture' + [guid]::NewGuid().ToString('N').Substring(0, 8)

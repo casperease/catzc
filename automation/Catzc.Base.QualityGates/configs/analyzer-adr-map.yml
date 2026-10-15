@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Every custom analyzer rule must be listed; ids are checked by an integrity test, so config load stays hermetic.

@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: python/tests/catzc-base-repository/test_repository.py
-#     kind: test
+#     kind: python-test
 # ---
 
 """Black-box tests of Catzc.Base.Repository.

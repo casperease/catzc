@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Base.Globs
     visibility: private
     adrs:

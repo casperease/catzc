@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Languages/configs/python.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Every key but the dependencies is optional; the Python version is the tools.yml pin, never declared here.

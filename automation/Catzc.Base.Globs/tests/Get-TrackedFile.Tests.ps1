@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

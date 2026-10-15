@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Languages/configs/file-carriers.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Where each file class keeps its meta block, or the reason it has none; a class with files: wins over a language of the same file.

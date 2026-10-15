@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Variants/Get-Track.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Variants
     visibility: public
     adrs:

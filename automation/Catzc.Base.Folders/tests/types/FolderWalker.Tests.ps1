@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

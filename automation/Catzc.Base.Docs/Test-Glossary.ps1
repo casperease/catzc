@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/Test-Glossary.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.Docs
     visibility: public
     adrs:

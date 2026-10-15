@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/Build-Bicep.ps1
-    kind: function
+    kind: writer-function
     module: Catzc.Azure.Templates
     visibility: public
     adrs:

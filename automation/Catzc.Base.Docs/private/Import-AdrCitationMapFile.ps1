@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Base.Docs
     visibility: private
     adrs:

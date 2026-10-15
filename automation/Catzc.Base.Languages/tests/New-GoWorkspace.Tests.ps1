@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

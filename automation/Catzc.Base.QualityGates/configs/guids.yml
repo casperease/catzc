@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/guids.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # A placeholder guid is minted with ConvertTo-Guid so its value spells its sentence; an external guid is registered as-is.

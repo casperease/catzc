@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/types/MapsLabels.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Maps
     adrs:
       - ADR-AUTO-DEFAULT#6

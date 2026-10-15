@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

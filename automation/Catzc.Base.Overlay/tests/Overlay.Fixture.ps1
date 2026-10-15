@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Overlay/tests/Overlay.Fixture.ps1
-    kind: test
+    kind: test-asset
 ---
 #>
 

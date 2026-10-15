@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/Assert-BicepTemplate.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Azure.Templates
     visibility: public
     adrs:

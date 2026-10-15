@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Objects/types/DictionaryRecord.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Objects
     adrs: []
 ---

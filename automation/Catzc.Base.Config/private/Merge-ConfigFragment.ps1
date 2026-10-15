@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Config/private/Merge-ConfigFragment.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Base.Config
     visibility: private
     adrs:

@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Folders/configs/folder-walk.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Every key is optional: an omitted key takes the default declared once on FolderWalkConfig, and a Get-ChildPath parameter overrides it.

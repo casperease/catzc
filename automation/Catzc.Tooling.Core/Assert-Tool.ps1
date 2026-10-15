@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/Assert-Tool.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Tooling.Core
     visibility: public
     adrs: []

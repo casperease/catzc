@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

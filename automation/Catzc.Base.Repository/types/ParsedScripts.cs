@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Repository/types/ParsedScripts.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Repository
     adrs: []
 ---

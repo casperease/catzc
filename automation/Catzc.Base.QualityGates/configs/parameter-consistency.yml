@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/parameter-consistency.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # An exempt name that no longer conflicts is reported, so the list only shrinks to what is real.

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/types/RuleType.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Azure.Firewall
     adrs: []
 ---

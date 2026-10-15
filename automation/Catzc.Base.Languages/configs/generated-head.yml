@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Languages/configs/generated-head.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # The keys of the generated-file head in writing order; source follows path so no word before it reads as a qualifier of the glossary's source term.

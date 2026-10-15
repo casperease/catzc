@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.ModuleSystem/configs/artifacts.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Inert config surface: nothing reads these keys yet, as the CI publish step and the BVT promotion are still to come.

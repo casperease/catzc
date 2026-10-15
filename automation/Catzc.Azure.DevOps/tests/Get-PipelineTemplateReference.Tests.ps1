@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/Get-PipelineTemplateReference.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

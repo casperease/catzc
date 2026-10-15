@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerBindingsConfig.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

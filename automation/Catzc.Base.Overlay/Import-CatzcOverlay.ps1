@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Overlay/Import-CatzcOverlay.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Overlay
     visibility: public
     adrs:

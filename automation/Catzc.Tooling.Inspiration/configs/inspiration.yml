@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Tooling.Inspiration/configs/inspiration.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # An empty file or an omitted inspirations key takes the one eac default; set the key only to change it.

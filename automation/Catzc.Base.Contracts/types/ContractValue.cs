@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/types/ContractValue.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Contracts
     adrs:
       - ADR-REPO-CONTRACT#6

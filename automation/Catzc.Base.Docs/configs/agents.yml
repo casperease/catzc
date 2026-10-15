@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Docs/configs/agents.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Test-AgentDefinitions checks this registry against the agent files, the rule ids, the commands and CLAUDE.md.

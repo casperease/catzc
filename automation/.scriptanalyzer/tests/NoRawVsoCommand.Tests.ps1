@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

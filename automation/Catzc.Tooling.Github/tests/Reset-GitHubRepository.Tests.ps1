@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Github/tests/Reset-GitHubRepository.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

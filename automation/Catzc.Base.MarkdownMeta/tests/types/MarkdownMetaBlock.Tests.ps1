@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownMetaBlock.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

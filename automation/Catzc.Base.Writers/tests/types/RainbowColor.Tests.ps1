@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/tests/types/RainbowColor.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

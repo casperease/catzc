@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/Uninstall-DevBoxTools.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Tooling.Provisioning
     visibility: public
     adrs: []

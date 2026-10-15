@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

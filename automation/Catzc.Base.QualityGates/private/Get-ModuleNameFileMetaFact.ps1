@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-ModuleNameFileMetaFact.ps1
-    kind: function
+    kind: fact-function
     module: Catzc.Base.QualityGates
     visibility: private
     adrs:

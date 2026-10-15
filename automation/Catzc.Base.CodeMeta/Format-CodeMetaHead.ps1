@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/Format-CodeMetaHead.ps1
-    kind: function
+    kind: format-function
     module: Catzc.Base.CodeMeta
     visibility: public
     adrs:

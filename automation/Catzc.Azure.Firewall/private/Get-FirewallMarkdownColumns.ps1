@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownColumns.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Azure.Firewall
     visibility: private
     adrs: []

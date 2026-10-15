@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Contracts/configs/contracts.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Every key is optional: an omitted key takes the default declared once in ContractsConfig.

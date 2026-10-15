@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/types/ContractAsset.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Contracts
     adrs:
       - ADR-AUTO-PATH#1

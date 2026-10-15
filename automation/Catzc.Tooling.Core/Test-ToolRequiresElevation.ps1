@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/Test-ToolRequiresElevation.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Tooling.Core
     visibility: public
     adrs: []

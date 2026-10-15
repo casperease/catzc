@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/private/Install-BicepStandalone.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Tooling.Toolchain
     visibility: private
     adrs:

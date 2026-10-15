@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/Write-AdoEnvironmentDiagnostic.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Azure.DevOps
     visibility: public
     adrs: []

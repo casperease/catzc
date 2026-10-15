@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/types/AdrNeutralityToken.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Docs
     adrs:
       - ADR-AUTO-TYPES#8

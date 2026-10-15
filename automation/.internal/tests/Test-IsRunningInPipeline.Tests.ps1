@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.internal/tests/Test-IsRunningInPipeline.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

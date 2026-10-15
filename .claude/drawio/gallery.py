@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/gallery.py"
-#     kind: script
+#     kind: python-script
 # ---
 
 # cspell:ignore minimaps figcaption minmax

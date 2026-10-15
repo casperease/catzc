@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Folders/types/FolderWalker.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Folders
     adrs: []
 ---

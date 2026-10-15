@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/Export-WorldMapPdf.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

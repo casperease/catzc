@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.VSCode/New-VSCodeLaunch.ps1
-    kind: function
+    kind: writer-function
     module: Catzc.Base.VSCode
     visibility: public
     adrs:

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: pipelines/Invoke-AdoScript.ps1
-    kind: script
+    kind: powershell-script
 ---
 #>
 

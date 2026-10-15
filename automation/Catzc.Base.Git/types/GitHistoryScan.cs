@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/types/GitHistoryScan.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Git
     adrs:
       - ADR-AUTO-TRACKED

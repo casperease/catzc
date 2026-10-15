@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Test-Links.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.QualityGates
     visibility: public
     adrs:

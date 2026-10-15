@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

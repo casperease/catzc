@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

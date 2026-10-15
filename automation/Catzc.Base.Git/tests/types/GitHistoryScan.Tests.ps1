@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/tests/types/GitHistoryScan.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

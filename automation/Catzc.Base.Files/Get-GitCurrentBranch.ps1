@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/Get-GitCurrentBranch.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Files
     visibility: public
     adrs: []

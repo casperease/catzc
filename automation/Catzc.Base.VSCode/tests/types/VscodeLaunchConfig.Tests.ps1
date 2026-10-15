@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.VSCode/tests/types/VscodeLaunchConfig.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

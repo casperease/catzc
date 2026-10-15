@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/types/PipelineDefinition.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Azure.DevOps
     adrs: []
 ---

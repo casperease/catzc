@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/types/Ansi.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Writers
     adrs:
       - ADR-AUTO-CONSOLE#7

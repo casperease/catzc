@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Variants/Assert-AdoNaming.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Base.Variants
     visibility: public
     adrs: []

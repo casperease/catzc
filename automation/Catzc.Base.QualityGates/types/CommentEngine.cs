@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/CommentEngine.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.QualityGates
     adrs:
       - ADR-PRIN-CONFIG#1

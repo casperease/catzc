@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/tests/Stop-FileLockingProcess.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Tooling.KeyHandler
     visibility: private
     adrs:

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/types/NetworkCidr.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Azure
     adrs:
       - ADR-AZ-NETWORK

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/tests/Format-CodeMetaHead.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

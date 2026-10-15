@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/Write-TypesAssemblyManifest.Tests.ps1
+    kind: pester-test
+---
+#>
+
 Describe 'Write-TypesAssemblyManifest' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:dll = Join-Path $TestDrive 'Catzc.Types.abcd1234.dll'

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Repository/types/SyntaxSearch.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Repository
     adrs: []
 ---

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/Assert-LoadedTypesCurrent.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Base.TypesSystem
     visibility: public
     adrs:

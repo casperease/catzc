@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Repository/Assert-SourceTree.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Base.Repository
     visibility: public
     adrs:

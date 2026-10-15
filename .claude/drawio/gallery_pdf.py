@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/gallery_pdf.py"
-#     kind: script
+#     kind: python-script
 # ---
 
 # cspell:ignore minimaps consola cour arialbd textlength

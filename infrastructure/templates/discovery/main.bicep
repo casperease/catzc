@@ -2,7 +2,7 @@
 // catzc:
 //   derived:
 //     path: infrastructure/templates/discovery/main.bicep
-//     kind: template
+//     kind: bicep-template
 // ---
 
 // Kind, address space and subnets are read from network.yml by config address, never copied, so the IP plan has one source.

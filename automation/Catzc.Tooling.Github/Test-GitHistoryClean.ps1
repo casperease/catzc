@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Github/Test-GitHistoryClean.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Tooling.Github
     visibility: public
     adrs: []

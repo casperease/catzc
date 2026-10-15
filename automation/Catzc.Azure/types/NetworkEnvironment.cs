@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/types/NetworkEnvironment.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Azure
     adrs:
       - ADR-AUTO-TYPES#8

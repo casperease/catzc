@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/Get-EngineCaseTable.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Tooling.Core
     visibility: public
     adrs:

@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/discovery/configuration/flux/nsub.yml
-#     kind: template-config
+#     kind: bicep-template-config
 # ---
 
 # This spoke peers to the nonprod hub; flux is dev-only, so it has a nonprod subscription and no prod one.

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Reports/types/OutputFormat.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Reports
     adrs:
       - ADR-AUTO-TYPES#8
@@ -28,7 +28,20 @@ public sealed class OutputFormat : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly Regex KebabCase = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex CommandName = new Regex("^[A-Z][a-z]+-[A-Za-z][A-Za-z0-9]*$");
-    private static readonly string[] AllowedKeys = { "patterns", "target", "producer", "audience", "validator", "limits" };
+    private static readonly string[] AllowedKeys =
+        { "area", "keep", "max_age", "in_pipeline", "patterns", "target", "producer", "audience", "validator", "limits" };
+    private static readonly Regex Age = new Regex("^(?<n>[1-9][0-9]*)(?<unit>[dh])$");
+
+    // Area -> its retention defaults { keep (null = all), max_age (null = none) }; a format overrides either. The closed set of areas.
+    private static readonly Dictionary<string, Tuple<int?, TimeSpan?>> Areas = new Dictionary<string, Tuple<int?, TimeSpan?>>(StringComparer.Ordinal)
+    {
+        { "run",     Tuple.Create<int?, TimeSpan?>(10, null) },
+        { "build",   Tuple.Create<int?, TimeSpan?>(1, null) },
+        { "cache",   Tuple.Create<int?, TimeSpan?>(null, null) },
+        { "review",  Tuple.Create<int?, TimeSpan?>(null, null) },
+        { "session", Tuple.Create<int?, TimeSpan?>(null, TimeSpan.FromDays(7)) },
+        { "log",     Tuple.Create<int?, TimeSpan?>(null, TimeSpan.FromDays(7)) },
+    };
     private static readonly string[] Targets = { "file", "folder" };
     private static readonly string[] LimitNames =
         { "width", "height", "min_width", "max_width", "min_height", "max_height", "min_pages", "max_bytes" };
@@ -53,6 +66,18 @@ public sealed class OutputFormat : Catzc.Base.Objects.DictionaryRecord
 
     // The format id (its map key in output-formats.yml).
     public string id { get; }
+
+    // The class of output, which sets the retention defaults: run, build, cache, review, session or log.
+    public string area { get; }
+
+    // How many to keep: the newest stamps of a stamped pattern, else the newest files; null keeps all.
+    public int? keep { get; }
+
+    // The oldest a stamp or file may be before it goes; null never ages out.
+    public TimeSpan? max_age { get; }
+
+    // Whether retention applies in a pipeline, whose staging directory is fresh for every run.
+    public bool in_pipeline { get; }
 
     // Output-root-relative globs, in declaration order.
     public ReadOnlyCollection<string> patterns { get; }
@@ -94,6 +119,21 @@ public sealed class OutputFormat : Catzc.Base.Objects.DictionaryRecord
         }
 
         id = formatId;
+        area = OptStr(d, "area");
+        Tuple<int?, TimeSpan?> defaults = null;
+        if (area == null || !Areas.TryGetValue(area, out defaults))
+        {
+            errors.Add(string.Format("{0}: area '{1}' is unknown (known: {2})", label, area, string.Join(", ", Areas.Keys)));
+            defaults = Tuple.Create<int?, TimeSpan?>(null, null);
+        }
+        keep = d.Contains("keep") ? ReadKeep(d["keep"], label, errors) : defaults.Item1;
+        max_age = d.Contains("max_age") ? ReadAge(d["max_age"], label, errors) : defaults.Item2;
+        string inPipeline = OptStr(d, "in_pipeline");
+        in_pipeline = inPipeline != null && inPipeline.Equals("true", StringComparison.OrdinalIgnoreCase);
+        if (inPipeline != null && !in_pipeline && !inPipeline.Equals("false", StringComparison.OrdinalIgnoreCase))
+        {
+            errors.Add(string.Format("{0}: in_pipeline '{1}' must be true or false", label, inPipeline));
+        }
         patterns = new ReadOnlyCollection<string>(ReadPatterns(d, label, errors));
         target = OptStr(d, "target") ?? "file";
         if (Array.IndexOf(Targets, target) < 0) { errors.Add(string.Format("{0}: target '{1}' must be 'file' or 'folder'", label, target)); }
@@ -108,6 +148,32 @@ public sealed class OutputFormat : Catzc.Base.Objects.DictionaryRecord
         limits = new ReadOnlyDictionary<string, int>(ReadLimits(d, label, errors));
 
         if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }
+    }
+
+    // A positive whole number, or 'all'.
+    private static int? ReadKeep(object raw, string label, List<string> errors)
+    {
+        string text = raw == null ? null : raw.ToString();
+        if (text == "all") { return null; }
+        int value;
+        if (text != null && int.TryParse(text, out value) && value > 0) { return value; }
+        errors.Add(string.Format("{0}: keep '{1}' must be a positive whole number or 'all'", label, text));
+        return null;
+    }
+
+    // '<n>d' or '<n>h', or 'none'.
+    private static TimeSpan? ReadAge(object raw, string label, List<string> errors)
+    {
+        string text = raw == null ? null : raw.ToString();
+        if (text == "none") { return null; }
+        Match match = text == null ? Match.Empty : Age.Match(text);
+        if (match.Success)
+        {
+            int n = int.Parse(match.Groups["n"].Value);
+            return match.Groups["unit"].Value == "d" ? TimeSpan.FromDays(n) : TimeSpan.FromHours(n);
+        }
+        errors.Add(string.Format("{0}: max_age '{1}' must be '<n>d', '<n>h' or 'none'", label, text));
+        return null;
     }
 
     private static List<string> ReadPatterns(IDictionary d, string label, List<string> errors)

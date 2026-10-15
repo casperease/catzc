@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Timeouts/configs/timeouts.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Every value is a positive whole number of seconds; there is no no-limit value, so every call runs inside a safeguard.

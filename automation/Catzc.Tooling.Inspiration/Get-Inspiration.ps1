@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Tooling.Inspiration
     visibility: public
     adrs:

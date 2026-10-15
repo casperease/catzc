@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Github/Reset-GitHubRepository.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Tooling.Github
     visibility: public
     adrs: []

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Environment/private/Set-ProcessEnvironmentVariable.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Tooling.Environment
     visibility: private
     adrs: []

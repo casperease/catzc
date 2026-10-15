@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: bash/tests/catzc-base-repository/repository.bats
-#     kind: test
+#     kind: shell-test
 # ---
 
 # Black-box tests of Catzc.Base.Repository, in Bash.

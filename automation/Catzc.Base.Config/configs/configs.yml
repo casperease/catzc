@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Config/configs/configs.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # The registry validates itself: the configs entry is checked by the C# type below, built on load by Get-ConfigRegistry.

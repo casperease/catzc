@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Azure/configs/customer.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Only the catalogue of who they are: which customers are enabled is the have_customers variant in variants.yml.

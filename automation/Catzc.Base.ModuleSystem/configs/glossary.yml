@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.ModuleSystem/configs/glossary.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Every option is defaulted: all five checks, the whole repository and every text surface, so a bare run checks everything.

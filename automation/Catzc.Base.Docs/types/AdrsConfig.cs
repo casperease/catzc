@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/types/AdrsConfig.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Docs
     adrs:
       - ADR-AUTO-DEFAULT#6

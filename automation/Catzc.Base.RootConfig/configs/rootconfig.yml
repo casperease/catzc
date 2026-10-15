@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.RootConfig/configs/rootconfig.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Both booleans default to false, so a root file stays hand-authored and committed unless an entry opts it in.

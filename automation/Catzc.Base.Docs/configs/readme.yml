@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Docs/configs/readme.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # A folder not covered here keeps a hand-authored, committed README, and is un-ignored in .gitignore.

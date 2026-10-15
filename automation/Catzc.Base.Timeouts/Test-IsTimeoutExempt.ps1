@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/Test-IsTimeoutExempt.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.Timeouts
     visibility: public
     adrs: []

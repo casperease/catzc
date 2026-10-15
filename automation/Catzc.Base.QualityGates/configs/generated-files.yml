@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/generated-files.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # The writers Test-GeneratedFiles runs report-only; a file result names its stale file in the property result_path (default Path).

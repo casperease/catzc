@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/Assert-CompletesWithin.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Base.Timeouts
     visibility: public
     adrs: []

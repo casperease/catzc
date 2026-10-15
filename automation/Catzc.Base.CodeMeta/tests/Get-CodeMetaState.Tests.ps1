@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/tests/Get-CodeMetaState.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

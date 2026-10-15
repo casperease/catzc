@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Vendor/Test-VendorModuleAvailable.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.Vendor
     visibility: public
     adrs: []

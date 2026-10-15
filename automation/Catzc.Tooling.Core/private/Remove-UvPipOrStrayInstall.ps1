@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/private/Remove-UvPipOrStrayInstall.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Tooling.Core
     visibility: private
     adrs:

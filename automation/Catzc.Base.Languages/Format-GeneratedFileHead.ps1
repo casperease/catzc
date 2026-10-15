@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
-    kind: function
+    kind: format-function
     module: Catzc.Base.Languages
     visibility: public
     adrs:

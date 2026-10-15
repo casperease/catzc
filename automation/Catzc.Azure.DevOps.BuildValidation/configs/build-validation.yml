@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Entries are a list, not a map, because globset names are kebab-case and map keys must be snake_case.

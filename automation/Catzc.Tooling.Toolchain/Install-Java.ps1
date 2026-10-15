@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/Install-Java.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Tooling.Toolchain
     visibility: public
     adrs:

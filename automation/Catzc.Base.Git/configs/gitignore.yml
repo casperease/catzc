@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Git/configs/gitignore.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Sections render in order; an inject section takes its patterns from rootconfig.yml, so that list lives only there.

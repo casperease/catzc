@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
-    body_sha: "346393ce0740"
+    body_sha: "65f8295e28e1"
     defines:
       - ADR-REPO-CODEMETA#1
       - ADR-REPO-CODEMETA#2
@@ -46,7 +46,8 @@ delimiters a language uses is asked from the one place that knows each language'
 ### Rule ADR-REPO-CODEMETA:2
 
 A head holds only facts the repository can compute and that change when the file's place or tier changes: `path` (the repository-relative
-path), `kind` (the class of the file, from the file-kind registry entry: a C# `type` or a PowerShell `function`), `module` (the folder under
+path), `kind` (the class of the file, a moniker of the file-kind registry entry that names its language and role: a `csharp-type`, a `pester-test`, a
+`gate-function`, a `private-function`), `module` (the folder under
 `automation/`), for a PowerShell file `visibility` (`private` or `public`, from the folder), and `adrs`, the ADR codes that bind the file,
 sorted and without duplicates, each rule code `ADR-<CODE>#<n>` and each domain-level citation a bare `ADR-<CODE>`. For a C# type file and a
 PowerShell function file the head holds `adrs`: the formatter keeps every code the head lists and adds each code the file and its comment

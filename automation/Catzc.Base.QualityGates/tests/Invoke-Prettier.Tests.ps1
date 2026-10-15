@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Invoke-Prettier.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

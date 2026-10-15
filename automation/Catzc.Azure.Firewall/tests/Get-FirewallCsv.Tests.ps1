@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

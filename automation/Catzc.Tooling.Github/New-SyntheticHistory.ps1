@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Github/New-SyntheticHistory.ps1
-    kind: function
+    kind: writer-function
     module: Catzc.Tooling.Github
     visibility: public
     adrs: []

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/types/AzureEnvironment.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Azure
     adrs: []
 ---

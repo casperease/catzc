@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1
-    kind: test
+    kind: test-asset
 ---
 #>
 

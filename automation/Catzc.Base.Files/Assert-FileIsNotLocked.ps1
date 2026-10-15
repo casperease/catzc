@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/Assert-FileIsNotLocked.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Base.Files
     visibility: public
     adrs: []

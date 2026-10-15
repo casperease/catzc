@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/types/HeadAnchor.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.CodeMeta
     adrs:
       - ADR-REPO-CODEMETA#1

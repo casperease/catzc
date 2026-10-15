@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyViolations.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Base.ModuleSystem
     visibility: private
     adrs: []

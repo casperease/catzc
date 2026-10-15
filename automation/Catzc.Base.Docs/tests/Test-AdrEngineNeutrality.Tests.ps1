@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Node/Uninstall-Markdownlint.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Tooling.Node
     visibility: public
     adrs: []

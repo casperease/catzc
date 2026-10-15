@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Python/Uninstall-PySpark.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Tooling.Python
     visibility: public
     adrs: []

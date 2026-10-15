@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/tests/Remove-MacToolInstall.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Build-EnglishDictionary.ps1
-    kind: function
+    kind: writer-function
     module: Catzc.Base.QualityGates
     visibility: public
     adrs:

@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Docs/configs/glossary.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Every option is defaulted (all checks, the whole repository, every surface), so this source states only concepts.

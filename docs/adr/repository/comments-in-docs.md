@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/comments-in-docs.md
     kind: adr
-    body_sha: "572d6b24a295"
+    body_sha: "87e19ba1fae7"
     defines:
       - ADR-REPO-COMMENTS#1
       - ADR-REPO-COMMENTS#2

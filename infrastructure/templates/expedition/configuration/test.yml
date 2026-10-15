@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/expedition/configuration/test.yml
-#     kind: template-config
+#     kind: bicep-template-config
 # ---
 
 # Sits in the nonprod hub's shared-services subnet, not a spoke, and registers in that same hub's private DNS zones.

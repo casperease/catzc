@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: ".claude/drawio/minimaps/highlights.ps1"
-    kind: script
+    kind: powershell-script
 ---
 #>
 

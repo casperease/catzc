@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.MarkdownMeta
     adrs:
       - ADR-REPO-FILEMETA#1

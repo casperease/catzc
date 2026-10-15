@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/Test-RepositorySnapshot.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.Git
     visibility: public
     adrs: []

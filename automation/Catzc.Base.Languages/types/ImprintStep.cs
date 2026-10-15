@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/types/ImprintStep.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Languages
     adrs:
       - ADR-REPO-FORMAT#8

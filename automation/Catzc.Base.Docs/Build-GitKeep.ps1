@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/Build-GitKeep.ps1
-    kind: function
+    kind: writer-function
     module: Catzc.Base.Docs
     visibility: public
     adrs:

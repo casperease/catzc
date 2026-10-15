@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Base.Exporter
     visibility: public
     adrs:

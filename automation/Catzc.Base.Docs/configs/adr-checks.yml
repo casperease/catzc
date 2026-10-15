@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Docs/configs/adr-checks.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Every key is optional and defaults on AdrChecksConfig, so this file lists only what deviates from the default.

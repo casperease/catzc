@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

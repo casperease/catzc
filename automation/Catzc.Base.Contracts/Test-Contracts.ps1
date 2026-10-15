@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/Test-Contracts.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.Contracts
     visibility: public
     adrs:

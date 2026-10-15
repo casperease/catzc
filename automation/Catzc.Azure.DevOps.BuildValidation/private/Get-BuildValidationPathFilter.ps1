@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Azure.DevOps.BuildValidation
     visibility: private
     adrs:

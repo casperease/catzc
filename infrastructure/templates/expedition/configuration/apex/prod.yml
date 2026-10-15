@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/expedition/configuration/apex/prod.yml
-#     kind: template-config
+#     kind: bicep-template-config
 # ---
 
 # Production class: a provisioned database with geo backups, zone-redundant by the template default.

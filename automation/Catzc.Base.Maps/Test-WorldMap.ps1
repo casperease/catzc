@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/Test-WorldMap.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.Maps
     visibility: public
     adrs:

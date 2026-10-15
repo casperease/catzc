@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/foundation/configuration/apex/psub.yml
-#     kind: template-config
+#     kind: bicep-template-config
 # ---
 
 # foundation, apex prod subscription (env psub, customer apex).

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/types/MapsLimits.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Maps
     adrs:
       - ADR-AUTO-DEFAULT#6

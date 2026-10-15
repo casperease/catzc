@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/foundation/configuration/nova/nsub.yml
-#     kind: template-config
+#     kind: bicep-template-config
 # ---
 
 # foundation, nova nonprod subscription (env nsub, customer nova). nova is dev-only -> nonprod only.

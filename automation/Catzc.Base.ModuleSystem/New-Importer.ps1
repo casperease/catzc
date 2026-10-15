@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/New-Importer.ps1
-    kind: function
+    kind: writer-function
     module: Catzc.Base.ModuleSystem
     visibility: public
     adrs:

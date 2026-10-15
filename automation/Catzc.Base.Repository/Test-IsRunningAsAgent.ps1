@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Repository/Test-IsRunningAsAgent.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.Repository
     visibility: public
     adrs: []

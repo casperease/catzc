@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

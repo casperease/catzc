@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Exporter/private/Get-CatzcUserModulePath.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Base.Exporter
     visibility: private
     adrs: []

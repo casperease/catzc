@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/types/ToolStatusKind.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Tooling.Provisioning
     adrs: []
 ---

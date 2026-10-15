@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.RootConfig
     visibility: public
     adrs:

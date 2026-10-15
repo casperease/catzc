@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/expedition/options.yml
-#     kind: template-config
+#     kind: bicep-template-config
 # ---
 
 # Standard environment kind: configs use dev, test, preprod and prod, and each config is slotted in its own resource group.

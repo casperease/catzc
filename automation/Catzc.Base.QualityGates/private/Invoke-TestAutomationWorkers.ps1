@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Invoke-TestAutomationWorkers.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Base.QualityGates
     visibility: private
     adrs:

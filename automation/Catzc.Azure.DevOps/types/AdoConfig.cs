@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/types/AdoConfig.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Azure.DevOps
     adrs:
       - ADR-AUTO-TYPES#8

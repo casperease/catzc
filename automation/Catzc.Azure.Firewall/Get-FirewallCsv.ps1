@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/Get-FirewallCsv.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Azure.Firewall
     visibility: public
     adrs: []

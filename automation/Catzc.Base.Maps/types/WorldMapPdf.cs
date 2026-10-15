@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/types/WorldMapPdf.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Maps
     adrs:
       - ADR-DSGN-TRACK#3

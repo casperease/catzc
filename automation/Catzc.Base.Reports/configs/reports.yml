@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Reports/configs/reports.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # An empty file means the defaults, so a key is set only to change it; the subject token stands for the gate's name.

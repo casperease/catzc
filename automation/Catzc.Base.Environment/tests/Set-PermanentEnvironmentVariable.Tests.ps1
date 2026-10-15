@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

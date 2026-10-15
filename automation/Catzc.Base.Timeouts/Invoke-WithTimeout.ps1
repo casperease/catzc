@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/Invoke-WithTimeout.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Timeouts
     visibility: public
     adrs: []

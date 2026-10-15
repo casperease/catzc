@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Tooling.Github
     visibility: public
     adrs: []

@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/minimaps/render.py"
-#     kind: script
+#     kind: python-script
 # ---
 
 # cspell:ignore minimaps segoeui segoeuib seguisb textlength squarify Bruls rects cwid gfiles gmap gname maxw tname

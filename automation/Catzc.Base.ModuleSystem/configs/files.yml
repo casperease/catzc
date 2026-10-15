@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.ModuleSystem/configs/files.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Package names are globally unique because a package is the unit -ExcludePackages drops; only modules owning extras appear.

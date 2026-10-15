@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/drawio_png.py"
-#     kind: script
+#     kind: python-script
 # ---
 
 # cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo segoeui segoeuib textbbox

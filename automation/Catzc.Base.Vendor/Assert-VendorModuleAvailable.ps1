@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Vendor/Assert-VendorModuleAvailable.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Base.Vendor
     visibility: public
     adrs: []

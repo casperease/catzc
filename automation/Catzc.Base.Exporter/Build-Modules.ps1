@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Exporter/Build-Modules.ps1
-    kind: function
+    kind: writer-function
     module: Catzc.Base.Exporter
     visibility: public
     adrs:

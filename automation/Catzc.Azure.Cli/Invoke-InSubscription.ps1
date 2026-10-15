@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/Invoke-InSubscription.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Azure.Cli
     visibility: public
     adrs: []

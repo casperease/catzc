@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/.internal/tests/Import-CSharpTypes.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

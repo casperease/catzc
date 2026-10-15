@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/GzipText.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.QualityGates
     adrs:
       - ADR-PWSH-TYPES#1

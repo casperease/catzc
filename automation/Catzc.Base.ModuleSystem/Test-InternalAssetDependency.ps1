@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.ModuleSystem
     visibility: public
     adrs:

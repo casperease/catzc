@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/types/CliResult.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Execution
     adrs: []
 ---

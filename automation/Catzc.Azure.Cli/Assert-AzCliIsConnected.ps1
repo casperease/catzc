@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Azure.Cli
     visibility: public
     adrs:

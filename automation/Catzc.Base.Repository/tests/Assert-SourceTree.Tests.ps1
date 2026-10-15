@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Repository/tests/Assert-SourceTree.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: infrastructure/templates/discovery/configuration/apex/nsub.yml
-#     kind: template-config
+#     kind: bicep-template-config
 # ---
 
 # The kind and ranges come from network.yml by config address; this spoke peers to the nonprod hub.

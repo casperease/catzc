@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/CommentFindingKind.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.QualityGates
     adrs:
       - ADR-PRIN-ONELIVE#1

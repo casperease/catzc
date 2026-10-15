@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Assert-ManagedGuid.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Base.QualityGates
     visibility: public
     adrs: []

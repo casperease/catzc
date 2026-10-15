@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/Install-AzCli.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Tooling.Toolchain
     visibility: public
     adrs: []

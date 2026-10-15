@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Environment/Add-PermanentPath.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Environment
     visibility: public
     adrs: []

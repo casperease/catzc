@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/types/ExecutableProbe.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Execution
     adrs: []
 ---

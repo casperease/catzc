@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.CodeMeta/types/PropertyHead.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.CodeMeta
     adrs:
       - ADR-REPO-FILEMETA#8

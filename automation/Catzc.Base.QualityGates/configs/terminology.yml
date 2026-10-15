@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.QualityGates/configs/terminology.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Generated cspell word lists derive from this file, so never hand-edit them; every term category must be defined here.

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Vendor/types/VendorConfig.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Vendor
     adrs:
       - ADR-AUTO-TYPES#8

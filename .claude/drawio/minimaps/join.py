@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: ".claude/drawio/minimaps/join.py"
-#     kind: script
+#     kind: python-script
 # ---
 
 # cspell:ignore minimaps mapkey

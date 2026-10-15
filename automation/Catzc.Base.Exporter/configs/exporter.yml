@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Exporter/configs/exporter.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Tests swap in a fixture exporter.yml through the Get-Config seam, so the repo keeps exactly one real export config.

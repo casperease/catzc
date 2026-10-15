@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

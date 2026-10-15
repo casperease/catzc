@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/Build-ContractReference.ps1
-    kind: function
+    kind: writer-function
     module: Catzc.Base.Contracts
     visibility: public
     adrs:

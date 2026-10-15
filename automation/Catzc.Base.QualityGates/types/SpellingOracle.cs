@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/types/SpellingOracle.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.QualityGates
     adrs:
       - ADR-AUTO-SPELL

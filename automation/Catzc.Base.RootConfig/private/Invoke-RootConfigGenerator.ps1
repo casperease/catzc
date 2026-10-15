@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/private/Invoke-RootConfigGenerator.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Base.RootConfig
     visibility: private
     adrs:

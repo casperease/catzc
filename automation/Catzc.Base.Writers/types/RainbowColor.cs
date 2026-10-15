@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/types/RainbowColor.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Writers
     adrs:
       - ADR-AUTO-CONSOLE

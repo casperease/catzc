@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/types/ConnectionState.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Azure.Cli
     adrs: []
 ---

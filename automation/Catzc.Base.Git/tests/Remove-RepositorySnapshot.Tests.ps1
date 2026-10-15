@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/tests/Remove-RepositorySnapshot.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

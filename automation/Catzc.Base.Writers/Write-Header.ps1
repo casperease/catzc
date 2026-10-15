@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/Write-Header.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Writers
     visibility: public
     adrs: []

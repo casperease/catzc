@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure/private/Get-NetworkPlanViolations.ps1
-    kind: function
+    kind: private-function
     module: Catzc.Azure
     visibility: private
     adrs:

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

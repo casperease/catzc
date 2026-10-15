@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/Format-MarkdownMetaBlock.ps1
-    kind: function
+    kind: format-function
     module: Catzc.Base.MarkdownMeta
     visibility: public
     adrs:

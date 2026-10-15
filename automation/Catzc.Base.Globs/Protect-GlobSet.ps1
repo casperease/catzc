@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/Protect-GlobSet.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Globs
     visibility: public
     adrs:

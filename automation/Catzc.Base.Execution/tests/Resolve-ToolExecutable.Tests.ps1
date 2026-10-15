@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

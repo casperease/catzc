@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Asserts/Assert-PsModule.ps1
-    kind: function
+    kind: assert-function
     module: Catzc.Base.Asserts
     visibility: public
     adrs: []

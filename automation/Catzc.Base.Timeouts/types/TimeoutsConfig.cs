@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Timeouts
     adrs:
       - ADR-AUTO-DEFAULT#6

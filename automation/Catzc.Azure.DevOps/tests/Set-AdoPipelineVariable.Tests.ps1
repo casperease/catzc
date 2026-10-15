@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

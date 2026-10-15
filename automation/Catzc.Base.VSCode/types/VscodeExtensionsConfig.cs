@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.VSCode/types/VscodeExtensionsConfig.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.VSCode
     adrs:
       - ADR-AUTO-TYPES#8

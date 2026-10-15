@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Asserts/Test-IsAdministrator.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.Asserts
     visibility: public
     adrs: []

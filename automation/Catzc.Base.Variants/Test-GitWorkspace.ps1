@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Variants/Test-GitWorkspace.ps1
-    kind: function
+    kind: gate-function
     module: Catzc.Base.Variants
     visibility: public
     adrs: []

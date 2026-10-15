@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/tests/Write-CallStack.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

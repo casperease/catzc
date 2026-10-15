@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/New-GoWorkspace.ps1
-    kind: function
+    kind: writer-function
     module: Catzc.Base.Languages
     visibility: public
     adrs:

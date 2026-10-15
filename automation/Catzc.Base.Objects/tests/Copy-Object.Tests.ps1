@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

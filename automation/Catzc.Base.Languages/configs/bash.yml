@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Languages/configs/bash.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Black-box Bash tests of the engine; BashConfig validates the shape of this file.

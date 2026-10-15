@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/tests/Assert-FileIsLocked.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

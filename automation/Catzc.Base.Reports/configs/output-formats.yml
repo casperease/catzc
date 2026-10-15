@@ -2,15 +2,18 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Reports/configs/output-formats.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Patterns of two formats must never overlap, so a file's format never depends on declaration order; load rejects overlaps.
 # [comment:1](/docs/references/automation/catzc-base-reports/configs/output-formats.yml.md#comment1)
 
+# The area sets how long a format's files stay (OutputFormat's area defaults); keep and max_age override it, and Clear-Output applies it.
+
 formats:
   # ---- quality gates and test runs (out/test-<subject>/) ----
   test-report:
+    area: run
     patterns: ["test-*/{stamp}/*.md"]
     producer:
       Write-QualityGateReport (a gate's report), and the test-run entry points Test-Automation and Test-CatzcBuild (summary.md,
@@ -18,36 +21,49 @@ formats:
     audience: a person or an agent, in any Markdown viewer
     validator: { kind: md }
   latest-pointer:
+    area: run
     patterns: ["test-*/latest.txt"]
     producer: Write-QualityGateReport, and the test-run entry points (Test-Automation, Test-CatzcBuild)
     audience: a person or a script finding the newest run
     validator: { kind: latest-pointer }
   test-run-manifest:
-    patterns: ["test-automation/{stamp}/run.json", "test-catzc-build/{stamp}/run.json"]
-    producer: Test-Automation, Test-CatzcBuild
+    area: run
+    patterns: ["test-automation/{stamp}/run.json", "test-catzc-build/{stamp}/run.json", "test-file/{stamp}/run.json"]
+    producer: Test-Automation, Test-CatzcBuild, Invoke-TestFile
     audience: a script or an agent reading the run's facts
     validator: { kind: json, required_keys: [status, startedAt, minLevel, maxLevel, location, failedCount] }
   test-run-results:
+    area: run
     patterns: ["test-*/{stamp}/results-shard-*.xml"]
     producer: Test-Automation, Test-CatzcBuild, Invoke-TestFile (one NUnit file per shard)
     audience: a pipeline's test-results publisher, or a script
     validator: { kind: nunit-xml }
   test-run-rows:
+    area: run
     patterns: ["test-*/{stamp}/rows-shard-*.json"]
     producer: Test-Automation, Test-CatzcBuild, Invoke-TestFile (one row file per shard)
     audience: the run itself, merging shard results
     validator: { kind: json }
+  test-run-shard-files:
+    area: run
+    patterns: ["test-*/{stamp}/files-shard-*.json"]
+    producer: Test-Automation, Test-CatzcBuild, Invoke-TestFile (the test files each shard runs, from New-TestAutomationShardScript)
+    audience: the shard worker, and a person re-running one shard
+    validator: { kind: json }
   test-run-shard-script:
+    area: run
     patterns: ["test-*/{stamp}/shard-*.ps1"]
     producer: Test-Automation, Test-CatzcBuild, Invoke-TestFile (the script each worker runs)
     audience: a person re-running one shard
     validator: { kind: powershell }
   test-run-tests:
+    area: run
     patterns: ["test-automation/{stamp}/tests.csv", "test-catzc-build/{stamp}/tests.csv", "test-catzc-build/{stamp}/excluded-tests.csv"]
     producer: Test-Automation, Test-CatzcBuild
     audience: a person, in a spreadsheet; a script
     validator: { kind: csv }
   test-run-rule-coverage:
+    area: run
     patterns: ["test-automation/{stamp}/rule-coverage.csv", "test-catzc-build/{stamp}/rule-coverage.csv"]
     producer: Test-Automation, Test-CatzcBuild
     audience: a person, in a spreadsheet; a script
@@ -55,53 +71,76 @@ formats:
 
   # ---- the toolset's build (out/automation/) ----
   catzc-bundle:
+    area: build
     patterns: ["automation/built/*/Catzc/*"]
     target: folder
     producer: Build-Modules
     audience: Install-Catzc, and a person installing the toolset
     validator: { kind: delegate, command: Assert-CatzcBundle }
   catzc-package:
+    area: build
     patterns: ["automation/packages/*.nupkg"]
     producer: Export-Catzc -To nuget
     audience: a NuGet feed, and Install-Catzc
     validator: { kind: zip, required_entries: ["*.nuspec"] }
 
+  # ---- caches (out/cache/), invalidated by their own keys ----
+  run-cache:
+    area: cache
+    patterns: ["cache/*.json"]
+    producer: Format-Code (one file per imprint step), and Get-ScriptAnalyzerDiagnostics (the analyzer result cache)
+    audience: the producer's next run, which skips files whose inputs are unchanged
+    validator: { kind: json }
+  test-duration-history:
+    area: cache
+    patterns: ["test-automation/durations.json"]
+    producer: Save-TestDurationHistory
+    audience: Test-Automation, which balances its shards by the last measured durations
+    validator: { kind: json }
+
   # ---- diagrams (out/diagrams/) ----
   drawio-png:
+    area: review
     patterns: ["diagrams/**/*.drawio.png"]
     producer: .claude/drawio/drawio_png.py
     audience: a person, in any image viewer or in draw.io
     validator: { kind: drawio-png }
   drawio-model:
+    area: review
     patterns: ["diagrams/**/*.xml"]
     producer: .claude/drawio/drawio_png.py
     audience: draw.io, and a maker editing the drawing
     validator: { kind: drawio-model }
   minimap-stack-png:
+    area: review
     patterns: ["diagrams/fan-out/**/*.stack.png"]
     producer: diagram fan-out (Flow B)
     audience: a person, in any image viewer
     validator: { kind: png }
     limits: { width: 480, height: 300 }
   minimap-tree-png:
+    area: review
     patterns: ["diagrams/fan-out/**/*.tree.png"]
     producer: diagram fan-out (Flow B)
     audience: a person, in any image viewer
     validator: { kind: png }
     limits: { width: 480, height: 360 }
   contact-sheet-png:
+    area: review
     patterns: ["diagrams/**/*.sheet.png"]
     producer: .claude/drawio/contact_sheet.py
     audience: a person, in any image viewer
     validator: { kind: png }
     limits: { width: 1300 }
   review-pdf:
+    area: review
     patterns: ["diagrams/*.pdf"]
     producer: .claude/drawio/gallery_pdf.py
     audience: a person, in any PDF viewer
     validator: { kind: pdf }
     limits: { min_pages: 1 }
   verify-table:
+    area: review
     patterns: ["diagrams/**/*.verify.md"]
     producer: the diagram maker that drew the sibling drawing
     audience: a person reviewing a drawing's claims
@@ -111,7 +150,58 @@ formats:
       status_column: Verdict
       statuses: [confirmed, adr-only, contradicted, drift]
   fan-out-index:
+    area: review
     patterns: ["diagrams/fan-out/_manifest.json", "diagrams/fan-out/_slugs.json", "diagrams/fan-out/_placements.json"]
     producer: diagram fan-out (Flow A, Flow B)
     audience: the fan-out producers, and the review page
     validator: { kind: json }
+
+  # ---- the comment view (comments.yml view:) ----
+  comment-view:
+    area: review
+    patterns: ["annotated/**/*"]
+    producer: Build-CommentView
+    audience: a person reading a file with its comment page put back in place
+    validator: { kind: text }
+
+  # ---- agent sessions: plans, handoffs, scripts, dumps, logs (the top of out/ and their own folders) ----
+  # A plan cannot be regenerated (ADR-REPO-OUTDIR#10), so the root's Markdown never ages out; a person retires it.
+  session-document:
+    area: session
+    max_age: none
+    patterns: ["*.md"]
+    producer: an agent session (plan-*.md and handoff-*.md, where .claude/CLAUDE.md places them, and other notes)
+    audience: the user reviewing a plan, and the next session picking up a handoff
+    validator: { kind: md }
+  session-script:
+    area: session
+    patterns: ["*.ps1", "*.py", "*.sh"]
+    producer: an agent session (a reusable script it runs instead of a sprawling one-liner)
+    audience: the session that wrote it, and a person rerunning it
+    validator: { kind: text }
+  session-data:
+    area: session
+    patterns: ["*.txt", "*.csv", "*.json", "*.bak"]
+    producer: an agent session (dumps, measurements, file lists, backups)
+    audience: the session that wrote it
+    validator: { kind: text }
+  session-log:
+    area: log
+    patterns: ["*.log"]
+    producer: an agent session's run logs, and the Assert-BashTimeout hook (time-safeguard.log, which stays while it is appended)
+    audience: a person tuning timeouts.yml, and the session that wrote it
+    validator: { kind: text }
+  session-folder:
+    area: session
+    patterns: ["sessions/**/*", "spike/**/*", "to-scratch-*/**/*"]
+    producer: an agent session working in a folder of its own
+    audience: the session that wrote it
+    validator: { kind: text }
+
+  # ---- the folder's own keep file (ADR-REPO-OUTDIR#6) ----
+  output-keep:
+    area: review
+    patterns: [".gitkeep"]
+    producer: Build-GitKeep
+    audience: git, which keeps the otherwise ignored folder tracked
+    validator: { kind: text }

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

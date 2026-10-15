@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Azure.Templates/configs/glossary.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Every option is defaulted, so an empty config runs all five checks over the whole repository and every text surface.

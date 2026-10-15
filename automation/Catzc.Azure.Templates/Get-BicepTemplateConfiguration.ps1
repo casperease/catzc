@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Azure.Templates
     visibility: public
     adrs:

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/types/CitationScanner.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Maps
     adrs:
       - ADR-REPO-LINK#3

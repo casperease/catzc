@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Github/tests/Publish-CleanHistory.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 

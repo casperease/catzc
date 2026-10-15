@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.RootConfig/types/RootConfigFiles.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.RootConfig
     adrs:
       - ADR-CONF-LOADING

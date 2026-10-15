@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
-    kind: test
+    kind: pester-test
 ---
 #>
 
@@ -12,6 +12,7 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
         function script:New-Format {
             param([hashtable] $Extra = @{})
             $format = @{
+                area      = 'review'
                 patterns  = @('widgets/*.png')
                 producer  = 'New-Widget'
                 audience  = 'a person, in any image viewer'
@@ -46,6 +47,42 @@ Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
         $widget.validator_kind | Should -Be 'png'
         $widget.limits['width'] | Should -Be 480
         $config.formats['gadget-bundle'].validator_parameters['command'] | Should -Be 'Assert-Gadget'
+    }
+
+    It 'takes keep and max_age from the area unless the format overrides them' -Tag 'ADR-AUTO-DEFAULT#6' {
+        $config = [Catzc.Base.Reports.OutputFormatsConfig]::new(@{ formats = [ordered]@{
+                    'widget-run'     = (New-Format @{ area = 'run'; patterns = @('runs/{stamp}/report.md') })
+                    'widget-note'    = (New-Format @{ area = 'session'; patterns = @('*.md') })
+                    'widget-plan'    = (New-Format @{ area = 'session'; patterns = @('plans/*.md'); max_age = '30d'; keep = '3' })
+                    'widget-forever' = (New-Format @{ area = 'run'; patterns = @('forever/*.md'); keep = 'all'; max_age = 'none'; in_pipeline = 'true' })
+                }
+            })
+        $run = $config.formats['widget-run']
+        $run.keep | Should -Be 10
+        $run.max_age | Should -BeNullOrEmpty
+        $run.in_pipeline | Should -BeFalse
+        $config.formats['widget-note'].keep | Should -BeNullOrEmpty
+        $config.formats['widget-note'].max_age | Should -Be ([timespan]::FromDays(7))
+        $config.formats['widget-plan'].keep | Should -Be 3
+        $config.formats['widget-plan'].max_age | Should -Be ([timespan]::FromDays(30))
+        $forever = $config.formats['widget-forever']
+        $forever.keep | Should -BeNullOrEmpty
+        $forever.max_age | Should -BeNullOrEmpty
+        $forever.in_pipeline | Should -BeTrue
+    }
+
+    It 'rejects an unknown area, a keep that is no positive number, and a malformed max_age' -Tag 'ADR-AUTO-DEFAULT#6' {
+        $message = Get-LoadError @{ formats = [ordered]@{
+                'widget-a' = (New-Format @{ area = 'archive'; patterns = @('a/*') })
+                'widget-b' = (New-Format @{ patterns = @('b/*'); keep = '0' })
+                'widget-c' = (New-Format @{ patterns = @('c/*'); max_age = '2w' })
+                'widget-d' = (New-Format @{ patterns = @('d/*'); in_pipeline = 'maybe' })
+            }
+        }
+        $message | Should -Match "format 'widget-a': area 'archive' is unknown"
+        $message | Should -Match "format 'widget-b': keep '0' must be a positive whole number or 'all'"
+        $message | Should -Match "format 'widget-c': max_age '2w' must be"
+        $message | Should -Match "format 'widget-d': in_pipeline 'maybe' must be true or false"
     }
 
     It 'keeps a list parameter as a list' -Tag 'ADR-REPO-OUTFMT#3' {

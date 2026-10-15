@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/markdown-links.md
     kind: adr
-    body_sha: "0da3070ab563"
+    body_sha: "25a253b46c45"
     defines:
       - ADR-REPO-LINK#1
       - ADR-REPO-LINK#2

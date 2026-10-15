@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.TypesSystem
     visibility: public
     adrs:

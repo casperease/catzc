@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Vendor/Remove-VendorModules.ps1
-    kind: function
+    kind: public-function
     module: Catzc.Base.Vendor
     visibility: public
     adrs:

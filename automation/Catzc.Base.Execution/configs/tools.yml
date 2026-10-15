@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.Execution/configs/tools.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 winget:

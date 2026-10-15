@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1
-    kind: function
+    kind: format-function
     module: Catzc.Base.Docs
     visibility: public
     adrs:

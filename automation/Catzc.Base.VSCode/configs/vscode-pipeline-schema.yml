@@ -2,7 +2,7 @@
 # catzc:
 #   derived:
 #     path: automation/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
-#     kind: config
+#     kind: yaml-config
 # ---
 
 # Replaces the bundled schema to kill its false positives: offline, the extension surfaces every per-task anyOf branch failure.

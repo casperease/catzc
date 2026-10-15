@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/types/GitIgnorePattern.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Base.Git
     adrs: []
 ---

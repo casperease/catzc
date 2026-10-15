@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBindingsConfig.cs
-    kind: type
+    kind: csharp-type
     module: Catzc.Tooling.KeyHandler
     adrs: []
 ---
