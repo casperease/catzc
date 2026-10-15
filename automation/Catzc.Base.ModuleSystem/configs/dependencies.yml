@@ -11,6 +11,7 @@ groups:
     Catzc.Base.Environment: [Catzc.Base.Writers, Catzc.Base.Asserts]
     Catzc.Base.Objects: [Catzc.Base.Asserts]
     Catzc.Base.Writers: [Catzc.Base.Objects, Catzc.Base.Asserts]
+    Catzc.Base.MarkdownMeta: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.Config: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.Reports: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.ConfigExtensions: [Catzc.Base.Reports, Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Asserts]

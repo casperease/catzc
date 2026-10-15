@@ -94,6 +94,10 @@ automation/.compiled/** linguist-generated
 # catzc: test fixture trees are data on purpose — the link and Markdown-title tools leave them as written.
 **/tests/assets/** catzc-fixture
 
+# catzc: the plans folder holds working notes, not product docs — the content tools (links, Markdown titles, source
+# conventions) leave them as written, like out/ and docs/notes for the spelling, lint and glossary scans.
+/.unordered/** catzc-notes
+
 # catzc: contract assets are data on purpose — a contract asset's bytes are what its contract check compares, so the
 # tools that rewrite or check content (links, Markdown titles) leave them as written. An empty presence asset stays
 # empty. They check out with LF on every platform, so a working copy's bytes match the .frozen record's hashes

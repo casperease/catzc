@@ -25,7 +25,7 @@ function Get-ContentExemptPath {
         [string[]] $Path
     )
 
-    $classNames = 'linguist-vendored', 'linguist-generated', 'catzc-fixture', 'catzc-contract'
+    $classNames = 'linguist-vendored', 'linguist-generated', 'catzc-fixture', 'catzc-contract', 'catzc-notes'
     if ($Path.Count -eq 0) {
         return , [string[]] @()
     }

@@ -55,7 +55,7 @@ wrote is a finding the author fixes, never overwritten silently, and a `config` 
 ### Rule ADR-REPO-MDMETA:6
 
 The pure parts, the C# types, the block parser and renderer and the file scanner, live in a module below `Catzc.Base.Config` that declares
-only `Catzc.Base.Repository` and `Catzc.Base.Asserts`. That module reads no config: every declaration reaches it as a parameter. The
+only `Catzc.Base.Repository`, `Catzc.Base.Objects` (every type renders through its console text) and `Catzc.Base.Asserts`. That module reads no config: every declaration reaches it as a parameter. The
 registry, the processors and the commands that read the registry live in a module above `Catzc.Base.Config`, which reads the registry
 through `Get-Config` and passes it down. `Get-Config` calls the scanner with the globs from the config registry, so the reader never depends
 on the module that reads the meta-kind registry ([controlling-module-dependencies](../automation/controlling-module-dependencies.md)).
