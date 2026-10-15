@@ -1,5 +1,5 @@
-# PSReadLine functions supported on Linux — the allow-list Import-PSReadLineKeyHandlerSet filters key-handler-bindings against, so a...
-# [comment:1](/docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-supported.yml.md#comment1)
+# PSReadLine functions supported on Linux — the allow-list Import-PSReadLineKeyHandlerSet filters
+# key-handler-bindings against, so a Windows-only function is skipped rather than throwing.
 # cspell:ignore begining
 functions:
   - Abort
