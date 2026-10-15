@@ -38,7 +38,8 @@ The importer's own load sequence is the load-sequence exception of ADR-AUTO-CONS
 preferences, a redirected session's output encoding, roots, vendor modules, `PSModulePath`, the types assembly, the catzc modules) are
 announced on the verbose stream through `Write-ImporterMessage -StateChange`, shown by `. .\importer.ps1 -Verbose`. A plain import shows
 only its `Loaded in N seconds` line and genuine warnings. The functions the importer calls announce on the information stream as everywhere
-else.
+else; the session-tool janitor's `PATH` nudges and its advisory recur at every shell open, so the importer runs that janitor with its
+information stream shown only under the same `-Verbose`.
 
 - [The importer's load record](#the-importers-load-record)
 
@@ -257,7 +258,12 @@ module and goes away with it. While the import runs, Invoke-Importer quiets the 
 (ADR-PWSH-ANNOUNCE#9), so `-Verbose` shows the load record rather than every function each `Import-Module` dot-sources and exports.
 
 The exception covers only the importer's own load. The functions it calls, such as the janitors that adjust `PATH`, are ordinary public
-functions and announce on the information stream like any other caller's. A clean devbox gives them nothing to report.
+functions and announce on the information stream like any other caller's, so a person who runs `Sync-SessionTools` at the prompt sees
+every nudge. The same nudges made at every shell open are part of the load record, not news: a session's `PATH` starts from the registry
+each time, so the session-tool janitor re-points `dotnet` and appends the same hint folder on every import. The importer therefore runs
+that one janitor with `-InformationAction` set from its own `-Verbose`, which flows down to the writer chokepoint
+(ADR-PWSH-ANNOUNCE#1): a plain import shows the `Loaded` line alone, and `-Verbose` shows the nudges and the advisory beside the rest of
+the record. The janitor itself still announces unconditionally, which is what the analyzer rule checks.
 
 ## Decision
 

@@ -2,10 +2,9 @@
 
 `Plan: diagram wave 9 — slides drawn from the source code, landed beside the module reference articles`
 
-**Status 2026-10-15: landed.** D1–D9 taken as recommended. All 11 slides are in
-`docs/.assets/references/automation/<module-kebab>/` with `.drawio.md` and `.drawio.verify.md`, embedded in 10 module reference articles.
-#6 and #7 had one change pass each. No ADR links (references point code → ADR). Drift items B34–B39, C8, D12–D13 are in
-`plan-adr-code-drift.md`. The backlog below is the next wave.
+**Status 2026-10-15: landed.** D1–D9 taken as recommended. All 11 slides are in `docs/.assets/references/automation/<module-kebab>/` with
+`.drawio.md` and `.drawio.verify.md`, embedded in 10 module reference articles. #6 and #7 had one change pass each. No ADR links (references
+point code → ADR). Drift items B34–B39, C8, D12–D13 are in `plan-adr-code-drift.md`. The backlog below is the next wave.
 
 ## Goal
 

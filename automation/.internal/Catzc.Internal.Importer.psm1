@@ -515,10 +515,18 @@ function Invoke-ImporterJanitors {
 
     # Reconcile the session PATH to whatever tools are actually present — including tools installed outside the
     # installer layer (e.g. nvm-managed node) — and report any running from a non-owned location on one line.
-    # Session-only, quiet on a clean devbox, self-skips in CI. The importer is dot-sourced, so its PATH nudges
-    # land in the caller's live session. Guarded: absent in the bootstrap sandbox (Catzc.Tooling.Core).
+    # Session-only, self-skips in CI. The importer is dot-sourced, so its PATH nudges land in the caller's live
+    # session. The janitor announces each nudge like any function, but at every shell open the same nudges are part
+    # of the load record (ADR-PWSH-ANNOUNCE#6): the importer's -Verbose decides whether its information stream is
+    # shown, so a plain import prints only the Loaded line. Guarded: absent in the bootstrap sandbox (Catzc.Tooling.Core).
     if (Get-Command Sync-SessionTools -ErrorAction Ignore) {
-        Sync-SessionTools
+        $janitorInformation = if ($ShowStateChanges) {
+            'Continue'
+        }
+        else {
+            'SilentlyContinue'
+        }
+        Sync-SessionTools -InformationAction $janitorInformation
     }
 
     # Publish the agent hook when its source changed — after the PATH reconciliation, so `dotnet` is the owned SDK.
