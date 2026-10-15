@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/NoWriteErrorOrWarning.psm1
     kind: analyzer-rule
+    relatives:
+      page: docs/references/automation/scriptanalyzer/NoWriteErrorOrWarning.psm1.md
 ---
 #>
 

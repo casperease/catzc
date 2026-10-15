@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/Catzc.Internal.Types.psm1
     kind: internal-module
+    relatives:
+      page: docs/references/automation/internal/Catzc.Internal.Types.psm1.md
 ---
 #>
 

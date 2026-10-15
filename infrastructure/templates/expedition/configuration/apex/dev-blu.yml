@@ -3,6 +3,8 @@
 #   derived:
 #     path: infrastructure/templates/expedition/configuration/apex/dev-blu.yml
 #     kind: bicep-template-config
+#     relatives:
+#       page: docs/references/infrastructure/templates/expedition/configuration/apex/dev-blu.yml.md
 # ---
 
 ParametersFile:

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
-    body_sha: "2d41051720f3"
+    body_sha: e76581c7d6df
     defines:
       - ADR-REPO-CODEMETA#1
       - ADR-REPO-CODEMETA#2
@@ -61,7 +61,7 @@ from the head. It never holds a hash of the body, which would change on every ed
 
 The head is imprinted by the same engine, from the same registry, as a Markdown block
 ([ADR-REPO-FILEMETA#2](file-meta.md#rule-adr-repo-filemeta2), [ADR-REPO-FILEMETA#3](file-meta.md#rule-adr-repo-filemeta3)): a kind is a
-registry entry whose globs name code files, and its processor is a function found by convention. The scope is every tracked file whose
+registry entry that selects code files by their class, and its processor is a function found by convention. The scope is every tracked file whose
 language the carrier registry gives a comment head, tests and assets included, less the classes `.gitattributes` exempts
 ([ADR-REPO-FILEMETA#5](file-meta.md#rule-adr-repo-filemeta5)). Every such file carries `path` and `kind`; `module` and `visibility` stay
 with the C# type files and PowerShell function files their kinds name, and `adrs` goes to those and to the PowerShell test files, whose
@@ -156,8 +156,8 @@ file moved between folders re-imprints. A hash of the body would change with eve
 on the hash line, and git already hashes the file. The ADR codes a file cites are the one list a reader scans to learn which decisions bind
 the file, so they sit in the head, and the head is where they live: the residue carries no citation of its own, so there is no second
 spelling to keep in step, and a list rebuilt from the text alone would lose every code the text no longer spells out. The formatter only
-adds to the list, from the citations the file and its comment page make, and the files a kind names under `held_files` are the ones whose
-head holds it. A hash of the public signature is the one checksum that fits code, and it needs a parser per language, so it is left out
+adds to the list, from the citations the file and its comment page make, and the classes a kind names under `held_classes` are the ones
+whose head holds it. A hash of the public signature is the one checksum that fits code, and it needs a parser per language, so it is left out
 until a parser is warranted.
 
 ### Scope

@@ -3,6 +3,8 @@
 #   derived:
 #     path: infrastructure/templates/expedition/options.yml
 #     kind: bicep-template-config
+#     relatives:
+#       page: docs/references/infrastructure/templates/expedition/options.yml.md
 # ---
 
 short_name: exped

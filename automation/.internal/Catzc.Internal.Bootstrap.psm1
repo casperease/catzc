@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/Catzc.Internal.Bootstrap.psm1
     kind: internal-module
+    relatives:
+      page: docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md
 ---
 #>
 

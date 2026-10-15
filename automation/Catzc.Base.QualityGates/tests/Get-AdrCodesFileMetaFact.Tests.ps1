@@ -7,6 +7,7 @@ catzc:
     relatives:
       source: automation/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1
     adrs:
+      - ADR-AUTO-DEFAULT#6
       - ADR-REPO-CODEMETA#2
       - ADR-REPO-FILEMETA#3
 ---

@@ -6,6 +6,7 @@ catzc:
     kind: pester-test
     relatives:
       page: docs/references/automation/scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1.md
+      source: automation/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1
 ---
 #>
 

@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/NoRawVsoCommand.psm1
     kind: analyzer-rule
+    relatives:
+      page: docs/references/automation/scriptanalyzer/NoRawVsoCommand.psm1.md
 ---
 #>
 

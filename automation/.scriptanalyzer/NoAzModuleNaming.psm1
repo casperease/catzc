@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/NoAzModuleNaming.psm1
     kind: analyzer-rule
+    relatives:
+      page: docs/references/automation/scriptanalyzer/NoAzModuleNaming.psm1.md
 ---
 #>
 

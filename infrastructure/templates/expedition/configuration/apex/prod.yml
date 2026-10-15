@@ -3,6 +3,8 @@
 #   derived:
 #     path: infrastructure/templates/expedition/configuration/apex/prod.yml
 #     kind: bicep-template-config
+#     relatives:
+#       page: docs/references/infrastructure/templates/expedition/configuration/apex/prod.yml.md
 # ---
 
 ParametersFile:

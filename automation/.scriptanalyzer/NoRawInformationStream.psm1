@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/NoRawInformationStream.psm1
     kind: analyzer-rule
+    relatives:
+      page: docs/references/automation/scriptanalyzer/NoRawInformationStream.psm1.md
 ---
 #>
 

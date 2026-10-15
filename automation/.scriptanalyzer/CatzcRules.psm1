@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/CatzcRules.psm1
     kind: analyzer-rule
+    relatives:
+      page: docs/references/automation/scriptanalyzer/CatzcRules.psm1.md
 ---
 #>
 

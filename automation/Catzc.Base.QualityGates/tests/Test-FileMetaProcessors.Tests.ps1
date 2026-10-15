@@ -70,7 +70,7 @@ Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
         $result.Subject | Should -Be 'file-meta-processors'
         $result.KindCount | Should -Be 10
         $result.IssueCount | Should -Be 1
-        $result.ProcessorCount | Should -Be 10
+        $result.ProcessorCount | Should -Be 11
     }
 }
 

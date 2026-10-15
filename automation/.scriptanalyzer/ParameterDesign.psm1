@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/ParameterDesign.psm1
     kind: analyzer-rule
+    relatives:
+      page: docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md
 ---
 #>
 

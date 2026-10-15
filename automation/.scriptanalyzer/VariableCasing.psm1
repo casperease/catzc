@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.scriptanalyzer/VariableCasing.psm1
     kind: analyzer-rule
+    relatives:
+      page: docs/references/automation/scriptanalyzer/VariableCasing.psm1.md
 ---
 #>
 
