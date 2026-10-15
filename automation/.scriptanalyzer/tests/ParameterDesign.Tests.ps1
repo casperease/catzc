@@ -87,9 +87,16 @@ Describe 'Measure-NoOptionalBooleanParameter' -Tag 'L0', 'logic', 'ADR-PWSH-PARA
     It 'accepts: <Description>' -ForEach @(
         @{ Description = 'a [switch]'; Param = '[switch] $Loud' }
         @{ Description = 'a mandatory [bool], a value both ways'; Param = '[Parameter(Mandatory)] [bool] $CustomerDeployment' }
+        @{ Description = 'a [bool] whose default is a configured value'; Param = '[bool] $Loud = (Get-Config -Config widget).loud' }
+        @{ Description = 'a [bool] whose default is a configured value read by address'; Param = '[bool] $Loud = (Get-ConfigValue -Address ''global.widget.loud'')' }
     ) {
         $code = "function Get-Widget {`n    param($Param)`n}"
         @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
+    }
+
+    It 'still flags a [bool] whose default only mentions a config elsewhere' {
+        $code = "function Get-Widget {`n    param([bool] `$Loud = `$loudDefault)`n}"
+        @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'automation/Catzc.Widget/Get-Widget.ps1').Count | Should -Be 1
     }
 
     It 'leaves a test file alone' {

@@ -8,6 +8,7 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-REMOVE#2
+      - ADR-PWSH-ENUM#3
 ---
 #>
 
@@ -39,7 +40,8 @@ function Get-PackageTreePlan {
     $sourceRoot = [System.IO.Path]::GetFullPath($Source)
     $destinationRoot = [System.IO.Path]::GetFullPath($Destination)
 
-    # A named whole-tree walk (ADR-PWSH-ENUM#3): a copy plan must see every file, so no folder name is pruned and the depth is the
+    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a copy
+    # plan must see every file, so no folder name is pruned and the depth is the
     # config's ceiling. A real package tree reaches ten levels, and a shallower bound would silently drop files from the copy.
     $sourceDirectories = [System.Collections.Generic.List[string]]::new()
     foreach ($directory in Get-ChildPath $sourceRoot -Directory -Depth 64 -Exclude @() -PruneVendor $false) {

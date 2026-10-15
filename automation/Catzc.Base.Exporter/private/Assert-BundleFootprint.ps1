@@ -8,6 +8,7 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-BUNDLE
+      - ADR-PWSH-ENUM#3
 ---
 #>
 
@@ -38,7 +39,8 @@ function Assert-BundleFootprint {
     $files = 0
     $bytes = [long] 0
     $byFolder = @{}
-    # A named whole-tree walk (ADR-PWSH-ENUM#3): the footprint counts every shipped byte, so nothing is pruned.
+    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the
+    # footprint counts every shipped byte, so nothing is pruned.
     foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @() -PruneVendor $false) {
         $length = [System.IO.FileInfo]::new($file).Length
         $files++

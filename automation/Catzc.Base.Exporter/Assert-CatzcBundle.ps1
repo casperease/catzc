@@ -8,6 +8,7 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-BUNDLE#5
+      - ADR-PWSH-ENUM#3
 ---
 #>
 
@@ -54,7 +55,8 @@ function Assert-CatzcBundle {
     }
 
     # Every file once, build-relative and forward-slashed: the tests/ scan and the shipped type sources read it.
-    # A named whole-tree walk (ADR-PWSH-ENUM#3): the bundle is verified in full, vendored modules included, so nothing is pruned.
+    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the bundle
+    # is verified in full, vendored modules included, so nothing is pruned.
     $files = foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @() -PruneVendor $false) {
         [System.IO.Path]::GetRelativePath($root, $file).Replace('\', '/')
     }

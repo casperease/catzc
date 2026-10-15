@@ -700,7 +700,8 @@ function Import-AllModules {
         [switch]$Bundle
     )
 
-    # One level, inline: this module loads before the walker exists (ADR-PWSH-ENUM#6).
+    # One level, inline: this module loads before the walker exists
+    # ([ADR-PWSH-ENUM#6](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum6)).
     $moduleDirs = [System.IO.DirectoryInfo]::new($ModulesRoot).GetDirectories() |
         Where-Object { $_.Name -notmatch '^\.' }
 

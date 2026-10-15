@@ -8,6 +8,7 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-PATH#2
+      - ADR-PWSH-ENUM#3
       - ADR-REPO-CONTRACT#5
 ---
 #>
@@ -34,7 +35,8 @@ function Get-ContractFileHashes {
         [string] $Folder
     )
 
-    # A named whole-tree walk (ADR-PWSH-ENUM#3): a frozen contract is hashed in full, so no name is pruned and no depth drops a file.
+    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a frozen
+    # contract is hashed in full, so no name is pruned and no depth drops a file.
     $files = [string[]] @(Get-ChildPath $Folder -File -Depth 64 -Exclude @() -PruneVendor $false)
     $paths = [string[]] @($files |
             ForEach-Object { [System.IO.Path]::GetRelativePath($Folder, $_) -replace '\\', '/' } |

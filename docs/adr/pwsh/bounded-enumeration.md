@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/pwsh/bounded-enumeration.md
     kind: adr
-    body_sha: "9b87a29e7037"
+    body_sha: "3b388e56003a"
     defines:
       - ADR-PWSH-ENUM#1
       - ADR-PWSH-ENUM#2
@@ -144,7 +144,11 @@ pruned and links never entered. Back it with a compiled type. Code that loads be
 - **`Get-ChildPath` and `FolderWalker`** — the one walk; its tests cover the default depth, an explicit depth, pruning, ordering, a missing
   root, a tree deeper than the depth that is never entered, and a link that is listed and not followed.
 - **`folder-walk` config** — `Test-ShippedConfigs` validates the shipped values against the config type that declares the defaults.
-- **Code review** — a `Get-ChildItem` or an unbounded `AllDirectories` call is checked against this ADR.
+- **Custom PSScriptAnalyzer rule `Measure-NoUnboundedEnumeration`** (`automation/.scriptanalyzer/NoUnboundedEnumeration.psm1`, severity:
+  Error) — flags `Get-ChildItem` and its aliases on a filesystem path (ADR-PWSH-ENUM#1) and `[System.IO.SearchOption]::AllDirectories`
+  (ADR-PWSH-ENUM#3). A literal provider path (`env:`, `function:`, `HKLM:`) is left alone, a provider listing through a variable carries a
+  justified suppression, and test files are outside its scope.
+- **Code review** — a listing in a test file, and a whole-tree walk whose depth or comment is not justified, are checked against this ADR.
 
 ## Consequences
 

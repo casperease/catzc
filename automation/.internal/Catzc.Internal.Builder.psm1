@@ -389,7 +389,8 @@ function Get-BuildFileCopy {
         return
     }
     $sourceFull = [System.IO.Path]::GetFullPath($SourceDirectory)
-    # A named whole-tree walk (ADR-PWSH-ENUM#3): the build copies every shippable file, so nothing is pruned here.
+    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the build
+    # copies every shippable file, so nothing is pruned here.
     foreach ($file in Get-ChildPath $sourceFull -File -Depth 64 -Exclude @() -PruneVendor $false) {
         $relativePath = [System.IO.Path]::GetRelativePath($sourceFull, $file).Replace('\', '/')
         $segments = $relativePath.Split('/')
@@ -714,7 +715,8 @@ function Clear-StaleBuildFile {
     if (-not [System.IO.Directory]::Exists($BuildRoot)) {
         return $removed
     }
-    # A named whole-tree walk (ADR-PWSH-ENUM#3): a stale file anywhere under the build root must go, so nothing is pruned.
+    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a stale
+    # file anywhere under the build root must go, so nothing is pruned.
     foreach ($file in @(Get-ChildPath $BuildRoot -File -Depth 64 -Exclude @() -PruneVendor $false)) {
         $relativePath = [System.IO.Path]::GetRelativePath($BuildRoot, $file).Replace('\', '/')
         if (-not $KeepPath.Contains($relativePath)) {

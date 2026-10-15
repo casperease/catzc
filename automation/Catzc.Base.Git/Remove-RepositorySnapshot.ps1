@@ -6,7 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Git
     visibility: public
-    adrs: []
+    adrs:
+      - ADR-PWSH-ENUM#3
 ---
 #>
 
@@ -41,7 +42,8 @@ function Remove-RepositorySnapshot {
         [System.IO.Directory]::Delete($Path, $true)
     }
     catch [System.UnauthorizedAccessException] {
-        # A named whole-tree walk (ADR-PWSH-ENUM#3): the read-only files are mostly git objects under .git, so nothing is pruned.
+        # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the
+        # read-only files are mostly git objects under .git, so nothing is pruned.
         foreach ($file in Get-ChildPath $Path -File -Depth 64 -Exclude @() -PruneVendor $false) {
             [System.IO.File]::SetAttributes($file, [System.IO.FileAttributes]::Normal)
         }

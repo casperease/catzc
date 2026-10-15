@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/pwsh/parameter-design.md
     kind: adr
-    body_sha: fc5a12fcf30f
+    body_sha: "7373a919820f"
     defines:
       - ADR-PWSH-PARAM#1
       - ADR-PWSH-PARAM#2
@@ -94,7 +94,9 @@ The primary argument is the answer to "what is this call about" — the command 
 Opt-in behavior that is off by default is a `[switch]` — `-PassThru`, `-DryRun`, `-Silent`, `-Force` — never a `[bool]` parameter. A switch
 is self-documenting at the call site (its presence is the opt-in), defaults to off with no declaration, and propagates cleanly down a call
 chain as `-PassThru:$PassThru`. A `[bool]` forces every caller to write `$true`, reads ambiguously (`-Enabled $false` — is that the
-default?), and invites `$null` coercion surprises.
+default?), and invites `$null` coercion surprises. A setting whose default comes from the configuration is not opt-in behavior: it is a
+configurable parameter (see below), it may be on by default, and a `[bool]` is the type that lets the caller state either value, so its
+default expression reads the configured value.
 
 ### Configurable parameters
 

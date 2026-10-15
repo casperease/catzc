@@ -7,6 +7,7 @@ catzc:
     module: Catzc.Base.Contracts
     visibility: private
     adrs:
+      - ADR-PWSH-ENUM#3
       - ADR-REPO-CONTRACT#10
       - ADR-REPO-CONTRACT#2
       - ADR-REPO-FOLDERS#4
@@ -38,7 +39,8 @@ function Get-ContractDotFolderFindings {
         return
     }
 
-    # A named whole-tree walk (ADR-PWSH-ENUM#3): this gate looks for stray folders, so no name is pruned and no depth hides one.
+    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): this gate
+    # looks for stray folders, so no name is pruned and no depth hides one.
     $folders = [string[]] @(Get-ChildPath $contractsRoot -Directory -Depth 64 -Exclude @() -PruneVendor $false |
             ForEach-Object { [System.IO.Path]::GetRelativePath($contractsRoot, $_) -replace '\\', '/' })
     [System.Array]::Sort($folders, [System.StringComparer]::Ordinal)

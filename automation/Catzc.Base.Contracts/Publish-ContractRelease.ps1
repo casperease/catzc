@@ -9,6 +9,7 @@ catzc:
     adrs:
       - ADR-AUTO-BUNDLE#7
       - ADR-AUTO-PATH#2
+      - ADR-PWSH-ENUM#3
       - ADR-PWSH-VERBS#1
       - ADR-REPO-CONTRACT#5
 ---
@@ -72,7 +73,8 @@ function Publish-ContractRelease {
     }
 
     try {
-        # A named whole-tree walk (ADR-PWSH-ENUM#3): the freeze copies the whole draft, so no name is pruned and no depth drops a file.
+        # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the
+        # freeze copies the whole draft, so no name is pruned and no depth drops a file.
         $files = [string[]] @(Get-ChildPath $draft -File -Depth 64 -Exclude @() -PruneVendor $false)
         $null = [System.IO.Directory]::CreateDirectory($target)
         foreach ($file in $files) {

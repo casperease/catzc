@@ -6,7 +6,8 @@ catzc:
     kind: function
     module: Catzc.Base.Files
     visibility: public
-    adrs: []
+    adrs:
+      - ADR-PWSH-ENUM#3
 ---
 #>
 
@@ -41,7 +42,8 @@ function Copy-Directory {
 
     # Substring past the source prefix rebases a path; String.Replace would rewrite any later copy of that prefix too.
     # [comment:2](/docs/references/automation/catzc-base-files/Copy-Directory.ps1.md#comment2)
-    # A named whole-tree walk (ADR-PWSH-ENUM#3): a copy takes everything, so no name is pruned and no depth drops a file.
+    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a copy
+    # takes everything, so no name is pruned and no depth drops a file.
     foreach ($dir in Get-ChildPath $source -Directory -Depth 64 -Exclude @() -PruneVendor $false) {
         [System.IO.Directory]::CreateDirectory($target + $dir.Substring($sourceLen)) | Out-Null
     }

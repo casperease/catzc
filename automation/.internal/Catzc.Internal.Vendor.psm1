@@ -48,7 +48,8 @@ function Import-VendorModules {
     }
 
     $sep = [System.IO.Path]::PathSeparator
-    # One level, inline: this module loads before the walker exists (ADR-PWSH-ENUM#6).
+    # One level, inline: this module loads before the walker exists
+    # ([ADR-PWSH-ENUM#6](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum6)).
     $vendorDirs = [System.IO.DirectoryInfo]::new($VendorRoot).GetDirectories()
 
     foreach ($dir in $vendorDirs) {

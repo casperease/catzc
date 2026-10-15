@@ -14,7 +14,6 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: folders and files are listed through Get-ChildPath, never by a filesystem cmdlet or an unbounded walk.
 .DESCRIPTION
     Flags Get-ChildItem and its aliases on a filesystem path, and [System.IO.SearchOption]::AllDirectories; test files are left alone.
-    [comment:1](/docs/references/automation/scriptanalyzer/NoUnboundedEnumeration.psm1.md#comment1)
 #>
 
 function Measure-NoUnboundedEnumeration {
@@ -41,7 +40,6 @@ function Measure-NoUnboundedEnumeration {
     $searchOptionTypes = 'System.IO.SearchOption', 'IO.SearchOption', 'SearchOption'
 
     # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [comment:2](/docs/references/automation/scriptanalyzer/NoUnboundedEnumeration.psm1.md#comment2)
     $isCommand = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]

@@ -11,6 +11,8 @@ catzc:
       - ADR-AUTO-TYPES#9
       - ADR-CONF-LOADING
       - ADR-DSGN-RUNMODE
+      - ADR-PWSH-ENUM#1
+      - ADR-PWSH-ENUM#3
 ---
 #>
 
@@ -118,7 +120,8 @@ function Copy-Automation {
     # ---- conflict pre-scan (fast / faster / fastest) --------------------------------------------------
     if (-not $Force) {
         if ($EmptyDestination) {
-            # An emptiness probe stops at the first entry of any kind, hidden and pruned names included (ADR-PWSH-ENUM#1).
+            # An emptiness probe stops at the first entry of any kind, hidden and pruned names included
+            # ([ADR-PWSH-ENUM#1](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum1)).
             if ([System.IO.Directory]::Exists($destinationRoot) -and [System.IO.Directory]::EnumerateFileSystemEntries($destinationRoot).GetEnumerator().MoveNext()) {
                 throw "Copy-Automation: -EmptyDestination requires an empty target, but '$destinationRoot' is not empty."
             }
@@ -127,7 +130,9 @@ function Copy-Automation {
             $conflicts = [System.Collections.Generic.List[string]]::new()
             foreach ($item in $plan) {
                 if ($item.IsContainer) {
-                    # A named whole-tree walk (ADR-PWSH-ENUM#3): every file the copy would write is checked for a conflict.
+                    # A named whole-tree walk
+                    # ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): every file the
+                    # copy would write is checked for a conflict.
                     foreach ($file in Get-ChildPath $item.Source -File -Depth 64 -Exclude @() -PruneVendor $false) {
                         $candidate = $item.Target + $file.Substring($item.Source.Length)
                         if (Test-Path -LiteralPath $candidate -PathType Leaf) {

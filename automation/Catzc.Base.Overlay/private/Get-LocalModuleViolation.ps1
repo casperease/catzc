@@ -8,6 +8,7 @@ catzc:
     visibility: private
     adrs:
       - ADR-AUTO-OVERLAY
+      - ADR-PWSH-ENUM#3
 ---
 #>
 
@@ -41,7 +42,8 @@ function Get-LocalModuleViolation {
     }
 
     $functionFiles = [System.Collections.Generic.List[string]]::new()
-    # A named whole-tree walk (ADR-PWSH-ENUM#3): a violation anywhere in the module must show, so nothing is pruned.
+    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a
+    # violation anywhere in the module must show, so nothing is pruned.
     $files = [string[]] @(Get-ChildPath $Path -File -Depth 64 -Exclude @() -PruneVendor $false)
     [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
     foreach ($file in $files) {

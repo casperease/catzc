@@ -8,6 +8,7 @@ catzc:
     visibility: public
     adrs:
       - ADR-FLOW-CD-GLOBS#5
+      - ADR-PWSH-ENUM#3
 ---
 #>
 
@@ -36,7 +37,8 @@ function Get-CatzcContentHash {
     Assert-PathExist $Path -PathType Container
 
     $rootFull = [System.IO.Path]::GetFullPath($Path)
-    # A named whole-tree walk (ADR-PWSH-ENUM#3): the hash covers every file, so nothing is pruned and no depth drops one.
+    # A named whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the hash
+    # covers every file, so nothing is pruned and no depth drops one.
     $files = Get-ChildPath $rootFull -File -Depth 64 -Exclude @() -PruneVendor $false
 
     $relativePaths = [System.Collections.Generic.List[string]]::new()

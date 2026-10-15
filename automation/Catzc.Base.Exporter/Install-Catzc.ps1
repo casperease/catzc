@@ -10,6 +10,7 @@ catzc:
       - ADR-AUTO-BUNDLE#6
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-ENGINE#2
+      - ADR-PWSH-ENUM#3
 ---
 #>
 
@@ -92,7 +93,9 @@ function Install-Catzc {
                 $execute = [System.IO.UnixFileMode]::UserExecute -bor [System.IO.UnixFileMode]::GroupExecute -bor [System.IO.UnixFileMode]::OtherExecute
                 foreach ($engine in @([Catzc.Base.Engines.ExecutionEngines]::All | Where-Object RequiresExecutableBit)) {
                     foreach ($extension in $engine.ScriptExtensions) {
-                        # A named whole-tree walk (ADR-PWSH-ENUM#3): every shebang script of the installed module is re-marked.
+                        # A named whole-tree walk
+                        # ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): every shebang
+                        # script of the installed module is re-marked.
                         foreach ($script in Get-ChildPath $moduleTarget -File -Filter "*$extension" -Depth 64 -Exclude @() -PruneVendor $false) {
                             if ([System.IO.File]::ReadLines($script) | Select-Object -First 1 | Where-Object { $_.StartsWith('#!') }) {
                                 [System.IO.File]::SetUnixFileMode($script, [System.IO.File]::GetUnixFileMode($script) -bor $execute)

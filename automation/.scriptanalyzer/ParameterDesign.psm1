@@ -142,6 +142,11 @@ function Measure-NoOptionalBooleanParameter {
             if ($attributeText -match '\bMandatory\b(?!\s*=\s*\$false)') {
                 continue
             }
+            # A [bool] whose default reads the configuration is a configurable setting
+            # ([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)), not opt-in behaviour.
+            if ($parameter.DefaultValue -and $parameter.DefaultValue.Extent.Text -match '\bGet-Config(Value)?\b') {
+                continue
+            }
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
                     Message  = "$($function.Name)'s optional [bool] -$($parameter.Name.VariablePath.UserPath) is opt-in behaviour: declare it a [switch] (ADR-PWSH-PARAM#3)."
                     Extent   = $parameter.Extent
