@@ -2,14 +2,8 @@
 .SYNOPSIS
     Downloads a file over HTTPS and verifies its SHA-256, rejecting a mismatch.
 .DESCRIPTION
-    Downloads -Uri to -OutFile, computes the SHA-256, and asserts it equals -Sha256 (case-insensitive,
-    'sha256:' prefix tolerated). On mismatch the partial/bad file is deleted and the call throws — a
-    download is never left on disk for a caller to execute unverified. Returns the verified path.
-
-    The expected hash comes from the caller. For a sanctioned 'latest' base tool (e.g. git) it is the
-    publisher's own published hash for the resolved version — the GitHub release asset `digest`. (Tools
-    whose publisher provides no checksum, e.g. Postman, are TLS-only and do not use this helper.) See
-    ADR controlling-systemwide-deps.
+    Downloads -Uri to -OutFile, computes the SHA-256, and asserts it equals -Sha256 (case-insensitive, 'sha256:'...
+    [comment:1](/docs/references/automation/catzc-tooling-core/Save-VerifiedDownload.ps1.md#comment1)
 .PARAMETER Uri
     The download URL.
 .PARAMETER OutFile

@@ -1,5 +1,5 @@
-// The JFrog Artifactory publish target of configs/artifacts.yml (`artifactory:`): the server URL and repository the
-// gold module-manifest artifact is promoted to. Validation is the shared target shape (ArtifactsTarget).
+// The JFrog Artifactory publish target of configs/artifacts.yml (`artifactory:`): the server URL and repository the gold module-manifest...
+// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ArtifactoryArtifactsTarget.cs.md#comment1)
 
 namespace Catzc.Base.ModuleSystem;
 

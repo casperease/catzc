@@ -1,8 +1,5 @@
-// The WinAnsi character set: the only text the base-14 PDF fonts (Helvetica and its kin) can show, through their
-// WinAnsiEncoding (PDF 1.7, Annex D). It is ASCII 0x20-0x7E, Latin-1 0xA0-0xFF, and 27 typographic characters at
-// 0x80-0x9F (the euro sign, curly quotes, en and em dash, bullet, ellipsis, ...). A label the world-map PDFs print
-// must be encodable here, so MapsConfig rejects any other label at load; '×' (0xD7) is encodable, '→' is not. Control
-// characters are not: a label is one printable line.
+// The WinAnsi character set: the only text the base-14 PDF fonts (Helvetica and its kin) can show, through their WinAnsiEncoding (PDF...
+// [comment:1](/docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md#comment1)
 
 using System.Collections.Generic;
 
@@ -30,8 +27,8 @@ public static class WinAnsi
         return Typographic.TryGetValue(c, out code) ? code : -1;
     }
 
-    // The index of the first character of the text that has no WinAnsi code, or -1 when every character has one. An
-    // empty or null text has none.
+    // The index of the first character of the text that has no WinAnsi code, or -1 when every character has one.
+    // [comment:2](/docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md#comment2)
     public static int IndexOfUnsupported(string text)
     {
         if (string.IsNullOrEmpty(text)) { return -1; }

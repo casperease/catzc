@@ -2,16 +2,10 @@
 .SYNOPSIS
     Tests whether the current az CLI login can reach the named subscription.
 .DESCRIPTION
-    The azure.yml-aware companion to the generic Test-AzCliSubscriptionAccessible: it takes
-    a subscription *name* (a key in azure.yml's subscriptions), resolves it to a subscription id via
-    Get-AzureSubscription, and delegates the real-ARM-read access check down. Returns $true when the
-    current login can reach the subscription, $false otherwise (including not logged in). A pure query —
-    it never throws on a mismatch. Use Assert-AzCliCanAccess for the throwing companion.
-
-    "IsConnected" asks whether the session is *set to* the subscription; "CanAccess" asks whether the
-    current login can *reach* it, independent of which subscription is active.
-    See [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md) and
-    [ADR-AZ-CLI#1](/docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1).
+    The azure.yml-aware companion to the generic Test-AzCliSubscriptionAccessible: it takes a subscription *name* (a...
+    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),
+    [ADR-AZ-CLI#1](/docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1)
+    [comment:1](/docs/references/automation/catzc-azure-cli/Test-AzCliCanAccess.ps1.md#comment1)
 .PARAMETER Subscription
     Subscription name (a key in azure.yml's subscriptions).
 .EXAMPLE

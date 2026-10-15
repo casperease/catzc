@@ -1,5 +1,5 @@
-// Whether the current az CLI login can actually reach a given subscription, established by a real,
-// read-only ARM probe (not just by inspecting local session state). A point-in-time access check.
+// Whether the current az CLI login can actually reach a given subscription, established by a real, read-only ARM probe (not just by...
+// [comment:1](/docs/references/automation/catzc-azure-cli/types/SubscriptionAccessState.cs.md#comment1)
 
 using System;
 
@@ -9,8 +9,8 @@ public sealed class SubscriptionAccessState
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // True when there is any active az login at all. On the failure path this separates "not logged in"
-    // from "logged in but no access to this subscription".
+    // True when there is any active az login at all.
+    // [comment:2](/docs/references/automation/catzc-azure-cli/types/SubscriptionAccessState.cs.md#comment2)
     public bool logged_in { get; }
 
     // The verdict: true only when the scoped ARM probe against the subscription succeeded.

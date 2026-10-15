@@ -100,10 +100,13 @@ function Invoke-TestRun {
 
     # The parent needs Pester only for the discovery pass; each worker imports its own copy for the actual run.
     Import-VendoredPester
+    # Liveness dots (ADR-PWSH-ANNOUNCE#6): discovery runs before the banner and takes a while, so each stage shows a dot.
+    Write-Message '.' -NoHeader -NoNewline
 
     # The run's tests folders, foundation-first — module dependency order, dot-prefixed infrastructure last
     # (Get-TestAutomationTestPaths owns the scan and the ordering).
     $testPaths = @(Get-TestAutomationTestPaths -Modules $Modules)
+    Write-Message '.' -NoHeader -NoNewline
 
     if (-not $testPaths) {
         if ($Modules) {
@@ -115,6 +118,7 @@ function Invoke-TestRun {
     # One discovery-only pass feeds every pre-run inspection: the tag check below and the phase split
     # (Split-TestAutomationFiles) share it, so the tree is discovered once per run.
     $discovery = Get-TestDiscovery -TestPath $testPaths
+    Write-Message '.' -NoHeader -NoNewline
 
     # Enforce the two mandatory tag axes on every test, regardless of -Level (Assert-TestTagGate).
     Assert-TestTagGate -Discovery $discovery
@@ -202,6 +206,7 @@ function Invoke-TestRun {
         $greedyFiles = [System.Collections.Generic.List[string]]::new([string[]]$protectionPlan.GreedyFiles)
         $serialFiles = [System.Collections.Generic.List[string]]::new([string[]]$protectionPlan.SerialFiles)
         $protectedModules = @($protectionPlan.ProtectedModules)
+        Write-Message '.' -NoHeader -NoNewline
 
         # The unit-test tripwire for tool-free levels (L0/L1) travels on each worker's own process environment —
         # never the parent's $env:. If a worker's test then launches a real process, a Mock failed to intercept
@@ -214,6 +219,7 @@ function Invoke-TestRun {
             $null
         }
 
+        Write-Message '' -NoHeader   # ends the dot line
         Write-TestAutomationHeader -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Title $Title
         Write-TestRunContext -Context $context
 

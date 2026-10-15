@@ -2,8 +2,8 @@
 .SYNOPSIS
     Uninstalls a uv-managed tool.
 .DESCRIPTION
-    Removes a CLI installed via Install-UvTool (`uv tool uninstall <uv_tool>`). Idempotent — skips if the
-    tool is not installed.
+    Removes a CLI installed via Install-UvTool (`uv tool uninstall <uv_tool>`).
+    [comment:1](/docs/references/automation/catzc-tooling-core/Uninstall-UvTool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (must declare uv_tool).
 #>

@@ -2,14 +2,8 @@
 .SYNOPSIS
     Runs az with the given arguments.
 .DESCRIPTION
-    Asserts that the installed Azure CLI version matches the locked version
-    in Get-ToolConfig before executing the command.
-
-    Dynamic extension install is disabled for the duration of the call
-    (AZURE_EXTENSION_USE_DYNAMIC_INSTALL=no), so a command that requires an
-    uninstalled extension fails with a non-zero exit code instead of blocking
-    on an interactive "(Y/n)" install prompt that captured stdin would hide.
-    That failure surfaces through the usual exit-code assertion as a throw.
+    Asserts that the installed Azure CLI version matches the locked version in Get-ToolConfig before executing the...
+    [comment:1](/docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to az.
 .PARAMETER PassThru
@@ -44,10 +38,8 @@ function Invoke-AzCli {
         Assert-Tool 'az_cli'
     }
 
-    # Disable az dynamic extension install for this call: a command needing an uninstalled extension
-    # then exits non-zero instead of blocking on an invisible "(Y/n)" prompt, which Invoke-Executable's
-    # exit-code assertion turns into a throw. Scoped to the process and restored afterwards; skipped on
-    # a dry run, which never launches az. $null restores an unset variable to unset (not empty).
+    # Disable az dynamic extension install for this call: a command needing an uninstalled extension then exits...
+    # [comment:2](/docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md#comment2)
     $dynamicInstallVar = 'AZURE_EXTENSION_USE_DYNAMIC_INSTALL'
     $priorDynamicInstall = [Environment]::GetEnvironmentVariable($dynamicInstallVar, 'Process')
     if (-not $DryRun) {

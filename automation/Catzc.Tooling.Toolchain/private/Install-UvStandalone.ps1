@@ -2,13 +2,10 @@
 .SYNOPSIS
     Bootstraps uv on Linux from Astral's standalone GitHub release — user-space, hash-verified, no root.
 .DESCRIPTION
-    Linux has no uv apt package, so the fresh-machine bootstrap is Astral's standalone release: resolve the
-    newest astral-sh/uv release matching the locked version prefix, download the platform tarball verified
-    against the release asset's published SHA-256 (Save-VerifiedDownload — the Install-Git discipline, see
-    [ADR-AUTO-PKGMGR](/docs/adr/automation/use-proper-package-managers.md)), and extract uv and uvx into the uv tool-bin
-    (~/.local/bin,
-    [ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)). Entirely user-space: no package manager, no
-    elevation. The standalone build is also the one `uv self update` serves, so later upgrades stay in place.
+    Linux has no uv apt package, so the fresh-machine bootstrap is Astral's standalone release: resolve the newest...
+    [ADR-AUTO-PKGMGR](/docs/adr/automation/use-proper-package-managers.md),
+    [ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment1)
 .PARAMETER Version
     The locked uv version prefix from tools.yml (e.g. '0.11').
 #>
@@ -39,8 +36,8 @@ function Install-UvStandalone {
     $asset = $release.assets | Where-Object { $_.name -eq $assetName } | Select-Object -First 1
     Assert-NotNull $asset -ErrorText "astral-sh/uv release $($release.tag_name) has no asset '$assetName'."
 
-    # The GitHub release asset carries its published SHA-256 ('digest'); hard-fail rather than run an
-    # unverified binary — the same discipline as Install-Git.
+    # The GitHub release asset carries its published SHA-256 ('digest'); hard-fail rather than run an unverified...
+    # [comment:2](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment2)
     $digest = if ($asset.PSObject.Properties['digest']) {
         $asset.digest
     }
@@ -73,8 +70,9 @@ function Install-UvStandalone {
         Remove-Item $extractDirectory -Recurse -Force -ErrorAction Ignore
     }
 
-    # The uv tool-bin is normally on the persistent PATH already
-    # ([ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)); make it resolve in this session.
+    # The uv tool-bin is normally on the persistent PATH already; make it resolve in this session.
+    # [ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)
+    # [comment:3](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment3)
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $binDirectory) {
         $env:PATH = "$binDirectory$([System.IO.Path]::PathSeparator)$env:PATH"
     }

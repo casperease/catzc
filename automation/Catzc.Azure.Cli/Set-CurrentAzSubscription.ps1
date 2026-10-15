@@ -2,12 +2,8 @@
 .SYNOPSIS
     Sets the Azure CLI's active subscription.
 .DESCRIPTION
-    Thin wrapper over `az account set --subscription` (via Invoke-AzCli). This mutates the CLI context, so
-    it is a loud action call (not silenced). Throws with remediation if the subscription can't be selected
-    (wrong ID, or the identity lacks access).
-
-    Unlike Assert-AzCliConnected, which only asserts the session is already on an expected subscription,
-    this deliberately switches it. Pairs with Get-CurrentAzSubscription for save / switch / restore.
+    Thin wrapper over `az account set --subscription` (via Invoke-AzCli).
+    [comment:1](/docs/references/automation/catzc-azure-cli/Set-CurrentAzSubscription.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID (or display name) to make active.
 .EXAMPLE

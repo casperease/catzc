@@ -2,37 +2,17 @@
 .SYNOPSIS
     Lists every internal asset dependency in the module code — one record per Get-CatzcModuleRoot call site.
 .DESCRIPTION
-    The inventory of [ADR-AUTO-ASSETDEP#2](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2),
-    derived from the code: the code is the registration, so there is no
-    separate list to keep in step. Parses every module function file — the .ps1 files at a module folder's root
-    and in its private/ folder, never tests/ or assets/ — and finds each call to Get-CatzcModuleRoot. Each call
-    site becomes one record:
-
-        Module     the module whose folder the call resolves under: the -Module literal when the call passes
-                   one (a cross-module read), otherwise the module that holds the file
-        Function   the function that makes the call
-        ChildPath  the -ChildPath literal (positional argument 0 or -ChildPath); $null when the call names the
-                   module folder itself
-        File       the file, repository-relative (automation/<Module>/...)
-        Line       the line of the call
-
-    -ChildPath must be a string literal at every call site
-    ([ADR-AUTO-ASSETDEP#2](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2)), and so must
-    -Module when it
-    is passed. A call whose value is computed — a variable, an expandable string, a subexpression, or a splat
-    that hides the arguments — cannot be inventoried. Such a call site is a violation: by default the command
-    throws, naming every violating site, so the inventory is never silently partial. -Violation returns the
-    violating sites instead of the inventory, without throwing.
-
-    Reads the per-function source files, which exist only in the source tree, so it stops with a named error
-    in build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
+    The inventory of, derived from the code: the code is the registration, so there is no separate list to keep in step.
+    [ADR-AUTO-ASSETDEP#2](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2),
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
+    [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
     Path to the automation directory to scan. Defaults to the loaded code root (Get-CatzcModulesRoot).
 .PARAMETER Module
     Scan only these module folders. Default: every module folder (non-dot) under the automation root.
 .PARAMETER Violation
-    Return the call sites whose -ChildPath or -Module is not a string literal ({ Module; Function; File; Line;
-    Expression; Reason }) instead of the inventory, and do not throw.
+    Return the call sites whose -ChildPath or -Module is not a string literal ({ Module; Function; File; Line;...
+    [comment:2](/docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] One record per call site: Module, Function, ChildPath, File, Line (with -Violation, one
     record per violating call site instead).
@@ -55,9 +35,8 @@ function Get-InternalAssetDependency {
     Assert-SourceTree
     Assert-PathExist $AutomationRoot -PathType Container
 
-    # The helper's own parameter metadata decides how each argument binds: which names (or unambiguous
-    # prefixes, or aliases) mean -ChildPath / -Module, and which other parameters take a value (common
-    # parameters such as -ErrorAction) so their value is never mistaken for the positional child path.
+    # The helper's own parameter metadata decides how each argument binds: which names (or unambiguous prefixes, or...
+    # [comment:3](/docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md#comment3)
     $helperName = 'Get-CatzcModuleRoot'
     $helperParameters = (Get-Command $helperName -CommandType Function).Parameters
     $resolveParameter = {

@@ -1,6 +1,6 @@
-// One rectangle of a SquarifiedTreemap layout: the item it stands for (its key and weight) and where it sits, in PDF
-// user space (x and y are the bottom-left corner, in points). A result type, so the properties are PascalCase
-// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+// One rectangle of a SquarifiedTreemap layout: the item it stands for (its key and weight) and where it sits, in PDF user space (x and y...
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-base-maps/types/TreemapRect.cs.md#comment1)
 
 namespace Catzc.Base.Maps;
 

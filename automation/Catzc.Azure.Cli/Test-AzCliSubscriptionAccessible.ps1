@@ -2,15 +2,9 @@
 .SYNOPSIS
     Tests whether the current az CLI login can reach a given subscription.
 .DESCRIPTION
-    Returns $true when a real, read-only ARM call scoped to the subscription succeeds with the current
-    login; $false otherwise (including not logged in). A pure query — it never throws on a mismatch.
-    Use Assert-AzCliSubscriptionAccessible for the throwing companion. Both share
-    Get-AzCliSubscriptionAccessState.
-
-    Unlike Test-AzCliConnected (which asks "is this subscription the active one?"), this asks "can my
-    current login reach this subscription?", independent of the active context — the question to ask
-    before a call that supplies `--subscription <id>`.
-    See [ADR-AZ-CLI#1](/docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1).
+    Returns $true when a real, read-only ARM call scoped to the subscription succeeds with the current login; $false...
+    [ADR-AZ-CLI#1](/docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1)
+    [comment:1](/docs/references/automation/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID the current login must be able to reach.
 .EXAMPLE

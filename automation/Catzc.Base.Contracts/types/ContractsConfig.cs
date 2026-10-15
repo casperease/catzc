@@ -1,23 +1,11 @@
-// The contracts settings (configs/contracts.yml), and the single declaration of their sensible defaults: every key is
-// optional, and an omitted key, or a fresh checkout with no file, behaves exactly like the default, so no function
-// restates a value ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). A Get-Contract
-// parameter overrides the resolved value per call
-// ([ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)).
-//   addressing    how one contract asset addresses many files
-//                 ([ADR-REPO-CONTRACT#8](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract8)), one of
-//                 AddressingModes; default full-path (an asset addresses the one real file at its own path). A mode in
-//                 AddressingModes but not in BuiltAddressingModes is declared and valid here, and Get-Contract throws
-//                 NotImplementedException when it is selected.
-//   target_roots  each owning module's target root
-//                 ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)): a map of module
-//                 name to the repository-relative folder its assets' paths are relative to, in ordinal module order. A
-//                 module the map does not name takes DefaultTargetRoot, the repository root (ResolveTargetRoot). A root
-//                 is '/'-separated segments of letters, digits, '.', '_' and '-', with no leading or trailing slash and
-//                 no '.' or '..' segment; a dot-prefixed root such as '.github' is how an asset reaches a file under a
-//                 dot-prefixed root, since contracts/ holds no dot-prefixed folder
-//                 ([ADR-REPO-CONTRACT#10](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract10)).
-// Property names mirror the YAML keys (snake_case,
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+// The contracts settings (configs/contracts.yml), and the single declaration of their sensible defaults: every key is optional, and an...
+// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
+// [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4),
+// [ADR-REPO-CONTRACT#8](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract8),
+// [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),
+// [ADR-REPO-CONTRACT#10](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract10),
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -34,12 +22,12 @@ public sealed class ContractsConfig
     // The target root of a module that target_roots does not name: the repository root, as the empty path.
     public const string DefaultTargetRoot = "";
 
-    // Every declared addressing mode: full-path (the asset's own path), manifest-glob (a glob in a manifest names the
-    // files), per-folder (one asset applies to each file of its folder).
+    // Every declared addressing mode: full-path (the asset's own path), manifest-glob (a glob in a manifest names the files), per-folder...
+    // [comment:2](/docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md#comment2)
     public static readonly string[] AddressingModes = { "full-path", "manifest-glob", "per-folder" };
 
-    // The modes that are built. A mode joins this list only once it is proven from every engine (ExecutionEngines),
-    // since a contract is resolved under each of them.
+    // The modes that are built.
+    // [comment:3](/docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md#comment3)
     public static readonly string[] BuiltAddressingModes = { "full-path" };
 
     private static readonly string[] AllowedKeys = { "addressing", "target_roots" };
@@ -104,9 +92,8 @@ public sealed class ContractsConfig
         }
     }
 
-    // The target root of one module: its entry in targetRoots, else DefaultTargetRoot. targetRoots is the resolved
-    // setting (target_roots, or a caller's own map); null names no module. A declared root is checked as the
-    // constructor checks it, so a caller's map is held to the same form.
+    // The target root of one module: its entry in targetRoots, else DefaultTargetRoot.
+    // [comment:4](/docs/references/automation/catzc-base-contracts/types/ContractsConfig.cs.md#comment4)
     public static string ResolveTargetRoot(IDictionary targetRoots, string module)
     {
         if (targetRoots == null || module == null || !targetRoots.Contains(module))

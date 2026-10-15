@@ -1,7 +1,5 @@
-// Output formats for ConvertTo-ModuleDependencyDiagram. Used as a typed parameter, so the format choice
-// auto-validates and tab-completes (`-As <TAB>`).
-//
-// BCL only. Declares its module namespace (file-scoped), per the type loader.
+// Output formats for ConvertTo-ModuleDependencyDiagram.
+// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyFormat.cs.md#comment1)
 
 namespace Catzc.Base.ModuleSystem;
 

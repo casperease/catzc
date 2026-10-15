@@ -2,11 +2,8 @@
 .SYNOPSIS
     Runs a tool's version command and extracts the installed version string.
 .DESCRIPTION
-    Executes the version_command from tools.yml, matches against
-    version_pattern, and returns the captured version string.
-    Returns $null if the command fails or the pattern does not match.
-    Uses .Full (stdout + stderr merged) to catch tools like java that
-    write version info to stderr.
+    Executes the version_command from tools.yml, matches against version_pattern, and returns the captured version...
+    [comment:1](/docs/references/automation/catzc-tooling-core/Get-ToolVersion.ps1.md#comment1)
 .PARAMETER Config
     The tool configuration hashtable from Get-ToolConfig.
 .EXAMPLE

@@ -3,38 +3,19 @@
     Copies a deterministic subset of this repository's automation toolset into a destination, rooted like the
     repository root — for testing in a tmp folder, or vendoring the toolset as a package.
 .DESCRIPTION
-    The source is always this repository (Get-RepositoryRoot). What to copy is chosen off the typed module
-    model (Get-BaseModule):
-
-      -ModuleNames      which disk modules to copy (named + hidden folders). Default: all.
-      -ExcludePackages  a global list of package names to drop. A package is a named group of extra file
-                        artifacts a module owns (configs/files.yml) — e.g. the repository module's
-                        'root_configs' and 'gitignore', or the types module's 'csproj'. Default: none.
-
-    Each selected module copies its folder plus each of its packages whose name is not excluded, to the SAME
-    repository-root-relative path under -Destination, so the destination becomes a new root mirroring ours. A
-    source that is selected but absent from this tree (e.g. .compiled before a first build) is skipped.
-
-    Conflict handling is a fast pre-scan (fast / faster / fastest):
-      - default          full pre-scan; if any file it would write already exists, throw and list them —
-                         nothing is written (never clobbers).
-      - -EmptyDestination require the target to be empty (or absent); throw otherwise. The pristine-copy
-                         contract used by Pester against a fresh tmp directory.
-      - -Force           skip the pre-scan and overwrite.
-
-    The copy is of the source tree (per-function files, tests/, root packages), so it stops with a named error
-    in build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
-
-    See [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md) (files.yml),
-    [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9), and
-    [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md).
+    The source is always this repository (Get-RepositoryRoot).
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
+    [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md),
+    [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9),
+    [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)
+    [comment:1](/docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md#comment1)
 .PARAMETER Destination
     The target root the selected paths are mirrored into (created if missing).
 .PARAMETER ModuleNames
     Disk module names to copy (named + hidden). Default: all ((Get-BaseModule).Name).
 .PARAMETER ModuleProfile
-    A named module profile from configs/profiles.yml (minimal, azure, …), resolved to its dependency closure +
-    infrastructure via Get-ModuleProfile. Alternative to -ModuleNames.
+    A named module profile from configs/profiles.yml (minimal, azure, …), resolved to its dependency closure +...
+    [comment:2](/docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md#comment2)
 .PARAMETER ExcludePackages
     Package names to drop (keys under any module's packages in files.yml). Default: none.
 .PARAMETER EmptyDestination

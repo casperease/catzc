@@ -2,8 +2,8 @@
 .SYNOPSIS
     Runs terraform with the given arguments.
 .DESCRIPTION
-    Asserts that the installed Terraform version matches the locked version
-    in Get-ToolConfig before executing the command.
+    Asserts that the installed Terraform version matches the locked version in Get-ToolConfig before executing the...
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Invoke-Terraform.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to terraform.
 .PARAMETER PassThru

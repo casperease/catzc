@@ -3,30 +3,12 @@
     Renders the Go test workspace — the repository-root go.work and each <root>/tests/<folder>/go.mod — from
     configs/go.yml.
 .DESCRIPTION
-    The Go root is go.yml's `root`, resolved by GoConfig.ResolveRoot: the declared folder, else go/ when the
-    repository has one (a Go root track), else .go/ (the dot-prefixed tooling folder). Discovers the Go test folders
-    (the immediate, non-dot-prefixed subdirectories of <root>/tests/ that hold at least one .go file; each is one Go
-    module, named for its catzc module in kebab case) and renders:
-
-      go.work                       at the repository root, the idiomatic workspace place an editor's Go language
-                                    server finds with no configuration: the go directive and one
-                                    `use ./<root>/tests/<folder>` entry per folder;
-      <root>/tests/<folder>/go.mod  the module path <module_root>/<folder>, the go directive, and one require line
-                                    per declared dependency.
-
-    The settings come from configs/go.yml (Get-Config -Config go, typed as GoConfig); the go directive is the go
-    tool's pin in tools.yml (global.tools.go.version, e.g. 1.27), the one Go version, so the workspace never asks
-    for a newer toolchain than the managed one. Folders and dependencies are sorted ordinally and every file is LF
-    with one trailing newline, so the same tree and config render the same bytes on every machine. Rendering is pure
-    text: offline, with no call to the go tool.
-
-    This is a pure renderer: it returns the content and writes nothing. It is the `generator` the root-config
-    registry names for the go.work and go.mod targets, and Build-RootConfig owns the write
-    ([ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)). One call renders every file, so a
-    registry entry selects its files with -Target.
+    The Go root is go.yml's `root`, resolved by GoConfig.ResolveRoot: the declared folder, else go/ when the...
+    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
+    [comment:1](/docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md#comment1)
 .PARAMETER Target
     Return only the files whose repository-relative path matches this case-sensitive wildcard pattern (e.g.
-    'go.work' or '*/tests/*/go.mod'). Default: every file.
+    [comment:2](/docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md#comment2)
 .OUTPUTS
     [Catzc.Base.Languages.GoWorkspaceFile] One record per rendered file ({ Target; Content }): go.work first,
     then each go.mod in folder order.
@@ -43,9 +25,9 @@ function New-GoWorkspace {
     )
 
     $config = Get-Config -Config go
-    # The one Go version: the go tool's tools.yml pin, read by address (reading config is global access,
-    # [ADR-CONF-ADDRESSING](/docs/adr/configuration/config-value-addressing.md)). A major.minor pin (1.27) is a valid go
-    # directive, as is a full 1.N.P.
+    # The one Go version: the go tool's tools.yml pin, read by address (reading config is global access, ).
+    # [ADR-CONF-ADDRESSING](/docs/adr/configuration/config-value-addressing.md)
+    # [comment:3](/docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md#comment3)
     $goVersion = "$(Get-ConfigValue -Address 'global.tools.go.version')"
     if ($goVersion -cnotmatch '^1\.(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*))?$') {
         throw "tools.yml go.version '$goVersion' is not a Go language version for the go directive (1.N or 1.N.P, e.g. '1.27')."

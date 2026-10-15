@@ -1,6 +1,5 @@
-// A named group of repository-root-relative file artifacts a DiskModule owns beyond its own folder, declared
-// in configs/files.yml. The unit Copy-Automation excludes by name (-ExcludePackages); package names are
-// globally unique across modules.
+// A named group of repository-root-relative file artifacts a DiskModule owns beyond its own folder, declared in configs/files.yml.
+// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModulePackage.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

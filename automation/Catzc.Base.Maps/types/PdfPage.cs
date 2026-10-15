@@ -1,9 +1,6 @@
-// One page of a PdfDocument: its size in points and the content-stream operators drawn on it, in call order. The
-// coordinates are PDF user space: the origin at the bottom-left corner, one unit per point. Each drawing call appends
-// one line of operators; PdfDocument writes the lines as the page's content stream. Text goes through WinAnsi, the
-// only encoding the base-14 fonts show, and a character outside it throws instead of printing a wrong glyph. Numbers
-// go through PdfNumber, so the bytes do not depend on the culture
-// ([ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)).
+// One page of a PdfDocument: its size in points and the content-stream operators drawn on it, in call order.
+// [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)
+// [comment:1](/docs/references/automation/catzc-base-maps/types/PdfPage.cs.md#comment1)
 
 using System;
 using System.Text;
@@ -72,8 +69,8 @@ public sealed class PdfPage
     public PdfPage Line(double x1, double y1, double x2, double y2) =>
         Append(PdfNumber.Format(x1) + " " + PdfNumber.Format(y1) + " m " + PdfNumber.Format(x2) + " " + PdfNumber.Format(y2) + " l S");
 
-    // One line of text in the fill colour, its baseline starting at (x, y) (BT Tf Td Tj ET). The text must be WinAnsi;
-    // '(', ')' and '\' are escaped, and every byte from 0x80 up is written as an octal escape, so the stream stays ASCII.
+    // One line of text in the fill colour, its baseline starting at (x, y) (BT Tf Td Tj ET).
+    // [comment:2](/docs/references/automation/catzc-base-maps/types/PdfPage.cs.md#comment2)
     public PdfPage Text(PdfFont font, double size, double x, double y, string text)
     {
         if (double.IsNaN(size) || size <= 0)
@@ -95,8 +92,8 @@ public sealed class PdfPage
         }
     }
 
-    // The text as the body of a PDF literal string: WinAnsi codes, with '(', ')' and '\' escaped and 0x80-0xFF as
-    // three-digit octal escapes. A character with no WinAnsi code throws, named by its code point and index.
+    // The text as the body of a PDF literal string: WinAnsi codes, with '(', ')' and '\' escaped and 0x80-0xFF as three-digit octal...
+    // [comment:3](/docs/references/automation/catzc-base-maps/types/PdfPage.cs.md#comment3)
     public static string Escape(string text)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }

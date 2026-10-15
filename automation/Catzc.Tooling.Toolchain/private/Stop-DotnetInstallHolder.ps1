@@ -2,10 +2,8 @@
 .SYNOPSIS
     Stops exactly the named processes that hold a .NET install open, then asserts the install is free.
 .DESCRIPTION
-    Stops each holder Get-DotnetInstallHolder named — by process id, nothing else — and waits for it to exit,
-    so its handles on the install are released. A process that already exited is skipped. Refuses to stop the
-    calling session itself. Throws when the install is still held afterwards (a process restarted, or a new
-    holder appeared).
+    Stops each holder Get-DotnetInstallHolder named — by process id, nothing else — and waits for it to exit, so its...
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/private/Stop-DotnetInstallHolder.ps1.md#comment1)
 .PARAMETER InstallDir
     The .NET install directory.
 .PARAMETER Holder

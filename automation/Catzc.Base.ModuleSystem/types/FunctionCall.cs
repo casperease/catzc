@@ -1,7 +1,5 @@
 // One statically named command call inside a function body: the command name as written and the line it starts on.
-// Collected by FunctionCallCollector for Test-FunctionDependency.
-//
-// BCL only; declares its module namespace (file-scoped), per the type loader. PascalCase (a result shape).
+// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/FunctionCall.cs.md#comment1)
 
 using System;
 

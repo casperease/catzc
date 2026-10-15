@@ -2,9 +2,8 @@
 .SYNOPSIS
     Installs Terraform via the platform package manager.
 .DESCRIPTION
-    Windows: winget. macOS: Homebrew (hashicorp/tap). Linux: HashiCorp
-    apt repository (configured inline if not already present).
-    Idempotent — skips if already installed at the correct version.
+    Windows: winget.
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Terraform.ps1.md#comment1)
 .PARAMETER Version
     Terraform version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force

@@ -1,35 +1,10 @@
-// The file-language registry (configs/languages.yml): every file language the repository's tracked files are written
-// in, each named by its extensions ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)), with the
-// formatter engine that formats it and its ADR folder. Registered in Catzc.Base.Config/configs/configs.yml
-// (type: Catzc.Base.Languages.LanguagesConfig), so Get-Config -Config languages returns this typed record; Get-FileLanguage
-// and Format-Code read it. Property names mirror the YAML keys (snake_case,
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
-//
-// Formatting is configured, not programmed
-// ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)): an entry names the
-// formatter ENGINE that formats its files, one of FormatterEngines below, and Format-Code runs that engine. A language
-// with nothing to format states why in 'no_formatter' instead
-// ([ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4)), so every language
-// carries exactly one of the two and a gap is a visible, reviewed entry.
-//
-// The sensible defaults are declared here, once
-// ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted 'languages' is no
-// file language, an omitted 'adr_folder' is none, and an omitted 'checks' is no quality gate.
-//
-// Constructing an instance validates the file, collecting every violation into one ArgumentException:
-//   - only 'engines' and 'languages' at the top; only 'extensions', 'formatter', 'no_formatter', 'vscode_language',
-//     'adr_folder' and 'checks' in a language entry; only 'vscode_extension' and 'settings' in an engine entry — an
-//     unknown key (a typo) fails at load;
-//   - 'checks' is a list of quality-gate command names (Test-<Noun>, e.g. Test-ScriptAnalyzer), each at most once: the
-//     gates Test-Change runs over a changed file of the language;
-//   - an engine entry's key is one of FormatterEngines, its 'vscode_extension' a publisher.name extension id, and its
-//     'settings' a list of '/'-separated repository-relative files (no '.' or '..' segment);
-//   - 'vscode_language' (default: the language's own name) is a VS Code language id;
-//   - a language name is kebab-case;
-//   - 'extensions' is a non-empty list; each extension starts with its leading dot, is lowercase letters and digits
-//     after it (e.g. .ps1), and belongs to exactly one file language (an extension claimed twice is rejected);
-//   - exactly one of 'formatter' (an engine in FormatterEngines) and 'no_formatter' (a non-empty reason);
-//   - 'adr_folder' is a '/'-separated folder under docs/adr/, no leading or trailing slash, no '.' or '..' segment.
+// The file-language registry (configs/languages.yml): every file language the repository's tracked files are written in, each named by...
+// [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
+// [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
+// [ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4),
+// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
+// [comment:1](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -56,17 +31,17 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     private readonly Dictionary<string, FileLanguage> byExtension = new Dictionary<string, FileLanguage>(StringComparer.Ordinal);
     private readonly Dictionary<string, string> claimedBy = new Dictionary<string, string>(StringComparer.Ordinal);
 
-    // The formatter engines a language may name: one Format-Code adapter each. A new engine is new mechanism — its
-    // adapter and its name here land together
-    // ([ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)).
+    // The formatter engines a language may name: one Format-Code adapter each.
+    // [ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)
+    // [comment:2](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment2)
     private static readonly string[] Engines = { "prettier", "gofmt", "ruff", "psscriptanalyzer", "dotnet-format", "bicep" };
     public static IReadOnlyList<string> FormatterEngines => Engines;
 
     // The file languages in declared order. Empty when the file declares none.
     public IReadOnlyList<FileLanguage> languages { get; }
 
-    // The engines' own settings, by engine name: the VS Code extension that runs the same engine in the editor. An
-    // engine the file does not list has no editor formatter.
+    // The engines' own settings, by engine name: the VS Code extension that runs the same engine in the editor.
+    // [comment:3](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment3)
     public IReadOnlyDictionary<string, FormatterEngine> engines { get; }
 
     public LanguagesConfig(IDictionary raw)
@@ -114,9 +89,9 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         engines = engineMap;
     }
 
-    // The editor formatter of every language whose engine names a VS Code extension, keyed by the language's VS Code
-    // language id: what the editor's Format Document runs, the same engine Format-Code runs
-    // ([ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)).
+    // The editor formatter of every language whose engine names a VS Code extension, keyed by the language's VS Code language id: what...
+    // [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)
+    // [comment:4](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment4)
     public IReadOnlyDictionary<string, string> EditorFormatters()
     {
         Dictionary<string, string> result = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -208,8 +183,8 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // The file language of a file path, by its extension, or null when the extension names none or the file has none.
     public FileLanguage ForPath(string path) => ForExtension(ExtensionOf(path));
 
-    // The extension of a file path, lowercase with its leading dot, or null when it has none. A dotfile whose only dot
-    // is its first character (.gitkeep, .editorconfig) has no extension.
+    // The extension of a file path, lowercase with its leading dot, or null when it has none.
+    // [comment:5](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment5)
     public static string ExtensionOf(string path)
     {
         if (string.IsNullOrEmpty(path)) { return null; }
@@ -282,8 +257,8 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
-        // The VS Code language id defaults to the language's own name; an entry states it only where the editor's id
-        // differs (pipeline YAML is VS Code's azure-pipelines language).
+        // The VS Code language id defaults to the language's own name; an entry states it only where the editor's id differs (pipeline...
+        // [comment:6](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment6)
         string vscodeLanguage = name;
         if (entry.Contains("vscode_language") && entry["vscode_language"] != null)
         {

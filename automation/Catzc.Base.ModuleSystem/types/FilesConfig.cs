@@ -1,15 +1,6 @@
-// The module -> packages bindings of configs/files.yml, for Copy-Automation: per module, the named packages of
-// repository-root-relative file artifacts it owns beyond its own folder. Constructing an instance MAPS and
-// VALIDATES the parsed YAML, collecting every violation into one throw. Registered in
-// Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.ModuleSystem.FilesConfig), so
-// Get-Config -Config files returns this typed model. Mirrors the YAML mapping (snake_case keys,
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
-//
-// Load-time rules:
-//   - only the top-level key 'modules', a required, non-empty map;
-//   - every module entry is well-formed (ModuleFiles);
-//   - each package name is globally unique across all modules (it is the -ExcludePackages unit).
-// Module keys are module folder names ('Catzc.Base.Repository', '.internal'), so they are not snake_case-checked.
+// The module -> packages bindings of configs/files.yml, for Copy-Automation: per module, the named packages of repository-root-relative...
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/FilesConfig.cs.md#comment1)
 
 using System;
 using System.Collections;

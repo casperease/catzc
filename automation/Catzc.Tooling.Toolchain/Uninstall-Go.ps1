@@ -2,11 +2,8 @@
 .SYNOPSIS
     Uninstalls the Go toolchain installed by Install-Go.
 .DESCRIPTION
-    Removes the managed user-space home (Get-ScriptInstallDir: Windows %LOCALAPPDATA%\go, Unix ~/.go) and takes
-    its bin folder off the session and persistent PATH — the managed uninstall. Idempotent — skips when the home
-    does not exist. A Go installed elsewhere (a machine-wide MSI, a distro package) is not the managed install and
-    is left untouched. The module cache and build cache (GOPATH, GOCACHE) are Go's own data, not the install, and
-    are kept.
+    Removes the managed user-space home (Get-ScriptInstallDir: Windows %LOCALAPPDATA%\go, Unix ~/.go) and takes its...
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Go.ps1.md#comment1)
 .EXAMPLE
     Uninstall-Go
 #>

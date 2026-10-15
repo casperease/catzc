@@ -2,15 +2,8 @@
 .SYNOPSIS
     Asserts that an Azure CLI extension is installed, throwing with remediation if not.
 .DESCRIPTION
-    Throws a remediation-bearing error when the named extension is missing, so a command that depends on
-    it fails fast with a clear message instead of a cryptic argument error (az exit code 2) or — with
-    dynamic install disabled in Invoke-AzCli — a hang on the install prompt. Asserts only; it never
-    installs the extension, mirroring how Assert-AzCliConnected asserts rather than logging in.
-
-    Guard an extension-dependent call by asserting immediately before it:
-
-        Assert-AzCliExtension 'ip-group'
-        Invoke-AzCli "network ip-group list --resource-group $rg -o json" -PassThru
+    Throws a remediation-bearing error when the named extension is missing, so a command that depends on it fails...
+    [comment:1](/docs/references/automation/catzc-azure-cli/Assert-AzCliExtension.ps1.md#comment1)
 .PARAMETER Name
     The required extension name (e.g. 'ip-group').
 .EXAMPLE

@@ -1,10 +1,6 @@
-// Finds the ADR citations in a file's text and maps each to its domain through the adrs index (the external codes of
-// Catzc.Base.Docs' adrs.yml, each with the domain it belongs to). Code cites ADRs in its help and comments
-// ([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)), so the citations drive the world-map
-// highlight. Three forms are a citation: ADR-<CODE>#n and ADR-<CODE>:n (one rule; both become the canonical
-// ADR-<CODE>#n) and the bare ADR-<CODE> (the whole ADR). A look-alike is not: a code the index does not list, a code
-// glued to a letter, digit, underscore or hyphen on either side (rule-adr-auto-types8 in a link anchor, a letter
-// before the ADR, ADR-...-* as a wildcard), and lowercase text. Only the file kinds that cite are read (CitingExtensions).
+// Finds the ADR citations in a file's text and maps each to its domain through the adrs index (the external codes of Catzc.Base.Docs'...
+// [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)
+// [comment:1](/docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -38,8 +34,8 @@ public static class CitationScanner
         return false;
     }
 
-    // The adrs index as an ordinal code -> domain map, from any dictionary (a PowerShell hashtable). A key that is not
-    // an ADR code, or an empty domain, throws.
+    // The adrs index as an ordinal code -> domain map, from any dictionary (a PowerShell hashtable).
+    // [comment:2](/docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md#comment2)
     public static IReadOnlyDictionary<string, string> Index(IDictionary raw)
     {
         Dictionary<string, string> index = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -85,10 +81,8 @@ public static class CitationScanner
         return result;
     }
 
-    // Every citation in a file's text whose code the index lists, one site per occurrence, in line order: its line and
-    // the kind of text it sits in (CitationSite). Markdown is prose throughout (KindText). In a PowerShell, C# or YAML
-    // file, the header is help (KindHelp): the comment lines the file opens with, a PowerShell <# ... #> help block, and
-    // a C# /// doc comment; a comment after the header is a passing mention (KindComment); the rest is KindText.
+    // Every citation in a file's text whose code the index lists, one site per occurrence, in line order: its line and the kind of text...
+    // [comment:3](/docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md#comment3)
     public static CitationSite[] Sites(string path, string text, IReadOnlyDictionary<string, string> index)
     {
         List<CitationSite> sites = new List<CitationSite>();
@@ -131,8 +125,8 @@ public static class CitationScanner
         return sites.ToArray();
     }
 
-    // A reference in any of the three forms as its canonical citation (ADR-<CODE> or ADR-<CODE>#n); null when the text
-    // is not one.
+    // A reference in any of the three forms as its canonical citation (ADR-<CODE> or ADR-<CODE>#n); null when the text is not one.
+    // [comment:4](/docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md#comment4)
     public static string Canonical(string reference)
     {
         Match match = Reference.Match((reference ?? "").Trim());
@@ -157,8 +151,8 @@ public static class CitationScanner
         return index.TryGetValue(code, out domain) ? domain : null;
     }
 
-    // True when a requested citation covers a cited one: a bare request covers every citation of its ADR; a one-rule
-    // request covers that rule and a bare citation of the whole ADR, never another rule.
+    // True when a requested citation covers a cited one: a bare request covers every citation of its ADR; a one-rule request covers that...
+    // [comment:5](/docs/references/automation/catzc-base-maps/types/CitationScanner.cs.md#comment5)
     public static bool Covers(string requested, string cited)
     {
         if (requested == null || cited == null) { return false; }

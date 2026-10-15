@@ -2,12 +2,9 @@
 .SYNOPSIS
     Checks that one released contract version folder still holds exactly what its release froze.
 .DESCRIPTION
-    A released version folder is immutable
-    ([ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)). Publish-ContractRelease
-    freezes it with a .frozen record, one line per file, '<sha256>  <path>', after '#' comment lines; this compares the
-    record with the folder's files as Get-ContractFileHashes hashes them now, and returns one finding per defect:
-    a missing record, a malformed or repeated record line, and every file changed, added or removed since the freeze.
-    No finding means the folder is intact. The draft, 0.0.0, is never frozen, so it is never given here.
+    A released version folder is immutable.
+    [ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)
+    [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractFreezeFindings.ps1.md#comment1)
 .PARAMETER Folder
     The released version folder's absolute path.
 .PARAMETER Name

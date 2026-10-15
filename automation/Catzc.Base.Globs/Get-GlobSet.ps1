@@ -2,12 +2,9 @@
 .SYNOPSIS
     Returns globsets from the globs.yml registry — all of them, or the named ones.
 .DESCRIPTION
-    The typed read of the single source of truth
-    ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)): configs/globs.yml, loaded and
-    validated
-    through Get-Config as a [Catzc.Base.Globs.GlobsConfig]. Each result is a [Catzc.Base.Globs.GlobSet]
-    carrying the compiled include/exclude patterns and Matches(). An unknown name throws, naming the
-    config file.
+    The typed read of the single source of truth: configs/globs.yml, loaded and validated through Get-Config as a...
+    [ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)
+    [comment:1](/docs/references/automation/catzc-base-globs/Get-GlobSet.ps1.md#comment1)
 .PARAMETER Name
     The globset name(s) to return. Omit for every globset, in registry order.
 .EXAMPLE

@@ -3,9 +3,7 @@
     Installs a tool using the platform package manager.
 .DESCRIPTION
     Uses winget on Windows, brew on macOS, and apt-get on Linux.
-    Idempotent — skips if already installed at the correct version.
-    If the wrong version is found, -Force uninstalls and reinstalls.
-    Without -Force, throws with instructions.
+    [comment:1](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml.
 .PARAMETER Version
@@ -25,10 +23,8 @@ function Install-Tool {
     $config = Get-ToolConfig -Tool $Tool
     $command = Get-ToolCommandSuffix -Tool $Tool
 
-    # npm-managed tools (cspell, prettier, markdownlint) are installed with npm, not a platform package
-    # manager, so Install-Tool cannot handle them. Fail here — before the -Force path routes into
-    # Uninstall-Tool — so the message names Install-$command (what the caller wanted), not a stray winget
-    # detail from deeper in the chain. Bulk provisioning already dispatches these to Install-$command.
+    # npm-managed tools (cspell, prettier, markdownlint) are installed with npm, not a platform package manager, so...
+    # [comment:2](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment2)
     if ($config.npm_package) {
         throw "$Tool is an npm-managed tool. Install-Tool manages winget/brew/apt packages only — use Install-$command (npm) instead."
     }
@@ -63,8 +59,8 @@ function Install-Tool {
         Assert-Command winget
         $packageId = $config.winget_id -f $Version
 
-        # --force: winget may see a Store stub or stale alias and report "already installed"
-        # even though no real installation exists. Force ensures it always installs.
+        # --force: winget may see a Store stub or stale alias and report "already installed" even though no real...
+        # [comment:3](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment3)
         if ($config.winget_scope -eq 'user') {
             Invoke-Executable "winget install --id $packageId --scope user --accept-source-agreements --accept-package-agreements --silent --force"
         }
@@ -81,9 +77,9 @@ function Install-Tool {
     }
     elseif ($IsLinux) {
         Assert-NotNullOrWhitespace $config.apt_package -ErrorText "$Tool has no AptPackage — use Install-$command directly"
-        # Linux package installation via apt-get requires root. The user-space uv family never routes here:
-        # Install-Uv bootstraps uv from Astral's standalone release, and the Python-based CLIs install
-        # through uv ([ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)).
+        # Linux package installation via apt-get requires root.
+        # [ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)
+        # [comment:4](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment4)
         Assert-IsAdministrator -ErrorText "Install-$command on Linux requires root (apt-get). Run as root or install $Tool manually."
         Assert-Command apt-get
         $package = $config.apt_package -f $Version
@@ -96,11 +92,8 @@ function Install-Tool {
 
     Sync-SessionPath
 
-    # winget portable packages resolve through a symlink in WinGet\Links that must be on PATH; creating that
-    # symlink needs Developer Mode (or admin), so on a plain user account the command lands under WinGet\Packages
-    # on no PATH at all. When it is still unresolved after the registry sync, recover it: find the command in the
-    # Packages tree and prepend its directory to the session PATH. (Enabling Developer Mode lets winget do this
-    # itself and is the cleaner fix.)
+    # winget portable packages resolve through a symlink in WinGet\Links that must be on PATH; creating that symlink...
+    # [comment:5](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment5)
     if ($IsWindows -and -not (Get-Command $config.command -CommandType Application -ErrorAction Ignore)) {
         $pkgRoot = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'
         if (Test-Path $pkgRoot) {

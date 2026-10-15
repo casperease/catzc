@@ -1,7 +1,6 @@
-// One place a file cites an ADR: the file, the 1-based line, the canonical citation, and the kind of text it sits in, so
-// a highlight can say where a lit file cites the request and whether that citation is the file's subject or a passing
-// mention. CitationScanner.Sites finds them. A result type, so the properties are PascalCase
-// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+// One place a file cites an ADR: the file, the 1-based line, the canonical citation, and the kind of text it sits in, so a highlight can...
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-base-maps/types/CitationSite.cs.md#comment1)
 
 namespace Catzc.Base.Maps;
 

@@ -1,8 +1,6 @@
-// The internal model type for an automation "module" — one concept with four kinds (native C# per
-// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9), because the platform's own logic selects on it
-// and pins it at call sites). Two facets:
-// on-disk (kinds 'named'/'hidden', see DiskModule) and in-session (kinds 'imported'/'residue', see
-// SessionModule). Get-BaseModule returns these; Copy-Automation and module introspection act on them.
+// The internal model type for an automation "module" — one concept with four kinds (native C# per, because the platform's own logic...
+// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
+// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/BaseModule.cs.md#comment1)
 
 using System;
 
@@ -13,8 +11,8 @@ public abstract class BaseModule
     // Once here for every kind (DiskModule, SessionModule, …): the rendering names the derived kind.
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // The module name. For a disk module the folder name (e.g. 'Catzc.Base.Config', '.vendor'); for a session
-    // module the loaded module name.
+    // The module name.
+    // [comment:2](/docs/references/automation/catzc-base-modulesystem/types/BaseModule.cs.md#comment2)
     public string Name { get; }
 
     // On disk: named | hidden. In session (by provenance): imported | vendored | builtin | residue.

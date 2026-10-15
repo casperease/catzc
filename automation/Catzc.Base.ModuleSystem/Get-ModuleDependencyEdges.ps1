@@ -2,12 +2,8 @@
 .SYNOPSIS
     Returns the module dependency graph as typed ModuleDependencyEdge objects.
 .DESCRIPTION
-    By default returns the ACTUAL cross-module call edges derived from the code (via Get-ModuleDependency)
-    — each carrying its call count and the calling functions. With -Declared, returns the ALLOWED edges
-    from configs/dependencies.yml instead: each module's permitted dependencies (a target may be a GROUP
-    name), plus each group's internal member->member layering.
-
-    Pipe the result to ConvertTo-ModuleDependencyDiagram to render JSON / YAML / Markdown / PlantUML.
+    By default returns the ACTUAL cross-module call edges derived from the code (via Get-ModuleDependency) — each...
+    [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-ModuleDependencyEdges.ps1.md#comment1)
 .PARAMETER Declared
     Return the declared (allowed) graph from dependencies.yml instead of the actual code-derived graph.
 .EXAMPLE

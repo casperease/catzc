@@ -1,19 +1,12 @@
 <#
 .SYNOPSIS
     Quality gate: checks a GitHub workflow's trigger path filters against a globset's projection — the
-    trigger-drift quality gate for GitHub Actions ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)).
+    trigger-drift quality gate for GitHub Actions
+    ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)).
 .DESCRIPTION
-    The GitHub sibling of Test-AdoPipelineTriggerGlob: recomputes the ordered, '!'-negation `paths` list a
-    globset projects to (Get-GlobSetTrigger) and compares it against what a workflow actually declares
-    (Get-PipelineTrigger) — both on.push.paths and on.pull_request.paths. GitHub paths are ordered
-    (last-match-wins), so the comparison is element-by-element, not a set. Unlike ADO, a GitHub workflow is
-    not named in globs.yml, so the globset-to-workflow pairing is passed explicitly.
-
-    A drifted workflow is one issue naming the filters that differ, and a missing workflow file is one issue.
-    The gate ends with Write-QualityGateReport
-    ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): the report lands in
-    out/test-github-workflow-trigger-glob/, and the gate throws once listing every issue (or returns the result
-    with -PassThru).
+    The GitHub sibling of Test-AdoPipelineTriggerGlob: recomputes the ordered, '!'-negation `paths` list a globset...
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
+    [comment:1](/docs/references/automation/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md#comment1)
 .PARAMETER Name
     The globset the workflow should trigger on.
 .PARAMETER WorkflowPath

@@ -2,8 +2,8 @@
 .SYNOPSIS
     Runs go with the given arguments.
 .DESCRIPTION
-    Asserts that the installed Go matches the locked version in Get-ToolConfig, then runs the executable the check
-    located (Test-Tool -PassThru: the managed home first, then PATH), so the asserted Go is the one that runs.
+    Asserts that the installed Go matches the locked version in Get-ToolConfig, then runs the executable the check...
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Invoke-Go.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to go.
 .PARAMETER PassThru

@@ -1,17 +1,7 @@
-// Draws the world map onto PdfDocument pages: the grid page (rows are the tracks, columns the file languages, each cell
-// shaded by its file count) and the tree page (a squarified treemap of the tracks by file count, each holding its
-// non-empty cells). The catch-all row prints the root-file label and the catch-all column the unlisted-file label
-// ([ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7),
-// [ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8)). A cell that breaks its track's tech-stack is
-// marked ([ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3)), and an optional WorldMapHighlight
-// outlines its lit cells on top of everything else.
-//
-// Every page starts with the full-page background fill, so a viewer in dark or light mode shows the palette's
-// background rather than its own. Colours, titles, legend entries and the page size come from MapsConfig; a track or
-// file-language name is cut to its character limit, and any label then shrinks to the smallest font size and is cut
-// further, both with the marker '…', so nothing overflows its box. A grid column header first wraps onto a second line
-// at a space or a hyphen, and only then shrinks and is cut. Everything is a function of the map, the config
-// and the highlight, so the bytes are the same on every run.
+// Draws the world map onto PdfDocument pages: the grid page (rows are the tracks, columns the file languages, each cell shaded by its...
+// [ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7), [ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8),
+// [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3)
+// [comment:1](/docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -50,8 +40,8 @@ public static class WorldMapPdf
         return string.Equals(track, WorldMap.NoTrack, StringComparison.Ordinal) ? config.labels.root_files : Truncate(track, config.limits.max_row_label);
     }
 
-    // The printed header of a column: the unlisted-file label for the catch-all column, else the file-language name cut
-    // to max_column_label.
+    // The printed header of a column: the unlisted-file label for the catch-all column, else the file-language name cut to...
+    // [comment:2](/docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md#comment2)
     public static string ColumnLabel(string fileLanguage, MapsConfig config)
     {
         if (config == null) { throw new ArgumentNullException(nameof(config)); }
@@ -60,8 +50,8 @@ public static class WorldMapPdf
             : Truncate(fileLanguage, config.limits.max_column_label);
     }
 
-    // The text cut to at most maxChars characters: unchanged when it fits, else its first maxChars - 1 characters and
-    // the marker.
+    // The text cut to at most maxChars characters: unchanged when it fits, else its first maxChars - 1 characters and the marker.
+    // [comment:3](/docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md#comment3)
     public static string Truncate(string text, int maxChars)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }
@@ -70,10 +60,8 @@ public static class WorldMapPdf
         return text.Substring(0, maxChars - 1) + TruncationMarker;
     }
 
-    // The text as it fits maxWidth points: at the given size when it fits, else at a smaller size (in half points) no
-    // smaller than minSize, else at minSize cut from the end with the marker, keeping at least one character. Empty (and
-    // fittedSize 0) when not even one character and the marker fit, or when minSize is above size: a bare marker says
-    // nothing, so the label is left out.
+    // The text as it fits maxWidth points: at the given size when it fits, else at a smaller size (in half points) no smaller than...
+    // [comment:4](/docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md#comment4)
     public static string Fit(string text, PdfFont font, double size, double minSize, double maxWidth, out double fittedSize)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }
@@ -103,11 +91,8 @@ public static class WorldMapPdf
         return "";
     }
 
-    // The text as it fits maxWidth points on at most two lines, in this order: on one line at the given size; else
-    // broken in two at a space (dropped) or after a hyphen (kept), at the break that leaves the wider line narrowest
-    // (the first such break on a tie), at the given size; else that break at a smaller size (in half points) no smaller
-    // than minSize; else at minSize with each line cut from the end with the marker, a second line that keeps nothing
-    // left out. A text with no break is fitted on one line as Fit does. Empty (and fittedSize 0) when nothing fits.
+    // The text as it fits maxWidth points on at most two lines, in this order: on one line at the given size; else broken in two at a...
+    // [comment:5](/docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md#comment5)
     public static string[] FitLines(string text, PdfFont font, double size, double minSize, double maxWidth, out double fittedSize)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }
@@ -144,8 +129,8 @@ public static class WorldMapPdf
         return bottom.Length == 0 ? new[] { top } : new[] { top, bottom };
     }
 
-    // The two lines of the break in text that leaves the wider line narrowest, the first on a tie; null when the text
-    // has no space or hyphen with something on both sides.
+    // The two lines of the break in text that leaves the wider line narrowest, the first on a tie; null when the text has no space or...
+    // [comment:6](/docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md#comment6)
     private static string[] BestBreak(string text, PdfFont font)
     {
         string[] best = null;
@@ -175,8 +160,8 @@ public static class WorldMapPdf
         return best;
     }
 
-    // The fill of a cell with the given count: the palette's cell colour when empty, else a point on the scale from
-    // cell to shade, logarithmic in the count so a few files and a thousand both read.
+    // The fill of a cell with the given count: the palette's cell colour when empty, else a point on the scale from cell to shade,...
+    // [comment:7](/docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md#comment7)
     public static string ShadeOf(int count, int maxCount, MapsPalette palette)
     {
         if (palette == null) { throw new ArgumentNullException(nameof(palette)); }
@@ -199,8 +184,8 @@ public static class WorldMapPdf
         return result;
     }
 
-    // The grid page: title, headers, shaded cells with their counts, the stack-violation marks, the highlight outlines
-    // and the legend, in that order over the background.
+    // The grid page: title, headers, shaded cells with their counts, the stack-violation marks, the highlight outlines and the legend,...
+    // [comment:8](/docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md#comment8)
     public static void AddGridPage(PdfDocument doc, WorldMap map, MapsConfig config, WorldMapHighlight highlight)
     {
         Check(doc, map, config);
@@ -293,8 +278,8 @@ public static class WorldMapPdf
         Legend(page, config, maxCount, highlight);
     }
 
-    // The tree page: the tracks as a squarified treemap by file count, each with a name band and its non-empty cells
-    // laid out inside by file count, then the stack-violation marks, the highlight outlines and the legend.
+    // The tree page: the tracks as a squarified treemap by file count, each with a name band and its non-empty cells laid out inside by...
+    // [comment:9](/docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md#comment9)
     public static void AddTreePage(PdfDocument doc, WorldMap map, MapsConfig config, WorldMapHighlight highlight)
     {
         Check(doc, map, config);
@@ -422,8 +407,8 @@ public static class WorldMapPdf
         page.Text(font, fitted, left, y + (height - fitted * 0.7) / 2, shown);
     }
 
-    // A column header fitted into its box on one or two lines (FitLines), each line centred, the block set on the box's
-    // vertical middle, in the current fill colour.
+    // A column header fitted into its box on one or two lines (FitLines), each line centred, the block set on the box's vertical middle,...
+    // [comment:10](/docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md#comment10)
     private static void ColumnHeader(PdfPage page, string text, double x, double y, double width, double height, double min)
     {
         double fitted;
@@ -473,8 +458,8 @@ public static class WorldMapPdf
         page.StrokeRect(x + 1.25, y + 1.25, Math.Max(0, width - 2.5), Math.Max(0, height - 2.5));
     }
 
-    // The legend band: the file-count scale, the stack-violation mark and, with a highlight, the lit-cell outline with
-    // the request.
+    // The legend band: the file-count scale, the stack-violation mark and, with a highlight, the lit-cell outline with the request.
+    // [comment:11](/docs/references/automation/catzc-base-maps/types/WorldMapPdf.cs.md#comment11)
     private static void Legend(PdfPage page, MapsConfig config, int maxCount, WorldMapHighlight highlight)
     {
         MapsPalette palette = config.palette;

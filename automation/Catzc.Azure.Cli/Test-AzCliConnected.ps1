@@ -2,13 +2,8 @@
 .SYNOPSIS
     Tests whether the active az CLI session matches a given subscription and/or tenant.
 .DESCRIPTION
-    Returns $true when `az account show` reports the subscription and/or tenant passed by argument;
-    $false otherwise (including not logged in). A pure query — it never throws on a mismatch. Use
-    Assert-AzCliConnected for the throwing companion. Both share Get-AzCliConnectionState.
-
-    Two parameter sets — at least one of subscription / tenant is required:
-      Subscription : -SubscriptionId (required) [-TenantId]
-      Tenant       : -TenantId (required)
+    Returns $true when `az account show` reports the subscription and/or tenant passed by argument; $false otherwise...
+    [comment:1](/docs/references/automation/catzc-azure-cli/Test-AzCliConnected.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID the session must be set to.
 .PARAMETER TenantId

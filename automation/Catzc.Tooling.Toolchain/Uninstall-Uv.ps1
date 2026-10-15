@@ -3,7 +3,7 @@
     Uninstalls uv.
 .DESCRIPTION
     Removes the managed install via the platform package manager: winget (Windows) or brew (macOS).
-    Delegates to Uninstall-Tool. Idempotent — skips if not installed.
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Uv.ps1.md#comment1)
 .PARAMETER Version
     uv version to uninstall. Defaults to the locked version in Get-ToolConfig.
 .EXAMPLE

@@ -1,12 +1,5 @@
 // A single module-to-module dependency edge, typed for rendering to JSON / YAML / Markdown / PlantUML.
-//
-// Kind is "actual" — a real cross-module call edge (from Get-ModuleDependency; CallCount and Functions
-// populated) — or "declared" — an allowed edge from configs/dependencies.yml (CallCount 0, Functions
-// empty; To may be a GROUP name rather than a module). Produced by Get-ModuleDependencyEdges and rendered
-// by ConvertTo-ModuleDependencyDiagram.
-//
-// BCL only; declares its module namespace (file-scoped), per the type loader. PascalCase (a result
-// shape, not a YAML-config mirror).
+// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyEdge.cs.md#comment1)
 
 using System;
 

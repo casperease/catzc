@@ -2,23 +2,10 @@
 .SYNOPSIS
     The function dependency quality gate: every function-to-function call resolves to a defined command.
 .DESCRIPTION
-    Parses every .ps1 file (excluding tests) under the automation root using AST,
-    then checks each function call against: (a) the definitions map of automation
-    functions, and (b) Get-Command for built-ins, vendor modules, and other loaded
-    commands.
-
-    An issue is an unresolved call ('<caller> -> <missing> (<module>/<file>:<line>)') or two modules defining the
-    same public (module-root) function name — exported names must be globally unique, mirroring the importer's
-    Assert-UniqueModuleFunctionName. Duplicate private names across modules are allowed (privates are
-    module-scoped and not exported).
-
-    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): it ends
-    through Write-QualityGateReport, which writes out/test-function-dependency/, prints every issue, and throws
-    once listing them all; -PassThru returns the result instead.
-
-    Must run post-import so Get-Command covers all loaded modules. Reads the per-function source files, which
-    exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
+    Parses every.ps1 file (excluding tests) under the automation root using AST, then checks each function call...
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
+    [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
 .PARAMETER OutputFolder
@@ -45,10 +32,9 @@ function Test-FunctionDependency {
 
     Assert-SourceTree
 
-    # Parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/call provider
-    # overhead, [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)); the definition map
-    # and the call-resolution walk reuse these ASTs, so each file is read and parsed a single time. The walk itself is
-    # [Catzc.Base.ModuleSystem.FunctionCallCollector] — one C# pass per function, not scriptblock-predicate FindAll calls.
+    # Parse every source.ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/call provider...
+    # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
+    # [comment:2](/docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md#comment2)
     $parsed = [System.Collections.Generic.List[object]]::new()
     $definitions = @{}
     $issues = [System.Collections.Generic.List[string]]::new()
@@ -62,9 +48,8 @@ function Test-FunctionDependency {
         $files = [System.IO.Directory]::EnumerateFiles($moduleDir, '*.ps1', [System.IO.SearchOption]::AllDirectories) | Sort-Object
         foreach ($path in $files) {
             $name = [System.IO.Path]::GetFileName($path)
-            # Match assets/private against the MODULE-RELATIVE path, not the absolute one: an absolute temp/CI
-            # path can itself sit under a '/private/' or '/assets/' segment (e.g. macOS $TestDrive resolves to
-            # /private/var/folders/...), which would otherwise misclassify every fixture file as private.
+            # Match assets/private against the MODULE-RELATIVE path, not the absolute one: an absolute temp/CI path...
+            # [comment:3](/docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md#comment3)
             $rel = $path.Substring($moduleDir.Length)
             if ($name -like '*.Tests.ps1' -or $rel -match '[/\\]assets[/\\]') {
                 continue
@@ -87,11 +72,8 @@ function Test-FunctionDependency {
                     continue
                 }
 
-                # Two PUBLIC (module-root) definitions of one name is a real collision — the module imported
-                # last silently shadows the other (defense-in-depth; the importer's Assert-UniqueModuleFunctionName
-                # already blocks this at load). Duplicate PRIVATE names across modules are legal (privates are
-                # module-scoped, not exported): keep first-wins, but prefer a public definition over a private one
-                # for resolution and reporting.
+                # Two PUBLIC (module-root) definitions of one name is a real collision — the module imported last...
+                # [comment:4](/docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md#comment4)
                 $existing = $definitions[$fn.Name]
                 if (-not $isPrivate -and -not $existing.Private) {
                     $issues.Add("Duplicate public function '$($fn.Name)' in $($existing.Module)/$($existing.File) and $module/$name (exported names must be unique).")
@@ -104,8 +86,8 @@ function Test-FunctionDependency {
         }
     }
 
-    # Check each collected call → flag any that resolve to nothing. Get-Command runs once per distinct external name
-    # in this run (a whole-session Get-Command snapshot measures slower than the few dozen lookups the memo leaves).
+    # Check each collected call → flag any that resolve to nothing.
+    # [comment:5](/docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md#comment5)
     $isLoadedCommand = [System.Collections.Generic.Dictionary[string, bool]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
     foreach ($entry in $parsed) {

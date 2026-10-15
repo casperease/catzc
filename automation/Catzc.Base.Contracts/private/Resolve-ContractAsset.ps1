@@ -2,16 +2,12 @@
 .SYNOPSIS
     Derives one contract asset's facts from its name and place, and returns them as a ContractAsset.
 .DESCRIPTION
-    Zero ceremony ([ADR-AUTO-ZERO](/docs/adr/automation/zero-ceremony-poka-yoke.md)): the asset declares nothing.
-    - Kind, from the file name (Get-ContractAssetKind,
-      [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)).
-    - Target: a presence or fragment constrains the real file at its own path under the module's target root; a
-      `<path>.schema.json` constrains the real file at `<path>` under that root, unless a sample payload of the same
-      `<name>` sits beside it (`<name>.sample.<ext>`), in which case it applies to that sample; a sample payload
-      constrains no file ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)).
-    - Direction, by convention ([ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7)): an
-      asset that constrains a real repository file is DependedOn; a sample payload, and the schema that applies to it,
-      are Provided. An entry for `<module>/<path>` in -Override replaces the convention.
+    Zero ceremony: the asset declares nothing.
+    [ADR-AUTO-ZERO](/docs/adr/automation/zero-ceremony-poka-yoke.md),
+    [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
+    [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),
+    [ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7)
+    [comment:1](/docs/references/automation/catzc-base-contracts/private/Resolve-ContractAsset.ps1.md#comment1)
 .PARAMETER Unit
     The deployable-unit folder name.
 .PARAMETER Version
@@ -23,8 +19,8 @@
 .PARAMETER File
     The asset's absolute path, read to tell an empty fragment and to find a sample beside a schema.
 .PARAMETER TargetRoot
-    The module's target root, repository-relative; the empty path is the repository root. Default: ContractsConfig's
-    DefaultTargetRoot, the repository root.
+    The module's target root, repository-relative; the empty path is the repository root.
+    [comment:2](/docs/references/automation/catzc-base-contracts/private/Resolve-ContractAsset.ps1.md#comment2)
 .PARAMETER Override
     The version's contract.yml direction overrides, keyed by `<module>/<path>`. Default: none.
 .OUTPUTS

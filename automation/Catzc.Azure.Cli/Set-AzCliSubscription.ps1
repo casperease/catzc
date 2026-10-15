@@ -19,8 +19,8 @@ function Set-AzCliSubscription {
 
     Assert-Tool 'az_cli'
 
-    # Idempotent: skip if already on the requested subscription
-    # -NoAssert: non-zero exit means "not logged in" — falls through to az account set
+    # Idempotent: skip if already on the requested subscription -NoAssert: non-zero exit means "not logged in" —...
+    # [comment:1](/docs/references/automation/catzc-azure-cli/Set-AzCliSubscription.ps1.md#comment1)
     $result = Invoke-Executable 'az account show --output json' -PassThru -NoAssert -Silent
     if ($result.ExitCode -eq 0 -and $result.Output) {
         $account = $result.Output | ConvertFrom-Json

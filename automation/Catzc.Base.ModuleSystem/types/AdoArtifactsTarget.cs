@@ -1,5 +1,5 @@
-// The Azure DevOps Artifacts publish target of configs/artifacts.yml (`ado:`): the organization, project, and feed
-// the gold module-manifest artifact is promoted to. Validation is the shared target shape (ArtifactsTarget).
+// The Azure DevOps Artifacts publish target of configs/artifacts.yml (`ado:`): the organization, project, and feed the gold...
+// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/AdoArtifactsTarget.cs.md#comment1)
 
 namespace Catzc.Base.ModuleSystem;
 

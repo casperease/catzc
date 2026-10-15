@@ -2,19 +2,12 @@
 .SYNOPSIS
     Quality gate: every internal asset dependency is inventoried and covered by a test that runs in both run modes.
 .DESCRIPTION
-    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) enforcing the
-    coverage rule [ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4) over the module
-    code. It collects an issue for:
-
-      - every Get-CatzcModuleRoot call site whose -ChildPath or -Module is not a string literal
-        ([ADR-AUTO-ASSETDEP#2](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2)) — such a
-        site cannot be inventoried (Get-InternalAssetDependency -Violation);
-      - every function with an internal asset dependency that no test citing
-        [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3) and not
-        source-only covers, so the read is exercised in the source run and the build run
-        (Get-UncoveredInternalAssetDependency).
-
-    It scans the per-function source files and tests, which exist only in the source tree.
+    A quality gate enforcing the coverage rule over the module code.
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
+    [ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4),
+    [ADR-AUTO-ASSETDEP#2](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2),
+    [ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)
+    [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-InternalAssetDependency.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-internal-asset-dependency/ (Write-QualityGateReport).
 .PARAMETER PassThru

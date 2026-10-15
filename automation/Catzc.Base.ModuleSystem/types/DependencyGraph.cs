@@ -1,8 +1,6 @@
-// The graph helpers behind the declared module dependency graph (configs/dependencies.yml): reading one
-// node's dependency list from the parsed YAML, and finding a cycle in a node -> dependencies adjacency map.
-// Shared by DependenciesConfig (the module graph) and ModuleGroup (each group's internal member graph), so
-// both graphs read and cycle-check the same way
-// ([ADR-AUTO-DEPM#4](/docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm4)).
+// The graph helpers behind the declared module dependency graph (configs/dependencies.yml): reading one node's dependency list from the...
+// [ADR-AUTO-DEPM#4](/docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm4)
+// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -13,9 +11,8 @@ namespace Catzc.Base.ModuleSystem;
 
 public static class DependencyGraph
 {
-    // Reads one node's dependency list: null (declared, depends on nothing) is empty; a list of non-empty
-    // names is the list; a single string, a map, or a non-name item is a violation ('owner' prefixes it, and
-    // 'what' names the expected entries, e.g. "names" or "member modules").
+    // Reads one node's dependency list: null (declared, depends on nothing) is empty; a list of non-empty names is the list; a single...
+    // [comment:2](/docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md#comment2)
     public static string[] ReadNames(object value, string owner, string what, List<string> errors)
     {
         if (value == null) { return new string[0]; }
@@ -39,8 +36,8 @@ public static class DependencyGraph
         return names.ToArray();
     }
 
-    // The first cycle (as "A -> B -> A") in a node -> string[] adjacency, visiting nodes and edges in
-    // declaration order; null when the graph is acyclic. Edges to nodes outside the map are ignored.
+    // The first cycle (as "A -> B -> A") in a node -> string[] adjacency, visiting nodes and edges in declaration order; null when the...
+    // [comment:3](/docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md#comment3)
     public static string FindCycle(OrderedDictionary adjacency)
     {
         Dictionary<string, int> color = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);

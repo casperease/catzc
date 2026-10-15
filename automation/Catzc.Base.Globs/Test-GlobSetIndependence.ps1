@@ -4,20 +4,11 @@
     ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)) — no two same-layer
     globsets select a common file on their OWN contribution.
 .DESCRIPTION
-    Within a layer, no two globsets may match a common file on their OWN membership (GlobSet.OwnMatches —
-    the set's own include/exclude program, compose IGNORED). Two that do "contain parts of each other" and
-    are not independent. The check is per layer, never across layers: a deployable-unit deliberately
-    contains the base it composes, so cross-layer overlap is expected and correct. The 'loose-fileset' layer
-    is EXEMPT — its sets are cross-cutting check surfaces (a track's root concern, a scan scope, the
-    reserved umbrellas) and overlap by design
-    ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)).
-
-    Evaluates the declared registry (Get-GlobSet) AND the derived module sets (Get-ModuleGlobSet,
-    [ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)) against the tracked-file
-    universe, collects one issue per violating pair ('<layer>: <A> <-> <B> share N file(s), e.g. ...'), and ends
-    with Write-QualityGateReport ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
-    the report lands in out/test-globset-independence/, and the gate throws once listing every pair (or returns
-    the result with -PassThru).
+    Within a layer, no two globsets may match a common file on their OWN membership (GlobSet.OwnMatches — the set's...
+    [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),
+    [ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7),
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
+    [comment:1](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-globset-independence).
 .PARAMETER PassThru
@@ -38,17 +29,17 @@ function Test-GlobSetIndependence {
         [switch] $PassThru
     )
 
-    # loose-filesets are cross-cutting and overlap-exempt
-    # ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)/10); every other layer is
-    # checked.
+    # loose-filesets are cross-cutting and overlap-exempt (/10); every other layer is checked.
+    # [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)
+    # [comment:2](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment2)
     $exemptLayer = 'loose-fileset'
 
     $sets = @(Get-GlobSet) + @(Get-ModuleGlobSet)
     $tracked = [string[]] @(Get-TrackedFile)
 
-    # OWN members per set (compose ignored,
-    # [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)), computed once as a set for
-    # O(1) intersection.
+    # OWN members per set (compose ignored, ), computed once as a set for O(1) intersection.
+    # [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)
+    # [comment:3](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment3)
     $own = @{}
     foreach ($set in $sets) {
         $own[$set.Name] = [System.Collections.Generic.HashSet[string]]::new(

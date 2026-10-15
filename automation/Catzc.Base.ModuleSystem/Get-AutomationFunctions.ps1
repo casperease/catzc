@@ -2,16 +2,9 @@
 .SYNOPSIS
     Lists all exported automation functions.
 .DESCRIPTION
-    Enumerates all non-dot-prefixed module folders under the automation root,
-    finds the matching loaded modules, and returns their exported functions.
-
-    With -NotUsedInternally, filters to functions that are never called by
-    another automation function (no incoming edges in the call graph).
-
-    The listing describes the loaded modules, so it works in both run modes
-    ([ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
-    -NotUsedInternally reads the per-function source files, so it stops with a named error in build mode
-    (Assert-SourceTree).
+    Enumerates all non-dot-prefixed module folders under the automation root, finds the matching loaded modules, and...
+    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
+    [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-AutomationFunctions.ps1.md#comment1)
 .PARAMETER NotUsedInternally
     Only return functions that have no incoming calls from other automation functions.
 .PARAMETER AutomationRoot

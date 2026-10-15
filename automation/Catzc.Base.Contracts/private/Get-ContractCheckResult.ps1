@@ -2,15 +2,9 @@
 .SYNOPSIS
     Checks one contract asset against the repository by its kind, and returns the result.
 .DESCRIPTION
-    Runs the check of the asset's kind ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)):
-    - Presence: the target exists with the exact case of its path (Get-ContractPresenceFindings);
-    - Fragment: the target exists and contains the fragment (Get-ContractFragmentFindings);
-    - Schema on a real file: the target exists and validates against the schema (Get-ContractSchemaFindings);
-    - Schema on a sample payload (its target is a sample under the asset's own module folder): the schema is well-formed
-      and uses the supported keywords only; the sample is not validated here, since its own check does that, so a
-      defect gives one finding on one result;
-    - Sample: the payload parses, and validates against the schema beside it (Get-ContractSampleFindings).
-    A failed check is findings on the result, never an exception.
+    Runs the check of the asset's kind: - Presence: the target exists with the exact case of its path...
+    [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)
+    [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractCheckResult.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the asset and its target are relative to.
 .PARAMETER Asset

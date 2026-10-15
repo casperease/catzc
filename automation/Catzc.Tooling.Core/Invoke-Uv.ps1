@@ -2,15 +2,13 @@
 .SYNOPSIS
     Runs uv with the given arguments.
 .DESCRIPTION
-    Asserts that uv is installed at the locked version before executing. uv is the standard Python handler —
-    it provisions Python (`uv python`) and runs Python-based CLIs in isolated environments (`uv tool`,
-    `uv pip`, `uv run`).
+    Asserts that uv is installed at the locked version before executing.
+    [comment:1](/docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to uv.
 .PARAMETER Prerelease
-    Append `--prerelease=allow`, permitting pre-release/dev dependency versions in the resolution. This is a
-    deliberate, surfaced choice — it emits a warning — because it pulls dev-marked packages into an otherwise
-    version-locked install (e.g. the Azure CLI pins beta azure-* dependencies). Never enable it silently.
+    Append `--prerelease=allow`, permitting pre-release/dev dependency versions in the resolution.
+    [comment:2](/docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md#comment2)
 .PARAMETER PassThru
     Return a CliResult object with Output, Errors, Full, and ExitCode.
 .PARAMETER NoAssert
@@ -43,9 +41,8 @@ function Invoke-Uv {
     }
 
     if ($Prerelease) {
-        # Pre-release resolution is a deliberate, config-driven relaxation of the version lock — surface it so it
-        # is never silent. A message, not a warning: the toolchain runs with WarningPreference=Stop, and this is
-        # expected (opt-in) behaviour, not an anomaly to halt on.
+        # Pre-release resolution is a deliberate, config-driven relaxation of the version lock — surface it so it is...
+        # [comment:3](/docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md#comment3)
         Write-Message "uv: allowing pre-release/dev package versions (--prerelease=allow) for: uv $Arguments"
         $Arguments = "$Arguments --prerelease=allow"
     }

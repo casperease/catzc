@@ -2,13 +2,9 @@
 .SYNOPSIS
     Quality gate: the real module-to-module call graph has no cycle.
 .DESCRIPTION
-    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over the actual
-    cross-module function calls (Get-ModuleDependency). It sorts the graph topologically (Kahn's algorithm) and
-    reports every module the sort cannot place — each sits on a dependency cycle or is called from one.
-
-    This is the whole graph, every module included: Test-ModuleDependency checks the declared modules' edges against
-    the allow-list in configs/dependencies.yml, and an unconstrained module is outside that list, so a cycle through
-    one is caught only here. It analyses the per-function source files (Get-ModuleDependency).
+    A quality gate over the actual cross-module function calls (Get-ModuleDependency).
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
+    [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-ModuleCycles.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-module-cycles/ (Write-QualityGateReport).
 .PARAMETER PassThru

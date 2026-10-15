@@ -2,14 +2,8 @@
 .SYNOPSIS
     Asserts the active az CLI session matches a given subscription and/or tenant.
 .DESCRIPTION
-    The throwing companion to Test-AzCliConnected. Throws a remediation-bearing error when az is not
-    logged in, or is set to a different subscription / tenant than the ones passed by argument. The
-    generic, azure.yml-free primitive — the config-aware Assert-AzCliIsConnected takes a subscription
-    name, resolves its identity from azure.yml, and delegates here. Both Assert/Test share Get-AzCliConnectionState.
-
-    Two parameter sets — at least one of subscription / tenant is required:
-      Subscription : -SubscriptionId (required) [-TenantId]
-      Tenant       : -TenantId (required)
+    The throwing companion to Test-AzCliConnected.
+    [comment:1](/docs/references/automation/catzc-azure-cli/Assert-AzCliConnected.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID the session must be set to.
 .PARAMETER TenantId

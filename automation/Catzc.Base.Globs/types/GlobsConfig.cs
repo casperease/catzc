@@ -1,13 +1,8 @@
-// The globset registry (configs/globs.yml) and its validity rules: a non-empty 'globsets' map of
-// kebab-case name -> { description, layer (deployable-unit | loose-fileset — 'module' is derived-only and
-// rejected here, [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)), [include: [...]], [exclude: [...]],
-// [compose: [...]],
-// [verify: { modules, level }], [pipeline] }, each entry a valid GlobSet, no unknown keys anywhere
-// (strict-config discipline), and compose references resolving to declared sets acyclically
-// ([ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8)).
-// The config itself is an ordinary tracked file and may be a member. Constructing an instance validates the
-// whole registry (collecting all errors) and exposes the sets in registry order.
-// See [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md).
+// The globset registry (configs/globs.yml) and its validity rules: a non-empty 'globsets' map of kebab-case name -> { description, layer...
+// [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),
+// [ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8),
+// [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
+// [comment:1](/docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -22,10 +17,9 @@ public sealed class GlobsConfig
     // The config's own repo-relative path (named in lookup errors).
     public const string ConfigPath = "automation/Catzc.Base.Globs/configs/globs.yml";
 
-    // Names reserved for the DERIVED globsets
-    // ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): the infra scopes every module's tests depend
-    // on. Module folders derive their own sets by convention (Get-ModuleGlobSet); a declared set may not
-    // shadow a reserved name — the declared registry and the derived sets share one name space.
+    // Names reserved for the DERIVED globsets: the infra scopes every module's tests depend on.
+    // [ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)
+    // [comment:2](/docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md#comment2)
     public static readonly string[] ReservedNames = { "internal", "vendor", "compiled", "scriptanalyzer" };
 
     // Every globset, in registry order.
@@ -140,9 +134,9 @@ public sealed class GlobsConfig
             map[set.Name] = set;
         }
 
-        // ---- compose resolution ([ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8)): every reference
-        // names a declared set, never itself, and
-        //      the reference graph is acyclic; effective membership is the union through the references. ----
+        // ---- compose resolution: every reference names a declared set, never itself, and the reference graph is acyclic; effective...
+        // [ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8)
+        // [comment:3](/docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md#comment3)
         foreach (GlobSet set in sets)
         {
             List<GlobSet> resolved = new List<GlobSet>();
@@ -174,8 +168,8 @@ public sealed class GlobsConfig
             }
         }
 
-        // A broken compose graph makes Matches() unsafe (a cycle would recurse forever), so fail now with
-        // everything collected so far — the final validation gate.
+        // A broken compose graph makes Matches unsafe (a cycle would recurse forever), so fail now with everything collected so far —...
+        // [comment:4](/docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md#comment4)
         if (errors.Count > 0)
         {
             throw new ArgumentException("globs config validation failed:\n" + string.Join("\n", errors));
@@ -211,7 +205,7 @@ public sealed class GlobsConfig
     }
 
     // Depth-first walk of the compose references; returns the cycle path when one exists, else null.
-    // Guarded against unresolved references (already reported) by walking the name map only.
+    // [comment:5](/docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md#comment5)
     private static string FindComposeCycle(GlobSet set, Dictionary<string, GlobSet> map, List<string> path)
     {
         if (path.Contains(set.Name))

@@ -2,13 +2,8 @@
 .SYNOPSIS
     Removes a manually installed Java JDK and cleans up system PATH.
 .DESCRIPTION
-    Deletes the JDK installation folder and removes it (and its bin
-    subdirectory) from the system-level PATH. Requires Administrator.
-    Auto-detects the install directory from Get-Command if not specified.
-
-    This is for JDK installations (Oracle, AdoptOpenJDK, etc.) that
-    are not managed by winget/brew/apt. If Java is managed by the
-    tooling system, use Uninstall-Java instead.
+    Deletes the JDK installation folder and removes it (and its bin subdirectory) from the system-level PATH.
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment1)
 .PARAMETER InstallDir
     Path to the JDK installation folder. Auto-detected from PATH if omitted.
 .PARAMETER Force
@@ -29,16 +24,16 @@ function Remove-Java {
 
     $config = Get-ToolConfig -Tool 'java'
 
-    # Gate: managed by our tooling system → refuse, redirect to Uninstall-Java
-    # ([ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)).
+    # Gate: managed by our tooling system → refuse, redirect to Uninstall-Java.
+    # [ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)
+    # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment2)
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Java is managed by the tooling system. Use Uninstall-Java instead.'
     }
 
-    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip
-    # / stray binary); elevation is scoped to the mechanism
-    # ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)), so no admin assert
-    # here.
+    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip /...
+    # [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
+    # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment3)
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Java (native package / uv-Python pip / stray binary). Run with -Force to execute.'

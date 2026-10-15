@@ -1,7 +1,6 @@
-// One lit cell of a world-map highlight: the cell (a track and a file language), the files in it that the request
-// lit, the steps that lit it (a MapPlacement basis, "path" for a requested file, "pin" for a reviewed pin of
-// configs/maps.yml), and why each lights it (Reasons; Touched when all are passing mentions). A result type, so the
-// properties are PascalCase ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+// One lit cell of a world-map highlight: the cell (a track and a file language), the files in it that the request lit, the steps that...
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-base-maps/types/HighlightedCell.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

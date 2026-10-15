@@ -2,10 +2,8 @@
 .SYNOPSIS
     Lists the processes that hold a .NET install open.
 .DESCRIPTION
-    Every running .NET host — the dotnet muxer, an apphost such as VBCSCompiler.exe, an MSBuild node, an
-    editor's language server — loads the install's host resolver, host/fxr/<version>/hostfxr. The holders of
-    those files are therefore the processes that would make a delete of the install fail part-way. Each holder
-    is listed once. Locking is advisory off Windows, so there it lists nothing (Get-FileLockingProcess).
+    Every running.NET host — the dotnet muxer, an apphost such as VBCSCompiler.exe, an MSBuild node, an editor's...
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/private/Get-DotnetInstallHolder.ps1.md#comment1)
 .PARAMETER InstallDir
     The .NET install directory.
 .OUTPUTS

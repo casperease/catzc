@@ -3,14 +3,8 @@
     Builds the declared module -> dependency-set map from configs/dependencies.yml (the edges of the declared
     graph), shared by Get-ModuleTestOrder (topological order) and Get-ModuleDependencyClosure (subset closure).
 .DESCRIPTION
-    Returns a hashtable: module name -> [HashSet[string]] of the modules it is declared to depend on. Edges:
-
-      1. Group-internal layering — each group's member -> the members it may depend on.
-      2. Per-module allowed deps — a specific-module target is a direct edge; a GROUP target expands to every
-         member of that group, EXCEPT when the module is itself a member of that group (its intra-group order
-         is governed by step 1; expanding would wrongly couple it to siblings that depend back on it).
-
-    Only modules in -Module are kept as keys/targets, so the map is closed over the requested set.
+    Returns a hashtable: module name -> [HashSet[string]] of the modules it is declared to depend on.
+    [comment:1](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md#comment1)
 .PARAMETER Module
     The module set to build the map over. Defaults to all on-disk modules (Get-AutomationModules).
 .EXAMPLE
@@ -32,9 +26,8 @@ function Get-ModuleDependencyMap {
         $groupMembers[$group] = @($groups[$group].Keys)
     }
 
-    # module -> the set of modules it depends on. The loop variable must NOT be named $module: it would
-    # collide (names are case-insensitive) with the [string[]] $Module parameter, whose type constraint
-    # persists on the shared variable and would coerce each scalar element back into a 1-element array.
+    # module -> the set of modules it depends on.
+    # [comment:2](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md#comment2)
     $dependencyMap = @{}
     foreach ($moduleName in $Module) {
         $dependencyMap[$moduleName] = [System.Collections.Generic.HashSet[string]]::new()
@@ -52,8 +45,8 @@ function Get-ModuleDependencyMap {
         }
     }
 
-    # 2) Per-module allowed deps. A specific-module target is a direct edge. A GROUP target adds every member
-    #    of that group — EXCEPT when the module is itself a member of that group (see .DESCRIPTION).
+    # 2) Per-module allowed deps.
+    # [comment:3](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md#comment3)
     foreach ($moduleName in $allowed.Keys) {
         if (-not $dependencyMap.ContainsKey($moduleName)) {
             continue

@@ -2,16 +2,8 @@
 .SYNOPSIS
     Installs the Go toolchain from the official go.dev archive into a user-space home.
 .DESCRIPTION
-    Resolves the newest stable release of the locked version from the go.dev release feed (Get-GoRelease),
-    downloads its archive for this platform and verifies it against the SHA-256 the feed publishes
-    (Save-VerifiedDownload), and extracts it into the script-install home (Get-ScriptInstallDir: Windows
-    %LOCALAPPDATA%\go, Unix ~/.go). No package manager and no admin on any platform, so Windows, Linux and macOS
-    take the same path. The home's bin folder is put on the session and persistent PATH.
-
-    Idempotent — converges to the desired state on every run: when the home already holds the locked version the
-    download is skipped, but PATH is still converged, so a lost PATH entry is repaired by re-running. A Go at the
-    locked version found elsewhere (a pipeline's hosted tool cache, activated by the native Go task) satisfies the
-    contract and is left untouched.
+    Resolves the newest stable release of the locked version from the go.dev release feed (Get-GoRelease), downloads...
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment1)
 .PARAMETER Version
     Go version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force
@@ -53,8 +45,8 @@ function Install-Go {
         }
     }
     else {
-        # Nothing in the managed home: a Go at the right version elsewhere satisfies the contract and is not ours to
-        # manage. A wrong version elsewhere does not block the install — the managed home goes first on PATH.
+        # Nothing in the managed home: a Go at the right version elsewhere satisfies the contract and is not ours to...
+        # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment2)
         $probe = Test-Tool 'go' -PassThru
         if ($probe.Version -and $probe.Version.StartsWith($Version)) {
             Write-Message "Go $Version is already installed at '$($probe.Path)'"
@@ -69,8 +61,8 @@ function Install-Go {
             Assert-Command tar -ErrorText 'Install-Go extracts the Go archive with tar, which is not on PATH.'
         }
 
-        # Download and extract beside the home (same volume), then swap the extracted go/ folder in, so a failed
-        # download or extraction never leaves a half-written home.
+        # Download and extract beside the home (same volume), then swap the extracted go/ folder in, so a failed...
+        # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment3)
         $staging = "$installDir.staging"
         if (Test-Path -LiteralPath $staging) {
             Remove-Item -LiteralPath $staging -Recurse -Force
@@ -80,9 +72,8 @@ function Install-Go {
         Save-VerifiedDownload -Uri "https://go.dev/dl/$($release.filename)" -OutFile $archive -Sha256 $release.sha256 | Out-Null
 
         Write-Message "Extracting $($release.version) to '$installDir'"
-        # The Windows archive is a .zip, extracted in-process: the tar first on PATH there is often Git's GNU tar,
-        # which reads no zip and takes a drive letter's colon for a remote host. The Unix .tar.gz goes to tar, run
-        # inside the staging folder with a relative name so no path carries a colon.
+        # The Windows archive is a.zip, extracted in-process: the tar first on PATH there is often Git's GNU tar,...
+        # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment4)
         if ($isZip) {
             [System.IO.Compression.ZipFile]::ExtractToDirectory($archive, $staging)
         }

@@ -2,14 +2,12 @@
 .SYNOPSIS
     Writes a compact table of tool existence checks: where each tool was found, its version, and the timings.
 .DESCRIPTION
-    Renders the probe records from Test-Tool -PassThru as one plain-text table through Write-Message -NoHeader
-    ([ADR-PWSH-ANNOUNCE#7](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce7)): one
-    row per tool with Found, Method (probe | path | none), Version against Required, VersionOk, ProbeMs and
-    VersionMs, then the path. The header line names the session actor the checks ran as. Writes
-    nothing for no records. With no -Probe it checks every tool in tools.yml.
+    Renders the probe records from Test-Tool -PassThru as one plain-text table through Write-Message -NoHeader: one...
+    [ADR-PWSH-ANNOUNCE#7](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce7)
+    [comment:1](/docs/references/automation/catzc-tooling-core/Write-ToolProbeReport.ps1.md#comment1)
 .PARAMETER Probe
-    The probe records to render (Catzc.Base.Execution.ExecutableProbe, from Test-Tool -PassThru or
-    Resolve-ToolExecutable). Accepts pipeline input. Defaults to every tool in tools.yml.
+    The probe records to render (Catzc.Base.Execution.ExecutableProbe, from Test-Tool -PassThru or...
+    [comment:2](/docs/references/automation/catzc-tooling-core/Write-ToolProbeReport.ps1.md#comment2)
 .EXAMPLE
     Write-ToolProbeReport
 .EXAMPLE

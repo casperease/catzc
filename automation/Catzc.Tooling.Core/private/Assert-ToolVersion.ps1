@@ -2,14 +2,8 @@
 .SYNOPSIS
     Asserts the installed version of a tool matches its locked version.
 .DESCRIPTION
-    Checks once per session and caches the result. Subsequent calls
-    for the same tool return immediately.
-
-    Devbox lever: a tool may declare an optional `devbox_version` in tools.yml. OUTSIDE a CI pipeline
-    (Test-IsRunningInPipeline is false) an installed version matching EITHER the locked `version` or the
-    `devbox_version` prefix is accepted, so a devbox can run a functional off-pin tool for local pre-commit
-    tooling. A pipeline session ignores the lever and enforces the locked `version` alone, keeping
-    main/master builds deterministically locked.
+    Checks once per session and caches the result.
+    [comment:1](/docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml.
 #>
@@ -23,7 +17,8 @@ function Assert-ToolVersion {
     # Cached for session lifetime. Reset by reimporting (.\importer.ps1).
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:toolVersionCache')) {
         # strict-clean probe of the lazy cache entry
-        # ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+        # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
+        # [comment:2](/docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md#comment2)
         $script:toolVersionCache = @{}
     }
 
@@ -40,8 +35,8 @@ function Assert-ToolVersion {
         throw "$Tool is not functional — '$($config.version_command)' did not return a valid version. Run Install-$command."
     }
 
-    # Accepted prefixes: always the locked version; on a devbox (non-pipeline) also the optional devbox_version
-    # lever from tools.yml. A pipeline enforces the locked version alone.
+    # Accepted prefixes: always the locked version; on a devbox (non-pipeline) also the optional devbox_version lever...
+    # [comment:3](/docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md#comment3)
     $accepted = [System.Collections.Generic.List[string]]::new()
     $accepted.Add($config.version)
     if ($config.devbox_version -and -not (Test-IsRunningInPipeline)) {

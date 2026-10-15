@@ -2,10 +2,8 @@
 .SYNOPSIS
     Resolves the official Go archive for a locked version from the go.dev release feed.
 .DESCRIPTION
-    Reads the go.dev release feed (https://go.dev/dl/?mode=json&include=all), keeps the stable releases of the
-    locked version (`1.27` matches go1.27 and every go1.27.N), takes the newest, and returns its archive file for
-    this platform: the feed's own file entry, with `filename`, `version`, `os`, `arch`, `kind` and the published
-    `sha256` that Install-Go verifies the download against. Throws when no stable release or no archive matches.
+    Reads the go.dev release feed (https://go.dev/dl/?mode=json&include=all), keeps the stable releases of the locked...
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/private/Get-GoRelease.ps1.md#comment1)
 .PARAMETER Version
     The locked Go version (major.minor, or an exact major.minor.patch).
 .PARAMETER Os

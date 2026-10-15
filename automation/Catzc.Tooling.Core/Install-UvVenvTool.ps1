@@ -2,12 +2,8 @@
 .SYNOPSIS
     Installs a CLI into a dedicated uv venv.
 .DESCRIPTION
-    For a CLI whose own launcher expects python.exe adjacent to it (azure-cli's az.bat), which an isolated
-    `uv tool` shim in ~/.local/bin breaks by placing the launcher next to uv's --default python instead. This
-    creates a dedicated venv (`uv venv`), installs the package into it (`uv pip install --python <venv>`), and
-    puts the venv's script directory on PATH — so the launcher sits beside the venv's own python and works.
-    Pre-release resolution (for packages that pin a beta dependency) is threaded through Invoke-Uv's
-    -Prerelease switch, which warns. Handles idempotency and -Force.
+    For a CLI whose own launcher expects python.exe adjacent to it (azure-cli's az.bat), which an isolated `uv tool`...
+    [comment:1](/docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key (must declare uv_venv).
 .PARAMETER Version
@@ -46,17 +42,15 @@ function Install-UvVenvTool {
         Join-Path $venvDir 'bin'
     }
 
-    # --clear rebuilds the venv clean; --seed adds pip/setuptools/wheel so packages that expect `pkg_resources`
-    # (azure-cli's azure-devops extension) can load.
+    # --clear rebuilds the venv clean; --seed adds pip/setuptools/wheel so packages that expect `pkg_resources`...
+    # [comment:2](/docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md#comment2)
     Invoke-Uv "venv `"$venvDir`" --python $pythonVersion --clear --seed"
     Invoke-Uv "pip install --python `"$venvDir`" $($config.uv_venv)==$Version.*" -Prerelease:$config.uv_allow_prerelease
 
     Sync-SessionPath
 
     # APPEND the venv's script directory to PATH (the janitor keeps it there each load via session_path_hints).
-    # Append, not prepend: the venv's Scripts dir also holds its own python.exe, and prepending would shadow the
-    # uv-managed `python` on ~/.local/bin. The tool's command resolves from here because nothing earlier provides
-    # it, while `python` stays the managed interpreter.
+    # [comment:3](/docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md#comment3)
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $scriptsDir) {
         $env:PATH = "$env:PATH$([System.IO.Path]::PathSeparator)$scriptsDir"
         Write-Message "Session PATH: appended '$scriptsDir'"

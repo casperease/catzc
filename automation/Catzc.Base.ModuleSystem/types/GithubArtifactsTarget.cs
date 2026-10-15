@@ -1,5 +1,5 @@
-// The GitHub Packages publish target of configs/artifacts.yml (`github:`): the owner, repository, and feed the gold
-// module-manifest artifact is promoted to. Validation is the shared target shape (ArtifactsTarget).
+// The GitHub Packages publish target of configs/artifacts.yml (`github:`): the owner, repository, and feed the gold module-manifest...
+// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/GithubArtifactsTarget.cs.md#comment1)
 
 namespace Catzc.Base.ModuleSystem;
 

@@ -38,7 +38,10 @@ public static class CommentEngine
     static readonly Regex SectionHeading = new Regex(@"^## comment:(?<number>\d+)[ \t]*$", RegexOptions.Compiled | RegexOptions.Multiline);
     static readonly Regex Whitespace = new Regex(@"\s+", RegexOptions.Compiled);
     static readonly Regex EmptyParentheses = new Regex(@"\s*\((?:[\s,;]*)\)", RegexOptions.Compiled);
-    static readonly Regex SpaceBeforePunctuation = new Regex(@"\s+([.,;:])", RegexOptions.Compiled);
+    static readonly Regex IgnoreDirective = new Regex(@"cspell:ignore[ \t]+(?<words>[^\r\n]*)", RegexOptions.Compiled);
+    static readonly Regex IgnoreWord = new Regex(@"^[A-Za-z0-9][A-Za-z0-9'_-]*$", RegexOptions.Compiled);
+    static readonly Regex PageIgnoreLine = new Regex(@"^<!-- cspell:ignore (?<words>[^\r\n]*?) -->[ \t]*$", RegexOptions.Compiled | RegexOptions.Multiline);
+    static readonly Regex SpaceBeforePunctuation =new Regex(@"\s+([.,;:])", RegexOptions.Compiled);
     const string FenceOpen = "```text";
     const string FenceClose = "```";
     const int ContextLength = 80;
@@ -251,7 +254,7 @@ public static class CommentEngine
         for (int i = next; i < lines.Count; i++) { output.Add(lines[i]); }
 
         string newText = lines.Join(output);
-        string newPage = page.With(sections, pagePath, repoRelativePath);
+        string newPage = page.With(sections, pagePath, repoRelativePath, IgnoredWords(text, extension));
         return new CommentFileResult(repoRelativePath, pagePath, newText, newPage, blocks);
     }
 
@@ -279,6 +282,28 @@ public static class CommentEngine
         int cut = sentence.LastIndexOf(' ', Math.Max(0, maxLength - Ellipsis.Length));
         if (cut <= 0) { cut = maxLength - Ellipsis.Length; }
         return sentence.Substring(0, cut).TrimEnd() + Ellipsis;
+    }
+
+    // The words a file's spell-checker directives ignore (`cspell:ignore w1 w2 -- why`), each once, in order: the page that
+    // receives the file's prose ignores them too, or moved prose fails the spell check the file passed.
+    public static IReadOnlyList<string> IgnoredWords(string text, string extension)
+    {
+        var words = new List<string>();
+        if (string.IsNullOrEmpty(text)) { return words; }
+        foreach ((int start, int length) in CommentLexer.Comments(text, extension))
+        {
+            foreach (Match directive in IgnoreDirective.Matches(text.Substring(start, length)))
+            {
+                string list = directive.Groups["words"].Value;
+                int reason = list.IndexOf(" --", StringComparison.Ordinal);
+                if (reason >= 0) { list = list.Substring(0, reason); }
+                foreach (string word in Whitespace.Split(list.Trim()))
+                {
+                    if (IgnoreWord.IsMatch(word) && !words.Contains(word)) { words.Add(word); }
+                }
+            }
+        }
+        return words;
     }
 
     // The ADR citations a text carries, spelled ADR-<CODE>#<n>, each once, in order of appearance.
@@ -522,23 +547,41 @@ public static class CommentEngine
         }
 
         // The page text with the new sections appended: an existing page keeps its text as written.
-        public string With(IEnumerable<string> newSections, string pagePath, string repoRelativePath)
+        public string With(IEnumerable<string> newSections, string pagePath, string repoRelativePath, IReadOnlyList<string> ignoredWords)
         {
             var builder = new StringBuilder();
-            if (Sections.Count == 0 && Prefix.Trim().Length == 0)
+            bool fresh = Sections.Count == 0 && Prefix.Trim().Length == 0;
+            string prefix = fresh
+                ? "# " + pagePath + "\n\n`" + repoRelativePath + "`\n\n"
+                    + "The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per\n"
+                    + "section (Export-Comments), and Build-CommentView puts them back for reading.\n"
+                : Prefix.TrimEnd('\n') + "\n";
+            builder.Append(WithIgnoreLine(prefix, repoRelativePath, ignoredWords).TrimEnd('\n')).Append("\n\n");
+            if (!fresh)
             {
-                builder.Append("# ").Append(pagePath).Append("\n\n");
-                builder.Append('`').Append(repoRelativePath).Append("`\n\n");
-                builder.Append("The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per\n");
-                builder.Append("section (Export-Comments), and Build-CommentView puts them back for reading.\n\n");
-            }
-            else
-            {
-                builder.Append(Prefix.TrimEnd('\n')).Append("\n\n");
                 foreach (PageSection section in Sections.Values) { builder.Append(section.Raw.TrimEnd('\n')).Append("\n\n"); }
             }
             foreach (string section in newSections) { builder.Append(section.TrimEnd('\n')).Append("\n\n"); }
             return builder.ToString().TrimEnd('\n') + "\n";
+        }
+
+        // The page head with one `<!-- cspell:ignore … -->` line holding its own words plus the file's, below the source
+        // path; unchanged when the file ignores nothing new.
+        static string WithIgnoreLine(string prefix, string repoRelativePath, IReadOnlyList<string> ignoredWords)
+        {
+            if (ignoredWords == null || ignoredWords.Count == 0) { return prefix; }
+            Match existing = PageIgnoreLine.Match(prefix);
+            var words = existing.Success ? Whitespace.Split(existing.Groups["words"].Value.Trim()).Where(w => w.Length > 0).ToList() : new List<string>();
+            int before = words.Count;
+            foreach (string word in ignoredWords) { if (!words.Contains(word)) { words.Add(word); } }
+            if (existing.Success && words.Count == before) { return prefix; }
+            string line = "<!-- cspell:ignore " + string.Join(" ", words) + " -->";
+            if (existing.Success) { return prefix.Substring(0, existing.Index) + line + prefix.Substring(existing.Index + existing.Length); }
+            string pathLine = "`" + repoRelativePath + "`\n";
+            int at = prefix.IndexOf(pathLine, StringComparison.Ordinal);
+            if (at < 0) { return prefix.TrimEnd('\n') + "\n\n" + line + "\n"; }
+            int after = at + pathLine.Length;
+            return prefix.Substring(0, after) + "\n" + line + "\n" + prefix.Substring(after);
         }
     }
 }

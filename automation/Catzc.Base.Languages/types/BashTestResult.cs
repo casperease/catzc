@@ -1,12 +1,7 @@
-// One Bash test's result, as Invoke-BashTest returns it from the bats JUnit report: an `@test "<name>"` of a .bats file.
-// It has the shape of GoTestResult and PythonTestResult (Package, Name, Outcome, DurationSeconds, Output, Category), so
-// the harness maps every language's results the same way. A result type, so its properties are PascalCase
-// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
-//
-// The category is derived here, the one place the rule lives: a test whose name starts with "integrity:" reads the
-// shipped artifacts and is `integrity`; every other test is `logic`
-// ([ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1)). Construction validates every
-// field and reports every violation in one ArgumentException.
+// One Bash test's result, as Invoke-BashTest returns it from the bats JUnit report: an `@test "<name>"` of a.bats file.
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
+// [ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1)
+// [comment:1](/docs/references/automation/catzc-base-languages/types/BashTestResult.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

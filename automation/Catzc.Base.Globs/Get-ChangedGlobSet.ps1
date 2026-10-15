@@ -3,21 +3,9 @@
     The globsets a diff touches — the computed area-of-control of a change
     ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)).
 .DESCRIPTION
-    Reflects a change into the globset registry: returns every declared globset whose scan program
-    (GlobSet.Matches, last-match-wins
-    [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)) selects at least one changed
-    path. The "which areas of
-    control did this change touch" fact, computed from git at the real refs — reading the merged tree as it
-    actually is, so it is immune to the squash-merge and concurrent-merge staleness a per-set hash frozen on a
-    branch would suffer, and correct across renames (Get-ChangedFile splits a rename into both of its paths).
-
-    The changed paths come either explicitly (-ChangedFile, a pure and testable call) or from a git range
-    (-Range) resolved through Get-ChangedFile. -IncludeModules also matches the derived per-module sets
-    (Get-ModuleGlobSet), so a report can name the changed modules, not only the declared units.
-
-    In a pipeline this is the "is there anything here for us to process?" gate: a deployable unit's stage asks
-    whether its own set is in the returned list and stops early when it is not. The reference commit that
-    range is measured from is the resolver's job, never this function's.
+    Reflects a change into the globset registry: returns every declared globset whose scan program (GlobSet.Matches,...
+    [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
+    [comment:1](/docs/references/automation/catzc-base-globs/Get-ChangedGlobSet.ps1.md#comment1)
 .PARAMETER ChangedFile
     The changed repo-relative, '/'-separated paths to reflect (e.g. a diff's file list). May be empty.
 .PARAMETER Range

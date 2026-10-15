@@ -1,8 +1,7 @@
-# glossary.yml — the Catzc.Base.Languages glossary source: the vocabulary of the test languages beside PowerShell that
-# this module owns — the Go test layout and the class of track it lives in
-# ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)). Every option is defaulted: all five checks, the
-# whole repository, every text surface
-# ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). Checked by Test-Glossary.
+# glossary.yml — the Catzc.Base.Languages glossary source: the vocabulary of the test languages beside PowerShell that this module owns —...
+# [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
+# [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)
+# [comment:1](/docs/references/automation/catzc-base-languages/configs/glossary.yml.md#comment1)
 concepts:
   verification track:
     key: verification_track

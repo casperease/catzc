@@ -2,20 +2,13 @@
 .SYNOPSIS
     Destructively evicts an off-config Azure CLI so the managed (uv-venv) build can win.
 .DESCRIPTION
-    Removes an Azure CLI installed OUTSIDE the tooling system — the destructive `Remove-` verb of the tool
-    lifecycle ([ADR-AUTO-REMOVE](/docs/adr/automation/tool-removal-lifecycle.md)). Refuses a managed install and
-    redirects to Uninstall-AzCli
-    ([ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)). Per platform:
-
-      - Windows: delete the MSI install folder and strip it from the machine PATH (needs Administrator).
-      - Linux: evict via the mechanism that placed it — apt package / uv-Python pip / stray binary
-        (Remove-LinuxToolInstall); elevation is scoped to the mechanism
-        ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)).
-
-    -Force confirms the destructive action; without it the plan is reported and nothing changes
-    ([ADR-AUTO-REMOVE#4](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)).
-    Usually reached through the escalation `Uninstall-AzCli -Remove -Force`
-    ([ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)).
+    Removes an Azure CLI installed OUTSIDE the tooling system — the destructive `Remove-` verb of the tool lifecycle.
+    [ADR-AUTO-REMOVE](/docs/adr/automation/tool-removal-lifecycle.md),
+    [ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3),
+    [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6),
+    [ADR-AUTO-REMOVE#4](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4),
+    [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md#comment1)
 .PARAMETER InstallDir
     Path to the Azure CLI installation folder. Auto-detected from PATH if omitted.
 .PARAMETER Force
@@ -36,16 +29,16 @@ function Remove-AzCli {
 
     $config = Get-ToolConfig -Tool 'az_cli'
 
-    # Gate: managed by our tooling system → refuse, redirect to Uninstall-AzCli
-    # ([ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)).
+    # Gate: managed by our tooling system → refuse, redirect to Uninstall-AzCli.
+    # [ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)
+    # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md#comment2)
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Azure CLI is managed by the tooling system. Use Uninstall-AzCli instead.'
     }
 
-    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip
-    # / stray binary); elevation is scoped to the mechanism
-    # ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)), so no admin assert
-    # here.
+    # Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip /...
+    # [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
+    # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md#comment3)
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Azure CLI (native package / uv-Python pip / stray binary). Run with -Force to execute.'

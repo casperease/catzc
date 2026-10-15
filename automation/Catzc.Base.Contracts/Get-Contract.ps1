@@ -2,23 +2,14 @@
 .SYNOPSIS
     Lists the repository's contract assets, with every fact derived from each asset's name.
 .DESCRIPTION
-    Enumerates contracts/<unit>/<version>/<module>/<path>
-    ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)) and returns one ContractAsset per
-    file under a module folder. Nothing is registered: the unit, version, and owning module come from the folders; the
-    kind from the file name ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)); the target
-    from the path under the module, placed under the module's target root (the repository root unless contracts.yml's
-    target_roots names one); and the direction from the convention, which a version's contract.yml overrides
-    for a single asset ([ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7)). Every path is in
-    communication form ([ADR-AUTO-PATH#2](/docs/adr/automation/path-representation.md#rule-adr-auto-path2)).
-
-    It lists and derives only: it never reads the real files the assets constrain. Files directly under contracts/ (its
-    README) are not assets, and neither is a released version folder's .frozen record
-    ([ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)). A version folder whose name is not <major>.<minor>.<patch>, a file outside a module folder,
-    and a contract.yml entry naming no asset each throw. A missing or empty contracts/ gives an empty result.
-
-    The addressing mode decides how an asset addresses files
-    ([ADR-REPO-CONTRACT#8](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract8)); only full-path is built, and
-    selecting a declared mode that is not built throws NotImplementedException before anything is enumerated.
+    Enumerates contracts/<unit>/<version>/<module>/<path> and returns one ContractAsset per file under a module folder.
+    [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),
+    [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
+    [ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7),
+    [ADR-AUTO-PATH#2](/docs/adr/automation/path-representation.md#rule-adr-auto-path2),
+    [ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5),
+    [ADR-REPO-CONTRACT#8](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract8)
+    [comment:1](/docs/references/automation/catzc-base-contracts/Get-Contract.ps1.md#comment1)
 .PARAMETER Unit
     The deployable-units to list, by folder name; wildcards allowed. Default: every unit.
 .PARAMETER Version
@@ -30,8 +21,8 @@
 .PARAMETER Addressing
     How an asset addresses many files. Default: contracts.yml's addressing.
 .PARAMETER TargetRoot
-    Each owning module's target root, module name to repository-relative folder; a module it does not name takes the
-    repository root. Default: contracts.yml's target_roots.
+    Each owning module's target root, module name to repository-relative folder; a module it does not name takes the...
+    [comment:2](/docs/references/automation/catzc-base-contracts/Get-Contract.ps1.md#comment2)
 .PARAMETER RepositoryRoot
     The repository root that holds contracts/. Default: the loaded repository root.
 .OUTPUTS

@@ -2,24 +2,8 @@
 .SYNOPSIS
     Installs the .NET SDK via official Microsoft install scripts (user-space).
 .DESCRIPTION
-    Uses the vendored dotnet-install scripts shipped in this module's assets/scripts/ (resolved
-    through Get-CatzcModuleRoot, so the same in source and build mode) instead of package managers.
-    Install directory resolved by Get-ScriptInstallDir (LOCALAPPDATA on
-    Windows, HOME on Unix — overridable in tools.yml).
-    No admin required. Persists DOTNET_ROOT and PATH for future sessions.
-    Idempotent — converges to the desired state on every run: when our
-    install dir already holds the locked version the download is skipped,
-    but the environment (session + persistent PATH, DOTNET_ROOT) is still
-    converged, so a machine whose PATH persistence was lost is repaired by
-    re-running. Only a right-version dotnet from elsewhere on PATH (a
-    system-wide install we do not manage) is a true no-op.
-
-    NOT for CI pipelines. In Azure DevOps, use the native UseDotNet task
-    which activates pre-cached versions instantly:
-
-        - task: UseDotNet@2
-          inputs:
-            version: '10.x'
+    Uses the vendored dotnet-install scripts shipped in this module's assets/scripts/ (resolved through...
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment1)
 .PARAMETER Version
     .NET SDK version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force
@@ -51,12 +35,9 @@ function Install-Dotnet {
         Join-Path $installDir 'dotnet'
     }
 
-    # Decide whether to run the install script. Our own install dir wins the check: when it already holds
-    # the locked version the download is skipped, but the environment is STILL converged below — re-running
-    # repairs a lost PATH/DOTNET_ROOT persistence instead of returning past it
-    # ([ADR-AUTO-IDEM#1](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem1)). Without this,
-    # a session where dotnet resolves through the session janitor's PATH hints masks a broken persistent
-    # PATH forever, and every non-repo process (an editor's language server) fails to find dotnet.
+    # Decide whether to run the install script.
+    # [ADR-AUTO-IDEM#1](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem1)
+    # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment2)
     $needsInstall = $true
     if (Test-Path $ourBinary) {
         # Check the specific binary (not PATH) — can't use Get-ToolVersion here
@@ -80,10 +61,8 @@ function Install-Dotnet {
         }
     }
     elseif (Test-Command $config.command) {
-        # Nothing in our install dir, but a dotnet is on PATH. At the right version that install —
-        # wherever it lives — satisfies the tool contract and is not ours to manage: skip without touching
-        # PATH or DOTNET_ROOT. A wrong version elsewhere doesn't block us since we install side-by-side
-        # and prepend our dir to PATH.
+        # Nothing in our install dir, but a dotnet is on PATH.
+        # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment3)
         $installed = Get-ToolVersion -Config $config
         if ($installed -and $installed.StartsWith($Version)) {
             Write-Message "Dotnet $Version is already installed"
@@ -93,7 +72,8 @@ function Install-Dotnet {
 
     if ($needsInstall) {
         # Resolve the vendored install script shipped in this module's assets/
-        # ([ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1))
+        # [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
+        # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment4)
         if ($IsWindows) {
             $scriptPath = Get-CatzcModuleRoot 'assets/scripts/dotnet-install.ps1'
             Assert-PathExist $scriptPath
@@ -109,9 +89,8 @@ function Install-Dotnet {
     }
 
     # Converge the environment on every run that owns the install — session + persistent, both idempotent.
-    # This is the PATH non-repo processes resolve dotnet through.
-    # Each change is announced where it happens, and only when it changes something
-    # ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)).
+    # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)
+    # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment5)
     if ($env:DOTNET_ROOT -ne $installDir) {
         $env:DOTNET_ROOT = $installDir
         Write-Message "Session: DOTNET_ROOT='$installDir'"

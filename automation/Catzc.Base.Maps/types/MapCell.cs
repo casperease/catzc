@@ -1,10 +1,8 @@
-// One cell of the world map: a track (the row) crossed with a file language (the column), and how many tracked files
-// sit in it ([ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1),
-// [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)). A cell breaks "one tech-stack per track"
-// ([ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3)) when it holds a live file whose file
-// language the track does not declare; WorldMapBuilder decides that per file (MapPlacement.StackViolation) and the
-// cell carries the result. A result type, so the properties are PascalCase
-// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+// One cell of the world map: a track (the row) crossed with a file language (the column), and how many tracked files sit in it.
+// [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1), [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
+// [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3),
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-base-maps/types/MapCell.cs.md#comment1)
 
 namespace Catzc.Base.Maps;
 

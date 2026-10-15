@@ -2,8 +2,8 @@
 .SYNOPSIS
     Runs java with the given arguments.
 .DESCRIPTION
-    Asserts that the installed Java version matches the locked version
-    in Get-ToolConfig before executing the command.
+    Asserts that the installed Java version matches the locked version in Get-ToolConfig before executing the command.
+    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Invoke-Java.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to java.
 .PARAMETER PassThru

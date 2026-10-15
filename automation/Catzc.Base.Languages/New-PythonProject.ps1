@@ -3,24 +3,9 @@
     Renders the Python test workspace: the uv workspace root <root>/pyproject.toml and one member pyproject.toml per Python
     test folder.
 .DESCRIPTION
-    Python code in this repository is test artifacts only: black-box tests in <root>/tests/<module-in-kebab>/, under the
-    Python root (python.yml `root`: python/ when the repository has one, else .python/;
-    [ADR-AUTO-PY](/docs/adr/automation/python/python-test-artifacts.md)). The tests form one uv workspace — uv's own
-    monorepo layout, and the Python form of go.work with one go.mod per module:
-
-      <root>/pyproject.toml                  the workspace root: a virtual root (no project of its own) whose
-                                             [tool.uv.workspace] members name every Python test folder explicitly, and
-                                             the ruff settings for every member (the 140-column line, the pinned Python);
-      <root>/tests/<folder>/pyproject.toml   one member per folder holding a test_*.py file: a virtual project named for
-                                             the folder, whose requires-python is the python tool's pin in tools.yml
-                                             (global.tools.python.version, 3.13 -> ==3.13.*) and whose dependencies are
-                                             python.yml's exact pins, in name order.
-
-    uv makes one environment (<root>/.venv) and one lock (<root>/uv.lock) for the whole workspace when the test bridge
-    syncs it; both are gitignored, as these files are. A repository without Python test folders renders nothing.
-
-    This is a pure renderer: it returns the content and writes nothing. It is the `generator` the root-config registry
-    names for the workspace targets, and Build-RootConfig owns the write; the entry's target selects which files.
+    Python code in this repository is test artifacts only: black-box tests in <root>/tests/<module-in-kebab>/, under...
+    [ADR-AUTO-PY](/docs/adr/automation/python/python-test-artifacts.md)
+    [comment:1](/docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md#comment1)
 .PARAMETER Target
     The files to render, as a repository-relative wildcard over their paths. Default: every file.
 .OUTPUTS
@@ -37,8 +22,9 @@ function New-PythonProject {
     )
 
     $config = Get-Config -Config python
-    # The one Python version: the python tool's tools.yml pin, read by address (reading config is global access,
-    # [ADR-CONF-ADDRESSING](/docs/adr/configuration/config-value-addressing.md)).
+    # The one Python version: the python tool's tools.yml pin, read by address (reading config is global access, ).
+    # [ADR-CONF-ADDRESSING](/docs/adr/configuration/config-value-addressing.md)
+    # [comment:2](/docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md#comment2)
     $pythonVersion = "$(Get-ConfigValue -Address 'global.tools.python.version')"
     if ($pythonVersion -cnotmatch '^3\.(0|[1-9][0-9]*)$') {
         throw "tools.yml python.version '$pythonVersion' is not a Python minor version for requires-python (3.N, e.g. '3.13')."

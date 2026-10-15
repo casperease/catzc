@@ -1,8 +1,6 @@
-// Where one tracked file sits on the world map, and what lights it. The cell is exact: the root folder gives the track
-// and the extension gives the file language. The highlight relation follows the fixed order per artifact kind that
-// WorldMapBuilder applies: an ADR file carries its own ADR code; every other file carries ADR citations, and Basis names the
-// step that produced them. A result type, so the properties are PascalCase
-// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+// Where one tracked file sits on the world map, and what lights it.
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -36,8 +34,8 @@ public sealed class MapPlacement
     // The column: a file-language name, or WorldMap.NoFileLanguage.
     public string FileLanguage { get; }
 
-    // True when the file is in its track's live aspect; false for a test file, a vendored file, a file of a
-    // verification track, and a file under no track.
+    // True when the file is in its track's live aspect; false for a test file, a vendored file, a file of a verification track, and a...
+    // [comment:2](/docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md#comment2)
     public bool Live { get; }
 
     // True when the file is live, has an extension, and its file language is not one its track declares.
@@ -52,8 +50,8 @@ public sealed class MapPlacement
     // The ADR citations that light the file, canonical (ADR-<CODE> or ADR-<CODE>#n), distinct, in ordinal order.
     public IReadOnlyList<string> Citations { get; }
 
-    // Where those citations sit (CitationSite): in the file itself for BasisCitations, in the owner's or the globset's
-    // files for BasisFilesYml and BasisGlobSet; empty for an ADR file and a file nothing lights.
+    // Where those citations sit (CitationSite): in the file itself for BasisCitations, in the owner's or the globset's files for...
+    // [comment:3](/docs/references/automation/catzc-base-maps/types/MapPlacement.cs.md#comment3)
     public IReadOnlyList<CitationSite> Sites { get; }
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

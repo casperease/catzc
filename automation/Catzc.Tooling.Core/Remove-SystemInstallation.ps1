@@ -2,22 +2,16 @@
 .SYNOPSIS
     Removes an installation directory and cleans it from system PATH.
 .DESCRIPTION
-    Shared helper for Remove-NodeJs, Remove-Python, etc. Deletes the
-    directory, removes matching entries from the system (Machine) PATH,
-    and clears the specified Machine environment variables. Windows-only.
-
-    Every persistent write goes through its seam — Set-EnvironmentPath for
-    the PATH, Set-PermanentEnvironmentVariable for a variable — which
-    announces the change; Windows broadcasts WM_SETTINGCHANGE on each
-    persistent write, so running shells pick it up
-    ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)).
+    Shared helper for Remove-NodeJs, Remove-Python, etc.
+    [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)
+    [comment:1](/docs/references/automation/catzc-tooling-core/Remove-SystemInstallation.ps1.md#comment1)
 .OUTPUTS
     [bool] Whether the system PATH changed.
 .PARAMETER InstallDir
     Resolved absolute path to the installation directory.
 .PARAMETER ExtraPathDirs
-    Subdirectory names under InstallDir that are also on PATH
-    (e.g. 'Scripts' for Python, 'wbin' for AzCli).
+    Subdirectory names under InstallDir that are also on PATH (e.g.
+    [comment:2](/docs/references/automation/catzc-tooling-core/Remove-SystemInstallation.ps1.md#comment2)
 .PARAMETER EnvironmentVariables
     System-level environment variable names to clear.
 #>

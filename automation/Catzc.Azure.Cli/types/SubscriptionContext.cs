@@ -1,5 +1,5 @@
-// A snapshot of the az CLI's currently active subscription (the shape of `az account show`). Captured so
-// it can be saved and later restored around a subscription switch.
+// A snapshot of the az CLI's currently active subscription (the shape of `az account show`).
+// [comment:1](/docs/references/automation/catzc-azure-cli/types/SubscriptionContext.cs.md#comment1)
 
 using System;
 

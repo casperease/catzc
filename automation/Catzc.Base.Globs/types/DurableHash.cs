@@ -1,10 +1,7 @@
-// The durable-SHA digest primitives ([ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)), in native code: a
-// globset may include large binaries
-// (the committed type assembly is a tracked file), where a per-byte PowerShell pipeline takes minutes and
-// this takes milliseconds. HashFile is SHA-256 over the file's bytes with every CR (0x0D) stripped —
-// EOL-insensitive, so CRLF and LF working trees agree — and HashFold is SHA-256 over the UTF-8 fold text;
-// both return 64 lowercase hex chars. BCL only.
-// See [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md).
+// The durable-SHA digest primitives, in native code: a globset may include large binaries (the committed type assembly is a tracked...
+// [ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5),
+// [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
+// [comment:1](/docs/references/automation/catzc-base-globs/types/DurableHash.cs.md#comment1)
 
 using System;
 using System.IO;
@@ -15,8 +12,8 @@ namespace Catzc.Base.Globs;
 
 public static class DurableHash
 {
-    // SHA-256 (lowercase hex) of the file's bytes with every CR stripped; null when the file is absent —
-    // the caller folds the distinct 'missing' marker for a tracked-but-deleted member.
+    // SHA-256 (lowercase hex) of the file's bytes with every CR stripped; null when the file is absent — the caller folds the distinct...
+    // [comment:2](/docs/references/automation/catzc-base-globs/types/DurableHash.cs.md#comment2)
     public static string HashFile(string path)
     {
         if (!File.Exists(path)) { return null; }

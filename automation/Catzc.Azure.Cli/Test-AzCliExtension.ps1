@@ -2,9 +2,8 @@
 .SYNOPSIS
     Tests whether an Azure CLI extension is installed.
 .DESCRIPTION
-    Returns $true if the named extension is installed, $false otherwise. Uses `az extension show` (a core
-    command) and inspects the exit code, so it never throws on a missing extension and never triggers a
-    dynamic install. Companion to Assert-AzCliExtension, mirroring the Test-/Assert-AzCliConnected pair.
+    Returns $true if the named extension is installed, $false otherwise.
+    [comment:1](/docs/references/automation/catzc-azure-cli/Test-AzCliExtension.ps1.md#comment1)
 .PARAMETER Name
     The extension name (e.g. 'ip-group').
 .OUTPUTS

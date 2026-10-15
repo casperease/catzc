@@ -2,9 +2,8 @@
 .SYNOPSIS
     Returns tool names from tools.yml in dependency-safe install order.
 .DESCRIPTION
-    Performs a topological sort based on DependsOn fields. Tools with no
-    dependencies come first, tools that depend on others come after their
-    dependencies. Throws on circular dependencies.
+    Performs a topological sort based on DependsOn fields.
+    [comment:1](/docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md#comment1)
 .EXAMPLE
     Get-ToolInstallOrder
     # Returns @('python', 'java', 'dotnet', 'node_js', 'terraform', 'poetry', 'az_cli', 'py_spark')
@@ -18,8 +17,8 @@ function Get-ToolInstallOrder {
     # Build adjacency: tool → list of tools it depends on
     $dependencies = @{}
     foreach ($name in $allTools.Keys) {
-        # depends_on is optional: index it (a dotted read of an absent key throws under strict), and keep the
-        # value an array — an if-expression would unroll a one-item list to a scalar
+        # depends_on is optional: index it (a dotted read of an absent key throws under strict), and keep the value...
+        # [comment:2](/docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md#comment2)
         $dependency = $allTools[$name]['depends_on']
         $dependencies[$name] = [string[]] @(
             if ($dependency) {
@@ -44,10 +43,8 @@ function Get-ToolInstallOrder {
         }
     }
 
-    # Wait — in-degree is wrong above. In-degree for a node = number of edges pointing TO it.
-    # DependsOn means "I depend on X" = edge from X to me. So in-degree of me = count of my DependsOn.
-    # Actually no: in Kahn's for install order, we want: if A depends on B, B must come first.
-    # So edge is B → A (B must be installed before A). In-degree of A = number of dependencies A has.
+    # Wait — in-degree is wrong above.
+    # [comment:3](/docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md#comment3)
 
     # Redo properly
     $inDegree = @{}

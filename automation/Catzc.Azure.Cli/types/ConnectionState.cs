@@ -1,6 +1,5 @@
-// The az CLI session's connection state measured against an expected tenant and/or subscription. Pairs
-// what was asked for (expected_*) with what the active session actually has (actual_*) plus the verdict.
-// A point-in-time probe of the CLI session, not a config record.
+// The az CLI session's connection state measured against an expected tenant and/or subscription.
+// [comment:1](/docs/references/automation/catzc-azure-cli/types/ConnectionState.cs.md#comment1)
 
 using System;
 

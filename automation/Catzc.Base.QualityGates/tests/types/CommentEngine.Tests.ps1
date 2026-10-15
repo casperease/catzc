@@ -1,4 +1,4 @@
-# cspell:ignore nwidgets npublic nvar nwidget ngadget gadgt  -- escape-sequence artifacts in the "`n…" fixture strings, and the
+# cspell:ignore nwidgets npublic nvar nwidget ngadget gadgt wdgt nwidget  -- escape-sequence artifacts in the "`n…" fixture strings, and the
 # deliberate misspelling a kept cspell directive covers
 # CommentEngine moves a file's long comments to its comment page and back, losslessly
 # ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)): what moves is decided by
@@ -148,8 +148,18 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $result = & $export $yaml '.yml' 'yaml'
         $result.MovedCount | Should -Be 2
         ($result.Text -split "`n")[2] | Should -BeExactly '# cspell:ignore gadgt'
-        $result.PageText.Contains('cspell') | Should -BeFalse
+        $result.PageText.Contains("``automation/Catzc.Widget/Get-Widget.ps1```n`n<!-- cspell:ignore gadgt -->`n") | Should -BeTrue -Because 'the page ignores what the file ignores'
         [Catzc.Base.QualityGates.CommentEngine]::View($result.Text, '.yml', $result.PageText) | Should -BeExactly $yaml
+    }
+
+    It 'merges the ignored words into an existing page once' -Tag 'ADR-REPO-COMMENTS#2' {
+        [Catzc.Base.QualityGates.CommentEngine]::IgnoredWords("# cspell:ignore gadgt wdgt  -- fixture typos`nwidget: 1`n", '.yml') |
+            Should -Be @('gadgt', 'wdgt')
+        $first = & $export "# cspell:ignore gadgt`n# A widget note`n# on two lines.`nwidget: 1`n" '.yml' 'yaml'
+        $grown = $first.Text + "# cspell:ignore wdgt`n# A gadget note`n# on two lines.`ngadget: 2`n"
+        $second = & $export $grown '.yml' 'yaml' $first.PageText
+        ([regex]::Matches($second.PageText, 'cspell:ignore')).Count | Should -Be 1
+        $second.PageText.Contains('<!-- cspell:ignore gadgt wdgt -->') | Should -BeTrue
     }
 
     It 'cuts a long annotated code line at a word, never inside one' -Tag 'ADR-REPO-COMMENTS#2' {

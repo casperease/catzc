@@ -2,11 +2,9 @@
 .SYNOPSIS
     Asserts the active az CLI session is logged into the tenant + subscription named.
 .DESCRIPTION
-    The throwing companion to Test-AzCliIsConnected (which returns a bool). Throws a remediation-bearing
-    error when az is not logged in, or is logged into the wrong tenant / subscription. A connection is
-    subscription-scoped, so the input is the subscription name: it resolves the subscription + tenant
-    from azure.yml (Get-AzureSubscription) and delegates the check to the generic Get-AzCliConnectionState.
-    See [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md).
+    The throwing companion to Test-AzCliIsConnected (which returns a bool).
+    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
+    [comment:1](/docs/references/automation/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md#comment1)
 .PARAMETER Subscription
     Subscription name (a key in azure.yml's subscriptions).
 .EXAMPLE

@@ -2,10 +2,8 @@
 .SYNOPSIS
     Loads a per-engine fixture table: one row per case and execution engine (ExecutionEngines), validated.
 .DESCRIPTION
-    Reads a YAML engine case table and validates it through the EngineCaseTable type: every case fills every engine
-    column, or names why it does not apply ("n/a: <reason>"), so the parity of a behaviour across every engine is
-    explicit case by case. Returns one hashtable per case and engine, shaped for Pester's -ForEach
-    (Case, Engine, Fields, NotApplicable): Fields is the column's map, NotApplicable the reason when it does not apply.
+    Reads a YAML engine case table and validates it through the EngineCaseTable type: every case fills every engine...
+    [comment:1](/docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md#comment1)
 .PARAMETER Path
     The table file: absolute, or relative to the repository root (never to the current directory).
 .PARAMETER Engine
@@ -28,9 +26,9 @@ function Get-EngineCaseTable {
         [switch] $Applicable
     )
 
-    # The engines are declared once
-    # ([ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)): Get throws, naming them,
-    # for any other name.
+    # The engines are declared once: Get throws, naming them, for any other name.
+    # [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
+    # [comment:2](/docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md#comment2)
     if ($Engine) {
         $null = [Catzc.Base.Engines.ExecutionEngines]::Get($Engine)
     }

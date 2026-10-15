@@ -1,7 +1,5 @@
-// An on-disk automation module — a folder under automation/. Kind 'named' for a non-dot folder (Catzc.*),
-// 'hidden' for a dot-prefixed infrastructure folder (.internal, .vendor, .compiled, .scriptanalyzer). Carries
-// its repository-root-relative folder path and the named packages (extra file artifacts) it owns via
-// configs/files.yml. This is the facet Copy-Automation copies.
+// An on-disk automation module — a folder under automation/.
+// [comment:1](/docs/references/automation/catzc-base-modulesystem/types/DiskModule.cs.md#comment1)
 
 using System.Collections.Generic;
 
