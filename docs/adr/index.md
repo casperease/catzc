@@ -200,14 +200,16 @@ analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one 
 
 How a module's `configs/<name>.yml` files are read, validated, and addressed: one public reader, `Get-Config`, that discovers a config by
 its global name, caches it per file, and validates it in its owning module's scope, plus `global.<config>.<key>` addresses that point into
-committed config by reference. It gives every implementation domain its single way to read configuration.
+committed config by reference, and config values a tracked Markdown file contributes to a config that opted in. It gives every
+implementation domain its single way to read configuration.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`.
 
-| Code                  | ADR                                                                 |
-| --------------------- | ------------------------------------------------------------------- |
-| `ADR-CONF-LOADING`    | [module-config-loading](configuration/module-config-loading.md)     |
-| `ADR-CONF-ADDRESSING` | [config-value-addressing](configuration/config-value-addressing.md) |
+| Code                  | ADR                                                                             |
+| --------------------- | ------------------------------------------------------------------------------- |
+| `ADR-CONF-LOADING`    | [module-config-loading](configuration/module-config-loading.md)                 |
+| `ADR-CONF-ADDRESSING` | [config-value-addressing](configuration/config-value-addressing.md)             |
+| `ADR-CONF-MDCONTRIB`  | [markdown-config-contributions](configuration/markdown-config-contributions.md) |
 
 ### pipelines/
 
@@ -279,8 +281,9 @@ each citing Microsoft's page and saying what the repository does about it.
 How the repository tree is laid out, formatted, and generated: conventional folder names at every level, the single `out/` output directory,
 one formatting standard for every file type, contracts at the repository boundary, in both directions, under `contracts/`, READMEs and root
 configs generated from one source, fictional documentation examples, the separation of design, test, and live vocabulary, the controlled
-vocabulary of defined terms, repo-wide variants, the sub-agent definitions and the rules behind each, and sibling repositories read for
-ideas, never as a reference implementation, and the session-memory protection that skips a repeated scan over an unchanged globset.
+vocabulary of defined terms, the reserved meta block in a Markdown file's front matter, repo-wide variants, the sub-agent definitions and
+the rules behind each, and sibling repositories read for ideas, never as a reference implementation, and the session-memory protection that
+skips a repeated scan over an unchanged globset.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `design`.
 
@@ -299,6 +302,7 @@ ideas, never as a reference implementation, and the session-memory protection th
 | `ADR-REPO-VOCAB`    | [controlled-vocabulary](repository/controlled-vocabulary.md)           |
 | `ADR-REPO-LINK`     | [markdown-links](repository/markdown-links.md)                         |
 | `ADR-REPO-COMMENTS` | [comments-in-docs](repository/comments-in-docs.md)                     |
+| `ADR-REPO-MDMETA`   | [markdown-meta](repository/markdown-meta.md)                           |
 | `ADR-REPO-AGENTS`   | [agent-definitions](repository/agent-definitions.md)                   |
 | `ADR-REPO-INSPIRE`  | [inspiration](repository/inspiration.md)                               |
 | `ADR-REPO-PROTGLOB` | [protected-globs](repository/protected-globs.md)                       |

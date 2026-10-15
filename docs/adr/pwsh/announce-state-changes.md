@@ -260,10 +260,11 @@ module and goes away with it. While the import runs, Invoke-Importer quiets the 
 The exception covers only the importer's own load. The functions it calls, such as the janitors that adjust `PATH`, are ordinary public
 functions and announce on the information stream like any other caller's, so a person who runs `Sync-SessionTools` at the prompt sees
 every nudge. The same nudges made at every shell open are part of the load record, not news: a session's `PATH` starts from the registry
-each time, so the session-tool janitor re-points `dotnet` and appends the same hint folder on every import. The importer therefore runs
-that one janitor with `-InformationAction` set from its own `-Verbose`, which flows down to the writer chokepoint
-(ADR-PWSH-ANNOUNCE#1): a plain import shows the `Loaded` line alone, and `-Verbose` shows the nudges and the advisory beside the rest of
-the record. The janitor itself still announces unconditionally, which is what the analyzer rule checks.
+each time, so the session-tool janitor re-points `dotnet` and appends the same hint folder on every import. The importer therefore quiets
+the session-wide information preference around that one janitor unless its own `-Verbose` is set, and restores it in a `finally`
+(ADR-PWSH-ANNOUNCE#9); a common parameter would reach only the janitor's scope, while the preference reaches the writer chokepoint in
+its own module (ADR-PWSH-ANNOUNCE#1). A plain import shows the `Loaded` line alone, and `-Verbose` shows the nudges and the advisory
+beside the rest of the record. The janitor itself still announces unconditionally, which is what the analyzer rule checks.
 
 ## Decision
 

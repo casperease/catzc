@@ -39,3 +39,20 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
 - [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — addressing enforces single source of truth for
   every config value, eliminating drift from copied literals.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Markdown config contributions
+
+`Markdown config contributions — config values stated in a source-controlled Markdown file`
+
+[ADR-CONF-MDCONTRIB](markdown-config-contributions.md)
+
+> DORA's research links version-controlled configuration and a single source of truth to reliable delivery. A config value stated once,
+> beside the thing it describes, and read through the one validated reader, removes a second copy that could drift.
+
+- [Version control](../../references/dora/capabilities.md#version-control) — every contribution is a tracked file with a reviewed diff, in
+  a fixed merge order.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a registry that mirrors a set of files is replaced
+  by one statement per file, so nothing needs to be kept in step.
+- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — opt-in by glob and typed validation bound which files
+  can change which config, and nothing a contribution states is secret.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
