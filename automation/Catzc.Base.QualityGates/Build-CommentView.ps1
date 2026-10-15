@@ -11,16 +11,16 @@ catzc:
       - ADR-REPO-OUTDIR#1
   config:
     synopsis: |-
-      Writes the annotated view: every file that carries comment residues, with each section of its comment page put
-      back where its residue stands.
+      Writes the annotated view: every file that has a comment page, with each section of the page put back above the
+      code line it names.
     description: |-
-      The inverse of Export-Comments. A file keeps one residue per long comment and the prose lives once, in the file's
-      comment page ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)); the view
+      The inverse of Export-Comments. A file keeps no long comment and the prose lives once, in the file's comment page
+      ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)); the view
       is the generated, gitignored copy a reader or an agent opens to see a file with its comments inline. It is written
       under comments.yml's `view` folder in out/
       ([ADR-REPO-OUTDIR#1](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir1)), at the file's own
-      repository path, so `out/annotated/<path>` is the annotated `<path>`. Only files with residues get a view; a
-      residue whose section the page lacks stays as written (Test-Comments reports it).
+      repository path, so `out/annotated/<path>` is the annotated `<path>`. Only files whose view differs from the file
+      get one; a section whose code line is gone is left out (Test-Comments reports it).
 
       Idempotent: a view whose content is current is not rewritten (Write-FileIfChanged), so a second run is a fast
       no-op. A source-tree tool: it throws in build mode (Assert-SourceTree).
@@ -58,10 +58,13 @@ function Build-CommentView {
         if (Test-Path -LiteralPath $pagePath -PathType Leaf) {
             $pageText = [System.IO.File]::ReadAllText($pagePath)
         }
-        if ([Catzc.Base.QualityGates.CommentEngine]::FindResidues($text, $entry.Extension, $entry.Page, $pageText).Count -eq 0) {
+        if (-not $pageText) {
             continue
         }
         $view = [Catzc.Base.QualityGates.CommentEngine]::View($text, $entry.Extension, $pageText)
+        if ($view -ceq $text) {
+            continue
+        }
         $viewRelative = "$($config.view)/$($entry.File)"
         if (Write-FileIfChanged -Path (Join-Path $RepositoryRoot $viewRelative) -Content $view -DryRun:$DryRun) {
             $written.Add($viewRelative)

@@ -11,23 +11,18 @@ catzc:
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
   config:
-    synopsis: 'Quality gate: every long comment lives in its file''s comment page, and every residue and page section pair up.'
+    synopsis: 'Quality gate: every long comment lives in its file''s comment page, and every page section still names a code line of the file.'
     description: |-
       A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over the files in
-      scope (Get-CommentScope). A file carries one residue per long comment and the prose lives once, in the file's
-      comment page ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)); it lists
-      every issue:
+      scope (Get-CommentScope). A file keeps no long comment and the prose lives once, in the file's comment page
+      ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)); it lists every issue:
 
       - a comment long enough to move that is still in the file (run Export-Comments);
-      - a residue that links a page other than the file's own;
-      - a residue whose section the page does not hold, so its prose is lost from the view;
-      - a residue number the file uses twice;
-      - a page section no residue in the file links, so its prose belongs to nothing.
+      - a page section whose code line the file no longer has, so its prose belongs to nothing.
 
       What the configured thresholds are is comments.yml's
-      ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)). The shape of the
-      insight line is Format-Comments' to fix, not this gate's. A source-tree tool: it throws in build mode
-      (Assert-SourceTree).
+      ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)). A source-tree tool: it
+      throws in build mode (Assert-SourceTree).
     parameters:
       Path: 'Files or folders to check. Default: every file in scope.'
       RepositoryRoot: 'The repository root paths and pages resolve against. Default: the loaded repository root.'
@@ -57,7 +52,7 @@ function Test-Comments {
 
     $config = Get-Config -Config comments
     $issues = [System.Collections.Generic.List[string]]::new()
-    $residueCount = 0
+    $pageCount = 0
     $scope = @(Get-CommentScope -RepositoryRoot $RepositoryRoot -Path $Path)
     foreach ($entry in $scope) {
         $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $entry.File))
@@ -66,48 +61,19 @@ function Test-Comments {
         }
 
         $pagePath = Join-Path $RepositoryRoot $entry.Page
-        $pageExists = Test-Path -LiteralPath $pagePath -PathType Leaf
-        $pageText = $null
-        if ($pageExists) {
-            $pageText = [System.IO.File]::ReadAllText($pagePath)
-        }
-        $residues = @([Catzc.Base.QualityGates.CommentEngine]::FindResidues($text, $entry.Extension, $entry.Page, $pageText))
-        if ($residues.Count -eq 0 -and -not $pageExists) {
+        if (-not (Test-Path -LiteralPath $pagePath -PathType Leaf)) {
             continue
         }
-        $residueCount += $residues.Count
-        $sections = [System.Collections.Generic.HashSet[int]]::new()
-        if ($pageExists) {
-            foreach ($number in [Catzc.Base.QualityGates.CommentEngine]::SectionNumbers($pageText)) {
-                $sections.Add($number) | Out-Null
-            }
-        }
-
-        $linked = [System.Collections.Generic.HashSet[int]]::new()
-        foreach ($residue in $residues) {
-            $at = "$($entry.File):$($residue.StartLine + 1)"
-            if ($residue.Page -ne $entry.Page) {
-                $issues.Add("${at}: comment:$($residue.Number) links $($residue.Page), not the file's page $($entry.Page)")
-                continue
-            }
-            if (-not $linked.Add($residue.Number)) {
-                $issues.Add("${at}: comment:$($residue.Number) is used twice in the file")
-                continue
-            }
-            if (-not $sections.Contains($residue.Number)) {
-                $issues.Add("${at}: comment:$($residue.Number) has no section in $($entry.Page)")
-            }
-        }
-        foreach ($number in $sections) {
-            if (-not $linked.Contains($number)) {
-                $issues.Add("$($entry.Page): section comment:$number is linked by no residue in $($entry.File)")
-            }
+        $pageText = [System.IO.File]::ReadAllText($pagePath)
+        $pageCount++
+        foreach ($number in [Catzc.Base.QualityGates.CommentEngine]::Orphans($text, $pageText)) {
+            $issues.Add("$($entry.Page): section comment:$number names a code line $($entry.File) no longer has")
         }
     }
 
     $facts = [ordered]@{
-        FileCount    = $scope.Count
-        ResidueCount = $residueCount
+        FileCount = $scope.Count
+        PageCount = $pageCount
     }
     Write-QualityGateReport -Subject comments -Title Test-Comments -Issues $issues.ToArray() -Facts $facts `
         -OutputFolder $OutputFolder -PassThru:$PassThru

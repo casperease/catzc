@@ -12,12 +12,12 @@ catzc:
   config:
     synopsis: Moves every long comment of the repository's code and config files into the file's comment page, one-way.
     description: |-
-      A file keeps one residue per long comment — an insight line, then a line with the comment's ADR citations and the
-      docs link `[comment:N](/<page>#commentN)` — and the prose moves verbatim into the file's comment page under
-      docs/references, so each has exactly one living copy
+      A long comment leaves the file with nothing behind: its prose moves verbatim into the file's comment page under
+      docs/references as a section `## comment:N`, which names the code line the comment sat above, so each comment has
+      exactly one living copy
       ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)). Nothing is dropped:
-      Build-CommentView puts every section back where its residue stands, and the engine's round-trip test proves the
-      view equals the original.
+      Build-CommentView puts every section back above its code line, and the engine's round-trip test proves the view
+      equals the original. The file's head lists the page as its `relatives.page`.
 
       What moves is configured in comments.yml
       ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)): the file languages in
@@ -26,9 +26,8 @@ catzc:
       tests/, minus vendored, generated, fixture and contract files.
 
       A page that exists already keeps its sections as written; new comments are appended after its highest number, and
-      a number is never reused. A second run over an exported file changes nothing. The insight line is provisional —
-      the comment's first sentence, links and citations removed, cut to the file's line limit — and is meant to be
-      rewritten to say what the code does not. Source files keep their own line endings; pages are written canonical.
+      a number is never reused. A second run over an exported file changes nothing. Source files keep their own line
+      endings; pages are written canonical.
       A source-tree tool: it throws in build mode (Assert-SourceTree).
     parameters:
       Path: 'Files or folders to export. Default: every file in scope.'
@@ -60,8 +59,6 @@ function Export-Comments {
     Assert-SourceTree
 
     $config = Get-Config -Config comments
-    $links = Get-Config -Config links
-    $limits = Get-LinkLineLimit -RepositoryRoot $RepositoryRoot -Override $links.line_limit
     $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
 
     # Several files may share a page only by configuration error; each page is read once and carried forward.
@@ -76,13 +73,9 @@ function Export-Comments {
                 [System.IO.File]::ReadAllText($pagePath)
             }
         }
-        $limit = $links.default_line_limit
-        if ($limits.ContainsKey($entry.Extension)) {
-            $limit = $limits[$entry.Extension]
-        }
         $text = [System.IO.File]::ReadAllText($filePath)
         $result = [Catzc.Base.QualityGates.CommentEngine]::Export($text, $entry.Extension, $entry.Language, $entry.File, $entry.Page,
-            $pageTexts[$entry.Page], $config, $limit)
+            $pageTexts[$entry.Page], $config)
         if (-not $result.Changed) {
             continue
         }
