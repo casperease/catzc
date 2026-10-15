@@ -4,7 +4,7 @@
     handing a secret to an external consumer through the environment (ADR environment-variables,
     [ADR-AUTO-ENVVAR#7](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar7)).
 .DESCRIPTION
-    Writes environment variables for an external/child/test process from three distinct, unambiguous channels, so...
+    A bare literal in -Set is rejected, so a literal is never mistaken for a secret or an address; use -Value.
     [ADR-AUTO-ENVVAR#7](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar7)
     [comment:1](/docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md#comment1)
 .PARAMETER Set
@@ -39,7 +39,7 @@ function Write-EnvironmentSet {
         [switch] $Persist
     )
 
-    # 1) Resolve every channel into a flat list of env-var assignments.
+    # Address is null unless the entry came from a config address; Origin names the source for the collision error.
     # [comment:2](/docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md#comment2)
     $entries = [System.Collections.Generic.List[hashtable]]::new()
 
@@ -96,7 +96,7 @@ function Write-EnvironmentSet {
         $origins[$entry.Name] = $entry.Origin
     }
 
-    # 3) Apply.
+    # Scoped and Persist share one set-and-log loop; only Scoped snapshots first and restores in a finally.
     # [comment:3](/docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md#comment3)
     $scoped = -not $Persist
 

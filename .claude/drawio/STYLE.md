@@ -81,9 +81,17 @@ Copy them from `glyphs.xml` (`g-private`, `g-type` + `g-type-tag`, `g-module`):
 
 | Phrase         | Shape                                                  | Fill / stroke                      | Use it for                                                                 |
 | -------------- | ------------------------------------------------------ | ---------------------------------- | -------------------------------------------------------------------------- |
-| private helper | code unit, 36 px tall, `strokeWidth=0.5`, 11 px name   | `#4E6378` / `#7D90A4`              | a function in the module's `private/` folder; never dashed; text `#CDD3DC` |
+| private helper | code unit, 36 px tall, dark fill, 11 px name           | `#2F3B4A` / `#9FB3C8`              | a function in the module's `private/` folder; never dashed; text `#CDD3DC` |
 | C# type        | code unit with a `C#` tag (26 × 16) on its top-right   | `#4E6378` / `#9FB3C8`, tag on page | a class or record under `types/*.cs`                                       |
 | catzc module   | slate frame, no fill, `strokeWidth=1.5`, name top-left | none / `#9FB3C8`                   | another `Catzc.*` module the drawn code calls; its members sit inside it   |
+
+The private helper's dark fill is what sets it apart at preview scale. A dimmer or thinner rim on the code-unit fill was tried in the wave-9
+sample and read as identical to a code unit, so the difference is in the fill, never only in the rim. Italic labels don't show in the
+preview.
+
+**Count chip and marker placement.** A step marker sits on a box's top-left corner. A count chip sits on the box's bottom-right corner,
+overlapping the rim, never on the top edge and never within 40 px of a marker. Both are small numbered shapes, so a chip beside a marker
+reads as a second marker.
 
 The slide's own module is a band (chrome), not a `catzc module` frame. `external tool` stays a vendor tool (az, git, dotnet), never a catzc
 module.

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: every Assert-<Name>Config validator maps to a configs/<name>.yml in its own module.
 .DESCRIPTION
-    A quality gate over the PowerShell validator convention of Invoke-ConfigValidator: a validator is found by name —...
+    A validator whose name maps to no shipped config is never called, so this gate lists every such orphan.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-DSGN-RUNMODE#2](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode2)
     [comment:1](/docs/references/automation/catzc-base-configextensions/Test-ConfigValidators.ps1.md#comment1)
