@@ -600,8 +600,10 @@ terms:
       meaning: "body of the ADR-REPO-PROTGLOB code (protected-globs)"
     - term: mdcontrib
       meaning: "body of the ADR-CONF-MDCONTRIB code (markdown-config-contributions)"
-    - term: mdmeta
-      meaning: "body of the ADR-REPO-MDMETA code (markdown-meta)"
+    - term: filemeta
+      meaning: "body of the ADR-REPO-FILEMETA code (file-meta)"
+    - term: codemeta
+      meaning: "body of the ADR-REPO-CODEMETA code (code-file-meta)"
     - term: rootcfg
       meaning: "body of the ADR-REPO-ROOTCFG code (generated-root-configs)"
     - term: uvpy

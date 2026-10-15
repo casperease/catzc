@@ -305,7 +305,8 @@ domains:
       controlled-vocabulary: { external: ADR-REPO-VOCAB, concern: [quality-control] }
       markdown-links: { external: ADR-REPO-LINK, concern: [quality-control] }
       comments-in-docs: { external: ADR-REPO-COMMENTS, concern: [quality-control] }
-      markdown-meta: { external: ADR-REPO-MDMETA, terminology: mdmeta, concern: [quality-control] }
+      file-meta: { external: ADR-REPO-FILEMETA, terminology: filemeta, concern: [quality-control] }
+      code-file-meta: { external: ADR-REPO-CODEMETA, terminology: codemeta, concern: [quality-control] }
       agent-definitions: { external: ADR-REPO-AGENTS }
       inspiration: { external: ADR-REPO-INSPIRE }
       protected-globs: { external: ADR-REPO-PROTGLOB, terminology: protglob }
