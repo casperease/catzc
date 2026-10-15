@@ -104,8 +104,10 @@ def run(src, dst):
     assert k.decode(back.text["mxfile"]) == model, "embedded model does not round-trip"
     proof = k.render(ET.fromstring(k.decode(back.text["mxfile"]))).convert("RGB")   # the raster is a function of the XML
     assert proof.size == back.size and proof.tobytes() == back.convert("RGB").tobytes(), "raster is not the render of the embedded model"
-    raw = open(dst, "rb").read(); assert raw[:8] == b"\x89PNG\r\n\x1a\n" and raw[-8:] == b"IEND\xaeB`\x82"
-    light = re.findall(r'(?:fill|stroke|font)Color=(#(?:37474F|666666|FFFFFF|FAFAFA|F6F8FA|CFD8DC|455A64))\b', model, re.I)
+    with open(dst, "rb") as f:
+        raw = f.read()
+    assert raw[:8] == b"\x89PNG\r\n\x1a\n" and raw[-8:] == b"IEND\xaeB`\x82"
+    light = re.findall(r'(?:fill|stroke|font)Color=(#(?:37474F|666666|FFFFFF|FAFAFA|F6F8FA|CFD8DC|455A64))\b', model, re.IGNORECASE)
     return back.size, len(ids), sorted(set(light))
 
 if __name__ == "__main__":

@@ -70,6 +70,24 @@ automation/.compiled/** linguist-generated
 /docs/adr/glossary.md linguist-generated
 /docs/references/contracts/*.md linguist-generated
 
+# GitHub (linguist): the Markdown here — the ADRs, the explanations, the how-tos, the diagram articles — is authored,
+# reviewed and versioned like source, so it counts in the language statistics. Linguist treats Markdown as prose and
+# everything under docs/ as documentation, both outside the statistics by default; these two attributes count it in.
+# The generated Markdown named above stays out.
+*.md linguist-detectable
+*.md linguist-documentation=false
+# The minimap grid, tree and chain descriptions are rendered by .claude/drawio/minimaps/render.py from the slide and
+# its reasons: output, not authored prose — out of the statistics, and collapsed in pull-request diffs.
+/docs/.assets/**/*.grid.md  linguist-generated
+/docs/.assets/**/*.tree.md  linguist-generated
+/docs/.assets/**/*.chain.md linguist-generated
+
+# GitHub (linguist): the draw.io diagrams are documentation — the pictures the Markdown articles embed. They stay
+# binary (the *.png rule above: no line-ending conversion, since the editable XML rides inside the PNG), but their
+# diff is switched back on so GitHub renders a changed diagram as an image rather than "binary file not shown";
+# git itself still detects the bytes as binary on the command line.
+*.drawio.png diff linguist-documentation
+
 # catzc: test fixture trees are data on purpose — the link and Markdown-title tools leave them as written.
 **/tests/assets/** catzc-fixture
 

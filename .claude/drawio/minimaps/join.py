@@ -138,7 +138,7 @@ def add_sidebar_backing(model):
     page_h = int(re.search(r'pageHeight="(\d+)"', model).group(1))
     bottom = page_h
     for m in re.finditer(r'<mxGeometry x="(-?[\d.]+)" y="(-?[\d.]+)" width="([\d.]+)" height="([\d.]+)"', model):
-        x, y, w, h = (float(v) for v in m.groups())
+        x, y, _, h = (float(v) for v in m.groups())
         if x >= X - SIDEBAR_PAD:
             bottom = max(bottom, y + h + SIDEBAR_PAD)
     root = re.search(r'<mxCell id="1" parent="0"\s*/>', model)

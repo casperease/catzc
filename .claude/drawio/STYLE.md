@@ -32,7 +32,7 @@ names on a glyph `#DDE2E9`, quiet text `#949FAE`), so a dark-mode and a light-mo
 | page      | `#1E2430`             | the canvas and every rendered output's base layer                             |
 | band      | `#262E3B` / `#3A4555` | band fill / border; band label `#B0BAC7`                                      |
 | panel     | `#222A36` / `#3A4555` | legend and outer panels                                                       |
-| sidebar   | `#2E2823` / `#453C33` | the minimap column's backing: a soft brown layer above the page, below it all |
+| sidebar   | `#2E2823` / `#453C33` | the minimap column's backing: a soft brown sheet above the page, below it all |
 | ink       | `#CDD3DC`             | text; title and on-glyph names `#DDE2E9`                                      |
 | quiet ink | `#949FAE`             | legend text and notes                                                         |
 | line      | `#AAB4C3`             | flow edges and their arrowheads, chip rims, the ADR-only dash                 |
