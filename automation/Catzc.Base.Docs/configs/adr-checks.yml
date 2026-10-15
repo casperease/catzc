@@ -16,6 +16,7 @@
 #     mode: report
 #     file: dora-explains.md
 #     exempt: { <domain>: <reason> }
+#     exempt_folders: { <domain>/<subfolder>: <reason> }   # its ADRs take no DORA section
 
 engine_neutrality:
   domains: [automation]
@@ -38,3 +39,7 @@ engine_neutrality:
 dora_coverage:
   exempt:
     research: Each research ADR is the record of one DORA capability and ends with its own Dora explains section.
+  # A vendor-checklist ADR answers Microsoft's guidance item by item; it is grounded in that vendor's reference, not in DORA research.
+  exempt_folders:
+    azure/caf: Each ADR answers the Cloud Adoption Framework landing-zone guidance; docs/references/caf/index.md grounds it.
+    azure/waf: Each ADR answers one Well-Architected pillar's checklist; docs/references/waf/index.md grounds it.

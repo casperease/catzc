@@ -1,4 +1,6 @@
-# out/plan-strip-comments.md
+# .unordered/15-10-2026/plan-strip-comments.md
+
+`out/plan-strip-comments.md`
 
 `Plan: strip comments — two one-way converters that move long comments into docs and leave one useful line behind`
 
@@ -34,7 +36,7 @@ A source file `F` with comment blocks `b1..bn` (each ≥ 2 lines of prose after 
   `Test-AnalyzerAdrMap`, rule tags and `Format-Links` keep working on the file.
 - `P`: the page, opened by the H1 `Format-MarkdownTitle` writes (`ADR-REPO-FORMAT#6`), the source path in backticks, then one
   `### comment:i` section per block holding the prose **verbatim** (same wrapping, same words), preceded by one generated context line
-  naming what it annotated (the help keyword, the config key, or the enclosing line). The anchor is `commenti`, never the one-liner, so the
+  naming what it annotated (the help keyword, the config key, or the enclosing line). The anchor is `comment<i>`, never the one-liner, so the
   line may change without touching the link (`ADR-REPO-FORMAT#7`).
 
 The one-liner has exactly one living copy, in the file (`ADR-PRIN-ONELIVE#1`); the prose has exactly one, in the page. The view
@@ -88,15 +90,15 @@ before Phases 1–3 are green.
 
 ### Phase 2 — the engine and the four commands
 
-**Status 2026-10-15:** done except `Format-Comments`, which session catzc-c2 owns (`Format-Comments.ps1`, its test, and the
-types `CommentFinding`, `CommentFindingKind`, `CommentFormatter`). Done and verified: `CommentEngine` (+ `CommentBlock`,
-`CommentBlockKind`, `CommentResidue`, `CommentFileResult`, public `SectionLines` for catzc-c2), `private/Get-CommentScope`,
-`Export-Comments`, `Build-CommentView`, `Test-Comments`, each with L0 tests; spelling, analyzer, links, formatter clean. A real
-dry run over Catzc.Base.Files and Catzc.Base.QualityGates (225 files, 540 comments) round-trips byte-exact. Deviations: pages hold
-each comment in a fenced `text` block (prettier `proseWrap: always` would reflow prose); the residue is two lines (insight, then
-citations + link) so the insight carries no links. Deferred to Phase 4: registering `Test-Comments` in `languages.yml` `checks:`
-(it fails until the migration runs) and `Build-CommentView` in the importer tail. Phase 3 note: code links inside a page's fence
-are not clickable; decide whether the page adds a rendered "Cites" line per section.
+**Status 2026-10-15:** done except `Format-Comments`, which session catzc-c2 owns (`Format-Comments.ps1`, its test, and the types
+`CommentFinding`, `CommentFindingKind`, `CommentFormatter`). Done and verified: `CommentEngine` (+ `CommentBlock`, `CommentBlockKind`,
+`CommentResidue`, `CommentFileResult`, public `SectionLines` for catzc-c2), `private/Get-CommentScope`, `Export-Comments`,
+`Build-CommentView`, `Test-Comments`, each with L0 tests; spelling, analyzer, links, formatter clean. A real dry run over Catzc.Base.Files
+and Catzc.Base.QualityGates (225 files, 540 comments) round-trips byte-exact. Deviations: pages hold each comment in a fenced `text` block
+(prettier `proseWrap: always` would reflow prose); the residue is two lines (insight, then citations + link) so the insight carries no
+links. Deferred to Phase 4: registering `Test-Comments` in `languages.yml` `checks:` (it fails until the migration runs) and
+`Build-CommentView` in the importer tail. Phase 3 note: code links inside a page's fence are not clickable; decide whether the page adds a
+rendered "Cites" line per section.
 
 1. `types/CommentEngine.cs`: parse (blocks per language syntax, help-keyword aware), plan (keep-list, min_lines), render residue, render
    page, render view. Pure functions over strings; no I/O. L0 tests with neutral fixtures (widget/gadget names), one per language.

@@ -12,6 +12,7 @@ Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
                 $config.dora_coverage.mode | Should -Be ([Catzc.Base.Docs.CheckMode]::Gate)
                 $config.dora_coverage.file | Should -Be 'dora-explains.md'
                 $config.dora_coverage.exempt.Count | Should -Be 0
+                $config.dora_coverage.exempt_folders.Count | Should -Be 0
             }
         }
 
@@ -66,7 +67,11 @@ Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
                     tokens  = [ordered]@{ 'Bad Name' = 'x'; 'broken' = '(unclosed'; 'empty' = '' }
                 }
                 citation_graph    = 'report'
-                dora_coverage     = [ordered]@{ file = 'notes/widget.md'; exempt = [ordered]@{ gizmo = ' ' } }
+                dora_coverage     = [ordered]@{
+                    file           = 'notes/widget.md'
+                    exempt         = [ordered]@{ gizmo = ' ' }
+                    exempt_folders = [ordered]@{ 'widget' = 'A domain, not a subfolder.'; 'widget/sub' = '' }
+                }
             }
             $thrown = { [Catzc.Base.Docs.AdrChecksConfig]::new($raw) } | Should -Throw -PassThru
             $message = $thrown.Exception.Message
@@ -81,6 +86,8 @@ Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#9' {
             $message | Should -BeLike '*citation_graph: must be a mapping*'
             $message | Should -BeLike "*dora_coverage: file 'notes/widget.md' must be a markdown file name, with no folder*"
             $message | Should -BeLike "*dora_coverage: exempt domain 'gizmo' needs a reason*"
+            $message | Should -BeLike "*dora_coverage: exempt folder 'widget' must be a '/'-separated subfolder of a domain*"
+            $message | Should -BeLike "*dora_coverage: exempt folder 'widget/sub' needs a reason*"
         }
     }
 }

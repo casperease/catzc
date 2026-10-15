@@ -100,4 +100,10 @@ Describe 'Get-AdrDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' 
         $renamed = Get-Finding ([ordered]@{ file = 'gadget-notes.md'; exempt = [ordered]@{ gizmo = 'Gizmo is the reference itself.' } })
         $renamed | Should -Contain 'docs/adr/widget/gadget-notes.md: missing, so no section links ADR-WI-ONE'
     }
+
+    It 'skips a rule set whose ADR lies in an exempt folder, and only that one' -Tag 'ADR-PRIN-CONFIG#4' {
+        $exempt = Get-Finding ([ordered]@{ exempt_folders = [ordered]@{ 'widget/sub' = 'Widget sub answers a vendor checklist.' } })
+        $exempt | Where-Object { $_ -like '*ADR-WI-TWO*' } | Should -HaveCount 0
+        $exempt | Should -HaveCount 2
+    }
 }

@@ -402,7 +402,9 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   every other domain folder keeps a `dora-explains.md` that consolidates, one entry per ADR, the short present-tense paragraph tying that
   ADR's topic to DORA research and its 2–4 domain-relevant capability links (each
   `[Capability](<relative>/capabilities.md#<dora-slug>) — why it is relevant`, plus a link to the reference's `index.md`). Link only the
-  capabilities that genuinely bear on an ADR's domain, never the whole catalogue.
+  capabilities that genuinely bear on an ADR's domain, never the whole catalogue. DORA grounds the repository's own decisions; an ADR that
+  answers a vendor's checklist item by item (`azure/caf/`, `azure/waf/`) is grounded in that vendor's reference (`docs/references/caf/`,
+  `docs/references/waf/`) and takes no entry (`adr-checks.yml` `exempt_folders`).
 
 - **The research ADRs carry their own `## Dora explains`.** Each `research/<slug>.md` is the record of one DORA capability, so it is the one
   place an ADR ends with a `## Dora explains` section: the capability's site category and Core Model position, the publications its evidence

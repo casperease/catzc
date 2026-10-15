@@ -294,6 +294,10 @@ terms:
       meaning: "the set of files a scan or globset covers (fileset)"
     - term: filesets
       meaning: "the sets of files scans or globsets cover (filesets); loose-filesets are the cross-cutting globset layer"
+    - term: workstream
+      meaning: "one labeled section of a plan's work breakdown (workstream, ADR-REPO-OUTDIR#10)"
+    - term: workstreams
+      meaning: "labeled sections of a plan's work breakdown (workstreams, ADR-REPO-OUTDIR#10)"
     - term: quotepath
       meaning: "the git core.quotepath setting (quotepath) - controls C-quoting of non-ASCII paths"
     - term: rootconfig
