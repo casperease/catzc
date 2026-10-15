@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.Firewall/types/RuleType.cs
+//   module: Catzc.Azure.Firewall
+
 // Parsed case-insensitively from the lowercase words the firewall tooling uses, application and network.
 // [comment:1](/docs/references/automation/catzc-azure-firewall/types/RuleType.cs.md#comment1)
 

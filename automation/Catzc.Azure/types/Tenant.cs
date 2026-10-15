@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure/types/Tenant.cs
+//   module: Catzc.Azure
+
 // The leaf of the identity graph, so its property names are the YAML keys verbatim.
 // [comment:1](/docs/references/automation/catzc-azure/types/Tenant.cs.md#comment1)
 

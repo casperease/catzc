@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Docs/types/AdrsConfig.cs
+//   module: Catzc.Base.Docs
+
 // Loading reads no other file and throws once with every violation; folder and token cross-checks live in Test-AdrRegistry.
 // [ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4),
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9),

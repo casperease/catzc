@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBindingsConfig.cs
+//   module: Catzc.Tooling.KeyHandler
+
 // The YAML has no top-level key, so the sequence is exposed as bindings; a malformed capture fails at read, not mid-import.
 // [comment:1](/docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md#comment1)
 

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.Cli/types/BicepState.cs
+//   module: Catzc.Azure.Cli
+
 // A point-in-time probe of the local Bicep toolchain against the minimum version, not a config record.
 // [comment:1](/docs/references/automation/catzc-azure-cli/types/BicepState.cs.md#comment1)
 

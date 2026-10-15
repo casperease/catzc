@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs
+//   module: Catzc.Base.Timeouts
+
 // The stop is issued in C# because the timer fires on a thread with no runspace; Dispose it once the pipeline returns.
 // [comment:1](/docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md#comment1)
 

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/LinkEngine.cs
+//   module: Catzc.Base.QualityGates
+
 // The engine only reads: each changed file's new text rides in the result, and findings keep line numbers of the original text.
 // [ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8),
 // [ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1),

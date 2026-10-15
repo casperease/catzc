@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Git/types/GitHistoryScan.cs
+//   module: Catzc.Base.Git
+
 // Each distinct blob is scanned once, not once per revision that contains it, which is what makes the scan fast.
 // [ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)
 // [comment:1](/docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md#comment1)

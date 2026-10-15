@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Docs/types/GlossarySegment.cs
+//   module: Catzc.Base.Docs
+
 // Code and mentions are blanked to spaces, not removed, so a match's offset still maps back to its source line.
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GlossarySegment.cs.md#comment1)
 

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.Templates/types/BicepArtifacts.cs
+//   module: Catzc.Azure.Templates
+
 // Paths are stored repo-root-relative where possible, so a consumer resolves them back to absolute before use.
 // [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepArtifacts.cs.md#comment1)
 

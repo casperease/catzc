@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/IdentityTokenRule.cs
+//   module: Catzc.Base.QualityGates
+
 // Match mode position flags a token only beside an identity parameter, so ambiguous words such as test do not trip the gate.
 // [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/IdentityTokenRule.cs.md#comment1)

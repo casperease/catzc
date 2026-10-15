@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.DevOps/types/YamlTemplateType.cs
+//   module: Catzc.Azure.DevOps
+
 // Callers carry it as Nullable, where null means the file is not a Template but a Pipeline or Unknown.
 // [comment:1](/docs/references/automation/catzc-azure-devops/types/YamlTemplateType.cs.md#comment1)
 

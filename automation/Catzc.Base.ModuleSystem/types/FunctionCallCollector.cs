@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.ModuleSystem/types/FunctionCallCollector.cs
+//   module: Catzc.Base.ModuleSystem
+
 // A function nested in another is only a name on its outer function, and calls anywhere in the body count for the outer one.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/FunctionCallCollector.cs.md#comment1)
 

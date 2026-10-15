@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Maps/types/WorldMapBuilder.cs
+//   module: Catzc.Base.Maps
+
 // Plain inputs, no disk: a logic test feeds it directly, and the first matching aspect and the fixed highlight order decide placement.
 // [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1), [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
 // [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3),

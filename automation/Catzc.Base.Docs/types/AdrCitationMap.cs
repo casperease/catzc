@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Docs/types/AdrCitationMap.cs
+//   module: Catzc.Base.Docs
+
 // The code is the source of truth for every link destination, so a moved ADR re-points every link to it.
 // [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md#comment1)

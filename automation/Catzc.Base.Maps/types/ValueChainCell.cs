@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Maps/types/ValueChainCell.cs
+//   module: Catzc.Base.Maps
+
 // On the map Adrs holds every ADR of the cell; on a highlight only the requested ADRs that light it.
 // [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16),
 // [ADR-DSGN-TRACK#10](/docs/adr/design/tracks.md#rule-adr-dsgn-track10),

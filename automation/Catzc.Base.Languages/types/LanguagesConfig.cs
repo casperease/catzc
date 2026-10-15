@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Languages/types/LanguagesConfig.cs
+//   module: Catzc.Base.Languages
+
 // A language carries exactly one of formatter and no_formatter, so a gap in formatting is a visible, reviewed entry.
 // [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),

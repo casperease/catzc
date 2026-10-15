@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Docs/types/AdrChecksConfig.cs
+//   module: Catzc.Base.Docs
+
 // Every key is optional and an omitted one behaves as its default, so the file states only what deviates from it.
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 // [ADR-PRIN-CONFIG#3](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config3),

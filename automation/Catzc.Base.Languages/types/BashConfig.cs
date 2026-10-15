@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Languages/types/BashConfig.cs
+//   module: Catzc.Base.Languages
+
 // A mistyped key fails at load: construction collects every violation into one ArgumentException.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-REPO-FOLDERS#7](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders7)

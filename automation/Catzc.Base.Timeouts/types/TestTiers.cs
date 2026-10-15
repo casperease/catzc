@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Timeouts/types/TestTiers.cs
+//   module: Catzc.Base.Timeouts
+
 // It lives here because the timeout config validates the tier keys and sits below the test tooling in the dependency graph.
 // [ADR-AUTO-TEST#13](/docs/adr/automation/test-automation.md#rule-adr-auto-test13),
 // [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Timeouts/types/TimeoutExemptionsConfig.cs
+//   module: Catzc.Base.Timeouts
+
 // Construction validates the whole file at once, and no two entries may cover the same GUID in one environment and shell cell.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)

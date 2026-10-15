@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/SentenceGuid.cs
+//   module: Catzc.Base.QualityGates
+
 namespace Catzc.Base.QualityGates;
 
 using System;

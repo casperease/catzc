@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/AnalyzerAdrMapConfig.cs
+//   module: Catzc.Base.QualityGates
+
 // Load checks only shape and citation grammar; that each id names a real rule is the integrity test's job, keeping load hermetic.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)

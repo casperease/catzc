@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.DevOps/types/YamlInventoryRecord.cs
+//   module: Catzc.Azure.DevOps
+
 // The registration fields are null or absent when the file backs no registered pipeline.
 // [comment:1](/docs/references/automation/catzc-azure-devops/types/YamlInventoryRecord.cs.md#comment1)
 

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Variants/types/VariantAspect.cs
+//   module: Catzc.Base.Variants
+
 // The YAML key is the aspect's name (data, not a fixed field), so the record keeps .NET PascalCase, not snake_case.
 // [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

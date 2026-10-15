@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.ModuleSystem/types/BaseModule.cs
+//   module: Catzc.Base.ModuleSystem
+
 // The platform's own logic selects on the kind and pins it at call sites, which is why this is a native C# type.
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/BaseModule.cs.md#comment1)

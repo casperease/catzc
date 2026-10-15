@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Git/types/GitIgnoreConfig.cs
+//   module: Catzc.Base.Git
+
 // Construction collects every malformed section into one error, so a bad registry is fixed in one pass.
 // [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md), [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
 // [comment:1](/docs/references/automation/catzc-base-git/types/GitIgnoreConfig.cs.md#comment1)

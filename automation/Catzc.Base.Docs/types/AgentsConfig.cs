@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Docs/types/AgentsConfig.cs
+//   module: Catzc.Base.Docs
+
 // Load checks only the file's own shape; agent files, rule ids, commands and CLAUDE.md are cross-checked by Test-AgentDefinitions.
 // [ADR-REPO-AGENTS#2](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents2),
 // [ADR-REPO-AGENTS#4](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents4),

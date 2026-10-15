@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
+//   module: Catzc.Base.ModuleSystem
+
 // Load rules read this one file only, so a declared module missing on disk is a Test-ModuleDependency finding.
 // [ADR-AUTO-DEPM](/docs/adr/automation/controlling-module-dependencies.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

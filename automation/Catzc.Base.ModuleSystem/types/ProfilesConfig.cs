@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.ModuleSystem/types/ProfilesConfig.cs
+//   module: Catzc.Base.ModuleSystem
+
 // Module-name existence is not checked at load; that is left to Get-ModuleProfile, which expands the seed.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ProfilesConfig.cs.md#comment1)

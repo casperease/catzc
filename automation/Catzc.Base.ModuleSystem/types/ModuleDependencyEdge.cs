@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.ModuleSystem/types/ModuleDependencyEdge.cs
+//   module: Catzc.Base.ModuleSystem
+
 // A declared edge has CallCount 0 and no Functions, and its To may be a group name rather than a module.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModuleDependencyEdge.cs.md#comment1)
 

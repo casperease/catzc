@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.DevOps/types/YamlFileRecord.cs
+//   module: Catzc.Azure.DevOps
+
 // The filesystem-side view of a file, before any cross-reference to ADO registration.
 // [comment:1](/docs/references/automation/catzc-azure-devops/types/YamlFileRecord.cs.md#comment1)
 

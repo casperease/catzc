@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Objects/types/RepoRelativePath.cs
+//   module: Catzc.Base.Objects
+
 // Only the relative string is persisted; the absolute form is derived at the bind, so a value stays machine-independent.
 // [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md),
 // [ADR-AUTO-PATH#8](/docs/adr/automation/path-representation.md#rule-adr-auto-path8),

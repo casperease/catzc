@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.VSCode/types/VscodeLaunchProfile.cs
+//   module: Catzc.Base.VSCode
+
 // Only name, type and request are required; every other key passes through verbatim, so VS Code launch keys stay untyped.
 // [comment:1](/docs/references/automation/catzc-base-vscode/types/VscodeLaunchProfile.cs.md#comment1)
 

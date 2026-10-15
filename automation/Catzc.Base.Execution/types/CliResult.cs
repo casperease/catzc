@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Execution/types/CliResult.cs
+//   module: Catzc.Base.Execution
+
 // The constructor owns every derived view, so Output, Errors, Full and Raw can never disagree.
 // [comment:1](/docs/references/automation/catzc-base-execution/types/CliResult.cs.md#comment1)
 

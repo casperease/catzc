@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/CommentsConfig.cs
+//   module: Catzc.Base.QualityGates
+
 // Every key is optional and a fresh checkout without the file behaves like the defaults, so no function restates a value.
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 // [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),

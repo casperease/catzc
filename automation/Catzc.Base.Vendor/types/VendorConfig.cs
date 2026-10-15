@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Vendor/types/VendorConfig.cs
+//   module: Catzc.Base.Vendor
+
 // An unknown key, a missing source or a non-absolute sourceUrl fails at load, all violations in one ArgumentException.
 // [ADR-PWSH-VENDOR](/docs/adr/pwsh/vendor-toolset-dependencies.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

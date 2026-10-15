@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/TestPolicyConfig.cs
+//   module: Catzc.Base.QualityGates
+
 // An environment not listed is read-only, so synthetic mutation by an L4 test must be granted per environment.
 // [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41),
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),

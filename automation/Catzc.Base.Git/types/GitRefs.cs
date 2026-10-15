@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Git/types/GitRefs.cs
+//   module: Catzc.Base.Git
+
 // A reftable ref store or a loose annotated tag is rejected loudly rather than read wrong.
 // [ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)
 // [comment:1](/docs/references/automation/catzc-base-git/types/GitRefs.cs.md#comment1)

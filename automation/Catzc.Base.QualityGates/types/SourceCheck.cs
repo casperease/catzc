@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/SourceCheck.cs
+//   module: Catzc.Base.QualityGates
+
 // Report mode lasts only while a check's work list is drained; gate is the one declared default, and every exempt entry needs a reason.
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 // [ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4),

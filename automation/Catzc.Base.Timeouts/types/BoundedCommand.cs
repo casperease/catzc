@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Timeouts/types/BoundedCommand.cs
+//   module: Catzc.Base.Timeouts
+
 // A limit must wrap all the work: one command under a GNU timeout prefix, or one wrapper call in pwsh whose block holds many.
 // [comment:1](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment1)
 

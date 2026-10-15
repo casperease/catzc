@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Reports/types/OutputFormatsConfig.cs
+//   module: Catzc.Base.Reports
+
 // Load rejects any two formats whose patterns can overlap; which format a file belongs to is Test-OutputFormats' job.
 // [ADR-REPO-OUTFMT#1](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt1),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.DevOps/types/PipelineDefinition.cs
+//   module: Catzc.Azure.DevOps
+
 // Describes the registration, not the file: the YAML behind it is named by path and repository only.
 // [comment:1](/docs/references/automation/catzc-azure-devops/types/PipelineDefinition.cs.md#comment1)
 

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/CommentFormatter.cs
+//   module: Catzc.Base.QualityGates
+
 // A second run changes nothing: obvious insights and prose on the link line go to a person, never rewritten here.
 // [ADR-REPO-COMMENTS#1](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1),
 // [ADR-REPO-COMMENTS#5](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5),

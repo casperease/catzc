@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/TerminologyTerm.cs
+//   module: Catzc.Base.QualityGates
+
 // An abbreviation carries its full-word expansion; the entries of the other categories do not.
 // [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
 // [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5),

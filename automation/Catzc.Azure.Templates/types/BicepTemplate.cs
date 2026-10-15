@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.Templates/types/BicepTemplate.cs
+//   module: Catzc.Azure.Templates
+
 // Mirrors a template's config keys in snake_case, overlaid with options.yml, so it is built from the merged dictionary.
 // [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md#comment1)
 

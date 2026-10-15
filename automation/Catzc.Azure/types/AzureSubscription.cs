@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure/types/AzureSubscription.cs
+//   module: Catzc.Azure
+
 // A mid node of the identity graph, so its property names are the YAML keys verbatim.
 // [comment:1](/docs/references/automation/catzc-azure/types/AzureSubscription.cs.md#comment1)
 

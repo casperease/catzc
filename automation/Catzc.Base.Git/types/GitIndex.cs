@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Git/types/GitIndex.cs
+//   module: Catzc.Base.Git
+
 // A split or sparse index is rejected loudly rather than read wrong; equal index bytes never yield a stale listing.
 // [ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)
 // [comment:1](/docs/references/automation/catzc-base-git/types/GitIndex.cs.md#comment1)

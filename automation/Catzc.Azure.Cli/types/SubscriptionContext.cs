@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.Cli/types/SubscriptionContext.cs
+//   module: Catzc.Azure.Cli
+
 // Captured so the active subscription can be saved and later restored around a subscription switch.
 // [comment:1](/docs/references/automation/catzc-azure-cli/types/SubscriptionContext.cs.md#comment1)
 

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.DevOps/types/PipelineEnvConfig.cs
+//   module: Catzc.Azure.DevOps
+
 // The YAML has no top-level key, so the sequence is exposed as variables and every violation throws at once.
 // [comment:1](/docs/references/automation/catzc-azure-devops/types/PipelineEnvConfig.cs.md#comment1)
 

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Docs/types/AdrCitationRewrite.cs
+//   module: Catzc.Base.Docs
+
 // Changed is false exactly when the text is the input unchanged, so a caller writes the file only when it is true.
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationRewrite.cs.md#comment1)

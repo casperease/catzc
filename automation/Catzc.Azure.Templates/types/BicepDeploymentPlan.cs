@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.Templates/types/BicepDeploymentPlan.cs
+//   module: Catzc.Azure.Templates
+
 // The plan holds no file paths; those live in BicepArtifacts, the sibling concern nested in BicepDeploymentContext.
 // [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepDeploymentPlan.cs.md#comment1)
 

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/ParameterConsistencyConfig.cs
+//   module: Catzc.Base.QualityGates
+
 // Omitting exempt exempts no parameter; a name matches case-insensitively and every reason must be non-empty.
 // [ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md),
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),

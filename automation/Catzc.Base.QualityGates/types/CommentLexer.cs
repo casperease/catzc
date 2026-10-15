@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/CommentLexer.cs
+//   module: Catzc.Base.QualityGates
+
 // Comment spans are the only places a code link lives; string-literal spans hold docs paths and citations as data.
 // [ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1),
 // [ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6)

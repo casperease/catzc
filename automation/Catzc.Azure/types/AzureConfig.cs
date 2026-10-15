@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure/types/AzureConfig.cs
+//   module: Catzc.Azure
+
 // Hermetic: a subscription's customer reference is not resolved here, and completeness is an integrity concern, not a load rule.
 // [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),

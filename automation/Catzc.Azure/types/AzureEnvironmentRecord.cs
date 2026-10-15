@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure/types/AzureEnvironmentRecord.cs
+//   module: Catzc.Azure
+
 // Per-entry shape only: shortcode uniqueness across environments is AzureConfig's, which collects these violations too.
 // [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md), [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Tooling.Inspiration/types/InspirationEntry.cs
+//   module: Catzc.Tooling.Inspiration
+
 // Every violation is reported in one throw, prefixed with the entry's position, so one load shows all faults.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-tooling-inspiration/types/InspirationEntry.cs.md#comment1)

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Contracts/types/ContractManifest.cs
+//   module: Catzc.Base.Contracts
+
 // Every violation is collected into one ArgumentException, and an unknown key throws; that a named asset exists is Get-Contract's check.
 // [ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

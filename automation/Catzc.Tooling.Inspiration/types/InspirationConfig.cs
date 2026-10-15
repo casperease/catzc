@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Tooling.Inspiration/types/InspirationConfig.cs
+//   module: Catzc.Tooling.Inspiration
+
 // An empty file and an omitted inspirations key take the eac default; an explicit empty list declares none.
 // [ADR-REPO-INSPIRE](/docs/adr/repository/inspiration.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),

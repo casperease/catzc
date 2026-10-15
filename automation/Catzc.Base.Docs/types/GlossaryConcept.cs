@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Docs/types/GlossaryConcept.cs
+//   module: Catzc.Base.Docs
+
 // Only the entry's own shape is checked on load; defined_by, domain and relation targets are cross-file facts for Test-Glossary.
 // [ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1),
 // [ADR-REPO-VOCAB#4](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab4),

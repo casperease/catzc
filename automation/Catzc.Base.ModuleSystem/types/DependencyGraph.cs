@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
+//   module: Catzc.Base.ModuleSystem
+
 // Shared by DependenciesConfig and ModuleGroup, so the module graph and each group graph read and cycle-check alike.
 // [ADR-AUTO-DEPM#4](/docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm4)
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md#comment1)

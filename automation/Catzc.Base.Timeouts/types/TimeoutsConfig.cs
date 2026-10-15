@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
+//   module: Catzc.Base.Timeouts
+
 // The hook compiles this same file, so the Bash hook and the pwsh side share one parser and one set of defaults.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)

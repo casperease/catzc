@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.MarkdownMeta/types/MarkdownDocument.cs
+//   module: Catzc.Base.MarkdownMeta
+
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;

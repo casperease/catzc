@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Maps/types/TreemapRect.cs
+//   module: Catzc.Base.Maps
+
 // X and Y are the bottom-left corner in PDF points, not the top-left a screen layout would use.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/TreemapRect.cs.md#comment1)

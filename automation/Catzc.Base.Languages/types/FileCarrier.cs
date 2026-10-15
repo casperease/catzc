@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Languages/types/FileCarrier.cs
+//   module: Catzc.Base.Languages
+
 // The properties are snake_case because they mirror the YAML keys; FileCarriersConfig validates an entry and builds one.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Maps/types/WorldMapHighlight.cs
+//   module: Catzc.Base.Maps
+
 // A pin wins over an exception, and an ADR's domain never lights a file: it only picks the value-chain row.
 // [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1),
 // [ADR-THES-ONETRUTH#3](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)

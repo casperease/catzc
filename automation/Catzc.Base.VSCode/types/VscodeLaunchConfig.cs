@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.VSCode/types/VscodeLaunchConfig.cs
+//   module: Catzc.Base.VSCode
+
 // Profile names must be unique case-insensitively, and all violations surface in one throw, not one at a time.
 // [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

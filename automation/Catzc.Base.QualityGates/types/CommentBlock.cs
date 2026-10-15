@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/CommentBlock.cs
+//   module: Catzc.Base.QualityGates
+
 // Every property is fixed at construction and the engine is pure over text, so a block is a value the caller can keep.
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentBlock.cs.md#comment1)

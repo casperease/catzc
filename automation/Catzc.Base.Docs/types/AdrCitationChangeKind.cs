@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Docs/types/AdrCitationChangeKind.cs
+//   module: Catzc.Base.Docs
+
 // Unhandled is the one form found but not rewritten mechanically, such as a citation range that a moved rule splits.
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationChangeKind.cs.md#comment1)

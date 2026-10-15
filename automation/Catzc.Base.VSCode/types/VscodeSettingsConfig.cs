@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
+//   module: Catzc.Base.VSCode
+
 // Settings are VS Code's own keys passed through as-is, so only the map structure is validated, never a setting's value.
 // [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

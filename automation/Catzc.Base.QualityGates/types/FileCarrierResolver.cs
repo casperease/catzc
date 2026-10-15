@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/FileCarrierResolver.cs
+//   module: Catzc.Base.QualityGates
+
 // Finds the carrier entry of a repository path, with every glob compiled once, so a scan of all tracked files stays cheap.
 // [ADR-REPO-FILEMETA#5](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/FileCarrierResolver.cs.md#comment1)

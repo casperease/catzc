@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Maps/types/PdfDocument.cs
+//   module: Catzc.Base.Maps
+
 // No dates and a body-hash /ID, so the same pages always give the same bytes; the xref holds each object's exact offset.
 // [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/PdfDocument.cs.md#comment1)

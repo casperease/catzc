@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
+//   module: Catzc.Base.VSCode
+
 // The schema is passed through as-is, so only the rules that keep it free of per-task false positives are checked.
 // [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
 // [comment:1](/docs/references/automation/catzc-base-vscode/types/VscodePipelineSchemaConfig.cs.md#comment1)

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs
+//   module: Catzc.Azure.DevOps.BuildValidation
+
 // Globset names sit in values, not keys, because they are kebab-case; every violation is collected into one exception.
 // [ADR-FLOW-CD-TYPE#4](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

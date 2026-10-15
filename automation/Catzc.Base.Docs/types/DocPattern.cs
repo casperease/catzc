@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Docs/types/DocPattern.cs
+//   module: Catzc.Base.Docs
+
 // The kebab placeholder is the folder leaf lowercased with dots turned to hyphens, so Catzc.Base.Docs becomes catzc-base-docs.
 // [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/DocPattern.cs.md#comment1)

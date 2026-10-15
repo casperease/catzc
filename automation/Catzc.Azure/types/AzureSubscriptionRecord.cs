@@ -1,7 +1,9 @@
-// The customer stays the raw token here; an integrity test and runtime resolution enforce it, and the tenant check is AzureConfig's.
-// [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)
+// catzc:
+//   path: automation/Catzc.Azure/types/AzureSubscriptionRecord.cs
+//   module: Catzc.Azure
+
+// The customer stays a raw token here; a test and runtime resolution check it, and AzureConfig checks the tenant.
+// [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md), [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8), [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)
 // [comment:1](/docs/references/automation/catzc-azure/types/AzureSubscriptionRecord.cs.md#comment1)
 
 using System;

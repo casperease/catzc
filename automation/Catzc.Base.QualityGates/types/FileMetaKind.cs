@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/FileMetaKind.cs
+//   module: Catzc.Base.QualityGates
+
 // One entry of the meta-kind registry; the defaults of an omitted key are declared here, once.
 // [ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2),
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)

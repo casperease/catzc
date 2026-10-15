@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Files/types/FileLockingProcess.cs
+//   module: Catzc.Base.Files
+
 // Name, CommandLine and ParentProcessId are null when the process exited between the two lookups; the rest is always set.
 // [comment:1](/docs/references/automation/catzc-base-files/types/FileLockingProcess.cs.md#comment1)
 

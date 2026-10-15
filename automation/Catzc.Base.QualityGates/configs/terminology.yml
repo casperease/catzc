@@ -733,6 +733,8 @@ terms:
       meaning: "ADO predefined variable System/Agent JobDisplayName"
     - term: lockbehavior
       meaning: "ADO pipeline YAML 'lockBehavior' key"
+    - term: logissue
+      meaning: "ADO logging command 'logissue'"
     - term: pipelinestarttime
       meaning: "ADO predefined variable System.PipelineStartTime"
     - term: pullrequests
@@ -1176,6 +1178,8 @@ terms:
       meaning: "coined verb (arrayifies) — wraps a scalar in an array"
     - term: assertability
       meaning: "coined noun 'assertability'"
+    - term: basenames
+      meaning: "plural of 'basename' — the final segment of a path, the file name without its folders"
     - term: assertable
       meaning: "coined adjective 'assertable'"
     - term: capturable

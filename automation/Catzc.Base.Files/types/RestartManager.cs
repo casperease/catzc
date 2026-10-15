@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Files/types/RestartManager.cs
+//   module: Catzc.Base.Files
+
 // The P/Invoke binds lazily so the type loads on every platform, but GetHolders throws PlatformNotSupportedException off Windows.
 // [comment:1](/docs/references/automation/catzc-base-files/types/RestartManager.cs.md#comment1)
 

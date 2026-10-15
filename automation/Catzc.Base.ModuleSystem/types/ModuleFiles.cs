@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.ModuleSystem/types/ModuleFiles.cs
+//   module: Catzc.Base.ModuleSystem
+
 // Paths must be repository-root-relative and forward-slashed: not rooted, no backslash and no parent segment.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModuleFiles.cs.md#comment1)

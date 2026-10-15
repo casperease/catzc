@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Globs/types/Aspect.cs
+//   module: Catzc.Base.Globs
+
 // The last aspect is the non-live catch-all, so a file live does not explicitly claim can never silently ship.
 // [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md), [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
 // [comment:1](/docs/references/automation/catzc-base-globs/types/Aspect.cs.md#comment1)

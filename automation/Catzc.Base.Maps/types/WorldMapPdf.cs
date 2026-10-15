@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Maps/types/WorldMapPdf.cs
+//   module: Catzc.Base.Maps
+
 // Everything is a function of the map, config and highlight, so the bytes match on every run; labels are cut, never overflow.
 // [ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7), [ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8),
 // [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3)

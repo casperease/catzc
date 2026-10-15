@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Execution/types/ExecutableProbe.cs
+//   module: Catzc.Base.Execution
+
 // Construction validates the record: Method must agree with Path, so a found probe always carries a path.
 // [comment:1](/docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md#comment1)
 

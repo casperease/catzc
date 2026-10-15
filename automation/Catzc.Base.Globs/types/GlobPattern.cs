@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Globs/types/GlobPattern.cs
+//   module: Catzc.Base.Globs
+
 // The constructor is the gate: a malformed pattern never yields an instance, and the dialect has no escape character.
 // [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
 // [ADR-FLOW-CD-GLOBS#2](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs2),

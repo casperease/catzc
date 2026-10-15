@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Writers/types/RainbowColor.cs
+//   module: Catzc.Base.Writers
+
 // Char 0 is the anchor and later chars walk a chromatic ring, so a dark anchor still gives a legible gradient.
 // [ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7),
 // [ADR-AUTO-CONSOLE](/docs/adr/automation/console-output-matters.md)

@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.QualityGates/types/MarkdownLinkScanner.cs
+//   module: Catzc.Base.QualityGates
+
 // A target that exists on disk but is not committed is reported, since GitHub, which renders these links, would not have it.
 // [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/MarkdownLinkScanner.cs.md#comment1)

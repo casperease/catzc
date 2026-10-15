@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.Cli/types/SubscriptionAccessState.cs
+//   module: Catzc.Azure.Cli
+
 // A real ARM probe decides access, not local session state, so this is a point-in-time check of the login.
 // [comment:1](/docs/references/automation/catzc-azure-cli/types/SubscriptionAccessState.cs.md#comment1)
 

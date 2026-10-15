@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Contracts/types/ContractsConfig.cs
+//   module: Catzc.Base.Contracts
+
 // An omitted key, or a fresh checkout with no file, behaves exactly like the default, so no function restates a value.
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
 // [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4),

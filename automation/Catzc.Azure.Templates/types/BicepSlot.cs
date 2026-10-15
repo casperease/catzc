@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.Templates/types/BicepSlot.cs
+//   module: Catzc.Azure.Templates
+
 // A template fans out into one slot per deployable coordinate, each resolving to one subscription and one resource group.
 // [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepSlot.cs.md#comment1)
 

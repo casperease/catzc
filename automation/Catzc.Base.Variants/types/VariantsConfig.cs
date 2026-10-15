@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Variants/types/VariantsConfig.cs
+//   module: Catzc.Base.Variants
+
 // Every key is optional and an unknown key throws, so a typo fails fast at load; an absent key is null.
 // [ADR-REPO-VARIANT](/docs/adr/repository/repo-variants.md),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),

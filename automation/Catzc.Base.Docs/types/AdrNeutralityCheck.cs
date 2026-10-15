@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Docs/types/AdrNeutralityCheck.cs
+//   module: Catzc.Base.Docs
+
 // Whether a listed domain is declared in adrs.yml is the check's own finding, not a load error: this type reads no other config.
 // [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1),
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

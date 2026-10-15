@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Docs/types/AdrCitationRewriter.cs
+//   module: Catzc.Base.Docs
+
 // The rule map decides before the code map, and matching also runs inside fenced blocks, so the result depends only on text and maps.
 // [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationRewriter.cs.md#comment1)

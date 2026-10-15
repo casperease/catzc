@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Azure.Templates/types/BicepDeploymentContext.cs
+//   module: Catzc.Azure.Templates
+
 // A DoNotRun template yields no context at all: the producer returns null instead of this type.
 // [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepDeploymentContext.cs.md#comment1)
 

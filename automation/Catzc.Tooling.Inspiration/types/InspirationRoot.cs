@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
+//   module: Catzc.Tooling.Inspiration
+
 // The platform is a parameter, not a probe, so every branch is deterministic and testable on any OS.
 // [ADR-AUTO-PATH#6](/docs/adr/automation/path-representation.md#rule-adr-auto-path6),
 // [ADR-AUTO-PATH#11](/docs/adr/automation/path-representation.md#rule-adr-auto-path11),
