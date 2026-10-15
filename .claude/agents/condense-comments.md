@@ -54,10 +54,14 @@ The line must:
 - state a fact the code does not show. Never restate what the code visibly does, and never restate what the function name already says;
 - not start with a phrase from `obvious_phrases` in `comments.yml`, such as "this function", "helper that" or "returns the result";
 - hold no link, no citation and no markdown: no backticks, no brackets, no asterisks. Citations stay on the citation line;
+- carry nothing shaped like a citation, not even as an example: a bare ADR code, with or without a rule number, is read by Format-Comments
+  as a citation, moved onto the citation line, and the links gate then fails on it. Name the rule in words instead;
 - keep the comment marker and the indent exactly as they stand. A residue in comment-based help (under `.DESCRIPTION`, `.PARAMETER` and so
-  on) has no `#` marker and keeps its indent;
+  on) has no `#` marker and keeps its indent. A C# documentation residue keeps its `/// <summary>` prefix, and only the words after it
+  change;
 - fit the file's line limit, counted with its indent. `.editorconfig` sets `max_line_length` per extension: 120 for `.ps1`, `.psm1` and
-  `.psd1` files.
+  `.psd1` files, 140 for `.cs`, `.yml`, `.yaml` and `.bicep`. Write the line under the limit the first time: Format-Comments cuts an
+  overlong line to a trailing `...`, which is a provisional line again.
 
 Only the insight text changes. You never touch the citation or link line, the number `N`, the page, the code, or any other comment, and you
 never add or remove a line. If a residue cannot get a real insight from its section and its code, leave the provisional line as it is and
@@ -77,6 +81,16 @@ The coordinator names the files, one at a time. For each file:
    issues each), and read every result as it is.
 6. If any check fails, or the comparison in step 4 finds a change outside an insight line, copy the backup back over the file, run the
    checks again to see the file is back in its prior state, and list the file as reverted with the failing output.
+7. If you shorten or reword a line after a check run, run the checks again: the run you report must cover the final text.
+
+How the checks behave, learned from running them over the whole repository:
+
+- A `-File` script takes no array argument, so the script holds its own file list, or reads it from a list file under `out/`.
+- The coordinator gives each run a batch prefix; put it on every script, log and backup name, so parallel runs never collide in `out/`.
+- `Test-Spelling` reports `FileCount` as the number of files with issues, so `FileCount 0` with `IssueCount 0` is the clean result, and a
+  file outside the spelling scope makes it throw "matched no files": catch that, note it, and let the other three checks decide.
+- The importer recompiles the C# types when a `.cs` file changed. If it throws "C# type sources changed during the import", another run
+  edited a type file at that moment: run the same script once more.
 
 ## What you may never do
 
