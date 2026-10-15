@@ -40,9 +40,13 @@ public sealed class FileLanguage
     // [comment:4](/docs/references/automation/catzc-base-languages/types/FileLanguage.cs.md#comment4)
     public IReadOnlyList<string> checks { get; }
 
+    // The imprint steps Format-Code runs over this language's files only, after its formatter; empty when it has none of its own.
+    public IReadOnlyList<string> imprint { get; }
+
     public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string adrFolder,
-        string[] checks)
+        string[] checks, string[] imprint = null)
     {
+        this.imprint = imprint == null ? Array.Empty<string>() : (string[])imprint.Clone();
         this.name = name;
         this.extensions = extensions == null ? Array.Empty<string>() : (string[])extensions.Clone();
         this.formatter = formatter;

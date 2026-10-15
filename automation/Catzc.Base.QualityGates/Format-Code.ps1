@@ -88,6 +88,8 @@ function Format-Code {
     }
 
     $results = [System.Collections.Generic.List[object]]::new()
+    $outcomes = [ordered]@{}
+    $verb = $DryRun ? 'Checking' : 'Formatting'
     foreach ($engineGroup in @($selected | Group-Object -Property formatter)) {
         $engine = $engineGroup.Name
         $settings = if ($config.engines.ContainsKey($engine)) {
@@ -113,7 +115,6 @@ function Format-Code {
         # The engine is silent for seconds on a whole-repository pass, hence this line before it starts.
         # [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)
         # [comment:3](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment3)
-        $verb = $DryRun ? 'Checking' : 'Formatting'
         Write-Message "$verb $($pending.Count) $(@($engineGroup.Group | ForEach-Object name) -join ', ') file(s) with $engine ($($split.CachedCount) unchanged since their last check)..."
         $changed = @(Invoke-FormatterEngine -Engine $engine -File $pending -DryRun:$DryRun | ForEach-Object { $_ })
         $changedSet = [System.Collections.Generic.HashSet[string]]::new([string[]] $changed, [System.StringComparer]::OrdinalIgnoreCase)

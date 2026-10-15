@@ -89,9 +89,9 @@ tooling never light anything.
   (2 files); `QualityGates` (2 files); `docs` (2 files); `Az.Templates` (1 file); `Execution` (1 file); `ModuleSystem` (1 file);
   `RootConfig` (1 file); `adr/*` (1 file). The ADR files `docs/adr/configuration/config-value-addressing.md`,
   `docs/adr/configuration/module-config-loading.md` carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `AUTO × LOCAL`, because
-  ADR-CONF-ADDRESSING: its ADR domain `configuration` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default
-  concern (ADR-DSGN-TRACK#15); ADR-CONF-LOADING: its ADR domain `configuration` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is
-  its ADR domain's default concern (ADR-DSGN-TRACK#15).
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `AUTO × LOCAL`, because ADR-CONF-ADDRESSING:
+  its ADR domain `configuration` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern
+  (ADR-DSGN-TRACK#15); ADR-CONF-LOADING: its ADR domain `configuration` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR
+  domain's default concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** OPS, with "Supports ADR-CONF-LOADING" and "ADR-CONF-ADDRESSING" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

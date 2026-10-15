@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Languages;
@@ -17,8 +18,9 @@ namespace Catzc.Base.Languages;
 public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "engines", "languages" };
-    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks" };
+    private static readonly string[] AllowedKeys = { "engines", "imprint", "steps", "languages" };
+    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint" };
+    private static readonly string[] AllowedStepKeys = { "settings" };
     private static readonly Regex CheckName = new Regex("^Test-[A-Z][A-Za-z0-9]*$");
     private static readonly string[] AllowedEngineKeys = { "vscode_extension", "settings" };
     private static readonly Regex SettingsPath = new Regex("^[A-Za-z0-9_.-]+(/[A-Za-z0-9_.-]+)*$");
@@ -37,6 +39,16 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] Engines = { "prettier", "gofmt", "ruff", "psscriptanalyzer", "dotnet-format", "bicep" };
     public static IReadOnlyList<string> FormatterEngines => Engines;
 
+    // A new imprint step is new mechanism too: its Format-Code adapter and its name here must land together.
+    private static readonly string[] StepNames = { "file-meta", "csharp-namespace" };
+    public static IReadOnlyList<string> ImprintSteps => StepNames;
+
+    // The imprint steps Format-Code runs after every language's formatter, over every language. Empty when the file lists none.
+    public IReadOnlyList<string> imprint { get; }
+
+    // Every step the file lists, globally or for a language, with the files its cache stamp reads (none unless the file says).
+    public IReadOnlyDictionary<string, ImprintStep> steps { get; }
+
     // The file languages in declared order. Empty when the file declares none.
     public IReadOnlyList<FileLanguage> languages { get; }
 
@@ -49,6 +61,8 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         List<string> errors = new List<string>();
         List<FileLanguage> result = new List<FileLanguage>();
         Dictionary<string, FormatterEngine> engineMap = new Dictionary<string, FormatterEngine>(StringComparer.Ordinal);
+        Dictionary<string, ImprintStep> stepMap = new Dictionary<string, ImprintStep>(StringComparer.Ordinal);
+        List<string> globalSteps = new List<string>();
 
         if (raw != null)
         {
@@ -64,6 +78,16 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             if (raw.Contains("engines") && raw["engines"] != null)
             {
                 ReadEngines(raw["engines"], engineMap, errors);
+            }
+
+            if (raw.Contains("imprint") && raw["imprint"] != null)
+            {
+                globalSteps = ReadStepNames("imprint", raw["imprint"], errors);
+            }
+
+            if (raw.Contains("steps") && raw["steps"] != null)
+            {
+                ReadSteps(raw["steps"], stepMap, errors);
             }
 
             if (raw.Contains("languages") && raw["languages"] != null)
@@ -84,9 +108,112 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
+        // A step both global and a language's own would run twice over that language's files.
+        foreach (FileLanguage language in result)
+        {
+            foreach (string step in language.imprint)
+            {
+                if (globalSteps.Contains(step))
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: imprint lists '{1}', which is already global (top-level imprint)", language.name, step));
+                }
+            }
+        }
+
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
+        foreach (string step in globalSteps.Concat(result.SelectMany(l => l.imprint)))
+        {
+            if (!stepMap.ContainsKey(step)) { stepMap[step] = new ImprintStep(step, null); }
+        }
         languages = result;
         engines = engineMap;
+        imprint = globalSteps;
+        steps = stepMap;
+    }
+
+    // A list of known step names, each once.
+    private static List<string> ReadStepNames(string where, object value, List<string> errors)
+    {
+        List<string> names = new List<string>();
+        IList list = value as IList;
+        if (list == null)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0} must be a list of imprint step names (one of: {1})", where, string.Join(", ", StepNames)));
+            return names;
+        }
+        foreach (object item in list)
+        {
+            string name = Text(item);
+            if (Array.IndexOf(StepNames, name) < 0)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: unknown imprint step '{1}' (one of: {2})", where, name, string.Join(", ", StepNames)));
+            }
+            else if (names.Contains(name))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: duplicate imprint step '{1}'", where, name));
+            }
+            else
+            {
+                names.Add(name);
+            }
+        }
+        return names;
+    }
+
+    private static void ReadSteps(object value, Dictionary<string, ImprintStep> stepMap, List<string> errors)
+    {
+        IDictionary map = value as IDictionary;
+        if (map == null)
+        {
+            errors.Add("invalid steps (must be a map of imprint step -> { settings })");
+            return;
+        }
+        foreach (object nameKey in map.Keys)
+        {
+            string name = Text(nameKey);
+            if (Array.IndexOf(StepNames, name) < 0)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "steps: unknown imprint step '{0}' (one of: {1})", name, string.Join(", ", StepNames)));
+                continue;
+            }
+            IDictionary entry = map[nameKey] as IDictionary;
+            if (entry == null)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "steps['{0}'] must be a mapping {{ settings }}", name));
+                continue;
+            }
+            foreach (object k in entry.Keys)
+            {
+                if (Array.IndexOf(AllowedStepKeys, Text(k)) < 0)
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "steps['{0}']: unknown key '{1}' (allowed: {2})", name, Text(k), string.Join(", ", AllowedStepKeys)));
+                }
+            }
+            List<string> settings = new List<string>();
+            if (entry.Contains("settings") && entry["settings"] != null)
+            {
+                IList list = entry["settings"] as IList;
+                if (list == null)
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "steps['{0}']: invalid settings (a list of repository-relative files)", name));
+                    continue;
+                }
+                foreach (object item in list)
+                {
+                    string path = Text(item);
+                    bool dotSegment = Array.Exists(path.Split('/'), s => s == "." || s == "..");
+                    if (!SettingsPath.IsMatch(path) || dotSegment)
+                    {
+                        errors.Add(string.Format(CultureInfo.InvariantCulture, "steps['{0}']: invalid settings file '{1}' (a '/'-separated repository-relative path)", name, path));
+                    }
+                    else
+                    {
+                        settings.Add(path);
+                    }
+                }
+            }
+            stepMap[name] = new ImprintStep(name, settings.ToArray());
+        }
     }
 
     // The editor's Format Document runs the same engine as Format-Code, so the two cannot disagree.
@@ -271,8 +398,12 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 
         List<string> checks = ReadChecks(name, entry.Contains("checks") ? entry["checks"] : null, errors);
 
+        List<string> ownSteps = entry.Contains("imprint") && entry["imprint"] != null
+            ? ReadStepNames(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].imprint", name), entry["imprint"], errors)
+            : new List<string>();
+
         if (errors.Count > before) { return null; }
-        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray());
+        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray());
         foreach (string extension in extensions) { byExtension[extension] = language; }
         return language;
     }

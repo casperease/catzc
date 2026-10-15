@@ -35,7 +35,10 @@ function Format-Types {
     $files = [System.Collections.Generic.List[string]]::new()
     if ($Path) {
         foreach ($item in $Path) {
-            if (Test-Path -Path $item -PathType Container) {
+            if ([System.IO.Path]::IsPathRooted($item) -and [System.IO.File]::Exists($item)) {
+                $files.Add($item)
+            }
+            elseif (Test-Path -Path $item -PathType Container) {
                 Get-ChildItem -Path $item -Recurse -Filter '*.cs' -File |
                     ForEach-Object { $files.Add($_.FullName) }
             }

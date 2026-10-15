@@ -20,8 +20,13 @@ public sealed class FormatResult
     public IReadOnlyList<string> ChangedFiles { get; }
     public bool DryRun { get; }
 
-    public FormatResult(string language, string engine, string[] checkedFiles, string[] changedFiles, bool dryRun)
+    // Files an imprint step found wrong but cannot repair, each with the problem, so a check fails on them and a rerun cannot hide them.
+    public IReadOnlyDictionary<string, string> Unfixable { get; }
+
+    public FormatResult(string language, string engine, string[] checkedFiles, string[] changedFiles, bool dryRun,
+        IDictionary<string, string> unfixable = null)
     {
+        Unfixable = unfixable == null ? new Dictionary<string, string>() : new Dictionary<string, string>(unfixable);
         Language = language;
         Engine = engine;
         CheckedFiles = checkedFiles ?? Array.Empty<string>();

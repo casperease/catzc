@@ -99,8 +99,8 @@ ADR-REPO-ROOTCFG); the explanation articles, these descriptions and the drawing 
   its ADR domain `principles` sits on the PRIN row (ADR-DSGN-TRACK#14), and release is its own value-chain concern (ADR-DSGN-TRACK#15);
   `DSGN × LOCAL`, because ADR-DSGN-RUNMODE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, build is its
   own value-chain concern (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-DSGN-RUNMODE: its ADR domain `design` sits on the DSGN row
-  (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × LOCAL`, because ADR-AUTO-TYPES:
-  its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
+  (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × LOCAL`, because ADR-AUTO-TYPES: its
+  ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
   (ADR-DSGN-TRACK#15); ADR-PWSH-ERROR: its ADR domain `pwsh` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's
   default concern (ADR-DSGN-TRACK#15); ADR-PWSH-TYPES: its ADR domain `pwsh` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation, build
   is its own value-chain concern (ADR-DSGN-TRACK#15); ADR-REPO-ROOTCFG: its ADR domain `repository` sits on the AUTO row

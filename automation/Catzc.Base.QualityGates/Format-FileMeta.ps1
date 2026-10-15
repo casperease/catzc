@@ -43,19 +43,17 @@ function Format-FileMeta {
     Assert-SourceTree
 
     $result = Invoke-FileMetaEngine -RepositoryRoot $RepositoryRoot -Path $Path
-    $toFix = @($result.Files | Where-Object { @($_.Findings | Where-Object Kind -EQ 'Drift').Count -gt 0 })
-
-    $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
+    $saved = Save-FileMetaResult -Result $result -RepositoryRoot $RepositoryRoot -DryRun:$DryRun
+    $toFix = @($saved.Fixed)
     foreach ($file in $toFix) {
         if ($DryRun) {
             Write-Message "Would format $($file.Path) (meta block)."
         }
         else {
-            [System.IO.File]::WriteAllText((Join-Path $RepositoryRoot $file.Path), $file.Fixed, $utf8NoBom)
             Write-Message "Formatted $($file.Path) (meta block)."
         }
     }
-    foreach ($unowned in @($result.Files | ForEach-Object { $_.Findings } | Where-Object Kind -In 'Unowned', 'UnownedHead')) {
+    foreach ($unowned in $saved.Unowned) {
         Write-Message "$($unowned.Path) needs a decision by hand: '$($unowned.Actual)' is a key no meta kind owns — expected $($unowned.Expected)." -Warning
     }
 

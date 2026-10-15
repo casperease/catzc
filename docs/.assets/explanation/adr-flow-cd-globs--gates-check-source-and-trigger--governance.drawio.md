@@ -105,8 +105,8 @@ drawing tooling never light anything.
   rim.
 - **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 3 lit cells: `DSGN × LOCAL`, because ADR-FLOW-CD-GLOBS:
   its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its own value-chain concern (ADR-DSGN-TRACK#15);
-  `AUTO × LOCAL`, because ADR-REPO-PROTGLOB: its ADR domain `repository` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its
-  ADR domain's default concern (ADR-DSGN-TRACK#15); `AUTO × QC`, because ADR-AUTO-TEST: its ADR domain `automation` sits on the AUTO row
+  `AUTO × LOCAL`, because ADR-REPO-PROTGLOB: its ADR domain `repository` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR
+  domain's default concern (ADR-DSGN-TRACK#15); `AUTO × QC`, because ADR-AUTO-TEST: its ADR domain `automation` sits on the AUTO row
   (ADR-DSGN-TRACK#14), and quality-control is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV, with "Supports ADR-FLOW-CD-GLOBS" and "ADR-AUTO-TEST · ADR-REPO-PROTGLOB" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

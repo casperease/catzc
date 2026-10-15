@@ -12,6 +12,8 @@
     Optional files or folders to limit the scope to.
 .PARAMETER Config
     The meta-kind registry. Default: the shipped one.
+.PARAMETER Entry
+    The files to check, each { Path; Carrier }, instead of the scope git and the registries give.
 .OUTPUTS
     [pscustomobject] @{ FileCount; Files } — Files holds every file with a finding: @{ Path; Findings; Fixed }, each
     finding @{ Path; Line; Kind; Actual; Expected }.
@@ -25,10 +27,17 @@ function Invoke-FileMetaEngine {
 
         [string[]] $Path,
 
-        [Catzc.Base.QualityGates.FileMetaConfig] $Config = (Get-Config -Config file-meta)
+        [Catzc.Base.QualityGates.FileMetaConfig] $Config = (Get-Config -Config file-meta),
+
+        [pscustomobject[]] $Entry
     )
 
-    $files = @(Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $Config)
+    $files = if ($PSBoundParameters.ContainsKey('Entry')) {
+        @($Entry)
+    }
+    else {
+        @(Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $Config)
+    }
     $owned = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.Imprint() | ForEach-Object { $_.keys }))
 
     $entries = foreach ($entry in $files) {
