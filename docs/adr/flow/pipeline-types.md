@@ -40,11 +40,11 @@ deploy in the YAML.
 
 ### Rule ADR-FLOW-CD-TYPE:6
 
-Config parameters that reach the cloud are confined to INPUT reaching git main somehow — CRON has none to limited set with
-automatic-defaults (meaning the control ex. "going to production, for a certificate etc"), and CI/CD are functions of version control, not
-button-press input. DEPLOY is human-triggered, but its parameters are version-control meta-selection (which committed artifact, which
-governed target), never config: the config it deploys is already git-resident, and the artifact it deploys is the immutable, tagged output
-that CD's CI engine already built and published.
+Configuration that reaches the cloud enters only through INPUT, which writes it to version control; it never arrives as a run parameter.
+CRON takes no parameters, or a bounded set with automatic defaults that select a control (which environment a certificate rotation targets,
+for example), never configuration. CI and CD are functions of version control, not of button-press input. DEPLOY is human-triggered, but its
+parameters are version-control meta-selection (which committed artifact, which governed target), never config: the config it deploys is
+already git-resident, and the artifact it deploys is the immutable, tagged output that CD's CI engine already built and published.
 
 - [INPUT](#input)
 - [DEPLOY](#deploy)
@@ -60,7 +60,7 @@ job.
 
 DEPLOY is the deploy-and-verify tail of CD, extracted into its own human-governed pipeline. It consumes an immutable artifact built
 elsewhere (the CI engine's build-once output) pinned to an explicit commit, trust that it has passed the AT gate (the L3 system test in the
-pipeline) - and drives it into an environment whose gate is manual and organizational — a standard operating procedure, an ITSM
+pipeline) — and drives it into an environment whose gate is manual and organizational — a standard operating procedure, an ITSM
 change-management approval, a human sign-off. It builds nothing and re-runs no CI engine.
 
 - [DEPLOY](#deploy)
@@ -127,9 +127,9 @@ really a release-candidate test run hung in the pre-commit stage (breaking the C
 [continuous integration](../research/continuous-integration.md)), and a "pipeline" that is really a parameterised RPC call wearing
 continuous delivery's name (the anti-pattern [INPUT](#input) replaces).
 
-The repair those notes prescribe is not a new mechanism. It is **precise naming**: call each artifact what it is, give each its own trigger
-model and contract, and make the differences visible. This ADR establishes a **closed set of six pipeline types**. Every ADO artifact in
-this platform is exactly one of them. Anything that does not fit is a design smell to resolve, not a seventh type to invent quietly.
+The repair is not a new mechanism. It is **precise naming**: call each artifact what it is, give each its own trigger model and contract,
+and make the differences visible. This ADR establishes a **closed set of six pipeline types**. Every ADO artifact in this platform is
+exactly one of them. Anything that does not fit is a design smell to resolve, not a seventh type to invent quietly.
 
 This ADR is taxonomy only. It fixes what the six types _are_ — their triggers, their components, and the contract each must honour. It does
 not specify the deploy orchestration, the INPUT translator internals, or the YAML shapes.
@@ -336,9 +336,8 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 
 ## Consequences
 
-- The four failure modes the notes catalogue become nameable and therefore preventable: a release-candidate test run cannot hide in the CI
-  stage (it is CD's post-commit system test), and a self-service RPC cannot masquerade as CD (it is an INPUT pipeline that produces a
-  commit).
+- The failure modes the Context names become nameable and therefore preventable: a release-candidate test run cannot hide in the CI stage
+  (it is CD's post-commit system test), and a self-service RPC cannot masquerade as CD (it is an INPUT pipeline that produces a commit).
 - A manually-governed deploy has a name and a home: it is a DEPLOY pipeline, so a production or certification cutover under SOP/ITSM
   approval gates is a separate, access-controlled, auditable construct — not an approval stage buried inside a CD pipeline built to run
   automatically. CD and DEPLOY still share one deploy path, so the extraction costs no duplicated deploy logic.

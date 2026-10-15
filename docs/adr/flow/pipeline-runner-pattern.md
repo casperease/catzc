@@ -126,6 +126,8 @@ parameters:
   - name: Mode # none | azcli | azps — selects the task type
   - name: ExposeAccessToken # Maps SYSTEM_ACCESSTOKEN when true
   - name: ServiceConnection # Required when Mode is azcli or azps
+  - name: AllowWarnings # Forwarded to the importer, so a warning-noisy load does not fail the step
+  - name: DisplayName # The step's display name; required for a multiline RunCommand
 ```
 
 | Mode    | Task                | Credentials in env vars?               |
@@ -147,7 +149,7 @@ parameters:
 # Azure CLI + system token
 - template: /pipelines/steps/invoke-automation.yaml
   parameters:
-    RunCommand: "Deploy-Bicep -Environment dev -Template sample"
+    RunCommand: "Deploy-Bicep -Environment dev -Template discovery"
     Mode: azcli
     ExposeAccessToken: true
     ServiceConnection: "sc-my-subscription"
@@ -156,8 +158,8 @@ parameters:
 - template: /pipelines/steps/invoke-automation.yaml
   parameters:
     RunCommand: |
-      Build-Bicep -Template sample -Environments dev
-      Deploy-Bicep -Environment dev -Template sample
+      Build-Bicep -Template discovery -Environments dev
+      Deploy-Bicep -Environment dev -Template discovery
     Mode: azcli
     ServiceConnection: "sc-my-subscription"
 ```

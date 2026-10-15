@@ -92,7 +92,8 @@ In order of preference:
 1. **Configuration files.** Tool versions come from `automation/Catzc.Base.Execution/configs/tools.yml`. Environment settings come from
    `Catzc.Azure/configs/azure.yml`. The function reads config internally — the caller does not need to know where the value lives.
 
-2. **Convention.** Output verbosity defaults to `Detailed`. Test level defaults to `2`. These are values that are right 90% of the time.
+2. **Convention.** Output verbosity defaults to `Detailed`. A test run's top tier defaults to `3`, capped by its location
+   ([test-automation](test-automation.md#rule-adr-auto-test33)). These are values that are right 90% of the time.
 
 3. **The environment.** `Get-RepositoryRoot` provides the working root ([never-depend-on-pwd](never-depend-on-pwd.md)).
    `Get-CatzcModuleRoot` provides the module's own folder. The function uses these anchors instead of requiring a path parameter.

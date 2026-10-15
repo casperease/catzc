@@ -79,7 +79,7 @@ A deployable unit takes one of two shapes: a **configured** unit — a base plus
 a **base** unit — a shared, un-configured surface that exists only to be composed, e.g. `template-azure-subscription-foundation`, which
 ships only through the configured units that compose it yet still carries an area-of-control (its `verify:` scope and its review surface).
 
-Within every layer but `loose-fileset` the sets are pairwise-independent on OWN contribution (`ADR-FLOW-CD-GLOBS:10`): a module never
+Within every layer but `loose-fileset` the sets are pairwise-independent on OWN contribution (`ADR-FLOW-CD-GLOBS#10`): a module never
 consumes another module's files, a unit never another unit's — each is a boundary. The `module` layer carries a **catch-all**
 (`module-leftovers`) so it covers its whole space with nothing unmapped; the catch-all is the complement of the explicit sets, hence still
 disjoint from them. `pipeline:` (the 1-1 trigger-role binding) and `verify:` (`modules` + `level`, the test blast-radius scope) are
@@ -94,7 +94,7 @@ globset earns its cost.
 
 A globset may **compose** other declared sets (`compose:`): its scan program (ADR-FLOW-CD-GLOBS#4) is the composed sets' programs first — in
 dependency order, deepest base first, each set once — then the set's own `+`/`-` rules **last**, so the set's own rules override its base. A
-unit re-adds a slice its base dropped exactly this way (`+ configuration/apex/**` after the base's `- configuration/*/**`). References
+unit re-adds a slice its base dropped exactly this way (`+ configuration/contoso/**` after the base's `- configuration/*/**`). References
 resolve to declared sets only, never to the set itself, and the reference graph must be acyclic — all validated at config load. Composition
 is how a configured deployable-unit shares a base (e.g. every customer/platform unit composing `template-azure-subscription-foundation`, the
 config-free foundation surface) without one deployment's configuration change firing another's pipeline. The flattened program is what both
@@ -119,7 +119,7 @@ committed hash suffers, and correct across renames (a rename is split into both 
 ### Rule ADR-FLOW-CD-GLOBS:10
 
 Within a layer, no two globsets may select a common file on their **OWN contribution** — the set's own `include`/`exclude` program with
-`compose` ignored (`ADR-FLOW-CD-GLOBS:4`). Two that do contain parts of each other and are not independent — the boundary leaks. Validation
+`compose` ignored (`ADR-FLOW-CD-GLOBS#4`). Two that do contain parts of each other and are not independent — the boundary leaks. Validation
 is **per layer, never across**: a deployable-unit deliberately contains the base it composes, and every module file also sits in a
 loose-fileset track (`automation`), so cross-layer overlap is expected and correct — the rule is defined on OWN membership within one layer,
 never on effective membership or across layers. The `deployable-unit` and `module` layers are each pairwise-disjoint on OWN membership; the
@@ -148,9 +148,9 @@ committed per set, so there is no whole-set hash to go stale.
 
 ### One configuration point
 
-`globs.yml` holds every globset: a kebab-case name, a description, its layer (`ADR-FLOW-CD-GLOBS:7`), an `include:` pattern list and
-optional `exclude:` list, optional `compose:` references (`ADR-FLOW-CD-GLOBS:8`), an optional `verify:` blast-radius scope, and — on a
-configured deployable-unit — the `pipeline:` it binds (a base unit composed by others binds none, `ADR-FLOW-CD-GLOBS:7`). `Catzc.Base.Globs`
+`globs.yml` holds every globset: a kebab-case name, a description, its layer (`ADR-FLOW-CD-GLOBS#7`), an `include:` pattern list and
+optional `exclude:` list, optional `compose:` references (`ADR-FLOW-CD-GLOBS#8`), an optional `verify:` blast-radius scope, and — on a
+configured deployable-unit — the `pipeline:` it binds (a base unit composed by others binds none, `ADR-FLOW-CD-GLOBS#7`). `Catzc.Base.Globs`
 owns the file, the dialect, the durable SHA, the native projection, and the git-reflection query; nothing else parses the config. Adding or
 removing files from a unit — or adding a whole customer — is a config edit; the projected triggers regenerate from it. Test blast-radius and
 protection derive from the same identities ([ADR-REPO-PROTGLOB](../repository/protected-globs.md)), and the `module` layer's sets are
@@ -227,12 +227,12 @@ trigger:
     include: [main]
   paths:
     include:
-      - infrastructure/templates/foundation/**
+      - infrastructure/templates/discovery/**
       - infrastructure/modules/**
-      - infrastructure/templates/foundation/configuration/apex/**
+      - infrastructure/templates/discovery/configuration/contoso/**
     exclude:
-      - infrastructure/templates/foundation/configuration/*.yml
-      - infrastructure/templates/foundation/configuration/*/**
+      - infrastructure/templates/discovery/configuration/*.yml
+      - infrastructure/templates/discovery/configuration/*/**
 ```
 
 A GitHub workflow (ordered, `!`-negation):
@@ -271,7 +271,7 @@ correct heart of the design — two real commits that exist server-side after th
 
 A layer is a set of peers that partition one concern into boundaries: the `module` layer partitions module-space, the `deployable-unit`
 layer partitions what ships. Overlap between peers means one boundary consumes another's files. So within a layer the sets are
-pairwise-disjoint — but on their **OWN** contribution, never their effective membership (`ADR-FLOW-CD-GLOBS:10`). The distinction is what
+pairwise-disjoint — but on their **OWN** contribution, never their effective membership (`ADR-FLOW-CD-GLOBS#10`). The distinction is what
 makes `compose` legal: a customer deployable-unit's _effective_ members include the whole base it composes, so on effective membership every
 customer overlaps the base and each other through it. That overlap is the point of composition — "depends on a base" — not a peer collision.
 On OWN membership (compose ignored) the customer units own only their own `configuration/<key>/**` slice and the base owns the shared
@@ -288,8 +288,8 @@ named pair.
 
 ### How this is enforced
 
-- `GlobsConfig` validates the schema and every pattern at config load, rejecting unknown keys, malformed patterns (`ADR-FLOW-CD-GLOBS:3`),
-  and cyclic or self-referential compose (`ADR-FLOW-CD-GLOBS:8`).
+- `GlobsConfig` validates the schema and every pattern at config load, rejecting unknown keys, malformed patterns (`ADR-FLOW-CD-GLOBS#3`),
+  and cyclic or self-referential compose (`ADR-FLOW-CD-GLOBS#8`).
 - `Test-AdoPipelineTriggerGlob` and `Test-GitHubWorkflowTriggerGlob` are quality gates
   ([ADR-AUTO-TEST#35](../automation/test-automation.md#rule-adr-auto-test35)): each recomputes the native projection of its pipeline-bound
   globsets and compares it to what the bound pipeline/workflow actually declares, reporting one issue per drifted or missing pipeline. Their
@@ -297,7 +297,7 @@ named pair.
 - The `Test-GlobSetTriggerCoverage` quality gate confirms every member of a pipeline-bound set is covered by an ADO include pattern — an
   include-only projection is a safe superset that can never under-trigger, with `Test-GlobSetAffected` supplying exactness on top.
 - Grep-ability: `paths:` filters in `pipelines/*.yaml` and `.github/workflows/` are generated from `globs.yml`; a filter that disagrees with
-  the projection is findable by the drift quality gates and wrong by rule (`ADR-FLOW-CD-GLOBS:6`).
+  the projection is findable by the drift quality gates and wrong by rule (`ADR-FLOW-CD-GLOBS#6`).
 
 ## Consequences
 

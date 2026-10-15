@@ -154,7 +154,7 @@ re-run more — the failure mode is a redundant run, never a wrong skip.
 `Test-Automation` applies the protection skip per module, in the orchestrator, around the sharded execution engine: after discovery, each
 in-scope unit's composite identity is computed and queried — a protected unit's test files are dropped from the work-list before sharding,
 reported one line per unit and as `ProtectedModules` on the `-PassThru` object; after the workers return, every unit that produced no failed
-row is promoted (the pending pre-run identity, `ADR-REPO-PROTGLOB:4`). Anything unattributable is conservative: a failed shard container, or
+row is promoted (the pending pre-run identity, `ADR-REPO-PROTGLOB#4`). Anything unattributable is conservative: a failed shard container, or
 a failed row with no file, promotes nothing. Workers never read or write the map — a worker is a fresh process whose module state could not
 see it anyway. In a pipeline the whole block is bypassed before any identity is computed, so CI pays nothing and skips nothing. A run keyed
 `test-automation|L0-L1|Logic` protects only that scope; the default `L0-L2|Both` run has its own key, so a narrow green never hides a wide

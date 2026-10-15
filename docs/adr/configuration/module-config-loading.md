@@ -114,7 +114,7 @@ config, a type that does not resolve, and a shipped config that does not load ar
 `Invoke-ConfigValidator, for owners without a C# type`
 
 Not every owner of a config can ship a C# type: types compile only from `automation/<module>/types/`, and a track or deployable-unit that
-carries its own configuration rests on PowerShell extension points instead (`ADR-DSGN-TRACK:3`). For those, `Catzc.Base.ConfigExtensions`
+carries its own configuration rests on PowerShell extension points instead (`ADR-DSGN-TRACK#3`). For those, `Catzc.Base.ConfigExtensions`
 keeps the PowerShell validator form. `Invoke-ConfigValidator -Config <dict> -Name <name> -Module <owner>` finds the validator by convention
 (`Assert-<TitleCase(name)>Config`, so `widget-parts` → `Assert-WidgetPartsConfig`) or by `-Validator`, and runs it **in the owning module's
 scope** — `& (Get-Module $owner) { … }` — so a private validator resolves. A conventional validator that does not exist is a no-op; a named

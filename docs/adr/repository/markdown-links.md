@@ -41,7 +41,8 @@ Code links point one way: out of code, into an ADR. A comment never links to a r
 ### Rule ADR-REPO-LINK:5
 
 A rule citation is spelled `ADR-<CODE>#<n>` everywhere — code comments, test tags, configuration, and document prose — and names a code in
-the ADR index and a rule that ADR declares. The `:` form exists only in the rule's own `### Rule ADR-<CODE>:<n>` heading.
+the ADR index and a rule that ADR declares. The `:` form exists only in the rule's own `### Rule ADR-<CODE>:<n>` heading, and as the
+registry form, the key `Get-CatzcAdrRuleIds` returns for that heading — a datum a function hands back, never a citation anyone writes.
 
 - [One citation spelling](#one-citation-spelling)
 

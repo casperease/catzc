@@ -37,11 +37,11 @@ and only an explicit `tests/` folder is non-live. The `VariantsConfig` config ty
 
 ### Rule ADR-DSGN-ASPECT:4
 
-Each aspect is an immutable sha lock, marker `<unit>-<aspect>.yml`. A shipped unit is therefore **1 + 1 = 2 immutable, versioned artifacts**
-— one `live`, one `tests` — stored and versioned independently: a `tests`-only change never re-keys `live`, and a runtime change never
-re-keys `tests`. A unit's rolled-up identity is the _set_ of its aspect locks, not a separate whole-unit marker (such a marker's sha would
-re-key on any change, defeating the isolation). Single-file units (internal `.psm1` modules) have no `tests/`, so they carry the degenerate
-one-artifact partition.
+Each aspect is its own derived globset, `<unit>-<aspect>`, with its own live durable-SHA identity and nothing committed per set. A unit's
+two aspects are therefore **two independent identities** — one `live`, one `tests`: a `tests`-only change never re-keys `live`, and a
+runtime change never re-keys `tests`. A unit's rolled-up identity is the fold of its aspect identities, not a separate whole-unit hash,
+which would re-key on any change and defeat the isolation. Single-file units (internal `.psm1` modules) have no `tests/`, so they carry the
+degenerate one-aspect partition.
 
 - [Context](#context)
 - [Consequences](#consequences)
@@ -66,27 +66,29 @@ Aspects make the split first-class and fail-safe. In the code track the `live` s
 does not claim — tests, docs, editor droppings, a file dropped at a module's root — falls through to the non-live `tests` remainder.
 Shipping code is therefore default-deny: a new file can only enter `live` by an explicit convention change, never by accident. A deployment
 track inverts the remainder: a template ships whole, so its `tests` is the closed, explicit head and `live` is the remainder. The two
-aspects partition the module exactly (ordered first-match with a `**` remainder guarantees it), and each is locked and versioned on its own.
+aspects partition the module exactly (ordered first-match with a `**` remainder guarantees it), and each carries an identity of its own: its
+live durable SHA ([durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)), folded into the module's protection identity
+([protected-globs](../repository/protected-globs.md#rule-adr-repo-protglob8)).
 
 The convention lives in the `aspects` variant so the vocabulary can evolve (a future `config`/`docs` aspect is one more ordered rule, and
 each track still names its own remainder) without touching the engine. `Catzc.Base.Globs` reads it through `Get-Aspect` and compiles per
-unit root with `AspectPartition`; `Get-ModuleGlobSet` derives `<module>-live` / `<module>-tests` and their markers.
+unit root with `AspectPartition`; `Get-ModuleGlobSet` derives `<module>-live` / `<module>-tests`, each with its own identity.
 
 ## Consequences
 
-- **Isolated identities.** A test edit and a runtime edit touch different markers; downstream (protection, blast-radius, triggers) sees the
-  precise one.
+- **Isolated identities.** A test edit and a runtime edit re-key different identities; downstream (protection, blast-radius, triggers) sees
+  the precise one.
 - **Fail-safe shipping of code.** In the code track an unclassified file defaults to non-live — it cannot ride into production unnoticed. A
   deployment track ships a template whole, so there the explicit `tests/` folder is the only non-live part.
 - **One convention, many granularities.** The same ordered rule set that partitions a module is what a track's `-live`/`-tests` delivery
   packages use when derived — one convention, module and track alike.
 - **Protection covers the whole module.** A module's protection identity folds both aspect hashes (`Get-ModuleProtectionIdentity`), so it
-  covers the module's whole content — the split refines the markers, not what a module's tests depend on.
+  covers the module's whole content — the split refines the identities, not what a module's tests depend on.
 
 ## Related
 
-- [durable-sha-globs](../flow/durable-sha-globs.md) — the marker mechanism, the scan program (`ADR-FLOW-CD-GLOBS:4`), the layers
-  (`ADR-FLOW-CD-GLOBS:7`), and the immutable sha lock each aspect is (`ADR-FLOW-CD-GLOBS#9`)
+- [durable-sha-globs](../flow/durable-sha-globs.md) — the live identity (`ADR-FLOW-CD-GLOBS#5`), the scan program (`ADR-FLOW-CD-GLOBS#4`),
+  and the layers (`ADR-FLOW-CD-GLOBS#7`)
 - [repo-variants](../repository/repo-variants.md) — the `aspects` variant's home (`ADR-REPO-VARIANT`)
 - [protected-globs](../repository/protected-globs.md) — the `module-leftovers` catch-all (`ADR-REPO-PROTGLOB`)
 - [test-automation](../automation/test-automation.md) — logic vs integrity tests, the `tests/` surface aspects isolate

@@ -35,9 +35,10 @@ unchanged. Build-once, deploy-many: nothing downstream rebuilds, so what reaches
 ### Rule ADR-FLOW-CD:4
 
 A **CD pipeline always contains a CI component; a solo CI pipeline contains only it.** The CI component is the same build-and-verify in both
-— one CI engine ([ADR-FLOW-CD-TYPE#3](../flow/pipeline-types.md#rule-adr-flow-cd-type3)). A solo CI's terminal output is the **tagged
-artifact** plus a pass/fail signal; a CD does that same build and then takes the artifact in a direction (ADR-FLOW-CD#5). "CD includes CI"
-is not duplication — it is the one engine run as the front of a longer pipeline.
+— one CI engine ([ADR-FLOW-CD-TYPE#3](../flow/pipeline-types.md#rule-adr-flow-cd-type3)). A solo CI's terminal output is a pass/fail signal
+and nothing to deploy ([pipeline-types](../flow/pipeline-types.md#ci)); the **tagged artifact** is what the CI component produces when it
+runs as the front of a CD, which then takes the artifact in a direction (ADR-FLOW-CD#5). "CD includes CI" is not duplication — it is the one
+engine run as the front of a longer pipeline.
 
 - [A CD is a CI that keeps going](#a-cd-is-a-ci-that-keeps-going)
 
@@ -150,7 +151,7 @@ ADR-FLOW-CD#6) is not a gate.
 A **release candidate** is the immutable, tagged artifact a CI component builds from one commit of a deployable-unit (ADR-FLOW-CD#3):
 versioned, never rebuilt, and promotable toward production. Every gate it clears promotes the same bytes, and the environment it is deployed
 to has the commit it was built from as its occupant (ADR-DSGN-LIFE#5). Its verification beyond the fast CI gate is a release-candidate test
-run — CD's post-commit system test (ADR-FLOW-CD#2).
+run — CD's post-commit system test (ADR-FLOW-CD#5, ADR-FLOW-CD#8).
 
 - [RC and RBC](#rc-and-rbc)
 
@@ -188,7 +189,7 @@ CI (pipeline)  ──►  tagged artifact   (build-once — the key every kind s
       │
       ▼  a CD is that same CI, then a direction (all non-prod, automated)
 CD (pipeline = CI component + direction)
-      ├─ deploy → on-demand environment → L3 E2E (vertical / horizontal)   ── the CI+ outer loop (ADR-FLOW-CD:8)
+      ├─ deploy → on-demand environment → L3 E2E (vertical / horizontal)   ── the CI+ outer loop (ADR-FLOW-CD#8)
       └─ deploy → always-on env tracking latest main   (main-UAT / DEV / TEST — org semantics)
       │
       ▼  same tagged artifact, now certified across non-prod — two governance postures to prod:
@@ -239,8 +240,9 @@ carries the continuity.
 There is exactly one CI component, and both a solo CI pipeline and a CD pipeline run it — the same build-and-verify engine
 ([ADR-FLOW-CD-TYPE#3](../flow/pipeline-types.md#rule-adr-flow-cd-type3)). The difference is only what happens _after_ it:
 
-- A **solo CI pipeline** stops at the artifact. Its terminal output is the tagged, immutable artifact plus a pass/fail signal — the build
-  was green (or not), and here is the thing it built. It deploys nothing.
+- A **solo CI pipeline** stops at the verdict. Its terminal output is a pass/fail signal — the build was green (or not). It publishes no
+  deployable artifact and deploys nothing; a unit with an artifact to carry forward is a CD
+  ([pipeline-types](../flow/pipeline-types.md#ci)).
 - A **CD pipeline** runs that same CI component and then takes the artifact in a direction (below). "CD contains CI" therefore costs no
   duplicated build logic: it is the one engine, run as the front of a longer pipeline, followed by the deploy-and-verify tail.
 
@@ -429,7 +431,7 @@ the mechanic — stage inactive, validate, activate live — is the same.
 - [pipeline-runner-pattern](../flow/pipeline-runner-pattern.md) — how every pipeline kind invokes automation.
 - [test-automation](../automation/test-automation.md) — the L0–L3 tiers; L3 is the system-level E2E CD runs in its on-demand environment,
   and the outer CI+ loop (ADR-FLOW-CD#8).
-- [repo-variants](../repository/repo-variants.md) — the `git_workspace` variant (`ADR-REPO-VARIANT:6`) is the PR-vs-Direct integration mode
+- [repo-variants](../repository/repo-variants.md) — the `git_workspace` variant (`ADR-REPO-VARIANT#6`) is the PR-vs-Direct integration mode
   the value-chain diagrams prefix a flow with.
 - [everything-as-code](../principles/everything-as-code.md), [reduce-waste](../principles/reduce-waste.md) — build-once/deploy-many and the
   version-aligned artifact are these principles applied to the flow.

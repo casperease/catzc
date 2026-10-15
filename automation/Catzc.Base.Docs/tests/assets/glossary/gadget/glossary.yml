@@ -1,4 +1,4 @@
-# Fixture glossary source (Get-GlossarySources / Get-Glossary L0 tests) — neutral terms (ADR-AUTO-TEST:3).
+# Fixture glossary source (Get-GlossarySources / Get-Glossary L0 tests) — neutral terms (ADR-AUTO-TEST#3).
 concepts:
   gadget run:
     key: gadget_run

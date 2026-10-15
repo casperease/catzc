@@ -148,8 +148,9 @@ which is what ADR-PRIN-ONELIVE#2 forbids. Versioned coexistence is fair for the 
 
 Versioned contracts also have a **structural home**, which keeps them from being mistaken for legacy: the root
 `contracts/<unit>/<version>/<module>/` convention ([conventional-folders](../repository/conventional-folders.md#rule-adr-repo-folders11)) —
-one folder per deployable-unit that carries contracts (today only `catzc`, the bundle), one folder per version of that unit inside it (the
-unit's `0.0.0` the mutable draft, frozen only when that unit is released), and one folder per owning module inside that. There is no
+one folder per deployable-unit that carries contracts (`catzc`, the bundle,
+[ADR-REPO-CONTRACT#2](../repository/api-contracts.md#rule-adr-repo-contract2)), one folder per version of that unit inside it (the unit's
+`0.0.0` the mutable draft, frozen only when that unit is released), and one folder per owning module inside that. There is no
 repository-wide version. Each version is its own self-contained, checked-in folder, so coexistence is explicit and located — never an ad-hoc
 `V2` fork buried beside the original in the code. These are the repository's external-facing API contracts, binding and contract-tested —
 see [api-contracts](../repository/api-contracts.md).

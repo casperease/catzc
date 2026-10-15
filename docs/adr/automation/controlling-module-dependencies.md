@@ -210,11 +210,11 @@ describes, and adding or moving a dependency is a reviewed change.
 - **`Test-ModuleDependency`** — the quality gate that checks the declaration against the repository (every declared module and group member
   exists on disk) and the extracted edges against the declaration (allow-set membership and the group's internal-map subset rule), failing
   its L1 integrity test on any finding.
-- **Code review** — enforces `ADR-AUTO-DEPM:5`: a new edge is declared in the same change as the code, not deferred.
+- **Code review** — enforces `ADR-AUTO-DEPM#5`: a new edge is declared in the same change as the code, not deferred.
 - **`Install-VendorModule`** + **`Import-VendorModules`** ([vend](../pwsh/vendor-toolset-dependencies.md)) — pin a vendored internal
-  dependency by its `automation/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-AUTO-DEPM:8`).
+  dependency by its `automation/.vendor/<Name>/<Version>/` folder and load only from there (`ADR-AUTO-DEPM#8`).
 - **Pinning** — the commit pins every internal dependency; an external dependency carries its exact version in the stitch config, reviewed
-  in the diff (`ADR-AUTO-DEPM:7`).
+  in the diff (`ADR-AUTO-DEPM#7`).
 
 ## Consequences
 

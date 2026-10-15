@@ -53,6 +53,9 @@ The **commit-colour palette is fixed**:
 - **red** — rejected by any process and must not progress further. Red is the one colour allowed on **every** branch (topic, release, or
   mainline), because rejection can happen anywhere.
 
+The **pre-prod** rung (ADR-DSGN-LIFE#1) has no hue of its own: its occupant is drawn green, the same bytes already validated for production,
+and the neutral environment box, not the colour, says which of the two it sits in (ADR-DSGN-VISUAL#13).
+
 Every hue has one locked hex pair (fill / stroke); see [Canonical palette (locked)](#canonical-palette-locked). A commit drawn in any other
 hex for one of these meanings is a drift error.
 
@@ -80,8 +83,8 @@ the source of truth.
 
 **Promotion is a funnel: population strictly thins as state advances.** Across any one diagram the count of commits in each state decreases
 along the promotion order — more brown than grey, fewer yellow than grey, fewer blue than yellow, fewer light-blue than blue, fewer
-light-green than light-blue, fewer green than light-green. A drawing that shows as many promoted commits as candidates misrepresents the
-gate as a pass-through.
+light-green than light-blue, fewer green (pre-prod and production together) than light-green. A drawing that shows as many promoted commits
+as candidates misrepresents the gate as a pass-through.
 
 - [The funnel thins](#the-funnel-thins)
 
@@ -120,10 +123,9 @@ A stage never emits a colour outside its contract, so the palette doubles as the
 
 ### Rule ADR-DSGN-VISUAL:10
 
-**A single-digit number ties a commit's appearances across lanes into one identity.** When a diagram traces specific commits, each gets a
-small digit (1, 2, 3, …) drawn on it, and every later appearance of that commit — in the pipeline, discard, or timeline lane — carries the
-same digit. The number is the thread that lets a reader follow one commit's colour-over-time across the lanes without guessing which dot is
-which.
+**A number ties a commit's appearances across lanes into one identity.** When a diagram traces specific commits, each gets a small number
+(1, 2, 3, …) drawn on it, and every later appearance of that commit — in the pipeline, discard, or timeline lane — carries the same number.
+The number is the thread that lets a reader follow one commit's colour-over-time across the lanes without guessing which dot is which.
 
 - [Commit numbers](#commit-numbers)
 
@@ -139,11 +141,11 @@ member of this family.
 
 ### Rule ADR-DSGN-VISUAL:12
 
-**Only the GIT lane is a real left-to-right time axis; the digits 0–9 are the time-code that carries that ordering into the other lanes.**
-In git, horizontal position is actual time (commit `0` precedes `1` precedes `2` …). The pipeline, discard, and env lanes are organised by
-_stage_, not by time, so a commit can sit anywhere horizontally there — its **number** is what restores its identity and its moment. Each
-digit `0`–`9` is one commit's whole story: the same number reappears across lanes in its state-of-the-moment colour and ends where that
-commit was discarded, abandoned, or promoted.
+**Only the GIT lane is a real left-to-right time axis; the commit numbers are the time-code that carries that ordering into the other
+lanes.** In git, horizontal position is actual time (commit `0` precedes `1` precedes `2` …). The pipeline, discard, and env lanes are
+organised by _stage_, not by time, so a commit can sit anywhere horizontally there — its **number** is what restores its identity and its
+moment. Each number is one commit's whole story: the same number reappears across lanes in its state-of-the-moment colour and ends where
+that commit was discarded, abandoned, or promoted.
 
 - [Git is the only true timeline](#git-is-the-only-true-timeline)
 
@@ -257,9 +259,9 @@ at those gates ([ADR-FLOW-CD#10](../flow/cd-discipline-and-promotion-flow.md#rul
 `Numbers thread one commit across lanes`
 
 Tracing a specific commit is how the diagram teaches the temporal-colour idea concretely, and a bare dot cannot be tracked across three
-lanes of similar dots. A single digit solves it: commit `#1` grey on the mainline and commit `#1` red in the discard lane are visibly the
-same commit, so the reader learns "landed, then BVT rejected it" from the number plus the colour change. The digits are a reading aid for
-worked examples, not a permanent identifier every commit must carry.
+lanes of similar dots. A number solves it: commit `#1` grey on the mainline and commit `#1` red in the discard lane are visibly the same
+commit, so the reader learns "landed, then BVT rejected it" from the number plus the colour change. The digits are a reading aid for worked
+examples, not a permanent identifier every commit must carry.
 
 ## Ghosts of every colour
 
@@ -273,7 +275,7 @@ that distinguishes a traced commit from a representative one.
 
 Horizontal position means _time_ in exactly one lane — git — and nowhere else, because only history is intrinsically ordered. The pipeline,
 discard, and environment lanes group commits by stage, so their left-to-right order is not chronological; reading them as a timeline would
-be a mistake. The digits 0–9 are how time survives the crossing: a numbered commit keeps its identity and its moment no matter where it
+be a mistake. The commit numbers are how time survives the crossing: a numbered commit keeps its identity and its moment no matter where it
 lands in a stage-organised lane, and following a single number across the lanes reconstructs that one commit's journey and shows exactly
 where it was discarded, abandoned, or promoted.
 
@@ -286,7 +288,7 @@ and no per-stage tint, only a label naming which environment it is. What it does
 right now (ADR-DSGN-LIFE#5), drawn in that commit's own current state colour. So the inner colour is not a fixed property of the box — it is
 whatever state the occupant is in: the production occupant is drawn green, the release-uat occupant light-green, the main-UAT occupant
 light-blue, and the on-demand L3 environment whatever it currently hosts. Reading the inner colour tells you the state of what lives there
-now; the label tells you where. This defers to `ADR-DSGN-LIFE:5` (each always-on environment hosts exactly one commit) rather than colouring
+now; the label tells you where. This defers to `ADR-DSGN-LIFE#5` (each always-on environment hosts exactly one commit) rather than colouring
 the box by what it validates — an environment's picture is "what is deployed here", not "what this stage is for".
 
 ## Canonical palette (locked)

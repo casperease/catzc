@@ -117,7 +117,7 @@ automation code portable: the same function runs locally (silently skipping the 
   `##vso[task.setvariable]` strings out of automation code: search for `Set-AdoPipelineVariable` to find every variable the automation sets,
   and for `##vso` to confirm no raw command bypasses the function.
 - **PSScriptAnalyzer.** The custom rule `Measure-NoRawVsoCommand` (`automation/.scriptanalyzer/NoRawVsoCommand.psm1`) flags any string
-  literal containing a raw `##vso[task.` command (:1).
+  literal containing a raw `##vso[task.` command (ADR-PIPE-VAR#1).
 
 ## Consequences
 

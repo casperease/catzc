@@ -1,4 +1,4 @@
-Set-StrictMode -Version Latest   # hooks run strict (Build-Bicep / Deploy-Bicep also set it on import) — ADR-PWSH-ERROR:8
+Set-StrictMode -Version Latest   # hooks run strict (Build-Bicep / Deploy-Bicep also set it on import) — ADR-PWSH-ERROR#8
 
 <#
 .SYNOPSIS

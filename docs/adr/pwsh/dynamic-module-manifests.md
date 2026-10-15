@@ -47,8 +47,8 @@ apart from the module, so the nested script module never shares the manifest mod
 `assets/`, and the `types/` sources) copied verbatim — never its `tests/`. Beside the modules sit the `.internal` loader, the vendored
 dependencies per policy under `.vendor/`, the **full** combined-types DLL under `.compiled/` with the unselected modules' type sources under
 `.compiled/types/<Module>/`, the top-level `Catzc.psd1`, `Catzc.psm1`, and `Import-Catzc.ps1`, and `build.json`. The payload is deliberately
-**broader** than the protection `live` aspect ([module-aspects](../design/module-aspects.md)) — that aspect excludes `assets/` for marker
-isolation, but a running module needs its `assets/`. Shipping is default-deny: the `tests/` surface never travels.
+**broader** than the protection `live` aspect ([module-aspects](../design/module-aspects.md)) — that aspect excludes `assets/` to keep its
+identity isolated, but a running module needs its `assets/`. Shipping is default-deny: the `tests/` surface never travels.
 
 - [The merged module form](#the-merged-module-form)
 

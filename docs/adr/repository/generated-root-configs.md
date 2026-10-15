@@ -1,6 +1,6 @@
 # docs/adr/repository/generated-root-configs.md
 
-`Generated root configs — every managed root file from one in-repo source of truth`
+`ADR: Generated root configs — every managed root file from one in-repo source of truth`
 
 ## Rules: ADR-REPO-ROOTCFG
 
@@ -178,7 +178,7 @@ cannot see).
   hand-kept root copy.
 - Taking over a root file is one registry entry plus its source; opting out is the default, so an unregistered file is simply not touched.
 - The root analyzer settings are an ordinary `source` entry with no bespoke builder, and `importer.ps1` is a `generator` entry whose
-  `New-Importer` drift guard also backs `ADR-REPO-ROOTCFG:6`.
+  `New-Importer` drift guard also backs `ADR-REPO-ROOTCFG#6`.
 - A reader never mistakes a managed root file for a source of truth: gitignored copies carry the generated-file header; committed targets
   are named in the registry and drift-tested; a link target needs no disclaimer, because it IS the source of truth.
 - A `copyAsLink` target has zero drift surface and zero generated content — the honest cost is the hard-link orphan window after a git

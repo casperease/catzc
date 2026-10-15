@@ -70,7 +70,7 @@ parsed config's keys and values (comment-blind) rather than its raw text.
 
 The repository's example vocabulary is governed in three separate places — the discovery theme for documentation
 ([documentation-examples](documentation-examples.md), `ADR-REPO-EXAMPLE`), the fixture identities for tests
-([test-automation](../automation/test-automation.md#rule-adr-auto-test3), `ADR-AUTO-TEST:3`), and the real identities of the data model
+([test-automation](../automation/test-automation.md#rule-adr-auto-test3), `ADR-AUTO-TEST#3`), and the real identities of the data model
 ([data-model](../azure/azure-data-model.md), [naming-standard](../azure/azure-naming-standard.md),
 [customer-model](../azure/azure-customer-model.md)). This ADR is the rule that ties them together: these are three faces of one discipline —
 a token belongs to exactly one zone, and it does not appear in the others. Without that rule, a logic test drifts into naming a real
@@ -209,7 +209,7 @@ declares the zones; a file-glob spell-checker is not used, because it cannot sep
 
 - [documentation-examples](documentation-examples.md) (`ADR-REPO-EXAMPLE`) — the design zone's discovery-theme vocabulary.
 - [test-automation](../automation/test-automation.md) (`ADR-AUTO-TEST`) — logic vs integrity, and the fixture-identity rule
-  (`ADR-AUTO-TEST:3`) this gate mechanizes.
+  (`ADR-AUTO-TEST#3`) this gate mechanizes.
 - [data-model](../azure/azure-data-model.md), [naming-standard](../azure/azure-naming-standard.md),
   [customer-model](../azure/azure-customer-model.md) — the live zone's real identities.
 - [spell-out-names](../automation/spell-out-names.md) (`ADR-AUTO-SPELL`) — the terminology registry and the per-category `scope` map.

@@ -64,6 +64,8 @@ Every ADR carries a numbered rule registry as its first content section: `## Rul
 - The `<code>` is unique per ADR; the tables below are the authoritative code ↔ ADR mapping.
 - `#` is the only citation spelling — in comments, test tags, configuration, and prose. The `:` form exists only in the rule's own
   `### Rule <code>:<n>` heading (ADR-REPO-LINK#5).
+- A rule's number is stable: a retired rule's number is never reused, so a registry may skip numbers, and a citation never changes its
+  meaning when a neighbouring rule goes.
 
 ## Codes
 '@

@@ -15,17 +15,32 @@ raster, and asserts the round-trip. The XML root is
 
 ```xml
 <mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1"
-              pageScale="1" pageWidth="1300" pageHeight="940" background="#E6ECF2" math="0" shadow="0">
+              pageScale="1" pageWidth="1300" pageHeight="940" background="#1E2430" math="0" shadow="0">
 ```
 
-Keep it at most 1300 wide and grow downward. Flat look: no shadows, no gradients. Every rendered output has the grey-bluish background
-`#E6ECF2` drawn first, behind everything else, so a dark-mode and a light-mode viewer show the same page.
+Keep it at most 1300 wide and grow downward. Flat look: no shadows, no gradients. Every rendered output is **dark**: the background
+`#1E2430` (dark grey with blue in it) is drawn first, behind everything else, and almost all text is a soft light grey `#CDD3DC` (titles and
+names on a glyph `#DDE2E9`, quiet text `#949FAE`), so a dark-mode and a light-mode viewer show the same page.
+
+**Dark-theme tokens** (the single source; every value below and in [`glyphs.xml`](glyphs.xml) comes from here):
+
+| Token     | Value                 | Used for                                                               |
+| --------- | --------------------- | ---------------------------------------------------------------------- |
+| page      | `#1E2430`             | the canvas and every rendered output's base layer                      |
+| band      | `#262E3B` / `#3A4555` | band fill / border; band label `#B0BAC7`                               |
+| panel     | `#222A36` / `#3A4555` | legend and outer panels                                                |
+| ink       | `#CDD3DC`             | text; title and on-glyph names `#DDE2E9`                               |
+| quiet ink | `#949FAE`             | legend text and notes                                                  |
+| line      | `#AAB4C3`             | flow edges and their arrowheads, chip rims, the ADR-only dash          |
+| marker    | `#E6EAF0` / `#1E2430` | marker disc fill / digit and rim (a light disc on the dark page)       |
+| chip      | `#262E3B` / `#AAB4C3` | fraction, rule and count chips: fill / rim; text `#CDD3DC`             |
+| red       | `#8E2424` / `#E57373` | the only red: failure fill / rim and the failure-path edge (`#E57373`) |
 
 ## Ids and words
 
 - Ids are semantic kebab/underscore slugs (`title`, `note`, `step-build`, `edge-build-test`). Never random ids.
 - Every word comes from the source ADR or code, using its exact terms. Don't invent numbers, parts or loops.
-- Stereotypes use guillemets: `<b>Name</b><br><i>&#171;module&#187;</i>`. Cite rules in parentheses, e.g. `(ADR-FLOW-CD:3)`. Write an em
+- Stereotypes use guillemets: `<b>Name</b><br><i>&#171;module&#187;</i>`. Cite rules in parentheses, e.g. `(ADR-FLOW-CD#3)`. Write an em
   dash as `&#8212;`.
 - The first cell after the root is a `title` text whose words are the finding the reader should leave with, not just the topic.
 
@@ -36,28 +51,29 @@ of thing has exactly one glyph, the same on every slide of every diagram, and it
 means two things across slides (grey is not "config" on one slide and "drift" on the next). The verbatim style strings are in
 [`glyphs.xml`](glyphs.xml); its preview is `out/diagrams/wave-7/_glyphs.drawio.png`. Copy from there, never retype.
 
-**Structure is dark, state is light.** Structural kinds use draw.io's dark, muted swatches with white text (`fontColor=#FFFFFF`): slate
-`#647687` / `#314354`, mauve `#76608a` / `#432d57`, olive `#6d8764` / `#3a5431`. Results, failures and every commit colour are light. The
-two families never meet, so no structural glyph can be mistaken for a commit state from the locked palette (ADR-DSGN-VISUAL#4). Slate is
-shared by code unit, store and runner on purpose: their shapes (box, cylinder, pill) tell them apart.
+**Structure in mid-tones, state set apart.** On the dark page, structural kinds use lifted mid-tone fills with a light rim of the same hue
+and soft light names (`fontColor=#DDE2E9`): slate `#4E6378` / `#9FB3C8`, mauve `#6A567E` / `#B9A6CC`, olive `#5B7653` / `#A9C29F`. Neutral
+kinds are a dark fill with a light rim. Results and failures are saturated with a bright rim, and commits keep the locked palette
+(ADR-DSGN-VISUAL#4), so no structural glyph can be mistaken for a commit state. Slate is shared by code unit, store and runner on purpose:
+their shapes (box, cylinder, pill) tell them apart.
 
-| Kind (legend phrase) | Shape                           | Fill / stroke         | Use it for                                                                       |
-| -------------------- | ------------------------------- | --------------------- | -------------------------------------------------------------------------------- |
-| code unit            | rounded box                     | `#647687` / `#314354` | a module, function, type or script that runs; white text                         |
-| named set            | rounded box                     | `#76608a` / `#432d57` | a group, globset, track, aspect or other named collection; white text            |
-| file                 | page with a folded corner       | `#6d8764` / `#3a5431` | a config, YAML, manifest or other file read as data (`shape=note`); white text   |
-| store                | cylinder                        | `#647687` / `#314354` | the repository, a registry, a cache, a feed (`shape=cylinder3`); white text      |
-| runner               | pill                            | `#647687` / `#314354` | a pipeline, stage, task or job that executes (`arcSize=50`); white text          |
-| gate                 | rhombus, 3 px rim               | `#f5f5f5` / `#666666` | a check that passes or stops the flow; never red, never yellow                   |
-| environment          | hexagon                         | `#f5f5f5` / `#666666` | a deployment target; neutral, coloured only by its occupant (ADR-DSGN-VISUAL#13) |
-| external tool        | square box                      | `#f5f5f5` / `#666666` | a vendor tool the code delegates to (az CLI, Bicep, git)                         |
-| actor                | circle                          | `#FFFFFF` / `#666666` | a person (developer, reviewer)                                                   |
-| result               | rounded box                     | `#9BE7C4` / `#0E9F6E` | what a step produces; font `#0B5C43`                                             |
-| failure              | rounded box                     | `#EF9A9A` / `#C62828` | a throw, rejection or discard; the only red                                      |
-| ADR-only             | the kind's shape, dashed, white | `#FFFFFF` / `#666666` | something an ADR states that no code runs or checks                              |
+| Kind (legend phrase) | Shape                             | Fill / stroke         | Use it for                                                                         |
+| -------------------- | --------------------------------- | --------------------- | ---------------------------------------------------------------------------------- |
+| code unit            | rounded box                       | `#4E6378` / `#9FB3C8` | a module, function, type or script that runs; text `#DDE2E9`                       |
+| named set            | rounded box                       | `#6A567E` / `#B9A6CC` | a group, globset, track, aspect or other named collection; text `#DDE2E9`          |
+| file                 | page with a folded corner         | `#5B7653` / `#A9C29F` | a config, YAML, manifest or other file read as data (`shape=note`); text `#DDE2E9` |
+| store                | cylinder                          | `#4E6378` / `#9FB3C8` | the repository, a registry, a cache, a feed (`shape=cylinder3`); text `#DDE2E9`    |
+| runner               | pill                              | `#4E6378` / `#9FB3C8` | a pipeline, stage, task or job that executes (`arcSize=50`); text `#DDE2E9`        |
+| gate                 | rhombus, 3 px rim                 | `#2C3542` / `#C7D0DB` | a check that passes or stops the flow; never red, never yellow; text `#CDD3DC`     |
+| environment          | hexagon                           | `#2C3542` / `#C7D0DB` | a deployment target; neutral, coloured only by its occupant (ADR-DSGN-VISUAL#13)   |
+| external tool        | square box                        | `#2C3542` / `#C7D0DB` | a vendor tool the code delegates to (az CLI, Bicep, git); text `#CDD3DC`           |
+| actor                | circle                            | `#1E2430` / `#C7D0DB` | a person (developer, reviewer); text `#CDD3DC`                                     |
+| result               | rounded box                       | `#2E7D5B` / `#7FD3AE` | what a step produces; text `#DDE2E9`                                               |
+| failure              | rounded box                       | `#8E2424` / `#E57373` | a throw, rejection or discard; the only red; text `#EFD4D4`                        |
+| ADR-only             | the kind's shape, dashed, on page | `#1E2430` / `#AAB4C3` | something an ADR states that no code runs or checks; text `#CDD3DC`                |
 
-- **Chrome** is not a kind: band `#F6F8FA` / `#E1E4E8` (`arcSize=3`), legend and outer panel `#FAFAFA` / `#CFD8DC` (`arcSize=6`), ink
-  `#37474F`, quiet ink `#666666`.
+- **Chrome** is not a kind: band `#262E3B` / `#3A4555` (`arcSize=3`, label `#B0BAC7`), legend and outer panel `#222A36` / `#3A4555`
+  (`arcSize=6`), ink `#CDD3DC`, quiet ink `#949FAE`, lines `#AAB4C3`.
 - **Colour budget:** at most four kinds on one slide, plus chrome. A fifth kind means the slide is two slides.
 - **A drift is not a kind.** An ADR claim the code contradicts is drawn as its normal glyph with a numbered marker; the article states it.
 
@@ -72,41 +88,32 @@ shared by code unit, store and runner on purpose: their shapes (box, cylinder, p
 | light-blue main-uat     | `#dae8fc` | `#6c8ebf` |
 | light-green release-uat | `#d5e8d4` | `#82b366` |
 | green prod              | `#60a917` | `#2D7600` |
-| red discarded           | `#EF9A9A` | `#C62828` |
+| red discarded           | `#8E2424` | `#E57373` |
 
-Ghosts use the state fill plus `strokeWidth=1.2;dashed=1;opacity=60;`.
+Ghosts use the state fill plus `strokeWidth=1.2;dashed=1;opacity=60;`. A commit's digit is dark ink `#1E2430` on the light states and
+`#DDE2E9` on red, brown and green.
 
-On a slide that shows commit states, the dark structural kinds never collide with a commit colour. The result (green, near release-uat and
-prod) is still avoided there; draw commits as dots.
+On a slide that shows commit states, the structural kinds never collide with a commit colour. The result (green, near release-uat and prod)
+is still avoided there; draw commits as dots.
 
-**Recolouring a wave-6 slide (wave 7):** map by kind and shape, never by hex alone, because the old store, gate, environment and external
-tool all shared `#f5f5f5` / `#666666`, and the old code-unit fill `#dae8fc` is also the main-uat commit colour.
-
-| Old fill / stroke                        | Kind                | New fill / stroke (+ `fontColor=#FFFFFF`) |
-| ---------------------------------------- | ------------------- | ----------------------------------------- |
-| `#dae8fc` / `#6c8ebf` (not a commit dot) | code unit           | `#647687` / `#314354`                     |
-| `#e1d5e7` / `#9673a6`                    | named set           | `#76608a` / `#432d57`                     |
-| `#f8fff8` / `#82b366`                    | file (`shape=note`) | `#6d8764` / `#3a5431`                     |
-| `#f5f5f5` / `#666666`, `shape=cylinder3` | store               | `#647687` / `#314354`                     |
-| `#fff2cc` / `#d6b656`, `arcSize=50`      | runner              | `#647687` / `#314354`                     |
-| count chip stroke `#9673a6`              | count chip          | stroke `#432d57`, fill stays white        |
-
-Recolour the legend swatch of each kind with it. A `<font color=…>` inside a recoloured cell's value must turn white or be removed. Gate,
-environment, external tool, actor, result, failure, ADR-only, chrome and every commit colour stay as they are.
+**Recolouring a slide to the dark theme:** map by kind and shape, never by hex alone, using the glyph table above, and recolour each kind's
+legend swatch with it. A `<font color=…>` inside a cell's value turns to the kind's text colour or is removed. The commit colours stay,
+except red.
 
 ## Style strings (copy verbatim)
 
 Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line strings:
 
 - Band:
-  `rounded=1;html=1;arcSize=3;fillColor=#F6F8FA;strokeColor=#E1E4E8;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=#455A64;`
-- Title: `text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#37474F;`
-- Body/note: `text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=11;fontColor=#666666;`
-- Commit dot: `ellipse;html=1;fillColor=<state>;strokeColor=<state>;strokeWidth=1.5;fontStyle=1;fontSize=11;`, with its digit as the value.
-- Edge: `edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;endArrow=block;strokeColor=#666666;`. Give it `source`/`target` ids and
-  `<mxGeometry relative="1" as="geometry"/>`.
-- Thick edge (to a named set): add `strokeWidth=2.5;`. ADR-only edge: add `dashed=1;`. Failure path: `strokeColor=#C62828;`, solid.
-- Span bar (eac's phase brace and the commit-story's top axis): `shape=crossbar;html=1;fillColor=none;strokeColor=#546E7A;strokeWidth=1.5;`
+  `rounded=1;html=1;arcSize=3;fillColor=#262E3B;strokeColor=#3A4555;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=#B0BAC7;`
+- Title: `text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#DDE2E9;`
+- Body/note: `text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=11;fontColor=#949FAE;`
+- Commit dot: `ellipse;html=1;fillColor=<state>;strokeColor=<state>;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=<digit>;`, with its
+  digit as the value.
+- Edge: `edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=#CDD3DC;endArrow=block;strokeColor=#AAB4C3;`. Give it
+  `source`/`target` ids and `<mxGeometry relative="1" as="geometry"/>`. An edge label sits on `labelBackgroundColor=#1E2430`.
+- Thick edge (to a named set): add `strokeWidth=2.5;`. ADR-only edge: add `dashed=1;`. Failure path: `strokeColor=#E57373;`, solid.
+- Span bar (eac's phase brace and the commit-story's top axis): `shape=crossbar;html=1;fillColor=none;strokeColor=#AAB4C3;strokeWidth=1.5;`
   14 px tall, with a caps label cell centred above it. Use it over bands to group stages (CI, CD); never as an edge.
 
 ## Every diagram: verify, then simplify (applies to ALL makers)
@@ -138,8 +145,8 @@ Lessons from wave 4:
 - **Run the ADR's own example when it's cheap.** Reading `Get-ConfigValue` passed, but running the ADR's example address threw (a typed
   `Dictionary` has no `Contains`). Run probes in the background behind `timeout <s>`, from a script in your own output folder.
 - **Every title is ≤ 100 characters on one line**, not only fan-out drawings. Shorten the brief's draft title when you have to, and say so.
-- **Check the result colour.** A fail-open "proceed" result isn't a pipeline/runner, so don't borrow `#fff2cc` for it. Use the neutral grey
-  unless the palette has a role for it.
+- **Check the result colour.** A fail-open "proceed" result isn't a pipeline/runner, so don't borrow the runner's colour for it. Use the
+  neutral glyph unless the palette has a role for it.
 - **The time-safeguard limit can change mid-wave.** If the hook denies a call, its message names the current limit. Report the denial, and
   never retry with a larger limit.
 
@@ -229,12 +236,12 @@ view adds its sections in `describe.py`'s `VIEWS`.
 ### Colours (minimaps only; drawings keep the palettes above)
 
 - The background and the lit colour come from the `palette` of `maps.yml` (`Get-Config -Config maps`), the same colours as the world-map
-  PDFs: `background` `#E6ECF2`, drawn first, and `highlight`, the kit's ink `#37474F`, which the PDFs use for a lit cell's outline.
+  PDFs: `background` `#1E2430`, drawn first, and `highlight`, the light ink `#E6EAF0`, which the PDFs use for a lit cell's outline.
 - **One lit encoding on all three minimaps:** a lit cell or file is filled in the lit colour; lit by passing mentions only, in the lit
-  colour at 40 % over the idle grey. One map-key entry covers both on the grid, the tree and the value-chain map.
-- Idle cells and tiles are `#ECEFF1`, with `#CFD8DC` borders. Labels are `#263238` (lit) and `#546E7A` (not lit).
-- A lit ADR file tile on the tree has a 1 px white rim.
-- The **lens badge** is white text on `#263238`: `META`, `ARCH`, `IMPL`, `OPS` or `GOV`.
+  colour at 40 % over the idle cell. One map-key entry covers both on the grid, the tree and the value-chain map.
+- Idle cells and tiles are `#262E3B`, with `#3A4555` borders. Labels are `#CDD3DC` (lit) and `#949FAE` (not lit).
+- A lit ADR file tile on the tree has a 1 px rim in the page colour `#1E2430` (a dark ring on the light tile).
+- The **lens badge** is dark text `#1E2430` on `#E6EAF0`: `META`, `ARCH`, `IMPL`, `OPS` or `GOV`.
 - No hue appears in a minimap: red stays reserved for failure inside drawings, and yellow for the BVT commit state.
 - The lens badge sits on the **grid** minimap only, in its empty top-left corner. On the tree map it would hide tiles.
 - A lit file is often a tiny square inside a big group, so its **group tile gets a 3 px edge** in the lit colour as well.
@@ -402,11 +409,11 @@ number, name, path and order against the repository as it is today; the reposito
 - numbers as symbols, each shown once: edge fractions (`4/5`, bold, on a white patch) first; a count chip (white pill, box-stroke rim;
   `m-count` in `glyphs.xml`, legend `count chip: <what it counts>`) only for a number no fraction already shows. Leaner wins: a symbol that
   repeats what another symbol says is cut, and the number goes to the `.md`;
-- **numbered markers**: a 22 px `#37474F` disc with a 2 px white rim and a white bold digit, on a box's top-left corner or beside an edge.
-  Each number is one Walkthrough step in `<stem>.md`. A marker always touches what it numbers (a glyph's corner, or the middle of an edge);
-  a marker floating on empty canvas is a defect. An edge marker sits beside its edge with its rim touching the line (disc x = edge x + 2),
-  never centred on it: the preview draws edges over every glyph, so a centred disc is struck through. To say "nothing here" (e.g. a rung
-  with no throw), draw nothing and say it in the article;
+- **numbered markers**: a 22 px `#E6EAF0` disc with a 2 px `#1E2430` rim and a `#1E2430` bold digit, on a box's top-left corner or beside an
+  edge. Each number is one Walkthrough step in `<stem>.md`. A marker always touches what it numbers (a glyph's corner, or the middle of an
+  edge); a marker floating on empty canvas is a defect. An edge marker sits beside its edge with its rim touching the line (disc x = edge
+  x + 2), never centred on it: the preview draws edges over every glyph, so a centred disc is struck through. To say "nothing here" (e.g. a
+  rung with no throw), draw nothing and say it in the article;
 - **span bars** over the bands when the flow has named stages (CI, CD, DEPLOY), as the commit-story's top axis does;
 - **every edge that exists in the code is drawn**: a failure glyph has its failure-path edge from the glyph that raises it, a result has the
   edge from what produces it. An unconnected glyph is a defect unless the article says why it stands alone;
@@ -495,7 +502,7 @@ boxes in line (same row or same column) wherever possible. When an edge must lea
 cell** (`text;html=1;strokeColor=none;fillColor=none;`, id `port-<box>-<side>`) placed on that box's edge. The edge then stays straight in
 both the preview and draw.io. A bent edge (e.g. a return into a gate earlier in the flow) is straight segments between port cells, with
 `endArrow=none` on all but the last segment. Several targets one edge enters together share a **frame** (chrome, not a kind: no fill,
-`#CFD8DC` 1 px rim, `arcSize=6`); the edge ends on the frame, and the legend needs no row for it.
+`#3A4555` 1 px rim, `arcSize=6`); the edge ends on the frame, and the legend needs no row for it.
 
 ## Reporting drift found while verifying
 

@@ -21,7 +21,9 @@ from urllib.parse import quote, unquote
 from PIL import Image, ImageDraw, ImageFont
 from PIL.PngImagePlugin import PngInfo
 
-BACKGROUND = "#E6ECF2"  # the grey-bluish base layer of every rendered output (.claude/drawio/STYLE.md)
+BACKGROUND = "#1E2430"  # the dark page every rendered output sits on (.claude/drawio/STYLE.md, dark-theme tokens)
+INK = "#CDD3DC"  # text that sets no fontColor: light grey on the dark page
+LINE = "#AAB4C3"  # an edge or outline that sets no strokeColor: quiet ink
 
 
 def style_map(style):
@@ -123,10 +125,10 @@ def render(root):
     miny = min(v[1] for v in geo.values()) - 20
     maxx = max(v[0] + v[2] for v in geo.values()) + 20
     maxy = max(v[1] + v[3] for v in geo.values()) + 20
-    # Every rendered output sits on the grey-bluish background, painted first behind everything, so a dark- or
-    # light-mode viewer shows the same page. A model's own background wins only when it is a real colour, not white.
+    # Every rendered output sits on the dark page, painted first behind everything, so a dark- or light-mode viewer
+    # shows the same page. A model's own background wins only when it is a real colour, not white or the retired light page.
     model_bg = color(root.get("background"), BACKGROUND)
-    bg = BACKGROUND if model_bg.lower() in ("#ffffff", "#fff") else model_bg
+    bg = BACKGROUND if model_bg.lower() in ("#ffffff", "#fff", "#e6ecf2") else model_bg
     img = Image.new("RGB", (int(maxx - minx), int(maxy - miny)), bg)
     d = ImageDraw.Draw(img)
     off = lambda x, y: (x - minx, y - miny)
@@ -139,7 +141,7 @@ def render(root):
         (x0, y0), (x1, y1) = off(x, y), off(x + w, y + h)
         is_text = "text" in s and s.get("strokeColor", "none") == "none"
         fill = None if is_text else faded(color(s.get("fillColor"), None), s)
-        stroke = None if s.get("strokeColor") == "none" or is_text else faded(color(s.get("strokeColor"), "#000000"), s)
+        stroke = None if s.get("strokeColor") == "none" or is_text else faded(color(s.get("strokeColor"), LINE), s)
         dashed = s.get("dashed") == "1"
         if (fill or stroke) and dashed and not any(k in s for k in ("ellipse", "rhombus")) and s.get("shape") != "hexagon":
             sw = max(1, int(float(s.get("strokeWidth", 1))))
@@ -165,7 +167,7 @@ def render(root):
                 d.ellipse([x0, y0, x1, y0 + lid], fill=fill, outline=stroke, width=sw)
             elif s.get("shape") == "crossbar":  # a span bar: a horizontal line with an end tick on each side
                 ym = (y0 + y1) / 2
-                ink = stroke or "#546E7A"
+                ink = stroke or LINE
                 d.line([(x0, ym), (x1, ym)], fill=ink, width=max(1, sw))
                 d.line([(x0, y0), (x0, y1)], fill=ink, width=max(1, sw))
                 d.line([(x1, y0), (x1, y1)], fill=ink, width=max(1, sw))
@@ -187,7 +189,7 @@ def render(root):
             size = int(float(s.get("fontSize", 12)))
             bold = int(s.get("fontStyle", 0)) & 1 == 1 or "<b>" in (c.get("value") or "")
             f = font(size, bold)
-            ink = html_color(c.get("value")) or color(s.get("fontColor"), "#000000")
+            ink = html_color(c.get("value")) or color(s.get("fontColor"), INK)
             top = s.get("verticalAlign") == "top" or s.get("swimlane") == "1" or "swimlane" in s
             align = s.get("align", "center")
             bbox = d.multiline_textbbox((0, 0), text, font=f, spacing=3)
@@ -206,7 +208,7 @@ def render(root):
         a = off(src[0] + src[2] / 2, src[1] + src[3] / 2)
         b = off(dst[0] + dst[2] / 2, dst[1] + dst[3] / 2)
         a, b = clip(a, b, src, minx, miny), clip(b, a, dst, minx, miny)
-        ink = color(s.get("strokeColor"), "#333333")
+        ink = color(s.get("strokeColor"), LINE)
         width = int(float(s.get("strokeWidth", 1))) + 1
         if s.get("dashed") == "1":
             dashed_line(d, [a, b], ink, width)
@@ -217,7 +219,7 @@ def render(root):
         label = plain(c.get("value"))
         if label:
             f = font(int(float(s.get("fontSize", 11))), False)
-            d.text(((a[0] + b[0]) / 2 + 4, (a[1] + b[1]) / 2 - 14), label, font=f, fill=color(s.get("fontColor"), "#333333"))
+            d.text(((a[0] + b[0]) / 2 + 4, (a[1] + b[1]) / 2 - 14), label, font=f, fill=color(s.get("fontColor"), INK))
     return img
 
 

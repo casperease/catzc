@@ -17,8 +17,8 @@ place, no back-compat).
 
 ### Rule ADR-REPO-CONTRACT:2
 
-Contracts are laid out as `contracts/<unit>/<version>/<module>/<path>`. `<unit>` is the deployable-unit that carries the contracts — today
-only `catzc`, the bundle, the one unit a consumer pins; `<version>` is that unit's version, which `Resolve-CatzcBuildVersion` resolves;
+Contracts are laid out as `contracts/<unit>/<version>/<module>/<path>`. `<unit>` is the deployable-unit that carries the contracts —
+`catzc`, the bundle, the one unit a consumer pins; `<version>` is that unit's version, which `Resolve-CatzcBuildVersion` resolves;
 `<module>` is the owning catzc module, the one that talks to the outside party and holds the tests that prove the contract, with its
 dependencies governed by `dependencies.yml`; and `<path>` is the path of the real file the asset constrains, relative to the module's
 **target root**. A module's target root is the repository-relative folder that `contracts.yml` declares for it, a configured setting whose
@@ -143,7 +143,7 @@ promises nothing to a consumer; it records what a platform requires, so the repo
 
 The first segment names the deployable-unit that carries the contracts, and the second is that unit's version, so one number tells a
 consumer which build of the unit and which contracts belong together, and the version folder is a self-contained snapshot of every contract
-of that unit at that version. Today the one such unit is `catzc`, the bundle: it is the one unit a consumer pins
+of that unit at that version. The one such unit is `catzc`, the bundle: it is the one unit a consumer pins
 ([ADR-AUTO-BUNDLE#7](../automation/platform-bundle.md#rule-adr-auto-bundle7)), and the owning modules ship in it, so provided and
 depended-on contracts alike version with it. The repository is a product mono-repository, not one monolithic application: inside the trunk
 everything is at HEAD, and a version exists only where a unit crosses the boundary. So there is no repository-wide version, and another
@@ -298,13 +298,13 @@ the configured mode says what to match, so no tree walk runs on speculation.
 
 `contracts/` holds every binding interface at the repository boundary: provided contracts, the only public API, and depended-on contracts,
 what outside platforms require of our files and calls. It is laid out as `contracts/<unit>/<version>/<module>/<path>`, where the unit is the
-deployable-unit that carries the contracts (today only `catzc`, the bundle), the version is that unit's, the module owns and tests the
-contract, and the path is the real file's, relative to the module's target root: the repository root unless `contracts.yml` declares another
-folder for the module. No folder under `contracts/` is dot-prefixed; a dot-prefixed root is reached through a target root. There is no
-repository-wide version. Each unit's draft `0.0.0` is its only mutable folder, frozen only when that unit is released; a released version
-folder is kept while a consumer pins its provided contracts. An asset's name picks its kind and its direction, a per-version `contract.yml`
-overrides the direction, and many-file addressing is a configured mode. Every contract is verified by its owning module's tests, so a break
-is caught in CI, not in production. Everything outside `contracts/` is internal and follows one living version.
+deployable-unit that carries the contracts (`catzc`, the bundle), the version is that unit's, the module owns and tests the contract, and
+the path is the real file's, relative to the module's target root: the repository root unless `contracts.yml` declares another folder for
+the module. No folder under `contracts/` is dot-prefixed; a dot-prefixed root is reached through a target root. There is no repository-wide
+version. Each unit's draft `0.0.0` is its only mutable folder, frozen only when that unit is released; a released version folder is kept
+while a consumer pins its provided contracts. An asset's name picks its kind and its direction, a per-version `contract.yml` overrides the
+direction, and many-file addressing is a configured mode. Every contract is verified by its owning module's tests, so a break is caught in
+CI, not in production. Everything outside `contracts/` is internal and follows one living version.
 
 ### How this is enforced
 

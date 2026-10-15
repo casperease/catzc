@@ -8,9 +8,9 @@
 
 A repo-wide **variant** is a setting fixed for the importer session, declared in `configs/variants.yml` in the `Catzc.Base.Variants` module
 and read through `Get-Config -Config variants` (so it inherits the session cache — re-run the importer to change it). The file is a
-**growing dictionary**: `ado_naming`, `git_workspace`, `have_customers`, and `aspects` (read by `Get-Aspect`; see
-[module-aspects](../design/module-aspects.md)), more as needed. A variant is the one home for a "this whole repo works this way" switch —
-not a per-module config, not an environment variable.
+**growing dictionary**: `ado_naming`, `git_workspace`, `have_customers`, `aspects` (read by `Get-Aspect`; see
+[module-aspects](../design/module-aspects.md)), and `tracks` (read by `Get-Track`; see [tracks](../design/tracks.md)), more as needed. A
+variant is the one home for a "this whole repo works this way" switch — not a per-module config, not an environment variable.
 
 - [What a variant is](#what-a-variant-is)
 
@@ -39,17 +39,17 @@ Config layer** (all of `AzureExt`, `Tooling`, and the upper `Base` modules) — 
 `Get-BicepResourceName` passes to the name assembler. It is a **variant, not a code constant**: `Get-AdoNaming` reads it (default
 `standard`). Changing it re-spells every generated resource name, so it is a deliberate, one-time repo decision, not a runtime toggle.
 
-- [The three variants](#the-three-variants)
+- [The variants](#the-variants)
 
 ### Rule ADR-REPO-VARIANT:5
 
 `have_customers` is **tri-state** — `false` (no customer deployments; only non-customer templates), `all` (every customer in `customer.yml`
-is enabled), or a **list of customer names** (only those). `Get-EnabledCustomers` normalizes it; the plural `Test-`/`Assert-HaveCustomers`
-answer the repo-wide question (with an optional `-Name` list), and the singular `Test-`/`Assert-HaveCustomer` cover one customer. The
-**enabled set lives in the variant**, not in `customer.yml`, precisely so these primitives can live in `Base` while `customer.yml` stays an
-Azure-layer catalogue.
+is enabled; `true` spells the same), or a **list of customer names** (only those). `Get-EnabledCustomers` normalizes it; the plural
+`Test-`/`Assert-HaveCustomers` answer the repo-wide question (with an optional `-Name` list), and the singular `Test-`/`Assert-HaveCustomer`
+cover one customer. The **enabled set lives in the variant**, not in `customer.yml`, precisely so these primitives can live in `Base` while
+`customer.yml` stays an Azure-layer catalogue.
 
-- [The three variants](#the-three-variants)
+- [The variants](#the-variants)
 
 ### Rule ADR-REPO-VARIANT:6
 
@@ -60,7 +60,7 @@ path (one-living-version); in `main-via-pr`, work always happens on a branch, so
 stop condition** is a direct commit made while standing on main/master locally. Read it through `Get-GitWorkspace` /
 `Test-GitWorkspace -MainDirect|-MainViaPr`.
 
-- [The three variants](#the-three-variants)
+- [The variants](#the-variants)
 
 ## Context
 
@@ -97,27 +97,32 @@ and each variant's defaulting lives in exactly one place. A caller never mention
 
 The primitives must be usable as trivial guards wherever a repo-wide decision matters — deep in the Azure templating layer, in a tooling
 step, anywhere. That argues for a low, widely-dependable **Base** module rather than the Azure layer. Reading a config never bypasses
-`Get-Config` (`ADR-CONF-LOADING:1`), so `Catzc.Base.Variants` depends on `Catzc.Base.Config`; that edge is acyclic because `Config` depends
+`Get-Config` (`ADR-CONF-LOADING#1`), so `Catzc.Base.Variants` depends on `Catzc.Base.Config`; that edge is acyclic because `Config` depends
 only on `Repository` and `Asserts`, never on `Variants`. The reach follows from the graph: any module that sits **above** the Config layer
 can call the primitives — every `AzureExt`, `Tooling`, and upper-`Base` module — and the foundation modules that cannot (`Config`,
 `Objects`, `Repository`, `Asserts`) never need to. The module's config type stays self-contained so validation adds no further edges; a
 variant that needed to cross-check another asset would belong to that asset's layer, not here.
 
-### The three variants
+### The variants
 
-- **`ado_naming`** — the resource-name component order (`ADR-REPO-VARIANT:4`). One repo-wide choice of `standard` vs `classic`, read by
+- **`ado_naming`** — the resource-name component order (`ADR-REPO-VARIANT#4`). One repo-wide choice of `standard` vs `classic`, read by
   `Get-AdoNaming` and applied by the name assembler; the order data itself is `Get-AzureNameOrderSet` in the Azure templating layer, and the
   variant only picks which key it uses (see [naming-standard](../azure/azure-naming-standard.md)).
-- **`git_workspace`** — how changes reach main (`ADR-REPO-VARIANT:6`), `main-direct | main-via-pr`, default `main-direct`. Committing is
+- **`git_workspace`** — how changes reach main (`ADR-REPO-VARIANT#6`), `main-direct | main-via-pr`, default `main-direct`. Committing is
   always allowed in both modes — a solo trunk commits to main directly, and PR-mode work lives on branches where committing is equally fine;
   the variant exists for the one asymmetry, `main-via-pr` **and** standing on main/master locally, which is the only stop condition
   automation enforces (`Sync-GeneratedFile`'s branch guard reads `Test-GitWorkspace -MainViaPr`). This is the **PR-vs-Direct** integration
   axis the value-chain diagrams (`ADR-FLOW-CD`) prefix a flow with (`PR + CD + …` vs a `Direct` flow).
-- **`have_customers`** — the enabled-customer set (`ADR-REPO-VARIANT:5`), tri-state `false | all | [names]`. It is the guard for customer
-  deployments and the source of the per-template `customer_deployment` default (see [customer-model](../azure/azure-customer-model.md)).
-  Keeping the enabled set in the variant (rather than deriving it from `customer.yml`) is what lets the `HaveCustomer(s)` primitives answer
-  "is this customer enabled" from `Base` without reaching up into the Azure-layer catalogue. The plural and singular primitives split by the
-  cardinality rule of [ADR-PWSH-VERBS#6](../pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs6).
+- **`have_customers`** — the enabled-customer set (`ADR-REPO-VARIANT#5`), tri-state `false | all | [names]`, with `true` as a spelling of
+  `all`. It is the guard for customer deployments and the source of the per-template `customer_deployment` default (see
+  [customer-model](../azure/azure-customer-model.md)). Keeping the enabled set in the variant (rather than deriving it from `customer.yml`)
+  is what lets the `HaveCustomer(s)` primitives answer "is this customer enabled" from `Base` without reaching up into the Azure-layer
+  catalogue. The plural and singular primitives split by the cardinality rule of
+  [ADR-PWSH-VERBS#6](../pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs6).
+- **`aspects`** — each track's ordered classification of a unit's files into `live` and `tests`, ending in the `**` catch-all; read by
+  `Get-Aspect` and compiled per unit by `AspectPartition` ([module-aspects](../design/module-aspects.md)).
+- **`tracks`** — the repository's root concerns, one entry per root folder with its class and the file languages of its tech-stack; read by
+  `Get-Track` ([tracks](../design/tracks.md)).
 
 ## Decision
 

@@ -152,7 +152,7 @@ pipelines/
   cron-cert-rotation.yaml       # pipeline
   deploy-release-certification.yaml # pipeline (governed deploy of a pinned commit)
   input-environment-request.yaml# pipeline
-  cd-apex.yaml                  # thin pipeline that `extends:` a whole-pipeline template
+  cd-contoso.yaml               # thin pipeline that `extends:` a whole-pipeline template
   steps/      *.yaml            # step templates
   jobs/       *.yaml            # job templates
   stages/     *.yaml            # stage templates
@@ -176,17 +176,10 @@ pipelines/
   directory index; the tooling above derives Pipeline-vs-Template from YAML keys and ADO data. A pipeline whose prefix disagrees with its
   structure or its ADO registration is visible as a convention break at review.
 - **`Test-Pipelines`** — an offline quality gate ([ADR-AUTO-TEST#35](../automation/test-automation.md#rule-adr-auto-test35)) that checks the
-  `pipelines/` tree against this ADR: the type prefix (:1), flat placement and the closed set of per-kind template folders with matching
-  fragment kinds (:2/:3), the `.yaml` extension (:6), and absolute `/pipelines/...` template references (:4). It collects one issue per
-  violation, each naming its rule code, and throws once listing them all; its L1 integrity test requires zero issues over the real tree, so
-  a mis-named or misplaced pipeline fails CI, not just review.
-
-## Status
-
-The layout exists; some folders are reserved but unpopulated, by the reactive-creation rule above. `pipelines/steps/` holds the one
-extracted step template (`invoke-automation.yaml`) and `pipelines/extends/` holds `cd-customer.yaml`; `pipelines/jobs/`,
-`pipelines/stages/`, and `pipelines/variables/` hold no templates (only a `.gitkeep` and a `README.md`) — no job, stage, or variable
-template has earned extraction.
+  `pipelines/` tree against this ADR: the type prefix (ADR-PIPE-NAME#1), flat placement and the closed set of per-kind template folders with
+  matching fragment kinds (ADR-PIPE-NAME#2, ADR-PIPE-NAME#3), the `.yaml` extension (ADR-PIPE-NAME#6), and absolute `/pipelines/...`
+  template references (ADR-PIPE-NAME#4). It collects one issue per violation, each naming its rule code, and throws once listing them all;
+  its L1 integrity test requires zero issues over the real tree, so a mis-named or misplaced pipeline fails CI, not just review.
 
 ## Consequences
 

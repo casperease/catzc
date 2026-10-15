@@ -56,7 +56,7 @@ keeps its own title). A new exception is declared in the `.gitattributes` source
 
 A Markdown heading below the title is plain words with an anchor unique in its document. A trailing parenthesized group that holds only code
 spans and separators — a file name, a path, a citation — sits on its own line directly below the heading instead, groups joined by `·` and a
-citation written as a link to its ADR; code that is the heading's subject stays in it. In ex. a `dora-explains.md` file each entry's DORA
+citation written as a link to its ADR; code that is the heading's subject stays in it. In a `dora-explains.md` file, each entry's DORA
 paragraph is a `>` blockquote, so paraphrased research reads as grey text. `Format-MarkdownTitle` writes this form and `Test-MarkdownTitle`
 checks it.
 

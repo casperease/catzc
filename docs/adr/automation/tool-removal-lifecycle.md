@@ -8,7 +8,7 @@
 
 Three verbs, three jobs, per tool: `Install-<Tool>` converges the machine to the configured, pinned install through the configured manager;
 `Uninstall-<Tool>` reverses it through that **same** manager; `Remove-<Tool>` destructively evicts an **off-config** install the managed
-path cannot touch. Install- and Uninstall- are the managed pair (the `ADR-AUTO-DEPS:2` triad); Remove- is the source-agnostic escape hatch
+path cannot touch. Install- and Uninstall- are the managed pair (the `ADR-AUTO-DEPS#2` triad); Remove- is the source-agnostic escape hatch
 beside them.
 
 - [The three verbs](#the-three-verbs)
@@ -72,7 +72,7 @@ the same "evict by the mechanism that placed it" the Unix cores follow.
 ### Rule ADR-AUTO-REMOVE:8
 
 `Remove-<Tool>` exists only for tools that are **historically installed off-config** — a distro package, a `pip install`, an OS stub, a
-hand-built binary — that would shadow the managed build. It is not minted for every tool (the `ADR-AUTO-DEPS:2` triad is); it is added where
+hand-built binary — that would shadow the managed build. It is not minted for every tool (the `ADR-AUTO-DEPS#2` triad is); it is added where
 an eviction hole exists. `Get-ToolsStatus` names the correct verb per state: `Uninstall-` for a managed wrong version, `Remove- -Force` for
 an off-config shadow.
 
@@ -179,7 +179,7 @@ installer.
 
 `Not every tool needs a destructive Remove`
 
-The `Install-` / `Uninstall-` pair is universal (the `ADR-AUTO-DEPS:2` triad); `Remove-<Tool>` is not. It is added only where a tool has
+The `Install-` / `Uninstall-` pair is universal (the `ADR-AUTO-DEPS#2` triad); `Remove-<Tool>` is not. It is added only where a tool has
 **historically been installed off-config** and so has a real eviction hole — the tools a machine tends to already carry a foreign copy of: a
 distro `nodejs`, a `pip`-installed CLI, a Store `python`, a system `dotnet`. Minting a `Remove-` for a tool that only ever arrives through
 its configured manager would be dead ceremony ([one-living-version](../principles/one-living-version.md)). `Get-ToolsStatus` is the guide:

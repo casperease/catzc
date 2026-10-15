@@ -8,8 +8,7 @@
 
 The toolset runs in exactly two modes. **Source mode** loads every module from `automation/<Module>/` in a repository root, entered by
 `importer.ps1`. **Build mode** loads the same modules from a built, installable `Catzc` package — each module's functions merged into one
-`<Module>.functions.ps1` — entered by the package's `Import-Catzc.ps1` (or `build-catzc.ps1` at the repository root, which builds and then
-enters build mode).
+`<Module>.functions.ps1` — entered by the package's `Import-Catzc.ps1`, or by `Import-Module Catzc` for an installed package.
 
 - [Two modes, two entry points](#two-modes-two-entry-points)
 
@@ -80,23 +79,21 @@ in one session, and are proven in both by running the same tests.
 
 ### Two modes, two entry points
 
-| Mode   | Code root (`CatzcModulesRoot`)    | Entered by                                                   | A module on disk                          |
-| ------ | --------------------------------- | ------------------------------------------------------------ | ----------------------------------------- |
-| source | `<RepositoryRoot>/automation`     | `importer.ps1`                                               | a folder of one-function `.ps1` files     |
-| build  | one of the four build roots below | `Import-Catzc.ps1`, `Import-Module Catzc`, `build-catzc.ps1` | a generated `.psd1` and one merged `.ps1` |
+| Mode   | Code root (`CatzcModulesRoot`)    | Entered by                                | A module on disk                          |
+| ------ | --------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| source | `<RepositoryRoot>/automation`     | `importer.ps1`                            | a folder of one-function `.ps1` files     |
+| build  | one of the four build roots below | `Import-Catzc.ps1`, `Import-Module Catzc` | a generated `.psd1` and one merged `.ps1` |
 
-Both entry scripts at the repository root are dot-sourced and run in the caller's scope. `importer.ps1` loads the source mode.
-`build-catzc.ps1` builds the selected modules in a child `pwsh` — building needs the source mode loaded, and doing it in a child process
-keeps the caller's session and its loaded assemblies out of it — and then dot-sources the build's `Import-Catzc.ps1` in the caller's session
-with `-RepositoryRoot` set to the repository, so `out/` and repo-relative paths keep resolving there while the code root moves to the build.
-An installed build is entered the same way, through its own `Import-Catzc.ps1` or through `Import-Module Catzc`, whose root module
-dot-sources that file. Every entry point ends in the one living importer
-([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle3)), so the load sequence — preferences, vendored modules, types and
-accelerators, then modules — is the same in both modes.
+Both entries are dot-sourced and run in the caller's scope. `importer.ps1` at the repository root loads the source mode. A temporary build —
+written by `Build-Modules`, which runs in a source-mode session — is entered by dot-sourcing its `Import-Catzc.ps1` with `-RepositoryRoot`
+set to the repository, so `out/` and repo-relative paths keep resolving there while the code root moves to the build. An installed build is
+entered the same way, through its own `Import-Catzc.ps1` or through `Import-Module Catzc`, whose root module dot-sources that file. Every
+entry point ends in the one living importer ([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle3)), so the load
+sequence — preferences, vendored modules, types and accelerators, then modules — is the same in both modes.
 
-Both modes end with the same load banner (`Write-CatzcLoadBanner`): the mode and version as the session's identity line, then where the code
-was loaded from, the working root, the commit it was built from, and the loaded module and assembly set. It is read from what actually
-loaded, so it is also how a reader confirms which mode a session is in.
+Which mode a session is in is read from what actually loaded, never from a flag: `Get-CatzcRunMode` derives it from the code root
+([Deriving the mode](#deriving-the-mode)), and a build's `build.json` names the version and the commit it was built from
+([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle5)).
 
 ### Four kinds of build root
 
@@ -153,9 +150,9 @@ disagree with the code actually loaded; a derived one cannot.
 
 ### Switching modes in one session
 
-A developer moves between the modes in one shell — `importer.ps1`, then `build-catzc.ps1`, then `importer.ps1` again, in any order and as
-often as needed. Two copies of one module from different roots in the same session would make every call ambiguous, so the importer enforces
-mutual exclusion:
+A developer moves between the modes in one shell — `importer.ps1`, then a build's `Import-Catzc.ps1`, then `importer.ps1` again, in any
+order and as often as needed. Two copies of one module from different roots in the same session would make every call ambiguous, so the
+importer enforces mutual exclusion:
 
 - **Evict before loading.** Before it loads a root, the importer removes every loaded catzc module (a `Catzc.*` module or the `Catzc`
   package) whose base lies outside that root, together with the root's own stale modules. The `.internal` loader modules are reloaded from

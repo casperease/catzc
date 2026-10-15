@@ -63,7 +63,7 @@ must expose the decisions that come back to bite (scale cost, regional latency) 
 illusions."
 
 catzc is our implementation of that middle path: an **Everything-as-Code (EaC)** and **Continuous Delivery (CD)** platform, delivered as a
-thin, reusable **platform-as-a-CLI**, currently covering Azure and Azure Resource Manager.
+thin, reusable **platform-as-a-CLI**, covering Azure and Azure Resource Manager.
 
 ### What "thin platform" means
 
@@ -120,8 +120,8 @@ configuration, where they belong.
 Build catzc as a **thin platform**: an API/CLI abstraction over a vendor layer (ADR-DSGN-THINPLAT#1), kept thin by delegating to the
 vendor's own primitives rather than reimplementing them (ADR-DSGN-THINPLAT#2), consumed through a single CLI surface (ADR-DSGN-THINPLAT#3),
 fully represented as one living version of code (ADR-DSGN-THINPLAT#4), and owned as a reusable product over a substrate that stays swappable
-behind the CLI (ADR-DSGN-THINPLAT#5). This is our implementation of the EaC and CD principles as a Team-Topologies platform, currently
-covering Azure and Azure RM via Bicep plus a curated az CLI.
+behind the CLI (ADR-DSGN-THINPLAT#5). This is our implementation of the EaC and CD principles as a Team-Topologies platform, covering Azure
+and Azure RM via Bicep plus a curated az CLI.
 
 ### How this holds together
 

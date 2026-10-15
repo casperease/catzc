@@ -95,5 +95,5 @@ is in use.
 ## References
 
 [^1]:
-    DORA, [Version control](https://dora.dev/capabilities/version-control/) — Research-backed capability identifying comprehensive version
-    control as a predictor of continuous delivery, with reproducibility and traceability as the two core requirements.
+    DORA, [Version control](../../references/dora/capabilities.md#version-control) — Research-backed capability identifying comprehensive
+    version control as a predictor of continuous delivery, with reproducibility and traceability as the two core requirements.

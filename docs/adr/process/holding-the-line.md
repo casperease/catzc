@@ -52,9 +52,10 @@ When a gate fails, the line stops. Concretely:
 - Restoring green is the team's first priority over starting new work. A broken mainline is a shared emergency, not one person's chore.
 - No new work builds on the broken baseline. The fix goes in — or the offending change is reverted — before anything integrates on top.
 
-The mechanism is the same fail-fast jidoka the platform uses everywhere ([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md), rule 3): stop the
-moment a defect is detected, fix it at the source, then resume. "Holding the line" is that principle applied to the mainline and the
-promotion flow ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) rather than to a single function call [^2].
+The mechanism is the same fail-fast jidoka the platform uses everywhere
+([ADR-PRIN-POKAYOKE#3](../principles/poka-yoke.md#rule-adr-prin-pokayoke3)): stop the moment a defect is detected, fix it at the source,
+then resume. "Holding the line" is that principle applied to the mainline and the promotion flow
+([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)) rather than to a single function call [^2].
 
 ## Why
 

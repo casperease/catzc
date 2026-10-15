@@ -1,6 +1,6 @@
 # docs/adr/repository/generated-readmes.md
 
-`Generated READMEs — one authored source, copied out per conventional folder with its links rebased`
+`ADR: Generated READMEs — one authored source, copied out per conventional folder with its links rebased`
 
 ## Rules: ADR-REPO-README
 

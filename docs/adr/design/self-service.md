@@ -37,9 +37,9 @@ the Reproducible Builds project on the source-to-binary verification path, and S
 
 Changes reach production through **trunk-based development with automated guardrails**. Work lands on trunk in small batches behind
 short-lived branches that must pass the CI gate and are deleted after merge; there are no long-lived divergent branches and no legacy
-variants of our own code (`ADR-PRIN-ONELIVE`). The guardrails — asserts, the quality gates, the freshness/marker checks, and code review —
-are **automated and mandatory**, so self-service cannot merge a change that skips them. Speed and control are the same mechanism here, not a
-trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
+variants of our own code (`ADR-PRIN-ONELIVE`). The guardrails — asserts, the quality gates, the generated-file drift checks, and code review
+— are **automated and mandatory**, so self-service cannot merge a change that skips them. Speed and control are the same mechanism here, not
+a trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
 
 - [Trunk-based development](#trunk-based-development)
 
@@ -47,9 +47,9 @@ trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
 
 In tightly managed settings — regulated, compliance-bound, provenance-critical — self-service is acceptable **only when reproducibility,
 provenance, and an audit trail are intrinsic to the mechanism**, not bolted on as process. Here they are structural: the git history _is_
-the audit log, the markers _are_ the provenance record, and code review _is_ the change-approval control. Self-service and compliance
-auditability are therefore not in tension — the same trunk-based, everything-as-code pipeline that lets a consumer move quickly is also the
-one that produces a complete, tamper-evident record of who changed what, when, and why.
+the audit log, the build's `build.json` and the commit it names _are_ the provenance record, and code review _is_ the change-approval
+control. Self-service and compliance auditability are therefore not in tension — the same trunk-based, everything-as-code pipeline that lets
+a consumer move quickly is also the one that produces a complete, tamper-evident record of who changed what, when, and why.
 
 - [Safe where control matters](#safe-where-control-matters)
 
@@ -99,8 +99,9 @@ as "a source-control branching model where developers collaborate on code in a s
 create other long-lived development branches". The practices that matter here are its guardrails: small, frequent commits to trunk;
 short-lived branches used only for review and CI, then deleted; and a mandatory CI gate that a commit must pass. Because those gates are
 automated and stand between every change and trunk, self-service cannot merge something that skips review, fails an assert
-(`ADR-AUTO-FAILFAST`), or leaves a stale marker. The branching discipline and the no-legacy rule (`ADR-PRIN-ONELIVE`) are two faces of the
-same commitment: one living version, on trunk, always releasable.
+(`ADR-AUTO-FAILFAST`), or leaves a generated file stale
+([generated-root-configs](../repository/generated-root-configs.md#rule-adr-repo-rootcfg6)). The branching discipline and the no-legacy rule
+(`ADR-PRIN-ONELIVE`) are two faces of the same commitment: one living version, on trunk, always releasable.
 
 ### Safe where control matters
 
@@ -108,10 +109,11 @@ same commitment: one living version, on trunk, always releasable.
 
 The domains where self-service seems most dangerous — regulated, audited, compliance-bound — are the ones this design serves best, because
 it makes the compliance artifacts fall out of the normal workflow instead of being assembled after the fact. The audit trail is `git log`:
-every change is attributed, timestamped, and justified in its commit and review. The provenance record is the marker set: every deployed
-unit names its exact content. The change-approval control is the pull request: no change reaches trunk unreviewed. None of these is an extra
-step a busy engineer might skip under deadline — they are the only path, so the record is always complete. That is what "safe by
-construction" means: the fast path and the compliant path are the same path.
+every change is attributed, timestamped, and justified in its commit and review. The provenance record is the build's `build.json` with the
+content hash it carries: every deployed unit names its exact content and the commit it was built from
+([platform-bundle](../automation/platform-bundle.md#rule-adr-auto-bundle5)). The change-approval control is the pull request: no change
+reaches trunk unreviewed. None of these is an extra step a busy engineer might skip under deadline — they are the only path, so the record
+is always complete. That is what "safe by construction" means: the fast path and the compliant path are the same path.
 
 ## Decision
 
@@ -128,8 +130,8 @@ artifact with provenance** (ADR-DSGN-SELFSERV#3), landed via **trunk-based devel
   verifiable identity.
 - **One living version** (`ADR-PRIN-ONELIVE`) forbids long-lived branches and legacy variants, keeping trunk the one source that is always
   releasable.
-- **Fail-fast asserts and the quality gates** (`ADR-AUTO-FAILFAST`, the spelling, terminology and freshness quality gates) are the automated
-  guardrails a self-service change must clear before it can merge.
+- **Fail-fast asserts and the quality gates** (`ADR-AUTO-FAILFAST`; the spelling, terminology, and generated-file drift quality gates) are
+  the automated guardrails a self-service change must clear before it can merge.
 - **The thin CLI** (`ADR-DSGN-THINPLAT`) is the only actuator, so no self-service action can bypass the record.
 
 ## References

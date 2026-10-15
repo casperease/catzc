@@ -51,7 +51,7 @@ lets the `git log` audit trail be trusted as complete. Solo `main-direct` is the
 
 ## Context
 
-Trunk-based development ([one-living-version](../principles/one-living-version.md), `ADR-PRIN-ONELIVE:4`) puts one mainline at the centre,
+Trunk-based development ([one-living-version](../principles/one-living-version.md), `ADR-PRIN-ONELIVE#4`) puts one mainline at the centre,
 and [self-service](self-service.md) (`ADR-DSGN-SELFSERV`) rests its whole audit-and-approval story on that mainline living somewhere every
 change is attributed, passes its merge gate, and is recorded. That somewhere is the **server** git remote — the ADO or GitHub repository
 whose branch policy and identity model make those guarantees real. Developer and CI machines are clients that clone and bridge to it.
@@ -111,17 +111,17 @@ into the server's mainline, and it is what makes ingress _safe_: it authenticate
 commit on main is attributable to an authenticated principal), runs the mandatory merge gates, and performs the merge itself — the change
 reaches `main` / `master` by no other route. Review is one of the gates a PR can carry; the load-bearing property is
 authentication-plus-merge. The PR is the audited doorway, and closing every other door (no direct push to the protected branch) is what lets
-the audit trail in `git log` be trusted as complete. The solo `main-direct` mode (`ADR-REPO-VARIANT:6`) is the deliberate exception for a
+the audit trail in `git log` be trusted as complete. The solo `main-direct` mode (`ADR-REPO-VARIANT#6`) is the deliberate exception for a
 single-author trunk, where the author _is_ the sole authenticated principal and the doorway collapses to a direct commit; the moment there
 is more than one author, the PR ingress is what keeps the mainline audited.
 
 ## How this is enforced
 
 - **Server branch policy** — the protected `main` / `master` on the ADO / GitHub remote admits merges only through a PR, so ingress cannot
-  bypass the authenticate-and-merge path (`ADR-DSGN-REMOTE:4`).
-- **`git_workspace` variant** — `main-via-pr` vs `main-direct` (`ADR-REPO-VARIANT:6`) selects the audited-ingress regime;
+  bypass the authenticate-and-merge path (`ADR-DSGN-REMOTE#4`).
+- **`git_workspace` variant** — `main-via-pr` vs `main-direct` (`ADR-REPO-VARIANT#6`) selects the audited-ingress regime;
   `Sync-GeneratedFile`'s branch guard is the local half.
-- **The stable sync point** — `ADR-DSGN-LIFE:6` (integrate from the always-on environment's occupant) and `ADR-DSGN-LIFE:7` (the dirty HEAD)
+- **The stable sync point** — `ADR-DSGN-LIFE#6` (integrate from the always-on environment's occupant) and `ADR-DSGN-LIFE#7` (the dirty HEAD)
   supply the "last verified commit" this ADR tells consumers to integrate from.
 - **Code review** — a build or workflow that pins its integration base to the remote HEAD rather than the last verified commit, or a process
   that reaches the protected branch outside a PR, is rejected against this ADR.
@@ -138,10 +138,10 @@ is more than one author, the PR ingress is what keeps the mainline audited.
 
 ## Related
 
-- [commit-lifecycle](commit-lifecycle.md) (`ADR-DSGN-LIFE`) — the stable sync point (`:6`) and the dirty HEAD (`:7`) this ADR integrates
-  from.
+- [commit-lifecycle](commit-lifecycle.md) (`ADR-DSGN-LIFE`) — the stable sync point (`ADR-DSGN-LIFE#6`) and the dirty HEAD
+  (`ADR-DSGN-LIFE#7`) this ADR integrates from.
 - [one-living-version](../principles/one-living-version.md) (`ADR-PRIN-ONELIVE`) — trunk-based development and immutable history.
 - [self-service](self-service.md) (`ADR-DSGN-SELFSERV`) — the audit / change-approval guarantees the server remote and PR ingress make real.
-- [repo-variants](../repository/repo-variants.md) (`ADR-REPO-VARIANT:6`) — the `git_workspace` PR-vs-Direct integration mode.
+- [repo-variants](../repository/repo-variants.md) (`ADR-REPO-VARIANT#6`) — the `git_workspace` PR-vs-Direct integration mode.
 - [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) (`ADR-FLOW-CD`) — the verification the "verified commit"
   has cleared.

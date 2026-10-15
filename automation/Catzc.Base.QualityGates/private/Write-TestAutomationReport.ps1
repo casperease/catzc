@@ -25,7 +25,8 @@
     Per-level millisecond limits keyed by tag (L0/L1/L2/L3) — the over-limit threshold per test level. Defaults to
     the `tests.level_ms` limits in timeouts.yml (Get-TestTimeLimits).
 .PARAMETER RunBudgetSeconds
-    The budget for the whole run, in seconds; the header records the run against it (report-only). Defaults to
+    The budget for the whole run, in seconds; the header records the run against it (a devbox run over it fails,
+    ADR-AUTO-TEST#44). Defaults to
     `tests.run_seconds` in timeouts.yml (Get-TestTimeLimits).
 .PARAMETER SlowestCount
     How many slowest passed tests to list. Defaults to 20.
