@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleGroupConfig.ps1
+#   module: Catzc.Base.ModuleSystem
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the declared module GROUPS from configs/dependencies.yml.

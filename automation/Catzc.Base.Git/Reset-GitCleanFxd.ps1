@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Git/Reset-GitCleanFxd.ps1
+#   module: Catzc.Base.Git
+#   visibility: public
+
 <#
 .SYNOPSIS
     Performs a whitelisted `git clean -fxd`: deletes only the untracked files the automation itself

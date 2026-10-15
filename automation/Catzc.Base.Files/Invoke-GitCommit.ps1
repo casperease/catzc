@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/Invoke-GitCommit.ps1
+#   module: Catzc.Base.Files
+#   visibility: public
+
 <#
 .SYNOPSIS
     Commits the changes under the given repository paths as one git commit.

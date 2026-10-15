@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Timeouts/Assert-CompletesWithin.ps1
+#   module: Catzc.Base.Timeouts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts that a script block finishes within a time limit; past it the work is stopped and the assert throws.

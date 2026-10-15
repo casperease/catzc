@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps.BuildValidation/Sync-AdoBuildValidations.ps1
+#   module: Catzc.Azure.DevOps.BuildValidation
+#   visibility: public
+
 <#
 .SYNOPSIS
     Registers every build-validation branch policy declared in build-validation.yml. Idempotent.

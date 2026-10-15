@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Cli/Test-AzCliBicep.ps1
+#   module: Catzc.Azure.Cli
+#   visibility: public
+
 <#
 .SYNOPSIS
     Tests whether the Bicep CLI is available to az AND at or above the configured minimum version.

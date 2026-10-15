@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Toolchain/private/Get-GoRelease.ps1
+#   module: Catzc.Tooling.Toolchain
+#   visibility: private
+
 <#
 .SYNOPSIS
     Resolves the official Go archive for a locked version from the go.dev release feed.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-GitAttributeValue.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Reads the given .gitattributes attributes for many repository paths at once.

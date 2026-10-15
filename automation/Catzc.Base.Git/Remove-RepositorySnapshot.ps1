@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Git/Remove-RepositorySnapshot.ps1
+#   module: Catzc.Base.Git
+#   visibility: public
+
 <#
 .SYNOPSIS
     Deletes a repository snapshot made by New-RepositorySnapshot.

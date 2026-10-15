@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Write-TestAutomationRuleCoverage.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Renders the ADR-rule enforcement coverage report (rule-coverage.md + rule-coverage.csv) from a run's rows.

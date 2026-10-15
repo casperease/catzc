@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Config/private/Merge-ConfigFragment.ps1
+#   module: Catzc.Base.Config
+#   visibility: private
+
 <#
 .SYNOPSIS
     Merges a consumer overlay's config fragment onto a bundled config, key by key.

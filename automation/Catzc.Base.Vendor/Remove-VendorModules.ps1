@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Vendor/Remove-VendorModules.ps1
+#   module: Catzc.Base.Vendor
+#   visibility: public
+
 <#
 .SYNOPSIS
     Removes vendored modules from automation/.vendor, validating first that each is restorable from the source.

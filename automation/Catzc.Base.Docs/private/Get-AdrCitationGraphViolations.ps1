@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/private/Get-AdrCitationGraphViolations.ps1
+#   module: Catzc.Base.Docs
+#   visibility: private
+
 <#
 .SYNOPSIS
     Lists every rule-summary citation that leaves its domain for a domain the registry does not declare it depends on.

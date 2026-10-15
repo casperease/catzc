@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Variants/Assert-HaveCustomers.ps1
+#   module: Catzc.Base.Variants
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts the repo has customer deployments enabled — for all customers, or for specific names — else throws.

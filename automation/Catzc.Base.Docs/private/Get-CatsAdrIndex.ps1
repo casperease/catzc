@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/private/Get-CatsAdrIndex.ps1
+#   module: Catzc.Base.Docs
+#   visibility: private
+
 <#
 .SYNOPSIS
     Parses the ADR index ([index](/docs/adr/index.md)) into the code -> ADR entries that Show-Cats presents.

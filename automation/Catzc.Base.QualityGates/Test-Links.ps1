@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/Test-Links.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: public
+
 <#
 .SYNOPSIS
     The link quality gate: fails on any off-form, dangling, or dead link or citation

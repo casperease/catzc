@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-TestRunLockHolder.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Reads the test-run lock record and describes who holds the working folder.

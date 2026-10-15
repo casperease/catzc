@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/Test-TestTitles.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: no test title carries an angle-bracket template token unless its block is data-driven.

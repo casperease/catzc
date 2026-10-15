@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Provisioning/private/Test-IsWslSession.ps1
+#   module: Catzc.Tooling.Provisioning
+#   visibility: private
+
 <#
 .SYNOPSIS
     Tests whether the current session runs inside WSL (Windows Subsystem for Linux).

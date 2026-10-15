@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/Test-Change.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate over what changed: runs the tests and the checks of the changed files, and reports only their issues.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Python/private/Install-PipTool.ps1
+#   module: Catzc.Tooling.Python
+#   visibility: private
+
 <#
 .SYNOPSIS
     Installs a Python-library tool into the uv-managed Python via `uv pip`.

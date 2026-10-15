@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Test-Glossary.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Checks the controlled vocabulary against the repository: every glossary check, every issue in one report.

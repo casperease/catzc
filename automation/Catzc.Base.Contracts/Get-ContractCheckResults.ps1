@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Contracts/Get-ContractCheckResults.ps1
+#   module: Catzc.Base.Contracts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Checks contract assets against the real repository and returns one result per asset.

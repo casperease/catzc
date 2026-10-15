@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Get-AdrDomainEdges.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     The ADR domain dependency graph as From/To edges — one per declared `depends_on` link.

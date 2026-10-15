@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Asserts/Assert-HaveProperty.ps1
+#   module: Catzc.Base.Asserts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts that an object has a named property, or a nested chain of properties.

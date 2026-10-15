@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Toolchain/Remove-Dotnet.ps1
+#   module: Catzc.Tooling.Toolchain
+#   visibility: public
+
 <#
 .SYNOPSIS
     Evicts an off-config .NET install — one the tooling's managed user-space install does not own.

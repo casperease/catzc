@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/private/Get-GlossaryDefinitionViolations.ps1
+#   module: Catzc.Base.Docs
+#   visibility: private
+
 <#
 .SYNOPSIS
     Lists the glossary terms that a second ADR rule defines (check G3) — one message per violation.

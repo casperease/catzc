@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Core/private/Resolve-SessionToolHost.ps1
+#   module: Catzc.Tooling.Core
+#   visibility: private
+
 <#
 .SYNOPSIS
     Points the current session at the best install home of a tool, chosen by its session_host_probes.

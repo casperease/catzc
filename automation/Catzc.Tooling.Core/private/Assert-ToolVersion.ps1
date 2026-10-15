@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
+#   module: Catzc.Tooling.Core
+#   visibility: private
+
 <#
 .SYNOPSIS
     Asserts the installed version of a tool matches its locked version.

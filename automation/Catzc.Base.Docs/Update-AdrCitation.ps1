@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Update-AdrCitation.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Rewrites the ADR citations, codes, anchors, links, and paths in one file through a code map and a rule map.

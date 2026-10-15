@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Contracts/private/Read-ContractData.ps1
+#   module: Catzc.Base.Contracts
+#   visibility: private
+
 <#
 .SYNOPSIS
     Reads and parses a JSON or YAML file for a contract check, throwing a finding-ready message when it cannot.

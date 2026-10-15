@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure/Get-AzureEnvironment.ps1
+#   module: Catzc.Azure
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the resolved environment object: identity + the named subscription that serves it.

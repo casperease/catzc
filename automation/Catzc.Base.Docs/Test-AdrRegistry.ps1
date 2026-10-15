@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Test-AdrRegistry.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: the ADR registry (adrs.yml) and the ADR rule files under docs/adr/ agree.

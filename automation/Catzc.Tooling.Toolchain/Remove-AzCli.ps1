@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Toolchain/Remove-AzCli.ps1
+#   module: Catzc.Tooling.Toolchain
+#   visibility: public
+
 <#
 .SYNOPSIS
     Destructively evicts an off-config Azure CLI so the managed (uv-venv) build can win.

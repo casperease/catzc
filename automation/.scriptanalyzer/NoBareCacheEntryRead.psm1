@@ -5,7 +5,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: a function file reads a lazy $script: cache entry only after probing or assigning it.
 .DESCRIPTION
-    A module function file holds one function and no top-level statements, so nothing declares a $script: cache entry...
+    Nothing declares a cache entry at import, so the first read of an unset entry throws under strict mode.
     [ADR-PWSH-ONEFUNC](/docs/adr/pwsh/one-function-per-file.md),
     [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
     [comment:1](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment1)
@@ -22,7 +22,7 @@ function Measure-NoBareCacheEntryRead {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
 
-    # Skip a.psm1 (it can declare its cache entries at load) and a Pester file — by name, or by its Describe calls...
+    # A Describe call marks a Pester file when an editor buffer has no file name; other in-memory code is analysed.
     # [comment:2](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment2)
     $path = "$($ScriptBlockAst.Extent.File)"
     if ($path.EndsWith('.psm1', [System.StringComparison]::OrdinalIgnoreCase) -or
@@ -46,7 +46,7 @@ function Measure-NoBareCacheEntryRead {
         $node -is [System.Management.Automation.Language.VariableExpressionAst] -and $node.VariablePath.IsScript
     }
 
-    # Cache entries the script itself declares at load (a top-level `$script:<entry> = …`, outside any function).
+    # Covers a psm1 analysed as an in-memory buffer, where the file name and so the skip above is lost.
     # [comment:4](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment4)
     $declared = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($assignment in $ScriptBlockAst.FindAll($isAssignment, $false)) {

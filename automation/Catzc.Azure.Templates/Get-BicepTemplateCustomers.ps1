@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/Get-BicepTemplateCustomers.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns a template's configured customer names as a flat string array.

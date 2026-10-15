@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.CodeMeta/Format-CodeMetaHead.ps1
+#   module: Catzc.Base.CodeMeta
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns a code text with its meta head imprinted from the given facts

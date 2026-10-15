@@ -4,7 +4,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid Az PowerShell module naming.
 .DESCRIPTION
-    Functions must not use the Verb-Az<Noun> naming pattern of the Az PowerShell modules (Get-AzResource, New-AzVM, …).
+    Azure is spelled out in full so a function name never collides with a cmdlet of the Az modules.
     [comment:1](/docs/references/automation/scriptanalyzer/NoAzModuleNaming.psm1.md#comment1)
 #>
 

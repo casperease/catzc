@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1
+#   module: Catzc.Tooling.Github
+#   visibility: public
+
 <#
 .SYNOPSIS
     Scrubs a token from a git history's blob content and commit messages with

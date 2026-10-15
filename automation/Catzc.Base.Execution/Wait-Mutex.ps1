@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Execution/Wait-Mutex.ps1
+#   module: Catzc.Base.Execution
+#   visibility: public
+
 <#
 .SYNOPSIS
     Awaits a mutex reliably, announcing itself only when the wait is actually noticeable.

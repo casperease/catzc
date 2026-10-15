@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1
+#   module: Catzc.Base.ModuleSystem
+#   visibility: public
+
 <#
 .SYNOPSIS
     Copies a deterministic subset of this repository's automation toolset into a destination, rooted like the

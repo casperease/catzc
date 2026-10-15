@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/private/Get-GlossaryAnchorViolations.ps1
+#   module: Catzc.Base.Docs
+#   visibility: private
+
 <#
 .SYNOPSIS
     Lists the glossary terms that are not anchored on their defining rule (check G2) — one message per violation.

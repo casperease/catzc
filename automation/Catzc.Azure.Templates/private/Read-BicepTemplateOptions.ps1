@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/private/Read-BicepTemplateOptions.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Reads a template's optional `options.yml` and returns the validated deployment overrides.

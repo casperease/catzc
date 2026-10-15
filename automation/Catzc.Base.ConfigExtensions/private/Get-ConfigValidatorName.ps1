@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ConfigExtensions/private/Get-ConfigValidatorName.ps1
+#   module: Catzc.Base.ConfigExtensions
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the conventional PowerShell validator name for a config: Assert-<TitleCase(name)>Config.

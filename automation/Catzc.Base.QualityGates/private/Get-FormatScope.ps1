@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-FormatScope.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     The files Format-Code formats: the repository's tracked files, or the given paths, minus vendored code and contract

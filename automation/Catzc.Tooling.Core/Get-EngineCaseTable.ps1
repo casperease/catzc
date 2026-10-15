@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Core/Get-EngineCaseTable.ps1
+#   module: Catzc.Tooling.Core
+#   visibility: public
+
 <#
 .SYNOPSIS
     Loads a per-engine fixture table: one row per case and execution engine (ExecutionEngines), validated.

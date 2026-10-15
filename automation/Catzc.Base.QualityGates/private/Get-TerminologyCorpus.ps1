@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Builds the lower-cased text corpus the terminology orphan check searches — one bulk read, not a grep

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Repository/Test-IsRunningAsAgent.ps1
+#   module: Catzc.Base.Repository
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns true if the current session is driven by an AI coding agent rather than a person.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Cli/Get-AzCliConnectionState.ps1
+#   module: Catzc.Azure.Cli
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the az CLI session's connection state relative to a given subscription and/or tenant.

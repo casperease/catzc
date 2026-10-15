@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1
+#   module: Catzc.Tooling.Toolchain
+#   visibility: private
+
 <#
 .SYNOPSIS
     Stops exactly the named processes that hold a .NET install open, then asserts the install is free.

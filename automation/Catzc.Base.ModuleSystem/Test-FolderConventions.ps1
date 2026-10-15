@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
+#   module: Catzc.Base.ModuleSystem
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: every module folder under automation/ follows the folder and file conventions.

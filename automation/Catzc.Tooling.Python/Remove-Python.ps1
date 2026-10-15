@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Python/Remove-Python.ps1
+#   module: Catzc.Tooling.Python
+#   visibility: public
+
 <#
 .SYNOPSIS
     Removes a manually installed Python and cleans up system PATH.

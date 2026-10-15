@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/Get-GitTrackedPath.ps1
+#   module: Catzc.Base.Files
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the subset of the given repository paths that git tracks.

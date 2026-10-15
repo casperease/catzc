@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure/Get-AzureSubscriptionCustomer.ps1
+#   module: Catzc.Azure
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the customer a subscription is bound to (its `customer` field), or '' if it has none.

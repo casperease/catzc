@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/private/Get-AdrDoraCoverageViolations.ps1
+#   module: Catzc.Base.Docs
+#   visibility: private
+
 <#
 .SYNOPSIS
     Lists every rule set whose domain's DORA file has no section, or more than one, linking its ADR.

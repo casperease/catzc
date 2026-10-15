@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Node/Install-Markdownlint.ps1
+#   module: Catzc.Tooling.Node
+#   visibility: public
+
 <#
 .SYNOPSIS
     Installs markdownlint-cli2 (the Markdown linter CLI) globally via npm.

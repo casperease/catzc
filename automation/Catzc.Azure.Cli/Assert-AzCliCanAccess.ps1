@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
+#   module: Catzc.Azure.Cli
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts the current az CLI login can reach the named subscription.

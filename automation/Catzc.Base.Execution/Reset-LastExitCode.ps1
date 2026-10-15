@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Execution/Reset-LastExitCode.ps1
+#   module: Catzc.Base.Execution
+#   visibility: public
+
 <#
 .SYNOPSIS
     Removes the global $LASTEXITCODE variable.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Github/Assert-GitHubPurgeReady.ps1
+#   module: Catzc.Tooling.Github
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts every precondition for a hard-purge of a GitHub repository is met,

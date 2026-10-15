@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Contracts/private/Get-ContractFreezeFindings.ps1
+#   module: Catzc.Base.Contracts
+#   visibility: private
+
 <#
 .SYNOPSIS
     Checks that one released contract version folder still holds exactly what its release froze.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Toolchain/Install-Shellcheck.ps1
+#   module: Catzc.Tooling.Toolchain
+#   visibility: public
+
 <#
 .SYNOPSIS
     Installs ShellCheck, the analyzer for the repository's shell scripts, at the tools.yml pin.

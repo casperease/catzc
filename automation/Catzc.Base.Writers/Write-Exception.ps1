@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Writers/Write-Exception.ps1
+#   module: Catzc.Base.Writers
+#   visibility: public
+
 <#
 .SYNOPSIS
     Displays exception details for use in catch blocks.

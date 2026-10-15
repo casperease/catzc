@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Github/Reset-GitHubRepository.ps1
+#   module: Catzc.Tooling.Github
+#   visibility: public
+
 <#
 .SYNOPSIS
     Hard-purges a GitHub repository — deletes it, recreates it (optionally under a

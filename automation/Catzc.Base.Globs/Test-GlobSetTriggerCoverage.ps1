@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+#   module: Catzc.Base.Globs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: every member of a pipeline-bound globset matches one of its ADO trigger include patterns.

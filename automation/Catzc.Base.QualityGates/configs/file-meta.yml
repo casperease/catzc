@@ -9,10 +9,8 @@ kinds:
     files:
       - "**/*.md"
       - "automation/**/types/*.cs"
-      - automation/Catzc.Base.QualityGates/Format-Code.ps1
-      - automation/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1
-      - automation/Catzc.Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
-      - automation/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1
+      - "automation/Catzc.*/*.ps1"
+      - "automation/Catzc.*/private/*.ps1"
 
   # The class of the file, the first class whose globs match its path, or other.
   document-kind:
@@ -59,16 +57,12 @@ kinds:
     keys: [module]
     files:
       - "automation/**/types/*.cs"
-      - automation/Catzc.Base.QualityGates/Format-Code.ps1
-      - automation/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1
-      - automation/Catzc.Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
-      - automation/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1
+      - "automation/Catzc.*/*.ps1"
+      - "automation/Catzc.*/private/*.ps1"
 
   # Whether a PowerShell function file is public or private, from the module's private folder.
   visibility:
     keys: [visibility]
     files:
-      - automation/Catzc.Base.QualityGates/Format-Code.ps1
-      - automation/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1
-      - automation/Catzc.Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
-      - automation/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1
+      - "automation/Catzc.*/*.ps1"
+      - "automation/Catzc.*/private/*.ps1"

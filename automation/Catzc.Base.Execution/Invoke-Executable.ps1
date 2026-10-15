@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Execution/Invoke-Executable.ps1
+#   module: Catzc.Base.Execution
+#   visibility: public
+
 <#
 .SYNOPSIS
     Runs a CLI command with exit code handling, stream separation, and

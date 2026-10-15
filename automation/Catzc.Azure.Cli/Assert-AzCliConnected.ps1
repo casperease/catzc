@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Cli/Assert-AzCliConnected.ps1
+#   module: Catzc.Azure.Cli
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts the active az CLI session matches a given subscription and/or tenant.

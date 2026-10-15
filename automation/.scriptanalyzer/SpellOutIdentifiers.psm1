@@ -5,12 +5,12 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: enforce spelled-out identifier names — no invented local abbreviations.
 .DESCRIPTION
-    Backs.
+    Tokenizing with no length floor catches short coined names that the spelling check lets pass.
     [ADR-AUTO-SPELL#1](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell1)
     [comment:1](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment1)
 #>
 
-# Bring the oracle type into THIS runspace and load its dictionary, once.
+# Runs at rule time, not module load: the analyzer's runspace does not inherit the importer's loaded assemblies.
 # [comment:2](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment2)
 $script:oracleReady = $false   # declared at load so the guard reads it strict-clean
 function Initialize-SpellingOracle {
@@ -23,7 +23,7 @@ function Initialize-SpellingOracle {
     $repoRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..' '..'))
 
     if (-not ('Catzc.Base.QualityGates.SpellingOracle' -as [type])) {
-        # The build for the CURRENT sources — keyed by the one shared hash (Get-CombinedTypeHash), never picked by...
+        # Keyed by the shared source hash, never by file age, and loaded as a shadow copy so no host locks a build.
         # [comment:3](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment3)
         Import-Module (Join-Path $repoRoot 'automation/.internal/Catzc.Internal.Types.psm1')
         $automationRoot = Join-Path $repoRoot 'automation'
@@ -43,7 +43,7 @@ function Initialize-SpellingOracle {
     else {
         [string[]] @()
     }
-    # Fixture terms (.cspell/fixture.txt) are test-only vocabulary: kept separate so the oracle accepts them only...
+    # Kept apart from the main vocabulary so the oracle accepts fixture terms only when analysing a test file.
     # [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)
     # [comment:4](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment4)
     $fixturePaths = [string[]] @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -eq 'fixture.txt' })
@@ -89,11 +89,11 @@ function Measure-SpellOutIdentifiers {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-SpellOutIdentifiers'
-    # Report each distinct coined name once per file, not once per occurrence — a variable read ten times is one...
+    # A name read ten times is one naming problem, so each coined name is reported once per file.
     # [comment:7](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment7)
     $reported = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
-    # Every variable reference — assignment targets, parameters, loop variables, and reads — so a coined name is...
+    # Every reference, not only definitions, so a coined name is caught wherever it is defined; predicate as a local.
     # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:8](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment8)
     $isVariable = {

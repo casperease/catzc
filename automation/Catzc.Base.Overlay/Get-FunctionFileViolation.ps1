@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1
+#   module: Catzc.Base.Overlay
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns every reason a .ps1 file is not one function, named for the file, that can be loaded anywhere.

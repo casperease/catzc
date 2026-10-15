@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Writers/private/Write-FramedLine.ps1
+#   module: Catzc.Base.Writers
+#   visibility: private
+
 <#
 .SYNOPSIS
     Emits an ordered set of header/footer lines through the writer chokepoint, applying a colour plan — a

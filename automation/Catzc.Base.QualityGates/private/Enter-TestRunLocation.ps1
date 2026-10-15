@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Enter-TestRunLocation.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Claims where a test run executes — its location: in place in the working folder, or in an isolated snapshot of it.

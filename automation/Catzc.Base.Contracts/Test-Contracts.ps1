@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Contracts/Test-Contracts.ps1
+#   module: Catzc.Base.Contracts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: the repository honours every binding contract asset, every released version folder is unchanged,

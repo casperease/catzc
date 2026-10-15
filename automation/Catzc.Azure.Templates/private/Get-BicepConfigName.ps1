@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/private/Get-BicepConfigName.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Builds a config / resource-group identity name from an (environment, slot) pair.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-AutomationSourceFiles.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 function Get-AutomationSourceFiles {
     <#
     .SYNOPSIS

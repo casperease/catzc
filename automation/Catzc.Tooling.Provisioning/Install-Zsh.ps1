@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Provisioning/Install-Zsh.ps1
+#   module: Catzc.Tooling.Provisioning
+#   visibility: public
+
 <#
 .SYNOPSIS
     Installs zsh (user-space on Windows, into Git Bash's tree; apt-get on Linux; the system's on macOS).

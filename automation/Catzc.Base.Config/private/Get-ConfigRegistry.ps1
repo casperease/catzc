@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
+#   module: Catzc.Base.Config
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the config registry (this module's configs/configs.yml), keyed by config name.

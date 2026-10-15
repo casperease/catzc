@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Toolchain/private/Install-UvStandalone.ps1
+#   module: Catzc.Tooling.Toolchain
+#   visibility: private
+
 <#
 .SYNOPSIS
     Bootstraps uv on Linux from Astral's standalone GitHub release — user-space, hash-verified, no root.

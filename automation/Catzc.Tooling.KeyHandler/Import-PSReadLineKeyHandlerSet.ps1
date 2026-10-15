@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.KeyHandler/Import-PSReadLineKeyHandlerSet.ps1
+#   module: Catzc.Tooling.KeyHandler
+#   visibility: public
+
 <#
 .SYNOPSIS
     Applies the captured Windows PSReadLine key bindings on Linux, filtered to Linux-supported functions.

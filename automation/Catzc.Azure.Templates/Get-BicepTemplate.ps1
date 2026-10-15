@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/Get-BicepTemplate.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the descriptor for a single bicep template by name.

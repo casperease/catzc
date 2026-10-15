@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownTable.ps1
+#   module: Catzc.Azure.Firewall
+#   visibility: private
+
 <#
 .SYNOPSIS
     Renders the Markdown rule table (header + rows) for Convert-FirewallCsvToMarkdown.

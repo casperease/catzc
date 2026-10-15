@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Environment/Get-PermanentEnvironmentVariable.ps1
+#   module: Catzc.Base.Environment
+#   visibility: public
+
 <#
 .SYNOPSIS
     Reads an environment variable from a persistent scope (the Windows registry for User/Machine).

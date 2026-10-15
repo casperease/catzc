@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Generates the per-category spell-checker dictionaries from the terminology registry — the writer half of

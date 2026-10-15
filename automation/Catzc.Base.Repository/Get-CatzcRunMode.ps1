@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1
+#   module: Catzc.Base.Repository
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the run mode of the current session: 'source' or 'build'.

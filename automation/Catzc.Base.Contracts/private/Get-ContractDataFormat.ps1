@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Contracts/private/Get-ContractDataFormat.ps1
+#   module: Catzc.Base.Contracts
+#   visibility: private
+
 <#
 .SYNOPSIS
     Names the data format a contract check parses a file as, from its extension: Json, Yaml, or nothing.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/Get-FileLockingProcess.ps1
+#   module: Catzc.Base.Files
+#   visibility: public
+
 <#
 .SYNOPSIS
     Lists the processes that hold a file open (lock it).

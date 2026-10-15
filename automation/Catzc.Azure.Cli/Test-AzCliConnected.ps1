@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Cli/Test-AzCliConnected.ps1
+#   module: Catzc.Azure.Cli
+#   visibility: public
+
 <#
 .SYNOPSIS
     Tests whether the active az CLI session matches a given subscription and/or tenant.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/Get-BicepTrackTagNameSet.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the Azure tag *names* used to record what was last deployed.

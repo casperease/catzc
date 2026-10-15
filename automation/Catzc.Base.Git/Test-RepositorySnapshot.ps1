@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Git/Test-RepositorySnapshot.ps1
+#   module: Catzc.Base.Git
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns true when a repository is a test-run snapshot made by New-RepositorySnapshot.

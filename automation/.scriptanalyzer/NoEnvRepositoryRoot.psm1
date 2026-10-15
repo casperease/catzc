@@ -4,7 +4,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: module function files read the repository root through Get-RepositoryRoot.
 .DESCRIPTION
-    $env:RepositoryRoot is the importer's hand-off of the working-tree anchor; Get-RepositoryRoot is its one reader,...
+    One accessor reads the root, so where the root comes from can change in one place; a write is not flagged.
     [ADR-AUTO-NOPWD#6](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd6)
     [comment:1](/docs/references/automation/scriptanalyzer/NoEnvRepositoryRoot.psm1.md#comment1)
 #>

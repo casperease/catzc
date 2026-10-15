@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Overlay/private/Get-OverlayContractViolation.ps1
+#   module: Catzc.Base.Overlay
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns every way an override file breaks the contract of the function it replaces.

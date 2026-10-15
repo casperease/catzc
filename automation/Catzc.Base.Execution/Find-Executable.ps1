@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Execution/Find-Executable.ps1
+#   module: Catzc.Base.Execution
+#   visibility: public
+
 <#
 .SYNOPSIS
     Locates an executable without starting a process, then confirms its version once per session.

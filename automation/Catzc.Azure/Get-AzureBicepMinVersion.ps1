@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure/Get-AzureBicepMinVersion.ps1
+#   module: Catzc.Azure
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the minimum required Bicep CLI version from azure.yml.

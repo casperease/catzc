@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyConfig.ps1
+#   module: Catzc.Base.ModuleSystem
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the declared module dependency map from configs/dependencies.yml.

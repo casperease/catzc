@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.CodeMeta/Get-CodeMetaState.ps1
+#   module: Catzc.Base.CodeMeta
+#   visibility: public
+
 <#
 .SYNOPSIS
     Reads what a code text says about its own meta head, without changing it

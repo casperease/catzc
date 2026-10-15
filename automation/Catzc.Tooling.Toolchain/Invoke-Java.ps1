@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Toolchain/Invoke-Java.ps1
+#   module: Catzc.Tooling.Toolchain
+#   visibility: public
+
 <#
 .SYNOPSIS
     Runs java with the given arguments.

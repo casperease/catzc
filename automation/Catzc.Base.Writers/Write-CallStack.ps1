@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Writers/Write-CallStack.ps1
+#   module: Catzc.Base.Writers
+#   visibility: public
+
 <#
 .SYNOPSIS
     Writes the current call stack in red for debugging.

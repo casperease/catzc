@@ -1,4 +1,4 @@
-# Catzc.Internal.Loader — the always-loaded entry point for.internal shared code.
+# Never removed with Bootstrap: it stays loaded so a post-import cover function can still ensure a shared module.
 # [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)
 # [comment:1](/docs/references/automation/internal/Catzc.Internal.Loader.psm1.md#comment1)
 
@@ -11,7 +11,7 @@ function Import-InternalModule {
     .SYNOPSIS
         Loads a .internal shared module once into the global session (idempotent).
     .DESCRIPTION
-        Trusts the importer has already cleared PSModulePath and set the error preferences, so it just imports the...
+        Idempotent, so a hot-path cover function pays nothing; only the importer's first load passes -Force.
         [comment:2](/docs/references/automation/internal/Catzc.Internal.Loader.psm1.md#comment2)
     .PARAMETER Name
         The bare area name of the shared module — 'Types' resolves to .internal/Catzc.Internal.Types.psm1.
@@ -42,7 +42,7 @@ function Test-IsRunningInPipeline {
     .SYNOPSIS
         Returns true if the current session is running inside a CI/CD pipeline.
     .DESCRIPTION
-        The one pipeline-detection function.
+        It lives in the always-loaded loader so the bootstrap pre-pass and every module ask the same function.
         [ADR-FLOW-CD-DETECT#1](/docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1)
         [comment:3](/docs/references/automation/internal/Catzc.Internal.Loader.psm1.md#comment3)
     .EXAMPLE
@@ -54,7 +54,7 @@ function Test-IsRunningInPipeline {
     [OutputType([bool])]
     param()
 
-    # Azure DevOps sets TF_BUILD=True GitHub Actions sets GITHUB_ACTIONS=true
+    # Azure DevOps agents set TF_BUILD, GitHub Actions runners set GITHUB_ACTIONS; either one means a pipeline.
     # [comment:4](/docs/references/automation/internal/Catzc.Internal.Loader.psm1.md#comment4)
     [bool]$env:TF_BUILD -or [bool]$env:GITHUB_ACTIONS
 }

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Provisioning/Get-ToolsStatus.ps1
+#   module: Catzc.Tooling.Provisioning
+#   visibility: public
+
 <#
 .SYNOPSIS
     Reports the installation status of all registered tools.

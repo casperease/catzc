@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Variants/Get-AdoNaming.ps1
+#   module: Catzc.Base.Variants
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the active Azure resource-name component order for this repo ('standard' or 'classic').

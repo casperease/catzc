@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
+#   module: Catzc.Base.Exporter
+#   visibility: public
+
 <#
 .SYNOPSIS
     Computes the durable content hash of a directory tree — the bundle's content-addressed identity.

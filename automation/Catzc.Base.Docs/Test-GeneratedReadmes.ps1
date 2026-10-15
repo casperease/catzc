@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: every generated README is gitignored, untracked, and current with its source.

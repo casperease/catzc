@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Writers/Write-Header.ps1
+#   module: Catzc.Base.Writers
+#   visibility: public
+
 <#
 .SYNOPSIS
     Writes a header with optional message in a chosen style.

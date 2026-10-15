@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: analyzer-adr-map.yml cites only real ADR rules and maps every custom analyzer rule.

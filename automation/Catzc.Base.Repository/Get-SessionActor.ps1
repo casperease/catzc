@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Repository/Get-SessionActor.ps1
+#   module: Catzc.Base.Repository
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns who is running this session: Pipeline, Agent, or Person.

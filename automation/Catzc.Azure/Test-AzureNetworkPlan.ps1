@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure/Test-AzureNetworkPlan.ps1
+#   module: Catzc.Azure
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: the network plan (network.yml) and the azure config's environments and subscriptions are in sync.

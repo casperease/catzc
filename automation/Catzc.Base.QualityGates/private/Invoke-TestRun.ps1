@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Performs one test run through the parallel harness — the shared core of Test-Automation and Test-CatzcBuild.

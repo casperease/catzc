@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Writers/Write-EnvironmentDiagnostic.ps1
+#   module: Catzc.Base.Writers
+#   visibility: public
+
 <#
 .SYNOPSIS
     Displays all environment variables sorted by name.

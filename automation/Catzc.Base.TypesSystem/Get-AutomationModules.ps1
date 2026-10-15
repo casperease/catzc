@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.TypesSystem/Get-AutomationModules.ps1
+#   module: Catzc.Base.TypesSystem
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the names of all automation modules (the non-dot directories under the loaded code root).

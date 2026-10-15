@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/Export-SpellingTriage.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Collects the spell-checker's flagged tokens into a triage queue for classification — the on-ramp to the

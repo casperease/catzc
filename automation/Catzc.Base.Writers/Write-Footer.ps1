@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Writers/Write-Footer.ps1
+#   module: Catzc.Base.Writers
+#   visibility: public
+
 <#
 .SYNOPSIS
     Writes a closing footer line in a chosen style.

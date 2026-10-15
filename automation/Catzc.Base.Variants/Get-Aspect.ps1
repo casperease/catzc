@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Variants/Get-Aspect.ps1
+#   module: Catzc.Base.Variants
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns a track/container's ordered aspect classification — the named parts its units partition into.

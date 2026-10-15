@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1
+#   module: Catzc.Base.VSCode
+#   visibility: public
+
 <#
 .SYNOPSIS
     Renders .vscode/azure-pipelines-schema.json content from the vscode-pipeline-schema registry — the

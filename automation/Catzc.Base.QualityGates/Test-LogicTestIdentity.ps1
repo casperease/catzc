@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: no LOGIC test may name a live production identity (a real customer, subscription, org, template, or

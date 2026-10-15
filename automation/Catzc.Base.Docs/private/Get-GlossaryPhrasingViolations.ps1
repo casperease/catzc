@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/private/Get-GlossaryPhrasingViolations.ps1
+#   module: Catzc.Base.Docs
+#   visibility: private
+
 <#
 .SYNOPSIS
     Lists the uses of avoided phrasings within each glossary source's scope (check G4) — one message per use.

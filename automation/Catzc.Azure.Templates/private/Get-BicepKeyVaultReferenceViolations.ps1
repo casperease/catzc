@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/private/Get-BicepKeyVaultReferenceViolations.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the ways an ARM Key Vault reference in a parameters file is not well-formed.

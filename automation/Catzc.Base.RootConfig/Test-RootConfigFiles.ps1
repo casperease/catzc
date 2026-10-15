@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
+#   module: Catzc.Base.RootConfig
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: every managed root config file agrees with rootconfig.yml on git tracking, .gitignore, and link

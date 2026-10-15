@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Composes the immutable deployment-context object Deploy-Bicep operates on.

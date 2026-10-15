@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Repository/Get-RepositoryRoot.ps1
+#   module: Catzc.Base.Repository
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the repository root path.

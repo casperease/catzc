@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Python/private/Uninstall-PipTool.ps1
+#   module: Catzc.Tooling.Python
+#   visibility: private
+
 <#
 .SYNOPSIS
     Uninstalls a Python-library tool from the uv-managed Python via `uv pip`.

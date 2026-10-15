@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Writers/private/Write-InformationColored.ps1
+#   module: Catzc.Base.Writers
+#   visibility: private
+
 <#
 .SYNOPSIS
     Writes colored messages to the information stream.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Git/New-RepositorySnapshot.ps1
+#   module: Catzc.Base.Git
+#   visibility: public
+
 <#
 .SYNOPSIS
     Creates a verified, isolated snapshot of a repository's working tree as it is right now.

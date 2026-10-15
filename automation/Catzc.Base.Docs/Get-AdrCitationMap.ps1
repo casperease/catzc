@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Get-AdrCitationMap.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Builds the ADR citation map: every citation code to its ADR's path and declared rule numbers.

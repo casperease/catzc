@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Invoke-PSScriptAnalyzerFormat.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     The psscriptanalyzer formatter engine: formats the given PowerShell files with the vendored analyzer's

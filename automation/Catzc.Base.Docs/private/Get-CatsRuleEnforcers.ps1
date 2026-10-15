@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
+#   module: Catzc.Base.Docs
+#   visibility: private
+
 <#
 .SYNOPSIS
     Maps each ADR rule citation to what mechanically enforces it — analyzer rules and tagged tests — for

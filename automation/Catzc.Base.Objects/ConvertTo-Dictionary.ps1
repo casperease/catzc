@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Objects/ConvertTo-Dictionary.ps1
+#   module: Catzc.Base.Objects
+#   visibility: public
+
 <#
 .SYNOPSIS
     Converts a typed object, PSCustomObject, or dictionary into a nested, mutable structure of ordered

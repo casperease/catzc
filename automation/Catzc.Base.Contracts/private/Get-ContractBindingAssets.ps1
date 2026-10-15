@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Contracts/private/Get-ContractBindingAssets.ps1
+#   module: Catzc.Base.Contracts
+#   visibility: private
+
 <#
 .SYNOPSIS
     Lists the contract assets the repository must honour now: every asset of the current version folder, and the

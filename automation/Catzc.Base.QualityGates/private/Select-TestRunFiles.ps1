@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Select-TestRunFiles.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Chooses a test run's test files: every file under the test paths, narrowed by rule, by tier and category scope, and

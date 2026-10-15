@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Provisioning/private/Find-WindowsGitCredentialManager.ps1
+#   module: Catzc.Tooling.Provisioning
+#   visibility: private
+
 <#
 .SYNOPSIS
     Locates the Windows Git Credential Manager from inside a WSL session.

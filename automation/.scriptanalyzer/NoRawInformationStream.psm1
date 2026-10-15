@@ -4,7 +4,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid calling Write-Information directly.
 .DESCRIPTION
-    Console/log output must go through the repo's writers, which all route through the single chokepoint...
+    A direct Write-Information skips the Pester guard, so its output leaks into test output and loses the caller header.
     [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md)
     [comment:1](/docs/references/automation/scriptanalyzer/NoRawInformationStream.psm1.md#comment1)
 #>

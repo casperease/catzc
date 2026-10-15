@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Asserts/Assert-IsGuidInRange.ps1
+#   module: Catzc.Base.Asserts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts that a GUID lies inside an inclusive GUID range.

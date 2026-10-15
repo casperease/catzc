@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/Get-GitCurrentCommit.ps1
+#   module: Catzc.Base.Files
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the current git commit hash (full 40-char SHA).

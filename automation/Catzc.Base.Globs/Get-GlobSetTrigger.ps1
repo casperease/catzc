@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
+#   module: Catzc.Base.Globs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Projects a globset's scan program into vendor-native pipeline path filters — the no-start trigger

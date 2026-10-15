@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
+#   module: Catzc.Azure.DevOps.BuildValidation
+#   visibility: public
+
 <#
 .SYNOPSIS
     Removes the build-validation branch policy tied to a globset. Idempotent — a no-op when none exists.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
+#   module: Catzc.Base.TypesSystem
+#   visibility: public
+
 <#
 .SYNOPSIS
     Compiles module-to-module edges from cross-module C# type references in types/*.cs.

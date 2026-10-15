@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Variants/Get-EnabledCustomers.ps1
+#   module: Catzc.Base.Variants
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the repo's enabled-customer set from the `have_customers` variant.

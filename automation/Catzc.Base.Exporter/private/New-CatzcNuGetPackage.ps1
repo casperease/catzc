@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
+#   module: Catzc.Base.Exporter
+#   visibility: private
+
 <#
 .SYNOPSIS
     Packs a Catzc build into a NuGet package (.nupkg) for a local-path Install-PSResource.

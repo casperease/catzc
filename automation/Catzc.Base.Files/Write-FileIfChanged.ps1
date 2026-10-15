@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/Write-FileIfChanged.ps1
+#   module: Catzc.Base.Files
+#   visibility: public
+
 <#
 .SYNOPSIS
     Writes canonical text to a file only when its content actually changed — the shared primitive behind

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Writes (or merges) a template's per-slot ParametersFile into its config file. The write half of

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Contracts/private/Get-ContractSampleFindings.ps1
+#   module: Catzc.Base.Contracts
+#   visibility: private
+
 <#
 .SYNOPSIS
     Checks that a sample payload parses, and validates against the schema beside it when one exists; returns the findings.

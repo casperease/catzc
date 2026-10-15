@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1
+#   module: Catzc.Base.Contracts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Freezes a unit's contract draft as a released version folder, with the .frozen record that keeps it unchanged.

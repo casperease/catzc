@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps/Write-AdoEnvironmentDiagnostic.ps1
+#   module: Catzc.Azure.DevOps
+#   visibility: public
+
 <#
 .SYNOPSIS
     Displays whitelisted environment variables for pipeline diagnostics.

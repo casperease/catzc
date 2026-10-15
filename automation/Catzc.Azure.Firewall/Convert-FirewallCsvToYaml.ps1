@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Firewall/Convert-FirewallCsvToYaml.ps1
+#   module: Catzc.Azure.Firewall
+#   visibility: public
+
 <#
 .SYNOPSIS
     Renders an Azure Firewall rule-export CSV (application or network) as YAML.

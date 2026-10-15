@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1
+#   module: Catzc.Base.MarkdownMeta
+#   visibility: public
+
 <#
 .SYNOPSIS
     Reads what a Markdown text says about its own meta block, without changing it

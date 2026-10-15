@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
+#   module: Catzc.Base.ModuleSystem
+#   visibility: public
+
 <#
 .SYNOPSIS
     The function dependency quality gate: every function-to-function call resolves to a defined command.

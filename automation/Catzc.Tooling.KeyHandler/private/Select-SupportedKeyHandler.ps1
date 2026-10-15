@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
+#   module: Catzc.Tooling.KeyHandler
+#   visibility: private
+
 <#
 .SYNOPSIS
     Classifies captured key bindings by whether their function is supported on the target platform.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Engines/Get-ExecutionEngine.ps1
+#   module: Catzc.Base.Engines
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the repository's execution engines, or one by name.

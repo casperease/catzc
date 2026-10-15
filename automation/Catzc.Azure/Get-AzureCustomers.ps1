@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure/Get-AzureCustomers.ps1
+#   module: Catzc.Azure
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the customer keys defined in configs/customer.yml.

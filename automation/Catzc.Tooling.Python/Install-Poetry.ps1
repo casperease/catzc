@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Python/Install-Poetry.ps1
+#   module: Catzc.Tooling.Python
+#   visibility: public
+
 <#
 .SYNOPSIS
     Installs Poetry as an isolated uv tool.

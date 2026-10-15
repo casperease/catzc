@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1
+#   module: Catzc.Base.Globs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Answers "which areas-of-control do these changes touch?" — one row per matched globset.

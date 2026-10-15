@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Config/private/Get-ConfigOverlayRoot.ps1
+#   module: Catzc.Base.Config
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the consumer overlay root Get-Config merges fragments from, cached per pair of session anchors.

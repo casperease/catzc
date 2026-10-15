@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Asserts/Assert-YmlNaming.ps1
+#   module: Catzc.Base.Asserts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Validates that all property keys in a parsed YAML object use snake_case.

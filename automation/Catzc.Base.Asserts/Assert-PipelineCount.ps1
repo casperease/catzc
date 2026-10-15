@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Asserts/Assert-PipelineCount.ps1
+#   module: Catzc.Base.Asserts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts the number of objects in the pipeline.

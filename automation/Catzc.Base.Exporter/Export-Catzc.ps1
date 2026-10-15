@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Exporter/Export-Catzc.ps1
+#   module: Catzc.Base.Exporter
+#   visibility: public
+
 <#
 .SYNOPSIS
     Exports catzc — builds it (Build-Modules), then installs it beside a working root or packs it for

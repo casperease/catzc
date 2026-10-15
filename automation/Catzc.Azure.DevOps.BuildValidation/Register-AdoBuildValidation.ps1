@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+#   module: Catzc.Azure.DevOps.BuildValidation
+#   visibility: public
+
 <#
 .SYNOPSIS
     Registers (creates or updates) the build-validation branch policy tied to a globset. Idempotent.

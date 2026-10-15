@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Vendor/Test-VendorModuleAvailable.ps1
+#   module: Catzc.Base.Vendor
+#   visibility: public
+
 <#
 .SYNOPSIS
     Tests whether a module (optionally at a specific version) is available from the configured vendor source.

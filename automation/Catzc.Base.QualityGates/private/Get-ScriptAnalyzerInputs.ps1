@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-ScriptAnalyzerInputs.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Every file besides the analyzed file itself that decides a PSScriptAnalyzer verdict.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Vendor/Assert-VendorModuleAvailable.ps1
+#   module: Catzc.Base.Vendor
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts a module (optionally at a specific version) is available from the configured vendor source.

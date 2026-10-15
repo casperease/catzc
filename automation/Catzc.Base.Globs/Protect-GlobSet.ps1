@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Globs/Protect-GlobSet.ps1
+#   module: Catzc.Base.Globs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Records a green scan against its globset's identity, so an unchanged repeat run can be skipped.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps/private/Resolve-AdoYamlClassification.ps1
+#   module: Catzc.Azure.DevOps
+#   visibility: private
+
 <#
 .SYNOPSIS
     Classifies a parsed YAML document as Pipeline, Template, or Unknown.

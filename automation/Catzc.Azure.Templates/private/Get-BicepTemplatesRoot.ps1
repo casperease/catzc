@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/private/Get-BicepTemplatesRoot.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the root directory under which bicep templates are discovered.

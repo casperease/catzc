@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ModuleSystem/Get-ModuleDependencyEdges.ps1
+#   module: Catzc.Base.ModuleSystem
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the module dependency graph as typed ModuleDependencyEdge objects.

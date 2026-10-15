@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Github/Test-GitHistoryClean.ps1
+#   module: Catzc.Tooling.Github
+#   visibility: public
+
 <#
 .SYNOPSIS
     Tests whether a token is absent from a git history across all three surfaces

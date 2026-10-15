@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Asserts/Test-HaveProperty.ps1
+#   module: Catzc.Base.Asserts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Tests whether an object has a specific property, or a nested chain of properties.

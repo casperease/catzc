@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
+#   module: Catzc.Base.Globs
+#   visibility: public
+
 <#
 .SYNOPSIS
     The git diff range the current context measures a globset change against — the reference-commit resolver.

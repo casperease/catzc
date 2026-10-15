@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Toolchain/Install-Dotnet.ps1
+#   module: Catzc.Tooling.Toolchain
+#   visibility: public
+
 <#
 .SYNOPSIS
     Installs the .NET SDK via official Microsoft install scripts (user-space).

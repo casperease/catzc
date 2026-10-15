@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Get-CatsAdrRuleIds.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     The flat set of every declared ADR rule id across all ADRs (registry form, e.g. 'ADR-PWSH-ERROR:3').

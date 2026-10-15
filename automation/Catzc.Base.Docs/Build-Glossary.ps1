@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Build-Glossary.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Generates the [glossary](/docs/adr/glossary.md) — the controlled vocabulary as one readable page — from the

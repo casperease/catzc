@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: the rule summaries of the configured ADR domains carry no engine-specific syntax.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-RepositoryWebUrl.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns this repository's GitHub web URL (https://github.com/<owner>/<repo>), or $null when it has none.

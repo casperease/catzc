@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Core/Get-ScriptInstallDir.ps1
+#   module: Catzc.Tooling.Core
+#   visibility: public
+
 <#
 .SYNOPSIS
     Resolves the install directory for a script-installed tool, or the Windows tree an MSYS2 package installs into.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/Get-GitCurrentBranch.ps1
+#   module: Catzc.Base.Files
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the current git branch name (or 'HEAD' when detached).

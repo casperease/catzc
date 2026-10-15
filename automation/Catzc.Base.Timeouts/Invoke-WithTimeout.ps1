@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Timeouts/Invoke-WithTimeout.ps1
+#   module: Catzc.Base.Timeouts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Runs a script block inside a time safeguard: past its limit it is stopped and the call throws.

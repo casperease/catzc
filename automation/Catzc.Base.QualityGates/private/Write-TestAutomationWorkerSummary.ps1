@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Write-TestAutomationWorkerSummary.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Writes the end-of-run worker table — one row per worker, on the run's wall-clock timeline.

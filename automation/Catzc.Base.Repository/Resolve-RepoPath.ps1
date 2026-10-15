@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Repository/Resolve-RepoPath.ps1
+#   module: Catzc.Base.Repository
+#   visibility: public
+
 <#
 .SYNOPSIS
     Resolves a (possibly repo-relative or out/-anchored) path to an absolute one — never against $PWD.

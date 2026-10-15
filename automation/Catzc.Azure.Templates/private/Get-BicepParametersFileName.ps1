@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: private
+
 <#
 .SYNOPSIS
     The build-artifact parameters filename for a (customer?, env, slot) config.

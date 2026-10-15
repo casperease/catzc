@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
+#   module: Catzc.Tooling.Provisioning
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts all tools are available at the correct version.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Objects/ConvertTo-FlatSettingSet.ps1
+#   module: Catzc.Base.Objects
+#   visibility: public
+
 <#
 .SYNOPSIS
     Flattens a nested object into an ordered dictionary of dot-notation key/value pairs.

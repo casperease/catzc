@@ -5,7 +5,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid raw pipeline-detection env reads.
 .DESCRIPTION
-    Whether code is running inside a CI/CD pipeline is detected by checking the agent-set environment variables...
+    One detector owns the agent variables, so the checked set stays hidden and both platforms are always covered.
     [ADR-FLOW-CD-DETECT#1](/docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1)
     [comment:1](/docs/references/automation/scriptanalyzer/NoRawPipelineDetection.psm1.md#comment1)
 #>

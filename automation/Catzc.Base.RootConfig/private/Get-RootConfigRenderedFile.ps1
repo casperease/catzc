@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.RootConfig/private/Get-RootConfigRenderedFile.ps1
+#   module: Catzc.Base.RootConfig
+#   visibility: private
+
 <#
 .SYNOPSIS
     Renders a generator entry of the root-config registry into one { Target; Content } record per file.

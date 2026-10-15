@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Invoke-DotnetFormat.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     The dotnet-format formatter engine: formats the given C# files with `dotnet format whitespace` and returns the

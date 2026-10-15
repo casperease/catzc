@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Environment/Add-PermanentPath.ps1
+#   module: Catzc.Base.Environment
+#   visibility: public
+
 <#
 .SYNOPSIS
     Adds a directory to PATH persistently and in the current session.

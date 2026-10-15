@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/Assert-FileIsNotLocked.ps1
+#   module: Catzc.Base.Files
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts that a file is free to open (not locked by another handle); throws otherwise.

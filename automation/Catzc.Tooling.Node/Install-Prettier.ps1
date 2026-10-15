@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Node/Install-Prettier.ps1
+#   module: Catzc.Tooling.Node
+#   visibility: public
+
 <#
 .SYNOPSIS
     Installs Prettier (the prettier formatter engine's CLI) globally via npm.

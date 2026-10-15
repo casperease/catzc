@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.KeyHandler/Save-PSReadLineKeyHandlerSet.ps1
+#   module: Catzc.Tooling.KeyHandler
+#   visibility: public
+
 <#
 .SYNOPSIS
     Captures the current session's PSReadLine key bindings to configs/key-handler-bindings.yml.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Environment/Sync-SessionPath.ps1
+#   module: Catzc.Base.Environment
+#   visibility: public
+
 <#
 .SYNOPSIS
     Rebuilds the session PATH from the registry on Windows. No-op on Unix.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps/ConvertFrom-AdoPipelineCommand.ps1
+#   module: Catzc.Azure.DevOps
+#   visibility: public
+
 <#
 .SYNOPSIS
     Sanitizes a command string received from an ADO pipeline step.

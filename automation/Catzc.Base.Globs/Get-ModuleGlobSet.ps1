@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+#   module: Catzc.Base.Globs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the DERIVED globsets — the live/tests aspect sets per module folder, one set per internal .psm1

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Config/Get-ConfigValue.ps1
+#   module: Catzc.Base.Config
+#   visibility: public
+
 <#
 .SYNOPSIS
     Resolves a global config address to the value at that node (a leaf or a subtree).

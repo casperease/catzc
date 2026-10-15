@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Toolchain/private/Resolve-DotnetRemovalTarget.ps1
+#   module: Catzc.Tooling.Toolchain
+#   visibility: private
+
 <#
 .SYNOPSIS
     The .NET folder Remove-Dotnet evicts by default: the off-config install, never the managed one.

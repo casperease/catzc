@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/Set-FileLink.ps1
+#   module: Catzc.Base.Files
+#   visibility: public
+
 <#
 .SYNOPSIS
     Materialises a file as a filesystem link to a source of truth — the link sibling of Write-FileIfChanged.

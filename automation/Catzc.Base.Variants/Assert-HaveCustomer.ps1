@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Variants/Assert-HaveCustomer.ps1
+#   module: Catzc.Base.Variants
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts one named customer is enabled for the repo, else throws (singular cover over Assert-HaveCustomers).

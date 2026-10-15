@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Languages/Invoke-GoTest.ps1
+#   module: Catzc.Base.Languages
+#   visibility: public
+
 <#
 .SYNOPSIS
     Runs a catzc module's Go tests and returns one result per Go test.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
+#   module: Catzc.Base.TypesSystem
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: every shipped C# type resolves in the session as <module>.<basename>.

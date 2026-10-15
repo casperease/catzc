@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Core/private/Test-ToolLocationManaged.ps1
+#   module: Catzc.Tooling.Core
+#   visibility: private
+
 <#
 .SYNOPSIS
     Fast, subprocess-free check: does a resolved tool location belong to the installer layer?

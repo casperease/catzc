@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.TypesSystem/private/Format-FileLockingProcess.ps1
+#   module: Catzc.Base.TypesSystem
+#   visibility: private
+
 <#
 .SYNOPSIS
     Formats the processes holding a file as one human-readable phrase.

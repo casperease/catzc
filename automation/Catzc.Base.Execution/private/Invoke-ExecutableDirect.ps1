@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Execution/private/Invoke-ExecutableDirect.ps1
+#   module: Catzc.Base.Execution
+#   visibility: private
+
 <#
 .SYNOPSIS
     Runs a CLI command directly with no output capture or stream separation.

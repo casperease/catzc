@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ModuleSystem/Get-FunctionDependencyTree.ps1
+#   module: Catzc.Base.ModuleSystem
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the transitive closure of all functions that a given function depends on.

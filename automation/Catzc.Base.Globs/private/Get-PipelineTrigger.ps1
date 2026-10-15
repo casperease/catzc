@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
+#   module: Catzc.Base.Globs
+#   visibility: private
+
 <#
 .SYNOPSIS
     Reads a pipeline or workflow YAML's trigger path filters — the actual, on-disk trigger globs.

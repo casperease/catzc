@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Get-AdrRuleSet.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     The flat set of ADR rule-sets declared in adrs.yml — one typed record per ADR.

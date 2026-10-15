@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Core/Get-ToolConfig.ps1
+#   module: Catzc.Tooling.Core
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the locked configuration for a CLI tool as a validated ToolConfig.

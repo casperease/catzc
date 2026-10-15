@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the subscriptions a config coordinate (customer?, environment) can resolve to.

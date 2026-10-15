@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Globs/private/Get-ChangedFile.ps1
+#   module: Catzc.Base.Globs
+#   visibility: private
+
 <#
 .SYNOPSIS
     The repo-relative paths changed across a git diff range — the diff counterpart to the tracked-file

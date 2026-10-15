@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Overlay/Assert-CatzcOverlay.ps1
+#   module: Catzc.Base.Overlay
+#   visibility: public
+
 <#
 .SYNOPSIS
     Checks the consumer overlay against its rules and throws once, listing every violation.

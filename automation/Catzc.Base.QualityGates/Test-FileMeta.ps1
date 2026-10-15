@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/Test-FileMeta.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: public
+
 <#
 .SYNOPSIS
     The file meta quality gate: fails on any in-scope file whose meta block differs from what Format-FileMeta would write

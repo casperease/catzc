@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-AnalyzerAdrCoverage.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     The (ADR rule id -> enforcing analyzer) rows from configs/analyzer-adr-map.yml — the 'pssa-rule' enforcer

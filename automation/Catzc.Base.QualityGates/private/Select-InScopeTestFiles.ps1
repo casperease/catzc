@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Select-InScopeTestFiles.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Keeps the test files with a test inside the run's tier and category scope, and returns the dropped files' tests.

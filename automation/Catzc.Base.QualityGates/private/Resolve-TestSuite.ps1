@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Resolves a named test suite — a globset's declared verify scope (globs.yml `verify:`) — into Test-Automation's run

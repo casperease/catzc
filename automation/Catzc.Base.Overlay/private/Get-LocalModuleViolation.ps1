@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Overlay/private/Get-LocalModuleViolation.ps1
+#   module: Catzc.Base.Overlay
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns every reason a consumer's local module cannot load.

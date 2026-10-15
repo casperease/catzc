@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Execution/Resolve-ToolExecutable.ps1
+#   module: Catzc.Base.Execution
+#   visibility: public
+
 <#
 .SYNOPSIS
     Locates a managed tool's executable from its tools.yml entry and returns the probe record.

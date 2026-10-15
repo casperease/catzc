@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1
+#   module: Catzc.Base.Contracts
+#   visibility: private
+
 <#
 .SYNOPSIS
     Turns a contract asset's note into the markdown text of its list item on a generated page.

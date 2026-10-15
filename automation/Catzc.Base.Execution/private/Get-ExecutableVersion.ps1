@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Execution/private/Get-ExecutableVersion.ps1
+#   module: Catzc.Base.Execution
+#   visibility: private
+
 <#
 .SYNOPSIS
     Runs one located executable's version command and returns the parsed version — the probe's only process start.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Languages/Invoke-PythonTest.ps1
+#   module: Catzc.Base.Languages
+#   visibility: public
+
 <#
 .SYNOPSIS
     Runs a catzc module's Python tests and returns one result per Python test.

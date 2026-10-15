@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Core/private/Resolve-SessionToolHint.ps1
+#   module: Catzc.Tooling.Core
+#   visibility: private
+
 <#
 .SYNOPSIS
     Points the current session at a tool installed outside the installer layer, using its declared hints.

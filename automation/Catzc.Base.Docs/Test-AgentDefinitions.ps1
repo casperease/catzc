@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Test-AgentDefinitions.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: the sub-agent definitions, their registry (agents.yml), and the .claude/CLAUDE.md list agree.

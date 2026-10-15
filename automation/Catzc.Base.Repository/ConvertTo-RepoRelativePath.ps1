@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
+#   module: Catzc.Base.Repository
+#   visibility: public
+
 <#
 .SYNOPSIS
     Normalizes a path to its communication form: out/-anchored, then repo-root-relative, else absolute.

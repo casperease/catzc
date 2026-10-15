@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.TypesSystem/private/Test-ConsoleReadyType.ps1
+#   module: Catzc.Base.TypesSystem
+#   visibility: private
+
 <#
 .SYNOPSIS
     Whether a shipped C# type renders as one readable line in pwsh, rather than as its full name.

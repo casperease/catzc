@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
+#   module: Catzc.Base.Git
+#   visibility: private
+
 <#
 .SYNOPSIS
     Computes, in memory, the whitelist of paths the automation itself generates and owns.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/Get-BicepResourceName.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: public
+
 # cspell:ignore deweuzctsmplst
 <#
 .SYNOPSIS

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1
+#   module: Catzc.Azure.DevOps
+#   visibility: public
+
 <#
 .SYNOPSIS
     Sets an Azure DevOps pipeline variable via the ##vso logging command.

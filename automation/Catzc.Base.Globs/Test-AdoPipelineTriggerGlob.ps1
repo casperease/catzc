@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
+#   module: Catzc.Base.Globs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: checks each ADO pipeline's trigger path filters against its globset's projection — the

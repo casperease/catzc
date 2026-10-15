@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Invoke-BicepFormat.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     The bicep formatter engine: formats the given Bicep files with the managed Bicep CLI and returns the files it

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/private/Get-GitIndexPath.ps1
+#   module: Catzc.Base.Files
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the absolute path of the repository's git index file.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
+#   module: Catzc.Base.ModuleSystem
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: every internal asset dependency is inventoried and covered by a test that runs in both run modes.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
+#   module: Catzc.Tooling.Core
+#   visibility: public
+
 <#
 .SYNOPSIS
     Evicts an off-config Linux install of a tool so the managed (user-space) build can win — the Linux

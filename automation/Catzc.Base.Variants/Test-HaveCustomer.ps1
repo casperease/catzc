@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Variants/Test-HaveCustomer.ps1
+#   module: Catzc.Base.Variants
+#   visibility: public
+
 <#
 .SYNOPSIS
     Tests whether one named customer is enabled for the repo (singular cover over Test-HaveCustomers).

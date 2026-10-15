@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Maps/Export-WorldMapPdf.ps1
+#   module: Catzc.Base.Maps
+#   visibility: public
+
 <#
 .SYNOPSIS
     Writes the world map as PDFs: the grid view, the tree view, or both, optionally with a highlight.

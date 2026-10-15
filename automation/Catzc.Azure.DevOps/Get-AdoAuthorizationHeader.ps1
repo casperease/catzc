@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
+#   module: Catzc.Azure.DevOps
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns an Authorization header for Azure DevOps REST API calls.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Reports/Write-QualityGateReport.ps1
+#   module: Catzc.Base.Reports
+#   visibility: public
+
 <#
 .SYNOPSIS
     Writes a quality gate's report, prints it, and ends the gate: throws once with every issue, or returns the result.

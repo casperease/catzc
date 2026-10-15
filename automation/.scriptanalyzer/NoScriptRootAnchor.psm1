@@ -4,7 +4,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid $PSScriptRoot anchors in module function files.
 .DESCRIPTION
-    A module's code runs in two modes: source mode, loading each function file from automation/<Module>/, and build...
+    In build mode the functions merge into one file, so the script root no longer names the module folder.
     [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
     [comment:1](/docs/references/automation/scriptanalyzer/NoScriptRootAnchor.psm1.md#comment1)
 #>
@@ -18,7 +18,7 @@ function Measure-NoScriptRootAnchor {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    # Only module function files are in scope: automation/<Module>/<File>.ps1 or...
+    # Dot-prefixed modules are infrastructure that anchors the modules root itself, so they are out of scope.
     # [comment:2](/docs/references/automation/scriptanalyzer/NoScriptRootAnchor.psm1.md#comment2)
     $file = $ScriptBlockAst.Extent.File
     if (-not $file) {

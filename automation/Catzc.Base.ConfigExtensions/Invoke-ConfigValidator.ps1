@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ConfigExtensions/Invoke-ConfigValidator.ps1
+#   module: Catzc.Base.ConfigExtensions
+#   visibility: public
+
 <#
 .SYNOPSIS
     Validates a parsed config with a PowerShell validator, run in the owning module's scope.

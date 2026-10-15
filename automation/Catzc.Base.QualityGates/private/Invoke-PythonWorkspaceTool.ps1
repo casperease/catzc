@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Invoke-PythonWorkspaceTool.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Runs a tool from the Python test workspace's pinned environment (ruff), against any .py files in the repository.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Variants/Test-GitWorkspace.ps1
+#   module: Catzc.Base.Variants
+#   visibility: public
+
 <#
 .SYNOPSIS
     Tests whether the repo's git workspace mode (the `git_workspace` variant) is the one named.

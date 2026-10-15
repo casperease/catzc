@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: public
+
 # cspell:ignore etlco
 <#
 .SYNOPSIS

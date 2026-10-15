@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.VSCode/New-VSCodeSettings.ps1
+#   module: Catzc.Base.VSCode
+#   visibility: public
+
 <#
 .SYNOPSIS
     Renders .vscode/settings.json content from the vscode-settings registry — the glue that keeps the

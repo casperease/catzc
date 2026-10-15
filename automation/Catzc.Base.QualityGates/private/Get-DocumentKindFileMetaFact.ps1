@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-DocumentKindFileMetaFact.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     The document-kind meta kind's fact: the class of the file, from the path globs the kind's settings declare

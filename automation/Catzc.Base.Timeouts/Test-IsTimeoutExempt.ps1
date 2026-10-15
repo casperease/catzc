@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Timeouts/Test-IsTimeoutExempt.ps1
+#   module: Catzc.Base.Timeouts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Tests whether a budget GUID is exempt from its normal time limit in this run environment.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Maps/Test-WorldMap.ps1
+#   module: Catzc.Base.Maps
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: every tracked file sits in a declared track and its tech-stack, and every label the world map prints

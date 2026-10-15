@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Core/Sync-SessionTools.ps1
+#   module: Catzc.Tooling.Core
+#   visibility: public
+
 <#
 .SYNOPSIS
     Reconciles the current session's PATH to the tools that are actually present, and reports any running from

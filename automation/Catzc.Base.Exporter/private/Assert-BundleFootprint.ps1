@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+#   module: Catzc.Base.Exporter
+#   visibility: private
+
 <#
 .SYNOPSIS
     Throws when a build holds more files or bytes than its bundle's footprint limits allow.

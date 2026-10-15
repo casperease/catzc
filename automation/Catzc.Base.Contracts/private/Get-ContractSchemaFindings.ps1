@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Contracts/private/Get-ContractSchemaFindings.ps1
+#   module: Catzc.Base.Contracts
+#   visibility: private
+
 <#
 .SYNOPSIS
     Validates one JSON or YAML file against a JSON Schema file, or checks the schema alone, and returns the findings.

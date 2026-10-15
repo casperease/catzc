@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Core/private/Test-ToolHomeProbe.ps1
+#   module: Catzc.Tooling.Core
+#   visibility: private
+
 <#
 .SYNOPSIS
     Tests whether a tool's install home satisfies one session_host_probes entry at the locked version.

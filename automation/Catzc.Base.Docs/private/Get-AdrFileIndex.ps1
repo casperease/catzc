@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/private/Get-AdrFileIndex.ps1
+#   module: Catzc.Base.Docs
+#   visibility: private
+
 <#
 .SYNOPSIS
     Indexes the markdown files under docs/adr/ by "<domain folder>/<slug>", and maps each rule set to its one ADR file.

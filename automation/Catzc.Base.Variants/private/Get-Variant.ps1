@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Variants/private/Get-Variant.ps1
+#   module: Catzc.Base.Variants
+#   visibility: private
+
 <#
 .SYNOPSIS
     Reads a single repo-wide variant from configs/variants.yml, or a default when the key is absent.

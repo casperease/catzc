@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps.BuildValidation/private/Resolve-AdoBuildValidationContext.ps1
+#   module: Catzc.Azure.DevOps.BuildValidation
+#   visibility: private
+
 <#
 .SYNOPSIS
     Resolves the ADO coordinates every build-validation call needs — org, project, repository id, API base.

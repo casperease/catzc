@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Objects/private/Expand-ObjectProperties.ps1
+#   module: Catzc.Base.Objects
+#   visibility: private
+
 <#
 .SYNOPSIS
     Recursively flattens a nested object into dot-notation key/value pairs.

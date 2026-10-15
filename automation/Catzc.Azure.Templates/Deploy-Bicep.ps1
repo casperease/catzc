@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/Deploy-Bicep.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Deploys a bicep template to Azure (resolves context, runs hooks, calls az, sets tags).

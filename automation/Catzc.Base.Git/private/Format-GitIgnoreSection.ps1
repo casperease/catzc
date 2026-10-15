@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Git/private/Format-GitIgnoreSection.ps1
+#   module: Catzc.Base.Git
+#   visibility: private
+
 <#
 .SYNOPSIS
     Renders one gitignore section — its titled, explained comment block followed by its pattern lines.

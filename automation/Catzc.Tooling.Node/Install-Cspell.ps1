@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Node/Install-Cspell.ps1
+#   module: Catzc.Tooling.Node
+#   visibility: public
+
 <#
 .SYNOPSIS
     Installs cspell (the Code Spell Checker CLI) globally via npm.

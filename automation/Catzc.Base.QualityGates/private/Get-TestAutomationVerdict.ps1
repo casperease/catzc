@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-TestAutomationVerdict.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Derives a completed run's verdict — the Passed/Failed result and its one-line reason — from the run facts.

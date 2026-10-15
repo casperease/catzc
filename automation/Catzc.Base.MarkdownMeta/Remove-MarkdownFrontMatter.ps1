@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.MarkdownMeta/Remove-MarkdownFrontMatter.ps1
+#   module: Catzc.Base.MarkdownMeta
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns a Markdown text without its YAML front matter.

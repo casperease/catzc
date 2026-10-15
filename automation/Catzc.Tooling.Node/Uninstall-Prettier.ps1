@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Node/Uninstall-Prettier.ps1
+#   module: Catzc.Tooling.Node
+#   visibility: public
+
 <#
 .SYNOPSIS
     Uninstalls Prettier (the global npm package).

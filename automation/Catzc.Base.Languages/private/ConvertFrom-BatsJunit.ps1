@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Languages/private/ConvertFrom-BatsJunit.ps1
+#   module: Catzc.Base.Languages
+#   visibility: private
+
 <#
 .SYNOPSIS
     Turns the bats JUnit report into one BashTestResult per Bash test.

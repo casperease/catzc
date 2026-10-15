@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Provisioning/Uninstall-Postman.ps1
+#   module: Catzc.Tooling.Provisioning
+#   visibility: public
+
 <#
 .SYNOPSIS
     Uninstalls the Postman desktop app.

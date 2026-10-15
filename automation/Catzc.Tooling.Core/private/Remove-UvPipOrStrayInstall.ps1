@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Core/private/Remove-UvPipOrStrayInstall.ps1
+#   module: Catzc.Tooling.Core
+#   visibility: private
+
 <#
 .SYNOPSIS
     Shared tail of the Unix off-config removers: evict a uv-managed-Python pip package, else delete a stray

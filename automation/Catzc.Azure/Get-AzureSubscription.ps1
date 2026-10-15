@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure/Get-AzureSubscription.ps1
+#   module: Catzc.Azure
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the resolved Azure subscription identity (id + tenant [+ customer]) for a named subscription.

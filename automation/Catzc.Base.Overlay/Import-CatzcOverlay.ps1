@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Overlay/Import-CatzcOverlay.ps1
+#   module: Catzc.Base.Overlay
+#   visibility: public
+
 <#
 .SYNOPSIS
     Applies the consumer overlay's function overrides to the loaded bundle, after checking the whole overlay.

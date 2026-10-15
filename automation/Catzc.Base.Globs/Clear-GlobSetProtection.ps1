@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Globs/Clear-GlobSetProtection.ps1
+#   module: Catzc.Base.Globs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Drops every recorded glob protection, forcing the next run of every protected scan to scan in full.

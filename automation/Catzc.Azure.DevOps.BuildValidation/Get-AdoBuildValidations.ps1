@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
+#   module: Catzc.Azure.DevOps.BuildValidation
+#   visibility: public
+
 <#
 .SYNOPSIS
     Lists the build-validation branch policies of the repository, optionally for one branch.

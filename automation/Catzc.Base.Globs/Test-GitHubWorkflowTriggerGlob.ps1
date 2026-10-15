@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
+#   module: Catzc.Base.Globs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: checks a GitHub workflow's trigger path filters against a globset's projection — the

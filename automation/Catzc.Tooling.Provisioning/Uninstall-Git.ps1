@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Provisioning/Uninstall-Git.ps1
+#   module: Catzc.Tooling.Provisioning
+#   visibility: public
+
 <#
 .SYNOPSIS
     Uninstalls Git installed by Install-Git.

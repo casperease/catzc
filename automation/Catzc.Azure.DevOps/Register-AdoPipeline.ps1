@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps/Register-AdoPipeline.ps1
+#   module: Catzc.Azure.DevOps
+#   visibility: public
+
 <#
 .SYNOPSIS
     Creates an Azure DevOps pipeline pointing to a YAML file.

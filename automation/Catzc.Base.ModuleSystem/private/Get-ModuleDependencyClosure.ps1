@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyClosure.ps1
+#   module: Catzc.Base.ModuleSystem
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the transitive declared-dependency closure of a set of modules — the seeds plus every module they

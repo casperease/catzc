@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Firewall/Get-FirewallCsv.ps1
+#   module: Catzc.Azure.Firewall
+#   visibility: public
+
 <#
 .SYNOPSIS
     Downloads the newest firewall-rule CSV(s) from a blob container — one per requested rule type.

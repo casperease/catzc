@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Environment/private/Set-ProcessEnvironmentVariable.ps1
+#   module: Catzc.Tooling.Environment
+#   visibility: private
+
 <#
 .SYNOPSIS
     Sets or removes a process-scope environment variable — the mockable I/O boundary for Write-EnvironmentSet.

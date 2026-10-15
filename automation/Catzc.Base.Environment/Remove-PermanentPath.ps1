@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Environment/Remove-PermanentPath.ps1
+#   module: Catzc.Base.Environment
+#   visibility: public
+
 <#
 .SYNOPSIS
     Removes a directory from PATH persistently and in the current session.

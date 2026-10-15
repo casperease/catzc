@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/ConvertTo-TestAutomationRowSet.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Reduces a live Pester run object to plain per-test rows that survive a process boundary.

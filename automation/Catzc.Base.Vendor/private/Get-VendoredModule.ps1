@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Vendor/private/Get-VendoredModule.ps1
+#   module: Catzc.Base.Vendor
+#   visibility: private
+
 <#
 .SYNOPSIS
     Enumerates the vendored modules on disk under automation/.vendor.

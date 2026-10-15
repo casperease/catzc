@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Environment/Set-PermanentEnvironmentVariable.ps1
+#   module: Catzc.Base.Environment
+#   visibility: public
+
 <#
 .SYNOPSIS
     Writes, or removes, an environment variable in a persistent scope (the Windows registry for User/Machine).

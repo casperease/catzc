@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Variants/Assert-AdoNaming.ps1
+#   module: Catzc.Base.Variants
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts the repo's Azure resource-name order (the `ado_naming` variant) is the one named, else throws.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
+#   module: Catzc.Base.RootConfig
+#   visibility: public
+
 <#
 .SYNOPSIS
     Materialises every opted-in managed root file from its in-repo source of truth — the writer behind the

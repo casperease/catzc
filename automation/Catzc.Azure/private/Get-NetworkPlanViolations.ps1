@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure/private/Get-NetworkPlanViolations.ps1
+#   module: Catzc.Azure
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns every way a network plan is out of sync with the azure config's environments and subscriptions.

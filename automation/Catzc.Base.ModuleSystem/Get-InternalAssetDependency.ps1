@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1
+#   module: Catzc.Base.ModuleSystem
+#   visibility: public
+
 <#
 .SYNOPSIS
     Lists every internal asset dependency in the module code — one record per Get-CatzcModuleRoot call site.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Core/Save-VerifiedDownload.ps1
+#   module: Catzc.Tooling.Core
+#   visibility: public
+
 <#
 .SYNOPSIS
     Downloads a file over HTTPS and verifies its SHA-256, rejecting a mismatch.

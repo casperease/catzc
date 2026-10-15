@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Execution/private/Invoke-ExecutableStreamed.ps1
+#   module: Catzc.Base.Execution
+#   visibility: private
+
 <#
 .SYNOPSIS
     Runs a CLI command with live-streamed output, exit code handling, and

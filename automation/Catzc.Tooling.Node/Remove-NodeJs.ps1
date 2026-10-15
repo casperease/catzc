@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Node/Remove-NodeJs.ps1
+#   module: Catzc.Tooling.Node
+#   visibility: public
+
 <#
 .SYNOPSIS
     Removes a manually installed Node.js and cleans up system PATH.

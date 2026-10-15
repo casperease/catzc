@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Maps/Test-ValueChainMap.ps1
+#   module: Catzc.Base.Maps
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: every ADR sits in a cell of the value-chain map, and every label the value-chain map prints is a

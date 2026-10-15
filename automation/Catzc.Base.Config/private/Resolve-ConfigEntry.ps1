@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
+#   module: Catzc.Base.Config
+#   visibility: private
+
 <#
 .SYNOPSIS
     Resolves a config name to its owning module and file path (the discovery seam).

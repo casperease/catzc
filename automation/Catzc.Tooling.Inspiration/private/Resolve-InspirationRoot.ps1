@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
+#   module: Catzc.Tooling.Inspiration
+#   visibility: private
+
 <#
 .SYNOPSIS
     Resolves an inspiration's stored root to its binding form, a normalized absolute path.

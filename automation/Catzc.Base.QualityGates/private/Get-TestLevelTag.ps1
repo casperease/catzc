@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-TestLevelTag.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Resolves a Pester test's integration tier (L0 to L4, [Catzc.Base.Timeouts.TestTiers]) from its block hierarchy.

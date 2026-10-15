@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Languages/Get-FileLanguage.ps1
+#   module: Catzc.Base.Languages
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the repository's file languages — all of them, the named ones, or the one a file is written in.

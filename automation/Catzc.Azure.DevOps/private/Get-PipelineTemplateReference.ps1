@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps/private/Get-PipelineTemplateReference.ps1
+#   module: Catzc.Azure.DevOps
+#   visibility: private
+
 <#
 .SYNOPSIS
     Extracts the template references (`template:` values) from a pipeline YAML file — the paths a

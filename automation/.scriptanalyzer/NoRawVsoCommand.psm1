@@ -4,7 +4,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid raw ##vso[task.…] logging commands.
 .DESCRIPTION
-    Azure DevOps pipeline variables and logging are driven by ##vso[task.…] logging commands written to stdout.
+    A raw logging command is error-prone (silent name rewrites, forgotten flags), so one validating setter emits it.
     [ADR-PIPE-VAR#1](/docs/adr/pipelines/pipeline-variables.md#rule-adr-pipe-var1)
     [comment:1](/docs/references/automation/scriptanalyzer/NoRawVsoCommand.psm1.md#comment1)
 #>
@@ -22,7 +22,7 @@ function Measure-NoRawVsoCommand {
     $ruleName = 'Measure-NoRawVsoCommand'
     $exemptFunction = 'Set-AdoPipelineVariable'
 
-    # Pattern for the raw logging command.
+    # Tolerates whitespace inside the marker, since the agent still accepts a spaced form of the command.
     # [comment:2](/docs/references/automation/scriptanalyzer/NoRawVsoCommand.psm1.md#comment2)
     $vsoPattern = '##vso\s*\[\s*task\.'
 

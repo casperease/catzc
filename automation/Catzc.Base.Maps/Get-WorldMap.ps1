@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Maps/Get-WorldMap.ps1
+#   module: Catzc.Base.Maps
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the world map: every tracked file placed in one cell of tracks by file languages.

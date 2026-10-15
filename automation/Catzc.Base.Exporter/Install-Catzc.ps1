@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Exporter/Install-Catzc.ps1
+#   module: Catzc.Base.Exporter
+#   visibility: public
+
 <#
 .SYNOPSIS
     Installs a Catzc build — two-part beside a working root, or into the current user's module path.

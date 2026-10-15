@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Config/Get-Config.ps1
+#   module: Catzc.Base.Config
+#   visibility: public
+
 <#
 .SYNOPSIS
     Loads, validates, and caches a module's config by its global lowercase name.

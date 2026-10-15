@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Writers/private/Resolve-WriterColor.ps1
+#   module: Catzc.Base.Writers
+#   visibility: private
+
 <#
 .SYNOPSIS
     Normalises a writer's -ForegroundColor argument into a colour plan — a plain ConsoleColor or a rainbow

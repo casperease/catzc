@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Contracts/Get-Contract.ps1
+#   module: Catzc.Base.Contracts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Lists the repository's contract assets, with every fact derived from each asset's name.

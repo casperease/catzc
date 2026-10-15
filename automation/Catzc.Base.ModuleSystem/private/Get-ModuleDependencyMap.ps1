@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyMap.ps1
+#   module: Catzc.Base.ModuleSystem
+#   visibility: private
+
 <#
 .SYNOPSIS
     Builds the declared module -> dependency-set map from configs/dependencies.yml (the edges of the declared

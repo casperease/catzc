@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1
+#   module: Catzc.Azure.Firewall
+#   visibility: public
+
 <#
 .SYNOPSIS
     Enumerates the IP Groups across one or more (subscription, resource group) targets into a single YAML.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.MarkdownMeta/Format-MarkdownMetaBlock.ps1
+#   module: Catzc.Base.MarkdownMeta
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns a Markdown text with its meta block imprinted from the given facts

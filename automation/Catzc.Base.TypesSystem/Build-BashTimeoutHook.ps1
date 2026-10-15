@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1
+#   module: Catzc.Base.TypesSystem
+#   visibility: public
+
 <#
 .SYNOPSIS
     Publishes the Claude Code Bash time-safeguard hook (a small C# program) when its source has changed.

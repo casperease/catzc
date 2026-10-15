@@ -4,7 +4,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid writing to the console past the information stream.
 .DESCRIPTION
-    Every write to the console goes through the information stream, by way of the writer chokepoint (Write-Message ->...
+    A raw write bypasses the stream, so it escapes output control, Pester silencing and the caller header.
     [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
     [comment:1](/docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md#comment1)
 #>
@@ -28,7 +28,7 @@ function Measure-NoRawConsoleWrite {
         'Write', 'WriteLine', 'Clear', 'ResetColor', 'SetCursorPosition', 'Beep', 'SetWindowSize',
         'SetWindowPosition', 'SetBufferSize', 'MoveBufferArea', 'OpenStandardOutput', 'OpenStandardError'
     )
-    # [Console]::Out / [Console]::Error are raw writers only when written through; reading them (to save and restore...
+    # Reading Out or Error to restore around a SetOut capture writes nothing, so only a write through them flags.
     # [comment:2](/docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md#comment2)
     $consoleWriterMembers = @('Out', 'Error')
     $writerMethods = @('Write', 'WriteLine', 'WriteAsync', 'WriteLineAsync', 'Flush')

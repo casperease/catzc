@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Languages/Invoke-BashTest.ps1
+#   module: Catzc.Base.Languages
+#   visibility: public
+
 <#
 .SYNOPSIS
     Runs a catzc module's Bash tests and returns one result per Bash test.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Git/New-GitIgnore.ps1
+#   module: Catzc.Base.Git
+#   visibility: public
+
 <#
 .SYNOPSIS
     Renders the repository-root .gitignore content from the gitignore registry — the pretty-printer behind

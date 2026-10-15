@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/Copy-Directory.ps1
+#   module: Catzc.Base.Files
+#   visibility: public
+
 <#
 .SYNOPSIS
     Recursively copies the contents of a directory into a destination directory.

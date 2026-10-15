@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Repository/Get-CatzcOverlayRoot.ps1
+#   module: Catzc.Base.Repository
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the consumer's overlay root — <RepositoryRoot>/.catzc/automation — or nothing when there is none.

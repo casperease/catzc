@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Languages/New-PythonProject.ps1
+#   module: Catzc.Base.Languages
+#   visibility: public
+
 <#
 .SYNOPSIS
     Renders the Python test workspace: the uv workspace root <root>/pyproject.toml and one member pyproject.toml per Python

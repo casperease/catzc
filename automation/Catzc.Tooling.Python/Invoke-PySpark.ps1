@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Python/Invoke-PySpark.ps1
+#   module: Catzc.Tooling.Python
+#   visibility: public
+
 <#
 .SYNOPSIS
     Runs pyspark with the given arguments.

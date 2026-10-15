@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Maps/private/Resolve-MapLabelTerm.ps1
+#   module: Catzc.Base.Maps
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the glossary term a printed map label names, or nothing when it names none.

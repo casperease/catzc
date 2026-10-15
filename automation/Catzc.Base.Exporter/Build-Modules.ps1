@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Exporter/Build-Modules.ps1
+#   module: Catzc.Base.Exporter
+#   visibility: public
+
 <#
 .SYNOPSIS
     Builds the selected modules into one installable, versioned Catzc module — build mode's code root.

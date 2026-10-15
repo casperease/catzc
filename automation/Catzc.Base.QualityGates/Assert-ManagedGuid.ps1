@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/Assert-ManagedGuid.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts a GUID is registered in the managed-GUID registry (configs/guids.yml); throws when it is not.

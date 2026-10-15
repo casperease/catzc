@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+#   module: Catzc.Base.Maps
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the value-chain map cells that ADR codes light.

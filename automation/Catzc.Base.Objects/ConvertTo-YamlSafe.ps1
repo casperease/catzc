@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Objects/ConvertTo-YamlSafe.ps1
+#   module: Catzc.Base.Objects
+#   visibility: public
+
 <#
 .SYNOPSIS
     Recursively converts an object into a YAML-safe structure of ordered

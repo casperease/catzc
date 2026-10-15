@@ -4,7 +4,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid return, break, continue inside ForEach-Object.
 .DESCRIPTION
-    return/break/continue have completely different semantics inside a ForEach-Object scriptblock than inside a...
+    Inside a ForEach-Object scriptblock return acts like continue and break ends the script, unlike in a foreach loop.
     [comment:1](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment1)
 #>
 
@@ -20,7 +20,7 @@ function Measure-NoForEachObjectControlFlow {
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoForEachObjectControlFlow'
 
-    # Find all ForEach-Object / % command invocations Predicate as a local, not inlined in FindAll's parens — dodges...
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
     # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:2](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment2)
     $isForEachObjectCommand = {
@@ -34,7 +34,7 @@ function Measure-NoForEachObjectControlFlow {
     $commands = $ScriptBlockAst.FindAll($isForEachObjectCommand, $true)
 
     foreach ($cmd in $commands) {
-        # Collect all scriptblock arguments to this ForEach-Object call.
+        # Positional scriptblocks count as well as -Process, -Begin and -End.
         # [comment:3](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment3)
         $scriptBlocks = @()
         foreach ($element in $cmd.CommandElements) {
@@ -44,7 +44,7 @@ function Measure-NoForEachObjectControlFlow {
         }
 
         foreach ($block in $scriptBlocks) {
-            # Find return, break, continue statements that are direct children of THIS scriptblock — not inside a...
+            # Only direct children count: inside a nested loop, switch or function the keyword is valid.
             # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
             # [comment:4](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment4)
             $isControlFlowStatement = {
@@ -60,7 +60,7 @@ function Measure-NoForEachObjectControlFlow {
                     return $false
                 }
 
-                # Walk up the AST to check if there is an intervening loop/switch/function between this statement and...
+                # An intervening loop, switch or function owns the keyword, so it does not target our scriptblock.
                 # [comment:5](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment5)
                 $parent = $node.Parent
                 while ($null -ne $parent -and $parent -ne $block) {

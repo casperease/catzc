@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-TestRuleTags.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     The set of ADR rule citations a Pester test enforces — every 'ADR-<CODE>#<n>' tag on the test and its

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Languages/private/Get-EngineContract.ps1
+#   module: Catzc.Base.Languages
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the black-box contract a test language's tests start the engine by: the environment variables a runner sets

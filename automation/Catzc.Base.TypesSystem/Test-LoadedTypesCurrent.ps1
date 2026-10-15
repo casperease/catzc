@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.TypesSystem/Test-LoadedTypesCurrent.ps1
+#   module: Catzc.Base.TypesSystem
+#   visibility: public
+
 <#
 .SYNOPSIS
     Tests whether the C# types loaded in this PowerShell process are current with their sources.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Wraps one paragraph or list item of generated markdown at the 140-column prose width, the way Prettier fills it.

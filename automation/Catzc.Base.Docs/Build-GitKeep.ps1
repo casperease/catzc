@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Build-GitKeep.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Reproduces every .gitkeep from the one generic authored source — the writer behind the ".gitkeep files

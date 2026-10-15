@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
+#   module: Catzc.Base.Globs
+#   visibility: private
+
 <#
 .SYNOPSIS
     The tracked files a globset finally selects — the single source of a set's included members.

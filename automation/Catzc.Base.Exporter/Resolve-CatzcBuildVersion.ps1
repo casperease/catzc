@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
+#   module: Catzc.Base.Exporter
+#   visibility: public
+
 <#
 .SYNOPSIS
     Resolves the version a Catzc build carries — the devbox placeholder, a calculated pipeline version, or an

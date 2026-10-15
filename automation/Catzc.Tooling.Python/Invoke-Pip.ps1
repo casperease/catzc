@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Python/Invoke-Pip.ps1
+#   module: Catzc.Tooling.Python
+#   visibility: public
+
 <#
 .SYNOPSIS
     Runs pip through uv (`uv pip`).

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-LogicTestIdentityFinding.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Scans one Pester test file's AST for a live production identity used as a code string literal OUTSIDE an

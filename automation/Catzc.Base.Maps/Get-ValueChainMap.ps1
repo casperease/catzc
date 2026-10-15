@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Maps/Get-ValueChainMap.ps1
+#   module: Catzc.Base.Maps
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the value-chain map: the rows of the value-chain stack crossed with the value-chain concerns, and the ADRs

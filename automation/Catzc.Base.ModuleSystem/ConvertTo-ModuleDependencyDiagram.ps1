@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ModuleSystem/ConvertTo-ModuleDependencyDiagram.ps1
+#   module: Catzc.Base.ModuleSystem
+#   visibility: public
+
 <#
 .SYNOPSIS
     Renders module dependency edges to JSON, YAML, Markdown, or PlantUML.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1
+#   module: Catzc.Base.Timeouts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the test-run time limits: the most one test of each tier may take, and the budget for a whole run.

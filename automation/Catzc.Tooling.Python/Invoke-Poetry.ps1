@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Python/Invoke-Poetry.ps1
+#   module: Catzc.Tooling.Python
+#   visibility: public
+
 <#
 .SYNOPSIS
     Runs poetry with the given arguments.

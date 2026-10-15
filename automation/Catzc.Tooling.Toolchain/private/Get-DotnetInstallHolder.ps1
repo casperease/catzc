@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Toolchain/private/Get-DotnetInstallHolder.ps1
+#   module: Catzc.Tooling.Toolchain
+#   visibility: private
+
 <#
 .SYNOPSIS
     Lists the processes that hold a .NET install open.

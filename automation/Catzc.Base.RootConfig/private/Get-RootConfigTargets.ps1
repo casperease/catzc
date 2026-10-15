@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.RootConfig/private/Get-RootConfigTargets.ps1
+#   module: Catzc.Base.RootConfig
+#   visibility: private
+
 <#
 .SYNOPSIS
     Resolves the rootconfig registry into the list of opted-in managed root files Build-RootConfig generates.

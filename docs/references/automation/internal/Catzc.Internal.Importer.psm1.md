@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/internal/Catzc.Internal.Importer.psm1.md
     kind: comment-page
-    body_sha: "0c2409122336"
+    body_sha: c11095fcd2b4
     adrs:
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-FAILFAST#7

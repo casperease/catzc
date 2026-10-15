@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/Build-AdrIndex.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Generates [index](/docs/adr/index.md) — the ADR code -> rule-citation registry — from adrs.yml, the single source

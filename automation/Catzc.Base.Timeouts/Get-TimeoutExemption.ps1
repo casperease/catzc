@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Timeouts/Get-TimeoutExemption.ps1
+#   module: Catzc.Base.Timeouts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the exemption that covers a budget GUID in this run environment, or nothing.

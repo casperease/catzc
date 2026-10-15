@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+#   module: Catzc.Base.Config
+#   visibility: private
+
 <#
 .SYNOPSIS
     Walks a key path into an already-loaded config node and returns the addressed node.

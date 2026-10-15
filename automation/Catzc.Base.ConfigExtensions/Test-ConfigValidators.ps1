@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
+#   module: Catzc.Base.ConfigExtensions
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: every Assert-<Name>Config validator maps to a configs/<name>.yml in its own module.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/ConvertTo-AdrDomainDiagram.ps1
+#   module: Catzc.Base.Docs
+#   visibility: public
+
 <#
 .SYNOPSIS
     Renders ADR domain dependency edges to PlantUML, Mermaid, or a Markdown table.

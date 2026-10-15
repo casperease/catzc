@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
+#   module: Catzc.Azure.DevOps.BuildValidation
+#   visibility: private
+
 <#
 .SYNOPSIS
     The ADO branch-policy path filters for a globset — its native trigger projection, anchored with '/'.

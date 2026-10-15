@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Globs/private/Test-GlobListEqual.ps1
+#   module: Catzc.Base.Globs
+#   visibility: private
+
 <#
 .SYNOPSIS
     Compares two glob-pattern lists for equality — ordered for GitHub, as a set for Azure DevOps.

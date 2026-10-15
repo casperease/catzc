@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/Get-GitChangedPath.ps1
+#   module: Catzc.Base.Files
+#   visibility: public
+
 <#
 .SYNOPSIS
     Returns the repository paths that differ from HEAD: what the working tree has changed.

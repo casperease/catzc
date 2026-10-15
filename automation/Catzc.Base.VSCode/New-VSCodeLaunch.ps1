@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.VSCode/New-VSCodeLaunch.ps1
+#   module: Catzc.Base.VSCode
+#   visibility: public
+
 <#
 .SYNOPSIS
     Renders .vscode/launch.json content from the vscode-launch registry — the debug launch profiles the

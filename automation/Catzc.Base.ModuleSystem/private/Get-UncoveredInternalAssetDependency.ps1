@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1
+#   module: Catzc.Base.ModuleSystem
+#   visibility: private
+
 <#
 .SYNOPSIS
     Lists the functions with an internal asset dependency that no qualifying test covers — the coverage quality gate's

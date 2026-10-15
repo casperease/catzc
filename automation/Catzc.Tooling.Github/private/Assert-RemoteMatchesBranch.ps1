@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Github/private/Assert-RemoteMatchesBranch.ps1
+#   module: Catzc.Tooling.Github
+#   visibility: private
+
 <#
 .SYNOPSIS
     Asserts that a freshly pushed remote holds exactly the local branch — every ref it advertises points at the

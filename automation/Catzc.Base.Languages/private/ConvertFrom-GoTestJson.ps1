@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Languages/private/ConvertFrom-GoTestJson.ps1
+#   module: Catzc.Base.Languages
+#   visibility: private
+
 <#
 .SYNOPSIS
     Turns a `go test -json` event stream (the test2json format) into one GoTestResult per top-level Go test.

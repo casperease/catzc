@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Set-CSharpFileScopedNamespace.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the C# source with a file-scoped `namespace <Namespace>;` line present and correct.

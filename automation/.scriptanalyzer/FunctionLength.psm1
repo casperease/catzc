@@ -4,7 +4,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: function body must not exceed 300 lines.
 .DESCRIPTION
-    Counts lines from the opening brace to closing brace of the function body.
+    Help placed before the function is outside the braces, so it never counts toward the limit.
     [comment:1](/docs/references/automation/scriptanalyzer/FunctionLength.psm1.md#comment1)
 #>
 

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-ScriptAnalyzerDiagnostics.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Runs PSScriptAnalyzer over a file list, sharded across background processes, returning diagnostics.

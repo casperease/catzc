@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Overlay/Get-CatzcOverlay.ps1
+#   module: Catzc.Base.Overlay
+#   visibility: public
+
 <#
 .SYNOPSIS
     Lists everything in the consumer overlay, each entry classified by where it sits.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Toolchain/private/Install-BicepStandalone.ps1
+#   module: Catzc.Tooling.Toolchain
+#   visibility: private
+
 <#
 .SYNOPSIS
     Installs the Bicep CLI on Linux: the newest release at the pinned version, verified, into ~/.local/bin.

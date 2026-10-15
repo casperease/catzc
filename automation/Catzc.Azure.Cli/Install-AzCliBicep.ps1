@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Cli/Install-AzCliBicep.ps1
+#   module: Catzc.Azure.Cli
+#   visibility: public
+
 <#
 .SYNOPSIS
     Installs (or upgrades) the Bicep CLI that az uses, to at least the configured minimum.

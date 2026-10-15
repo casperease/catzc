@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Writes the deployment-provenance tags (commit, buildId, branch) on the target scope.

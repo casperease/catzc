@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.RootConfig/private/Invoke-RootConfigGenerator.ps1
+#   module: Catzc.Base.RootConfig
+#   visibility: private
+
 <#
 .SYNOPSIS
     Renders the content of a generator-produced managed root file — the registry's generator dispatch.

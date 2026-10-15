@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/Test-FileIsNotLocked.ps1
+#   module: Catzc.Base.Files
+#   visibility: public
+
 <#
 .SYNOPSIS
     Tests whether a file is free to open (not locked by another handle).

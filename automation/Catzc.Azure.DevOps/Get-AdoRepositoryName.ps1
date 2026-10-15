@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps/Get-AdoRepositoryName.ps1
+#   module: Catzc.Azure.DevOps
+#   visibility: public
+
 <#
 .SYNOPSIS
     The Azure DevOps repository this checkout is: the sensible default for every -RepositoryName.

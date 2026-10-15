@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.DevOps/Get-AdoYamlFiles.ps1
+#   module: Catzc.Azure.DevOps
+#   visibility: public
+
 <#
 .SYNOPSIS
     Scans a directory recursively for YAML files and classifies each as Pipeline, Template, or Unknown.

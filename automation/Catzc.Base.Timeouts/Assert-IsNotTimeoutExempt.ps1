@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Timeouts/Assert-IsNotTimeoutExempt.ps1
+#   module: Catzc.Base.Timeouts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts that a budget GUID runs under its normal time limit here, not an exemption.

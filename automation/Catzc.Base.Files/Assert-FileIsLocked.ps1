@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/Assert-FileIsLocked.ps1
+#   module: Catzc.Base.Files
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts that a file is held open by another handle (locked); throws otherwise.

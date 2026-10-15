@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-FixtureIdentityTokens.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Derives the set of TEST-fixture identity tokens — the deliberately-distinct customers, subscriptions, org,

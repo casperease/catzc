@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownColumns.ps1
+#   module: Catzc.Azure.Firewall
+#   visibility: private
+
 <#
 .SYNOPSIS
     Builds the ordered, validated Markdown column descriptors for Convert-FirewallCsvToMarkdown.

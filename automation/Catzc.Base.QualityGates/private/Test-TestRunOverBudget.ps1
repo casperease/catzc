@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Whether a test run outlasted its whole-run budget in a way that fails it: a devbox run over tests.run_seconds.

@@ -5,7 +5,7 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
     The single implementation of the combined C# type-source hash — enumerate, order, and hash every module's
     types/*.cs the way the committed automation/.compiled/Catzc.Types.<hash>.dll is keyed.
 .DESCRIPTION
-    Both the loader (Import-CSharpTypes, in the bootstrap) and the janitor (Clear-ModuleTypeCache, a Catzc module)...
+    Loader and janitor must agree on this hash byte for byte, or the janitor plans the live build for deletion.
     [comment:1](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment1)
 #>
 
@@ -17,7 +17,7 @@ function Get-CombinedTypeHash {
     .PARAMETER AutomationRoot
         The automation directory. Its non-dot subfolders are the modules whose types/*.cs are hashed.
     .PARAMETER Module
-        Restricts the hash to these module folders (a build of a module subset).
+        Omitted, every non-dot module is hashed; a named module without a types folder contributes nothing.
         [comment:2](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment2)
     .OUTPUTS
         [pscustomobject] with:
@@ -36,14 +36,14 @@ function Get-CombinedTypeHash {
         [string[]] $Module
     )
 
-    # Assigned directly, never through an if-expression: an empty HashSet emitted from a statement enumerates to...
+    # An empty HashSet out of an if-expression enumerates to null, which would widen an empty selection to all modules.
     # [comment:3](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment3)
     $selected = $null
     if ($PSBoundParameters.ContainsKey('Module')) {
         $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module), [System.StringComparer]::OrdinalIgnoreCase)
     }
 
-    # Enumerate every non-dot module's types/*.cs.
+    # Raw System.IO instead of Get-ChildItem avoids about 20 ms of provider overhead per call.
     # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
     # [comment:4](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment4)
     $files = [System.Collections.Generic.List[object]]::new()
@@ -67,7 +67,7 @@ function Get-CombinedTypeHash {
         }
     }
 
-    # A build ships the full type set but only the selected modules' folders; the other modules' sources sit...
+    # A build keeps unselected modules' sources under .compiled, keyed alike, so the hash equals the full-set hash.
     # [comment:5](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment5)
     $compiledTypesDir = [System.IO.Path]::Combine($AutomationRoot, '.compiled', 'types')
     if ($null -eq $selected -and [System.IO.Directory]::Exists($compiledTypesDir)) {
@@ -89,12 +89,12 @@ function Get-CombinedTypeHash {
         return [pscustomobject]@{ CombinedHash = $null; Snapshot = [ordered]@{}; Files = @() }
     }
 
-    # Deterministic, culture-independent order: sort by <module>/<bare type> ORDINALLY (Sort-Object is culture-aware...
+    # Ordinal comparer, because Sort-Object is culture-aware and the hash must be identical on every machine.
     # [comment:6](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment6)
     $sortedFiles = [object[]]$files.ToArray()
     [System.Array]::Sort($sortedFiles, [System.Comparison[object]] { param($a, $b) [System.StringComparer]::Ordinal.Compare($a.Key, $b.Key) })
 
-    # Per-file EOL-INSENSITIVE digest: hash the source bytes with every CR (0x0D) stripped, so a CRLF vs LF working...
+    # CR bytes are stripped first, so a CRLF versus LF checkout never re-keys the committed DLL on a line-ending flip.
     # [comment:7](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment7)
     $latin1 = [System.Text.Encoding]::Latin1
     $snapshot = [ordered]@{}
@@ -127,7 +127,7 @@ function Get-LoadedTypeDrift {
         Compares the C# types loaded in this process with the type sources of a code root, and says whether they are
         current.
     .DESCRIPTION
-        A loaded assembly cannot be unloaded or swapped in a running process, so a source changed after its types...
+        A loaded assembly cannot be swapped in a running process, so a source edited after loading stays stale.
         [ADR-AUTO-TYPES#7](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types7),
         [ADR-AUTO-TYPES#12](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types12)
         [comment:8](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment8)
@@ -192,7 +192,7 @@ function Get-LoadedTypeDrift {
         $summary = "C# types changed since they were loaded ($($prior.Hash) -> $($HashResult.CombinedHash))."
     }
     elseif ($loaded -and -not $prior) {
-        # Cross-root: the types are in the process, but loaded on behalf of a different root.
+        # A type no recorded root claims is taken as it is; the rest are compared with the root that recorded them.
         # [comment:9](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment9)
         $otherRoots = [System.Collections.Generic.List[string]]::new()
         $recordEntries = if ($records) {
@@ -253,7 +253,7 @@ function Build-CombinedTypeAssembly {
     .SYNOPSIS
         Compiles the selected modules' C# type sources into one hash-named assembly on disk, without loading it.
     .DESCRIPTION
-        The one compile path for the combined types assembly: the loader (Import-CSharpTypes) calls it to restore...
+        Compiles a frozen copy of the sources, so a save mid-compile cannot make the DLL name differ from its bytes.
         [comment:10](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment10)
     .PARAMETER AutomationRoot
         The automation directory whose non-dot module folders hold the types/*.cs sources.
@@ -372,7 +372,7 @@ function Get-TypesShadowRoot {
     .SYNOPSIS
         The per-user folder that holds the shadow copies of the combined types assembly.
     .DESCRIPTION
-        %LOCALAPPDATA%\catzc\types on Windows, ~/.local/share/catzc/types on Unix — the same per-user catzc root the...
+        Shared by every session and clone: a copy is named by its source hash, so equal names mean equal types.
         [comment:11](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment11)
     .OUTPUTS
         [string] The folder path (not created here).
@@ -395,14 +395,14 @@ function Import-TypesAssembly {
     .SYNOPSIS
         Loads a combined types assembly from a per-user shadow copy, never from the file it is given.
     .DESCRIPTION
-        A loaded assembly is locked on Windows for the life of the process, so loading...
+        Windows locks a loaded DLL, so loading in place would pin a superseded build; every load uses a shadow copy.
         [comment:12](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment12)
     .PARAMETER Path
         The assembly to load (normally automation/.compiled/Catzc.Types.<hash>.dll, or a bundle's prebuilt copy).
     .PARAMETER ShadowRoot
         The shadow folder. Defaults to Get-TypesShadowRoot; tests pass a throwaway folder.
     .PARAMETER PruneAfter
-        How long another copy may go untouched before it is pruned.
+        The age bound keeps a copy another process just wrote but not yet loaded from being pruned under it.
         [comment:13](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment13)
     .OUTPUTS
         [string] The path of the loaded shadow copy.

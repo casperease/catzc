@@ -5,7 +5,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: enforce variable casing conventions.
 .DESCRIPTION
-    PascalCase: parameters, $global: scoped variables.
+    Scriptblock parameters and automatic variables are skipped, as their names are not the author's choice.
     [comment:1](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment1)
 #>
 
@@ -54,7 +54,7 @@ function Measure-VariableCasing {
         $name = $p.Name.VariablePath.UserPath
         $paramNames.Add($name) | Out-Null
 
-        # Skip scriptblock params (e.g.
+        # Only a param block under a function definition is checked; one under a scriptblock is a predicate's.
         # [comment:3](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment3)
         $parentOfScript = $p.Parent.Parent.Parent
         if ($parentOfScript -isnot [System.Management.Automation.Language.FunctionDefinitionAst]) {
@@ -72,7 +72,7 @@ function Measure-VariableCasing {
         }
     }
 
-    # Check variable assignments Predicate as a local, not inlined in FindAll's parens — dodges a cross-version...
+    # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
     # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:4](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment4)
     $isAssignment = {

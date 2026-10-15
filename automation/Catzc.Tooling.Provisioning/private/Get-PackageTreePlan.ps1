@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Provisioning/private/Get-PackageTreePlan.ps1
+#   module: Catzc.Tooling.Provisioning
+#   visibility: private
+
 <#
 .SYNOPSIS
     Plans copying an extracted package tree into a destination tree without touching a file the destination already has.

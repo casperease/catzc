@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Cli/private/Get-AzCliBicepState.ps1
+#   module: Catzc.Azure.Cli
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns the Bicep CLI state relative to the configured minimum version.

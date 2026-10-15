@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Vendor/private/Resolve-VendorRepository.ps1
+#   module: Catzc.Base.Vendor
+#   visibility: private
+
 <#
 .SYNOPSIS
     Resolves the PSResourceRepository name the vendor functions download from and validate against.

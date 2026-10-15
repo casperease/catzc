@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Core/Remove-MacToolInstall.ps1
+#   module: Catzc.Tooling.Core
+#   visibility: public
+
 <#
 .SYNOPSIS
     Evicts an off-config macOS install of a tool so the managed build can win — the macOS platform core of the

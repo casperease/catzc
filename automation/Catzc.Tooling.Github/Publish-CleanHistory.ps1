@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Github/Publish-CleanHistory.ps1
+#   module: Catzc.Tooling.Github
+#   visibility: public
+
 <#
 .SYNOPSIS
     Publishes a verified local history to a brand-new, empty GitHub repository,

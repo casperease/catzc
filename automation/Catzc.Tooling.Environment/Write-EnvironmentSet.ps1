@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+#   module: Catzc.Tooling.Environment
+#   visibility: public
+
 <#
 .SYNOPSIS
     Prepares a set of $env: variables for a child or external process to read — the one sanctioned seam for

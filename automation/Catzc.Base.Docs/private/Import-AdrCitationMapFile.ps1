@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/private/Import-AdrCitationMapFile.ps1
+#   module: Catzc.Base.Docs
+#   visibility: private
+
 <#
 .SYNOPSIS
     Reads one tab-separated ADR map (a code map or a rule map) into one hashtable per row, keyed by the header.

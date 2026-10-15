@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Files/Test-GitPathChanged.ps1
+#   module: Catzc.Base.Files
+#   visibility: public
+
 <#
 .SYNOPSIS
     Tests whether anything under the given repository paths differs from HEAD.

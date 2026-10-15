@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Languages/New-GoWorkspace.ps1
+#   module: Catzc.Base.Languages
+#   visibility: public
+
 <#
 .SYNOPSIS
     Renders the Go test workspace — the repository-root go.work and each <root>/tests/<folder>/go.mod — from

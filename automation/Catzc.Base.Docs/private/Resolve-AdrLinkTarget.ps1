@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/private/Resolve-AdrLinkTarget.ps1
+#   module: Catzc.Base.Docs
+#   visibility: private
+
 <#
 .SYNOPSIS
     Resolves a markdown link's target, written in a file under docs/adr/, to its path under docs/adr/.

@@ -5,7 +5,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: a function that changes the session's state must announce it.
 .DESCRIPTION
-    Every lasting change a function makes to the state of the console session is announced on the information stream,...
+    The rule checks that a writer runs with the change, not what the line says; that wording stays a review concern.
     [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11),
     [ADR-PWSH-ANNOUNCE#8](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce8),
     [ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6),
@@ -27,7 +27,7 @@ function Test-CommandParameter {
     $false
 }
 
-# The argument of a command's named parameter (-Name value or -Name:value), else its first positional argument — the...
+# The first positional argument is the element right after the command name, and only when it is not a parameter.
 # [comment:2](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment2)
 function Get-CommandArgument {
     param($Command, [string] $ParameterName)
@@ -220,7 +220,7 @@ function Measure-AnnounceStateChange {
         $ScriptBlockAst
     }
 
-    # Whether a node sits in a scriptblock handed literally to a job or a parallel ForEach-Object, which runs in...
+    # Another runspace or process owns that state, so a change in a literal job scriptblock is not this session's.
     # [comment:3](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment3)
     $isInOtherRunspace = {
         param($node)
@@ -269,7 +269,7 @@ function Measure-AnnounceStateChange {
         $node -is [System.Management.Automation.Language.CommandAst]
     }
 
-    # Group every change by its scope, and note per scope which targets a finally block restores and which blocks an...
+    # Grouped per scope because a writer or a finally restore only counts inside its own or an enclosing block.
     # [comment:5](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment5)
     $changesByScope = [ordered]@{}
     $restoredByScope = @{}
@@ -342,7 +342,7 @@ function Measure-AnnounceStateChange {
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: persistent environment and registry writes go only through their seams.
 .DESCRIPTION
-    State outside the repository — the persistent (User/Machine) environment and the registry — is shared by every...
+    Persistent environment and registry writes go through one mockable seam, so only its own test touches real state.
     [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)
     [comment:6](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment6)
 #>

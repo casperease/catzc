@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Docs/private/Get-ClaudeMdAgentNames.ps1
+#   module: Catzc.Base.Docs
+#   visibility: private
+
 <#
 .SYNOPSIS
     Lists the sub-agent names the `## Sub-agents` section of a CLAUDE.md file lists.

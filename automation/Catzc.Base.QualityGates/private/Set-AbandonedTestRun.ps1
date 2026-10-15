@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Set-AbandonedTestRun.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Marks every run under a report folder that says 'running' but whose owning process is gone as 'abandoned'.

@@ -4,7 +4,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: forbid taking the first element of a collected result by index.
 .DESCRIPTION
-    `@(<pipeline or call>)[0]` and `(<a | b>)[0]` read the first element of a result that may be empty.
+    Under strict mode an empty result throws an engine error before the null check written after it can run.
     [ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)
     [comment:1](/docs/references/automation/scriptanalyzer/NoUnsafeFirstIndex.psm1.md#comment1)
 #>

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+#   module: Catzc.Azure.Templates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Resolves the config-addressed entries of a template config's parameters into ARM `value` entries.

@@ -78,7 +78,7 @@ function Measure-PrimaryArgumentPosition {
         [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
     )
 
-    # Public functions only: a positional primary argument serves the module's callers; a private helper is called by...
+    # Private helpers are called by name inside their module, so only public ones need a positional primary argument.
     # [comment:3](/docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md#comment3)
     if (-not (Test-ModuleFunctionFile $ScriptBlockAst) -or $ScriptBlockAst.Extent.File.Replace('\', '/') -match '/private/') {
         return @()

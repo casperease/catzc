@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Vendor/Install-VendorModule.ps1
+#   module: Catzc.Base.Vendor
+#   visibility: public
+
 <#
 .SYNOPSIS
     Saves a PowerShell module into the automation/.vendor directory from the configured source.

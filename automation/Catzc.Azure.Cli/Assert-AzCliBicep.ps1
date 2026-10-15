@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Azure.Cli/Assert-AzCliBicep.ps1
+#   module: Catzc.Azure.Cli
+#   visibility: public
+
 <#
 .SYNOPSIS
     Asserts the Bicep CLI is available to az and at or above the configured minimum (throws otherwise).

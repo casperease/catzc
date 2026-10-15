@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Contracts/Build-ContractReference.ps1
+#   module: Catzc.Base.Contracts
+#   visibility: public
+
 <#
 .SYNOPSIS
     Generates the contract reference: one page per unit, docs/references/contracts/<unit>.md, listing every contract

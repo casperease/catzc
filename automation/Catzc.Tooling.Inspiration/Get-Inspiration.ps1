@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
+#   module: Catzc.Tooling.Inspiration
+#   visibility: public
+
 <#
 .SYNOPSIS
     Lists the inspirations catzc reads for ideas, and whether each is available on this machine.

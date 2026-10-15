@@ -1,4 +1,4 @@
-# Catzc.Internal.TestKit — an on-demand fixture library for Pester tests.
+# Not loaded at startup: a test loads it on demand through the loader in BeforeAll, and it stays for the session.
 # [comment:1](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment1)
 
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
@@ -101,7 +101,7 @@ function New-FakeRepositoryRoot {
         [System.IO.File]::WriteAllText($path, [string] $Files[$relative], $utf8)
     }
 
-    # Both roots move together, so the fake tree reads as source mode (Get-CatzcRunMode compares them, ): the code...
+    # Both roots move together: run mode is read by comparing them, so moving one alone would not read as source mode.
     # [ADR-DSGN-RUNMODE#4](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode4)
     # [comment:2](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment2)
     $saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot = $env:CatzcModulesRoot }
@@ -140,7 +140,7 @@ function New-BuiltCatzcRoot {
         { BuildRoot; WorkingRoot; Saved; Destination; Modules; Build } to pass to Invoke-InBuiltCatzc and
         Remove-BuiltCatzcRoot.
     .DESCRIPTION
-        Runs Build-Modules (Catzc.Base.Exporter) with the 'full' vendor policy — so Pester and PSScriptAnalyzer ship...
+        The build is never loaded here: assemblies and env vars are process-global, so only a child pwsh reaches it.
         [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)
         [comment:3](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment3)
     #>
@@ -198,7 +198,7 @@ function Invoke-InBuiltCatzc {
         Run a script block in a child pwsh that has entered build mode through the handle's Import-Catzc.ps1, and
         return the block's output.
     .DESCRIPTION
-        The child runs `pwsh -NoProfile -NonInteractive -File <runner>`; the runner dot-sources...
+        Results return in a CliXml file, never stdout, so importer console lines cannot corrupt them.
         [comment:4](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment4)
     #>
     [CmdletBinding()]

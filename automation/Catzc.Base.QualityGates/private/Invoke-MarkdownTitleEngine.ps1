@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Invoke-MarkdownTitleEngine.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     Checks every in-scope Markdown file's title and headings — the one place Format-MarkdownTitle and Test-MarkdownTitle share.

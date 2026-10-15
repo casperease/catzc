@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
+#   module: Catzc.Base.RootConfig
+#   visibility: public
+
 <#
 .SYNOPSIS
     Quality gate: the root PSScriptAnalyzerSettings.psd1 parses as a settings hashtable through its link.

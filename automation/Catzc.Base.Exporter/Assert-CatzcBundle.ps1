@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
+#   module: Catzc.Base.Exporter
+#   visibility: public
+
 <#
 .SYNOPSIS
     Verifies a Catzc build (or an install of one) is complete and unchanged since it was built; throws with every

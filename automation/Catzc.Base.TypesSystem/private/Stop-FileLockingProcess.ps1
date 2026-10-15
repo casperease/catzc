@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.TypesSystem/private/Stop-FileLockingProcess.ps1
+#   module: Catzc.Base.TypesSystem
+#   visibility: private
+
 <#
 .SYNOPSIS
     Stops the processes holding a file open, so the file can be deleted — the type-cache kill switch.

@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Tooling.Provisioning/private/Get-ZshInstallLayout.ps1
+#   module: Catzc.Tooling.Provisioning
+#   visibility: private
+
 <#
 .SYNOPSIS
     Returns where Install-Zsh puts zsh on Windows: the Git for Windows home, its MSYS2 runtime, zsh's executable, and the
