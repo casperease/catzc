@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md
     kind: comment-page
-    body_sha: "2a6d6fbb70ed"
+    body_sha: "8809143ab6bf"
     adrs:
       - ADR-AUTO-CONSOLE#6
       - ADR-AUTO-TEST#35

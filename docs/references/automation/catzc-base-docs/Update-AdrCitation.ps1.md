@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Update-AdrCitation.ps1.md
     kind: comment-page
-    body_sha: "4b4043750136"
+    body_sha: "61aa05ca62a3"
     adrs:
       - ADR-REPO-LINK#2
 ---

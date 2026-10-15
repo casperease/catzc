@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-CatsModules.ps1.md
     kind: comment-page
-    body_sha: "8a0783a703cc"
+    body_sha: b794294647c2
     adrs:
       - ADR-DSGN-RUNMODE#2
       - ADR-REPO-FOLDERS#4

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md
     kind: comment-page
-    body_sha: "13bc06b6618c"
+    body_sha: d6d27a078d6a
 ---
 
 # automation/Catzc.Tooling.Provisioning/Get-ToolsStatus.ps1

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md
     kind: comment-page
-    body_sha: "7d71e5fce32b"
+    body_sha: d632904bbb97
 ---
 
 # automation/Catzc.Base.Execution/private/Invoke-ExecutableDirect.ps1

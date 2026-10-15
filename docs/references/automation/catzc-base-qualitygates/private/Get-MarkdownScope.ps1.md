@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownScope.ps1.md
     kind: comment-page
-    body_sha: dc5fadaac069
+    body_sha: "8d9415449eaa"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-MarkdownScope.ps1

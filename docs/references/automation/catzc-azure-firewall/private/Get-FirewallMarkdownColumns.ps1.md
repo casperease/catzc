@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md
     kind: comment-page
-    body_sha: ad28242bf674
+    body_sha: bda907094031
 ---
 
 # automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownColumns.ps1

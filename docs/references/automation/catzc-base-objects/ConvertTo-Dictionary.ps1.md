@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md
     kind: comment-page
-    body_sha: "8b7cf7961802"
+    body_sha: "6f1d3c50b5c4"
 ---
 
 # automation/Catzc.Base.Objects/ConvertTo-Dictionary.ps1

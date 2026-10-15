@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Connect-AzCli.ps1.md
     kind: comment-page
-    body_sha: "28567547d86d"
+    body_sha: "9ad9dc310ea7"
 ---
 
 # automation/Catzc.Azure.Cli/Connect-AzCli.ps1

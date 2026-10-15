@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/Get-BaseModule.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: public
     adrs:

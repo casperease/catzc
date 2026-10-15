@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md
     kind: comment-page
-    body_sha: "343c2df5141b"
+    body_sha: "2682651fd48d"
 ---
 
 # automation/Catzc.Base.RootConfig/Build-RootConfig.ps1

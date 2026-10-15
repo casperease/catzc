@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md
     kind: comment-page
-    body_sha: f45ddeec8da5
+    body_sha: e12c3717a5eb
     adrs:
       - ADR-AUTO-ENVVAR#1
       - ADR-AUTO-GO#6

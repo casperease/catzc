@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md
     kind: comment-page
-    body_sha: c68fd287fe1c
+    body_sha: dd640b892e95
     adrs:
       - ADR-PWSH-PESTER#9
 ---

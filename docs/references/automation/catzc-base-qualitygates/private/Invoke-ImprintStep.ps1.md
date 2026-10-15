@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md
     kind: comment-page
-    body_sha: "56feace05904"
+    body_sha: "249b6d6344e7"
     adrs:
       - ADR-PRIN-CONFIG#2
 ---

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md
     kind: comment-page
-    body_sha: "6bc691bd968b"
+    body_sha: "39d4917db544"
 ---
 
 # automation/Catzc.Azure.Firewall/Get-FirewallCsv.ps1

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md
     kind: comment-page
-    body_sha: "495dd4691c98"
+    body_sha: "6fa16897b81a"
     adrs:
       - ADR-AUTO-IDEM#2
       - ADR-AUTO-REMOVE#2

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationSkipReport.ps1.md
     kind: comment-page
-    body_sha: "2c9f0ed5ad10"
+    body_sha: "93d048f69169"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Write-TestAutomationSkipReport.ps1

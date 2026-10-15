@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
     kind: comment-page
-    body_sha: dad769173591
+    body_sha: "71d35192d8b0"
     adrs:
       - ADR-AUTO-NOPWD#1
       - ADR-CONF-LOADING#6

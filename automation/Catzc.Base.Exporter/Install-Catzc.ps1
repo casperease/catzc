@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Exporter/Install-Catzc.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Exporter
     visibility: public
     adrs:

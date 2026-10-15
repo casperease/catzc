@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md
     kind: comment-page
-    body_sha: "033165f04d1d"
+    body_sha: b47be7b8b77a
     adrs:
       - ADR-AUTO-TEST#31
 ---

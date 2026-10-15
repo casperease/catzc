@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md
     kind: comment-page
-    body_sha: "9300c1ec0fd2"
+    body_sha: "366255b9810a"
     adrs:
       - ADR-AUTO-CONSOLE#10
 ---

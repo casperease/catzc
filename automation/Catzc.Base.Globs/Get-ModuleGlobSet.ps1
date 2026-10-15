@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Globs
     visibility: public
     adrs:

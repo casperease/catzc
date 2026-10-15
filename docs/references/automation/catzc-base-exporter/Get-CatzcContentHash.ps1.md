@@ -3,9 +3,10 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md
     kind: comment-page
-    body_sha: "990d6d7cf67b"
+    body_sha: "9f771bd209da"
     adrs:
       - ADR-FLOW-CD-GLOBS#5
+      - ADR-PWSH-ENUM#3
 ---
 
 # automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md
     kind: comment-page
-    body_sha: "98e4a4082168"
+    body_sha: c526cfa93de0
 ---
 
 # automation/Catzc.Tooling.Core/Get-ToolInstallOrder.ps1

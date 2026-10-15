@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md
     kind: comment-page
-    body_sha: "2719b4d175f2"
+    body_sha: "7ea04f92fb2d"
     adrs:
       - ADR-PWSH-ERROR#8
 ---

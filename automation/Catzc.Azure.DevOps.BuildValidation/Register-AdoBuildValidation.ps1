@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Azure.DevOps.BuildValidation
     visibility: public
     adrs:

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md
     kind: comment-page
-    body_sha: "124416c135e8"
+    body_sha: abbd54b7ac62
     adrs:
       - ADR-PWSH-PESTER#9
 ---

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/Get-ScriptInstallDir.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
   config:

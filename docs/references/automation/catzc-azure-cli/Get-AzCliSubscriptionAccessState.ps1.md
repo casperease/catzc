@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md
     kind: comment-page
-    body_sha: b1b33866f568
+    body_sha: "42ad7f975be6"
     adrs:
       - ADR-AZ-CLI#1
 ---

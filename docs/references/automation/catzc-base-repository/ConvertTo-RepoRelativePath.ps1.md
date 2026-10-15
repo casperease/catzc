@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
     kind: comment-page
-    body_sha: f39e1ceb6d86
+    body_sha: "6a600fbe96b9"
     adrs:
       - ADR-AUTO-PATH#5
 ---

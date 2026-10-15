@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md
     kind: comment-page
-    body_sha: b2a147c4a19a
+    body_sha: f814cc2f2049
     adrs:
       - ADR-AUTO-CONSOLE#7
       - ADR-AUTO-XPLAT#6

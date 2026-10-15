@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.MarkdownMeta
     visibility: public
     adrs:

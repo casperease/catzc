@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md
     kind: comment-page
-    body_sha: d857c2ce460a
+    body_sha: "44fbe5fb4bdd"
 ---
 
 # automation/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1

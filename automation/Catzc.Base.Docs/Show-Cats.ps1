@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/Show-Cats.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Docs
     visibility: public
     adrs:

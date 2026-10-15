@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md
     kind: comment-page
-    body_sha: acb56156680a
+    body_sha: "9e006bcb1bfc"
 ---
 
 # automation/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1

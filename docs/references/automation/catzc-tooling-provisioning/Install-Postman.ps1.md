@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md
     kind: comment-page
-    body_sha: "92f6ae95f526"
+    body_sha: b554919ce93d
 ---
 
 # automation/Catzc.Tooling.Provisioning/Install-Postman.ps1

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Maps
     visibility: public
     adrs:

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/private/Get-ExecutableVersion.ps1.md
     kind: comment-page
-    body_sha: "170b31946cc3"
+    body_sha: "0e6f959f4d68"
 ---
 
 # automation/Catzc.Base.Execution/private/Get-ExecutableVersion.ps1

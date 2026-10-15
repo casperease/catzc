@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/Write-Exception.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Writers
     visibility: public
   config:

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHint.ps1.md
     kind: comment-page
-    body_sha: "33886fec4d26"
+    body_sha: "33d4462b433b"
 ---
 
 # automation/Catzc.Tooling.Core/private/Resolve-SessionToolHint.ps1

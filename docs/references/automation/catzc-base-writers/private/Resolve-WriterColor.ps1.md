@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md
     kind: comment-page
-    body_sha: "194549d2092d"
+    body_sha: "6987aeb39316"
 ---
 
 # automation/Catzc.Base.Writers/private/Resolve-WriterColor.ps1

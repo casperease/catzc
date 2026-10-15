@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md
     kind: comment-page
-    body_sha: "046355a166ce"
+    body_sha: "436eee38c4dd"
 ---
 
 # automation/Catzc.Tooling.Core/Sync-SessionTools.ps1

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md
     kind: comment-page
-    body_sha: e6ec85f98074
+    body_sha: "073e85967f62"
 ---
 
 # automation/Catzc.Base.QualityGates/Get-RepositoryGuids.ps1

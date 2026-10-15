@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md
     kind: comment-page
-    body_sha: f757a2fcc06e
+    body_sha: "58c3602d98d8"
     adrs:
       - ADR-PWSH-CACHE#4
 ---

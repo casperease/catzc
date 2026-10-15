@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md
     kind: comment-page
-    body_sha: "64c91c40f17f"
+    body_sha: ea62cfe9ac3e
     adrs:
       - ADR-FLOW-CD-GLOBS#5
 ---

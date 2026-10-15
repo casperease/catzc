@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/Connect-AzCli.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Azure.Cli
     visibility: public
   config:

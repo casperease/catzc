@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Export-Comments.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: public
     adrs:

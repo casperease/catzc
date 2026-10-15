@@ -3,7 +3,9 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-git/Remove-RepositorySnapshot.ps1.md
     kind: comment-page
-    body_sha: "6cf497cb51dc"
+    body_sha: "618d2b3b6bb0"
+    adrs:
+      - ADR-PWSH-ENUM#3
 ---
 
 # automation/Catzc.Base.Git/Remove-RepositorySnapshot.ps1

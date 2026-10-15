@@ -3,7 +3,9 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
     kind: comment-page
-    body_sha: ba211f8a5ae9
+    body_sha: f8d85110c582
+    adrs:
+      - ADR-PWSH-ENUM#3
 ---
 
 # automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1

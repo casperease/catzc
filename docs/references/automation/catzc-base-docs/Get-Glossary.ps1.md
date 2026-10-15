@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Get-Glossary.ps1.md
     kind: comment-page
-    body_sha: ee34c78bc388
+    body_sha: c9c6fff3c641
     adrs:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-VOCAB#2

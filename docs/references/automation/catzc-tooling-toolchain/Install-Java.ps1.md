@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Install-Java.ps1.md
     kind: comment-page
-    body_sha: "87f1d030ef73"
+    body_sha: "227630a610fc"
     adrs:
       - ADR-AUTO-CONSOLE#11
 ---

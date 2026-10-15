@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md
     kind: comment-page
-    body_sha: "3370198b6af6"
+    body_sha: "5d5c99962c41"
     adrs:
       - ADR-AUTO-CACHE#6
       - ADR-DSGN-TRACK#1

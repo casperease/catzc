@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md
     kind: comment-page
-    body_sha: d86464a35df3
+    body_sha: "4654c74e1c6a"
     adrs:
       - ADR-AUTO-PRELOG#5
 ---

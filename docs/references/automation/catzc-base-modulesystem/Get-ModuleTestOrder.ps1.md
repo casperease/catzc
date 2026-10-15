@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md
     kind: comment-page
-    body_sha: "06bddf378df8"
+    body_sha: "74370eaf7e35"
 ---
 
 # automation/Catzc.Base.ModuleSystem/Get-ModuleTestOrder.ps1

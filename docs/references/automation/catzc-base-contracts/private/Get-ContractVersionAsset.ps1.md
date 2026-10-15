@@ -3,8 +3,9 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/private/Get-ContractVersionAsset.ps1.md
     kind: comment-page
-    body_sha: c88c1f872029
+    body_sha: "97c26c9ba5d6"
     adrs:
+      - ADR-PWSH-ENUM#3
       - ADR-REPO-CONTRACT#2
       - ADR-REPO-CONTRACT#5
       - ADR-REPO-CONTRACT#7

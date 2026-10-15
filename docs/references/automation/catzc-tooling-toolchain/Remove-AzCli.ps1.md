@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md
     kind: comment-page
-    body_sha: abaaf0268deb
+    body_sha: "39b1a79205ff"
     adrs:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#4

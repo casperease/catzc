@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/Uninstall-Git.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: public
   config:

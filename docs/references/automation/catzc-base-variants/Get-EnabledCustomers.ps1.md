@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-variants/Get-EnabledCustomers.ps1.md
     kind: comment-page
-    body_sha: bea2029476d9
+    body_sha: "9a01f20f8a0b"
 ---
 
 # automation/Catzc.Base.Variants/Get-EnabledCustomers.ps1

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/Invoke-WithProgress.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Execution
     visibility: public
     adrs:

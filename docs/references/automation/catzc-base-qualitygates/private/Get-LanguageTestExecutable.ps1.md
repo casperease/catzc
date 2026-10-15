@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md
     kind: comment-page
-    body_sha: "391c737f765b"
+    body_sha: "7a5bef170d8a"
     adrs:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-ENGINE#4

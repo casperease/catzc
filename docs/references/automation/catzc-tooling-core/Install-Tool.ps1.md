@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md
     kind: comment-page
-    body_sha: dfcbfdb0270f
+    body_sha: d570376caaba
 ---
 
 # automation/Catzc.Tooling.Core/Install-Tool.ps1

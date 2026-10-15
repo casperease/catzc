@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md
     kind: comment-page
-    body_sha: "6faf42a84cf8"
+    body_sha: b26910a85b86
 ---
 
 # automation/Catzc.Azure.Templates/private/Get-BicepParameterEntryViolations.ps1

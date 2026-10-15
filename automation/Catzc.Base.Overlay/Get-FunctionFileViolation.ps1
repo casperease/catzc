@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Overlay
     visibility: public
     adrs:

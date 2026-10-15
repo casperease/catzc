@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md
     kind: comment-page
-    body_sha: "9acf399470e2"
+    body_sha: "83a9c54c051a"
     adrs:
       - ADR-AUTO-CONSOLE#8
       - ADR-PWSH-ANNOUNCE#1

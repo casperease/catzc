@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md
     kind: comment-page
-    body_sha: "8a5c9e6bd840"
+    body_sha: cca6b60ee612
 ---
 
 # automation/Catzc.Base.Languages/New-PythonProject.ps1

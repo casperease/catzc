@@ -3,8 +3,9 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md
     kind: comment-page
-    body_sha: "3cfc07bb568b"
+    body_sha: "498391bf6e9a"
     adrs:
+      - ADR-PWSH-ENUM#3
       - ADR-REPO-CONTRACT#5
 ---
 

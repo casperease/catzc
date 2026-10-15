@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md
     kind: comment-page
-    body_sha: "6efae8525c8d"
+    body_sha: "9ac0f1e9373b"
 ---
 
 # automation/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1

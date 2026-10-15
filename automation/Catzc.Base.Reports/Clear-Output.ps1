@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Reports/Clear-Output.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Reports
     visibility: public
     adrs:

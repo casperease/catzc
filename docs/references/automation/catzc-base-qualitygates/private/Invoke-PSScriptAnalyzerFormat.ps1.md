@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md
     kind: comment-page
-    body_sha: "967d2a2b56bc"
+    body_sha: "2ed9c0e60c07"
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-CONSOLE#10

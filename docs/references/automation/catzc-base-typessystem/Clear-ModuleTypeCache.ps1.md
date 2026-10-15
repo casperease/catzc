@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md
     kind: comment-page
-    body_sha: "5ba8c83cab6d"
+    body_sha: fc3dcb5dd0d8
     adrs:
       - ADR-AUTO-CACHE#8
 ---

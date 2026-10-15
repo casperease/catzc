@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Show-Cats.ps1.md
     kind: comment-page
-    body_sha: "2c1742c3a519"
+    body_sha: "442bb6732a2a"
 ---
 
 # automation/Catzc.Base.Docs/Show-Cats.ps1

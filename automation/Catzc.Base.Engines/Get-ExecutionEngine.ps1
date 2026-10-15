@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Engines/Get-ExecutionEngine.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Engines
     visibility: public
     adrs:

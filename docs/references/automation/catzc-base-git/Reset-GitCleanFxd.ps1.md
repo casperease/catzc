@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md
     kind: comment-page
-    body_sha: "85544ab1d416"
+    body_sha: c0904913b7ad
     adrs:
       - ADR-AUTO-DRYRUN#2
       - ADR-REPO-OUTDIR#10

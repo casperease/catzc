@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestRuleTags.ps1.md
     kind: comment-page
-    body_sha: fcbbd5d53589
+    body_sha: "81d52a5c2198"
     adrs:
       - ADR-PWSH-ERROR#3
 ---

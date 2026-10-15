@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md
     kind: comment-page
-    body_sha: "8abfaecf98e6"
+    body_sha: ec0bddfccf82
     adrs:
       - ADR-AUTO-GO#3
       - ADR-AUTO-PY#3

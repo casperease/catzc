@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Update-BatsVendor.ps1.md
     kind: comment-page
-    body_sha: "011469838aa1"
+    body_sha: "5bbf2aa45201"
 ---
 
 # automation/Catzc.Tooling.Toolchain/Update-BatsVendor.ps1

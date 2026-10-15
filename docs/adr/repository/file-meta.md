@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/file-meta.md
     kind: adr
-    body_sha: f1e628efae88
+    body_sha: "95b463e49184"
     defines:
       - ADR-REPO-FILEMETA#1
       - ADR-REPO-FILEMETA#2

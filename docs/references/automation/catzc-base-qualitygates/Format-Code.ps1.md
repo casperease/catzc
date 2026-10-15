@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md
     kind: comment-page
-    body_sha: "89058f97dbaa"
+    body_sha: "492e0789209d"
     adrs:
       - ADR-AUTO-CONSOLE#10
       - ADR-REPO-FORMAT#4

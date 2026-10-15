@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md
     kind: comment-page
-    body_sha: "7ae4d3a0fea6"
+    body_sha: "7cde0101b005"
 ---
 
 # automation/Catzc.Base.Writers/private/Write-FramedLine.ps1

@@ -3,9 +3,10 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/Publish-ContractRelease.ps1.md
     kind: comment-page
-    body_sha: b774ea746aa7
+    body_sha: a23edc1a8c9b
     adrs:
       - ADR-AUTO-BUNDLE#7
+      - ADR-PWSH-ENUM#3
       - ADR-PWSH-VERBS#1
       - ADR-REPO-CONTRACT#5
 ---

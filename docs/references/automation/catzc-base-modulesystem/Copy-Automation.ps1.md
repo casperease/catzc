@@ -3,9 +3,11 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md
     kind: comment-page
-    body_sha: "9ba5e9ab045c"
+    body_sha: "13627bb1e651"
     adrs:
       - ADR-AUTO-TYPES#9
+      - ADR-PWSH-ENUM#1
+      - ADR-PWSH-ENUM#3
 ---
 
 # automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1

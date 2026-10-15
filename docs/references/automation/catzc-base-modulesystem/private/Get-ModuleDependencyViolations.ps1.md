@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md
     kind: comment-page
-    body_sha: "30c3b3fdb327"
+    body_sha: "12ea3b39ff42"
 ---
 
 # automation/Catzc.Base.ModuleSystem/private/Get-ModuleDependencyViolations.ps1

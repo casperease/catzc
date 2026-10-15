@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md
     kind: comment-page
-    body_sha: bb66d99b54b9
+    body_sha: f64a2db4fec5
     adrs:
       - ADR-AZ-DATAMOD#9
 ---

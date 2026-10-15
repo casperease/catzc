@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md
     kind: comment-page
-    body_sha: cb0b8e6492fc
+    body_sha: "3f12322f6ce7"
 ---
 
 # automation/Catzc.Base.Environment/Add-PermanentPath.ps1

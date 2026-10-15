@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md
     kind: comment-page
-    body_sha: "2cdc2c6913dd"
+    body_sha: da7a7d73d76c
     adrs:
       - ADR-AUTO-FAILFAST#7
 ---

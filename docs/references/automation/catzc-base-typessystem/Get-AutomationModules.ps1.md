@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/Get-AutomationModules.ps1.md
     kind: comment-page
-    body_sha: e887d8e5c3b8
+    body_sha: "2005ff3e65b7"
     adrs:
       - ADR-PWSH-PESTER#9
 ---

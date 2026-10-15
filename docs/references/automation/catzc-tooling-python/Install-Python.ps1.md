@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-python/Install-Python.ps1.md
     kind: comment-page
-    body_sha: "339a4553363d"
+    body_sha: "59838dffc22d"
 ---
 
 # automation/Catzc.Tooling.Python/Install-Python.ps1

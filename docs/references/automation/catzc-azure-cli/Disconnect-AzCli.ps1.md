@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Disconnect-AzCli.ps1.md
     kind: comment-page
-    body_sha: d7084debd726
+    body_sha: "21f94dcdaec5"
 ---
 
 # automation/Catzc.Azure.Cli/Disconnect-AzCli.ps1

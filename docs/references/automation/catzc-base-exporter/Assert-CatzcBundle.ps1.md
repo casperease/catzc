@@ -3,9 +3,10 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md
     kind: comment-page
-    body_sha: "40d0fcc275a2"
+    body_sha: e59c17b52ec4
     adrs:
       - ADR-AUTO-BUNDLE#5
+      - ADR-PWSH-ENUM#3
 ---
 
 # automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1

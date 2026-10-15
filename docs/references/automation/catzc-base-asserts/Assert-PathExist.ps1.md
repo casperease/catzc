@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-asserts/Assert-PathExist.ps1.md
     kind: comment-page
-    body_sha: "6abfcec5fe6e"
+    body_sha: "2ed278f5dec9"
 ---
 
 # automation/Catzc.Base.Asserts/Assert-PathExist.ps1

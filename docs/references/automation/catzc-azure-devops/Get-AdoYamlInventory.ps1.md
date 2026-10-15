@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md
     kind: comment-page
-    body_sha: d4edacbd3f06
+    body_sha: "91b1c9f8edad"
 ---
 
 # automation/Catzc.Azure.DevOps/Get-AdoYamlInventory.ps1

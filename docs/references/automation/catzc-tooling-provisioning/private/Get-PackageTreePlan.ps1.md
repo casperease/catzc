@@ -3,9 +3,10 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md
     kind: comment-page
-    body_sha: "82a85999900e"
+    body_sha: "3bd3d418b2c9"
     adrs:
       - ADR-AUTO-REMOVE#2
+      - ADR-PWSH-ENUM#3
 ---
 
 # automation/Catzc.Tooling.Provisioning/private/Get-PackageTreePlan.ps1

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md
     kind: comment-page
-    body_sha: e76df4a846f5
+    body_sha: b01c21006b69
 ---
 
 # automation/Catzc.Tooling.Provisioning/Install-Git.ps1

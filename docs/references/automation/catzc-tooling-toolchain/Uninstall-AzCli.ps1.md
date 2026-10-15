@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md
     kind: comment-page
-    body_sha: "57b5cc51d797"
+    body_sha: e6614c6f77c8
     adrs:
       - ADR-AUTO-ONEJOB#5
       - ADR-AUTO-REMOVE#4

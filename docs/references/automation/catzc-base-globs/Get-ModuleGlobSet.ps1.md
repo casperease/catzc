@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md
     kind: comment-page
-    body_sha: "47dbc5774f08"
+    body_sha: "88d2ec1a51a0"
     adrs:
       - ADR-AUTO-BASH#2
       - ADR-AUTO-GO#2

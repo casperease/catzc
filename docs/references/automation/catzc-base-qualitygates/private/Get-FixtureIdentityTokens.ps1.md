@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md
     kind: comment-page
-    body_sha: "84b20ebc3d21"
+    body_sha: "56e3af53c171"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-FixtureIdentityTokens.ps1

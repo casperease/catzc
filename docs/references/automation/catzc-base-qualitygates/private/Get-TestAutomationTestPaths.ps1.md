@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md
     kind: comment-page
-    body_sha: "613b30fc80f0"
+    body_sha: edb63ccebcb1
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestAutomationTestPaths.ps1

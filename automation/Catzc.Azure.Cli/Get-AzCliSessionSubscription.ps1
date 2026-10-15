@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Azure.Cli
     visibility: public
     adrs:

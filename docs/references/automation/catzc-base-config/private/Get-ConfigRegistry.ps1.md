@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-config/private/Get-ConfigRegistry.ps1.md
     kind: comment-page
-    body_sha: "6cfe91cb1bff"
+    body_sha: c49af383a648
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-PWSH-CACHE#4

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-PythonLint.ps1.md
     kind: comment-page
-    body_sha: "6f6827f4cb31"
+    body_sha: c9d5c0b16f37
     adrs:
       - ADR-AUTO-PY#8
 ---

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md
     kind: comment-page
-    body_sha: d1e44c9bb3cd
+    body_sha: "3f12237cf002"
 ---
 
 # automation/Catzc.Tooling.Toolchain/Install-Go.ps1

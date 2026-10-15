@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Remove-MacToolInstall.ps1.md
     kind: comment-page
-    body_sha: "325366c3d5a5"
+    body_sha: "32dd8853e86b"
     adrs:
       - ADR-AUTO-REMOVE#6
       - ADR-AUTO-REMOVE#7

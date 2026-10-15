@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md
     kind: comment-page
-    body_sha: "9c6c54492835"
+    body_sha: "323bca69c435"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Write-TestAutomationArtifacts.ps1

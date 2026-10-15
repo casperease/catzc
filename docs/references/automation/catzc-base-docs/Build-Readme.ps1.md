@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Build-Readme.ps1.md
     kind: comment-page
-    body_sha: "503265793292"
+    body_sha: "4c071c19e55b"
 ---
 
 # automation/Catzc.Base.Docs/Build-Readme.ps1

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Folders/Get-ChildPath.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Folders
     visibility: public
   config:

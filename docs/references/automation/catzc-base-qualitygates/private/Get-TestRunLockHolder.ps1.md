@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLockHolder.ps1.md
     kind: comment-page
-    body_sha: "185d60b4a166"
+    body_sha: "62a4fc1a7252"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestRunLockHolder.ps1

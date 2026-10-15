@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationRuleCoverage.ps1.md
     kind: comment-page
-    body_sha: c67842edd0b3
+    body_sha: b6bd9e125f56
 ---
 
 # automation/Catzc.Base.QualityGates/private/Write-TestAutomationRuleCoverage.ps1

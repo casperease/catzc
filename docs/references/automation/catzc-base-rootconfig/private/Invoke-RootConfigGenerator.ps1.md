@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
     kind: comment-page
-    body_sha: a6a3a399f983
+    body_sha: b833a9e2196a
     adrs:
       - ADR-AUTO-GO#6
       - ADR-AUTO-PY#4

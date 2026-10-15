@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/Get-AdoYamlInventory.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Azure.DevOps
     visibility: public
   config:

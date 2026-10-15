@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md
     kind: comment-page
-    body_sha: d765d9ee9ef9
+    body_sha: "0f2b6bbfe257"
     adrs:
       - ADR-PWSH-PESTER#9
 ---

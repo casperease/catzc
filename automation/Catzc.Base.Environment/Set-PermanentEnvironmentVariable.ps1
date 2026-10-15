@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Environment/Set-PermanentEnvironmentVariable.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Environment
     visibility: public
     adrs:

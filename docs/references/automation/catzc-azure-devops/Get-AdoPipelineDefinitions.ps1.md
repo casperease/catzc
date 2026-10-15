@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md
     kind: comment-page
-    body_sha: "4bd8f9b12821"
+    body_sha: "72f61b92cb30"
 ---
 
 # automation/Catzc.Azure.DevOps/Get-AdoPipelineDefinitions.ps1

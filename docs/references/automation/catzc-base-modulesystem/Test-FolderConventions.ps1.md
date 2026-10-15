@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md
     kind: comment-page
-    body_sha: "139574debb47"
+    body_sha: "68c0d3879700"
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-FOLDERS#4

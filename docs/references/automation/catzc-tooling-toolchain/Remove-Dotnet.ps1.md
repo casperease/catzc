@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md
     kind: comment-page
-    body_sha: e3257f61b9f6
+    body_sha: "2f9c36d38e48"
     adrs:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#6

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md
     kind: comment-page
-    body_sha: "67ef064c5b03"
+    body_sha: c4c7467346fd
     adrs:
       - ADR-AUTO-TEST#35
 ---

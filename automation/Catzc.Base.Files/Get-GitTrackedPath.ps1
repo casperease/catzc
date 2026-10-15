@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/Get-GitTrackedPath.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Files
     visibility: public
     adrs:

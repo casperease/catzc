@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md
     kind: comment-page
-    body_sha: "6cb97608f78a"
+    body_sha: e41ebc9884b4
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-CONSOLE#11

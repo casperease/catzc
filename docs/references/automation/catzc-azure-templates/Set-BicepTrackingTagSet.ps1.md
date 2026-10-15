@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md
     kind: comment-page
-    body_sha: "65acded35aea"
+    body_sha: "69934d5ccbd3"
 ---
 
 # automation/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1

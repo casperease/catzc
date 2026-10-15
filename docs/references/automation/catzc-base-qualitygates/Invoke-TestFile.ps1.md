@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md
     kind: comment-page
-    body_sha: f4ff2351822f
+    body_sha: b0b1b3da1a7f
     adrs:
       - ADR-AUTO-TEST#25
       - ADR-AUTO-TEST#32

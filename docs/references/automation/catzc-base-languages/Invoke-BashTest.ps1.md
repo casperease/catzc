@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md
     kind: comment-page
-    body_sha: "1768aec2c2ec"
+    body_sha: fc008ee63a4d
 ---
 
 # automation/Catzc.Base.Languages/Invoke-BashTest.ps1

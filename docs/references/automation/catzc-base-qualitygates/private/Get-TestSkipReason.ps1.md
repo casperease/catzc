@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TestSkipReason.ps1.md
     kind: comment-page
-    body_sha: "3abad0db54c4"
+    body_sha: "0077b1df40b1"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestSkipReason.ps1

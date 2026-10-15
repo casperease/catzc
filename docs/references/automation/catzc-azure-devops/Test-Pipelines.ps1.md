@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md
     kind: comment-page
-    body_sha: e228d4fdad28
+    body_sha: "04fb7f0928c2"
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PIPE-NAME#1

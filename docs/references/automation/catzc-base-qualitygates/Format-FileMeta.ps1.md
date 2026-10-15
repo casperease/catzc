@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md
     kind: comment-page
-    body_sha: "5cff9835113f"
+    body_sha: a8f256717ef7
     adrs:
       - ADR-AUTO-DRYRUN#2
 ---

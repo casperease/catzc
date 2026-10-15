@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md
     kind: comment-page
-    body_sha: fa552b59188e
+    body_sha: "834385e7d501"
     adrs:
       - ADR-REPO-FORMAT#5
 ---

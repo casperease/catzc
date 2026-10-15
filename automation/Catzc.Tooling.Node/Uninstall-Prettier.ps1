@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Node/Uninstall-Prettier.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Tooling.Node
     visibility: public
   config:

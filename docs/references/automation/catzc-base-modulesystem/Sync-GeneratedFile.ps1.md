@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
     kind: comment-page
-    body_sha: "9ced323372b7"
+    body_sha: fdfbb33dcfff
     adrs:
       - ADR-AUTO-CACHE#8
       - ADR-AUTO-TYPES#13

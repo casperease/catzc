@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md
     kind: comment-page
-    body_sha: "28d2d8dc7eec"
+    body_sha: "4fd021be278b"
     adrs:
       - ADR-REPO-FORMAT#8
 ---

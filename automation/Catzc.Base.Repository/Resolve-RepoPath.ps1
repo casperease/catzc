@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Repository/Resolve-RepoPath.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Repository
     visibility: public
     adrs:

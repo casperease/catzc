@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md
     kind: comment-page
-    body_sha: ac39ac529abe
+    body_sha: "215c888b67c0"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-LinkScope.ps1

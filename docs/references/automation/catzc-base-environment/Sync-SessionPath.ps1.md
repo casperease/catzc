@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md
     kind: comment-page
-    body_sha: d309524a2945
+    body_sha: "6b2d1f216402"
     adrs:
       - ADR-AUTO-CONSOLE#11
 ---

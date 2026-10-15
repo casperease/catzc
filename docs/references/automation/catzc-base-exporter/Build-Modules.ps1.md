@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md
     kind: comment-page
-    body_sha: "138d5f43cf3a"
+    body_sha: f8e467fc7415
     adrs:
       - ADR-AUTO-BUNDLE#1
       - ADR-AUTO-DRYRUN#2

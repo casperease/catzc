@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md
     kind: comment-page
-    body_sha: "3c071c44adb7"
+    body_sha: "852080a313e6"
 ---
 
 # automation/Catzc.Tooling.Core/Install-UvTool.ps1

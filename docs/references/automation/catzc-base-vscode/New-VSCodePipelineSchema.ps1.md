@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/New-VSCodePipelineSchema.ps1.md
     kind: comment-page
-    body_sha: "8f37e0052e9b"
+    body_sha: "1c39b937eedd"
 ---
 
 # automation/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1

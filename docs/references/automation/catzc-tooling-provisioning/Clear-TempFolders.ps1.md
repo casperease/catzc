@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md
     kind: comment-page
-    body_sha: "17d8550115a7"
+    body_sha: "3f487a9ec475"
 ---
 
 # automation/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1

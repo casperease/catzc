@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
     kind: comment-page
-    body_sha: cc30d213f793
+    body_sha: "4867120710d4"
 ---
 
 # automation/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1

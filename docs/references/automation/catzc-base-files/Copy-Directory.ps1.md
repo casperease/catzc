@@ -3,7 +3,9 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-files/Copy-Directory.ps1.md
     kind: comment-page
-    body_sha: "56b5c4842b73"
+    body_sha: fe6b78f7e3e9
+    adrs:
+      - ADR-PWSH-ENUM#3
 ---
 
 # automation/Catzc.Base.Files/Copy-Directory.ps1

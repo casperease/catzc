@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md
     kind: comment-page
-    body_sha: ee8acc1a45e6
+    body_sha: "836e6cff30da"
     adrs:
       - ADR-FLOW-CD-TYPE#4
 ---

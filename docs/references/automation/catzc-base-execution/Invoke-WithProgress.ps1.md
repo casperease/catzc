@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md
     kind: comment-page
-    body_sha: "8486f495bf25"
+    body_sha: "63e9c18e8048"
     adrs:
       - ADR-PWSH-ANNOUNCE#1
 ---

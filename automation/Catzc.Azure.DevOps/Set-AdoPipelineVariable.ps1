@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Azure.DevOps
     visibility: public
     adrs:

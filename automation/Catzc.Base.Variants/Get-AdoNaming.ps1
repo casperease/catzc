@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Variants/Get-AdoNaming.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Variants
     visibility: public
   config:

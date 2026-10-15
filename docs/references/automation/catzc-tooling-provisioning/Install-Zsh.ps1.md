@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md
     kind: comment-page
-    body_sha: "40c47010a1c0"
+    body_sha: "9af2bc8796aa"
     adrs:
       - ADR-AUTO-ENTERP#4
       - ADR-AUTO-IDEM#1

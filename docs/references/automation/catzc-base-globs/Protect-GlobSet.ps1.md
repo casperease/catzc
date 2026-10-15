@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md
     kind: comment-page
-    body_sha: "1551805f1826"
+    body_sha: "28d1b769b249"
     adrs:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-PROTGLOB#4

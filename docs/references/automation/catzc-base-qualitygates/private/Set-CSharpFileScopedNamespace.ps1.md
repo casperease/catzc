@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Set-CSharpFileScopedNamespace.ps1.md
     kind: comment-page
-    body_sha: bf01a548ba66
+    body_sha: "154e76c4ad34"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Set-CSharpFileScopedNamespace.ps1

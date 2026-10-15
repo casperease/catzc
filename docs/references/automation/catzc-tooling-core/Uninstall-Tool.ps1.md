@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md
     kind: comment-page
-    body_sha: "94860de84f9e"
+    body_sha: "38a9e90d3441"
 ---
 
 # automation/Catzc.Tooling.Core/Uninstall-Tool.ps1

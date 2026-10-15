@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md
     kind: comment-page
-    body_sha: df4365e7c671
+    body_sha: "3767c60acf39"
     adrs:
       - ADR-PWSH-PESTER#9
 ---

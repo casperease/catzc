@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Reports/Write-QualityGateReport.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Reports
     visibility: public
     adrs:

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md
     kind: comment-page
-    body_sha: f3294df13643
+    body_sha: a930d63e178d
     adrs:
       - ADR-AUTO-TEST#26
       - ADR-AUTO-TEST#30

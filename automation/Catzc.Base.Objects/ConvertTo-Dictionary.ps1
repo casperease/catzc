@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Objects/ConvertTo-Dictionary.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Objects
     visibility: public
   config:

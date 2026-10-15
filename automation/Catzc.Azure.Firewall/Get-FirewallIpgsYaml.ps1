@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Azure.Firewall
     visibility: public
   config:

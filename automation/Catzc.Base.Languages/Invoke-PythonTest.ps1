@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/Invoke-PythonTest.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Languages
     visibility: public
     adrs:

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md
     kind: comment-page
-    body_sha: ababb772c7ec
+    body_sha: "96575390539e"
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1

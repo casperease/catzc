@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md
     kind: comment-page
-    body_sha: f6eeeed5ac18
+    body_sha: "3119fb2b8a9a"
 ---
 
 # automation/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1

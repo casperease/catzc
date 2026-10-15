@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/Invoke-Terraform.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: public
   config:

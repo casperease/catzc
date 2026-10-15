@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md
     kind: comment-page
-    body_sha: "3ec7df93dfa7"
+    body_sha: "75b8b3428c4f"
 ---
 
 # automation/Catzc.Base.Objects/private/Expand-ObjectProperties.ps1

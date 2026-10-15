@@ -3,8 +3,9 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md
     kind: comment-page
-    body_sha: ef6a79dee753
+    body_sha: "56f9d3af0ee0"
     adrs:
+      - ADR-PWSH-ENUM#3
       - ADR-REPO-CONTRACT#10
       - ADR-REPO-CONTRACT#2
       - ADR-REPO-FOLDERS#4

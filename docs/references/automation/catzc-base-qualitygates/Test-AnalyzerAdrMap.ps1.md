@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md
     kind: comment-page
-    body_sha: c5a167bbab08
+    body_sha: "47ffc0b4966a"
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PWSH-FORMAT#7

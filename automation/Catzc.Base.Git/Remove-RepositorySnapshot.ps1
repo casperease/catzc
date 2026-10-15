@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Git/Remove-RepositorySnapshot.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.Git
     visibility: public
     adrs:

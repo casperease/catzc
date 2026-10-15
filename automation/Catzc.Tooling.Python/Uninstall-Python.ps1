@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Python/Uninstall-Python.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Tooling.Python
     visibility: public
   config:

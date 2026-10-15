@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md
     kind: comment-page
-    body_sha: "130d8b74cd37"
+    body_sha: "8873ff87725f"
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PRIN-CONFIG#1

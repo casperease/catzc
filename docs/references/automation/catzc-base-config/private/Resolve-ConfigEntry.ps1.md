@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-config/private/Resolve-ConfigEntry.ps1.md
     kind: comment-page
-    body_sha: "367fe216f621"
+    body_sha: "62067bbb7aa2"
     adrs:
       - ADR-PWSH-CACHE#4
 ---

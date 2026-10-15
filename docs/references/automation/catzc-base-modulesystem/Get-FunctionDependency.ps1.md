@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md
     kind: comment-page
-    body_sha: "493421263056"
+    body_sha: "59321b368099"
     adrs:
       - ADR-AUTO-CACHE#2
       - ADR-AUTO-CACHE#4

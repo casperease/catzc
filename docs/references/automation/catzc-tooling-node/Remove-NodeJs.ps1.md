@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md
     kind: comment-page
-    body_sha: "5b1e39269483"
+    body_sha: f24aedea85ff
     adrs:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#6

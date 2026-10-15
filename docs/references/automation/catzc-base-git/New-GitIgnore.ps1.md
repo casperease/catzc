@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-git/New-GitIgnore.ps1.md
     kind: comment-page
-    body_sha: "636a69381902"
+    body_sha: "1bfc1bc02bfb"
 ---
 
 # automation/Catzc.Base.Git/New-GitIgnore.ps1

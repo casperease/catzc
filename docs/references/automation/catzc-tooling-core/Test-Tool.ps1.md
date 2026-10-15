@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md
     kind: comment-page
-    body_sha: "9d98780e14b9"
+    body_sha: "4dd7bdd33bca"
 ---
 
 # automation/Catzc.Tooling.Core/Test-Tool.ps1

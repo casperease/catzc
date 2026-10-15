@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/Get-TestTargetSkipReason.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: public
     adrs:

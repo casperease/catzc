@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-cli/Set-AzCliSubscription.ps1.md
     kind: comment-page
-    body_sha: b75242ab6194
+    body_sha: "75ee4954e701"
 ---
 
 # automation/Catzc.Azure.Cli/Set-AzCliSubscription.ps1

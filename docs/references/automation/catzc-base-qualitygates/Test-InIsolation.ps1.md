@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md
     kind: comment-page
-    body_sha: "730221044aa8"
+    body_sha: "6190af078121"
 ---
 
 # automation/Catzc.Base.QualityGates/Test-InIsolation.ps1

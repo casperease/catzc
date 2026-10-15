@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/Get-MarkerBlastRadius.ps1.md
     kind: comment-page
-    body_sha: e1df29d69fc9
+    body_sha: "59f1158c85a1"
     adrs:
       - ADR-FLOW-CD-GLOBS#1
 ---

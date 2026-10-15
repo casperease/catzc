@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md
     kind: comment-page
-    body_sha: d3165057bf65
+    body_sha: b693c37833cd
     adrs:
       - ADR-AUTO-CACHE#9
       - ADR-PWSH-CACHE#4

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
     kind: comment-page
-    body_sha: "3e7e64d27560"
+    body_sha: c9c87d1707c0
     adrs:
       - ADR-AUTO-ENVVAR#7
 ---

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md
     kind: comment-page
-    body_sha: "221209baf4db"
+    body_sha: e64a596bf1a7
 ---
 
 # automation/Catzc.Base.Files/Write-FileIfChanged.ps1

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md
     kind: comment-page
-    body_sha: "2aa65ca3b1c6"
+    body_sha: "0613c7e96b34"
     adrs:
       - ADR-AZ-DATAMOD#4
 ---

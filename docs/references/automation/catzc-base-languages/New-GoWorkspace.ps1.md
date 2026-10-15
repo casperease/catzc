@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md
     kind: comment-page
-    body_sha: "817c13edc99e"
+    body_sha: ca1b7c271872
 ---
 
 # automation/Catzc.Base.Languages/New-GoWorkspace.ps1

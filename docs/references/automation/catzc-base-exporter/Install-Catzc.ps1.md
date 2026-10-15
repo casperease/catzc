@@ -3,11 +3,12 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md
     kind: comment-page
-    body_sha: cacf385110c9
+    body_sha: "7ec2a71211b2"
     adrs:
       - ADR-AUTO-BUNDLE#6
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-ENGINE#2
+      - ADR-PWSH-ENUM#3
 ---
 
 # automation/Catzc.Base.Exporter/Install-Catzc.ps1

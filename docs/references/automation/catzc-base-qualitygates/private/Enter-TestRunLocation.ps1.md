@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md
     kind: comment-page
-    body_sha: b86cb6738868
+    body_sha: b00f0f6f8e7f
     adrs:
       - ADR-AUTO-CACHE#10
       - ADR-AUTO-ENGINE#2

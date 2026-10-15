@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/Install-Tool.ps1
-    kind: public-function
+    kind: automation-function
     module: Catzc.Tooling.Core
     visibility: public
     adrs:
