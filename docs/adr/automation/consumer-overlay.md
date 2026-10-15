@@ -21,10 +21,10 @@ what is changed; there is no list of overrides to keep in step with the files.
 
 ### Rule ADR-AUTO-OVERLAY:3
 
-Under `.catzc/automation/<Module>/`, where `<Module>` is a bundled module, the only entries are a public function override
-(`<Function>.ps1`), a private function override (`private/<Function>.ps1`), a config fragment (`configs/<config>.yml`), an asset override
-(`assets/<path>`), and local tests (`tests/<path>`). Anything else there is rejected. A folder that names no bundled module is a local
-module ([ADR-AUTO-OVERLAY#9](#rule-adr-auto-overlay9)).
+Under `.catzc/automation/<Module>/`, where `<Module>` is a bundled module, the only entries are a public function override (a public
+function file at the folder's root, named for its function), a private function override (a private function file under `private/`), a
+config fragment (`configs/<config>.yml`), an asset override (`assets/<path>`), and local tests (`tests/<path>`). Anything else there is
+rejected. A folder that names no bundled module is a local module ([ADR-AUTO-OVERLAY#9](#rule-adr-auto-overlay9)).
 
 - [Override points](#override-points)
 
@@ -72,10 +72,10 @@ in source mode the catzc tree is changed directly, and a `.catzc/` folder there 
 ### Rule ADR-AUTO-OVERLAY:9
 
 A **local module** is a folder under `.catzc/automation/` that names no bundled module: the consumer's own module, following catzc's module
-conventions — folder = module, a public function per root `.ps1`, private functions under `private/`, `configs/` found by `Get-Config`,
-`assets/` found by the one content lookup. It never takes the reserved `Catzc.` prefix, carries no `types/`, and has no public function that
-takes the name of a command already loaded. It loads after the bundled modules and their overrides, so it calls the bundle as overridden,
-and nothing is written to load it.
+conventions — folder = module, a public function per root function file, private function files under `private/`, `configs/` found by
+`Get-Config`, `assets/` found by the one content lookup. It never takes the reserved `Catzc.` prefix, carries no `types/`, and has no public
+function that takes the name of a command already loaded. It loads after the bundled modules and their overrides, so it calls the bundle as
+overridden, and nothing is written to load it.
 
 - [Local modules](#local-modules)
 

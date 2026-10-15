@@ -82,6 +82,51 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
         Mock Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates { }
     }
 
+    Context 'the whole-run budget' {
+        BeforeEach {
+            # A green run of 200 s against a 180 s budget: only the budget can fail it.
+            Mock Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates {
+                [pscustomobject]@{
+                    Rows = @([pscustomobject]@{ Result = 'Passed'; Level = 'L0'; DurationMs = 1 }); Files = @()
+                    FailedShardLabels = @(); ShardExitCodes = @{}; DurationSeconds = $script:runSeconds; Shards = @(); WorkerSummaries = @(); Location = $null
+                }
+            }
+            Mock Get-TestTimeLimits -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ LevelMs = @{}; RunSeconds = 180 } }
+            Mock Get-TestAutomationVerdict -ModuleName Catzc.Base.QualityGates {
+                $result = if ($BudgetFailure) {
+                    'Failed'
+                }
+                else {
+                    $RunResult
+                }
+                [pscustomobject]@{ Result = $result; Summary = "budget failure: $([bool] $BudgetFailure)" }
+            }
+            $script:runSeconds = 200
+        }
+
+        It 'fails a devbox run that outlasts its budget, and says so' {
+            Mock Test-IsRunningInPipeline -ModuleName Catzc.Base.QualityGates { $false }
+
+            { Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $false } } | Should -Throw '*budget failure: True*'
+            Should -Invoke Get-TestAutomationVerdict -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $BudgetFailure -and $RunBudgetSeconds -eq 180 }
+            Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like 'Run took 200*over its 180s budget*the run fails.' }
+        }
+
+        It 'leaves a pipeline run to its stage''s own limit' {
+            Mock Test-IsRunningInPipeline -ModuleName Catzc.Base.QualityGates { $true }
+
+            { Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $false } } | Should -Not -Throw
+            Should -Invoke Get-TestAutomationVerdict -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { -not $BudgetFailure }
+        }
+
+        It 'passes a devbox run inside its budget' {
+            Mock Test-IsRunningInPipeline -ModuleName Catzc.Base.QualityGates { $false }
+            $script:runSeconds = 150
+
+            { Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $false } } | Should -Not -Throw
+        }
+    }
+
     Context 'the location decides the top tier (ADR-AUTO-TEST#33)' {
         It 'runs every tier, L3 included, in place by default' {
             Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null

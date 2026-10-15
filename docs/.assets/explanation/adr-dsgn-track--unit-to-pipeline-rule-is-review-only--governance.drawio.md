@@ -63,11 +63,35 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 ## Sidebar
 
 The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
-[world map](adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.grid.md), [tree](adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.tree.md) and [value-chain map](adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.chain.md).
-A file or ADR lights a minimap when it cites, or is, the ADR the slide supports (ADR-DSGN-TRACK, ADR-FLOW-CD, ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS); the explanation articles, these descriptions and the drawing tooling never light anything.
+[world map](adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.grid.md),
+[tree](adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.tree.md) and
+[value-chain map](adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.chain.md). A file or ADR lights a minimap when it cites,
+or is, the ADR the slide supports (ADR-DSGN-TRACK, ADR-FLOW-CD, ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS); the explanation articles, these
+descriptions and the drawing tooling never light anything.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 7 lit cells, `.claude × .md` (1 file: 1 cites ADR-FLOW-CD); `.github × .yml` (1 file, mentions only: 1 cites ADR-FLOW-CD-GLOBS); `automation × .cs` (27 files: 28 cite ADR-DSGN-TRACK, ADR-FLOW-CD, ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS); `automation × .ps1` (66 files: 70 cite ADR-DSGN-TRACK, ADR-FLOW-CD, ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS); `automation × .yml` (12 files: 17 cite ADR-DSGN-TRACK, ADR-FLOW-CD, ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS); `docs × .md` (14 files: 16 cite ADR-DSGN-TRACK, ADR-FLOW-CD, ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS; 4 are the ADR file of ADR-DSGN-TRACK, ADR-FLOW-CD, ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS); `pipelines × .yaml` (6 files: 7 cite ADR-DSGN-TRACK, ADR-FLOW-CD-GLOBS). 1 cell lit only by passing mentions show at 40 % ink.
-- **Tree** (the repository's files): 18 lit groups, `Globs` (38 files); `Maps` (29 files); `Docs` (9 files); `Languages` (9 files); `QualityGates` (7 files); `pipelines` (6 files); `Az.DevOps.BuildValidation` (5 files); `docs` (5 files); `Variants` (4 files); `adr/flow` (3 files); `ModuleSystem` (2 files); `adr/*` (2 files); `adr/dsgn` (2 files); `adr/repo` (2 files); `.claude` (1 file); `.github` (1 file); `Contracts` (1 file); `Exporter` (1 file). The ADR files `docs/adr/design/tracks.md`, `docs/adr/flow/cd-discipline-and-promotion-flow.md`, `docs/adr/flow/durable-sha-globs.md`, `docs/adr/repository/conventional-folders.md` carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 6 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-TRACK: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15); ADR-FLOW-CD-GLOBS: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its own value-chain concern (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); `DSGN × QC`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); `DSGN × RELEAS`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); `AUTO × AUTOMA`, because ADR-REPO-FOLDERS: its ADR domain `repository` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15).
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 7 lit cells, `.claude × .md` (1 file: 1 cites ADR-FLOW-CD);
+  `.github × .yml` (1 file, mentions only: 1 cites ADR-FLOW-CD-GLOBS); `automation × .cs` (27 files: 28 cite ADR-DSGN-TRACK, ADR-FLOW-CD,
+  ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS); `automation × .ps1` (66 files: 70 cite ADR-DSGN-TRACK, ADR-FLOW-CD, ADR-FLOW-CD-GLOBS,
+  ADR-REPO-FOLDERS); `automation × .yml` (12 files: 17 cite ADR-DSGN-TRACK, ADR-FLOW-CD, ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS); `docs × .md`
+  (14 files: 16 cite ADR-DSGN-TRACK, ADR-FLOW-CD, ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS; 4 are the ADR file of ADR-DSGN-TRACK, ADR-FLOW-CD,
+  ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS); `pipelines × .yaml` (6 files: 7 cite ADR-DSGN-TRACK, ADR-FLOW-CD-GLOBS). 1 cell lit only by passing
+  mentions show at 40 % ink.
+- **Tree** (the repository's files): 18 lit groups, `Globs` (38 files); `Maps` (29 files); `Docs` (9 files); `Languages` (9 files);
+  `QualityGates` (7 files); `pipelines` (6 files); `Az.DevOps.BuildValidation` (5 files); `docs` (5 files); `Variants` (4 files); `adr/flow`
+  (3 files); `ModuleSystem` (2 files); `adr/*` (2 files); `adr/dsgn` (2 files); `adr/repo` (2 files); `.claude` (1 file); `.github` (1
+  file); `Contracts` (1 file); `Exporter` (1 file). The ADR files `docs/adr/design/tracks.md`,
+  `docs/adr/flow/cd-discipline-and-promotion-flow.md`, `docs/adr/flow/durable-sha-globs.md`, `docs/adr/repository/conventional-folders.md`
+  carry the white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 6 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-TRACK:
+  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15);
+  ADR-FLOW-CD-GLOBS: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its own value-chain concern
+  (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build,
+  quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); `DSGN × QC`, because ADR-FLOW-CD: its ADR domain
+  `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern
+  (ADR-DSGN-TRACK#15); `DSGN × RELEAS`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build,
+  quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-FLOW-CD: its ADR
+  domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern
+  (ADR-DSGN-TRACK#15); `AUTO × AUTOMA`, because ADR-REPO-FOLDERS: its ADR domain `repository` sits on the AUTO row (ADR-DSGN-TRACK#14), and
+  automation is its ADR domain's default concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV, with "Supports ADR-DSGN-TRACK · ADR-FLOW-CD-GLOBS · ADR-REPO-FOLDERS" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

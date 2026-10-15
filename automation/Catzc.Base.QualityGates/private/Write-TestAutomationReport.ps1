@@ -114,7 +114,7 @@ function Write-TestAutomationReport {
     [void]$stringBuilder.AppendLine("- Duration: ${totalSeconds}s")
     if ($DurationSeconds -gt $RunBudgetSeconds) {
         $overSeconds = [math]::Round($DurationSeconds - $RunBudgetSeconds, 2)
-        [void]$stringBuilder.AppendLine("- Run budget: ${RunBudgetSeconds}s — exceeded by ${overSeconds}s (report-only; tests.run_seconds in timeouts.yml)")
+        [void]$stringBuilder.AppendLine("- Run budget: ${RunBudgetSeconds}s — exceeded by ${overSeconds}s (fails a devbox run; tests.run_seconds in timeouts.yml)")
     }
     else {
         [void]$stringBuilder.AppendLine("- Run budget: ${RunBudgetSeconds}s — within")

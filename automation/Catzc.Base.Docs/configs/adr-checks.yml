@@ -18,7 +18,6 @@
 #     exempt: { <domain>: <reason> }
 
 engine_neutrality:
-  mode: report
   domains: [automation]
   # Engine-specific syntax a rule summary must not carry. Naming a catzc command (Verb-Noun) is allowed, so only engine built-ins are
   # listed here.

@@ -36,4 +36,22 @@ Describe 'Get-TestAutomationVerdict' -Tag 'L0', 'logic' {
         $verdict.Result | Should -Be 'Failed'
         $verdict.Summary | Should -Be '2 test(s) exceeded their level time limit (-EnforceTimings)'
     }
+
+    It 'folds a budget-only failure into a Failed verdict that names the run time and the budget' {
+        $verdict = InModuleScope Catzc.Base.QualityGates {
+            Get-TestAutomationVerdict -Rows @() -Limits @{} -RunResult 'Passed' -FailedCount 0 `
+                -BudgetFailure -RunBudgetSeconds 180 -PassedCount 5400 -SkippedCount 40 -DurationSeconds 201.26
+        }
+        $verdict.Result | Should -Be 'Failed'
+        $verdict.Summary | Should -BeLike 'the run took 201.3s, over its 180s budget (tests.run_seconds in timeouts.yml)*'
+    }
+
+    It 'names failed tests before the budget when both failed the run' {
+        $verdict = InModuleScope Catzc.Base.QualityGates {
+            Get-TestAutomationVerdict -Rows @() -Limits @{} -RunResult 'Failed' -FailedCount 2 `
+                -BudgetFailure -RunBudgetSeconds 180 -DurationSeconds 201
+        }
+        $verdict.Result | Should -Be 'Failed'
+        $verdict.Summary | Should -Be '2 test(s) failed'
+    }
 }

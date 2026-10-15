@@ -266,17 +266,15 @@ function Invoke-TestRun {
         $testTimeLimits = Get-TestTimeLimits
         $limits = $testTimeLimits.LevelMs
         $timingFailure = Write-TestAutomationTimingReport -Rows $rows -Limits $limits -EnforceTimings:$EnforceTimings
-        if ($timingFailure) {
+        # A devbox run that outlasts its whole-run budget fails
+        # ([ADR-AUTO-TEST#44](/docs/adr/automation/test-automation.md#rule-adr-auto-test44)).
+        $budgetFailure = Test-TestRunOverBudget -DurationSeconds $workerRun.DurationSeconds -BudgetSeconds $testTimeLimits.RunSeconds
+        if ($timingFailure -or $budgetFailure) {
             $manifestStatus = 'failed'
         }
 
         # Persist summary.md/tests.csv + latest.txt and render the skip report — best-effort, never masking
         # the run outcome (Write-TestAutomationArtifacts owns the guards).
-        # The whole-run budget is detection only for now: a run over it is reported, never failed.
-        if ($workerRun.DurationSeconds -gt $testTimeLimits.RunSeconds) {
-            Write-Message ('Run took {0:N1}s, over its {1}s budget (tests.run_seconds in timeouts.yml) — report-only.' -f `
-                    $workerRun.DurationSeconds, $testTimeLimits.RunSeconds) -ForegroundColor Yellow
-        }
 
         Write-TestAutomationArtifacts -Rows $rows -RunDirectory $runDir -OutputFolder $OutputFolder `
             -MaxLevel $MaxLevel -Limits $limits -RunResult $runResult -DurationSeconds $workerRun.DurationSeconds `
@@ -290,6 +288,7 @@ function Invoke-TestRun {
         # consume it, so the reason wording lives in exactly one place.
         $verdict = Get-TestAutomationVerdict -Rows $rows -Limits $limits -RunResult $runResult `
             -FailedCount $failedCount -FailedShardLabels $failedShardLabels -TimingFailure:$timingFailure `
+            -BudgetFailure:$budgetFailure -RunBudgetSeconds $testTimeLimits.RunSeconds `
             -PassedCount $passedCount -SkippedCount $skippedCount -DurationSeconds $workerRun.DurationSeconds
 
         # Every failed test's and failed file's message, right before the verdict (nothing on a green run).
@@ -320,7 +319,7 @@ function Invoke-TestRun {
             }
             $summary
         }
-        elseif ($runResult -ne 'Passed' -or $timingFailure) {
+        elseif ($runResult -ne 'Passed' -or $timingFailure -or $budgetFailure) {
             throw "$EntryPoint failed: $($verdict.Summary)"
         }
     }

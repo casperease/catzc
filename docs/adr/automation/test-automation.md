@@ -379,6 +379,14 @@ folder of another test language (ADR-AUTO-TEST#40). It is the unit a test run sc
 
 - [Tests and test files](#tests-and-test-files)
 
+### Rule ADR-AUTO-TEST:44
+
+A devbox run must fit its whole-run budget: `Test-Automation` fails a devbox run whose workers take longer than `tests.run_seconds` in
+`timeouts.yml`, and names the run's time and the budget. The budget is a roof, never raised to make a run pass; a run over it is fixed by
+making its slowest test files faster (ADR-AUTO-FAILFAST#7). A pipeline run is bounded by its stage's own limit instead.
+
+- [The whole-run budget](#the-whole-run-budget)
+
 ## Context
 
 [Fail fast with inline assertions](fail-fast-with-asserts.md) makes the case that automation code is mostly _impure_ — it orchestrates
@@ -782,6 +790,19 @@ In trunk-based development ([one-living-version](../principles/one-living-versio
 on both sides of master — a change integrates only when its BVT is green, and master stays green because nothing merges that has not passed
 it. Its gold output is the canonical module-manifest artifact a passing build produces — the reproducible encapsulation of what the commit
 built, byte-identical for a given commit.
+
+### The whole-run budget
+
+`A slow run fails, so it gets fixed rather than waited out`
+
+A devbox run is the loop a person waits on, and it shares a fixed window with the slower work that follows it, so its length is a limit,
+not a trend to watch (ADR-AUTO-TEST#44). The budget is `tests.run_seconds` in `timeouts.yml`, measured over the workers' run — the wall
+clock the run already reports. A devbox run that takes longer fails like any other gate, naming its time and the budget, and the fix is the
+same as for a slow test: measure where the time goes, make the slowest files faster without weakening what they prove, and keep the roof
+where it is. The duration history the scheduler keeps (`out/test-automation/durations.json`) names the files to look at first.
+
+A pipeline run is left to its stage's own limit: a hosted agent's speed is not the devbox's, and the pipeline already stops a stage that
+outlives its timeout ([pipeline-runner-pattern](../flow/pipeline-runner-pattern.md)).
 
 ## Decision
 

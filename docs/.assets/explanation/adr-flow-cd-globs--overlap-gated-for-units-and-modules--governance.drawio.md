@@ -6,7 +6,7 @@
 A 1572 x 700 diagram, read top to bottom through three bands.
 Glyphs: 3 named sets (mauve), 2 ADR-only (dashed white), 2 gates (grey); 3 flow edges.
 Marks: 9 rule chips, 7 markers.
-Sidebar: axis minimap (main cell PIPE x GLOBS), tree minimap, lens badge GOV, map key.
+Sidebar: world-map grid (9 lit cells), tree (43 lit groups), value-chain map (4 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png) draws, in the vocabulary of
@@ -62,8 +62,36 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is PIPE × GLOBS, framed and filled in the GLOBS teal with the you-are-here dot. Three touched cells carry
-  a small grey dot: AUTO × GLOBS, AUTO × BUILD and PRIN × BUILD.
-- **Tree minimap:** four lit tiles, labelled Globs, adr/auto, adr/prin and adr/flow.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.grid.md),
+[tree](adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.tree.md) and
+[value-chain map](adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.chain.md). A file or ADR lights a minimap when it
+cites, or is, the ADR the slide supports (ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-PRIN-ONELIVE, ADR-REPO-PROTGLOB); the explanation articles,
+these descriptions and the drawing tooling never light anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 9 lit cells, `.claude × .md` (4 files: 5 cite ADR-AUTO-TEST,
+  ADR-PRIN-ONELIVE); `.github × .yml` (1 file, mentions only: 1 cites ADR-FLOW-CD-GLOBS); `automation × .cs` (18 files: 20 cite
+  ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-PRIN-ONELIVE, ADR-REPO-PROTGLOB); `automation × .ps1` (377 files: 400 cite ADR-AUTO-TEST,
+  ADR-FLOW-CD-GLOBS, ADR-PRIN-ONELIVE, ADR-REPO-PROTGLOB); `automation × .yml` (19 files: 25 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS,
+  ADR-PRIN-ONELIVE, ADR-REPO-PROTGLOB); `docs × .md` (20 files: 20 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-PRIN-ONELIVE,
+  ADR-REPO-PROTGLOB; 4 are the ADR file of ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-PRIN-ONELIVE, ADR-REPO-PROTGLOB); `pipelines × .yaml` (6
+  files: 7 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS); `Root files × .ps1` (1 file: 1 is mapped through files.yml to ADR-AUTO-TEST);
+  `Root files × other` (2 files: 2 are mapped through files.yml to ADR-AUTO-TEST). 1 cell lit only by passing mentions show at 40 % ink.
+- **Tree** (the repository's files): 43 lit groups, `QualityGates` (138 files); `Docs` (50 files); `Globs` (49 files); `Az.Templates` (29
+  files); `ModuleSystem` (19 files); `Azure` (11 files); `Languages` (11 files); `Tool.Core` (11 files); `Execution` (10 files); `docs` (10
+  files); `Maps` (9 files); `RootConfig` (8 files); `Contracts` (7 files); `Tool.Provisioning` (7 files); `Az.DevOps.BuildValidation` (6
+  files); `pipelines` (6 files); `Reports` (5 files); `TypesSystem` (5 files); `.claude` (4 files); `.internal` (4 files); `Az.DevOps` (4
+  files); `Exporter` (4 files); `Tool.Inspiration` (4 files); `Root files` (3 files); `Config` (3 files); `ConfigExtensions` (3 files);
+  `Tool.KeyHandler` (3 files); `Files` (2 files); `Objects` (2 files); `Repository` (2 files); `Tool.Toolchain` (2 files); `adr/*` (2
+  files); `adr/auto` (2 files); `adr/flow` (2 files); `adr/prin` (2 files); `adr/repo` (2 files); `.github` (1 file); `.scriptanalyzer` (1
+  file); `Engines` (1 file); `Environment` (1 file); `Overlay` (1 file); `Timeouts` (1 file); `Tool.Python` (1 file). The ADR files
+  `docs/adr/automation/test-automation.md`, `docs/adr/flow/durable-sha-globs.md`, `docs/adr/principles/one-living-version.md`,
+  `docs/adr/repository/protected-globs.md` carry the white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 4 lit cells: `PRIN × RELEAS`, because ADR-PRIN-ONELIVE:
+  its ADR domain `principles` sits on the PRIN row (ADR-DSGN-TRACK#14), and release is its own value-chain concern (ADR-DSGN-TRACK#15);
+  `DSGN × AUTOMA`, because ADR-FLOW-CD-GLOBS: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its own
+  value-chain concern (ADR-DSGN-TRACK#15); `AUTO × AUTOMA`, because ADR-REPO-PROTGLOB: its ADR domain `repository` sits on the AUTO row
+  (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15); `AUTO × QC`, because ADR-AUTO-TEST: its ADR
+  domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and quality-control is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV, with "Supports ADR-FLOW-CD-GLOBS · ADR-AUTO-TEST · ADR-PRIN-ONELIVE · ADR-REPO-PROTGLOB" beneath it, on two lines.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.
