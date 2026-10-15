@@ -2,37 +2,22 @@
 .SYNOPSIS
     Quality gate over what changed: runs the tests and the checks of the changed files, and reports only their issues.
 .DESCRIPTION
-    The check a person (or an agent) runs before handing work over: instead of the whole suite and every repository-wide
-    quality gate, only what the change touches
-    ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35): a quality gate over its declared
-    scope — here, the changed files).
-
-      what changed  -Path, by default the working tree's changes against HEAD (Get-GitChangedPath: staged, unstaged,
-                    untracked, deleted; a rename as both paths);
-      tests         the test files that cover the changed files by convention (Get-ChangeTestFile: a changed test file,
-                    the test file of a changed function, the test file of a changed C# type), run as one test run through
-                    Invoke-TestFile — never a bare Invoke-Pester; each failed test is one issue;
-      checks        the quality gates each changed file's language names in languages.yml (`checks`, Get-ChangeCheckPlan) —
-                    configuration, not code ([ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md)). A gate
-                    with a [string[]] -Path is given the changed files and every issue it finds counts; any other gate
-                    runs whole and an issue counts only when it names a changed file (the rest are counted as
-                    unattributed, not reported). A gate that throws (a tool missing) is one issue.
-
-    Gates run from the repository root with repo-relative, '/'-separated paths. Ends with Write-QualityGateReport: the
-    report lands in out/test-change/, and the gate throws once listing every issue (or returns the result with -PassThru).
-    -DryRun only plans: it returns the changed paths, the test files, and the checks, and runs nothing.
+    The check a person (or an agent) runs before handing work over: instead of the whole suite and every...
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
+    [ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Change.ps1.md#comment1)
 .PARAMETER Path
     The changed repo-relative, '/'-separated paths. Default: the working tree's changes (Get-GitChangedPath).
 .PARAMETER WholeModule
-    Run every test file of each module a change touches (automation/<Module>/tests/), not only the test files that
-    cover the changed files.
+    Run every test file of each module a change touches (automation/<Module>/tests/), not only the test files that...
+    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-Change.ps1.md#comment2)
 .PARAMETER DryRun
     Plan only: return { Path; Tests; Checks } and run nothing.
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-change).
 .PARAMETER PassThru
-    Return the gate result { Subject; IssueCount; Issues; ReportPath; Changed; Tests; Checks; Unattributed } instead of
-    throwing on issues.
+    Return the gate result { Subject; IssueCount; Issues; ReportPath; Changed; Tests; Checks; Unattributed } instead...
+    [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Change.ps1.md#comment3)
 .OUTPUTS
     [pscustomobject] With -PassThru or -DryRun only.
 .EXAMPLE

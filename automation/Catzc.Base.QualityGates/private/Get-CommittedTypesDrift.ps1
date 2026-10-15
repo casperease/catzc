@@ -2,11 +2,8 @@
 .SYNOPSIS
     Reports why the committed combined types assembly is not the current one.
 .DESCRIPTION
-    The build ships the committed automation/.compiled/Catzc.Types.<hash>.dll by copy, so that file must be the
-    assembly of the current type sources: exactly one Catzc.Types.*.dll, named for the combined hash of the
-    sources (Get-CombinedTypeHash, the one implementation the loader and the janitor share), and no pending git
-    change under automation/.compiled — the importer rebuilds the DLL when a types/*.cs changes, and a rebuild
-    that was not committed shows there. Each failure is one reason; none means the committed assembly is current.
+    The build ships the committed automation/.compiled/Catzc.Types.<hash>.dll by copy, so that file must be the...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-CommittedTypesDrift.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository whose automation/.compiled is checked.
 .OUTPUTS

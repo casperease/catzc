@@ -2,10 +2,9 @@
 .SYNOPSIS
     Reads one tab-separated ADR map (a code map or a rule map) into one hashtable per row, keyed by the header.
 .DESCRIPTION
-    The map's first line must be exactly the expected header, and every row must have one cell per header column;
-    anything else throws, naming the file and line, before a single reference is rewritten
-    ([ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)). Blank lines are skipped. The cells are
-    validated by [Catzc.Base.Docs.AdrCitationRewriter], which reads the rows.
+    The map's first line must be exactly the expected header, and every row must have one cell per header column;...
+    [ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)
+    [comment:1](/docs/references/automation/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md#comment1)
 .PARAMETER Path
     The absolute path of the map file.
 .PARAMETER Header

@@ -2,11 +2,8 @@
 .SYNOPSIS
     The flat set of ADR rule-sets declared in adrs.yml — one typed record per ADR.
 .DESCRIPTION
-    Returns the RuleSets of the typed ADR registry (Get-Config -Config adrs, an AdrsConfig — mapped and
-    validated by the C# type, so this reads strong properties, not a slippery ordered dictionary). Each record
-    (Catzc.Base.Docs.AdrRuleSet) carries the internal kebab Slug, the full External citation code, the
-    domain Code in effect (a leaf override or the domain default), the folder-owning Domain and its Role, and
-    the optional Terminology token.
+    Returns the RuleSets of the typed ADR registry (Get-Config -Config adrs, an AdrsConfig — mapped and validated by...
+    [comment:1](/docs/references/automation/catzc-base-docs/Get-AdrRuleSet.ps1.md#comment1)
 .PARAMETER Domain
     Restrict to one folder-owning domain (e.g. 'automation'), by name.
 .OUTPUTS

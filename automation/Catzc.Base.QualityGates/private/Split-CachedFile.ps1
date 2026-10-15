@@ -2,10 +2,9 @@
 .SYNOPSIS
     Splits a quality check's files into those its result cache already knows are clean and those to check.
 .DESCRIPTION
-    The read half of a result cache ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)): each
-    file inside the repository gets the key '<SHA-256 of its bytes>:<stamp>'; a file whose cache entry equals its key is
-    cached, every other file is pending. A file outside the repository, or one that does not exist, is always pending
-    and never keyed (it is never recorded). Update-ResultCache is the write half.
+    The read half of a result cache: each file inside the repository gets the key '<SHA-256 of its bytes>:<stamp>'; a...
+    [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Split-CachedFile.ps1.md#comment1)
 .PARAMETER File
     The check's files.
 .PARAMETER Cache

@@ -1,8 +1,5 @@
-// Ends a test worker process when the process that started it is gone. PesterRunner hands every worker its own
-// PID and start time (CATZC_TEST_PARENT_PID / CATZC_TEST_PARENT_START); the generated shard script calls Start,
-// and a background thread polls the parent. When the parent has exited — or its PID now belongs to a different
-// process (PID reuse, told apart by start time) — the worker kills itself, so a run whose parent died (a closed
-// terminal, a killed console) never leaves workers behind holding files and running unobserved.
+// Ends a test worker process when the process that started it is gone.
+// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment1)
 
 namespace Catzc.Base.QualityGates;
 
@@ -16,8 +13,8 @@ public static class WorkerParentWatch
     public const string PidVariable = "CATZC_TEST_PARENT_PID";
     public const string StartVariable = "CATZC_TEST_PARENT_START";
 
-    // Start times are compared with slack: on Linux, Process.StartTime is derived from the boot time and can
-    // differ by a few milliseconds between reads of the same process. A reused PID starts far later than that.
+    // Start times are compared with slack: on Linux, Process.StartTime is derived from the boot time and can differ by a few...
+    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment2)
     private static readonly TimeSpan StartTolerance = TimeSpan.FromSeconds(1);
 
     private static readonly object Sync = new object();
@@ -30,9 +27,8 @@ public static class WorkerParentWatch
         return current.StartTime.ToUniversalTime().Ticks;
     }
 
-    /// <summary>
-    /// True when the process with this PID exists and started at this time (UTC ticks, within tolerance).
-    /// </summary>
+    /// <summary> True when the process with this PID exists and started at this time (UTC ticks, within tolerance).
+    /// [comment:3](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment3)
     public static bool IsAlive(int pid, long startTicksUtc)
     {
         try
@@ -57,11 +53,8 @@ public static class WorkerParentWatch
         }
     }
 
-    /// <summary>
-    /// Starts watching the parent named by the environment variables. Returns false — and watches nothing — when
-    /// they are absent (the script was not started by PesterRunner) or malformed. Idempotent: a second call while
-    /// a watch runs returns true without starting another.
-    /// </summary>
+    /// <summary> Starts watching the parent named by the environment variables.
+    /// [comment:4](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment4)
     public static bool Start(int intervalMilliseconds)
     {
         if (intervalMilliseconds < 1)
@@ -98,8 +91,8 @@ public static class WorkerParentWatch
         {
             Thread.Sleep(intervalMilliseconds);
         }
-        // Kill, not Environment.Exit: exit handlers can block behind a main thread stuck writing to a pipe nobody
-        // reads any more, which is exactly the state an orphaned worker is in.
+        // Kill, not Environment.Exit: exit handlers can block behind a main thread stuck writing to a pipe nobody reads any more, which...
+        // [comment:5](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment5)
         using var self = Process.GetCurrentProcess();
         self.Kill();
     }

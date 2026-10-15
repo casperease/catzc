@@ -2,10 +2,8 @@
 .SYNOPSIS
     Derives the run.json entries that come from a worker run.
 .DESCRIPTION
-    The part of a run's terminal manifest (Write-TestRunManifest) that only the worker run knows: each shard's
-    exit code, the wall-clock duration, and where the run executed — `location` plus, for a snapshot, its
-    provenance (Get-TestRunLocationSummary). A run that crashed before its workers returned has no worker run;
-    it records no exit codes, a zero duration, and no location.
+    The part of a run's terminal manifest (Write-TestRunManifest) that only the worker run knows: each shard's exit...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/ConvertTo-TestRunManifestEntry.ps1.md#comment1)
 .PARAMETER WorkerRun
     Invoke-TestAutomationWorkers' result, or $null.
 .OUTPUTS

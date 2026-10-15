@@ -2,26 +2,16 @@
 .SYNOPSIS
     Spell-checks the repository's known file types with cspell and writes a report under out/.
 .DESCRIPTION
-    Runs the Code Spell Checker CLI (cspell) over the repository's known text file types — Markdown,
-    PowerShell, YAML, JSON, C#, and Bicep — applying the single repo dictionary at /cspell.yml.
-
-    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): every
-    cspell issue line ('<path>:<line>:<col> - Unknown word (<word>) …') is an issue, and the gate ends through
-    Write-QualityGateReport, which writes out/test-spelling/, prints every issue, and throws once listing them all
-    — so the misspelled words are named in the failure itself
-    ([ADR-AUTO-CONSOLE#6](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console6)).
-    -PassThru returns the result object instead. A cspell tool error (exit > 1) or a scan that matched no files
-    throws before the report: there is no verdict to report.
-
-    cspell must be on PATH — install it once with Install-Cspell (or: npm install -g cspell).
+    Runs the Code Spell Checker CLI (cspell) over the repository's known text file types — Markdown, PowerShell,...
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
+    [ADR-AUTO-CONSOLE#6](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console6)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment1)
 .PARAMETER Path
-    Repository-relative paths or globs to check (cspell expands a glob). Defaults to the repository's known file types.
-    cspell still applies the ignorePaths from cspell.yml.
+    Repository-relative paths or globs to check (cspell expands a glob).
+    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment2)
 .PARAMETER Exclude
-    Globs the spelling QUALITY GATE skips, passed to cspell as --exclude. Defaults to the authored/generated trees
-    that are out of scope to spell-check (out/, docs/notes, the machine-derived configuration/**
-    trees). Non-authored noise (vendor, install scripts, compiled output, binaries) lives in cspell.yml
-    ignorePaths instead — this parameter is for content scope, not third-party noise.
+    Globs the spelling QUALITY GATE skips, passed to cspell as --exclude.
+    [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment3)
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-spelling.
 .PARAMETER PassThru
@@ -49,22 +39,21 @@ function Test-Spelling {
             '**/*.py'
         ),
 
-        # Content the spelling quality gate does NOT check (authored/generated text, not third-party noise — that
-        # lives in cspell.yml ignorePaths). Passed to cspell as --exclude globs.
+        # Content the spelling quality gate does NOT check (authored/generated text, not third-party noise — that...
+        # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment4)
         [string[]] $Exclude = @(
             'out/**'
             'docs/notes/**'
             'infrastructure/templates/**/configuration/**'
-            # Generated README copy-ins (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored
-            # and their authored source under docs/ is what is spell-checked (mirrors Test-Markdownlint's
-            # '!**/README.md'). Their banner embeds the source's kebab filename, which is not a word. See
-            # [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7).
+            # Generated README copy-ins (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored and...
+            # [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)
+            # [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment5)
             '**/README.md'
-            # [index](/docs/adr/index.md) is generated from adrs.yml (Build-AdrIndex) — a derived artifact; its source
-            # (adrs.yml + the generator's prose) is what is reviewed, not the projection.
+            # is generated from adrs.yml (Build-AdrIndex) — a derived artifact; its source (adrs.yml + the...
+            # [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment6)
             'docs/adr/index.md'
-            # [glossary](/docs/adr/glossary.md) is generated from the configs/glossary.yml sources (Build-Glossary) — likewise
-            # derived; the sources are what is spell-checked.
+            # is generated from the configs/glossary.yml sources (Build-Glossary) — likewise derived; the sources are...
+            # [comment:7](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment7)
             'docs/adr/glossary.md'
         ),
 
@@ -87,8 +76,8 @@ function Test-Spelling {
     $quotedPaths = foreach ($p in $Path) {
         "'$p'"
     }
-    # Content-scope exclusions (out/, docs/notes, generated config trees) — cspell ignorePaths rejects
-    # negation globs, so the gate's content scope is expressed here as --exclude on the command line.
+    # Content-scope exclusions (out/, docs/notes, generated config trees) — cspell ignorePaths rejects negation...
+    # [comment:8](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment8)
     $excludeArgs = foreach ($e in $Exclude) {
         "--exclude '$e'"
     }
@@ -105,8 +94,8 @@ function Test-Spelling {
         throw "cspell failed (exit $($result.ExitCode)): $($result.Full)"
     }
 
-    # cspell prints a summary ("Files checked: N, Issues found: M in K file(s)"). cspell globs are relative to the
-    # working directory (the repo root here), so an empty match means a bad -Path.
+    # cspell prints a summary ("Files checked: N, Issues found: M in K file(s)").
+    # [comment:9](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment9)
     $checkedMatch = [regex]::Match($result.Full, 'Files checked:\s*(?<n>\d+)')
     if ($result.ExitCode -ne 0 -and $checkedMatch.Success -and [int]$checkedMatch.Groups['n'].Value -eq 0) {
         throw "Test-Spelling matched no files for the given paths: $($Path -join ', ')."

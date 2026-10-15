@@ -2,11 +2,9 @@
 .SYNOPSIS
     Maps changed repository files to the quality gates that check them, by file language.
 .DESCRIPTION
-    The checks half of Test-Change's plan, read from configuration, not code
-    ([ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md)): each changed file that exists is looked up in the
-    file-language registry (Get-FileLanguage -Path), and its language's `checks` list (languages.yml) names the gates.
-    Returns one entry per gate, in the order a gate first appears, each with the changed files it applies to. A file with
-    no file language, or whose language names no check, contributes nothing; a deleted file is skipped.
+    The checks half of Test-Change's plan, read from configuration, not code: each changed file that exists is looked...
+    [ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ChangeCheckPlan.ps1.md#comment1)
 .PARAMETER Path
     The changed repo-relative, '/'-separated paths.
 .PARAMETER RepositoryRoot

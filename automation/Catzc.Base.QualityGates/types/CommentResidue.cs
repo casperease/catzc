@@ -1,7 +1,6 @@
-// One residue CommentEngine found in a file: the lines that stand where a comment block was moved to the file's
-// comment page — the insight line, any mechanical lines (citations and links only), and the docs-link line
-// `[comment:N](/<page>#commentN)` that closes it. Lines are 0-based and inclusive; the engine is pure over text
-// ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
+// One residue CommentEngine found in a file: the lines that stand where a comment block was moved to the file's comment page — the...
+// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
+// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentResidue.cs.md#comment1)
 
 using System;
 using System.Globalization;

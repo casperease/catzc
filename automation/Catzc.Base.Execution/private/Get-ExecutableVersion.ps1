@@ -2,9 +2,8 @@
 .SYNOPSIS
     Runs one located executable's version command and returns the parsed version — the probe's only process start.
 .DESCRIPTION
-    Runs the executable at -Path (never whatever its bare name resolves to on PATH) with -Arguments, once, in the
-    executable's own folder, and matches the merged output against -Pattern. Returns the captured named group (?<ver>...), or $null when the
-    output does not match. Find-Executable calls it at most once per executable file per session.
+    Runs the executable at -Path (never whatever its bare name resolves to on PATH) with -Arguments, once, in the...
+    [comment:1](/docs/references/automation/catzc-base-execution/private/Get-ExecutableVersion.ps1.md#comment1)
 .PARAMETER Path
     The located executable's full path.
 .PARAMETER Arguments
@@ -28,9 +27,8 @@ function Get-ExecutableVersion {
         [string] $Pattern
     )
 
-    # Run in the executable's own folder, never the repository: a tool that reads project files from its working
-    # directory (go's go.work toolchain line, dotnet's global.json) would otherwise report — or download — the
-    # version the project asks for instead of the version the located binary is.
+    # Run in the executable's own folder, never the repository: a tool that reads project files from its working...
+    # [comment:2](/docs/references/automation/catzc-base-execution/private/Get-ExecutableVersion.ps1.md#comment2)
     $folder = [System.IO.Path]::GetDirectoryName($Path)
     $result = Invoke-Executable "`"$Path`" $Arguments".TrimEnd() -WorkingDirectory $folder -PassThru -NoAssert -Silent
 

@@ -1,9 +1,7 @@
-// One avoided phrasing of a glossary concept (a configs/glossary.yml `avoid:` entry): the phrase that must not
-// appear in prose within the source's scope, and what to say instead. Mirrors the YAML entry (snake_case keys,
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)). The phrase is stored lower-cased — matching is
-// case-insensitive and word-bounded — and the
-// phrase and its replacement are both required, so a violation can always name the fix. See
-// [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5).
+// One avoided phrasing of a glossary concept (a configs/glossary.yml `avoid:` entry): the phrase that must not appear in prose within...
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
+// [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)
+// [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryAvoid.cs.md#comment1)
 
 using System;
 using System.Collections;

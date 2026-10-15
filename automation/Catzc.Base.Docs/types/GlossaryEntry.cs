@@ -1,8 +1,7 @@
-// One concept of the merged controlled vocabulary ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)) as
-// Get-Glossary returns it: the GlossaryConcept itself, the module whose configs/glossary.yml declares it (Owner), that
-// source's repo-relative path (SourcePath), and the source's defaulted GlossaryOptions — so a gate or a reader knows
-// where each term lives and which checks it takes part in without going back to the source. A result type, not a
-// YAML mirror, so its properties are PascalCase ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+// One concept of the merged controlled vocabulary as Get-Glossary returns it: the GlossaryConcept itself, the module whose...
+// [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryEntry.cs.md#comment1)
 
 using System;
 using System.Text.RegularExpressions;

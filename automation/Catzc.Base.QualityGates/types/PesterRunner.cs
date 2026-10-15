@@ -1,8 +1,5 @@
 // Runs N Pester worker processes (pwsh -NoProfile -File <script>) concurrently with pooled live output.
-// Each worker's stdout/stderr is captured on background reader threads (the CliRunner pattern); the first
-// unfinished worker in submission order is "live" and streams to the console in real time, while later
-// workers buffer and replay in order as they are promoted — so the console reads sequentially while the
-// wall clock runs in parallel. The instance is its own result: Run populates Results, one per script.
+// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md#comment1)
 
 namespace Catzc.Base.QualityGates;
 
@@ -30,9 +27,8 @@ public class PesterRunner
         public string Stderr { get; internal set; }
         public int ExitCode { get; internal set; }
 
-        // Wall-clock timing relative to this Run call: when the worker process started (offset from the
-        // pool's start) and how long it ran. Completion is observed by the reap loop, so DurationMs
-        // carries up to one poll interval (~50ms) of slop.
+        // Wall-clock timing relative to this Run call: when the worker process started (offset from the pool's start) and how long it ran.
+        // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md#comment2)
         public long StartOffsetMs { get; internal set; }
         public long DurationMs { get; internal set; }
     }
@@ -59,13 +55,8 @@ public class PesterRunner
         public long DurationMs;       // start → reap-observed completion
     }
 
-    /// <summary>
-    /// Runs every script as `pwsh -NoProfile -File &lt;script&gt;`, at most maxParallel at a time, started
-    /// in submission order. Blocks until every worker has exited; kills the whole pool and throws on
-    /// timeout. The environment dictionary (may be null) is added to each worker's process environment —
-    /// the caller's own environment is never touched. Pass silent=true to capture without echoing
-    /// anything to the console.
-    /// </summary>
+    /// <summary> Runs every script as `pwsh -NoProfile -File &lt;script&gt;`, at most maxParallel at a time, started in submission order.
+    /// [comment:3](/docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md#comment3)
     public static PesterRunner Run(string[] runnerScripts, string[] labels, int maxParallel,
         IDictionary environment, int timeoutSeconds, bool silent)
     {
@@ -141,8 +132,8 @@ public class PesterRunner
         {
             while (true)
             {
-                // Reap: a worker completes when its process has exited and both readers drained to EOF
-                // (EOF follows exit promptly once the child's pipe handles close, so the joins are brief).
+                // Reap: a worker completes when its process has exited and both readers drained to EOF (EOF follows exit promptly once...
+                // [comment:4](/docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md#comment4)
                 int running = 0;
                 foreach (var worker in workers)
                 {
@@ -171,9 +162,8 @@ public class PesterRunner
                     running++;
                 }
 
-                // Advance the live token: flush every completed worker's remaining backlog in submission
-                // order, then make the first unfinished worker write-through so its output streams live.
-                // (The first unfinished worker is always already started, because starts go in order.)
+                // Advance the live token: flush every completed worker's remaining backlog in submission order, then make the first...
+                // [comment:5](/docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md#comment5)
                 if (!silent)
                 {
                     while (liveIndex < workers.Length && workers[liveIndex].Completed)
@@ -235,9 +225,8 @@ public class PesterRunner
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
-            // A worker is never interactive. It gets an empty, closed stdin rather than the caller's: a child
-            // that inherits a stdin pipe another thread is blocked reading hangs at startup (Git for Windows
-            // probes its std handles), and a test's own `& git` would inherit the worker's stdin.
+            // A worker is never interactive.
+            // [comment:6](/docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md#comment6)
             RedirectStandardInput = true
         };
         psi.ArgumentList.Add("-NoProfile");
@@ -253,8 +242,8 @@ public class PesterRunner
             }
         }
 
-        // Who started this worker, so it can end itself if this process dies without reaping it
-        // (WorkerParentWatch). Set after the caller's extras, so a caller can never point a worker elsewhere.
+        // Who started this worker, so it can end itself if this process dies without reaping it (WorkerParentWatch).
+        // [comment:7](/docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md#comment7)
         psi.Environment[WorkerParentWatch.PidVariable] = Environment.ProcessId.ToString(CultureInfo.InvariantCulture);
         psi.Environment[WorkerParentWatch.StartVariable] =
             WorkerParentWatch.CurrentStartTicks().ToString(CultureInfo.InvariantCulture);

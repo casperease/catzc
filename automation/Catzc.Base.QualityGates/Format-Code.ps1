@@ -2,33 +2,14 @@
 .SYNOPSIS
     Formats the repository's files, each with the formatter engine languages.yml names for its file language.
 .DESCRIPTION
-    Formatting is configured, not programmed ([ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md)): the
-    file-language registry (Catzc.Base.Languages configs/languages.yml) names each language's formatter engine —
-    prettier, gofmt, ruff, psscriptanalyzer, dotnet-format, bicep — and this one command runs it. Supporting a
-    language on an existing engine is one line in that file; a new engine is one adapter (Invoke-FormatterEngine).
-
-    The files are every file git tracks, fixtures included, or the given -Path; vendored third-party code and contract
-    assets (`catzc-contract`, byte-frozen) are never formatted (Get-FormatScope). Each file belongs to the language its
-    extension names (Get-FileLanguage); a language without a formatter (`no_formatter:`) is left as it is. Each engine
-    reads the repository's layout settings — .editorconfig, .prettierrc.yml, the analyzer settings, the pinned ruff
-    configuration ([ADR-REPO-FORMAT#4](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format4)).
-
-    Each engine runs once over the files of every selected language it formats, so a tool that starts slowly starts
-    once. A result cache under out/ remembers, per file, that the engine last found it formatted, keyed on the file's
-    SHA-256 and a stamp of the engine's settings files and the tool pins (Get-FormatEngineStamp): a file whose key still
-    matches is not handed to the engine again, so a run after a small change checks only what changed
-    ([ADR-AUTO-CACHE](/docs/adr/automation/caching.md)). A pipeline starts without the cache and checks everything;
-    -NoCache does the same on a devbox.
-
-    For each language it announces how many files it checked and changed, and names every changed file. With
-    -PassThru it returns one FormatResult per language; Test-Formatting runs it with -DryRun -PassThru.
-
-    Without -Path it formats the source tree, so it throws in build mode (Assert-SourceTree); with -Path it formats
-    the given files wherever they are (a built module manifest, for one; files outside the repository are never
-    cached).
+    Formatting is configured, not programmed: the file-language registry (Catzc.Base.Languages configs/languages.yml)...
+    [ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md),
+    [ADR-REPO-FORMAT#4](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format4),
+    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment1)
 .PARAMETER Language
-    The file languages to format. Defaults to every language with a formatter. A language that is not declared, or
-    has no formatter, throws.
+    The file languages to format.
+    [comment:2](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment2)
 .PARAMETER Path
     Files or folders to format (a folder: its tracked files). Defaults to every tracked file.
 .PARAMETER DryRun
@@ -124,15 +105,16 @@ function Format-Code {
         $split = Split-CachedFile -File $engineFiles.ToArray() -Cache $cache -Stamp $stamp -RepositoryRoot $root
         $pending = @($split.Pending)
 
-        # Announce before the engine runs: a whole-repository pass takes seconds and prints nothing until it ends
-        # ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)).
+        # Announce before the engine runs: a whole-repository pass takes seconds and prints nothing until it ends.
+        # [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)
+        # [comment:3](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment3)
         $verb = $DryRun ? 'Checking' : 'Formatting'
         Write-Message "$verb $($pending.Count) $(@($engineGroup.Group | ForEach-Object name) -join ', ') file(s) with $engine ($($split.CachedCount) unchanged since their last check)..."
         $changed = @(Invoke-FormatterEngine -Engine $engine -File $pending -DryRun:$DryRun | ForEach-Object { $_ })
         $changedSet = [System.Collections.Generic.HashSet[string]]::new([string[]] $changed, [System.StringComparer]::OrdinalIgnoreCase)
 
-        # A file the engine left formatted is recorded; under -DryRun a file it would still change is not. Writing,
-        # the engine has just formatted every file, so each is recorded under the key of its bytes now.
+        # A file the engine left formatted is recorded; under -DryRun a file it would still change is not.
+        # [comment:4](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment4)
         if ($DryRun) {
             Update-ResultCache -Cache $cache -Key $split.Key -Checked $pending -Flagged $changed
         }

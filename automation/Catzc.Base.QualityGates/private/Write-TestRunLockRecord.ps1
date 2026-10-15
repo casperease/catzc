@@ -2,11 +2,8 @@
 .SYNOPSIS
     Writes the record that names who holds a test-run lock.
 .DESCRIPTION
-    A lock (the working folder's, Enter-TestRunLocation; the user's system-test lock, Enter-SystemTestLock) says only
-    that it is held; the record beside it says by whom, so a run that finds the lock held can name the holder
-    (Get-TestRunLockHolder) instead of guessing. The record carries the holder's pid and process start time (a
-    reused pid is told apart), the entry point, when it started, its run folder and its working folder. The write
-    is atomic — a temp file moved over the record — so a reader never sees half of it.
+    A lock (the working folder's, Enter-TestRunLocation; the user's system-test lock, Enter-SystemTestLock) says only...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestRunLockRecord.ps1.md#comment1)
 .PARAMETER Path
     The record file. Its folder is created when missing.
 .PARAMETER EntryPoint

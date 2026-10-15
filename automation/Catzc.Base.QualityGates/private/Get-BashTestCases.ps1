@@ -2,14 +2,8 @@
 .SYNOPSIS
     Lists the Bash tests a Bash test folder declares, read from its .bats files without running bats.
 .DESCRIPTION
-    The language bridge's discovery for Bash: Pester discovers the bridge's tests before anything runs, so the Bash
-    tests are read from the source text, never from bats — discovery stays fast and offline, and works where bash is
-    missing (the tests then skip). Every *.bats file below the folder counts, except under a folder whose name starts
-    with '.' or '_'. A Bash test is a line `@test "<name>" {` (or with the name in single quotes), as bats declares it.
-
-    Each case carries its package: the file's path inside the folder, '/'-separated (repository.bats, or
-    nested/widget.bats), which pairs it with the BashTestResult Invoke-BashTest returns. The category follows the
-    BashTestResult rule: a name starting with "integrity:" is integrity, everything else logic.
+    The language bridge's discovery for Bash: Pester discovers the bridge's tests before anything runs, so the Bash...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-BashTestCases.ps1.md#comment1)
 .PARAMETER Folder
     The absolute path of the Bash test folder (a Get-LanguageTestFolders Folder).
 .OUTPUTS

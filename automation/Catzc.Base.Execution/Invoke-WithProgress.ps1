@@ -2,26 +2,14 @@
 .SYNOPSIS
     Runs a scriptblock while writing progress dots to the console.
 .DESCRIPTION
-    Wraps a long-running call with a visual heartbeat so the user knows
-    the process is alive. The scriptblock runs on the current thread,
-    preserving module scope and all imported functions, so the dots come
-    from a background ThreadJob that streams to this host (-StreamingHost).
-
-    The dots go through the writer chokepoint like every other console
-    write ([ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)):
-    the job imports the loaded Catzc.Base.Writers
-    module and writes Write-Message '.' -NoHeader -NoNewline — an inline
-    information-stream record, so the scriptblock's return value passes
-    through uncontaminated. The job inherits this session's Pester-run
-    guard, so a test run stays silent there as everywhere else.
-
-    Dots stop and a trailing newline is written when the scriptblock
-    completes — including when it throws.
+    Wraps a long-running call with a visual heartbeat so the user knows the process is alive.
+    [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
+    [comment:1](/docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md#comment1)
 .PARAMETER ScriptBlock
     The work to execute. Runs on the current thread (module scope preserved).
 .PARAMETER Message
     Optional prefix written before the dots (e.g., 'Checking tools').
-    Appears on the same line as the dots.
+    [comment:2](/docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md#comment2)
 .PARAMETER IntervalMs
     Milliseconds between dots. Defaults to 1000.
 .EXAMPLE
@@ -53,9 +41,8 @@ function Invoke-WithProgress {
         Write-Message $Message -NoHeader -NoNewline
     }
 
-    # The dot writer runs in a thread job with its own runspace: it streams to this host, imports the same
-    # Writers module this session loaded, and copies this session's Pester-run guard, so its dots behave
-    # exactly like a Write-Message on this thread.
+    # The dot writer runs in a thread job with its own runspace: it streams to this host, imports the same Writers...
+    # [comment:3](/docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md#comment3)
     $writersPath = (Get-Module Catzc.Base.Writers).Path
     $silenced = [bool](Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore)   # unset outside a test run
     $dotJob = Start-ThreadJob -StreamingHost $Host -ScriptBlock {
@@ -74,7 +61,7 @@ function Invoke-WithProgress {
     }
     finally {
         # Stop and remove without Receive-Job: the dots already streamed, and receiving would replay them.
-        # -Force: Stop-Job can return while a thread job is still Stopping, and a plain Remove-Job throws then.
+        # [comment:4](/docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md#comment4)
         $dotJob | Remove-Job -Force
         Write-Message '' -NoHeader
     }

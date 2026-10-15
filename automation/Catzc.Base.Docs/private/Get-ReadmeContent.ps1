@@ -2,11 +2,9 @@
 .SYNOPSIS
     Composes a generated README: its source article, links rebased to the README's folder, under a line naming the source.
 .DESCRIPTION
-    The one composer behind Build-Readme (the writer) and Test-GeneratedReadmes (the quality gate). The source's relative links
-    are rebased from the source's folder to the README's (MarkdownLinkRebaser), so every link works where the README is
-    opened; a line under the title links back to the source as the one place to edit
-    ([ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)). The line goes after the
-    source's '# ' title when it opens with one, else at the top.
+    The one composer behind Build-Readme (the writer) and Test-GeneratedReadmes (the quality gate).
+    [ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)
+    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-ReadmeContent.ps1.md#comment1)
 .PARAMETER Mapping
     One readme.yml mapping as Get-ReadmeMappings returns it ({ folder; source }, repository-relative).
 .OUTPUTS

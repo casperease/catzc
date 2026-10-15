@@ -1,6 +1,6 @@
-// The result of rewriting one file's ADR references (AdrCitationRewriter.Rewrite): the new text and every change
-// made, in text order. Changed is false exactly when the text is the input unchanged, so a caller writes the file
-// only when it is true ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
+// The result of rewriting one file's ADR references (AdrCitationRewriter.Rewrite): the new text and every change made, in text order.
+// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
+// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationRewrite.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

@@ -2,10 +2,9 @@
 .SYNOPSIS
     Prints the findings of a source check in report mode: every finding, then its count, and never a failure.
 .DESCRIPTION
-    The one way a gate shows a check whose config sets mode: report (Catzc.Base.QualityGates.SourceCheck,
-    [ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4)): the check's findings
-    are its work list, printed with the check's name so a reader can tell them from the gate's issues, and they are
-    never passed to Write-QualityGateReport as issues. Nothing is printed when the check found nothing.
+    The one way a gate shows a check whose config sets mode: report (Catzc.Base.QualityGates.SourceCheck, ): the...
+    [ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-ReportModeFinding.ps1.md#comment1)
 .PARAMETER Check
     The check's name as its config spells it ('string_citations', 'engine_set').
 .PARAMETER Finding

@@ -3,19 +3,11 @@
     Lists the run's test paths — tests folders and language test folders — foundation-first: modules by dependency
     order, infrastructure last.
 .DESCRIPTION
-    Discovers every automation/<dir>/tests folder in a single .NET directory scan — one enumeration instead
-    of two Get-ChildItem passes, with no pipeline/object overhead (and fewer filesystem round trips on
-    network-backed repos, see effective-in-enterprises). A module's Go and Python test folders (<root>/tests/<module
-    in kebab case>/, Get-LanguageTestFolders) belong to that module and follow its tests folder; a module with only
-    such tests is included by them. A test folder that matches no catzc module throws, naming the folder. Module tests
-    come FOUNDATION-FIRST (Get-ModuleTestOrder — a topological sort of the declared dependency graph), so a broken
-    base module's failures surface before the dependents that cascade from it; dot-prefixed infrastructure
-    (.internal, .scriptanalyzer) follows, ordinally. Best-effort on the order: if the graph cannot be sorted (a
-    malformed or cyclic dependencies.yml, which its OWN tests then report), it falls back to the ordinal
-    order so the test run still proceeds rather than the runner crashing on the config it is testing.
+    Discovers every automation/<dir>/tests folder in a single.NET directory scan — one enumeration instead of two...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md#comment1)
 .PARAMETER Modules
-    Narrow to the named automation modules' tests folders and language test folders. Dot-prefixed infrastructure is
-    never a named module, so it is included only in the unfiltered case. Empty (the default) includes everything.
+    Narrow to the named automation modules' tests folders and language test folders.
+    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md#comment2)
 .OUTPUTS
     [string[]] the test paths, foundation-first, infrastructure last. Empty when nothing matches.
 #>
@@ -55,8 +47,8 @@ function Get-TestAutomationTestPaths {
         }
     }
 
-    # The language test folders (Go, then Python), each after its module's tests folder (Get-LanguageTestFolders
-    # throws on an unmatched folder).
+    # The language test folders (Go, then Python), each after its module's tests folder (Get-LanguageTestFolders...
+    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md#comment3)
     foreach ($testFolder in @(Get-LanguageTestFolders)) {
         if ($Modules -and $testFolder.Module -notin $Modules) {
             continue

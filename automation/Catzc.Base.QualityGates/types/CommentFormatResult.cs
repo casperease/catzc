@@ -1,6 +1,6 @@
-// What CommentFormatter.Format decided for one file: the file's new text (null when nothing changes) and every
-// finding, fixed or not. The formatter never writes; the caller does
-// ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
+// What CommentFormatter.Format decided for one file: the file's new text (null when nothing changes) and every finding, fixed or not.
+// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
+// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentFormatResult.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

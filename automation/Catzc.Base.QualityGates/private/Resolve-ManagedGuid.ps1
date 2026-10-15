@@ -2,9 +2,8 @@
 .SYNOPSIS
     Resolves a GUID to its managed-registry entry, or $null when it is unregistered.
 .DESCRIPTION
-    The one comparison source behind Test-ManagedGuid and Assert-ManagedGuid — both route through this
-    lookup, so the bool and the throw can never drift. Comparison is by [guid] value, so any input casing
-    matches the canonical lowercase form the registry stores.
+    The one comparison source behind Test-ManagedGuid and Assert-ManagedGuid — both route through this lookup, so the...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Resolve-ManagedGuid.ps1.md#comment1)
 .OUTPUTS
     [System.Collections.Specialized.OrderedDictionary] @{ name; guid; description } for a registered GUID;
     $null otherwise.

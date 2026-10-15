@@ -2,16 +2,10 @@
 .SYNOPSIS
     Resolves the entry script a test run's workers load, for the location the run executes in.
 .DESCRIPTION
-    The run seam ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)) names the script
-    each worker dot-sources to load the modules: empty for
-    the source importer, the build's Import-Catzc.ps1 for the build run. A snapshot run (Enter-TestRunLocation)
-    must load from the snapshot so that every path a worker resolves — out/, .compiled, git — lands inside it
-    ([ADR-AUTO-NOPWD](/docs/adr/automation/never-depend-on-pwd.md)):
-
-    - in place: the entry passes through unchanged;
-    - snapshot, source run: the snapshot's own importer, without janitors;
-    - snapshot, a run's own entry script: kept (it lives outside the repository), with every repository
-      path among its arguments (the build run's RepositoryRoot) mapped into the snapshot.
+    The run seam names the script each worker dot-sources to load the modules: empty for the source importer, the...
+    [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30),
+    [ADR-AUTO-NOPWD](/docs/adr/automation/never-depend-on-pwd.md)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLocationEntry.ps1.md#comment1)
 .PARAMETER Location
     The location Enter-TestRunLocation returned.
 .PARAMETER EntryScript

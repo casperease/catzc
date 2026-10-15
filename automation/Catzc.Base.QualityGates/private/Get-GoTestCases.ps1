@@ -2,15 +2,8 @@
 .SYNOPSIS
     Lists the Go tests a Go test folder declares, read from its *_test.go files without running go.
 .DESCRIPTION
-    The language bridge's discovery for Go: Pester discovers the bridge's tests before anything runs, so the Go tests are read
-    from the source text, never from the go tool — discovery stays fast and offline, and works where go is missing
-    (the tests then skip). Every *_test.go file below the folder counts, except under the folders go itself
-    ignores (a name starting with '.' or '_', and testdata). A Go test is a top-level `func Test<Name>(t
-    *testing.T)` whose name continues with no lowercase letter, as go test requires.
-
-    Each case carries the import path of its package — the module path <module_root>/<folder> from go.yml, plus
-    the subfolder for a nested package — so it pairs with the GoTestResult Invoke-GoTest returns, and the category
-    by the GoTestResult rule: TestIntegrity* is integrity, everything else logic.
+    The language bridge's discovery for Go: Pester discovers the bridge's tests before anything runs, so the Go tests...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-GoTestCases.ps1.md#comment1)
 .PARAMETER Folder
     The absolute path of the Go test folder (a Get-LanguageTestFolders Folder of language go).
 .OUTPUTS

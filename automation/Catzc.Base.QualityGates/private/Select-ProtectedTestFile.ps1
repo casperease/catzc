@@ -4,12 +4,8 @@
     drops the test files of every unit whose composite identity is
     unchanged since its last green run this session.
 .DESCRIPTION
-    Groups the run's test files by unit (Get-TestFileModule), composes each unit's protection identity
-    (Get-ModuleProtectionIdentity — own set + declared closure + infra + runner, widened for integrity tests
-    and unconstrained modules), and queries the session map. Protected units' files are removed from the
-    returned work-lists; unprotected units are returned as candidates for Protect-TestedModule after a green
-    run. In a pipeline this returns the input unchanged without computing a single identity — CI pays
-    nothing and skips nothing.
+    Groups the run's test files by unit (Get-TestFileModule), composes each unit's protection identity...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Select-ProtectedTestFile.ps1.md#comment1)
 .PARAMETER ParallelFiles
     The parallel-phase test files.
 .PARAMETER GreedyFiles

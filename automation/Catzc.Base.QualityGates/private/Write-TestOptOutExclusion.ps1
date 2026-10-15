@@ -3,10 +3,8 @@
     Prints and records the tests a test run's opt-out tag excluded — the visible half of
     [ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31).
 .DESCRIPTION
-    The build run never drops a test silently: every test it leaves out by its opt-out tag ('source-only') is
-    counted and listed on the console, grouped by file (repository-relative), and written to
-    excluded-tests.csv in the run directory (File, ExpandedPath, Level, Category) beside tests.csv. Nothing to
-    exclude still prints its one-line count, so a reader sees the exclusion was considered.
+    The build run never drops a test silently: every test it leaves out by its opt-out tag ('source-only') is counted...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md#comment1)
 .PARAMETER Tests
     The excluded test rows from Get-TestOptOutExclusion.
 .PARAMETER Tag

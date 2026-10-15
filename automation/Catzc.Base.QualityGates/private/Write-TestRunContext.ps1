@@ -2,16 +2,8 @@
 .SYNOPSIS
     Prints a test run's context block under its banner: one line per fact.
 .DESCRIPTION
-    Renders Get-TestRunContext's record so a reader sees, before any test output, what the run is and where it
-    runs — the entry point and code root, the location and why, the tiers asked for and running (and why they
-    differ), who is running it, which local tools are present, and what is selected:
-
-        entry point  Test-Automation · source run · code root C:\repo\automation
-        location     snapshot (working folder held by Test-Automation, pid 4242)
-        tiers        asked L0-L3 · running L0-L2 — L3 skipped: snapshot location
-        actor        Person
-        tools        git yes · az no · dotnet yes
-        selection    suite infrastructure; modules: Catzc.Azure.Templates
+    Renders Get-TestRunContext's record so a reader sees, before any test output, what the run is and where it runs —...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestRunContext.ps1.md#comment1)
 .PARAMETER Context
     The record Get-TestRunContext returned.
 .EXAMPLE

@@ -1,6 +1,5 @@
-// The outcome of one link-engine run (LinkEngine.Run): every finding in file/line order, the aligned text of each
-// file the aligner would change (repository-relative path -> new text), and how many files were read. The engine
-// does no writing — Format-Links writes Changed, Test-Links reports Findings.
+// The outcome of one link-engine run (LinkEngine.Run): every finding in file/line order, the aligned text of each file the aligner would...
+// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinkEngineResult.cs.md#comment1)
 
 using System.Collections.Generic;
 

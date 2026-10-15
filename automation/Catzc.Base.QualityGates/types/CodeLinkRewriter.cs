@@ -1,13 +1,6 @@
-// Rewrites the ADR references in one comment into canonical code links
-// ([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)):
-//   `[ADR-<CODE>](/docs/adr/<path>.md)`                       a whole ADR
-//   `[ADR-<CODE>#<n>](/docs/adr/<path>.md#rule-adr-<code><n>)` one rule
-// Every legacy spelling is recognised — a bare, ./, ../ or rooted docs/adr path, an ADR file name alone, a bare
-// citation (`ADR-X`, `ADR-X:n`, `ADR-X#n`), a path followed by its own citation, and a markdown link in another shape —
-// and the citation code is the source of truth: the destination is derived from it (AdrCitationMap), so a stale
-// path is re-pointed and a text/destination mismatch resolves in favour of the code.
-// Inline code spans and a PowerShell help block's .EXAMPLE sections are literal and never touched. Pure: it returns
-// the new comment text and reports what it found at comment-relative offsets; the engine owns files and positions.
+// Rewrites the ADR references in one comment into canonical code links: `` a whole ADR `` one rule Every legacy spelling is recognised —...
+// [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3), ADR-X
+// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -26,17 +19,17 @@ public sealed class CodeLinkRewriter
     // One reference in a comment. Alternation order matters: an existing link swallows the citation in its text.
     static readonly Regex Reference = new Regex(
         @"(?<link>\[(?<text>[^\]\r\n]*)\]\((?<dest>[^)\s]+)\))" +
-        // A path or file name starts a word: it follows the comment start, a space, or opening punctuation, never
-        // another character — `<root>/docs/adr/index.md` is a placeholder path, not a reference.
+        // A path or file name starts a word: it follows the comment start, a space, or opening punctuation, never another character —...
+        // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment2)
         @"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?docs/adr/[A-Za-z0-9_\-./]+?\.md)(?<frag>#[A-Za-z0-9_\-]+)?(?![\w/])" +
-        // A citation is not glued to a word; a '-' before it is allowed only as a range dash after a rule number
-        // (`ADR-X:5-ADR-X:8`).
+        // A citation is not glued to a word; a '-' before it is allowed only as a range dash after a rule number (`:5-`).
+        // ADR-X, ADR-X#8 [comment:3](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment3)
         @"|(?<cite>(?<!\w)(?<!(?:^|\D)-)(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:(?<sep>[:#])(?<rule>\d+))?(?(rule)(?!\d)|(?![\w*]|-[A-Z*<])))" +
         @"|(?<slug>(?<![^\s(\[{,;:'""*])(?<name>[a-z0-9]+(?:-[a-z0-9]+)*)\.md(?![\w/]))",
         RegexOptions.Compiled);
 
     // A citation, alone — the whole text of a link, or the citation right after a path.
-    // A docs link's text: the comment number it stands for.
+    // [comment:4](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment4)
     static readonly Regex DocsLinkText = new Regex(@"^comment:(?<number>\d+)$", RegexOptions.Compiled);
     static readonly Regex CitationOnly = new Regex(@"^(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:[:#](?<rule>\d+))?$", RegexOptions.Compiled);
     static readonly Regex AdjacentCitation = new Regex(
@@ -72,8 +65,8 @@ public sealed class CodeLinkRewriter
         }
     }
 
-    // Rewrites one comment. tolerateUnknownCodes (test files) skips citations of unregistered codes — test comments
-    // name fixture ADRs on purpose. Returns the new comment text; hits and the inserted link texts are appended.
+    // Rewrites one comment.
+    // [comment:5](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment5)
     public string Rewrite(string comment, bool tolerateUnknownCodes, List<Hit> hits, List<string> inserted)
     {
         if (string.IsNullOrEmpty(comment)) { return comment; }
@@ -178,9 +171,8 @@ public sealed class CodeLinkRewriter
         return output.ToString();
     }
 
-    // The citation right after a path — `x.md (ADR-X:3)`, `x.md, Rule ADR-X:3`, `x.md — ADR-X` — merges into the
-    // path's link. Returns how many characters it covers (0 when there is none); a ')' is taken only when the
-    // separator opened it.
+    // The citation right after a path — `x.md`, `x.md, Rule `, `x.md — ` — merges into the path's link.
+    // ADR-X#3, ADR-X [comment:6](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment6)
     int Adjacent(string comment, int at, bool[] literal, out string code, out int? rule)
     {
         code = null;
@@ -198,10 +190,8 @@ public sealed class CodeLinkRewriter
         return closed && !opened ? adjacent.Length - 1 : adjacent.Length;
     }
 
-    // A bracketed link right after a bare citation that names the same ADR or rule — `ADR-X#3 ([x](/docs/adr/x.md#rule-adr-x3))`,
-    // the link perhaps on the next line — is the same reference spelled twice. It merges into the citation's one
-    // canonical link instead of becoming a second copy of it. Returns how many characters it covers (0 when there is
-    // none, or when the link points elsewhere).
+    // A bracketed link right after a bare citation that names the same ADR or rule — ``, the link perhaps on the next line — is the same...
+    // ADR-X#3 [comment:7](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment7)
     int RepeatedLink(string comment, int at, bool[] literal, string canonical)
     {
         if (at >= comment.Length) { return 0; }
@@ -385,10 +375,9 @@ public sealed class CodeLinkRewriter
         return "[" + Path.GetFileNameWithoutExtension(repoPath) + "](/" + repoPath + (fragment ?? string.Empty) + ")";
     }
 
-    // A docs link `[comment:N](/docs/<page>.md#commentN)` points from a file to the one section of its comment page
-    // that holds the comment it replaced
-    // ([ADR-REPO-LINK#9](/docs/adr/repository/markdown-links.md#rule-adr-repo-link9)). It has one spelling, so it is
-    // checked, never rewritten: repository-rooted under /docs/, its page exists, and its anchor is its own number's.
+    // A docs link `` points from a file to the one section of its comment page that holds the comment it replaced.
+    // [ADR-REPO-LINK#9](/docs/adr/repository/markdown-links.md#rule-adr-repo-link9)
+    // [comment:8](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment8)
     void CheckDocsLink(string number, string pathPart, string fragment, out LinkFindingType problemType, out string problem)
     {
         problemType = LinkFindingType.Dangling;

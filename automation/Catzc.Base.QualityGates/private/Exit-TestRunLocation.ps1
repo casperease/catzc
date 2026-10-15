@@ -2,11 +2,8 @@
 .SYNOPSIS
     Releases a test run's location claimed by Enter-TestRunLocation.
 .DESCRIPTION
-    In place: for each lock the location holds — the user's system-test lock (Enter-SystemTestLock), then the
-    working folder's — deletes the lock record this run wrote (only while it is still ours), then releases and
-    disposes the mutex — record first, so the next holder's record is never deleted. Snapshot: removes the
-    snapshot (Remove-RepositorySnapshot), unless the location's KeepSandbox keeps it for a post-mortem, in
-    which case its path is announced. A worker's lock-free in-place location releases nothing.
+    In place: for each lock the location holds — the user's system-test lock (Enter-SystemTestLock), then the working...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md#comment1)
 .PARAMETER Location
     The location Enter-TestRunLocation returned.
 .OUTPUTS
@@ -49,10 +46,9 @@ function Exit-TestRunLocation {
     }
 
     if ($Location.Snapshot) {
-        # Hand the snapshot's result caches home before it goes: the checks this run made in the snapshot are as
-        # valid for the working folder as for the snapshot, since each entry is keyed on a file's content and the
-        # check's inputs ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)). Save-ResultCache
-        # merges them with what the working folder's cache holds.
+        # Hand the snapshot's result caches home before it goes: the checks this run made in the snapshot are as...
+        # [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md#comment2)
         $snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'
         if ([System.IO.Directory]::Exists($snapshotCache)) {
             foreach ($file in [System.IO.Directory]::GetFiles($snapshotCache, '*.json')) {

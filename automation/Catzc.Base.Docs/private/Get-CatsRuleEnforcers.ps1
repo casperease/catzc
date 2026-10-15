@@ -3,21 +3,10 @@
     Maps each ADR rule citation to what mechanically enforces it — analyzer rules and tagged tests — for
     Show-Cats.
 .DESCRIPTION
-    Returns a hashtable keyed by rule citation in the '#' form (e.g. 'ADR-AUTO-NOPWD#1'), each value an object with
-    two sorted sets: Analyzers (the PSScriptAnalyzer rules mapped to it in analyzer-adr-map.yml) and Tests (the
-    repo-relative test files that cite it). Both sources run inside Test-Automation, so together they are what
-    the rule-coverage report counts — this is the interactive, offline view of the same fact.
-
-    The test citations are read by PARSING each test file's AST and taking only the `-Tag` arguments of
-    Describe/Context/It — never a text scan, which would false-match a citation-shaped string in a fixture or
-    an assertion. The analyzer map is read through Get-Config (a global config read; owned by the QualityGates
-    module but reachable from anywhere —
-    [ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6) — so no module
-    dependency on it is taken). A pure
-    function of the files on disk, memoized for the session (re-run the importer to refresh). It reads the
-    source tree's tests, so it runs in source mode only (Assert-SourceTree).
-
-    Private helper for Show-Cats; not exported.
+    Returns a hashtable keyed by rule citation in the '#' form (e.g.
+    [ADR-AUTO-NOPWD#1](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1),
+    [ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6)
+    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md#comment1)
 .OUTPUTS
     [hashtable] citation ('#' form) -> [pscustomobject]{ Analyzers; Tests } (both sorted sets, possibly empty).
 #>
@@ -30,7 +19,8 @@ function Get-CatsRuleEnforcers {
     Assert-SourceTree
 
     # strict-clean
-    # ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+    # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
+    # [comment:2](/docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md#comment2)
     $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:catsRuleEnforcersCache')
     if ($null -ne $cached) {
         return $cached
@@ -56,8 +46,8 @@ function Get-CatsRuleEnforcers {
         }
     }
 
-    # Test enforcers — the `-Tag` citations of Describe/Context/It, read by AST so a citation-shaped fixture
-    # string is never mistaken for a real tag.
+    # Test enforcers — the `-Tag` citations of Describe/Context/It, read by AST so a citation-shaped fixture string...
+    # [comment:3](/docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md#comment3)
     $isCommand = { param($node) $node -is [System.Management.Automation.Language.CommandAst] }
     $isString = { param($node) $node -is [System.Management.Automation.Language.StringConstantExpressionAst] }
     $automationRoot = Resolve-RepoPath 'automation'

@@ -2,8 +2,8 @@
 .SYNOPSIS
     Answers whether a GUID is registered in the managed-GUID registry (configs/guids.yml).
 .DESCRIPTION
-    The boolean counterpart of Assert-ManagedGuid; both share one lookup (Resolve-ManagedGuid), so they
-    can never disagree. Comparison is case-insensitive by [guid] value.
+    The boolean counterpart of Assert-ManagedGuid; both share one lookup (Resolve-ManagedGuid), so they can never...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ManagedGuid.ps1.md#comment1)
 .PARAMETER Guid
     The GUID to check.
 .OUTPUTS

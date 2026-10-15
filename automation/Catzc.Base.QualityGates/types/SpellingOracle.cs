@@ -5,28 +5,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-/// <summary>
-/// The word oracle behind the spell-out-names analyzer rule (Measure-SpellOutIdentifiers), backing
-/// [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md). It answers one question fast: given an identifier, which of its
-/// word fragments are neither a real English word nor approved repository vocabulary — i.e. invented local
-/// abbreviations that must be spelled out.
-///
-/// The dictionary is a single HashSet loaded once per process from the committed english.txt.gz (flattened
-/// from cspell's own dictionaries by Build-EnglishDictionary) plus every generated .cspell/*.txt term list
-/// (the product vocabulary and the conventional-abbreviation allow-list, from terminology.yml). Both the load
-/// and the per-fragment lookup are here in C# rather than PowerShell on purpose: a PowerShell method call
-/// costs ~10 microseconds, so tokenizing and looking up thousands of fragments per file in PowerShell would
-/// dominate the analyzer's runtime, whereas the same work in C# is microseconds
-/// ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9) — a concept the
-/// platform's own logic operates on becomes a native type).
-///
-/// The rule decides WHICH identifiers to feed and applies AST-level exemptions (automatic variables, drive
-/// scopes); this type is deliberately dumb and fast — it only tokenizes and looks up.
-/// </summary>
+/// <summary> The word oracle behind the spell-out-names analyzer rule (Measure-SpellOutIdentifiers), backing.
+/// [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
+/// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
+/// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment1)
 public static class SpellingOracle
 {
-    // Fragments shorter than this are never flagged: single letters are loop indices / type variables
-    // ([ADR-AUTO-SPELL#2](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell2)), which the ADR exempts.
+    // Fragments shorter than this are never flagged: single letters are loop indices / type variables, which the ADR exempts.
+    // [ADR-AUTO-SPELL#2](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell2)
+    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment2)
     public const int MinFragmentLength = 2;
 
     private static readonly object Gate = new object();
@@ -37,14 +24,9 @@ public static class SpellingOracle
 
     public static int WordCount => _words?.Count ?? 0;
 
-    /// <summary>
-    /// Load the oracle once: the gzip-compressed English list plus every plain-text term list. Idempotent — a
-    /// second call is a no-op, so each analyzer shard pays the load once. Fixture terms are kept SEPARATE
-    /// ([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)): they are accepted only when
-    /// CoinedFragments is called with includeFixtures — i.e. for a test
-    /// file — so a fixture token cannot bless a real identifier in production code. Term-list lines starting
-    /// with '#' (the generated-file header) and blank lines are skipped; every other token is added lower-cased.
-    /// </summary>
+    /// <summary> Load the oracle once: the gzip-compressed English list plus every plain-text term list.
+    /// [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)
+    /// [comment:3](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment3)
     public static void Initialize(string englishGzPath, IEnumerable<string> termListPaths, IEnumerable<string> fixtureListPaths)
     {
         if (_words != null)
@@ -111,13 +93,9 @@ public static class SpellingOracle
         return _words.Contains(fragment);
     }
 
-    /// <summary>
-    /// Split an identifier into word fragments and return those (length >= MinFragmentLength) that are not in
-    /// the dictionary — the invented abbreviations to spell out. Returns an empty array for a fully
-    /// spelled-out identifier. Fixture terms count as known only when <paramref name="includeFixtures"/> is set
-    /// (the caller passes true only for a test file), so a fixture token never blesses a production identifier
-    /// ([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)).
-    /// </summary>
+    /// <summary> Split an identifier into word fragments and return those (length >= MinFragmentLength) that are not in the dictionary —...
+    /// [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)
+    /// [comment:4](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment4)
     public static string[] CoinedFragments(string identifier, bool includeFixtures)
     {
         EnsureLoaded();
@@ -146,18 +124,16 @@ public static class SpellingOracle
         return coined.ToArray();
     }
 
-    /// <summary>Production-scope overload: fixture terms are not accepted
-    /// ([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)).</summary>
+    /// <summary>Production-scope overload: fixture terms are not accepted.</summary>
+    /// [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)
+    /// [comment:5](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment5)
     public static string[] CoinedFragments(string identifier)
     {
         return CoinedFragments(identifier, false);
     }
 
-    /// <summary>
-    /// Split on non-letters (snake_case underscores, digits) and case boundaries: a camelCase hump
-    /// (rule|Collection) and an acronym-to-word seam (HTTP|Server, IO|Stream). Each fragment is returned
-    /// lower-cased; non-letter runs are separators and are dropped, so numeric suffixes never form fragments.
-    /// </summary>
+    /// <summary> Split on non-letters (snake_case underscores, digits) and case boundaries: a camelCase hump (rule|Collection) and an...
+    /// [comment:6](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment6)
     public static IEnumerable<string> Tokenize(string identifier)
     {
         var builder = new StringBuilder();

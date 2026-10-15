@@ -1,14 +1,7 @@
-// Finds the comment spans of a source file — the only places a code link lives
-// ([ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1)) — per language
-// family, by file extension:
-//   PowerShell (.ps1 .psm1 .psd1)   the real PowerShell tokenizer's Comment tokens (line comments and <# #> blocks)
-//   C family   (.cs .bicep)         // and /* */ (/// included), skipping string, verbatim, raw, and char literals
-//   Hash       (.yml .yaml)         # at line start or after whitespace, outside quoted scalars and block scalars
-//   XML        (.csproj .props .targets)  <!-- -->
-// It also returns the string-literal spans, which hold docs paths and citations as data
-// ([ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6)): PowerShell's string tokens, C#'s
-// and Bicep's string literals (regular, verbatim, interpolated, raw), and a YAML line's text outside its comment.
-// Spans are (Start, Length) offsets into the text, in document order.
+// Finds the comment spans of a source file — the only places a code link lives — per language family, by file extension: PowerShell...
+// [ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1),
+// [ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6)
+// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -46,9 +39,8 @@ public static class CommentLexer
     public static IReadOnlyList<(int Start, int Length)> PowerShellStrings(string text) =>
         string.IsNullOrEmpty(text) ? Array.Empty<(int, int)>() : PowerShellSpans(text, wantComments: false);
 
-    // The string-literal spans of any code file, quotes included: PowerShell's string tokens, the C family's
-    // literals, and each YAML line's non-blank text outside its comment (a YAML value is data however it is quoted).
-    // Empty for XML, whose text is not code.
+    // The string-literal spans of any code file, quotes included: PowerShell's string tokens, the C family's literals, and each YAML...
+    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md#comment2)
     public static IReadOnlyList<(int Start, int Length)> Strings(string text, string extension)
     {
         if (string.IsNullOrEmpty(text)) { return Array.Empty<(int, int)>(); }
@@ -74,8 +66,8 @@ public static class CommentLexer
         return spans;
     }
 
-    // The C family's comment spans (wantComments) or string-literal spans (otherwise), from one scan that skips each
-    // kind while it looks for the other.
+    // The C family's comment spans (wantComments) or string-literal spans (otherwise), from one scan that skips each kind while it looks...
+    // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md#comment3)
     static IReadOnlyList<(int, int)> CFamily(string text, string extension, bool wantComments)
     {
         bool isCSharp = string.Equals(extension, ".cs", StringComparison.OrdinalIgnoreCase);
@@ -282,8 +274,8 @@ public static class CommentLexer
         return spans;
     }
 
-    // The comment family's line marker for a span, used to continue a wrapped line comment: '///', '//', '#',
-    // or null for a block comment (<# #>, /* */, <!-- -->), whose continuation is plain indentation.
+    // The comment family's line marker for a span, used to continue a wrapped line comment: '///', '//', '#', or null for a block...
+    // [comment:4](/docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md#comment4)
     public static string LineMarker(string comment)
     {
         if (comment.StartsWith("<#", StringComparison.Ordinal) || comment.StartsWith("/*", StringComparison.Ordinal) || comment.StartsWith("<!--", StringComparison.Ordinal))

@@ -2,10 +2,8 @@
 .SYNOPSIS
     Renders the over-limit timing section of a Test-Automation run and returns whether it fails the run.
 .DESCRIPTION
-    Validates the run's rows against the per-level time limits (Get-TestTimingViolation owns the per-row
-    check) and, when any test is over, writes the framed report — red and run-failing under
-    -EnforceTimings, yellow and report-only otherwise (timings are machine-dependent, so enforcement is
-    the caller's opt-in). Silent when nothing is over.
+    Validates the run's rows against the per-level time limits (Get-TestTimingViolation owns the per-row check) and,...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationTimingReport.ps1.md#comment1)
 .PARAMETER Rows
     The run's aggregated per-test rows.
 .PARAMETER Limits

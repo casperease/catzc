@@ -2,13 +2,9 @@
 .SYNOPSIS
     Wraps one paragraph or list item of generated markdown at the 140-column prose width, the way Prettier fills it.
 .DESCRIPTION
-    Greedy fill — each line takes as many words as fit in Width columns, prefix included — which is what Prettier's
-    `proseWrap: always` produces, so generated markdown (the ADR index, the glossary, the contract reference) is
-    formatter-stable ([ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)). The first
-    line carries FirstPrefix (a list marker such as '- '), every later line ContinuationPrefix (the marker's indent).
-
-    Prettier never breaks inside an inline code span or a link, so a `code span` and a [text](target) link each count
-    as part of one unbreakable word, spaces included. A word longer than the width stays whole on its own line.
+    Greedy fill — each line takes as many words as fit in Width columns, prefix included — which is what Prettier's...
+    [ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)
+    [comment:1](/docs/references/automation/catzc-base-docs/Format-MarkdownParagraph.ps1.md#comment1)
 .PARAMETER Text
     The paragraph text; runs of whitespace outside code spans and links collapse to one space.
 .PARAMETER FirstPrefix

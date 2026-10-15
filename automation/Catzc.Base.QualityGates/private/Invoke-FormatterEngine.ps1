@@ -2,10 +2,9 @@
 .SYNOPSIS
     Runs one formatter engine over the given files and returns the files it changed.
 .DESCRIPTION
-    The one place an engine name from languages.yml becomes code: each engine LanguagesConfig.FormatterEngines declares
-    has exactly one adapter here, and every adapter takes the same -File and -DryRun and returns the changed files
-    ([ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)). A language is never
-    named here — which language uses which engine is configuration.
+    The one place an engine name from languages.yml becomes code: each engine LanguagesConfig.FormatterEngines...
+    [ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-FormatterEngine.ps1.md#comment1)
 .PARAMETER Engine
     The engine name, as languages.yml spells it.
 .PARAMETER File

@@ -2,38 +2,22 @@
 .SYNOPSIS
     Runs a build run: the same tests as Test-Automation, against a fresh build of the selected modules.
 .DESCRIPTION
-    The second of the two test runs over one body of tests
-    ([ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30),
-    [ADR-DSGN-RUNMODE#6](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode6)). It builds the
-    selected modules with Build-Modules (vendor policy 'full', so Pester and PSScriptAnalyzer ship with the build)
-    into a fresh temporary destination, then runs the Test-Automation harness unchanged in shape — discovery,
-    the tier/category tag checks, sharding, rows, reports — with one seam swapped: each shard worker dot-sources
-    the build's Import-Catzc.ps1 -RepositoryRoot <repo> instead of the repository importer, so every test runs
-    against the merged, built modules while out/ and the test fixtures keep resolving in the repository.
-
-    Test files come from the source tree, limited to the tests/ folders of the modules the selection resolves to
-    (the dependency closure Build-Modules computes). Tests tagged 'source-only'
-    ([ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)) are excluded
-    and counted and listed — on the console and in excluded-tests.csv in the run directory — never silently.
-    Reports go to <out>/test-catzc-build/, so the two test runs' reports never overwrite each other. The build is
-    deleted when the run ends.
-
-    The harness's own module is always built too (each worker reaches its configuration builder and row reducer
-    through that module's scope), but its tests run only when the selection includes it.
-
-    Test-CatzcBuild operates on the source tree — it builds from it and reads its tests — so it runs in source
-    mode only (Assert-SourceTree).
+    The second of the two test runs over one body of tests.
+    [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30),
+    [ADR-DSGN-RUNMODE#6](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode6),
+    [ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md#comment1)
 .PARAMETER Module
-    Modules to build and test (combinable with -ModuleProfile; closure-expanded by Build-Modules). Neither ->
-    the default bundle's profile (exporter.yml default_bundle).
+    Modules to build and test (combinable with -ModuleProfile; closure-expanded by Build-Modules).
+    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md#comment2)
 .PARAMETER ModuleProfile
     A module profile (profiles.yml) to build and test.
 .PARAMETER MinLevel
     Minimum test tier. Defaults to 0.
 .PARAMETER MaxLevel
-    Maximum test tier (alias: -Level). Defaults to 3, as in Test-Automation: L0-L3 when the run owns the
-    working folder, L0-L2 in a snapshot, which skips L3 and says so
-    ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)). 4 adds the opt-in L4 tier.
+    Maximum test tier (alias: -Level).
+    [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)
+    [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md#comment3)
 .PARAMETER Category
     Logic, Integrity, or Both (the default) — as in Test-Automation.
 .PARAMETER Workers
@@ -41,8 +25,8 @@
 .PARAMETER Output
     Pester output verbosity inside each worker. Defaults to 'Detailed'.
 .PARAMETER PassThru
-    Returns the run summary object (as Test-Automation's, plus ExcludedTests — the 'source-only' rows — and
-    Build — the Build-Modules result).
+    Returns the run summary object (as Test-Automation's, plus ExcludedTests — the 'source-only' rows — and Build —...
+    [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md#comment4)
 .EXAMPLE
     Test-CatzcBuild
 .EXAMPLE
@@ -99,10 +83,8 @@ function Test-CatzcBuild {
         throw 'Build-Modules resolved the selection to no modules — nothing to build or test.'
     }
 
-    # The harness's own module rides in every build: workers reach its configuration builder and row reducer
-    # through its module scope. Its tests still run only when the selection includes it.
-    # The build names the resolved modules explicitly (closure-expanded again, so the harness's dependencies
-    # come along).
+    # The harness's own module rides in every build: workers reach its configuration builder and row reducer through...
+    # [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md#comment5)
     $harnessModule = $MyInvocation.MyCommand.Module.Name
     $buildSelection = $selection
     if ($harnessModule -notin $testedModules) {

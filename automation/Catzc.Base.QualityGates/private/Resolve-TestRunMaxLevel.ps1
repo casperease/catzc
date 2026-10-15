@@ -2,31 +2,19 @@
 .SYNOPSIS
     Resolves the highest tier a test run executes, from the location it runs in.
 .DESCRIPTION
-    L3 holds the vertical system tests: they change or depend on state outside the repository — the cloud, the
-    user's environment, installed tools
-    ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)). A snapshot isolates a run from
-    the working folder,
-    never from that outside state, so only the run that owns the working folder (the in-place location) runs L3 —
-    and since that state belongs to the user, not to one checkout, only while it also holds the user's
-    system-test lock (Enter-SystemTestLock). Two concurrent runs — from one checkout or from two — never both
-    execute system tests against the same user's state, and nobody waits.
-
-    In place with the system-test lock, the requested level stands (both runs ask for 3 unless the caller bound
-    a lower -MaxLevel). Otherwise — in a snapshot, or in place while another run on this account holds the
-    system-test lock — a request that reaches L3 is capped at L2, and the cap is announced: the run says it
-    skips L3 and who holds the working folder or the lock, so a missing tier is never silent
-    ([ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)).
-    L4, the opt-in tier that tests the released system after final approval
-    ([ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)), runs only when asked for, and
-    where L3 runs: a run capped at L2 skips L4 too, and says so.
+    L3 holds the vertical system tests: they change or depend on state outside the repository — the cloud, the user's...
+    [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33),
+    [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10),
+    [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md#comment1)
 .PARAMETER Location
     The location Enter-TestRunLocation returned.
 .PARAMETER Requested
-    The highest tier the caller asks for. Default 3 (TestTiers.DefaultTop): every tier the location allows, L4
-    excluded; 4 includes L4.
+    The highest tier the caller asks for.
+    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md#comment2)
 .PARAMETER MinLevel
-    The lowest tier the caller asks for. A run that asks only for tiers its location skips (L3 in a snapshot, or
-    without the system-test lock) has nothing to run, so it throws, naming why.
+    The lowest tier the caller asks for.
+    [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md#comment3)
 .OUTPUTS
     [int] the highest tier to run.
 .EXAMPLE

@@ -2,25 +2,16 @@
 .SYNOPSIS
     Quality gate: every guid in tracked text is registered in guids.yml, none is denied, and every entry is live.
 .DESCRIPTION
-    A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over the managed
-    guids ([ADR-AUTO-GUIDS](/docs/adr/automation/managed-guids.md)): it scans the tracked text (Get-RepositoryGuids over
-    Get-GuidScanFiles) against the registry (configs/guids.yml) and collects an issue for:
-
-      - a scanned file, or the registry itself, outside the 'repository' globset — the protection identity of the
-        scan must cover everything it reads
-        ([ADR-REPO-PROTGLOB#6](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob6));
-      - a denied guid (guids.yml `denied:`) in tracked text — never a legitimate identity; construct it at runtime
-        (e.g. [guid]::Empty) instead;
-      - an unregistered guid in tracked text — mint a readable placeholder with ConvertTo-Guid, or remove it;
-      - a registry entry no tracked file references — dead vocabulary to remove.
-
-    The value checks over one guid stay Test-ManagedGuid / Assert-ManagedGuid; this gate is the repository-wide check.
-    It reads the tracked files, which exist only in the source tree (Get-GuidScanFiles).
+    A quality gate over the managed guids: it scans the tracked text (Get-RepositoryGuids over Get-GuidScanFiles)...
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
+    [ADR-AUTO-GUIDS](/docs/adr/automation/managed-guids.md),
+    [ADR-REPO-PROTGLOB#6](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob6)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ManagedGuids.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-managed-guids/ (Write-QualityGateReport).
 .PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; Registered; Occurrences }) instead of throwing on
-    issues.
+    Return the result ({ Subject; IssueCount; Issues; ReportPath; Registered; Occurrences }) instead of throwing on...
+    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-ManagedGuids.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.
 .EXAMPLE

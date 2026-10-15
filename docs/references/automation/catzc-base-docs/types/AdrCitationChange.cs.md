@@ -1,0 +1,16 @@
+# docs/references/automation/catzc-base-docs/types/AdrCitationChange.cs.md
+
+`automation/Catzc.Base.Docs/types/AdrCitationChange.cs`
+
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
+
+## comment:1
+
+Above `using System;`.
+
+```text
+One ADR reference Update-AdrCitation rewrote in a file: where it is (repository-relative path and 1-based line),
+which form it is, and the text before and after. An Unhandled change carries no New text: the reference is left as
+written for a person to resolve ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
+```

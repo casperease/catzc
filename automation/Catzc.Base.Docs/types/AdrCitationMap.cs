@@ -1,9 +1,6 @@
-// The ADR citation registry as one immutable lookup: each citation code (ADR-<CODE>) to its ADR's
-// repository-relative path and declared rule numbers, plus the reverse path -> code map and a unique-slug
-// -> path map. Built from the ADR index (Get-AdrCitationMap) and read by the link engine, which derives every
-// code link's destination from the citation code
-// ([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)): the code is the source of truth, so a
-// moved ADR re-points every link to it.
+// The ADR citation registry as one immutable lookup: each citation code (ADR-<CODE>) to its ADR's repository-relative path and declared...
+// [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)
+// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -28,9 +25,8 @@ public sealed class AdrCitationMap
     // Every registered citation code, ordinally sorted.
     public IReadOnlyList<string> Codes { get; }
 
-    // entries: code -> { path = '<repo-relative, /-separated .md path>'; rules = <int[]> }.
-    // documents: every ADR-folder markdown path (repo-relative), including the code-less ones (index, dora-explains),
-    // so a slug or stale path can be resolved against the files that actually exist.
+    // entries: code -> { path = '<repo-relative, /-separated.md path>'; rules = <int[]> }.
+    // [comment:2](/docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md#comment2)
     public AdrCitationMap(IDictionary entries, IEnumerable documents)
     {
         if (entries == null) { throw new ArgumentNullException(nameof(entries)); }
@@ -56,9 +52,9 @@ public sealed class AdrCitationMap
             }
             rulesByCode[code] = rules;
 
-            // Every hyphen-prefix of a code (ADR-AUTO for
-            // [ADR-PWSH-ERROR](/docs/adr/pwsh/error-handling.md)) names its domain; a domain code or a
-            // domain wildcard (ADR-PRIN-*) is a valid mention, not an unknown ADR.
+            // Every hyphen-prefix of a code ( for ) names its domain; a domain code or a domain wildcard (ADR-PRIN-*) is a valid...
+            // ADR-AUTO, [ADR-PWSH-ERROR](/docs/adr/pwsh/error-handling.md)
+            // [comment:3](/docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md#comment3)
             int dash = code.IndexOf('-', 4);
             while (dash > 0)
             {

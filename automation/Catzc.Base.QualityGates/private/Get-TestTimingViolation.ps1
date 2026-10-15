@@ -2,10 +2,8 @@
 .SYNOPSIS
     Lists every passed test that exceeded its level's time limit, as report lines.
 .DESCRIPTION
-    Validates the aggregated per-test rows against the per-level duration limits (`tests.level_ms` in
-    timeouts.yml, Get-TestTimeLimits; by default L0 < 400ms, L1 < 2s, L2 < 30s, L3 < 120s). Only passed tests are checked — a failed test's duration is noise — and a row with
-    no resolved tier is skipped (the tag check already reported it). Test-Automation reports the lines and
-    fails the run only under -EnforceTimings.
+    Validates the aggregated per-test rows against the per-level duration limits (`tests.level_ms` in timeouts.yml,...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestTimingViolation.ps1.md#comment1)
 .PARAMETER Rows
     The run's aggregated per-test rows.
 .PARAMETER Limits

@@ -1,11 +1,8 @@
-// A glossary source's parameters (the optional configs/glossary.yml `options:` mapping), with every key defaulted:
-// a source overrides only what differs ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)). `checks`
-// picks which glossary checks the source's concepts take part in; `scope` and `exclude` bound where its avoided phrasings are scanned; `surfaces` picks which kinds of text
-// are read there. The default excludes (external language, generated output, vendored code) are ALWAYS added to a
-// source's own, so no source can scan DORA's research text or out/. Scope and exclude globs are repo-relative
-// ('/'-separated, no leading '/', no drive, no '..', never a URL —
-// [ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3)). Mirrors the YAML mapping
-// (snake_case keys, [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+// A glossary source's parameters (the optional configs/glossary.yml `options:` mapping), with every key defaulted: a source overrides...
+// [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2),
+// [ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3),
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryOptions.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -78,8 +75,8 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
         if (errors.Count > 0) { throw new ArgumentException(string.Join("; ", errors)); }
     }
 
-    // A list option restricted to a closed set; absent -> the whole set. An explicit empty list is allowed (a source
-    // that opts out of every check still gets the structural check).
+    // A list option restricted to a closed set; absent -> the whole set.
+    // [comment:2](/docs/references/automation/catzc-base-docs/types/GlossaryOptions.cs.md#comment2)
     private static IReadOnlyList<string> ClosedList(IDictionary d, string key, IReadOnlyList<string> allowed, List<string> errors)
     {
         if (d == null || !d.Contains(key)) { return allowed; }

@@ -2,17 +2,10 @@
 .SYNOPSIS
     Builds the ADR citation map: every citation code to its ADR's path and declared rule numbers.
 .DESCRIPTION
-    Reads the rule-citation registry in `<root>/docs/adr/index.md` (Get-CatsAdrIndex) and each listed ADR's
-    `### Rule <CODE>:<n>` headings (Get-CatsAdrRules), and returns one immutable
-    [Catzc.Base.Docs.AdrCitationMap]: code -> repository-relative ADR path and rule numbers, the reverse
-    path -> code map, and a unique-slug -> path map over every markdown file under docs/adr/ (so a stale path
-    to a moved ADR resolves by its file name). The link engine derives every code link's destination from it
-    ([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)).
-
-    A pure function of the files on disk, memoized per resolved repository root for the session (re-run the
-    importer to refresh — see
-    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)); a test passes a fixture root, so the fixture
-    map and the real one never collide.
+    Reads the rule-citation registry in `<root>/docs/adr/index.md` (Get-CatsAdrIndex) and each listed ADR's `### Rule...
+    [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3),
+    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)
+    [comment:1](/docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root whose [index](/docs/adr/index.md) is read. Defaults to the loaded repository root.
 .OUTPUTS
@@ -30,7 +23,8 @@ function Get-AdrCitationMap {
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:adrCitationMapCache')) {
         # strict-clean probe of the lazy cache entry
-        # ([ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4))
+        # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
+        # [comment:2](/docs/references/automation/catzc-base-docs/Get-AdrCitationMap.ps1.md#comment2)
         $script:adrCitationMapCache = @{}
     }
     if ($script:adrCitationMapCache.ContainsKey($root)) {

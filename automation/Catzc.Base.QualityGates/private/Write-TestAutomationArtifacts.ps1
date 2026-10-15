@@ -2,11 +2,8 @@
 .SYNOPSIS
     Writes a run's report artifacts and the skip report — best-effort, never masking the run outcome.
 .DESCRIPTION
-    Persists summary.md + tests.csv beside the per-shard results (Write-TestAutomationReport), points
-    latest.txt at the run, renders the end-of-run skip report (Write-TestAutomationSkipReport), and writes the
-    ADR rule-enforcement coverage (Write-TestAutomationRuleCoverage — rule-coverage.md/.csv). Each part is
-    try/catch-guarded independently: a rendering error is reported as a yellow line and swallowed, so a failing
-    run still throws for its own reason, not a reporting one.
+    Persists summary.md + tests.csv beside the per-shard results (Write-TestAutomationReport), points latest.txt at...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md#comment1)
 .PARAMETER Rows
     The run's aggregated per-test rows.
 .PARAMETER RunDirectory
@@ -65,8 +62,8 @@ function Write-TestAutomationArtifacts {
         [string] $Location
     )
 
-    # Persist the run report (summary.md + tests.csv) beside the per-shard results — written before any
-    # throw, so a failing run still produces it.
+    # Persist the run report (summary.md + tests.csv) beside the per-shard results — written before any throw, so a...
+    # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md#comment2)
     try {
         Write-TestAutomationReport -Rows $Rows -OutputFolder $RunDirectory -Level $MaxLevel -Limits $Limits `
             -RunResult $RunResult -DurationSeconds $DurationSeconds -TimingsEnforced:$EnforceTimings -Location $Location
@@ -76,8 +73,8 @@ function Write-TestAutomationArtifacts {
         Write-Message "Could not write test report to ${RunDirectory}: $_" -ForegroundColor Yellow -NoHeader
     }
 
-    # Final section: what was skipped (a self-skip, with its reason) or not run (excluded by this run's
-    # tier/category scope).
+    # Final section: what was skipped (a self-skip, with its reason) or not run (excluded by this run's tier/category...
+    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md#comment3)
     try {
         Write-TestAutomationSkipReport -Rows $Rows -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category
     }
@@ -85,9 +82,8 @@ function Write-TestAutomationArtifacts {
         Write-Message "Could not render the skip report: $_" -ForegroundColor Yellow -NoHeader
     }
 
-    # ADR rule-enforcement coverage — report-only, same best-effort discipline. Unions the tagged-test
-    # enforcers (each row's Rules column) with the analyzer-rule enforcers (Get-AnalyzerAdrCoverage) over the
-    # full rule universe. Plain assignment receives the comma-wrapped getter intact; ':'->'#' matches the tags.
+    # ADR rule-enforcement coverage — report-only, same best-effort discipline.
+    # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md#comment4)
     try {
         $ruleIds = Get-CatsAdrRuleIds
         Write-TestAutomationRuleCoverage -Rows $Rows -AnalyzerCoverage @(Get-AnalyzerAdrCoverage) `

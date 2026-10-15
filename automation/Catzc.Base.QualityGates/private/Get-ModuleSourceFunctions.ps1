@@ -2,9 +2,8 @@
 .SYNOPSIS
     Lists a source module's public and private function names, from its files.
 .DESCRIPTION
-    A module is its folder: <Module>/*.ps1 are its public functions and <Module>/private/*.ps1 its private ones,
-    one function per file named for the file. This reads the names from the file names, so a build can be
-    compared with the source folder it was built from (Test-BuildArtifact's parity facet).
+    A module is its folder: <Module>/*.ps1 are its public functions and <Module>/private/*.ps1 its private ones, one...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleSourceFunctions.ps1.md#comment1)
 .PARAMETER AutomationRoot
     The automation folder of the source tree.
 .PARAMETER Name

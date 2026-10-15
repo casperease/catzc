@@ -2,11 +2,8 @@
 .SYNOPSIS
     Extracts the human-readable reason a Pester test was skipped.
 .DESCRIPTION
-    A test skipped with `Set-ItResult -Skipped -Because '<reason>'` carries an error record whose message
-    reads "is skipped, because <reason>"; this returns just "<reason>". A skip with no -Because (a bare
-    `Set-ItResult -Skipped`, or an `It -Skip`, which records no error at all) has no reason, so the function
-    returns 'no reason given'. Any other recorded message (e.g. Run.SkipRemainingOnFailure's "Skipped due to
-    previous failure at …") is returned verbatim. Feeds Write-TestAutomationSkipReport.
+    A test skipped with `Set-ItResult -Skipped -Because '<reason>'` carries an error record whose message reads "is...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestSkipReason.ps1.md#comment1)
 .PARAMETER Test
     A Pester test-result object (an item of $result.Tests). Its .ErrorRecord carries the skip message.
 #>
@@ -25,8 +22,8 @@ function Get-TestSkipReason {
 
     $message = "$($records[-1].Exception.Message)".Trim()
 
-    # Set-ItResult renders "is skipped, because <reason>" — pull out the reason. Capture $Matches
-    # immediately (it is clobbered by the next -match; see automatic-variable-pitfalls).
+    # Set-ItResult renders "is skipped, because <reason>" — pull out the reason.
+    # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TestSkipReason.ps1.md#comment2)
     if ($message -match 'because\s+(.+?)\s*$') {
         $found = $Matches[1]
         return $found

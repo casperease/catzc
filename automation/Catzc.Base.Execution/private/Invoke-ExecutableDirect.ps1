@@ -3,20 +3,14 @@
     Runs a CLI command directly with no output capture or stream separation.
 .DESCRIPTION
     Private implementation for Invoke-Executable -Direct.
-
-    Output flows straight to the console as if the command were typed
-    at the prompt. No buffering, no capture, no stream separation.
-    Just the LASTEXITCODE lifecycle (reset, execute, assert, reset).
-
-    -PassThru is accepted but ignored — there is nothing to return.
-    Use the default (Stream) mode when you need structured output.
+    [comment:1](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md#comment1)
 .PARAMETER Command
     The command string to execute.
 .PARAMETER WorkingDirectory
     The directory to run the command in.
 .PARAMETER PassThru
-    Accepted for signature compatibility. Ignored — Direct mode does not
-    capture output.
+    Accepted for signature compatibility.
+    [comment:2](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md#comment2)
 .PARAMETER NoAssert
     Skip the exit code assertion.
 .PARAMETER Silent
@@ -47,9 +41,7 @@ function Invoke-ExecutableDirect {
     Reset-LastExitCode
 
     # Run directly — output flows straight to the console handle.
-    # No pipes, no interception. Spinners, progress bars, \r overwrites all work.
-    # Output WILL leak to the pipeline — callers must suppress if needed.
-    # Child scope prevents $ErrorActionPreference = 'Continue' from leaking.
+    # [comment:3](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md#comment3)
     Push-Location $WorkingDirectory
     try {
         & {

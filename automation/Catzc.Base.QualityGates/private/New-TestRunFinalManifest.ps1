@@ -2,10 +2,8 @@
 .SYNOPSIS
     Builds a test run's terminal run.json record.
 .DESCRIPTION
-    The record Invoke-TestRun stamps in its finally, on every exit path (Write-TestRunManifest): the terminal status
-    and timestamps, the tiers, category, and modules it ran, the failure counts, the run's context
-    (Get-TestRunContext, when the run got far enough to have one), what only the worker run knows
-    (ConvertTo-TestRunManifestEntry), and — for a run with an opt-out tag — the tag and how many tests it excluded.
+    The record Invoke-TestRun stamps in its finally, on every exit path (Write-TestRunManifest): the terminal status...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/New-TestRunFinalManifest.ps1.md#comment1)
 .PARAMETER Status
     The terminal status: passed, failed, or crashed.
 .PARAMETER StartedAt

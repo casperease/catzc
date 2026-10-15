@@ -2,18 +2,11 @@
 .SYNOPSIS
     Lists every glossary source — each opting-in module's configs/glossary.yml — with its validated config.
 .DESCRIPTION
-    A module opts into the controlled vocabulary by shipping configs/glossary.yml
-    ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)), so the
-    sources are discovered, not declared: Get-Config -Config glossary -ListOwners lists every owner, and each
-    source is read through Get-Config -Config glossary -Module <owner>, so the GlossaryConfig type validates its
-    shape on load ([ADR-CONF-LOADING#1](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading1)/2). One
-    git query then records whether each source file is tracked: a
-    source lives in the repository
-    ([ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3)), and
-    Get-GlossarySourceViolations reports one that is not.
-
-    Reads the source tree's configs and git, so it runs in source mode only (Assert-SourceTree). Private helper
-    for Get-Glossary and the glossary checks; not exported.
+    A module opts into the controlled vocabulary by shipping configs/glossary.yml, so the sources are discovered, not...
+    [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2),
+    [ADR-CONF-LOADING#1](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading1),
+    [ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3)
+    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossarySources.ps1.md#comment1)
 .OUTPUTS
     [pscustomobject] One { Owner; Path; Config; Tracked } per source, sorted by owner (ordinal): Path is
     repo-relative, Config the source's Catzc.Base.Docs.GlossaryConfig, Tracked whether git tracks Path.

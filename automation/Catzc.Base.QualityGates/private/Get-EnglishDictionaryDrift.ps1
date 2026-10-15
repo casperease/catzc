@@ -2,10 +2,8 @@
 .SYNOPSIS
     Reports why the committed English word list is stale, from its stamp alone — no node round-trip.
 .DESCRIPTION
-    Build-EnglishDictionary's -DryRun re-flattens cspell's bundled tries (node, npx, cspell), so the drift check
-    reads the committed artifact's stamp instead: the gz and its stamp both exist, the stamp's cspell version
-    matches the pinned cspell version, and the stamp's word count matches the gz's line count. Each failure is
-    one reason; none means the list is current. Test-GeneratedFiles turns each reason into one issue.
+    Build-EnglishDictionary's -DryRun re-flattens cspell's bundled tries (node, npx, cspell), so the drift check...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-EnglishDictionaryDrift.ps1.md#comment1)
 .PARAMETER AssetsFolder
     The folder holding english.txt.gz and english.stamp (the QualityGates module's assets/ in the repository).
 .PARAMETER PinnedCspell

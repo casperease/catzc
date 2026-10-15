@@ -3,21 +3,13 @@
     Generates [index](/docs/adr/index.md) — the ADR code -> rule-citation registry — from adrs.yml, the single source
     of truth for the ADR domain structure.
 .DESCRIPTION
-    index.md is a derived projection of automation/Catzc.Base.Docs/configs/adrs.yml: authored preamble and
-    authoring-convention prose wrapped around one code-registry table per domain (in declared order). Every
-    ADR row is `| ``<external>`` | [<slug>](<path>) |` — the format Get-CatsAdrIndex parses and the citation
-    grammar Show-Cats presents. Each link path is resolved to the real docs/adr/<domain>/**/<slug>.md file.
-
-    The index is committed — so GitHub has it, and every ADR citation's link resolves there — marked
-    linguist-generated so its diff collapses, and reproduced on every import (before Build-Readme, which generates
-    the docs/adr README from it), so adrs.yml is the ONLY place the registry is edited — a hand-edit to index.md is overwritten
-    on the next load. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md) for the generated-file pattern.
-
-    Idempotent and fast: the write goes through Write-FileIfChanged (canonical output, EOL-insensitive compare,
-    write only on drift), so a clean tree costs one file read.
+    index.md is a derived projection of automation/Catzc.Base.Docs/configs/adrs.yml: authored preamble and...
+    [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
+    [comment:1](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment1)
 .PARAMETER DryRun
-    Report whether index.md would change without writing it. See
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+    Report whether index.md would change without writing it.
+    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
+    [comment:2](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment2)
 .PARAMETER Silent
     The wrote / would-write status line is verbose-level — -Silent suppresses it (used by the importer tail).
 .PARAMETER PassThru
@@ -134,10 +126,9 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   `dora-explains.md`.
 '@
 
-    # The authored prose above is wrapped for reading here, not for the page: reflow every paragraph and list item
-    # through Format-MarkdownParagraph (Prettier's fill), so the generated page is formatter-stable
-    # ([ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)). A heading and a blank
-    # line pass through; a '- ' line opens a list item, and an indented or plain line continues the open block.
+    # The authored prose above is wrapped for reading here, not for the page: reflow every paragraph and list item...
+    # [ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)
+    # [comment:3](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment3)
     $reflow = {
         param([string] $Markdown)
         $out = [System.Collections.Generic.List[string]]::new()
@@ -186,9 +177,8 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
     $adrDocsRoot = Resolve-RepoPath 'docs/adr'
     Assert-PathExist $adrDocsRoot
 
-    # Map "<domainFolder>/<slug>" -> the ADR file path relative to docs/adr (forward-slashed), so a ruleset
-    # in a subfolder (automation/BCL/) still resolves to its real link target. The
-    # generated index.md and every folder README are skipped — they are not ADRs.
+    # Map "<domainFolder>/<slug>" -> the ADR file path relative to docs/adr (forward-slashed), so a ruleset in a...
+    # [comment:4](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment4)
     $pathBySlugKey = @{}
     foreach ($file in [System.IO.Directory]::EnumerateFiles($adrDocsRoot, '*.md', [System.IO.SearchOption]::AllDirectories)) {
         $relative = ($file.Substring($adrDocsRoot.Length).TrimStart('\', '/')) -replace '\\', '/'
@@ -200,8 +190,8 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
         $pathBySlugKey["$topFolder/$slug"] = $relative
     }
 
-    # One aligned code-registry table per domain, in declared order. Rows carry the backtick-wrapped external
-    # code and the slug link in the exact shape Get-CatsAdrIndex parses.
+    # One aligned code-registry table per domain, in declared order.
+    # [comment:5](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment5)
     $sections = foreach ($domain in $adrs.Domains) {
         $rows = foreach ($ruleSet in $domain.RuleSets) {
             $key = "$($domain.Name)/$($ruleSet.Slug)"

@@ -3,10 +3,8 @@
     Computes the Pester ExcludeTag list for a tier range + category — shared by Test-Automation and
     Test-InIsolation so the tier/category filter has one definition.
 .DESCRIPTION
-    Excludes every tier tag outside [MinLevel, MaxLevel] and, when -Category is Logic or Integrity, the OTHER
-    category's tag. ExcludeTag values are lowercase to match the test files' actual tags ('logic'/'integrity');
-    tier tags are [Catzc.Base.Timeouts.TestTiers]::Names ('L0'..'L4'). A mixed file's per-Context category tags
-    filter correctly because ExcludeTag matches an item's own tag.
+    Excludes every tier tag outside [MinLevel, MaxLevel] and, when -Category is Logic or Integrity, the OTHER...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestExcludeTag.ps1.md#comment1)
 .PARAMETER MinLevel
     Lowest tier to keep (0-4). Tiers below it are excluded.
 .PARAMETER MaxLevel

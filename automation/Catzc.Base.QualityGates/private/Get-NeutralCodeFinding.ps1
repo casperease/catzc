@@ -2,17 +2,9 @@
 .SYNOPSIS
     Lists every real ADR code one test file uses as fixture data inside an L0 block.
 .DESCRIPTION
-    The neutral-code check of Test-SourceConventions
-    ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): a logic test owns its inputs and
-    uses identities that cannot collide with the real ones, so an L0 test's fixture data names neutral codes (a
-    widget or gadget code), never a code the ADR index declares. The real codes come from the caller, read from the ADR
-    registry, so nothing here names one.
-
-    It reads the file's syntax tree, never runs Pester. A string literal is checked when the nearest Describe,
-    Context, or It around it that carries a tier tag carries L0 — or, outside every tier-tagged block, when L0 is the
-    only tier the file carries. The values of a -Tag argument are citations, not data, and are never checked; the
-    title of a Describe, Context, or It (its -Name, given by name or by position) is a name, not data, so it is never
-    checked either; comments (code links included) are not part of the syntax tree, so they never are.
+    The neutral-code check of Test-SourceConventions: a logic test owns its inputs and uses identities that cannot...
+    [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-NeutralCodeFinding.ps1.md#comment1)
 .PARAMETER Path
     The test file's repository-relative, '/'-separated path, which leads each finding.
 .PARAMETER Ast

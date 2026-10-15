@@ -2,12 +2,8 @@
 .SYNOPSIS
     Scans every tracked text file for GUID literals and returns one record per occurrence.
 .DESCRIPTION
-    The repository-wide managed-GUID scanner. It reads the tracked-file universe (Get-GuidScanFiles) and
-    matches the canonical hyphenated GUID form only — deliberately never bare 32-hex, which would
-    false-positive on hashes (the durable SHAs are 64 hex and unhyphenated, so they never match). Paths
-    come back repo-relative (communication form); guids come back lowercase. The managed-guid quality
-    gate (Test-ManagedGuids) asserts every returned guid against the registry (configs/guids.yml), and every
-    registry entry against these results.
+    The repository-wide managed-GUID scanner.
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md#comment1)
 .OUTPUTS
     One ordered dictionary per occurrence: @{ file; line; guid }.
 .EXAMPLE
@@ -30,10 +26,8 @@ function Get-RepositoryGuids {
             continue
         }
 
-        # Read the whole file and match once, rather than regex-per-line: a single scan over the text is
-        # ~3x faster than N per-line Matches calls (the per-line managed/native transitions dominated).
-        # Line numbers are recovered from each match's offset — matches arrive in ascending index order, so
-        # one forward cursor counts the newlines between consecutive matches, touching each char at most once.
+        # Read the whole file and match once, rather than regex-per-line: a single scan over the text is ~3x faster...
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md#comment2)
         $text = [System.IO.File]::ReadAllText($fullPath)
         $lineNumber = 1
         $scanPos = 0

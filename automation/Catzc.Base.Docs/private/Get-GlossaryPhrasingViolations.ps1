@@ -2,24 +2,10 @@
 .SYNOPSIS
     Lists the uses of avoided phrasings within each glossary source's scope (check G4) — one message per use.
 .DESCRIPTION
-    An avoided phrasing blurs a defined term, so prose within its source's scope never uses it
-    ([ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)). For every source whose
-    `checks` include `avoid`,
-    this reads the tracked files its `scope` matches and its `exclude` does not
-    ([ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)), on the text
-    surfaces its `surfaces` name:
-      - markdown — the prose of `*.md` files: fenced code blocks are skipped;
-      - comments — PowerShell comments that are not comment-based help;
-      - help — comment-based help (a block comment holding .SYNOPSIS or .DESCRIPTION);
-      - messages — the static text of the strings passed to `throw`, `Write-Message`, `Write-Warning`,
-        `Write-Error`, and `Write-Host`, and of any `-ErrorText` or `-Because` value; an expandable string
-        contributes its literal text only.
-    PowerShell files (`*.ps1`, `*.psm1`) are read through the parser, never by regex. A phrase matches
-    case-insensitively, as whole words, with any whitespace between its words (so a wrapped line still counts).
-    A mention — the phrase inside backticks, "double" or “curly” quotes, within one paragraph — is exempt, so the
-    vocabulary can talk about itself. Globs are the repository's one glob dialect (Catzc.Base.Globs.GlobPattern).
-
-    Private helper for the glossary checks; not exported.
+    An avoided phrasing blurs a defined term, so prose within its source's scope never uses it.
+    [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5),
+    [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)
+    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md#comment1)
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.
 .PARAMETER TrackedFile
@@ -27,10 +13,8 @@
 .PARAMETER Root
     The directory the tracked files are relative to. Defaults to the repository root.
 .PARAMETER SurfaceCache
-    The text surfaces already read, keyed by tracked file, each value the file's Catzc.Base.Docs.GlossarySegment array
-    (Catzc.Base.Docs.GlossaryProse): a file read once is not read again. Test-Glossary hands the
-    same table to this check and to the forms check (G6, Get-GlossaryFormViolations), which read the same surfaces of
-    the same files under the same root, so one run reads each file's prose once. Defaults to an empty table.
+    The text surfaces already read, keyed by tracked file, each value the file's Catzc.Base.Docs.GlossarySegment...
+    [comment:2](/docs/references/automation/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md#comment2)
 .OUTPUTS
     [string[]] One message per use — `<file>:<line> says "<phrase>" — say "<say>" (<defined_by>)` — in file then
     line order; empty when prose avoids every avoided phrasing.
@@ -52,7 +36,7 @@ function Get-GlossaryPhrasingViolations {
         [hashtable] $SurfaceCache = @{}
     )
 
-    # The scan runs compiled (Catzc.Base.Docs.GlossaryScan): it reads each file's prose through GlossaryProse into the
-    # surface cache once, and matches every avoided phrasing over the files each glossary source's scope selects.
+    # The scan runs compiled (Catzc.Base.Docs.GlossaryScan): it reads each file's prose through GlossaryProse into...
+    # [comment:3](/docs/references/automation/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md#comment3)
     [string[]] [Catzc.Base.Docs.GlossaryScan]::Phrasing([Catzc.Base.Docs.GlossaryEntry[]] @($Entry), [string[]] @($TrackedFile), $Root, $SurfaceCache)
 }

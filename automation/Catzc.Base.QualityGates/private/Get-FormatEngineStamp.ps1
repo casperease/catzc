@@ -2,10 +2,9 @@
 .SYNOPSIS
     The fingerprint of everything besides a file's own bytes that decides what a formatter engine writes.
 .DESCRIPTION
-    Format-Code's result cache keys a file on its SHA-256 and this stamp (Get-ContentStamp): the engine's name and each
-    settings file languages.yml lists for the engine — including the tool registry whose pin names the engine's version,
-    so a new pin is a new stamp ([ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)). No input
-    is known here that languages.yml does not declare.
+    Format-Code's result cache keys a file on its SHA-256 and this stamp (Get-ContentStamp): the engine's name and...
+    [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FormatEngineStamp.ps1.md#comment1)
 .PARAMETER Engine
     The engine name, as languages.yml spells it.
 .PARAMETER Settings

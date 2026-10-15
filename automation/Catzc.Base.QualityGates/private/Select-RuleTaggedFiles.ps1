@@ -3,10 +3,7 @@
     The subset of test files that carry a test citing one of the given ADR rules — the -Rule work-list filter.
 .DESCRIPTION
     Test-Automation's `-Rule` provenance filter narrows the run to the files that actually enforce a rule.
-    Given the discovery pass (all tests, any tier) and the wanted citations, this returns the files in
-    which at least one test resolves one of those citations (Get-TestRuleTags, the same union used for
-    coverage). The worker additionally filters within a file by include tag, so a file mixing matched and
-    other tests runs only the matched ones; this just keeps whole non-matching files off the work-list.
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Select-RuleTaggedFiles.ps1.md#comment1)
 .PARAMETER TestFile
     The candidate test files (absolute *.Tests.ps1 paths), in run order.
 .PARAMETER Discovery

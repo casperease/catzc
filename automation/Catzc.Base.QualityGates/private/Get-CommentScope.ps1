@@ -2,11 +2,9 @@
 .SYNOPSIS
     Lists the files whose long comments live in a comment page, each with its file language and page.
 .DESCRIPTION
-    The one scope Export-Comments, Build-CommentView, Format-Comments and Test-Comments share, so the converter, the
-    view and the gate can never disagree. It starts from the files Get-LinkScope lists (the tracked files, or the
-    given -Path, minus every file the content tools leave as written) and keeps a file when its file language is one
-    comments.yml names, comments.yml maps it to a page, and no comments.yml exclude glob matches it (tests and assets by
-    default) ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+    The one scope Export-Comments, Build-CommentView, Format-Comments and Test-Comments share, so the converter, the...
+    [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-CommentScope.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the paths are relative to.
 .PARAMETER Path

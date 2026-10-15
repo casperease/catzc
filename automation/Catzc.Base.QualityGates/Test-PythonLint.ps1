@@ -2,16 +2,9 @@
 .SYNOPSIS
     Quality gate: lints every Python file the repository holds with ruff.
 .DESCRIPTION
-    Runs `ruff check` over every .py file the repository holds (Get-PythonCheckScope: the Python test folders, and the
-    tracked .py files outside the Python root, such as the agent helpers under .claude/;
-    [ADR-AUTO-PY#8](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py8)), with the pinned ruff and
-    the Python test workspace's settings (Invoke-PythonWorkspaceTool). Every finding is one issue, as ruff reports it:
-    '<file>:<line>:<column>: <code> <message>'. The Python test bridge runs the same check on a test folder before its
-    tests; this gate covers the files no test run reads.
-
-    Ends with Write-QualityGateReport: the report lands in out/test-python-lint/, and the gate throws once listing every
-    issue (or returns the result with -PassThru). Needs the managed uv only when the repository holds Python, and the
-    source tree (Assert-SourceTree).
+    Runs `ruff check` over every.py file the repository holds (Get-PythonCheckScope: the Python test folders, and the...
+    [ADR-AUTO-PY#8](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py8)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-PythonLint.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-python-lint).
 .PARAMETER PassThru
@@ -37,8 +30,8 @@ function Test-PythonLint {
     $scope = @(Get-PythonCheckScope)
     $issues = [System.Collections.Generic.List[string]]::new()
     if ($scope.Count -gt 0) {
-        # --output-format concise prints one '<file>:<line>:<column>: <code> <message>' line per finding; exit 1 means
-        # findings, anything above it means ruff itself failed.
+        # --output-format concise prints one '<file>:<line>:<column>: <code> <message>' line per finding; exit 1...
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-PythonLint.ps1.md#comment2)
         $check = Invoke-PythonWorkspaceTool -Tool 'ruff check --output-format concise' -File $scope
         if ($check.ExitCode -notin 0, 1) {
             throw "ruff could not check the Python files (exit $($check.ExitCode)):`n$($check.Full)"

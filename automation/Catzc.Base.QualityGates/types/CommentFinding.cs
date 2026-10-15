@@ -1,6 +1,6 @@
-// One finding of CommentFormatter: where (repository-relative file, 1-based line), what kind, a human message, and
-// whether Format-Comments fixes it. Every property is fixed at construction; the formatter is pure over text
-// ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
+// One finding of CommentFormatter: where (repository-relative file, 1-based line), what kind, a human message, and whether...
+// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
+// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentFinding.cs.md#comment1)
 
 using System;
 using System.Globalization;

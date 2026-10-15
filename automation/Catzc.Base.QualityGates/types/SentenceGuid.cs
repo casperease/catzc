@@ -4,21 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-/// <summary>
-/// Deterministically converts a sentence into a valid GUID whose hex digits best-effort spell the sentence
-/// (leet-style: s→5, o→0, i/l→1, …). One input character yields exactly one hex digit — a character with no
-/// hex look-alike becomes '0' — so the rendering is positionally stable and human-decodable; whitespace
-/// instead advances to the next GUID dash group, so each word lands in its own segment
-/// ("sample test data" → 5a001e00-7e57-da7a-…). The mint behind ConvertTo-Guid: run by a human or an LLM to
-/// produce readable placeholder GUIDs for the managed-GUID registry (guids.yml) — never called by
-/// production code. Validity is structural: any 32 hex digits form a parseable GUID, so every input yields
-/// one. BCL-only ([ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)).
-/// </summary>
+/// <summary> Deterministically converts a sentence into a valid GUID whose hex digits best-effort spell the sentence (leet-style: s→5,...
+/// [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)
+/// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment1)
 public static class SentenceGuid
 {
-    // Visual best-guess map into the hex alphabet. Identity hex letters map to themselves; digits pass
-    // through in Convert; characters absent here have no honest hex look-alike and render as '0'. The
-    // table is data — extending it changes only GUIDs minted after the change, never registered ones.
+    // Visual best-guess map into the hex alphabet.
+    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment2)
     private static readonly Dictionary<char, char> Map = new Dictionary<char, char>
     {
         ['a'] = 'a',
@@ -37,8 +29,8 @@ public static class SentenceGuid
         ['q'] = '9',
     };
 
-    // The digit positions where the GUID's dash groups begin and end (8-4-4-4-12). Whitespace advances to
-    // the next of these, so words align with segments; 0 makes leading whitespace a no-op.
+    // The digit positions where the GUID's dash groups begin and end (8-4-4-4-12).
+    // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment3)
     private static readonly int[] GroupBoundaries = { 0, 8, 12, 16, 20, 32 };
 
     public static Guid Convert(string sentence)
@@ -58,8 +50,8 @@ public static class SentenceGuid
 
             if (char.IsWhiteSpace(raw))
             {
-                // Skip one dash down: fill to the next group boundary so the next word starts its own
-                // segment. At a boundary this is a no-op, so runs of whitespace collapse.
+                // Skip one dash down: fill to the next group boundary so the next word starts its own segment.
+                // [comment:4](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment4)
                 int boundary = NextGroupBoundary(hex.Length);
                 while (hex.Length < boundary)
                 {
@@ -79,8 +71,8 @@ public static class SentenceGuid
             }
             else
             {
-                // No hex look-alike: render '0' rather than skip, so one character is always one digit
-                // and a human can decode the sentence positionally.
+                // No hex look-alike: render '0' rather than skip, so one character is always one digit and a human can decode the...
+                // [comment:5](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment5)
                 hex.Append('0');
             }
         }

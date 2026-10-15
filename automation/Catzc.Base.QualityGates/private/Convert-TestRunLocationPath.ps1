@@ -2,11 +2,8 @@
 .SYNOPSIS
     Maps paths between a test run's working folder and the root of the location it runs in.
 .DESCRIPTION
-    A snapshot run executes the same repository-relative files under a different root. Paths under the
-    working folder (SourceRoot) map to the same relative path under the location's Root, and with -ToSource
-    back again — test files going into a run, and the rows' File paths coming home so reports and module
-    protection read working-folder paths. A path outside the root (a fixture in a temp folder), an empty
-    value, and every path of an in-place location pass through unchanged.
+    A snapshot run executes the same repository-relative files under a different root.
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Convert-TestRunLocationPath.ps1.md#comment1)
 .PARAMETER Location
     The location Enter-TestRunLocation returned.
 .PARAMETER Path

@@ -4,18 +4,7 @@
     optional structured output capture.
 .DESCRIPTION
     Private implementation for Invoke-Executable (default mode).
-
-    Uses a C# CliRunner class (types/CliRunner.cs) that reads stdout/stderr
-    char-by-char on background threads via Console.Write. Preserves \r
-    carriage returns (spinners, progress bars) and Unicode. Output bypasses
-    PowerShell's output stream entirely — zero pipeline leaks.
-
-    Limitation: ANSI color codes are NOT preserved. When stdout is redirected
-    to a pipe (which Process does internally), most CLI tools detect this via
-    isatty() and disable colored output. This is a fundamental OS-level
-    constraint — the child process never emits the escape sequences. Solving
-    this would require ConPTY (pseudo-terminal). Use -Direct when colors
-    are important and pipeline leaks are acceptable.
+    [comment:1](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md#comment1)
 .PARAMETER Command
     The command string to execute.
 .PARAMETER PassThru
@@ -29,8 +18,8 @@
 .PARAMETER TimeoutSeconds
     The run's time limit. Past it CliRunner kills the process tree and throws a TimeoutException.
 .PARAMETER AsBytes
-    Capture stdout as its exact bytes (CliResult.Bytes) instead of text, with no console echo — for a binary
-    stream. Returns the CliResult as -PassThru does.
+    Capture stdout as its exact bytes (CliResult.Bytes) instead of text, with no console echo — for a binary stream.
+    [comment:2](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md#comment2)
 .PARAMETER DryRun
     Return the command string without executing.
 #>
@@ -60,12 +49,8 @@ function Invoke-ExecutableStreamed {
 
     Reset-LastExitCode
 
-    # During a Pester run, also suppress the child's streamed output. CliRunner echoes stdout/stderr via
-    # Console.Write, which bypasses the Write-Message/Write-Object suppression (so a real tool's chatter —
-    # e.g. an `az bicep` upgrade nag — would otherwise leak into test logs). Output is still captured into
-    # the result, so -PassThru and the exit-code assertion are unaffected. Same global the writers read,
-    # set by Test-Automation. Read through Get-Variable: the flag is unset outside a test run, and strict mode
-    # rejects an unset variable even when scope-qualified.
+    # During a Pester run, also suppress the child's streamed output.
+    # [comment:3](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md#comment3)
     $suppressOutput = [bool]$Silent -or [bool](Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore)
 
     # CliRunner is autoloaded at import time from types/ (Bootstrap's Import-CSharpTypes).

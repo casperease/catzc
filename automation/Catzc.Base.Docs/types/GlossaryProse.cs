@@ -1,15 +1,7 @@
-// The prose of one file, as the glossary checks read it (G4, G6): never a regex over source text
-// ([ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)).
-//   Markdown    the whole file as one 'markdown' segment, fenced code blocks blanked;
-//   PowerShell  the real parser's tokens and AST: 'help' (a block comment holding .SYNOPSIS or .DESCRIPTION),
-//               'comments' (every other comment), and 'messages' — the strings passed to throw, Write-Message,
-//               Write-Warning, Write-Error or Write-Host, and the value of any -ErrorText or -Because parameter. A
-//               constant string gives its value; an expandable string its value with every embedded variable or
-//               sub-expression removed. A string several of those contexts hold is read once.
-// Every segment's mentions — `code`, "quoted" and “curly-quoted” spans that do not cross a blank line — are blanked to
-// spaces (RemoveMentions), and it carries the line it starts on, so a match's offset maps to its line. Markdown also
-// blanks what is not prose: a link or image destination, the `(path)` after `]`, and the title line that names the
-// file's own repository path ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6)).
+// The prose of one file, as the glossary checks read it (G4, G6): never a regex over source text.
+// [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5),
+// [ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6)
+// [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -90,8 +82,8 @@ public static class GlossaryProse
             segments.Add(Segment(isHelp ? "help" : "comments", token.Extent.StartLineNumber, token.Text));
         }
 
-        // The argument elements that carry a message: everything after the command name of a writer, the operand of
-        // throw, and the value of -ErrorText / -Because on any command.
+        // The argument elements that carry a message: everything after the command name of a writer, the operand of throw, and the value...
+        // [comment:2](/docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md#comment2)
         List<Ast> carriers = new List<Ast>();
         foreach (Ast node in ast.FindAll(n => n is ThrowStatementAst, true))
         {
@@ -124,8 +116,8 @@ public static class GlossaryProse
         {
             foreach (Ast found in carrier.FindAll(n => n is StringConstantExpressionAst || n is ExpandableStringExpressionAst, true))
             {
-                // A string inside an expandable string's sub-expression is code, not message text: its parent string
-                // drops it with the rest of the sub-expression.
+                // A string inside an expandable string's sub-expression is code, not message text: its parent string drops it with the...
+                // [comment:3](/docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md#comment3)
                 bool inExpandable = false;
                 for (Ast parent = found.Parent; parent != null; parent = parent.Parent)
                 {

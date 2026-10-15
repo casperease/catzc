@@ -4,21 +4,9 @@
     integrity-tagged block — the comment-blind, tag-aware check cspell cannot do
     ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)).
 .DESCRIPTION
-    The PowerShell AST omits comments, here-doc trivia, and help entirely, so this reads only real code string
-    literals — a config comment illustrating `[acme, globex]`, a `.EXAMPLE` help block, or demo data in a
-    comment never reaches it.
-
-    A live identity is legitimate ONLY inside an `integrity`-tagged block (binding the real config is an
-    integrity test's job, [ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1)); anywhere else
-    in a logic-bearing test file it is a leak. So the scan
-    EXCLUDES the script-block extent of every Describe/Context/It tagged `integrity`, and reports a match
-    everywhere else — the shared setup, the logic Contexts, the unit tests. This makes a MIXED logic+integrity
-    file work with no file split: the integrity Context's identities are carved out, the logic body is checked.
-
-    Classification and exclusion are read from the AST `-Tag` values, never by running Pester. A file with no
-    `logic` tag at all is not a logic surface and is skipped; a `*.Integrity.Tests.ps1` file is skipped by
-    convention. Matching is EXACT (a literal that IS 'apex', not the segment inside 'apex/…' or a path), so
-    false positives stay near zero (Phase 1).
+    The PowerShell AST omits comments, here-doc trivia, and help entirely, so this reads only real code string...
+    [ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment1)
 .PARAMETER Path
     The test file to scan.
 .PARAMETER LiveToken
@@ -50,8 +38,9 @@ function Get-LogicTestIdentityFinding {
     $parseErrors = $null
     $ast = [System.Management.Automation.Language.Parser]::ParseFile($Path, [ref]$parseTokens, [ref]$parseErrors)
 
-    # Predicates bound to locals (never inlined in a .FindAll(...) call) —
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6).
+    # Predicates bound to locals (never inlined in a.FindAll(...) call) —.
+    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
+    # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment2)
     $isCommandNode = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst]
@@ -62,8 +51,8 @@ function Get-LogicTestIdentityFinding {
     }
     $commands = $ast.FindAll($isCommandNode, $true)
 
-    # Walk the Pester block commands once: note whether the file carries a `logic` tag anywhere, and collect
-    # the script-block offset range of every `integrity`-tagged block (its literals are carved out of the scan).
+    # Walk the Pester block commands once: note whether the file carries a `logic` tag anywhere, and collect the...
+    # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment3)
     $hasLogic = $false
     $integrityRanges = [System.Collections.Generic.List[object]]::new()
     foreach ($command in $commands) {
@@ -122,8 +111,8 @@ function Get-LogicTestIdentityFinding {
         $false
     }
 
-    # Exact pass — a distinctive identity (customer / subscription / org / template / project) flagged as a
-    # bare literal anywhere outside an integrity block.
+    # Exact pass — a distinctive identity (customer / subscription / org / template / project) flagged as a bare...
+    # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment4)
     $literals = $ast.FindAll($isStringLiteral, $true)
     foreach ($literal in $literals) {
         $value = $literal.Value
@@ -154,8 +143,8 @@ function Get-LogicTestIdentityFinding {
             })
     }
 
-    # Position pass — an ambiguous identity (an environment name or shortcode, like 'test'/'dev') is flagged
-    # ONLY when bound to an identity parameter (-Environment / -Env / -Shortcode), never as a prose literal.
+    # Position pass — an ambiguous identity (an environment name or shortcode, like 'test'/'dev') is flagged ONLY...
+    # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment5)
     $identityParameters = 'Environment', 'Env', 'Shortcode'
     foreach ($command in $commands) {
         $elements = $command.CommandElements

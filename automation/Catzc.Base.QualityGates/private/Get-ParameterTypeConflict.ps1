@@ -2,12 +2,8 @@
 .SYNOPSIS
     Finds the parameter names that carry more than one type across the given function files.
 .DESCRIPTION
-    The logic behind Test-ParameterConsistency: parses each file, reads every function's declared parameters, and groups
-    them by name (case-insensitively). Two declarations agree when their element types agree — [string] and [string[]]
-    are one type at two cardinalities, and a type is resolved through .NET where it is loaded, so an accelerator and its
-    full name are one type ([bool] is [System.Boolean]); an untyped parameter and one typed [object] or [psobject]
-    accept anything, so they never conflict. A name whose typed declarations have
-    more than one element type is one conflict.
+    The logic behind Test-ParameterConsistency: parses each file, reads every function's declared parameters, and...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md#comment1)
 .PARAMETER Path
     The .ps1 files to read (absolute paths).
 .OUTPUTS
@@ -41,8 +37,8 @@ function Get-ParameterTypeConflict {
                 if (-not $constraint) {
                     continue
                 }
-                # Resolve through .NET where the type is loaded, so an accelerator and its full name are one type
-                # ([bool] is [System.Boolean]); a type that does not resolve keeps its written name.
+                # Resolve through.NET where the type is loaded, so an accelerator and its full name are one type...
+                # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md#comment2)
                 $reflected = $constraint.TypeName.GetReflectionType()
                 if ($reflected -and $reflected.IsArray) {
                     $reflected = $reflected.GetElementType()

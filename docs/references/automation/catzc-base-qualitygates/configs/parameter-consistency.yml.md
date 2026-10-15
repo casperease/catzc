@@ -1,0 +1,22 @@
+# docs/references/automation/catzc-base-qualitygates/configs/parameter-consistency.yml.md
+
+`automation/Catzc.Base.QualityGates/configs/parameter-consistency.yml`
+
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
+
+## comment:1
+
+Above `exempt:`.
+
+```text
+The parameter names Test-ParameterConsistency lets carry more than one type across the public functions. A name is
+exempt only when it means a different thing in different functions, each with its own type; a name that means the
+same thing everywhere takes one type instead ([ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md)).
+
+  exempt  parameter name (no dash) -> why the same name means different things; omitted = none exempt
+
+The default is declared once on Catzc.Base.QualityGates.ParameterConsistencyConfig
+([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)). Test-ParameterConsistency
+reports an entry whose name no longer conflicts, so the list only shrinks to what is real.
+```

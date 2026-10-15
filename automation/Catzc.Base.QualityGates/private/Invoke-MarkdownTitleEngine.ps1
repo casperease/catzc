@@ -2,10 +2,8 @@
 .SYNOPSIS
     Checks every in-scope Markdown file's title and headings — the one place Format-MarkdownTitle and Test-MarkdownTitle share.
 .DESCRIPTION
-    Resolves the scope (Get-MarkdownTitleScope), reads each file, checks its title (Get-MarkdownTitleFinding) and
-    then its headings on the titled text (Get-MarkdownHeadingFinding), so the formatter and the gate can never
-    disagree. When a heading's anchor changes, every in-scope file — the whole scope, even when Path narrows the
-    check — has its links to that anchor re-pointed (Get-RepointedMarkdownText) and carries an Anchor finding.
+    Resolves the scope (Get-MarkdownTitleScope), reads each file, checks its title (Get-MarkdownTitleFinding) and...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-MarkdownTitleEngine.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root titles are relative to.
 .PARAMETER Path

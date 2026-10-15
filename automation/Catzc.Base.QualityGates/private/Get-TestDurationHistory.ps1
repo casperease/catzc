@@ -2,10 +2,8 @@
 .SYNOPSIS
     Reads the per-file test durations the last runs measured on this machine.
 .DESCRIPTION
-    The history is a per-machine file, durations.json, beside the run folders under out/ (gitignored, never
-    committed): repository-relative '/'-separated test file path -> milliseconds, the file's whole Pester duration
-    including its set-up. Select-TestShardAssignment schedules from it. A missing or unreadable history is an empty
-    one: the run falls back to an even split and writes a fresh history at its end.
+    The history is a per-machine file, durations.json, beside the run folders under out/ (gitignored, never...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestDurationHistory.ps1.md#comment1)
 .PARAMETER Path
     The history file.
 .OUTPUTS

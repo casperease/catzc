@@ -4,58 +4,30 @@
     optional structured output capture.
 .DESCRIPTION
     Central wrapper for external tool invocation.
-
-    Default: Live-streams output to the console via a C# process runner
-    that reads char-by-char (preserves spinners, progress bars, \r).
-    Output bypasses PowerShell's pipeline — zero leaks. With -PassThru,
-    returns a Catzc.Base.Execution.CliResult object with separated stdout/stderr.
-    Note: ANSI colors are lost — child processes disable them when stdout
-    is a pipe (isatty check). Use -Direct when colors matter.
-
-    -Direct: Like typing the command at the prompt. Full color, full
-    fidelity. Output flows to the console AND the pipeline — leaks into
-    caller's return value. Use for interactive commands or when colors
-    are important.
-
-    Both modes share the same LASTEXITCODE lifecycle (reset before, assert
-    after, reset after). -PassThru returns a Catzc.Base.Execution.CliResult object:
-      .Output   — stdout only (string)
-      .Errors   — stderr only (string)
-      .Full     — both merged in original order (string)
-      .ExitCode — raw exit code (int)
-      .Raw      — unprocessed output array
-
-    -PassThru and -Direct are mutually exclusive (separate parameter sets).
-
-    The default (Stream) mode runs inside a time safeguard: a process that outlives its limit is killed with its
-    whole tree and the call throws a TimeoutException. The limit is the executable's entry in timeouts.yml, or
-    the run environment's pwsh limit (Get-TimeoutSeconds); -TimeoutSeconds sets it for one call. -Direct is the interactive
-    mode — a person at the prompt is its safeguard — so it has no limit.
+    [comment:1](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment1)
 .PARAMETER Command
     The command string to execute.
 .PARAMETER Direct
-    Raw execution with full color support. Output leaks to the pipeline.
-    Use when colors matter or for interactive commands.
+    Raw execution with full color support.
+    [comment:2](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment2)
 .PARAMETER PassThru
     Return a Catzc.Base.Execution.CliResult object with Output, Errors, Full, ExitCode, and Raw.
-    Not compatible with -Direct.
+    [comment:3](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment3)
 .PARAMETER AsBytes
-    Capture stdout as its exact bytes, for a binary stream such as `git cat-file --batch`: returns the CliResult
-    with stdout in .Bytes (and an empty .Output), never echoed to the console. Not compatible with -Direct.
+    Capture stdout as its exact bytes, for a binary stream such as `git cat-file --batch`: returns the CliResult with...
+    [comment:4](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment4)
 .PARAMETER NoAssert
-    Skip the exit code assertion. The ExitCode is still available on the
-    result object when combined with -PassThru.
+    Skip the exit code assertion.
+    [comment:5](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment5)
 .PARAMETER Silent
-    Suppress the command log line and all console output. A silent run is non-interactive: the child gets an
-    empty, closed stdin, so a prompt fails instead of waiting invisibly. A visible run gets the same when this
-    session's stdin is not a terminal (a worker, an agent, a pipe), since no one could answer a prompt there.
+    Suppress the command log line and all console output.
+    [comment:6](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment6)
 .PARAMETER WorkingDirectory
-    The directory to run the command in. Defaults to the repository root
-    ($env:RepositoryRoot). Callers that need a specific directory should
-    pass it explicitly rather than relying on $PWD.
+    The directory to run the command in.
+    [comment:7](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment7)
 .PARAMETER TimeoutSeconds
-    The time limit for this call, in seconds. Defaults to the executable's limit from timeouts.yml
-    (Get-TimeoutSeconds). Not compatible with -Direct.
+    The time limit for this call, in seconds.
+    [comment:8](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment8)
 .PARAMETER DryRun
     Return the command string without executing. Used for testing.
 .EXAMPLE
@@ -71,8 +43,9 @@
 .EXAMPLE
     Invoke-Executable 'python --version' -DryRun
 #>
-# Uses -DryRun, not ShouldProcess/-WhatIf — see
-# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2).
+# Uses -DryRun, not ShouldProcess/-WhatIf — see.
+# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
+# [comment:9](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment9)
 function Invoke-Executable {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingInvokeExpression', '', Justification = 'By design — executes CLI commands via private helpers')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseOutputTypeCorrectly', '', Justification = 'Returns string in -DryRun, Catzc.Base.Execution.CliResult in -PassThru')]
@@ -100,11 +73,9 @@ function Invoke-Executable {
         [switch] $DryRun
     )
 
-    # Unit-test tripwire (sibling to -DryRun: both prevent a launch — DryRun returns the command, this
-    # throws). When a unit (L1) run sets $env:CATZC_BLOCK_REAL_PROCESS, a real process launch means a Mock
-    # failed to intercept — almost always a -ModuleName pointing at the wrong module — so the test was
-    # silently hitting the live tool. Fail loudly instead. -DryRun is exempt (it never launches).
-    # See [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md).
+    # Unit-test tripwire (sibling to -DryRun: both prevent a launch — DryRun returns the command, this throws).
+    # [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md)
+    # [comment:10](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment10)
     if ($env:CATZC_BLOCK_REAL_PROCESS -and -not $DryRun) {
         throw (
             "Blocked a real process launch during a unit test: '$Command'. A Mock did not intercept it — " +

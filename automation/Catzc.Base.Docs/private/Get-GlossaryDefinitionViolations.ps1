@@ -2,21 +2,14 @@
 .SYNOPSIS
     Lists the glossary terms that a second ADR rule defines (check G3) — one message per violation.
 .DESCRIPTION
-    A defined term is fixed by exactly one rule
-    ([ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)).
-    For every concept whose source takes part in the `single` check, this reports each rule other than its
-    `defined_by` whose normative summary defines the term again: `**<term>** is` (case-insensitive, whitespace
-    collapsed). The pattern is deliberately conservative — a rule that merely bolds the term is not a definition —
-    and only normative summaries count (Get-GlossaryRuleStatements): bold text in an ADR body or inside an inline
-    code span never does.
-
-    Private helper for the glossary checks; not exported.
+    A defined term is fixed by exactly one rule.
+    [ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)
+    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryDefinitionViolations.ps1.md#comment1)
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.
 .PARAMETER IndexPath
-    Absolute path to the ADR index whose ADRs hold the rules. Defaults to
-    [index](/docs/adr/index.md); a test points it at
-    a fixture index beside fixture ADR files.
+    Absolute path to the ADR index whose ADRs hold the rules.
+    [comment:2](/docs/references/automation/catzc-base-docs/private/Get-GlossaryDefinitionViolations.ps1.md#comment2)
 .OUTPUTS
     [string[]] One message per second definition, in glossary then rule-id order; empty when every term has one.
 .EXAMPLE

@@ -1,6 +1,6 @@
-// What one AdrCitationChange rewrote: the closed set of ADR reference forms Update-AdrCitation recognises, plus the
-// one form it found and could not rewrite mechanically
-// ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
+// What one AdrCitationChange rewrote: the closed set of ADR reference forms Update-AdrCitation recognises, plus the one form it found...
+// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
+// [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationChangeKind.cs.md#comment1)
 
 namespace Catzc.Base.Docs;
 

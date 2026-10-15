@@ -1,8 +1,6 @@
-// What CommentFormatter found at one residue of a file, or at one comment that still lives there. A residue is the
-// one living copy of a comment's insight: one line that says what the code does not, then a line with its ADR
-// citations and the docs link ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)).
-// The fixable kinds are rewritten by Format-Comments and reported by Test-Comments until they are; the rest cannot
-// be fixed mechanically and need a person, or Export-Comments.
+// What CommentFormatter found at one residue of a file, or at one comment that still lives there.
+// [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)
+// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentFindingKind.cs.md#comment1)
 
 namespace Catzc.Base.QualityGates;
 

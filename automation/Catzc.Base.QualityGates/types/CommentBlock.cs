@@ -1,7 +1,6 @@
-// One comment block CommentEngine found in a file and may move to the file's comment page: where it is (whole
-// lines, 0-based, inclusive), how it is written (kind, indent, marker), its prose with the comment prefix stripped,
-// and the context the page names so a reader knows what it annotated. Every property is fixed at construction; the
-// engine is pure over text ([ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)).
+// One comment block CommentEngine found in a file and may move to the file's comment page: where it is (whole lines, 0-based,...
+// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
+// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentBlock.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -54,8 +53,8 @@ public sealed class CommentBlock
         : NextCodeLine != null ? string.Format(CultureInfo.InvariantCulture, "Above {0}.", CodeSpan(NextCodeLine))
         : "At the end of the file.";
 
-    // A Markdown code span that holds the text verbatim, backticks included: its fence is one backtick longer than the
-    // longest run inside, and it is padded with a space only when the text starts or ends with a backtick.
+    // A Markdown code span that holds the text verbatim, backticks included: its fence is one backtick longer than the longest run...
+    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/CommentBlock.cs.md#comment2)
     public static string CodeSpan(string text)
     {
         int longest = 0;

@@ -2,9 +2,8 @@
 .SYNOPSIS
     Creates and returns a fresh timestamped run directory under the report base.
 .DESCRIPTION
-    Each Test-Automation run writes its artifacts into <OutputFolder>/yyyyMMdd-HHmmss/, suffixed -2, -3, … when
-    a same-second directory already exists, so rapid or concurrent runs never collide. The directory is created
-    before it is returned.
+    Each Test-Automation run writes its artifacts into <OutputFolder>/yyyyMMdd-HHmmss/, suffixed -2, -3, … when a...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationRunDirectory.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base directory the timestamped run directory is created under.
 .OUTPUTS

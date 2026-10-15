@@ -2,12 +2,8 @@
 .SYNOPSIS
     Lists a run's test files, path by path in the given order, each tests folder's files in ordinal order.
 .DESCRIPTION
-    The work-list behind Test-Automation's phases: every *.Tests.ps1 under each tests/ folder (recursing, so
-    tests/types/ is included), in the paths' foundation-first order (Get-TestAutomationTestPaths) and, within a
-    folder, ordinal-sorted so the list is the same on every machine. A Go or Python test folder
-    (Get-LanguageTestFolders) is one run file itself: the language bridge runs it as one unit
-    (ConvertTo-PesterRunTarget). Throws when the paths hold no test file — a run with nothing to run is a scoping
-    mistake, never a green.
+    The work-list behind Test-Automation's phases: every *.Tests.ps1 under each tests/ folder (recursing, so...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestFiles.ps1.md#comment1)
 .PARAMETER TestPath
     The run's tests/ folders and language test folders, in run order.
 .OUTPUTS

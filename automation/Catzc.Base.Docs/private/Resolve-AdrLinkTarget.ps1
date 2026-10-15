@@ -2,12 +2,9 @@
 .SYNOPSIS
     Resolves a markdown link's target, written in a file under docs/adr/, to its path under docs/adr/.
 .DESCRIPTION
-    A markdown link is relative to its own file ([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)). This
-    drops the target's #fragment, resolves the rest against the linking file's folder, and returns the result relative to docs/adr/
-    ('/'-separated). It returns nothing for a link that names no file under docs/adr/: an in-page anchor, an absolute URL, a
-    repository-rooted path, or a relative path that leaves docs/adr/.
-
-    Private helper for the citation-graph and DORA-coverage checks of Test-AdrRegistry; not exported.
+    A markdown link is relative to its own file.
+    [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)
+    [comment:1](/docs/references/automation/catzc-base-docs/private/Resolve-AdrLinkTarget.ps1.md#comment1)
 .PARAMETER AdrRoot
     The absolute docs/adr/ folder.
 .PARAMETER From

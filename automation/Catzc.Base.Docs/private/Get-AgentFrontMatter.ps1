@@ -2,13 +2,9 @@
 .SYNOPSIS
     Parses the YAML front matter of one sub-agent definition file.
 .DESCRIPTION
-    Reads the block between the opening `---` line (the file's first line) and the next `---` line of a
-    .claude/agents/<name>.md file and parses it as YAML
-    ([ADR-REPO-AGENTS#1](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents1)). It throws when the file
-    has no front-matter block, when the block is not valid YAML, or when the block is not a mapping, so the caller
-    (Test-AgentDefinitions) records one issue per unreadable file.
-
-    Private helper for Test-AgentDefinitions; not exported.
+    Reads the block between the opening `---` line (the file's first line) and the next `---` line of...
+    [ADR-REPO-AGENTS#1](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents1)
+    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-AgentFrontMatter.ps1.md#comment1)
 .PARAMETER Path
     Absolute path to the agent definition file.
 .OUTPUTS

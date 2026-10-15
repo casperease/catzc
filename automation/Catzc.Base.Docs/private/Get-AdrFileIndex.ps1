@@ -2,13 +2,8 @@
 .SYNOPSIS
     Indexes the markdown files under docs/adr/ by "<domain folder>/<slug>", and maps each rule set to its one ADR file.
 .DESCRIPTION
-    Enumerates every docs/adr/**/*.md once and keys it by its first folder under docs/adr/ (the domain folder; empty for a file at
-    the root) and its file name without extension, so a slug shared across domains (one in automation/, one in research/) stays
-    distinct and a slug repeated within one domain's subfolders shows as two files under one key. FileOf maps a rule set's External
-    code to its file when exactly one file has its key; a rule set with none or several is a finding of the registry quality gate
-    (Test-AdrRegistry), so the checks that read rule files skip it.
-
-    Private helper for Test-AdrRegistry and Test-AdrEngineNeutrality; not exported.
+    Enumerates every docs/adr/**/*.md once and keys it by its first folder under docs/adr/ (the domain folder; empty...
+    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-AdrFileIndex.ps1.md#comment1)
 .PARAMETER RuleSets
     The rule sets of the ADR registry (AdrsConfig.RuleSets).
 .PARAMETER AdrRoot

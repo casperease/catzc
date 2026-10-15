@@ -2,9 +2,8 @@
 .SYNOPSIS
     Merges a run's measured per-file durations into the test duration history.
 .DESCRIPTION
-    Each file the run measured replaces its entry; files the run did not run keep theirs, so a partial run (one
-    module, one tier) never forgets the rest. The file is written sorted by path, so it diffs cleanly, and written
-    only after the run's own results are safe, so a crash cannot corrupt it. See Get-TestDurationHistory.
+    Each file the run measured replaces its entry; files the run did not run keep theirs, so a partial run (one...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Save-TestDurationHistory.ps1.md#comment1)
 .PARAMETER Path
     The history file.
 .PARAMETER DurationMs

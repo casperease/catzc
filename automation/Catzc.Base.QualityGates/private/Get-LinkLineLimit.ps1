@@ -2,11 +2,9 @@
 .SYNOPSIS
     Resolves the per-extension comment line limits the link aligner wraps to.
 .DESCRIPTION
-    Reads max_line_length from the repository's .editorconfig sections of the form [*.ext] and [*.{a,b}] — the
-    source of truth for formatting — then applies links.yml's line_limit overrides on top. An extension neither names
-    takes the config's default_line_limit
-    ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), which the caller passes to
-    the engine separately.
+    Reads max_line_length from the repository's.editorconfig sections of the form [*.ext] and [*.{a,b}] — the source...
+    [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LinkLineLimit.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root whose .editorconfig is read; a missing file yields only the overrides.
 .PARAMETER Override

@@ -2,15 +2,8 @@
 .SYNOPSIS
     Renders a human-readable run report (summary.md + tests.csv) from the run's row set.
 .DESCRIPTION
-    Writes two files into $OutputFolder from the aggregated per-test rows (ConvertTo-TestAutomationRowSet):
-      - tests.csv   : one row per test (ExpandedPath, Result, DurationMs, Level, Category, File, Line),
-                      slowest first.
-      - summary.md  : run header + counts, the failures (with file:line and message), the slowest tests,
-                      and the over-limit timing violations (the same per-level rule the console prints).
-    Rows — not a live Pester object — are the input because parallel workers reduce their own results
-    in-process and only the rows survive the process boundary; counts are derived from the rows. The
-    canonical machine artifacts (results-shard-*.xml) are written by Pester in the workers; this adds the
-    at-a-glance view. The limit map is passed in so there is a single source of truth.
+    Writes two files into $OutputFolder from the aggregated per-test rows (ConvertTo-TestAutomationRowSet): -...
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment1)
 .PARAMETER Rows
     The aggregated per-test rows (ConvertTo-TestAutomationRowSet output, merged across shards).
 .PARAMETER OutputFolder
@@ -22,12 +15,12 @@
 .PARAMETER DurationSeconds
     The run's wall-clock duration in seconds, recorded in the header.
 .PARAMETER Limits
-    Per-level millisecond limits keyed by tag (L0/L1/L2/L3) — the over-limit threshold per test level. Defaults to
-    the `tests.level_ms` limits in timeouts.yml (Get-TestTimeLimits).
+    Per-level millisecond limits keyed by tag (L0/L1/L2/L3) — the over-limit threshold per test level.
+    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment2)
 .PARAMETER RunBudgetSeconds
-    The budget for the whole run, in seconds; the header records the run against it (a devbox run over it fails,
-    [ADR-AUTO-TEST#44](/docs/adr/automation/test-automation.md#rule-adr-auto-test44)). Defaults to
-    `tests.run_seconds` in timeouts.yml (Get-TestTimeLimits).
+    The budget for the whole run, in seconds; the header records the run against it (a devbox run over it fails, ).
+    [ADR-AUTO-TEST#44](/docs/adr/automation/test-automation.md#rule-adr-auto-test44)
+    [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment3)
 .PARAMETER SlowestCount
     How many slowest passed tests to list. Defaults to 20.
 .PARAMETER TimingsEnforced
@@ -67,8 +60,7 @@ function Write-TestAutomationReport {
     }
 
     # tests.csv — one row per test, slowest first (the report's columns; failure detail stays in summary.md).
-    # Rules carries the ADR provenance citations, so tests.csv is the backtrack table: filter it by a rule to
-    # find every test that enforces it.
+    # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment4)
     $csvRows = @($Rows |
             Select-Object ExpandedPath, Result, DurationMs, Level, Category, Rules, File, Line |
             Sort-Object -Property DurationMs -Descending)
@@ -99,8 +91,8 @@ function Write-TestAutomationReport {
     $notRunCount = @($Rows | Where-Object { $_.Result -eq 'NotRun' }).Count
 
     $pesterVersion = (Get-Module Pester | Select-Object -First 1).Version
-    # InvariantCulture: a bare ':' in a .NET date format is the culture's time-separator placeholder, which
-    # renders as '.' under some locales (see the cross-platform ADR). Force literal colons.
+    # InvariantCulture: a bare ':' in a.NET date format is the culture's time-separator placeholder, which renders as...
+    # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment5)
     $now = [datetime]::Now.ToString('yyyy-MM-dd HH:mm:ss', [System.Globalization.CultureInfo]::InvariantCulture)
     $os = [System.Runtime.InteropServices.RuntimeInformation]::OSDescription.Trim()
     $totalSeconds = [math]::Round($DurationSeconds, 2)
