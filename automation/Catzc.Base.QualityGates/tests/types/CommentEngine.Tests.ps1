@@ -98,6 +98,9 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $residues[1].Marker | Should -Be '#'
         $residues[1].LineCount | Should -Be 2
         [Catzc.Base.QualityGates.CommentEngine]::SectionNumbers($result.PageText) | Should -Be @(1, 2)
+        [Catzc.Base.QualityGates.CommentEngine]::SectionLines($result.PageText, 2) |
+            Should -Be @('Sorted first, so the gadget order is stable', 'across runs and the cache key never changes.')
+        [Catzc.Base.QualityGates.CommentEngine]::SectionLines($result.PageText, 9).Count | Should -Be 0
     }
 
     It 'round-trips a YAML header, a CRLF file, and a C# line run with its own marker' -Tag 'ADR-PRIN-ONELIVE#1' {

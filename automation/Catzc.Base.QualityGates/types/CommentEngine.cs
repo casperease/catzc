@@ -367,6 +367,10 @@ public static class CommentEngine
     // The section numbers a page holds, for the pairing checks.
     public static IReadOnlyCollection<int> SectionNumbers(string pageText) => Page.Parse(pageText).Sections.Keys;
 
+    // The fenced prose lines of a page's section, or empty when the page does not hold it.
+    public static IReadOnlyList<string> SectionLines(string pageText, int number) =>
+        Page.Parse(pageText).Sections.TryGetValue(number, out PageSection section) ? section.Lines : Array.Empty<string>();
+
     static string LineMarker(string trimmedLine)
     {
         if (trimmedLine.StartsWith("///", StringComparison.Ordinal)) { return "///"; }
