@@ -479,12 +479,6 @@ function Invoke-ImporterJanitors {
     # Publish the agent hook when its source changed — after the PATH reconciliation, so `dotnet` is the owned SDK.
     Invoke-AgentHookJanitor
 
-    # Commit the generated files the importer maintains (automation/.compiled/) — who is running decides: a person's...
-    # [ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)
-    # [comment:39](/docs/references/automation/internal/Catzc.Internal.Importer.psm1.md#comment39)
-    if ((Get-Command Sync-GeneratedFile -ErrorAction Ignore) -and (Get-SessionActor) -ne 'Pipeline') {
-        Sync-GeneratedFile | Out-Null
-    }
 }
 
 function Write-LoadTime {

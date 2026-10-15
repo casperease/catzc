@@ -438,19 +438,6 @@ would reach only the janitor's own scope, not the writer chokepoint in Catzc.Bas
 the bootstrap sandbox (Catzc.Tooling.Core).
 ```
 
-## comment:39
-
-Above `if ((Get-Command Sync-GeneratedFile -ErrorAction Ignore) -and...`.
-
-```text
-Commit the generated files the importer maintains (automation/.compiled/) — who is running decides
-([ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13)): a person's session
-commits, an agent's announces what changed and leaves the commit to the person, a test-run snapshot never
-commits, and a pipeline is not even asked, so CI imports stay silent. Deliberately the LAST janitor, so
-tracked files the janitors above touch (the .compiled DLL swap) are in their final state.
-Guarded: absent in the bootstrap sandbox.
-```
-
 ## comment:40
 
 Section `.DESCRIPTION` of the comment-based help.

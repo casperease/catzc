@@ -52,9 +52,12 @@ file changes nothing.
 
 ### Rule ADR-REPO-COMMENTS:5
 
-The move is made by tool and checked by a gate: `Export-Comments` moves every long comment in scope, `Format-Comments` keeps each insight
-line one line within the file's limit and free of links and of phrasings that state the obvious, and `Test-Comments` fails on a long comment
-left in a file, a residue whose section is missing, a section no residue links, and a residue that links another file's page.
+The move is made by tool and checked by a gate: `Export-Comments` moves every long comment in scope, and `Format-Code` runs it as its
+`comments` imprint step ([ADR-REPO-FORMAT#8](uniform-formatting.md#rule-adr-repo-format8)), so formatting a file also moves its prose.
+`Format-Comments` keeps each insight line one line within the file's limit and free of links and of phrasings that state the obvious, and
+`Test-Comments` fails on a long comment left in a file, a residue whose section is missing, a section no residue links, and a residue that
+links another file's page. A comment page is marked as one in its meta block, whose `kind` is `comment-page`
+([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)).
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -108,6 +111,7 @@ generated view under `out/`. Tools make the move and a gate holds it.
 ### How this is enforced
 
 - **`Export-Comments`** (in `Catzc.Base.QualityGates`) — the one-way move, dry-run first, over every file in scope or the given paths.
+  `Format-Code` runs it as the `comments` imprint step, over the same scope.
 - **`Format-Comments`** — keeps each residue's insight line in shape and lists what needs a person.
 - **`Build-CommentView`** — writes the annotated view under `out/`.
 - **`Test-Comments`** — the gate over the pairing of residues and sections and over any long comment left in a file.
