@@ -21,6 +21,9 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             @($loose | ForEach-Object id) | Should -BeNullOrEmpty -Because 'an entry that is no file language selects its files with files'
             $noForm = @($carriers.carriers | Where-Object { $_.carrier -eq [Catzc.Base.Languages.CarrierKind]::CommentHead -and $null -eq $_.Form() })
             @($noForm | ForEach-Object id) | Should -BeNullOrEmpty -Because 'every comment-head entry yields a head form'
+            foreach ($glob in $carriers.carriers.exclude.Keys) {
+                { [Catzc.Base.Globs.GlobPattern]::new($glob) } | Should -Not -Throw -Because "exclude '$glob' is a valid glob"
+            }
         }
     }
 
@@ -43,6 +46,20 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
         It 'reads a head that follows a fixed number of preamble lines' {
             $config = & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; anchor = 'after-preamble'; preamble_lines = 2 })
             $config.carriers[0].preamble_lines | Should -Be 2
+        }
+
+        It 'reads the globs an entry leaves out with their reasons, empty by default' -Tag 'ADR-REPO-CODEMETA#3' {
+            $config = & $script:make ([ordered]@{ carriers = [ordered]@{
+                        widget = [ordered]@{ carrier = 'comment-head'; line = '#'; exclude = [ordered]@{ '**/tests/**' = 'a test carries no help'; '**/assets/**' = ' copied verbatim ' } }
+                        gadget = [ordered]@{ carrier = 'comment-head'; line = '#' }
+                    }
+                })
+            $config.Find('widget').exclude.Count | Should -Be 2
+            $config.Find('widget').exclude['**/tests/**'] | Should -Be 'a test carries no help'
+            $config.Find('widget').exclude['**/assets/**'] | Should -Be 'copied verbatim'
+            $config.Find('gadget').exclude.Count | Should -Be 0
+            { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; exclude = 'tests' }) } | Should -Throw '*exclude must be a map of glob to the reason*'
+            { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; exclude = [ordered]@{ 'a/**' = '' } }) } | Should -Throw '*needs a glob and a reason*'
         }
 
         It 'builds the head form of a comment-head entry, and none for any other carrier' -Tag 'ADR-REPO-CODEMETA#1' {

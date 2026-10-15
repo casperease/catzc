@@ -19,7 +19,7 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
 
     private const string Failed = "file-carriers config validation failed:\n";
     private static readonly string[] AllowedKeys = { "carriers" };
-    private static readonly string[] AllowedEntryKeys = { "files", "carrier", "line", "block", "anchor", "preamble_lines", "property", "sidecar", "reason" };
+    private static readonly string[] AllowedEntryKeys = { "files", "carrier", "line", "block", "anchor", "preamble_lines", "property", "sidecar", "reason", "exclude" };
     private static readonly Regex EntryId = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
     // The file classes in declared order. Empty when the file declares none.
@@ -132,6 +132,8 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
             errors.Add(string.Format(CultureInfo.InvariantCulture, "carriers['{0}']: preamble_lines must be a whole number", id));
         }
 
+        Dictionary<string, string> exclude = ReadExclude(id, entry, errors);
+
         if (errors.Count > before) { return null; }
 
         Require(errors, id, carrier == CarrierKind.CommentHead || (line == null && block.Length == 0), "line and block belong to a comment-head carrier");
@@ -146,7 +148,32 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
         Require(errors, id, carrier != CarrierKind.Sidecar || files.Length > 0, "a sidecar carrier selects its files with files");
         if (errors.Count > before) { return null; }
 
-        return new FileCarrier(id, files, carrier, line, block, anchor, preambleLines, property, sidecar, reason);
+        return new FileCarrier(id, files, carrier, line, block, anchor, preambleLines, property, sidecar, reason, exclude);
+    }
+
+    // A map of glob to the reason its files carry no block, so a gap in the coverage is a visible, reviewed entry.
+    private static Dictionary<string, string> ReadExclude(string id, IDictionary entry, List<string> errors)
+    {
+        var exclude = new Dictionary<string, string>(StringComparer.Ordinal);
+        if (!Has(entry, "exclude")) { return exclude; }
+        IDictionary map = entry["exclude"] as IDictionary;
+        if (map == null)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "carriers['{0}']: exclude must be a map of glob to the reason its files carry no block", id));
+            return exclude;
+        }
+        foreach (DictionaryEntry pair in map)
+        {
+            string glob = Text(pair.Key);
+            string why = Text(pair.Value).Trim();
+            if (glob.Length == 0 || why.Length == 0)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "carriers['{0}']: exclude '{1}' needs a glob and a reason", id, glob));
+                continue;
+            }
+            exclude[glob] = why;
+        }
+        return exclude;
     }
 
     private static void Require(List<string> errors, string id, bool condition, string message)

@@ -8,8 +8,18 @@ carriers:
   markdown: { carrier: front-matter }
 
   # A line-comment head at the top; a #Requires or help block may follow it.
-  powershell: { carrier: comment-head, line: "#" }
-  csharp: { carrier: comment-head, line: "//" }
+  powershell:
+    carrier: comment-head
+    line: "#"
+    exclude:
+      "**/tests/**": "a test carries no help, and its many files would add churn for little value"
+      "**/assets/**": "an asset is copied or published verbatim elsewhere"
+  csharp:
+    carrier: comment-head
+    line: "//"
+    exclude:
+      "**/tests/**": "a test carries no help, and its many files would add churn for little value"
+      "**/assets/**": "an asset is copied or published verbatim elsewhere"
   yaml: { carrier: comment-head, line: "#" }
   pipeline-yaml: { carrier: comment-head, line: "#" }
   bicep: { carrier: comment-head, line: "//" }

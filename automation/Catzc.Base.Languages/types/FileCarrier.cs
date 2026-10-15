@@ -40,9 +40,13 @@ public sealed class FileCarrier
     // Why a file class carries no meta block. Null unless the carrier is None, which needs one.
     public string reason { get; }
 
+    // Globs of files in this class that carry no block, each with the reason. Empty when none is left out.
+    public IReadOnlyDictionary<string, string> exclude { get; }
+
     public FileCarrier(string id, string[] files, CarrierKind carrier, string line, string[] block, Catzc.Base.CodeMeta.HeadAnchor anchor,
-        int preambleLines, string property, string sidecar, string reason)
+        int preambleLines, string property, string sidecar, string reason, IDictionary<string, string> exclude)
     {
+        this.exclude = exclude == null ? new Dictionary<string, string>() : new Dictionary<string, string>(exclude);
         this.id = id;
         this.files = files == null ? Array.Empty<string>() : (string[])files.Clone();
         this.carrier = carrier;
