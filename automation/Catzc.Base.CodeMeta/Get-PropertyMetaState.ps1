@@ -1,8 +1,21 @@
 <#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.CodeMeta/Get-PropertyMetaState.ps1
+    kind: function
+    module: Catzc.Base.CodeMeta
+    visibility: public
+    adrs:
+      - ADR-REPO-FILEMETA#8
+---
+#>
+
+<#
 .SYNOPSIS
     Reads what a JSON text says about its own meta property, without changing it.
 .DESCRIPTION
-    Pure: it takes the text and the property's name, reads no file and no config.
+    Pure: it takes the text and the property's name, reads no file and no config (ADR-REPO-FILEMETA#8).
 .PARAMETER Text
     The whole JSON file as text.
 .PARAMETER Property

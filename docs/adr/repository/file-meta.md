@@ -3,13 +3,33 @@ catzc:
   derived:
     path: docs/adr/repository/file-meta.md
     kind: adr
-    body_sha: "3421c67efc73"
+    body_sha: "7307d4dd8764"
+    defines:
+      - ADR-REPO-FILEMETA#1
+      - ADR-REPO-FILEMETA#2
+      - ADR-REPO-FILEMETA#3
+      - ADR-REPO-FILEMETA#4
+      - ADR-REPO-FILEMETA#5
+      - ADR-REPO-FILEMETA#6
+      - ADR-REPO-FILEMETA#7
+      - ADR-REPO-FILEMETA#8
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#1
       - ADR-CONF-LOADING#5
       - ADR-REPO-FORMAT#5
       - ADR-REPO-FORMAT#6
+    links:
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/adr/automation/open-closed-architecture.md#rule-adr-auto-extend1
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/configuration/markdown-config-contributions.md
+      - docs/adr/configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib1
+      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading5
+      - docs/adr/repository/code-file-meta.md
+      - docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta1
+      - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5
+      - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6
 ---
 
 # ADR: File meta — one block of derived facts, in the carrier each kind of file has
@@ -77,6 +97,26 @@ down. `Get-Config` calls the scanner with the globs from the config registry, so
 meta-kind registry ([controlling-module-dependencies](../automation/controlling-module-dependencies.md)).
 
 - [Layers](#layers)
+
+### Rule ADR-REPO-FILEMETA:7
+
+A file the automation composes whole — a root-config copy, a generator's output, a `.gitkeep` — carries the **generated-from-source head**
+instead of an imprinted block. Its writer composes the content bare and writes the head through the one head function, in the carrier the
+file's class has: `path`, `kind: generated-from-source` and, when they exist, `generator` (the command that composed the file) and `source`
+(the authored file or files it comes from). No writer hand-words a banner, and the drift check compares the head with the rest of the
+content. The imprint engine leaves these files alone ([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of
+them.
+
+- [Generated files](#generated-files)
+
+### Rule ADR-REPO-FILEMETA:8
+
+A JSON file has no comments, so its carrier is an ignored top-level property that the carrier registry names (`//`, or `$comment` for a JSON
+Schema): the first property of the object, holding the same `catzc` block as text. A file class with a sidecar carrier, such as a diagram,
+keeps its block in the Markdown file beside it, which is in the scope on its own, so the imprint only checks that the sidecar exists. A file
+without one is a visible finding, or an `exclude` entry of its carrier with the reason.
+
+- [Property and sidecar carriers](#property-and-sidecar-carriers)
 
 ## Context
 
@@ -161,6 +201,24 @@ One more attribute opts a single file out, for a file whose text is read verbati
 The reader of configs cannot depend on a module that reads configs. The carrier parsers, the renderers and the scanner take their inputs as
 parameters and sit below the reader, where the reader can call them. The registry is a config and is read the usual way, by a module above
 the reader that hands the declarations down.
+
+### Generated files
+
+`The writer owns the head, the engine stays out`
+
+A generated file is rewritten whole on every run, and the drift check compares it with what its writer would compose now. If an imprint step
+wrote the head afterwards, the two would disagree on every run, so the writer writes the head itself, with the same function every writer
+calls. The head says how to regenerate the file: which command composed it and which authored files it comes from, so a reader who finds a
+generated file knows where to edit. The carrier is the file class's own, named by the root-config entry or found from the file language, and
+no banner is hand-worded, because a banner would be a second statement of what the head says.
+
+### Property and sidecar carriers
+
+`JSON keeps the block in a property, a diagram beside it`
+
+JSON has no comment syntax, and a leading `//` block makes it invalid, so the block is a property a reader of the data ignores. The property
+holds the block as text, so one parser serves it as it serves a comment head, and a JSON Schema, whose `$comment` must be a string, takes
+the same form. A diagram is a binary picture, so its description beside it is the place a reader looks and the block lives there.
 
 ### How this is enforced
 

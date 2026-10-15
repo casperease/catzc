@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "98fe9057ddcb"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.Config/configs/configs.yml

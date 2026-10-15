@@ -40,6 +40,6 @@ reference.
 Above `adr-codes:`.
 
 ```text
-The ADR codes the file cites, its comment page's too, sorted and without duplicates; last, because the list is the one long key.
+The ADR codes the file cites, its comment page's too, sorted and without duplicates, less the rules it defines; a long key, so late.
 A code file also lists the bare domain codes.
 ```

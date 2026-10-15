@@ -1,3 +1,15 @@
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.CodeMeta/types/PropertyHead.cs
+    kind: type
+    module: Catzc.Base.CodeMeta
+    adrs:
+      - ADR-REPO-FILEMETA#8
+---
+*/
+
 // Reads and writes a JSON file's meta block, kept as the text of one ignored top-level property, as pure text work on strings.
 
 using System;
@@ -122,8 +134,8 @@ public sealed class PropertyHead
         return new PropertyHead(property, text, newLine, members, open, close, headIndex, block, foreign);
     }
 
-    // The whole text again with the property written from `derived` in the order given and the authored config kept; nothing to write removes it.
-    // A text that is no object, or whose property holds something foreign, comes back as it was.
+    // A text that is no object, or whose property holds foreign data, comes back untouched, so the imprint never damages what it does not own.
+    // [comment:1](/docs/references/automation/catzc-base-codemeta/types/PropertyHead.cs.md#comment1)
     public string WithFacts(IDictionary derived)
     {
         if (!IsObject || Foreign) { return text; }

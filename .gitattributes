@@ -68,8 +68,9 @@ automation/.vendor/** linguist-vendored
 # and the generated ADR pages; see docs/adr/repository/generated-root-configs.md). The ADR index and glossary are
 # committed so GitHub has them — every ADR citation links the index — and Build-AdrIndex / Build-Glossary rewrite
 # them on import from adrs.yml and the glossary sources; Build-ContractReference rewrites the per-unit contract
-# pages from the contract assets.
+# pages from the contract assets; Build-GitKeep rewrites every .gitkeep from its one source.
 automation/.compiled/** linguist-generated
+**/.gitkeep     linguist-generated
 /importer.ps1   linguist-generated
 /importer.sh    linguist-generated
 /.gitattributes linguist-generated
@@ -119,3 +120,6 @@ automation/.compiled/** linguist-generated
 # catzc: the root-file sources are copied to the repository root under the head Build-RootConfig writes into each copy,
 # so a head here would sit beside it with the source's path (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA#7).
 /automation/Catzc.Base.RootConfig/assets/root/** -catzc-meta
+
+# catzc: the .gitkeep source is likewise copied into every .gitkeep under the head Build-GitKeep writes there.
+/automation/Catzc.Base.Docs/assets/gitkeep -catzc-meta

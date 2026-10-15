@@ -36,6 +36,7 @@ groups:
         Catzc.Base.Writers,
         Catzc.Base.Objects,
         Catzc.Base.MarkdownMeta,
+        Catzc.Base.Languages,
         Catzc.Base.Asserts,
       ]
     Catzc.Base.Vendor: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Writers, Catzc.Base.Repository]

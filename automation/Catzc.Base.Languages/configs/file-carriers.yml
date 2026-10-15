@@ -42,7 +42,17 @@ carriers:
   asset: { carrier: none, reason: "a binary file, so the description beside it carries what a reader needs" }
 
   # Classes of files that belong to no language.
-  diagram: { files: ["docs/.assets/**/*.drawio.png"], carrier: sidecar, sidecar: "{base}.md" }
+  diagram:
+    files: ["docs/.assets/**/*.drawio.png"]
+    carrier: sidecar
+    sidecar: "{base}.md"
+    # The block of a diagram lives in the description beside it; a diagram without one is listed with the reason, never skipped.
+    exclude:
+      "docs/.assets/azure/azure-name-assembly.drawio.png": "no description page has been written yet"
+      "docs/.assets/commits-quality/10-commits-story.drawio.png": "no description page has been written yet"
+      "docs/.assets/commits-quality/commit-lifecycle-states.drawio.png": "no description page has been written yet"
+      "docs/.assets/commits-quality/state-changes.drawio.png": "no description page has been written yet"
+      "docs/.assets/commits-quality/sync-point.drawio.png": "no description page has been written yet"
   dotfile:
     {
       files: ["**/.editorconfig", "**/.gitignore", "**/.gitattributes", "**/.prettierignore", "**/.markdownlintignore"],
@@ -54,7 +64,7 @@ carriers:
   toml: { files: ["**/*.toml"], carrier: comment-head, line: "#" }
   go-workspace: { files: ["**/go.work", "**/go.mod"], carrier: comment-head, line: "//" }
   lock-file: { files: ["**/*.lock"], carrier: none, reason: "written whole by the package manager that owns it" }
-  placeholder: { files: ["**/.gitkeep", "**/assets/gitkeep"], carrier: comment-head, line: "#" }
+  placeholder: { files: ["**/.gitkeep"], carrier: comment-head, line: "#" }
   delimited-data: { files: ["**/*.csv", "**/*.tsv"], carrier: none, reason: "a header row and records only, so a head would be a record" }
   license: { files: ["**/LICENSE", "**/LICENSE.txt"], carrier: none, reason: "legal text kept verbatim" }
   build-output:

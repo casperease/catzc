@@ -210,6 +210,6 @@ Describe 'New-GoWorkspace — the shipped tools.yml pin' -Tag 'L1', 'integrity' 
     It 'writes the go tool''s tools.yml pin as the go directive of go.work' {
         $pin = "$(Get-ConfigValue -Address 'global.tools.go.version')"
         $pin | Should -Not -BeNullOrEmpty
-        (New-GoWorkspace -Target 'go.work').Content | Should -Match ("^go " + [regex]::Escape($pin) + "`n")
+        (New-GoWorkspace -Target 'go.work').Content | Should -Match ('^go ' + [regex]::Escape($pin) + "`n")
     }
 }

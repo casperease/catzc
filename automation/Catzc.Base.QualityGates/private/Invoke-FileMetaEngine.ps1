@@ -7,7 +7,6 @@ catzc:
     module: Catzc.Base.QualityGates
     visibility: private
     adrs:
-      - ADR-REPO-FILEMETA#3
       - ADR-REPO-FILEMETA#5
 ---
 #>

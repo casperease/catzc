@@ -3,10 +3,11 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md
     kind: comment-page
-    body_sha: a803acc8b656
+    body_sha: adca329c3dae
     adrs:
       - ADR-AUTO-CONSOLE#11
       - ADR-PWSH-ANNOUNCE#6
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/New-Importer.ps1
@@ -67,7 +68,7 @@ the import and does not leak into the caller's session.
 
 ## comment:5
 
-Above `$header = @'`.
+Above `$explanation = @'`.
 
 ```text
 Fixed template around the generated param block. Single-quoted here-strings keep $env:/$PSScriptRoot/
@@ -76,9 +77,9 @@ Fixed template around the generated param block. Single-quoted here-strings keep
 
 ## comment:6
 
-Above ``$content = $header + "`n" + $paramBlock + "`n`n" + $body + "`n"``.
+Above ``$content = $explanation + "`n" + $paramBlock + "`n`n" + $body + "`n"``.
 
 ```text
-LF throughout, one trailing newline. The header/param/body join and the EOF newline match the committed
-importer.ps1 byte-for-byte (the drift test compares EOL-insensitively).
+LF throughout, one trailing newline. The explanation/param/body join and the EOF newline match the committed
+importer.ps1 below its generated-file head byte-for-byte (the drift test compares EOL-insensitively).
 ```

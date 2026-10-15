@@ -3,8 +3,9 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/New-VSCodeLaunch.ps1.md
     kind: comment-page
-    body_sha: "4e8b280744d0"
+    body_sha: "4ed0cb1fa0bf"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.VSCode/New-VSCodeLaunch.ps1
@@ -18,9 +19,9 @@ Section `.DESCRIPTION` of the comment-based help.
 
 ```text
 Reads the authored launch-profile registry (configs/vscode-launch.yml, via Get-Config -Config
-vscode-launch, which maps and validates it as a VscodeLaunchConfig) and renders it to the launch.json content: a
-generated-file header (JSONC — VS Code reads comments in launch.json) followed by the version and
-configurations as JSON, in registry order. The per-profile explanations live as comments in the yml — the
+vscode-launch, which maps and validates it as a VscodeLaunchConfig) and renders it to the launch.json content: the version and
+configurations as JSON, in registry order, without a head (Build-RootConfig writes the generated-file head as a JSONC comment
+head, which VS Code reads in launch.json). The per-profile explanations live as comments in the yml — the
 authored, searched artifact — not in the rendering.
 
 This is a pure renderer: it returns the content and writes nothing — it is the `generator` the

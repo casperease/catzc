@@ -3,8 +3,9 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/configs/rootconfig.yml.md
     kind: comment-page
-    body_sha: bd55d7146d3c
+    body_sha: "0b9f7ad1dd71"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.RootConfig/configs/rootconfig.yml
@@ -29,11 +30,11 @@ Two booleans, both defaulting to FALSE:
                importer.ps1, the git files), where a source change surfaces as a reviewable diff.
   copyAsLink — materialise the target as a filesystem LINK to the source (Set-FileLink: a symbolic link, or
                a hard link on Windows without the symlink privilege) instead of a generated copy: the root
-               file IS the source, so drift is impossible and no header is injected. Requires `source`,
-               requires committed false, forbids a declared `comment`. Healed per-OS at the importer tail.
+               file IS the source, so drift is impossible and no head is written. Requires `source`,
+               requires committed false, forbids a declared `carrier`. Healed per-OS at the importer tail.
 
-`comment` ('hash' | 'none', default 'none') picks the generated-file header for non-link `source` copy-ins;
-a `generator` owns its whole output, header included, and takes no `comment`. All paths are repository-root-
+`carrier` names the file-carriers entry for the generated-file head of a composed file (default: the entry of the
+target's file language); `sources` lists the authored files a generator renders from. All paths are repository-root-
 relative and forward-slashed (communication form; see [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)). Loaded
 via Get-Config -Config rootconfig; the shape is validated by Catzc.Base.RootConfig.RootConfigFiles. See
 [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).

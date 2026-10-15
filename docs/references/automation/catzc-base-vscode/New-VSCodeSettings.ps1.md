@@ -3,9 +3,10 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md
     kind: comment-page
-    body_sha: ddbdedc25460
+    body_sha: "28d2d8dc7eec"
     adrs:
       - ADR-REPO-FORMAT#8
+    links: []
 ---
 
 # automation/Catzc.Base.VSCode/New-VSCodeSettings.ps1
@@ -20,8 +21,8 @@ Section `.DESCRIPTION` of the comment-based help.
 ```text
 Reads the authored settings registry (configs/vscode-settings.yml, via Get-Config -Config
 vscode-settings — the validated VscodeSettingsConfig, whose read-only `settings` map it renders from a
-copy) and renders it to the settings.json content: a generated-file header (JSONC — VS Code
-reads comments in settings.json) followed by the settings as JSON, in registry order. The explanations
+copy) and renders it to the settings.json content: the settings as JSON, in registry order, without a head
+(Build-RootConfig writes the generated-file head as a JSONC comment head, which VS Code reads in settings.json). The explanations
 live as comments in the yml — the authored, searched artifact — not in the rendering.
 
 The one render-time completion is `search.exclude`: every path in -ManagedTarget (the root-config

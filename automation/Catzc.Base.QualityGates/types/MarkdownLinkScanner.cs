@@ -31,6 +31,7 @@ public sealed class MarkdownLinkScanner
         @"(?<!\\)!?\[(?<text>(?:[^\[\]\r\n]|\[[^\]\r\n]*\])*)\]\((?<dest><[^>\r\n]*>|[^)\s]+)(?:\s+(?:""[^""\r\n]*""|'[^'\r\n]*'))?\)",
         RegexOptions.Compiled);
     static readonly Regex ReferenceDefinition = new Regex(@"^ {0,3}\[[^\]]+\]:[ \t]*(?<dest><[^>]*>|\S+)", RegexOptions.Compiled);
+    static readonly Regex Autolink = new Regex(@"(?<!\\)<(?<dest>[a-zA-Z][a-zA-Z0-9+.\-]*:[^\s<>]+)>", RegexOptions.Compiled);
     static readonly Regex ColonCitation = new Regex(@"(?<![\w\-])ADR-[A-Z]+(?:-[A-Z]+)*(?<colon>:)(?=\d)", RegexOptions.Compiled);
     static readonly Regex RuleHeading = new Regex(@"^ {0,3}#{1,6}[ \t]+Rule[ \t]+ADR-", RegexOptions.Compiled);
     static readonly Regex Fence = new Regex(@"^ {0,3}(`{3,}|~{3,})", RegexOptions.Compiled);
@@ -77,30 +78,8 @@ public sealed class MarkdownLinkScanner
         string directory = Path.GetDirectoryName(repoPath.Replace('/', Path.DirectorySeparatorChar)) ?? string.Empty;
         bool underGitHub = repoPath.StartsWith(".github/", StringComparison.Ordinal);
 
-        string fence = null;
-        int lineStart = 0;
-        while (lineStart < text.Length)
+        foreach ((string line, int lineStart, bool[] literal) in ProseLines(text))
         {
-            int lineEnd = text.IndexOf('\n', lineStart);
-            if (lineEnd < 0) { lineEnd = text.Length; }
-            string line = text.Substring(lineStart, lineEnd - lineStart).TrimEnd('\r');
-
-            Match fenceMatch = Fence.Match(line);
-            if (fence != null)
-            {
-                if (fenceMatch.Success && fenceMatch.Groups[1].Value[0] == fence[0] && fenceMatch.Groups[1].Value.Length >= fence.Length) { fence = null; }
-                lineStart = lineEnd + 1;
-                continue;
-            }
-            if (fenceMatch.Success)
-            {
-                fence = fenceMatch.Groups[1].Value;
-                lineStart = lineEnd + 1;
-                continue;
-            }
-
-            bool[] literal = CodeSpans(line);
-
             foreach (Match link in InlineLink.Matches(line))
             {
                 if (literal[link.Index]) { continue; }
@@ -127,7 +106,6 @@ public sealed class MarkdownLinkScanner
                     edits.Add((at, 1, "#"));
                 }
             }
-            lineStart = lineEnd + 1;
         }
 
         if (edits.Count == 0) { return text; }
@@ -144,10 +122,61 @@ public sealed class MarkdownLinkScanner
         return output.ToString();
     }
 
+    // The destination of every link, image, reference definition and autolink outside code, as written without angle brackets.
+    public static IReadOnlyList<string> Destinations(string text)
+    {
+        var found = new List<string>();
+        if (string.IsNullOrEmpty(text)) { return found; }
+        foreach ((string line, int _, bool[] literal) in ProseLines(text))
+        {
+            foreach (Match link in InlineLink.Matches(line))
+            {
+                if (!literal[link.Index]) { found.Add(Bare(link.Groups["dest"].Value)); }
+            }
+            Match definition = ReferenceDefinition.Match(line);
+            if (definition.Success) { found.Add(Bare(definition.Groups["dest"].Value)); }
+            foreach (Match autolink in Autolink.Matches(line))
+            {
+                if (!literal[autolink.Index]) { found.Add(autolink.Groups["dest"].Value); }
+            }
+        }
+        return found;
+    }
+
+    // The lines outside fenced blocks with their offsets and inline-code masks: the one walk Scan and Destinations share.
+    static IEnumerable<(string Line, int Start, bool[] Literal)> ProseLines(string text)
+    {
+        string fence = null;
+        int lineStart = 0;
+        while (lineStart < text.Length)
+        {
+            int lineEnd = text.IndexOf('\n', lineStart);
+            if (lineEnd < 0) { lineEnd = text.Length; }
+            string line = text.Substring(lineStart, lineEnd - lineStart).TrimEnd('\r');
+
+            Match fenceMatch = Fence.Match(line);
+            if (fence != null)
+            {
+                if (fenceMatch.Success && fenceMatch.Groups[1].Value[0] == fence[0] && fenceMatch.Groups[1].Value.Length >= fence.Length) { fence = null; }
+            }
+            else if (fenceMatch.Success)
+            {
+                fence = fenceMatch.Groups[1].Value;
+            }
+            else
+            {
+                yield return (line, lineStart, CodeSpans(line));
+            }
+            lineStart = lineEnd + 1;
+        }
+    }
+
+    static string Bare(string written) => written.StartsWith("<", StringComparison.Ordinal) ? written.Trim('<', '>') : written;
+
     void CheckDestination(string written, int offset, int length, string directory, string repoPath, bool underGitHub,
         List<CodeLinkRewriter.Hit> hits, List<(int, int, string)> edits)
     {
-        string destination = written.StartsWith("<", StringComparison.Ordinal) ? written.Trim('<', '>') : written;
+        string destination = Bare(written);
         if (destination.Length == 0) { return; }
 
         if (Scheme.IsMatch(destination))

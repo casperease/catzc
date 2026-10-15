@@ -3,13 +3,23 @@ catzc:
   derived:
     path: docs/explanation/repository/opted-in-then-link-copy-or-render.md
     kind: explanation
-    body_sha: "3de893e5d4ae"
+    body_sha: "439b2b02352f"
     adrs:
       - ADR-REPO-ROOTCFG#2
       - ADR-REPO-ROOTCFG#4
       - ADR-REPO-ROOTCFG#5
       - ADR-REPO-ROOTCFG#7
       - ADR-REPO-ROOTCFG#8
+    links:
+      - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.md
+      - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
+      - docs/adr/repository/generated-root-configs.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
+      - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
+      - docs/explanation/repository/index.md
+      - docs/explanation/repository/one-registry-one-writer-two-primitives.md
+      - docs/explanation/repository/one-source-one-writer-one-boolean.md
+      - docs/explanation/repository/three-gates-check-registry-drift-membership.md
 ---
 
 # The optIn filter, then link, copy or render, through two write primitives
@@ -32,8 +42,8 @@ Supports ADR-REPO-ROOTCFG#2, #4, #5, #7 and #8 (implementation lens).
 ```
 
 `Build-RootConfig` is a short function with one filter and three branches. It loads the registry through the config reader, which types and
-validates it; keeps the opted-in entries; and for each one either asks for a link, composes a header plus the source, or asks a generator
-for its output. Two primitives in `Catzc.Base.Files` do every write.
+validates it; keeps the opted-in entries; and for each one either asks for a link, composes the source under a generated-file head, or asks
+a generator for its output and writes the same head over it. Two primitives in `Catzc.Base.Files` do every write.
 
 ![The optIn filter, then link, copy or render, through two write primitives](../../.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png)
 
@@ -45,8 +55,8 @@ The diagram is described element by element in
 1. **rootconfig.yml.** `Get-Config -Config rootconfig` loads the registry from `automation/Catzc.Base.RootConfig/configs/`. Every path in it
    is repository-root-relative and forward-slashed.
 2. **RootConfigFiles.** The `rootconfig` config is typed `Catzc.Base.RootConfig.RootConfigFiles`, so loading it constructs every entry as a
-   `RootConfigFile`: exactly one of `source` or `generator`; a wildcard target only with a `generator`; `comment` is `hash` or `none` and a
-   generator declares none; `copyAsLink` needs a `source`, needs `committed: false` and forbids a `comment`; targets are unique.
+   `RootConfigFile`: exactly one of `source` or `generator`; a wildcard target only with a `generator`; `sources` only with a `generator`;
+   `copyAsLink` needs a `source`, needs `committed: false` and forbids a `carrier`; targets are unique.
 3. **Validation failed.** A malformed registry throws once, `rootconfig config validation failed:` followed by every error, before any file
    is touched.
 4. **Get-RootConfigTargets.** The validated entries are filtered to those with `optIn` true, in registry order. An opted-out entry is
@@ -59,10 +69,10 @@ The diagram is described element by element in
    result to `{ Target; Content }` records: one string for a literal target, one record per file for a wildcard such as `*/tests/*/go.mod`,
    which may render none. A record outside the pattern, or a literal target with anything but one file, throws naming the entry and the
    generator. 10 entries take this branch.
-8. **Write-FileIfChanged.** The copy branch reads the source, normalises it to LF and, under `comment: hash`, prepends the
-   `# GENERATED FILE` header naming the source; 6 entries take it. That content, and every rendered record, goes to `Write-FileIfChanged`:
-   canonical LF and UTF-8 without BOM, a compare that ignores carriage returns, and a delete-then-write only on a real change. A target that
-   is currently a link is deleted first and counted as changed.
+8. **Write-FileIfChanged.** The copy branch reads the source, normalises it to LF and writes the generated-from-source head over it, naming
+   the source; 6 entries take it. A rendered record gets the same head, naming the generator and its sources. That content goes to
+   `Write-FileIfChanged`: canonical LF and UTF-8 without BOM, a compare that ignores carriage returns, and a delete-then-write only on a
+   real change. A target that is currently a link is deleted first and counted as changed.
 9. **Link to the source.** The root path and the authored file are one file. The writer reports `linked` or `link current`.
 10. **Independent file.** The root path is a fresh, real file that no link reaches. The writer reports `regenerated` or `unchanged`.
 
@@ -72,8 +82,8 @@ The diagram is described element by element in
   entries are touched (ADR-REPO-ROOTCFG#2).
 - Every content write goes through `Write-FileIfChanged`: canonical output, an EOL-insensitive compare, write only on a real change,
   delete-then-write; link targets go through `Set-FileLink` instead (ADR-REPO-ROOTCFG#4).
-- A source copy that is not a link carries a leading generated-file header in the target's comment style; a generator owns its whole output
-  and takes no `comment`; a `copyAsLink` entry carries no header (ADR-REPO-ROOTCFG#5).
+- A composed file, a source copy that is not a link or a generator's output, carries the generated-file head in its file class's carrier; a
+  `copyAsLink` entry carries no head (ADR-REPO-ROOTCFG#5).
 - A `copyAsLink` entry is a filesystem link, with its three constraints validated by `RootConfigFile`, and `Set-FileLink` throws rather than
   copy (ADR-REPO-ROOTCFG#7).
 - A generator entry may name a wildcard target and render one record per file, each written and reported on its own (ADR-REPO-ROOTCFG#8).

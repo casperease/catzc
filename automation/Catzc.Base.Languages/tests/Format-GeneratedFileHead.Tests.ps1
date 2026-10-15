@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new(@{
@@ -10,12 +19,12 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
             })
         $script:carriers = [Catzc.Base.Languages.FileCarriersConfig]::new(@{
                 carriers = [ordered]@{
-                    widget = @{ carrier = 'comment-head'; line = '#' }
-                    gadget = @{ carrier = 'comment-head'; block = @('/*', '*/') }
-                    stamp  = @{ carrier = 'none'; reason = 'written whole' }
-                    data   = @{ carrier = 'property'; property = '//' }
+                    widget   = @{ carrier = 'comment-head'; line = '#' }
+                    gadget   = @{ carrier = 'comment-head'; block = @('/*', '*/') }
+                    stamp    = @{ carrier = 'none'; reason = 'written whole' }
+                    data     = @{ carrier = 'property'; property = '//' }
                     sprocket = @{ files = @('**/sprocket'); carrier = 'comment-head'; line = '//' }
-                    schema = @{ files = @('**/*.schema.dat'); carrier = 'property'; property = '$comment'; strip = @('GENERATED FILE') }
+                    schema   = @{ files = @('**/*.schema.dat'); carrier = 'property'; property = '$comment'; strip = @('GENERATED FILE') }
                 }
             })
     }

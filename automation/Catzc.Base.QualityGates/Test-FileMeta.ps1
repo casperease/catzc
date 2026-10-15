@@ -8,8 +8,6 @@ catzc:
     visibility: public
     adrs:
       - ADR-AUTO-TEST#35
-      - ADR-REPO-FILEMETA#3
-      - ADR-REPO-FORMAT#9
 ---
 #>
 

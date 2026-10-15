@@ -3,11 +3,12 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md
     kind: comment-page
-    body_sha: "9df31c667c35"
+    body_sha: d9ba2cc5086e
     adrs:
       - ADR-AUTO-SPELL#5
       - ADR-AUTO-SPELL#6
       - ADR-REPO-OUTDIR#8
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
@@ -25,8 +26,8 @@ and writes one plain cspell word list per category
 ([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)) to the repository
 root's .cspell/<category>.txt
 — one file per category defined in the registry (see .cspell/README.md) — the lists cspell.yml references
-as separate dictionaries. Each carries a generated-file header comment (cspell treats
-'#' lines as comments) naming its source. Each list is lower-cased, de-duplicated, and ordinal-sorted, so the
+as separate dictionaries. Each carries the generated-file head as a comment (cspell treats
+'#' lines as comments) naming its generator and source. Each list is lower-cased, de-duplicated, and ordinal-sorted, so the
 output is deterministic — the same registry always produces byte-identical bytes. The category set is the
 registry's own `categories` map, and every category's file is always emitted, so the generated file set —
 and cspell.yml — stay stable.
@@ -106,11 +107,11 @@ for a deterministic list.
 
 ## comment:8
 
-Above `$header = @(`.
+Above `$text = if ($words.Count -gt 0) {`.
 
 ```text
-A generated-file header (cspell treats '#' lines as comments) names the single source and how the
-file exists — mirrored by .cspell/README.md. It is part of the content, so it is drift-compared too.
+A generated-file head (cspell treats '#' lines as comments) names the generator and the single source —
+mirrored by .cspell/README.md. It is part of the content, so it is drift-compared too.
 ```
 
 ## comment:9

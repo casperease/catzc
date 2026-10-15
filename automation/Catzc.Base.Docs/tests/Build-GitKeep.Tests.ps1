@@ -89,7 +89,7 @@ Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR
         $written = [System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'widgets/.gitkeep'))
         $shipped.Trim() | Should -Not -BeNullOrEmpty
         ($written -replace "`r", '') | Should -BeLike ('*' + ($shipped -replace "`r", '').TrimEnd("`n") + "`n")
-        $written | Should -BeLike "*path: widgets/.gitkeep*kind: generated-from-source*"
+        $written | Should -BeLike '*path: widgets/.gitkeep*kind: generated-from-source*'
     }
 }
 

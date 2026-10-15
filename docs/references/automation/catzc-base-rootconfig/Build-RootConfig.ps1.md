@@ -3,8 +3,9 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md
     kind: comment-page
-    body_sha: "8fa889809e9d"
+    body_sha: "343c2df5141b"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
@@ -19,9 +20,9 @@ Section `.DESCRIPTION` of the comment-based help.
 ```text
 Reads the root-config registry (configs/rootconfig.yml, via Get-Config -Config rootconfig), filters it to
 the opted-in entries (Get-RootConfigTargets), and reproduces each target from its single source of truth:
-a `source` entry copies the authored file out (prepending the `comment`-style generated-file header), a
+a `source` entry copies the authored file out under the generated-from-source head, a
 `generator` entry renders the content through Invoke-RootConfigGenerator (e.g. New-Importer for
-importer.ps1), and a `copyAsLink` source entry skips content entirely — the target is materialised as a
+importer.ps1) and gets the same head, and a `copyAsLink` source entry skips content entirely — the target is materialised as a
 filesystem link to the source (Set-FileLink), so the root file IS the source. Whether the target is
 gitignored (committed false) or tracked (committed true) changes nothing here — content is produced the
 same way; `committed` only governs git membership, asserted by the integrity test.
@@ -93,7 +94,7 @@ A link entry skips content composition entirely: the target IS the source, verif
 Above `$files = @(foreach ($file in @(Get-RootConfigRenderedFile -Entry $entry)) {`.
 
 ```text
-A generator's rendered output (which owns its whole content, header included): one file, or one
+A generator's rendered output (which owns its whole content below the head): one file, or one
 record per file of a wildcard target.
 ```
 

@@ -68,7 +68,12 @@ kinds:
       - "automation/Catzc.*/*.ps1"
       - "automation/Catzc.*/private/*.ps1"
 
-  # The ADR codes the file cites, its comment page's too, sorted and without duplicates; last, because the list is the one long key.
+  # The rules an ADR defines in its own rule headings, spelled as citations; they are no citation of the ADR, so adrs never lists them.
+  adr-defines:
+    keys: [defines]
+    files: ["docs/adr/**/*.md"]
+
+  # The ADR codes the file cites, its comment page's too, sorted and without duplicates, less the rules it defines; a long key, so late.
   # [comment:3](/docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md#comment3)
   adr-codes:
     keys: [adrs]
@@ -82,3 +87,7 @@ kinds:
         - "automation/**/types/*.cs"
         - "automation/Catzc.*/*.ps1"
         - "automation/Catzc.*/private/*.ps1"
+
+  # Every link a Markdown file points out of itself, one spelling, sorted; a link that stays inside the file is not listed. Last: the longest key.
+  links:
+    files: ["**/*.md"]

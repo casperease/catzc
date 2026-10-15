@@ -3,8 +3,9 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-git/New-GitIgnore.ps1.md
     kind: comment-page
-    body_sha: a2546a3d1d3e
+    body_sha: "636a69381902"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.Git/New-GitIgnore.ps1
@@ -18,7 +19,7 @@ Section `.DESCRIPTION` of the comment-based help.
 
 ```text
 Reads the section registry (configs/gitignore.yml, via Get-Config -Config gitignore) and renders it to the
-full .gitignore text: a generated-file header naming the registry, then each section as a titled comment
+full .gitignore text: each section as a titled comment
 block with its wrapped `why` explanation and its verbatim pattern lines (Format-GitIgnoreSection). A
 section declaring `inject: <provider>` takes its patterns from -Inject at render time — the root-config
 section is fed the registry's committed:false targets by Build-RootConfig, so the ignored-copies list

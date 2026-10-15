@@ -1,3 +1,14 @@
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/GeneratedFilesConfig.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+    adrs: []
+---
+*/
+
 // The registry of writers Test-GeneratedFiles checks; the generators of the managed root files come from the root-config registry, not from here.
 
 using System;

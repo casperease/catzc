@@ -3,14 +3,30 @@ catzc:
   derived:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
-    body_sha: "41ef545823ec"
+    body_sha: "9de62bf6a569"
+    defines:
+      - ADR-REPO-CODEMETA#1
+      - ADR-REPO-CODEMETA#2
+      - ADR-REPO-CODEMETA#3
+      - ADR-REPO-CODEMETA#4
+      - ADR-REPO-CODEMETA#5
     adrs:
       - ADR-REPO-COMMENTS#3
       - ADR-REPO-FILEMETA#1
       - ADR-REPO-FILEMETA#2
       - ADR-REPO-FILEMETA#3
       - ADR-REPO-FILEMETA#5
+      - ADR-REPO-FILEMETA#7
       - ADR-REPO-FORMAT#8
+    links:
+      - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3
+      - docs/adr/repository/file-meta.md
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta7
+      - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8
 ---
 
 # ADR: Code file meta — a derived head in the first comment of every tracked code file
@@ -145,8 +161,9 @@ a parser per language, so it is left out until a parser is warranted.
 Every tracked file a reader can open says what it is and where it belongs, so a test, an asset, a script or a template carries the same
 `path` and `kind` as a function does. The carrier registry already knows each language's comment syntax, so the scope comes from it and no
 meta kind repeats a list of globs. The files the head would harm stay out through `.gitattributes`: vendored code is someone else's,
-contract assets and fixtures are compared byte for byte, and generated files are written whole by their generator. The richer keys stay
-with the files that have them: a module and a visibility belong to a function or a type.
+contract assets and fixtures are compared byte for byte, and generated files carry the head their writer wrote
+([ADR-REPO-FILEMETA#7](file-meta.md#rule-adr-repo-filemeta7)). The richer keys stay with the files that have them: a module and a visibility
+belong to a function or a type.
 
 ### Hosted by Format-Code
 

@@ -1,9 +1,22 @@
 <#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.CodeMeta/Format-PropertyMetaHead.ps1
+    kind: function
+    module: Catzc.Base.CodeMeta
+    visibility: public
+    adrs:
+      - ADR-REPO-FILEMETA#8
+---
+#>
+
+<#
 .SYNOPSIS
     Returns a JSON text with its meta property imprinted from the given facts.
 .DESCRIPTION
-    The same facts always give the same bytes, so a second run changes no file. A text that is no JSON object, or whose property
-    holds something else, comes back as it was.
+    The same facts always give the same bytes, so a second run changes no file.
+    [comment:1](/docs/references/automation/catzc-base-codemeta/Format-PropertyMetaHead.ps1.md#comment1)
 .PARAMETER Text
     The whole JSON file as text.
 .PARAMETER Property

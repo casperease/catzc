@@ -79,15 +79,15 @@ function Build-TerminologyDictionary {
         )
         [System.Array]::Sort($words, [System.StringComparer]::Ordinal)
 
-        # The header is part of the content, so the drift comparison covers it as well.
+        # The head is part of the content, so the drift comparison covers it as well.
         # [comment:8](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment8)
-        $header = @(
-            "# GENERATED cspell dictionary for the '$category' vocabulary category — do not edit."
-            '# Single source of truth: automation/Catzc.Base.QualityGates/configs/terminology.yml'
-            '# Regenerated on import by Build-TerminologyDictionary; gitignored. See .cspell/README.md.'
+        $text = if ($words.Count -gt 0) {
+            ($words -join "`n") + "`n"
+        }
+        else {
             ''
-        )
-        $content = (($header + $words) -join "`n") + "`n"
+        }
+        $content = Format-GeneratedFileHead -Text $text -Path ".cspell/$category.txt" -Carrier word-list -Generator Build-TerminologyDictionary -Source 'automation/Catzc.Base.QualityGates/configs/terminology.yml'
 
         # The path is fixed because cspell.yml references it, so there is no committed second copy.
         # [comment:9](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment9)

@@ -16,8 +16,8 @@ catzc:
 .SYNOPSIS
     The adr-codes meta kind's fact: the ADR citations the file and its comment page make, sorted and without duplicates.
 .DESCRIPTION
-    A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation. A file the kind's `domain_files`
-    setting names also lists a bare `ADR-<CODE>`.
+    A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation. A rule the file defines itself is
+    listed under `defines`, never here. A file the kind's `domain_files` setting names also lists a bare `ADR-<CODE>`.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What Get-MarkdownMetaState read from the file.
@@ -70,6 +70,11 @@ function Get-AdrCodesFileMetaFact {
     $codes = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($match in [regex]::Matches($text, $pattern)) {
         [void] $codes.Add($match.Value)
+    }
+    if (-not $withDomain) {
+        foreach ($defined in (Get-AdrDefinedRule -Text $text)) {
+            [void] $codes.Remove($defined)
+        }
     }
     [ordered]@{ $Kind.keys[0] = [string[]] @($codes) }
 }

@@ -1,9 +1,22 @@
 <#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
+    kind: function
+    module: Catzc.Base.Languages
+    visibility: public
+    adrs:
+      - ADR-REPO-FILEMETA#7
+---
+#>
+
+<#
 .SYNOPSIS
     Returns the text of a generated file with the meta head that says which generator or source wrote it.
 .DESCRIPTION
-    The head is the one unified form: kind generated-from-source, and the generator and the source when the file has them.
-    The carrier is named by id, or found from the file's language when no id is given.
+    A writer composes its content bare and this adds the one head, so no generator hand-words a banner.
+    [comment:1](/docs/references/automation/catzc-base-languages/Format-GeneratedFileHead.ps1.md#comment1)
 .PARAMETER Text
     The whole content the generator composed, without any head.
 .PARAMETER Path
