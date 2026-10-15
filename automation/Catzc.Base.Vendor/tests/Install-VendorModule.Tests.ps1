@@ -16,7 +16,7 @@ Describe 'Install-VendorModule' -Tag 'L0', 'logic' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Vendor { 'TestDrive:' }
         Mock Test-Path -ModuleName Catzc.Base.Vendor { $true }
         Mock Save-PSResource -ModuleName Catzc.Base.Vendor { }
-        Mock Get-ChildItem -ModuleName Catzc.Base.Vendor { @() }
+        Mock Get-ChildPath -ModuleName Catzc.Base.Vendor { @() }
         Mock Get-Module -ModuleName Catzc.Base.Vendor { }
     }
 
@@ -44,7 +44,7 @@ Describe 'Install-VendorModule' -Tag 'L0', 'logic' {
             New-Item -ItemType Directory -Path (Join-Path $version $folder) -Force | Out-Null
         }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Vendor { $root }.GetNewClosure()
-        Mock Get-ChildItem -ModuleName Catzc.Base.Vendor { Microsoft.PowerShell.Management\Get-ChildItem @PesterBoundParameters }
+        Mock Get-ChildPath -ModuleName Catzc.Base.Vendor { Catzc.Base.Folders\Get-ChildPath @PesterBoundParameters }
 
         Install-VendorModule Widget
 

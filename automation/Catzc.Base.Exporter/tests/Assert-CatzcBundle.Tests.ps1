@@ -42,6 +42,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             Import-InternalModule Types
             $typesHash = (Get-CombinedTypeHash -AutomationRoot $staging).CombinedHash
             & $write ".compiled/Catzc.Types.$typesHash.dll" 'MZ'
+            & $write ".compiled/Catzc.Types.$typesHash.json" '{}'
 
             $build = [ordered]@{
                 bundle      = 'widgets'
@@ -121,6 +122,18 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
         [System.IO.File]::Delete((Join-Path $fixture.Root ".compiled/Catzc.Types.$($fixture.TypesHash).dll"))
         & $script:resealBuild $fixture
         { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*exactly one .compiled/Catzc.Types.<hash>.dll, found 0*'
+    }
+
+    It 'throws when the types manifest is missing' {
+        [System.IO.File]::Delete((Join-Path $fixture.Root ".compiled/Catzc.Types.$($fixture.TypesHash).json"))
+        & $script:resealBuild $fixture
+        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*exactly one .compiled/Catzc.Types.<hash>.json, found 0*'
+    }
+
+    It 'throws when the types manifest is not named for the DLL' {
+        [System.IO.File]::Move((Join-Path $fixture.Root ".compiled/Catzc.Types.$($fixture.TypesHash).json"), (Join-Path $fixture.Root '.compiled/Catzc.Types.00000000.json'))
+        & $script:resealBuild $fixture
+        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*types manifest .compiled/Catzc.Types.00000000.json is not named for the types DLL*'
     }
 
     It 'throws when a second types DLL is present' {

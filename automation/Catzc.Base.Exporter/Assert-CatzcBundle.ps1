@@ -71,6 +71,14 @@ function Assert-CatzcBundle {
         $violations.Add("expected exactly one .compiled/Catzc.Types.<hash>.dll, found $($dlls.Count) $($dlls -join ', ')".TrimEnd())
     }
 
+    $manifests = @($files | Where-Object { $_ -match '^\.compiled/Catzc\.Types\.[^/]+\.json$' })
+    if ($manifests.Count -ne 1) {
+        $violations.Add("expected exactly one .compiled/Catzc.Types.<hash>.json, found $($manifests.Count) $($manifests -join ', ')".TrimEnd())
+    }
+    elseif ($dlls.Count -eq 1 -and $manifests[0] -ne [System.IO.Path]::ChangeExtension($dlls[0], 'json')) {
+        $violations.Add("types manifest $($manifests[0]) is not named for the types DLL $($dlls[0])")
+    }
+
     if ($null -ne $build) {
         if ($build['version'] -and [System.IO.Path]::GetFileName($root) -ne "$($build['version'])") {
             $violations.Add("folder '$([System.IO.Path]::GetFileName($root))' does not match build.json version $($build['version']) (a build lives in Catzc/<version>/)")

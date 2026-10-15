@@ -76,6 +76,7 @@ BeforeAll {
     $compiled = Join-Path $source '.compiled'
     [System.IO.Directory]::CreateDirectory($compiled) | Out-Null
     [System.IO.File]::WriteAllBytes((Join-Path $compiled "Catzc.Types.$fullHash.dll"), [byte[]] @(77, 90, 1, 2, 3))
+    [System.IO.File]::WriteAllText((Join-Path $compiled "Catzc.Types.$fullHash.json"), "{`"hash`":`"$fullHash`"}`n")
 
     # The build ships what git tracks, so the fixture is a committed repository. core.autocrlf=true is a Windows
     # checkout: the CRLF fixture files (the help text, the initializer) are stored LF, as git stores them in the
@@ -173,6 +174,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
         It 'writes exactly the planned layout — and never tests, the builder, the test kit, or a source manifest' {
             $expected = @(
                 '.compiled/Catzc.Types.{0}.dll' -f $fullHash
+                '.compiled/Catzc.Types.{0}.json' -f $fullHash
                 '.compiled/types/Catzc.Base.Gizmo/Sprocket.cs'
                 '.internal/Catzc.Internal.Bootstrap.psm1'
                 '.internal/Catzc.Internal.Importer.psm1'
@@ -280,6 +282,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
         It 'ships the full type set: the committed DLL by copy, unselected sources under .compiled/types' {
             $result.TypesHash | Should -Be $fullHash
             [System.IO.File]::ReadAllBytes((Join-Path $root ".compiled/Catzc.Types.$fullHash.dll")) | Should -Be @(77, 90, 1, 2, 3)
+            [System.IO.File]::ReadAllText((Join-Path $root ".compiled/Catzc.Types.$fullHash.json")) | Should -BeExactly "{`"hash`":`"$fullHash`"}`n"
             [System.IO.File]::ReadAllText((Join-Path $root '.compiled/types/Catzc.Base.Gizmo/Sprocket.cs')) |
                 Should -BeExactly "namespace Catzc.Base.Gizmo;`npublic class Sprocket { }`n"
         }
