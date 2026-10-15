@@ -37,7 +37,8 @@ function Get-PythonTestCases {
     $integrityPrefix = [Catzc.Base.Languages.PythonConfig]::IntegrityPrefix
     $declaration = [regex]::new('(?m)^(?:async\s+)?def\s+(test\w*)\s*\(')
 
-    $files = @([System.IO.Directory]::GetFiles($Folder, 'test_*.py', [System.IO.SearchOption]::AllDirectories))
+    # A module folder holds its Python tests directly or in a package one level down; the third level is headroom.
+    $files = @(Get-ChildPath $Folder -File -Filter 'test_*.py' -Depth 3)
     [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
     $cases = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($file in $files) {

@@ -38,7 +38,8 @@ function Get-GoTestCases {
     $integrityPrefix = [Catzc.Base.Languages.GoTestResult]::IntegrityPrefix
     $declaration = [regex]::new('(?m)^func\s+(Test(?![a-z])\w*)\s*\(\s*\w+\s+\*testing\.T\s*\)')
 
-    $files = @([System.IO.Directory]::GetFiles($Folder, '*_test.go', [System.IO.SearchOption]::AllDirectories))
+    # A module folder holds its Go tests directly or in a package one level down; the third level is headroom.
+    $files = @(Get-ChildPath $Folder -File -Filter '*_test.go' -Depth 3)
     [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
     foreach ($file in $files) {
         $relativeFolder = [System.IO.Path]::GetRelativePath($Folder, [System.IO.Path]::GetDirectoryName($file)).Replace('\', '/')
