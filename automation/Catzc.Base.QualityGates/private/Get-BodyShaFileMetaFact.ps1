@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: private
+
 <#
 .SYNOPSIS
     The body-sha meta kind's fact: the hash of the file's body below its front matter

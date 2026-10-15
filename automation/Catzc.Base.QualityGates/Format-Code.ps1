@@ -1,3 +1,8 @@
+# catzc:
+#   path: automation/Catzc.Base.QualityGates/Format-Code.ps1
+#   module: Catzc.Base.QualityGates
+#   visibility: public
+
 <#
 .SYNOPSIS
     Formats the repository's files, each with the formatter engine languages.yml names for its file language.

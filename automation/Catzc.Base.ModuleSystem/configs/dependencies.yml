@@ -124,6 +124,7 @@ groups:
         Catzc.Base.RootConfig,
         Catzc.Base.Languages,
         Catzc.Base.MarkdownMeta,
+        Catzc.Base.CodeMeta,
       ]
     Catzc.Base.Exporter:
       [

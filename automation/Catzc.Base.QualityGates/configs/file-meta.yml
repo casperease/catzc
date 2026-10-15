@@ -6,6 +6,16 @@ kinds:
   # The repository-relative path of every file that carries a block, first so it is written first; a Markdown H1 is the title.
   file-path:
     keys: [path]
+    files:
+      - "**/*.md"
+      - automation/Catzc.Base.QualityGates/types/FormatResult.cs
+      - automation/Catzc.Base.Languages/types/FileLanguage.cs
+      - automation/Catzc.Base.Execution/types/CliRunner.cs
+      - automation/Catzc.Base.QualityGates/types/CommentBlockKind.cs
+      - automation/Catzc.Base.QualityGates/Format-Code.ps1
+      - automation/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1
+      - automation/Catzc.Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
+      - automation/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1
 
   # The class of the file, the first class whose globs match its path, or other.
   document-kind:
@@ -31,3 +41,25 @@ kinds:
   adr-codes:
     keys: [adrs]
     files: ["**/*.md"]
+
+  # The module a code file belongs to, the folder under automation.
+  module-name:
+    keys: [module]
+    files:
+      - automation/Catzc.Base.QualityGates/types/FormatResult.cs
+      - automation/Catzc.Base.Languages/types/FileLanguage.cs
+      - automation/Catzc.Base.Execution/types/CliRunner.cs
+      - automation/Catzc.Base.QualityGates/types/CommentBlockKind.cs
+      - automation/Catzc.Base.QualityGates/Format-Code.ps1
+      - automation/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1
+      - automation/Catzc.Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
+      - automation/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1
+
+  # Whether a PowerShell function file is public or private, from the module's private folder.
+  visibility:
+    keys: [visibility]
+    files:
+      - automation/Catzc.Base.QualityGates/Format-Code.ps1
+      - automation/Catzc.Base.QualityGates/private/Get-BodyShaFileMetaFact.ps1
+      - automation/Catzc.Azure.Firewall/Convert-FirewallCsvToMarkdown.ps1
+      - automation/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1

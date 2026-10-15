@@ -1,3 +1,7 @@
+// catzc:
+//   path: automation/Catzc.Base.Execution/types/CliRunner.cs
+//   module: Catzc.Base.Execution
+
 // Every run is bounded: past its limit the whole process tree is killed and a TimeoutException is thrown.
 // [comment:1](/docs/references/automation/catzc-base-execution/types/CliRunner.cs.md#comment1)
 

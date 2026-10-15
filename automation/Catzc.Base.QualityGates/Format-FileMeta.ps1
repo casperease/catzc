@@ -55,7 +55,7 @@ function Format-FileMeta {
             Write-Message "Formatted $($file.Path) (meta block)."
         }
     }
-    foreach ($unowned in @($result.Files | ForEach-Object { $_.Findings } | Where-Object Kind -EQ 'Unowned')) {
+    foreach ($unowned in @($result.Files | ForEach-Object { $_.Findings } | Where-Object Kind -In 'Unowned', 'UnownedHead')) {
         Write-Message "$($unowned.Path) needs a decision by hand: '$($unowned.Actual)' is a key no meta kind owns — expected $($unowned.Expected)." -Warning
     }
 

@@ -41,6 +41,9 @@ function Test-FileMeta {
             $remedy = if ("$($_.Kind)" -eq 'Unowned') {
                 'move it under config, or remove it'
             }
+            elseif ("$($_.Kind)" -eq 'UnownedHead') {
+                'remove it, or declare a meta kind that owns it'
+            }
             else {
                 'run Format-FileMeta'
             }

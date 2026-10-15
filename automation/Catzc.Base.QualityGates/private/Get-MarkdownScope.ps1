@@ -28,17 +28,7 @@ function Get-MarkdownScope {
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
-    $lookup = if ($Path) {
-        foreach ($item in $Path) {
-            $full = [System.IO.Path]::GetFullPath((Resolve-Path -LiteralPath $item).Path)
-            $relative = [System.IO.Path]::GetRelativePath($root, $full) -replace '\\', '/'
-            Assert-False ($relative -eq '..' -or $relative.StartsWith('../')) -ErrorText "Get-MarkdownScope: -Path '$item' lies outside the repository '$root'."
-            $relative
-        }
-    }
-    else {
-        '.'
-    }
+    $lookup = Get-ScopeLookup -RepositoryRoot $root -Path $Path -Command Get-MarkdownScope
 
     $markdown = @(Get-GitTrackedPath $lookup | Where-Object { $_ -like '*.md' })
     if ($markdown.Count -eq 0) {

@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Computes the meta block of every in-scope Markdown file — the one place Format-FileMeta and Test-FileMeta share
+    Computes the meta block of every in-scope file — the one place Format-FileMeta and Test-FileMeta share
     ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
     An unowned key is reported and the file left alone, since writing would drop the author's key.
@@ -28,26 +28,42 @@ function Invoke-FileMetaEngine {
         [Catzc.Base.QualityGates.FileMetaConfig] $Config = (Get-Config -Config file-meta)
     )
 
-    $files = Get-MarkdownScope -RepositoryRoot $RepositoryRoot -Path $Path -OptOut catzc-meta
+    $files = @(Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $Config)
     $owned = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.Imprint() | ForEach-Object { $_.keys }))
 
-    $entries = foreach ($file in $files) {
+    $entries = foreach ($entry in $files) {
+        $file = $entry.Path
+        $isHead = $entry.Carrier.carrier -eq [Catzc.Base.Languages.CarrierKind]::CommentHead
         $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $file))
-        $state = Get-MarkdownMetaState -Text $text
         $findings = [System.Collections.Generic.List[pscustomobject]]::new()
 
         # A key no kind owns is the author's: report it and leave the file alone.
-        foreach ($section in $state.Sections | Where-Object { $_ -notin 'derived', 'config' }) {
-            $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.$section"; Expected = 'derived or config' })
+        if ($isHead) {
+            $form = $entry.Carrier.Form()
+            $state = Get-CodeMetaState -Text $text -Form $form
+            foreach ($key in $state.Keys | Where-Object { -not $owned.Contains($_) }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc head.$key"; Expected = 'a key a meta kind owns' })
+            }
         }
-        foreach ($key in $state.DerivedKeys | Where-Object { -not $owned.Contains($_) }) {
-            $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.derived.$key"; Expected = 'a key a meta kind owns' })
+        else {
+            $state = Get-MarkdownMetaState -Text $text
+            foreach ($section in $state.Sections | Where-Object { $_ -notin 'derived', 'config' }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.$section"; Expected = 'derived or config' })
+            }
+            foreach ($key in $state.DerivedKeys | Where-Object { -not $owned.Contains($_) }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.derived.$key"; Expected = 'a key a meta kind owns' })
+            }
         }
 
         $fixed = $text
         if ($findings.Count -eq 0) {
             $facts = Get-FileMetaFact -State $state -Path $file -Config $Config
-            $fixed = Format-MarkdownMetaBlock -Text $text -Fact $facts
+            $fixed = if ($isHead) {
+                Format-CodeMetaHead -Text $text -Form $form -Fact $facts
+            }
+            else {
+                Format-MarkdownMetaBlock -Text $text -Fact $facts
+            }
             if ($fixed -cne $text) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 1; Kind = 'Drift'; Actual = 'the meta block as written'; Expected = 'the imprinted meta block' })
             }

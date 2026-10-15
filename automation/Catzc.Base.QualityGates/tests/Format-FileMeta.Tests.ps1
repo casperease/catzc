@@ -4,7 +4,12 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# docs/widget.md`r`n`r`nSee ADR-GADGET#2.`r`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "---`nname: gadget`ncatzc:`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n")
-        Mock Get-MarkdownScope { , [string[]] @('docs/widget.md', 'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
+        $script:front = [Catzc.Base.Languages.FileCarriersConfig]::new(@{ carriers = [ordered]@{ markdown = @{ carrier = 'front-matter' } } }).Find('markdown')
+        $script:scope = @(
+            [pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }
+            [pscustomobject]@{ Path = 'docs/gadget.md'; Carrier = $script:front }
+        )
+        Mock Get-FileMetaScope { $script:scope } -ModuleName Catzc.Base.QualityGates
         $script:registry = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{
                     'document-kind' = @{ keys = @('kind'); settings = @{ classes = @(@{ class = 'gadget'; files = @('docs/**') }) } }
