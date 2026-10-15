@@ -60,7 +60,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
                 ''
                 '# Fixture Title'
                 ''
-                '> Generated from [docs/references/automation/foo.md](../../docs/references/automation/foo.md) — edit the source; this copy is rewritten on every import.'
+                '> Generated from [docs/references/automation/foo.md](../../docs/references/automation/foo.md) — edit the source;'
                 ''
                 'Prose with a [sibling link](../../docs/references/automation/catzc-base-asserts.md) that resolves at the source location.'
                 ''

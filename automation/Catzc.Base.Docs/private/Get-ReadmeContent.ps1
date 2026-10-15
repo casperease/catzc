@@ -38,7 +38,7 @@ function Get-ReadmeContent {
     $body = [Catzc.Base.Docs.MarkdownLinkRebaser]::Rebase($text, $Mapping.source, $Mapping.folder)
 
     $sourceLink = [Catzc.Base.Docs.MarkdownLinkRebaser]::RelativeLink($Mapping.folder, $Mapping.source)
-    $banner = "> Generated from [$($Mapping.source)]($sourceLink) — edit the source; this copy is rewritten on every import."
+    $banner = "> Generated from [$($Mapping.source)]($sourceLink) — edit the source;"
 
     # The copy's own meta block says what it is, in the shape every meta block has, so a tool can tell it from an authored file.
     $meta = "---`ncatzc:`n  derived:`n    kind: generated-from-source`n---`n`n"
