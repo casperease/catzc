@@ -51,17 +51,19 @@ function New-GoWorkspace {
     # One Go module per folder that holds Go code; a folder left with only generated files is not a module.
     $folders = [System.Collections.Generic.List[string]]::new()
     if (Test-Path -LiteralPath $testsRoot -PathType Container) {
-        foreach ($folder in @(Get-ChildItem -LiteralPath $testsRoot -Directory)) {
-            if ($folder.Name.StartsWith('.')) {
+        foreach ($folderPath in @(Get-ChildPath $testsRoot -Directory -Depth 1)) {
+            $folderName = [System.IO.Path]::GetFileName($folderPath)
+            if ($folderName.StartsWith('.')) {
                 continue
             }
-            if (-not @(Get-ChildItem -LiteralPath $folder.FullName -Filter '*.go' -File -Recurse).Count) {
+            # Go code sits directly in its module folder; the deeper levels are headroom for sub-packages.
+            if (-not @(Get-ChildPath $folderPath -File -Filter '*.go' -Depth 3).Count) {
                 continue
             }
-            if ($folder.Name -cnotmatch '^[a-z0-9]+(-[a-z0-9]+)*$') {
-                throw "$testsRelative/$($folder.Name)/: a Go test folder is named for its catzc module in kebab case (lowercase, dots as hyphens, e.g. catzc-base-repository)."
+            if ($folderName -cnotmatch '^[a-z0-9]+(-[a-z0-9]+)*$') {
+                throw "$testsRelative/$folderName/: a Go test folder is named for its catzc module in kebab case (lowercase, dots as hyphens, e.g. catzc-base-repository)."
             }
-            $folders.Add($folder.Name)
+            $folders.Add($folderName)
         }
     }
     $folders.Sort([System.StringComparer]::Ordinal)

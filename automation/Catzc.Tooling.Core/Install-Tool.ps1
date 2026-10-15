@@ -109,11 +109,15 @@ function Install-Tool {
     if ($IsWindows -and -not (Get-Command $config.command -CommandType Application -ErrorAction Ignore)) {
         $pkgRoot = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'
         if (Test-Path $pkgRoot) {
-            $exe = Get-ChildItem -Path $pkgRoot -Filter "$($config.command).exe" -Recurse -File -ErrorAction Ignore |
+            # Installed commands sit at most three levels below the packages folder; the walk must enter every package folder.
+            $exe = Get-ChildPath $pkgRoot -File -Filter "$($config.command).exe" -Depth 5 -Exclude @() -PruneVendor $false |
                 Select-Object -First 1
-            if ($exe -and (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $exe.DirectoryName)) {
-                $env:PATH = "$($exe.DirectoryName)$([System.IO.Path]::PathSeparator)$env:PATH"
-                Write-Message "Session PATH: prepended '$($exe.DirectoryName)' so $($config.command) resolves (no WinGet\Links symlink)"
+            $exeDirectory = if ($exe) {
+                [System.IO.Path]::GetDirectoryName($exe)
+            }
+            if ($exe -and (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $exeDirectory)) {
+                $env:PATH = "$exeDirectory$([System.IO.Path]::PathSeparator)$env:PATH"
+                Write-Message "Session PATH: prepended '$exeDirectory' so $($config.command) resolves (no WinGet\Links symlink)"
             }
         }
     }

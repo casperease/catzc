@@ -61,6 +61,7 @@ groups:
         Catzc.Base.CodeMeta,
         Catzc.Base.MarkdownMeta,
         Catzc.Base.Asserts,
+        Catzc.Base.Folders,
       ]
     Catzc.Base.Files: [Catzc.Base.Git, Catzc.Base.Execution, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Asserts]
     Catzc.Base.Overlay: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Asserts]
