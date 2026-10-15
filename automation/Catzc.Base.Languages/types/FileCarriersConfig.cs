@@ -15,7 +15,7 @@ namespace Catzc.Base.Languages;
 
 public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    public const CarrierAnchor DefaultAnchor = CarrierAnchor.Start;
+    public const Catzc.Base.CodeMeta.HeadAnchor DefaultAnchor = Catzc.Base.CodeMeta.HeadAnchor.Start;
 
     private const string Failed = "file-carriers config validation failed:\n";
     private static readonly string[] AllowedKeys = { "carriers" };
@@ -115,10 +115,10 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
             errors.Add(string.Format(CultureInfo.InvariantCulture, "carriers['{0}']: unknown carrier '{1}' (one of: {2})", id, Text(entry["carrier"]), Names<CarrierKind>()));
         }
 
-        CarrierAnchor anchor = DefaultAnchor;
+        Catzc.Base.CodeMeta.HeadAnchor anchor = DefaultAnchor;
         if (Has(entry, "anchor") && !TryParseKebab(Text(entry["anchor"]), out anchor))
         {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "carriers['{0}']: unknown anchor '{1}' (one of: {2})", id, Text(entry["anchor"]), Names<CarrierAnchor>()));
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "carriers['{0}']: unknown anchor '{1}' (one of: {2})", id, Text(entry["anchor"]), Names<Catzc.Base.CodeMeta.HeadAnchor>()));
         }
 
         string line = Has(entry, "line") ? Text(entry["line"]) : null;
@@ -139,7 +139,7 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
         Require(errors, id, line == null || (line.Length > 0 && !line.Any(char.IsWhiteSpace)), "line must be a non-empty comment prefix without spaces");
         Require(errors, id, block.Length == 0 || (block.Length == 2 && block.All(b => b.Length > 0)), "block must be the opening and the closing delimiter");
         Require(errors, id, carrier == CarrierKind.CommentHead || !entry.Contains("anchor"), "anchor belongs to a comment-head carrier");
-        Require(errors, id, anchor == CarrierAnchor.AfterPreamble ? preambleLines > 0 : preambleLines == 0, "preamble_lines is required, and only allowed, with anchor after-preamble");
+        Require(errors, id, anchor == Catzc.Base.CodeMeta.HeadAnchor.AfterPreamble ? preambleLines > 0 : preambleLines == 0, "preamble_lines is required, and only allowed, with anchor after-preamble");
         Require(errors, id, carrier == CarrierKind.Property ? !string.IsNullOrEmpty(property) : property == null, "property is required, and only allowed, for a property carrier");
         Require(errors, id, carrier == CarrierKind.Sidecar ? (sidecar != null && sidecar.Contains("{base}")) : sidecar == null, "sidecar is required, and only allowed, for a sidecar carrier, and names {base}");
         Require(errors, id, carrier == CarrierKind.None ? !string.IsNullOrEmpty(reason) : reason == null, "reason is required, and only allowed, when the carrier is none");

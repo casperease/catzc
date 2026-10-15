@@ -12,6 +12,7 @@ groups:
     Catzc.Base.Objects: [Catzc.Base.Asserts]
     Catzc.Base.Writers: [Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.MarkdownMeta: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts]
+    Catzc.Base.CodeMeta: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.Config: [Catzc.Base.Repository, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.Reports: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Objects, Catzc.Base.Asserts]
     Catzc.Base.ConfigExtensions: [Catzc.Base.Reports, Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Asserts]
@@ -42,7 +43,15 @@ groups:
         Catzc.Base.Asserts,
       ]
     Catzc.Base.Languages:
-      [Catzc.Base.Engines, Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Execution, Catzc.Base.Asserts]
+      [
+        Catzc.Base.Engines,
+        Catzc.Base.Config,
+        Catzc.Base.Objects,
+        Catzc.Base.Repository,
+        Catzc.Base.Execution,
+        Catzc.Base.CodeMeta,
+        Catzc.Base.Asserts,
+      ]
     Catzc.Base.Files: [Catzc.Base.Git, Catzc.Base.Execution, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Asserts]
     Catzc.Base.Overlay: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Asserts]
     Catzc.Base.Globs:

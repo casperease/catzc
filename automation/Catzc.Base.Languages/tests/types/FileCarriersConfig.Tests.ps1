@@ -19,6 +19,8 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             $missing | Should -BeNullOrEmpty -Because "a file language with no carrier entry is a hidden gap: $($missing -join ', ')"
             $loose = @($carriers.carriers | Where-Object { $_.id -notin $languages -and $_.files.Count -eq 0 })
             @($loose | ForEach-Object id) | Should -BeNullOrEmpty -Because 'an entry that is no file language selects its files with files'
+            $noForm = @($carriers.carriers | Where-Object { $_.carrier -eq [Catzc.Base.Languages.CarrierKind]::CommentHead -and $null -eq $_.Form() })
+            @($noForm | ForEach-Object id) | Should -BeNullOrEmpty -Because 'every comment-head entry yields a head form'
         }
     }
 
@@ -28,19 +30,37 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             $config.carriers[0] | Should -BeOfType [Catzc.Base.Languages.FileCarrier]
             $config.carriers[0].carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::CommentHead)
             $config.carriers[0].line | Should -Be '#'
-            $config.carriers[0].anchor | Should -Be ([Catzc.Base.Languages.CarrierAnchor]::Start)
+            $config.carriers[0].anchor | Should -Be ([Catzc.Base.CodeMeta.HeadAnchor]::Start)
             $config.carriers[0].block | Should -BeNullOrEmpty
         }
 
         It 'reads a block-comment head below a prolog' {
             $config = & $script:one ([ordered]@{ carrier = 'comment-head'; block = @('<!--', '-->'); anchor = 'after-prolog' })
             $config.carriers[0].block | Should -Be @('<!--', '-->')
-            $config.carriers[0].anchor | Should -Be ([Catzc.Base.Languages.CarrierAnchor]::AfterProlog)
+            $config.carriers[0].anchor | Should -Be ([Catzc.Base.CodeMeta.HeadAnchor]::AfterProlog)
         }
 
         It 'reads a head that follows a fixed number of preamble lines' {
             $config = & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; anchor = 'after-preamble'; preamble_lines = 2 })
             $config.carriers[0].preamble_lines | Should -Be 2
+        }
+
+        It 'builds the head form of a comment-head entry, and none for any other carrier' -Tag 'ADR-REPO-CODEMETA#1' {
+            $config = & $script:make ([ordered]@{ carriers = [ordered]@{
+                        widget = [ordered]@{ carrier = 'comment-head'; line = '#'; anchor = 'after-shebang' }
+                        gadget = [ordered]@{ carrier = 'comment-head'; block = @('/*', '*/') }
+                        cog    = [ordered]@{ carrier = 'front-matter' }
+                    }
+                })
+            $widget = $config.Find('widget').Form()
+            $widget | Should -BeOfType [Catzc.Base.CodeMeta.HeadForm]
+            $widget.Line | Should -Be '#'
+            $widget.Anchor | Should -Be ([Catzc.Base.CodeMeta.HeadAnchor]::AfterShebang)
+            $gadget = $config.Find('gadget').Form()
+            $gadget.IsBlock | Should -BeTrue
+            $gadget.BlockOpen | Should -Be '/*'
+            $gadget.BlockClose | Should -Be '*/'
+            $config.Find('cog').Form() | Should -BeNullOrEmpty
         }
 
         It 'reads front matter, a property, a sidecar and a reason for none, and keeps declared order' {

@@ -26,7 +26,7 @@ public sealed class FileCarrier
     // The opening and closing delimiters of a block-comment head (e.g. <!-- and -->). Empty when the head uses a line comment.
     public IReadOnlyList<string> block { get; }
 
-    public CarrierAnchor anchor { get; }
+    public Catzc.Base.CodeMeta.HeadAnchor anchor { get; }
 
     // How many leading lines stay above the head when the anchor is AfterPreamble; zero otherwise.
     public int preamble_lines { get; }
@@ -40,8 +40,8 @@ public sealed class FileCarrier
     // Why a file class carries no meta block. Null unless the carrier is None, which needs one.
     public string reason { get; }
 
-    public FileCarrier(string id, string[] files, CarrierKind carrier, string line, string[] block, CarrierAnchor anchor, int preambleLines,
-        string property, string sidecar, string reason)
+    public FileCarrier(string id, string[] files, CarrierKind carrier, string line, string[] block, Catzc.Base.CodeMeta.HeadAnchor anchor,
+        int preambleLines, string property, string sidecar, string reason)
     {
         this.id = id;
         this.files = files == null ? Array.Empty<string>() : (string[])files.Clone();
@@ -53,5 +53,14 @@ public sealed class FileCarrier
         this.property = property;
         this.sidecar = sidecar;
         this.reason = reason;
+    }
+
+    // The comment syntax of the entry's meta head, or null when the carrier is not a comment head.
+    public Catzc.Base.CodeMeta.HeadForm Form()
+    {
+        if (carrier != CarrierKind.CommentHead) { return null; }
+        return line != null
+            ? Catzc.Base.CodeMeta.HeadForm.ForLine(line, anchor, preamble_lines)
+            : Catzc.Base.CodeMeta.HeadForm.ForBlock(block[0], block[1], anchor, preamble_lines);
     }
 }
