@@ -700,7 +700,8 @@ function Import-AllModules {
         [switch]$Bundle
     )
 
-    $moduleDirs = Get-ChildItem -Path $ModulesRoot -Directory |
+    # One level, inline: this module loads before the walker exists (ADR-PWSH-ENUM#6).
+    $moduleDirs = [System.IO.DirectoryInfo]::new($ModulesRoot).GetDirectories() |
         Where-Object { $_.Name -notmatch '^\.' }
 
     # A collision would otherwise be silent, since the module imported last shadows the others.

@@ -48,7 +48,8 @@ function Import-VendorModules {
     }
 
     $sep = [System.IO.Path]::PathSeparator
-    $vendorDirs = Get-ChildItem -Path $VendorRoot -Directory
+    # One level, inline: this module loads before the walker exists (ADR-PWSH-ENUM#6).
+    $vendorDirs = [System.IO.DirectoryInfo]::new($VendorRoot).GetDirectories()
 
     foreach ($dir in $vendorDirs) {
         if ($dir.Name -in $Lazy) {
@@ -62,7 +63,7 @@ function Import-VendorModules {
         # [comment:5](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment5)
         if ($existing -and $existing.ModuleBase -like "$VendorRoot*") {
             $vendorVersion = (Split-Path $existing.ModuleBase -Leaf)
-            $onDiskVersions = (Get-ChildItem -Path $dir.FullName -Directory).Name
+            $onDiskVersions = $dir.GetDirectories().Name
             if ($onDiskVersions -and $vendorVersion -notin $onDiskVersions) {
                 throw "Vendor module '$($dir.Name)' version changed on disk ($onDiskVersions) but $vendorVersion is loaded. Please restart your PowerShell session."
             }

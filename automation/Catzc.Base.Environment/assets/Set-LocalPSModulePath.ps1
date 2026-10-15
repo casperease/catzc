@@ -71,7 +71,7 @@ else {
 
 # --- Check for modules left on DFS that should be moved ---
 $dfsModulePath = Join-Path $userConfigDir 'Modules'
-if ((Test-Path $dfsModulePath) -and (Get-ChildItem $dfsModulePath -Directory -ErrorAction Ignore)) {
+if ([System.IO.Directory]::Exists($dfsModulePath) -and [System.IO.Directory]::EnumerateDirectories($dfsModulePath).GetEnumerator().MoveNext()) {
     Write-SetupLine ''
     Write-SetupLine "You have modules at '$dfsModulePath' (DFS)." Yellow
     Write-SetupLine 'Move them to the new local path to avoid stale copies:' Yellow

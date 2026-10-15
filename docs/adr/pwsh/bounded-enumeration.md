@@ -25,9 +25,12 @@ catzc:
 ### Rule ADR-PWSH-ENUM:1
 
 List the children of a folder, and anything deeper, with raw .NET only, through `Get-ChildPath` (the `Catzc.Base.Folders` module, backed by
-the compiled `FolderWalker` type). `Get-ChildItem`, `gci`, `dir`, and `ls` never enumerate the filesystem.
+the compiled `FolderWalker` type). `Get-ChildItem`, `gci`, `dir`, and `ls` never enumerate the filesystem. A probe that asks only whether a folder holds any entry is not a
+listing: it calls `[System.IO.Directory]::EnumerateFileSystemEntries` and stops at the first entry, so no name is pruned and nothing is
+collected.
 
 - [Raw .NET, one way](#raw-net-one-way)
+- [Emptiness probes](#emptiness-probes)
 
 ### Rule ADR-PWSH-ENUM:2
 
@@ -81,6 +84,12 @@ Raw .NET returns plain strings.
 
 Raw calls alone are not enough: each author then writes the loop, the pruning, and the depth handling again, and each copy differs. One
 function, `Get-ChildPath`, is the single way, so the depth, the pruning, and the link rule are decided once.
+
+### Emptiness probes
+
+"Is this folder empty?" has a different answer from "what is in it?". A listing prunes `.git` and `node_modules` and builds a collection, so
+a target that holds only `.git` would read as empty and a large folder would be read in full for a yes or no. The probe takes the first
+entry of any kind and stops, which is bounded by construction.
 
 ### Shallow by default
 
