@@ -7,9 +7,8 @@
 ### Rule ADR-CONF-MDCONTRIB:1
 
 A **config contribution** is one config value, a key path and its value, that an author states in the `config` part of a tracked Markdown
-file's meta block and that `Get-Config` gathers into the named
-config. A contribution is authored and source-controlled; a derived value is never a contribution. The value lives beside the prose it
-describes, and the config is the one place a reader looks it up.
+file's meta block and that `Get-Config` gathers into the named config. A contribution is authored and source-controlled; a derived value is
+never a contribution. The value lives beside the prose it describes, and the config is the one place a reader looks it up.
 
 - [Decision](#decision)
 - [What a contribution is](#what-a-contribution-is)
@@ -60,8 +59,7 @@ states is a secret ([ADR-CONF-ADDRESSING#3](config-value-addressing.md#rule-adr-
 
 A contribution belongs to a gather meta kind, and the kind names the config it feeds. A module subscribes a reader for a kind by shipping a
 function named for it, found by convention, as a config validator is
-([ADR-CONF-LOADING#5](module-config-loading.md#rule-adr-conf-loading5)). `Get-Config` names no kind
-and no module.
+([ADR-CONF-LOADING#5](module-config-loading.md#rule-adr-conf-loading5)). `Get-Config` names no kind and no module.
 
 - [Kinds and readers](#kinds-and-readers)
 
@@ -104,7 +102,7 @@ value never depends on which file the reader happened to open first: contributio
 
 Gathering every Markdown file for every config would make each `Get-Config` call scan the repository, and would let any prose change any
 config. A config instead lists the globs it gathers from in the registry, so the scan is bounded and a reviewer sees, in one place, which
-files can change which config. The registry is validated by its own type, and a sealed config cannot list sources.
+files can change which config. The registry is validated by its own type, and a sealed config cannot list globs.
 
 ### Conflicts fail
 

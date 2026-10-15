@@ -33,9 +33,8 @@ rejected. A folder that names no bundled module is a local module ([ADR-AUTO-OVE
 A config fragment states only the keys that differ, and is merged onto the bundled config before the config's own type validates the result:
 a map merges key by key, a scalar or a list replaces the bundled value, and an explicit `null` removes the key so the type's declared
 default applies. In build mode a setting therefore resolves the caller's explicit value, then the overlay fragment, then the config
-contributions gathered from Markdown files, then the bundled config, then
-the type's default ([sensible-defaults](sensible-defaults.md#rule-adr-auto-default6)). A fragment merges only onto a config the module
-ships.
+contributions gathered from Markdown files, then the bundled config, then the type's default
+([sensible-defaults](sensible-defaults.md#rule-adr-auto-default6)). A fragment merges only onto a config the module ships.
 
 - [Config fragments](#config-fragments)
 
