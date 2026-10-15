@@ -33,8 +33,8 @@ function Get-GitAttributeValue {
     if (-not (Test-Path -LiteralPath (Join-Path $RepositoryRoot '.git'))) {
         return $ret
     }
-    # git.exe takes a 32,767-character command line, so a batch runs to 24,000: each launch costs about 45 ms.
-    foreach ($batch in @(Split-CommandLineBatch -Item $Path -MaxLength 24000)) {
+    for ($index = 0; $index -lt $Path.Count; $index += 100) {
+        $batch = $Path[$index..([Math]::Min($index + 99, $Path.Count - 1))]
         $quotedPaths = foreach ($item in $batch) {
             "`"$item`""
         }

@@ -22,7 +22,7 @@ function Invoke-MarkdownTitleEngine {
         [string[]] $Path
     )
 
-    $files = Get-MarkdownTitleScope -RepositoryRoot $RepositoryRoot -Path $Path
+    $files = Get-MarkdownScope -RepositoryRoot $RepositoryRoot -Path $Path
     $citation = Get-AdrCitationPath -RepositoryRoot $RepositoryRoot
 
     $entries = [ordered]@{}
@@ -45,7 +45,7 @@ function Invoke-MarkdownTitleEngine {
 
     if ($rename.Count -gt 0) {
         $linking = if ($Path) {
-            Get-MarkdownTitleScope -RepositoryRoot $RepositoryRoot
+            Get-MarkdownScope -RepositoryRoot $RepositoryRoot
         }
         else {
             $files

@@ -11,6 +11,7 @@ description: >
 tools: Bash, Read, Glob, Grep, Write, Edit
 catzc:
   derived:
+    path: ".claude/agents/catzc-worker.md"
     kind: agent
     body_sha: "5cc9718e3fa7"
     adrs:

@@ -226,25 +226,24 @@ Describe 'Format-Code (real vendored analyzer and settings)' -Tag 'L2', 'integri
         $formatted | Should -Not -Match "`r"
     }
 
-    It 'formats exactly as the vendored analyzer does with the whole settings file, custom rules included' {
-        $subject = Join-Path $TestDrive 'Get-Gadget.ps1'
-        $offStyle = "function Get-Gadget {`n  if (`$true) { 'x' }`n    `$value=1;   `$value  `n}"
-        [System.IO.File]::WriteAllText($subject, $offStyle)
-        # The engine imports the analyzer on first use, so Invoke-Formatter exists once it has run.
-        $null = Format-Code -Language powershell -Path $subject
-        $formatted = [System.IO.File]::ReadAllText($subject)
-        $settingsFile = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
-        Push-Location (Get-RepositoryRoot)
-        try {
-            $expected = Invoke-Formatter -ScriptDefinition $offStyle -Settings $settingsFile
+    # A large batch is formatted by shard processes; the verdict must be the one the single session gives.
+    It 'reports and formats exactly the off-style files of a batch large enough to be sharded, in the order given' {
+        $files = foreach ($number in 1..80) {
+            $path = Join-Path $TestDrive "Get-Gizmo$number.ps1"
+            $text = if ($number % 2) {
+                "function Get-Gizmo$number { `$value = 1; `$value }"
+            }
+            else {
+                "function Get-Gizmo$number {`n    `$value = 1`n    `$value`n}`n"
+            }
+            [System.IO.File]::WriteAllText($path, $text)
+            $path
         }
-        finally {
-            Pop-Location
-        }
-        $expected = ($expected -replace "`r`n", "`n" -replace '(?m)[ \t]+$', '').TrimEnd("`n") + "`n"
+        $offStyle = @($files | Where-Object { [int] ([System.IO.Path]::GetFileNameWithoutExtension($_) -replace '\D') % 2 })
 
-        $formatted | Should -Not -BeExactly $offStyle
-        $formatted | Should -BeExactly $expected
+        (Format-Code -Language powershell -Path $files -DryRun -PassThru).ChangedFiles | Should -Be $offStyle
+        (Format-Code -Language powershell -Path $files -PassThru).ChangedFiles | Should -Be $offStyle
+        (Format-Code -Language powershell -Path $files -DryRun -PassThru -NoCache).ChangedFiles | Should -BeNullOrEmpty
     }
 }
 

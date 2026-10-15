@@ -2,21 +2,21 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# widget`r`n`r`nBody.`r`n")
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# docs/gadget.md`n")
-        Mock Get-MarkdownTitleScope { , [string[]] @('docs/widget.md', 'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# docs/widget.md`r`n`r`n``Widget```r`n`r`nBody.`r`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# Gadget`n")
+        Mock Get-MarkdownScope { , [string[]] @('docs/widget.md', 'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
         $script:reportBase = Join-Path $script:widgetRoot 'reports'
         Mock Get-AdrCitationPath { @{ 'ADR-TST-WIDGET' = 'docs/widget.md' } } -ModuleName Catzc.Base.QualityGates
     }
 
-    It 'titles the wrong file only, keeping its line endings and writing no BOM' {
+    It 'retitles the path-titled file only, keeping its line endings and writing no BOM' {
         $changed = Format-MarkdownTitle -RepositoryRoot $script:widgetRoot
         $changed | Should -Be @('docs/widget.md')
         $bytes = [System.IO.File]::ReadAllBytes((Join-Path $script:widgetRoot 'docs/widget.md'))
         $bytes[0] | Should -Be ([byte] [char] '#')
-        [System.Text.Encoding]::UTF8.GetString($bytes) | Should -Be (('# docs/widget.md', '', '`widget`', '', 'Body.', '') -join "`r`n")
+        [System.Text.Encoding]::UTF8.GetString($bytes) | Should -Be (('# Widget', '', 'Body.', '') -join "`r`n")
     }
 
     It 'changes nothing on a second run' {
@@ -29,12 +29,23 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle' -Tag 'L0', 'logic', 'ADR-
         $result.ChangedFiles | Should -Be @('docs/widget.md')
         $result.FileCount | Should -Be 2
         $result.DryRun | Should -BeTrue
-        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/widget.md')) | Should -BeLike '# widget*'
+        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/widget.md')) | Should -BeLike '# docs/widget.md*'
     }
 
-    It 'flags the untitled file and points at the formatter' {
+    It 'flags the path-titled file and points at the formatter' {
         { Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase } |
-            Should -Throw "Test-MarkdownTitle failed: 1 issue(s)*docs/widget.md:1 ``[Wrong``] expected '# docs/widget.md', found '# widget' — run Format-MarkdownTitle*"
+            Should -Throw "Test-MarkdownTitle failed: 1 issue(s)*docs/widget.md:1 ``[PathTitle``] expected '# Widget', found '# docs/widget.md' — run Format-MarkdownTitle*"
+    }
+
+    It 'flags a file with no title for a person to write, and the formatter leaves it' {
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# docs/gadget.md`n`nBody.`n")
+        { Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase } |
+            Should -Throw '*docs/gadget.md:1 `[Untitled`]*write the title by hand*'
+        Format-MarkdownTitle -RepositoryRoot $script:widgetRoot | Should -Be @('docs/widget.md')
+        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) | Should -Be "# docs/gadget.md`n`nBody.`n"
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter {
+            $Message -like 'docs/gadget.md:1 needs a decision by hand (Untitled)*' -and $Warning
+        }
     }
 
     It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST#35' {
@@ -55,9 +66,9 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', '
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# docs/widget.md`n`n## Validation (``Assert-Widget``)`n`nBody.`n")
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# docs/gadget.md`n`nSee [validation](widget.md#validation-assert-widget).`n")
-        Mock Get-MarkdownTitleScope { , [string[]] @('docs/widget.md', 'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# Widget`n`n## Validation (``Assert-Widget``)`n`nBody.`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# Gadget`n`nSee [validation](widget.md#validation-assert-widget).`n")
+        Mock Get-MarkdownScope { , [string[]] @('docs/widget.md', 'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
         $script:reportBase = Join-Path $script:widgetRoot 'reports'
@@ -66,15 +77,15 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', '
 
     It 'moves the trailing group out and re-points the link to the renamed anchor' {
         Format-MarkdownTitle -RepositoryRoot $script:widgetRoot | Should -Be @('docs/gadget.md', 'docs/widget.md')
-        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/widget.md')) | Should -Be "# docs/widget.md`n`n## Validation`n`n``Assert-Widget```n`nBody.`n"
-        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) | Should -Be "# docs/gadget.md`n`nSee [validation](widget.md#validation).`n"
+        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/widget.md')) | Should -Be "# Widget`n`n## Validation`n`n``Assert-Widget```n`nBody.`n"
+        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) | Should -Be "# Gadget`n`nSee [validation](widget.md#validation).`n"
         (Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase -PassThru).IssueCount | Should -Be 0
     }
 
     It 're-points links in the whole scope when -Path narrows the check' {
         # Filter on the bound parameters, not on $Path: an unbound -Path resolves $Path from a caller's scope (the test
         # runner's own $Path), which would send the engine's whole-scope call to this narrowed mock too.
-        Mock Get-MarkdownTitleScope { , [string[]] @('docs/widget.md') } -ModuleName Catzc.Base.QualityGates -ParameterFilter {
+        Mock Get-MarkdownScope { , [string[]] @('docs/widget.md') } -ModuleName Catzc.Base.QualityGates -ParameterFilter {
             $PesterBoundParameters.ContainsKey('Path')
         }
         Format-MarkdownTitle -RepositoryRoot $script:widgetRoot -Path (Join-Path $script:widgetRoot 'docs/widget.md') | Out-Null
@@ -82,11 +93,11 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — headings' -Tag 'L0', '
     }
 
     It 'flags a duplicate anchor, and the formatter leaves it for the author' {
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# docs/gadget.md`n`n## Gadget`n`n### Gadget`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "# Gizmo`n`n## Gadget`n`n### Gadget`n")
         { Test-MarkdownTitle -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase } |
             Should -Throw '*docs/gadget.md:5 `[Duplicate`]*reword it by hand*'
         Format-MarkdownTitle -RepositoryRoot $script:widgetRoot | Out-Null
-        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) | Should -Be "# docs/gadget.md`n`n## Gadget`n`n### Gadget`n"
+        [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) | Should -Be "# Gizmo`n`n## Gadget`n`n### Gadget`n"
     }
 }
 
@@ -96,7 +107,7 @@ Describe 'Format-MarkdownTitle and Test-MarkdownTitle — contract assets' -Tag 
         $script:contractAsset = 'contracts/widget/0.0.0/Gadget/.github/README.md'
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'contracts/widget/0.0.0/Gadget/.github')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# widget`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# docs/widget.md`n`n``Widget```n")
         # An empty presence asset: a stamped title would turn it into a fragment the real file fails.
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:contractAsset), '')
         # The scope itself runs; git is the one boundary (tracked files and the declared classes).

@@ -1,11 +1,11 @@
 <#
 .SYNOPSIS
-    The Markdown title and heading quality gate: fails on any in-scope file whose title is not its repository path
+    The Markdown title and heading quality gate: fails on any in-scope file whose H1 is not a title
     or whose headings are not in normal form
     ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6),
     [ADR-REPO-FORMAT#7](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format7)).
 .DESCRIPTION
-    Format-MarkdownTitle fixes every finding but a Duplicate anchor, which the author must reword.
+    Format-MarkdownTitle fixes every finding but a Duplicate anchor, an Untitled file and a Missing title, which the author must write.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-MarkdownTitle.ps1.md#comment1)
 .PARAMETER Path
@@ -41,6 +41,9 @@ function Test-MarkdownTitle {
     $issues = @($result.Files | ForEach-Object { $_.Findings } | ForEach-Object {
             $remedy = if ("$($_.Kind)" -eq 'Duplicate') {
                 'reword it by hand'
+            }
+            elseif ("$($_.Kind)" -in 'Untitled', 'Missing') {
+                'write the title by hand'
             }
             else {
                 'run Format-MarkdownTitle'

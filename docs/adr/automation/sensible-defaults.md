@@ -1,6 +1,7 @@
 ---
 catzc:
   derived:
+    path: docs/adr/automation/sensible-defaults.md
     kind: adr
     body_sha: "4b0e49b0c27c"
     adrs:

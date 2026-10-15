@@ -1,8 +1,9 @@
 ---
 catzc:
   derived:
+    path: docs/adr/repository/markdown-meta.md
     kind: adr
-    body_sha: ecd12ed5ec90
+    body_sha: b332e3de3944
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#1
@@ -141,9 +142,9 @@ no kind is reported, so a rename cannot leave either side behind.
 
 `The same files as the title`
 
-The meta block applies to the files whose title is their path, because the same classes are exempt for the same reasons: vendored and
+The meta block applies to the file class of the Markdown title, because the same classes are exempt for the same reasons: vendored and
 generated files are not authored here, fixtures hold deliberately odd content, and contract assets are compared byte for byte. One more
-attribute opts a single file out.
+attribute opts a single file out, for a file whose text is read verbatim by another tool.
 
 ### Layers
 

@@ -11,8 +11,7 @@
     Greedy files overlap each other but never the parallel phase, which is why each gets a single-file shard.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment2)
 .PARAMETER GreedyGroupSize
-    How many greedy files run side by side; the groups themselves run one after another. 0 reads greedy_group_size from test-policy.yml,
-    whose default is 2 (pairs); 1 runs the greedy files strictly serially.
+    Greedy files run side by side in groups of this size, one group after another; 0 reads greedy_group_size from test-policy.yml.
 .PARAMETER SerialFiles
     The serial-tagged test files for the final one-worker phase (may be empty).
 .PARAMETER Location

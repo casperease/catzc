@@ -4,7 +4,7 @@ Describe 'Format-MarkdownMeta and Test-MarkdownMeta' -Tag 'L0', 'logic', 'ADR-RE
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "# docs/widget.md`r`n`r`nSee ADR-GADGET#2.`r`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadget.md'), "---`nname: gadget`ncatzc:`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n")
-        Mock Get-MarkdownMetaScope { , [string[]] @('docs/widget.md', 'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
+        Mock Get-MarkdownScope { , [string[]] @('docs/widget.md', 'docs/gadget.md') } -ModuleName Catzc.Base.QualityGates
         $script:registry = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{
                 kinds = [ordered]@{
                     'document-kind' = @{ keys = @('kind'); settings = @{ classes = @(@{ class = 'gadget'; files = @('docs/**') }) } }

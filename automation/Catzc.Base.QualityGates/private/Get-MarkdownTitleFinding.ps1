@@ -1,11 +1,11 @@
 <#
 .SYNOPSIS
-    Checks one Markdown file's title against its repository path and returns the fixed text.
+    Checks one Markdown file's title and returns the fixed text.
 .DESCRIPTION
     Only the first non-blank line after front matter is the title, so a hash line in a later code fence never counts.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md#comment1)
 .PARAMETER RelativePath
-    The file's repository-relative, '/'-separated path — the expected title.
+    The file's repository-relative, '/'-separated path — the H1 that is no title.
 .PARAMETER Text
     The file's content.
 .OUTPUTS
@@ -23,7 +23,7 @@ function Get-MarkdownTitleFinding {
         [string] $Text
     )
 
-    $expected = "# $RelativePath"
+    $pathTitle = "# $RelativePath"
     $newline = if ($Text.Contains("`r`n")) {
         "`r`n"
     }
@@ -54,36 +54,38 @@ function Get-MarkdownTitleFinding {
     else {
         ''
     }
-    $kind = if ($actual -ceq $expected) {
-        'Ok'
-    }
-    elseif ($actual -match '^#\s') {
-        'Wrong'
-    }
-    else {
-        'Missing'
-    }
 
-    if ($kind -eq 'Wrong') {
-        # The old title sits in one code span so it reads as a title; its own backticks go, as they would split it.
-        # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md#comment2)
-        $oldTitle = ($actual -replace '^#\s+', '' -replace '`', '').TrimEnd()
-        $replacement = [System.Collections.Generic.List[string]]::new([string[]] @($expected, '', "``$oldTitle``"))
-        $next = $titleIndex + 1
-        if ($next -lt $lines.Count -and $lines[$next].Trim() -ne '') {
-            $replacement.Add('')
-        }
-        $lines.RemoveAt($titleIndex)
-        $lines.InsertRange($titleIndex, $replacement)
+    $kind = 'Ok'
+    $expected = $actual
+    $subtitleIndex = -1
+    if ($actual -cnotmatch '^#\s') {
+        $kind = 'Missing'
+        $expected = 'an H1 that is the file''s title'
     }
-    elseif ($kind -eq 'Missing') {
-        if ($titleIndex -ge $lines.Count) {
-            # Nothing after the front matter: the title becomes the body, keeping one trailing newline.
-            $lines.RemoveRange($start, $lines.Count - $start)
-            $lines.AddRange([string[]] @($expected, ''))
+    elseif ($actual -ceq $pathTitle) {
+        # The old form: the path as the H1 and the real title in one backticked line below it.
+        $subtitleIndex = $titleIndex + 1
+        while ($subtitleIndex -lt $lines.Count -and $lines[$subtitleIndex].Trim() -eq '') {
+            $subtitleIndex++
+        }
+        if ($subtitleIndex -lt $lines.Count -and $lines[$subtitleIndex] -cmatch '^`([^`]+)`\s*$') {
+            $kind = 'PathTitle'
+            $expected = "# $($Matches[1].Trim())"
         }
         else {
-            $lines.InsertRange($titleIndex, [string[]] @($expected, ''))
+            $kind = 'Untitled'
+            $expected = 'an H1 that is the file''s title, not its path'
+        }
+    }
+
+    if ($kind -eq 'PathTitle') {
+        # The H1 takes the subtitle's text without its backticks; the subtitle and the blank lines around it go.
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md#comment2)
+        $lines.RemoveRange($titleIndex, $subtitleIndex - $titleIndex + 1)
+        $lines.Insert($titleIndex, $expected)
+        $next = $titleIndex + 1
+        if ($next -lt $lines.Count -and $lines[$next].Trim() -ne '') {
+            $lines.Insert($next, '')
         }
     }
 
@@ -93,11 +95,11 @@ function Get-MarkdownTitleFinding {
         Kind     = $kind
         Actual   = $actual
         Expected = $expected
-        Fixed    = if ($kind -eq 'Ok') {
-            $Text
+        Fixed    = if ($kind -eq 'PathTitle') {
+            $lines -join $newline
         }
         else {
-            $lines -join $newline
+            $Text
         }
     }
 }

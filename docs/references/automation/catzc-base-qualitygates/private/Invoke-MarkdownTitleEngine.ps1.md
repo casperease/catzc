@@ -10,7 +10,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Section `.DESCRIPTION` of the comment-based help.
 
 ```text
-Resolves the scope (Get-MarkdownTitleScope), reads each file, checks its title (Get-MarkdownTitleFinding) and
+Resolves the scope (Get-MarkdownScope), reads each file, checks its title (Get-MarkdownTitleFinding) and
 then its headings on the titled text (Get-MarkdownHeadingFinding), so the formatter and the gate can never
 disagree. When a heading's anchor changes, every in-scope file — the whole scope, even when Path narrows the
 check — has its links to that anchor re-pointed (Get-RepointedMarkdownText) and carries an Anchor finding.

@@ -3,6 +3,10 @@
 # [ADR-REPO-MDMETA#2](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta2),
 # [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 kinds:
+  # The repository-relative path of the file, first so it is written first; the H1 is the title.
+  file-path:
+    keys: [path]
+
   # The class of the file, the first class whose globs match its path, or other.
   document-kind:
     keys: [kind]

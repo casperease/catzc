@@ -42,15 +42,16 @@ cleanly across commits. It is never hand-formatted, not even inside a generator'
 
 ### Rule ADR-REPO-FORMAT:6
 
-Every git-tracked Markdown file opens — after any YAML front matter — with the H1 `# <repository-relative path>`, e.g.
-`# docs/references/infrastructure/foundation.md`, and nothing else on that line. `Format-MarkdownTitle` writes it — a replaced title's
-wording is kept between single backticks as the body's first line, so no authored text is lost — and `Test-MarkdownTitle` checks it. The
-scope follows the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored`,
+Every git-tracked Markdown file opens — after any YAML front matter — with an H1 that is the document's title: words that say what it is,
+never its repository path. The path is a derived fact in the file's meta block (`path`,
+[ADR-REPO-MDMETA#3](markdown-meta.md#rule-adr-repo-mdmeta3)), written by `Format-MarkdownMeta`. `Test-MarkdownTitle` checks the title, and
+a file whose H1 is its own path, or that has no H1, is reported for its author to write, since no tool can invent a title. The scope
+follows the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored`,
 `linguist-generated`, `catzc-fixture` (the test fixture trees), or `catzc-contract` (the contract assets,
-[ADR-REPO-CONTRACT#6](api-contracts.md#rule-adr-repo-contract6)), and those it marks `-catzc-path-title` (the repository landing page, which
-keeps its own title). A new exception is declared in the `.gitattributes` source, never in a list of the gate's own.
+[ADR-REPO-CONTRACT#6](api-contracts.md#rule-adr-repo-contract6)). A new exception is declared in the `.gitattributes` source, never in a
+list of the gate's own.
 
-- [Markdown titles are paths](#markdown-titles-are-paths)
+- [The H1 is the title](#the-h1-is-the-title)
 
 ### Rule ADR-REPO-FORMAT:7
 
@@ -149,20 +150,25 @@ keys ordered deterministically, the `=` column computed rather than hand-padded,
 formatter-stable: running the formatter over it changes nothing. A hand-padded string template is the same hand-formatting ADR-REPO-FORMAT#1
 forbids, merely moved into code; it drifts the moment a field is added and churns the diff on every build.
 
-### Markdown titles are paths
+### The H1 is the title
 
-A hand-written title is the author's guess at a name — usually the file's leaf name, which says nothing about where the document lives. The
-same document is read through a generated README, a search result, a printout, or a pasted excerpt, and each of those loses the folder it
-came from. A title that is the repository-relative path names the document exactly in all of them, cannot drift when the file is renamed
-(the formatter rewrites it), and leaves nothing to judge, so a tool owns it like every other formatting choice. The path is plain text, with
-its `.md` extension, so it can be copied straight into a link or a terminal. What the document is about is said in its first paragraph: when
-the formatter replaces an authored title, that title's wording is kept below the path between single backticks, marked as the old title
-rather than read as prose. The title's own backticks are dropped, since inside that one code span they would split it.
+`The title says what the document is; the meta block says where it is`
+
+A document is read through a generated README, a search result, a printout, or a pasted excerpt, and each of those shows the first heading
+and loses the folder the file came from. The heading is therefore the document's own words, which name it in all of them. Where the file
+lives is a fact the repository can compute, so it sits in the meta block as `path`, written by a formatter and checked byte for byte: a
+moved file drifts and is rewritten, and no author keeps it in step by hand. Each fact has one home, the words in the H1 and the location
+in the meta block, so neither is typed twice.
+
+An H1 that is the file's own path says nothing a reader cannot already see, so it is not a title. A file with a path H1 and one backticked
+line below it takes that line's text as its title, and the line goes. A file with a path H1 and nothing to take, or with no H1, has no
+words to promote, so the gate reports it and the author writes the title. The file keeps one title and one heading normal form
+(ADR-REPO-FORMAT#7).
 
 The scope reuses the classes the repository already declares instead of keeping its own: git decides what is committed (a gitignored
 generated file is out, its tracked source is in), and `.gitattributes` decides what is vendored, generated, or a fixture (`catzc-fixture`
-and `catzc-contract`: data on purpose, which the link tools skip too — a contract asset's bytes are what its contract check compares). The
-landing page is the one file whose title is its first impression on GitHub, not a location, so it opts out with `-catzc-path-title`.
+and `catzc-contract`: data on purpose, which the link tools skip too — a contract asset's bytes are what its contract check compares).
+Every file in scope keeps its own title, so the title has no opt-out attribute.
 
 ### Headings are plain words
 
@@ -202,9 +208,10 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - **Links** — `Format-Links` aligns every link mechanically (code links repository-rooted, markdown links relative, rule citations spelled
   `ADR-<CODE>#<n>`) and `Test-Links` checks them; an L2 test asserts `Format-Links` is a no-op over the tracked tree
   ([markdown-links](markdown-links.md)).
-- **Markdown titles** — `Format-MarkdownTitle` titles every in-scope Markdown file with its repository path, brings its headings into normal
-  form (moving trailing reference groups out, quoting `dora-explains` paragraphs, and re-pointing every link to a heading whose anchor
-  changed), and `Test-MarkdownTitle` checks both, including duplicate anchors; an L1 test asserts the tracked tree has no finding.
+- **Markdown titles** — `Format-MarkdownTitle` makes the H1 of every in-scope Markdown file its title (promoting the backticked line under a
+  path H1), brings its headings into normal form (moving trailing reference groups out, quoting `dora-explains` paragraphs, and re-pointing
+  every link to a heading whose anchor changed), and `Test-MarkdownTitle` checks both, including duplicate anchors and files with no title;
+  an L1 test asserts the tracked tree has no finding.
 - **Markdown meta** — `Format-MarkdownMeta` imprints the `derived` part of every in-scope Markdown file's meta block, and
   `Test-MarkdownMeta` fails any file that differs from what the formatter would write ([markdown-meta](markdown-meta.md)).
 

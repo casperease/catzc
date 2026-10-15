@@ -17,8 +17,8 @@ stable contract; the function list is an appendix indexed by them.
 
 Every article has these five parts, in this order:
 
-1. **`# docs/references/automation/<kebab>.md`** — H1, the file's repository path, then the exact module name in single backticks on the
-   line below (`` `Catzc.Azure.Cli` ``). One H1 per file. `Format-MarkdownTitle` writes the H1
+1. **`# <module name>`** — the H1 is the exact module name (`# Catzc.Azure.Cli`), with no backticked line below it. One H1 per file. The
+   file's repository path is a derived fact in its meta block, written by `Format-MarkdownMeta`
    ([uniform-formatting](../../adr/repository/uniform-formatting.md), ADR-REPO-FORMAT#6).
 2. **Lead paragraph** (directly under the title) — what the module _is_, in one or two sentences: its single most important responsibility
    first, what it owns and (where it clarifies the boundary) what it deliberately does **not** own, with links to the governing ADR(s). Lead

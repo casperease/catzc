@@ -53,7 +53,8 @@ identity is also a live one. An integrity test runs each gate at its tier, so ev
 
 How the repository checks and enforces the style of its written and source content. This responsibility runs the spell-checker (and collects
 its flagged tokens into a triage queue), the Markdown linter, the Markdown formatter (which aligns tables and wraps prose in place), the
-Markdown title and heading formatter and quality gate, the one formatting command (`Format-Code`, which runs the formatter engine
+Markdown title and heading formatter and quality gate, the Markdown meta formatter and its two gates (the block itself and the registry's
+processors), the one formatting command (`Format-Code`, which runs the formatter engine
 `languages.yml` names for each file language — Prettier, the managed toolchain's `gofmt`, the pinned `ruff`, PSScriptAnalyzer,
 `dotnet format`, the pinned Bicep CLI — with one private adapter per engine;
 [configure-not-program](../../adr/principles/configure-not-program.md)), the C# type-namespace formatter, the Python lint quality gate
@@ -148,6 +149,9 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Format-Code`                 |
 |                                                 | `Format-MarkdownTitle`        |
 |                                                 | `Test-MarkdownTitle`          |
+|                                                 | `Format-MarkdownMeta`         |
+|                                                 | `Test-MarkdownMeta`           |
+|                                                 | `Test-MarkdownMetaProcessors` |
 |                                                 | `Format-Types`                |
 |                                                 | `Test-PythonLint`             |
 |                                                 | `Test-ShellScripts`           |

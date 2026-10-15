@@ -1,10 +1,10 @@
 <#
 .SYNOPSIS
-    Titles every in-scope Markdown file with its repository path and brings its headings into normal form
+    Makes the H1 of every in-scope Markdown file its title and brings its headings into normal form
     ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6),
     [ADR-REPO-FORMAT#7](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format7)).
 .DESCRIPTION
-    A duplicate heading anchor is reported, not fixed, since only the author can reword it.
+    A duplicate heading anchor and a file with no title are reported, not fixed, since only the author can reword or write them.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-MarkdownTitle.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to title. Default: every in-scope file.
@@ -43,11 +43,12 @@ function Format-MarkdownTitle {
     Assert-SourceTree
 
     $result = Invoke-MarkdownTitleEngine -RepositoryRoot $RepositoryRoot -Path $Path
-    $toFix = @($result.Files | Where-Object { @($_.Findings | Where-Object Kind -NE 'Duplicate').Count -gt 0 })
+    $byHand = 'Duplicate', 'Untitled', 'Missing'
+    $toFix = @($result.Files | Where-Object { @($_.Findings | Where-Object Kind -NotIn $byHand).Count -gt 0 })
 
     $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
     foreach ($file in $toFix) {
-        $kinds = (@($file.Findings | Where-Object Kind -NE 'Duplicate' | ForEach-Object Kind) | Sort-Object -Unique) -join ', '
+        $kinds = (@($file.Findings | Where-Object Kind -NotIn $byHand | ForEach-Object Kind) | Sort-Object -Unique) -join ', '
         if ($DryRun) {
             Write-Message "Would format $($file.Path) ($kinds)."
         }
@@ -56,8 +57,8 @@ function Format-MarkdownTitle {
             Write-Message "Formatted $($file.Path) ($kinds)."
         }
     }
-    foreach ($duplicate in @($result.Files | ForEach-Object { $_.Findings } | Where-Object Kind -EQ 'Duplicate')) {
-        Write-Message "$($duplicate.Path):$($duplicate.Line) needs rewording by hand: '$($duplicate.Actual)' — expected $($duplicate.Expected)." -Warning
+    foreach ($finding in @($result.Files | ForEach-Object { $_.Findings } | Where-Object Kind -In $byHand)) {
+        Write-Message "$($finding.Path):$($finding.Line) needs a decision by hand ($($finding.Kind)): '$($finding.Actual)' — expected $($finding.Expected)." -Warning
     }
 
     $verb = if ($DryRun) {

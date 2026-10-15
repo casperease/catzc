@@ -23,7 +23,7 @@ Describe 'Get-ContentExemptPath' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
                 'automation/Widget/tests/assets/fixture.md'       = @{ 'catzc-fixture' = 'set' }
                 'contracts/widget/0.0.0/Gadget/.github/README.md' = @{ 'catzc-contract' = 'set' }
                 'docs/gadget.md'                                  = @{ 'catzc-contract' = 'unset' }
-                'docs/sprocket.md'                                = @{ 'catzc-path-title' = 'unset' }
+                'docs/sprocket.md'                                = @{ 'catzc-meta' = 'unset' }
                 'notes/widget-plan.md'                            = @{ 'catzc-notes' = 'set' }
             }
         } -ModuleName Catzc.Base.QualityGates

@@ -1,6 +1,7 @@
 ---
 catzc:
   derived:
+    path: docs/adr/configuration/markdown-config-contributions.md
     kind: adr
     body_sha: "5915fcbf68f8"
     adrs:

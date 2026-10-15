@@ -101,6 +101,8 @@ automation/.compiled/** linguist-generated
 # without re-reading CRLF as LF. See docs/adr/repository/api-contracts.md (ADR-REPO-CONTRACT#5, ADR-REPO-CONTRACT#6).
 /contracts/*/*/** catzc-contract text eol=lf
 
-# catzc: the repository landing page keeps its own title, not the path title every other Markdown file carries
-# (docs/adr/repository/uniform-formatting.md, ADR-REPO-FORMAT#6).
-/.github/README.md -catzc-path-title
+# catzc: these two files are read verbatim by another tool, so they carry no meta block: the session instructions are
+# injected as written into every Claude session, and the repository landing page is what GitHub renders first
+# (docs/adr/repository/markdown-meta.md, ADR-REPO-MDMETA#5).
+/.claude/CLAUDE.md -catzc-meta
+/.github/README.md -catzc-meta

@@ -15,65 +15,79 @@ Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6' {
         }
     }
 
-    It 'accepts a file already titled with its path' {
-        $text = Join-Lines '# docs/widget.md', '', 'Body.', ''
+    It 'accepts a file whose H1 is a title' {
+        $text = Join-Lines '# Widget', '', 'Body.', ''
         $finding = Get-Finding $text
         $finding.Kind | Should -Be 'Ok'
         $finding.Fixed | Should -Be $text
     }
 
-    It 'replaces an H1 with other text and keeps the old title in backticks as the first body line' {
-        $finding = Get-Finding (Join-Lines '# widget', '', 'Body.', '')
-        $finding.Kind | Should -Be 'Wrong'
-        $finding.Actual | Should -Be '# widget'
+    It 'takes the backticked line under a path H1 as the title and drops the line' {
+        $finding = Get-Finding (Join-Lines '# docs/widget.md', '', '`Widget: a gadget`', '', 'Body.', '')
+        $finding.Kind | Should -Be 'PathTitle'
+        $finding.Actual | Should -Be '# docs/widget.md'
+        $finding.Expected | Should -Be '# Widget: a gadget'
         $finding.Line | Should -Be 1
-        $finding.Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '`widget`', '', 'Body.', '')
+        $finding.Fixed | Should -Be (Join-Lines '# Widget: a gadget', '', 'Body.', '')
     }
 
-    It 'drops an old title''s own backticks so it stays one code span' {
-        (Get-Finding (Join-Lines '# Widget (`gadget.yml`)', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '`Widget (gadget.yml)`', '')
+    It 'writes a token title without its backticks' {
+        (Get-Finding (Join-Lines '# docs/widget.md', '', '`Catzc.Base.Widget`', '', 'Body.', '')).Fixed |
+            Should -Be (Join-Lines '# Catzc.Base.Widget', '', 'Body.', '')
     }
 
-    It 'pads the kept old title from a body line that followed the heading directly' {
-        (Get-Finding (Join-Lines '# widget', 'Body.', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '`widget`', '', 'Body.', '')
+    It 'pads a body line that followed the subtitle directly' {
+        (Get-Finding (Join-Lines '# docs/widget.md', '', '`Widget`', 'Body.', '')).Fixed | Should -Be (Join-Lines '# Widget', '', 'Body.', '')
     }
 
-    It 'keeps an old title that ends the file' {
-        (Get-Finding (Join-Lines '# widget', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '`widget`', '')
+    It 'keeps a title that ends the file' {
+        (Get-Finding (Join-Lines '# docs/widget.md', '', '`Widget`', '')).Fixed | Should -Be (Join-Lines '# Widget', '')
+    }
+
+    It 'reports a path H1 with nothing under it as untitled and changes nothing' {
+        $text = Join-Lines '# docs/widget.md', '', 'Body.', ''
+        $finding = Get-Finding $text
+        $finding.Kind | Should -Be 'Untitled'
+        $finding.Fixed | Should -Be $text
+    }
+
+    It 'reports a path H1 followed by a heading as untitled' {
+        (Get-Finding (Join-Lines '# docs/widget.md', '', '## Gadget', '')).Kind | Should -Be 'Untitled'
     }
 
     It 'is case-sensitive about the path' {
-        (Get-Finding (Join-Lines '# Docs/Widget.md', '')).Kind | Should -Be 'Wrong'
+        (Get-Finding (Join-Lines '# Docs/Widget.md', '')).Kind | Should -Be 'Ok'
     }
 
-    It 'inserts the title when the file opens without an H1' {
-        $finding = Get-Finding (Join-Lines 'Body.', '')
+    It 'reports a file that opens without an H1 as missing and changes nothing' {
+        $text = Join-Lines 'Body.', ''
+        $finding = Get-Finding $text
         $finding.Kind | Should -Be 'Missing'
-        $finding.Fixed | Should -Be (Join-Lines '# docs/widget.md', '', 'Body.', '')
+        $finding.Fixed | Should -Be $text
     }
 
     It 'treats a second-level heading as no title' {
-        (Get-Finding (Join-Lines '## widget', '')).Fixed | Should -Be (Join-Lines '# docs/widget.md', '', '## widget', '')
+        (Get-Finding (Join-Lines '## widget', '')).Kind | Should -Be 'Missing'
     }
 
-    It 'titles after YAML front matter and leaves the front matter alone' {
-        $finding = Get-Finding (Join-Lines '---', 'name: widget', '---', '', '# widget', '', 'Body.', '')
-        $finding.Kind | Should -Be 'Wrong'
+    It 'reads the title after YAML front matter and leaves the front matter alone' {
+        $finding = Get-Finding (Join-Lines '---', 'name: widget', '---', '', '# docs/widget.md', '', '`Widget`', '', 'Body.', '')
+        $finding.Kind | Should -Be 'PathTitle'
         $finding.Line | Should -Be 5
-        $finding.Fixed | Should -Be (Join-Lines '---', 'name: widget', '---', '', '# docs/widget.md', '', '`widget`', '', 'Body.', '')
+        $finding.Fixed | Should -Be (Join-Lines '---', 'name: widget', '---', '', '# Widget', '', 'Body.', '')
     }
 
     It 'never reads a # line in a later code fence as the title' {
-        $text = Join-Lines '# docs/widget.md', '', '```powershell', '# gadget comment', '```', ''
+        $text = Join-Lines '# Widget', '', '```powershell', '# gadget comment', '```', ''
         (Get-Finding $text).Kind | Should -Be 'Ok'
     }
 
     It 'keeps CRLF line endings' {
-        $fixed = (Get-Finding (Join-Lines '# widget', '', 'Body.', '' -Newline "`r`n")).Fixed
-        $fixed | Should -Be (Join-Lines '# docs/widget.md', '', '`widget`', '', 'Body.', '' -Newline "`r`n")
+        $fixed = (Get-Finding (Join-Lines '# docs/widget.md', '', '`Widget`', '', 'Body.', '' -Newline "`r`n")).Fixed
+        $fixed | Should -Be (Join-Lines '# Widget', '', 'Body.', '' -Newline "`r`n")
     }
 
-    It 'titles an empty file' {
-        (Get-Finding '').Fixed | Should -Be (Join-Lines '# docs/widget.md', '')
+    It 'reports an empty file as missing' {
+        (Get-Finding '').Kind | Should -Be 'Missing'
     }
 }

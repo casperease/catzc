@@ -28,7 +28,7 @@ function Invoke-MarkdownMetaEngine {
         [Catzc.Base.QualityGates.MarkdownMetaConfig] $Config = (Get-Config -Config markdown-meta)
     )
 
-    $files = Get-MarkdownMetaScope -RepositoryRoot $RepositoryRoot -Path $Path
+    $files = Get-MarkdownScope -RepositoryRoot $RepositoryRoot -Path $Path -OptOut catzc-meta
     $owned = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Config.Imprint() | ForEach-Object { $_.keys }))
 
     $entries = foreach ($file in $files) {
