@@ -33,9 +33,11 @@ ignorePaths:
   - "**/*.pdf"
 # GUID literals are not words: the managed-GUID gate (Catzc.Base.QualityGates configs/guids.yml,
 # Get-RepositoryGuids) is their single owner, so cspell never tokenizes their hex fragments. One gate owns
-# words, one owns GUIDs.
+# words, one owns GUIDs. A PowerShell escape (`n, `r, `t) glued to the word after it is no part of that word:
+# a backtick that does not open a Markdown code span (line start, space, bracket, emphasis, table pipe before it) is an escape.
 ignoreRegExpList:
   - /\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b/g
+  - /(?<![\s(\[*_>|/,]|^)`[nrt](?=[a-z])/gm
 # Approved-vocabulary dictionaries — one per registry category
 # ([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)) — generated from the terminology
 # registry (automation/Catzc.Base.QualityGates/configs/terminology.yml) by Build-TerminologyDictionary. The

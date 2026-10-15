@@ -34,7 +34,7 @@ Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#1' {
     It 'reads an unchanged document back byte for byte' -ForEach @(
         @{ Text = "---`nname: widget`ncatzc:`n  derived:`n    kind: gadget`n---`nbody`n" }
         @{ Text = "---`r`nname: widget`r`n---`r`nbody`r`n" }
-        @{ Text = "--- `nname: widget`n...`nbody" }
+        @{ Text = ("--- `n" + "name: widget`n...`nbody") }
         @{ Text = "---`nname: widget`n---" }
         @{ Text = "no front matter`n" }
         @{ Text = '' }
