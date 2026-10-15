@@ -2,7 +2,7 @@
 .SYNOPSIS
     Merges a run's measured per-file durations into the test duration history.
 .DESCRIPTION
-    Each file the run measured replaces its entry; files the run did not run keep theirs, so a partial run (one...
+    Files this run did not measure keep their entries, so a partial run (one module, one tier) forgets nothing.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Save-TestDurationHistory.ps1.md#comment1)
 .PARAMETER Path
     The history file.

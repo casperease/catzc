@@ -2,7 +2,7 @@
 .SYNOPSIS
     Runs one or more test files by hand as a single worker shard — the blessed single-check entry point.
 .DESCRIPTION
-    The manual counterpart of a Test-Automation worker: it generates a one-shard runner through the SAME generator...
+    The manual path cannot drift from the harness: it is the harness path, one shard wide, in a fresh child process.
     [ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25),
     [ADR-AUTO-TEST#34](/docs/adr/automation/test-automation.md#rule-adr-auto-test34),
     [ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32),
@@ -10,19 +10,19 @@
     [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment1)
 .PARAMETER Path
-    The test file(s) to run — absolute, or repository-root-relative (never resolved against $PWD; see ).
+    A relative path always means repository-root-relative, never relative to the current directory.
     [ADR-AUTO-NOPWD](/docs/adr/automation/never-depend-on-pwd.md)
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment2)
 .PARAMETER FullNameFilter
-    Filter to tests whose full name contains this text (wrapped in wildcards) — the manual-test-plan row's...
+    Pass the manual-test-plan row's FullNameFilter column verbatim; it is wrapped in wildcards.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment3)
 .PARAMETER Output
     Pester output verbosity inside the worker. Defaults to 'Detailed' — a hand-run wants one line per test.
 .PARAMETER MaxLevel
-    The highest tier to run (alias: -Level): 3 by default, every tier but the opt-in L4; 4 runs the file's L4 tests too.
+    L4 tests are opt-in: the default of 3 skips them, and only 4 runs the file's L4 tests.
     [comment:4](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment4)
 .PARAMETER TimeoutSeconds
-    Hard ceiling for the worker; on expiry it is killed and this throws.
+    Defaults to this function's own time limit unless timeouts.yml overrides it; a worker past it is killed.
     [ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)
     [comment:5](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment5)
 .PARAMETER Isolated
@@ -30,7 +30,7 @@
 .PARAMETER KeepSandbox
     Keep the snapshot (when the run used one) after the run instead of deleting it, for a post-mortem.
 .PARAMETER PassThru
-    Return a result object ({ Result, ExitCode, Rows, RunDirectory, Location }) instead of nothing.
+    Rows are the worker's per-test rows, as the live Pester object cannot cross the process boundary.
     [comment:6](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment6)
 .OUTPUTS
     None by default; the result object with -PassThru. The worker's Pester output streams either way, and a failed
@@ -84,14 +84,14 @@ function Invoke-TestFile {
             [System.IO.Path]::GetFullPath($full)
         })
 
-    # A timestamped run folder under out/test-file/, like the harness's out/test-automation/<stamp>/.
+    # Earlier runs whose process died never stamped their run.json, so they are marked abandoned first.
     # [comment:7](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment7)
     $reportBase = Join-Path (Get-OutputRoot -EnsureExists) 'test-file'
     Set-AbandonedTestRun -OutputFolder $reportBase | Out-Null
     $runDirectory = Join-Path $reportBase ((Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0, 6))
     New-Item -ItemType Directory -Path $runDirectory -Force | Out-Null
 
-    # Claim where the run executes — in place, or in a snapshot when another run holds the working folder...
+    # The worker inherits CATZC_TEST_RUN_LOCATION_HELD, so a nested Invoke-TestFile runs in place in this root.
     # [comment:8](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment8)
     $location = Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -RunDirectory $runDirectory -Isolated:$Isolated -KeepSandbox:$KeepSandbox
     $runStartedAt = [DateTimeOffset]::UtcNow.ToString('o')
@@ -105,7 +105,7 @@ function Invoke-TestFile {
         try {
             # The worker loads from the root the run executes in (Get-TestRunLocationEntry); the test files map to it alike.
             $entry = Get-TestRunLocationEntry -Location $location
-            # Every tier asked for that the location allows: in place that includes the L3 system tests; a snapshot...
+            # A snapshot run skips the L3 system tests, which change state outside the repository, and says so.
             # [comment:9](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment9)
             $effectiveMaxLevel = Resolve-TestRunMaxLevel -Location $location -Requested $MaxLevel
             $excludeTag = @(Get-TestExcludeTag -MinLevel 0 -MaxLevel $effectiveMaxLevel)
@@ -158,7 +158,7 @@ function Invoke-TestFile {
         $manifestStatus = $result.ToLowerInvariant()
         if ($exitCode -ne 0) {
             $failedShardLabels = @($shard.Label)
-            # Every failure's message, on the console at every -Output level (the worker's own output does not reach...
+            # The worker's own output may not reach a redirected console, so the failures are printed again here.
             # [comment:10](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment10)
             $files = if ([System.IO.File]::Exists($shard.FilesPath)) {
                 @([System.IO.File]::ReadAllText($shard.FilesPath) | ConvertFrom-Json)

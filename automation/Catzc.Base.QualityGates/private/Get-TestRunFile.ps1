@@ -2,7 +2,7 @@
 .SYNOPSIS
     Names the run file a discovered or executed Pester test belongs to: its test file, or its language test folder.
 .DESCRIPTION
-    The harness schedules, scopes, protects, and reports by run file — the unit a shard runs.
+    A language bridge test belongs to its Go or Python test folder, not the bridge file, so it counts as its module's.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestRunFile.ps1.md#comment1)
 .PARAMETER Test
     A Pester test object (an item of a run's .Tests).

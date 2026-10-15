@@ -2,7 +2,7 @@
 .SYNOPSIS
     Runs a module's tests in one test language once and returns the Pester outcome of every discovered test.
 .DESCRIPTION
-    The language bridge's run step (tests/Language.Bridge.ps1 calls it once per test folder, in its BeforeAll); each...
+    A test the runner reports but discovery did not list throws, so no result goes unreported.
     [ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md#comment1)
 .PARAMETER Language
@@ -14,14 +14,14 @@
 .PARAMETER EntryScript
     The engine entry of a build run (the build's Import-Catzc.ps1); empty for the source run.
 .PARAMETER Executable
-    The managed tool the run's source session located and checked against the pin (go, uv for python, the bash engine...
+    The worker never locates the tool, as a build run's engine does not carry the tools.yml entry.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md#comment2)
 .PARAMETER Engine
-    The execution engine the tests start: one of the model's engines, pwsh by default.
+    Every test runs once per engine, so pwsh as the default is only one of several runs of a case.
     [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)
     [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md#comment3)
 .PARAMETER EngineExecutable
-    The engine's executable the run's source session located; empty for an engine it did not find, whose run of the...
+    pwsh runs the harness itself and needs none; an empty executable for any other engine skips that engine's run.
     [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md#comment4)
 .OUTPUTS
     [hashtable] Case key -> [pscustomobject] { Outcome (pass|fail|skip); Reason (the skip key, or empty); Message

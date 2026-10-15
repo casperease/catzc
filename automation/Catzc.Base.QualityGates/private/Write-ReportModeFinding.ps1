@@ -2,7 +2,7 @@
 .SYNOPSIS
     Prints the findings of a source check in report mode: every finding, then its count, and never a failure.
 .DESCRIPTION
-    The one way a gate shows a check whose config sets mode: report (Catzc.Base.QualityGates.SourceCheck, ): the...
+    Findings are a work list printed under the check's name, never passed to the gate report as issues.
     [ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-ReportModeFinding.ps1.md#comment1)
 .PARAMETER Check

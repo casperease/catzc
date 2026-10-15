@@ -3,7 +3,7 @@
     The psscriptanalyzer formatter engine: formats the given PowerShell files with the vendored analyzer's
     Invoke-Formatter and the .editorconfig rules, and returns the files it changed.
 .DESCRIPTION
-    One Format-Code engine adapter.
+    Invoke-Formatter ignores .editorconfig, so line endings, trailing space and the final newline are a second step.
     [ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2),
     [ADR-REPO-FORMAT#3](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format3),
     [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
@@ -30,7 +30,7 @@ function Invoke-PSScriptAnalyzerFormat {
         return , [string[]] @()
     }
     if (-not (Get-Module PSScriptAnalyzer)) {
-        # First use this session pays the vendored-module import (several seconds) — announce it.
+        # Without this line the several-second vendored analyzer import would look like a hang.
         # [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)
         # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md#comment2)
         Write-Message 'Loading PSScriptAnalyzer (first use this session)...'

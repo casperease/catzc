@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: lints every Python file the repository holds with ruff.
 .DESCRIPTION
-    Runs `ruff check` over every.py file the repository holds (Get-PythonCheckScope: the Python test folders, and the...
+    Covers the .py files no test run reads; the Python test bridge already runs the same check on a test folder.
     [ADR-AUTO-PY#8](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py8)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-PythonLint.ps1.md#comment1)
 .PARAMETER OutputFolder
@@ -30,7 +30,7 @@ function Test-PythonLint {
     $scope = @(Get-PythonCheckScope)
     $issues = [System.Collections.Generic.List[string]]::new()
     if ($scope.Count -gt 0) {
-        # --output-format concise prints one '<file>:<line>:<column>: <code> <message>' line per finding; exit 1...
+        # Exit 1 means findings and anything above it means ruff itself failed, so only 0 and 1 are results.
         # [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-PythonLint.ps1.md#comment2)
         $check = Invoke-PythonWorkspaceTool -Tool 'ruff check --output-format concise' -File $scope
         if ($check.ExitCode -notin 0, 1) {

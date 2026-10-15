@@ -2,11 +2,11 @@
 .SYNOPSIS
     Renders the ADR-rule enforcement coverage report (rule-coverage.md + rule-coverage.csv) from a run's rows.
 .DESCRIPTION
-    Builds the (ADR rule -> enforcers) map and writes it as a report artifact.
+    Report-only: it never throws on an uncovered rule, since many rules are enforced by review, not a mechanism.
     [ADR-AUTO-NOPWD](/docs/adr/automation/never-depend-on-pwd.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationRuleCoverage.ps1.md#comment1)
 .PARAMETER Rows
-    The aggregated per-test rows (ConvertTo-TestAutomationRowSet), each carrying ExpandedPath and the ';'-joined...
+    Rows cover only this run's scope, so a -Modules or -Level filter narrows the by-test figures.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationRuleCoverage.ps1.md#comment2)
 .PARAMETER AnalyzerCoverage
     The (AdrId, Enforcer, Kind='pssa-rule') rows from Get-AnalyzerAdrCoverage. AdrId is '#' citation form.
@@ -38,7 +38,7 @@ function Write-TestAutomationRuleCoverage {
         New-Item -ItemType Directory -Path $OutputFolder -Force | Out-Null
     }
 
-    # Enforcers per rule id, split by kind.
+    # Sets, so a rule cited by many tests or an analyzer listed twice counts each enforcer once.
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationRuleCoverage.ps1.md#comment3)
     $testEnforcers = @{}
     $analyzerEnforcers = @{}

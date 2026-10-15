@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: one parameter name means one type across the public functions.
 .DESCRIPTION
-    A caller learns a parameter once — `-Path` takes paths, `-TimeoutSeconds` takes whole seconds — so the same name...
+    An exempt name that no longer conflicts is itself reported, so the exempt list holds only what is real.
     [ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md),
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ParameterConsistency.ps1.md#comment1)

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the repo-relative tracked files the managed-GUID scan reads — the scan's file universe.
 .DESCRIPTION
-    Tracked files (Get-GitTrackedPath, — the same matching universe as the globsets, ), minus what the scan must not...
+    The registry file is excluded: it defines the managed set, and scanning it would defeat the liveness check.
     [ADR-AUTO-TRACKED#1](/docs/adr/automation/tracked-files-from-the-index.md#rule-adr-auto-tracked1),
     [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md#comment1)
@@ -11,7 +11,7 @@ function Get-GuidScanFiles {
     [CmdletBinding()]
     param()
 
-    # The universe and its exclusions (automation/.vendor, automation/.compiled, the registry) are the catzc source...
+    # The exclusions are the source repository's layout, so the scan means something only over the source tree.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md#comment2)
     Assert-SourceTree
 

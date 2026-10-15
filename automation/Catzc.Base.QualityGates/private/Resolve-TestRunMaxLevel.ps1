@@ -2,7 +2,7 @@
 .SYNOPSIS
     Resolves the highest tier a test run executes, from the location it runs in.
 .DESCRIPTION
-    L3 holds the vertical system tests: they change or depend on state outside the repository — the cloud, the user's...
+    L3 runs only in place with the user's system-test lock, since a snapshot cannot isolate state outside the repo.
     [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33),
     [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10),
     [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)
@@ -10,10 +10,10 @@
 .PARAMETER Location
     The location Enter-TestRunLocation returned.
 .PARAMETER Requested
-    The highest tier the caller asks for.
+    Default 3 means every tier the location allows with L4 excluded; the location may cap it lower.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md#comment2)
 .PARAMETER MinLevel
-    The lowest tier the caller asks for.
+    A run asking only for tiers its location skips has nothing to run, so it throws and names why.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md#comment3)
 .OUTPUTS
     [int] the highest tier to run.

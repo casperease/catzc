@@ -17,7 +17,7 @@
 .PARAMETER Verbosity
     Pester output verbosity inside the worker (the run's -Output value).
 .PARAMETER EntryScript
-    The run seam: the script the worker dot-sources to load the modules.
+    Empty loads the source importer; a build run passes its Import-Catzc.ps1, which the Go tests then reuse.
     [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment2)
 .PARAMETER EntryParameter
@@ -97,14 +97,14 @@ function New-TestAutomationShardScript {
     # Passing the entry script on lets the Go and Python tests start the same engine the worker loaded.
     # [comment:7](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment7)
     $entryLiteral = "$EntryScript" -replace "'", "''"
-    # The tools this source session located reach the language bridge the same way, as a hashtable literal in...
+    # Sorted by language so the generated literal is stable; a build's engine cannot locate these tools itself.
     # [comment:8](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment8)
     $languageEntries = foreach ($language in ($LanguageExecutable.Keys | Sort-Object)) {
         "'$language' = '$("$($LanguageExecutable[$language])" -replace "'", "''")'"
     }
     $languageLiteral = '@{ ' + ($languageEntries -join '; ') + ' }'
 
-    # The Pester configuration itself comes from the ONE shared builder (New-PesterRunConfiguration) so this worker...
+    # Strict mode stays inline: it is scope-dynamic, and test scopes chain to the process top scope.
     # [ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)
     # [comment:9](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment9)
     $content = @"

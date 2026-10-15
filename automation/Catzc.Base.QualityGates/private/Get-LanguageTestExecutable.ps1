@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the managed tool a test run hands to each test language's tests: a path per language, or an empty string.
 .DESCRIPTION
-    A test run's source session locates each test language's tool once (Resolve-ToolExecutable, the tools.yml entry)...
+    Workers never locate tools, as a build run's engine has no tools.yml entries; paths come from the source session.
     [ADR-AUTO-GO#7](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go7),
     [ADR-AUTO-PY#7](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py7),
     [ADR-AUTO-ENGINE#4](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine4)
@@ -19,7 +19,7 @@ function Get-LanguageTestExecutable {
 
     $languages = @(Get-LanguageTestFolders | ForEach-Object Language | Select-Object -Unique)
     $executables = @{ go = ''; python = '' }
-    # The engines other than the running pwsh, which every language's tests also run under (: the model's engines,...
+    # Located once here because a build run's worker cannot: its tools.yml entry is not in the build.
     # [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md#comment2)
     $pwsh = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name

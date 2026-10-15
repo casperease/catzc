@@ -2,7 +2,7 @@
 .SYNOPSIS
     The ruff formatter engine: formats the given Python files with the pinned ruff and returns the files it changed.
 .DESCRIPTION
-    One Format-Code engine adapter.
+    Runs in the Python workspace's environment with its settings, so a file gets the same rules wherever it lives.
     [ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2),
     [ADR-AUTO-PY#8](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py8)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-RuffFormat.ps1.md#comment1)

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists every Pester test that is missing — or ambiguous on — a required tag axis.
 .DESCRIPTION
-    Inspects a discovery-only Pester result (Get-TestDiscovery), so EVERY test is checked regardless of run level or...
+    A missing citation is never a violation, but a present one must be well-formed and name a real ADR rule.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md#comment1)
 .PARAMETER Discovery
     The discovery-only Pester run object (Get-TestDiscovery output) whose tests are inspected.
@@ -15,7 +15,7 @@ function Get-TestTagViolations {
         $Discovery
     )
 
-    # The authoritative rule-id set, resolved once on the first well-formed citation and reused across tests...
+    # Left null until a well-formed citation shows up, so tests without one never read the shipped ADR tree.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md#comment2)
     $validRuleIds = $null
 
@@ -44,7 +44,7 @@ function Get-TestTagViolations {
             $reasons += "category resolves to $($categoryTags.Count) (need exactly one of logic|integrity)$detail"
         }
 
-        # Provenance axis (optional): collect every candidate citation — any tag carrying the reserved 'ADR-' marker...
+        # A malformed candidate never needs the rule-id set; only a well-formed one triggers its lazy resolution.
         # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md#comment3)
         $candidates = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
         foreach ($tag in $test.Tag) {

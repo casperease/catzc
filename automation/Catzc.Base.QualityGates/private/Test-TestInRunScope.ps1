@@ -2,7 +2,7 @@
 .SYNOPSIS
     Whether a discovered test is inside a test run's tier and category scope.
 .DESCRIPTION
-    A test is in scope when neither its tier nor its category — each resolved along its block chain...
+    The one scope check behind the work-list filter and the opt-out exclusion, so both agree on what a run executes.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Test-TestInRunScope.ps1.md#comment1)
 .PARAMETER Test
     A test from the run's discovery-only Pester result (Get-TestDiscovery).
@@ -22,7 +22,7 @@ function Test-TestInRunScope {
         [string[]] $ExcludeTag = @()
     )
 
-    # Get-TestBlockTag returns its matches as ONE array object (`, $ret`), so its result is used as-is, never wrapped...
+    # Never wrap this result in @(): that would nest the single array object it returns, and every count would read 1.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Test-TestInRunScope.ps1.md#comment2)
     $level = Get-TestBlockTag -Test $Test -Valid ([Catzc.Base.Timeouts.TestTiers]::Names)
     $category = Get-TestBlockTag -Test $Test -Valid 'logic', 'integrity'

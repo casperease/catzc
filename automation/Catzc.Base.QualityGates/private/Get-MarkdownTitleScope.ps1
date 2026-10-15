@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the repository-relative Markdown files whose title is their path.
 .DESCRIPTION
-    Every git-tracked *.md file — the repository as committed, so a gitignored generated README is never in scope...
+    A gitignored generated README is out of scope while its tracked source is in, because only tracked files count.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleScope.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the returned paths are relative to.
@@ -39,7 +39,7 @@ function Get-MarkdownTitleScope {
         return , [string[]] @()
     }
 
-    # Every class comes from.gitattributes.
+    # Get-ContentExemptPath returns one array, so it is assigned first and the set holds paths, not the array.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleScope.ps1.md#comment2)
     $exemptPaths = Get-ContentExemptPath -RepositoryRoot $root -Path $markdown
     $exempt = [System.Collections.Generic.HashSet[string]]::new([string[]] @($exemptPaths))

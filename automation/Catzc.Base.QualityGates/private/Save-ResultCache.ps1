@@ -3,7 +3,7 @@
     Writes a quality check's result cache, sorted by path, merged with what other processes saved meanwhile. See
     Get-ResultCache.
 .DESCRIPTION
-    Several processes keep the same cache file: a test run's workers, a person's own checks, a snapshot run handing...
+    The save re-reads the file and keeps other processes' entries, so a plain overwrite cannot drop their saves.
     [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Save-ResultCache.ps1.md#comment1)
 .PARAMETER Path

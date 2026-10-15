@@ -2,7 +2,7 @@
 .SYNOPSIS
     Builds the link engine for a repository and runs it over a file scope.
 .DESCRIPTION
-    The one place Format-Links and Test-Links assemble the engine, so the aligner and the gate can never disagree:...
+    A root other than this repository has no tracked set, so the tracked-file check is skipped there.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-LinkEngine.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root.

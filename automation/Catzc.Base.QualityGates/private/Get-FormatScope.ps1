@@ -3,7 +3,7 @@
     The files Format-Code formats: the repository's tracked files, or the given paths, minus vendored code and contract
     assets.
 .DESCRIPTION
-    One scope for every formatter engine: without -Path, every file git tracks (Get-GitTrackedPath); with -Path, each...
+    Vendored code and contract assets stay out, so a formatter upgrade can never rewrite their frozen bytes.
     [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
     [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
     [ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5),

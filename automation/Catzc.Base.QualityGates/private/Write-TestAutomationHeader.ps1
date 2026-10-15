@@ -2,7 +2,7 @@
 .SYNOPSIS
     Writes the opening banner for a Test-Automation run — the framed header that brackets the run's output.
 .DESCRIPTION
-    Renders a single Write-Header (a self-contained curved box) naming the run's scope: its tier range, plus the...
+    Called before the writers' suppression flag is set, so the banner shows and the run's later output sits under it.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md#comment1)
 .PARAMETER MinLevel
     The run's minimum tier (0-3), as Test-Automation resolved it.
@@ -13,7 +13,7 @@
 .PARAMETER Modules
     The modules the run was scoped to; named in the scope only when non-empty.
 .PARAMETER Title
-    The run's name on the banner: "Test Automation" (the source run, the default) or the build run's "Catzc Build Run".
+    The build run passes its own name here, so its banner is told apart from the source run's default.
     [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md#comment2)
 #>

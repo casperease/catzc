@@ -2,7 +2,7 @@
 .SYNOPSIS
     Tries, without waiting, to take the user's system-test lock — the right to run L3 on this account.
 .DESCRIPTION
-    L3 changes per-user state, not per-checkout state, so the per-checkout lock cannot guard it: this lock is keyed on the user.
+    L3 changes per-user state, so a per-checkout lock cannot guard it: this lock is keyed on the user.
     [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33),
     [ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Enter-SystemTestLock.ps1.md#comment1)

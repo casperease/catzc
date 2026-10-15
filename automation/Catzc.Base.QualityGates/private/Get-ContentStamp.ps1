@@ -2,7 +2,7 @@
 .SYNOPSIS
     The fingerprint of a set of input files: one SHA-256 over a label and each file's path and content hash.
 .DESCRIPTION
-    A quality check's result cache keys each file on its own SHA-256 and this stamp of everything else that decides...
+    A missing input hashes as missing, so adding or removing an input changes the stamp and re-checks every file.
     [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ContentStamp.ps1.md#comment1)
 .PARAMETER Label
@@ -42,7 +42,7 @@ function Get-ContentStamp {
                 $parseErrors = $null
                 [void] [System.Management.Automation.Language.Parser]::ParseFile($path, [ref] $tokens, [ref] $parseErrors)
                 if (-not $parseErrors) {
-                    # Comments go; a run of line ends (what a removed comment line leaves) counts as one, since a...
+                    # Collapse line-end runs: ends separate statements, blank lines do not, so comments leave no trace.
                     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-ContentStamp.ps1.md#comment2)
                     $previousWasLineEnd = $true
                     $code = foreach ($token in $tokens) {

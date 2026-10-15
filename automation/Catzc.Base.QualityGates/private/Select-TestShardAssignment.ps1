@@ -3,7 +3,7 @@
     Assigns a run's parallel test files to worker shards by their measured duration, longest first, so the shards
     finish together.
 .DESCRIPTION
-    A phase lasts as long as its slowest shard, so the files are dealt longest first, each to the shard with the...
+    A file with no recorded duration counts as the median, so a first run is a fair even split; ties keep their order.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Select-TestShardAssignment.ps1.md#comment1)
 .PARAMETER File
     The parallel test files, absolute paths.

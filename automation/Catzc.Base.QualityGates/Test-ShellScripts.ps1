@@ -3,12 +3,12 @@
     Quality gate: checks every shell script the repository holds — LF line endings, the executable bit, and ShellCheck or
     zsh's syntax check on the repository's own.
 .DESCRIPTION
-    The POSIX engines read a carriage return as part of the command, so a shell script with CRLF line endings does...
+    A CRLF script does not run on the POSIX engines, since the carriage return becomes part of the command.
     [ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2),
     [ADR-AUTO-BASH#6](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash6)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md#comment1)
 .PARAMETER ShellCheckExclude
-    Repository-relative wildcard paths ShellCheck skips: vendored third-party scripts, which are LF-checked but not...
+    Excluded vendored scripts still take the LF check; only ShellCheck skips them, and a zsh file never reaches it.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md#comment2)
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-shell-scripts).
@@ -61,7 +61,7 @@ function Test-ShellScripts {
         if ($bytes -contains 13) {
             $issues.Add("${script}: CRLF line endings — the shell reads the carriage return as part of the command; the file must be LF (.gitattributes eol=lf)")
         }
-        # A script with a shebang is meant to run directly, which on Unix needs the executable bit in git; a sourced...
+        # A sourced file has no shebang and need not be executable, so only shebang scripts take the mode check.
         # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md#comment3)
         $shebang = $bytes.Length -ge 2 -and $bytes[0] -eq 35 -and $bytes[1] -eq 33
         if ($shebang -and $tracked.Contains($script) -and -not $executable.Contains($script)) {
@@ -90,7 +90,7 @@ function Test-ShellScripts {
             throw "Test-ShellScripts needs ShellCheck at the tools.yml pin '$($shellcheck.Required)' (found: $($shellcheck.Version ?? 'none')). Run Install-Shellcheck."
         }
         $quoted = ($analysed | ForEach-Object { "`"$_`"" }) -join ' '
-        # --format=gcc prints one '<file>:<line>:<column>: <severity>: <message> [SC<code>]' line per finding; exit 1...
+        # Exit 1 means findings and anything above it means ShellCheck itself failed, so only 0 and 1 are results.
         # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md#comment4)
         $check = Invoke-Executable "`"$($shellcheck.Path)`" --format=gcc --external-sources $quoted" -WorkingDirectory $repositoryRoot -PassThru -NoAssert -Silent
         if ($check.ExitCode -notin 0, 1) {
@@ -103,7 +103,7 @@ function Test-ShellScripts {
         }
     }
 
-    # ShellCheck does not read zsh, so a *.zsh file takes zsh's own syntax check: -n parses without running...
+    # zsh checks one script per call; exit 1 is a parse error, anything above it means zsh could not check.
     # [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md#comment5)
     if ($zshScripts.Count -gt 0) {
         $zsh = Resolve-ToolExecutable -Tool zsh

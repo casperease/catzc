@@ -2,11 +2,11 @@
 .SYNOPSIS
     Analyzes the automation PowerShell with PSScriptAnalyzer and writes a report under out/.
 .DESCRIPTION
-    Runs PSScriptAnalyzer over the same automation file set the analyzer test covers (module root *.ps1, private/,...
+    Uses the rule set from the loaded code root, so a local run matches what the editor and CI see.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment1)
 .PARAMETER Path
-    One or more files or directories to analyze — absolute, or repository-root-relative (never resolved against $PWD).
+    The default is the catzc source tree, so it needs the source mode; an explicit -Path works in either run mode.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment2)
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-script-analyzer.
@@ -35,18 +35,18 @@ function Test-ScriptAnalyzer {
     )
 
     $root = Get-RepositoryRoot
-    # The one settings file ships inside the code tree, so it resolves from the code root.
+    # The settings ship inside the code tree, so they resolve from the code root, not the repository root.
     # [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment3)
     $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
     Assert-PathExist $settingsPath
 
-    # Resolve the file set — same coverage as the L2 analyzer test (module root *.ps1 non-test, private/, tests/...
+    # Same coverage as the L2 analyzer test: module root, private, tests and the infrastructure folders.
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment4)
     $files = [System.Collections.Generic.List[string]]::new()
     if ($Path) {
         foreach ($item in $Path) {
-            # A relative path is repository-relative, never $PWD-relative.
+            # Resolving against the current directory would make results depend on where the caller stood.
             # [ADR-AUTO-NOPWD#1](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1)
             # [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment5)
             $full = if ([System.IO.Path]::IsPathRooted($item)) {
@@ -66,14 +66,14 @@ function Test-ScriptAnalyzer {
         }
     }
     else {
-        # The canonical checked set — shared with the L2 analyzer test so they cannot drift.
+        # Shared with the L2 analyzer test so the two cannot drift; generated manifests are excluded.
         # [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment6)
         foreach ($f in (Get-AutomationSourceFiles)) {
             $files.Add($f)
         }
     }
 
-    # Analyze, sharded across background processes with live progress (Get-ScriptAnalyzerDiagnostics) — a serial pass...
+    # Sharding turns about 90 seconds of silence, which reads as a hang, into a short run with live progress.
     # [comment:7](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment7)
     Write-Message "Analyzing $($files.Count) PowerShell file(s) with PSScriptAnalyzer..."
     $diagnostics = @(Get-ScriptAnalyzerDiagnostics -Path $files -SettingsPath $settingsPath -NoCache:$NoCache)

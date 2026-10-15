@@ -2,7 +2,7 @@
 .SYNOPSIS
     Checks one Markdown file's title against its repository path and returns the fixed text.
 .DESCRIPTION
-    The title is the first non-blank line after an optional YAML front-matter block; it must be the H1 `#...
+    Only the first non-blank line after front matter is the title, so a hash line in a later code fence never counts.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md#comment1)
 .PARAMETER RelativePath
     The file's repository-relative, '/'-separated path — the expected title.
@@ -65,7 +65,7 @@ function Get-MarkdownTitleFinding {
     }
 
     if ($kind -eq 'Wrong') {
-        # Keep the old title's wording as the body's first line, in backticks; pad it so the heading and what follows...
+        # The old title sits in one code span so it reads as a title; its own backticks go, as they would split it.
         # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md#comment2)
         $oldTitle = ($actual -replace '^#\s+', '' -replace '`', '').TrimEnd()
         $replacement = [System.Collections.Generic.List[string]]::new([string[]] @($expected, '', "``$oldTitle``"))

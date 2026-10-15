@@ -2,14 +2,14 @@
 .SYNOPSIS
     Composes a module's protection identity — the durable SHA of everything its test results depend on.
 .DESCRIPTION
-    The composite: a hash-of-hashes fold over (1) the module's own derived globset, (2) the derived sets of its...
+    Fail-safe: an unconstrained module or one with integrity tests widens the fold to the whole repository.
     [ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment1)
 .PARAMETER Module
-    The unit's folder name under automation/ — a module ('Catzc.Base.Globs') or the infra test units '.internal' /...
+    The dot-prefixed infra test units .internal and .scriptanalyzer are accepted too, and always widen the fold.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment2)
 .PARAMETER HasIntegrityTests
-    Whether the unit's test files contain any 'integrity'-tagged test (from the run's discovery pass) — folds in the...
+    Integrity tests read the real repository beyond the module, so this folds in the repository-wide set.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment3)
 .PARAMETER HashCache
     A caller-owned hashtable memoizing set-name -> durable SHA across one Test-Automation run.
@@ -28,7 +28,7 @@ function Get-ModuleProtectionIdentity {
         [hashtable] $HashCache
     )
 
-    # The tracked-file universe, fetched once for this call on the first set that is not memoized yet (a holder,...
+    # The closure runs in its own scope, so a holder hashtable shares one tracked-file fetch across every set hashed.
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment4)
     $universe = @{}
     $setHash = {
@@ -42,7 +42,7 @@ function Get-ModuleProtectionIdentity {
                 Get-GlobSetHash -Name repository -TrackedFile $tracked
             }
             else {
-                # A module name resolves to its live/tests aspect sets; a reserved/single set to one.
+                # Folding the aspect hashes covers the module's whole content, as the pre-aspect whole-module set did.
                 # [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)
                 # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment5)
                 $sets = @(Get-ModuleGlobSet -Name $setName) | Sort-Object Name
@@ -73,7 +73,7 @@ function Get-ModuleProtectionIdentity {
     else {
         [void]$constituents.Add($Module.ToLowerInvariant().Replace('.', '-'))
 
-        # declared dependency closure from dependencies.yml (DependenciesConfig: groups: <g> -> ModuleGroup with...
+        # A group reference permits any member, so it expands to all members before the closure is walked.
         # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment6)
         $dependencies = Get-Config -Config dependencies
         $moduleDeclarations = $dependencies.modules
@@ -89,7 +89,7 @@ function Get-ModuleProtectionIdentity {
 
         $isKnown = $moduleDeclarations.Contains($Module) -or $memberIntraDependencies.ContainsKey($Module)
         if (-not $isKnown) {
-            # unconstrained (dependencies.yml: "A module NOT listed here is unconstrained") — its true dependency set...
+            # An unlisted module has unknown dependencies, so widen to the whole repository: skip less, never wrongly.
             # [comment:7](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment7)
             $widen = $true
         }
@@ -129,7 +129,7 @@ function Get-ModuleProtectionIdentity {
         [void]$constituents.Add('repository')
     }
 
-    # ---- fold: name|hash lines, ordinal by name — the recipe over set hashes ----
+    # Ordinal name order keeps the fold byte-identical on every machine and culture.
     # [ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)
     # [comment:8](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment8)
     $names = [string[]]$constituents

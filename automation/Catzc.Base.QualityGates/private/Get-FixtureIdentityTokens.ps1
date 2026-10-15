@@ -4,7 +4,7 @@
     tenants, and environments the hermetic tests use — that must NEVER appear in a shipped config value
     ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md), the reverse of Get-LiveIdentityTokens).
 .DESCRIPTION
-    Symmetric to Get-LiveIdentityTokens: the authoritative source is the config itself, here the FIXTURE configs...
+    Read from the fixture configs, so a fixture customer added to a test config is banned from shipped config at once.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md#comment1)
 .OUTPUTS
     [string[]] the distinct fixture identity tokens.
@@ -23,7 +23,7 @@ function Get-FixtureIdentityTokens {
         }
     }
 
-    # Every fixture config tree (tests/assets/config/) — the identity-bearing azure.yml and customer.yml a logic test...
+    # Fixtures live only in the source tree, as tests never ship in a build, hence the guard.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md#comment2)
     Assert-SourceTree
     $registry = (Get-Config -Config configs).configs
@@ -61,7 +61,7 @@ function Get-FixtureIdentityTokens {
         }
     }
 
-    # Neutral in-memory fixtures that never live in a config file — the globset and tool fixtures logic tests...
+    # Logic tests build these globset and tool fixtures inline, so no fixture config file would name them.
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md#comment3)
     foreach ($token in 'widget', 'gadget', 'faketool') {
         & $add $token

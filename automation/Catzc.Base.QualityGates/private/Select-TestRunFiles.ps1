@@ -3,7 +3,7 @@
     Chooses a test run's test files: every file under the test paths, narrowed by rule, by tier and category scope, and
     by the run's opt-out tag.
 .DESCRIPTION
-    The work-list stage of a test run (Invoke-TestRun), in order: - the test files under the test paths, in...
+    Throws when -Rule or the opt-out tag leaves nothing to run; an empty tier scope is vacuously green instead.
     [ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Select-TestRunFiles.ps1.md#comment1)
 .PARAMETER TestPath

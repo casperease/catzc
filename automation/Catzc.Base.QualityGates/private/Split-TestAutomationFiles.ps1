@@ -2,7 +2,7 @@
 .SYNOPSIS
     Splits the run's test files into the three execution phases: parallel, greedy, and serial.
 .DESCRIPTION
-    Inspects a discovery-only Pester result (Get-TestDiscovery — the same pass the tag check consumes) and classifies...
+    The unit is the file, so one serial or greedy test moves its whole file; a file with both tags is serial.
     [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33),
     [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Split-TestAutomationFiles.ps1.md#comment1)

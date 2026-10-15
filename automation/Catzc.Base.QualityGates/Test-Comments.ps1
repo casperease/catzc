@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: every long comment lives in its file's comment page, and every residue and page section pair up.
 .DESCRIPTION
-    A quality gate over the files in scope (Get-CommentScope).
+    The shape of the insight line is Format-Comments' to fix, not this gate's.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),
     [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)

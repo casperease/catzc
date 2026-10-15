@@ -2,7 +2,7 @@
 .SYNOPSIS
     Whether a test run outlasted its whole-run budget in a way that fails it: a devbox run over tests.run_seconds.
 .DESCRIPTION
-    The whole-run budget fails a devbox run that outlasts it — the time safeguard's fail-fast stance applied to the...
+    The budget is a roof never raised to make a run pass; a pipeline run is bounded by its stage limit instead.
     [ADR-AUTO-TEST#44](/docs/adr/automation/test-automation.md#rule-adr-auto-test44),
     [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Test-TestRunOverBudget.ps1.md#comment1)

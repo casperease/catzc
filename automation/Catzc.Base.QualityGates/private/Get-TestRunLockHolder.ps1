@@ -2,7 +2,7 @@
 .SYNOPSIS
     Reads the test-run lock record and describes who holds the working folder.
 .DESCRIPTION
-    A mutex carries no owner data, so the run that holds the test-run lock writes a record beside it...
+    A mutex names no owner, so this reads the record beside it and never guesses past what the record says.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLockHolder.ps1.md#comment1)
 .PARAMETER Path
     The lock record's path (out/.test-run-lock.json).
@@ -35,7 +35,7 @@ function Get-TestRunLockHolder {
         }
     }
 
-    # ConvertFrom-Json turns ISO timestamps into [datetime] (kind kept from the 'Z'/offset suffix); a string cast...
+    # A string cast would drop the sub-second precision and the zone, so both timestamp shapes are read as instants.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLockHolder.ps1.md#comment2)
     $toInstant = {
         param($value)

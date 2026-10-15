@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists every passed test that exceeded its level's time limit, as report lines.
 .DESCRIPTION
-    Validates the aggregated per-test rows against the per-level duration limits (`tests.level_ms` in timeouts.yml,...
+    Failed tests and rows with no tier are skipped: a failed duration is noise, the tag check reports the tier.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestTimingViolation.ps1.md#comment1)
 .PARAMETER Rows
     The run's aggregated per-test rows.

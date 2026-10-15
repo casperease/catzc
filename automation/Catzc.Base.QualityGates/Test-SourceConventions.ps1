@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: every source and test file under automation/ follows the naming and one-function conventions.
 .DESCRIPTION
-    A quality gate over the per-function source files and the test files.
+    Report-mode checks print their work list and never fail the run; only gate-mode findings are issues.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9),
     [ADR-PWSH-PESTER#5](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester5),
@@ -12,7 +12,7 @@
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-source-conventions/ (Write-QualityGateReport).
 .PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; SourceFiles; TestFiles; SkipReasons;...
+    EngineSet and NeutralCodes list each check's findings whatever its mode, so report mode stays inspectable.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.
@@ -116,7 +116,7 @@ function Test-SourceConventions {
             }
         }
 
-        # tests/types/ holds the native-type tests, named for their type (which has no verb) — so each must name a...
+        # Type tests have no verb, so each must name a real types/*.cs; misplaced or misnamed tests cannot collect.
         # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md#comment3)
         $typesTestDirectory = Join-Path $testsDirectory 'types'
         if ([System.IO.Directory]::Exists($typesTestDirectory)) {

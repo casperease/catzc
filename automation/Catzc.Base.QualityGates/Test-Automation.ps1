@@ -2,53 +2,53 @@
 .SYNOPSIS
     Runs all Pester tests found across automation modules, sharded across parallel worker processes.
 .DESCRIPTION
-    The harness parallelizes at whole-file granularity: the run's test files are round-robin sharded across worker...
+    Whole files, never single tests, are the unit of sharding; serial-tagged files run last, alone.
     [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment1)
 .PARAMETER MaxLevel
-    Maximum test level to run (alias: -Level).
+    Defaults to 3, the tiers the run's location allows: a snapshot run skips L3 and says so.
     [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33),
     [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment2)
 .PARAMETER MinLevel
-    Minimum test level to run.
+    -MinLevel 2 -MaxLevel 2 runs only the L2 tests; MinLevel must not exceed MaxLevel.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment3)
 .PARAMETER Modules
-    One or more automation module names to test (tab-completes from Get-AutomationModules).
+    Dot-prefixed infrastructure (.internal, .scriptanalyzer) runs only when this is left empty.
     [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment4)
 .PARAMETER Category
-    Which category of test to run: `Logic` (function-logic tests on mocks/fixtures), `Integrity` (tests that read the...
+    Implemented by excluding the other category's tag, so it composes with -Level.
     [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment5)
 .PARAMETER Workers
-    How many parallel worker processes to shard the test files across.
+    Auto size is max(1, ProcessorCount / 4); past that the box saturates and extra workers inflate per-test time.
     [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment6)
 .PARAMETER TimeoutSeconds
-    Hard ceiling on each execution phase (the parallel pool, then the serial phase).
+    On expiry every worker is killed and the run throws; the default is this function's own time limit.
     [ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)
     [comment:7](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment7)
 .PARAMETER Output
-    Pester output verbosity level inside each worker.
+    Detailed gives one line per test with its duration, Normal one line per file, Minimal only the final tally.
     [comment:8](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment8)
 .PARAMETER PassThru
-    Returns the run summary object: Result, TotalCount/PassedCount/FailedCount/SkippedCount/NotRunCount,...
+    Without it no object comes back; with it the aggregated per-test rows and the shard descriptors do.
     [comment:9](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment9)
 .PARAMETER Rule
-    Run only the tests that cite one of these ADR rules (the provenance filter) — e.g.
+    The run narrows to the files carrying a matching test, then to the cited tests through a Pester tag include.
     [ADR-PWSH-ERROR#3](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error3)
     [comment:10](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment10)
 .PARAMETER Suite
-    Run a test suite: the named globset's declared `verify:` scope in globs.yml, resolved to the module list and tier...
+    Mutually exclusive with -Modules; a globset without a verify scope is no suite and throws.
     [ADR-AUTO-TEST#37](/docs/adr/automation/test-automation.md#rule-adr-auto-test37),
     [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)
     [comment:11](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment11)
 .PARAMETER EnforceTimings
-    Fail the run when a test exceeds its level's time limit.
+    Timings depend on the machine, so by default over-limit tests are only reported and the run stays green.
     [comment:12](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment12)
 .PARAMETER OutputFolder
-    Base directory for the run report.
+    Every run writes its own timestamped subfolder, so repeated runs never overwrite each other.
     [comment:13](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment13)
 .PARAMETER Isolated
-    Run in an isolated snapshot of the working folder even when it is free.
+    A snapshot run is deterministic and immune to edits made meanwhile; its report still lands in the working out/.
     [ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)
     [comment:14](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment14)
 .PARAMETER KeepSandbox
@@ -130,7 +130,7 @@ function Test-Automation {
         throw "MinLevel ($MinLevel) cannot exceed MaxLevel ($MaxLevel)."
     }
 
-    # -Suite: run a test suite — the named globset's declared verify scope resolves to the module list and tier...
+    # The suite resolves its own module list and tier, so passing -Modules as well is rejected.
     # [ADR-AUTO-TEST#37](/docs/adr/automation/test-automation.md#rule-adr-auto-test37)
     # [comment:15](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment15)
     if ($Suite) {
@@ -142,7 +142,7 @@ function Test-Automation {
         $MaxLevel = $suiteScope.Level
     }
 
-    # The harness itself — discovery, tag checks, sharding, workers, rows, reports — is the core both runs share...
+    # Both entry points share this core; the source run loads each worker through the repository importer.
     # [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)
     # [comment:16](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment16)
     Invoke-TestRun -EntryPoint 'Test-Automation' -Title 'Test Automation' -MinLevel $MinLevel -MaxLevel $MaxLevel `

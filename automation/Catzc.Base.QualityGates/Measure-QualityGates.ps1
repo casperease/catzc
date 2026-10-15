@@ -2,7 +2,7 @@
 .SYNOPSIS
     Times quality gates (or analyzer rules), to find what makes a check slow.
 .DESCRIPTION
-    Read-only measurement, not a gate: it runs each named quality gate once with -PassThru (its report going to a...
+    Each gate runs once with its report in a throwaway folder, so a measurement leaves no report behind.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Measure-QualityGates.ps1.md#comment1)
 .PARAMETER Name
     The quality gates to time. Default: every gate a language's `checks` names in languages.yml.
@@ -37,7 +37,7 @@ function Measure-QualityGates {
     try {
         if ($AnalyzerRules) {
             if (-not (Get-Module PSScriptAnalyzer)) {
-                # First use this session pays the vendored-module import (several seconds) — announce it.
+                # The vendored import takes several seconds on first use in a session, so say so before it.
                 # [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)
                 # [comment:2](/docs/references/automation/catzc-base-qualitygates/Measure-QualityGates.ps1.md#comment2)
                 Write-Message 'Loading PSScriptAnalyzer (first use this session)...'

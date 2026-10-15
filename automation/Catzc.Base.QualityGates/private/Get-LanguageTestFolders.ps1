@@ -3,7 +3,7 @@
     Lists the repository's test folders in every test language beside PowerShell, each mapped to the catzc module
     it tests.
 .DESCRIPTION
-    The test languages are test artifacts only, each in a root verification track of its own: go...
+    A folder matching no catzc module throws and is named, since an unmapped test folder would otherwise never run.
     [ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2),
     [ADR-AUTO-GO#2](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2),
     [ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2),
@@ -29,7 +29,7 @@ function Get-LanguageTestFolders {
         [pscustomobject]@{ Language = 'bash'; Root = (Get-Config -Config bash).ResolveRoot($repositoryRoot); Pattern = '*.bats' }
     )
 
-    # The catzc modules of the source tree, by kebab name: the folders under <repository>/automation/, read from the...
+    # Read from the repository, not the code root, so a build run maps a test folder as a source run does.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md#comment2)
     $modulesByKebab = @{}
     $automationRoot = [System.IO.Path]::Combine($repositoryRoot, 'automation')

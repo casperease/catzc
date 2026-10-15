@@ -2,7 +2,7 @@
 .SYNOPSIS
     Checks one Markdown file's H2–H6 headings against their normal form and returns the fixed text.
 .DESCRIPTION
-    A heading is plain words: a trailing parenthesized group that holds only code spans and separators — a file name,...
+    Only a trailing group of code spans and separators moves below the heading; prose groups and code subjects stay.
     [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md#comment1)
 .PARAMETER RelativePath
@@ -10,7 +10,7 @@
 .PARAMETER Text
     The file's content.
 .PARAMETER Citation
-    Citation code -> repository-relative ADR path, for the links a moved citation becomes.
+    A citation code missing from this map stays a code span instead of becoming a relative link.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] @{ Path; Findings; Fixed } — each finding is @{ Line; Kind; Actual; Expected; From; To }.
@@ -83,7 +83,7 @@ function Get-MarkdownHeadingFinding {
         $words = $Heading
         $groups = [System.Collections.Generic.List[string]]::new()
         while ($words -match '^(?<head>.*?)\s*\((?<inner>[^()]*`[^()]*)\)\s*$') {
-            # Capture before the next -match overwrites $Matches.
+            # The -notmatch just below replaces the match result, so both groups are read before it.
             # [ADR-PWSH-AUTOVAR](/docs/adr/pwsh/automatic-variable-pitfalls.md)
             # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md#comment3)
             $head = $Matches['head']

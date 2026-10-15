@@ -2,7 +2,7 @@
 .SYNOPSIS
     Loads the vendored Pester into the session on first use, and makes sure it is the one in use.
 .DESCRIPTION
-    Pester's import is deferred at import time for speed; the test entry points that need it in the parent session —...
+    Any other Pester in the session, a system install or another version, is removed and replaced, and named.
     [ADR-PWSH-VENDOR#5](/docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor5),
     [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1),
     [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)

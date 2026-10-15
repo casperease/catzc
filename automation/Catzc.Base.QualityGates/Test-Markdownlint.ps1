@@ -2,11 +2,11 @@
 .SYNOPSIS
     Lints the repository's Markdown with markdownlint-cli2 and writes a report under out/.
 .DESCRIPTION
-    Runs markdownlint-cli2 over the repository's in-scope Markdown, applying the single root rule set at...
+    markdownlint-cli2 ignores .markdownlintignore for command-line globs, so the exclusions are passed explicitly.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment1)
 .PARAMETER Path
-    Repository-relative paths or globs to lint (markdownlint-cli2 expands a glob).
+    The default is the in-scope Markdown, with out-of-scope trees excluded by negation globs.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment2)
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-markdownlint.
@@ -28,14 +28,14 @@ function Test-Markdownlint {
             '!**/.vendor'
             '!docs/notes'
             '!**/node_modules'
-            # Generated READMEs (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored copies whose...
+            # Skipped because the gitignored copy would double-report the docs/ source that is linted instead.
             # [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)
             # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment3)
             '!**/README.md'
-            # is generated from adrs.yml (Build-AdrIndex) — a derived artifact whose source (adrs.yml + the...
+            # Derived from adrs.yml, so the source and the generator prose are linted, not the projection.
             # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment4)
             '!docs/adr/index.md'
-            # is generated from the configs/glossary.yml sources (Build-Glossary) — likewise derived; the generator...
+            # Derived from the glossary sources and emitted already formatted, so linting it adds nothing.
             # [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment5)
             '!docs/adr/glossary.md'
         ),

@@ -2,23 +2,23 @@
 .SYNOPSIS
     Quality gate: builds the selected modules once into a temporary destination and verifies the built artifact.
 .DESCRIPTION
-    The built, immutable artifact is what ships, so it is verified as built.
+    Every issue is prefixed with its facet and all are collected, so one run shows every broken facet.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-AUTO-TEST#24](/docs/adr/automation/test-automation.md#rule-adr-auto-test24),
     [ADR-DSGN-RUNMODE#2](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode2)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-BuildArtifact.ps1.md#comment1)
 .PARAMETER Module
-    Modules to build (combinable with -ModuleProfile; closure-expanded by Build-Modules).
+    Giving neither -Module nor -ModuleProfile builds the default bundle's profile.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-BuildArtifact.ps1.md#comment2)
 .PARAMETER ModuleProfile
     A module profile (profiles.yml) to build.
 .PARAMETER Facet
-    Check only these facets (default: every one).
+    The types facet alone builds nothing; any other facet builds once and also checks the build facet.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-BuildArtifact.ps1.md#comment3)
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-build-artifact).
 .PARAMETER PassThru
-    Return the gate result { Subject; IssueCount; Issues; ReportPath; Modules; TypesHash } instead of throwing on...
+    Without it the gate throws on issues, so the result object is how a caller reads them instead.
     [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-BuildArtifact.ps1.md#comment4)
 .OUTPUTS
     [pscustomobject] With -PassThru only.

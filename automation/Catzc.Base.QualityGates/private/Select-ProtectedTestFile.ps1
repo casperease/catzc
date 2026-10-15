@@ -4,7 +4,7 @@
     drops the test files of every unit whose composite identity is
     unchanged since its last green run this session.
 .DESCRIPTION
-    Groups the run's test files by unit (Get-TestFileModule), composes each unit's protection identity...
+    In a pipeline the input returns unchanged with no identity computed, so CI pays nothing and skips nothing.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Select-ProtectedTestFile.ps1.md#comment1)
 .PARAMETER ParallelFiles
     The parallel-phase test files.

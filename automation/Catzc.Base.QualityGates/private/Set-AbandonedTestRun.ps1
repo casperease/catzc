@@ -2,7 +2,7 @@
 .SYNOPSIS
     Marks every run under a report folder that says 'running' but whose owning process is gone as 'abandoned'.
 .DESCRIPTION
-    A run stamps run.json 'running' at start and a terminal status in a finally (Write-TestRunManifest).
+    A killed owner never reaches its finally, so a manifest stuck on running is swept to abandoned by the next run.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Set-AbandonedTestRun.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder whose run directories (<OutputFolder>/<stamp>/run.json) are swept.
@@ -46,7 +46,7 @@ function Set-AbandonedTestRun {
             continue
         }
 
-        # ConvertFrom-Json turns an ISO timestamp into a local DateTime, which would be written back with the local...
+        # Every record stamps UTC, so a date must go back as the UTC string it was read from, not a local offset.
         # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Set-AbandonedTestRun.ps1.md#comment2)
         $abandoned = [ordered]@{}
         foreach ($key in $manifest.Keys) {

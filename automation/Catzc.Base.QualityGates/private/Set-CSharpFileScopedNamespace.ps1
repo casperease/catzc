@@ -2,7 +2,7 @@
 .SYNOPSIS
     Returns the C# source with a file-scoped `namespace <Namespace>;` line present and correct.
 .DESCRIPTION
-    The string engine behind Format-Types.
+    Pure text in, text out, so it is unit-tested directly; a block-scoped namespace is left alone, never double-declared.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Set-CSharpFileScopedNamespace.ps1.md#comment1)
 .PARAMETER Content
     The C# source text.
@@ -41,7 +41,7 @@ function Set-CSharpFileScopedNamespace {
         $joined
     }
 
-    # An existing namespace declaration: correct a file-scoped one in place (no-op when already right); leave a...
+    # A block-scoped namespace is left untouched: the repo never authors one, so Format-Types reports it instead.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Set-CSharpFileScopedNamespace.ps1.md#comment2)
     for ($i = 0; $i -lt $lines.Count; $i++) {
         if ($lines[$i] -match '^\s*namespace\s+\S') {

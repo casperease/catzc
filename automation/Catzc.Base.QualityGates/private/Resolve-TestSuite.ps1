@@ -3,7 +3,7 @@
     Resolves a named test suite — a globset's declared verify scope (globs.yml `verify:`) — into Test-Automation's run
     parameters.
 .DESCRIPTION
-    The -Suite resolver.
+    A globset without a verify scope is not a test suite, so it throws and tells you to declare one in globs.yml.
     [ADR-AUTO-TEST#37](/docs/adr/automation/test-automation.md#rule-adr-auto-test37),
     [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md#comment1)

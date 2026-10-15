@@ -2,14 +2,14 @@
 .SYNOPSIS
     Quality gate: analyzer-adr-map.yml cites only real ADR rules and maps every custom analyzer rule.
 .DESCRIPTION
-    A quality gate over the shipped analyzer map (configs/analyzer-adr-map.yml), the source of the 'pssa-rule'...
+    The config load checks only shape to stay hermetic; this gate cross-checks the map against the repository.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-PWSH-FORMAT#7](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format7)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-analyzer-adr-map/ (Write-QualityGateReport).
 .PARAMETER PassThru
-    Return the result ({ Subject; IssueCount; Issues; ReportPath; Analyzers; CustomRules }) instead of throwing on...
+    Without it the gate throws on issues, so the result object is how a caller reads them instead.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.
@@ -27,7 +27,7 @@ function Test-AnalyzerAdrMap {
 
     Assert-SourceTree
     $map = Get-Config -Config analyzer-adr-map
-    # The rule ids in '#' citation form, so they compare to the map.
+    # Plain assignment keeps the comma-wrapped getter result intact; wrapping it in @() would nest it.
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md#comment3)
     $ruleIds = Get-CatsAdrRuleIds
     [string[]] $citations = $ruleIds -replace ':', '#'

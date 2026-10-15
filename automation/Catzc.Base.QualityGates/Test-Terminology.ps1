@@ -2,7 +2,7 @@
 .SYNOPSIS
     Checks the terminology registry: no drift, no orphans, no unjustified entries. Writes a report under out/.
 .DESCRIPTION
-    The read-only verifier over configs/terminology.yml and its generated dictionary — the counterpart to...
+    Dictionaries are gitignored and regenerated on import, so a drift finding means a hand-edited word list.
     [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
     [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5),
     [ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8),
@@ -32,12 +32,12 @@ function Test-Terminology {
     Assert-SourceTree
 
     $root = Get-RepositoryRoot
-    # The registry's own file inside the scanned corpus — a corpus exclusion, not an asset read (the registry itself...
+    # It names the file in the scanned tree, not an asset read: the registry itself loads through Get-Config.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-Terminology.ps1.md#comment2)
     $registryPath = Join-Path $root 'automation/Catzc.Base.QualityGates/configs/terminology.yml'
     $issues = [System.Collections.Generic.List[string]]::new()
 
-    # ---- Check 3 (justification / no-coinage): loading validates every entry via TerminologyConfig ---- A missing...
+    # A malformed entry fails at load through TerminologyConfig, so the load itself is the justification check.
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Terminology.ps1.md#comment3)
     $config = $null
     try {
@@ -48,7 +48,7 @@ function Test-Terminology {
     }
 
     if ($config) {
-        # ---- Check 1 (no drift): every generated dictionary must match the registry ----
+        # Dictionaries are gitignored and regenerated on import, so a dry run that differs means a hand edit.
         # [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5)
         # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-Terminology.ps1.md#comment4)
         $generated = Build-TerminologyDictionary -DryRun -PassThru
@@ -59,7 +59,7 @@ function Test-Terminology {
             )
         }
 
-        # ---- Check 2 (no orphans): every term must be referenced somewhere else in the tree ---- One bulk scan of...
+        # One bulk scan, then a lookup per term, not a grep per term; the registry and generated lists are excluded.
         # [ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8)
         # [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-Terminology.ps1.md#comment5)
         $cspellDir = Join-Path $root '.cspell'

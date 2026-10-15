@@ -2,7 +2,7 @@
 .SYNOPSIS
     Records a quality check's verdicts in its result cache: the checked files it found clean, and no others.
 .DESCRIPTION
-    The write half of a result cache: each checked file that Split-CachedFile keyed is recorded under its key when it...
+    A flagged file loses its entry so it is rechecked every run; -RekeyFromDisk rekeys after an in-place rewrite.
     [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Update-ResultCache.ps1.md#comment1)
 .PARAMETER Cache

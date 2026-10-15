@@ -2,7 +2,7 @@
 .SYNOPSIS
     Renders where a test run executed, for the report header and the run manifest.
 .DESCRIPTION
-    One reading of the location a worker run executed in — the run's location from Enter-TestRunLocation, which...
+    No location (a fully protected run, or crashed workers) gives empty text and no entries, not an error.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLocationSummary.ps1.md#comment1)
 .PARAMETER Location
     The location the worker run executed in (Enter-TestRunLocation's object), or $null.

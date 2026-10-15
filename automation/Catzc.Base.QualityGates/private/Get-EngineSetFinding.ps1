@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists every place one file restates the engine set instead of reading it from the model.
 .DESCRIPTION
-    The engine-set check of Test-SourceConventions: the execution engines are declared once, in...
+    Engines are declared once in the model, so an engine count or literal engine list restated elsewhere is drift.
     [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-EngineSetFinding.ps1.md#comment1)
 .PARAMETER Path

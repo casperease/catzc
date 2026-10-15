@@ -2,7 +2,7 @@
 .SYNOPSIS
     Collects the facts that say what a test run is and where it runs: its context block.
 .DESCRIPTION
-    One record of the run's context, for the console block under the banner (Write-TestRunContext) and for run.json,...
+    Console block and run.json share this one record, so a reader of either sees what ran without inferring it.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestRunContext.ps1.md#comment1)
 .PARAMETER EntryPoint
     The entry point's command name.

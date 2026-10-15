@@ -2,7 +2,7 @@
 .SYNOPSIS
     Splits a quality check's files into those its result cache already knows are clean and those to check.
 .DESCRIPTION
-    The read half of a result cache: each file inside the repository gets the key '<SHA-256 of its bytes>:<stamp>'; a...
+    A file outside the repository or missing is always pending and never keyed, so it is never recorded.
     [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Split-CachedFile.ps1.md#comment1)
 .PARAMETER File

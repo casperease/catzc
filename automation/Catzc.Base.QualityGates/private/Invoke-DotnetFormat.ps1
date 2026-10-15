@@ -3,7 +3,7 @@
     The dotnet-format formatter engine: formats the given C# files with `dotnet format whitespace` and returns the
     files it changed.
 .DESCRIPTION
-    One Format-Code engine adapter.
+    Exit 2 means files differ and is expected; any other non-zero exit is a tool error and throws with the output.
     [ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-DotnetFormat.ps1.md#comment1)
 .PARAMETER File

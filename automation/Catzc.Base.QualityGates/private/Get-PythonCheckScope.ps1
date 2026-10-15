@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists what the Python checks read: every Python test folder, and every tracked .py file outside the Python root.
 .DESCRIPTION
-    Every.py file the repository holds takes the Python checks: the Python test folders (Get-LanguageTestFolders,...
+    Test folders count as folders, so a new test file is checked before commit; other .py files come from the index.
     [ADR-AUTO-PY#8](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py8)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-PythonCheckScope.ps1.md#comment1)
 .OUTPUTS

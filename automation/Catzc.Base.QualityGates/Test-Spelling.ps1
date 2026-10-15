@@ -2,15 +2,15 @@
 .SYNOPSIS
     Spell-checks the repository's known file types with cspell and writes a report under out/.
 .DESCRIPTION
-    Runs the Code Spell Checker CLI (cspell) over the repository's known text file types — Markdown, PowerShell,...
+    A scan that matched no files throws before the report, since there is no verdict to report.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-AUTO-CONSOLE#6](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console6)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment1)
 .PARAMETER Path
-    Repository-relative paths or globs to check (cspell expands a glob).
+    cspell still applies ignorePaths from cspell.yml, so an explicit path can still be skipped.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment2)
 .PARAMETER Exclude
-    Globs the spelling QUALITY GATE skips, passed to cspell as --exclude.
+    Content scope only: non-authored noise such as vendor or compiled output belongs in cspell.yml ignorePaths.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment3)
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-spelling.
@@ -39,20 +39,20 @@ function Test-Spelling {
             '**/*.py'
         ),
 
-        # Content the spelling quality gate does NOT check (authored/generated text, not third-party noise — that...
+        # Content scope, not third-party noise: that lives in cspell.yml ignorePaths.
         # [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment4)
         [string[]] $Exclude = @(
             'out/**'
             'docs/notes/**'
             'infrastructure/templates/**/configuration/**'
-            # Generated README copy-ins (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored and...
+            # The gitignored copy double-reports its docs/ source, and its banner holds a kebab filename, not a word.
             # [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)
             # [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment5)
             '**/README.md'
-            # is generated from adrs.yml (Build-AdrIndex) — a derived artifact; its source (adrs.yml + the...
+            # Derived from adrs.yml, so its source and the generator prose are reviewed, not the projection.
             # [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment6)
             'docs/adr/index.md'
-            # is generated from the configs/glossary.yml sources (Build-Glossary) — likewise derived; the sources are...
+            # Derived from the glossary sources, which are what is spell-checked.
             # [comment:7](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment7)
             'docs/adr/glossary.md'
         ),
@@ -76,7 +76,7 @@ function Test-Spelling {
     $quotedPaths = foreach ($p in $Path) {
         "'$p'"
     }
-    # Content-scope exclusions (out/, docs/notes, generated config trees) — cspell ignorePaths rejects negation...
+    # cspell ignorePaths rejects negation globs, so the gate's content scope is passed as --exclude instead.
     # [comment:8](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment8)
     $excludeArgs = foreach ($e in $Exclude) {
         "--exclude '$e'"
@@ -94,7 +94,7 @@ function Test-Spelling {
         throw "cspell failed (exit $($result.ExitCode)): $($result.Full)"
     }
 
-    # cspell prints a summary ("Files checked: N, Issues found: M in K file(s)").
+    # cspell globs are relative to the working directory, so zero files checked means a bad -Path.
     # [comment:9](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment9)
     $checkedMatch = [regex]::Match($result.Full, 'Files checked:\s*(?<n>\d+)')
     if ($result.ExitCode -ne 0 -and $checkedMatch.Success -and [int]$checkedMatch.Groups['n'].Value -eq 0) {

@@ -2,7 +2,7 @@
 .SYNOPSIS
     Renders a human-readable run report (summary.md + tests.csv) from the run's row set.
 .DESCRIPTION
-    Writes two files into $OutputFolder from the aggregated per-test rows (ConvertTo-TestAutomationRowSet): -...
+    Rows are the input, not a live Pester object, because only the rows survive the worker process boundary.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment1)
 .PARAMETER Rows
     The aggregated per-test rows (ConvertTo-TestAutomationRowSet output, merged across shards).
@@ -15,10 +15,10 @@
 .PARAMETER DurationSeconds
     The run's wall-clock duration in seconds, recorded in the header.
 .PARAMETER Limits
-    Per-level millisecond limits keyed by tag (L0/L1/L2/L3) — the over-limit threshold per test level.
+    Defaults to the tests.level_ms limits in timeouts.yml, so one source of truth sets every over-limit threshold.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment2)
 .PARAMETER RunBudgetSeconds
-    The budget for the whole run, in seconds; the header records the run against it (a devbox run over it fails, ).
+    Defaults to tests.run_seconds in timeouts.yml; a devbox run over it fails, and the header records the verdict.
     [ADR-AUTO-TEST#44](/docs/adr/automation/test-automation.md#rule-adr-auto-test44)
     [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment3)
 .PARAMETER SlowestCount
@@ -59,7 +59,7 @@ function Write-TestAutomationReport {
         New-Item -ItemType Directory -Path $OutputFolder -Force | Out-Null
     }
 
-    # tests.csv — one row per test, slowest first (the report's columns; failure detail stays in summary.md).
+    # Rules carries the ADR citations, so tests.csv is the backtrack table: filter by a rule to find its tests.
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment4)
     $csvRows = @($Rows |
             Select-Object ExpandedPath, Result, DurationMs, Level, Category, Rules, File, Line |
@@ -91,7 +91,7 @@ function Write-TestAutomationReport {
     $notRunCount = @($Rows | Where-Object { $_.Result -eq 'NotRun' }).Count
 
     $pesterVersion = (Get-Module Pester | Select-Object -First 1).Version
-    # InvariantCulture: a bare ':' in a.NET date format is the culture's time-separator placeholder, which renders as...
+    # Forces literal colons: a bare colon in a date format renders as a dot under some locales.
     # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment5)
     $now = [datetime]::Now.ToString('yyyy-MM-dd HH:mm:ss', [System.Globalization.CultureInfo]::InvariantCulture)
     $os = [System.Runtime.InteropServices.RuntimeInformation]::OSDescription.Trim()

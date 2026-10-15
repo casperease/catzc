@@ -2,7 +2,7 @@
 .SYNOPSIS
     Quality gate: no test title carries an angle-bracket template token unless its block is data-driven.
 .DESCRIPTION
-    A quality gate over the titles of every It, Describe, and Context in the test files (except the vendored ones).
+    An angle-bracket word in a title throws under strict mode when no -ForEach data exists, far from the cause.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
     [ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-TestTitles.ps1.md#comment1)

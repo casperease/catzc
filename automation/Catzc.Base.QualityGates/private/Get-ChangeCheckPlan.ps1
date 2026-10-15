@@ -2,7 +2,7 @@
 .SYNOPSIS
     Maps changed repository files to the quality gates that check them, by file language.
 .DESCRIPTION
-    The checks half of Test-Change's plan, read from configuration, not code: each changed file that exists is looked...
+    Gates come from each language's checks list in languages.yml, so a new gate is a config edit, not code.
     [ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ChangeCheckPlan.ps1.md#comment1)
 .PARAMETER Path

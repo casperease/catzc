@@ -2,7 +2,7 @@
 .SYNOPSIS
     The prettier formatter engine: formats the given files with Prettier and returns the files it changed.
 .DESCRIPTION
-    One Format-Code engine adapter: every file language languages.yml gives `formatter: prettier` is formatted here.
+    Exit 1 means files differ and is expected; a higher exit is a tool error, for example an unparsable file.
     [ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-Prettier.ps1.md#comment1)
 .PARAMETER File

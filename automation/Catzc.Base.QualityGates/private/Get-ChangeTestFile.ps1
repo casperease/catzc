@@ -2,7 +2,7 @@
 .SYNOPSIS
     Maps changed repository paths to the test files that cover them.
 .DESCRIPTION
-    The tests half of Test-Change's plan, by convention alone (one function per file, ): a changed test file is...
+    Naming convention only: a change with no existing test file beside its convention adds nothing, never a guess.
     [ADR-PWSH-ONEFUNC](/docs/adr/pwsh/one-function-per-file.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ChangeTestFile.ps1.md#comment1)
 .PARAMETER Path

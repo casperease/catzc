@@ -2,7 +2,7 @@
 .SYNOPSIS
     Claims where a test run executes — its location: in place in the working folder, or in an isolated snapshot of it.
 .DESCRIPTION
-    Concurrent runs share a checkout's real state, so only one may use the working folder and a busy one gets a snapshot.
+    Runs share a checkout's real state, so only one may use the working folder; a busy folder gets a snapshot.
     [ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment1)
 .PARAMETER EntryPoint

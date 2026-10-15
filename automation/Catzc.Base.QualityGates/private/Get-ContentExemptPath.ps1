@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists which of the given paths the content tools leave as written.
 .DESCRIPTION
-    The one predicate the tools that rewrite or check tracked-file content (the link tools, the Markdown-title tools)...
+    Exemption comes only from the gitattributes classes, never from a tool's own list; this names which classes count.
     [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
     [ADR-REPO-ROOTCFG#1](/docs/adr/repository/generated-root-configs.md#rule-adr-repo-rootcfg1)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ContentExemptPath.ps1.md#comment1)

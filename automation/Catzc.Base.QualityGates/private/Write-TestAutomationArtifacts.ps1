@@ -2,7 +2,7 @@
 .SYNOPSIS
     Writes a run's report artifacts and the skip report — best-effort, never masking the run outcome.
 .DESCRIPTION
-    Persists summary.md + tests.csv beside the per-shard results (Write-TestAutomationReport), points latest.txt at...
+    Each part is guarded alone, so a reporting error is swallowed and a failing run throws for its own reason.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md#comment1)
 .PARAMETER Rows
     The run's aggregated per-test rows.
@@ -62,7 +62,7 @@ function Write-TestAutomationArtifacts {
         [string] $Location
     )
 
-    # Persist the run report (summary.md + tests.csv) beside the per-shard results — written before any throw, so a...
+    # Written before any throw, so a failing run still produces its report.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md#comment2)
     try {
         Write-TestAutomationReport -Rows $Rows -OutputFolder $RunDirectory -Level $MaxLevel -Limits $Limits `
@@ -73,7 +73,7 @@ function Write-TestAutomationArtifacts {
         Write-Message "Could not write test report to ${RunDirectory}: $_" -ForegroundColor Yellow -NoHeader
     }
 
-    # Final section: what was skipped (a self-skip, with its reason) or not run (excluded by this run's tier/category...
+    # A self-skip carries its reason; a test not run was excluded by this run's tier or category scope.
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md#comment3)
     try {
         Write-TestAutomationSkipReport -Rows $Rows -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category
@@ -82,7 +82,7 @@ function Write-TestAutomationArtifacts {
         Write-Message "Could not render the skip report: $_" -ForegroundColor Yellow -NoHeader
     }
 
-    # ADR rule-enforcement coverage — report-only, same best-effort discipline.
+    # Plain assignment keeps the comma-wrapped getter result intact; a colon maps to a hash so the tags match.
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md#comment4)
     try {
         $ruleIds = Get-CatsAdrRuleIds

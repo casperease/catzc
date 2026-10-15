@@ -4,7 +4,7 @@
     integrity-tagged block — the comment-blind, tag-aware check cspell cannot do
     ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)).
 .DESCRIPTION
-    The PowerShell AST omits comments, here-doc trivia, and help entirely, so this reads only real code string...
+    Only literals outside integrity-tagged blocks count, and the AST skips comments and help, so docs never trigger.
     [ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment1)
 .PARAMETER Path
@@ -38,7 +38,7 @@ function Get-LogicTestIdentityFinding {
     $parseErrors = $null
     $ast = [System.Management.Automation.Language.Parser]::ParseFile($Path, [ref]$parseTokens, [ref]$parseErrors)
 
-    # Predicates bound to locals (never inlined in a.FindAll(...) call) —.
+    # Predicates live in locals and are passed by name to FindAll, never written inline in the call.
     # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment2)
     $isCommandNode = {
@@ -51,7 +51,7 @@ function Get-LogicTestIdentityFinding {
     }
     $commands = $ast.FindAll($isCommandNode, $true)
 
-    # Walk the Pester block commands once: note whether the file carries a `logic` tag anywhere, and collect the...
+    # One pass over the Pester blocks records whether a logic tag exists and the extents of integrity blocks to skip.
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment3)
     $hasLogic = $false
     $integrityRanges = [System.Collections.Generic.List[object]]::new()
@@ -111,7 +111,7 @@ function Get-LogicTestIdentityFinding {
         $false
     }
 
-    # Exact pass — a distinctive identity (customer / subscription / org / template / project) flagged as a bare...
+    # Exact pass: a distinctive identity as a bare literal is a leak anywhere outside an integrity block.
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment4)
     $literals = $ast.FindAll($isStringLiteral, $true)
     foreach ($literal in $literals) {
@@ -143,7 +143,7 @@ function Get-LogicTestIdentityFinding {
             })
     }
 
-    # Position pass — an ambiguous identity (an environment name or shortcode, like 'test'/'dev') is flagged ONLY...
+    # Position pass: an ambiguous word like test is flagged only as the argument of an identity parameter.
     # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment5)
     $identityParameters = 'Environment', 'Env', 'Shortcode'
     foreach ($command in $commands) {
