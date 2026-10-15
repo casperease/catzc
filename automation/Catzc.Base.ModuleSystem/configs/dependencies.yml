@@ -79,7 +79,7 @@ groups:
         Catzc.Base.Asserts,
       ]
     Catzc.Base.TypesSystem:
-      [Catzc.Base.Repository, Catzc.Base.Files, Catzc.Base.Execution, Catzc.Base.Reports, Catzc.Base.Writers, Catzc.Base.Asserts]
+      [Catzc.Base.Repository, Catzc.Base.Files, Catzc.Base.Execution, Catzc.Base.Reports, Catzc.Base.Writers, Catzc.Base.Asserts, Catzc.Base.Folders]
     Catzc.Base.ModuleSystem:
       [
         Catzc.Base.TypesSystem,

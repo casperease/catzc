@@ -27,9 +27,9 @@ function Import-VendoredPester {
     param()
 
     $pesterPath = Join-Path (Get-CatzcModulesRoot) '.vendor/Pester'
-    $versionPath = @(Get-ChildItem -LiteralPath $pesterPath -Directory)
+    $versionPath = @(Get-ChildPath $pesterPath -Directory -Depth 1 -PruneVendor $false)
     Assert-True ($versionPath.Count -eq 1) -ErrorText "Import-VendoredPester: expected one vendored Pester version under '$pesterPath', found $($versionPath.Count)."
-    $vendoredBase = [System.IO.Path]::GetFullPath($versionPath[0].FullName)
+    $vendoredBase = [System.IO.Path]::GetFullPath($versionPath[0])
 
     $loaded = @(Get-Module Pester)
     if (@($loaded | Where-Object { [System.IO.Path]::GetFullPath($_.ModuleBase) -eq $vendoredBase }).Count -gt 0) {

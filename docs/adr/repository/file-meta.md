@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/file-meta.md
     kind: adr
-    body_sha: da95cf2c3ec5
+    body_sha: "934431f639a2"
     defines:
       - ADR-REPO-FILEMETA#1
       - ADR-REPO-FILEMETA#2
@@ -105,10 +105,10 @@ meta-kind registry ([controlling-module-dependencies](../automation/controlling-
 
 A file the automation composes whole — a root-config copy, a generator's output, a `.gitkeep` — carries the **generated-from-source head**
 instead of an imprinted block. Its writer composes the content bare and writes the head through the one head function, in the carrier the
-file's class has: `path`, `kind` (`generated-from-source`, or `tracked-generated-from-source` when git tracks the file) and, when they exist, `generator` (the command that composed the file) and `source`
-(the authored file or files it comes from). No writer hand-words a banner, and the drift check compares the head with the rest of the
-content. The imprint engine leaves these files alone ([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of
-them.
+file's class has: `path`, `kind` (`generated-from-source`, or `tracked-generated-from-source` when git tracks the file) and, when they
+exist, `generator` (the command that composed the file) and `source` (the authored file or files it comes from). No writer hand-words a
+banner, and the drift check compares the head with the rest of the content. The imprint engine leaves these files alone
+([ADR-REPO-FILEMETA#5](#rule-adr-repo-filemeta5)), since the writer owns every byte of them.
 
 - [Generated files](#generated-files)
 

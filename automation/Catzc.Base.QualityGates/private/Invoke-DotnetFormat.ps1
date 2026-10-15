@@ -53,11 +53,11 @@ function Invoke-DotnetFormat {
             if ($check.ExitCode -notin 0, 2) {
                 throw "dotnet format could not format the C# files (exit $($check.ExitCode)):`n$($check.Full)"
             }
-            foreach ($json in @(Get-ChildItem -LiteralPath $report -Filter '*.json' -File)) {
-                foreach ($entry in @(Get-Content -LiteralPath $json.FullName -Raw | ConvertFrom-Json)) {
+            foreach ($json in @(Get-ChildPath $report -File -Filter '*.json' -Depth 1)) {
+                foreach ($entry in @(Get-Content -LiteralPath $json -Raw | ConvertFrom-Json)) {
                     $changed.Add([System.IO.Path]::GetFullPath($entry.FilePath))
                 }
-                Remove-Item -LiteralPath $json.FullName
+                Remove-Item -LiteralPath $json
             }
         }
     }

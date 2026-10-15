@@ -16,6 +16,11 @@ Describe 'Install-Java' -Tag 'L1', 'logic' {
         # The managed body sets the session JAVA_HOME — restore it so the test leaves the process as it found it.
         $script:savedProcessJavaHome = $env:JAVA_HOME
 
+        # The winget JDK root must exist for the code to look in it; the folder listing itself is mocked per test.
+        $script:savedLocalAppData = $env:LOCALAPPDATA
+        $env:LOCALAPPDATA = Join-Path $TestDrive 'localappdata'
+        [System.IO.Directory]::CreateDirectory((Join-Path $env:LOCALAPPDATA 'Programs/Microsoft')) | Out-Null
+
         # A fixture JDK: <jdk>/bin/java(.exe), so the binary's grandparent is the home.
         $script:jdkHome = Join-Path $TestDrive 'jdk-21.0.4.7-hotspot'
         $script:javaExe = Join-Path $script:jdkHome 'bin/java.exe'
@@ -24,6 +29,7 @@ Describe 'Install-Java' -Tag 'L1', 'logic' {
     }
     AfterAll {
         $env:JAVA_HOME = $script:savedProcessJavaHome
+        $env:LOCALAPPDATA = $script:savedLocalAppData
     }
     BeforeEach {
         $env:JAVA_HOME = $null
@@ -35,7 +41,7 @@ Describe 'Install-Java' -Tag 'L1', 'logic' {
         Mock Install-Tool { } -ModuleName Catzc.Tooling.Toolchain
         Mock Get-Command { [pscustomobject]@{ Source = $script:javaExe } } -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $Name -eq 'java' }
         # The winget JDK folder under %LOCALAPPDATA%\Programs\Microsoft: none by default (the fallback path).
-        Mock Get-ChildItem { } -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $Filter -like 'jdk-*' }
+        Mock Get-ChildPath { } -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $Filter -like 'jdk-*' }
         Mock Set-PermanentEnvironmentVariable { } -ModuleName Catzc.Tooling.Toolchain
         Mock Write-Message { } -ModuleName Catzc.Tooling.Toolchain
     }
@@ -88,7 +94,7 @@ Describe 'Install-Java' -Tag 'L1', 'logic' {
         }
         $wingetJdk = Join-Path $TestDrive 'Programs/Microsoft/jdk-21.0.5.11-hotspot'
         [System.IO.Directory]::CreateDirectory($wingetJdk) | Out-Null
-        Mock Get-ChildItem { Get-Item -LiteralPath $wingetJdk } -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $Filter -like 'jdk-*' }
+        Mock Get-ChildPath { $wingetJdk } -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $Filter -like 'jdk-*' }
         Install-Java
         $env:JAVA_HOME | Should -Be $wingetJdk
         Should -Invoke Set-PermanentEnvironmentVariable -ModuleName Catzc.Tooling.Toolchain -Times 1 -ParameterFilter { $Value -eq $wingetJdk }

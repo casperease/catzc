@@ -30,25 +30,29 @@ function Get-AutomationSourceFiles {
     $automationRoot = Join-Path $root 'automation'
     $files = [System.Collections.Generic.List[string]]::new()
 
-    $modules = Get-ChildItem -Path $automationRoot -Directory |
-        Where-Object { $_.Name -notmatch '^\.' }
+    $modules = Get-ChildPath $automationRoot -Directory -Depth 1 |
+        Where-Object { -not [System.IO.Path]::GetFileName($_).StartsWith('.') }
     foreach ($moduleDir in $modules) {
-        Get-ChildItem -Path $moduleDir.FullName -Filter '*.ps1' -File |
-            Where-Object { $_.Name -notlike '*.Tests.ps1' } |
-            ForEach-Object { $files.Add($_.FullName) }
-
-        $privatePath = Join-Path $moduleDir.FullName 'private'
-        if (Test-Path $privatePath) {
-            Get-ChildItem -Path $privatePath -Filter '*.ps1' -File |
-                ForEach-Object { $files.Add($_.FullName) }
+        foreach ($script in Get-ChildPath $moduleDir -File -Filter '*.ps1' -Depth 1) {
+            if (-not [System.IO.Path]::GetFileName($script).EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase)) {
+                $files.Add($script)
+            }
         }
 
-        $testsPath = Join-Path $moduleDir.FullName 'tests'
+        $privatePath = Join-Path $moduleDir 'private'
+        if (Test-Path $privatePath) {
+            foreach ($script in Get-ChildPath $privatePath -File -Filter '*.ps1' -Depth 1) {
+                $files.Add($script)
+            }
+        }
+
+        $testsPath = Join-Path $moduleDir 'tests'
         if (Test-Path $testsPath) {
-            # Recursion reaches nested test code such as tests/types; tests/assets holds no test files to match.
+            # Test files sit at most two levels below tests/ (tests/types); the third level is headroom, and tests/assets holds none.
             # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment2)
-            Get-ChildItem -Path $testsPath -Filter '*.Tests.ps1' -File -Recurse |
-                ForEach-Object { $files.Add($_.FullName) }
+            foreach ($script in Get-ChildPath $testsPath -File -Filter '*.Tests.ps1' -Depth 3) {
+                $files.Add($script)
+            }
         }
     }
 
@@ -56,12 +60,14 @@ function Get-AutomationSourceFiles {
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment3)
     $analyzerRoot = Join-Path $automationRoot '.scriptanalyzer'
     if (Test-Path $analyzerRoot) {
-        Get-ChildItem -Path $analyzerRoot -Filter '*.psm1' -File |
-            ForEach-Object { $files.Add($_.FullName) }
+        foreach ($script in Get-ChildPath $analyzerRoot -File -Filter '*.psm1' -Depth 1) {
+            $files.Add($script)
+        }
         $analyzerTests = Join-Path $analyzerRoot 'tests'
         if (Test-Path $analyzerTests) {
-            Get-ChildItem -Path $analyzerTests -Filter '*.Tests.ps1' -File -Recurse |
-                ForEach-Object { $files.Add($_.FullName) }
+            foreach ($script in Get-ChildPath $analyzerTests -File -Filter '*.Tests.ps1' -Depth 3) {
+                $files.Add($script)
+            }
         }
     }
 
@@ -69,12 +75,14 @@ function Get-AutomationSourceFiles {
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment4)
     $internalRoot = Join-Path $automationRoot '.internal'
     if (Test-Path $internalRoot) {
-        Get-ChildItem -Path $internalRoot -Filter '*.psm1' -File |
-            ForEach-Object { $files.Add($_.FullName) }
+        foreach ($script in Get-ChildPath $internalRoot -File -Filter '*.psm1' -Depth 1) {
+            $files.Add($script)
+        }
         $internalTests = Join-Path $internalRoot 'tests'
         if (Test-Path $internalTests) {
-            Get-ChildItem -Path $internalTests -Filter '*.Tests.ps1' -File -Recurse |
-                ForEach-Object { $files.Add($_.FullName) }
+            foreach ($script in Get-ChildPath $internalTests -File -Filter '*.Tests.ps1' -Depth 3) {
+                $files.Add($script)
+            }
         }
     }
 

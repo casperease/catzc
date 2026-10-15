@@ -120,7 +120,8 @@ function Copy-Automation {
     # ---- conflict pre-scan (fast / faster / fastest) --------------------------------------------------
     if (-not $Force) {
         if ($EmptyDestination) {
-            if ((Test-Path $destinationRoot) -and @(Get-ChildItem -LiteralPath $destinationRoot -Force).Count -gt 0) {
+            # An emptiness probe stops at the first entry of any kind, hidden and pruned names included (ADR-PWSH-ENUM#1).
+            if ([System.IO.Directory]::Exists($destinationRoot) -and [System.IO.Directory]::EnumerateFileSystemEntries($destinationRoot).GetEnumerator().MoveNext()) {
                 throw "Copy-Automation: -EmptyDestination requires an empty target, but '$destinationRoot' is not empty."
             }
         }

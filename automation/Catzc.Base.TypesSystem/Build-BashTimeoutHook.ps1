@@ -48,10 +48,10 @@ function Build-BashTimeoutHook {
 
     # Linked module types are hashed too, so a change to any type the hook compiles in republishes it.
     # [comment:2](/docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md#comment2)
-    $sources = @(Get-ChildItem -LiteralPath $project -File | Where-Object Extension -In '.cs', '.csproj' | Sort-Object Name)
+    $sources = @(Get-ChildPath $project -File -Filter '*.cs', '*.csproj' -Depth 1 | Sort-Object { [System.IO.Path]::GetFileName($_) })
     Assert-True ($sources.Count -gt 0) -ErrorText "No hook files (*.cs, *.csproj) in $project"
     $linked = @($projectXml.SelectNodes('//Compile/@Include') | ForEach-Object Value | Sort-Object)
-    $hashLines = @($sources | ForEach-Object { "$($_.Name):$((Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash)" })
+    $hashLines = @($sources | ForEach-Object { "$([System.IO.Path]::GetFileName($_)):$((Get-FileHash -LiteralPath $_ -Algorithm SHA256).Hash)" })
     foreach ($include in $linked) {
         $linkedPath = Join-Path $project $include
         Assert-PathExist $linkedPath -PathType Leaf

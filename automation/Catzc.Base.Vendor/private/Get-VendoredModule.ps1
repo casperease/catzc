@@ -29,12 +29,15 @@ function Get-VendoredModule {
         return @()
     }
 
-    foreach ($moduleDir in Get-ChildItem -Path $vendorRoot -Directory) {
-        $version = @(Get-ChildItem -Path $moduleDir.FullName -Directory).Name | Select-Object -First 1
+    foreach ($moduleDir in Get-ChildPath $vendorRoot -Directory -Depth 1 -PruneVendor $false) {
+        $versionDir = Get-ChildPath $moduleDir -Directory -Depth 1 -PruneVendor $false | Select-Object -First 1
+        $version = if ($versionDir) {
+            [System.IO.Path]::GetFileName($versionDir)
+        }
         [pscustomobject]@{
-            Name    = $moduleDir.Name
+            Name    = [System.IO.Path]::GetFileName($moduleDir)
             Version = $version
-            Path    = $moduleDir.FullName
+            Path    = $moduleDir
         }
     }
 }

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
-    body_sha: "7e3d90a409e2"
+    body_sha: "346393ce0740"
     defines:
       - ADR-REPO-CODEMETA#1
       - ADR-REPO-CODEMETA#2
@@ -155,8 +155,8 @@ on the hash line, and git already hashes the file. The ADR codes a file cites ar
 the file, so they sit in the head, and the head is where they live: the residue carries no citation of its own, so there is no second
 spelling to keep in step, and a list rebuilt from the text alone would lose every code the text no longer spells out. The formatter only
 adds to the list, from the citations the file and its comment page make, and the files a kind names under `held_files` are the ones whose
-head holds it. A hash of the public signature is the one checksum that fits code, and it needs
-a parser per language, so it is left out until a parser is warranted.
+head holds it. A hash of the public signature is the one checksum that fits code, and it needs a parser per language, so it is left out
+until a parser is warranted.
 
 ### Scope
 

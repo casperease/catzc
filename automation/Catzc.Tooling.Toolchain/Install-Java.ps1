@@ -54,11 +54,14 @@ function Install-Java {
 
     $javaHome = if ($IsWindows) {
         # winget installs to LOCALAPPDATA\Programs\Microsoft\jdk-<version>.*\
-        $jdkDir = Get-ChildItem "$env:LOCALAPPDATA\Programs\Microsoft" -Directory -Filter "jdk-$Version*" -ErrorAction SilentlyContinue |
-            Sort-Object Name -Descending |
-            Select-Object -First 1
+        $wingetJavaRoot = "$env:LOCALAPPDATA\Programs\Microsoft"
+        $jdkDir = if ([System.IO.Directory]::Exists($wingetJavaRoot)) {
+            Get-ChildPath $wingetJavaRoot -Directory -Filter "jdk-$Version*" -Depth 1 |
+                Sort-Object { [System.IO.Path]::GetFileName($_) } -Descending |
+                Select-Object -First 1
+        }
         if ($jdkDir) {
-            $jdkDir.FullName
+            $jdkDir
         }
         else {
             Split-Path (Split-Path $command.Source)
@@ -75,10 +78,12 @@ function Install-Java {
     }
     else {
         # Linux: /usr/lib/jvm/java-<version>-openjdk-<arch>
-        $jvmDir = Get-ChildItem '/usr/lib/jvm' -Directory -Filter "java-$Version-openjdk-*" -ErrorAction SilentlyContinue |
-            Select-Object -First 1
+        $jvmDir = if ([System.IO.Directory]::Exists('/usr/lib/jvm')) {
+            Get-ChildPath '/usr/lib/jvm' -Directory -Filter "java-$Version-openjdk-*" -Depth 1 |
+                Select-Object -First 1
+        }
         if ($jvmDir) {
-            $jvmDir.FullName
+            $jvmDir
         }
         else {
             Split-Path (Split-Path $command.Source)
