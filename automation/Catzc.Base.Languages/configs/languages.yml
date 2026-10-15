@@ -44,6 +44,14 @@ engines:
     vscode_extension: ms-azuretools.vscode-bicep
     settings:
       - automation/Catzc.Base.Execution/configs/tools.yml
+# Imprint steps run after every language's formatter: the global list over every language, a language's own list over its files only.
+imprint: [file-meta]
+steps:
+  file-meta:
+    settings:
+      - automation/Catzc.Base.QualityGates/configs/file-meta.yml
+      - automation/Catzc.Base.Languages/configs/file-carriers.yml
+      - automation/Catzc.Base.Languages/configs/languages.yml
 languages:
   powershell:
     extensions: [.ps1, .psm1, .psd1]

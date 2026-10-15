@@ -130,13 +130,81 @@ function Format-Code {
 
         foreach ($name in $languageFiles.Keys) {
             $files = $languageFiles[$name]
-            $languageChanged = @($files | Where-Object { $changedSet.Contains($_) })
-            foreach ($file in $languageChanged) {
-                Write-Message "$($DryRun ? 'would format' : 'formatted'): $file"
+            $outcomes[$name] = [pscustomobject]@{
+                Engine    = $engine
+                Files     = $files
+                Changed   = [System.Collections.Generic.List[string]]::new([string[]] @($files | Where-Object { $changedSet.Contains($_) }))
+                Unfixable = [System.Collections.Generic.Dictionary[string, string]]::new()
             }
-            Write-Message "${name}: $($languageChanged.Count) of $($files.Count) file(s) $($DryRun ? 'would change' : 'changed')."
-            $results.Add([Catzc.Base.QualityGates.FormatResult]::new($name, $engine, [string[]] $files, [string[]] $languageChanged, [bool] $DryRun))
         }
+    }
+
+    # Imprint steps run after every formatter, so a step never works on text a formatter is about to rewrite: a global step runs over
+    # every language in scope, a language's own step over that language only.
+    $inScope = if ($Language) {
+        @($selected | ForEach-Object name)
+    }
+    else {
+        @($config.languages | ForEach-Object name)
+    }
+    $plan = [ordered]@{}
+    foreach ($step in $config.imprint) {
+        $plan[$step] = [System.Collections.Generic.List[string]]::new([string[]] $inScope)
+    }
+    foreach ($entry in @($config.languages | Where-Object { $_.name -in $inScope })) {
+        foreach ($step in $entry.imprint) {
+            if (-not $plan.Contains($step)) {
+                $plan[$step] = [System.Collections.Generic.List[string]]::new()
+            }
+            $plan[$step].Add($entry.name)
+        }
+    }
+    foreach ($step in $plan.Keys) {
+        $covered = $plan[$step]
+        $candidates = @(Get-ImprintStepFile -Step $step -RepositoryRoot $root -Path $Path | Where-Object {
+                $owner = $config.ForPath($_)
+                $null -ne $owner -and $owner.name -in $covered
+            })
+        $stamp = Get-FormatEngineStamp -Engine "imprint:$step" -Settings @($config.steps[$step].settings) -RepositoryRoot $root
+        $split = Split-CachedFile -File $candidates -Cache $cache -Stamp $stamp -RepositoryRoot $root
+        $pending = @($split.Pending)
+        Write-Message "$verb $($pending.Count) file(s) with the $step imprint step ($($split.CachedCount) unchanged since their last check)..."
+        $outcome = Invoke-ImprintStep -Step $step -File $pending -RepositoryRoot $root -DryRun:$DryRun
+        $unfixable = @($outcome.Unfixable.Keys)
+
+        # A file a person must still repair is never recorded as done, so the next run reports it again.
+        if ($DryRun) {
+            Update-ResultCache -Cache $cache -Key $split.Key -Checked $pending -Flagged @(@($outcome.Changed) + $unfixable)
+        }
+        else {
+            Update-ResultCache -Cache $cache -Key $split.Key -Checked @($pending | Where-Object { $_ -notin $unfixable }) -Stamp $stamp -RekeyFromDisk
+        }
+
+        foreach ($file in @($outcome.Changed) + $unfixable) {
+            $owner = $config.ForPath($file)
+            if ($null -eq $owner -or -not $outcomes.Contains($owner.name)) {
+                Write-Message "$($DryRun ? 'would format' : 'formatted'): $file"
+                continue
+            }
+            if ($file -in @($outcome.Changed) -and -not $outcomes[$owner.name].Changed.Contains($file)) {
+                $outcomes[$owner.name].Changed.Add($file)
+            }
+            if ($outcome.Unfixable.ContainsKey($file)) {
+                $outcomes[$owner.name].Unfixable[$file] = $outcome.Unfixable[$file]
+            }
+        }
+    }
+
+    foreach ($name in $outcomes.Keys) {
+        $languageOutcome = $outcomes[$name]
+        foreach ($file in $languageOutcome.Changed) {
+            Write-Message "$($DryRun ? 'would format' : 'formatted'): $file"
+        }
+        foreach ($file in $languageOutcome.Unfixable.Keys) {
+            Write-Message "needs a hand edit: $file — $($languageOutcome.Unfixable[$file])" -Warning
+        }
+        Write-Message "${name}: $($languageOutcome.Changed.Count) of $($languageOutcome.Files.Count) file(s) $($DryRun ? 'would change' : 'changed')."
+        $results.Add([Catzc.Base.QualityGates.FormatResult]::new($name, $languageOutcome.Engine, [string[]] $languageOutcome.Files, $languageOutcome.Changed.ToArray(), [bool] $DryRun, $languageOutcome.Unfixable))
     }
     Save-ResultCache -Path $cachePath -Cache $cache
 

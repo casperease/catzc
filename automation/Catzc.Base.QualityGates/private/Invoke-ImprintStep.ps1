@@ -35,7 +35,7 @@ function Invoke-ImprintStep {
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
-    $outcome = [pscustomobject]@{ Changed = [string[]] @(); Unfixable = @{} }
+    $outcome = [pscustomobject]@{ Changed = [string[]] @(); Unfixable = [System.Collections.Generic.Dictionary[string, string]]::new() }
     if ($File.Count -eq 0) {
         return $outcome
     }
