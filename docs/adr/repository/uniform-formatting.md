@@ -3,10 +3,11 @@ catzc:
   derived:
     path: docs/adr/repository/uniform-formatting.md
     kind: adr
-    body_sha: "3cb19c30750a"
+    body_sha: "67d57c0ab117"
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-CODEMETA#4
+      - ADR-REPO-COMMENTS#5
       - ADR-REPO-CONTRACT#5
       - ADR-REPO-CONTRACT#6
       - ADR-REPO-FILEMETA#1

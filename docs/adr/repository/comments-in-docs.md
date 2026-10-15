@@ -3,9 +3,11 @@ catzc:
   derived:
     path: docs/adr/repository/comments-in-docs.md
     kind: adr
-    body_sha: "141faf8267dc"
+    body_sha: f22383096359
     adrs:
       - ADR-REPO-CODEMETA#1
+      - ADR-REPO-FILEMETA#1
+      - ADR-REPO-FORMAT#8
       - ADR-REPO-LINK#9
 ---
 
