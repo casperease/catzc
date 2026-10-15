@@ -795,11 +795,11 @@ built, byte-identical for a given commit.
 
 `A slow run fails, so it gets fixed rather than waited out`
 
-A devbox run is the loop a person waits on, and it shares a fixed window with the slower work that follows it, so its length is a limit,
-not a trend to watch (ADR-AUTO-TEST#44). The budget is `tests.run_seconds` in `timeouts.yml`, measured over the workers' run — the wall
-clock the run already reports. A devbox run that takes longer fails like any other gate, naming its time and the budget, and the fix is the
-same as for a slow test: measure where the time goes, make the slowest files faster without weakening what they prove, and keep the roof
-where it is. The duration history the scheduler keeps (`out/test-automation/durations.json`) names the files to look at first.
+A devbox run is the loop a person waits on, and it shares a fixed window with the slower work that follows it, so its length is a limit, not
+a trend to watch (ADR-AUTO-TEST#44). The budget is `tests.run_seconds` in `timeouts.yml`, measured over the workers' run — the wall clock
+the run already reports. A devbox run that takes longer fails like any other gate, naming its time and the budget, and the fix is the same
+as for a slow test: measure where the time goes, make the slowest files faster without weakening what they prove, and keep the roof where it
+is. The duration history the scheduler keeps (`out/test-automation/durations.json`) names the files to look at first.
 
 A pipeline run is left to its stage's own limit: a hosted agent's speed is not the devbox's, and the pipeline already stops a stage that
 outlives its timeout ([pipeline-runner-pattern](../flow/pipeline-runner-pattern.md)).

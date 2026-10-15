@@ -75,7 +75,7 @@ drawing tooling never light anything.
 
 - **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 5 lit cells, `.claude × .md` (1 file: 1 cites ADR-DSGN-LIFE);
   `automation × .cs` (1 file: 1 cites ADR-REPO-VARIANT); `automation × .ps1` (1 file: 1 cites ADR-REPO-VARIANT); `automation × .yml` (3
-  files: 5 cite ADR-DSGN-LIFE, ADR-DSGN-REMOTE, ADR-REPO-VARIANT); `docs × .md` (7 files: 7 cite ADR-DSGN-LIFE, ADR-DSGN-REMOTE,
+  files: 3 cite ADR-DSGN-LIFE, ADR-DSGN-REMOTE, ADR-REPO-VARIANT); `docs × .md` (7 files: 4 cite ADR-DSGN-LIFE, ADR-DSGN-REMOTE,
   ADR-REPO-VARIANT; 3 are the ADR file of ADR-DSGN-LIFE, ADR-DSGN-REMOTE, ADR-REPO-VARIANT).
 - **Tree** (the repository's files): 7 lit groups, `adr/dsgn` (3 files); `ModuleSystem` (2 files); `Variants` (2 files); `adr/*` (2 files);
   `adr/repo` (2 files); `.claude` (1 file); `Docs` (1 file). The ADR files `docs/adr/design/commit-lifecycle.md`,

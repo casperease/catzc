@@ -75,12 +75,12 @@ is, the ADR the slide supports (ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-REPO-PROTG
 drawing tooling never light anything.
 
 - **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 9 lit cells, `.claude × .md` (4 files: 4 cite ADR-AUTO-TEST);
-  `.github × .yml` (1 file, mentions only: 1 cites ADR-FLOW-CD-GLOBS); `automation × .cs` (17 files: 19 cite ADR-AUTO-TEST,
-  ADR-FLOW-CD-GLOBS, ADR-REPO-PROTGLOB); `automation × .ps1` (376 files: 398 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-REPO-PROTGLOB);
-  `automation × .yml` (19 files: 23 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-REPO-PROTGLOB); `docs × .md` (18 files: 18 cite
+  `.github × .yml` (1 file, mentions only: 1 cites ADR-FLOW-CD-GLOBS); `automation × .cs` (17 files: 17 cite ADR-AUTO-TEST,
+  ADR-FLOW-CD-GLOBS, ADR-REPO-PROTGLOB); `automation × .ps1` (376 files: 376 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-REPO-PROTGLOB);
+  `automation × .yml` (19 files: 19 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-REPO-PROTGLOB); `docs × .md` (18 files: 15 cite
   ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-REPO-PROTGLOB; 3 are the ADR file of ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-REPO-PROTGLOB);
-  `pipelines × .yaml` (6 files: 7 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS); `Root files × .ps1` (1 file: 1 is mapped through files.yml to
-  ADR-AUTO-TEST); `Root files × other` (2 files: 2 are mapped through files.yml to ADR-AUTO-TEST). 1 cell lit only by passing mentions show
+  `pipelines × .yaml` (6 files: 6 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS); `Root files × .ps1` (1 file: 1 is mapped through files.yml to
+  ADR-AUTO-TEST); `Root files × other` (2 files: 2 are mapped through files.yml to ADR-AUTO-TEST). 1 cell lit only by passing mentions shows
   at 40 % ink.
 - **Tree** (the repository's files): 42 lit groups, `QualityGates` (138 files); `Docs` (49 files); `Globs` (49 files); `Az.Templates` (29
   files); `ModuleSystem` (19 files); `Azure` (11 files); `Languages` (11 files); `Tool.Core` (11 files); `Execution` (10 files); `docs` (10

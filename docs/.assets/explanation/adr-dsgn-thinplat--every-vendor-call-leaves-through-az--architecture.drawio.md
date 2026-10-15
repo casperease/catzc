@@ -70,7 +70,7 @@ cites, or is, the ADR the slide supports (ADR-AZ-CLI, ADR-DSGN-THINPLAT); the ex
 tooling never light anything.
 
 - **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 3 lit cells, `automation × .ps1` (8 files: 8 cite ADR-AZ-CLI);
-  `automation × .yml` (3 files: 5 cite ADR-AZ-CLI, ADR-DSGN-THINPLAT); `docs × .md` (5 files: 4 cite ADR-AZ-CLI, ADR-DSGN-THINPLAT; 2 are
+  `automation × .yml` (3 files: 3 cite ADR-AZ-CLI, ADR-DSGN-THINPLAT); `docs × .md` (5 files: 3 cite ADR-AZ-CLI, ADR-DSGN-THINPLAT; 2 are
   the ADR file of ADR-AZ-CLI, ADR-DSGN-THINPLAT).
 - **Tree** (the repository's files): 6 lit groups, `Az.Cli` (8 files); `QualityGates` (2 files); `adr/azure` (2 files); `adr/dsgn` (2
   files); `Docs` (1 file); `adr/*` (1 file). The ADR files `docs/adr/azure/prefer-az-cli.md`, `docs/adr/design/thin-platforms.md` carry the

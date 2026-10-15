@@ -101,11 +101,11 @@ Describe 'Get-ContentStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE#10' {
                 Get-ContentStamp -Label 'widget' -File $F -RepositoryRoot $R
             }
         }
-        [System.IO.File]::WriteAllText($rule, "# cites ADR-AUTO-WIDGET#1`nfunction Measure-Widget { 'flagged' }`n")
+        [System.IO.File]::WriteAllLines($rule, [string[]] @('# cites ADR-AUTO-WIDGET#1', "function Measure-Widget { 'flagged' }"))
         $first = & $stamp
-        [System.IO.File]::WriteAllText($rule, "# cites ADR-PWSH-WIDGET#1, reworded`n<# help #>`nfunction Measure-Widget { 'flagged' } # trailing`n")
+        [System.IO.File]::WriteAllLines($rule, [string[]] @('# cites ADR-PWSH-WIDGET#1, reworded', '<# help #>', "function Measure-Widget { 'flagged' } # trailing"))
         & $stamp | Should -Be $first -Because 'only comments changed'
-        [System.IO.File]::WriteAllText($rule, "# cites ADR-PWSH-WIDGET#1`nfunction Measure-Widget { 'clean' }`n")
+        [System.IO.File]::WriteAllLines($rule, [string[]] @('# cites ADR-PWSH-WIDGET#1', "function Measure-Widget { 'clean' }"))
         & $stamp | Should -Not -Be $first -Because 'the rule''s code changed'
     }
 

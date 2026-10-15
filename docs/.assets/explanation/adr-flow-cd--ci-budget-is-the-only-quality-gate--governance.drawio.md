@@ -74,7 +74,7 @@ light anything.
 
 - **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 6 lit cells, `.claude × .md` (1 file: 1 cites ADR-FLOW-CD);
   `automation × .cs` (4 files: 4 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE); `automation × .ps1` (8 files: 8 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE);
-  `automation × .yml` (4 files: 5 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE); `docs × .md` (5 files: 5 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE; 2 are
+  `automation × .yml` (4 files: 4 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE); `docs × .md` (5 files: 3 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE; 2 are
   the ADR file of ADR-FLOW-CD, ADR-FLOW-CD-TYPE); `pipelines × .yaml` (2 files: 2 cite ADR-FLOW-CD-TYPE).
 - **Tree** (the repository's files): 11 lit groups, `Az.DevOps.BuildValidation` (6 files); `Docs` (3 files); `Maps` (3 files); `adr/flow` (3
   files); `adr/*` (2 files); `pipelines` (2 files); `.claude` (1 file); `Az.DevOps` (1 file); `Az.Templates` (1 file); `ModuleSystem` (1

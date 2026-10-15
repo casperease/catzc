@@ -73,8 +73,8 @@ or is, the ADR the slide supports (ADR-FLOW-CD-RUNNER, ADR-PIPE-NAME); the expla
 never light anything.
 
 - **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 5 lit cells, `.claude × .md` (1 file: 1 cites ADR-FLOW-CD-RUNNER);
-  `automation × .ps1` (3 files: 3 cite ADR-PIPE-NAME); `automation × .yml` (4 files: 5 cite ADR-FLOW-CD-RUNNER, ADR-PIPE-NAME); `docs × .md`
-  (6 files: 5 cite ADR-FLOW-CD-RUNNER, ADR-PIPE-NAME; 2 are the ADR file of ADR-FLOW-CD-RUNNER, ADR-PIPE-NAME); `pipelines × .yaml` (2
+  `automation × .ps1` (3 files: 3 cite ADR-PIPE-NAME); `automation × .yml` (4 files: 4 cite ADR-FLOW-CD-RUNNER, ADR-PIPE-NAME); `docs × .md`
+  (6 files: 4 cite ADR-FLOW-CD-RUNNER, ADR-PIPE-NAME; 2 are the ADR file of ADR-FLOW-CD-RUNNER, ADR-PIPE-NAME); `pipelines × .yaml` (2
   files: 2 cite ADR-FLOW-CD-RUNNER, ADR-PIPE-NAME).
 - **Tree** (the repository's files): 10 lit groups, `Az.DevOps` (3 files); `RootConfig` (2 files); `adr/flow` (2 files); `adr/pipe` (2
   files); `pipelines` (2 files); `.claude` (1 file); `Docs` (1 file); `Languages` (1 file); `adr/*` (1 file); `docs` (1 file). The ADR files

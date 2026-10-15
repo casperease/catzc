@@ -72,7 +72,7 @@ is, the ADR the slide supports (ADR-DSGN-LIFE, ADR-DSGN-REMOTE); the explanation
 light anything.
 
 - **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 3 lit cells, `.claude × .md` (1 file: 1 cites ADR-DSGN-LIFE);
-  `automation × .yml` (2 files: 3 cite ADR-DSGN-LIFE, ADR-DSGN-REMOTE); `docs × .md` (5 files: 5 cite ADR-DSGN-LIFE, ADR-DSGN-REMOTE; 2 are
+  `automation × .yml` (2 files: 2 cite ADR-DSGN-LIFE, ADR-DSGN-REMOTE); `docs × .md` (5 files: 3 cite ADR-DSGN-LIFE, ADR-DSGN-REMOTE; 2 are
   the ADR file of ADR-DSGN-LIFE, ADR-DSGN-REMOTE).
 - **Tree** (the repository's files): 5 lit groups, `adr/dsgn` (3 files); `adr/*` (2 files); `.claude` (1 file); `Docs` (1 file);
   `ModuleSystem` (1 file). The ADR files `docs/adr/design/commit-lifecycle.md`, `docs/adr/design/server-remote-integration.md` carry the

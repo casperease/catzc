@@ -5,7 +5,7 @@
 ![Value-chain minimap of adr-auto-bundle--what-gates-each-bundle-stage--governance](adr-auto-bundle--what-gates-each-bundle-stage--governance.chain.png)
 
 The value-chain minimap of the slide `adr-auto-bundle--what-gates-each-bundle-stage--governance` (governance lens). The slide supports
-[ADR-AUTO-ASSETDEP][1], [ADR-AUTO-BUNDLE][2], [ADR-AUTO-TEST][3] and [ADR-DSGN-RUNMODE][4]; the highlight of those ADR codes selects what is
+[ADR-AUTO-BUNDLE][1], [ADR-AUTO-TEST][2], [ADR-DSGN-RUNMODE][3] and [ADR-PWSH-MANIFEST][4]; the highlight of those ADR codes selects what is
 lit, and each reason below names the code that selects it.
 
 ## What the minimap shows
@@ -18,8 +18,8 @@ map.
 
 - DSGN × automation: 1 lit of 7 ADRs
 - DSGN × build: 1 lit of 5 ADRs
-- AUTO × automation: 1 lit of 63 ADRs
-- AUTO × build: 2 lit of 5 ADRs
+- AUTO × automation: 1 lit of 64 ADRs
+- AUTO × build: 1 lit of 5 ADRs
 - AUTO × quality-control: 1 lit of 10 ADRs
 - AUTO × release: 1 lit of 3 ADRs
 
@@ -45,7 +45,7 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 
 Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [ADR-DSGN-RUNMODE][4]: selected by [ADR-DSGN-RUNMODE][4]; its ADR domain `design` sits on the DSGN row of the value-chain stack
+- [ADR-DSGN-RUNMODE][3]: selected by [ADR-DSGN-RUNMODE][3]; its ADR domain `design` sits on the DSGN row of the value-chain stack
   ([ADR-DSGN-TRACK#14][6]); its own value-chain concerns (automation and build) override its ADR domain's default (automation), so it lights
   the automation column ([ADR-DSGN-TRACK#15][7]).
 
@@ -53,7 +53,7 @@ Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [ADR-DSGN-RUNMODE][4]: selected by [ADR-DSGN-RUNMODE][4]; its ADR domain `design` sits on the DSGN row of the value-chain stack
+- [ADR-DSGN-RUNMODE][3]: selected by [ADR-DSGN-RUNMODE][3]; its ADR domain `design` sits on the DSGN row of the value-chain stack
   ([ADR-DSGN-TRACK#14][6]); its own value-chain concerns (automation and build) override its ADR domain's default (automation), so it lights
   the build column ([ADR-DSGN-TRACK#15][7]).
 
@@ -61,18 +61,15 @@ Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [ADR-AUTO-ASSETDEP][1]: selected by [ADR-AUTO-ASSETDEP][1]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][6]); its own value-chain concerns (automation and build) override its ADR domain's default (automation), so it lights
-  the automation column ([ADR-DSGN-TRACK#15][7]).
+- [ADR-PWSH-MANIFEST][4]: selected by [ADR-PWSH-MANIFEST][4]; its ADR domain `pwsh` sits on the AUTO row of the value-chain stack
+  ([ADR-DSGN-TRACK#14][6]); its value-chain concerns (automation) are its ADR domain's default, so it lights the automation column
+  ([ADR-DSGN-TRACK#15][7]).
 
-### AUTO × build (2 ADRs)
+### AUTO × build (1 ADR)
 
 Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [ADR-AUTO-ASSETDEP][1]: selected by [ADR-AUTO-ASSETDEP][1]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
-  ([ADR-DSGN-TRACK#14][6]); its own value-chain concerns (automation and build) override its ADR domain's default (automation), so it lights
-  the build column ([ADR-DSGN-TRACK#15][7]).
-- [ADR-AUTO-BUNDLE][2]: selected by [ADR-AUTO-BUNDLE][2]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
+- [ADR-AUTO-BUNDLE][1]: selected by [ADR-AUTO-BUNDLE][1]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
   ([ADR-DSGN-TRACK#14][6]); its own value-chain concerns (build and release) override its ADR domain's default (automation), so it lights
   the build column ([ADR-DSGN-TRACK#15][7]).
 
@@ -80,7 +77,7 @@ Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [ADR-AUTO-TEST][3]: selected by [ADR-AUTO-TEST][3]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
+- [ADR-AUTO-TEST][2]: selected by [ADR-AUTO-TEST][2]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
   ([ADR-DSGN-TRACK#14][6]); its own value-chain concerns (quality-control) override its ADR domain's default (automation), so it lights the
   quality-control column ([ADR-DSGN-TRACK#15][7]).
 
@@ -88,7 +85,7 @@ Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [ADR-AUTO-BUNDLE][2]: selected by [ADR-AUTO-BUNDLE][2]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
+- [ADR-AUTO-BUNDLE][1]: selected by [ADR-AUTO-BUNDLE][1]; its ADR domain `automation` sits on the AUTO row of the value-chain stack
   ([ADR-DSGN-TRACK#14][6]); its own value-chain concerns (build and release) override its ADR domain's default (automation), so it lights
   the release column ([ADR-DSGN-TRACK#15][7]).
 
@@ -115,10 +112,10 @@ Terms the cited ADRs define:
 - [tier][33], defined by [ADR-AUTO-TEST#13][34]
 - [vertical test][35], defined by [ADR-AUTO-TEST#38][36]
 
-[1]: ../../adr/automation/internal-asset-dependencies.md
-[2]: ../../adr/automation/platform-bundle.md
-[3]: ../../adr/automation/test-automation.md
-[4]: ../../adr/design/run-modes.md
+[1]: ../../adr/automation/platform-bundle.md
+[2]: ../../adr/automation/test-automation.md
+[3]: ../../adr/design/run-modes.md
+[4]: ../../adr/pwsh/dynamic-module-manifests.md
 [5]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
 [6]: ../../adr/design/tracks.md#rule-adr-dsgn-track14
 [7]: ../../adr/design/tracks.md#rule-adr-dsgn-track15

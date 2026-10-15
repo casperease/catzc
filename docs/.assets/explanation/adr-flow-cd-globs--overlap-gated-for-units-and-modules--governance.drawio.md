@@ -69,14 +69,14 @@ The sidebar places the slide on three minimaps. Each has its own description, wh
 cites, or is, the ADR the slide supports (ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-PRIN-ONELIVE, ADR-REPO-PROTGLOB); the explanation articles,
 these descriptions and the drawing tooling never light anything.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 9 lit cells, `.claude × .md` (4 files: 5 cite ADR-AUTO-TEST,
-  ADR-PRIN-ONELIVE); `.github × .yml` (1 file, mentions only: 1 cites ADR-FLOW-CD-GLOBS); `automation × .cs` (18 files: 20 cite
-  ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-PRIN-ONELIVE, ADR-REPO-PROTGLOB); `automation × .ps1` (377 files: 400 cite ADR-AUTO-TEST,
-  ADR-FLOW-CD-GLOBS, ADR-PRIN-ONELIVE, ADR-REPO-PROTGLOB); `automation × .yml` (19 files: 25 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS,
-  ADR-PRIN-ONELIVE, ADR-REPO-PROTGLOB); `docs × .md` (20 files: 20 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-PRIN-ONELIVE,
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 9 lit cells, `.claude × .md` (4 files: 4 cite ADR-AUTO-TEST,
+  ADR-PRIN-ONELIVE); `.github × .yml` (1 file, mentions only: 1 cites ADR-FLOW-CD-GLOBS); `automation × .cs` (18 files: 18 cite
+  ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-PRIN-ONELIVE, ADR-REPO-PROTGLOB); `automation × .ps1` (377 files: 377 cite ADR-AUTO-TEST,
+  ADR-FLOW-CD-GLOBS, ADR-PRIN-ONELIVE, ADR-REPO-PROTGLOB); `automation × .yml` (19 files: 19 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS,
+  ADR-PRIN-ONELIVE, ADR-REPO-PROTGLOB); `docs × .md` (20 files: 16 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-PRIN-ONELIVE,
   ADR-REPO-PROTGLOB; 4 are the ADR file of ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS, ADR-PRIN-ONELIVE, ADR-REPO-PROTGLOB); `pipelines × .yaml` (6
-  files: 7 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS); `Root files × .ps1` (1 file: 1 is mapped through files.yml to ADR-AUTO-TEST);
-  `Root files × other` (2 files: 2 are mapped through files.yml to ADR-AUTO-TEST). 1 cell lit only by passing mentions show at 40 % ink.
+  files: 6 cite ADR-AUTO-TEST, ADR-FLOW-CD-GLOBS); `Root files × .ps1` (1 file: 1 is mapped through files.yml to ADR-AUTO-TEST);
+  `Root files × other` (2 files: 2 are mapped through files.yml to ADR-AUTO-TEST). 1 cell lit only by passing mentions shows at 40 % ink.
 - **Tree** (the repository's files): 43 lit groups, `QualityGates` (138 files); `Docs` (50 files); `Globs` (49 files); `Az.Templates` (29
   files); `ModuleSystem` (19 files); `Azure` (11 files); `Languages` (11 files); `Tool.Core` (11 files); `Execution` (10 files); `docs` (10
   files); `Maps` (9 files); `RootConfig` (8 files); `Contracts` (7 files); `Tool.Provisioning` (7 files); `Az.DevOps.BuildValidation` (6

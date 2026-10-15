@@ -71,11 +71,11 @@ the ADR the slide supports (ADR-AUTO-BUNDLE, ADR-DSGN-RUNMODE); the explanation 
 light anything.
 
 - **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 7 lit cells, `.github × .yml` (1 file, mentions only: 1 cites
-  ADR-AUTO-BUNDLE); `automation × .cs` (2 files: 2 cite ADR-AUTO-BUNDLE); `automation × .ps1` (36 files: 37 cite ADR-AUTO-BUNDLE,
-  ADR-DSGN-RUNMODE); `automation × .yml` (3 files: 4 cite ADR-AUTO-BUNDLE, ADR-DSGN-RUNMODE); `docs × .md` (5 files: 4 cite ADR-AUTO-BUNDLE,
-  ADR-DSGN-RUNMODE; 2 are the ADR file of ADR-AUTO-BUNDLE, ADR-DSGN-RUNMODE); `Root files × .ps1` (1 file: 2 are mapped through files.yml to
+  ADR-AUTO-BUNDLE); `automation × .cs` (2 files: 2 cite ADR-AUTO-BUNDLE); `automation × .ps1` (36 files: 36 cite ADR-AUTO-BUNDLE,
+  ADR-DSGN-RUNMODE); `automation × .yml` (3 files: 3 cite ADR-AUTO-BUNDLE, ADR-DSGN-RUNMODE); `docs × .md` (5 files: 3 cite ADR-AUTO-BUNDLE,
+  ADR-DSGN-RUNMODE; 2 are the ADR file of ADR-AUTO-BUNDLE, ADR-DSGN-RUNMODE); `Root files × .ps1` (1 file: 1 is mapped through files.yml to
   ADR-AUTO-BUNDLE, ADR-DSGN-RUNMODE); `Root files × other` (2 files: 2 are mapped through files.yml to ADR-DSGN-RUNMODE). 1 cell lit only by
-  passing mentions show at 40 % ink.
+  passing mentions shows at 40 % ink.
 - **Tree** (the repository's files): 17 lit groups, `Exporter` (10 files); `ModuleSystem` (8 files); `QualityGates` (5 files); `TypesSystem`
   (5 files); `Root files` (3 files); `Repository` (3 files); `.internal` (2 files); `Docs` (2 files); `Vendor` (2 files); `adr/auto` (2
   files); `adr/dsgn` (2 files); `.github` (1 file); `ConfigExtensions` (1 file); `Contracts` (1 file); `Globs` (1 file); `RootConfig` (1

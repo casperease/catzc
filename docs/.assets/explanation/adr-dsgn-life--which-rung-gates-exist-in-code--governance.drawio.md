@@ -77,13 +77,13 @@ The sidebar places the slide on three minimaps. Each has its own description, wh
 the ADR the slide supports (ADR-AUTO-TEST, ADR-DSGN-LIFE, ADR-DSGN-VISUAL, ADR-FLOW-CD); the explanation articles, these descriptions and
 the drawing tooling never light anything.
 
-- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 8 lit cells, `.claude × .md` (6 files: 8 cite ADR-AUTO-TEST,
-  ADR-DSGN-LIFE, ADR-DSGN-VISUAL, ADR-FLOW-CD); `automation × .cs` (13 files: 14 cite ADR-AUTO-TEST, ADR-FLOW-CD); `automation × .ps1` (338
-  files: 339 cite ADR-AUTO-TEST, ADR-FLOW-CD); `automation × .yml` (18 files: 24 cite ADR-AUTO-TEST, ADR-DSGN-LIFE, ADR-DSGN-VISUAL,
-  ADR-FLOW-CD); `docs × .md` (18 files: 20 cite ADR-AUTO-TEST, ADR-DSGN-LIFE, ADR-DSGN-VISUAL, ADR-FLOW-CD; 4 are the ADR file of
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 8 lit cells, `.claude × .md` (6 files: 6 cite ADR-AUTO-TEST,
+  ADR-DSGN-LIFE, ADR-DSGN-VISUAL, ADR-FLOW-CD); `automation × .cs` (13 files: 13 cite ADR-AUTO-TEST, ADR-FLOW-CD); `automation × .ps1` (338
+  files: 338 cite ADR-AUTO-TEST, ADR-FLOW-CD); `automation × .yml` (18 files: 18 cite ADR-AUTO-TEST, ADR-DSGN-LIFE, ADR-DSGN-VISUAL,
+  ADR-FLOW-CD); `docs × .md` (18 files: 14 cite ADR-AUTO-TEST, ADR-DSGN-LIFE, ADR-DSGN-VISUAL, ADR-FLOW-CD; 4 are the ADR file of
   ADR-AUTO-TEST, ADR-DSGN-LIFE, ADR-DSGN-VISUAL, ADR-FLOW-CD); `pipelines × .yaml` (1 file, mentions only: 1 cites ADR-AUTO-TEST);
   `Root files × .ps1` (1 file: 1 is mapped through files.yml to ADR-AUTO-TEST); `Root files × other` (2 files: 2 are mapped through
-  files.yml to ADR-AUTO-TEST). 1 cell lit only by passing mentions show at 40 % ink.
+  files.yml to ADR-AUTO-TEST). 1 cell lit only by passing mentions shows at 40 % ink.
 - **Tree** (the repository's files): 41 lit groups, `QualityGates` (132 files); `Docs` (50 files); `Az.Templates` (29 files); `ModuleSystem`
   (20 files); `Globs` (14 files); `Azure` (11 files); `Languages` (11 files); `Maps` (11 files); `Tool.Core` (11 files); `Execution` (10
   files); `docs` (9 files); `RootConfig` (8 files); `Contracts` (7 files); `Tool.Provisioning` (7 files); `.claude` (6 files); `Reports` (5

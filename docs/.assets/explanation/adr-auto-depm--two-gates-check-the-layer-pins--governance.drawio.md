@@ -71,10 +71,10 @@ anything.
 
 - **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 8 lit cells, `.claude × .md` (4 files: 4 cite ADR-AUTO-TEST);
   `automation × .cs` (15 files: 15 cite ADR-AUTO-DEPM, ADR-AUTO-TEST); `automation × .ps1` (336 files: 336 cite ADR-AUTO-TEST);
-  `automation × .yml` (17 files: 18 cite ADR-AUTO-DEPM, ADR-AUTO-TEST); `docs × .md` (14 files: 14 cite ADR-AUTO-DEPM, ADR-AUTO-TEST; 2 are
+  `automation × .yml` (17 files: 17 cite ADR-AUTO-DEPM, ADR-AUTO-TEST); `docs × .md` (14 files: 12 cite ADR-AUTO-DEPM, ADR-AUTO-TEST; 2 are
   the ADR file of ADR-AUTO-DEPM, ADR-AUTO-TEST); `pipelines × .yaml` (1 file, mentions only: 1 cites ADR-AUTO-TEST); `Root files × .ps1` (1
   file: 1 is mapped through files.yml to ADR-AUTO-TEST); `Root files × other` (2 files: 2 are mapped through files.yml to ADR-AUTO-TEST). 1
-  cell lit only by passing mentions show at 40 % ink.
+  cell lit only by passing mentions shows at 40 % ink.
 - **Tree** (the repository's files): 39 lit groups, `QualityGates` (132 files); `Docs` (49 files); `Az.Templates` (29 files); `ModuleSystem`
   (22 files); `Globs` (14 files); `Azure` (11 files); `Languages` (11 files); `Tool.Core` (11 files); `Execution` (10 files); `Maps` (9
   files); `docs` (9 files); `RootConfig` (8 files); `Contracts` (7 files); `Tool.Provisioning` (7 files); `Reports` (5 files); `TypesSystem`

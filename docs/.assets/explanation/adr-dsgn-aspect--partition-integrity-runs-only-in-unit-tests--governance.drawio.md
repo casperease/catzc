@@ -75,13 +75,13 @@ cites, or is, the ADR the slide supports (ADR-DSGN-ASPECT, ADR-FLOW-CD-GLOBS, AD
 explanation articles, these descriptions and the drawing tooling never light anything.
 
 - **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 8 lit cells, `.claude × .md` (1 file: 1 cites ADR-PWSH-ONEFUNC);
-  `.github × .yml` (1 file, mentions only: 1 cites ADR-FLOW-CD-GLOBS); `automation × .cs` (10 files: 11 cite ADR-DSGN-ASPECT,
-  ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS); `automation × .ps1` (50 files: 52 cite ADR-DSGN-ASPECT, ADR-FLOW-CD-GLOBS, ADR-PWSH-MANIFEST,
-  ADR-PWSH-ONEFUNC, ADR-REPO-FOLDERS); `automation × .yml` (7 files: 11 cite ADR-DSGN-ASPECT, ADR-FLOW-CD-GLOBS, ADR-PWSH-MANIFEST,
-  ADR-PWSH-ONEFUNC, ADR-REPO-FOLDERS); `docs × .md` (14 files: 14 cite ADR-DSGN-ASPECT, ADR-FLOW-CD-GLOBS, ADR-PWSH-MANIFEST,
+  `.github × .yml` (1 file, mentions only: 1 cites ADR-FLOW-CD-GLOBS); `automation × .cs` (10 files: 10 cite ADR-DSGN-ASPECT,
+  ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS); `automation × .ps1` (50 files: 50 cite ADR-DSGN-ASPECT, ADR-FLOW-CD-GLOBS, ADR-PWSH-MANIFEST,
+  ADR-PWSH-ONEFUNC, ADR-REPO-FOLDERS); `automation × .yml` (7 files: 7 cite ADR-DSGN-ASPECT, ADR-FLOW-CD-GLOBS, ADR-PWSH-MANIFEST,
+  ADR-PWSH-ONEFUNC, ADR-REPO-FOLDERS); `docs × .md` (14 files: 9 cite ADR-DSGN-ASPECT, ADR-FLOW-CD-GLOBS, ADR-PWSH-MANIFEST,
   ADR-PWSH-ONEFUNC, ADR-REPO-FOLDERS; 5 are the ADR file of ADR-DSGN-ASPECT, ADR-FLOW-CD-GLOBS, ADR-PWSH-MANIFEST, ADR-PWSH-ONEFUNC,
   ADR-REPO-FOLDERS); `pipelines × .yaml` (6 files: 6 cite ADR-FLOW-CD-GLOBS); `Root files × .ps1` (1 file: 1 is mapped through files.yml to
-  ADR-PWSH-MANIFEST). 1 cell lit only by passing mentions show at 40 % ink.
+  ADR-PWSH-MANIFEST). 1 cell lit only by passing mentions shows at 40 % ink.
 - **Tree** (the repository's files): 21 lit groups, `Globs` (40 files); `QualityGates` (6 files); `pipelines` (6 files);
   `Az.DevOps.BuildValidation` (5 files); `Docs` (4 files); `Variants` (4 files); `Languages` (3 files); `adr/pwsh` (3 files); `docs` (3
   files); `adr/*` (2 files); `adr/dsgn` (2 files); `adr/flow` (2 files); `adr/repo` (2 files); `Root files` (1 file); `.claude` (1 file);

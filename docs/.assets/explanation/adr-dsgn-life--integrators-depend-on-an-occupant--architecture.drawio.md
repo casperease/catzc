@@ -68,8 +68,8 @@ is, the ADR the slide supports (ADR-DSGN-LIFE, ADR-FLOW-CD); the explanation art
 light anything.
 
 - **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 5 lit cells, `.claude × .md` (2 files: 2 cite ADR-DSGN-LIFE, ADR-FLOW-CD);
-  `automation × .cs` (2 files: 2 cite ADR-FLOW-CD); `automation × .ps1` (3 files: 3 cite ADR-FLOW-CD); `automation × .yml` (3 files: 5 cite
-  ADR-DSGN-LIFE, ADR-FLOW-CD); `docs × .md` (6 files: 6 cite ADR-DSGN-LIFE, ADR-FLOW-CD; 2 are the ADR file of ADR-DSGN-LIFE, ADR-FLOW-CD).
+  `automation × .cs` (2 files: 2 cite ADR-FLOW-CD); `automation × .ps1` (3 files: 3 cite ADR-FLOW-CD); `automation × .yml` (3 files: 3 cite
+  ADR-DSGN-LIFE, ADR-FLOW-CD); `docs × .md` (6 files: 4 cite ADR-DSGN-LIFE, ADR-FLOW-CD; 2 are the ADR file of ADR-DSGN-LIFE, ADR-FLOW-CD).
 - **Tree** (the repository's files): 8 lit groups, `Docs` (3 files); `Maps` (3 files); `.claude` (2 files); `adr/*` (2 files); `adr/dsgn` (2
   files); `adr/flow` (2 files); `ModuleSystem` (1 file); `QualityGates` (1 file). The ADR files `docs/adr/design/commit-lifecycle.md`,
   `docs/adr/flow/cd-discipline-and-promotion-flow.md` carry the white rim.

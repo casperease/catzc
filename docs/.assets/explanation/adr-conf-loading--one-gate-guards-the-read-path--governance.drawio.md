@@ -74,12 +74,12 @@ is, the ADR the slide supports (ADR-AUTO-TEST, ADR-CONF-ADDRESSING, ADR-CONF-LOA
 drawing tooling never light anything.
 
 - **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 8 lit cells, `.claude × .md` (4 files: 4 cite ADR-AUTO-TEST);
-  `automation × .cs` (17 files: 18 cite ADR-AUTO-TEST, ADR-CONF-LOADING); `automation × .ps1` (347 files: 353 cite ADR-AUTO-TEST,
-  ADR-CONF-ADDRESSING, ADR-CONF-LOADING); `automation × .yml` (17 files: 19 cite ADR-AUTO-TEST, ADR-CONF-ADDRESSING, ADR-CONF-LOADING);
-  `docs × .md` (18 files: 18 cite ADR-AUTO-TEST, ADR-CONF-ADDRESSING, ADR-CONF-LOADING; 3 are the ADR file of ADR-AUTO-TEST,
+  `automation × .cs` (17 files: 17 cite ADR-AUTO-TEST, ADR-CONF-LOADING); `automation × .ps1` (347 files: 347 cite ADR-AUTO-TEST,
+  ADR-CONF-ADDRESSING, ADR-CONF-LOADING); `automation × .yml` (17 files: 17 cite ADR-AUTO-TEST, ADR-CONF-ADDRESSING, ADR-CONF-LOADING);
+  `docs × .md` (18 files: 15 cite ADR-AUTO-TEST, ADR-CONF-ADDRESSING, ADR-CONF-LOADING; 3 are the ADR file of ADR-AUTO-TEST,
   ADR-CONF-ADDRESSING, ADR-CONF-LOADING); `pipelines × .yaml` (1 file, mentions only: 1 cites ADR-AUTO-TEST); `Root files × .ps1` (1 file: 1
   is mapped through files.yml to ADR-AUTO-TEST); `Root files × other` (2 files: 2 are mapped through files.yml to ADR-AUTO-TEST). 1 cell lit
-  only by passing mentions show at 40 % ink.
+  only by passing mentions shows at 40 % ink.
 - **Tree** (the repository's files): 41 lit groups, `QualityGates` (132 files); `Docs` (55 files); `Az.Templates` (30 files); `ModuleSystem`
   (20 files); `Globs` (14 files); `Languages` (13 files); `Azure` (11 files); `Execution` (11 files); `Tool.Core` (11 files); `docs` (11
   files); `Maps` (9 files); `RootConfig` (9 files); `Contracts` (7 files); `Tool.Provisioning` (7 files); `Config` (5 files); `Reports` (5
