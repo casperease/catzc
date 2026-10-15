@@ -1,6 +1,13 @@
-# docs/adr/thesis/dora-explains.md
+---
+catzc:
+  derived:
+    path: docs/adr/thesis/dora-explains.md
+    kind: adr
+    body_sha: e9ca16ab63b7
+    adrs: []
+---
 
-`DORA explanations — thesis`
+# DORA explanations — thesis
 
 The `Dora explains` rationale for the ADRs in the `thesis/` folder, consolidated in one place. Each entry names its ADR and rule code, then
 reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the relevant capability links. The decisions live in the

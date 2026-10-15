@@ -1,6 +1,15 @@
-# docs/explanation/automation/one-out-string-two-places.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/one-out-string-two-places.md
+    kind: explanation
+    body_sha: "4ce846b18cf7"
+    adrs:
+      - ADR-AUTO-PATH#3
+      - ADR-AUTO-PATH#9
+---
 
-`One stored out/ string lands in {root}/out on a devbox and in the staging directory in a pipeline`
+# One stored out/ string lands in {root}/out on a devbox and in the staging directory in a pipeline
 
 ```text
 One stored out/ string resolves to {root}/out on a devbox and to the staging directory in a pipeline.

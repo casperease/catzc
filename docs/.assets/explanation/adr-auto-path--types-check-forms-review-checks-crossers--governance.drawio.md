@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-path--types-check-forms-review-checks-crossers--governance.drawio.md
+    kind: asset-description
+    body_sha: "802bc5ecd360"
+    adrs: []
+---
 
-`Types check the forms, review checks the crossers: the diagram described`
+# Types check the forms, review checks the crossers: the diagram described
 
 ```text
 A 1572 x 700 diagram, read left to right through three bands, then the band below.

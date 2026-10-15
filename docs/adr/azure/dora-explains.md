@@ -1,6 +1,13 @@
-# docs/adr/azure/dora-explains.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/dora-explains.md
+    kind: adr
+    body_sha: "018849f8c800"
+    adrs: []
+---
 
-`DORA explanations — azure`
+# DORA explanations — azure
 
 The `Dora explains` rationale for the ADRs in the `azure/` domain, consolidated in one place. Each entry names its ADR and rule code, then
 reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in

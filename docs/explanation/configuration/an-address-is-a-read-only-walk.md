@@ -1,6 +1,16 @@
-# docs/explanation/configuration/an-address-is-a-read-only-walk.md
+---
+catzc:
+  derived:
+    path: docs/explanation/configuration/an-address-is-a-read-only-walk.md
+    kind: explanation
+    body_sha: "54bd6341713f"
+    adrs:
+      - ADR-CONF-ADDRESSING#1
+      - ADR-CONF-ADDRESSING#4
+      - ADR-CONF-ADDRESSING#5
+---
 
-`A config address is a read-only walk over the one cached config, never a second reader`
+# A config address is a read-only walk over the one cached config, never a second reader
 
 ```text
 A config address is a read-only walk over the one cached config, never a second reader.

@@ -1,6 +1,13 @@
-# docs/adr/research/teams-empowered-to-choose-tools.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/teams-empowered-to-choose-tools.md
+    kind: adr
+    body_sha: "9230a7e17988"
+    adrs: []
+---
 
-`ADR: DORA — Empowering teams to choose tools`
+# ADR: DORA — Empowering teams to choose tools
 
 ## Rules: ADR-DORA-TOOLCHOICE
 

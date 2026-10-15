@@ -1,6 +1,16 @@
-# docs/explanation/design/manifest-and-aspects-from-one-folder.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/manifest-and-aspects-from-one-folder.md
+    kind: explanation
+    body_sha: "13b42c260a6c"
+    adrs:
+      - ADR-DSGN-ASPECT#1
+      - ADR-DSGN-ASPECT#2
+      - ADR-PWSH-MANIFEST#3
+---
 
-`The manifest and the aspects both come from one folder`
+# The manifest and the aspects both come from one folder
 
 ```text
 The manifest and the aspects both come from one folder, by two code paths in call order.

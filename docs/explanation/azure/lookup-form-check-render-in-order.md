@@ -1,6 +1,17 @@
-# docs/explanation/azure/lookup-form-check-render-in-order.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/lookup-form-check-render-in-order.md
+    kind: explanation
+    body_sha: cd0312dc18af
+    adrs:
+      - ADR-AZ-NAMING#4
+      - ADR-AZ-NAMING#5
+      - ADR-AZ-NAMING#6
+      - ADR-AZ-NAMING#7
+---
 
-`The namer looks up, forms, checks and renders a name in that order`
+# The namer looks up, forms, checks and renders a name in that order
 
 ```text
 Get-AzureResourceName looks up, forms, checks and renders, then throws or returns.

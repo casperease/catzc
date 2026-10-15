@@ -1,6 +1,17 @@
-# docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
+---
+catzc:
+  derived:
+    path: docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
+    kind: explanation
+    body_sha: "7272a8567547"
+    adrs:
+      - ADR-AUTO-CACHE#6
+      - ADR-PWSH-CACHE#1
+      - ADR-REPO-VARIANT#1
+      - ADR-REPO-VARIANT#2
+---
 
-`A repo-wide switch has one home, one read path and one guard vocabulary`
+# A repo-wide switch has one home, one read path and one guard vocabulary
 
 ```text
 A repo-wide switch has one home, one read path and one guard vocabulary.

@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.md
+    kind: asset-description
+    body_sha: "4cb4d72923c0"
+    adrs: []
+---
 
-`One gate checks the raw-read rule: the diagram described`
+# One gate checks the raw-read rule: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right across two bands, then down to a third.

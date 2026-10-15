@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-maps/types/PdfNumber.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-maps/types/PdfNumber.cs.md
+    kind: reference
+    body_sha: "969a373c714a"
+    adrs: []
+---
 
-`automation/Catzc.Base.Maps/types/PdfNumber.cs`
+# automation/Catzc.Base.Maps/types/PdfNumber.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

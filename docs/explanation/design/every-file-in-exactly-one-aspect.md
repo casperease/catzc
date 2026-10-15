@@ -1,6 +1,18 @@
-# docs/explanation/design/every-file-in-exactly-one-aspect.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/every-file-in-exactly-one-aspect.md
+    kind: explanation
+    body_sha: edf4b6a5a7fa
+    adrs:
+      - ADR-DSGN-ASPECT#1
+      - ADR-DSGN-ASPECT#2
+      - ADR-DSGN-ASPECT#4
+      - ADR-DSGN-ASPECT#5
+      - ADR-FLOW-CD-GLOBS#9
+---
 
-`Every module file is in exactly one aspect`
+# Every module file is in exactly one aspect
 
 ```text
 Every module file is in exactly one aspect: live first by a closed convention, tests as the remainder.

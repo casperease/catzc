@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.md
+    kind: asset-description
+    body_sha: "545cb1dca28b"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`One reader, one cache per session: the diagram described`
+# One reader, one cache per session: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right along one band, down into a second band and back up.

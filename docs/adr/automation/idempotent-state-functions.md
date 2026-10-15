@@ -1,6 +1,13 @@
-# docs/adr/automation/idempotent-state-functions.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/idempotent-state-functions.md
+    kind: adr
+    body_sha: "5f53c1942c70"
+    adrs: []
+---
 
-`ADR: State-changing functions must be idempotent`
+# ADR: State-changing functions must be idempotent
 
 ## Rules: ADR-AUTO-IDEM
 

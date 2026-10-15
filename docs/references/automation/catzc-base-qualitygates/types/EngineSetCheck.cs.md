@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-qualitygates/types/EngineSetCheck.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/types/EngineSetCheck.cs.md
+    kind: reference
+    body_sha: "8f01a4ef78f3"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-ENGINE#1
+      - ADR-AUTO-TYPES#8
+---
 
-`automation/Catzc.Base.QualityGates/types/EngineSetCheck.cs`
+# automation/Catzc.Base.QualityGates/types/EngineSetCheck.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

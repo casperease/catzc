@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md
+    kind: reference
+    body_sha: "9ced323372b7"
+    adrs:
+      - ADR-AUTO-CACHE#8
+      - ADR-AUTO-TYPES#13
+      - ADR-REPO-VARIANT#6
+---
 
-`automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1`
+# automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

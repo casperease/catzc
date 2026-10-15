@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md
+    kind: reference
+    body_sha: "45c0173f67fc"
+    adrs:
+      - ADR-AUTO-PATH#11
+      - ADR-AUTO-PATH#3
+      - ADR-AUTO-PATH#6
+---
 
-`automation/Catzc.Tooling.Inspiration/types/InspirationRoot.cs`
+# automation/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

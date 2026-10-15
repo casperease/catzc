@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-globs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-globs.md
+    kind: reference
+    body_sha: "4cee0d74457d"
+    adrs:
+      - ADR-AUTO-TEST#35
+---
 
-`Catzc.Base.Globs`
+# Catzc.Base.Globs
 
 The globset primitive: the single source of truth (`globs.yml`) mapping every deployable unit onto its files under version control, the
 native path-filter projection that pipelines and workflows trigger on, the git-reflected "which areas of control did this change touch"

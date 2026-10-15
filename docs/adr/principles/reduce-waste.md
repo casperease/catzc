@@ -1,6 +1,13 @@
-# docs/adr/principles/reduce-waste.md
+---
+catzc:
+  derived:
+    path: docs/adr/principles/reduce-waste.md
+    kind: adr
+    body_sha: "04f58188ca31"
+    adrs: []
+---
 
-`Principle: Reduce waste`
+# Principle: Reduce waste
 
 ## Rules: ADR-PRIN-NOWASTE
 

@@ -1,6 +1,14 @@
-# docs/how-to/getting-started/automation/powershell/add-a-function.md
+---
+catzc:
+  derived:
+    path: docs/how-to/getting-started/automation/powershell/add-a-function.md
+    kind: how-to
+    body_sha: "5e937306972e"
+    adrs:
+      - ADR-PWSH-ERROR#3
+---
 
-`Add a function`
+# Add a function
 
 Adding a public function is a one-step operation: **create the file**. The bootstrap module discovers it on the next importer run — no
 manifest to edit, no export list to maintain.

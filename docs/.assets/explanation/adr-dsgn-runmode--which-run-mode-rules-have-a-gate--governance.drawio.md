@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.md
+    kind: asset-description
+    body_sha: "50a2bb16b56c"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none: the diagram described`
+# Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none: the diagram described
 
 ```text
 A 1572 x 690 diagram, read top to bottom through three bands.

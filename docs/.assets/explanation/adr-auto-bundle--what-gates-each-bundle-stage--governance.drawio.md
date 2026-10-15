@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.md
+    kind: asset-description
+    body_sha: ac70fac9c54f
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Every stage has a rule, two gates check it: the diagram described`
+# Every stage has a rule, two gates check it: the diagram described
 
 ```text
 A 1572 x 620 diagram, read left to right through three bands.

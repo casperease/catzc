@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.md
+    kind: asset-description
+    body_sha: "1457820d3bb5"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Each run mode has one entry script, and a mixed session throws: the diagram described`
+# Each run mode has one entry script, and a mixed session throws: the diagram described
 
 ```text
 A 1572 x 720 diagram: three bands side by side over one full-width band.

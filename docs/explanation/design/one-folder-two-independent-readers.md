@@ -1,6 +1,17 @@
-# docs/explanation/design/one-folder-two-independent-readers.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/one-folder-two-independent-readers.md
+    kind: explanation
+    body_sha: "42f43edabf19"
+    adrs:
+      - ADR-DSGN-ASPECT#1
+      - ADR-DSGN-ASPECT#2
+      - ADR-DSGN-ASPECT#4
+      - ADR-FLOW-CD-GLOBS#9
+---
 
-`One module folder has two independent readers`
+# One module folder has two independent readers
 
 ```text
 One module folder has two independent readers: the loader and the globs engine.

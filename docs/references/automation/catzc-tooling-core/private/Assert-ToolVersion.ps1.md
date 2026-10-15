@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md
+    kind: reference
+    body_sha: c0906cc637e1
+    adrs:
+      - ADR-PWSH-CACHE#4
+---
 
-`automation/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1`
+# automation/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

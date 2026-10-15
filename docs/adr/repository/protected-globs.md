@@ -1,6 +1,14 @@
-# docs/adr/repository/protected-globs.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/protected-globs.md
+    kind: adr
+    body_sha: b9035752a1df
+    adrs:
+      - ADR-REPO-PROTGLOB#4
+---
 
-`ADR: Protected globs — session-memory skip of repeated scans over an unchanged globset`
+# ADR: Protected globs — session-memory skip of repeated scans over an unchanged globset
 
 ## Rules: ADR-REPO-PROTGLOB
 

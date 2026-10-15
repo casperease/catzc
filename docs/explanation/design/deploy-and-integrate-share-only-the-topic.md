@@ -1,6 +1,17 @@
-# docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
+    kind: explanation
+    body_sha: afde8913f925
+    adrs:
+      - ADR-DSGN-LIFE#1
+      - ADR-DSGN-LIFE#9
+      - ADR-DSGN-VISUAL#13
+      - ADR-DSGN-VISUAL#4
+---
 
-`Deploying a topic commit and integrating it share only the topic commit`
+# Deploying a topic commit and integrating it share only the topic commit
 
 ```text
 The deploy path and the integration path share only the topic commit; nothing on the deploy path feeds main.

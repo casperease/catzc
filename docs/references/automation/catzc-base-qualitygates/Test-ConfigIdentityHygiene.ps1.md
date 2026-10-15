@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md
+    kind: reference
+    body_sha: "502cbc97a77e"
+    adrs:
+      - ADR-AUTO-TEST#35
+---
 
-`automation/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1`
+# automation/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

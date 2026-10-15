@@ -1,6 +1,13 @@
-# docs/how-to/automation/manual-test-plan/adr-registry.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan/adr-registry.md
+    kind: how-to
+    body_sha: "9130e4758ce4"
+    adrs: []
+---
 
-`Manual test plan — ADR registry`
+# Manual test plan — ADR registry
 
 The ADR rule-sets, the domain graph, the generated ADR index, and the rule enforcers. Part of the
 [manual test plan](../manual-test-plan.md), which says how to run a check.

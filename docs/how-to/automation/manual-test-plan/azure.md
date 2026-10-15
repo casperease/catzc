@@ -1,6 +1,16 @@
-# docs/how-to/automation/manual-test-plan/azure.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan/azure.md
+    kind: how-to
+    body_sha: "14551fbb8311"
+    adrs:
+      - ADR-AUTO-TEST#37
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-NETWORK#2
+---
 
-`Manual test plan — Azure`
+# Manual test plan — Azure
 
 The shipped Azure configs and bicep templates. Part of the [manual test plan](../manual-test-plan.md), which says how to run a check.
 

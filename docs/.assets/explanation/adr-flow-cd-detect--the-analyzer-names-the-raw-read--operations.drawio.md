@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.md
+    kind: asset-description
+    body_sha: "4b09a878c2b8"
+    adrs: []
+---
 
-`The analyzer names the raw read: the diagram described`
+# The analyzer names the raw read: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right along two stacked bands.

@@ -1,6 +1,17 @@
-# docs/explanation/azure/config-path-is-a-coordinate.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/config-path-is-a-coordinate.md
+    kind: explanation
+    body_sha: "2356399464e7"
+    adrs:
+      - ADR-AZ-CUSTOMER#6
+      - ADR-AZ-DATAMOD#1
+      - ADR-AZ-DATAMOD#2
+      - ADR-AZ-DATAMOD#3
+---
 
-`A config file's path is a coordinate that resolves to one subscription and one resource group`
+# A config file's path is a coordinate that resolves to one subscription and one resource group
 
 ```text
 A config file's path is a coordinate that resolves to one subscription and one resource group.

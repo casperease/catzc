@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.md
+    kind: asset-description
+    body_sha: "3fbd2c7014b2"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`What you set decides the credential: the diagram described`
+# What you set decides the credential: the diagram described
 
 ```text
 A 1572 x 620 diagram, read top to bottom inside one band, WHAT YOU SET.

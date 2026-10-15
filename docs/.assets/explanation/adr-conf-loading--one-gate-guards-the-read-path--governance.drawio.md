@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.md
+    kind: asset-description
+    body_sha: "38904a091f6e"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`One gate guards the read path: the diagram described`
+# One gate guards the read path: the diagram described
 
 ```text
 A 1572 x 700 diagram, read left to right along one band, down into two bands, with a band of gates at the bottom pointing up.

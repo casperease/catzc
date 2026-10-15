@@ -7,11 +7,16 @@ description: >
   new diagrams, diagram ideas, or "fan out and make diagrams". Do NOT use it to edit labels or styles in an existing diagram — that is
   `write-drawio-files`.
 tools: Agent, Bash, Read, Glob, Grep, Write, Edit
+catzc:
+  derived:
+    path: ".claude/agents/drawio-diagram-waves.md"
+    kind: agent
+    body_sha: "3c31582376b4"
+    adrs:
+      - ADR-DSGN-VISUAL#4
 ---
 
-# .claude/agents/drawio-diagram-waves.md
-
-`drawio-diagram-waves`
+# drawio-diagram-waves
 
 <!-- cspell:ignore mxfile mxGraphModel zTXt minimaps -->
 

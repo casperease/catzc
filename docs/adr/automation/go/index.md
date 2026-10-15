@@ -1,6 +1,13 @@
-# docs/adr/automation/go/index.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/go/index.md
+    kind: adr
+    body_sha: "57d973bedb2e"
+    adrs: []
+---
 
-`Go automation ADRs`
+# Go automation ADRs
 
 The ADRs here govern the repository's Go code, which is test artifacts only — black-box tests of the engine that never ship; see
 [go-test-artifacts](go-test-artifacts.md). Cross-cutting, language-agnostic platform rules live one level up, directly under `automation/`;

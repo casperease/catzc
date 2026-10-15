@@ -1,6 +1,13 @@
-# docs/adr/research/platform-engineering.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/platform-engineering.md
+    kind: adr
+    body_sha: "026da3c7367a"
+    adrs: []
+---
 
-`ADR: DORA — Platform engineering`
+# ADR: DORA — Platform engineering
 
 ## Rules: ADR-DORA-PLATFORM
 

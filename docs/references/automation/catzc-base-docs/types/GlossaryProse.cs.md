@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md
+    kind: reference
+    body_sha: "2b2c01a46520"
+    adrs:
+      - ADR-REPO-FORMAT#6
+      - ADR-REPO-VOCAB#5
+---
 
-`automation/Catzc.Base.Docs/types/GlossaryProse.cs`
+# automation/Catzc.Base.Docs/types/GlossaryProse.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

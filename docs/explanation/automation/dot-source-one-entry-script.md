@@ -1,6 +1,15 @@
-# docs/explanation/automation/dot-source-one-entry-script.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/dot-source-one-entry-script.md
+    kind: explanation
+    body_sha: a414cc3c826a
+    adrs:
+      - ADR-AUTO-BUNDLE#3
+      - ADR-AUTO-BUNDLE#8
+---
 
-`Dot-source one entry script, and a failed check stops the load with a named error`
+# Dot-source one entry script, and a failed check stops the load with a named error
 
 ```text
 Dot-source one entry script; a failed check stops the load with a named error.

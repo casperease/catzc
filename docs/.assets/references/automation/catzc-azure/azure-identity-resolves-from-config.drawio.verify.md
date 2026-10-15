@@ -1,6 +1,20 @@
-# docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
+    kind: asset-description
+    body_sha: e410849b57ff
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TYPES#8
+      - ADR-AZ-CUSTOMER#2
+      - ADR-AZ-DATAMOD#4
+      - ADR-AZ-NAMING#6
+      - ADR-AZ-SESSION#5
+      - ADR-PWSH-CACHE#4
+---
 
-`out/diagrams/wave-9/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md`
+# out/diagrams/wave-9/catzc-azure/azure-identity-resolves-from-config.drawio.verify.md
 
 `Verification: Azure identities resolve from config; session must match one (source lens, Catzc.Azure)`
 

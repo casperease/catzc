@@ -1,6 +1,19 @@
-# docs/references/automation/catzc-base-maps/configs/maps.yml.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-maps/configs/maps.yml.md
+    kind: reference
+    body_sha: bdea7fff0333
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-DSGN-TRACK#13
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#7
+      - ADR-DSGN-TRACK#8
+      - ADR-REPO-OUTDIR#2
+---
 
-`automation/Catzc.Base.Maps/configs/maps.yml`
+# automation/Catzc.Base.Maps/configs/maps.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

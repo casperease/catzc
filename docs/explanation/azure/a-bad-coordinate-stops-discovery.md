@@ -1,6 +1,16 @@
-# docs/explanation/azure/a-bad-coordinate-stops-discovery.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/a-bad-coordinate-stops-discovery.md
+    kind: explanation
+    body_sha: de5f24266b08
+    adrs:
+      - ADR-AZ-CUSTOMER#6
+      - ADR-AZ-DATAMOD#3
+      - ADR-AZ-DATAMOD#8
+---
 
-`A config file that resolves to no subscription, or to two, stops discovery with one line`
+# A config file that resolves to no subscription, or to two, stops discovery with one line
 
 <!-- cspell:ignore exped fnd weu zct -->
 

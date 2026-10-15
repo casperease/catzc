@@ -1,6 +1,13 @@
-# docs/adr/research/pervasive-security.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/pervasive-security.md
+    kind: adr
+    body_sha: aa1fb107b65d
+    adrs: []
+---
 
-`ADR: DORA — Pervasive security`
+# ADR: DORA — Pervasive security
 
 ## Rules: ADR-DORA-SECURITY
 

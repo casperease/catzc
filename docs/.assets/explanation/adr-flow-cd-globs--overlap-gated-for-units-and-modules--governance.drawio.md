@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.md
+    kind: asset-description
+    body_sha: "8bed36c01743"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`A gate checks overlap for units and modules: the diagram described`
+# A gate checks overlap for units and modules: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands.

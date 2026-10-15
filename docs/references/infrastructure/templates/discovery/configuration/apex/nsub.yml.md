@@ -1,6 +1,13 @@
-# docs/references/infrastructure/templates/discovery/configuration/apex/nsub.yml.md
+---
+catzc:
+  derived:
+    path: docs/references/infrastructure/templates/discovery/configuration/apex/nsub.yml.md
+    kind: reference
+    body_sha: acddcfce81e7
+    adrs: []
+---
 
-`infrastructure/templates/discovery/configuration/apex/nsub.yml`
+# infrastructure/templates/discovery/configuration/apex/nsub.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

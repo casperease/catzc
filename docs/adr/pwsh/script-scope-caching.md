@@ -1,6 +1,17 @@
-# docs/adr/pwsh/script-scope-caching.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/script-scope-caching.md
+    kind: adr
+    body_sha: "58af15b8aa6f"
+    adrs:
+      - ADR-AUTO-CACHE#6
+      - ADR-AUTO-CACHE#8
+      - ADR-PWSH-CACHE#4
+      - ADR-PWSH-PESTER#3
+---
 
-`ADR: Script-scope caching — the PowerShell layer over caching`
+# ADR: Script-scope caching — the PowerShell layer over caching
 
 ## Rules: ADR-PWSH-CACHE
 

@@ -1,6 +1,16 @@
-# docs/adr/research/test-data-management.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/test-data-management.md
+    kind: adr
+    body_sha: fca065d02994
+    adrs:
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#6
+      - ADR-AUTO-TEST#9
+---
 
-`ADR: DORA — Test data management`
+# ADR: DORA — Test data management
 
 ## Rules: ADR-DORA-TESTDATA
 

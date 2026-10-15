@@ -1,6 +1,13 @@
-# docs/references/infrastructure/CLAUDE.md
+---
+catzc:
+  derived:
+    path: docs/references/infrastructure/CLAUDE.md
+    kind: reference
+    body_sha: "056458e98539"
+    adrs: []
+---
 
-`Authoring an infrastructure reference`
+# Authoring an infrastructure reference
 
 This directory holds one reference article per infrastructure unit: the templating-system `overview.md`, the shared-bicep `modules.md`, and
 one `<template>.md` per deployable template (named for its `infrastructure/templates/<name>/` folder — `foundation` → `foundation.md`).

@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-maps/types/ValueChainHighlight.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-maps/types/ValueChainHighlight.cs.md
+    kind: reference
+    body_sha: "409d2c8e752d"
+    adrs:
+      - ADR-DSGN-TRACK#12
+      - ADR-DSGN-TRACK#16
+      - ADR-THES-ONETRUTH#3
+---
 
-`automation/Catzc.Base.Maps/types/ValueChainHighlight.cs`
+# automation/Catzc.Base.Maps/types/ValueChainHighlight.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

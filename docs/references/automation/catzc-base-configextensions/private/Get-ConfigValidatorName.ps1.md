@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-configextensions/private/Get-ConfigValidatorName.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-configextensions/private/Get-ConfigValidatorName.ps1.md
+    kind: reference
+    body_sha: c94b81936dd5
+    adrs: []
+---
 
-`automation/Catzc.Base.ConfigExtensions/private/Get-ConfigValidatorName.ps1`
+# automation/Catzc.Base.ConfigExtensions/private/Get-ConfigValidatorName.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

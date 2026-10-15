@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-runmode--shims-set-roots-mode-read-back--implementation.drawio.md
+    kind: asset-description
+    body_sha: "9ba45c2bd3ee"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it: the diagram described`
+# Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it: the diagram described
 
 ```text
 A 1572 x 740 diagram, read top to bottom through four bands.

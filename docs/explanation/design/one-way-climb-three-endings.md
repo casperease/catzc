@@ -1,6 +1,19 @@
-# docs/explanation/design/one-way-climb-three-endings.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/one-way-climb-three-endings.md
+    kind: explanation
+    body_sha: "4316f5080e62"
+    adrs:
+      - ADR-DSGN-LIFE#1
+      - ADR-DSGN-LIFE#2
+      - ADR-DSGN-LIFE#3
+      - ADR-DSGN-LIFE#4
+      - ADR-DSGN-LIFE#8
+      - ADR-DSGN-VISUAL#14
+---
 
-`A commit only climbs, then ends in one of three ways`
+# A commit only climbs, then ends in one of three ways
 
 ```text
 A commit only climbs the promotion ladder, then ends superseded, discarded or retired.

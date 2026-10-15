@@ -1,6 +1,13 @@
-# docs/adr/research/well-being.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/well-being.md
+    kind: adr
+    body_sha: bfee8c5bb34b
+    adrs: []
+---
 
-`ADR: DORA — Well-being`
+# ADR: DORA — Well-being
 
 ## Rules: ADR-DORA-WELLBEING
 

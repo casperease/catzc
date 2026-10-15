@@ -1,6 +1,13 @@
-# docs/adr/research/clear-and-communicated-ai-stance.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/clear-and-communicated-ai-stance.md
+    kind: adr
+    body_sha: b477e777a6cd
+    adrs: []
+---
 
-`ADR: DORA — Clear and communicated AI stance`
+# ADR: DORA — Clear and communicated AI stance
 
 ## Rules: ADR-DORA-AISTANCE
 

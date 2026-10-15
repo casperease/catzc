@@ -1,6 +1,18 @@
-# docs/explanation/automation/two-forms-never-a-third.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/two-forms-never-a-third.md
+    kind: explanation
+    body_sha: "77b17b73c674"
+    adrs:
+      - ADR-AUTO-PATH#1
+      - ADR-AUTO-PATH#10
+      - ADR-AUTO-PATH#2
+      - ADR-AUTO-PATH#3
+      - ADR-AUTO-PATH#4
+---
 
-`A path has two forms, never a third, and one pair of crossers moves it between them`
+# A path has two forms, never a third, and one pair of crossers moves it between them
 
 ```text
 A path has two forms, never a third, and one pair of crossers moves it between them.

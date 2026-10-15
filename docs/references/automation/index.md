@@ -1,6 +1,13 @@
-# docs/references/automation/index.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/index.md
+    kind: reference
+    body_sha: d48f7be7ed28
+    adrs: []
+---
 
-`Module reference`
+# Module reference
 
 One article per automation module. Each is written **responsibilities-first**: it does not walk through individual functions — it declares
 the _responsibilities_ the module owns, explains the module in terms of those responsibilities, and only at the end sorts the module's

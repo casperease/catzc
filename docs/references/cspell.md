@@ -1,6 +1,13 @@
-# docs/references/cspell.md
+---
+catzc:
+  derived:
+    path: docs/references/cspell.md
+    kind: reference
+    body_sha: "8d46afba173c"
+    adrs: []
+---
 
-`The cspell dictionary folder`
+# The cspell dictionary folder
 
 Generated cspell word lists — **do not edit, do not commit.**
 

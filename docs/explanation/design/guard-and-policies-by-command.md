@@ -1,6 +1,16 @@
-# docs/explanation/design/guard-and-policies-by-command.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/guard-and-policies-by-command.md
+    kind: explanation
+    body_sha: b79c1fbb598e
+    adrs:
+      - ADR-DSGN-REMOTE#2
+      - ADR-DSGN-REMOTE#4
+      - ADR-REPO-VARIANT#6
+---
 
-`A person turns on the local guard with one variant; an admin syncs the server policies with one command`
+# A person turns on the local guard with one variant; an admin syncs the server policies with one command
 
 ```text
 A person turns on the local guard with one variant; an admin syncs the server policies with one command.

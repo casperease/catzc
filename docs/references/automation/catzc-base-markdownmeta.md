@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-markdownmeta.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-markdownmeta.md
+    kind: reference
+    body_sha: c7d8eee2b6de
+    adrs: []
+---
 
-`Catzc.Base.MarkdownMeta`
+# Catzc.Base.MarkdownMeta
 
 The pure core of the Markdown meta block: the one reserved `catzc` front-matter key of a tracked Markdown file, its derived facts and its
 authored config contributions ([markdown-meta](../../adr/repository/markdown-meta.md)). The module reads no config and no file: every text

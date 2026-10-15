@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.md
+    kind: asset-description
+    body_sha: "50747374e41c"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Two layers declared, the third derived: the diagram described`
+# Two layers declared, the third derived: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands under two span bars.

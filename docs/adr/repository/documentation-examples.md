@@ -1,6 +1,14 @@
-# docs/adr/repository/documentation-examples.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/documentation-examples.md
+    kind: adr
+    body_sha: "2524bd0104f1"
+    adrs:
+      - ADR-REPO-EXAMPLE#1
+---
 
-`ADR: Documentation examples — the discovery theme`
+# ADR: Documentation examples — the discovery theme
 
 ## Rules: ADR-REPO-EXAMPLE
 

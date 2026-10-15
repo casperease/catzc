@@ -1,6 +1,17 @@
-# docs/explanation/design/deploying-is-not-integrating.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/deploying-is-not-integrating.md
+    kind: explanation
+    body_sha: a9bdca79fa5e
+    adrs:
+      - ADR-DSGN-LIFE#1
+      - ADR-DSGN-LIFE#9
+      - ADR-DSGN-VISUAL#13
+      - ADR-DSGN-VISUAL#4
+---
 
-`Deploying a topic commit is not integrating it`
+# Deploying a topic commit is not integrating it
 
 ```text
 A topic commit can reach an environment without reaching main; only landing on main puts it on the ladder.

@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md
+    kind: reference
+    body_sha: c6e770400f6f
+    adrs:
+      - ADR-AUTO-FAILFAST#3
+      - ADR-AUTO-TYPES#7
+---
 
-`automation/Catzc.Base.TypesSystem/Assert-LoadedTypesCurrent.ps1`
+# automation/Catzc.Base.TypesSystem/Assert-LoadedTypesCurrent.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

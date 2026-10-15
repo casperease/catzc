@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-config.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-config.md
+    kind: reference
+    body_sha: "900ad440bd3c"
+    adrs: []
+---
 
-`Catzc.Base.Config`
+# Catzc.Base.Config
 
 The single config reader for the platform. It owns `Get-Config` — the one public function every module calls to find, parse, validate, and
 cache a named config file — `Get-ConfigValue`, the by-reference addressing that resolves a `global.<config>.<key.path>` address to a value

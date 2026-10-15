@@ -1,6 +1,13 @@
-# docs/how-to/getting-started/automation/add-an-infrastructure-template.md
+---
+catzc:
+  derived:
+    path: docs/how-to/getting-started/automation/add-an-infrastructure-template.md
+    kind: how-to
+    body_sha: "7fb02af5197f"
+    adrs: []
+---
 
-`Add an infrastructure template`
+# Add an infrastructure template
 
 <!-- cspell:ignore deweuzctsurvecorst deweuzctsurvestast deweuzctsurvemaadf -->
 

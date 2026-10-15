@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-repository.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-repository.md
+    kind: reference
+    body_sha: aa36a4ef1cbb
+    adrs: []
+---
 
-`Catzc.Base.Repository`
+# Catzc.Base.Repository
 
 The path-anchor module. It is the **single source of truth for where files live** — locating the repository root, resolving repo-relative
 and absolute paths, pointing to the dedicated output directory, and naming whether code runs in a pipeline or on a devbox. No other module

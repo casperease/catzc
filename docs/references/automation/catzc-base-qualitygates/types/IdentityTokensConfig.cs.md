@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-qualitygates/types/IdentityTokensConfig.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/types/IdentityTokensConfig.cs.md
+    kind: reference
+    body_sha: "8e6e8cfb5048"
+    adrs: []
+---
 
-`automation/Catzc.Base.QualityGates/types/IdentityTokensConfig.cs`
+# automation/Catzc.Base.QualityGates/types/IdentityTokensConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

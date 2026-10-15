@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.md
+    kind: asset-description
+    body_sha: "7a3670cd2ad1"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Three tasks, one guard, one runner: the diagram described`
+# Three tasks, one guard, one runner: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through two bands side by side.

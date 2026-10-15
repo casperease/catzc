@@ -1,6 +1,13 @@
-# docs/adr/research/working-in-small-batches.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/working-in-small-batches.md
+    kind: adr
+    body_sha: "9e7c3e8c16ec"
+    adrs: []
+---
 
-`ADR: DORA — Working in small batches`
+# ADR: DORA — Working in small batches
 
 ## Rules: ADR-DORA-SMALLBATCH
 

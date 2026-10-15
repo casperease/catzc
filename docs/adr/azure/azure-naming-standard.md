@@ -1,6 +1,13 @@
-# docs/adr/azure/azure-naming-standard.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/azure-naming-standard.md
+    kind: adr
+    body_sha: "73a0cb2d870c"
+    adrs: []
+---
 
-`ADR: Azure resource naming standard`
+# ADR: Azure resource naming standard
 
 <!-- cspell:ignore weuwkspvm prweufindiscaphotst weufindiscxaphotst weudiscvm etlco -->
 

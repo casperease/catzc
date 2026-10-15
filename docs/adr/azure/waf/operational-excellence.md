@@ -1,6 +1,54 @@
-# docs/adr/azure/waf/operational-excellence.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/waf/operational-excellence.md
+    kind: adr
+    body_sha: be1d73e111ce
+    adrs:
+      - ADR-AUTO-DEPS#1
+      - ADR-AUTO-FAILFAST#7
+      - ADR-AUTO-TEST#33
+      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#41
+      - ADR-AZ-DATAMOD#10
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#2
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#2
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#5
+      - ADR-AZ-LZ#6
+      - ADR-AZ-LZ#7
+      - ADR-AZ-NAMING#1
+      - ADR-AZ-WAFOE#11
+      - ADR-AZ-WAFOE#3
+      - ADR-AZ-WAFOE#4
+      - ADR-AZ-WAFOE#5
+      - ADR-AZ-WAFOE#6
+      - ADR-AZ-WAFOE#7
+      - ADR-AZ-WAFOE#9
+      - ADR-DSGN-REMOTE#4
+      - ADR-FLOW-CD#12
+      - ADR-FLOW-CD#2
+      - ADR-FLOW-CD#3
+      - ADR-FLOW-CD#5
+      - ADR-FLOW-CD#6
+      - ADR-FLOW-CD#8
+      - ADR-FLOW-CD#9
+      - ADR-FLOW-CD-GLOBS#6
+      - ADR-FLOW-CD-TYPE#10
+      - ADR-FLOW-CD-TYPE#2
+      - ADR-FLOW-CD-TYPE#3
+      - ADR-FLOW-CD-TYPE#5
+      - ADR-FLOW-CD-TYPE#6
+      - ADR-PRIN-EAC#1
+      - ADR-PRIN-EAC#3
+      - ADR-PROC-ANDON#1
+      - ADR-PROC-KAIZEN#3
+      - ADR-REPO-FORMAT#8
+---
 
-`ADR: Operational excellence — the Well-Architected checklist, item by item, as this repository delivers and runs its infrastructure`
+# ADR: Operational excellence — the Well-Architected checklist, item by item, as this repository delivers and runs its infrastructure
 
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone and the workload these items are judged on) and
 [`cd-discipline-and-promotion-flow`](../../flow/cd-discipline-and-promotion-flow.md) (the delivery flow most of these items map to).

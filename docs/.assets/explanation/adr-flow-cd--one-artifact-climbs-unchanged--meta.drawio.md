@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.md
+    kind: asset-description
+    body_sha: "600aef8c7c3c"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`One artifact climbs to production unchanged: the diagram described`
+# One artifact climbs to production unchanged: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through two bands.

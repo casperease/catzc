@@ -1,6 +1,16 @@
-# docs/adr/design/module-aspects.md
+---
+catzc:
+  derived:
+    path: docs/adr/design/module-aspects.md
+    kind: adr
+    body_sha: ce9d5dbe10f2
+    adrs:
+      - ADR-FLOW-CD-GLOBS#4
+      - ADR-FLOW-CD-GLOBS#5
+      - ADR-FLOW-CD-GLOBS#7
+---
 
-`ADR: Module aspects — a unit's files partition into live and tests`
+# ADR: Module aspects — a unit's files partition into live and tests
 
 ## Rules: ADR-DSGN-ASPECT
 

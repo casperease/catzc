@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.md
+    kind: asset-description
+    body_sha: cad4d4388805
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`The runner is the only seam into PowerShell: the diagram described`
+# The runner is the only seam into PowerShell: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through three bands, with a fourth band below.

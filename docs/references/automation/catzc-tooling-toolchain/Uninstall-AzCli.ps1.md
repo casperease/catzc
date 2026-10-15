@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md
+    kind: reference
+    body_sha: "57b5cc51d797"
+    adrs:
+      - ADR-AUTO-ONEJOB#5
+      - ADR-AUTO-REMOVE#4
+      - ADR-AUTO-REMOVE#5
+---
 
-`automation/Catzc.Tooling.Toolchain/Uninstall-AzCli.ps1`
+# automation/Catzc.Tooling.Toolchain/Uninstall-AzCli.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

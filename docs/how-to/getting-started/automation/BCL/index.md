@@ -1,6 +1,13 @@
-# docs/how-to/getting-started/automation/BCL/index.md
+---
+catzc:
+  derived:
+    path: docs/how-to/getting-started/automation/BCL/index.md
+    kind: how-to
+    body_sha: f355f6d21e52
+    adrs: []
+---
 
-`BCL (C# / .NET types) how-to guides`
+# BCL (C# / .NET types) how-to guides
 
 Guides for working with the native C# types the automation platform loads. Language-agnostic getting-started guides live one level up, under
 `automation/`.

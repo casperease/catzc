@@ -1,6 +1,16 @@
-# docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
+---
+catzc:
+  derived:
+    path: docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
+    kind: explanation
+    body_sha: "0851cc5cff01"
+    adrs:
+      - ADR-CONF-ADDRESSING#1
+      - ADR-CONF-ADDRESSING#2
+      - ADR-CONF-ADDRESSING#3
+---
 
-`Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private`
+# Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private
 
 ```text
 Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private.

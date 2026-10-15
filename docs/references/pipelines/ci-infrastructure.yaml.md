@@ -1,6 +1,15 @@
-# docs/references/pipelines/ci-infrastructure.yaml.md
+---
+catzc:
+  derived:
+    path: docs/references/pipelines/ci-infrastructure.yaml.md
+    kind: reference
+    body_sha: "3f39e363227f"
+    adrs:
+      - ADR-AUTO-TEST#37
+      - ADR-AZ-DATAMOD#9
+---
 
-`pipelines/ci-infrastructure.yaml`
+# pipelines/ci-infrastructure.yaml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

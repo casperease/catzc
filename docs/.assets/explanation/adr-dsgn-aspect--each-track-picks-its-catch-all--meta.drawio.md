@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.md
+    kind: asset-description
+    body_sha: "1e2ef25ba7f1"
+    adrs: []
+---
 
-`Each track picks its catch-all: the diagram described`
+# Each track picks its catch-all: the diagram described
 
 ```text
 A 1572 x 640 diagram, read top to bottom from one wide file into two side-by-side column bands.

@@ -1,9 +1,19 @@
-# docs/explanation/design/gate-checks-order-not-liveness.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/gate-checks-order-not-liveness.md
+    kind: explanation
+    body_sha: "8bb9e4fa8e48"
+    adrs:
+      - ADR-DSGN-ASPECT#2
+      - ADR-DSGN-ASPECT#3
+      - ADR-DSGN-ASPECT#5
+---
 
-`The config gate checks that ** is last; whether the remainder ships is each track's unchecked call`
+# The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call
 
 ```text
-The config gate checks that ** is last; whether the remainder ships is each track's unchecked call.
+The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call.
 
 1  live                      automation's closed convention: no gate checks that it stays closed
 2  tests                     automation's remainder: that it is the non-live one is the track's call

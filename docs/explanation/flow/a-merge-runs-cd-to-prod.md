@@ -1,6 +1,16 @@
-# docs/explanation/flow/a-merge-runs-cd-to-prod.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/a-merge-runs-cd-to-prod.md
+    kind: explanation
+    body_sha: "1c55ad0ec400"
+    adrs:
+      - ADR-FLOW-CD#5
+      - ADR-FLOW-CD#6
+      - ADR-FLOW-CD#9
+---
 
-`A merge to main runs the CD pipeline all the way to prod, with no approval`
+# A merge to main runs the CD pipeline all the way to prod, with no approval
 
 ```text
 A merge to main runs the CD pipeline all the way to prod, with no approval.

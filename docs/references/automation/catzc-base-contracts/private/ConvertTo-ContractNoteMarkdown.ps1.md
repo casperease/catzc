@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-base-contracts/private/ConvertTo-ContractNoteMarkdown.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-contracts/private/ConvertTo-ContractNoteMarkdown.ps1.md
+    kind: reference
+    body_sha: "43721800bfa4"
+    adrs:
+      - ADR-REPO-LINK#2
+      - ADR-REPO-LINK#3
+---
 
-`automation/Catzc.Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1`
+# automation/Catzc.Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

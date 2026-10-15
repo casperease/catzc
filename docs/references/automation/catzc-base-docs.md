@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-docs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-docs.md
+    kind: reference
+    body_sha: eaf719a948db
+    adrs:
+      - ADR-AUTO-TEST#35
+---
 
-`Catzc.Base.Docs`
+# Catzc.Base.Docs
 
 The generated-README module. It owns the rule that a `README.md` in a conventional folder is a **generated copy** of one authored docs
 source, never a hand-kept one (see [generated-readmes](../../adr/repository/generated-readmes.md)): the source's relative links are rebased

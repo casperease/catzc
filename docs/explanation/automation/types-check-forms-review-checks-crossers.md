@@ -1,6 +1,22 @@
-# docs/explanation/automation/types-check-forms-review-checks-crossers.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/types-check-forms-review-checks-crossers.md
+    kind: explanation
+    body_sha: b0cbf15d555a
+    adrs:
+      - ADR-AUTO-PATH#1
+      - ADR-AUTO-PATH#10
+      - ADR-AUTO-PATH#11
+      - ADR-AUTO-PATH#2
+      - ADR-AUTO-PATH#3
+      - ADR-AUTO-PATH#4
+      - ADR-AUTO-PATH#6
+      - ADR-AUTO-PATH#7
+      - ADR-AUTO-PATH#9
+---
 
-`Three types check path forms at construction, and the crossing rules are left to review`
+# Three types check path forms at construction, and the crossing rules are left to review
 
 ```text
 Three types check path forms at construction; the rules about crossing the boundary have no gate and are left to review.

@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-tooling-inspiration/configs/inspiration.yml.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-inspiration/configs/inspiration.yml.md
+    kind: reference
+    body_sha: "1a9255df99bb"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-PATH#11
+---
 
-`automation/Catzc.Tooling.Inspiration/configs/inspiration.yml`
+# automation/Catzc.Tooling.Inspiration/configs/inspiration.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

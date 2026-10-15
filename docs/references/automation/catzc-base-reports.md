@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-reports.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-reports.md
+    kind: reference
+    body_sha: ec85aa816323
+    adrs: []
+---
 
-`Catzc.Base.Reports`
+# Catzc.Base.Reports
 
 Owns the one output shape every quality gate shares: a report written under the output root, the issues printed, and a single verdict — a
 throw listing every issue, or a result object under `-PassThru` (see [test-automation](../../adr/automation/test-automation.md), the

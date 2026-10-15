@@ -1,6 +1,13 @@
-# docs/explanation/azure/index.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/index.md
+    kind: explanation
+    body_sha: ee060595c823
+    adrs: []
+---
 
-`Azure explanations`
+# Azure explanations
 
 ```text
 How cats models and names what it deploys onto Azure.

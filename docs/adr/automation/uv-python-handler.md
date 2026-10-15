@@ -1,6 +1,13 @@
-# docs/adr/automation/uv-python-handler.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/uv-python-handler.md
+    kind: adr
+    body_sha: "53cadb758d1b"
+    adrs: []
+---
 
-`ADR: uv is the standard Python handler; tools install user-space`
+# ADR: uv is the standard Python handler; tools install user-space
 
 ## Rules: ADR-AUTO-UVPY
 

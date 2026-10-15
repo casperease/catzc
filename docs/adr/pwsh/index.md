@@ -1,6 +1,13 @@
-# docs/adr/pwsh/index.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/index.md
+    kind: adr
+    body_sha: e7e62cc95be3
+    adrs: []
+---
 
-`PowerShell engine ADRs`
+# PowerShell engine ADRs
 
 The ADRs here govern PowerShell 7 as one of catzc's execution engines ([execution-engines](../automation/execution-engines.md)): how the
 engine-agnostic rules of `automation/` are realised in pwsh, and the rules that only mean something in pwsh — module files and manifests,

@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.md
+    kind: asset-description
+    body_sha: "326fb76ea4e5"
+    adrs: []
+---
 
-`Two rules govern every stage, tests and the hook check them, and two gaps remain: the diagram described`
+# Two rules govern every stage, tests and the hook check them, and two gaps remain: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through four bands.

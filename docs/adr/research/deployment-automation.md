@@ -1,6 +1,13 @@
-# docs/adr/research/deployment-automation.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/deployment-automation.md
+    kind: adr
+    body_sha: "179a9dc40c85"
+    adrs: []
+---
 
-`ADR: DORA — Deployment automation`
+# ADR: DORA — Deployment automation
 
 ## Rules: ADR-DORA-DEPLOY
 

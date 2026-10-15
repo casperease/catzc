@@ -1,6 +1,17 @@
-# docs/adr/automation/open-closed-architecture.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/open-closed-architecture.md
+    kind: adr
+    body_sha: "311142b2a5ab"
+    adrs:
+      - ADR-AUTO-EXTEND#1
+      - ADR-AUTO-EXTEND#3
+      - ADR-AUTO-EXTEND#4
+      - ADR-AUTO-EXTEND#5
+---
 
-`ADR: Open/closed architecture`
+# ADR: Open/closed architecture
 
 ## Rules: ADR-AUTO-EXTEND
 

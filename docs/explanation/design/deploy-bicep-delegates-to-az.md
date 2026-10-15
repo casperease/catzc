@@ -1,6 +1,16 @@
-# docs/explanation/design/deploy-bicep-delegates-to-az.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/deploy-bicep-delegates-to-az.md
+    kind: explanation
+    body_sha: df7b0bc977d6
+    adrs:
+      - ADR-AZ-CLI#1
+      - ADR-DSGN-THINPLAT#2
+      - ADR-DSGN-THINPLAT#3
+---
 
-`Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az`
+# Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az
 
 ```text
 Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az.

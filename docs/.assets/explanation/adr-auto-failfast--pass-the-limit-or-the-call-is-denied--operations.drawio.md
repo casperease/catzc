@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.md
+    kind: asset-description
+    body_sha: "0639c2f179a2"
+    adrs: []
+---
 
-`Pass the limit or the call is denied: the diagram described`
+# Pass the limit or the call is denied: the diagram described
 
 ```text
 A 1572 x 650 diagram, read top to bottom through three bands in two columns.

@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-modulesystem/Test-CheckedInBinaries.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-modulesystem/Test-CheckedInBinaries.ps1.md
+    kind: reference
+    body_sha: d63e99600733
+    adrs:
+      - ADR-AUTO-TEST#35
+---
 
-`automation/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1`
+# automation/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

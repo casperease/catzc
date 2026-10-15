@@ -1,6 +1,13 @@
-# docs/how-to/automation/manual-test-plan/root-config-and-editor.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan/root-config-and-editor.md
+    kind: how-to
+    body_sha: "134788ad7604"
+    adrs: []
+---
 
-`Manual test plan — Root config and editor`
+# Manual test plan — Root config and editor
 
 The managed root config files, the importer drift guard, `.gitignore`, and the VS Code registries. Part of the
 [manual test plan](../manual-test-plan.md), which says how to run a check.

@@ -1,6 +1,16 @@
-# docs/explanation/flow/two-declared-layers-one-derived.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/two-declared-layers-one-derived.md
+    kind: explanation
+    body_sha: c84eb71f0891
+    adrs:
+      - ADR-FLOW-CD-GLOBS#10
+      - ADR-FLOW-CD-GLOBS#7
+      - ADR-FLOW-CD-GLOBS#8
+---
 
-`Every globset carries one of three layers, and only two are declared`
+# Every globset carries one of three layers, and only two are declared
 
 ```text
 Every globset carries one of three layers; two are declared in globs.yml, the third is derived.

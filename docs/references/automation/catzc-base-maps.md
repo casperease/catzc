@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-maps.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-maps.md
+    kind: reference
+    body_sha: f9b41c1bf06e
+    adrs:
+      - ADR-DSGN-TRACK#13
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#3
+---
 
-`Catzc.Base.Maps`
+# Catzc.Base.Maps
 
 The maps module. It **computes the world map**: every tracked file placed in exactly one cell of the repository's tracks crossed with its
 file languages, built from the repository's own registries and the git index, never drawn by hand

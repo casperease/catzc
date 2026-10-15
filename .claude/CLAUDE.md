@@ -1,6 +1,4 @@
-# .claude/CLAUDE.md
-
-`pwsh`
+# pwsh
 
 PowerShell 7.4+ module system with zero-ceremony module authoring.
 

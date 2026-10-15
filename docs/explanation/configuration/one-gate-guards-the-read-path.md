@@ -1,6 +1,25 @@
-# docs/explanation/configuration/one-gate-guards-the-read-path.md
+---
+catzc:
+  derived:
+    path: docs/explanation/configuration/one-gate-guards-the-read-path.md
+    kind: explanation
+    body_sha: cd955d1c421d
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-CONF-ADDRESSING#1
+      - ADR-CONF-ADDRESSING#2
+      - ADR-CONF-ADDRESSING#3
+      - ADR-CONF-ADDRESSING#4
+      - ADR-CONF-ADDRESSING#5
+      - ADR-CONF-LOADING#1
+      - ADR-CONF-LOADING#2
+      - ADR-CONF-LOADING#3
+      - ADR-CONF-LOADING#4
+      - ADR-CONF-LOADING#5
+      - ADR-CONF-LOADING#6
+---
 
-`One quality gate guards the config read path, and it checks only the typed step`
+# One quality gate guards the config read path, and it checks only the typed step
 
 ```text
 One quality gate guards the config read path, and it checks only the typed step.

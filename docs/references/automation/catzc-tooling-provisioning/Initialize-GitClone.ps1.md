@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md
+    kind: reference
+    body_sha: "60aab09b65b9"
+    adrs:
+      - ADR-AUTO-DRYRUN#2
+---
 
-`automation/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1`
+# automation/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.md
+    kind: asset-description
+    body_sha: ccd45c8651f3
+    adrs: []
+---
 
-`The coordinate is resolved file by file at discovery: the diagram described`
+# The coordinate is resolved file by file at discovery: the diagram described
 
 ```text
 A 1572 x 720 diagram, read left to right along the top band, then up from the two bands below it.

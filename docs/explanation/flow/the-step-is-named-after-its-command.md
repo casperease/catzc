@@ -1,6 +1,15 @@
-# docs/explanation/flow/the-step-is-named-after-its-command.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/the-step-is-named-after-its-command.md
+    kind: explanation
+    body_sha: "3bbcac23132a"
+    adrs:
+      - ADR-FLOW-CD-RUNNER#3
+      - ADR-FLOW-CD-RUNNER#4
+---
 
-`The Azure DevOps step is named after its command, and its log echoes the command before it runs`
+# The Azure DevOps step is named after its command, and its log echoes the command before it runs
 
 ```text
 The Azure DevOps step is named after its command, and its log echoes the command before it runs.

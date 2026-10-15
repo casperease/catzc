@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-languages/types/GoConfig.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-languages/types/GoConfig.cs.md
+    kind: reference
+    body_sha: "90450cc4d9cf"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TYPES#8
+      - ADR-REPO-FOLDERS#4
+---
 
-`automation/Catzc.Base.Languages/types/GoConfig.cs`
+# automation/Catzc.Base.Languages/types/GoConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

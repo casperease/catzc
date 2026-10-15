@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.md
+    kind: asset-description
+    body_sha: "4552f8f2f2fb"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Invoke-Importer in code order: the diagram described`
+# Invoke-Importer in code order: the diagram described
 
 ```text
 A 1572 x 822 diagram, read top to bottom down one column in one band.

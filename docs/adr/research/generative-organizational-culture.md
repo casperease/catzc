@@ -1,6 +1,13 @@
-# docs/adr/research/generative-organizational-culture.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/generative-organizational-culture.md
+    kind: adr
+    body_sha: e4535674c432
+    adrs: []
+---
 
-`ADR: DORA — Generative organizational culture`
+# ADR: DORA — Generative organizational culture
 
 ## Rules: ADR-DORA-CULTURE
 

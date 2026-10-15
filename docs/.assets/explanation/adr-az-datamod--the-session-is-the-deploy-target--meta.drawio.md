@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.md
+    kind: asset-description
+    body_sha: "5b775529e09f"
+    adrs: []
+---
 
-`The session is the deploy target: the diagram described`
+# The session is the deploy target: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through two bands.

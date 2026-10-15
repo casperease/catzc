@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.md
+    kind: asset-description
+    body_sha: ce5fed6b2bec
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Two code roots feed one importer, which loads the same modules: the diagram described`
+# Two code roots feed one importer, which loads the same modules: the diagram described
 
 ```text
 A 1572 x 740 diagram, read top to bottom through four bands.

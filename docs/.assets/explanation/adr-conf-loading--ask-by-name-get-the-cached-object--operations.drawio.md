@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.md
+    kind: asset-description
+    body_sha: "5304436a0fd6"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Ask by name, get the cached object: the diagram described`
+# Ask by name, get the cached object: the diagram described
 
 ```text
 A 1572 x 700 diagram, read left to right along one band, down into a second band and back up, then down to a band of failures.

@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md
+    kind: reference
+    body_sha: a6a3a399f983
+    adrs:
+      - ADR-AUTO-GO#6
+      - ADR-AUTO-PY#4
+      - ADR-REPO-FORMAT#8
+---
 
-`automation/Catzc.Base.RootConfig/private/Invoke-RootConfigGenerator.ps1`
+# automation/Catzc.Base.RootConfig/private/Invoke-RootConfigGenerator.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

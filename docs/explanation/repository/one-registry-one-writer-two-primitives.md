@@ -1,6 +1,16 @@
-# docs/explanation/repository/one-registry-one-writer-two-primitives.md
+---
+catzc:
+  derived:
+    path: docs/explanation/repository/one-registry-one-writer-two-primitives.md
+    kind: explanation
+    body_sha: "8ebc8a912f72"
+    adrs:
+      - ADR-REPO-ROOTCFG#2
+      - ADR-REPO-ROOTCFG#4
+      - ADR-REPO-ROOTCFG#7
+---
 
-`One registry, one writer, two write primitives, two kinds of target`
+# One registry, one writer, two write primitives, two kinds of target
 
 ```text
 Root config materialisation is one registry, one writer, two write primitives and two kinds of target.

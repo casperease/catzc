@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.md
+    kind: asset-description
+    body_sha: "050064e1bb35"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`The pipelines wire only topic, landed and BVT: the diagram described`
+# The pipelines wire only topic, landed and BVT: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through three bands standing side by side.

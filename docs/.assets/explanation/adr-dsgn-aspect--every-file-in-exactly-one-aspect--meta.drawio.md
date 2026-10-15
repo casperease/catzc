@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md
+    kind: asset-description
+    body_sha: "3c396fcf04f0"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Every module file is in exactly one aspect: the diagram described`
+# Every module file is in exactly one aspect: the diagram described
 
 ```text
 A 1572 x 622 diagram, read left to right through three column bands.

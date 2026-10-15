@@ -1,6 +1,17 @@
-# docs/explanation/flow/globs-module-owns-config-and-types.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/globs-module-owns-config-and-types.md
+    kind: explanation
+    body_sha: acff02a4ee86
+    adrs:
+      - ADR-FLOW-CD-GLOBS#1
+      - ADR-FLOW-CD-GLOBS#5
+      - ADR-FLOW-CD-GLOBS#6
+      - ADR-FLOW-CD-GLOBS#9
+---
 
-`Catzc.Base.Globs computes every globset role from one typed registry`
+# Catzc.Base.Globs computes every globset role from one typed registry
 
 ```text
 Catzc.Base.Globs computes every globset role from one typed registry.

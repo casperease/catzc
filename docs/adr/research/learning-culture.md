@@ -1,6 +1,13 @@
-# docs/adr/research/learning-culture.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/learning-culture.md
+    kind: adr
+    body_sha: acfd23004c4f
+    adrs: []
+---
 
-`ADR: DORA — Learning culture`
+# ADR: DORA — Learning culture
 
 ## Rules: ADR-DORA-LEARNING
 

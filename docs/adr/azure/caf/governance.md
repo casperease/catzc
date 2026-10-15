@@ -1,6 +1,19 @@
-# docs/adr/azure/caf/governance.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/caf/governance.md
+    kind: adr
+    body_sha: ff679b35f782
+    adrs:
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-WAFCO#3
+---
 
-`ADR: CAF governance — what the repository does about each of Microsoft's governance design recommendations`
+# ADR: CAF governance — what the repository does about each of Microsoft's governance design recommendations
 
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone that assigns the policies and carries the budget) and
 [`data-model`](../azure-data-model.md) (the repository-wide `policy_enforcement` setting and the configuration tree every tag and budget

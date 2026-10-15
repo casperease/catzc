@@ -1,6 +1,15 @@
-# docs/adr/automation/zero-ceremony-poka-yoke.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/zero-ceremony-poka-yoke.md
+    kind: adr
+    body_sha: "203576ad0251"
+    adrs:
+      - ADR-AUTO-EXTEND#4
+      - ADR-PWSH-MANIFEST#9
+---
 
-`ADR: Zero ceremony, hard to fail`
+# ADR: Zero ceremony, hard to fail
 
 ## Rules: ADR-AUTO-ZERO
 

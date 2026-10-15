@@ -1,6 +1,16 @@
-# docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md
+    kind: asset-description
+    body_sha: "4277d8fc37cc"
+    adrs:
+      - ADR-AUTO-DRYRUN#2
+      - ADR-AUTO-FAILFAST#7
+      - ADR-PWSH-ASSERT#1
+---
 
-`Invoke-Executable: only the streamed path is time-bounded: the diagram described`
+# Invoke-Executable: only the streamed path is time-bounded: the diagram described
 
 ```text
 A 1588 x 552 diagram, read left to right, forking into two bands, top and bottom.

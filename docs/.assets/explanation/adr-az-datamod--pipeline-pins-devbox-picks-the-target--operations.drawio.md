@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.md
+    kind: asset-description
+    body_sha: "6764f10936d7"
+    adrs: []
+---
 
-`A pipeline pins, a devbox picks the target: the diagram described`
+# A pipeline pins, a devbox picks the target: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

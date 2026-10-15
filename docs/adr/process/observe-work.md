@@ -1,6 +1,13 @@
-# docs/adr/process/observe-work.md
+---
+catzc:
+  derived:
+    path: docs/adr/process/observe-work.md
+    kind: adr
+    body_sha: "352ee47a842a"
+    adrs: []
+---
 
-`ADR: Observe the work — make it visible, and go and see`
+# ADR: Observe the work — make it visible, and go and see
 
 ## Rules: ADR-PROC-OBSERVEWIP
 

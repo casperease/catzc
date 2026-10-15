@@ -1,9 +1,20 @@
-# docs/explanation/azure/two-layers-join-through-one-resolver.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/two-layers-join-through-one-resolver.md
+    kind: explanation
+    body_sha: "0b8ebf5deb43"
+    adrs:
+      - ADR-AZ-CUSTOMER#2
+      - ADR-AZ-DATAMOD#1
+      - ADR-AZ-DATAMOD#3
+      - ADR-AZ-DATAMOD#8
+---
 
-`The templating and identity layers join through one shared check and one resolver`
+# Templating and identity join through one shared check and one resolver
 
 ```text
-The templating and identity layers join through one shared check and one resolver.
+Templating and identity join through one shared check and one resolver.
 
 1  configuration/ tree                    the templating layer: one config file per deployment, under a template
 2  Get-BicepTemplates                     discovery; runs the shared check per file and throws on the first violation

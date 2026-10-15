@@ -1,6 +1,19 @@
-# docs/adr/automation/cross-platform.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/cross-platform.md
+    kind: adr
+    body_sha: "5991ca784914"
+    adrs:
+      - ADR-AUTO-PARITY#1
+      - ADR-PWSH-XPLAT#2
+      - ADR-PWSH-XPLAT#4
+      - ADR-PWSH-XPLAT#6
+      - ADR-PWSH-XPLAT#7
+      - ADR-PWSH-XPLAT#8
+---
 
-`ADR: Must be cross-platform`
+# ADR: Must be cross-platform
 
 ## Rules: ADR-AUTO-XPLAT
 

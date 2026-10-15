@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-tooling-toolchain/private/Get-GoRelease.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-toolchain/private/Get-GoRelease.ps1.md
+    kind: reference
+    body_sha: "2bb6d63125c5"
+    adrs: []
+---
 
-`automation/Catzc.Tooling.Toolchain/private/Get-GoRelease.ps1`
+# automation/Catzc.Tooling.Toolchain/private/Get-GoRelease.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

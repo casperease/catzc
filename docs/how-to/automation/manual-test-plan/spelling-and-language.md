@@ -1,6 +1,13 @@
-# docs/how-to/automation/manual-test-plan/spelling-and-language.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan/spelling-and-language.md
+    kind: how-to
+    body_sha: cc05af7967c1
+    adrs: []
+---
 
-`Manual test plan — Spelling and language`
+# Manual test plan — Spelling and language
 
 Spell-checking, the terminology registry and dictionaries, and the glossary. Part of the [manual test plan](../manual-test-plan.md), which
 says how to run a check.

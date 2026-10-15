@@ -1,6 +1,25 @@
-# docs/how-to/automation/manual-test-plan/repository-conventions.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan/repository-conventions.md
+    kind: how-to
+    body_sha: f1075dbc8b73
+    adrs:
+      - ADR-DSGN-TRACK#1
+      - ADR-DSGN-TRACK#12
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#17
+      - ADR-DSGN-TRACK#3
+      - ADR-DSGN-TRACK#6
+      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-CONTRACT#4
+      - ADR-REPO-CONTRACT#5
+      - ADR-REPO-CONTRACT#9
+---
 
-`Manual test plan — Repository conventions`
+# Manual test plan — Repository conventions
 
 Folder, file, and naming conventions, the repository path helpers, the git index, and the managed-GUID registry. Part of the
 [manual test plan](../manual-test-plan.md), which says how to run a check.

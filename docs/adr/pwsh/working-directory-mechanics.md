@@ -1,6 +1,21 @@
-# docs/adr/pwsh/working-directory-mechanics.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/working-directory-mechanics.md
+    kind: adr
+    body_sha: "215b77f1e4d2"
+    adrs:
+      - ADR-AUTO-ASSETDEP#1
+      - ADR-AUTO-ASSETDEP#2
+      - ADR-AUTO-NOPWD#1
+      - ADR-AUTO-NOPWD#4
+      - ADR-AUTO-NOPWD#6
+      - ADR-PWSH-PWD#2
+      - ADR-PWSH-PWD#4
+      - ADR-PWSH-PWD#6
+---
 
-`ADR: Working-directory mechanics — the PowerShell layer over never-depend-on-pwd`
+# ADR: Working-directory mechanics — the PowerShell layer over never-depend-on-pwd
 
 ## Rules: ADR-PWSH-PWD
 

@@ -1,6 +1,13 @@
-# docs/adr/process/agile.md
+---
+catzc:
+  derived:
+    path: docs/adr/process/agile.md
+    kind: adr
+    body_sha: d01d0860d047
+    adrs: []
+---
 
-`ADR: Agile — defined by the manifesto, measured by responsiveness`
+# ADR: Agile — defined by the manifesto, measured by responsiveness
 
 ## Rules: ADR-PROC-AGILE
 

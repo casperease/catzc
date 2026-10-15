@@ -1,6 +1,15 @@
-# docs/adr/repository/inspiration.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/inspiration.md
+    kind: adr
+    body_sha: "555677c00938"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-PATH#11
+---
 
-`ADR: Inspiration — read for ideas, never a reference implementation`
+# ADR: Inspiration — read for ideas, never a reference implementation
 
 ## Rules: ADR-REPO-INSPIRE
 

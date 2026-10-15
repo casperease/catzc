@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.md
+    kind: asset-description
+    body_sha: a9c68948b0e4
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`No gate checks the runner rules 1 or 4: the diagram described`
+# No gate checks the runner rules 1 or 4: the diagram described
 
 ```text
 A 1572 x 600 diagram: a row of four glyphs above a row of three gates, each gate's edge rising to the glyph above it.

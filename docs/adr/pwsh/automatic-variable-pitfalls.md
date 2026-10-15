@@ -1,6 +1,13 @@
-# docs/adr/pwsh/automatic-variable-pitfalls.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/automatic-variable-pitfalls.md
+    kind: adr
+    body_sha: "6e7918d7cfad"
+    adrs: []
+---
 
-`ADR: Automatic variable pitfalls`
+# ADR: Automatic variable pitfalls
 
 ## Rules: ADR-PWSH-AUTOVAR
 

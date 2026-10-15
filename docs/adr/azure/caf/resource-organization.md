@@ -1,6 +1,34 @@
-# docs/adr/azure/caf/resource-organization.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/caf/resource-organization.md
+    kind: adr
+    body_sha: e19e260878a6
+    adrs:
+      - ADR-AZ-CUSTOMER#2
+      - ADR-AZ-CUSTOMER#4
+      - ADR-AZ-DATAMOD#1
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#2
+      - ADR-AZ-DATAMOD#3
+      - ADR-AZ-DATAMOD#8
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#2
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#5
+      - ADR-AZ-LZ#6
+      - ADR-AZ-LZ#7
+      - ADR-AZ-NETWORK#1
+      - ADR-AZ-NETWORK#3
+      - ADR-AZ-NETWORK#5
+      - ADR-AZ-NETWORK#6
+      - ADR-AZ-WAFRE#10
+      - ADR-DSGN-SELFSERV#1
+---
 
-`ADR: CAF resource organization — what the repository does about each management group and subscription recommendation`
+# ADR: CAF resource organization — what the repository does about each management group and subscription recommendation
 
 Pairs with [`landing-zones`](../landing-zones.md) (the subscription landing zone that stops below the management groups) and
 [`data-model`](../azure-data-model.md) (the subscriptions, environments, and customers every recommendation here is weighed against).

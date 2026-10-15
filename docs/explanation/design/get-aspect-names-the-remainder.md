@@ -1,6 +1,16 @@
-# docs/explanation/design/get-aspect-names-the-remainder.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/get-aspect-names-the-remainder.md
+    kind: explanation
+    body_sha: "640b239cd646"
+    adrs:
+      - ADR-DSGN-ASPECT#3
+      - ADR-REPO-VARIANT#1
+      - ADR-REPO-VARIANT#2
+---
 
-`Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads`
+# Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads
 
 ```text
 Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads.

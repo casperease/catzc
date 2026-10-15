@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md
+    kind: reference
+    body_sha: cf7275ee41ab
+    adrs:
+      - ADR-REPO-LINK#1
+      - ADR-REPO-LINK#6
+---
 
-`automation/Catzc.Base.QualityGates/types/CommentLexer.cs`
+# automation/Catzc.Base.QualityGates/types/CommentLexer.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

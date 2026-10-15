@@ -1,6 +1,23 @@
-# docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
+    kind: explanation
+    body_sha: "5591a605f706"
+    adrs:
+      - ADR-DSGN-ASPECT#2
+      - ADR-DSGN-ASPECT#4
+      - ADR-DSGN-ASPECT#5
+      - ADR-FLOW-CD-GLOBS#9
+      - ADR-PWSH-MANIFEST#2
+      - ADR-PWSH-MANIFEST#3
+      - ADR-PWSH-MANIFEST#4
+      - ADR-PWSH-ONEFUNC#1
+      - ADR-REPO-FOLDERS#10
+      - ADR-REPO-FOLDERS#6
+---
 
-`Partition integrity runs only in unit tests`
+# Partition integrity runs only in unit tests
 
 ```text
 Partition integrity runs only in unit tests, and the per-aspect sha lock has no mechanism.

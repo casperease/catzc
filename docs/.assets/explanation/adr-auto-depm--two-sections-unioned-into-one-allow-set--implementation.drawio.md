@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.md
+    kind: asset-description
+    body_sha: "78eeb186a5b8"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Two sections unioned into one allow-set: the diagram described`
+# Two sections unioned into one allow-set: the diagram described
 
 ```text
 A 1572 x 760 diagram, read top to bottom through four bands.

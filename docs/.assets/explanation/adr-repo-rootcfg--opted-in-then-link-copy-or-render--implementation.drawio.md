@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.md
+    kind: asset-description
+    body_sha: "4894e8cb3096"
+    adrs: []
+---
 
-`The optIn filter, then link, copy or render: the diagram described`
+# The optIn filter, then link, copy or render: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

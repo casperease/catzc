@@ -1,6 +1,21 @@
-# docs/explanation/design/what-keeps-the-platform-thin.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/what-keeps-the-platform-thin.md
+    kind: explanation
+    body_sha: "03b1fe0ec1d7"
+    adrs:
+      - ADR-AZ-CLI#1
+      - ADR-AZ-CLI#2
+      - ADR-AZ-CLI#3
+      - ADR-DSGN-THINPLAT#1
+      - ADR-DSGN-THINPLAT#2
+      - ADR-DSGN-THINPLAT#3
+      - ADR-DSGN-THINPLAT#4
+      - ADR-DSGN-THINPLAT#5
+---
 
-`Three gates guard the CLI and az, but nothing checks that cats stays thin`
+# Three gates guard the CLI and az, but nothing checks that cats stays thin
 
 ```text
 Three gates guard the CLI and az, but nothing checks that cats stays thin.

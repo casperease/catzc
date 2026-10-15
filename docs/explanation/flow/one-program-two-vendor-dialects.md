@@ -1,6 +1,16 @@
-# docs/explanation/flow/one-program-two-vendor-dialects.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/one-program-two-vendor-dialects.md
+    kind: explanation
+    body_sha: db61cae23740
+    adrs:
+      - ADR-FLOW-CD-GLOBS#4
+      - ADR-FLOW-CD-GLOBS#6
+      - ADR-FLOW-CD-GLOBS#8
+---
 
-`One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps`
+# One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps
 
 ```text
 One flattened scan program is rendered exactly for GitHub and by last select for ADO.

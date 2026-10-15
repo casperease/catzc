@@ -1,6 +1,13 @@
-# docs/references/dora/capabilities.md
+---
+catzc:
+  derived:
+    path: docs/references/dora/capabilities.md
+    kind: reference
+    body_sha: "90973063281e"
+    adrs: []
+---
 
-`DORA capability catalogue`
+# DORA capability catalogue
 
 dora.dev publishes 34 capability pages under [/capabilities/](https://dora.dev/capabilities/). This file has one entry per page, plus one
 Core Model capability that has no page. Each entry heading produces an anchor equal to the dora.dev slug, so `capabilities.md#<dora-slug>`

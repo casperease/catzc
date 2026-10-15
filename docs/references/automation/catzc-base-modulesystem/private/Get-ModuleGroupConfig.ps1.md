@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-modulesystem/private/Get-ModuleGroupConfig.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-modulesystem/private/Get-ModuleGroupConfig.ps1.md
+    kind: reference
+    body_sha: fd49627cd81a
+    adrs: []
+---
 
-`automation/Catzc.Base.ModuleSystem/private/Get-ModuleGroupConfig.ps1`
+# automation/Catzc.Base.ModuleSystem/private/Get-ModuleGroupConfig.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

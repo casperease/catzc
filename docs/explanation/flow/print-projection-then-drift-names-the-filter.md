@@ -1,6 +1,14 @@
-# docs/explanation/flow/print-projection-then-drift-names-the-filter.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/print-projection-then-drift-names-the-filter.md
+    kind: explanation
+    body_sha: "2678d113eea1"
+    adrs:
+      - ADR-FLOW-CD-GLOBS#6
+---
 
-`Print the projection, and a drifted pipeline fails naming the filter that differs`
+# Print the projection, and a drifted pipeline fails naming the filter that differs
 
 ```text
 Print the projection, then a drifted pipeline fails naming the filter that differs.

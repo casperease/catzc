@@ -1,6 +1,17 @@
-# docs/explanation/automation/two-crossers-and-three-anchors.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/two-crossers-and-three-anchors.md
+    kind: explanation
+    body_sha: a93d455cb4f2
+    adrs:
+      - ADR-AUTO-PATH#10
+      - ADR-AUTO-PATH#4
+      - ADR-AUTO-PATH#7
+      - ADR-AUTO-PATH#9
+---
 
-`Two crossers anchor on two roots, and a published artifact anchors on its artifact root`
+# Two crossers anchor on two roots, and a published artifact anchors on its artifact root
 
 ```text
 Two crossers anchor on the repository root and the output root; a published artifact anchors on its own artifact root.

@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.md
+    kind: asset-description
+    body_sha: "825acf990686"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`CD binds through units, CI binds track sets: the diagram described`
+# CD binds through units, CI binds track sets: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through three bands.

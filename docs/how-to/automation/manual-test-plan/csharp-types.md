@@ -1,6 +1,13 @@
-# docs/how-to/automation/manual-test-plan/csharp-types.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan/csharp-types.md
+    kind: how-to
+    body_sha: "6880bc8382a3"
+    adrs: []
+---
 
-`Manual test plan — C# types`
+# Manual test plan — C# types
 
 The shipped C# types: they parse, compile, resolve, and the committed combined assembly stays current. Part of the
 [manual test plan](../manual-test-plan.md), which says how to run a check.

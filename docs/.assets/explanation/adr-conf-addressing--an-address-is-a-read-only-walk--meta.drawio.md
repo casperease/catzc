@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.md
+    kind: asset-description
+    body_sha: "29ef2e17fadd"
+    adrs: []
+---
 
-`An address is a read-only walk: the diagram described`
+# An address is a read-only walk: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right along one band, with a second band below for the failure.

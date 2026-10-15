@@ -1,6 +1,13 @@
-# docs/references/pipelines/template-folders.md
+---
+catzc:
+  derived:
+    path: docs/references/pipelines/template-folders.md
+    kind: reference
+    body_sha: "6cd17e0faa5f"
+    adrs: []
+---
 
-`A pipeline template-kind folder`
+# A pipeline template-kind folder
 
 This folder holds Azure DevOps template fragments of exactly one kind — the folder name is the include-kind contract: `steps/` templates
 plug in under `steps:`, `jobs/` under `jobs:`, `stages/` under `stages:`, `variables/` under `variables:`, and `extends/` holds

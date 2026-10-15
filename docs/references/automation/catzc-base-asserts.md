@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-asserts.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-asserts.md
+    kind: reference
+    body_sha: a5186cbe36ce
+    adrs: []
+---
 
-`Catzc.Base.Asserts`
+# Catzc.Base.Asserts
 
 The assertion library. It is the vocabulary every other module uses to state a precondition and stop the moment it is violated. It owns no
 I/O of its own and depends on nothing else — it is the bottom of the stack, the concrete embodiment of

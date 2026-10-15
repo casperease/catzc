@@ -1,6 +1,27 @@
-# docs/explanation/design/which-rung-gates-exist-in-code.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/which-rung-gates-exist-in-code.md
+    kind: explanation
+    body_sha: "086277112b92"
+    adrs:
+      - ADR-AUTO-TEST#24
+      - ADR-DSGN-LIFE#1
+      - ADR-DSGN-LIFE#2
+      - ADR-DSGN-LIFE#3
+      - ADR-DSGN-LIFE#4
+      - ADR-DSGN-LIFE#5
+      - ADR-DSGN-LIFE#6
+      - ADR-DSGN-LIFE#8
+      - ADR-DSGN-LIFE#9
+      - ADR-DSGN-VISUAL#4
+      - ADR-FLOW-CD#12
+      - ADR-FLOW-CD#5
+      - ADR-FLOW-CD#8
+      - ADR-FLOW-CD#9
+---
 
-`Only PR build validation, the BVT and the failure stop are checked in code`
+# Only PR build validation, the BVT and the failure stop are checked in code
 
 ```text
 Three rung checks run in code: PR build validation, the BVT and the failure stop; the rest are ADR-only.

@@ -1,6 +1,13 @@
-# docs/references/infrastructure/templates/foundation/main.bicep.md
+---
+catzc:
+  derived:
+    path: docs/references/infrastructure/templates/foundation/main.bicep.md
+    kind: reference
+    body_sha: "68583318f4f6"
+    adrs: []
+---
 
-`infrastructure/templates/foundation/main.bicep`
+# infrastructure/templates/foundation/main.bicep
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

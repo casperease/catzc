@@ -1,6 +1,13 @@
-# docs/adr/research/version-control.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/version-control.md
+    kind: adr
+    body_sha: "018c90c9fb6e"
+    adrs: []
+---
 
-`ADR: DORA — Version control`
+# ADR: DORA — Version control
 
 ## Rules: ADR-DORA-VCS
 

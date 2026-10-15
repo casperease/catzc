@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md
+    kind: reference
+    body_sha: "49eb6a96bd31"
+    adrs:
+      - ADR-AZ-DATAMOD#2
+---
 
-`automation/Catzc.Azure.Templates/private/Resolve-BicepConfigName.ps1`
+# automation/Catzc.Azure.Templates/private/Resolve-BicepConfigName.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

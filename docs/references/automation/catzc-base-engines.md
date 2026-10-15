@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-engines.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-engines.md
+    kind: reference
+    body_sha: "1b597cfd377d"
+    adrs: []
+---
 
-`Catzc.Base.Engines`
+# Catzc.Base.Engines
 
 Owns the model of the repository's three execution engines, pwsh, bash and zsh: the one declaration of everything that differs between them,
 from how each is started and how it quotes a literal to its strict mode and importer entry

@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md
+    kind: reference
+    body_sha: b4398381f5f9
+    adrs:
+      - ADR-PWSH-TYPES#1
+---
 
-`automation/Catzc.Base.QualityGates/types/SentenceGuid.cs`
+# automation/Catzc.Base.QualityGates/types/SentenceGuid.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

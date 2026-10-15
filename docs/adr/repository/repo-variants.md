@@ -1,6 +1,20 @@
-# docs/adr/repository/repo-variants.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/repo-variants.md
+    kind: adr
+    body_sha: aacdd93c1006
+    adrs:
+      - ADR-AUTO-CACHE#6
+      - ADR-CONF-LOADING#1
+      - ADR-PWSH-CACHE#1
+      - ADR-PWSH-VERBS#6
+      - ADR-REPO-VARIANT#4
+      - ADR-REPO-VARIANT#5
+      - ADR-REPO-VARIANT#6
+---
 
-`ADR: Repo-wide variants — session-fixed settings behind Test-/Assert- primitives`
+# ADR: Repo-wide variants — session-fixed settings behind Test-/Assert- primitives
 
 ## Rules: ADR-REPO-VARIANT
 

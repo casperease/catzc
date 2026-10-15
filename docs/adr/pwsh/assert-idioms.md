@@ -1,6 +1,21 @@
-# docs/adr/pwsh/assert-idioms.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/assert-idioms.md
+    kind: adr
+    body_sha: "780f878a5b15"
+    adrs:
+      - ADR-AUTO-FAILFAST#1
+      - ADR-AUTO-FAILFAST#2
+      - ADR-AUTO-FAILFAST#4
+      - ADR-AUTO-FAILFAST#5
+      - ADR-AUTO-FAILFAST#7
+      - ADR-PWSH-ASSERT#1
+      - ADR-PWSH-AUTOVAR#2
+      - ADR-PWSH-ERROR#3
+---
 
-`ADR: Assert idioms — failing fast in pwsh`
+# ADR: Assert idioms — failing fast in pwsh
 
 ## Rules: ADR-PWSH-ASSERT
 

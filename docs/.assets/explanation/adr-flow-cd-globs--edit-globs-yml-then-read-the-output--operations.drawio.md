@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--edit-globs-yml-then-read-the-output--operations.drawio.md
+    kind: asset-description
+    body_sha: "1e5c5dd52914"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Edit globs.yml, then read the output: the diagram described`
+# Edit globs.yml, then read the output: the diagram described
 
 ```text
 A 1572 x 560 diagram, read left to right through four bands.

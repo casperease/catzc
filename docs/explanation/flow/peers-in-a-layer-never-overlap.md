@@ -1,6 +1,15 @@
-# docs/explanation/flow/peers-in-a-layer-never-overlap.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/peers-in-a-layer-never-overlap.md
+    kind: explanation
+    body_sha: e6efd0ad79ce
+    adrs:
+      - ADR-FLOW-CD-GLOBS#10
+      - ADR-FLOW-CD-GLOBS#7
+---
 
-`Peers in a layer never share a file, except in the loose-fileset layer`
+# Peers in a layer never share a file, except in the loose-fileset layer
 
 ```text
 Peers in a layer never share a file on their own contribution; only loose-filesets may overlap.

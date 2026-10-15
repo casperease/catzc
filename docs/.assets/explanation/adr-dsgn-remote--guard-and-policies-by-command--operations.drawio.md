@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.md
+    kind: asset-description
+    body_sha: b1e38c2ae347
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Flip git_workspace; sync the ADO policies: the diagram described`
+# Flip git_workspace; sync the ADO policies: the diagram described
 
 ```text
 A 1572 x 600 diagram, read top to bottom through two bands, ON A CLONE and ADMIN, each left to right.

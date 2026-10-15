@@ -1,6 +1,15 @@
-# docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
+    kind: explanation
+    body_sha: d24069d9bd3b
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-FAILFAST#7
+---
 
-`Two rules govern every stage, tests and the hook check them, and two gaps remain`
+# Two rules govern every stage, tests and the hook check them, and two gaps remain
 
 ```text
 Two rules govern every stage of the limit's resolution, tests and the hook check them, and two gaps remain.

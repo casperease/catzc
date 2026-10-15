@@ -1,6 +1,13 @@
-# docs/references/dora/core-model.md
+---
+catzc:
+  derived:
+    path: docs/references/dora/core-model.md
+    kind: reference
+    body_sha: "523a0e9c4ca7"
+    adrs: []
+---
 
-`DORA Core Model`
+# DORA Core Model
 
 The DORA Core Model is DORA's distillation of the capabilities, metrics, and outcomes its research has demonstrated repeatedly. It is shown
 as an interactive diagram on the [research page](https://dora.dev/research/). The current version is **v2.1.0**: the diagram's footer

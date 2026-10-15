@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.md
+    kind: asset-description
+    body_sha: ae919ffeadf0
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Only PR build validation, the BVT and the failure stop are checked in code: the diagram described`
+# Only PR build validation, the BVT and the failure stop are checked in code: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right along one row of gates and commits, with a second band below.

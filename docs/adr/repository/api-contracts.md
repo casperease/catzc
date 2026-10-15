@@ -1,6 +1,26 @@
-# docs/adr/repository/api-contracts.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/api-contracts.md
+    kind: adr
+    body_sha: cdee2333ea01
+    adrs:
+      - ADR-AUTO-BUNDLE#7
+      - ADR-AUTO-DEFAULT#6
+      - ADR-PRIN-ONELIVE#7
+      - ADR-REPO-CONTRACT#1
+      - ADR-REPO-CONTRACT#10
+      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-CONTRACT#3
+      - ADR-REPO-CONTRACT#5
+      - ADR-REPO-CONTRACT#6
+      - ADR-REPO-CONTRACT#7
+      - ADR-REPO-CONTRACT#9
+      - ADR-REPO-FOLDERS#4
+      - ADR-REPO-ROOTCFG#1
+---
 
-`ADR: Contracts at the repository boundary — both directions, versioned with their unit, proven by tests`
+# ADR: Contracts at the repository boundary — both directions, versioned with their unit, proven by tests
 
 ## Rules: ADR-REPO-CONTRACT
 

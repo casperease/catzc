@@ -1,6 +1,17 @@
-# docs/explanation/azure/one-namer-assembles-every-name.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/one-namer-assembles-every-name.md
+    kind: explanation
+    body_sha: "9a514dbf85a3"
+    adrs:
+      - ADR-AZ-NAMING#1
+      - ADR-AZ-NAMING#4
+      - ADR-AZ-NAMING#5
+      - ADR-AZ-NAMING#8
+---
 
-`One resolver gathers the components and one namer assembles every Azure name`
+# One resolver gathers the components and one namer assembles every Azure name
 
 ```text
 Every Azure name comes out of one resolver and one namer; nothing else builds names.

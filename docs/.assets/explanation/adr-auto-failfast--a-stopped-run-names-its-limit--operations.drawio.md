@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-failfast--a-stopped-run-names-its-limit--operations.drawio.md
+    kind: asset-description
+    body_sha: "94cd0541af62"
+    adrs: []
+---
 
-`A run past its limit stops with a message that names the limit: the diagram described`
+# A run past its limit stops with a message that names the limit: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

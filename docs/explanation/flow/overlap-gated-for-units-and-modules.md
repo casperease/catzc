@@ -1,6 +1,17 @@
-# docs/explanation/flow/overlap-gated-for-units-and-modules.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/overlap-gated-for-units-and-modules.md
+    kind: explanation
+    body_sha: "0c1d71f47fcd"
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-FLOW-CD-GLOBS#10
+      - ADR-FLOW-CD-GLOBS#7
+      - ADR-REPO-PROTGLOB#7
+---
 
-`A gate checks overlap for units and modules, and loose-filesets are exempt`
+# A gate checks overlap for units and modules, and loose-filesets are exempt
 
 ```text
 A quality gate keeps units and modules disjoint; loose-filesets are exempt; two prohibitions are ADR-only.

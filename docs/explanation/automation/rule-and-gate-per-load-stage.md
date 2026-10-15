@@ -1,6 +1,24 @@
-# docs/explanation/automation/rule-and-gate-per-load-stage.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/rule-and-gate-per-load-stage.md
+    kind: explanation
+    body_sha: a8f85abfe3b2
+    adrs:
+      - ADR-AUTO-BUNDLE#2
+      - ADR-AUTO-BUNDLE#3
+      - ADR-AUTO-BUNDLE#8
+      - ADR-AUTO-TYPES#13
+      - ADR-DSGN-RUNMODE#1
+      - ADR-DSGN-RUNMODE#5
+      - ADR-PRIN-ONELIVE#1
+      - ADR-PWSH-ERROR#1
+      - ADR-PWSH-TYPES#2
+      - ADR-REPO-ROOTCFG#1
+      - ADR-REPO-ROOTCFG#4
+---
 
-`Every load stage but the unload has an ADR rule and a gate`
+# Every load stage but the unload has an ADR rule and a gate
 
 ```text
 Every load stage but the unload has an ADR rule and a gate.

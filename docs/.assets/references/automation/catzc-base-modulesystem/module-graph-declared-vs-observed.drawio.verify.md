@@ -1,6 +1,18 @@
-# docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
+    kind: asset-description
+    body_sha: "9443abfdc337"
+    adrs:
+      - ADR-AUTO-CACHE#2
+      - ADR-AUTO-DEPM#4
+      - ADR-AUTO-TEST#4
+      - ADR-PWSH-CACHE#4
+      - ADR-PWSH-PESTER#9
+---
 
-`out/diagrams/wave-9/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md`
+# out/diagrams/wave-9/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md
 
 `Verification: Declared graph orders and closes; observed graph is checked (source lens, Catzc.Base.ModuleSystem)`
 

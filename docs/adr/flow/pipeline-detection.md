@@ -1,6 +1,13 @@
-# docs/adr/flow/pipeline-detection.md
+---
+catzc:
+  derived:
+    path: docs/adr/flow/pipeline-detection.md
+    kind: adr
+    body_sha: "0934c24a5d75"
+    adrs: []
+---
 
-`ADR: Pipeline detection — how functions adapt to their execution context`
+# ADR: Pipeline detection — how functions adapt to their execution context
 
 ## Rules: ADR-FLOW-CD-DETECT
 

@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-files/types/FileLockingProcess.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-files/types/FileLockingProcess.cs.md
+    kind: reference
+    body_sha: "8b6054e2687f"
+    adrs: []
+---
 
-`automation/Catzc.Base.Files/types/FileLockingProcess.cs`
+# automation/Catzc.Base.Files/types/FileLockingProcess.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

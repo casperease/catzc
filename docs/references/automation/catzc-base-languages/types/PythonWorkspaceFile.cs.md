@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-languages/types/PythonWorkspaceFile.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-languages/types/PythonWorkspaceFile.cs.md
+    kind: reference
+    body_sha: "336ea67e73b2"
+    adrs:
+      - ADR-AUTO-TYPES#8
+---
 
-`automation/Catzc.Base.Languages/types/PythonWorkspaceFile.cs`
+# automation/Catzc.Base.Languages/types/PythonWorkspaceFile.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

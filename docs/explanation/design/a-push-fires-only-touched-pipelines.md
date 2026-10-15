@@ -1,6 +1,15 @@
-# docs/explanation/design/a-push-fires-only-touched-pipelines.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/a-push-fires-only-touched-pipelines.md
+    kind: explanation
+    body_sha: bdee370f2672
+    adrs:
+      - ADR-DSGN-TRACK#4
+      - ADR-DSGN-TRACK#5
+---
 
-`A push starts only the pipelines whose globset it touches`
+# A push starts only the pipelines whose globset it touches
 
 ```text
 A push starts only the pipelines whose globset holds a changed file.

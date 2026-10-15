@@ -1,6 +1,13 @@
-# docs/adr/research/visual-management.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/visual-management.md
+    kind: adr
+    body_sha: c9c9dacd1070
+    adrs: []
+---
 
-`ADR: DORA — Visual management`
+# ADR: DORA — Visual management
 
 ## Rules: ADR-DORA-VISUAL
 

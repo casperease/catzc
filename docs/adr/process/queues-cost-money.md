@@ -1,6 +1,13 @@
-# docs/adr/process/queues-cost-money.md
+---
+catzc:
+  derived:
+    path: docs/adr/process/queues-cost-money.md
+    kind: adr
+    body_sha: "620d1efbab2c"
+    adrs: []
+---
 
-`ADR: The money is lost in the queues — Little's Law and the cost of delay`
+# ADR: The money is lost in the queues — Little's Law and the cost of delay
 
 ## Rules: ADR-PROC-QUEUECOST
 

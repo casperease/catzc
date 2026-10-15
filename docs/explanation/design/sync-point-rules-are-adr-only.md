@@ -1,6 +1,21 @@
-# docs/explanation/design/sync-point-rules-are-adr-only.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/sync-point-rules-are-adr-only.md
+    kind: explanation
+    body_sha: "3cd7f3cab990"
+    adrs:
+      - ADR-DSGN-LIFE#2
+      - ADR-DSGN-LIFE#5
+      - ADR-DSGN-LIFE#6
+      - ADR-DSGN-LIFE#7
+      - ADR-DSGN-LIFE#8
+      - ADR-FLOW-CD#11
+      - ADR-FLOW-CD#5
+      - ADR-FLOW-CD#9
+---
 
-`Only BVT has a gate in code; the sync-point rules are ADR-only`
+# Only BVT has a gate in code; the sync-point rules are ADR-only
 
 ```text
 Only the BVT rung has a gate in code; every sync-point rule is ADR-only.

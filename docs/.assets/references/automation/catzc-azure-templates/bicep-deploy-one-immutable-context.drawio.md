@@ -1,6 +1,16 @@
-# docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md
+    kind: asset-description
+    body_sha: "053bd80fdbac"
+    adrs:
+      - ADR-AZ-DATAMOD#4
+      - ADR-PWSH-DRYRUN#1
+      - ADR-PWSH-ERROR#8
+---
 
-`One immutable context, resolved from the az session: the diagram described`
+# One immutable context, resolved from the az session: the diagram described
 
 ```text
 A 1588 x 732 diagram, read top to bottom through two bands, entered from the left.

@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-rootconfig.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-rootconfig.md
+    kind: reference
+    body_sha: "810b6c72d9b8"
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-ROOTCFG#6
+      - ADR-REPO-ROOTCFG#7
+---
 
-`Catzc.Base.RootConfig`
+# Catzc.Base.RootConfig
 
 The managed root-config module. It owns the rule that an opted-in repository-root configuration file is **fully managed by the
 source-of-truth automation** — materialised on every import from exactly one in-repo source of truth (see

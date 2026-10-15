@@ -1,6 +1,16 @@
-# docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+    kind: asset-description
+    body_sha: f34f60e47714
+    adrs:
+      - ADR-AUTO-PRELOG#5
+      - ADR-AZ-CLI#1
+      - ADR-AZ-DATAMOD#4
+---
 
-`Three az checks: Test and Assert share one state call: the diagram described`
+# Three az checks: Test and Assert share one state call: the diagram described
 
 ```text
 A 1588 x 828 diagram, read top to bottom through three side-by-side bands, then one shared band.

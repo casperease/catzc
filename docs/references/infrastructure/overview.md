@@ -1,6 +1,13 @@
-# docs/references/infrastructure/overview.md
+---
+catzc:
+  derived:
+    path: docs/references/infrastructure/overview.md
+    kind: reference
+    body_sha: "6b593dbc30b7"
+    adrs: []
+---
 
-`infrastructure`
+# infrastructure
 
 Bicep for the templating system, in two folders:
 

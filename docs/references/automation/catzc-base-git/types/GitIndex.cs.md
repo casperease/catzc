@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-git/types/GitIndex.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-git/types/GitIndex.cs.md
+    kind: reference
+    body_sha: "0133eb836114"
+    adrs: []
+---
 
-`automation/Catzc.Base.Git/types/GitIndex.cs`
+# automation/Catzc.Base.Git/types/GitIndex.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

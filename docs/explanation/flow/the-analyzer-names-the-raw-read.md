@@ -1,6 +1,16 @@
-# docs/explanation/flow/the-analyzer-names-the-raw-read.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/the-analyzer-names-the-raw-read.md
+    kind: explanation
+    body_sha: "3c30ffb9e17f"
+    adrs:
+      - ADR-AUTO-PARITY#2
+      - ADR-FLOW-CD-DETECT#1
+      - ADR-FLOW-CD-DETECT#4
+---
 
-`A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam`
+# A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam
 
 ```text
 A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam.

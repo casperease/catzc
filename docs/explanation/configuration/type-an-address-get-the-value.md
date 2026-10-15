@@ -1,6 +1,17 @@
-# docs/explanation/configuration/type-an-address-get-the-value.md
+---
+catzc:
+  derived:
+    path: docs/explanation/configuration/type-an-address-get-the-value.md
+    kind: explanation
+    body_sha: "5b750addd2a4"
+    adrs:
+      - ADR-AUTO-ENVVAR#7
+      - ADR-CONF-ADDRESSING#1
+      - ADR-CONF-ADDRESSING#3
+      - ADR-CONF-ADDRESSING#4
+---
 
-`Type an address and get its value back; a wrong address throws its message at the call`
+# Type an address and get its value back; a wrong address throws its message at the call
 
 ```text
 Type an address and get its value back; a wrong address throws its message at the call.

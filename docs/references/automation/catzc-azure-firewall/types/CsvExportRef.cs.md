@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure-firewall/types/CsvExportRef.cs.md
+    kind: reference
+    body_sha: f5a6a88d35f4
+    adrs: []
+---
 
-`automation/Catzc.Azure.Firewall/types/CsvExportRef.cs`
+# automation/Catzc.Azure.Firewall/types/CsvExportRef.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

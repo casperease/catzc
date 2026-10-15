@@ -1,6 +1,16 @@
-# docs/adr/repository/generated-root-configs.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/generated-root-configs.md
+    kind: adr
+    body_sha: "8e8408f57fe4"
+    adrs:
+      - ADR-REPO-ROOTCFG#4
+      - ADR-REPO-ROOTCFG#6
+      - ADR-REPO-ROOTCFG#7
+---
 
-`ADR: Generated root configs — every managed root file from one in-repo source of truth`
+# ADR: Generated root configs — every managed root file from one in-repo source of truth
 
 ## Rules: ADR-REPO-ROOTCFG
 

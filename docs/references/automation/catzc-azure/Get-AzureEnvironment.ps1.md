@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-azure/Get-AzureEnvironment.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure/Get-AzureEnvironment.ps1.md
+    kind: reference
+    body_sha: fd868c7b13d3
+    adrs:
+      - ADR-AZ-DATAMOD#4
+---
 
-`automation/Catzc.Azure/Get-AzureEnvironment.ps1`
+# automation/Catzc.Azure/Get-AzureEnvironment.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

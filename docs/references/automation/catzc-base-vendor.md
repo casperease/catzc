@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-vendor.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-vendor.md
+    kind: reference
+    body_sha: "6d37b6c9b1f7"
+    adrs: []
+---
 
-`Catzc.Base.Vendor`
+# Catzc.Base.Vendor
 
 Owns the vendored third-party PowerShell modules under `automation/.vendor/` — adding them, removing them, and proving they can be restored
 from the network. Vendoring checks each dependency's exact version straight into the repository so a load needs no gallery query

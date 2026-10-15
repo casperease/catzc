@@ -1,6 +1,21 @@
-# docs/adr/repository/uniform-formatting.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/uniform-formatting.md
+    kind: adr
+    body_sha: "8a467be832c2"
+    adrs:
+      - ADR-PRIN-CONFIG#1
+      - ADR-REPO-CONTRACT#5
+      - ADR-REPO-CONTRACT#6
+      - ADR-REPO-FORMAT#1
+      - ADR-REPO-FORMAT#6
+      - ADR-REPO-FORMAT#7
+      - ADR-REPO-MDMETA#1
+      - ADR-REPO-MDMETA#3
+---
 
-`ADR: Uniform formatting — the whole repository, one mechanical standard`
+# ADR: Uniform formatting — the whole repository, one mechanical standard
 
 ## Rules: ADR-REPO-FORMAT
 
@@ -44,10 +59,10 @@ cleanly across commits. It is never hand-formatted, not even inside a generator'
 
 Every git-tracked Markdown file opens — after any YAML front matter — with an H1 that is the document's title: words that say what it is,
 never its repository path. The path is a derived fact in the file's meta block (`path`,
-[ADR-REPO-MDMETA#3](markdown-meta.md#rule-adr-repo-mdmeta3)), written by `Format-MarkdownMeta`. `Test-MarkdownTitle` checks the title, and
-a file whose H1 is its own path, or that has no H1, is reported for its author to write, since no tool can invent a title. The scope
-follows the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored`,
-`linguist-generated`, `catzc-fixture` (the test fixture trees), or `catzc-contract` (the contract assets,
+[ADR-REPO-MDMETA#3](markdown-meta.md#rule-adr-repo-mdmeta3)), written by `Format-MarkdownMeta`. `Test-MarkdownTitle` checks the title, and a
+file whose H1 is its own path, or that has no H1, is reported for its author to write, since no tool can invent a title. The scope follows
+the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored`, `linguist-generated`,
+`catzc-fixture` (the test fixture trees), or `catzc-contract` (the contract assets,
 [ADR-REPO-CONTRACT#6](api-contracts.md#rule-adr-repo-contract6)). A new exception is declared in the `.gitattributes` source, never in a
 list of the gate's own.
 
@@ -157,18 +172,18 @@ forbids, merely moved into code; it drifts the moment a field is added and churn
 A document is read through a generated README, a search result, a printout, or a pasted excerpt, and each of those shows the first heading
 and loses the folder the file came from. The heading is therefore the document's own words, which name it in all of them. Where the file
 lives is a fact the repository can compute, so it sits in the meta block as `path`, written by a formatter and checked byte for byte: a
-moved file drifts and is rewritten, and no author keeps it in step by hand. Each fact has one home, the words in the H1 and the location
-in the meta block, so neither is typed twice.
+moved file drifts and is rewritten, and no author keeps it in step by hand. Each fact has one home, the words in the H1 and the location in
+the meta block, so neither is typed twice.
 
 An H1 that is the file's own path says nothing a reader cannot already see, so it is not a title. A file with a path H1 and one code-span
-line below it takes that line's text as its title, and the line goes. A file with a path H1 and nothing to take, or with no H1, has no
-words to promote, so the gate reports it and the author writes the title. The file keeps one title and one heading normal form
+line below it takes that line's text as its title, and the line goes. A file with a path H1 and nothing to take, or with no H1, has no words
+to promote, so the gate reports it and the author writes the title. The file keeps one title and one heading normal form
 (ADR-REPO-FORMAT#7).
 
 The scope reuses the classes the repository already declares instead of keeping its own: git decides what is committed (a gitignored
 generated file is out, its tracked source is in), and `.gitattributes` decides what is vendored, generated, or a fixture (`catzc-fixture`
-and `catzc-contract`: data on purpose, which the link tools skip too — a contract asset's bytes are what its contract check compares).
-Every file in scope keeps its own title, so the title has no opt-out attribute.
+and `catzc-contract`: data on purpose, which the link tools skip too — a contract asset's bytes are what its contract check compares). Every
+file in scope keeps its own title, so the title has no opt-out attribute.
 
 ### Headings are plain words
 

@@ -1,6 +1,15 @@
-# docs/adr/repository/generated-readmes.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/generated-readmes.md
+    kind: adr
+    body_sha: "7996303847b0"
+    adrs:
+      - ADR-PWSH-MANIFEST#3
+      - ADR-REPO-MDMETA#1
+---
 
-`ADR: Generated READMEs — one authored source, copied out per conventional folder with its links rebased`
+# ADR: Generated READMEs — one authored source, copied out per conventional folder with its links rebased
 
 ## Rules: ADR-REPO-README
 

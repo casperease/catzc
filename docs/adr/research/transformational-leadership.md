@@ -1,6 +1,13 @@
-# docs/adr/research/transformational-leadership.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/transformational-leadership.md
+    kind: adr
+    body_sha: "7ebd59f1084e"
+    adrs: []
+---
 
-`ADR: DORA — Transformational leadership`
+# ADR: DORA — Transformational leadership
 
 ## Rules: ADR-DORA-LEADERSHIP
 

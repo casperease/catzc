@@ -1,6 +1,15 @@
-# docs/adr/automation/platform-bundle.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/platform-bundle.md
+    kind: adr
+    body_sha: "4dacfa995a0b"
+    adrs:
+      - ADR-AUTO-BUNDLE#8
+      - ADR-FLOW-CD-GLOBS#5
+---
 
-`ADR: Platform bundle — the merged, versioned, installable Catzc build`
+# ADR: Platform bundle — the merged, versioned, installable Catzc build
 
 ## Rules: ADR-AUTO-BUNDLE
 

@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.md
+    kind: asset-description
+    body_sha: "302b2e857150"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Deploying a topic commit is not integrating it: the diagram described`
+# Deploying a topic commit is not integrating it: the diagram described
 
 ```text
 A 1572 x 630 diagram, read left to right through four column bands.

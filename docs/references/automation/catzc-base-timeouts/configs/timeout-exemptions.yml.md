@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-timeouts/configs/timeout-exemptions.yml.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-timeouts/configs/timeout-exemptions.yml.md
+    kind: reference
+    body_sha: be07c568d106
+    adrs: []
+---
 
-`automation/Catzc.Base.Timeouts/configs/timeout-exemptions.yml`
+# automation/Catzc.Base.Timeouts/configs/timeout-exemptions.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

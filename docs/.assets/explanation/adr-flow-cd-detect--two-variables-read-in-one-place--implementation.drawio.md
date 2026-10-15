@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.md
+    kind: asset-description
+    body_sha: "7261e1b7fb1a"
+    adrs: []
+---
 
-`Two variables read in one place: the diagram described`
+# Two variables read in one place: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands, then left to right along a fourth.

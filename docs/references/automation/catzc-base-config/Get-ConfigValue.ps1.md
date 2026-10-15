@@ -1,6 +1,19 @@
-# docs/references/automation/catzc-base-config/Get-ConfigValue.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-config/Get-ConfigValue.ps1.md
+    kind: reference
+    body_sha: f5392dd5edca
+    adrs:
+      - ADR-AUTO-ENVVAR#7
+      - ADR-CONF-ADDRESSING#3
+      - ADR-CONF-ADDRESSING#4
+      - ADR-CONF-ADDRESSING#5
+      - ADR-CONF-LOADING#1
+      - ADR-CONF-LOADING#2
+---
 
-`automation/Catzc.Base.Config/Get-ConfigValue.ps1`
+# automation/Catzc.Base.Config/Get-ConfigValue.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

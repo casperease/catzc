@@ -1,6 +1,14 @@
-# docs/adr/automation/consumer-overlay.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/consumer-overlay.md
+    kind: adr
+    body_sha: ff4554a3466b
+    adrs:
+      - ADR-AUTO-OVERLAY#9
+---
 
-`ADR: Consumer overlay — a consumer changes a built bundle only through .catzc/`
+# ADR: Consumer overlay — a consumer changes a built bundle only through .catzc/
 
 ## Rules: ADR-AUTO-OVERLAY
 

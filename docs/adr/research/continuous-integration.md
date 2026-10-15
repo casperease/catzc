@@ -1,6 +1,13 @@
-# docs/adr/research/continuous-integration.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/continuous-integration.md
+    kind: adr
+    body_sha: "6e3811077548"
+    adrs: []
+---
 
-`ADR: DORA — Continuous integration`
+# ADR: DORA — Continuous integration
 
 ## Rules: ADR-DORA-CI
 

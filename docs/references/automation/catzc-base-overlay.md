@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-overlay.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-overlay.md
+    kind: reference
+    body_sha: a4a0355391e6
+    adrs: []
+---
 
-`Catzc.Base.Overlay`
+# Catzc.Base.Overlay
 
 The consumer overlay module. It **applies a consumer's changes to a built bundle** — the overlay, the `.catzc/` folder in the consumer's own
 working root, where every file sits at the path of what it changes in the bundle — and checks them as a whole first, so nothing applies

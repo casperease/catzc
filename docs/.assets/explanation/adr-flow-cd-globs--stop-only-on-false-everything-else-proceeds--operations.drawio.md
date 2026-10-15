@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.md
+    kind: asset-description
+    body_sha: "0c50ac04051e"
+    adrs: []
+---
 
-`Stop only on $false, everything else proceeds: the diagram described`
+# Stop only on $false, everything else proceeds: the diagram described
 
 ```text
 A 1572 x 640 diagram, read top to bottom through three bands.

@@ -1,6 +1,19 @@
-# docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.verify.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.verify.md
+    kind: asset-description
+    body_sha: c86fdd7aabd6
+    adrs:
+      - ADR-AUTO-BASH#6
+      - ADR-AUTO-DEPS#2
+      - ADR-AUTO-DEPS#3
+      - ADR-AUTO-DRYRUN#2
+      - ADR-CONF-LOADING#6
+      - ADR-PWSH-CACHE#4
+---
 
-`Verification: Each Invoke-<Tool> asserts the locked version before it runs (source lens, Catzc.Tooling.Core)`
+# Verification: Each `Invoke-<Tool>` asserts the locked version before it runs (source lens, Catzc.Tooling.Core)
 
 Every line below was re-read on 2026-10-15 after the comment export. The scout's line numbers had moved (`Assert-Tool.ps1:30,36,55` is now
 `:30,31,47,50`; `Test-Tool.ps1:42,56,68` is now `:34,35,49`; `Get-ToolVersion.ps1:25` is now `:22`). Only the wrapper lines

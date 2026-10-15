@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-path--two-crossers-and-three-anchors--architecture.drawio.md
+    kind: asset-description
+    body_sha: "90ce96d04619"
+    adrs: []
+---
 
-`Two crossers and three anchors: the diagram described`
+# Two crossers and three anchors: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands, then the band below.

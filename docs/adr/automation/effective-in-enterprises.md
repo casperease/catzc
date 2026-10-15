@@ -1,6 +1,13 @@
-# docs/adr/automation/effective-in-enterprises.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/effective-in-enterprises.md
+    kind: adr
+    body_sha: "600c7ffc8192"
+    adrs: []
+---
 
-`ADR: Effective in enterprise environments`
+# ADR: Effective in enterprise environments
 
 ## Rules: ADR-AUTO-ENTERP
 

@@ -1,6 +1,17 @@
-# docs/explanation/configuration/three-caches-back-one-reader.md
+---
+catzc:
+  derived:
+    path: docs/explanation/configuration/three-caches-back-one-reader.md
+    kind: explanation
+    body_sha: "9449ba4f8a11"
+    adrs:
+      - ADR-CONF-LOADING#1
+      - ADR-CONF-LOADING#2
+      - ADR-CONF-LOADING#3
+      - ADR-CONF-LOADING#4
+---
 
-`Three session caches back the one config reader`
+# Three session caches back the one config reader
 
 ```text
 Three session caches back the one config reader, each filled once and kept until re-import.

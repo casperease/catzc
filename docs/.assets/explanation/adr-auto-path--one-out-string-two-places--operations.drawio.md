@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-path--one-out-string-two-places--operations.drawio.md
+    kind: asset-description
+    body_sha: "5f9c5d88d4fb"
+    adrs: []
+---
 
-`One out/ string, two places: the diagram described`
+# One out/ string, two places: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

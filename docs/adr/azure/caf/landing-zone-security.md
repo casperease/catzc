@@ -1,6 +1,36 @@
-# docs/adr/azure/caf/landing-zone-security.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/caf/landing-zone-security.md
+    kind: adr
+    body_sha: acf70e0b97e3
+    adrs:
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#2
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#6
+      - ADR-AZ-NETWORK#1
+      - ADR-AZ-NETWORK#3
+      - ADR-AZ-NETWORK#6
+      - ADR-AZ-WAFOE#7
+      - ADR-AZ-WAFRE#1
+      - ADR-AZ-WAFRE#5
+      - ADR-AZ-WAFSE#1
+      - ADR-AZ-WAFSE#10
+      - ADR-AZ-WAFSE#12
+      - ADR-AZ-WAFSE#3
+      - ADR-AZ-WAFSE#4
+      - ADR-AZ-WAFSE#5
+      - ADR-AZ-WAFSE#6
+      - ADR-AZ-WAFSE#7
+      - ADR-AZ-WAFSE#8
+      - ADR-AZ-WAFSE#9
+---
 
-`ADR: CAF security — what the repository does about each recommendation of the landing-zone security design area`
+# ADR: CAF security — what the repository does about each recommendation of the landing-zone security design area
 
 Pairs with [`waf-security`](../waf/security.md) (the workload view of the same concerns; its rules are cited here, not repeated) and
 [`landing-zones`](../landing-zones.md) (the landing zone these recommendations apply to).

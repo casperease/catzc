@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-docs/types/AdrCitationRewrite.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-docs/types/AdrCitationRewrite.cs.md
+    kind: reference
+    body_sha: ce942eed4b7e
+    adrs:
+      - ADR-AUTO-TYPES#9
+---
 
-`automation/Catzc.Base.Docs/types/AdrCitationRewrite.cs`
+# automation/Catzc.Base.Docs/types/AdrCitationRewrite.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

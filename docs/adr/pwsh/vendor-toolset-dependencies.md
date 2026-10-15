@@ -1,6 +1,15 @@
-# docs/adr/pwsh/vendor-toolset-dependencies.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/vendor-toolset-dependencies.md
+    kind: adr
+    body_sha: "6eefb77c0042"
+    adrs:
+      - ADR-AUTO-DEPM#8
+      - ADR-PWSH-VENDOR#4
+---
 
-`ADR: Vendor toolset dependencies`
+# ADR: Vendor toolset dependencies
 
 ## Rules: ADR-PWSH-VENDOR
 

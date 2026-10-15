@@ -1,6 +1,15 @@
-# docs/adr/repository/output-formats.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/output-formats.md
+    kind: adr
+    body_sha: c2b95f4a9247
+    adrs:
+      - ADR-AUTO-PATH#10
+      - ADR-REPO-OUTFMT#6
+---
 
-`ADR: Output formats — one catalogue of what lands under the output root`
+# ADR: Output formats — one catalogue of what lands under the output root
 
 ## Rules: ADR-REPO-OUTFMT
 

@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.md
+    kind: asset-description
+    body_sha: "9c50f9f14d8f"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Three gates guard the CLI and az: the diagram described`
+# Three gates guard the CLI and az: the diagram described
 
 ```text
 A 1572 x 800 diagram, read top to bottom through four bands.

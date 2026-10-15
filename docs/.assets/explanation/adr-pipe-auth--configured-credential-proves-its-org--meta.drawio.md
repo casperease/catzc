@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.md
+    kind: asset-description
+    body_sha: "136cc22ac14c"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`The first configured credential wins: the diagram described`
+# The first configured credential wins: the diagram described
 
 ```text
 A 1572 x 610 diagram, read top to bottom inside one band, PRECEDENCE.

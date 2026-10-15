@@ -1,6 +1,14 @@
-# docs/adr/pipelines/pipeline-variables.md
+---
+catzc:
+  derived:
+    path: docs/adr/pipelines/pipeline-variables.md
+    kind: adr
+    body_sha: "539e1e9a45a2"
+    adrs:
+      - ADR-PIPE-VAR#1
+---
 
-`ADR: Pipeline variable interface — setting ADO output variables from PowerShell`
+# ADR: Pipeline variable interface — setting ADO output variables from PowerShell
 
 ## Rules: ADR-PIPE-VAR
 

@@ -1,6 +1,13 @@
-# docs/explanation/repository/index.md
+---
+catzc:
+  derived:
+    path: docs/explanation/repository/index.md
+    kind: explanation
+    body_sha: "029a80254290"
+    adrs: []
+---
 
-`Repository explanations`
+# Repository explanations
 
 ```text
 How the repository is kept in shape.

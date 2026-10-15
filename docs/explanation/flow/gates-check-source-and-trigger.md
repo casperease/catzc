@@ -1,6 +1,25 @@
-# docs/explanation/flow/gates-check-source-and-trigger.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/gates-check-source-and-trigger.md
+    kind: explanation
+    body_sha: "162cf941ab68"
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-FLOW-CD-GLOBS#1
+      - ADR-FLOW-CD-GLOBS#10
+      - ADR-FLOW-CD-GLOBS#2
+      - ADR-FLOW-CD-GLOBS#3
+      - ADR-FLOW-CD-GLOBS#4
+      - ADR-FLOW-CD-GLOBS#5
+      - ADR-FLOW-CD-GLOBS#6
+      - ADR-FLOW-CD-GLOBS#7
+      - ADR-FLOW-CD-GLOBS#8
+      - ADR-FLOW-CD-GLOBS#9
+      - ADR-REPO-PROTGLOB#5
+---
 
-`Gates check the source of each globset and the trigger, but not the git reflection or the identity`
+# Gates check the source of each globset and the trigger, but not the git reflection or the identity
 
 ```text
 Gates check the source of each globset and the trigger, but not the git reflection or the identity.

@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-az-datamod--a-bad-coordinate-stops-discovery--operations.drawio.md
+    kind: asset-description
+    body_sha: "2d21112dd130"
+    adrs: []
+---
 
-`A bad coordinate stops discovery: the diagram described`
+# A bad coordinate stops discovery: the diagram described
 
 ```text
 A 1572 x 660 diagram, read left to right through two bands.

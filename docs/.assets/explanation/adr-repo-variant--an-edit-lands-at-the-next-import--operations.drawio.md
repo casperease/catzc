@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-repo-variant--an-edit-lands-at-the-next-import--operations.drawio.md
+    kind: asset-description
+    body_sha: a3c5cb84627d
+    adrs: []
+---
 
-`An edit to a variant lands at the next import: the diagram described`
+# An edit to a variant lands at the next import: the diagram described
 
 ```text
 A 1572 x 736 diagram, read top to bottom through four bands, with failures to the right.

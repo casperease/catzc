@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-asserts/Test-IsGuidInRange.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-asserts/Test-IsGuidInRange.ps1.md
+    kind: reference
+    body_sha: "7a520a937e35"
+    adrs: []
+---
 
-`automation/Catzc.Base.Asserts/Test-IsGuidInRange.ps1`
+# automation/Catzc.Base.Asserts/Test-IsGuidInRange.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

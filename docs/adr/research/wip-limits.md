@@ -1,6 +1,13 @@
-# docs/adr/research/wip-limits.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/wip-limits.md
+    kind: adr
+    body_sha: "1e022637106f"
+    adrs: []
+---
 
-`ADR: DORA — Work in process limits`
+# ADR: DORA — Work in process limits
 
 ## Rules: ADR-DORA-WIP
 

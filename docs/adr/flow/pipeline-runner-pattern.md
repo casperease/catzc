@@ -1,6 +1,13 @@
-# docs/adr/flow/pipeline-runner-pattern.md
+---
+catzc:
+  derived:
+    path: docs/adr/flow/pipeline-runner-pattern.md
+    kind: adr
+    body_sha: aee9df2ea8f2
+    adrs: []
+---
 
-`ADR: Pipeline runner pattern — how pipelines invoke automation`
+# ADR: Pipeline runner pattern — how pipelines invoke automation
 
 ## Rules: ADR-FLOW-CD-RUNNER
 

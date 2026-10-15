@@ -1,6 +1,20 @@
-# docs/adr/automation/caching.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/caching.md
+    kind: adr
+    body_sha: "0a85f8b07cf5"
+    adrs:
+      - ADR-AUTO-CACHE#10
+      - ADR-AUTO-CACHE#6
+      - ADR-AUTO-CACHE#8
+      - ADR-AUTO-CACHE#9
+      - ADR-AUTO-TEST#10
+      - ADR-PWSH-CACHE#1
+      - ADR-PWSH-CACHE#5
+---
 
-`ADR: Caching — static reads and filesystem-derived information (the importer is the cache boundary)`
+# ADR: Caching — static reads and filesystem-derived information (the importer is the cache boundary)
 
 ## Rules: ADR-AUTO-CACHE
 

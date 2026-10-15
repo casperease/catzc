@@ -1,6 +1,18 @@
-# docs/explanation/automation/build-verify-then-copy-the-folder.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/build-verify-then-copy-the-folder.md
+    kind: explanation
+    body_sha: "7c07bf7b6e67"
+    adrs:
+      - ADR-AUTO-ASSETDEP#4
+      - ADR-AUTO-BUNDLE#1
+      - ADR-AUTO-BUNDLE#5
+      - ADR-AUTO-BUNDLE#6
+      - ADR-AUTO-BUNDLE#7
+---
 
-`Build-Modules builds, verifies, and leaves one folder that every target copies whole`
+# Build-Modules builds, verifies, and leaves one folder that every target copies whole
 
 ```text
 Build-Modules builds, verifies, and leaves one folder that every target copies whole.

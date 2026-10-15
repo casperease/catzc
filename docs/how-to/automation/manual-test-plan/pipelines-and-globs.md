@@ -1,6 +1,14 @@
-# docs/how-to/automation/manual-test-plan/pipelines-and-globs.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan/pipelines-and-globs.md
+    kind: how-to
+    body_sha: "4ed873adc971"
+    adrs:
+      - ADR-FLOW-CD-GLOBS#10
+---
 
-`Manual test plan — Pipelines and globs`
+# Manual test plan — Pipelines and globs
 
 The Azure DevOps configs, the pipelines tree, and the globset projections that drive pipeline triggers. Part of the
 [manual test plan](../manual-test-plan.md), which says how to run a check.

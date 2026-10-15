@@ -1,6 +1,31 @@
-# docs/adr/design/tracks.md
+---
+catzc:
+  derived:
+    path: docs/adr/design/tracks.md
+    kind: adr
+    body_sha: ad1e63e6e8fd
+    adrs:
+      - ADR-DSGN-TRACK#1
+      - ADR-DSGN-TRACK#10
+      - ADR-DSGN-TRACK#11
+      - ADR-DSGN-TRACK#12
+      - ADR-DSGN-TRACK#13
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#17
+      - ADR-DSGN-TRACK#2
+      - ADR-DSGN-TRACK#3
+      - ADR-DSGN-TRACK#4
+      - ADR-DSGN-TRACK#5
+      - ADR-DSGN-TRACK#6
+      - ADR-DSGN-TRACK#7
+      - ADR-DSGN-TRACK#8
+      - ADR-DSGN-TRACK#9
+      - ADR-REPO-VOCAB#1
+---
 
-`ADR: Tracks — the repository's root concerns`
+# ADR: Tracks — the repository's root concerns
 
 ## Rules: ADR-DSGN-TRACK
 

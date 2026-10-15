@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.md
+    kind: asset-description
+    body_sha: bb5d153b74ef
+    adrs: []
+---
 
-`A config file's path is a coordinate: the diagram described`
+# A config file's path is a coordinate: the diagram described
 
 ```text
 A 1572 x 660 diagram, read left to right through two bands.

@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md
+    kind: reference
+    body_sha: a06f59f2faf0
+    adrs:
+      - ADR-AZ-NAMING#4
+      - ADR-AZ-NAMING#6
+---
 
-`automation/Catzc.Azure.Templates/Get-AzureResourceName.ps1`
+# automation/Catzc.Azure.Templates/Get-AzureResourceName.ps1
 
 <!-- cspell:ignore weuzctsmplst -->
 

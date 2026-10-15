@@ -1,6 +1,14 @@
-# docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
+    kind: explanation
+    body_sha: f69ade07773a
+    adrs:
+      - ADR-AZ-DATAMOD#7
+---
 
-`A pipeline pins the subscription it expects; a devbox picks the target with az account set`
+# A pipeline pins the subscription it expects; a devbox picks the target with az account set
 
 ```text
 A pipeline deploy pins its expected subscription; a devbox deploy picks the target with az account set.

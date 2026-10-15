@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md
+    kind: reference
+    body_sha: cacf385110c9
+    adrs:
+      - ADR-AUTO-BUNDLE#6
+      - ADR-AUTO-DRYRUN#2
+      - ADR-AUTO-ENGINE#2
+---
 
-`automation/Catzc.Base.Exporter/Install-Catzc.ps1`
+# automation/Catzc.Base.Exporter/Install-Catzc.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

@@ -1,6 +1,17 @@
-# docs/adr/automation/environment-variables.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/environment-variables.md
+    kind: adr
+    body_sha: "1858e9dff417"
+    adrs:
+      - ADR-AUTO-ENVVAR#1
+      - ADR-AUTO-ENVVAR#6
+      - ADR-AUTO-ENVVAR#7
+      - ADR-FLOW-CD-DETECT#1
+---
 
-`ADR: Environment variables are for external boundaries, not internal state`
+# ADR: Environment variables are for external boundaries, not internal state
 
 ## Rules: ADR-AUTO-ENVVAR
 

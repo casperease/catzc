@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-tooling-keyhandler.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-keyhandler.md
+    kind: reference
+    body_sha: "0ac4c274fd5e"
+    adrs: []
+---
 
-`Catzc.Tooling.KeyHandler`
+# Catzc.Tooling.KeyHandler
 
 The PSReadLine key-binding module of the Tooling group. PSReadLine on Linux defaults to bash-style line editing, so a developer moving
 between a Windows devbox and a Linux session (or CI) meets two different editing experiences for the same shell. This module carries the

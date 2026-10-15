@@ -1,6 +1,13 @@
-# docs/how-to/getting-started/automation/faq.md
+---
+catzc:
+  derived:
+    path: docs/how-to/getting-started/automation/faq.md
+    kind: how-to
+    body_sha: abc05ae566cd
+    adrs: []
+---
 
-`FAQ`
+# FAQ
 
 ## Doesn't importing everything waste time?
 

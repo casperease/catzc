@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.md
+    kind: asset-description
+    body_sha: "085640e8bc5c"
+    adrs: []
+---
 
-`One registry, one writer, two write primitives: the diagram described`
+# One registry, one writer, two write primitives: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through four bands under one span bar.

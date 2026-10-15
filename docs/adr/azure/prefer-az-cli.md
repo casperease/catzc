@@ -1,6 +1,13 @@
-# docs/adr/azure/prefer-az-cli.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/prefer-az-cli.md
+    kind: adr
+    body_sha: "8d77f48a4cae"
+    adrs: []
+---
 
-`ADR: Prefer Az CLI over Az PowerShell modules`
+# ADR: Prefer Az CLI over Az PowerShell modules
 
 ## Rules: ADR-AZ-CLI
 

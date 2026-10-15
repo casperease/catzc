@@ -1,6 +1,16 @@
-# docs/explanation/flow/the-runner-is-the-only-seam.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/the-runner-is-the-only-seam.md
+    kind: explanation
+    body_sha: db59804939f1
+    adrs:
+      - ADR-FLOW-CD-RUNNER#1
+      - ADR-FLOW-CD-RUNNER#2
+      - ADR-FLOW-CD-RUNNER#3
+---
 
-`The runner is the only seam from pipeline YAML into PowerShell`
+# The runner is the only seam from pipeline YAML into PowerShell
 
 ```text
 The runner is the only seam from pipeline YAML into PowerShell.

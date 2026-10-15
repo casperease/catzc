@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md
+    kind: reference
+    body_sha: d0ba2a40ca81
+    adrs:
+      - ADR-AUTO-REMOVE#6
+      - ADR-AUTO-REMOVE#7
+---
 
-`automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1`
+# automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

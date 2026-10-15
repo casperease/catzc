@@ -1,6 +1,13 @@
-# docs/references/infrastructure/templates/discovery/options.yml.md
+---
+catzc:
+  derived:
+    path: docs/references/infrastructure/templates/discovery/options.yml.md
+    kind: reference
+    body_sha: "3860a5338d18"
+    adrs: []
+---
 
-`infrastructure/templates/discovery/options.yml`
+# infrastructure/templates/discovery/options.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

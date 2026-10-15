@@ -1,6 +1,19 @@
-# docs/explanation/flow/one-artifact-climbs-unchanged.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/one-artifact-climbs-unchanged.md
+    kind: explanation
+    body_sha: eefc2a1eb3c9
+    adrs:
+      - ADR-FLOW-CD#13
+      - ADR-FLOW-CD#2
+      - ADR-FLOW-CD#3
+      - ADR-FLOW-CD#5
+      - ADR-FLOW-CD#6
+      - ADR-FLOW-CD#9
+---
 
-`One artifact is built once and climbs to production unchanged`
+# One artifact is built once and climbs to production unchanged
 
 ```text
 One artifact is built once and climbs to production unchanged.

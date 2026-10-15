@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-azure/private/Get-NetworkPlanViolations.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure/private/Get-NetworkPlanViolations.ps1.md
+    kind: reference
+    body_sha: "72719e9a025c"
+    adrs:
+      - ADR-AZ-NETWORK#2
+      - ADR-AZ-NETWORK#4
+      - ADR-AZ-NETWORK#5
+---
 
-`automation/Catzc.Azure/private/Get-NetworkPlanViolations.ps1`
+# automation/Catzc.Azure/private/Get-NetworkPlanViolations.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

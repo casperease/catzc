@@ -1,6 +1,19 @@
-# docs/adr/automation/internal-asset-dependencies.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/internal-asset-dependencies.md
+    kind: adr
+    body_sha: "7aba34771d45"
+    adrs:
+      - ADR-AUTO-ASSETDEP#3
+      - ADR-AUTO-ASSETDEP#4
+      - ADR-AUTO-NOPWD#1
+      - ADR-AUTO-TEST#1
+      - ADR-PWSH-PWD#4
+      - ADR-PWSH-PWD#7
+---
 
-`ADR: Internal asset dependencies — located through one helper, tested in both run modes`
+# ADR: Internal asset dependencies — located through one helper, tested in both run modes
 
 ## Rules: ADR-AUTO-ASSETDEP
 

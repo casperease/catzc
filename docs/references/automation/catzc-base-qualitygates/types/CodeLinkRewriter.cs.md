@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md
+    kind: reference
+    body_sha: d17de9863180
+    adrs:
+      - ADR-REPO-LINK#3
+      - ADR-REPO-LINK#9
+      - ADR-X#3
+---
 
-`automation/Catzc.Base.QualityGates/types/CodeLinkRewriter.cs`
+# automation/Catzc.Base.QualityGates/types/CodeLinkRewriter.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

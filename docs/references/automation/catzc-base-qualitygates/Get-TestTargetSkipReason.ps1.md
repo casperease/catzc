@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md
+    kind: reference
+    body_sha: ce90d9bc3547
+    adrs:
+      - ADR-AUTO-TEST#41
+      - ADR-AUTO-TEST#8
+---
 
-`automation/Catzc.Base.QualityGates/Get-TestTargetSkipReason.ps1`
+# automation/Catzc.Base.QualityGates/Get-TestTargetSkipReason.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

@@ -1,6 +1,13 @@
-# docs/adr/automation/dry-run.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/dry-run.md
+    kind: adr
+    body_sha: "349056ff35c6"
+    adrs: []
+---
 
-`ADR: An explicit dry-run parameter on every side-effecting function`
+# ADR: An explicit dry-run parameter on every side-effecting function
 
 ## Rules: ADR-AUTO-DRYRUN
 

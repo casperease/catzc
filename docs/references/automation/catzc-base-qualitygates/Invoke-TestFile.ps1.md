@@ -1,6 +1,19 @@
-# docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md
+    kind: reference
+    body_sha: f4ff2351822f
+    adrs:
+      - ADR-AUTO-TEST#25
+      - ADR-AUTO-TEST#32
+      - ADR-AUTO-TEST#33
+      - ADR-AUTO-TEST#34
+      - ADR-AUTO-TEST#41
+      - ADR-PWSH-ASSERT#1
+---
 
-`automation/Catzc.Base.QualityGates/Invoke-TestFile.ps1`
+# automation/Catzc.Base.QualityGates/Invoke-TestFile.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

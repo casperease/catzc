@@ -1,3 +1,25 @@
+---
+catzc:
+  derived:
+    path: docs/adr/azure/caf/network-topology.md
+    kind: adr
+    body_sha: d686931f9aad
+    adrs:
+      - ADR-AZ-CAFMGMT#4
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#2
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#7
+      - ADR-AZ-NETWORK#1
+      - ADR-AZ-NETWORK#3
+      - ADR-AZ-NETWORK#5
+      - ADR-AZ-NETWORK#6
+      - ADR-AZ-WAFSE#4
+      - ADR-AZ-WAFSE#6
+---
+
 # ADR: CAF network topology — what the repository does about each topology, IP addressing, segmentation, and Virtual Network Manager recommendation
 
 Pairs with [`landing-zones`](../landing-zones.md) (the hub-and-spoke landing zone these recommendations are weighed against) and

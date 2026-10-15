@@ -1,6 +1,17 @@
-# docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
+    kind: explanation
+    body_sha: d4592a9826a0
+    adrs:
+      - ADR-AUTO-PARITY#2
+      - ADR-DSGN-LIFE#1
+      - ADR-DSGN-LIFE#8
+      - ADR-FLOW-CD#8
+---
 
-`An engineer runs the tests and merges; pipelines do the rest`
+# An engineer runs the tests and merges; pipelines do the rest
 
 ```text
 An engineer runs the tests and merges the pull request; pipelines run everything after the merge.

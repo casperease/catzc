@@ -1,6 +1,17 @@
-# docs/explanation/automation/a-declared-allow-list-of-layers.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/a-declared-allow-list-of-layers.md
+    kind: explanation
+    body_sha: "30924884b291"
+    adrs:
+      - ADR-AUTO-DEPM#1
+      - ADR-AUTO-DEPM#3
+      - ADR-AUTO-DEPM#4
+      - ADR-AUTO-DEPM#5
+---
 
-`One declared allow-list says what may depend on what, and every edge points down`
+# One declared allow-list says what may depend on what, and every edge points down
 
 ```text
 One declared allow-list says what may depend on what, and every allowed edge points down.

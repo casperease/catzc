@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md
+    kind: reference
+    body_sha: "990d6d7cf67b"
+    adrs:
+      - ADR-FLOW-CD-GLOBS#5
+---
 
-`automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1`
+# automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

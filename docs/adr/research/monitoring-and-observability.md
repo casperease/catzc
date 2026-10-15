@@ -1,6 +1,13 @@
-# docs/adr/research/monitoring-and-observability.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/monitoring-and-observability.md
+    kind: adr
+    body_sha: "8030049afc9c"
+    adrs: []
+---
 
-`ADR: DORA — Monitoring and observability`
+# ADR: DORA — Monitoring and observability
 
 ## Rules: ADR-DORA-OBSERV
 

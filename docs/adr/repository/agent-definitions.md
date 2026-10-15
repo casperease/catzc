@@ -1,6 +1,15 @@
-# docs/adr/repository/agent-definitions.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/agent-definitions.md
+    kind: adr
+    body_sha: e4f338926673
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-LINK#5
+---
 
-`ADR: Agent definitions — every sub-agent rests on a rule and maps to its checks`
+# ADR: Agent definitions — every sub-agent rests on a rule and maps to its checks
 
 ## Rules: ADR-REPO-AGENTS
 

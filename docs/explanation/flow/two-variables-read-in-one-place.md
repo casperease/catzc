@@ -1,6 +1,16 @@
-# docs/explanation/flow/two-variables-read-in-one-place.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/two-variables-read-in-one-place.md
+    kind: explanation
+    body_sha: "08911525b4a7"
+    adrs:
+      - ADR-FLOW-CD-DETECT#1
+      - ADR-FLOW-CD-DETECT#4
+      - ADR-FLOW-CD-DETECT#5
+---
 
-`Two variables, one reader, 24 callers, and one analyzer rule for every other read`
+# Two variables, one reader, 24 callers, and one analyzer rule for every other read
 
 ```text
 Two variables are read in one place, 24 callers ask it, and one analyzer rule bans every other read.

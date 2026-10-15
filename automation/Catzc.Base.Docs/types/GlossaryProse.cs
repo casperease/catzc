@@ -17,7 +17,6 @@ public static class GlossaryProse
 {
     static readonly Regex FenceMarker = new Regex("^(`{3,}|~{3,})", RegexOptions.Compiled);
     static readonly Regex LinkDestination = new Regex(@"\]\(([^)\s]+)", RegexOptions.Compiled);
-    static readonly Regex PathTitle = new Regex(@"^# \S+/\S+\.md$", RegexOptions.Compiled);
     static readonly Regex HelpKeyword = new Regex(@"(?im)^\s*\.(SYNOPSIS|DESCRIPTION)\b", RegexOptions.Compiled);
     static readonly Regex Mentions = new Regex(Span("`", "`") + "|" + Span("\"", "\"") + "|" + Span("“", "”"), RegexOptions.Compiled);
     static readonly HashSet<string> Writers = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "Write-Message", "Write-Warning", "Write-Error", "Write-Host" };
@@ -43,18 +42,24 @@ public static class GlossaryProse
     {
         string[] lines = File.ReadAllLines(path);
         string fence = null;
+        // The meta block (the `catzc:` key and everything indented under it) holds derived facts and config, not prose.
+        bool inFrontMatter = lines.Length > 1 && lines[0] == "---";
+        bool inMeta = false;
         for (int i = 0; i < lines.Length; i++)
         {
+            if (inFrontMatter && i > 0)
+            {
+                if (lines[i] == "---") { inFrontMatter = false; inMeta = false; continue; }
+                if (lines[i] == "catzc:") { inMeta = true; lines[i] = string.Empty; continue; }
+                if (inMeta && lines[i].Length > 0 && char.IsWhiteSpace(lines[i][0])) { lines[i] = string.Empty; continue; }
+                inMeta = false;
+            }
             Match marker = FenceMarker.Match(lines[i].TrimStart());
             if (fence == null)
             {
                 if (marker.Success)
                 {
                     fence = marker.Value;
-                    lines[i] = string.Empty;
-                }
-                else if (PathTitle.IsMatch(lines[i]))
-                {
                     lines[i] = string.Empty;
                 }
                 else

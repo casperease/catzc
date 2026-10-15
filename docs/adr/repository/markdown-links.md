@@ -1,6 +1,16 @@
-# docs/adr/repository/markdown-links.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/markdown-links.md
+    kind: adr
+    body_sha: "0da3070ab563"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-PWSH-ERROR#3
+      - ADR-REPO-LINK#9
+---
 
-`ADR: Markdown links — relative in documents, repository-rooted out of code`
+# ADR: Markdown links — relative in documents, repository-rooted out of code
 
 ## Rules: ADR-REPO-LINK
 

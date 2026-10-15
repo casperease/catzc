@@ -1,6 +1,13 @@
-# docs/adr/research/documentation-quality.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/documentation-quality.md
+    kind: adr
+    body_sha: b8b7bf2ed828
+    adrs: []
+---
 
-`ADR: DORA — Documentation quality`
+# ADR: DORA — Documentation quality
 
 ## Rules: ADR-DORA-DOCS
 

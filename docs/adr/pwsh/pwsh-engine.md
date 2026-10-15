@@ -1,6 +1,19 @@
-# docs/adr/pwsh/pwsh-engine.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/pwsh-engine.md
+    kind: adr
+    body_sha: b8e8750cdd85
+    adrs:
+      - ADR-AUTO-BUNDLE#3
+      - ADR-AUTO-BUNDLE#8
+      - ADR-PWSH-ENGINE#3
+      - ADR-PWSH-ENGINE#5
+      - ADR-PWSH-ERROR#1
+      - ADR-PWSH-ERROR#2
+---
 
-`ADR: The pwsh engine — PowerShell 7 as catzc's module engine`
+# ADR: The pwsh engine — PowerShell 7 as catzc's module engine
 
 ## Rules: ADR-PWSH-ENGINE
 

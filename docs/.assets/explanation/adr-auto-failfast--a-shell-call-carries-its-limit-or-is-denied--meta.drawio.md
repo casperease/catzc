@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.md
+    kind: asset-description
+    body_sha: "470f32559943"
+    adrs: []
+---
 
-`A shell call carries its limit or is denied: the diagram described`
+# A shell call carries its limit or is denied: the diagram described
 
 ```text
 A 1572 x 650 diagram, read top to bottom through two bands, then left and right from the gate.

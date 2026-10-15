@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.md
+    kind: asset-description
+    body_sha: "629338942465"
+    adrs: []
+---
 
-`Output root first, then repository root: the diagram described`
+# Output root first, then repository root: the diagram described
 
 ```text
 A 1572 x 700 diagram, read left to right through three bands, then the band below.

@@ -1,6 +1,14 @@
-# docs/how-to/automation/manual-test-plan/docs-and-links.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan/docs-and-links.md
+    kind: how-to
+    body_sha: cb7bfab391fb
+    adrs:
+      - ADR-AUTO-ASSETDEP#3
+---
 
-`Manual test plan — Docs and links`
+# Manual test plan — Docs and links
 
 Generated READMEs and `.gitkeep` files, Markdown lint and titles, and repository links. Part of the
 [manual test plan](../manual-test-plan.md), which says how to run a check.

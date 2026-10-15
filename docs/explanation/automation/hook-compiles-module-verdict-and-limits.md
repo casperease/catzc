@@ -1,6 +1,14 @@
-# docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
+    kind: explanation
+    body_sha: "334633557e7c"
+    adrs:
+      - ADR-AUTO-FAILFAST#7
+---
 
-`The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree`
+# The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree
 
 ```text
 The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree.

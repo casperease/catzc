@@ -1,6 +1,13 @@
-# docs/references/pipelines/cd-apex.yaml.md
+---
+catzc:
+  derived:
+    path: docs/references/pipelines/cd-apex.yaml.md
+    kind: reference
+    body_sha: "8354a8c8e73a"
+    adrs: []
+---
 
-`pipelines/cd-apex.yaml`
+# pipelines/cd-apex.yaml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

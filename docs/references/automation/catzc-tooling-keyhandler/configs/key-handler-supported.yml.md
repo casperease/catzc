@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-supported.yml.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-supported.yml.md
+    kind: reference
+    body_sha: eec256f06f25
+    adrs: []
+---
 
-`automation/Catzc.Tooling.KeyHandler/configs/key-handler-supported.yml`
+# automation/Catzc.Tooling.KeyHandler/configs/key-handler-supported.yml
 
 <!-- cspell:ignore begining -->
 

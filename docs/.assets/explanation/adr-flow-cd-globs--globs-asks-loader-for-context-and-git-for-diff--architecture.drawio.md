@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--globs-asks-loader-for-context-and-git-for-diff--architecture.drawio.md
+    kind: asset-description
+    body_sha: "826b49ff232f"
+    adrs: []
+---
 
-`Globs asks the loader for the context and git for the diff: the diagram described`
+# Globs asks the loader for the context and git for the diff: the diagram described
 
 ```text
 A 1572 x 680 diagram, read top to bottom from a module band into two bands below it, with a caller band to the right.

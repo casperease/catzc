@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.md
+    kind: asset-description
+    body_sha: "4d4e9064f0f3"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Every entry runs one load sequence: the diagram described`
+# Every entry runs one load sequence: the diagram described
 
 ```text
 A 1572 x 624 diagram, read top to bottom down one column in one band.

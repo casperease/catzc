@@ -1,6 +1,17 @@
-# docs/explanation/pipelines/one-header-function-owns-precedence.md
+---
+catzc:
+  derived:
+    path: docs/explanation/pipelines/one-header-function-owns-precedence.md
+    kind: explanation
+    body_sha: a5d8d9ba4f36
+    adrs:
+      - ADR-PIPE-AUTH#1
+      - ADR-PIPE-AUTH#2
+      - ADR-PIPE-AUTH#4
+      - ADR-PIPE-AUTH#6
+---
 
-`One function owns the credential precedence, and ado.yml anchors every proof`
+# One function owns the credential precedence, and ado.yml anchors every proof
 
 ```text
 One function owns the credential precedence, and ado.yml anchors every proof.

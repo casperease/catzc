@@ -1,6 +1,13 @@
-# docs/adr/pwsh/use-ps1-not-psm1.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/use-ps1-not-psm1.md
+    kind: adr
+    body_sha: fa2e9b2b1535
+    adrs: []
+---
 
-`ADR: Use .ps1 for function files, not .psm1`
+# ADR: Use .ps1 for function files, not .psm1
 
 ## Rules: ADR-PWSH-USEPS
 

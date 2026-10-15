@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-writers/types/Ansi.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-writers/types/Ansi.cs.md
+    kind: reference
+    body_sha: "1b5e066a0064"
+    adrs:
+      - ADR-AUTO-CONSOLE#7
+---
 
-`automation/Catzc.Base.Writers/types/Ansi.cs`
+# automation/Catzc.Base.Writers/types/Ansi.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

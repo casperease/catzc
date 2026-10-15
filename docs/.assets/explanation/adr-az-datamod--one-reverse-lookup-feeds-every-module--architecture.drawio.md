@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.md
+    kind: asset-description
+    body_sha: "9bf82ab7df6b"
+    adrs: []
+---
 
-`One reverse lookup feeds every module: the diagram described`
+# One reverse lookup feeds every module: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

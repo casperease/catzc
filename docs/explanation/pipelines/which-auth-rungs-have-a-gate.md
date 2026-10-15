@@ -1,6 +1,21 @@
-# docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
+---
+catzc:
+  derived:
+    path: docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
+    kind: explanation
+    body_sha: "514628fc27ea"
+    adrs:
+      - ADR-FLOW-CD-DETECT#1
+      - ADR-PIPE-AUTH#1
+      - ADR-PIPE-AUTH#2
+      - ADR-PIPE-AUTH#3
+      - ADR-PIPE-AUTH#4
+      - ADR-PIPE-AUTH#5
+      - ADR-PIPE-AUTH#6
+      - ADR-PIPE-AUTH#7
+---
 
-`The PAT proof and the empty-token assert have no gate`
+# The PAT proof and the empty-token assert have no gate
 
 ```text
 The PAT proof and the empty-token assert have no gate, and neither do #4 and #7.

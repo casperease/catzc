@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.md
+    kind: asset-description
+    body_sha: e6e91ae8e081
+    adrs: []
+---
 
-`The loader holds the one detector: the diagram described`
+# The loader holds the one detector: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands, then down to two more.

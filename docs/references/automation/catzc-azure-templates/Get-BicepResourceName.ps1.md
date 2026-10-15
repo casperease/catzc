@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md
+    kind: reference
+    body_sha: "263e205f881c"
+    adrs:
+      - ADR-AZ-NAMING#8
+---
 
-`automation/Catzc.Azure.Templates/Get-BicepResourceName.ps1`
+# automation/Catzc.Azure.Templates/Get-BicepResourceName.ps1
 
 <!-- cspell:ignore deweuzctsmplst -->
 

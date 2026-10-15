@@ -1,6 +1,33 @@
-# docs/adr/azure/caf/naming-and-tagging.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/caf/naming-and-tagging.md
+    kind: adr
+    body_sha: "87723a9fb3e1"
+    adrs:
+      - ADR-AZ-CAFNAME#12
+      - ADR-AZ-DATAMOD#10
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#5
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#6
+      - ADR-AZ-NAMING#1
+      - ADR-AZ-NAMING#2
+      - ADR-AZ-NAMING#3
+      - ADR-AZ-NAMING#4
+      - ADR-AZ-NAMING#5
+      - ADR-AZ-NAMING#6
+      - ADR-AZ-NAMING#7
+      - ADR-AZ-NAMING#8
+      - ADR-AZ-WAFCO#3
+      - ADR-AZ-WAFSE#3
+      - ADR-REPO-VARIANT#4
+---
 
-`ADR: CAF naming and tagging — what the repository does about each of Microsoft's naming and tagging recommendations`
+# ADR: CAF naming and tagging — what the repository does about each of Microsoft's naming and tagging recommendations
 
 <!-- cspell:ignore prweuzctexpedapst debluweuzctexpedapst -->
 

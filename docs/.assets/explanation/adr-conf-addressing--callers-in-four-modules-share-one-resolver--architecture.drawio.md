@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.md
+    kind: asset-description
+    body_sha: f24e6f3172ef
+    adrs: []
+---
 
-`Callers in four modules share one resolver: the diagram described`
+# Callers in four modules share one resolver: the diagram described
 
 ```text
 A 1576 x 654 diagram, read left to right through three bands side by side.

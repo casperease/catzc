@@ -1,6 +1,23 @@
-# docs/adr/pwsh/identifier-names.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/identifier-names.md
+    kind: adr
+    body_sha: d7d834183993
+    adrs:
+      - ADR-AUTO-SPELL#1
+      - ADR-AUTO-SPELL#2
+      - ADR-AUTO-SPELL#4
+      - ADR-AUTO-SPELL#6
+      - ADR-AUTO-SPELL#7
+      - ADR-PWSH-NAMES#1
+      - ADR-PWSH-NAMES#2
+      - ADR-PWSH-NAMES#3
+      - ADR-PWSH-NAMES#4
+      - ADR-PWSH-NAMES#6
+---
 
-`ADR: Identifier names — the PowerShell layer over spell-out-names`
+# ADR: Identifier names — the PowerShell layer over spell-out-names
 
 ## Rules: ADR-PWSH-NAMES
 

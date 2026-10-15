@@ -1,6 +1,15 @@
-# docs/adr/automation/managed-guids.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/managed-guids.md
+    kind: adr
+    body_sha: "94f06d40fd5a"
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-FLOW-CD-GLOBS#4
+---
 
-`ADR: Managed GUIDs — every GUID literal is a registered, described identity`
+# ADR: Managed GUIDs — every GUID literal is a registered, described identity
 
 ## Rules: ADR-AUTO-GUIDS
 

@@ -1,6 +1,14 @@
-# docs/adr/automation/log-before-invoke.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/log-before-invoke.md
+    kind: adr
+    body_sha: "2c0702674ab9"
+    adrs:
+      - ADR-AUTO-CONSOLE#3
+---
 
-`ADR: Log the exact command before every invocation`
+# ADR: Log the exact command before every invocation
 
 ## Rules: ADR-AUTO-PRELOG
 

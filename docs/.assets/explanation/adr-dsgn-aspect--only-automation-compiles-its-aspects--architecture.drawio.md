@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.md
+    kind: asset-description
+    body_sha: d67e1218359f
+    adrs: []
+---
 
-`Only automation compiles its aspects: the diagram described`
+# Only automation compiles its aspects: the diagram described
 
 ```text
 A 1572 x 654 diagram, read top to bottom from a file and a wide code unit into two side-by-side column bands.

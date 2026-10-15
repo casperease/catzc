@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.md
+    kind: asset-description
+    body_sha: "5c930115f30b"
+    adrs: []
+---
 
-`The hook compiles the module's own verdict and limits: the diagram described`
+# The hook compiles the module's own verdict and limits: the diagram described
 
 ```text
 A 1572 x 690 diagram, read top to bottom through three bands.

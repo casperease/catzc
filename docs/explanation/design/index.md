@@ -1,6 +1,13 @@
-# docs/explanation/design/index.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/index.md
+    kind: explanation
+    body_sha: ca279b70ec15
+    adrs: []
+---
 
-`Design explanations`
+# Design explanations
 
 ```text
 How the platform is shaped.

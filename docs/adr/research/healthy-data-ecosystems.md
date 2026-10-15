@@ -1,6 +1,14 @@
-# docs/adr/research/healthy-data-ecosystems.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/healthy-data-ecosystems.md
+    kind: adr
+    body_sha: a3b588f4a9ca
+    adrs:
+      - ADR-CONF-LOADING#4
+---
 
-`ADR: DORA — Healthy data ecosystems`
+# ADR: DORA — Healthy data ecosystems
 
 ## Rules: ADR-DORA-DATAECO
 

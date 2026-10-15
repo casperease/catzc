@@ -1,6 +1,15 @@
-# docs/explanation/automation/three-tests-prove-the-hook.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/three-tests-prove-the-hook.md
+    kind: explanation
+    body_sha: "1a89156b60a6"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-FAILFAST#7
+---
 
-`One rule bounds every call, three tests prove the hook, and the exemption route is ADR-only`
+# One rule bounds every call, three tests prove the hook, and the exemption route is ADR-only
 
 ```text
 One rule bounds every agent call, three tests prove the hook at three tiers, and the exemption route is ADR-only.

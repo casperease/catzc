@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.md
+    kind: asset-description
+    body_sha: "20b63f8a54e0"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Callers anywhere depend on one module: the diagram described`
+# Callers anywhere depend on one module: the diagram described
 
 ```text
 A 1572 x 700 diagram, read left to right along one band, down into a second band and back up, with a third band below.

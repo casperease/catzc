@@ -7,11 +7,15 @@ description: >
   so far. Reach for it after a diagram wave lands, after files in `out/diagrams/` change, or when the user asks to "print", "show" or
   "republish" the artifacts or diagrams. Do NOT use it to draw or edit diagrams (`drawio-diagram-waves`, `write-drawio-files`).
 tools: Bash, Read, Glob, Grep, Write, Artifact, ArtifactData
+catzc:
+  derived:
+    path: ".claude/agents/print-artifacts.md"
+    kind: agent
+    body_sha: a50534912aec
+    adrs: []
 ---
 
-# .claude/agents/print-artifacts.md
-
-`print-artifacts`
+# print-artifacts
 
 <!-- cspell:ignore lstrip makedirs pathlib setdefault startswith -->
 

@@ -1,6 +1,17 @@
-# docs/explanation/automation/one-commit-one-immutable-package.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/one-commit-one-immutable-package.md
+    kind: explanation
+    body_sha: "3f52daff5480"
+    adrs:
+      - ADR-AUTO-BUNDLE#1
+      - ADR-AUTO-BUNDLE#5
+      - ADR-AUTO-BUNDLE#6
+      - ADR-DSGN-RUNMODE#7
+---
 
-`One commit becomes one verified, immutable package, and every code root is a copy of it`
+# One commit becomes one verified, immutable package, and every code root is a copy of it
 
 ```text
 One commit becomes one verified, immutable package, and every code root is a copy of it.

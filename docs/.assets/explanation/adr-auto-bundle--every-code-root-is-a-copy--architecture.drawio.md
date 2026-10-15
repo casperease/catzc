@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.md
+    kind: asset-description
+    body_sha: c2f4c5d9a1bd
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`One engine builds, every code root is a copy: the diagram described`
+# One engine builds, every code root is a copy: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through four bands.

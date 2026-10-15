@@ -1,6 +1,17 @@
-# docs/adr/pwsh/respect-pwsh-verb-rules.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/respect-pwsh-verb-rules.md
+    kind: adr
+    body_sha: "06c7a83a306a"
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-PWSH-VERBS#2
+      - ADR-PWSH-VERBS#3
+      - ADR-PWSH-VERBS#7
+---
 
-`ADR: Respect PowerShell approved verbs`
+# ADR: Respect PowerShell approved verbs
 
 ## Rules: ADR-PWSH-VERBS
 

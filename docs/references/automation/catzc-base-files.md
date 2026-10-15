@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-files.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-files.md
+    kind: reference
+    body_sha: c7171ef4d460
+    adrs:
+      - ADR-AUTO-TRACKED#9
+---
 
-`Catzc.Base.Files`
+# Catzc.Base.Files
 
 The filesystem and source-control module. It owns the shared write primitives every generated-artifact builder shares —
 `Write-FileIfChanged` for idempotent canonical content, `Set-FileLink` for link targets — plus an efficient directory-tree copy, file-lock

@@ -1,6 +1,17 @@
-# docs/explanation/flow/three-views-derived-live-from-one-program.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/three-views-derived-live-from-one-program.md
+    kind: explanation
+    body_sha: "1f77b803bb23"
+    adrs:
+      - ADR-FLOW-CD-GLOBS#1
+      - ADR-FLOW-CD-GLOBS#4
+      - ADR-FLOW-CD-GLOBS#5
+      - ADR-FLOW-CD-GLOBS#9
+---
 
-`A globset is one ordered program, and its three views are derived live, never committed`
+# A globset is one ordered program, and its three views are derived live, never committed
 
 ```text
 A globset is one ordered program, and its three views are derived live, never committed.

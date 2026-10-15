@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.md
+    kind: asset-description
+    body_sha: fc94a31990b9
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`A pipeline step only names a command: the diagram described`
+# A pipeline step only names a command: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right along one row, then up from a lower band.

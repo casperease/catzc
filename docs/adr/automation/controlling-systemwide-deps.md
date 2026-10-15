@@ -1,6 +1,16 @@
-# docs/adr/automation/controlling-systemwide-deps.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/controlling-systemwide-deps.md
+    kind: adr
+    body_sha: f306aec32d72
+    adrs:
+      - ADR-AUTO-DEPS#1
+      - ADR-AUTO-DEPS#8
+      - ADR-AUTO-PARITY#1
+---
 
-`ADR: Controlling system-wide dependencies`
+# ADR: Controlling system-wide dependencies
 
 ## Rules: ADR-AUTO-DEPS
 

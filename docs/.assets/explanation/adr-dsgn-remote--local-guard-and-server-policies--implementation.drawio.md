@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.md
+    kind: asset-description
+    body_sha: "2d6f0e20cc67"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`A local guard and ADO policies, no resolver: the diagram described`
+# A local guard and ADO policies, no resolver: the diagram described
 
 ```text
 A 1572 x 640 diagram, read top to bottom through two bands, LOCAL HALF and SERVER HALF, each left to right.

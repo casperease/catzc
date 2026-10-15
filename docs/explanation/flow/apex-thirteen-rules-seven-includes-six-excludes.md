@@ -1,6 +1,16 @@
-# docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
+    kind: explanation
+    body_sha: b7e23c06a752
+    adrs:
+      - ADR-FLOW-CD-GLOBS#4
+      - ADR-FLOW-CD-GLOBS#6
+      - ADR-FLOW-CD-GLOBS#8
+---
 
-`The apex unit flattens to 13 rules, 13 GitHub paths, and 7 Azure DevOps includes with 6 excludes`
+# The apex unit flattens to 13 rules, 13 GitHub paths, and 7 Azure DevOps includes with 6 excludes
 
 ```text
 The apex unit flattens to 13 rules, 13 GitHub paths, and 7 ADO includes with 6 excludes.

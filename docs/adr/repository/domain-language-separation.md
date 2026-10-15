@@ -1,6 +1,17 @@
-# docs/adr/repository/domain-language-separation.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/domain-language-separation.md
+    kind: adr
+    body_sha: "3ec1338daf69"
+    adrs:
+      - ADR-AUTO-TEST#1
+      - ADR-AUTO-TEST#3
+      - ADR-REPO-LANG#4
+      - ADR-REPO-LANG#5
+---
 
-`ADR: Language-zone separation — three zones, three terminologies`
+# ADR: Language-zone separation — three zones, three terminologies
 
 ## Rules: ADR-REPO-LANG
 

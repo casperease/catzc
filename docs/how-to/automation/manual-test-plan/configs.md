@@ -1,6 +1,16 @@
-# docs/how-to/automation/manual-test-plan/configs.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan/configs.md
+    kind: how-to
+    body_sha: f0c8f3956089
+    adrs:
+      - ADR-CONF-LOADING#4
+      - ADR-CONF-LOADING#5
+      - ADR-REPO-CONTRACT#8
+---
 
-`Manual test plan — Configs`
+# Manual test plan — Configs
 
 Config discovery, the config registry, and the shipped configs that are not Azure-specific. Part of the
 [manual test plan](../manual-test-plan.md), which says how to run a check.

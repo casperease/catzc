@@ -1,6 +1,22 @@
-# docs/adr/pwsh/cross-platform-powershell.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/cross-platform-powershell.md
+    kind: adr
+    body_sha: d914df52e6db
+    adrs:
+      - ADR-AUTO-DEPS#5
+      - ADR-AUTO-PARITY#1
+      - ADR-AUTO-PATH#4
+      - ADR-AUTO-XPLAT#3
+      - ADR-AUTO-XPLAT#6
+      - ADR-AUTO-XPLAT#7
+      - ADR-AUTO-XPLAT#9
+      - ADR-PWSH-XPLAT#2
+      - ADR-PWSH-XPLAT#9
+---
 
-`ADR: Cross-platform PowerShell — the language layer over cross-platform`
+# ADR: Cross-platform PowerShell — the language layer over cross-platform
 
 ## Rules: ADR-PWSH-XPLAT
 

@@ -1,6 +1,32 @@
-# docs/adr/azure/caf/design-principles.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/caf/design-principles.md
+    kind: adr
+    body_sha: b891f6ab0cc2
+    adrs:
+      - ADR-AZ-CAFPRIN#2
+      - ADR-AZ-CAFPRIN#5
+      - ADR-AZ-CLI#1
+      - ADR-AZ-CUSTOMER#2
+      - ADR-AZ-DATAMOD#1
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#2
+      - ADR-AZ-DATAMOD#3
+      - ADR-AZ-DATAMOD#8
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#5
+      - ADR-AZ-LZ#6
+      - ADR-AZ-NETWORK#5
+      - ADR-DSGN-SELFSERV#1
+      - ADR-DSGN-SELFSERV#2
+      - ADR-DSGN-THINPLAT#2
+---
 
-`ADR: CAF landing zone design principles — Microsoft's five principles, cited, and where this repository follows or deviates from each`
+# ADR: CAF landing zone design principles — Microsoft's five principles, cited, and where this repository follows or deviates from each
 
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone these principles frame) and [`data-model`](../azure-data-model.md) (the
 subscriptions, the configuration tree, and the policy enforcement setting the principles are weighed against).

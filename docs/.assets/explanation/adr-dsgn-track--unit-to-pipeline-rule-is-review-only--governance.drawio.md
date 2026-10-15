@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-track--unit-to-pipeline-rule-is-review-only--governance.drawio.md
+    kind: asset-description
+    body_sha: e5ea2bbe45d8
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Tracks and deployable-units have a gate; one unit to one pipeline is held by review: the diagram described`
+# Tracks and deployable-units have a gate; one unit to one pipeline is held by review: the diagram described
 
 ```text
 A 1572 x 600 diagram, three bands side by side, each read top to bottom.

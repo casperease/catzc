@@ -1,6 +1,16 @@
-# docs/explanation/automation/three-layers-edges-point-down.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/three-layers-edges-point-down.md
+    kind: explanation
+    body_sha: a9f5e8f8eb54
+    adrs:
+      - ADR-AUTO-DEPM#1
+      - ADR-AUTO-DEPM#3
+      - ADR-AUTO-DEPM#4
+---
 
-`Module dependencies form three layers, and every edge points down`
+# Module dependencies form three layers, and every edge points down
 
 ```text
 Module dependencies form three layers, and every allowed edge points down.

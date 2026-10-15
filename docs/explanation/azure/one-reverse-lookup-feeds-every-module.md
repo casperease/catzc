@@ -1,6 +1,16 @@
-# docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
+    kind: explanation
+    body_sha: "516e8f9171f2"
+    adrs:
+      - ADR-AZ-DATAMOD#4
+      - ADR-AZ-DATAMOD#7
+      - ADR-AZ-NAMING#8
+---
 
-`One reverse lookup in Catzc.Azure.Cli hands the session to every module`
+# One reverse lookup in Catzc.Azure.Cli hands the session to every module
 
 ```text
 One reverse lookup turns the az session into a declared identity that every Azure module reads.

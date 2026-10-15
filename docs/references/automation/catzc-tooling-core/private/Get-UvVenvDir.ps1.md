@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-tooling-core/private/Get-UvVenvDir.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-core/private/Get-UvVenvDir.ps1.md
+    kind: reference
+    body_sha: "8beb894c5758"
+    adrs: []
+---
 
-`automation/Catzc.Tooling.Core/private/Get-UvVenvDir.ps1`
+# automation/Catzc.Tooling.Core/private/Get-UvVenvDir.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

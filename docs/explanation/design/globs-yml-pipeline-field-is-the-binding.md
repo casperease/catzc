@@ -1,6 +1,15 @@
-# docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
+    kind: explanation
+    body_sha: "46adf90a375a"
+    adrs:
+      - ADR-DSGN-TRACK#4
+      - ADR-DSGN-TRACK#5
+---
 
-`One field in globs.yml, pipeline:, binds a set to its pipeline file`
+# One field in globs.yml, pipeline:, binds a set to its pipeline file
 
 ```text
 One key in globs.yml, pipeline:, binds a globset to the file pipelines/<name>.yaml.

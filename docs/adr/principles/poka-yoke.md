@@ -1,6 +1,13 @@
-# docs/adr/principles/poka-yoke.md
+---
+catzc:
+  derived:
+    path: docs/adr/principles/poka-yoke.md
+    kind: adr
+    body_sha: b1f6ecea8d5e
+    adrs: []
+---
 
-`Principle: Poka-yoke — make mistakes impossible`
+# Principle: Poka-yoke — make mistakes impossible
 
 ## Rules: ADR-PRIN-POKAYOKE
 

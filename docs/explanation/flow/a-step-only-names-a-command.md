@@ -1,6 +1,15 @@
-# docs/explanation/flow/a-step-only-names-a-command.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/a-step-only-names-a-command.md
+    kind: explanation
+    body_sha: "01018e7b150d"
+    adrs:
+      - ADR-FLOW-CD-RUNNER#1
+      - ADR-FLOW-CD-RUNNER#4
+---
 
-`A pipeline step only names a command that a developer can run locally`
+# A pipeline step only names a command that a developer can run locally
 
 ```text
 A pipeline step only names a command, and a developer can run that same command locally.

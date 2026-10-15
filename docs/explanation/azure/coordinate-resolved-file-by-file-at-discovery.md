@@ -1,6 +1,18 @@
-# docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
+    kind: explanation
+    body_sha: "5676684496e7"
+    adrs:
+      - ADR-AZ-CUSTOMER#2
+      - ADR-AZ-CUSTOMER#6
+      - ADR-AZ-DATAMOD#2
+      - ADR-AZ-DATAMOD#3
+      - ADR-AZ-DATAMOD#8
+---
 
-`Discovery resolves every config file's coordinate through one shared check`
+# Discovery resolves every config file's coordinate through one shared check
 
 ```text
 Discovery resolves every config file's coordinate through one shared check.

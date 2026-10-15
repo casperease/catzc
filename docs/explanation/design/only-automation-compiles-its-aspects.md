@@ -1,6 +1,19 @@
-# docs/explanation/design/only-automation-compiles-its-aspects.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/only-automation-compiles-its-aspects.md
+    kind: explanation
+    body_sha: edf1d50add6a
+    adrs:
+      - ADR-DSGN-ASPECT#2
+      - ADR-DSGN-ASPECT#3
+      - ADR-DSGN-ASPECT#4
+      - ADR-DSGN-TRACK#3
+      - ADR-REPO-VARIANT#1
+      - ADR-REPO-VARIANT#2
+---
 
-`Both tracks' conventions are read, but only the automation track's compiles into globsets`
+# Both tracks' conventions are read, but only the automation track's compiles into globsets
 
 ```text
 Both tracks' conventions are read, but only the automation track's compiles into globsets.

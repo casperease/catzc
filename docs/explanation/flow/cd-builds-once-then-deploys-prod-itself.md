@@ -1,6 +1,17 @@
-# docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
+    kind: explanation
+    body_sha: cda664cacc34
+    adrs:
+      - ADR-FLOW-CD#12
+      - ADR-FLOW-CD#3
+      - ADR-FLOW-CD#4
+      - ADR-FLOW-CD#5
+---
 
-`The customer CD pipeline builds once, then deploys the prod tier itself`
+# The customer CD pipeline builds once, then deploys the prod tier itself
 
 ```text
 The customer CD pipeline builds once, then deploys the prod tier itself.

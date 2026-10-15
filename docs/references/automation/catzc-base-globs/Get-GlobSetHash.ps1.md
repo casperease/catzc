@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-globs/Get-GlobSetHash.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-globs/Get-GlobSetHash.ps1.md
+    kind: reference
+    body_sha: f0a829daa386
+    adrs:
+      - ADR-FLOW-CD-GLOBS#9
+---
 
-`automation/Catzc.Base.Globs/Get-GlobSetHash.ps1`
+# automation/Catzc.Base.Globs/Get-GlobSetHash.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

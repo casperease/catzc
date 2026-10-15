@@ -1,6 +1,13 @@
-# docs/adr/automation/devbox-pipeline-parity.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/devbox-pipeline-parity.md
+    kind: adr
+    body_sha: "6b5b0f557acf"
+    adrs: []
+---
 
-`ADR: Devbox and pipeline parity — one CLI, two environments, one seam`
+# ADR: Devbox and pipeline parity — one CLI, two environments, one seam
 
 ## Rules: ADR-AUTO-PARITY
 

@@ -1,6 +1,13 @@
-# docs/references/infrastructure/modules.md
+---
+catzc:
+  derived:
+    path: docs/references/infrastructure/modules.md
+    kind: reference
+    body_sha: dc667b4441d5
+    adrs: []
+---
 
-`infrastructure/modules`
+# infrastructure/modules
 
 Reusable bicep modules, shared across templates in `infrastructure/templates/`.
 

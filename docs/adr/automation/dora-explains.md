@@ -1,6 +1,13 @@
-# docs/adr/automation/dora-explains.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/dora-explains.md
+    kind: adr
+    body_sha: "3627036d4752"
+    adrs: []
+---
 
-`DORA explanations — automation`
+# DORA explanations — automation
 
 The `Dora explains` rationale for the ADRs in the `automation/` domain, consolidated in one place. Each entry names its ADR and rule code,
 then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions

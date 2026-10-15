@@ -1,6 +1,16 @@
-# docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
+    kind: asset-description
+    body_sha: "41345f139c1c"
+    adrs:
+      - ADR-AUTO-ASSETDEP#1
+      - ADR-AUTO-OVERLAY#7
+      - ADR-PWSH-CACHE#4
+---
 
-`Overlay merges unless sealed; the registered type builds it: the diagram described`
+# Overlay merges unless sealed; the registered type builds it: the diagram described
 
 ```text
 A 1588 x 592 diagram, read left to right through two bands, top to bottom.

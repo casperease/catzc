@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.md
+    kind: asset-description
+    body_sha: "88eb50a3a020"
+    adrs: []
+---
 
-`The coordinate rules and their gates: the diagram described`
+# The coordinate rules and their gates: the diagram described
 
 ```text
 A 1572 x 660 diagram, read left to right through three bands.

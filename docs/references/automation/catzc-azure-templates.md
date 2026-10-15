@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-azure-templates.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure-templates.md
+    kind: reference
+    body_sha: c62eb7ef9ecb
+    adrs: []
+---
 
-`Catzc.Azure.Templates`
+# Catzc.Azure.Templates
 
 The Bicep templating module. It is the top of the Azure stack: it discovers the deployable templates in the repository, derives the names
 their resources must carry, builds them into deployable artifacts, and deploys them. It consumes the identity model from

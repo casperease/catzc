@@ -1,6 +1,14 @@
-# docs/explanation/design/merging-to-main-is-what-deploys.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/merging-to-main-is-what-deploys.md
+    kind: explanation
+    body_sha: f0db1a761e05
+    adrs:
+      - ADR-DSGN-LIFE#9
+---
 
-`Merging to main is what deploys; there is no run that deploys a topic`
+# Merging to main is what deploys; there is no run that deploys a topic
 
 ```text
 An engineer has nothing to run to deploy a topic commit; completing the pull request into main is what deploys.

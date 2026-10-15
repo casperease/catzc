@@ -1,6 +1,21 @@
-# docs/explanation/design/which-run-mode-rules-have-a-gate.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/which-run-mode-rules-have-a-gate.md
+    kind: explanation
+    body_sha: "6ae87099e7a9"
+    adrs:
+      - ADR-AUTO-ASSETDEP#1
+      - ADR-DSGN-RUNMODE#1
+      - ADR-DSGN-RUNMODE#2
+      - ADR-DSGN-RUNMODE#3
+      - ADR-DSGN-RUNMODE#4
+      - ADR-DSGN-RUNMODE#5
+      - ADR-DSGN-RUNMODE#6
+      - ADR-DSGN-RUNMODE#7
+---
 
-`Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none`
+# Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none
 
 ```text
 Run-mode rules 1 to 6 each have a gate; the build kinds of rule 7 have none.

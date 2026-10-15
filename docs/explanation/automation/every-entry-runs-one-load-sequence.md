@@ -1,6 +1,16 @@
-# docs/explanation/automation/every-entry-runs-one-load-sequence.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/every-entry-runs-one-load-sequence.md
+    kind: explanation
+    body_sha: "2fcdad285504"
+    adrs:
+      - ADR-AUTO-BUNDLE#3
+      - ADR-AUTO-BUNDLE#8
+      - ADR-DSGN-RUNMODE#5
+---
 
-`Every entry runs one load sequence`
+# Every entry runs one load sequence
 
 ```text
 Whatever the entry point, cats loads through the same five stages in the same order.

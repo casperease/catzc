@@ -1,6 +1,14 @@
-# docs/references/automation/internal/catzc-internal-importer.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/internal/catzc-internal-importer.md
+    kind: reference
+    body_sha: e9a5cd44ce14
+    adrs:
+      - ADR-AUTO-TYPES#13
+---
 
-`Catzc.Internal.Importer`
+# Catzc.Internal.Importer
 
 The importer overlay — the single living copy of the toolset's whole load sequence. It exports one function, `Invoke-Importer`, whose
 parameter block **is** the importer's public switch surface. The root `importer.ps1` is a thin, generated shim (produced by `New-Importer`

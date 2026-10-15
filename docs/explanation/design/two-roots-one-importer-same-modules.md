@@ -1,6 +1,17 @@
-# docs/explanation/design/two-roots-one-importer-same-modules.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/two-roots-one-importer-same-modules.md
+    kind: explanation
+    body_sha: "4d9cd07a82cf"
+    adrs:
+      - ADR-DSGN-RUNMODE#1
+      - ADR-DSGN-RUNMODE#2
+      - ADR-DSGN-RUNMODE#3
+      - ADR-DSGN-RUNMODE#7
+---
 
-`Two code roots feed one importer, which loads the same modules`
+# Two code roots feed one importer, which loads the same modules
 
 ```text
 Two code roots feed one importer, which loads the same modules.

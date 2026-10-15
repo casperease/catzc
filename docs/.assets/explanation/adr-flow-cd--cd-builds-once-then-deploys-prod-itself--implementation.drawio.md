@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.md
+    kind: asset-description
+    body_sha: "03b169a77fa5"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`The customer CD pipeline builds once, then deploys prod itself: the diagram described`
+# The customer CD pipeline builds once, then deploys prod itself: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through three bands.

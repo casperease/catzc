@@ -1,6 +1,18 @@
-# docs/references/automation/catzc-base-docs/Test-AgentDefinitions.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-docs/Test-AgentDefinitions.ps1.md
+    kind: reference
+    body_sha: "0e4ff1cba509"
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-AGENTS#1
+      - ADR-REPO-AGENTS#2
+      - ADR-REPO-AGENTS#3
+      - ADR-REPO-AGENTS#4
+---
 
-`automation/Catzc.Base.Docs/Test-AgentDefinitions.ps1`
+# automation/Catzc.Base.Docs/Test-AgentDefinitions.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

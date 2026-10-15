@@ -1,6 +1,15 @@
-# docs/explanation/flow/range-per-context-then-diff-and-match.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/range-per-context-then-diff-and-match.md
+    kind: explanation
+    body_sha: "542681e87b34"
+    adrs:
+      - ADR-FLOW-CD-DETECT#1
+      - ADR-FLOW-CD-GLOBS#9
+---
 
-`Check the name, pick the range per context, then diff git and match the paths`
+# Check the name, pick the range per context, then diff git and match the paths
 
 ```text
 Test-GlobSetAffected checks the name, picks a git range per context, then diffs and matches; doubt returns true.

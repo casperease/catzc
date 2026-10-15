@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.md
+    kind: asset-description
+    body_sha: "98616ae343b6"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Bind to one CLI; delegate the rest: the diagram described`
+# Bind to one CLI; delegate the rest: the diagram described
 
 ```text
 A 1572 x 750 diagram, read top to bottom through four bands down one centre spine.

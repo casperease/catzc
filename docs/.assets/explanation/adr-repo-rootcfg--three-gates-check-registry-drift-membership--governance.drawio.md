@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.md
+    kind: asset-description
+    body_sha: cd7c8c4117e8
+    adrs: []
+---
 
-`Three gates check the registry, the drift and the git membership: the diagram described`
+# Three gates check the registry, the drift and the git membership: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

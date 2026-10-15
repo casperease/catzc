@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.md
+    kind: asset-description
+    body_sha: "5a61793d2ed4"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`One module folder has two independent readers: the diagram described`
+# One module folder has two independent readers: the diagram described
 
 ```text
 A 1572 x 722 diagram, read left to right from a tall code unit into two bands.

@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-tooling-provisioning/private/Get-ZshInstallLayout.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-provisioning/private/Get-ZshInstallLayout.ps1.md
+    kind: reference
+    body_sha: bf31d57985f7
+    adrs:
+      - ADR-AUTO-ENTERP#4
+---
 
-`automation/Catzc.Tooling.Provisioning/private/Get-ZshInstallLayout.ps1`
+# automation/Catzc.Tooling.Provisioning/private/Get-ZshInstallLayout.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md
+    kind: reference
+    body_sha: "3f2618ebc006"
+    adrs:
+      - ADR-AUTO-SPELL#2
+      - ADR-AUTO-SPELL#6
+      - ADR-AUTO-TYPES#9
+---
 
-`automation/Catzc.Base.QualityGates/types/SpellingOracle.cs`
+# automation/Catzc.Base.QualityGates/types/SpellingOracle.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

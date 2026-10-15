@@ -1,6 +1,17 @@
-# docs/explanation/design/one-door-in-one-stable-point-out.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/one-door-in-one-stable-point-out.md
+    kind: explanation
+    body_sha: bb7ec869f6ce
+    adrs:
+      - ADR-DSGN-REMOTE#1
+      - ADR-DSGN-REMOTE#2
+      - ADR-DSGN-REMOTE#3
+      - ADR-DSGN-REMOTE#4
+---
 
-`Changes enter through one door, and consumers build on one stable point`
+# Changes enter through one door, and consumers build on one stable point
 
 ```text
 Changes enter the mainline through one door, and consumers build on one stable point.

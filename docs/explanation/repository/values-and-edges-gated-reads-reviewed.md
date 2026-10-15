@@ -1,9 +1,24 @@
-# docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
+---
+catzc:
+  derived:
+    path: docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
+    kind: explanation
+    body_sha: "0042054487f7"
+    adrs:
+      - ADR-AUTO-DEPM#4
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-VARIANT#1
+      - ADR-REPO-VARIANT#2
+      - ADR-REPO-VARIANT#3
+      - ADR-REPO-VARIANT#4
+      - ADR-REPO-VARIANT#5
+      - ADR-REPO-VARIANT#6
+---
 
-`Values and module edges are gated; the no-direct-read rule is left to review`
+# Values and module edges have a gate; the no-direct-read rule is left to review
 
 ```text
-Values and module edges are gated; the rule that nothing reads the file directly is left to review.
+Values and module edges have a gate; the rule that nothing reads the file directly is left to review.
 
 1  variants.yml           rule 1: one home, a dictionary of known keys
 2  VariantsConfig         the load gate for rules 1, 4, 5 and 6: keys and values, one throw for all

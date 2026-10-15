@@ -1,6 +1,15 @@
-# docs/explanation/automation/two-entries-feed-one-importer.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/two-entries-feed-one-importer.md
+    kind: explanation
+    body_sha: "52974b3a4619"
+    adrs:
+      - ADR-AUTO-BUNDLE#2
+      - ADR-AUTO-BUNDLE#3
+---
 
-`Two entry scripts feed one importer, and the importer leaves once the load is done`
+# Two entry scripts feed one importer, and the importer leaves once the load is done
 
 ```text
 Two entry scripts feed one importer, and the importer leaves once the load is done.

@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md
+    kind: asset-description
+    body_sha: "558b77e45d42"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`How each naming rule is held: the diagram described`
+# How each naming rule is held: the diagram described
 
 ```text
 A 1572 x 820 diagram, read top to bottom through three bands.

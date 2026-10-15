@@ -1,6 +1,14 @@
-# docs/adr/configuration/module-config-loading.md
+---
+catzc:
+  derived:
+    path: docs/adr/configuration/module-config-loading.md
+    kind: adr
+    body_sha: "54ad5d90da9a"
+    adrs:
+      - ADR-DSGN-TRACK#3
+---
 
-`ADR: Module config loading — one reader (Get-Config), typed configs`
+# ADR: Module config loading — one reader (Get-Config), typed configs
 
 ## Rules: ADR-CONF-LOADING
 

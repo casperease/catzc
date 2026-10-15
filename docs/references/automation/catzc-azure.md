@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-azure.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure.md
+    kind: reference
+    body_sha: d8b3dc66ab75
+    adrs: []
+---
 
-`Catzc.Azure`
+# Catzc.Azure
 
 The Azure identity module. It owns the _model_ behind every Azure deployment — the tenants, customers, environments, and subscriptions the
 platform deploys into, and the network plan that overlays them — and the resolution logic that turns a name into the full identity the rest

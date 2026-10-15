@@ -1,6 +1,17 @@
-# docs/adr/automation/tracked-files-from-the-index.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/tracked-files-from-the-index.md
+    kind: adr
+    body_sha: "2f64cc7666e4"
+    adrs:
+      - ADR-AUTO-CACHE#9
+      - ADR-AUTO-FAILFAST#7
+      - ADR-AUTO-TEST#10
+      - ADR-AUTO-TRACKED#5
+---
 
-`ADR: Tracked files are read from the git index, in-process, through one seam`
+# ADR: Tracked files are read from the git index, in-process, through one seam
 
 ## Rules: ADR-AUTO-TRACKED
 

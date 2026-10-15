@@ -1,6 +1,14 @@
-# docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
+    kind: explanation
+    body_sha: "4eb015514f04"
+    adrs:
+      - ADR-FLOW-CD-GLOBS#9
+---
 
-`A stage returns only on $false; a doubt prints a message and proceeds; a typo throws`
+# A stage returns only on $false; a doubt prints a message and proceeds; a typo throws
 
 ```text
 A stage stops only on $false; $true, a doubt and its message all proceed; an undeclared name throws.

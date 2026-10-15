@@ -1,6 +1,22 @@
-# docs/explanation/repository/three-gates-check-registry-drift-membership.md
+---
+catzc:
+  derived:
+    path: docs/explanation/repository/three-gates-check-registry-drift-membership.md
+    kind: explanation
+    body_sha: c974410ed000
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-REPO-ROOTCFG#1
+      - ADR-REPO-ROOTCFG#2
+      - ADR-REPO-ROOTCFG#3
+      - ADR-REPO-ROOTCFG#4
+      - ADR-REPO-ROOTCFG#5
+      - ADR-REPO-ROOTCFG#6
+      - ADR-REPO-ROOTCFG#7
+      - ADR-REPO-ROOTCFG#8
+---
 
-`Three gates check the registry, the drift and the git membership; one rule has no gate`
+# Three gates check the registry, the drift and the git membership; one rule has no gate
 
 ```text
 Three gates check the registry, the drift and the git membership; one clause of the ADR has no gate.

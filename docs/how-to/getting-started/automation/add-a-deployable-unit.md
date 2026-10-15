@@ -1,6 +1,13 @@
-# docs/how-to/getting-started/automation/add-a-deployable-unit.md
+---
+catzc:
+  derived:
+    path: docs/how-to/getting-started/automation/add-a-deployable-unit.md
+    kind: how-to
+    body_sha: "8cedc41c9bd5"
+    adrs: []
+---
 
-`Add a deployable unit (a globset and its triggers)`
+# Add a deployable unit (a globset and its triggers)
 
 A deployable unit is defined exactly once, as a **globset** in `automation/Catzc.Base.Globs/configs/globs.yml` — a named set of glob
 patterns over the files under version control. Pipelines and workflows trigger on the globset's **native path-filter projection** (generated

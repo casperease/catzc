@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.md
+    kind: asset-description
+    body_sha: "4dc5921ea701"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Which auth rungs have a gate: the diagram described`
+# Which auth rungs have a gate: the diagram described
 
 ```text
 A 1572 x 620 diagram in two bands side by side, HEADER FUNCTION and CROSS-CUTTING.

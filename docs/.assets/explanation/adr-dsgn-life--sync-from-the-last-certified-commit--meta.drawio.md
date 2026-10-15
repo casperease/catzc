@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.md
+    kind: asset-description
+    body_sha: "6cc50b67a41e"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Sync from the last certified commit, not HEAD: the diagram described`
+# Sync from the last certified commit, not HEAD: the diagram described
 
 ```text
 A 1572 x 600 diagram, read top to bottom, then left to right; no bands.

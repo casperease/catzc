@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-tooling-toolchain/Install-Bicep.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-toolchain/Install-Bicep.ps1.md
+    kind: reference
+    body_sha: b505186b6825
+    adrs:
+      - ADR-REPO-FORMAT#8
+---
 
-`automation/Catzc.Tooling.Toolchain/Install-Bicep.ps1`
+# automation/Catzc.Tooling.Toolchain/Install-Bicep.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

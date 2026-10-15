@@ -1,6 +1,14 @@
-# docs/adr/process/holding-the-line.md
+---
+catzc:
+  derived:
+    path: docs/adr/process/holding-the-line.md
+    kind: adr
+    body_sha: d2cb16c40656
+    adrs:
+      - ADR-PRIN-POKAYOKE#3
+---
 
-`ADR: Holding the line — a failing gate stops the flow until it is green`
+# ADR: Holding the line — a gate that fails stops the flow until it is green
 
 ## Rules: ADR-PROC-ANDON
 

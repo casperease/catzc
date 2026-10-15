@@ -1,6 +1,18 @@
-# docs/adr/automation/path-representation.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/path-representation.md
+    kind: adr
+    body_sha: c24894c6fcd5
+    adrs:
+      - ADR-AUTO-PATH#11
+      - ADR-AUTO-PATH#6
+      - ADR-AUTO-PATH#8
+      - ADR-AUTO-PATH#9
+      - ADR-PWSH-XPLAT#10
+---
 
-`ADR: Path representation — relative across boundaries, absolute only at the bind`
+# ADR: Path representation — relative across boundaries, absolute only at the bind
 
 ## Rules: ADR-AUTO-PATH
 

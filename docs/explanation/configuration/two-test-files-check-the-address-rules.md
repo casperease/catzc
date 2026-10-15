@@ -1,6 +1,19 @@
-# docs/explanation/configuration/two-test-files-check-the-address-rules.md
+---
+catzc:
+  derived:
+    path: docs/explanation/configuration/two-test-files-check-the-address-rules.md
+    kind: explanation
+    body_sha: "054d69e70ec2"
+    adrs:
+      - ADR-AUTO-ENVVAR#7
+      - ADR-CONF-ADDRESSING#1
+      - ADR-CONF-ADDRESSING#2
+      - ADR-CONF-ADDRESSING#3
+      - ADR-CONF-ADDRESSING#4
+      - ADR-CONF-ADDRESSING#5
+---
 
-`Two L0 test files check the address rules; read-only and committed-only rest on convention`
+# Two L0 test files check the address rules; read-only and committed-only rest on convention
 
 ```text
 Two L0 test files check the address rules; read-only and committed-only rest on convention.

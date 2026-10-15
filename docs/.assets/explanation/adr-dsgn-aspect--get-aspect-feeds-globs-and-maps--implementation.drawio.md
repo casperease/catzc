@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.md
+    kind: asset-description
+    body_sha: c5c596323647
+    adrs: []
+---
 
-`Get-Aspect feeds Globs and Maps: the diagram described`
+# Get-Aspect feeds Globs and Maps: the diagram described
 
 ```text
 A 1572 x 668 diagram, read top to bottom from a file, a code unit and a failure, through a wide code unit, into two column bands.

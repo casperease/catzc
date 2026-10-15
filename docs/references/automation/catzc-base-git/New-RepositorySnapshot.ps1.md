@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md
+    kind: reference
+    body_sha: "9300c1ec0fd2"
+    adrs:
+      - ADR-AUTO-CONSOLE#10
+---
 
-`automation/Catzc.Base.Git/New-RepositorySnapshot.ps1`
+# automation/Catzc.Base.Git/New-RepositorySnapshot.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

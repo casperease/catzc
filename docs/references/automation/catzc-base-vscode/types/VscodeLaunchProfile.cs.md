@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-vscode/types/VscodeLaunchProfile.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-vscode/types/VscodeLaunchProfile.cs.md
+    kind: reference
+    body_sha: f0e0ec6fd2ac
+    adrs: []
+---
 
-`automation/Catzc.Base.VSCode/types/VscodeLaunchProfile.cs`
+# automation/Catzc.Base.VSCode/types/VscodeLaunchProfile.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

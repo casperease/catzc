@@ -1,6 +1,15 @@
-# docs/adr/azure/azure-data-model.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/azure-data-model.md
+    kind: adr
+    body_sha: "62bbc25cbfea"
+    adrs:
+      - ADR-AZ-DATAMOD#3
+      - ADR-AZ-DATAMOD#9
+---
 
-`ADR: Templating data model (azure.yml+infrastructure/**)`
+# ADR: Templating data model (azure.yml+infrastructure/**)
 
 Pairs with [`naming-standard`](azure-naming-standard.md), which defines the resource-name components this model feeds.
 

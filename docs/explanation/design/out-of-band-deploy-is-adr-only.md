@@ -1,6 +1,19 @@
-# docs/explanation/design/out-of-band-deploy-is-adr-only.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/out-of-band-deploy-is-adr-only.md
+    kind: explanation
+    body_sha: e936870e0c62
+    adrs:
+      - ADR-AUTO-TEST#24
+      - ADR-DSGN-LIFE#1
+      - ADR-DSGN-LIFE#9
+      - ADR-DSGN-VISUAL#13
+      - ADR-DSGN-VISUAL#2
+      - ADR-DSGN-VISUAL#4
+---
 
-`No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only`
+# No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only
 
 ```text
 ADR-DSGN-LIFE#9 is ADR-only, and the one gate on deploys in code allows main alone.

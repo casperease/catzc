@@ -1,6 +1,13 @@
-# docs/how-to/automation/manual-test-plan/tooling.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan/tooling.md
+    kind: how-to
+    body_sha: "714072254ede"
+    adrs: []
+---
 
-`Manual test plan — Tooling`
+# Manual test plan — Tooling
 
 The shipped `tools.yml` and the tool install machinery. Part of the [manual test plan](../manual-test-plan.md), which says how to run a
 check.

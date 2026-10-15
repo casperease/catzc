@@ -1,6 +1,16 @@
-# docs/adr/pwsh/powershell-formatting.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/powershell-formatting.md
+    kind: adr
+    body_sha: "4059799f1d55"
+    adrs:
+      - ADR-AUTO-NONEST#3
+      - ADR-AUTO-NONEST#5
+      - ADR-PWSH-FORMAT#7
+---
 
-`ADR: PowerShell formatting — the language layer over uniform-formatting`
+# ADR: PowerShell formatting — the language layer over uniform-formatting
 
 ## Rules: ADR-PWSH-FORMAT
 

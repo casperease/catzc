@@ -1,6 +1,17 @@
-# docs/adr/configuration/config-value-addressing.md
+---
+catzc:
+  derived:
+    path: docs/adr/configuration/config-value-addressing.md
+    kind: adr
+    body_sha: "0556ee64f476"
+    adrs:
+      - ADR-AUTO-ENVVAR#7
+      - ADR-CONF-LOADING#1
+      - ADR-CONF-LOADING#2
+      - ADR-CONF-LOADING#3
+---
 
-`ADR: Config value addressing — a by-reference handle into a named config`
+# ADR: Config value addressing — a by-reference handle into a named config
 
 ## Rules: ADR-CONF-ADDRESSING
 

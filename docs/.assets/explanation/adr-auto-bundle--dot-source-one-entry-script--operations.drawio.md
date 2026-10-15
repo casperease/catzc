@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.md
+    kind: asset-description
+    body_sha: ca18a654bc1a
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Dot-source one entry script: the diagram described`
+# Dot-source one entry script: the diagram described
 
 ```text
 A 1572 x 690 diagram, read top to bottom down one column, with a failure glyph to its right.

@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
+    kind: reference
+    body_sha: f39e1ceb6d86
+    adrs:
+      - ADR-AUTO-PATH#5
+---
 
-`automation/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1`
+# automation/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

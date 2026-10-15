@@ -1,6 +1,17 @@
-# docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md
+    kind: reference
+    body_sha: d359274b9ef8
+    adrs:
+      - ADR-AUTO-ASSETDEP#1
+      - ADR-AUTO-CONSOLE#10
+      - ADR-PRIN-CONFIG#2
+      - ADR-REPO-FORMAT#3
+---
 
-`automation/Catzc.Base.QualityGates/private/Invoke-PSScriptAnalyzerFormat.ps1`
+# automation/Catzc.Base.QualityGates/private/Invoke-PSScriptAnalyzerFormat.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

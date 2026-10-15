@@ -11,11 +11,15 @@ description: >
   the minimaps (`drawio-diagram-waves` and the minimap tooling own those).
 tools: Bash, Read, Glob, Grep, Write
 model: haiku
+catzc:
+  derived:
+    path: ".claude/agents/write-drawio-files.md"
+    kind: agent
+    body_sha: dc56e6631c20
+    adrs: []
 ---
 
-# .claude/agents/write-drawio-files.md
-
-`write-drawio-files`
+# write-drawio-files
 
 <!-- cspell:ignore mxfile pnginfo urlencode -->
 

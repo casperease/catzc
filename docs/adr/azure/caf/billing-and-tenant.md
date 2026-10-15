@@ -1,6 +1,31 @@
-# docs/adr/azure/caf/billing-and-tenant.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/caf/billing-and-tenant.md
+    kind: adr
+    body_sha: "43969d556544"
+    adrs:
+      - ADR-AZ-CAFGOV#10
+      - ADR-AZ-CAFGOV#9
+      - ADR-AZ-CAFRESORG#19
+      - ADR-AZ-CAFRESORG#5
+      - ADR-AZ-CUSTOMER#2
+      - ADR-AZ-DATAMOD#1
+      - ADR-AZ-DATAMOD#3
+      - ADR-AZ-DATAMOD#7
+      - ADR-AZ-DATAMOD#8
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#2
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#6
+      - ADR-AZ-SESSION#4
+      - ADR-AZ-SESSION#5
+      - ADR-AZ-WAFSE#5
+---
 
-`ADR: CAF billing and tenant — what the repository does about each of Microsoft's billing and Entra tenant design recommendations`
+# ADR: CAF billing and tenant — what the repository does about each of Microsoft's billing and Entra tenant design recommendations
 
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone that stops at the subscription), [`data-model`](../azure-data-model.md)
 (the tenants and subscriptions in `azure.yml`), and [`customer-model`](../azure-customer-model.md) (customers separated by subscription).

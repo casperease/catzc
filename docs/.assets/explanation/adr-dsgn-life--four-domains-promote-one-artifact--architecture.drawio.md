@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.md
+    kind: asset-description
+    body_sha: "1b85e08862a5"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Four pipeline kinds promote one artifact: the diagram described`
+# Four pipeline kinds promote one artifact: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through five bands standing side by side.

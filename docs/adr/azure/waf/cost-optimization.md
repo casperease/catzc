@@ -1,6 +1,23 @@
-# docs/adr/azure/waf/cost-optimization.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/waf/cost-optimization.md
+    kind: adr
+    body_sha: b885ae6df735
+    adrs:
+      - ADR-AZ-DATAMOD#10
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#2
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#2
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#5
+      - ADR-AZ-NAMING#1
+---
 
-`ADR: Well-Architected cost optimization — what the repository does about each item of Microsoft's checklist`
+# ADR: Well-Architected cost optimization — what the repository does about each item of Microsoft's checklist
 
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone that carries the budget and the guardrails) and
 [`data-model`](../azure-data-model.md) (the configuration tree every cost value lives in).

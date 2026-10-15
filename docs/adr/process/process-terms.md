@@ -1,6 +1,13 @@
-# docs/adr/process/process-terms.md
+---
+catzc:
+  derived:
+    path: docs/adr/process/process-terms.md
+    kind: adr
+    body_sha: "85f093b7747b"
+    adrs: []
+---
 
-`ADR: Process terms — the foundational vocabulary of flow`
+# ADR: Process terms — the foundational vocabulary of flow
 
 ## Rules: ADR-PROC-LEANTERMS
 

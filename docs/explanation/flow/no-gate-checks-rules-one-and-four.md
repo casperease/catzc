@@ -1,6 +1,18 @@
-# docs/explanation/flow/no-gate-checks-rules-one-and-four.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/no-gate-checks-rules-one-and-four.md
+    kind: explanation
+    body_sha: a85da9fc8bca
+    adrs:
+      - ADR-FLOW-CD-RUNNER#1
+      - ADR-FLOW-CD-RUNNER#2
+      - ADR-FLOW-CD-RUNNER#3
+      - ADR-FLOW-CD-RUNNER#4
+      - ADR-PIPE-NAME#4
+---
 
-`No gate checks the runner rules 1 or 4, and the step template breaks rule 3`
+# No gate checks the runner rules 1 or 4, and the step template breaks rule 3
 
 ```text
 No gate checks the runner rules 1 or 4, and the step template breaks rule 3.

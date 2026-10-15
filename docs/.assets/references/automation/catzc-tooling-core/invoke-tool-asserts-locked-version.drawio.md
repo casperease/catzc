@@ -1,6 +1,17 @@
-# docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
+    kind: asset-description
+    body_sha: "26e79173250c"
+    adrs:
+      - ADR-AUTO-DEPS#3
+      - ADR-AUTO-DRYRUN#2
+      - ADR-CONF-LOADING#6
+      - ADR-PWSH-CACHE#4
+---
 
-`Each Invoke-<Tool> asserts the locked version before it runs: the diagram described`
+# Each `Invoke-<Tool>` asserts the locked version before it runs: the diagram described
 
 ```text
 A 1588 x 672 diagram, read left to right in two rows, with a band above a module frame.

@@ -1,6 +1,21 @@
-# docs/adr/pwsh/dynamic-module-manifests.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/dynamic-module-manifests.md
+    kind: adr
+    body_sha: "4511f151b87b"
+    adrs:
+      - ADR-AUTO-DEPM#1
+      - ADR-AUTO-DEPM#2
+      - ADR-AUTO-EXTEND#1
+      - ADR-AUTO-EXTEND#4
+      - ADR-AUTO-ZERO#2
+      - ADR-AUTO-ZERO#3
+      - ADR-PWSH-ENGINE#4
+      - ADR-PWSH-MANIFEST#8
+---
 
-`ADR: Dynamic module manifests — the PowerShell layer over open-closed-architecture`
+# ADR: Dynamic module manifests — the PowerShell layer over open-closed-architecture
 
 ## Rules: ADR-PWSH-MANIFEST
 

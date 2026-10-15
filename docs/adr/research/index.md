@@ -1,6 +1,13 @@
-# docs/adr/research/index.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/index.md
+    kind: adr
+    body_sha: "4479ff9ca781"
+    adrs: []
+---
 
-`DORA research — capability summaries`
+# DORA research — capability summaries
 
 This area summarizes [DORA](../../references/dora/index.md) — the research program behind the repository's delivery thinking — as a set of
 ADR-style articles, one per capability. Each article carries an `ADR-DORA-<NAME>` rule domain so its findings can be cited like any other

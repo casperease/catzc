@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md
+    kind: asset-description
+    body_sha: "683f526b1071"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`The manifest and the aspects both come from one folder: the diagram described`
+# The manifest and the aspects both come from one folder: the diagram described
 
 ```text
 A 1572 x 722 diagram, read left to right from a tall code unit into two bands.

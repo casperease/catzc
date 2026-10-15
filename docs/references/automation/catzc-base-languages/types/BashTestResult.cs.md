@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-base-languages/types/BashTestResult.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-languages/types/BashTestResult.cs.md
+    kind: reference
+    body_sha: "7f7e4108c4d2"
+    adrs:
+      - ADR-AUTO-TEST#1
+      - ADR-AUTO-TYPES#8
+---
 
-`automation/Catzc.Base.Languages/types/BashTestResult.cs`
+# automation/Catzc.Base.Languages/types/BashTestResult.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

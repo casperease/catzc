@@ -1,6 +1,13 @@
-# docs/references/contracts.md
+---
+catzc:
+  derived:
+    path: docs/references/contracts.md
+    kind: reference
+    body_sha: b5678246da49
+    adrs: []
+---
 
-`The contracts surface`
+# The contracts surface
 
 This folder holds the repository's binding interfaces at its boundary, in both directions: the **only public API** an outside consumer is
 allowed to depend on, and the file shapes and calls an outside platform (GitHub, Azure DevOps, Azure) expects of us. Everything else in the

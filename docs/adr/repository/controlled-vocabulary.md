@@ -1,6 +1,21 @@
-# docs/adr/repository/controlled-vocabulary.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/controlled-vocabulary.md
+    kind: adr
+    body_sha: e303a0153364
+    adrs:
+      - ADR-AUTO-TEST#9
+      - ADR-REPO-VOCAB#1
+      - ADR-REPO-VOCAB#2
+      - ADR-REPO-VOCAB#3
+      - ADR-REPO-VOCAB#4
+      - ADR-REPO-VOCAB#5
+      - ADR-REPO-VOCAB#6
+      - ADR-REPO-VOCAB#8
+---
 
-`ADR: Controlled vocabulary — one definition per term, opt-in glossary sources`
+# ADR: Controlled vocabulary — one definition per term, opt-in glossary sources
 
 ## Rules: ADR-REPO-VOCAB
 

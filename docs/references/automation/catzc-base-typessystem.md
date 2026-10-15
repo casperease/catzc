@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-base-typessystem.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-typessystem.md
+    kind: reference
+    body_sha: eeb3ed086f13
+    adrs:
+      - ADR-AUTO-FAILFAST#7
+      - ADR-AUTO-TYPES#15
+---
 
-`Catzc.Base.TypesSystem`
+# Catzc.Base.TypesSystem
 
 The native C# type system's support layer: it keeps the single committed combined type assembly under `automation/.compiled/` clean,
 computes the cross-module C# type-reference edges that [Catzc.Base.ModuleSystem](catzc-base-modulesystem.md) folds into its dependency

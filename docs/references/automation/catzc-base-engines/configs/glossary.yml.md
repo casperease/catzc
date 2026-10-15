@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-engines/configs/glossary.yml.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-engines/configs/glossary.yml.md
+    kind: reference
+    body_sha: bd8e9e4606e4
+    adrs:
+      - ADR-REPO-VOCAB#2
+---
 
-`automation/Catzc.Base.Engines/configs/glossary.yml`
+# automation/Catzc.Base.Engines/configs/glossary.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

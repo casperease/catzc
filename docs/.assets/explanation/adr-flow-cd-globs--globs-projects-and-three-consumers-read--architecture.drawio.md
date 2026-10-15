@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.md
+    kind: asset-description
+    body_sha: "8e52d2fa68f4"
+    adrs: []
+---
 
-`Catzc.Base.Globs projects, three consumers read: the diagram described`
+# Catzc.Base.Globs projects, three consumers read: the diagram described
 
 ```text
 A 1572 x 660 diagram, read top to bottom through three bands.

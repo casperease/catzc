@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-aspect--get-aspect-names-the-remainder--operations.drawio.md
+    kind: asset-description
+    body_sha: "8b763afa2d5b"
+    adrs: []
+---
 
-`Get-Aspect names the remainder: the diagram described`
+# Get-Aspect names the remainder: the diagram described
 
 ```text
 A 1572 x 654 diagram, read top to bottom from one wide file into two side-by-side column bands, with a failure beside the file.

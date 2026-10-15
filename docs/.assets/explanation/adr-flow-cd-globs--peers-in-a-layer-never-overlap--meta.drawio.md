@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.md
+    kind: asset-description
+    body_sha: "0502bfeeb85a"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Peers never overlap, except loose-filesets: the diagram described`
+# Peers never overlap, except loose-filesets: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands.

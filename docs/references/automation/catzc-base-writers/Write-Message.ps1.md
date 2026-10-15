@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-base-writers/Write-Message.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-writers/Write-Message.ps1.md
+    kind: reference
+    body_sha: "45eeec779afc"
+    adrs:
+      - ADR-AUTO-CONSOLE#7
+      - ADR-AUTO-CONSOLE#8
+---
 
-`automation/Catzc.Base.Writers/Write-Message.ps1`
+# automation/Catzc.Base.Writers/Write-Message.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

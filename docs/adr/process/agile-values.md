@@ -1,6 +1,13 @@
-# docs/adr/process/agile-values.md
+---
+catzc:
+  derived:
+    path: docs/adr/process/agile-values.md
+    kind: adr
+    body_sha: "972c86b870f6"
+    adrs: []
+---
 
-`ADR: Agile values — the four preferences of the manifesto`
+# ADR: Agile values — the four preferences of the manifesto
 
 ## Rules: ADR-PROC-VALUES
 

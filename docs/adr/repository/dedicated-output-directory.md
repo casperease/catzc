@@ -1,6 +1,18 @@
-# docs/adr/repository/dedicated-output-directory.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/dedicated-output-directory.md
+    kind: adr
+    body_sha: "74388027e701"
+    adrs:
+      - ADR-AUTO-SPELL#5
+      - ADR-REPO-OUTDIR#11
+      - ADR-REPO-OUTDIR#4
+      - ADR-REPO-OUTDIR#5
+      - ADR-REPO-OUTDIR#8
+---
 
-`ADR: Dedicated output directory`
+# ADR: Dedicated output directory
 
 ## Rules: ADR-REPO-OUTDIR
 

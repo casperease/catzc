@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-maps/types/PdfDocument.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-maps/types/PdfDocument.cs.md
+    kind: reference
+    body_sha: e2e4bc0d3e95
+    adrs:
+      - ADR-PWSH-TYPES#1
+---
 
-`automation/Catzc.Base.Maps/types/PdfDocument.cs`
+# automation/Catzc.Base.Maps/types/PdfDocument.cs
 
 <!-- cspell:ignore startxref endstream nendobj -->
 

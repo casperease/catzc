@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-modulesystem/types/DependencyGraph.cs.md
+    kind: reference
+    body_sha: fe3511802c2f
+    adrs:
+      - ADR-AUTO-DEPM#4
+---
 
-`automation/Catzc.Base.ModuleSystem/types/DependencyGraph.cs`
+# automation/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

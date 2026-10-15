@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-timeouts/Assert-IsNotTimeoutExempt.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-timeouts/Assert-IsNotTimeoutExempt.ps1.md
+    kind: reference
+    body_sha: "5746782e858a"
+    adrs: []
+---
 
-`automation/Catzc.Base.Timeouts/Assert-IsNotTimeoutExempt.ps1`
+# automation/Catzc.Base.Timeouts/Assert-IsNotTimeoutExempt.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

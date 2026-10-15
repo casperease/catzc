@@ -1,6 +1,16 @@
-# docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
+    kind: explanation
+    body_sha: ffbbf6cf0962
+    adrs:
+      - ADR-AUTO-FAILFAST#4
+      - ADR-FLOW-CD-DETECT#1
+      - ADR-FLOW-CD-GLOBS#9
+---
 
-`Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it`
+# Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it
 
 ```text
 Logic tests pin the throw and the fail-open, an analyzer rule pins detection, and the pipeline-side rules have no gate.

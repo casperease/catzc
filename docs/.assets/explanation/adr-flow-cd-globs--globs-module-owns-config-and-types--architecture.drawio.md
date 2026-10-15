@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--globs-module-owns-config-and-types--architecture.drawio.md
+    kind: asset-description
+    body_sha: "547a47d14a0d"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Catzc.Base.Globs owns config, types and roles: the diagram described`
+# Catzc.Base.Globs owns config, types and roles: the diagram described
 
 ```text
 A 1572 x 560 diagram, read left to right through two bands.

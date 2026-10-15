@@ -1,6 +1,13 @@
-# docs/adr/process/agile-principles.md
+---
+catzc:
+  derived:
+    path: docs/adr/process/agile-principles.md
+    kind: adr
+    body_sha: d11206484097
+    adrs: []
+---
 
-`ADR: Agile principles — the twelve principles behind the manifesto`
+# ADR: Agile principles — the twelve principles behind the manifesto
 
 ## Rules: ADR-PRIN-PROCESS
 

@@ -1,6 +1,19 @@
-# docs/explanation/design/every-vendor-call-leaves-through-az.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/every-vendor-call-leaves-through-az.md
+    kind: explanation
+    body_sha: "53dfed796091"
+    adrs:
+      - ADR-AZ-CLI#1
+      - ADR-AZ-CLI#2
+      - ADR-AZ-CLI#3
+      - ADR-DSGN-THINPLAT#1
+      - ADR-DSGN-THINPLAT#2
+      - ADR-DSGN-THINPLAT#3
+---
 
-`Every vendor call leaves cats through the az CLI`
+# Every vendor call leaves cats through the az CLI
 
 ```text
 Every vendor call leaves cats through the az CLI, the one exit to Azure.

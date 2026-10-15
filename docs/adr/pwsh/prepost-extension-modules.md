@@ -1,6 +1,14 @@
-# docs/adr/pwsh/prepost-extension-modules.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/prepost-extension-modules.md
+    kind: adr
+    body_sha: ddae042c3b46
+    adrs:
+      - ADR-PWSH-USEPS#2
+---
 
-`ADR: PrePost extension modules`
+# ADR: PrePost extension modules
 
 ## Rules: ADR-PWSH-PREPOST
 

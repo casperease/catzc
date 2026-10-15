@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.md
+    kind: asset-description
+    body_sha: a3332eead5c3
+    adrs: []
+---
 
-`The gate checks order, not liveness: the diagram described`
+# The gate checks order, not liveness: the diagram described
 
 ```text
 A 1572 x 640 diagram, read top to bottom inside two side-by-side column bands, each with its gate on the right.

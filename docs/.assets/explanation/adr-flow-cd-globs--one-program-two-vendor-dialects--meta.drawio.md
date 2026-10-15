@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--one-program-two-vendor-dialects--meta.drawio.md
+    kind: asset-description
+    body_sha: b84d6ef800d8
+    adrs: []
+---
 
-`One flattened scan program, two vendor dialects: the diagram described`
+# One flattened scan program, two vendor dialects: the diagram described
 
 ```text
 A 1572 x 650 diagram, read top to bottom through two bands.

@@ -1,6 +1,13 @@
-# docs/adr/research/database-change-management.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/database-change-management.md
+    kind: adr
+    body_sha: d48de2b4f591
+    adrs: []
+---
 
-`ADR: DORA — Database change management`
+# ADR: DORA — Database change management
 
 ## Rules: ADR-DORA-DBCHANGE
 

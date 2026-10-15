@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md
+    kind: reference
+    body_sha: "22828909acf6"
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-DSGN-TRACK#1
+      - ADR-DSGN-TRACK#2
+---
 
-`automation/Catzc.Base.Variants/types/VariantsConfig.cs`
+# automation/Catzc.Base.Variants/types/VariantsConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

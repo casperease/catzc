@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-life--deploy-and-integrate-share-only-the-topic--architecture.drawio.md
+    kind: asset-description
+    body_sha: ccabe83b0581
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Deploying a topic commit and integrating it share only the topic commit: the diagram described`
+# Deploying a topic commit and integrating it share only the topic commit: the diagram described
 
 ```text
 A 1572 x 630 diagram, read left to right through four column bands.

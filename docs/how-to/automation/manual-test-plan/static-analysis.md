@@ -1,6 +1,18 @@
-# docs/how-to/automation/manual-test-plan/static-analysis.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan/static-analysis.md
+    kind: how-to
+    body_sha: fe3b340399ec
+    adrs:
+      - ADR-AUTO-BASH#6
+      - ADR-AUTO-PY#8
+      - ADR-PRIN-CONFIG#2
+      - ADR-PRIN-CONFIG#4
+      - ADR-PWSH-ASSERT#1
+---
 
-`Manual test plan — Static analysis`
+# Manual test plan — Static analysis
 
 PSScriptAnalyzer, the formatter, and the analyzer-to-ADR map. Part of the [manual test plan](../manual-test-plan.md), which says how to run
 a check.

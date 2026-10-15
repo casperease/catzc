@@ -59,9 +59,15 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         & $script:scan @{ 'docs/alpha.md' = @('It is widgeted, then widgeting again.') } @{} $true | Should -BeNullOrEmpty
     }
 
-    It 'reads no link or image destination and no repository-path title as prose' -Tag 'ADR-REPO-VOCAB#8' {
-        $text = @('# docs/explanation/pick-widget.md', '', 'See [the article](../pick-widget.md) and ![a gadget widget](../pick-widget.drawio.png).')
+    It 'reads no link or image destination as prose' -Tag 'ADR-REPO-VOCAB#8' {
+        $text = @('# Alpha', '', 'See [the article](../pick-widget.md) and ![a gadget widget](../pick-widget.drawio.png).')
         & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
+    }
+
+    It 'reads no meta block in the front matter as prose, and still reads the rest of the front matter' -Tag 'ADR-REPO-VOCAB#8', 'ADR-REPO-MDMETA#1' {
+        $text = @('---', 'catzc:', '  derived:', '    path: docs/explanation/pick-sprocket-widget.md', '    kind: explanation', 'note: a sprocket widget', '---', '', '# Alpha')
+        $found = & $script:scan @{ 'docs/alpha.md' = $text }
+        $found | Should -Be @("docs/alpha.md:6 says `"sprocket widget`" — $script:tail")
     }
 
     It 'exempts a mention in backticks or quotes, and never matches inside a longer word' -Tag 'ADR-REPO-VOCAB#8' {

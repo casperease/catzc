@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd--pipeline-kinds-keyed-by-one-artifact--architecture.drawio.md
+    kind: asset-description
+    body_sha: db10b3326b59
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`CI, CD and DEPLOY keyed together by one artifact: the diagram described`
+# CI, CD and DEPLOY keyed together by one artifact: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through three bands.

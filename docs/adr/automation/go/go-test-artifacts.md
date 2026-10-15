@@ -1,6 +1,28 @@
-# docs/adr/automation/go/go-test-artifacts.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/go/go-test-artifacts.md
+    kind: adr
+    body_sha: c35f0c02b784
+    adrs:
+      - ADR-AUTO-DEPS#3
+      - ADR-AUTO-ENGINE#4
+      - ADR-AUTO-GO#1
+      - ADR-AUTO-GO#2
+      - ADR-AUTO-GO#3
+      - ADR-AUTO-GO#4
+      - ADR-AUTO-GO#5
+      - ADR-AUTO-GO#6
+      - ADR-AUTO-GO#7
+      - ADR-AUTO-GO#8
+      - ADR-AUTO-TEST#13
+      - ADR-AUTO-TEST#30
+      - ADR-AUTO-TEST#42
+      - ADR-AUTO-TEST#8
+      - ADR-AUTO-TEST#9
+---
 
-`ADR: Go test artifacts — black-box tests of the engine, never shipped`
+# ADR: Go test artifacts — black-box tests of the engine, never shipped
 
 ## Rules: ADR-AUTO-GO
 

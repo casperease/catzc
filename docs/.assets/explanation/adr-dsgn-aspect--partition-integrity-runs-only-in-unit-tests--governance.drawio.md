@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.md
+    kind: asset-description
+    body_sha: c68cec6bf247
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Partition integrity runs only in unit tests: the diagram described`
+# Partition integrity runs only in unit tests: the diagram described
 
 ```text
 A 1572 x 602 diagram, read left to right through four column bands.

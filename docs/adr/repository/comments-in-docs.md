@@ -1,6 +1,14 @@
-# docs/adr/repository/comments-in-docs.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/comments-in-docs.md
+    kind: adr
+    body_sha: "325e01b775df"
+    adrs:
+      - ADR-REPO-LINK#9
+---
 
-`ADR: Comments in docs — one insight line in the file, the prose in its comment page`
+# ADR: Comments in docs — one insight line in the file, the prose in its comment page
 
 ## Rules: ADR-REPO-COMMENTS
 

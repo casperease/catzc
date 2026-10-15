@@ -1,6 +1,18 @@
-# docs/explanation/azure/names-are-derived-never-typed.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/names-are-derived-never-typed.md
+    kind: explanation
+    body_sha: "0665f1c4e736"
+    adrs:
+      - ADR-AZ-NAMING#1
+      - ADR-AZ-NAMING#5
+      - ADR-AZ-NAMING#6
+      - ADR-AZ-NAMING#7
+      - ADR-AZ-NAMING#8
+---
 
-`Nobody types an Azure name: cats derives it, and a bad name stops with an error`
+# Nobody types an Azure name: cats derives it, and a bad name stops with an error
 
 ```text
 An operator changes settings and runs a command; cats derives the name or stops with an error.

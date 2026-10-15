@@ -1,6 +1,13 @@
-# docs/references/infrastructure/discovery.md
+---
+catzc:
+  derived:
+    path: docs/references/infrastructure/discovery.md
+    kind: reference
+    body_sha: "499e30733666"
+    adrs: []
+---
 
-`discovery`
+# discovery
 
 The CAF application landing zone of one subscription. `discovery` deploys the network, the guardrails, and the cost control a workload lands
 in, and no workload of its own. It is deployed once per subscription, at subscription scope: a **hub** in each shared subscription and a

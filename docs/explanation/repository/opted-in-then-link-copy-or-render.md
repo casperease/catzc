@@ -1,6 +1,18 @@
-# docs/explanation/repository/opted-in-then-link-copy-or-render.md
+---
+catzc:
+  derived:
+    path: docs/explanation/repository/opted-in-then-link-copy-or-render.md
+    kind: explanation
+    body_sha: "3de893e5d4ae"
+    adrs:
+      - ADR-REPO-ROOTCFG#2
+      - ADR-REPO-ROOTCFG#4
+      - ADR-REPO-ROOTCFG#5
+      - ADR-REPO-ROOTCFG#7
+      - ADR-REPO-ROOTCFG#8
+---
 
-`The optIn filter, then link, copy or render, through two write primitives`
+# The optIn filter, then link, copy or render, through two write primitives
 
 ```text
 Build-RootConfig filters the registry to the opted-in entries, then links, copies or renders each one through two write primitives.

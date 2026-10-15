@@ -1,6 +1,19 @@
-# docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
+    kind: explanation
+    body_sha: "3af8354b998e"
+    adrs:
+      - ADR-FLOW-CD#11
+      - ADR-FLOW-CD#3
+      - ADR-FLOW-CD#4
+      - ADR-FLOW-CD#5
+      - ADR-FLOW-CD#7
+      - ADR-FLOW-CD#9
+---
 
-`CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact`
+# CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact
 
 ```text
 CI, CD and DEPLOY are separate pipeline kinds, keyed together by one artifact.

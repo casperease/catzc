@@ -1,6 +1,15 @@
-# docs/explanation/flow/globs-projects-and-three-consumers-read.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/globs-projects-and-three-consumers-read.md
+    kind: explanation
+    body_sha: ba817bcb8f65
+    adrs:
+      - ADR-FLOW-CD-GLOBS#6
+      - ADR-FLOW-CD-GLOBS#8
+---
 
-`Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it`
+# Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it
 
 ```text
 Catzc.Base.Globs projects the program; workflows, pipelines and the branch policy only read it.

@@ -1,6 +1,13 @@
-# docs/adr/research/loosely-coupled-teams.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/loosely-coupled-teams.md
+    kind: adr
+    body_sha: "24f01e1c2517"
+    adrs: []
+---
 
-`ADR: DORA — Loosely coupled teams`
+# ADR: DORA — Loosely coupled teams
 
 ## Rules: ADR-DORA-LOOSETEAMS
 

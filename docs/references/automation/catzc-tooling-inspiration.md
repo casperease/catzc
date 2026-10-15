@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-tooling-inspiration.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-inspiration.md
+    kind: reference
+    body_sha: e2cb090c3f31
+    adrs: []
+---
 
-`Catzc.Tooling.Inspiration`
+# Catzc.Tooling.Inspiration
 
 The inspiration module of the Tooling group: one checked way to find the sibling repositories catzc reads for ideas, never as a reference
 implementation ([inspiration](../../adr/repository/inspiration.md)). It declares each inspiration in config, resolves where it lives on this

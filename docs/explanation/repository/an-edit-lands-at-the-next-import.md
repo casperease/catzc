@@ -1,6 +1,18 @@
-# docs/explanation/repository/an-edit-lands-at-the-next-import.md
+---
+catzc:
+  derived:
+    path: docs/explanation/repository/an-edit-lands-at-the-next-import.md
+    kind: explanation
+    body_sha: d1258477412c
+    adrs:
+      - ADR-AUTO-CACHE#6
+      - ADR-REPO-VARIANT#1
+      - ADR-REPO-VARIANT#2
+      - ADR-REPO-VARIANT#5
+      - ADR-REPO-VARIANT#6
+---
 
-`An edit to a variant lands at the next import, and a wrong value fails once, at load`
+# An edit to a variant lands at the next import, and a wrong value fails once, at load
 
 ```text
 An edit to a variant lands at the next import; a wrong value fails once at load, a guard once at use.

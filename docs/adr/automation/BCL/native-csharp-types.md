@@ -1,6 +1,22 @@
-# docs/adr/automation/BCL/native-csharp-types.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/BCL/native-csharp-types.md
+    kind: adr
+    body_sha: "66f09f192f75"
+    adrs:
+      - ADR-AUTO-CACHE#8
+      - ADR-AUTO-TYPES#13
+      - ADR-AUTO-TYPES#14
+      - ADR-AUTO-TYPES#15
+      - ADR-AUTO-TYPES#2
+      - ADR-AUTO-TYPES#3
+      - ADR-AUTO-TYPES#4
+      - ADR-AUTO-TYPES#7
+      - ADR-AUTO-TYPES#8
+---
 
-`ADR: Native C# types — one combined assembly, namespace per module`
+# ADR: Native C# types — one combined assembly, namespace per module
 
 ## Rules: ADR-AUTO-TYPES
 

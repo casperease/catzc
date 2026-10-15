@@ -1,6 +1,16 @@
-# docs/explanation/pipelines/configured-credential-proves-its-org.md
+---
+catzc:
+  derived:
+    path: docs/explanation/pipelines/configured-credential-proves-its-org.md
+    kind: explanation
+    body_sha: "6e7af59d401e"
+    adrs:
+      - ADR-PIPE-AUTH#1
+      - ADR-PIPE-AUTH#2
+      - ADR-PIPE-AUTH#5
+---
 
-`The first configured credential wins, and it must prove its org`
+# The first configured credential wins, and it must prove its org
 
 ```text
 The first configured credential wins, proves its org, and never falls back.

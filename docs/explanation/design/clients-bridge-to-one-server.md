@@ -1,6 +1,18 @@
-# docs/explanation/design/clients-bridge-to-one-server.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/clients-bridge-to-one-server.md
+    kind: explanation
+    body_sha: "67c27c50bf4b"
+    adrs:
+      - ADR-DSGN-LIFE#6
+      - ADR-DSGN-LIFE#7
+      - ADR-DSGN-REMOTE#1
+      - ADR-DSGN-REMOTE#2
+      - ADR-DSGN-REMOTE#4
+---
 
-`Clients bridge to one server remote: in through a pull request, out from the verified point`
+# Clients bridge to one server remote: in through a pull request, out from the verified point
 
 ```text
 Clients bridge to one server remote: in through a pull request, out from the verified point.

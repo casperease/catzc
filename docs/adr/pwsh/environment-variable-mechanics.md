@@ -1,6 +1,24 @@
-# docs/adr/pwsh/environment-variable-mechanics.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/environment-variable-mechanics.md
+    kind: adr
+    body_sha: f06f5693d22e
+    adrs:
+      - ADR-AUTO-ENVVAR#1
+      - ADR-AUTO-ENVVAR#2
+      - ADR-AUTO-ENVVAR#3
+      - ADR-AUTO-ENVVAR#4
+      - ADR-AUTO-ENVVAR#5
+      - ADR-AUTO-ENVVAR#6
+      - ADR-AUTO-ENVVAR#7
+      - ADR-AUTO-NOPWD#6
+      - ADR-FLOW-CD-DETECT#1
+      - ADR-PWSH-ENV#2
+      - ADR-PWSH-ENV#9
+---
 
-`ADR: Environment-variable mechanics — the PowerShell layer over environment-variables`
+# ADR: Environment-variable mechanics — the PowerShell layer over environment-variables
 
 ## Rules: ADR-PWSH-ENV
 

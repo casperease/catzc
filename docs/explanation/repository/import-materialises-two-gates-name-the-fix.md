@@ -1,6 +1,15 @@
-# docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
+---
+catzc:
+  derived:
+    path: docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
+    kind: explanation
+    body_sha: "7e60f250283d"
+    adrs:
+      - ADR-REPO-ROOTCFG#4
+      - ADR-REPO-ROOTCFG#6
+---
 
-`The import materialises every root file; two gates catch drift and name the fix`
+# The import materialises every root file; two gates catch drift and name the fix
 
 ```text
 The import materialises every managed root file, and two quality gates catch drift and name the fix.

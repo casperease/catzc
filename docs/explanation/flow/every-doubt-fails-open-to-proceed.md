@@ -1,6 +1,14 @@
-# docs/explanation/flow/every-doubt-fails-open-to-proceed.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/every-doubt-fails-open-to-proceed.md
+    kind: explanation
+    body_sha: ef6923670aa4
+    adrs:
+      - ADR-FLOW-CD-GLOBS#9
+---
 
-`"Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed`
+# "Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed
 
 ```text
 Whether a change touches a unit is read from git at real refs, and every doubt fails open to proceed.

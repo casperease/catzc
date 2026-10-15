@@ -1,6 +1,32 @@
-# docs/adr/azure/caf/network-connectivity.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/caf/network-connectivity.md
+    kind: adr
+    body_sha: "1bb977ab38e6"
+    adrs:
+      - ADR-AZ-CAFSEC#41
+      - ADR-AZ-CAFSEC#42
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#2
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#5
+      - ADR-AZ-LZ#6
+      - ADR-AZ-NETWORK#1
+      - ADR-AZ-NETWORK#5
+      - ADR-AZ-NETWORK#6
+      - ADR-AZ-WAFSE#10
+      - ADR-AZ-WAFSE#4
+      - ADR-AZ-WAFSE#5
+      - ADR-AZ-WAFSE#6
+      - ADR-AZ-WAFSE#7
+      - ADR-AZ-WAFSE#8
+      - ADR-AZ-WAFSE#9
+---
 
-`ADR: CAF network connectivity — what the repository does about each recommendation on reaching, leaving, and protecting its networks`
+# ADR: CAF network connectivity — what the repository does about each recommendation on reaching, leaving, and protecting its networks
 
 Pairs with [`landing-zones`](../landing-zones.md) (the hub-and-spoke network these recommendations apply to),
 [`waf-security`](../waf/security.md) (the workload view of network isolation and encryption; its rules are cited here, not repeated), and

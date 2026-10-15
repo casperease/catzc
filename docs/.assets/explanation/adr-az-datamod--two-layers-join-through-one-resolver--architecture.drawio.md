@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-az-datamod--two-layers-join-through-one-resolver--architecture.drawio.md
+    kind: asset-description
+    body_sha: "624f9d0de2d1"
+    adrs: []
+---
 
-`Two layers join through one resolver: the diagram described`
+# Two layers join through one resolver: the diagram described
 
 ```text
 A 1572 x 660 diagram, read left to right through two bands.

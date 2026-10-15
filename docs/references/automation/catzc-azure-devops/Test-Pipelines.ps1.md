@@ -1,6 +1,20 @@
-# docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md
+    kind: reference
+    body_sha: e228d4fdad28
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-PIPE-NAME#1
+      - ADR-PIPE-NAME#2
+      - ADR-PIPE-NAME#3
+      - ADR-PIPE-NAME#4
+      - ADR-PIPE-NAME#6
+      - ADR-PIPE-NAME#7
+---
 
-`automation/Catzc.Azure.DevOps/Test-Pipelines.ps1`
+# automation/Catzc.Azure.DevOps/Test-Pipelines.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

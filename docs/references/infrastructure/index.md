@@ -1,6 +1,13 @@
-# docs/references/infrastructure/index.md
+---
+catzc:
+  derived:
+    path: docs/references/infrastructure/index.md
+    kind: reference
+    body_sha: "61c35cdfedaa"
+    adrs: []
+---
 
-`Infrastructure reference`
+# Infrastructure reference
 
 One article per infrastructure unit — the templating-system overview, the shared bicep modules, and one per deployable template. Each
 template article describes what the template deploys and how it is configured, not line-by-line bicep.

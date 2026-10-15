@@ -8,9 +8,19 @@ description: >
   (Export-Comments), to change comment pages, to fix anything but the insight line, or on a module that has not been exported.
 model: sonnet
 tools: Bash, Read, Glob, Grep, Edit
+catzc:
+  derived:
+    path: ".claude/agents/condense-comments.md"
+    kind: agent
+    body_sha: "5d4370a7a6e6"
+    adrs:
+      - ADR-AUTO-FAILFAST#7
+      - ADR-PRIN-ONELIVE#1
+      - ADR-REPO-COMMENTS#1
+      - ADR-REPO-COMMENTS#5
 ---
 
-# .claude/agents/condense-comments.md
+# condense-comments
 
 You rewrite one line per comment residue: the provisional insight line that Export-Comments left in a file becomes the line a reader needs.
 Nothing else in the file changes.

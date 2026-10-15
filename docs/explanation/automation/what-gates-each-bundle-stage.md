@@ -1,6 +1,23 @@
-# docs/explanation/automation/what-gates-each-bundle-stage.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/what-gates-each-bundle-stage.md
+    kind: explanation
+    body_sha: "72ee88959e72"
+    adrs:
+      - ADR-AUTO-ASSETDEP#4
+      - ADR-AUTO-BUNDLE#1
+      - ADR-AUTO-BUNDLE#5
+      - ADR-AUTO-BUNDLE#6
+      - ADR-AUTO-BUNDLE#7
+      - ADR-AUTO-TEST#30
+      - ADR-AUTO-TEST#31
+      - ADR-DSGN-RUNMODE#1
+      - ADR-DSGN-RUNMODE#7
+      - ADR-PWSH-MANIFEST#5
+---
 
-`Every stage of the bundle has a rule, and two gates check it`
+# Every stage of the bundle has a rule, and two gates check it
 
 ```text
 Every stage of the bundle has a rule, and two gates check it.

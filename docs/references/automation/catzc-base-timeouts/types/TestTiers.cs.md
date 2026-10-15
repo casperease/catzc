@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-timeouts/types/TestTiers.cs.md
+    kind: reference
+    body_sha: f1f7616772cc
+    adrs:
+      - ADR-AUTO-TEST#13
+      - ADR-AUTO-TEST#41
+---
 
-`automation/Catzc.Base.Timeouts/types/TestTiers.cs`
+# automation/Catzc.Base.Timeouts/types/TestTiers.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

@@ -1,6 +1,19 @@
-# docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.verify.md
+    kind: asset-description
+    body_sha: "7e76dc3b171b"
+    adrs:
+      - ADR-AUTO-TYPES#9
+      - ADR-AZ-DATAMOD#10
+      - ADR-AZ-NAMING#2
+      - ADR-CONF-ADDRESSING#1
+      - ADR-PWSH-CACHE#4
+      - ADR-PWSH-ERROR#8
+---
 
-`Verification: A template is a folder; options.yml overrides five defaults (source lens, Catzc.Azure.Templates)`
+# Verification: A template is a folder; options.yml overrides five defaults (source lens, Catzc.Azure.Templates)
 
 Every line below was re-read on 2026-10-15 after the comment export; none of the scout's numbers is reused (for example the `allowedKeys`
 line moved from `Read-BicepTemplateOptions.ps1:52` to `:32`, and `Invoke-AzCli bicep build` from `Build-Bicep.ps1:160` to `:144`).

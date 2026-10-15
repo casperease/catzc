@@ -1,6 +1,16 @@
-# docs/explanation/design/drop-a-file-the-import-exports-it.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/drop-a-file-the-import-exports-it.md
+    kind: explanation
+    body_sha: "652ba7de9c73"
+    adrs:
+      - ADR-DSGN-ASPECT#1
+      - ADR-DSGN-ASPECT#2
+      - ADR-REPO-FOLDERS#10
+---
 
-`Drop a file, and the next import exports it`
+# Drop a file, and the next import exports it
 
 ```text
 Drop a file, and the next import exports it; no registration step exists.

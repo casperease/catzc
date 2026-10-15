@@ -1,6 +1,13 @@
-# docs/adr/research/proactive-failure-notification.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/proactive-failure-notification.md
+    kind: adr
+    body_sha: f37383f96bac
+    adrs: []
+---
 
-`ADR: DORA — Proactive failure notification`
+# ADR: DORA — Proactive failure notification
 
 ## Rules: ADR-DORA-FAILALERT
 

@@ -1,6 +1,16 @@
-# docs/explanation/flow/three-tasks-one-guard-one-runner.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/three-tasks-one-guard-one-runner.md
+    kind: explanation
+    body_sha: ce8375725233
+    adrs:
+      - ADR-FLOW-CD-RUNNER#1
+      - ADR-FLOW-CD-RUNNER#2
+      - ADR-FLOW-CD-RUNNER#3
+---
 
-`Three tasks share one guard, and one runner imports, traps, sanitizes and invokes`
+# Three tasks share one guard, and one runner imports, traps, sanitizes and invokes
 
 ```text
 Three tasks share one guard, and one runner imports, traps, sanitizes and invokes.

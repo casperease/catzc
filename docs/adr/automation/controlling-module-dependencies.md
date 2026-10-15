@@ -1,6 +1,18 @@
-# docs/adr/automation/controlling-module-dependencies.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/controlling-module-dependencies.md
+    kind: adr
+    body_sha: d7e079d24e76
+    adrs:
+      - ADR-AUTO-DEPM#1
+      - ADR-AUTO-DEPM#5
+      - ADR-AUTO-DEPM#7
+      - ADR-AUTO-DEPM#8
+      - ADR-AUTO-TEST#35
+---
 
-`ADR: Controlling module dependencies`
+# ADR: Controlling module dependencies
 
 ## Rules: ADR-AUTO-DEPM
 

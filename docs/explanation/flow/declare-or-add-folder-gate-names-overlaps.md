@@ -1,6 +1,16 @@
-# docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
+    kind: explanation
+    body_sha: bbaf0b40bf29
+    adrs:
+      - ADR-FLOW-CD-GLOBS#10
+      - ADR-FLOW-CD-GLOBS#7
+      - ADR-REPO-LINK#5
+---
 
-`Declare a unit or add a module folder, and the gate names every overlap`
+# Declare a unit or add a module folder, and the gate names every overlap
 
 ```text
 Declare a unit in globs.yml or add a module folder; one gate run passes or names every overlap.

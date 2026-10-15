@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md
+    kind: reference
+    body_sha: ff465103bda4
+    adrs: []
+---
 
-`automation/Catzc.Base.QualityGates/private/Get-AutomationSourceFiles.ps1`
+# automation/Catzc.Base.QualityGates/private/Get-AutomationSourceFiles.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

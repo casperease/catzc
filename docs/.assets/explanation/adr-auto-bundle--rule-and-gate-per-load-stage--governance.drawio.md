@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.md
+    kind: asset-description
+    body_sha: de4e9fb734fb
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Every load stage but the unload has an ADR rule: the diagram described`
+# Every load stage but the unload has an ADR rule: the diagram described
 
 ```text
 A 1572 x 720 diagram, read top to bottom through six stage bands and an ADR-only frame.

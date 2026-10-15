@@ -1,6 +1,15 @@
-# docs/adr/pwsh/one-function-per-file.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/one-function-per-file.md
+    kind: adr
+    body_sha: d121b8193149
+    adrs:
+      - ADR-AUTO-EXTEND#4
+      - ADR-PWSH-USEPS#1
+---
 
-`ADR: One function per file`
+# ADR: One function per file
 
 ## Rules: ADR-PWSH-ONEFUNC
 

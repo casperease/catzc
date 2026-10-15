@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-base-docs/types/AdrNeutralityCheck.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-docs/types/AdrNeutralityCheck.cs.md
+    kind: reference
+    body_sha: "0ad50f1c1a58"
+    adrs:
+      - ADR-AUTO-ENGINE#1
+      - ADR-AUTO-TYPES#8
+---
 
-`automation/Catzc.Base.Docs/types/AdrNeutralityCheck.cs`
+# automation/Catzc.Base.Docs/types/AdrNeutralityCheck.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

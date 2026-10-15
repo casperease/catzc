@@ -1,6 +1,32 @@
-# docs/adr/automation/python/python-test-artifacts.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/python/python-test-artifacts.md
+    kind: adr
+    body_sha: a619bc4a2253
+    adrs:
+      - ADR-AUTO-DEPS#3
+      - ADR-AUTO-ENGINE#4
+      - ADR-AUTO-GO#3
+      - ADR-AUTO-GO#6
+      - ADR-AUTO-GO#7
+      - ADR-AUTO-PY#1
+      - ADR-AUTO-PY#2
+      - ADR-AUTO-PY#3
+      - ADR-AUTO-PY#4
+      - ADR-AUTO-PY#5
+      - ADR-AUTO-PY#6
+      - ADR-AUTO-PY#7
+      - ADR-AUTO-PY#8
+      - ADR-AUTO-TEST#42
+      - ADR-AUTO-TEST#8
+      - ADR-AUTO-TEST#9
+      - ADR-AUTO-UVPY#1
+      - ADR-AUTO-UVPY#2
+      - ADR-AUTO-UVPY#4
+---
 
-`ADR: Python test artifacts — black-box tests of the engine, never shipped`
+# ADR: Python test artifacts — black-box tests of the engine, never shipped
 
 ## Rules: ADR-AUTO-PY
 

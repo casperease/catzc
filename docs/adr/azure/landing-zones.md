@@ -1,6 +1,22 @@
-# docs/adr/azure/landing-zones.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/landing-zones.md
+    kind: adr
+    body_sha: ddae9ec7174a
+    adrs:
+      - ADR-AZ-DATAMOD#10
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#5
+      - ADR-AZ-LZ#6
+      - ADR-AZ-LZ#7
+      - ADR-AZ-NETWORK#1
+      - ADR-AZ-NETWORK#5
+      - ADR-AZ-NETWORK#6
+---
 
-`ADR: Landing zones — a CAF landing zone per subscription and the Well-Architected workload in it`
+# ADR: Landing zones — a CAF landing zone per subscription and the Well-Architected workload in it
 
 Pairs with [`network-model`](azure-network-model.md) (the IP plan the landing zone deploys) and [`data-model`](azure-data-model.md) (the
 configuration tree and the config-addressed parameters it reads).

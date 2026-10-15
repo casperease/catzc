@@ -1,6 +1,14 @@
-# docs/explanation/azure/the-session-is-the-deploy-target.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/the-session-is-the-deploy-target.md
+    kind: explanation
+    body_sha: d6736cd3c5ce
+    adrs:
+      - ADR-AZ-DATAMOD#7
+---
 
-`The az session is the deploy target, and the guard only checks it`
+# The az session is the deploy target, and the guard only checks it
 
 ```text
 The deploy target is the az session's subscription; the guard checks it and never selects it.

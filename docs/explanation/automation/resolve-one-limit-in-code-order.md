@@ -1,6 +1,15 @@
-# docs/explanation/automation/resolve-one-limit-in-code-order.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/resolve-one-limit-in-code-order.md
+    kind: explanation
+    body_sha: f02beea63479
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-FAILFAST#7
+---
 
-`Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling, in that order`
+# Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling, in that order
 
 ```text
 Get-TimeoutSeconds resolves the run environment, then the config entry or default, then the exemption ceiling, in that code order.

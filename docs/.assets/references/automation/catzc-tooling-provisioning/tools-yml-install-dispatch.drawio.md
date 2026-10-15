@@ -1,6 +1,15 @@
-# docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
+    kind: asset-description
+    body_sha: "26b52e084a21"
+    adrs:
+      - ADR-AUTO-BASH#6
+      - ADR-AUTO-DEPS#4
+---
 
-`tools.yml is the one locked list; dispatch is by key name: the diagram described`
+# tools.yml is the one locked list; dispatch is by key name: the diagram described
 
 ```text
 A 1588 x 592 diagram, read left to right through three bands: CONFIG, READ, DISPATCH.

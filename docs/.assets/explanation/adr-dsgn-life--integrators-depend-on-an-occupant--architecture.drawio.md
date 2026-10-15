@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.md
+    kind: asset-description
+    body_sha: "31bdd81a5622"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Integrators depend on the main-UAT occupant: the diagram described`
+# Integrators depend on the main-UAT occupant: the diagram described
 
 ```text
 A 1572 x 670 diagram, read top to bottom through three bands, with one row of hexagons in the middle band.

@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md
+    kind: reference
+    body_sha: "495dd4691c98"
+    adrs:
+      - ADR-AUTO-IDEM#2
+      - ADR-AUTO-REMOVE#2
+      - ADR-AUTO-REMOVE#6
+---
 
-`automation/Catzc.Tooling.Provisioning/Uninstall-Zsh.ps1`
+# automation/Catzc.Tooling.Provisioning/Uninstall-Zsh.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

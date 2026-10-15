@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.md
+    kind: asset-description
+    body_sha: "4db5f5bbedd1"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Every vendor call leaves cats through the az CLI: the diagram described`
+# Every vendor call leaves cats through the az CLI: the diagram described
 
 ```text
 A 1572 x 802 diagram, read top to bottom through four bands.

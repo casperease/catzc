@@ -1,6 +1,17 @@
-# docs/explanation/pipelines/what-you-set-decides-the-credential.md
+---
+catzc:
+  derived:
+    path: docs/explanation/pipelines/what-you-set-decides-the-credential.md
+    kind: explanation
+    body_sha: a1d9fba083df
+    adrs:
+      - ADR-PIPE-AUTH#1
+      - ADR-PIPE-AUTH#2
+      - ADR-PIPE-AUTH#5
+      - ADR-PIPE-AUTH#6
+---
 
-`What you set decides the credential, and each wrong setup stops with its own message`
+# What you set decides the credential, and each wrong setup stops with its own message
 
 ```text
 What you set decides the credential, and each wrong setup stops with its own message.

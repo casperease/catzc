@@ -1,6 +1,32 @@
-# docs/adr/azure/waf/security.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/waf/security.md
+    kind: adr
+    body_sha: "945a8dd38e53"
+    adrs:
+      - ADR-AUTO-ENVVAR#7
+      - ADR-AUTO-GUIDS#1
+      - ADR-AUTO-GUIDS#4
+      - ADR-AUTO-TEST#3
+      - ADR-AZ-DATAMOD#10
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#2
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#2
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#5
+      - ADR-AZ-LZ#6
+      - ADR-AZ-NETWORK#1
+      - ADR-AZ-NETWORK#5
+      - ADR-AZ-NETWORK#6
+      - ADR-CONF-ADDRESSING#3
+      - ADR-DORA-SECURITY#3
+---
 
-`ADR: Well-Architected security — what the repository does about each item of the WAF security checklist`
+# ADR: Well-Architected security — what the repository does about each item of the WAF security checklist
 
 Pairs with [`landing-zones`](../landing-zones.md) (its Security line, [ADR-AZ-LZ#5](../landing-zones.md#rule-adr-az-lz5), is the summary
 these rules expand), [`network-model`](../azure-network-model.md) (the segments the network rules rely on), and

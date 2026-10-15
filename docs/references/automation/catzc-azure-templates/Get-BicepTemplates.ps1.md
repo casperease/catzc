@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md
+    kind: reference
+    body_sha: "46c02c228033"
+    adrs:
+      - ADR-AZ-NAMING#2
+      - ADR-PWSH-CACHE#4
+---
 
-`automation/Catzc.Azure.Templates/Get-BicepTemplates.ps1`
+# automation/Catzc.Azure.Templates/Get-BicepTemplates.ps1
 
 <!-- cspell:ignore etlco -->
 

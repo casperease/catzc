@@ -1,6 +1,13 @@
-# docs/references/dora/metrics.md
+---
+catzc:
+  derived:
+    path: docs/references/dora/metrics.md
+    kind: reference
+    body_sha: e7f94588d30b
+    adrs: []
+---
 
-`DORA software delivery performance metrics`
+# DORA software delivery performance metrics
 
 DORA measures the outcome of the software delivery process with **five software delivery performance metrics** in two families,
 **throughput** and **instability** ([metrics guide](https://dora.dev/guides/dora-metrics/), updated 2026-01-05). The guide says DORA's

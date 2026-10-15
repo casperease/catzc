@@ -1,6 +1,13 @@
-# docs/explanation/configuration/index.md
+---
+catzc:
+  derived:
+    path: docs/explanation/configuration/index.md
+    kind: explanation
+    body_sha: "606fa1843e29"
+    adrs: []
+---
 
-`Configuration explanations`
+# Configuration explanations
 
 ```text
 How cats reads, validates, caches and addresses its configuration.

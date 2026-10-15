@@ -1,6 +1,13 @@
-# docs/references/pipelines.md
+---
+catzc:
+  derived:
+    path: docs/references/pipelines.md
+    kind: reference
+    body_sha: "377b5cfd38e4"
+    adrs: []
+---
 
-`pipelines`
+# pipelines
 
 Azure DevOps pipelines and the templates they include. Two ADRs govern this folder:
 

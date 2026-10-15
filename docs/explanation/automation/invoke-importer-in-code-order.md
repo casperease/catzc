@@ -1,6 +1,16 @@
-# docs/explanation/automation/invoke-importer-in-code-order.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/invoke-importer-in-code-order.md
+    kind: explanation
+    body_sha: "3580a530afb4"
+    adrs:
+      - ADR-AUTO-BUNDLE#2
+      - ADR-AUTO-BUNDLE#3
+      - ADR-AUTO-BUNDLE#8
+---
 
-`Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain`
+# Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain
 
 ```text
 Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain.

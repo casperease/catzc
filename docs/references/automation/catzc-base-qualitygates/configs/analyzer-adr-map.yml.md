@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md
+    kind: reference
+    body_sha: eecfc11d89a6
+    adrs:
+      - ADR-AZ-CUSTOMER#3
+---
 
-`automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml`
+# automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

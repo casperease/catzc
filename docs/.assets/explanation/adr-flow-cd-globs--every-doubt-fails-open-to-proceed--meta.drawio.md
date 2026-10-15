@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.md
+    kind: asset-description
+    body_sha: "2bc46fc32fea"
+    adrs: []
+---
 
-`Every doubt fails open to proceed: the diagram described`
+# Every doubt fails open to proceed: the diagram described
 
 ```text
 A 1572 x 640 diagram, read top to bottom through three bands.

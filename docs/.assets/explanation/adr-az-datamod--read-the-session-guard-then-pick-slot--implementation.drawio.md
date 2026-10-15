@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.md
+    kind: asset-description
+    body_sha: "31a343c58b36"
+    adrs: []
+---
 
-`Read the session, guard, then pick the slot: the diagram described`
+# Read the session, guard, then pick the slot: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

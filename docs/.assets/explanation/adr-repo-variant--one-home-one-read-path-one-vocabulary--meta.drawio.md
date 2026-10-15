@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-repo-variant--one-home-one-read-path-one-vocabulary--meta.drawio.md
+    kind: asset-description
+    body_sha: d07547ca561f
+    adrs: []
+---
 
-`A repo-wide switch has one home, one read path and one guard vocabulary: the diagram described`
+# A repo-wide switch has one home, one read path and one guard vocabulary: the diagram described
 
 ```text
 A 1572 x 648 diagram, read top to bottom through four bands.

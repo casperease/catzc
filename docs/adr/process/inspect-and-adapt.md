@@ -1,6 +1,13 @@
-# docs/adr/process/inspect-and-adapt.md
+---
+catzc:
+  derived:
+    path: docs/adr/process/inspect-and-adapt.md
+    kind: adr
+    body_sha: "7e821d6725bb"
+    adrs: []
+---
 
-`ADR: Inspect and adapt — kaizen built into the process`
+# ADR: Inspect and adapt — kaizen built into the process
 
 ## Rules: ADR-PROC-KAIZEN
 

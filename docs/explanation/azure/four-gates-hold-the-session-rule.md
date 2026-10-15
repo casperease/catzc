@@ -1,6 +1,17 @@
-# docs/explanation/azure/four-gates-hold-the-session-rule.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/four-gates-hold-the-session-rule.md
+    kind: explanation
+    body_sha: e5aa0b7c93ca
+    adrs:
+      - ADR-AZ-DATAMOD#4
+      - ADR-AZ-DATAMOD#5
+      - ADR-AZ-DATAMOD#7
+      - ADR-AZ-NAMING#8
+---
 
-`Four gates hold the session rule; the customer and the name hold by construction`
+# Four gates hold the session rule; the customer and the name hold by construction
 
 ```text
 Four throwing gates hold ADR-AZ-DATAMOD#7; rules #4, #5 and ADR-AZ-NAMING#8 hold by construction, with no gate.

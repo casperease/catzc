@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-maps/types/WorldMap.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-maps/types/WorldMap.cs.md
+    kind: reference
+    body_sha: aa1c0b149d21
+    adrs:
+      - ADR-DSGN-TRACK#1
+      - ADR-DSGN-TRACK#6
+      - ADR-THES-ONETRUTH#3
+---
 
-`automation/Catzc.Base.Maps/types/WorldMap.cs`
+# automation/Catzc.Base.Maps/types/WorldMap.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

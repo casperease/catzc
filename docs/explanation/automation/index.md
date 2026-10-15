@@ -1,6 +1,13 @@
-# docs/explanation/automation/index.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/index.md
+    kind: explanation
+    body_sha: ef9adf853ade
+    adrs: []
+---
 
-`Automation explanations`
+# Automation explanations
 
 ```text
 How the automation layer of cats holds together.

@@ -1,6 +1,19 @@
-# docs/explanation/design/four-domains-promote-one-artifact.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/four-domains-promote-one-artifact.md
+    kind: explanation
+    body_sha: dfa7b99511ce
+    adrs:
+      - ADR-DSGN-LIFE#5
+      - ADR-DSGN-LIFE#6
+      - ADR-DSGN-LIFE#7
+      - ADR-DSGN-LIFE#8
+      - ADR-FLOW-CD#3
+      - ADR-FLOW-CD#4
+---
 
-`Four pipeline kinds promote one artifact that CI built once`
+# Four pipeline kinds promote one artifact that CI built once
 
 ```text
 Every pipeline kind after CI promotes the one artifact CI built, and each environment holds one occupant.

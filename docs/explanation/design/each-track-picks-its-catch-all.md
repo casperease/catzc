@@ -1,6 +1,16 @@
-# docs/explanation/design/each-track-picks-its-catch-all.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/each-track-picks-its-catch-all.md
+    kind: explanation
+    body_sha: "87398671b7d3"
+    adrs:
+      - ADR-DSGN-ASPECT#1
+      - ADR-DSGN-ASPECT#2
+      - ADR-DSGN-ASPECT#3
+---
 
-`Each track picks its catch-all: a stray module file falls to tests, a stray template file to live`
+# Each track picks its catch-all: a stray module file falls to tests, a stray template file to live
 
 ```text
 Each track picks its catch-all: a stray module file falls to tests, a stray template file to live.

@@ -1,6 +1,25 @@
-# docs/adr/pwsh/announce-state-changes.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/announce-state-changes.md
+    kind: adr
+    body_sha: "7e0fe1021a9b"
+    adrs:
+      - ADR-AUTO-CONSOLE#11
+      - ADR-AUTO-CONSOLE#12
+      - ADR-AUTO-CONSOLE#4
+      - ADR-AUTO-CONSOLE#5
+      - ADR-AUTO-CONSOLE#8
+      - ADR-AUTO-PRELOG#2
+      - ADR-AUTO-PRELOG#4
+      - ADR-AUTO-PRELOG#5
+      - ADR-PWSH-ANNOUNCE#1
+      - ADR-PWSH-ANNOUNCE#6
+      - ADR-PWSH-ANNOUNCE#7
+      - ADR-PWSH-ANNOUNCE#9
+---
 
-`ADR: Announce every state change on the information stream`
+# ADR: Announce every state change on the information stream
 
 ## Rules: ADR-PWSH-ANNOUNCE
 

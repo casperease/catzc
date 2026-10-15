@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.md
+    kind: asset-description
+    body_sha: "5af07de768ed"
+    adrs: []
+---
 
-`Values and module edges are gated; the no-direct-read rule is left to review: the diagram described`
+# Values and module edges have a gate; the no-direct-read rule is left to review: the diagram described
 
 ```text
 A 1572 x 648 diagram, read top to bottom through three bands, each row left to right.

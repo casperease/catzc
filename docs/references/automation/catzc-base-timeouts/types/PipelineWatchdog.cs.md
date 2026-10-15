@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-timeouts/types/PipelineWatchdog.cs.md
+    kind: reference
+    body_sha: "3e0b880639d1"
+    adrs: []
+---
 
-`automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs`
+# automation/Catzc.Base.Timeouts/types/PipelineWatchdog.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

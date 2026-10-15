@@ -1,6 +1,16 @@
-# docs/explanation/design/local-guard-and-server-policies.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/local-guard-and-server-policies.md
+    kind: explanation
+    body_sha: f8b79c407fcb
+    adrs:
+      - ADR-DSGN-REMOTE#2
+      - ADR-DSGN-REMOTE#4
+      - ADR-REPO-VARIANT#6
+---
 
-`The code carries both halves of ingress, but nothing finds the last verified commit`
+# The code carries both halves of ingress, but nothing finds the last verified commit
 
 ```text
 The code carries both halves of ingress, but nothing finds the last verified commit.

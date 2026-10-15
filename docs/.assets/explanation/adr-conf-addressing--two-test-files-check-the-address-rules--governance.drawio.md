@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.md
+    kind: asset-description
+    body_sha: "1f468b4b3f2b"
+    adrs: []
+---
 
-`Two test files check the address rules: the diagram described`
+# Two test files check the address rules: the diagram described
 
 ```text
 A 1572 x 660 diagram, read left to right along two bands side by side, with a band of gates below pointing up.

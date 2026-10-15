@@ -1,6 +1,17 @@
-# docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
+    kind: explanation
+    body_sha: "5ffe1a51b035"
+    adrs:
+      - ADR-DSGN-THINPLAT#1
+      - ADR-DSGN-THINPLAT#2
+      - ADR-DSGN-THINPLAT#3
+      - ADR-DSGN-THINPLAT#5
+---
 
-`Consumers bind to one CLI, and everything behind it is delegated to the vendor`
+# Consumers bind to one CLI, and everything behind it is delegated to the vendor
 
 ```text
 Consumers bind to one CLI; everything behind it is delegated to the vendor's own tools.

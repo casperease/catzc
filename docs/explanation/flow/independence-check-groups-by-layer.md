@@ -1,6 +1,16 @@
-# docs/explanation/flow/independence-check-groups-by-layer.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/independence-check-groups-by-layer.md
+    kind: explanation
+    body_sha: "2eeb3688d95b"
+    adrs:
+      - ADR-FLOW-CD-GLOBS#10
+      - ADR-FLOW-CD-GLOBS#7
+      - ADR-REPO-LINK#5
+---
 
-`Test-GlobSetIndependence groups every set by layer and tests each same-layer pair`
+# Test-GlobSetIndependence groups every set by layer and tests each same-layer pair
 
 ```text
 The independence gate groups every globset by layer and tests each same-layer pair for a shared file.

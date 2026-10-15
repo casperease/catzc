@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBindingsConfig.cs.md
+    kind: reference
+    body_sha: "8da8c45e43eb"
+    adrs: []
+---
 
-`automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBindingsConfig.cs`
+# automation/Catzc.Tooling.KeyHandler/types/KeyHandlerBindingsConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

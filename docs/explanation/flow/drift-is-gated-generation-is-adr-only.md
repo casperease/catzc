@@ -1,6 +1,18 @@
-# docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
+    kind: explanation
+    body_sha: "37f8531166d7"
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-FLOW-CD-GLOBS#1
+      - ADR-FLOW-CD-GLOBS#4
+      - ADR-FLOW-CD-GLOBS#6
+      - ADR-FLOW-CD-GLOBS#8
+---
 
-`Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone`
+# Three gates check the projection, while generation and the in-pipeline backstop are held by the ADR alone
 
 ```text
 Three gates check the projection; generation and the in-pipeline backstop are ADR-only.

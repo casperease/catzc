@@ -1,6 +1,14 @@
-# docs/explanation/design/every-deploy-stage-is-main-only.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/every-deploy-stage-is-main-only.md
+    kind: explanation
+    body_sha: "1dbd42896d00"
+    adrs:
+      - ADR-DSGN-LIFE#9
+---
 
-`Every Deploy stage in cats runs only from main, so no topic commit is deployed`
+# Every Deploy stage in cats runs only from main, so no topic commit is deployed
 
 ```text
 A pull request run skips every Deploy_* stage; only the run on main deploys, so no topic commit is deployed.

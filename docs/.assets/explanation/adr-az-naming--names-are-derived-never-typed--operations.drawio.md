@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.md
+    kind: asset-description
+    body_sha: "45b7d6cf4781"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Names are derived, never typed: the diagram described`
+# Names are derived, never typed: the diagram described
 
 ```text
 A 1572 x 654 diagram, read top to bottom through three bands.

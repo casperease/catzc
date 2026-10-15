@@ -1,6 +1,20 @@
-# docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md
+    kind: reference
+    body_sha: "5d865d845cc3"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TYPES#8
+      - ADR-DSGN-TRACK#6
+      - ADR-PRIN-CONFIG#1
+      - ADR-PRIN-CONFIG#2
+      - ADR-PRIN-CONFIG#4
+      - ADR-REPO-FORMAT#8
+---
 
-`automation/Catzc.Base.Languages/types/LanguagesConfig.cs`
+# automation/Catzc.Base.Languages/types/LanguagesConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

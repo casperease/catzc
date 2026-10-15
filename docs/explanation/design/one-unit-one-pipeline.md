@@ -1,6 +1,17 @@
-# docs/explanation/design/one-unit-one-pipeline.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/one-unit-one-pipeline.md
+    kind: explanation
+    body_sha: c392cf3de1a3
+    adrs:
+      - ADR-DSGN-TRACK#1
+      - ADR-DSGN-TRACK#2
+      - ADR-DSGN-TRACK#4
+      - ADR-DSGN-TRACK#5
+---
 
-`A track ships through a deployable-unit, and each unit has one pipeline`
+# A track ships through a deployable-unit, and each unit has one pipeline
 
 ```text
 A track ships through a deployable-unit, and each unit binds one pipeline.

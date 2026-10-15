@@ -1,6 +1,13 @@
-# docs/how-to/getting-started/automation/debug-in-vscode.md
+---
+catzc:
+  derived:
+    path: docs/how-to/getting-started/automation/debug-in-vscode.md
+    kind: how-to
+    body_sha: a210ea69b439
+    adrs: []
+---
 
-`Debug in VS Code`
+# Debug in VS Code
 
 The recommended workflow is to drive the **PowerShell Integrated Console** directly: dot-source the importer once, set breakpoints in the
 editor, then call the function from the console. Because every function loads into the session, you debug by _invoking_, not by launching a

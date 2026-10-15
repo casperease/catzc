@@ -1,6 +1,13 @@
-# docs/explanation/pipelines/index.md
+---
+catzc:
+  derived:
+    path: docs/explanation/pipelines/index.md
+    kind: explanation
+    body_sha: "57680316fafd"
+    adrs: []
+---
 
-`Pipelines explanations`
+# Pipelines explanations
 
 ```text
 How Azure DevOps REST calls choose and prove their credentials.

@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-qualitygates.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates.md
+    kind: reference
+    body_sha: "5120fe9a211b"
+    adrs: []
+---
 
-`Catzc.Base.QualityGates`
+# Catzc.Base.QualityGates
 
 The quality-gate module. It **runs every check the repository applies to itself** — all tests (with tag-enforcement and timestamped
 reporting), the repository-wide quality gates, the spell-checker, the Markdown linter, the formatters, the terminology registry, and the
@@ -54,17 +61,16 @@ identity is also a live one. An integrity test runs each gate at its tier, so ev
 How the repository checks and enforces the style of its written and source content. This responsibility runs the spell-checker (and collects
 its flagged tokens into a triage queue), the Markdown linter, the Markdown formatter (which aligns tables and wraps prose in place), the
 Markdown title and heading formatter and quality gate, the Markdown meta formatter and its two gates (the block itself and the registry's
-processors), the one formatting command (`Format-Code`, which runs the formatter engine
-`languages.yml` names for each file language — Prettier, the managed toolchain's `gofmt`, the pinned `ruff`, PSScriptAnalyzer,
-`dotnet format`, the pinned Bicep CLI — with one private adapter per engine;
-[configure-not-program](../../adr/principles/configure-not-program.md)), the C# type-namespace formatter, the Python lint quality gate
-(`Test-PythonLint`, `ruff check`) over every `.py` file the repository holds, the shell-script quality gate (`Test-ShellScripts`: LF, the
-executable bit, and ShellCheck) over every shell script it tracks ([bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md)),
-and the link aligner and quality gate, which keep code links repository-rooted and markdown links relative and resolving
-([markdown-links](../../adr/repository/markdown-links.md)), and the comment converters and their quality gate, which move every long comment
-into its file's comment page, keep the one insight line left behind in shape, and write the annotated view
-([comments-in-docs](../../adr/repository/comments-in-docs.md)). The responsibility owns the invocation of each tool, not the tool itself or
-its per-tool configuration.
+processors), the one formatting command (`Format-Code`, which runs the formatter engine `languages.yml` names for each file language —
+Prettier, the managed toolchain's `gofmt`, the pinned `ruff`, PSScriptAnalyzer, `dotnet format`, the pinned Bicep CLI — with one private
+adapter per engine; [configure-not-program](../../adr/principles/configure-not-program.md)), the C# type-namespace formatter, the Python
+lint quality gate (`Test-PythonLint`, `ruff check`) over every `.py` file the repository holds, the shell-script quality gate
+(`Test-ShellScripts`: LF, the executable bit, and ShellCheck) over every shell script it tracks
+([bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md)), and the link aligner and quality gate, which keep code links
+repository-rooted and markdown links relative and resolving ([markdown-links](../../adr/repository/markdown-links.md)), and the comment
+converters and their quality gate, which move every long comment into its file's comment page, keep the one insight line left behind in
+shape, and write the annotated view ([comments-in-docs](../../adr/repository/comments-in-docs.md)). The responsibility owns the invocation
+of each tool, not the tool itself or its per-tool configuration.
 
 ### responsibility:4 — Terminology and dictionaries
 

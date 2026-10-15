@@ -1,6 +1,17 @@
-# docs/explanation/repository/a-base-module-between-config-and-its-callers.md
+---
+catzc:
+  derived:
+    path: docs/explanation/repository/a-base-module-between-config-and-its-callers.md
+    kind: explanation
+    body_sha: deb5fed9f5ce
+    adrs:
+      - ADR-AUTO-DEPM#1
+      - ADR-CONF-LOADING#1
+      - ADR-REPO-VARIANT#1
+      - ADR-REPO-VARIANT#3
+---
 
-`Catzc.Base.Variants sits in Base, over Config, under every real caller`
+# Catzc.Base.Variants sits in Base, over Config, under every real caller
 
 ```text
 Catzc.Base.Variants sits in Base, over Config, under every real caller.

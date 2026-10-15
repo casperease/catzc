@@ -1,6 +1,13 @@
-# docs/references/infrastructure/modules/key-vault.bicep.md
+---
+catzc:
+  derived:
+    path: docs/references/infrastructure/modules/key-vault.bicep.md
+    kind: reference
+    body_sha: "5deebb21501a"
+    adrs: []
+---
 
-`infrastructure/modules/key-vault.bicep`
+# infrastructure/modules/key-vault.bicep
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

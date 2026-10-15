@@ -1,6 +1,15 @@
-# docs/adr/automation/avoid-deep-nesting.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/avoid-deep-nesting.md
+    kind: adr
+    body_sha: e47e888a5f64
+    adrs:
+      - ADR-PWSH-FORMAT#8
+      - ADR-PWSH-FORMAT#9
+---
 
-`ADR: Avoid deep nesting in statements and expressions`
+# ADR: Avoid deep nesting in statements and expressions
 
 ## Rules: ADR-AUTO-NONEST
 

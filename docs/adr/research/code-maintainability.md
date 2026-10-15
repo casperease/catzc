@@ -1,6 +1,13 @@
-# docs/adr/research/code-maintainability.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/code-maintainability.md
+    kind: adr
+    body_sha: "226e53fa0afe"
+    adrs: []
+---
 
-`ADR: DORA — Code maintainability`
+# ADR: DORA — Code maintainability
 
 ## Rules: ADR-DORA-MAINTAIN
 

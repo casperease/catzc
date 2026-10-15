@@ -1,6 +1,17 @@
-# docs/explanation/design/where-code-loads-from-decides-the-mode.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/where-code-loads-from-decides-the-mode.md
+    kind: explanation
+    body_sha: c603138d451b
+    adrs:
+      - ADR-DSGN-RUNMODE#1
+      - ADR-DSGN-RUNMODE#2
+      - ADR-DSGN-RUNMODE#4
+      - ADR-DSGN-RUNMODE#5
+---
 
-`Where the code loads from decides the run mode`
+# Where the code loads from decides the run mode
 
 ```text
 Where the code loads from decides the run mode; nothing stores it.

@@ -1,6 +1,17 @@
-# docs/explanation/automation/output-root-first-then-repo-root.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/output-root-first-then-repo-root.md
+    kind: explanation
+    body_sha: "9387b36c0e27"
+    adrs:
+      - ADR-AUTO-PATH#10
+      - ADR-AUTO-PATH#4
+      - ADR-AUTO-PATH#5
+      - ADR-AUTO-PATH#9
+---
 
-`The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root`
+# The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root
 
 ```text
 ConvertTo-RepoRelativePath tries the output root, then the repository root, else keeps the absolute; Resolve-RepoPath re-anchors out/.

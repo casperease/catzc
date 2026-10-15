@@ -1,6 +1,19 @@
-# docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
+    kind: explanation
+    body_sha: "214e0998f9bf"
+    adrs:
+      - ADR-AUTO-PARITY#3
+      - ADR-FLOW-CD-DETECT#1
+      - ADR-FLOW-CD-DETECT#2
+      - ADR-FLOW-CD-DETECT#3
+      - ADR-FLOW-CD-DETECT#4
+      - ADR-FLOW-CD-DETECT#5
+---
 
-`The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no gate`
+# The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no gate
 
 ```text
 The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no gate.

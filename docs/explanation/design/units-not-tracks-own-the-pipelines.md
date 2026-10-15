@@ -1,6 +1,17 @@
-# docs/explanation/design/units-not-tracks-own-the-pipelines.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/units-not-tracks-own-the-pipelines.md
+    kind: explanation
+    body_sha: fac580a0ca23
+    adrs:
+      - ADR-DSGN-TRACK#2
+      - ADR-DSGN-TRACK#3
+      - ADR-DSGN-TRACK#4
+      - ADR-DSGN-TRACK#5
+---
 
-`CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly`
+# CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly
 
 ```text
 The four CD pipelines bind deployable-units; the two CI pipelines bind the track sets themselves.

@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.md
+    kind: asset-description
+    body_sha: "41b9b8e4da41"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`The namer looks up, forms, checks and renders in order: the diagram described`
+# The namer looks up, forms, checks and renders in order: the diagram described
 
 ```text
 A 1572 x 820 diagram, read top to bottom down one column.

@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md
+    kind: reference
+    body_sha: "6948db1d08f3"
+    adrs:
+      - ADR-FLOW-CD-TYPE#4
+---
 
-`automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1`
+# automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

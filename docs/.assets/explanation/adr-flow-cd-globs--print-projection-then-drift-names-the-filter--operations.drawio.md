@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.md
+    kind: asset-description
+    body_sha: "5d810ac1cc08"
+    adrs: []
+---
 
-`Print the projection, then drift names the filter: the diagram described`
+# Print the projection, then drift names the filter: the diagram described
 
 ```text
 A 1572 x 720 diagram, read top to bottom through three bands.

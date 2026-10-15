@@ -1,6 +1,74 @@
-# docs/adr/azure/caf/platform-automation-and-devops.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/caf/platform-automation-and-devops.md
+    kind: adr
+    body_sha: "357b29a93d56"
+    adrs:
+      - ADR-AUTO-DEPS#1
+      - ADR-AUTO-TEST#33
+      - ADR-AZ-CAFDEVOPS#1
+      - ADR-AZ-CAFDEVOPS#16
+      - ADR-AZ-CAFDEVOPS#25
+      - ADR-AZ-CAFDEVOPS#26
+      - ADR-AZ-CAFDEVOPS#28
+      - ADR-AZ-CAFDEVOPS#30
+      - ADR-AZ-CAFDEVOPS#31
+      - ADR-AZ-CAFDEVOPS#33
+      - ADR-AZ-CAFDEVOPS#34
+      - ADR-AZ-CAFDEVOPS#5
+      - ADR-AZ-CAFGOV#1
+      - ADR-AZ-CAFGOV#4
+      - ADR-AZ-CAFGOV#6
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#2
+      - ADR-AZ-DATAMOD#7
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#6
+      - ADR-AZ-LZ#7
+      - ADR-AZ-SESSION#5
+      - ADR-AZ-WAFOE#10
+      - ADR-AZ-WAFOE#11
+      - ADR-AZ-WAFOE#2
+      - ADR-AZ-WAFOE#3
+      - ADR-AZ-WAFOE#4
+      - ADR-AZ-WAFOE#5
+      - ADR-AZ-WAFOE#6
+      - ADR-AZ-WAFOE#9
+      - ADR-AZ-WAFSE#9
+      - ADR-DSGN-REMOTE#4
+      - ADR-FLOW-CD#1
+      - ADR-FLOW-CD#2
+      - ADR-FLOW-CD#3
+      - ADR-FLOW-CD#4
+      - ADR-FLOW-CD#5
+      - ADR-FLOW-CD#6
+      - ADR-FLOW-CD#8
+      - ADR-FLOW-CD-GLOBS#4
+      - ADR-FLOW-CD-GLOBS#6
+      - ADR-FLOW-CD-GLOBS#9
+      - ADR-FLOW-CD-RUNNER#1
+      - ADR-FLOW-CD-RUNNER#2
+      - ADR-FLOW-CD-TYPE#10
+      - ADR-FLOW-CD-TYPE#14
+      - ADR-FLOW-CD-TYPE#3
+      - ADR-FLOW-CD-TYPE#6
+      - ADR-GH-RELEASE#1
+      - ADR-PIPE-AUTH#6
+      - ADR-PIPE-TEMPLATE#6
+      - ADR-PRIN-EAC#1
+      - ADR-PRIN-EAC#2
+      - ADR-PRIN-EAC#3
+      - ADR-PRIN-ONELIVE#4
+      - ADR-PRIN-ONELIVE#5
+      - ADR-PROC-KAIZEN#2
+      - ADR-REPO-VARIANT#6
+---
 
-`ADR: CAF platform automation and DevOps — what the repository does about each recommendation of the design area`
+# ADR: CAF platform automation and DevOps — what the repository does about each recommendation of the design area
 
 Pairs with [`waf-operational-excellence`](../waf/operational-excellence.md) (the workload view of the same delivery concerns; its rules are
 cited here, not repeated) and [`cd-discipline-and-promotion-flow`](../../flow/cd-discipline-and-promotion-flow.md) (the flow model every

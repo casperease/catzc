@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.md
+    kind: asset-description
+    body_sha: c48ed7c74f02
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`ScanProgram() feeds three role functions: the diagram described`
+# ScanProgram() feeds three role functions: the diagram described
 
 ```text
 A 1572 x 560 diagram, read left to right through four bands.

@@ -1,6 +1,17 @@
-# docs/adr/automation/never-depend-on-pwd.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/never-depend-on-pwd.md
+    kind: adr
+    body_sha: "0a928ba0ca1e"
+    adrs:
+      - ADR-PWSH-PWD#1
+      - ADR-PWSH-PWD#4
+      - ADR-PWSH-PWD#5
+      - ADR-PWSH-PWD#6
+---
 
-`ADR: Never depend on $PWD`
+# ADR: Never depend on $PWD
 
 ## Rules: ADR-AUTO-NOPWD
 

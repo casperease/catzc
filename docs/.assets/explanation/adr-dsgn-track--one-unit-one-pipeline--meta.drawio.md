@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.md
+    kind: asset-description
+    body_sha: efbac7b1a76e
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`One unit, one pipeline; tracks ship through units: the diagram described`
+# One unit, one pipeline; tracks ship through units: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through three bands.

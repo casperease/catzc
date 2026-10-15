@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.md
+    kind: asset-description
+    body_sha: "9f1128c9dab7"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`One function owns the precedence: the diagram described`
+# One function owns the precedence: the diagram described
 
 ```text
 A 1572 x 690 diagram, read top to bottom into one band, HEADER FUNCTION.

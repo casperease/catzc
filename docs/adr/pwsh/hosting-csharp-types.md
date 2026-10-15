@@ -1,6 +1,25 @@
-# docs/adr/pwsh/hosting-csharp-types.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/hosting-csharp-types.md
+    kind: adr
+    body_sha: "6fcb534e32be"
+    adrs:
+      - ADR-AUTO-TYPES#14
+      - ADR-AUTO-TYPES#15
+      - ADR-AUTO-TYPES#2
+      - ADR-AUTO-TYPES#3
+      - ADR-AUTO-TYPES#4
+      - ADR-AUTO-TYPES#7
+      - ADR-AUTO-TYPES#9
+      - ADR-FLOW-CD-DETECT#1
+      - ADR-PWSH-TYPES#1
+      - ADR-PWSH-TYPES#2
+      - ADR-PWSH-TYPES#4
+      - ADR-PWSH-TYPES#7
+---
 
-`ADR: Hosting C# types in pwsh — the compiler, the reference set, accelerators, and stale types`
+# ADR: Hosting C# types in pwsh — the compiler, the reference set, accelerators, and stale types
 
 ## Rules: ADR-PWSH-TYPES
 

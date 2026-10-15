@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md
+    kind: reference
+    body_sha: "39e5c5fd29ac"
+    adrs: []
+---
 
-`automation/Catzc.Base.ModuleSystem/configs/dependencies.yml`
+# automation/Catzc.Base.ModuleSystem/configs/dependencies.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md
+    kind: reference
+    body_sha: "2cdc2c6913dd"
+    adrs:
+      - ADR-AUTO-FAILFAST#7
+---
 
-`automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1`
+# automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

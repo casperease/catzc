@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-git/types/GitHistoryScan.cs.md
+    kind: reference
+    body_sha: "1c41a7f8825d"
+    adrs: []
+---
 
-`automation/Catzc.Base.Git/types/GitHistoryScan.cs`
+# automation/Catzc.Base.Git/types/GitHistoryScan.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

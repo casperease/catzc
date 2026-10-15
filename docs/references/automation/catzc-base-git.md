@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-git.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-git.md
+    kind: reference
+    body_sha: acb4f4fa1504
+    adrs: []
+---
 
-`Catzc.Base.Git`
+# Catzc.Base.Git
 
 The declarative git-configuration module. It owns the rule that **what git ignores is declared, explained, and generated**: the
 repository-root `.gitignore` is rendered in full from a section registry (`gitignore.yml`) — every rule under a titled, explained comment

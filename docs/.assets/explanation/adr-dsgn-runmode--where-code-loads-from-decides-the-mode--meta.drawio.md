@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.md
+    kind: asset-description
+    body_sha: "8ff4c10144df"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Where the code loads from decides the run mode: the diagram described`
+# Where the code loads from decides the run mode: the diagram described
 
 ```text
 A 1572 x 630 diagram, read top to bottom through four bands.

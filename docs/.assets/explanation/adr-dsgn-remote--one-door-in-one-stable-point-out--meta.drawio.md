@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.md
+    kind: asset-description
+    body_sha: "96353e592a57"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`One door in, one stable point out: the diagram described`
+# One door in, one stable point out: the diagram described
 
 ```text
 A 1572 x 650 diagram, read top to bottom through three bands: IN, SERVER REMOTE, OUT.

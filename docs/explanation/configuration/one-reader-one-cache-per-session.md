@@ -1,6 +1,15 @@
-# docs/explanation/configuration/one-reader-one-cache-per-session.md
+---
+catzc:
+  derived:
+    path: docs/explanation/configuration/one-reader-one-cache-per-session.md
+    kind: explanation
+    body_sha: c2da6a7a9882
+    adrs:
+      - ADR-CONF-LOADING#1
+      - ADR-CONF-LOADING#3
+---
 
-`Every config read goes through one reader and one session cache`
+# Every config read goes through one reader and one session cache
 
 ```text
 Every config read goes through one reader and one cache for the session.

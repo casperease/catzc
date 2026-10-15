@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-tooling-toolchain.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-toolchain.md
+    kind: reference
+    body_sha: "89494fa95a45"
+    adrs: []
+---
 
-`Catzc.Tooling.Toolchain`
+# Catzc.Tooling.Toolchain
 
 The build-toolchain module of the Tooling group. It owns the compiled-language and infrastructure build tools — the .NET SDK, the Java
 runtime, the Go toolchain, and Terraform — plus uv (Astral's Python handler) and the Azure CLI binary, each installed and version-locked

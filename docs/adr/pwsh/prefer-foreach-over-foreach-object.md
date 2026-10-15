@@ -1,6 +1,13 @@
-# docs/adr/pwsh/prefer-foreach-over-foreach-object.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/prefer-foreach-over-foreach-object.md
+    kind: adr
+    body_sha: e91950ead172
+    adrs: []
+---
 
-`ADR: Prefer foreach over ForEach-Object`
+# ADR: Prefer foreach over ForEach-Object
 
 ## Rules: ADR-PWSH-FOREACH
 

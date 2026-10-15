@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-docs/configs/readme.yml.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-docs/configs/readme.yml.md
+    kind: reference
+    body_sha: d6f82119d979
+    adrs:
+      - ADR-REPO-README#6
+---
 
-`automation/Catzc.Base.Docs/configs/readme.yml`
+# automation/Catzc.Base.Docs/configs/readme.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

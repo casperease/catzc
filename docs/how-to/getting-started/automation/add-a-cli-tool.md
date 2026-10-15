@@ -1,6 +1,14 @@
-# docs/how-to/getting-started/automation/add-a-cli-tool.md
+---
+catzc:
+  derived:
+    path: docs/how-to/getting-started/automation/add-a-cli-tool.md
+    kind: how-to
+    body_sha: "7e3a289fb0e4"
+    adrs:
+      - ADR-AUTO-UVPY#4
+---
 
-`Add a CLI tool`
+# Add a CLI tool
 
 System CLI tools (Python, .NET, Azure CLI, Terraform, …) are version-locked in one config file and installed by a generic, platform-aware
 engine. Adding or upgrading a tool is a config change, not new install code. The reasoning is in

@@ -1,6 +1,18 @@
-# docs/adr/automation/console-output-matters.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/console-output-matters.md
+    kind: adr
+    body_sha: "62369ae583c9"
+    adrs:
+      - ADR-AUTO-CONSOLE#1
+      - ADR-AUTO-CONSOLE#12
+      - ADR-AUTO-CONSOLE#3
+      - ADR-AUTO-CONSOLE#5
+      - ADR-AUTO-CONSOLE#8
+---
 
-`ADR: Console output matters`
+# ADR: Console output matters
 
 ## Rules: ADR-AUTO-CONSOLE
 

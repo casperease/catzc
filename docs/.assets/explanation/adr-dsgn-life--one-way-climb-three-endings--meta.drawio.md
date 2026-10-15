@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.md
+    kind: asset-description
+    body_sha: "3180c6d915f3"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`A commit only climbs, then ends in one of three ways: the diagram described`
+# A commit only climbs, then ends in one of three ways: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right along one row of commits, with three bands stacked top to bottom.

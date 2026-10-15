@@ -1,6 +1,28 @@
-# docs/adr/azure/waf/performance-efficiency.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/waf/performance-efficiency.md
+    kind: adr
+    body_sha: "5442f36725bb"
+    adrs:
+      - ADR-AUTO-TEST#41
+      - ADR-AZ-DATAMOD#10
+      - ADR-AZ-DATAMOD#2
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#2
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#5
+      - ADR-AZ-LZ#6
+      - ADR-AZ-LZ#7
+      - ADR-AZ-WAFPE#1
+      - ADR-AZ-WAFPE#2
+      - ADR-AZ-WAFPE#3
+      - ADR-AZ-WAFPE#4
+---
 
-`ADR: Performance efficiency — the Well-Architected checklist PE:01 to PE:12, rule by rule, against foundation, discovery and expedition`
+# ADR: Performance efficiency — the Well-Architected checklist PE:01 to PE:12, rule by rule, against foundation, discovery and expedition
 
 Pairs with [`landing-zones`](../landing-zones.md) (ADR-AZ-LZ#5 names the performance-efficiency line of the workload) and
 [`data-model`](../azure-data-model.md) (the configuration tree that carries every SKU and capacity per environment class).

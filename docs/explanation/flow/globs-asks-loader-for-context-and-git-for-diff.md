@@ -1,6 +1,16 @@
-# docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
+    kind: explanation
+    body_sha: "824d978cfa10"
+    adrs:
+      - ADR-FLOW-CD-DETECT#1
+      - ADR-FLOW-CD-GLOBS#1
+      - ADR-FLOW-CD-GLOBS#9
+---
 
-`Catzc.Base.Globs owns the check, the loader names the context, and git names the change`
+# Catzc.Base.Globs owns the check, the loader names the context, and git names the change
 
 ```text
 Catzc.Base.Globs owns the touched-unit check; it asks the loader which context it runs in and git which paths changed.

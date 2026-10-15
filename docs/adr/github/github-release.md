@@ -1,6 +1,13 @@
-# docs/adr/github/github-release.md
+---
+catzc:
+  derived:
+    path: docs/adr/github/github-release.md
+    kind: adr
+    body_sha: c7fbe67c5617
+    adrs: []
+---
 
-`ADR: GitHub release flow — publishing the Catzc package`
+# ADR: GitHub release flow — publishing the Catzc package
 
 ## Rules: ADR-GH-RELEASE
 

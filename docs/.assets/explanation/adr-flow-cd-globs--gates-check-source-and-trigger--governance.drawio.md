@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.md
+    kind: asset-description
+    body_sha: a6faad2cf619
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Gates check source and trigger only: the diagram described`
+# Gates check the source and the trigger only: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through five bands.

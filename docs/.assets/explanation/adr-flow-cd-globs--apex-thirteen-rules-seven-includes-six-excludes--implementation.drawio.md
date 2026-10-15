@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.md
+    kind: asset-description
+    body_sha: "49750c4eef2b"
+    adrs: []
+---
 
-`apex: thirteen rules, seven includes, six excludes: the diagram described`
+# apex: thirteen rules, seven includes, six excludes: the diagram described
 
 ```text
 A 1572 x 720 diagram, read top to bottom through three bands.

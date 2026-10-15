@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.md
+    kind: asset-description
+    body_sha: "59985dac2e0a"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Four checks, three returns, no fall-through: the diagram described`
+# Four checks, three returns, no fall-through: the diagram described
 
 ```text
 A 1572 x 690 diagram, read top to bottom inside one band, CODE ORDER.

@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
+    kind: reference
+    body_sha: "3e7e64d27560"
+    adrs:
+      - ADR-AUTO-ENVVAR#7
+---
 
-`automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1`
+# automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

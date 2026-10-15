@@ -1,6 +1,16 @@
-# docs/explanation/flow/edit-globs-yml-then-read-the-output.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/edit-globs-yml-then-read-the-output.md
+    kind: explanation
+    body_sha: "429a6f32246d"
+    adrs:
+      - ADR-FLOW-CD-GLOBS#5
+      - ADR-FLOW-CD-GLOBS#6
+      - ADR-FLOW-CD-GLOBS#9
+---
 
-`You edit globs.yml, and every other step prints what cats derived from it`
+# You edit globs.yml, and every other step prints what cats derived from it
 
 ```text
 You edit globs.yml, and every other step prints what cats derived from it.

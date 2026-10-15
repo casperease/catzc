@@ -1,6 +1,13 @@
-# docs/adr/research/work-visibility-in-value-stream.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/work-visibility-in-value-stream.md
+    kind: adr
+    body_sha: "9bffc5515fba"
+    adrs: []
+---
 
-`ADR: DORA — Visibility of work in the value stream`
+# ADR: DORA — Visibility of work in the value stream
 
 ## Rules: ADR-DORA-WORKVIS
 

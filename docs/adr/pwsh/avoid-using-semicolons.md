@@ -1,6 +1,13 @@
-# docs/adr/pwsh/avoid-using-semicolons.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/avoid-using-semicolons.md
+    kind: adr
+    body_sha: "47103cd2d19b"
+    adrs: []
+---
 
-`ADR: Avoid using semicolons`
+# ADR: Avoid using semicolons
 
 ## Rules: ADR-PWSH-NOSEMI
 

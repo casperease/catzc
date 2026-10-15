@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.md
+    kind: asset-description
+    body_sha: "632b2688cc51"
+    adrs: []
+---
 
-`The import materialises every root file; two gates catch drift: the diagram described`
+# The import materialises every root file; two gates catch drift: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

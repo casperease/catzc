@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.md
+    kind: asset-description
+    body_sha: c8de989c7cd4
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`One namer assembles every Azure name: the diagram described`
+# One namer assembles every Azure name: the diagram described
 
 ```text
 A 1572 x 750 diagram, read top to bottom through four bands.

@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-azure-devops/Invoke-AdoRestMethod.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure-devops/Invoke-AdoRestMethod.ps1.md
+    kind: reference
+    body_sha: "0d27b387b06d"
+    adrs: []
+---
 
-`automation/Catzc.Azure.DevOps/Invoke-AdoRestMethod.ps1`
+# automation/Catzc.Azure.DevOps/Invoke-AdoRestMethod.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

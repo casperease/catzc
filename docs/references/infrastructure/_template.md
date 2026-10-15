@@ -1,6 +1,13 @@
-# docs/references/infrastructure/_template.md
+---
+catzc:
+  derived:
+    path: docs/references/infrastructure/_template.md
+    kind: reference
+    body_sha: bb19393e975b
+    adrs: []
+---
 
-`<name>`
+# `<name>`
 
 One or two sentences: what `<name>` deploys and its single responsibility; what it deliberately does not own; and any cross-template
 dependency (for example, it needs `foundation`'s Key Vault). Link the governing ADR(s) (`../../adr/azure/...`).

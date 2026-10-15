@@ -1,6 +1,13 @@
-# docs/references/pipelines/Invoke-AdoScript.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/pipelines/Invoke-AdoScript.ps1.md
+    kind: reference
+    body_sha: "84b8256e57a4"
+    adrs: []
+---
 
-`pipelines/Invoke-AdoScript.ps1`
+# pipelines/Invoke-AdoScript.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

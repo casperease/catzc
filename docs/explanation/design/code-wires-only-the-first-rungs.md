@@ -1,6 +1,14 @@
-# docs/explanation/design/code-wires-only-the-first-rungs.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/code-wires-only-the-first-rungs.md
+    kind: explanation
+    body_sha: c40dc2238d5f
+    adrs:
+      - ADR-DSGN-LIFE#8
+---
 
-`The pipelines wire only topic, landed and BVT; past BVT there is no ladder`
+# The pipelines wire only topic, landed and BVT; past BVT there is no ladder
 
 ```text
 The pipelines wire topic, landed and BVT; past BVT, stages follow the template, not the rung.

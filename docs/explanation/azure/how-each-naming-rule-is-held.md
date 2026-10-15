@@ -1,6 +1,21 @@
-# docs/explanation/azure/how-each-naming-rule-is-held.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/how-each-naming-rule-is-held.md
+    kind: explanation
+    body_sha: ee09541f42c4
+    adrs:
+      - ADR-AZ-NAMING#1
+      - ADR-AZ-NAMING#2
+      - ADR-AZ-NAMING#3
+      - ADR-AZ-NAMING#4
+      - ADR-AZ-NAMING#5
+      - ADR-AZ-NAMING#6
+      - ADR-AZ-NAMING#7
+      - ADR-AZ-NAMING#8
+---
 
-`Code holds all eight naming rules, seven of them behind a check that throws`
+# Code holds all eight naming rules, seven of them behind a check that throws
 
 ```text
 All eight naming rules are held in code; seven behind a check that throws, one by construction.

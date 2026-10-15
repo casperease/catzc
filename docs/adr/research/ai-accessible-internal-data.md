@@ -1,6 +1,13 @@
-# docs/adr/research/ai-accessible-internal-data.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/ai-accessible-internal-data.md
+    kind: adr
+    body_sha: a087c76d9705
+    adrs: []
+---
 
-`ADR: DORA — AI-accessible internal data`
+# ADR: DORA — AI-accessible internal data
 
 ## Rules: ADR-DORA-AIDATA
 

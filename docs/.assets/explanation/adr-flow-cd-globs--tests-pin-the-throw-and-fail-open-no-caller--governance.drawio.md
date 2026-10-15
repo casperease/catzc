@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.md
+    kind: asset-description
+    body_sha: "05e637848678"
+    adrs: []
+---
 
-`Tests pin the throw and the fail-open, no caller: the diagram described`
+# Tests pin the throw and the fail-open, no caller: the diagram described
 
 ```text
 A 1572 x 760 diagram, read top to bottom through four bands, each band a row with the governed glyph left and its gate right.

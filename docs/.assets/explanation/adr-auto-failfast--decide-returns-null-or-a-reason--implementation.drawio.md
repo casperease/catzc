@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.md
+    kind: asset-description
+    body_sha: "5855147b5863"
+    adrs: []
+---
 
-`Decide returns null or a reason: the diagram described`
+# Decide returns null or a reason: the diagram described
 
 ```text
 A 1572 x 710 diagram, read top to bottom through four bands.

@@ -1,6 +1,14 @@
-# docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
+    kind: explanation
+    body_sha: fd4f00055329
+    adrs:
+      - ADR-AUTO-FAILFAST#7
+---
 
-`A shell call carries its limit, or the hook denies it with a reason; it is never rewritten`
+# A shell call carries its limit, or the hook denies it with a reason; it is never rewritten
 
 ```text
 An agent's shell call carries its limit, or the hook denies it with a reason; it is never rewritten.

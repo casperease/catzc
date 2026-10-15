@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-track--globs-yml-pipeline-field-is-the-binding--implementation.drawio.md
+    kind: asset-description
+    body_sha: "92e963d4c665"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`globs.yml's pipeline: field is the binding: the diagram described`
+# globs.yml's pipeline: field is the binding: the diagram described
 
 ```text
 A 1572 x 640 diagram: one file holding four named sets, read left to right into a band of runners.

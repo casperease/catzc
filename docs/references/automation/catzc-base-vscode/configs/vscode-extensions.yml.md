@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-vscode/configs/vscode-extensions.yml.md
+    kind: reference
+    body_sha: "994af43af4ee"
+    adrs:
+      - ADR-REPO-FORMAT#8
+      - ADR-REPO-LINK#3
+---
 
-`automation/Catzc.Base.VSCode/configs/vscode-extensions.yml`
+# automation/Catzc.Base.VSCode/configs/vscode-extensions.yml
 
 <!-- cspell:ignore azuretools azureresourcegroups streetsidesoftware rosshamish kuskus kusto shd101wyy esbenp -->
 <!-- cspell:ignore tomoki redhat Anson Levett iliazeus gopls -->

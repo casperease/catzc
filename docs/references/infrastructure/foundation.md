@@ -1,6 +1,13 @@
-# docs/references/infrastructure/foundation.md
+---
+catzc:
+  derived:
+    path: docs/references/infrastructure/foundation.md
+    kind: reference
+    body_sha: "827ea9e79c69"
+    adrs: []
+---
 
-`foundation`
+# foundation
 
 The once-per-subscription baseline. `foundation` deploys the shared services every other template in the subscription depends on — a Log
 Analytics workspace and a Key Vault — and nothing customer- or environment-specific. It is classified `environment_kind: subscription` — one

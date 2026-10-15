@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-qualitygates/types/LinkWrap.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/types/LinkWrap.cs.md
+    kind: reference
+    body_sha: "575c89666bba"
+    adrs:
+      - ADR-REPO-LINK#8
+---
 
-`automation/Catzc.Base.QualityGates/types/LinkWrap.cs`
+# automation/Catzc.Base.QualityGates/types/LinkWrap.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

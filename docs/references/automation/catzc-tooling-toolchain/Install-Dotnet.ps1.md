@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md
+    kind: reference
+    body_sha: "6cb97608f78a"
+    adrs:
+      - ADR-AUTO-ASSETDEP#1
+      - ADR-AUTO-CONSOLE#11
+      - ADR-AUTO-IDEM#1
+---
 
-`automation/Catzc.Tooling.Toolchain/Install-Dotnet.ps1`
+# automation/Catzc.Tooling.Toolchain/Install-Dotnet.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

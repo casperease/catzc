@@ -1,6 +1,20 @@
-# docs/adr/principles/one-living-version.md
+---
+catzc:
+  derived:
+    path: docs/adr/principles/one-living-version.md
+    kind: adr
+    body_sha: c6a66d2338ab
+    adrs:
+      - ADR-CONF-LOADING#4
+      - ADR-PRIN-ONELIVE#2
+      - ADR-PRIN-ONELIVE#6
+      - ADR-PRIN-ONELIVE#7
+      - ADR-PRIN-ONELIVE#8
+      - ADR-REPO-CONTRACT#2
+      - ADR-THES-ONETRUTH#4
+---
 
-`Principle: One living version — no legacy, no back-compat, history in git`
+# Principle: One living version — no legacy, no back-compat, history in git
 
 ## Rules: ADR-PRIN-ONELIVE
 

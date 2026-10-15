@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.md
+    kind: asset-description
+    body_sha: "66e15f5bbc4d"
+    adrs: []
+---
 
-`A path has two forms, never a third: the diagram described`
+# A path has two forms, never a third: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands, then the band below.

@@ -1,6 +1,22 @@
-# docs/adr/azure/caf/network-private-access.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/caf/network-private-access.md
+    kind: adr
+    body_sha: afa53038a9df
+    adrs:
+      - ADR-AZ-CAFSEC#21
+      - ADR-AZ-LZ#2
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#7
+      - ADR-AZ-NETWORK#1
+      - ADR-AZ-NETWORK#5
+      - ADR-AZ-NETWORK#6
+      - ADR-AZ-WAFSE#6
+---
 
-`ADR: CAF network private access — what the repository does about each recommendation on PaaS connectivity and DNS`
+# ADR: CAF network private access — what the repository does about each recommendation on PaaS connectivity and DNS
 
 Pairs with [`landing-zones`](../landing-zones.md) (the hub that holds the private DNS zones and the workload that registers in them),
 [`azure-network-model`](../azure-network-model.md) (the address plan), and [`caf-security`](landing-zone-security.md) (the vault's private

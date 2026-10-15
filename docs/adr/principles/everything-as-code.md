@@ -1,6 +1,14 @@
-# docs/adr/principles/everything-as-code.md
+---
+catzc:
+  derived:
+    path: docs/adr/principles/everything-as-code.md
+    kind: adr
+    body_sha: "791634cbbe6b"
+    adrs:
+      - ADR-THES-ONETRUTH#2
+---
 
-`Principle: Everything as code`
+# Principle: Everything as code
 
 ## Rules: ADR-PRIN-EAC
 

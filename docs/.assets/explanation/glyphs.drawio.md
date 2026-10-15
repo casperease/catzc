@@ -1,6 +1,14 @@
-# docs/.assets/explanation/glyphs.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/glyphs.drawio.md
+    kind: asset-description
+    body_sha: "9dcdf39c95c2"
+    adrs:
+      - ADR-DSGN-VISUAL#4
+---
 
-`The glyph library described`
+# The glyph library described
 
 ```text
 Two bands: THINGS (13 glyphs) and LINES AND MARKS (4 edge kinds, 5 marks).

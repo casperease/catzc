@@ -1,6 +1,16 @@
-# docs/explanation/automation/build-then-place-with-one-command.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/build-then-place-with-one-command.md
+    kind: explanation
+    body_sha: "996f53ad2447"
+    adrs:
+      - ADR-AUTO-BUNDLE#5
+      - ADR-AUTO-BUNDLE#6
+      - ADR-AUTO-BUNDLE#7
+---
 
-`Build the bundle once, then place it with one command`
+# Build the bundle once, then place it with one command
 
 ```text
 Build the bundle once, then place it with one command.

@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md
+    kind: reference
+    body_sha: "8486f495bf25"
+    adrs:
+      - ADR-PWSH-ANNOUNCE#1
+---
 
-`automation/Catzc.Base.Execution/Invoke-WithProgress.ps1`
+# automation/Catzc.Base.Execution/Invoke-WithProgress.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

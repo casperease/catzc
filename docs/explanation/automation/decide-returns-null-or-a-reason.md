@@ -1,6 +1,14 @@
-# docs/explanation/automation/decide-returns-null-or-a-reason.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/decide-returns-null-or-a-reason.md
+    kind: explanation
+    body_sha: "9302c72f3cc8"
+    adrs:
+      - ADR-AUTO-FAILFAST#7
+---
 
-`Main loads the limits and the run environment, then Decide returns null or a reason`
+# Main loads the limits and the run environment, then Decide returns null or a reason
 
 ```text
 Main loads the limits and the run environment, then Decide returns null to let the call through or a reason to deny it.

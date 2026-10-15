@@ -1,6 +1,50 @@
-# docs/adr/azure/caf/identity-and-access.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/caf/identity-and-access.md
+    kind: adr
+    body_sha: e192bb608891
+    adrs:
+      - ADR-AUTO-GUIDS#1
+      - ADR-AUTO-GUIDS#4
+      - ADR-AZ-CAFGOV#6
+      - ADR-AZ-CAFSEC#13
+      - ADR-AZ-CAFSEC#15
+      - ADR-AZ-CAFSEC#16
+      - ADR-AZ-CAFSEC#22
+      - ADR-AZ-CAFSEC#25
+      - ADR-AZ-CAFSEC#26
+      - ADR-AZ-CAFSEC#28
+      - ADR-AZ-CAFSEC#29
+      - ADR-AZ-CAFSEC#3
+      - ADR-AZ-CAFSEC#34
+      - ADR-AZ-CAFSEC#37
+      - ADR-AZ-CAFSEC#38
+      - ADR-AZ-CAFSEC#43
+      - ADR-AZ-CAFSEC#7
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#2
+      - ADR-AZ-DATAMOD#7
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#2
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#5
+      - ADR-AZ-LZ#6
+      - ADR-AZ-NETWORK#3
+      - ADR-AZ-SESSION#2
+      - ADR-AZ-SESSION#4
+      - ADR-AZ-SESSION#5
+      - ADR-AZ-WAFSE#10
+      - ADR-AZ-WAFSE#4
+      - ADR-AZ-WAFSE#5
+      - ADR-AZ-WAFSE#8
+      - ADR-AZ-WAFSE#9
+      - ADR-FLOW-CD-RUNNER#3
+---
 
-`ADR: CAF identity and access — what the repository does about each recommendation of the landing-zone identity and access design area`
+# ADR: CAF identity and access — what the repository does about each recommendation of the landing-zone identity and access design area
 
 Pairs with [`waf-security`](../waf/security.md) (the workload view of identity, [ADR-AZ-WAFSE#5](../waf/security.md#rule-adr-az-wafse5),
 whose analysis is cited here, not repeated), [`caf-security`](landing-zone-security.md) (the platform's Key Vault and privileged-access

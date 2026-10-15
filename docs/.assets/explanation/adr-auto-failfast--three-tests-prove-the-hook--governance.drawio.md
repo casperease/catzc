@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.md
+    kind: asset-description
+    body_sha: "0842b420d8eb"
+    adrs: []
+---
 
-`Three tests prove the hook: the diagram described`
+# Three tests prove the hook: the diagram described
 
 ```text
 A 1572 x 720 diagram in two columns: the left read top to bottom through four bands, the right one band of gates.

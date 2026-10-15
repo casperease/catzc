@@ -1,6 +1,19 @@
-# docs/adr/thesis/one-source-of-truth.md
+---
+catzc:
+  derived:
+    path: docs/adr/thesis/one-source-of-truth.md
+    kind: adr
+    body_sha: d790814a2975
+    adrs:
+      - ADR-FLOW-CD#14
+      - ADR-PRIN-EAC#1
+      - ADR-PRIN-EAC#2
+      - ADR-PRIN-EAC#3
+      - ADR-THES-ONETRUTH#2
+      - ADR-THES-ONETRUTH#4
+---
 
-`Thesis: One source of truth — delivery collapsed into one repository with one change process`
+# Thesis: One source of truth — delivery collapsed into one repository with one change process
 
 ## Rules: ADR-THES-ONETRUTH
 

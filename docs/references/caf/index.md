@@ -1,6 +1,13 @@
-# docs/references/caf/index.md
+---
+catzc:
+  derived:
+    path: docs/references/caf/index.md
+    kind: reference
+    body_sha: c74c37e86f75
+    adrs: []
+---
 
-`Cloud Adoption Framework reference`
+# Cloud Adoption Framework reference
 
 This folder is the repository's local entry point to Microsoft's
 [Cloud Adoption Framework for Azure](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/) (CAF): what part of it applies here,

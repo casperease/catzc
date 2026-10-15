@@ -1,6 +1,14 @@
-# docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
+    kind: explanation
+    body_sha: "951dcc6dc22d"
+    adrs:
+      - ADR-AUTO-FAILFAST#7
+---
 
-`A call inside the limit runs; outside it, the hook denies it and says how to re-issue it`
+# A call inside the limit runs; outside it, the hook denies it and says how to re-issue it
 
 ```text
 A call inside the limit runs; outside it, the hook denies it and says how to re-issue it.

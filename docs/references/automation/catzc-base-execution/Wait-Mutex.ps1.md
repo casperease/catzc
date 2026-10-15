@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md
+    kind: reference
+    body_sha: "650ba85b4b1d"
+    adrs:
+      - ADR-AUTO-CONSOLE#10
+      - ADR-AUTO-CONSOLE#8
+      - ADR-PWSH-ANNOUNCE#1
+---
 
-`automation/Catzc.Base.Execution/Wait-Mutex.ps1`
+# automation/Catzc.Base.Execution/Wait-Mutex.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

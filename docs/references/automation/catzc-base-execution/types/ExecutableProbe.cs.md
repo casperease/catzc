@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-execution/types/ExecutableProbe.cs.md
+    kind: reference
+    body_sha: bfd29fc5caf8
+    adrs: []
+---
 
-`automation/Catzc.Base.Execution/types/ExecutableProbe.cs`
+# automation/Catzc.Base.Execution/types/ExecutableProbe.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

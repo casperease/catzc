@@ -1,6 +1,13 @@
-# docs/adr/research/monitoring-systems.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/monitoring-systems.md
+    kind: adr
+    body_sha: "6298028e02bd"
+    adrs: []
+---
 
-`ADR: DORA — Monitoring systems to inform business decisions`
+# ADR: DORA — Monitoring systems to inform business decisions
 
 ## Rules: ADR-DORA-MONITOR
 

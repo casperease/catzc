@@ -1,6 +1,13 @@
-# docs/adr/pipelines/dual-authentication.md
+---
+catzc:
+  derived:
+    path: docs/adr/pipelines/dual-authentication.md
+    kind: adr
+    body_sha: "245b02b1e15b"
+    adrs: []
+---
 
-`ADR: Dual authentication — pipeline system token vs. local Az token`
+# ADR: Dual authentication — pipeline system token vs. local Az token
 
 ## Rules: ADR-PIPE-AUTH
 

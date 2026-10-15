@@ -1,6 +1,18 @@
-# docs/explanation/flow/one-scan-program-feeds-three-roles.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/one-scan-program-feeds-three-roles.md
+    kind: explanation
+    body_sha: "1756066d4cce"
+    adrs:
+      - ADR-FLOW-CD-GLOBS#4
+      - ADR-FLOW-CD-GLOBS#5
+      - ADR-FLOW-CD-GLOBS#6
+      - ADR-FLOW-CD-GLOBS#9
+      - ADR-REPO-PROTGLOB#5
+---
 
-`One method, GlobSet.ScanProgram(), feeds all three globset role functions`
+# One method, GlobSet.ScanProgram(), feeds all three globset role functions
 
 ```text
 One method, GlobSet.ScanProgram(), feeds all three globset role functions.

@@ -1,6 +1,13 @@
-# docs/how-to/getting-started/automation/index.md
+---
+catzc:
+  derived:
+    path: docs/how-to/getting-started/automation/index.md
+    kind: how-to
+    body_sha: f1c4f850cec7
+    adrs: []
+---
 
-`Getting started with the automation system`
+# Getting started with the automation system
 
 A PowerShell 7.4+ module system for this monorepo. **Drop a file, get a function** — no manifests, no installers, no registration.
 Dot-source one script and every function from every module is available.

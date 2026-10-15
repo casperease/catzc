@@ -1,6 +1,16 @@
-# docs/explanation/azure/read-the-session-guard-then-pick-slot.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/read-the-session-guard-then-pick-slot.md
+    kind: explanation
+    body_sha: c8f5d7858cb5
+    adrs:
+      - ADR-AZ-DATAMOD#4
+      - ADR-AZ-DATAMOD#5
+      - ADR-AZ-DATAMOD#7
+---
 
-`Get-BicepDeploymentContext reads the session, guards it, then picks the slot`
+# Get-BicepDeploymentContext reads the session, guards it, then picks the slot
 
 ```text
 Get-BicepDeploymentContext resolves the session, applies the guard, then addresses the slot, in that order.

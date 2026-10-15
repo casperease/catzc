@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.md
+    kind: asset-description
+    body_sha: "1be7d8fdbd51"
+    adrs: []
+---
 
-`Every wait is bounded: the caller's value, else the config, else the default: the diagram described`
+# Every wait is bounded: the caller's value, else the config, else the default: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

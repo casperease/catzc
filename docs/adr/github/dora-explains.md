@@ -1,6 +1,13 @@
-# docs/adr/github/dora-explains.md
+---
+catzc:
+  derived:
+    path: docs/adr/github/dora-explains.md
+    kind: adr
+    body_sha: e0aa789e446d
+    adrs: []
+---
 
-`DORA explanations — github`
+# DORA explanations — github
 
 The `Dora explains` rationale for the ADRs in the `github/` domain, consolidated in one place. Each entry names its ADR and rule code, then
 reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in

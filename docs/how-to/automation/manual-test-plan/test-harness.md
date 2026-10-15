@@ -1,6 +1,14 @@
-# docs/how-to/automation/manual-test-plan/test-harness.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan/test-harness.md
+    kind: how-to
+    body_sha: "405dd3ce034b"
+    adrs:
+      - ADR-AUTO-TEST#25
+---
 
-`Manual test plan — Test harness`
+# Manual test plan — Test harness
 
 The test runner, its vendored Pester, fixture-identity hygiene, and this plan's own drift guard. Part of the
 [manual test plan](../manual-test-plan.md), which says how to run a check.

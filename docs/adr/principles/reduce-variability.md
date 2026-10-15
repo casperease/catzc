@@ -1,6 +1,13 @@
-# docs/adr/principles/reduce-variability.md
+---
+catzc:
+  derived:
+    path: docs/adr/principles/reduce-variability.md
+    kind: adr
+    body_sha: "6c7182f0738c"
+    adrs: []
+---
 
-`Principle: Reduce variability`
+# Principle: Reduce variability
 
 ## Rules: ADR-PRIN-REDUCEVAR
 

@@ -1,6 +1,18 @@
-# docs/explanation/configuration/callers-depend-on-one-config-module.md
+---
+catzc:
+  derived:
+    path: docs/explanation/configuration/callers-depend-on-one-config-module.md
+    kind: explanation
+    body_sha: "68a60ba45051"
+    adrs:
+      - ADR-CONF-LOADING#1
+      - ADR-CONF-LOADING#2
+      - ADR-CONF-LOADING#3
+      - ADR-CONF-LOADING#4
+      - ADR-CONF-LOADING#6
+---
 
-`Callers in any module read config through one module`
+# Callers in any module read config through one module
 
 ```text
 Callers in any module depend on one config module; the owner only ships a file and a type.

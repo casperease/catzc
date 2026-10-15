@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.md
+    kind: asset-description
+    body_sha: "8b15b2b11f09"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Build, then place with one command: the diagram described`
+# Build, then place with one command: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through four bands.

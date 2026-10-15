@@ -1,6 +1,19 @@
-# docs/adr/pwsh/parameter-design.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/parameter-design.md
+    kind: adr
+    body_sha: fc5a12fcf30f
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-PWSH-AUTOVAR#6
+      - ADR-PWSH-AUTOVAR#7
+      - ADR-PWSH-PARAM#2
+      - ADR-PWSH-PARAM#4
+      - ADR-PWSH-PESTER#3
+---
 
-`ADR: Parameter design — the PowerShell layer over sensible-defaults`
+# ADR: Parameter design — the PowerShell layer over sensible-defaults
 
 ## Rules: ADR-PWSH-PARAM
 

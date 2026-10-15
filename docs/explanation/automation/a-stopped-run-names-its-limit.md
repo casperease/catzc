@@ -1,6 +1,15 @@
-# docs/explanation/automation/a-stopped-run-names-its-limit.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/a-stopped-run-names-its-limit.md
+    kind: explanation
+    body_sha: "877da7a37604"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-FAILFAST#7
+---
 
-`A run past its limit stops with a message that names the limit and where to change it`
+# A run past its limit stops with a message that names the limit and where to change it
 
 ```text
 A run past its limit stops with a message that names the limit and where to change it; no call runs without one.

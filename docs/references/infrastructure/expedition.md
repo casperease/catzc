@@ -1,6 +1,13 @@
-# docs/references/infrastructure/expedition.md
+---
+catzc:
+  derived:
+    path: docs/references/infrastructure/expedition.md
+    kind: reference
+    body_sha: "562382a9cb1f"
+    adrs: []
+---
 
-`expedition`
+# expedition
 
 A Well-Architected workload: a storage account and a SQL database, reached only through private endpoints, landing in the `discovery`
 landing zone. `expedition` owns its data resources and nothing of the network or the guardrails around them. A customer's deployment places

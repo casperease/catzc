@@ -1,6 +1,17 @@
-# docs/references/automation/catzc-tooling-github.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-github.md
+    kind: reference
+    body_sha: "1191cdb94053"
+    adrs:
+      - ADR-REPO-CONTRACT#1
+      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-CONTRACT#3
+      - ADR-REPO-CONTRACT#6
+---
 
-`Catzc.Tooling.Github`
+# Catzc.Tooling.Github
 
 The repository's GitHub integration: everything that faces GitHub, as a platform that reads our files and as a remote that stores our
 history. Two jobs make it up. It holds the GitHub-facing contracts — what GitHub requires of the files it reads, kept under

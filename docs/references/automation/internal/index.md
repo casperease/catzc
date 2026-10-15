@@ -1,6 +1,14 @@
-# docs/references/automation/internal/index.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/internal/index.md
+    kind: reference
+    body_sha: "552fcd9f3460"
+    adrs:
+      - ADR-PWSH-USEPS#2
+---
 
-`Internal (.psm1 shared infrastructure) — automation reference`
+# Internal (.psm1 shared infrastructure) — automation reference
 
 `.internal` is the home of the loader and the shared libraries, under `automation/.internal/`. It holds the sanctioned `.psm1` modules that
 run the toolset's import sequence and the code that BOTH the pre-module bootstrap (which runs before any `Catzc` module exists) and the

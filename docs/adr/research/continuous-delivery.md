@@ -1,6 +1,17 @@
-# docs/adr/research/continuous-delivery.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/continuous-delivery.md
+    kind: adr
+    body_sha: f32418cd25eb
+    adrs:
+      - ADR-FLOW-CD-TYPE#10
+      - ADR-FLOW-CD-TYPE#3
+      - ADR-FLOW-CD-TYPE#4
+      - ADR-FLOW-CD-TYPE#8
+---
 
-`ADR: DORA — Continuous delivery`
+# ADR: DORA — Continuous delivery
 
 ## Rules: ADR-DORA-CD
 

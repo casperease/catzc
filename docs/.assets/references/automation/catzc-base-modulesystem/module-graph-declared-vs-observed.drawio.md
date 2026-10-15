@@ -1,6 +1,19 @@
-# docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+    kind: asset-description
+    body_sha: "50e69fa2bb87"
+    adrs:
+      - ADR-AUTO-CACHE#2
+      - ADR-AUTO-DEPM#4
+      - ADR-AUTO-TEST#35
+      - ADR-AUTO-TEST#4
+      - ADR-PWSH-CACHE#4
+      - ADR-PWSH-PESTER#9
+---
 
-`Declared graph orders and closes; observed graph is checked: the diagram described`
+# Declared graph orders and closes; observed graph is checked: the diagram described
 
 ```text
 A 1588 x 642 diagram, read left to right through two bands, top to bottom.

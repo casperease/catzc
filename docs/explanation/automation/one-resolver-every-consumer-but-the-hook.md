@@ -1,6 +1,15 @@
-# docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
+    kind: explanation
+    body_sha: "6338c39818a8"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-FAILFAST#7
+---
 
-`One resolver serves every consumer but the hook, which compiles the same config type`
+# One resolver serves every consumer but the hook, which compiles the same config type
 
 ```text
 One resolver, Get-TimeoutSeconds, serves every consumer of the time safeguard but the hook, which compiles the same config type.

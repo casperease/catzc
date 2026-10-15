@@ -1,6 +1,13 @@
-# docs/adr/pwsh/dora-explains.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/dora-explains.md
+    kind: adr
+    body_sha: c9f1095e5ed0
+    adrs: []
+---
 
-`DORA explanations — pwsh`
+# DORA explanations — pwsh
 
 The `Dora explains` rationale for the ADRs in the `pwsh/` domain, consolidated in one place. Each entry names its ADR and rule code, then
 reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in

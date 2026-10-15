@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.md
+    kind: asset-description
+    body_sha: "190a3297513d"
+    adrs: []
+---
 
-`One source of truth, one writer, one boolean: the diagram described`
+# One source of truth, one writer, one boolean: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands.

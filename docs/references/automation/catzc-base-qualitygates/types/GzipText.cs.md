@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-qualitygates/types/GzipText.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/types/GzipText.cs.md
+    kind: reference
+    body_sha: "5a3143ae1390"
+    adrs:
+      - ADR-PWSH-TYPES#1
+---
 
-`automation/Catzc.Base.QualityGates/types/GzipText.cs`
+# automation/Catzc.Base.QualityGates/types/GzipText.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.md
+    kind: asset-description
+    body_sha: "4a468dc07090"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Drop a file, and the next import exports it: the diagram described`
+# Drop a file, and the next import exports it: the diagram described
 
 ```text
 A 1572 x 702 diagram, read left to right from a tall code unit into two bands.

@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.md
+    kind: asset-description
+    body_sha: "38d8907aea0f"
+    adrs: []
+---
 
-`Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling: the diagram described`
+# Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through four bands.

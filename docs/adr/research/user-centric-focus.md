@@ -1,6 +1,13 @@
-# docs/adr/research/user-centric-focus.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/user-centric-focus.md
+    kind: adr
+    body_sha: f9bb86787adb
+    adrs: []
+---
 
-`ADR: DORA — User-centric focus`
+# ADR: DORA — User-centric focus
 
 ## Rules: ADR-DORA-USERFOCUS
 

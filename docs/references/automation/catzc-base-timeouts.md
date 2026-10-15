@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-timeouts.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-timeouts.md
+    kind: reference
+    body_sha: c9314955e75e
+    adrs: []
+---
 
-`Catzc.Base.Timeouts`
+# Catzc.Base.Timeouts
 
 Owns the time safeguards: how long a call may run before it is stopped, and the means to stop it. One config (`timeouts.yml`) holds every
 limit, keyed by where the run happens (devbox or pipeline) and which shell runs it (one of the execution engines), plus per-executable

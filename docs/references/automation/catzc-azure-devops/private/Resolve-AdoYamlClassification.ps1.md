@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-azure-devops/private/Resolve-AdoYamlClassification.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure-devops/private/Resolve-AdoYamlClassification.ps1.md
+    kind: reference
+    body_sha: "2513ff8fe2d9"
+    adrs: []
+---
 
-`automation/Catzc.Azure.DevOps/private/Resolve-AdoYamlClassification.ps1`
+# automation/Catzc.Azure.DevOps/private/Resolve-AdoYamlClassification.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

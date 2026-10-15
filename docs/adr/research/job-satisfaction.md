@@ -1,6 +1,13 @@
-# docs/adr/research/job-satisfaction.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/job-satisfaction.md
+    kind: adr
+    body_sha: b12564197b48
+    adrs: []
+---
 
-`ADR: DORA — Job satisfaction`
+# ADR: DORA — Job satisfaction
 
 ## Rules: ADR-DORA-JOBSAT
 

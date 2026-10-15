@@ -1,6 +1,17 @@
-# docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
+    kind: asset-description
+    body_sha: "38ab14dccb0d"
+    adrs:
+      - ADR-FLOW-CD-DETECT#1
+      - ADR-FLOW-CD-GLOBS#5
+      - ADR-PWSH-CACHE#4
+      - ADR-REPO-PROTGLOB#4
+---
 
-`out/diagrams/wave-9/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md`
+# out/diagrams/wave-9/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md
 
 `Verification: Skip a module only if its folded hash matches its last green (source lens, Catzc.Base.Globs)`
 

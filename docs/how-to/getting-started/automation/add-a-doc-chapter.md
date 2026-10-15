@@ -1,6 +1,14 @@
-# docs/how-to/getting-started/automation/add-a-doc-chapter.md
+---
+catzc:
+  derived:
+    path: docs/how-to/getting-started/automation/add-a-doc-chapter.md
+    kind: how-to
+    body_sha: "3735962b4882"
+    adrs:
+      - ADR-PWSH-ERROR#3
+---
 
-`Add a doc chapter`
+# Add a doc chapter
 
 The repository has five kinds of prose, each with a home and a format:
 

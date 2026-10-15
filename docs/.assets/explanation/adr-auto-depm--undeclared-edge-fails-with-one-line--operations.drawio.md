@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.md
+    kind: asset-description
+    body_sha: "22ef928c0e5f"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`An undeclared edge fails with one line: the diagram described`
+# An undeclared edge fails with one line: the diagram described
 
 ```text
 A 1572 x 640 diagram, read top to bottom through three bands and left to right within each.

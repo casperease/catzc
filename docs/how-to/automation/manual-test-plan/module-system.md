@@ -1,6 +1,15 @@
-# docs/how-to/automation/manual-test-plan/module-system.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan/module-system.md
+    kind: how-to
+    body_sha: e7725350ff34
+    adrs:
+      - ADR-AUTO-ASSETDEP#3
+      - ADR-AUTO-ASSETDEP#4
+---
 
-`Manual test plan — Module system`
+# Manual test plan — Module system
 
 The module and function dependency graphs against real code, test order, profiles, internal asset dependencies, and the built bundle. Part
 of the [manual test plan](../manual-test-plan.md), which says how to run a check.

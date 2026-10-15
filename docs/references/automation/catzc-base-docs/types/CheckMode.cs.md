@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-docs/types/CheckMode.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-docs/types/CheckMode.cs.md
+    kind: reference
+    body_sha: "4dfd6b64c261"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TEST#35
+      - ADR-PRIN-CONFIG#4
+---
 
-`automation/Catzc.Base.Docs/types/CheckMode.cs`
+# automation/Catzc.Base.Docs/types/CheckMode.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

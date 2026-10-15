@@ -1,6 +1,13 @@
-# docs/adr/process/build-quality-in.md
+---
+catzc:
+  derived:
+    path: docs/adr/process/build-quality-in.md
+    kind: adr
+    body_sha: df9bdb9dc6a2
+    adrs: []
+---
 
-`ADR: Build quality in — you cannot inspect it in at the end`
+# ADR: Build quality in — you cannot inspect it in at the end
 
 ## Rules: ADR-PROC-BUILTIN
 

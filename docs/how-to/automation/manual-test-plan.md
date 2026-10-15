@@ -1,6 +1,13 @@
-# docs/how-to/automation/manual-test-plan.md
+---
+catzc:
+  derived:
+    path: docs/how-to/automation/manual-test-plan.md
+    kind: how-to
+    body_sha: "63acd364cda0"
+    adrs: []
+---
 
-`Manual test plan — integrity assertions`
+# Manual test plan — integrity assertions
 
 This plan lists every **integrity** check among all tests. These are the tests that read the _real repository contents_: the shipped
 `azure.yml`/`network.yml`/`tools.yml`/`ado.yml`/`dependencies.yml`, real templates, the module/type/function graph, checked-in binaries, and

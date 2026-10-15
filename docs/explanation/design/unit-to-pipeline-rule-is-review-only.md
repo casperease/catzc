@@ -1,6 +1,23 @@
-# docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
+    kind: explanation
+    body_sha: c709a49d0a69
+    adrs:
+      - ADR-DSGN-TRACK#1
+      - ADR-DSGN-TRACK#2
+      - ADR-DSGN-TRACK#3
+      - ADR-DSGN-TRACK#4
+      - ADR-DSGN-TRACK#5
+      - ADR-DSGN-TRACK#6
+      - ADR-FLOW-CD-GLOBS#7
+      - ADR-FLOW-CD-GLOBS#8
+      - ADR-REPO-FOLDERS#1
+      - ADR-REPO-FOLDERS#3
+---
 
-`Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone`
+# Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone
 
 ```text
 Tracks and deployable-units are checked in code; one unit to one pipeline is held by review alone.

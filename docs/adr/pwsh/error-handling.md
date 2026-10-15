@@ -1,6 +1,20 @@
-# docs/adr/pwsh/error-handling.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/error-handling.md
+    kind: adr
+    body_sha: d289b074815d
+    adrs:
+      - ADR-AUTO-FAILFAST#4
+      - ADR-AUTO-ONEJOB#6
+      - ADR-AUTO-RETRY#1
+      - ADR-AUTO-RETRY#5
+      - ADR-AUTO-RETRY#6
+      - ADR-PWSH-ERROR#5
+      - ADR-PWSH-ERROR#8
+---
 
-`ADR: Error handling — fail immediately, no warnings`
+# ADR: Error handling — fail immediately, no warnings
 
 ## Rules: ADR-PWSH-ERROR
 

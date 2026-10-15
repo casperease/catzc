@@ -1,6 +1,16 @@
-# docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.verify.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.verify.md
+    kind: asset-description
+    body_sha: f33d8afc7bde
+    adrs:
+      - ADR-AUTO-TEST#13
+      - ADR-AUTO-TEST#26
+      - ADR-REPO-PROTGLOB#9
+---
 
-`out/diagrams/dark-sample/test-automation-one-run-pipeline.drawio.verify.md`
+# out/diagrams/dark-sample/test-automation-one-run-pipeline.drawio.verify.md
 
 `Verification: One discovery feeds three phases; finally stamps run.json (source lens, Catzc.Base.QualityGates)`
 

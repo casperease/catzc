@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.md
+    kind: asset-description
+    body_sha: "88fe0b66284b"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`No gate checks the out-of-band deploy rule: the diagram described`
+# No gate checks the out-of-band deploy rule: the diagram described
 
 ```text
 A 1572 x 630 diagram, read left to right through four column bands.

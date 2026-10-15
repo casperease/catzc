@@ -1,6 +1,18 @@
-# docs/adr/design/thin-platforms.md
+---
+catzc:
+  derived:
+    path: docs/adr/design/thin-platforms.md
+    kind: adr
+    body_sha: "773f2f646c1a"
+    adrs:
+      - ADR-DSGN-THINPLAT#1
+      - ADR-DSGN-THINPLAT#2
+      - ADR-DSGN-THINPLAT#3
+      - ADR-DSGN-THINPLAT#4
+      - ADR-DSGN-THINPLAT#5
+---
 
-`ADR: Thin platforms — an API/CLI abstraction over a vendor layer`
+# ADR: Thin platforms — an API/CLI abstraction over a vendor layer
 
 ## Rules: ADR-DSGN-THINPLAT
 

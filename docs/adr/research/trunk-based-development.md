@@ -1,6 +1,16 @@
-# docs/adr/research/trunk-based-development.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/trunk-based-development.md
+    kind: adr
+    body_sha: "1b8bb45ab915"
+    adrs:
+      - ADR-DSGN-LIFE#6
+      - ADR-FLOW-CD#2
+      - ADR-PRIN-ONELIVE#4
+---
 
-`ADR: DORA — Trunk-based development`
+# ADR: DORA — Trunk-based development
 
 ## Rules: ADR-DORA-TRUNK
 

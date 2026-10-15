@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-conf-addressing--strip-split-walk-every-wrong-turn-throws--implementation.drawio.md
+    kind: asset-description
+    body_sha: "7add060779b0"
+    adrs: []
+---
 
-`Strip, split, walk, every wrong turn throws: the diagram described`
+# Strip, split, walk, every wrong turn throws: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right along one band, with a second band below for the failures.

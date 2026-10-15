@@ -1,6 +1,13 @@
-# docs/adr/automation/python/index.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/python/index.md
+    kind: adr
+    body_sha: daf24257c517
+    adrs: []
+---
 
-`Python automation ADRs`
+# Python automation ADRs
 
 The ADRs here govern the repository's Python code, which is test artifacts only — black-box tests of the engine that never ship; see
 [python-test-artifacts](python-test-artifacts.md). The Python-based tools the devbox installs are governed one level up, by

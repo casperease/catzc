@@ -1,6 +1,17 @@
-# docs/references/automation/catzc-azure/types/NetworkConfig.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure/types/NetworkConfig.cs.md
+    kind: reference
+    body_sha: d399fcfb0c5d
+    adrs:
+      - ADR-AUTO-TYPES#8
+      - ADR-AZ-NETWORK#2
+      - ADR-AZ-NETWORK#5
+      - ADR-AZ-NETWORK#6
+---
 
-`automation/Catzc.Azure/types/NetworkConfig.cs`
+# automation/Catzc.Azure/types/NetworkConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

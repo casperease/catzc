@@ -1,6 +1,13 @@
-# docs/adr/pwsh/module-path-hygiene.md
+---
+catzc:
+  derived:
+    path: docs/adr/pwsh/module-path-hygiene.md
+    kind: adr
+    body_sha: ba9e66a45031
+    adrs: []
+---
 
-`ADR: Module-path hygiene — the PowerShell layer over effective-in-enterprises`
+# ADR: Module-path hygiene — the PowerShell layer over effective-in-enterprises
 
 ## Rules: ADR-PWSH-MODPATH
 

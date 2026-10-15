@@ -1,6 +1,16 @@
-# docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
+    kind: explanation
+    body_sha: be83854e0e86
+    adrs:
+      - ADR-AUTO-DEPM#2
+      - ADR-AUTO-DEPM#3
+      - ADR-AUTO-DEPM#4
+---
 
-`Two sections of dependencies.yml are unioned into one allow-set per source module`
+# Two sections of dependencies.yml are unioned into one allow-set per source module
 
 ```text
 Two sections of dependencies.yml are unioned into one allow-set per source module.

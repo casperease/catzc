@@ -7,11 +7,20 @@ description: >
   with a seed), and L0 tests (L1 where the real tree helps). Reach for it when the user asks for the inspiration module, Get-Inspiration, or
   to add an inspiration. Do NOT use it to read or summarise what an inspiration contains.
 tools: Bash, Read, Glob, Grep, Write, Edit
+catzc:
+  derived:
+    path: ".claude/agents/build-inspiration-module.md"
+    kind: agent
+    body_sha: "20813ca506bb"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-PATH#1
+      - ADR-AUTO-PATH#3
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TYPES#8
 ---
 
-# .claude/agents/build-inspiration-module.md
-
-`build-inspiration-module`
+# build-inspiration-module
 
 You build the inspiration module to catzc's domain rules. The decisions the user has made live in `out/plan-inspiration-module.md`. Read it
 first, and stop and ask if it is missing or a decision there is still open.

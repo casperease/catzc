@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-base-modulesystem/types/ArtifactsConfig.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-modulesystem/types/ArtifactsConfig.cs.md
+    kind: reference
+    body_sha: da8cdfbc744e
+    adrs:
+      - ADR-AUTO-TEST#24
+      - ADR-AUTO-TYPES#8
+---
 
-`automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs`
+# automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md
+    kind: reference
+    body_sha: "39d18eb1956a"
+    adrs:
+      - ADR-AUTO-ENGINE#1
+---
 
-`automation/Catzc.Tooling.Core/types/EngineCaseTable.cs`
+# automation/Catzc.Tooling.Core/types/EngineCaseTable.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

@@ -1,6 +1,19 @@
-# docs/adr/pipelines/pipeline-naming-and-placement.md
+---
+catzc:
+  derived:
+    path: docs/adr/pipelines/pipeline-naming-and-placement.md
+    kind: adr
+    body_sha: "5dccdb8ff1e9"
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-PIPE-NAME#1
+      - ADR-PIPE-NAME#2
+      - ADR-PIPE-NAME#3
+      - ADR-PIPE-NAME#4
+      - ADR-PIPE-NAME#6
+---
 
-`ADR: Pipeline naming and placement`
+# ADR: Pipeline naming and placement
 
 ## Rules: ADR-PIPE-NAME
 

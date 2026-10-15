@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.md
+    kind: asset-description
+    body_sha: f41d0b995a95
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`The step is named after its command: the diagram described`
+# The step is named after its command: the diagram described
 
 ```text
 A 1572 x 620 diagram, read left to right along one row, with drops below it.

@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.md
+    kind: asset-description
+    body_sha: a3f8ef2c85f5
+    adrs: []
+---
 
-`Type an address, get the value: the diagram described`
+# Type an address, get the value: the diagram described
 
 ```text
 A 1572 x 660 diagram, read left to right through three bands side by side, in three rows.

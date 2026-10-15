@@ -1,6 +1,17 @@
-# docs/explanation/design/one-entry-script-per-mode.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/one-entry-script-per-mode.md
+    kind: explanation
+    body_sha: c24eef1948d2
+    adrs:
+      - ADR-DSGN-RUNMODE#1
+      - ADR-DSGN-RUNMODE#2
+      - ADR-DSGN-RUNMODE#5
+      - ADR-DSGN-RUNMODE#7
+---
 
-`Each run mode has one entry script, and a mixed session throws`
+# Each run mode has one entry script, and a mixed session throws
 
 ```text
 Each run mode has one entry script, and a mixed session throws.

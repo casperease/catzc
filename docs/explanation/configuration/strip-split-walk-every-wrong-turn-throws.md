@@ -1,6 +1,16 @@
-# docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
+---
+catzc:
+  derived:
+    path: docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
+    kind: explanation
+    body_sha: d0b1eb6f0b40
+    adrs:
+      - ADR-CONF-ADDRESSING#1
+      - ADR-CONF-ADDRESSING#2
+      - ADR-CONF-ADDRESSING#4
+---
 
-`Strip, split, read once, walk one segment at a time; every wrong turn throws`
+# Strip, split, read once, walk one segment at a time; every wrong turn throws
 
 ```text
 Strip, split, read once, walk one segment at a time; every wrong turn throws.

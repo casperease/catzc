@@ -1,6 +1,18 @@
-# docs/explanation/automation/every-code-root-is-a-copy.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/every-code-root-is-a-copy.md
+    kind: explanation
+    body_sha: "746c77c76a50"
+    adrs:
+      - ADR-AUTO-BUNDLE#1
+      - ADR-AUTO-BUNDLE#2
+      - ADR-AUTO-BUNDLE#3
+      - ADR-AUTO-BUNDLE#6
+      - ADR-DSGN-RUNMODE#7
+---
 
-`One engine builds the bundle, and every code root is a copy of its output`
+# One engine builds the bundle, and every code root is a copy of its output
 
 ```text
 One engine builds the bundle, and every code root is a copy of its output.

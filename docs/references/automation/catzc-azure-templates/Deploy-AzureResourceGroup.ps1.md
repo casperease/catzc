@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-azure-templates/Deploy-AzureResourceGroup.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure-templates/Deploy-AzureResourceGroup.ps1.md
+    kind: reference
+    body_sha: f0348a01206a
+    adrs: []
+---
 
-`automation/Catzc.Azure.Templates/Deploy-AzureResourceGroup.ps1`
+# automation/Catzc.Azure.Templates/Deploy-AzureResourceGroup.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

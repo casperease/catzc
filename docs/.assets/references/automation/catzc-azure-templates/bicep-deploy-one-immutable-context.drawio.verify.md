@@ -1,6 +1,14 @@
-# docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.verify.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.verify.md
+    kind: asset-description
+    body_sha: "01650c9e3e09"
+    adrs:
+      - ADR-PWSH-DRYRUN#1
+---
 
-`out/diagrams/wave-9/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.verify.md`
+# out/diagrams/wave-9/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.verify.md
 
 `Verification: One immutable context, resolved from the az session (source lens, Catzc.Azure.Templates)`
 

@@ -1,6 +1,16 @@
-# docs/explanation/flow/one-boolean-answer-from-one-function.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/one-boolean-answer-from-one-function.md
+    kind: explanation
+    body_sha: "6e9bebd9acdc"
+    adrs:
+      - ADR-AUTO-PARITY#3
+      - ADR-FLOW-CD-DETECT#1
+      - ADR-FLOW-CD-DETECT#4
+---
 
-`One function answers "am I in a pipeline?", and every branch on context asks it`
+# One function answers "am I in a pipeline?", and every branch on context asks it
 
 ```text
 One function answers "am I in a pipeline?", and every branch on context asks it.

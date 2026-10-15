@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-environment/Set-PermanentEnvironmentVariable.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-environment/Set-PermanentEnvironmentVariable.ps1.md
+    kind: reference
+    body_sha: "2ac77b2dbffb"
+    adrs:
+      - ADR-AUTO-CONSOLE#11
+---
 
-`automation/Catzc.Base.Environment/Set-PermanentEnvironmentVariable.ps1`
+# automation/Catzc.Base.Environment/Set-PermanentEnvironmentVariable.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

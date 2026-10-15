@@ -1,6 +1,14 @@
-# docs/adr/automation/tool-removal-lifecycle.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/tool-removal-lifecycle.md
+    kind: adr
+    body_sha: dd151d99a6db
+    adrs:
+      - ADR-AUTO-DEPS#2
+---
 
-`ADR: Install / Uninstall / Remove — the tool lifecycle and the destructive-eviction escalation`
+# ADR: Install / Uninstall / Remove — the tool lifecycle and the destructive-eviction escalation
 
 ## Rules: ADR-AUTO-REMOVE
 

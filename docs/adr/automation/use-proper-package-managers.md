@@ -1,6 +1,13 @@
-# docs/adr/automation/use-proper-package-managers.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/use-proper-package-managers.md
+    kind: adr
+    body_sha: "7deec46cbb66"
+    adrs: []
+---
 
-`ADR: Use proper package managers`
+# ADR: Use proper package managers
 
 ## Rules: ADR-AUTO-PKGMGR
 

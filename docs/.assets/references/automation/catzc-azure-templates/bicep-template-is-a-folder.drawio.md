@@ -1,6 +1,19 @@
-# docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+    kind: asset-description
+    body_sha: "8061b764a8d1"
+    adrs:
+      - ADR-AUTO-TYPES#9
+      - ADR-AZ-DATAMOD#10
+      - ADR-AZ-NAMING#2
+      - ADR-CONF-ADDRESSING#1
+      - ADR-PWSH-CACHE#4
+      - ADR-PWSH-ERROR#8
+---
 
-`A template is a folder; options.yml overrides five defaults: the diagram described`
+# A template is a folder; options.yml overrides five defaults: the diagram described
 
 ```text
 A 1588 x 666 diagram, read left to right through two bands, top to bottom.

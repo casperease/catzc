@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.md
+    kind: asset-description
+    body_sha: "3b6e97a391d7"
+    adrs: []
+---
 
-`One boolean answer from one function: the diagram described`
+# One boolean answer from one function: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through three bands, then down to a fourth.

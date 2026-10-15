@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.md
+    kind: asset-description
+    body_sha: cc7cd59b5606
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`One program, three views derived live: the diagram described`
+# One program, three views derived live: the diagram described
 
 ```text
 A 1572 x 560 diagram, read left to right through three bands.

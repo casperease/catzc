@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.md
+    kind: asset-description
+    body_sha: d970c7ce6940
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`One declared allow-list, edges point down: the diagram described`
+# One declared allow-list, edges point down: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands, beside one tall band on the right.

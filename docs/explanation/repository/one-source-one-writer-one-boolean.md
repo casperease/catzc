@@ -1,6 +1,17 @@
-# docs/explanation/repository/one-source-one-writer-one-boolean.md
+---
+catzc:
+  derived:
+    path: docs/explanation/repository/one-source-one-writer-one-boolean.md
+    kind: explanation
+    body_sha: "1932fd9f0525"
+    adrs:
+      - ADR-REPO-ROOTCFG#1
+      - ADR-REPO-ROOTCFG#2
+      - ADR-REPO-ROOTCFG#3
+      - ADR-REPO-ROOTCFG#4
+---
 
-`Every managed root file has one source of truth, one writer, and one boolean that decides git membership`
+# Every managed root file has one source of truth, one writer, and one boolean that decides git membership
 
 ```text
 Every managed root file has one source of truth, one writer, and one boolean that decides git membership.

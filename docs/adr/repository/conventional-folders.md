@@ -1,6 +1,19 @@
-# docs/adr/repository/conventional-folders.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/conventional-folders.md
+    kind: adr
+    body_sha: "4830a266e06c"
+    adrs:
+      - ADR-REPO-CONTRACT#10
+      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-FOLDERS#11
+      - ADR-REPO-FOLDERS#3
+      - ADR-REPO-FOLDERS#4
+      - ADR-REPO-FOLDERS#5
+---
 
-`ADR: Conventional folders — every folder in the repository, by convention`
+# ADR: Conventional folders — every folder in the repository, by convention
 
 ## Rules: ADR-REPO-FOLDERS
 

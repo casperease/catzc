@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.md
+    kind: asset-description
+    body_sha: "9b9b3bc8652f"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Two gates check the layer pins: the diagram described`
+# Two gates check the layer pins: the diagram described
 
 ```text
 A 1572 x 700 diagram in two columns, each read top to bottom through three bands.

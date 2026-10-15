@@ -1,6 +1,13 @@
-# docs/index.md
+---
+catzc:
+  derived:
+    path: docs/index.md
+    kind: other
+    body_sha: b721d0354e1f
+    adrs: []
+---
 
-`Documentation`
+# Documentation
 
 **CATZC — Cloud Automation Toolkit, Zero-Ceremony.** A PowerShell 7.4+ module system with Azure/Bicep infrastructure-as-code and Azure
 DevOps pipelines.

@@ -1,6 +1,15 @@
-# docs/explanation/flow/the-loader-holds-the-one-detector.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/the-loader-holds-the-one-detector.md
+    kind: explanation
+    body_sha: "8a2ef0492492"
+    adrs:
+      - ADR-AUTO-PARITY#3
+      - ADR-FLOW-CD-DETECT#1
+---
 
-`The detector lives in the loader, which both run modes import first and keep loaded`
+# The detector lives in the loader, which both run modes import first and keep loaded
 
 ```text
 The detector lives in the loader, which both run modes import first and keep loaded.

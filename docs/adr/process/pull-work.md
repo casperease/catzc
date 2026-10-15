@@ -1,6 +1,13 @@
-# docs/adr/process/pull-work.md
+---
+catzc:
+  derived:
+    path: docs/adr/process/pull-work.md
+    kind: adr
+    body_sha: "8bff15b2a55a"
+    adrs: []
+---
 
-`ADR: Pull work through the system — do not push it`
+# ADR: Pull work through the system — do not push it
 
 ## Rules: ADR-PROC-PULLWORK
 

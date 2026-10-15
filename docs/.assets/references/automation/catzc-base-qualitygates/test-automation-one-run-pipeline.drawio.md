@@ -1,6 +1,17 @@
-# docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
+    kind: asset-description
+    body_sha: "3d8cf505cd81"
+    adrs:
+      - ADR-AUTO-TEST#13
+      - ADR-AUTO-TEST#26
+      - ADR-AUTO-TEST#30
+      - ADR-REPO-PROTGLOB#9
+---
 
-`One discovery feeds three phases; finally stamps run.json: the diagram described`
+# One discovery feeds three phases; finally stamps run.json: the diagram described
 
 ```text
 A 1588 x 672 diagram, read left to right through three bands, top to bottom.

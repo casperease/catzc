@@ -1,6 +1,24 @@
-# docs/adr/flow/durable-sha-globs.md
+---
+catzc:
+  derived:
+    path: docs/adr/flow/durable-sha-globs.md
+    kind: adr
+    body_sha: c6e0e1792463
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-DSGN-TRACK#5
+      - ADR-FLOW-CD-GLOBS#10
+      - ADR-FLOW-CD-GLOBS#3
+      - ADR-FLOW-CD-GLOBS#4
+      - ADR-FLOW-CD-GLOBS#5
+      - ADR-FLOW-CD-GLOBS#6
+      - ADR-FLOW-CD-GLOBS#7
+      - ADR-FLOW-CD-GLOBS#8
+      - ADR-FLOW-CD-GLOBS#9
+      - ADR-REPO-PROTGLOB#7
+---
 
-`ADR: Globset triggers — areas-of-control projected to native filters and reflected from git`
+# ADR: Globset triggers — areas-of-control projected to native filters and reflected from git
 
 ## Rules: ADR-FLOW-CD-GLOBS
 

@@ -1,6 +1,13 @@
-# docs/adr/research/team-experimentation.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/team-experimentation.md
+    kind: adr
+    body_sha: "2f9ea2451e97"
+    adrs: []
+---
 
-`ADR: DORA — Team experimentation`
+# ADR: DORA — Team experimentation
 
 ## Rules: ADR-DORA-EXPERIMENT
 

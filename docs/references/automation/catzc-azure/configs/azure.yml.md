@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-azure/configs/azure.yml.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure/configs/azure.yml.md
+    kind: reference
+    body_sha: "7f44e182d95c"
+    adrs:
+      - ADR-AZ-DATAMOD#11
+---
 
-`automation/Catzc.Azure/configs/azure.yml`
+# automation/Catzc.Azure/configs/azure.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

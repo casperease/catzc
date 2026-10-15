@@ -1,6 +1,13 @@
-# docs/adr/research/flexible-infrastructure.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/flexible-infrastructure.md
+    kind: adr
+    body_sha: "0aba2454ac45"
+    adrs: []
+---
 
-`ADR: DORA — Flexible infrastructure`
+# ADR: DORA — Flexible infrastructure
 
 ## Rules: ADR-DORA-FLEXINFRA
 

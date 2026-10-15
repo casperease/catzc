@@ -1,6 +1,14 @@
-# docs/references/waf/index.md
+---
+catzc:
+  derived:
+    path: docs/references/waf/index.md
+    kind: reference
+    body_sha: "1c89ab77c942"
+    adrs:
+      - ADR-AZ-WAFRE#4
+---
 
-`Azure Well-Architected Framework reference`
+# Azure Well-Architected Framework reference
 
 This folder is the repository's local entry point to Microsoft's
 [Azure Well-Architected Framework](https://learn.microsoft.com/en-us/azure/well-architected/) (WAF): what it is, how it is organised, and

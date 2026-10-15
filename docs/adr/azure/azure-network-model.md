@@ -1,6 +1,18 @@
-# docs/adr/azure/azure-network-model.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/azure-network-model.md
+    kind: adr
+    body_sha: d2049d5d7120
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-AZ-NETWORK#4
+      - ADR-AZ-NETWORK#5
+      - ADR-AZ-NETWORK#6
+      - ADR-CONF-LOADING#4
+---
 
-`ADR: Network model (network.yml)`
+# ADR: Network model (network.yml)
 
 This ADR covers the cross-cutting IP plan, which the data model deliberately leaves out of its two layers.
 

@@ -1,6 +1,33 @@
-# docs/adr/flow/cd-discipline-and-promotion-flow.md
+---
+catzc:
+  derived:
+    path: docs/adr/flow/cd-discipline-and-promotion-flow.md
+    kind: adr
+    body_sha: "9a3a343e530b"
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-DSGN-LIFE#1
+      - ADR-DSGN-LIFE#3
+      - ADR-DSGN-LIFE#4
+      - ADR-DSGN-LIFE#5
+      - ADR-FLOW-CD#1
+      - ADR-FLOW-CD#10
+      - ADR-FLOW-CD#2
+      - ADR-FLOW-CD#3
+      - ADR-FLOW-CD#4
+      - ADR-FLOW-CD#5
+      - ADR-FLOW-CD#6
+      - ADR-FLOW-CD#7
+      - ADR-FLOW-CD#8
+      - ADR-FLOW-CD#9
+      - ADR-FLOW-CD-TYPE#11
+      - ADR-FLOW-CD-TYPE#3
+      - ADR-FLOW-CD-TYPE#4
+      - ADR-FLOW-CD-TYPE#8
+      - ADR-REPO-VARIANT#6
+---
 
-`ADR: The CI discipline and the promotion flow — pipeline kinds keyed by the tagged artifact`
+# ADR: The CI discipline and the promotion flow — pipeline kinds keyed by the tagged artifact
 
 ## Rules: ADR-FLOW-CD
 

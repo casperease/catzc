@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.md
+    kind: asset-description
+    body_sha: "1d411a8cc3b9"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Merging to main is what deploys: the diagram described`
+# Merging to main is what deploys: the diagram described
 
 ```text
 A 1572 x 630 diagram, read left to right through four column bands.

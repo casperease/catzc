@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-azure/types/AzureSubscription.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure/types/AzureSubscription.cs.md
+    kind: reference
+    body_sha: be3ac3b7329b
+    adrs: []
+---
 
-`automation/Catzc.Azure/types/AzureSubscription.cs`
+# automation/Catzc.Azure/types/AzureSubscription.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

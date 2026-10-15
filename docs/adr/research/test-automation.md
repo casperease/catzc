@@ -1,6 +1,16 @@
-# docs/adr/research/test-automation.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/test-automation.md
+    kind: adr
+    body_sha: b779f54fa075
+    adrs:
+      - ADR-AUTO-TEST#22
+      - ADR-AUTO-TEST#24
+      - ADR-AUTO-TEST#8
+---
 
-`ADR: DORA — Test automation`
+# ADR: DORA — Test automation
 
 ## Rules: ADR-DORA-TESTAUTO
 

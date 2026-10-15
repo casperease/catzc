@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.md
+    kind: asset-description
+    body_sha: "248f30ae4db9"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`One commit, one verified, immutable package: the diagram described`
+# One commit, one verified, immutable package: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right through four bands.

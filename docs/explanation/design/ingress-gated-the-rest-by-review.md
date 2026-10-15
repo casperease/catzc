@@ -1,6 +1,19 @@
-# docs/explanation/design/ingress-gated-the-rest-by-review.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/ingress-gated-the-rest-by-review.md
+    kind: explanation
+    body_sha: "38ff1b133ab0"
+    adrs:
+      - ADR-DSGN-LIFE#6
+      - ADR-DSGN-REMOTE#1
+      - ADR-DSGN-REMOTE#2
+      - ADR-DSGN-REMOTE#3
+      - ADR-DSGN-REMOTE#4
+      - ADR-REPO-VARIANT#6
+---
 
-`Only ingress is checked by gates; the source-of-truth and integration rules rest on code review`
+# Only ingress is checked by gates; the source-of-truth and integration rules rest on code review
 
 ```text
 Only ingress is checked by gates; the source-of-truth and integration rules rest on code review.

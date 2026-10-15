@@ -1,6 +1,13 @@
-# docs/adr/design/run-modes.md
+---
+catzc:
+  derived:
+    path: docs/adr/design/run-modes.md
+    kind: adr
+    body_sha: feb2d9ae1bab
+    adrs: []
+---
 
-`ADR: Run modes — source mode and build mode`
+# ADR: Run modes — source mode and build mode
 
 ## Rules: ADR-DSGN-RUNMODE
 

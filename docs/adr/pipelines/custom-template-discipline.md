@@ -1,6 +1,13 @@
-# docs/adr/pipelines/custom-template-discipline.md
+---
+catzc:
+  derived:
+    path: docs/adr/pipelines/custom-template-discipline.md
+    kind: adr
+    body_sha: "215f3b3c5d76"
+    adrs: []
+---
 
-`ADR: Custom template discipline — when and how to use ADO templates`
+# ADR: Custom template discipline — when and how to use ADO templates
 
 ## Rules: ADR-PIPE-TEMPLATE
 

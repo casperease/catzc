@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.md
+    kind: asset-description
+    body_sha: "22fa3dc3233b"
+    adrs: []
+---
 
-`Five keys, one private reader, twelve exported primitives: the diagram described`
+# Five keys, one private reader, twelve exported primitives: the diagram described
 
 ```text
 A 1572 x 688 diagram, read top to bottom through four bands.

@@ -1,6 +1,13 @@
-# docs/.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-auto-failfast--one-resolver-every-consumer-but-the-hook--architecture.drawio.md
+    kind: asset-description
+    body_sha: "51d044bb6625"
+    adrs: []
+---
 
-`One resolver serves every consumer but the hook: the diagram described`
+# One resolver serves every consumer but the hook: the diagram described
 
 ```text
 A 1572 x 640 diagram, read left to right through four bands.

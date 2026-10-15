@@ -1,6 +1,16 @@
-# docs/explanation/automation/undeclared-edge-fails-with-one-line.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/undeclared-edge-fails-with-one-line.md
+    kind: explanation
+    body_sha: de8d7a0b63f5
+    adrs:
+      - ADR-AUTO-DEPM#3
+      - ADR-AUTO-DEPM#4
+      - ADR-AUTO-DEPM#5
+---
 
-`An undeclared module edge fails the gate with one line per issue`
+# An undeclared module edge fails the gate with one line per issue
 
 ```text
 An undeclared module edge fails the gate with one line per issue.

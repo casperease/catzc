@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-repository/Get-CatzcModulesRoot.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-repository/Get-CatzcModulesRoot.ps1.md
+    kind: reference
+    body_sha: "27f4427c6410"
+    adrs: []
+---
 
-`automation/Catzc.Base.Repository/Get-CatzcModulesRoot.ps1`
+# automation/Catzc.Base.Repository/Get-CatzcModulesRoot.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

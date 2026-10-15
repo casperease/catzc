@@ -1,6 +1,13 @@
-# docs/how-to/getting-started/automation/vendor-a-module.md
+---
+catzc:
+  derived:
+    path: docs/how-to/getting-started/automation/vendor-a-module.md
+    kind: how-to
+    body_sha: adca12471052
+    adrs: []
+---
 
-`Vendor a module`
+# Vendor a module
 
 Third-party PowerShell modules are **vendored** — checked into `automation/.vendor/<Name>/<Version>/` — so the repository alone guarantees
 reproducibility with no restore step and no PowerShell Gallery call at runtime. Adding one is a single command run at authoring time, then a

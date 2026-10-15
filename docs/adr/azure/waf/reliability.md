@@ -1,6 +1,26 @@
-# docs/adr/azure/waf/reliability.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/waf/reliability.md
+    kind: adr
+    body_sha: "8fe3ab1c81d6"
+    adrs:
+      - ADR-AZ-DATAMOD#6
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#2
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#5
+      - ADR-AZ-LZ#6
+      - ADR-AZ-LZ#7
+      - ADR-AZ-NETWORK#3
+      - ADR-AZ-NETWORK#5
+      - ADR-AZ-WAFRE#10
+      - ADR-AZ-WAFRE#5
+---
 
-`ADR: Well-Architected reliability — Microsoft's reliability checklist, cited, and what the templates do about each item`
+# ADR: Well-Architected reliability — Microsoft's reliability checklist, cited, and what the templates do about each item
 
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone and the workload these rules review) and
 [`network-model`](../azure-network-model.md) (the one region per environment that bounds every redundancy rule here).

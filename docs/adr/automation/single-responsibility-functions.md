@@ -1,6 +1,13 @@
-# docs/adr/automation/single-responsibility-functions.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/single-responsibility-functions.md
+    kind: adr
+    body_sha: "4bb99ea1e724"
+    adrs: []
+---
 
-`ADR: Single-responsibility functions`
+# ADR: Single-responsibility functions
 
 ## Rules: ADR-AUTO-ONEJOB
 

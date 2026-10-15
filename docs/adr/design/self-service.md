@@ -1,6 +1,18 @@
-# docs/adr/design/self-service.md
+---
+catzc:
+  derived:
+    path: docs/adr/design/self-service.md
+    kind: adr
+    body_sha: fd71bc64643a
+    adrs:
+      - ADR-DSGN-SELFSERV#1
+      - ADR-DSGN-SELFSERV#2
+      - ADR-DSGN-SELFSERV#3
+      - ADR-DSGN-SELFSERV#4
+      - ADR-DSGN-SELFSERV#5
+---
 
-`ADR: Self-service — safe by construction in controlled settings`
+# ADR: Self-service — safe by construction in controlled settings
 
 ## Rules: ADR-DSGN-SELFSERV
 

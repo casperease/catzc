@@ -1,6 +1,17 @@
-# docs/explanation/azure/names-are-pure-and-never-truncated.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/names-are-pure-and-never-truncated.md
+    kind: explanation
+    body_sha: fcb272ff0358
+    adrs:
+      - ADR-AZ-NAMING#1
+      - ADR-AZ-NAMING#3
+      - ADR-AZ-NAMING#7
+      - ADR-AZ-NAMING#8
+---
 
-`An Azure name is a pure function of its components, and it is never truncated`
+# An Azure name is a pure function of its components, and it is never truncated
 
 <!-- cspell:ignore weufindiscxaphotst weudiscvm -->
 

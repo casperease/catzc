@@ -1,6 +1,13 @@
-# docs/adr/process/lean.md
+---
+catzc:
+  derived:
+    path: docs/adr/process/lean.md
+    kind: adr
+    body_sha: "0b8c763416c5"
+    adrs: []
+---
 
-`ADR: Lean — the Toyota Production System, mapped to software by the Poppendiecks`
+# ADR: Lean — the Toyota Production System, mapped to software by the Poppendiecks
 
 ## Rules: ADR-PROC-LEAN
 

@@ -1,6 +1,23 @@
-# docs/adr/flow/pipeline-types.md
+---
+catzc:
+  derived:
+    path: docs/adr/flow/pipeline-types.md
+    kind: adr
+    body_sha: c03623e9b407
+    adrs:
+      - ADR-FLOW-CD#11
+      - ADR-FLOW-CD#13
+      - ADR-FLOW-CD#9
+      - ADR-FLOW-CD-TYPE#10
+      - ADR-FLOW-CD-TYPE#11
+      - ADR-FLOW-CD-TYPE#14
+      - ADR-FLOW-CD-TYPE#3
+      - ADR-FLOW-CD-TYPE#6
+      - ADR-FLOW-CD-TYPE#8
+      - ADR-FLOW-CD-TYPE#9
+---
 
-`ADR: Pipeline types — the six kinds of ADO artifact, named`
+# ADR: Pipeline types — the six kinds of ADO artifact, named
 
 ## Rules: ADR-FLOW-CD-TYPE
 

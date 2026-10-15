@@ -1,6 +1,15 @@
-# docs/adr/azure/az-session-verification.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/az-session-verification.md
+    kind: adr
+    body_sha: b86a677eda72
+    adrs:
+      - ADR-AZ-SESSION#2
+      - ADR-AZ-SESSION#4
+---
 
-`ADR: Az CLI session verification — three layers, and verify is not connect`
+# ADR: Az CLI session verification — three layers, and verify is not connect
 
 ## Rules: ADR-AZ-SESSION
 

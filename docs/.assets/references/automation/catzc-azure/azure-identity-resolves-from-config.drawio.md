@@ -1,6 +1,16 @@
-# docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md
+    kind: asset-description
+    body_sha: e71cc3ad7cb6
+    adrs:
+      - ADR-AZ-CUSTOMER#2
+      - ADR-AZ-DATAMOD#4
+      - ADR-AZ-SESSION#5
+---
 
-`Azure identities resolve from config; session must match one: the diagram described`
+# Azure identities resolve from config; session must match one: the diagram described
 
 ```text
 A 1588 x 654 diagram, read left to right through two bands; the SESSION band sits above the CONFIG band.

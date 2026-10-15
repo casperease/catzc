@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.md
+    kind: asset-description
+    body_sha: "5d8474c2143e"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Three caches back one reader: the diagram described`
+# Three caches back one reader: the diagram described
 
 ```text
 A 1572 x 700 diagram, read left to right along one band, then down into three bands below it.

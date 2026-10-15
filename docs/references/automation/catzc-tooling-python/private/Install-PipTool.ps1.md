@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md
+    kind: reference
+    body_sha: "227fd0b0c0ba"
+    adrs:
+      - ADR-AUTO-UVPY#2
+---
 
-`automation/Catzc.Tooling.Python/private/Install-PipTool.ps1`
+# automation/Catzc.Tooling.Python/private/Install-PipTool.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md
+    kind: reference
+    body_sha: "1f2a1fabf0da"
+    adrs:
+      - ADR-PRIN-CONFIG#1
+      - ADR-PRIN-ONELIVE#1
+      - ADR-REPO-FORMAT#5
+---
 
-`automation/Catzc.Base.QualityGates/types/CommentEngine.cs`
+# automation/Catzc.Base.QualityGates/types/CommentEngine.cs
 
 <!-- cspell:ignore EXTERNALHELP FORWARDHELPTARGETNAME FORWARDHELPCATEGORY REMOTEHELPRUNSPACE w1 w2 -->
 

@@ -1,6 +1,20 @@
-# docs/explanation/azure/coordinate-rules-and-their-gates.md
+---
+catzc:
+  derived:
+    path: docs/explanation/azure/coordinate-rules-and-their-gates.md
+    kind: explanation
+    body_sha: "57d23475251f"
+    adrs:
+      - ADR-AZ-CUSTOMER#2
+      - ADR-AZ-CUSTOMER#6
+      - ADR-AZ-DATAMOD#1
+      - ADR-AZ-DATAMOD#2
+      - ADR-AZ-DATAMOD#3
+      - ADR-AZ-DATAMOD#5
+      - ADR-AZ-DATAMOD#8
+---
 
-`Two ADRs rule the coordinate; one shared check and the integrity tests hold them`
+# Two ADRs rule the coordinate; one shared check and the integrity tests hold them
 
 ```text
 Two ADRs rule the coordinate; one shared check and the integrity tests hold them.

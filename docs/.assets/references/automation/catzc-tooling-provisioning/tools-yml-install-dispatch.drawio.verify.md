@@ -1,6 +1,15 @@
-# docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md
+    kind: asset-description
+    body_sha: efc44afd4854
+    adrs:
+      - ADR-AUTO-BASH#6
+      - ADR-AUTO-DEPS#4
+---
 
-`out/diagrams/wave-9/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md`
+# out/diagrams/wave-9/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.verify.md
 
 `Verification: tools.yml is the one locked list; dispatch is by key name (source lens, Catzc.Tooling.Provisioning)`
 

@@ -1,6 +1,13 @@
-# docs/adr/research/customer-feedback.md
+---
+catzc:
+  derived:
+    path: docs/adr/research/customer-feedback.md
+    kind: adr
+    body_sha: "6d931cf1787f"
+    adrs: []
+---
 
-`ADR: DORA — Customer feedback`
+# ADR: DORA — Customer feedback
 
 ## Rules: ADR-DORA-FEEDBACK
 

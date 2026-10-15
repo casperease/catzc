@@ -1,6 +1,16 @@
-# docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.verify.md
+---
+catzc:
+  derived:
+    path: docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.verify.md
+    kind: asset-description
+    body_sha: e64cd3135583
+    adrs:
+      - ADR-AUTO-ASSETDEP#1
+      - ADR-AUTO-OVERLAY#7
+      - ADR-PWSH-CACHE#4
+---
 
-`Verification: Overlay merges unless sealed; the registered type builds it (source lens, Catzc.Base.Config)`
+# Verification: Overlay merges unless sealed; the registered type builds it (source lens, Catzc.Base.Config)
 
 Every line below was re-read on 2026-10-15 after the comment export; none of the scout's line numbers is reused (for example the cache check
 moved from `Get-Config.ps1:62-68` to `:55-63`, and the type construction from `:100-101` to `:84-85`). `condense-comments` may move them

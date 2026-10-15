@@ -1,6 +1,37 @@
-# docs/adr/azure/caf/management.md
+---
+catzc:
+  derived:
+    path: docs/adr/azure/caf/management.md
+    kind: adr
+    body_sha: "5bb2b8a1cdb8"
+    adrs:
+      - ADR-AZ-CAFGOV#4
+      - ADR-AZ-CAFGOV#6
+      - ADR-AZ-CAFMGMT#16
+      - ADR-AZ-CAFPRIN#3
+      - ADR-AZ-DATAMOD#11
+      - ADR-AZ-DATAMOD#9
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#5
+      - ADR-AZ-LZ#6
+      - ADR-AZ-NETWORK#1
+      - ADR-AZ-NETWORK#3
+      - ADR-AZ-NETWORK#5
+      - ADR-AZ-NETWORK#6
+      - ADR-AZ-WAFOE#10
+      - ADR-AZ-WAFOE#7
+      - ADR-AZ-WAFOE#8
+      - ADR-AZ-WAFRE#10
+      - ADR-AZ-WAFRE#5
+      - ADR-AZ-WAFRE#9
+      - ADR-AZ-WAFSE#4
+      - ADR-AZ-WAFSE#5
+      - ADR-AZ-WAFSE#6
+---
 
-`ADR: CAF management — what the repository does about each of Microsoft's management design recommendations`
+# ADR: CAF management — what the repository does about each of Microsoft's management design recommendations
 
 Pairs with [`landing-zones`](../landing-zones.md) (the landing zone that streams the activity log and the network diagnostics) and
 [`operational-excellence`](../waf/operational-excellence.md) (the monitoring stack and the incident process these rules build on).

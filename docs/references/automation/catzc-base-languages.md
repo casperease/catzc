@@ -1,6 +1,14 @@
-# docs/references/automation/catzc-base-languages.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-languages.md
+    kind: reference
+    body_sha: "855319b6f7ee"
+    adrs:
+      - ADR-AUTO-TEST#1
+---
 
-`Catzc.Base.Languages`
+# Catzc.Base.Languages
 
 Owns the test languages beside PowerShell: Go, Python and Bash, whose code in this repository is test artifacts only. For Go and Python it
 declares the generated workspace once (`go.yml`, `python.yml`) and renders the generated files from it (`go.work` and a `go.mod` per module;

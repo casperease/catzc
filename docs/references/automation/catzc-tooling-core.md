@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-tooling-core.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-tooling-core.md
+    kind: reference
+    body_sha: "15269ce699bd"
+    adrs: []
+---
 
-`Catzc.Tooling.Core`
+# Catzc.Tooling.Core
 
 The foundation of the Tooling group. It owns the generic, tool-agnostic engine that reads the single source of truth for which external
 command-line tool is locked to which version — the `tools.yml` config and the `ToolConfig` type that models it, both owned by

@@ -1,6 +1,16 @@
-# docs/explanation/design/same-deploy-bicep-on-both-sides.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/same-deploy-bicep-on-both-sides.md
+    kind: explanation
+    body_sha: ea64b39cbb52
+    adrs:
+      - ADR-AUTO-PARITY#3
+      - ADR-DSGN-THINPLAT#2
+      - ADR-DSGN-THINPLAT#3
+---
 
-`A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription`
+# A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription
 
 ```text
 A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription.

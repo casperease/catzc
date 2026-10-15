@@ -10,9 +10,24 @@ description: >
   skip, delete or re-tier a test to save time, or to change what a test proves (those are the user's decisions), and do NOT use it for test
   failures that are not about speed.
 tools: Bash, Read, Glob, Grep, Write, Edit
+catzc:
+  derived:
+    path: ".claude/agents/test-optimization.md"
+    kind: agent
+    body_sha: "9665e0853812"
+    adrs:
+      - ADR-AUTO-FAILFAST#7
+      - ADR-AUTO-TEST#13
+      - ADR-AUTO-TEST#19
+      - ADR-AUTO-TEST#20
+      - ADR-AUTO-TEST#21
+      - ADR-AUTO-TEST#22
+      - ADR-AUTO-TEST#23
+      - ADR-PRIN-NOWASTE#1
+      - ADR-PWSH-PESTER#9
 ---
 
-# .claude/agents/test-optimization.md
+# test-optimization
 
 You make the catzc test suite faster. Every test keeps proving exactly what it proved before; only the time it takes changes.
 

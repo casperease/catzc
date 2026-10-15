@@ -1,6 +1,17 @@
-# docs/explanation/design/shims-set-roots-mode-read-back.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/shims-set-roots-mode-read-back.md
+    kind: explanation
+    body_sha: "0ee78f503e58"
+    adrs:
+      - ADR-DSGN-RUNMODE#1
+      - ADR-DSGN-RUNMODE#4
+      - ADR-DSGN-RUNMODE#5
+      - ADR-DSGN-RUNMODE#7
+---
 
-`Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it`
+# Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it
 
 ```text
 Each entry script fixes the code root, and Get-CatzcRunMode reads the mode back from it.

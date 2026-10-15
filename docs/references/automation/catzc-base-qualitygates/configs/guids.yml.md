@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-qualitygates/configs/guids.yml.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/configs/guids.yml.md
+    kind: reference
+    body_sha: "6a54cd9ee01a"
+    adrs: []
+---
 
-`automation/Catzc.Base.QualityGates/configs/guids.yml`
+# automation/Catzc.Base.QualityGates/configs/guids.yml
 
 <!-- cspell:ignore oilzstgq -->
 

@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.md
+    kind: asset-description
+    body_sha: ff3c98d3b97b
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`The CI budget is the only promotion rule a quality gate checks: the diagram described`
+# The CI budget is the only promotion rule a quality gate checks: the diagram described
 
 ```text
 A 1572 x 600 diagram, read left to right along a FLOW band, with a CHECKS band below it.

@@ -1,6 +1,16 @@
-# docs/explanation/index.md
+---
+catzc:
+  derived:
+    path: docs/explanation/index.md
+    kind: explanation
+    body_sha: f6e84604175e
+    adrs:
+      - ADR-DSGN-TRACK#12
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Explanation`
+# Explanation
 
 ```text
 Explanation articles: how cats works and why, one diagram each.

@@ -1,6 +1,20 @@
-# docs/explanation/design/integrators-depend-on-an-occupant.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/integrators-depend-on-an-occupant.md
+    kind: explanation
+    body_sha: e9b85c942879
+    adrs:
+      - ADR-DSGN-LIFE#5
+      - ADR-DSGN-LIFE#6
+      - ADR-DSGN-LIFE#7
+      - ADR-DSGN-LIFE#8
+      - ADR-DSGN-VISUAL#13
+      - ADR-FLOW-CD#11
+      - ADR-FLOW-CD#9
+---
 
-`Upstream integrators depend on the main-UAT occupant, never on the tip of main`
+# Upstream integrators depend on the main-UAT occupant, never on the tip of main
 
 ```text
 Every environment and every upstream integrator takes an occupant, never the tip of main.

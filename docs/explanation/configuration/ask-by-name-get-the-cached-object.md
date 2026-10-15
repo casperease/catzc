@@ -1,6 +1,18 @@
-# docs/explanation/configuration/ask-by-name-get-the-cached-object.md
+---
+catzc:
+  derived:
+    path: docs/explanation/configuration/ask-by-name-get-the-cached-object.md
+    kind: explanation
+    body_sha: "87242c08bfcf"
+    adrs:
+      - ADR-CONF-ADDRESSING#4
+      - ADR-CONF-LOADING#1
+      - ADR-CONF-LOADING#2
+      - ADR-CONF-LOADING#3
+      - ADR-CONF-LOADING#4
+---
 
-`Ask for a config by name and get the cached object back`
+# Ask for a config by name and get the cached object back
 
 ```text
 Ask for a config by name and get the cached object back; every mistake throws at the call.

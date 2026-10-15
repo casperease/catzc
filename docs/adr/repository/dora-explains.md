@@ -1,6 +1,13 @@
-# docs/adr/repository/dora-explains.md
+---
+catzc:
+  derived:
+    path: docs/adr/repository/dora-explains.md
+    kind: adr
+    body_sha: "19ea8a350ffd"
+    adrs: []
+---
 
-`DORA explanations — repository`
+# DORA explanations — repository
 
 The `Dora explains` rationale for the ADRs in the `repository/` domain, consolidated in one place. Each entry names its ADR and rule code,
 then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions

@@ -1,6 +1,15 @@
-# docs/explanation/automation/callers-value-else-config-else-default.md
+---
+catzc:
+  derived:
+    path: docs/explanation/automation/callers-value-else-config-else-default.md
+    kind: explanation
+    body_sha: "359dd20fdbc4"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-FAILFAST#7
+---
 
-`Every wait is bounded: the caller's value, else the config, else the default; an exemption only raises it`
+# Every wait is bounded: the caller's value, else the config, else the default; an exemption only raises it
 
 ```text
 Every wait is bounded, and its limit resolves in one order: the caller's value, else the config, else the declared default.

@@ -1,6 +1,23 @@
-# docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
+---
+catzc:
+  derived:
+    path: docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
+    kind: explanation
+    body_sha: "4ddf067c9039"
+    adrs:
+      - ADR-FLOW-CD#11
+      - ADR-FLOW-CD#12
+      - ADR-FLOW-CD#13
+      - ADR-FLOW-CD#2
+      - ADR-FLOW-CD#3
+      - ADR-FLOW-CD#5
+      - ADR-FLOW-CD#9
+      - ADR-FLOW-CD-TYPE#11
+      - ADR-FLOW-CD-TYPE#4
+      - ADR-FLOW-CD-TYPE#8
+---
 
-`The CI budget is the only promotion rule a quality gate checks`
+# The CI budget is the only promotion rule a quality gate checks
 
 ```text
 The CI budget is the only promotion rule a quality gate checks.

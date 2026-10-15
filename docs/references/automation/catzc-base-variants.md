@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-base-variants.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-variants.md
+    kind: reference
+    body_sha: f850a5c1b74e
+    adrs: []
+---
 
-`Catzc.Base.Variants`
+# Catzc.Base.Variants
 
 The repo-wide variants module — the single home for settings that are **fixed for the importer session** and read the same everywhere. A
 variant is a repo-wide switch, backed by `configs/variants.yml`, loaded once per session (re-run the importer to pick up an edit — the

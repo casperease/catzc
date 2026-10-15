@@ -1,6 +1,16 @@
-# docs/references/automation/catzc-base-contracts.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-contracts.md
+    kind: reference
+    body_sha: "8b2e6e43bc08"
+    adrs:
+      - ADR-REPO-CONTRACT#3
+      - ADR-REPO-CONTRACT#5
+      - ADR-REPO-CONTRACT#9
+---
 
-`Catzc.Base.Contracts`
+# Catzc.Base.Contracts
 
 The contracts module. It **makes the repository's contracts binding**: every contract asset under `contracts/` is checked against the real
 files it constrains, and every released version folder is held to the `.frozen` record written when it was released, so a change that breaks

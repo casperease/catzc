@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-azure-firewall.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure-firewall.md
+    kind: reference
+    body_sha: b2174730a4a1
+    adrs: []
+---
 
-`Catzc.Azure.Firewall`
+# Catzc.Azure.Firewall
 
 The firewall-rule module. It is a small, focused converter: it takes firewall rules authored in a spreadsheet and renders them into the
 forms the rest of the system consumes — structured YAML for infrastructure, and a readable table for documentation. It changes no cloud

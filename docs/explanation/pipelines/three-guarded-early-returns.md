@@ -1,6 +1,17 @@
-# docs/explanation/pipelines/three-guarded-early-returns.md
+---
+catzc:
+  derived:
+    path: docs/explanation/pipelines/three-guarded-early-returns.md
+    kind: explanation
+    body_sha: "5990b16fd351"
+    adrs:
+      - ADR-PIPE-AUTH#1
+      - ADR-PIPE-AUTH#2
+      - ADR-PIPE-AUTH#3
+      - ADR-PIPE-AUTH#5
+---
 
-`The header function is four checks and three returns, and none falls through on failure`
+# The header function is four checks and three returns, and none falls through on failure
 
 ```text
 Four checks in code order, three returns, and no check falls through on failure.

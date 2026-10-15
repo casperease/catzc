@@ -1,6 +1,16 @@
-# docs/explanation/design/sync-from-the-last-certified-commit.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/sync-from-the-last-certified-commit.md
+    kind: explanation
+    body_sha: "951692dadb53"
+    adrs:
+      - ADR-DSGN-LIFE#6
+      - ADR-DSGN-LIFE#7
+      - ADR-DSGN-LIFE#8
+---
 
-`Sync from the last certified commit, not from the tip of main`
+# Sync from the last certified commit, not from the tip of main
 
 ```text
 Integrators build on the last commit certified in main-UAT, never on the tip of main.

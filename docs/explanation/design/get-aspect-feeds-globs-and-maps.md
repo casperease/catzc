@@ -1,6 +1,19 @@
-# docs/explanation/design/get-aspect-feeds-globs-and-maps.md
+---
+catzc:
+  derived:
+    path: docs/explanation/design/get-aspect-feeds-globs-and-maps.md
+    kind: explanation
+    body_sha: "15139b8bcd1b"
+    adrs:
+      - ADR-DSGN-ASPECT#2
+      - ADR-DSGN-ASPECT#3
+      - ADR-DSGN-ASPECT#4
+      - ADR-DSGN-TRACK#3
+      - ADR-FLOW-CD-GLOBS#4
+      - ADR-REPO-VARIANT#1
+---
 
-`Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live`
+# Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live
 
 ```text
 Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live.

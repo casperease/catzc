@@ -1,6 +1,13 @@
-# docs/references/automation/catzc-azure-devops/types/YamlFileRecord.cs.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-azure-devops/types/YamlFileRecord.cs.md
+    kind: reference
+    body_sha: "8f428ff3f31c"
+    adrs: []
+---
 
-`automation/Catzc.Azure.DevOps/types/YamlFileRecord.cs`
+# automation/Catzc.Azure.DevOps/types/YamlFileRecord.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

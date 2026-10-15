@@ -10,9 +10,18 @@ description: >
   decisions, then `catzc-worker` work), or to tune a single blocked call (raise that as a time-safeguard blocker).
 tools: Bash, Read, Glob, Grep, Write, Edit
 model: sonnet
+catzc:
+  derived:
+    path: ".claude/agents/session-cost-audit.md"
+    kind: agent
+    body_sha: "7344db67cc8b"
+    adrs:
+      - ADR-AUTO-FAILFAST#7
+      - ADR-PRIN-NOWASTE#1
+      - ADR-PROC-KAIZEN#2
 ---
 
-# .claude/agents/session-cost-audit.md
+# session-cost-audit
 
 You audit session cost for the catzc repository. You measure, you report, and you propose. You never change the rules you measure.
 

@@ -1,6 +1,14 @@
-# docs/.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.md
+    kind: asset-description
+    body_sha: "9e788ffe9315"
+    adrs:
+      - ADR-AUTO-TEST#35
+---
 
-`Drift is gated, generation is ADR-only: the diagram described`
+# Drift has a gate, generation is ADR-only: the diagram described
 
 ```text
 A 1572 x 700 diagram, read top to bottom through three bands.

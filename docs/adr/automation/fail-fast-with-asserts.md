@@ -1,6 +1,14 @@
-# docs/adr/automation/fail-fast-with-asserts.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/fail-fast-with-asserts.md
+    kind: adr
+    body_sha: "64ab2812bb25"
+    adrs:
+      - ADR-AUTO-ENGINE#1
+---
 
-`ADR: Fail fast with inline assertions`
+# ADR: Fail fast with inline assertions
 
 ## Rules: ADR-AUTO-FAILFAST
 

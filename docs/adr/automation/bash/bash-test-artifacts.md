@@ -1,6 +1,26 @@
-# docs/adr/automation/bash/bash-test-artifacts.md
+---
+catzc:
+  derived:
+    path: docs/adr/automation/bash/bash-test-artifacts.md
+    kind: adr
+    body_sha: "21cff11877fd"
+    adrs:
+      - ADR-AUTO-BASH#1
+      - ADR-AUTO-BASH#2
+      - ADR-AUTO-BASH#3
+      - ADR-AUTO-BASH#4
+      - ADR-AUTO-BASH#5
+      - ADR-AUTO-BASH#6
+      - ADR-AUTO-ENGINE#4
+      - ADR-AUTO-ENGINE#6
+      - ADR-AUTO-GO#7
+      - ADR-AUTO-PY#7
+      - ADR-AUTO-TEST#42
+      - ADR-AUTO-TEST#8
+      - ADR-AUTO-TEST#9
+---
 
-`ADR: Bash test artifacts — black-box tests of the engine through cats, run by a vendored bats`
+# ADR: Bash test artifacts — black-box tests of the engine through cats, run by a vendored bats
 
 ## Rules: ADR-AUTO-BASH
 

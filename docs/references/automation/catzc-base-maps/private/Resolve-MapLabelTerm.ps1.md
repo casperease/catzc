@@ -1,6 +1,15 @@
-# docs/references/automation/catzc-base-maps/private/Resolve-MapLabelTerm.ps1.md
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-maps/private/Resolve-MapLabelTerm.ps1.md
+    kind: reference
+    body_sha: "87b577ef2ef2"
+    adrs:
+      - ADR-DSGN-TRACK#13
+      - ADR-DSGN-TRACK#16
+---
 
-`automation/Catzc.Base.Maps/private/Resolve-MapLabelTerm.ps1`
+# automation/Catzc.Base.Maps/private/Resolve-MapLabelTerm.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

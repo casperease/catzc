@@ -1,6 +1,17 @@
-# docs/.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.md
+---
+catzc:
+  derived:
+    path: docs/.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.md
+    kind: asset-description
+    body_sha: "54c3f738c6af"
+    adrs:
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#9
+---
 
-`Every Deploy stage runs only from main: the diagram described`
+# Every Deploy stage runs only from main: the diagram described
 
 ```text
 A 1572 x 630 diagram, read left to right through four column bands.
