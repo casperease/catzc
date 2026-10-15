@@ -15,7 +15,6 @@ catzc:
     Tests whether an Azure CLI extension is installed.
 .DESCRIPTION
     Reads the exit code of a core command, so a missing extension never throws or triggers a dynamic install.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Test-AzCliExtension.ps1.md#comment1)
 .PARAMETER Name
     The extension name (e.g. 'ip-group').
 .OUTPUTS

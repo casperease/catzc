@@ -18,12 +18,10 @@ catzc:
     Registers (creates or updates) the build-validation branch policy tied to a globset. Idempotent.
 .DESCRIPTION
     The existing policy is matched by pipeline plus branch, so a changed filter or name updates it in place.
-    [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md#comment1)
 .PARAMETER GlobSet
     The declared globset the policy is tied to (a name in globs.yml).
 .PARAMETER Pipeline
     Resolved in order: this parameter, the globset's build-validation.yml entry, then its globs.yml pipeline annotation.
-    [comment:2](/docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md#comment2)
 .PARAMETER Branch
     The branch the policy guards. Defaults from build-validation.yml 'branch'.
 .PARAMETER Project
@@ -34,7 +32,6 @@ catzc:
     Name of the Azure Repos Git repository. Defaults to this checkout's repository (Get-AdoRepositoryName).
 .PARAMETER DryRun
     The plan still reads the server and needs a registered pipeline; only the write is skipped.
-    [comment:3](/docs/references/automation/catzc-azure-devops-buildvalidation/Register-AdoBuildValidation.ps1.md#comment3)
 .EXAMPLE
     Register-AdoBuildValidation automation
 .EXAMPLE

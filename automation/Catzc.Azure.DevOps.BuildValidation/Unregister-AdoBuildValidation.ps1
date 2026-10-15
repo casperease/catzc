@@ -17,7 +17,6 @@ catzc:
     Removes the build-validation branch policy tied to a globset. Idempotent — a no-op when none exists.
 .DESCRIPTION
     The policy is found by its path filter, the only tie to the globset; an absent policy is reported, not an error.
-    [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/Unregister-AdoBuildValidation.ps1.md#comment1)
 .PARAMETER GlobSet
     The declared globset whose policy to remove (a name in globs.yml).
 .PARAMETER Branch

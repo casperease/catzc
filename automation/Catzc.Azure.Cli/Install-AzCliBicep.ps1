@@ -16,7 +16,6 @@ catzc:
     Installs (or upgrades) the Bicep CLI that az uses, to at least the configured minimum.
 .DESCRIPTION
     Installs on purpose because az's silent first-use auto-install can fail quietly behind an enterprise proxy.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Install-AzCliBicep.ps1.md#comment1)
 .PARAMETER Force
     Upgrade to the latest Bicep CLI even when the installed one already meets the minimum.
 .EXAMPLE

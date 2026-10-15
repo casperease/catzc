@@ -15,7 +15,6 @@ catzc:
     Tests whether the active az CLI session matches a given subscription and/or tenant.
 .DESCRIPTION
     A pure query: a mismatch or a missing login returns false and never throws.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Test-AzCliConnected.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID the session must be set to.
 .PARAMETER TenantId

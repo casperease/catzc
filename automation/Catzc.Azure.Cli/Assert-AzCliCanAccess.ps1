@@ -17,7 +17,6 @@ catzc:
     Asserts the current az CLI login can reach the named subscription.
 .DESCRIPTION
     Asks whether the login can reach the subscription, not whether the session is set to it.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md#comment1)
 .PARAMETER Subscription
     Subscription name (a key in azure.yml's subscriptions).
 .EXAMPLE

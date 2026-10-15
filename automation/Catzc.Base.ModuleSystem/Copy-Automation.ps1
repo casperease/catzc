@@ -129,7 +129,8 @@ function Copy-Automation {
             $conflicts = [System.Collections.Generic.List[string]]::new()
             foreach ($item in $plan) {
                 if ($item.IsContainer) {
-                    foreach ($file in [System.IO.Directory]::EnumerateFiles($item.Source, '*', [System.IO.SearchOption]::AllDirectories)) {
+                    # A named whole-tree walk (ADR-PWSH-ENUM#3): every file the copy would write is checked for a conflict.
+                    foreach ($file in Get-ChildPath $item.Source -File -Depth 64 -Exclude @() -PruneVendor $false) {
                         $candidate = $item.Target + $file.Substring($item.Source.Length)
                         if (Test-Path -LiteralPath $candidate -PathType Leaf) {
                             $conflicts.Add($candidate)

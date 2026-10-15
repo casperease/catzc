@@ -16,12 +16,10 @@ catzc:
     Creates an Azure DevOps pull request via the Git REST API.
 .DESCRIPTION
     The PR gate runs before the CD pipeline deploys, so a config change from an INPUT step never lands unreviewed.
-    [comment:1](/docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md#comment1)
 .PARAMETER Title
     PR title.
 .PARAMETER SourceBranch
     A bare name gets refs/heads/ prepended; a name that starts with refs/ is already taken as a full ref.
-    [comment:2](/docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md#comment2)
 .PARAMETER TargetBranch
     The branch to merge into. Defaults to 'main'. Bare name or full ref.
 .PARAMETER Description

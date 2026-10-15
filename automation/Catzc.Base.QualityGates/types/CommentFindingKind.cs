@@ -22,6 +22,7 @@ public enum CommentFindingKind
     LinkInInsight,  // the insight line carries a link or a citation: both go, the head lists the file's citations
     Overlong,       // the insight line is over the file's line limit: cut at a word, first sentence only
     CitationInResidue, // a citation line below the insight, or citations before the docs link: they go, the head lists them
+    LinkInHelp,     // a docs link in a help section its page names uniquely: it goes, the page pairs the section by name
 
     // Not fixable.
     Obvious,        // the insight line starts with one of comments.yml's obvious phrases: a person writes the insight

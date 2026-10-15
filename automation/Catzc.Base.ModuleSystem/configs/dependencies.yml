@@ -64,8 +64,8 @@ groups:
         Catzc.Base.Asserts,
         Catzc.Base.Folders,
       ]
-    Catzc.Base.Files: [Catzc.Base.Git, Catzc.Base.Execution, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Asserts]
-    Catzc.Base.Overlay: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Asserts]
+    Catzc.Base.Files: [Catzc.Base.Git, Catzc.Base.Execution, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Asserts, Catzc.Base.Folders]
+    Catzc.Base.Overlay: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Asserts, Catzc.Base.Folders]
     Catzc.Base.Globs:
       [
         Catzc.Base.Languages,
@@ -95,6 +95,7 @@ groups:
         Catzc.Base.Reports,
         Catzc.Base.Writers,
         Catzc.Base.Asserts,
+        Catzc.Base.Folders,
       ]
     Catzc.Base.Git:
       [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Execution, Catzc.Base.Writers, Catzc.Base.Asserts, Catzc.Base.Folders]

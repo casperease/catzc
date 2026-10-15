@@ -31,6 +31,7 @@ $checks = @(
     'ParameterDesign'
     'NoUnsafeFirstIndex'
     'NoBareCacheEntryRead'
+    'NoUnboundedEnumeration'
 )
 
 # Declared null at load so the strict-mode guard can read it before the first root block fills it.

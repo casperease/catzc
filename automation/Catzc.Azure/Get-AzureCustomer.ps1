@@ -15,7 +15,6 @@ catzc:
     Resolves a customer reference (its key OR its shortcode) to the canonical customer record.
 .DESCRIPTION
     Keys match before shortcodes, and a token that is neither throws, so callers always get the canonical key.
-    [comment:1](/docs/references/automation/catzc-azure/Get-AzureCustomer.ps1.md#comment1)
 .PARAMETER Name
     A customer key or shortcode.
 .OUTPUTS

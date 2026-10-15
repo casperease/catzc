@@ -15,7 +15,6 @@ catzc:
     Renders the Markdown rule table (header + rows) for Convert-FirewallCsvToMarkdown.
 .DESCRIPTION
     Rows are not sorted here: the caller sorts them, and only the values within a cell are ordered.
-    [comment:1](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md#comment1)
 .PARAMETER Rows
     The rule rows, already sorted into evaluation order; each a CSV record (PSObject).
 .PARAMETER Columns

@@ -15,7 +15,6 @@ catzc:
     Downloads the newest firewall-rule CSV(s) from a blob container — one per requested rule type.
 .DESCRIPTION
     Newest means the timestamp in the filename, not blob last-modified; a blob without a parseable timestamp is ignored.
-    [comment:1](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID the az session must be set to. Asserted, not switched.
 .PARAMETER StorageAccountName
@@ -24,12 +23,10 @@ catzc:
     The blob container within the account to search.
 .PARAMETER DownloadPath
     Unset, the folder sits under the output root (out locally, the staging directory in a pipeline) and is created.
-    [comment:3](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment3)
 .PARAMETER Type
     The type word doubles as the blob name filter: application matches ApplicationRules, network NetworkRules.
     [comment:4](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment4)
     The type word also filters blob names case-insensitively, so a type with no matching blob throws.
-    [comment:2](/docs/references/automation/catzc-azure-firewall/Get-FirewallCsv.ps1.md#comment2)
 .PARAMETER TimestampPattern
     Regex capturing the timestamp substring in the filename (UTC), the source of truth for generation time. Default '\d{2}-\d{2}-\d{4}-\d{2}-\d{2}'.
 .PARAMETER TimestampFormat

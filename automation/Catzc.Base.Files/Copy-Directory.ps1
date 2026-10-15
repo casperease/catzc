@@ -42,10 +42,11 @@ function Copy-Directory {
 
     # Substring past the source prefix rebases a path; String.Replace would rewrite any later copy of that prefix too.
     # [comment:2](/docs/references/automation/catzc-base-files/Copy-Directory.ps1.md#comment2)
-    foreach ($dir in [System.IO.Directory]::EnumerateDirectories($source, '*', [System.IO.SearchOption]::AllDirectories)) {
+    # A named whole-tree walk (ADR-PWSH-ENUM#3): a copy takes everything, so no name is pruned and no depth drops a file.
+    foreach ($dir in Get-ChildPath $source -Directory -Depth 64 -Exclude @() -PruneVendor $false) {
         [System.IO.Directory]::CreateDirectory($target + $dir.Substring($sourceLen)) | Out-Null
     }
-    foreach ($file in [System.IO.Directory]::EnumerateFiles($source, '*', [System.IO.SearchOption]::AllDirectories)) {
+    foreach ($file in Get-ChildPath $source -File -Depth 64 -Exclude @() -PruneVendor $false) {
         [System.IO.File]::Copy($file, $target + $file.Substring($sourceLen), $true)
     }
 }

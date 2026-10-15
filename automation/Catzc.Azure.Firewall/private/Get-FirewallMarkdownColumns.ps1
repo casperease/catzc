@@ -15,7 +15,6 @@ catzc:
     Builds the ordered, validated Markdown column descriptors for Convert-FirewallCsvToMarkdown.
 .DESCRIPTION
     A requested column with no backing CSV field throws instead of silently dropping out of the output.
-    [comment:1](/docs/references/automation/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md#comment1)
 .PARAMETER RuleNameColumn
     CSV column used as the rule name / first table column.
 .PARAMETER CompositeColumns

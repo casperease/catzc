@@ -50,13 +50,13 @@ function Build-CommentView {
     $scope = @(Get-CommentScope -RepositoryRoot $RepositoryRoot -Path $Path)
     foreach ($entry in $scope) {
         $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $entry.File))
-        if ([Catzc.Base.QualityGates.CommentEngine]::FindResidues($text, $entry.Extension).Count -eq 0) {
-            continue
-        }
         $pagePath = Join-Path $RepositoryRoot $entry.Page
         $pageText = $null
         if (Test-Path -LiteralPath $pagePath -PathType Leaf) {
             $pageText = [System.IO.File]::ReadAllText($pagePath)
+        }
+        if ([Catzc.Base.QualityGates.CommentEngine]::FindResidues($text, $entry.Extension, $entry.Page, $pageText).Count -eq 0) {
+            continue
         }
         $view = [Catzc.Base.QualityGates.CommentEngine]::View($text, $entry.Extension, $pageText)
         $viewRelative = "$($config.view)/$($entry.File)"

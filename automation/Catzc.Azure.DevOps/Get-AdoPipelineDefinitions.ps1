@@ -15,7 +15,6 @@ catzc:
     Lists all registered pipeline definitions from Azure DevOps.
 .DESCRIPTION
     YamlPath drops its leading slash so it matches the RelativePath that Get-AdoYamlFiles returns.
-    [comment:1](/docs/references/automation/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md#comment1)
 .PARAMETER Project
     Azure DevOps project name. Defaults to the value in ado.yml.
 .PARAMETER Organization

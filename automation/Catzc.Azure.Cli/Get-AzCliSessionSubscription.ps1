@@ -16,7 +16,6 @@ catzc:
     Resolves the az session's active subscription to its declared azure.yml identity.
 .DESCRIPTION
     A session on a subscription azure.yml does not declare is an error, never a fallback: config defines correct.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md#comment1)
 .OUTPUTS
     An ordered dictionary: @{ name; id; customer; tenant } — `name` is the azure.yml subscription key,
     `customer` the canonical customer key ('' for a non-customer subscription), `tenant` the resolved

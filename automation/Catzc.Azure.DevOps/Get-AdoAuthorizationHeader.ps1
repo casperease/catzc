@@ -15,10 +15,8 @@ catzc:
     Returns an Authorization header for Azure DevOps REST API calls.
 .DESCRIPTION
     Every source is proven to target the configured org or tenant, so a credential alone is never trusted.
-    [comment:1](/docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md#comment1)
 .PARAMETER ResourceUrl
     Only the az CLI path reads it; the pipeline token and the PAT never use a resource URL.
-    [comment:2](/docs/references/automation/catzc-azure-devops/Get-AdoAuthorizationHeader.ps1.md#comment2)
 .EXAMPLE
     $headers = Get-AdoAuthorizationHeader
     Invoke-RestMethod -Uri $url -Headers $headers

@@ -15,14 +15,12 @@ catzc:
     Creates an Azure DevOps pipeline pointing to a YAML file.
 .DESCRIPTION
     A pipeline with the same name that already exists throws, so a re-run never registers a duplicate.
-    [comment:1](/docs/references/automation/catzc-azure-devops/Register-AdoPipeline.ps1.md#comment1)
 .PARAMETER Name
     Display name for the pipeline in Azure DevOps.
 .PARAMETER YamlPath
     Repository-relative path to the YAML file (e.g. 'pipelines/ci-automation.yaml').
 .PARAMETER GitHubRepository
     Moves the pipeline's code from Azure Repos to GitHub, which needs a GitHub service connection in the project.
-    [comment:2](/docs/references/automation/catzc-azure-devops/Register-AdoPipeline.ps1.md#comment2)
 .PARAMETER ConnectionId
     ID of the GitHub service connection in ADO. Required when using -GitHubRepository.
 .PARAMETER Project
@@ -31,7 +29,6 @@ catzc:
     Azure DevOps organization URL. Defaults to the value in ado.yml.
 .PARAMETER RepositoryName
     Ignored when -GitHubRepository is set; otherwise it defaults to this checkout's own repository.
-    [comment:3](/docs/references/automation/catzc-azure-devops/Register-AdoPipeline.ps1.md#comment3)
 .PARAMETER FolderPath
     Pipeline folder path in ADO. Defaults to root ('\').
 .EXAMPLE

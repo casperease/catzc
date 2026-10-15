@@ -15,7 +15,6 @@ catzc:
     Calls an Azure DevOps REST API endpoint with authentication and standard error handling.
 .DESCRIPTION
     The JSON content type is set only for POST, PUT and PATCH; a GET carries no body and no content type.
-    [comment:1](/docs/references/automation/catzc-azure-devops/Invoke-AdoRestMethod.ps1.md#comment1)
 .PARAMETER Uri
     The full API URL including api-version query parameter.
 .PARAMETER Method
@@ -24,7 +23,6 @@ catzc:
     Request body for POST/PUT/PATCH. Accepts a hashtable or array — serialized to JSON automatically.
 .PARAMETER UnwrapValue
     A GET unwraps by default, so a caller that needs the count field passes false to keep the wrapper.
-    [comment:2](/docs/references/automation/catzc-azure-devops/Invoke-AdoRestMethod.ps1.md#comment2)
 .EXAMPLE
     $environments = Invoke-AdoRestMethod -Uri "$apiRoot/distributedtask/environments?api-version=7.1-preview.1&`$top=300"
 .EXAMPLE

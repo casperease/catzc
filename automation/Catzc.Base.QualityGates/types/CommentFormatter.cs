@@ -40,15 +40,21 @@ public static class CommentFormatter
         List<SourceLine> lines = Split(text);
         bool changed = false;
         // Last residue first: an inserted insight line moves every line below it, never one above.
-        foreach (CommentResidue residue in CommentEngine.FindResidues(text, extension).OrderByDescending(r => r.StartLine))
+        foreach (CommentResidue residue in CommentEngine.FindResidues(text, extension, string.Empty, pageText).OrderByDescending(r => r.StartLine))
         {
             changed |= FormatResidue(lines, residue, repoRelativePath, pageText, config, lineLimit, findings);
         }
         // The insight fixes above may have moved lines, so the residues are found again before their citations go.
         List<SourceLine> settled = changed ? Split(Join(lines)) : lines;
-        foreach (CommentResidue residue in CommentEngine.FindResidues(Join(settled), extension).OrderByDescending(r => r.StartLine))
+        foreach (CommentResidue residue in CommentEngine.FindResidues(Join(settled), extension, string.Empty, pageText).OrderByDescending(r => r.StartLine))
         {
             changed |= DropCitations(settled, residue, repoRelativePath, findings);
+        }
+        // Then the docs link of a help section the page names uniquely goes: the section's name pairs it with its page section.
+        string withoutCitations = Join(settled);
+        foreach (CommentResidue residue in CommentEngine.FindResidues(withoutCitations, extension, string.Empty, pageText).OrderByDescending(r => r.StartLine))
+        {
+            changed |= DropHelpLink(settled, residue, withoutCitations, extension, pageText, repoRelativePath, findings);
         }
         lines = settled;
         foreach (CommentBlock block in CommentEngine.FindBlocks(text, extension, language, config))
@@ -67,7 +73,9 @@ public static class CommentFormatter
         int maxInsight = Math.Max(MinimumInsightLength, lineLimit - prefix.Length);
         int linkLine = residue.EndLine;
         string linkBody = Body(lines[linkLine].Text, residue.Indent, residue.Marker);
-        bool linkLineIsMechanical = CommentEngine.IsMechanical(linkBody) && linkBody.IndexOf(DocsLinkStart, StringComparison.Ordinal) >= 0;
+        // A help residue paired by name has no link line, so there is no link line to check.
+        bool linkLineIsMechanical = !residue.Linked
+            || (CommentEngine.IsMechanical(linkBody) && linkBody.IndexOf(DocsLinkStart, StringComparison.Ordinal) >= 0);
         if (!linkLineIsMechanical)
         {
             findings.Add(new CommentFinding(file, linkLine + 1, CommentFindingKind.ProseOnLinkLine,
@@ -136,6 +144,7 @@ public static class CommentFormatter
     // A residue is the insight line and the docs link; the citation lines and the citations before the link go, because the head lists them.
     static bool DropCitations(List<SourceLine> lines, CommentResidue residue, string file, List<CommentFinding> findings)
     {
+        if (!residue.Linked) { return false; }
         string prefix = residue.Indent + (residue.Marker.Length > 0 ? residue.Marker + " " : string.Empty);
         int linkLine = residue.EndLine;
         string linkBody = Body(lines[linkLine].Text, residue.Indent, residue.Marker);
@@ -147,6 +156,20 @@ public static class CommentFormatter
             "citations stand in the residue — they go, the file's head lists them"));
         lines.RemoveRange(first, linkLine - first);
         lines[first] = new SourceLine(prefix + linkBody.Substring(linkAt).Trim(), lines[first].Terminator);
+        return true;
+    }
+
+    // A help residue's link line goes when the page names its section uniquely and the line holds the link alone.
+    static bool DropHelpLink(List<SourceLine> lines, CommentResidue residue, string text, string extension, string pageText, string file,
+        List<CommentFinding> findings)
+    {
+        if (residue.Insight.Length == 0 || residue.EndLine == residue.StartLine) { return false; }
+        if (!CommentEngine.PairsByName(text, extension, pageText, residue)) { return false; }
+        string linkBody = Body(lines[residue.EndLine].Text, residue.Indent, residue.Marker);
+        if (!linkBody.StartsWith(DocsLinkStart, StringComparison.Ordinal) || !CommentEngine.IsMechanical(linkBody)) { return false; }
+        findings.Add(new CommentFinding(file, residue.EndLine + 1, CommentFindingKind.LinkInHelp,
+            "the help section's docs link goes — its page section names the help section, which pairs them"));
+        lines.RemoveAt(residue.EndLine);
         return true;
     }
 

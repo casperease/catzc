@@ -98,7 +98,8 @@ configured setting with a sensible default.
 A **docs link** is the third kind: a comment's link from its file to the one section of the file's own comment page that holds the prose it
 stands for ([comments-in-docs](comments-in-docs.md)). It is spelled `[comment:<n>](/docs/<page>.md#comment<n>)` — repository-rooted, the
 text the comment number, the anchor that number's section — and it never points at any other document. It lives where code links live, so
-the link tools handle it under the `Code` kind; it has one spelling, so they check it and never rewrite it.
+the link tools handle it under the `Code` kind; it has one spelling, so they check it and never rewrite it. A help section whose name occurs
+once in its file and once on its page carries no docs link: the page section names it, and the name is the pairing.
 
 - [Docs links](#docs-links)
 

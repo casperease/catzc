@@ -19,7 +19,7 @@ catzc:
 .PARAMETER InputObject
     Pipeline input (do not pass directly).
 .EXAMPLE
-    Get-ChildItem *.log | Assert-PipelineEmpty
+    Get-ChildPath $logFolder -File -Filter '*.log' | Assert-PipelineEmpty
 #>
 function Assert-PipelineEmpty {
     [CmdletBinding()]

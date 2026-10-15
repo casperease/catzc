@@ -22,7 +22,7 @@ catzc:
     [pscustomobject] { Name; Types } per conflicting name, by name — Types one { Type; Functions } per element type, by
     type, Functions the declaring functions sorted ordinally.
 .EXAMPLE
-    Get-ParameterTypeConflict -Path (Get-ChildItem automation/Catzc.Widget -Filter *.ps1).FullName
+    Get-ParameterTypeConflict -Path (Get-ChildPath automation/Catzc.Widget -File -Filter '*.ps1' -Depth 1)
 #>
 function Get-ParameterTypeConflict {
     [CmdletBinding()]

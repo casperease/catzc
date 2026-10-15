@@ -50,7 +50,8 @@ function Get-CatzcOverlay {
             continue
         }
 
-        $files = [string[]] @([System.IO.Directory]::GetFiles($folder, '*', [System.IO.SearchOption]::AllDirectories))
+        # A named whole-tree walk (ADR-PWSH-ENUM#3): every file of a consumer module is classified, so nothing is pruned.
+        $files = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @() -PruneVendor $false)
         [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
         foreach ($file in $files) {
             $relative = [System.IO.Path]::GetRelativePath($folder, $file).Replace('\', '/')

@@ -279,6 +279,7 @@ public static class CommentEngine
 
         Lines lines = Lines.Of(text);
         Page page = Page.Parse(existingPageText);
+        List<HelpHeading> headings = HelpHeadings(text, extension, lines);
         int number = page.HighestNumber;
         var output = new List<string>();
         var sections = new List<string>();
@@ -287,7 +288,10 @@ public static class CommentEngine
         {
             number++;
             for (int i = next; i < block.StartLine; i++) { output.Add(lines[i]); }
-            output.AddRange(Residue(block, number, pagePath, extension, lineLimit));
+            // A help section its page will name uniquely needs no link: the section's name pairs it.
+            bool linked = block.Kind != CommentBlockKind.HelpSection || !IsUniqueInFile(headings, block.Keyword)
+                || SectionsNamed(page, block.Keyword).Count > 0;
+            output.AddRange(Residue(block, number, pagePath, extension, lineLimit, linked));
             sections.Add(Section(block, number));
             next = block.EndLine + 1;
         }
@@ -298,14 +302,13 @@ public static class CommentEngine
         return new CommentFileResult(repoRelativePath, pagePath, newText, newPage, blocks);
     }
 
-    static IEnumerable<string> Residue(CommentBlock block, int number, string pagePath, string extension, int lineLimit)
+    static IEnumerable<string> Residue(CommentBlock block, int number, string pagePath, string extension, int lineLimit, bool linked)
     {
         string marker = block.Kind == CommentBlockKind.Block ? FamilyMarker(extension) : block.Marker;
         string prefix = block.Indent + (marker.Length > 0 ? marker + " " : string.Empty);
         string insight = Insight(block.Text, Math.Max(16, lineLimit - prefix.Length));
-        string link = string.Format(CultureInfo.InvariantCulture, "[comment:{0}](/{1}#comment{0})", number, pagePath);
         yield return prefix + insight;
-        yield return prefix + link;
+        if (linked) { yield return prefix + string.Format(CultureInfo.InvariantCulture, "[comment:{0}](/{1}#comment{0})", number, pagePath); }
     }
 
     // Provisional only: links and citations go on the link line, and a later pass rewrites the cut sentence.
@@ -374,10 +377,90 @@ public static class CommentEngine
 
     // ---- residues and the view --------------------------------------------------------------------------------
 
-    public static IReadOnlyList<CommentResidue> FindResidues(string text, string extension)
+    public static IReadOnlyList<CommentResidue> FindResidues(string text, string extension) => FindResidues(text, extension, null, null);
+
+    // With the page, a help section the page names uniquely pairs as a residue of its insight line alone, with no docs link.
+    public static IReadOnlyList<CommentResidue> FindResidues(string text, string extension, string pagePath, string pageText)
     {
         if (string.IsNullOrEmpty(text)) { return Array.Empty<CommentResidue>(); }
         Lines lines = Lines.Of(text);
+        List<HelpHeading> headings = HelpHeadings(text, extension, lines);
+        var residues = new List<CommentResidue>(LinkedResidues(text, extension, lines, headings));
+        if (pageText == null) { return residues; }
+
+        Page page = Page.Parse(pageText);
+        var linkedNumbers = new HashSet<int>(residues.Select(r => r.Number));
+        foreach (HelpHeading heading in headings)
+        {
+            if (heading.Body < 0 || !IsUniqueInFile(headings, heading.Keyword)) { continue; }
+            bool linked = false;
+            for (int i = heading.Line; i <= heading.End; i++) { linked |= DocsLink.IsMatch(lines[i]); }
+            if (linked) { continue; }
+            List<int> named = SectionsNamed(page, heading.Keyword);
+            if (named.Count != 1 || linkedNumbers.Contains(named[0])) { continue; }
+            string body = lines[heading.Body];
+            string indent = body.Substring(0, body.Length - body.TrimStart().Length);
+            residues.Add(new CommentResidue(named[0], pagePath ?? string.Empty, heading.Body, heading.Body, indent, string.Empty, body.Trim(), heading.Keyword, false));
+        }
+        return residues.OrderBy(r => r.StartLine).ToList();
+    }
+
+    // True when the residue is a linked help residue whose page section is the only one naming its help section: its link can go.
+    public static bool PairsByName(string text, string extension, string pageText, CommentResidue residue)
+    {
+        if (residue == null || !residue.Linked || residue.HelpKeyword == null || pageText == null) { return false; }
+        Lines lines = Lines.Of(text ?? string.Empty);
+        if (!IsUniqueInFile(HelpHeadings(text, extension, lines), residue.HelpKeyword)) { return false; }
+        List<int> named = SectionsNamed(Page.Parse(pageText), residue.HelpKeyword);
+        return named.Count == 1 && named[0] == residue.Number;
+    }
+
+    static bool IsUniqueInFile(List<HelpHeading> headings, string keyword) =>
+        headings.Count(h => string.Equals(h.Keyword, keyword, StringComparison.Ordinal)) == 1;
+
+    static List<int> SectionsNamed(Page page, string keyword)
+    {
+        string context = CommentBlock.HelpContext(keyword);
+        return page.Sections.Where(s => s.Value.Context == context).Select(s => s.Key).ToList();
+    }
+
+    sealed class HelpHeading
+    {
+        public string Keyword { get; set; }
+        public int Line { get; set; }
+        public int Body { get; set; }   // the first non-blank line under the keyword, or -1
+        public int End { get; set; }    // the last line of the section, before the next keyword or the closer
+    }
+
+    // Every keyword section of every help block in the file, in order.
+    static List<HelpHeading> HelpHeadings(string text, string extension, Lines lines)
+    {
+        var headings = new List<HelpHeading>();
+        foreach ((int start, int length) in CommentLexer.Comments(text, extension))
+        {
+            if (!text.Substring(start, length).StartsWith("<#", StringComparison.Ordinal)) { continue; }
+            int startLine = lines.LineOf(start);
+            int endLine = lines.LineOf(start + length - 1);
+            if (startLine == endLine || !IsHelpBlock(lines, startLine, endLine)) { continue; }
+            HelpHeading current = null;
+            for (int i = startLine; i <= endLine; i++)
+            {
+                bool closer = i == endLine && lines[i].Trim().StartsWith("#>", StringComparison.Ordinal);
+                if (HelpKeyword.IsMatch(lines[i]) || closer)
+                {
+                    if (current != null) { current.End = i - 1; headings.Add(current); current = null; }
+                    if (!closer) { current = new HelpHeading { Keyword = lines[i].Trim(), Line = i, Body = -1, End = i }; }
+                    continue;
+                }
+                if (current != null && current.Body < 0 && lines[i].Trim().Length > 0) { current.Body = i; }
+            }
+            if (current != null) { current.End = endLine; headings.Add(current); }
+        }
+        return headings;
+    }
+
+    static IEnumerable<CommentResidue> LinkedResidues(string text, string extension, Lines lines, List<HelpHeading> headings)
+    {
         var residues = new List<CommentResidue>();
         var seen = new HashSet<int>();
         foreach ((int start, int length) in CommentLexer.Comments(text, extension))
@@ -407,7 +490,8 @@ public static class CommentEngine
                     }
                 }
                 int number = int.Parse(match.Groups["number"].Value, CultureInfo.InvariantCulture);
-                residues.Add(new CommentResidue(number, match.Groups["page"].Value.TrimStart('/'), first, linkLine, indent, marker, insight));
+                string keyword = headings.FirstOrDefault(h => h.Line < linkLine && linkLine <= h.End)?.Keyword;
+                residues.Add(new CommentResidue(number, match.Groups["page"].Value.TrimStart('/'), first, linkLine, indent, marker, insight, keyword));
             }
         }
         return residues.OrderBy(r => r.StartLine).ToList();
@@ -418,7 +502,7 @@ public static class CommentEngine
     {
         if (string.IsNullOrEmpty(text)) { return text ?? string.Empty; }
         Page page = Page.Parse(pageText);
-        IReadOnlyList<CommentResidue> residues = FindResidues(text, extension);
+        IReadOnlyList<CommentResidue> residues = FindResidues(text, extension, string.Empty, pageText);
         if (residues.Count == 0) { return text; }
         Lines lines = Lines.Of(text);
         var output = new List<string>();
@@ -550,6 +634,8 @@ public static class CommentEngine
     {
         public string Raw { get; set; }
         public IReadOnlyList<string> Lines { get; set; }
+        // The line between the heading and the fence that says what the section annotated.
+        public string Context { get; set; }
     }
 
     sealed class Page
@@ -570,9 +656,20 @@ public static class CommentEngine
                 int end = h + 1 < headings.Count ? headings[h + 1].Index : text.Length;
                 string raw = text.Substring(start, end - start);
                 int number = int.Parse(headings[h].Groups["number"].Value, CultureInfo.InvariantCulture);
-                page.Sections[number] = new PageSection { Raw = raw, Lines = FencedLines(raw) };
+                page.Sections[number] = new PageSection { Raw = raw, Lines = FencedLines(raw), Context = ContextLine(raw) };
             }
             return page;
+        }
+
+        static string ContextLine(string section)
+        {
+            foreach (string line in section.Split('\n').Skip(1))
+            {
+                string trimmed = line.Trim();
+                if (trimmed == FenceOpen) { return null; }
+                if (trimmed.Length > 0) { return trimmed; }
+            }
+            return null;
         }
 
         static IReadOnlyList<string> FencedLines(string section)

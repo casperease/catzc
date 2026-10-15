@@ -15,13 +15,10 @@ catzc:
     Enumerates the IP Groups across one or more (subscription, resource group) targets into a single YAML.
 .DESCRIPTION
     Each source is declared once, so the shared subscription and group stay off every IP Group entry.
-    [comment:1](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment1)
 .PARAMETER SubscriptionId
     Passed to az explicitly on every call, so the active CLI subscription is never switched.
-    [comment:2](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment2)
 .PARAMETER ResourceGroupName
     Doubles as the source key, so two targets with the same group name in one run collide and throw.
-    [comment:3](/docs/references/automation/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md#comment3)
 .PARAMETER YamlPath
     Output YAML path for the combined document. Defaults to <repo-root>/out/yaml/ipgs.yaml.
 .EXAMPLE

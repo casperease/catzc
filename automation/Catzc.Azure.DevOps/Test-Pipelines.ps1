@@ -23,7 +23,6 @@ catzc:
     Quality gate: checks the pipelines/ tree against the naming-and-placement contract.
 .DESCRIPTION
     A file that fails to parse is reported as a violation, so a broken pipeline cannot slip through silently.
-    [comment:1](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment1)
 .PARAMETER Path
     The pipelines/ directory to check. Defaults to `<repo>/pipelines`.
 .PARAMETER OutputFolder

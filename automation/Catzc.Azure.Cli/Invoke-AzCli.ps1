@@ -15,7 +15,6 @@ catzc:
     Runs az with the given arguments.
 .DESCRIPTION
     A command needing an uninstalled extension fails with an exit code instead of hanging on a hidden install prompt.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Invoke-AzCli.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to az.
 .PARAMETER PassThru

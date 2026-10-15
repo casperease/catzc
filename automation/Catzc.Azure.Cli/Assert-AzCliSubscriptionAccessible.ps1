@@ -17,7 +17,6 @@ catzc:
     Asserts the current az CLI login can reach a given subscription.
 .DESCRIPTION
     A pass proves a real ARM call will work, not merely that the subscription is in the local profile.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID the current login must be able to reach.
 .EXAMPLE

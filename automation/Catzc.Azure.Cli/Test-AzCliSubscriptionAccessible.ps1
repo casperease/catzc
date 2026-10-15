@@ -16,7 +16,6 @@ catzc:
     Tests whether the current az CLI login can reach a given subscription.
 .DESCRIPTION
     Ask this, not the connected test, before a call that supplies a subscription id, since the active context is moot.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Test-AzCliSubscriptionAccessible.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID the current login must be able to reach.
 .EXAMPLE

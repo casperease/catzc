@@ -60,12 +60,12 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $blocks[1].NextCodeLine | Should -BeLike '$widgets = Get-Gadget*'
     }
 
-    It 'leaves one insight line and one docs-link line per moved block, with no citation' -Tag 'ADR-REPO-COMMENTS#2' {
+    It 'leaves one insight line per moved block, a docs link under a comment but none under a help section, and no citation' -Tag 'ADR-REPO-COMMENTS#2', 'ADR-REPO-LINK#9' {
         $result = & $export $helpSource
         $result.MovedCount | Should -Be 2
         $lines = $result.Text -split "`n"
         $lines | Should -Contain '    Reads the widget from the gadget store first, because the store is the one living copy.'
-        $lines | Should -Contain "    [comment:1](/$page#comment1)"
+        $result.Text.Contains("[comment:1]") | Should -BeFalse -Because 'the page names the help section, which pairs it'
         $lines | Should -Contain '    # Sorted first, so the gadget order is stable across runs and the cache key never changes.'
         $lines | Should -Contain "    # [comment:2](/$page#comment2)"
         $lines | Should -Contain '    The widget name.'
@@ -99,19 +99,41 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         [Catzc.Base.QualityGates.CommentEngine]::View($second.Text, '.ps1', $second.PageText).Contains('created on demand.') | Should -BeTrue
     }
 
-    It 'finds every residue with its number, page and insight' -Tag 'ADR-REPO-COMMENTS#2' {
+    It 'finds every residue with its number, page and insight, pairing a help residue by its section name only with the page' -Tag 'ADR-REPO-COMMENTS#2', 'ADR-REPO-LINK#9' {
         $result = & $export $helpSource
-        $residues = [Catzc.Base.QualityGates.CommentEngine]::FindResidues($result.Text, '.ps1')
+        $residues = [Catzc.Base.QualityGates.CommentEngine]::FindResidues($result.Text, '.ps1', $page, $result.PageText)
         $residues.Count | Should -Be 2
         $residues[0].Number | Should -Be 1
         $residues[0].Page | Should -Be $page
         $residues[0].Insight | Should -BeLike 'Reads the widget*'
+        $residues[0].Linked | Should -BeFalse
+        $residues[0].HelpKeyword | Should -Be '.DESCRIPTION'
+        $residues[0].LineCount | Should -Be 1
         $residues[1].Marker | Should -Be '#'
         $residues[1].LineCount | Should -Be 2
+        $residues[1].Linked | Should -BeTrue
+        @([Catzc.Base.QualityGates.CommentEngine]::FindResidues($result.Text, '.ps1')).Count | Should -Be 1 -Because 'without the page only a linked residue is found'
         [Catzc.Base.QualityGates.CommentEngine]::SectionNumbers($result.PageText) | Should -Be @(1, 2)
         [Catzc.Base.QualityGates.CommentEngine]::SectionLines($result.PageText, 2) |
             Should -Be @('Sorted first, so the gadget order is stable', 'across runs and the cache key never changes.')
         [Catzc.Base.QualityGates.CommentEngine]::SectionLines($result.PageText, 9).Count | Should -Be 0
+    }
+
+    It 'keeps the docs link of a help section another help block in the file also has, since its name pairs nothing uniquely' -Tag 'ADR-REPO-LINK#9' {
+        $help = { param([string] $Name) @('<#', '.SYNOPSIS', "    The $Name.", '.DESCRIPTION', "    Reads the $Name from the gadget store,", '    because the store is the one living copy.', '#>', "function Get-$Name { }") }
+        $text = ((& $help 'Widget') + (& $help 'Gadget') + '') -join "`n"
+        $result = & $export $text
+        $result.MovedCount | Should -Be 2
+        $result.Text.Contains("[comment:1](/$page#comment1)") | Should -BeTrue
+        $result.Text.Contains("[comment:2](/$page#comment2)") | Should -BeTrue
+        [Catzc.Base.QualityGates.CommentEngine]::View($result.Text, '.ps1', $result.PageText) | Should -BeExactly $text
+    }
+
+    It 'pairs no help section whose name two page sections share' -Tag 'ADR-REPO-LINK#9' {
+        $result = & $export $helpSource
+        $doubled = $result.PageText + "`n## comment:9`n`nSection ``.DESCRIPTION`` of the comment-based help.`n`n" + '```text' + "`nA stale copy.`n" + '```' + "`n"
+        $residues = @([Catzc.Base.QualityGates.CommentEngine]::FindResidues($result.Text, '.ps1', $page, $doubled))
+        @($residues | Where-Object { -not $_.Linked }).Count | Should -Be 0
     }
 
     It 'round-trips a YAML header, a CRLF file, and a C# line run with its own marker' -Tag 'ADR-REPO-COMMENTS#2' {

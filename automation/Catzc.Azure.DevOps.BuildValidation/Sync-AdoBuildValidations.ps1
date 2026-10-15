@@ -15,7 +15,6 @@ catzc:
     Registers every build-validation branch policy declared in build-validation.yml. Idempotent.
 .DESCRIPTION
     The local config is the source of truth: this converges the ADO project to it, never the other way round.
-    [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/Sync-AdoBuildValidations.ps1.md#comment1)
 .PARAMETER Branch
     Override the branch for every policy. Defaults from build-validation.yml 'branch'.
 .PARAMETER Project

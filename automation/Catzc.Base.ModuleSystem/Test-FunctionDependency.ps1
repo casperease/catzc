@@ -57,7 +57,8 @@ function Test-FunctionDependency {
             continue
         }
 
-        $files = [System.IO.Directory]::EnumerateFiles($moduleDir, '*.ps1', [System.IO.SearchOption]::AllDirectories) | Sort-Object
+        # A module's scripts sit at most three levels below its folder (tests/types/ is the deepest).
+        $files = Get-ChildPath $moduleDir -File -Filter '*.ps1' -Depth 3 | Sort-Object
         foreach ($path in $files) {
             $name = [System.IO.Path]::GetFileName($path)
             # Module-relative, since an absolute temp or CI path can itself contain a private or assets segment.

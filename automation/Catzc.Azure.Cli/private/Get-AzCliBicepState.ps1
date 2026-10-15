@@ -16,7 +16,6 @@ catzc:
     Returns the Bicep CLI state relative to the configured minimum version.
 .DESCRIPTION
     The one comparison behind both Test and Assert, so the bool and the throw cannot drift apart.
-    [comment:1](/docs/references/automation/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md#comment1)
 .EXAMPLE
     (Get-AzCliBicepState).meets_minimum
 #>

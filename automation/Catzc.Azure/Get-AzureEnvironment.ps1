@@ -16,7 +16,6 @@ catzc:
     Returns the resolved environment object: identity + the named subscription that serves it.
 .DESCRIPTION
     The subscription is an explicit input, asserted to serve the environment; its customer renders into resource names.
-    [comment:1](/docs/references/automation/catzc-azure/Get-AzureEnvironment.ps1.md#comment1)
 .PARAMETER Environment
     Environment name. Must be a key in azure.yml's `environments` map.
 .PARAMETER Subscription

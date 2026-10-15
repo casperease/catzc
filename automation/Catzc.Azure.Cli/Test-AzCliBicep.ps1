@@ -17,7 +17,6 @@ catzc:
     Tests whether the Bicep CLI is available to az AND at or above the configured minimum version.
 .DESCRIPTION
     Probes up front because a missing or stale Bicep makes az bicep build exit 0 yet write no main.json.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Test-AzCliBicep.ps1.md#comment1)
 .EXAMPLE
     if (Test-AzCliBicep) { Build-Bicep sample }
 #>

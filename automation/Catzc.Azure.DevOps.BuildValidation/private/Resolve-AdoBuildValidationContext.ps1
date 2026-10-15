@@ -15,7 +15,6 @@ catzc:
     Resolves the ADO coordinates every build-validation call needs — org, project, repository id, API base.
 .DESCRIPTION
     The well-known Build policy type id is held only here, so every public function reads one constant.
-    [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/private/Resolve-AdoBuildValidationContext.ps1.md#comment1)
 .PARAMETER Project
     Azure DevOps project name. Defaults to the value in ado.yml.
 .PARAMETER Organization

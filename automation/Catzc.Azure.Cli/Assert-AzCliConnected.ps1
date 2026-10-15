@@ -15,7 +15,6 @@ catzc:
     Asserts the active az CLI session matches a given subscription and/or tenant.
 .DESCRIPTION
     Takes ids, not azure.yml names, so a caller with only a tenant (an ADO token) can use it too.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Assert-AzCliConnected.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID the session must be set to.
 .PARAMETER TenantId

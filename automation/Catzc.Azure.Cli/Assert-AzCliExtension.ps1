@@ -15,7 +15,6 @@ catzc:
     Asserts that an Azure CLI extension is installed, throwing with remediation if not.
 .DESCRIPTION
     It only asserts and never installs, so a missing extension is a clear error, not a hang on the install prompt.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Assert-AzCliExtension.ps1.md#comment1)
 .PARAMETER Name
     The required extension name (e.g. 'ip-group').
 .EXAMPLE

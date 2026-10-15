@@ -59,16 +59,20 @@ function Test-Comments {
             $issues.Add("$($entry.File):$($block.StartLine + 1): a $($block.ProseLineCount)-line comment is still in the file — run Export-Comments")
         }
 
-        $residues = @([Catzc.Base.QualityGates.CommentEngine]::FindResidues($text, $entry.Extension))
         $pagePath = Join-Path $RepositoryRoot $entry.Page
         $pageExists = Test-Path -LiteralPath $pagePath -PathType Leaf
+        $pageText = $null
+        if ($pageExists) {
+            $pageText = [System.IO.File]::ReadAllText($pagePath)
+        }
+        $residues = @([Catzc.Base.QualityGates.CommentEngine]::FindResidues($text, $entry.Extension, $entry.Page, $pageText))
         if ($residues.Count -eq 0 -and -not $pageExists) {
             continue
         }
         $residueCount += $residues.Count
         $sections = [System.Collections.Generic.HashSet[int]]::new()
         if ($pageExists) {
-            foreach ($number in [Catzc.Base.QualityGates.CommentEngine]::SectionNumbers([System.IO.File]::ReadAllText($pagePath))) {
+            foreach ($number in [Catzc.Base.QualityGates.CommentEngine]::SectionNumbers($pageText)) {
                 $sections.Add($number) | Out-Null
             }
         }

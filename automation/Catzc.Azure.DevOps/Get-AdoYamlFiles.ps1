@@ -16,12 +16,10 @@ catzc:
     Scans a directory recursively for YAML files and classifies each as Pipeline, Template, or Unknown.
 .DESCRIPTION
     A file that fails YAML parsing stays in the output as Unknown with ParseError set, never dropped.
-    [comment:1](/docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md#comment1)
 .PARAMETER Path
     Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
 .PARAMETER Exclude
     Names match exactly at any depth of the path, not as wildcards or partial paths.
-    [comment:2](/docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md#comment2)
 .EXAMPLE
     Get-AdoYamlFiles -Path 'C:\repos\big-mono'
 .EXAMPLE

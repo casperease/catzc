@@ -43,7 +43,8 @@ function Get-LocalModuleViolation {
     }
 
     $functionFiles = [System.Collections.Generic.List[string]]::new()
-    $files = [string[]] @([System.IO.Directory]::GetFiles($Path, '*', [System.IO.SearchOption]::AllDirectories))
+    # A named whole-tree walk (ADR-PWSH-ENUM#3): a violation anywhere in the module must show, so nothing is pruned.
+    $files = [string[]] @(Get-ChildPath $Path -File -Depth 64 -Exclude @() -PruneVendor $false)
     [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
     foreach ($file in $files) {
         $relative = [System.IO.Path]::GetRelativePath($Path, $file).Replace('\', '/')

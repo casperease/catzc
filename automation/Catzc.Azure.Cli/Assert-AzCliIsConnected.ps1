@@ -16,7 +16,6 @@ catzc:
     Asserts the active az CLI session is logged into the tenant + subscription named.
 .DESCRIPTION
     Takes the subscription name because a connection is subscription-scoped; the tenant comes from azure.yml.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md#comment1)
 .PARAMETER Subscription
     Subscription name (a key in azure.yml's subscriptions).
 .EXAMPLE

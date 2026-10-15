@@ -13,7 +13,6 @@ function Test-AnalyzedFileIsTest {
         Whether the code under analysis is a Pester test file — the one scope test the custom checks share.
     .DESCRIPTION
         An editor buffer has no file name, so a Describe call identifies a Pester file; the gate and editor then agree.
-        [comment:1](/docs/references/automation/scriptanalyzer/Test-AnalyzedFileIsTest.ps1.md#comment1)
     .PARAMETER ScriptBlockAst
         Any block of the code under analysis; the whole buffer is searched from its root.
     .PARAMETER IncludeTestsFolder

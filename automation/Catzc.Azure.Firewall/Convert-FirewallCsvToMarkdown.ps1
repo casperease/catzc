@@ -16,7 +16,6 @@ catzc:
     Renders an Azure Firewall rule-export CSV (application or network) as a Markdown document.
 .DESCRIPTION
     Rows come out in firewall evaluation order, and a requested column the CSV lacks throws instead of rendering blank.
-    [comment:1](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment1)
 .PARAMETER CsvPath
     Path to the source CSV (Path set).
 .PARAMETER MarkdownPath
@@ -25,7 +24,6 @@ catzc:
     CSV column used as the rule name / first table column. Default 'Name'.
 .PARAMETER CompositeColumns
     Ordered map of output column -> candidate CSV fields.
-    [comment:10](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment10)
 .PARAMETER ProtocolPortColumnName
     Which composite column pairs protocols with ports (and is rendered unsorted). Default 'Protocol/Port'.
 .PARAMETER IpGroupColumns

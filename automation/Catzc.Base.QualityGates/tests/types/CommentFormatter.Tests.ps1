@@ -128,4 +128,34 @@ Describe 'CommentFormatter' -Tag 'L0', 'logic' {
         $result.Text | Should -BeLike $expected
         $result.Text.Contains("`n`n") | Should -BeFalse
     }
+
+    Context 'a help section whose page section names it' {
+        BeforeAll {
+            $script:helpPage = @(
+                "# $page", '', '## comment:1', '', 'Section `.DESCRIPTION` of the comment-based help.', '', '```text',
+                'Reads the widget from the gadget store first,', 'because the store is the one living copy.', '```', ''
+            ) -join "`n"
+            $script:helpText = {
+                param([string[]] $Description)
+                (@('<#', '.SYNOPSIS', '    Gets a widget.', '.DESCRIPTION') + @($Description | ForEach-Object { "    $_" }) +
+                    @('#>', 'function Get-Widget { }', '')) -join "`n"
+            }
+        }
+
+        It 'drops the docs link, keeps the insight line, and a second run changes nothing' -Tag 'ADR-REPO-LINK#9', 'ADR-AUTO-IDEM#1' {
+            $result = & $format (& $helpText 'Reads the widget from the gadget store first.', $link) $helpPage
+            $result.Changed | Should -BeTrue
+            @($result.Findings | ForEach-Object { "$($_.Kind)" }) | Should -Be @('LinkInHelp')
+            $result.Text | Should -BeExactly (& $helpText 'Reads the widget from the gadget store first.')
+            $again = & $format $result.Text $helpPage
+            $again.Changed | Should -BeFalse
+            $again.Findings.Count | Should -Be 0
+        }
+
+        It 'keeps the docs link when the page does not name the section' -Tag 'ADR-REPO-LINK#9' {
+            $result = & $format (& $helpText 'Reads the widget from the gadget store first.', $link) $pageText
+            @($result.Findings | Where-Object { "$($_.Kind)" -eq 'LinkInHelp' }).Count | Should -Be 0
+            $result.Changed | Should -BeFalse -Because 'the link is the only pairing the residue has'
+        }
+    }
 }

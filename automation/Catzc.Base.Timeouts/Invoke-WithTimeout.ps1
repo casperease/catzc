@@ -15,19 +15,16 @@ catzc:
     Runs a script block inside a time safeguard: past its limit it is stopped and the call throws.
 .DESCRIPTION
     The watchdog also stops a native command the block waits on; a terminating error is rethrown as itself, not wrapped.
-    [comment:1](/docs/references/automation/catzc-base-timeouts/Invoke-WithTimeout.ps1.md#comment1)
 .PARAMETER ScriptBlock
     The work to run.
 .PARAMETER Budget
     While the budget is exempt, the default limit becomes the exemption ceiling, not the normal pwsh limit.
-    [comment:2](/docs/references/automation/catzc-base-timeouts/Invoke-WithTimeout.ps1.md#comment2)
 .PARAMETER Seconds
     Left unset, the limit comes from timeouts.yml for this environment, or from the budget's exemption ceiling.
-    [comment:3](/docs/references/automation/catzc-base-timeouts/Invoke-WithTimeout.ps1.md#comment3)
 .PARAMETER Activity
     What the work is, for the timeout message. Defaults to the script block's text.
 .EXAMPLE
-    $tree = Invoke-WithTimeout { Get-ChildItem -Recurse $root } -Seconds 30
+    $tree = Invoke-WithTimeout { Get-ChildPath $root -Depth 3 } -Seconds 30
 .EXAMPLE
     Invoke-WithTimeout { Sync-Widget } -Activity 'widget sync'
 .EXAMPLE

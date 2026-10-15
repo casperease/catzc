@@ -15,7 +15,6 @@ catzc:
     Sets the Azure CLI's active subscription.
 .DESCRIPTION
     It mutates the CLI context, so the call stays loud, unlike the silenced read in Get-CurrentAzSubscription.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Set-CurrentAzSubscription.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID (or display name) to make active.
 .EXAMPLE

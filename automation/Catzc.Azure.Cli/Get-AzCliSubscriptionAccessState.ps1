@@ -16,7 +16,6 @@ catzc:
     Returns whether the current az CLI login can actually reach a given subscription.
 .DESCRIPTION
     The access counterpart to Get-AzCliConnectionState.
-    [comment:1](/docs/references/automation/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription GUID the current login must be able to reach.
 .EXAMPLE

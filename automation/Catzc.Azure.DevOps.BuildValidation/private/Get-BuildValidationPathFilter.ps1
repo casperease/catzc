@@ -17,7 +17,6 @@ catzc:
     The ADO branch-policy path filters for a globset — its native trigger projection, anchored with '/'.
 .DESCRIPTION
     Register and Unregister share this, so the created filter and the match-to-remove filter can never drift apart.
-    [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/private/Get-BuildValidationPathFilter.ps1.md#comment1)
 .PARAMETER GlobSet
     The globset to project.
 .OUTPUTS

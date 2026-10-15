@@ -17,7 +17,6 @@ catzc:
     Returns the resolved Azure subscription identity (id + tenant [+ customer]) for a named subscription.
 .DESCRIPTION
     Lookup is by name alone: no environment, group or customer join happens here, so callers build on it.
-    [comment:1](/docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md#comment1)
 .PARAMETER Subscription
     Subscription name — a key in azure.yml's `subscriptions`.
 .EXAMPLE

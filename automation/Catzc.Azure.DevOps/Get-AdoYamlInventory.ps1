@@ -15,12 +15,10 @@ catzc:
     Combines YAML file scanning with ADO pipeline registration data.
 .DESCRIPTION
     A file that ADO has registered as a pipeline is promoted from Unknown to Pipeline.
-    [comment:1](/docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md#comment1)
 .PARAMETER Path
     Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
 .PARAMETER Exclude
     Names match exactly at any depth of the path, not as wildcards or partial paths.
-    [comment:2](/docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md#comment2)
 .PARAMETER Project
     Azure DevOps project name. Defaults to the value in ado.yml.
 .PARAMETER Organization

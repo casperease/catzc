@@ -16,24 +16,18 @@ catzc:
     Returns how many seconds a call may run before its time safeguard stops it.
 .DESCRIPTION
     Every safeguard consumer asks here, so tuning a limit is one config edit; a command's exemption outranks its entry.
-    [comment:1](/docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md#comment1)
 .PARAMETER Executable
     Directory and extension are ignored, so a full path to dotnet.exe resolves the same as plain dotnet.
-    [comment:2](/docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md#comment2)
 .PARAMETER Command
     The function must already be loaded, since its decoration is read from the loaded command.
-    [comment:3](/docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md#comment3)
 .PARAMETER Shell
     A name that is no execution engine throws and lists the valid shells, so a typo never falls back to pwsh.
-    [comment:4](/docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md#comment4)
 .PARAMETER Background
     Return the bash background limit instead of the foreground one. Bash only.
 .PARAMETER Budget
     An exemption only raises the limit to its ceiling, never lowers it; the empty GUID means no budget.
-    [comment:5](/docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md#comment5)
 .PARAMETER EnvironmentAssertIs
     The guard only verifies the environment found at run time; it never selects which environment's limit is read.
-    [comment:6](/docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md#comment6)
 .EXAMPLE
     Get-TimeoutSeconds                          # the environment's pwsh limit
 .EXAMPLE

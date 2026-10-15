@@ -16,7 +16,6 @@ catzc:
     The Azure DevOps repository this checkout is: the sensible default for every -RepositoryName.
 .DESCRIPTION
     The checkout folder name equals the repository name only in a default clone, so an explicit argument wins.
-    [comment:1](/docs/references/automation/catzc-azure-devops/Get-AdoRepositoryName.ps1.md#comment1)
 .OUTPUTS
     [string] The repository name.
 .EXAMPLE

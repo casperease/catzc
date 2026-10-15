@@ -17,7 +17,6 @@ catzc:
     Lists the build-validation branch policies of the repository, optionally for one branch.
 .DESCRIPTION
     Read-only: a policy's path filters are its only tie back to a globset, so they are reported as the server has them.
-    [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/Get-AdoBuildValidations.ps1.md#comment1)
 .PARAMETER Branch
     Return only the policies guarding this branch (e.g. 'main'). Omit for every branch.
 .PARAMETER Project

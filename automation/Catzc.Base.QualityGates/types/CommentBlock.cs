@@ -60,9 +60,13 @@ public sealed class CommentBlock
 
     // What the page says the block annotated: its help keyword, or the code line it sat above.
     public string Context =>
-        Keyword != null ? string.Format(CultureInfo.InvariantCulture, "Section {0} of the comment-based help.", CodeSpan(Keyword))
+        Keyword != null ? HelpContext(Keyword)
         : NextCodeLine != null ? string.Format(CultureInfo.InvariantCulture, "Above {0}.", CodeSpan(NextCodeLine))
         : "At the end of the file.";
+
+    // The page's context line for a help section; it is also the key that pairs a help residue without a link.
+    public static string HelpContext(string keyword) =>
+        string.Format(CultureInfo.InvariantCulture, "Section {0} of the comment-based help.", CodeSpan(keyword));
 
     // The fence is one backtick longer than any run inside, so text that holds backticks still renders verbatim.
     // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/CommentBlock.cs.md#comment2)

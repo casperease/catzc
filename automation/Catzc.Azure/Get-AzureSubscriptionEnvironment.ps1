@@ -16,7 +16,6 @@ catzc:
     Returns the per-subscription identity environment (nsub/psub) of a named subscription.
 .DESCRIPTION
     Lets a standard template find the once-per-subscription foundation, and its Key Vault, in its own subscription.
-    [comment:1](/docs/references/automation/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md#comment1)
 .PARAMETER Subscription
     Subscription name — a key in azure.yml's `subscriptions`.
 .EXAMPLE

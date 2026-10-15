@@ -16,7 +16,6 @@ catzc:
     Renders an Azure Firewall rule-export CSV (application or network) as YAML.
 .DESCRIPTION
     A multi-value field is always a list, even for one value or none, so consumers never branch on scalar versus list.
-    [comment:1](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment1)
 .PARAMETER CsvPath
     Path to the source CSV (Path set).
 .PARAMETER YamlPath
@@ -30,7 +29,6 @@ catzc:
 .PARAMETER OutputFolder
     Where the .yaml goes in Object mode; the file is named <original-name>.yaml.
     Unset, the file lands under the output root, which is out locally and the staging directory in a pipeline.
-    [comment:2](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment2)
 .PARAMETER MultiValueFields
     Fields split into YAML arrays on -SplitPattern.
 .PARAMETER SplitPattern
