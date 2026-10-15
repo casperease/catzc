@@ -42,7 +42,7 @@ INK, BORDER, PAGE, PANEL = "#CDD3DC", "#3A4555", "#1E2430", "#222A36"
 MAP_PAGE, MAP_IDLE, MAP_BORDER = "#1C2A24", "#243229", "#3B4D43"
 # The sidebar backing (STYLE.md, "sidebar" token): a soft dark brown layer above the page and below everything in the
 # sidebar, so the minimap column reads as one region of its own.
-SIDEBAR_FILL, SIDEBAR_RIM = "#2A2622", "#3E372F"
+SIDEBAR_FILL, SIDEBAR_RIM = "#2E2823", "#453C33"
 SIDEBAR_PAD = 12
 TEXT = f"text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor={INK};"
 
@@ -104,16 +104,6 @@ def lay_out_sidebar(model, palette, concerns):
     model = model.replace('id="minimap-stack"', 'id="minimap-grid"')
     # The backing layer: dropped and re-added right after the root cells, so it sits lowest in the z-order.
     model = re.sub(r'\s*<mxCell id="sidebar-bg"(?:[^>]*/>|.*?</mxCell>)', "", model, flags=re.DOTALL)
-    page_w = int(re.search(r'pageWidth="(\d+)"', model).group(1))
-    page_h = int(re.search(r'pageHeight="(\d+)"', model).group(1))
-    root = re.search(r'<mxCell id="1" parent="0"\s*/>', model)
-    if not root:
-        raise SystemExit("the slide has no root cell id=1")
-    backing = cell(
-        "sidebar-bg", "", f"rounded=1;arcSize=2;html=1;fillColor={SIDEBAR_FILL};strokeColor={SIDEBAR_RIM};shadow=0;",
-        4, page_h - 8, x=X - SIDEBAR_PAD, width=page_w - (X - SIDEBAR_PAD) - 4,
-    )
-    model = model[: root.end()] + "\n    " + backing + model[root.end() :]
     if 'id="minimap-chain"' not in model:
         grid = re.search(r'<mxCell id="minimap-grid".*?</mxCell>', model, re.DOTALL)
         tree = re.search(r'<mxCell id="minimap-tree".*?</mxCell>', model, re.DOTALL)
@@ -137,7 +127,28 @@ def lay_out_sidebar(model, palette, concerns):
     model = model.replace(supports.group(0), re.sub(r'height="[^"]*"', f'height="{height}"', supports.group(0), count=1))
     supports = re.search(r'<mxCell id="supports".*?</mxCell>', model, re.DOTALL)
     top = max(MAPKEY_Y, SIDEBAR["supports"][0] + height + 8)
-    return model[: supports.end()] + "\n    " + map_key(palette, concerns, top) + model[supports.end() :]
+    model = model[: supports.end()] + "\n    " + map_key(palette, concerns, top) + model[supports.end() :]
+    return add_sidebar_backing(model)
+
+
+def add_sidebar_backing(model):
+    """The sidebar backing, from 4 px below the top edge to SIDEBAR_PAD below the sidebar's lowest cell (the raster grows
+    with the content, so the declared page height is only a floor), first after the root cells so it is lowest in z."""
+    page_w = int(re.search(r'pageWidth="(\d+)"', model).group(1))
+    page_h = int(re.search(r'pageHeight="(\d+)"', model).group(1))
+    bottom = page_h
+    for m in re.finditer(r'<mxGeometry x="(-?[\d.]+)" y="(-?[\d.]+)" width="([\d.]+)" height="([\d.]+)"', model):
+        x, y, w, h = (float(v) for v in m.groups())
+        if x >= X - SIDEBAR_PAD:
+            bottom = max(bottom, y + h + SIDEBAR_PAD)
+    root = re.search(r'<mxCell id="1" parent="0"\s*/>', model)
+    if not root:
+        raise SystemExit("the slide has no root cell id=1")
+    backing = cell(
+        "sidebar-bg", "", f"rounded=1;arcSize=2;html=1;fillColor={SIDEBAR_FILL};strokeColor={SIDEBAR_RIM};shadow=0;",
+        4, round(bottom) - 4, x=X - SIDEBAR_PAD, width=page_w - (X - SIDEBAR_PAD) - 4,
+    )
+    return model[: root.end()] + "\n    " + backing + model[root.end() :]
 
 
 def main():

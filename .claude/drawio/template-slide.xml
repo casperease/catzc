@@ -2,7 +2,7 @@
   <root>
     <mxCell id="0" />
     <mxCell id="1" parent="0" />
-    <mxCell id="sidebar-bg" value="" style="rounded=1;arcSize=2;html=1;fillColor=#2A2622;strokeColor=#3E372F;shadow=0;" vertex="1" parent="1"><mxGeometry x="1304" y="4" width="264" height="632" as="geometry" /></mxCell>
+    <mxCell id="sidebar-bg" value="" style="rounded=1;arcSize=2;html=1;fillColor=#2E2823;strokeColor=#453C33;shadow=0;" vertex="1" parent="1"><mxGeometry x="1304" y="4" width="264" height="632" as="geometry" /></mxCell>
     <!-- Demo slide in the dark theme (.claude/drawio/STYLE.md). It shows every glyph kind at once; a real slide uses at most four. -->
     <mxCell id="title" value="Template: a widget is built, checked, and either shipped or rejected" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#DDE2E9;" vertex="1" parent="1">
       <mxGeometry x="20" y="14" width="1260" height="30" as="geometry" />

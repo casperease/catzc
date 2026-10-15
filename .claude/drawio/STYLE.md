@@ -27,18 +27,18 @@ names on a glyph `#DDE2E9`, quiet text `#949FAE`), so a dark-mode and a light-mo
 
 **Dark-theme tokens** (the single source; every value below and in [`glyphs.xml`](glyphs.xml) comes from here):
 
-| Token     | Value                 | Used for                                                               |
-| --------- | --------------------- | ---------------------------------------------------------------------- |
-| page      | `#1E2430`             | the canvas and every rendered output's base layer                      |
-| band      | `#262E3B` / `#3A4555` | band fill / border; band label `#B0BAC7`                               |
-| panel     | `#222A36` / `#3A4555` | legend and outer panels                                                |
-| sidebar   | `#2A2622` / `#3E372F` | the minimap column's backing: a soft brown layer above the page, below it all |
-| ink       | `#CDD3DC`             | text; title and on-glyph names `#DDE2E9`                               |
-| quiet ink | `#949FAE`             | legend text and notes                                                  |
-| line      | `#AAB4C3`             | flow edges and their arrowheads, chip rims, the ADR-only dash          |
-| marker    | `#E6EAF0` / `#1E2430` | marker disc fill / digit and rim (a light disc on the dark page)       |
-| chip      | `#262E3B` / `#AAB4C3` | fraction, rule and count chips: fill / rim; text `#CDD3DC`             |
-| red       | `#8E2424` / `#E57373` | the only red: failure fill / rim and the failure-path edge (`#E57373`) |
+| Token     | Value                 | Used for                                                                      |
+| --------- | --------------------- | ----------------------------------------------------------------------------- |
+| page      | `#1E2430`             | the canvas and every rendered output's base layer                             |
+| band      | `#262E3B` / `#3A4555` | band fill / border; band label `#B0BAC7`                                      |
+| panel     | `#222A36` / `#3A4555` | legend and outer panels                                                       |
+| sidebar   | `#2E2823` / `#453C33` | the minimap column's backing: a soft brown layer above the page, below it all |
+| ink       | `#CDD3DC`             | text; title and on-glyph names `#DDE2E9`                                      |
+| quiet ink | `#949FAE`             | legend text and notes                                                         |
+| line      | `#AAB4C3`             | flow edges and their arrowheads, chip rims, the ADR-only dash                 |
+| marker    | `#E6EAF0` / `#1E2430` | marker disc fill / digit and rim (a light disc on the dark page)              |
+| chip      | `#262E3B` / `#AAB4C3` | fraction, rule and count chips: fill / rim; text `#CDD3DC`                    |
+| red       | `#8E2424` / `#E57373` | the only red: failure fill / rim and the failure-path edge (`#E57373`)        |
 
 ## Ids and words
 
@@ -240,14 +240,13 @@ view adds its sections in `describe.py`'s `VIEWS`.
 
 ### Colours (minimaps only; drawings keep the palettes above)
 
-- A minimap has a **page of its own**, a dark green-grey nuance `#1C2A24`, drawn first, so the three insets read as maps set into the
-  slide and never as a fourth band of the page (`#1E2430`). The lit colour comes from the `palette` of `maps.yml`
-  (`Get-Config -Config maps`), the same as the world-map PDFs: `highlight`, the light ink `#E6EAF0`, which the PDFs use for a lit cell's
-  outline.
+- A minimap has a **page of its own**, a dark green-grey nuance `#1C2A24`, drawn first, so the three insets read as maps set into the slide
+  and never as a fourth band of the page (`#1E2430`). The lit colour comes from the `palette` of `maps.yml` (`Get-Config -Config maps`), the
+  same as the world-map PDFs: `highlight`, the light ink `#E6EAF0`, which the PDFs use for a lit cell's outline.
 - **One lit encoding on all three minimaps:** a lit cell or file is filled in the lit colour; lit by passing mentions only, in the lit
   colour at 40 % over the idle cell. One map-key entry covers both on the grid, the tree and the value-chain map.
-- Idle cells and tiles are `#243229`, with `#3B4D43` borders, the same nuance one step up. Labels are `#CDD3DC` (lit) and `#949FAE`
-  (not lit). The map key on the slide shows its idle swatch in these minimap tokens, not in the slide's band tokens.
+- Idle cells and tiles are `#243229`, with `#3B4D43` borders, the same nuance one step up. Labels are `#CDD3DC` (lit) and `#949FAE` (not
+  lit). The map key on the slide shows its idle swatch in these minimap tokens, not in the slide's band tokens.
 - A lit ADR file tile on the tree has a 1 px rim in the minimap page colour `#1C2A24` (a dark ring on the light tile).
 - The **lens badge** is dark text `#1E2430` on `#E6EAF0`: `META`, `ARCH`, `IMPL`, `OPS` or `GOV`.
 - No hue appears inside a minimap beyond its page's green cast: red stays reserved for failure inside drawings, and yellow for the BVT
@@ -399,9 +398,9 @@ minimap, lit cell, touched cell, lit tile, lens badge**. Write it after reading 
 
 ## Sidebar
 
-The sidebar stands on its own backing, the `sidebar` token: one flat rectangle (`sidebar-bg`, no shadow) from 12 px left of the
-minimaps to the page edge, lowest in the z-order, so the column reads as a region apart from the bands. `join.py` draws it and the
-slide template carries it; the three minimaps, the lens badge, the ADR chips and the map key sit on it.
+The sidebar stands on its own backing, the `sidebar` token: one flat rectangle (`sidebar-bg`, no shadow) from 12 px left of the minimaps to
+the page edge, lowest in the z-order, so the column reads as a region apart from the bands. `join.py` draws it and the slide template
+carries it; the three minimaps, the lens badge, the ADR chips and the map key sit on it.
 
 <The grid minimap's lit and touched cells by name (track × file language), the tree minimap's lit tiles by group label, the value-chain
 minimap's lit cells (value-chain stack × value-chain concern), the lens badge, the map key; the facts come from the slide's sister `.md`
