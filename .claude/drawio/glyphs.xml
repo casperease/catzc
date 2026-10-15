@@ -1,4 +1,4 @@
-<mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="560" background="#1E2430" math="0" shadow="0">
+<mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="560" background="#1E2430" math="0" shadow="1">
   <root>
     <mxCell id="0" />
     <mxCell id="1" parent="0" />
@@ -62,7 +62,7 @@
     <mxCell id="p-flow-b" value="" style="text;html=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
       <mxGeometry x="110" y="322" width="1" height="1" as="geometry" />
     </mxCell>
-    <mxCell id="e-flow" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#AAB4C3;" edge="1" parent="1" source="p-flow-a" target="p-flow-b">
+    <mxCell id="e-flow" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#AAB4C3;shadow=0;" edge="1" parent="1" source="p-flow-a" target="p-flow-b">
       <mxGeometry relative="1" as="geometry" />
     </mxCell>
     <mxCell id="e-flow-text" value="flow (one meaning per slide)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
@@ -74,7 +74,7 @@
     <mxCell id="p-thick-b" value="" style="text;html=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
       <mxGeometry x="400" y="322" width="1" height="1" as="geometry" />
     </mxCell>
-    <mxCell id="e-thick" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#AAB4C3;strokeWidth=2.5;" edge="1" parent="1" source="p-thick-a" target="p-thick-b">
+    <mxCell id="e-thick" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#AAB4C3;strokeWidth=2.5;shadow=0;" edge="1" parent="1" source="p-thick-a" target="p-thick-b">
       <mxGeometry relative="1" as="geometry" />
     </mxCell>
     <mxCell id="e-thick-text" value="to a named set" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
@@ -86,7 +86,7 @@
     <mxCell id="p-adr-b" value="" style="text;html=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
       <mxGeometry x="650" y="322" width="1" height="1" as="geometry" />
     </mxCell>
-    <mxCell id="e-adr" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#AAB4C3;dashed=1;" edge="1" parent="1" source="p-adr-a" target="p-adr-b">
+    <mxCell id="e-adr" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#AAB4C3;dashed=1;shadow=0;" edge="1" parent="1" source="p-adr-a" target="p-adr-b">
       <mxGeometry relative="1" as="geometry" />
     </mxCell>
     <mxCell id="e-adr-text" value="ADR-only (no code)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
@@ -98,7 +98,7 @@
     <mxCell id="p-fail-b" value="" style="text;html=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
       <mxGeometry x="900" y="322" width="1" height="1" as="geometry" />
     </mxCell>
-    <mxCell id="e-fail" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#E57373;" edge="1" parent="1" source="p-fail-a" target="p-fail-b">
+    <mxCell id="e-fail" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#E57373;shadow=0;" edge="1" parent="1" source="p-fail-a" target="p-fail-b">
       <mxGeometry relative="1" as="geometry" />
     </mxCell>
     <mxCell id="e-fail-text" value="failure path" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
@@ -122,7 +122,7 @@
     <mxCell id="m-rule-text" value="rule chip" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#949FAE;" vertex="1" parent="1">
       <mxGeometry x="620" y="369" width="150" height="20" as="geometry" />
     </mxCell>
-    <mxCell id="span-line" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fillColor=none;strokeColor=#AAB4C3;strokeWidth=1.5;" vertex="1" parent="1">
+    <mxCell id="span-line" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;fillColor=none;strokeColor=#AAB4C3;strokeWidth=1.5;shadow=0;" vertex="1" parent="1">
       <mxGeometry x="830" y="372" width="120" height="14" as="geometry" />
     </mxCell>
     <mxCell id="span-label" value="CI" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#B0BAC7;labelBackgroundColor=#262E3B;" vertex="1" parent="1">

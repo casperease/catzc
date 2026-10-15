@@ -73,10 +73,10 @@ class Context:
 
 
 def concern_code(concern):
-    """The value-chain map's short column label, in capitals like its row codes: the initials of a hyphenated concern
-    (quality-control -> QC), else its first six letters (automation -> AUTOMA)."""
+    """The value-chain map's column label, in capitals like its row codes: the initials of a hyphenated concern
+    (quality-control -> QC), else the whole concern (release -> RELEASE); never a truncated word."""
     parts = concern.split("-")
-    return "".join(p[0] for p in parts).upper() if len(parts) > 1 else concern[:6].upper()
+    return "".join(p[0] for p in parts).upper() if len(parts) > 1 else concern.upper()
 
 
 class Links:

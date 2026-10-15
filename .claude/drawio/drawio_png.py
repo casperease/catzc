@@ -18,12 +18,68 @@ import zlib
 from pathlib import Path
 from urllib.parse import quote, unquote
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 from PIL.PngImagePlugin import PngInfo
 
 BACKGROUND = "#1E2430"  # the dark page every rendered output sits on (.claude/drawio/STYLE.md, dark-theme tokens)
 INK = "#CDD3DC"  # text that sets no fontColor: light grey on the dark page
 LINE = "#AAB4C3"  # an edge or outline that sets no strokeColor: quiet ink
+SHADOW = (0, 0, 0, 77)  # the one shadow every filled shape casts (STYLE.md, Canvas): black at 30 %
+SHADOW_OFFSET = (2, 3)  # 2 px right, 3 px down
+SHADOW_BLUR = 2
+
+
+def drop_shadow(img, box, painter, pad=8):
+    """Paint the kit's shadow of one shape onto `img` (RGBA) just before the shape itself: `painter(draw, box, colour)`
+    draws the shape's silhouette, which is offset, blurred and composited so it fades into the dark page."""
+    x0, y0, x1, y1 = box
+    w, h = int(x1 - x0) + 2 * pad, int(y1 - y0) + 2 * pad
+    layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    painter(ImageDraw.Draw(layer), (pad, pad, pad + (x1 - x0), pad + (y1 - y0)), SHADOW)
+    layer = layer.filter(ImageFilter.GaussianBlur(SHADOW_BLUR))
+    left, top = int(x0) - pad + SHADOW_OFFSET[0], int(y0) - pad + SHADOW_OFFSET[1]
+    crop = (max(0, -left), max(0, -top), min(w, img.width - left), min(h, img.height - top))
+    if crop[2] <= crop[0] or crop[3] <= crop[1]:
+        return
+    img.alpha_composite(layer.crop(crop), (max(0, left), max(0, top)))
+
+
+def paint_shape(d, s, box, w, h, fill, stroke, sw, dashed):
+    """Draw one vertex's shape by its draw.io style: the glyph shapes of STYLE.md, in the given fill and stroke."""
+    x0, y0, x1, y1 = box
+    if dashed and not any(k in s for k in ("ellipse", "rhombus")) and s.get("shape") != "hexagon":
+        d.rounded_rectangle([x0, y0, x1, y1], radius=8 if s.get("rounded") == "1" else 0, fill=fill)
+        if stroke:
+            dashed_line(d, [(x0, y0), (x1, y0), (x1, y1), (x0, y1), (x0, y0)], stroke, max(1, sw))
+    elif s.get("shape") == "hexagon":
+        pts = [(x0 + w * .25, y0), (x1 - w * .25, y0), (x1, (y0 + y1) / 2), (x1 - w * .25, y1), (x0 + w * .25, y1), (x0, (y0 + y1) / 2)]
+        d.polygon(pts, fill=fill, outline=stroke, width=sw)
+    elif "ellipse" in s:
+        d.ellipse([x0, y0, x1, y1], fill=fill, outline=stroke, width=sw)
+    elif "rhombus" in s:
+        d.polygon([((x0 + x1) / 2, y0), (x1, (y0 + y1) / 2), ((x0 + x1) / 2, y1), (x0, (y0 + y1) / 2)], fill=fill, outline=stroke, width=sw)
+    elif s.get("shape") == "cylinder3":  # a store: body, then the top ellipse drawn over it
+        lid = min(h * .3, float(s.get("size", 10)) * 2)
+        d.rectangle([x0, y0 + lid / 2, x1, y1 - lid / 2], fill=fill)
+        d.ellipse([x0, y1 - lid, x1, y1], fill=fill, outline=stroke, width=sw)
+        d.rectangle([x0 + sw, y0 + lid / 2, x1 - sw, y1 - lid / 2], fill=fill)
+        d.line([(x0, y0 + lid / 2), (x0, y1 - lid / 2)], fill=stroke, width=sw)
+        d.line([(x1, y0 + lid / 2), (x1, y1 - lid / 2)], fill=stroke, width=sw)
+        d.ellipse([x0, y0, x1, y0 + lid], fill=fill, outline=stroke, width=sw)
+    elif s.get("shape") == "crossbar":  # a span bar: a horizontal line with an end tick on each side
+        ym = (y0 + y1) / 2
+        ink = stroke or LINE
+        d.line([(x0, ym), (x1, ym)], fill=ink, width=max(1, sw))
+        d.line([(x0, y0), (x0, y1)], fill=ink, width=max(1, sw))
+        d.line([(x1, y0), (x1, y1)], fill=ink, width=max(1, sw))
+    elif s.get("shape") == "note":  # a file: a page with a folded top-right corner
+        k = min(float(s.get("size", 14)), w / 3, h / 3)
+        d.polygon([(x0, y0), (x1 - k, y0), (x1, y0 + k), (x1, y1), (x0, y1)], fill=fill, outline=stroke, width=sw)
+        d.line([(x1 - k, y0), (x1 - k, y0 + k), (x1, y0 + k)], fill=stroke, width=sw)
+    else:
+        pill = s.get("rounded") == "1" and float(s.get("arcSize", 0)) >= 50
+        r = min(w, h) / 2 if pill else (8 if s.get("rounded") == "1" else 0)
+        d.rounded_rectangle([x0, y0, x1, y1], radius=r, fill=fill, outline=stroke, width=sw)
 
 
 def style_map(style):
@@ -129,7 +185,7 @@ def render(root):
     # shows the same page. A model's own background wins only when it is a real colour, not white or the retired light page.
     model_bg = color(root.get("background"), BACKGROUND)
     bg = BACKGROUND if model_bg.lower() in ("#ffffff", "#fff", "#e6ecf2") else model_bg
-    img = Image.new("RGB", (int(maxx - minx), int(maxy - miny)), bg)
+    img = Image.new("RGBA", (int(maxx - minx), int(maxy - miny)), bg)  # RGBA so each shadow composites onto what is under it
     d = ImageDraw.Draw(img)
     off = lambda x, y: (x - minx, y - miny)
 
@@ -143,42 +199,12 @@ def render(root):
         fill = None if is_text else faded(color(s.get("fillColor"), None), s)
         stroke = None if s.get("strokeColor") == "none" or is_text else faded(color(s.get("strokeColor"), LINE), s)
         dashed = s.get("dashed") == "1"
-        if (fill or stroke) and dashed and not any(k in s for k in ("ellipse", "rhombus")) and s.get("shape") != "hexagon":
-            sw = max(1, int(float(s.get("strokeWidth", 1))))
-            d.rounded_rectangle([x0, y0, x1, y1], radius=8 if s.get("rounded") == "1" else 0, fill=fill)
-            if stroke:
-                dashed_line(d, [(x0, y0), (x1, y0), (x1, y1), (x0, y1), (x0, y0)], stroke, sw)
-        elif fill or stroke:
+        if fill or stroke:
             sw = int(float(s.get("strokeWidth", 1)))
-            if s.get("shape") == "hexagon":
-                pts = [(x0 + w * .25, y0), (x1 - w * .25, y0), (x1, (y0 + y1) / 2), (x1 - w * .25, y1), (x0 + w * .25, y1), (x0, (y0 + y1) / 2)]
-                d.polygon(pts, fill=fill, outline=stroke, width=sw)
-            elif "ellipse" in s:
-                d.ellipse([x0, y0, x1, y1], fill=fill, outline=stroke, width=sw)
-            elif "rhombus" in s:
-                d.polygon([((x0 + x1) / 2, y0), (x1, (y0 + y1) / 2), ((x0 + x1) / 2, y1), (x0, (y0 + y1) / 2)], fill=fill, outline=stroke, width=sw)
-            elif s.get("shape") == "cylinder3":  # a store: body, then the top ellipse drawn over it
-                lid = min(h * .3, float(s.get("size", 10)) * 2)
-                d.rectangle([x0, y0 + lid / 2, x1, y1 - lid / 2], fill=fill)
-                d.ellipse([x0, y1 - lid, x1, y1], fill=fill, outline=stroke, width=sw)
-                d.rectangle([x0 + sw, y0 + lid / 2, x1 - sw, y1 - lid / 2], fill=fill)
-                d.line([(x0, y0 + lid / 2), (x0, y1 - lid / 2)], fill=stroke, width=sw)
-                d.line([(x1, y0 + lid / 2), (x1, y1 - lid / 2)], fill=stroke, width=sw)
-                d.ellipse([x0, y0, x1, y0 + lid], fill=fill, outline=stroke, width=sw)
-            elif s.get("shape") == "crossbar":  # a span bar: a horizontal line with an end tick on each side
-                ym = (y0 + y1) / 2
-                ink = stroke or LINE
-                d.line([(x0, ym), (x1, ym)], fill=ink, width=max(1, sw))
-                d.line([(x0, y0), (x0, y1)], fill=ink, width=max(1, sw))
-                d.line([(x1, y0), (x1, y1)], fill=ink, width=max(1, sw))
-            elif s.get("shape") == "note":  # a file: a page with a folded top-right corner
-                k = min(float(s.get("size", 14)), w / 3, h / 3)
-                d.polygon([(x0, y0), (x1 - k, y0), (x1, y0 + k), (x1, y1), (x0, y1)], fill=fill, outline=stroke, width=sw)
-                d.line([(x1 - k, y0), (x1 - k, y0 + k), (x1, y0 + k)], fill=stroke, width=sw)
-            else:
-                pill = s.get("rounded") == "1" and float(s.get("arcSize", 0)) >= 50
-                r = min(w, h) / 2 if pill else (8 if s.get("rounded") == "1" else 0)
-                d.rounded_rectangle([x0, y0, x1, y1], radius=r, fill=fill, outline=stroke, width=sw)
+            box = (x0, y0, x1, y1)
+            if fill and s.get("shadow") != "0":  # a filled shape casts the kit's shadow; a bare line (span bar) does not
+                drop_shadow(img, box, lambda dd, b, c: paint_shape(dd, s, b, w, h, c, c if stroke else None, sw, dashed))
+            paint_shape(d, s, box, w, h, fill, stroke, sw, dashed)
         uri = s.get("image", "")
         if s.get("shape") == "image" and uri.startswith("data:image/png,"):
             import io
@@ -256,7 +282,7 @@ def main():
     dup = {i for i in ids if ids.count(i) > 1}
     if dup:
         raise SystemExit(f"duplicate cell ids: {sorted(dup)}")
-    img = render(root)
+    img = render(root).convert("RGB")
     info = PngInfo()
     info.add_text("mxfile", encode(model, name))
     img.save(dst, "PNG", pnginfo=info)
