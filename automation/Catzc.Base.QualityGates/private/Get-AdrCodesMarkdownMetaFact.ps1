@@ -29,7 +29,7 @@ function Get-AdrCodesMarkdownMetaFact {
     )
 
     $codes = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($match in [regex]::Matches($State.Body,'(?<![\w-])ADR-[A-Z]+(?:-[A-Z]+)*#\d+')) {
+    foreach ($match in [regex]::Matches($State.Body, '(?<![\w-])ADR-[A-Z]+(?:-[A-Z]+)*#\d+')) {
         [void] $codes.Add($match.Value)
     }
     [ordered]@{ $Kind.keys[0] = [string[]] @($codes) }

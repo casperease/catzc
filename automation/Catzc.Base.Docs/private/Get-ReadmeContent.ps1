@@ -23,7 +23,7 @@ function Get-ReadmeContent {
     Assert-PathExist $sourcePath -PathType Leaf
     # The copy carries the article, not the source's meta block, so it opens with its title as a reader expects.
     $text = Remove-MarkdownFrontMatter -Text ([System.IO.File]::ReadAllText($sourcePath) -replace "`r", '')
-    $body =[Catzc.Base.Docs.MarkdownLinkRebaser]::Rebase($text, $Mapping.source, $Mapping.folder)
+    $body = [Catzc.Base.Docs.MarkdownLinkRebaser]::Rebase($text, $Mapping.source, $Mapping.folder)
 
     $sourceLink = [Catzc.Base.Docs.MarkdownLinkRebaser]::RelativeLink($Mapping.folder, $Mapping.source)
     $banner = "> Generated from [$($Mapping.source)]($sourceLink) — edit the source; this copy is rewritten on every import."
