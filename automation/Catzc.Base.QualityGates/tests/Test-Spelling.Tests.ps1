@@ -50,6 +50,16 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         (Get-Content (Join-Path $result.ReportPath 'spelling.md') -Raw) | Should -Match 'b\.ps1:2:3 - Unknown word \(bar\)'
     }
 
+    It 'checks a long path list in batches, one cspell call each, and merges their issues' -Tag 'ADR-AUTO-TEST#35' {
+        $script:cspellExit = 1
+        $script:cspellOut = "widget.md:1:1 - Unknown word (foo)`nCSpell: Files checked: 50, Issues found: 1 in 1 files."
+        $paths = 1..120 | ForEach-Object { "gadget-$_.md" }
+        $result = Test-Spelling -Path $paths -OutputFolder $script:reportBase -PassThru
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 3 -Exactly
+        $result.IssueCount | Should -Be 3
+        $result.ExitCode | Should -Be 1
+    }
+
     It 'never passes a failing cspell run whose output it cannot parse' {
         $script:cspellExit = 1
         $script:cspellOut = 'CSpell: Files checked: 3, something new happened'

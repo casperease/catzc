@@ -72,6 +72,12 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'lints a long path list in batches, each batch carrying every exclusion' {
+        $paths = @(1..120 | ForEach-Object { "gadget-$_.md" }) + '!widget'
+        Test-Markdownlint -Path $paths -OutputFolder $script:reportBase | Out-Null
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 3 -Exactly -ParameterFilter { $Command -match "'!widget'" }
+    }
+
     It 'excludes the out-of-scope trees via negation globs by default' {
         Test-Markdownlint -OutputFolder $script:reportBase | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
