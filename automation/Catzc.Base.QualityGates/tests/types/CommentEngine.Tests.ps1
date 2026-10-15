@@ -1,3 +1,4 @@
+# cspell:ignore nwidgets npublic nvar nwidget ngadget  -- escape-sequence artifacts in the "`n…" fixture strings
 # CommentEngine moves a file's long comments to its comment page and back, losslessly
 # ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)): what moves is decided by
 # comments.yml ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)). Each case
@@ -49,7 +50,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $blocks[1].NextCodeLine | Should -BeLike '$widgets = Get-Gadget*'
     }
 
-    It 'leaves one insight line and one citation-and-link line per moved block' -Tag 'ADR-PRIN-ONELIVE#1' {
+    It 'leaves one insight line and one citation-and-link line per moved block' -Tag 'ADR-REPO-COMMENTS#2' {
         $result = & $export $helpSource
         $result.MovedCount | Should -Be 2
         $lines = $result.Text -split "`n"
@@ -65,7 +66,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $result.PageText.Contains("`n`nA missing widget is created.`n" + '```') | Should -BeTrue -Because 'the blank line inside the comment is kept'
     }
 
-    It 'round-trips: the view of the exported file is the original, byte for byte' -Tag 'ADR-PRIN-ONELIVE#1' {
+    It 'round-trips: the view of the exported file is the original, byte for byte' -Tag 'ADR-REPO-COMMENTS#2' {
         $result = & $export $helpSource
         [Catzc.Base.QualityGates.CommentEngine]::View($result.Text, '.ps1', $result.PageText) | Should -BeExactly $helpSource
     }
@@ -77,7 +78,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $second.MovedCount | Should -Be 0
     }
 
-    It 'numbers a new comment after the page''s highest section and keeps the existing sections as written' -Tag 'ADR-PRIN-ONELIVE#1' {
+    It 'numbers a new comment after the page''s highest section and keeps the existing sections as written' -Tag 'ADR-REPO-COMMENTS#2' {
         $first = & $export $helpSource
         $edited = $first.PageText -replace 'A missing widget is created.', 'A missing widget is created on demand.'
         $grown = $first.Text -replace '    # One line stays.', "    # A new gadget note`n    # that spans two lines."
@@ -88,7 +89,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         [Catzc.Base.QualityGates.CommentEngine]::View($second.Text, '.ps1', $second.PageText).Contains('created on demand.') | Should -BeTrue
     }
 
-    It 'finds every residue with its number, page and insight' -Tag 'ADR-PRIN-ONELIVE#1' {
+    It 'finds every residue with its number, page and insight' -Tag 'ADR-REPO-COMMENTS#2' {
         $result = & $export $helpSource
         $residues = [Catzc.Base.QualityGates.CommentEngine]::FindResidues($result.Text, '.ps1')
         $residues.Count | Should -Be 2
@@ -103,7 +104,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         [Catzc.Base.QualityGates.CommentEngine]::SectionLines($result.PageText, 9).Count | Should -Be 0
     }
 
-    It 'round-trips a YAML header, a CRLF file, and a C# line run with its own marker' -Tag 'ADR-PRIN-ONELIVE#1' {
+    It 'round-trips a YAML header, a CRLF file, and a C# line run with its own marker' -Tag 'ADR-REPO-COMMENTS#2' {
         $yaml = "# The gadget registry: one entry per widget,`r`n# read once per run.`r`nwidgets:`r`n  - gadget   # inline stays`r`n"
         $yamlResult = & $export $yaml '.yml' 'yaml'
         $yamlResult.MovedCount | Should -Be 1
@@ -116,7 +117,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         [Catzc.Base.QualityGates.CommentEngine]::View($csResult.Text, '.cs', $csResult.PageText) | Should -BeExactly $csharp
     }
 
-    It 'moves a delimited block that is not help, with its residue in the family line marker' -Tag 'ADR-PRIN-ONELIVE#1' {
+    It 'moves a delimited block that is not help, with its residue in the family line marker' -Tag 'ADR-REPO-COMMENTS#2' {
         $source = "/*`n  Widget layout: gadgets first,`n  then the rest.`n*/`nvar widget = 1;`n"
         $result = & $export $source '.cs' 'csharp'
         $result.MovedCount | Should -Be 1
@@ -126,7 +127,9 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
     It 'cuts the provisional insight at a word to fit and collects each citation once' -Tag 'ADR-PRIN-CONFIG#1' {
         [Catzc.Base.QualityGates.CommentEngine]::Insight('First widget sentence. Second.', 120) | Should -Be 'First widget sentence.'
         [Catzc.Base.QualityGates.CommentEngine]::Insight('widget gadget widget gadget', 16) | Should -Be 'widget gadget...'
-        [Catzc.Base.QualityGates.CommentEngine]::Citations('ADR-WIDGET:2, ADR-WIDGET#2 and ADR-GADGET') | Should -Be @('ADR-WIDGET#2', 'ADR-GADGET')
+        # The ':' spelling is built, not written, so the string-citation check does not respell the input under test.
+        $colonForm = 'ADR-WIDGET' + ':2'
+        [Catzc.Base.QualityGates.CommentEngine]::Citations("$colonForm, ADR-WIDGET#2 and ADR-GADGET") | Should -Be @('ADR-WIDGET#2', 'ADR-GADGET')
         [Catzc.Base.QualityGates.CommentEngine]::IsMechanical('ADR-WIDGET#2 [comment:1](/docs/x.md#comment1)') | Should -BeTrue
         [Catzc.Base.QualityGates.CommentEngine]::IsMechanical('Sorted so the widget order is stable') | Should -BeFalse
     }

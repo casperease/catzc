@@ -74,7 +74,9 @@ output, not source: it is never committed, never edited, and regenerated from th
 ### Rule ADR-REPO-OUTDIR:10
 
 The plan files `out/plan-*.md` are authored working notes, not output: the whitelisted clean (`Reset-GitCleanFxd`,
-`importer.ps1 -cleanClone`) keeps and reports them instead of deleting them. They stay gitignored and uncommitted like the rest of `out/`.
+`importer.ps1 -cleanClone`) keeps and reports them instead of deleting them. They stay gitignored and uncommitted like the rest of `out/`. A
+**workstream** is one labeled section of such a plan's work breakdown — its own `### W<n>:` heading, order, and gate — that lands as one
+change, never half-landed (ADR-PRIN-ONELIVE).
 
 - [Plan files](#plan-files)
 
@@ -144,6 +146,9 @@ never overwrite each other.
 A plan is the one thing under `out/` a human writes rather than a function: a reviewable `plan-<topic>.md` that lives beside the output it
 plans, gitignored so it never reaches a commit. Unlike output it cannot be regenerated, so the whitelisted clean excludes it — a clean-clone
 resets every generated artifact and leaves the plans in place, reported like any other untracked file it refused to touch.
+
+A plan's work breaks into workstreams — `### W<n>: <name>` sections such as W0, W1, W2 — each with its own order and gate. A workstream
+lands whole: it is never committed half-done, and its citation never aliases an older label (ADR-PRIN-ONELIVE).
 
 ## Consequences
 

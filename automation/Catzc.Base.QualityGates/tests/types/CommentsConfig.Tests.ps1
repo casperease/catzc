@@ -15,7 +15,7 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.IsObvious('This function returns a widget') | Should -BeTrue
     }
 
-    It 'maps a file to its comment page: the extension stays, the module folder is kebab-cased' -Tag 'ADR-PRIN-ONELIVE#1' {
+    It 'maps a file to its comment page: the extension stays, the module folder is kebab-cased' -Tag 'ADR-REPO-COMMENTS#3' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})
         $config.PageFor('automation/Catzc.Widget.Gadgets/private/Get-Gadget.ps1') |
             Should -Be 'docs/references/automation/catzc-widget-gadgets/private/Get-Gadget.ps1.md'
@@ -25,7 +25,7 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.PageFor('.claude/hooks/Gadget/Program.cs') | Should -Be 'docs/references/automation/claude-hooks/Gadget/Program.cs.md'
     }
 
-    It 'maps no page for a file outside every source, a dot-prefixed module folder, or a file directly in the prefix' -Tag 'ADR-PRIN-ONELIVE#1' {
+    It 'maps no page for a file outside every source, a dot-prefixed module folder, or a file directly in the prefix' -Tag 'ADR-REPO-COMMENTS#3' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})
         $config.PageFor('docs/adr/index.md') | Should -BeNullOrEmpty
         $config.PageFor('automation/.vendor/Gadget/Gadget.psm1') | Should -BeNullOrEmpty

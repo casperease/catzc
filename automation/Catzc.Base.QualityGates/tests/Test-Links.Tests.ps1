@@ -51,6 +51,24 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
         $unfixable[0] | Should -Match '\[Dangling\]'
     }
 
+    It 'passes a docs link to its page''s own section, and reports one to a missing page or the wrong anchor' -Tag 'ADR-REPO-LINK#9' {
+        & $writeFile $root 'docs/references/widget/widget.ps1.md' "# docs/references/widget/widget.ps1.md`n`n## comment:1`n`n``````text`nWidget prose.`n```````n"
+        & $writeFile $root 'src/widget.ps1' "# Widget order is stable.`n# [comment:1](/docs/references/widget/widget.ps1.md#comment1)`n"
+        (Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru).IssueCount | Should -Be 0
+
+        & $writeFile $root 'src/gadget.ps1' ((@(
+                    '# [comment:2](/docs/references/widget/widget.ps1.md#comment1)'
+                    '# [comment:1](/docs/references/widget/gadget.ps1.md#comment1)'
+                    '# [comment:1](docs/references/widget/widget.ps1.md#comment1)'
+                ) -join "`n") + "`n")
+        $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src/gadget.ps1') -OutputFolder $reportBase -PassThru
+        $result.IssueCount | Should -Be 3
+        $result.FixableCount | Should -Be 0
+        ($result.Issues -join "`n") | Should -BeLike '*BadAnchor*comment:2 needs the anchor #comment2*'
+        ($result.Issues -join "`n") | Should -BeLike '*Dangling*gadget.ps1.md, which does not exist*'
+        ($result.Issues -join "`n") | Should -BeLike '*Dangling*repository-rooted page under /docs/*'
+    }
+
     It 'does not fail on an overlong line it can only report' -Tag 'ADR-REPO-LINK#8' {
         Mock Get-Config -ParameterFilter { $Config -eq 'links' } -ModuleName Catzc.Base.QualityGates -MockWith {
             [Catzc.Base.QualityGates.LinksConfig]::new(@{ line_limit = @{ '.ps1' = 30 } })

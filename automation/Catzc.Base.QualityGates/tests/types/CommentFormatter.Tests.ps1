@@ -1,0 +1,111 @@
+# CommentFormatter keeps a comment residue in its one-liner shape — one insight line, then the citations and the docs
+# link ([ADR-REPO-COMMENTS#5](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5),
+# [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)) — fixing what is
+# mechanical and reporting what needs a person, by comments.yml's rules
+# ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)). Each case runs the
+# formatter over a short widget/gadget snippet with a line limit of 80.
+Describe 'CommentFormatter' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{})
+        $script:page = 'docs/references/automation/catzc-widget/Get-Widget.ps1.md'
+        $script:link = "[comment:1](/$page#comment1)"
+        $script:format = {
+            param([string] $Text, [string] $PageText = $null, [string] $Extension = '.ps1', [string] $Language = 'powershell')
+            [Catzc.Base.QualityGates.CommentFormatter]::Format($Text, $Extension, $Language, 'automation/Catzc.Widget/Get-Widget.ps1',
+                $PageText, $script:config, 80)
+        }
+        $script:snippet = {
+            param([string[]] $Residue)
+            (@('function Get-Widget {') + @($Residue | ForEach-Object { "    # $_" }) + @('    Get-Gadget', '}', '')) -join "`n"
+        }
+        $script:pageText = @(
+            "# $page"
+            ''
+            '## comment:1'
+            ''
+            'Above `Get-Gadget`.'
+            ''
+            '```text'
+            'Sorted first, so the gadget order is stable'
+            'across runs. The cache key never changes.'
+            '```'
+            ''
+        ) -join "`n"
+    }
+
+    It 'leaves a residue in shape alone' -Tag 'ADR-AUTO-IDEM#1' {
+        $result = & $format (& $snippet 'Sorted first, so the gadget order is stable.', $link)
+        $result.Changed | Should -BeFalse
+        $result.Findings.Count | Should -Be 0
+        "$result" | Should -Be 'automation/Catzc.Widget/Get-Widget.ps1: 0 fixed, 0 need a person'
+    }
+
+    It 'cuts an overlong insight at a word, and a second run changes nothing' -Tag 'ADR-REPO-COMMENTS#5', 'ADR-AUTO-IDEM#1' {
+        $long = 'Sorted first so the gadget order is stable across every run and the cache key of the widget never changes'
+        $result = & $format (& $snippet $long, $link)
+        $result.Changed | Should -BeTrue
+        $result.Findings.Count | Should -Be 1
+        $result.Findings[0].Kind | Should -Be ([Catzc.Base.QualityGates.CommentFindingKind]::Overlong)
+        $result.Findings[0].Line | Should -Be 2
+        $result.Findings[0].IsFixable | Should -BeTrue
+        $lines = $result.Text -split "`n"
+        $lines[1].Length | Should -BeLessOrEqual 80
+        $lines[1] | Should -BeLike '    # Sorted first so the gadget order*...'
+        $lines[2] | Should -Be "    # $link"
+        (& $format $result.Text).Changed | Should -BeFalse
+    }
+
+    It 'drops a link from the insight line and moves its citation to the docs-link line' -Tag 'ADR-REPO-COMMENTS#5' {
+        $insight = 'Sorted first (ADR-WIDGET#2, [docs](/docs/w.md)), so the order is stable.'
+        $result = & $format (& $snippet $insight, "ADR-GADGET#1 $link")
+        $result.Findings.Count | Should -Be 1
+        $result.Findings[0].Kind | Should -Be ([Catzc.Base.QualityGates.CommentFindingKind]::LinkInInsight)
+        $lines = $result.Text -split "`n"
+        $lines[1] | Should -Be '    # Sorted first, so the order is stable.'
+        $lines[2] | Should -Be "    # ADR-GADGET#1, ADR-WIDGET#2 $link"
+    }
+
+    It 'gives a residue without an insight line the first sentence of its own section' -Tag 'ADR-PRIN-ONELIVE#1' {
+        $result = & $format (& $snippet $link) $pageText
+        $result.Findings.Count | Should -Be 1
+        $result.Findings[0].Kind | Should -Be ([Catzc.Base.QualityGates.CommentFindingKind]::Empty)
+        $lines = $result.Text -split "`n"
+        $lines[1] | Should -Be '    # Sorted first, so the gadget order is stable across runs.'
+        $lines[2] | Should -Be "    # $link"
+        $lines[3] | Should -Be '    Get-Gadget'
+    }
+
+    It 'reports an obvious insight, prose on the link line, a missing section and a long comment, and changes nothing' -Tag 'ADR-REPO-COMMENTS#5', 'ADR-PRIN-CONFIG#1' {
+        $text = (@(
+                'function Get-Widget {'
+                '    # This function sorts the widgets.'
+                "    # $link and a note"
+                '    Get-Gadget'
+                "    # [comment:2](/$page#comment2)"
+                '    $widgets'
+                '    # A gadget comment that still'
+                '    # spans two lines.'
+                '    $gadgets'
+                '}'
+                ''
+            ) -join "`n")
+        $result = & $format $text $pageText
+        $result.Changed | Should -BeFalse
+        @($result.Findings | ForEach-Object { "$($_.Kind)" }) | Should -Be @('Obvious', 'ProseOnLinkLine', 'MissingSection', 'LongComment')
+        @($result.Findings | ForEach-Object Line) | Should -Be @(2, 3, 5, 7)
+        $result.Findings | ForEach-Object { $_.IsFixable | Should -BeFalse }
+        "$($result.Findings[3])" | Should -Match '^automation/Catzc\.Widget/Get-Widget\.ps1:7 \[LongComment\] .*run Export-Comments$'
+        $result.UnfixableCount | Should -Be 4
+    }
+
+    It 'keeps a CRLF file''s line endings and the untouched lines byte for byte' -Tag 'ADR-PRIN-ONELIVE#1' {
+        $long = 'Sorted first so the gadget order is stable across every run and the cache key of the widget never changes'
+        $crlf = "`r`n"
+        $text = @('# The gadget registry.', 'widgets:', "  # $long", "  # $link", '  - gadget', '') -join $crlf
+        $result = & $format $text $null '.yml' 'yaml'
+        $result.Changed | Should -BeTrue
+        $expected = @('# The gadget registry.', 'widgets:', '  # Sorted first so the gadget order*...', "  # $([WildcardPattern]::Escape($link))", '  - gadget', '') -join $crlf
+        $result.Text | Should -BeLike $expected
+        $result.Text.Contains("`n`n") | Should -BeFalse
+    }
+}

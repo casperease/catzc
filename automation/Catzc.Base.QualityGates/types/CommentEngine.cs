@@ -1,3 +1,4 @@
+// cspell:ignore EXTERNALHELP FORWARDHELPTARGETNAME FORWARDHELPCATEGORY REMOTEHELPRUNSPACE  -- PowerShell help keywords
 // The comment engine behind Export-Comments, Build-CommentView, Format-Comments and Test-Comments: pure functions
 // over a file's text, so the move and its inverse can be proved on fixtures. A file carries one residue per long
 // comment — an insight line, then a line with the block's ADR citations and the docs link

@@ -1,0 +1,21 @@
+// What CommentFormatter found at one residue of a file, or at one comment that still lives there. A residue is the
+// one living copy of a comment's insight: one line that says what the code does not, then a line with its ADR
+// citations and the docs link ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)).
+// The fixable kinds are rewritten by Format-Comments and reported by Test-Comments until they are; the rest cannot
+// be fixed mechanically and need a person, or Export-Comments.
+
+namespace Catzc.Base.QualityGates;
+
+public enum CommentFindingKind
+{
+    // Fixable.
+    Empty,          // no insight line above the docs link: the provisional one is cut from the comment's own section
+    LinkInInsight,  // the insight line carries a link or a citation: links go, citations move to the docs-link line
+    Overlong,       // the insight line is over the file's line limit: cut at a word, first sentence only
+
+    // Not fixable.
+    Obvious,        // the insight line starts with one of comments.yml's obvious phrases: a person writes the insight
+    ProseOnLinkLine, // the docs-link line carries more than citations, links and separators
+    MissingSection, // no insight line, and the page holds no section for the residue to cut one from
+    LongComment,    // a comment that Export-Comments would move still lives in the file
+}

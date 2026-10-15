@@ -36,7 +36,7 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
     }
 
-    It 'reports a long comment still in the file, then passes once it is exported' -Tag 'ADR-PRIN-ONELIVE#1' {
+    It 'reports a long comment still in the file, then passes once it is exported' -Tag 'ADR-REPO-COMMENTS#5' {
         $root = & $newRepository
         $before = & $check $root
         $before.IssueCount | Should -Be 1
@@ -47,7 +47,7 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
         $after.ResidueCount | Should -Be 1
     }
 
-    It 'reports a residue whose section is missing and a section no residue links' -Tag 'ADR-PRIN-ONELIVE#1' {
+    It 'reports a residue whose section is missing and a section no residue links' -Tag 'ADR-REPO-COMMENTS#5' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
         $page = & $readFile $root $pageRelative
@@ -55,15 +55,15 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
         $report = & $check $root
         $report.IssueCount | Should -Be 2
         ($report.Issues -join "`n") | Should -BeLike "*comment:1 has no section in $pageRelative*"
-        ($report.Issues -join "`n") | Should -BeLike "*section comment:7 is linked by no residue*"
+        ($report.Issues -join "`n") | Should -BeLike '*section comment:7 is linked by no residue*'
     }
 
-    It 'reports a residue that links another file''s page and a number used twice' -Tag 'ADR-PRIN-ONELIVE#1' {
+    It 'reports a residue that links another file''s page and a number used twice' -Tag 'ADR-REPO-COMMENTS#5' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
         $text = & $readFile $root $file
         $residue = "    # [comment:1](/$pageRelative#comment1)"
-        $foreign = "    # [comment:2](/docs/references/automation/catzc-widget/Get-Gadget.ps1.md#comment2)"
+        $foreign = '    # [comment:2](/docs/references/automation/catzc-widget/Get-Gadget.ps1.md#comment2)'
         & $writeFile $root $file ($text.Replace($residue, "$residue`n    # Gadget order again.`n$residue`n    # Gadget lookup.`n$foreign"))
         $issues = (& $check $root).Issues -join "`n"
         $issues | Should -BeLike '*comment:1 is used twice in the file*'

@@ -11,6 +11,12 @@ concepts:
     realized_by: { kind: prose-only }
     avoid:
       - { phrase: house rules, say: domain rules / ADR rules }
+  workstream:
+    key: workstream
+    domain: repository
+    defined_by: ADR-REPO-OUTDIR#10
+    short: One labeled section of a plan's work breakdown (`out/plan-*.md`) — its own `### W<n>:` heading, order, and gate — that lands as one change.
+    realized_by: { kind: prose-only }
   domain:
     key: domain
     domain: repository

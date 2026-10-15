@@ -34,7 +34,7 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
     }
 
-    It 'moves the long comment into the page and leaves the residue in the file' -Tag 'ADR-PRIN-ONELIVE#1' {
+    It 'moves the long comment into the page and leaves the residue in the file' -Tag 'ADR-REPO-COMMENTS#1' {
         $root = & $newRepository
         $changed = Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation')
         $changed | Should -Be @('automation/Catzc.Widget/Get-Widget.ps1')
@@ -42,7 +42,7 @@ Describe 'Export-Comments' -Tag 'L0', 'logic' {
         $text.Contains('    # Sorted first, so the gadget order is stable across runs and the cache key never changes.') | Should -BeTrue
         $text.Contains("    # [comment:1](/$pageRelative#comment1)") | Should -BeTrue
         $page = & $readFile $root $pageRelative
-        $page.Contains("# Sorted first") | Should -BeFalse -Because 'the page holds the prose without its comment marker'
+        $page.Contains('# Sorted first') | Should -BeFalse -Because 'the page holds the prose without its comment marker'
         $page.Contains("across runs and the cache key never changes.`n" + '```') | Should -BeTrue
     }
 

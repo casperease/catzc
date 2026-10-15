@@ -29,7 +29,7 @@ Describe 'Build-CommentView' -Tag 'L0', 'logic' {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
     }
 
-    It 'writes the annotated copy of an exported file, equal to the original, and nothing for a file without residues' -Tag 'ADR-PRIN-ONELIVE#1' {
+    It 'writes the annotated copy of an exported file, equal to the original, and nothing for a file without residues' -Tag 'ADR-REPO-COMMENTS#4' {
         $root = & $newRepository
         Export-Comments -RepositoryRoot $root -Path (Join-Path $root 'automation') | Out-Null
         $written = @(Build-CommentView -RepositoryRoot $root -Path (Join-Path $root 'automation'))

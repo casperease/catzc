@@ -36,6 +36,24 @@ guids:
     guid: ca72c000-700e-5000-0000-ec7000000000
     sentence: catzc types project
     description: the Catzc.Types.csproj project id in catzc.sln (the IDE-only mirror of the combined type assembly)
+  vs_solution_folder_type:
+    guid: 2150e333-8fdc-42a3-9474-1a3956d46de8
+    description: Visual Studio well-known solution-folder project-type id (catzc.sln's .claude and hooks folders)
+  vs_csharp_legacy_project_type:
+    guid: fae04ec0-301f-11d3-bf4b-00c04f79efbc
+    description: Visual Studio well-known C# project-type id, the one dotnet sln add writes (catzc.sln's Assert-BashTimeout project)
+  claude_solution_folder:
+    guid: c1a0de00-f01d-e000-0000-000000000000
+    sentence: claude folder
+    description: the .claude solution folder's id in catzc.sln
+  claude_hooks_solution_folder:
+    guid: c1a0de00-0000-5000-f01d-e00000000000
+    sentence: claude hooks folder
+    description: the .claude/hooks solution folder's id in catzc.sln
+  assert_bash_timeout_project:
+    guid: a55e0700-ba50-710e-0070-000000000000
+    sentence: assert bash timeout hook project
+    description: the Assert-BashTimeout.csproj project id in catzc.sln (the time-safeguard hook)
   catzc_module:
     guid: 211b36c7-f7eb-4f3c-93f5-9132b535fa56
     sentence: catzc module

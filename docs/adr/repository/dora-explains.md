@@ -213,6 +213,23 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   anyone changing the code find the reason for it in one step.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## Comments in docs
+
+`Comments in docs — one insight line in the file, the prose in its comment page`
+
+[ADR-REPO-COMMENTS](comments-in-docs.md)
+
+> DORA's research on documentation quality finds that documentation helps when it is accurate, findable, and kept where readers look for it;
+> long prose buried between statements is reviewed as code and read only by whoever opens that file. Moving it, verbatim, to a page beside
+> the module's reference article, and leaving one line of insight and a checked link in the code, keeps both the code and its explanation
+> easy to read.
+
+- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — the prose lives in one findable place, rendered and
+  reviewed as documentation, and a gate keeps every comment and its page paired.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a file shows its code and the one fact the code does
+  not say, so a change is made against what matters.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Agent definitions
 
 `Agent definitions — every sub-agent rests on a rule and maps to its checks`

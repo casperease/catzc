@@ -88,6 +88,16 @@ before Phases 1–3 are green.
 
 ### Phase 2 — the engine and the four commands
 
+**Status 2026-10-15:** done except `Format-Comments`, which session catzc-c2 owns (`Format-Comments.ps1`, its test, and the
+types `CommentFinding`, `CommentFindingKind`, `CommentFormatter`). Done and verified: `CommentEngine` (+ `CommentBlock`,
+`CommentBlockKind`, `CommentResidue`, `CommentFileResult`, public `SectionLines` for catzc-c2), `private/Get-CommentScope`,
+`Export-Comments`, `Build-CommentView`, `Test-Comments`, each with L0 tests; spelling, analyzer, links, formatter clean. A real
+dry run over Catzc.Base.Files and Catzc.Base.QualityGates (225 files, 540 comments) round-trips byte-exact. Deviations: pages hold
+each comment in a fenced `text` block (prettier `proseWrap: always` would reflow prose); the residue is two lines (insight, then
+citations + link) so the insight carries no links. Deferred to Phase 4: registering `Test-Comments` in `languages.yml` `checks:`
+(it fails until the migration runs) and `Build-CommentView` in the importer tail. Phase 3 note: code links inside a page's fence
+are not clickable; decide whether the page adds a rendered "Cites" line per section.
+
 1. `types/CommentEngine.cs`: parse (blocks per language syntax, help-keyword aware), plan (keep-list, min_lines), render residue, render
    page, render view. Pure functions over strings; no I/O. L0 tests with neutral fixtures (widget/gadget names), one per language.
 2. `Export-Comments [-Path] [-DryRun] [-PassThru]`: writes `F'` and `P`; merges into an existing page (keeps sections whose number already
@@ -104,6 +114,14 @@ before Phases 1–3 are green.
    whole-repository run (background, `timeout 360`).
 
 ### Phase 3 — the ADR and the link kind
+
+**Status 2026-10-15: done.** `ADR-REPO-COMMENTS` (`docs/adr/repository/comments-in-docs.md`, rules 1–5, registered in `adrs.yml`);
+`ADR-REPO-LINK#9` (the docs link, under the `Code` kind, check-only) with `#4` reworded and the kinds table extended; the authoring
+conventions in `Build-AdrIndex` name it; `CodeLinkRewriter.CheckDocsLink` reports a docs link to a missing page, a non-rooted path, or the
+wrong anchor; Test-Links tests cover all three. Glossary: **docs link**, **comment page**, **residue**. The Phase 1–2 tests carry
+`ADR-REPO-COMMENTS#1`–`#5` tags. Reference article updated (responsibility 3 + Division rows + `comments.yml`). Every gate is clean apart
+from `Untracked` for the new ADR, which clears on commit. Not done: the fenced-prose question (code links inside a page's fence do not
+render) stays open for the user.
 
 1. `docs/adr/repository/markdown-links.md`: new rule `ADR-REPO-LINK#9`, the docs link:
    `[comment:N](/docs/references/.../<file>.md#commentN)` from a file to its own page; `#4` reworded so the article prohibition keeps

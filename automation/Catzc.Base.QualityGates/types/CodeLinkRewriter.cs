@@ -36,6 +36,8 @@ public sealed class CodeLinkRewriter
         RegexOptions.Compiled);
 
     // A citation, alone — the whole text of a link, or the citation right after a path.
+    // A docs link's text: the comment number it stands for.
+    static readonly Regex DocsLinkText = new Regex(@"^comment:(?<number>\d+)$", RegexOptions.Compiled);
     static readonly Regex CitationOnly = new Regex(@"^(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:[:#](?<rule>\d+))?$", RegexOptions.Compiled);
     static readonly Regex AdjacentCitation = new Regex(
         @"\G(?<sep>[ \t]*[,;:]?[ \t]*\(?(?:[Rr]ule[ \t]+)?|[ \t]+[—–-][ \t]+)(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:[:#](?<rule>\d+))?(?![\w\-:#])(?<close>\))?",
@@ -235,6 +237,14 @@ public sealed class CodeLinkRewriter
         int hash = destination.IndexOf('#');
         string pathPart = hash >= 0 ? destination.Substring(0, hash) : destination;
         string fragment = hash >= 0 ? destination.Substring(hash) : string.Empty;
+
+        Match docsLink = DocsLinkText.Match(text);
+        if (docsLink.Success)
+        {
+            CheckDocsLink(docsLink.Groups["number"].Value, pathPart, fragment, out problemType, out problem);
+            return null;
+        }
+
         string repoPath = ToRepositoryPath(pathPart);
         Match citation = CitationOnly.Match(text);
 
@@ -373,6 +383,33 @@ public sealed class CodeLinkRewriter
         string code = map.CodeOf(repoPath);
         if (code != null) { return Canonical(code, null, fragment); }
         return "[" + Path.GetFileNameWithoutExtension(repoPath) + "](/" + repoPath + (fragment ?? string.Empty) + ")";
+    }
+
+    // A docs link `[comment:N](/docs/<page>.md#commentN)` points from a file to the one section of its comment page
+    // that holds the comment it replaced
+    // ([ADR-REPO-LINK#9](/docs/adr/repository/markdown-links.md#rule-adr-repo-link9)). It has one spelling, so it is
+    // checked, never rewritten: repository-rooted under /docs/, its page exists, and its anchor is its own number's.
+    void CheckDocsLink(string number, string pathPart, string fragment, out LinkFindingType problemType, out string problem)
+    {
+        problemType = LinkFindingType.Dangling;
+        problem = null;
+        if (!pathPart.StartsWith("/docs/", StringComparison.Ordinal) || !pathPart.EndsWith(".md", StringComparison.Ordinal))
+        {
+            problem = string.Format(CultureInfo.InvariantCulture, "docs link comment:{0} must point at a repository-rooted page under /docs/, not '{1}'", number, pathPart);
+            return;
+        }
+        string page = pathPart.Substring(1);
+        if (anchorsOf(page) == null)
+        {
+            problem = string.Format(CultureInfo.InvariantCulture, "docs link comment:{0} points at {1}, which does not exist", number, page);
+            return;
+        }
+        string expected = "#comment" + number;
+        if (!string.Equals(fragment, expected, StringComparison.Ordinal) || !HasAnchor(page, fragment))
+        {
+            problemType = LinkFindingType.BadAnchor;
+            problem = string.Format(CultureInfo.InvariantCulture, "docs link comment:{0} needs the anchor {1}, and {2} must hold its section", number, expected, page);
+        }
     }
 
     bool HasAnchor(string repoPath, string fragment)
