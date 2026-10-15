@@ -22,7 +22,7 @@ function Measure-NoRawVsoCommand {
     $ruleName = 'Measure-NoRawVsoCommand'
     $exemptFunction = 'Set-AdoPipelineVariable'
 
-    # Tolerates whitespace inside the marker, since the agent still accepts a spaced form of the command.
+    # Allows whitespace inside the marker, so a spaced spelling of the command is caught too.
     # [comment:2](/docs/references/automation/scriptanalyzer/NoRawVsoCommand.psm1.md#comment2)
     $vsoPattern = '##vso\s*\[\s*task\.'
 

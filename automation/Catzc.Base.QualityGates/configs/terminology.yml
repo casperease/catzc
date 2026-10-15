@@ -1000,6 +1000,8 @@ terms:
       meaning: "the Common Language Runtime (CLR)"
     - term: consolas
       meaning: "the Consolas monospace font (the VS Code markdown-preview font in vscode-settings.yml)"
+    - term: chdir
+      meaning: "the 'chdir' alias of Set-Location (listed by Measure-NeverDependOnPwd)"
     - term: pwd
       meaning: "the $PWD present-working-directory automatic variable (e.g. Measure-NeverDependOnPwd)"
     - term: readlink
