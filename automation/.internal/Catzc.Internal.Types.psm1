@@ -413,8 +413,10 @@ function Import-TypesAssembly {
     .PARAMETER PruneAfter
         The age bound keeps a copy another process just wrote but not yet loaded from being pruned under it.
         [comment:13](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment13)
+    .PARAMETER ShadowCopy
+        $false loads the given file in place, for a system that does not lock a loaded file.
     .OUTPUTS
-        [string] The path of the loaded shadow copy.
+        [string] The path of the loaded assembly: the shadow copy, or the given file when ShadowCopy is $false.
     .EXAMPLE
         Import-TypesAssembly -Path (Join-Path $modulesRoot '.compiled/Catzc.Types.762c40fe.dll')
     #>
@@ -427,11 +429,19 @@ function Import-TypesAssembly {
 
         [string] $ShadowRoot = (Get-TypesShadowRoot),
 
-        [TimeSpan] $PruneAfter = [TimeSpan]::FromDays(1)
+        [TimeSpan] $PruneAfter = [TimeSpan]::FromDays(1),
+
+        # false loads the file in place: a system that does not lock a loaded file needs no copy (types-load.yml shadowCopy).
+        [bool] $ShadowCopy = $true
     )
 
     if (-not [System.IO.File]::Exists($Path)) {
         throw "Cannot load the types assembly: '$Path' does not exist."
+    }
+
+    if (-not $ShadowCopy) {
+        Add-Type -Path $Path
+        return $Path
     }
 
     [System.IO.Directory]::CreateDirectory($ShadowRoot) | Out-Null
@@ -791,4 +801,140 @@ function Get-TypesLoadPolicy {
     [pscustomobject]$policy
 }
 
-Export-ModuleMember -Function Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesLoadPolicy
+function Register-DeferredTypes {
+    <#
+    .SYNOPSIS
+        Records a verified types assembly as pending: known, not loaded. Initialize-Types loads it.
+    .DESCRIPTION
+        The record is session-global, so it survives a re-import of this module; it is keyed by code root, like the drift record.
+    .PARAMETER RootKey
+        The full path of the code root the assembly belongs to.
+    .PARAMETER Path
+        The assembly to load later. Its manifest sits beside it.
+    .PARAMETER ShadowCopy
+        Whether the later load goes through the per-user shadow copy.
+    .EXAMPLE
+        Register-DeferredTypes -RootKey $root -Path $dll -ShadowCopy $true
+    #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Session-global by design: the pending record must survive a re-import of this module, like $global:__CatzcTypes')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Records in-memory session state only; the importer announces the deferral')]
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string] $RootKey,
+
+        [Parameter(Mandatory)]
+        [string] $Path,
+
+        [bool] $ShadowCopy = $true
+    )
+
+    if (-not (Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore)) {
+        $global:__CatzcDeferredTypes = @{}
+    }
+    $global:__CatzcDeferredTypes[$RootKey] = @{ Path = $Path; ShadowCopy = $ShadowCopy; Loaded = $false }
+}
+
+function Initialize-Types {
+    <#
+    .SYNOPSIS
+        Loads every pending types assembly and registers its accelerators and default display properties from the manifest. Idempotent.
+    .DESCRIPTION
+        The first use of a catzc command calls it through the lookup hook, so a session that never uses a type never loads one.
+        The hook is removed first: nothing below may re-enter it.
+    .OUTPUTS
+        [pscustomobject] One per assembly loaded by this call: Path, Loaded, Aliases, Displayed. Nothing when none was pending.
+    .EXAMPLE
+        Initialize-Types
+    #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Reads and marks $global:__CatzcDeferredTypes, the session-global pending record')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Loads the assembly the importer already verified and announced; there is nothing to confirm')]
+    [CmdletBinding()]
+    [OutputType([pscustomobject])]
+    param()
+
+    $ExecutionContext.InvokeCommand.PreCommandLookupAction = $null
+    $records = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
+    if (-not $records) {
+        return
+    }
+
+    foreach ($key in @($records.Keys)) {
+        $entry = $records[$key]
+        if ($entry.Loaded) {
+            continue
+        }
+        $manifestPath = [System.IO.Path]::ChangeExtension($entry.Path, 'json')
+        if (-not [System.IO.File]::Exists($manifestPath)) {
+            throw "Cannot load the types assembly: its manifest '$manifestPath' does not exist. Restart PowerShell to rebuild it."
+        }
+        $manifest = [System.IO.File]::ReadAllText($manifestPath) | ConvertFrom-Json
+
+        $loadedFrom = Import-TypesAssembly -Path $entry.Path -ShadowCopy $entry.ShadowCopy
+        $entry.Loaded = $true
+
+        $aliases = 0
+        $displayed = 0
+        $accelerators = [psobject].Assembly.GetType('System.Management.Automation.TypeAccelerators')
+        foreach ($type in $manifest.types) {
+            foreach ($alias in @($type.aliases)) {
+                [void] $accelerators::Remove($alias)
+                $accelerators::Add($alias, ([System.Management.Automation.PSTypeName]$type.name).Type)
+                $aliases++
+            }
+            if (@($type.display).Count -gt 0) {
+                Update-TypeData -TypeName $type.name -DefaultDisplayPropertySet @($type.display) -Force
+                $displayed++
+            }
+        }
+        Write-Verbose "Loaded types $loadedFrom ($aliases alias(es), default display for $displayed type(s))"
+        [pscustomobject]@{ Path = $entry.Path; Loaded = $loadedFrom; Aliases = $aliases; Displayed = $displayed }
+    }
+}
+
+$script:DeferredTypesCommands = [System.Collections.Generic.HashSet[string]]::new()
+
+function Enable-DeferredTypesLoad {
+    <#
+    .SYNOPSIS
+        Makes the first lookup of one of the named commands load the pending types, before the command binds its parameters.
+    .DESCRIPTION
+        A guard inside a function is too late: a typed parameter or an OutputType resolves its type before the body runs. The hook
+        runs before binding and is filtered by name, so only a catzc command pays for it. With nothing pending it clears the hook.
+    .PARAMETER CommandName
+        The commands whose first lookup loads the types.
+    .EXAMPLE
+        Enable-DeferredTypesLoad -CommandName (Get-Command -Module Widget).Name
+    #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Reads $global:__CatzcDeferredTypes, the session-global pending record')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Installs an in-memory lookup hook for this session only; the importer announces the deferral')]
+    [CmdletBinding()]
+    param(
+        [AllowEmptyCollection()]
+        [string[]] $CommandName = @()
+    )
+
+    $records = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
+    $pending = $false
+    if ($records) {
+        foreach ($entry in $records.Values) {
+            if (-not $entry.Loaded) {
+                $pending = $true
+            }
+        }
+    }
+    if (-not $pending) {
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction = $null
+        return
+    }
+
+    $script:DeferredTypesCommands = [System.Collections.Generic.HashSet[string]]::new([string[]]$CommandName, [System.StringComparer]::OrdinalIgnoreCase)
+    $ExecutionContext.InvokeCommand.PreCommandLookupAction = {
+        param($commandName, $eventArgs)
+        if ($script:DeferredTypesCommands.Contains($commandName)) {
+            Initialize-Types | Out-Null
+        }
+    }
+}
+
+Export-ModuleMember -Function Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad

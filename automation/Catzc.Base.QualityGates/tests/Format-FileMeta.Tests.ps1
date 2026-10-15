@@ -28,6 +28,10 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
             })
         # Not named $config: that is Get-Config's own -Config parameter inside the mock.
         Mock Get-Config { $script:registry } -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'file-meta' }
+        # The one code the fixtures cite, registered with ten rules, so the adr-codes kind keeps it.
+        Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates {
+            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/adr/gadget.md'; rules = 1..10 } }, @())
+        }
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.Reports
         $script:reportBase = Join-Path $script:widgetRoot 'reports'

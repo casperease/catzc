@@ -1,0 +1,182 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/Initialize-Types.Tests.ps1
+    kind: pester-test
+---
+#>
+
+Describe 'Initialize-Types' -Tag 'L1', 'logic' {
+    # L1: each case loads a fixture DLL, so the file is locked for the process lifetime. Fixtures live OUTSIDE TestDrive, in a
+    # self-managed temp dir cleaned best-effort. The pending record and the lookup hook are session state: saved, replaced by
+    # a fresh record per case, and restored after.
+    BeforeAll {
+        $script:fixtureRoot = Join-Path ([System.IO.Path]::GetTempPath()) "inittypes-$([guid]::NewGuid().ToString('N'))"
+        [System.IO.Directory]::CreateDirectory($script:fixtureRoot) | Out-Null
+        $script:savedRecord = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
+        $script:savedHook = $ExecutionContext.InvokeCommand.PreCommandLookupAction
+
+        # A fixture with a manifest written by hand, as the builder would: one type with an alias and a display set, one plain.
+        function script:New-FixtureAssembly {
+            param([bool] $WithManifest = $true)
+            $run = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
+            $space = "CatzcInitWidget$run"
+            $dll = Join-Path $script:fixtureRoot "Catzc.Types.$run.dll"
+            Add-Type -TypeDefinition "namespace $space { public class Widget { public int Size = 1; } public class Gadget { } }" -OutputAssembly $dll -OutputType Library
+            if ($WithManifest) {
+                $manifest = [ordered]@{
+                    hash  = $run
+                    types = @(
+                        [ordered]@{ name = "$space.Gadget"; aliases = @(); display = @() }
+                        [ordered]@{ name = "$space.Widget"; aliases = @("Fx.Widget$run"); display = @('Size') }
+                    )
+                }
+                [System.IO.File]::WriteAllText([System.IO.Path]::ChangeExtension($dll, 'json'), ($manifest | ConvertTo-Json -Depth 5))
+            }
+            [pscustomobject]@{ Dll = $dll; Space = $space; Run = $run }
+        }
+        function script:Test-TypeLoaded ([string] $Name) {
+            [bool] ([System.Management.Automation.PSTypeName]$Name).Type
+        }
+    }
+    AfterAll {
+        $global:__CatzcDeferredTypes = $script:savedRecord
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction = $script:savedHook
+        Remove-Item -Path $script:fixtureRoot -Recurse -Force -ErrorAction SilentlyContinue
+    }
+    BeforeEach {
+        $global:__CatzcDeferredTypes = @{}
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction = $null
+    }
+
+    It 'records an assembly as pending without loading it' {
+        $fx = New-FixtureAssembly
+        Register-DeferredTypes -RootKey 'root-a' -Path $fx.Dll -ShadowCopy $false
+        $global:__CatzcDeferredTypes['root-a'].Loaded | Should -BeFalse
+        Test-TypeLoaded "$($fx.Space).Widget" | Should -BeFalse
+    }
+
+    It 'loads a pending assembly once and registers its alias and default display from the manifest' {
+        $fx = New-FixtureAssembly
+        Register-DeferredTypes -RootKey 'root-a' -Path $fx.Dll -ShadowCopy $false
+        $result = @(Initialize-Types)
+
+        $result.Count | Should -Be 1
+        $result[0].Aliases | Should -Be 1
+        $result[0].Displayed | Should -Be 1
+        Test-TypeLoaded "$($fx.Space).Widget" | Should -BeTrue
+        $global:__CatzcDeferredTypes['root-a'].Loaded | Should -BeTrue
+        $accelerators = [psobject].Assembly.GetType('System.Management.Automation.TypeAccelerators')
+        $accelerators::Get["Fx.Widget$($fx.Run)"].FullName | Should -Be "$($fx.Space).Widget"
+        (Get-TypeData -TypeName "$($fx.Space).Widget").DefaultDisplayPropertySet.ReferencedProperties | Should -Be @('Size')
+        Get-TypeData -TypeName "$($fx.Space).Gadget" | Should -BeNullOrEmpty
+    }
+
+    It 'is idempotent: a second call loads nothing' {
+        $fx = New-FixtureAssembly
+        Register-DeferredTypes -RootKey 'root-a' -Path $fx.Dll -ShadowCopy $false
+        Initialize-Types | Out-Null
+        $before = [System.AppDomain]::CurrentDomain.GetAssemblies().Count
+        @(Initialize-Types).Count | Should -Be 0
+        [System.AppDomain]::CurrentDomain.GetAssemblies().Count | Should -Be $before
+    }
+
+    It 'does nothing when nothing was registered' {
+        Remove-Variable -Name '__CatzcDeferredTypes' -Scope Global
+        @(Initialize-Types).Count | Should -Be 0
+    }
+
+    It 'loads through the shadow copy when asked to' {
+        $fx = New-FixtureAssembly
+        $shadowRoot = Join-Path $script:fixtureRoot 'shadow'
+        Mock Get-TypesShadowRoot { $shadowRoot }.GetNewClosure() -ModuleName Catzc.Internal.Types
+        Register-DeferredTypes -RootKey 'root-a' -Path $fx.Dll -ShadowCopy $true
+        $result = Initialize-Types
+        $result.Loaded | Should -Be (Join-Path $shadowRoot ([System.IO.Path]::GetFileName($fx.Dll)))
+        ([System.Management.Automation.PSTypeName]"$($fx.Space).Widget").Type.Assembly.Location | Should -Be $result.Loaded
+    }
+
+    It 'loads in place when the shadow copy is off' {
+        $fx = New-FixtureAssembly
+        Register-DeferredTypes -RootKey 'root-a' -Path $fx.Dll -ShadowCopy $false
+        $result = Initialize-Types
+        $result.Loaded | Should -Be $fx.Dll
+        ([System.Management.Automation.PSTypeName]"$($fx.Space).Widget").Type.Assembly.Location | Should -Be $fx.Dll
+    }
+
+    It 'throws, naming the manifest, when the manifest is missing, and loads nothing' {
+        $fx = New-FixtureAssembly -WithManifest $false
+        Register-DeferredTypes -RootKey 'root-a' -Path $fx.Dll -ShadowCopy $false
+        { Initialize-Types } | Should -Throw '*manifest*does not exist*'
+        Test-TypeLoaded "$($fx.Space).Widget" | Should -BeFalse
+        $global:__CatzcDeferredTypes['root-a'].Loaded | Should -BeFalse
+    }
+
+    It 'clears the lookup hook when it loads' {
+        $fx = New-FixtureAssembly
+        Register-DeferredTypes -RootKey 'root-a' -Path $fx.Dll -ShadowCopy $false
+        Enable-DeferredTypesLoad -CommandName 'Invoke-FixtureWidget'
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction | Should -Not -BeNullOrEmpty
+        Initialize-Types | Out-Null
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction | Should -BeNullOrEmpty
+    }
+}
+
+Describe 'Enable-DeferredTypesLoad' -Tag 'L1', 'logic' {
+    BeforeAll {
+        $script:fixtureRoot = Join-Path ([System.IO.Path]::GetTempPath()) "enabletypes-$([guid]::NewGuid().ToString('N'))"
+        [System.IO.Directory]::CreateDirectory($script:fixtureRoot) | Out-Null
+        $script:savedRecord = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
+        $script:savedHook = $ExecutionContext.InvokeCommand.PreCommandLookupAction
+
+        # Each case gets its own assembly: a loaded type cannot be unloaded, so a shared one would be loaded by the first case.
+        function script:New-PendingFixture {
+            $run = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
+            $space = "CatzcEnableWidget$run"
+            $dll = Join-Path $script:fixtureRoot "Catzc.Types.$run.dll"
+            Add-Type -TypeDefinition "namespace $space { public class Widget { } }" -OutputAssembly $dll -OutputType Library
+            [System.IO.File]::WriteAllText([System.IO.Path]::ChangeExtension($dll, 'json'), (@{ hash = $run; types = @(@{ name = "$space.Widget"; aliases = @(); display = @() }) } | ConvertTo-Json -Depth 5))
+            $global:__CatzcDeferredTypes = @{}
+            Register-DeferredTypes -RootKey 'root-a' -Path $dll -ShadowCopy $false
+            $space
+        }
+        function script:Test-WidgetLoaded ([string] $Space) { [bool] ([System.Management.Automation.PSTypeName]"$Space.Widget").Type }
+        function script:Invoke-FixtureWidget { 'widget' }
+        function script:Invoke-FixtureOther { 'other' }
+    }
+    AfterAll {
+        $global:__CatzcDeferredTypes = $script:savedRecord
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction = $script:savedHook
+        Remove-Item -Path $script:fixtureRoot -Recurse -Force -ErrorAction SilentlyContinue
+    }
+    BeforeEach {
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction = $null
+    }
+
+    It 'leaves the types unloaded when an unlisted command runs, and loads them before a listed one runs' {
+        $space = New-PendingFixture
+        Enable-DeferredTypesLoad -CommandName 'Invoke-FixtureWidget'
+
+        Invoke-FixtureOther | Should -Be 'other'
+        Test-WidgetLoaded $space | Should -BeFalse
+
+        Invoke-FixtureWidget | Should -Be 'widget'
+        Test-WidgetLoaded $space | Should -BeTrue
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction | Should -BeNullOrEmpty
+    }
+
+    It 'matches command names case-insensitively' {
+        $space = New-PendingFixture
+        Enable-DeferredTypesLoad -CommandName 'INVOKE-FIXTUREWIDGET'
+        Invoke-FixtureWidget | Should -Be 'widget'
+        Test-WidgetLoaded $space | Should -BeTrue
+    }
+
+    It 'installs no hook, and clears an old one, when nothing is pending' {
+        $global:__CatzcDeferredTypes = @{ 'root-a' = @{ Path = 'not-used.dll'; ShadowCopy = $false; Loaded = $true } }
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction = { param($commandName, $eventArgs) }
+        Enable-DeferredTypesLoad -CommandName 'Invoke-FixtureWidget'
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction | Should -BeNullOrEmpty
+    }
+}

@@ -111,7 +111,36 @@ public sealed class CodeMetaHead
     public string WithFacts(IDictionary derived)
     {
         IReadOnlyList<string> config = HasHead ? ConfigLines : new string[0];
-        IReadOnlyList<string> block = MarkdownMetaBlock.Render(derived, config);
+        return Emit(MarkdownMetaBlock.Render(derived, config));
+    }
+
+    // The whole text again with the head's derived part kept as it is and its `config` lines replaced; no lines leave the head without a config part.
+    public string WithConfig(IReadOnlyList<string> config)
+    {
+        if (config == null) { throw new ArgumentNullException(nameof(config)); }
+        var block = new List<string>();
+        bool inConfig = false;
+        foreach (string line in metaBlock)
+        {
+            if (line.StartsWith("  " + MarkdownMetaBlock.ConfigKey + ":", StringComparison.Ordinal) && !line.StartsWith("   ", StringComparison.Ordinal))
+            {
+                inConfig = true;
+                continue;
+            }
+            if (inConfig && (line.Trim().Length == 0 || line.StartsWith("   ", StringComparison.Ordinal))) { continue; }
+            inConfig = false;
+            block.Add(line);
+        }
+        if (config.Count > 0)
+        {
+            block.Add("  " + MarkdownMetaBlock.ConfigKey + ":");
+            block.AddRange(config);
+        }
+        return Emit(block);
+    }
+
+    string Emit(IReadOnlyList<string> block)
+    {
         if (block.Count == 0) { return Before + Rest; }
         var text = new StringBuilder(Before);
         if (Before.Length > 0 && !Before.EndsWith("\n", StringComparison.Ordinal)) { text.Append(NewLine); }

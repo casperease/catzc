@@ -9,6 +9,10 @@ catzc:
 
 Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
     BeforeAll {
+        # The one code the fixture cites, registered with ten rules, so the adr-codes kind keeps it.
+        Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates {
+            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/adr/gadget.md'; rules = 1..10 } }, @())
+        }
         $script:state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nSee ADR-GADGET#1.`n"
 
         function script:Get-Facts {

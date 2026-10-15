@@ -328,6 +328,10 @@ function Get-DynamicManifestContent {
     The automation directory. Its non-dot subfolders are the modules; the assembly is written to its .compiled/.
 .PARAMETER DiagnoseLoadTime
     Emit a single combined compile/cache-load timing line (surfaced by importer.ps1 -DiagnoseLoadTime).
+.PARAMETER PrebuiltOnly
+    A bundle: the prebuilt DLL and manifest must exist, and the run mode for the types-load policy is build.
+.PARAMETER HostKind
+    console or headless, the host axis of the types-load policy. Only the interactive importer passes console.
 #>
 function Import-CSharpTypes {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Session-global by design: $global:__CatzcTypes (per-ModulesRoot hash+snapshot) must survive module reimport to detect C# source changes across the session, and $global:__CatzcLoadTimings collects import diagnostics')]
@@ -340,7 +344,11 @@ function Import-CSharpTypes {
 
         # A bundle ships the DLL, so a read-only install never invokes Roslyn and never writes.
         # [comment:14](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment14)
-        [switch]$PrebuiltOnly
+        [switch]$PrebuiltOnly,
+
+        # Only an interactive dot-source is console; a caller that says nothing gets the eager load (types-load.yml).
+        [ValidateSet('console', 'headless')]
+        [string]$HostKind = 'headless'
     )
 
     # One shared implementation for loader and janitor, so the committed DLL key can never drift between them.
@@ -465,43 +473,32 @@ function Import-CSharpTypes {
         Write-TypesAssemblyManifest -Path $dll | Out-Null
     }
 
-    # Loads go through a per-user shadow copy, so no session ever locks a build inside the repository.
+    # The metadata check runs in every mode; the mode's policy only decides whether the load happens now or on the first use.
     # [comment:23](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment23)
+    $deferred = $false
     if (-not $loaded) {
         Test-TypesAssemblyContent -Path $dll -Expected $arr
-        Import-TypesAssembly -Path $dll | Out-Null
-        Write-ImporterMessage "Loaded types $(([System.IO.Path]::GetRelativePath($env:RepositoryRoot, $dll)) -replace '\\', '/')" -StateChange
-
-        # Registration only, idempotent by remove then add, so a re-import never throws on a duplicate key.
-        # [comment:24](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment24)
-        $aliasAttrType = ([System.Management.Automation.PSTypeName]'Catzc.Base.Objects.PSTypeAliasAttribute').Type
-        if ($aliasAttrType) {
-            $accelerators = [psobject].Assembly.GetType('System.Management.Automation.TypeAccelerators')
-            foreach ($tf in $arr) {
-                $type = ([System.Management.Automation.PSTypeName]$tf.Type).Type
-                foreach ($alias in $type.GetCustomAttributes($aliasAttrType, $false)) {
-                    [void] $accelerators::Remove($alias.Name)
-                    $accelerators::Add($alias.Name, $type)
+        $policy = Get-TypesLoadPolicy -HostKind $HostKind -RunMode $(if ($PrebuiltOnly) { 'build' } else { 'source' })
+        foreach ($eagerType in $policy.EagerTypes) {
+            if ($eagerType -notin $arr.Type) {
+                throw "The types-load config names eager type '$eagerType' for $($policy.Cell), but no module declares it."
+            }
+        }
+        Register-DeferredTypes -RootKey $rootKey -Path $dll -ShadowCopy $policy.ShadowCopy
+        $relativeDll = ([System.IO.Path]::GetRelativePath($env:RepositoryRoot, $dll)) -replace '\\', '/'
+        if ($policy.Load -eq 'eager' -or $policy.EagerTypes.Count -gt 0) {
+            # Alias and display registration come from the manifest, idempotent by remove then add, so a re-import never throws.
+            # [comment:24](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment24)
+            foreach ($result in @(Initialize-Types)) {
+                Write-ImporterMessage "Loaded types $relativeDll" -StateChange
+                if ($result.Displayed -gt 0) {
+                    Write-ImporterMessage "Registered default display properties for $($result.Displayed) type(s)" -StateChange
                 }
             }
         }
-
-        # Formatting honours type data where interpolation does not, so this half is registered here, not in C#.
-        # [comment:25](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment25)
-        $displayAttrType = ([System.Management.Automation.PSTypeName]'Catzc.Base.Objects.ConsoleDisplayAttribute').Type
-        if ($displayAttrType) {
-            $displayed = 0
-            foreach ($tf in $arr) {
-                $type = ([System.Management.Automation.PSTypeName]$tf.Type).Type
-                $display = [System.Attribute]::GetCustomAttribute($type, $displayAttrType, $true)
-                if ($display) {
-                    Update-TypeData -TypeName $type.FullName -DefaultDisplayPropertySet $display.Properties -Force
-                    $displayed++
-                }
-            }
-            if ($displayed -gt 0) {
-                Write-ImporterMessage "Registered default display properties for $displayed type(s)" -StateChange
-            }
+        else {
+            $deferred = $true
+            Write-ImporterMessage "Deferred types $relativeDll (loaded by the first use)" -StateChange
         }
     }
 
@@ -509,7 +506,10 @@ function Import-CSharpTypes {
 
     if ($DiagnoseLoadTime) {
         $ms = [int]$sw.Elapsed.TotalMilliseconds
-        $label = if ($didCompile -and $loaded) {
+        $label = if ($deferred) {
+            'verified, load deferred'
+        }
+        elseif ($didCompile -and $loaded) {
             'recompiled DLL, already loaded'
         }
         elseif ($didCompile) {
@@ -697,7 +697,11 @@ function Import-AllModules {
 
         # A bundle must ship its manifests and DLL, because a read-only load never generates or compiles them.
         # [comment:32](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment32)
-        [switch]$Bundle
+        [switch]$Bundle,
+
+        # The importer passes console for an interactive dot-source; the types-load policy decides lazy or eager from it.
+        [ValidateSet('console', 'headless')]
+        [string]$HostKind = 'headless'
     )
 
     # One level, inline: this module loads before the walker exists
@@ -756,9 +760,10 @@ function Import-AllModules {
 
     # Types load once before any module function, so the import order below is irrelevant and types may cross-reference.
     # [comment:36](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment36)
-    Import-CSharpTypes -ModulesRoot $ModulesRoot -DiagnoseLoadTime:$DiagnoseLoadTime -PrebuiltOnly:$Bundle
+    Import-CSharpTypes -ModulesRoot $ModulesRoot -DiagnoseLoadTime:$DiagnoseLoadTime -PrebuiltOnly:$Bundle -HostKind $HostKind
 
     $imported = [System.Collections.Generic.List[string]]::new()
+    $commandNames = [System.Collections.Generic.List[string]]::new()
     foreach ($dir in $moduleDirs) {
         if ($DiagnoseLoadTime) {
             $sw.Restart()
@@ -804,6 +809,7 @@ function Import-AllModules {
             # [comment:38](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment38)
             . $importedModule { Set-StrictMode -Version Latest }
             $imported.Add($dir.Name)
+            $commandNames.AddRange([string[]]@($importedModule.ExportedCommands.Keys))
             if ($DiagnoseLoadTime) {
                 $importMs = [int]$sw.Elapsed.TotalMilliseconds
                 $total = $manifestMs + $readMs + $importMs
@@ -821,6 +827,9 @@ function Import-AllModules {
             }
         }
     }
+
+    # Installed last, once every command name is known: the first lookup of one of them loads the types still pending.
+    Enable-DeferredTypesLoad -CommandName $commandNames
 
     # A re-import's remove then reload of the same modules is not a departure and is not listed.
     # [comment:39](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment39)

@@ -16,8 +16,9 @@ catzc:
     The adr-codes meta kind's fact: the ADR citations the file and its comment page make, sorted and without duplicates.
 .DESCRIPTION
     A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation. A rule the file defines itself is
-    listed under `defines`, never here. A file the kind's `domain_files` setting names also lists a bare `ADR-<CODE>`. A file the
-    `held_files` setting names keeps every code its head already holds, so the head is where its citations live.
+    listed under `defines`, never here, and a code the ADR index does not register is no citation. A file the kind's `domain_files`
+    setting names also lists a bare `ADR-<CODE>`. A file the `held_files` setting names keeps every code its head already holds, so the
+    head is where its citations live.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What Get-MarkdownMetaState read from the file.
@@ -74,6 +75,20 @@ function Get-AdrCodesFileMetaFact {
     if (-not $withDomain) {
         foreach ($defined in (Get-AdrDefinedRule -Text $text)) {
             [void] $codes.Remove($defined)
+        }
+    }
+    # Only a code the ADR index registers is a citation: a fixture code or a placeholder named in prose is not.
+    $map = Get-AdrCitationMap -RepositoryRoot $repositoryRoot
+    foreach ($code in @($codes)) {
+        $isRule = $code -match '^(?<adr>.+)#(?<rule>\d+)$'
+        $registered = if ($isRule) {
+            $map.HasRule($Matches['adr'], [int] $Matches['rule'])
+        }
+        else {
+            $map.HasCode($code) -or $map.IsDomainCode($code)
+        }
+        if (-not $registered) {
+            [void] $codes.Remove($code)
         }
     }
     $heldFiles = if ($Kind.settings.ContainsKey('held_files')) {

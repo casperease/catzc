@@ -49,10 +49,9 @@ pages:
   - source: automation/.internal
     docs: docs/references/automation/internal
 
-# Listing this key replaces the default map, so both default entries are kept here.
+# Listing this key replaces the default map, so the tests entry is left out here and a test's prose moves like any other file's.
 # [comment:5](/docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md#comment5)
 exclude:
-  "**/tests/**": a test's prose is its own subject
   "**/assets/**": an asset is copied or published verbatim elsewhere, where a docs link would be foreign
 
 # A residue line that starts with one of these states the obvious and is refused by Format-Comments.

@@ -72,9 +72,10 @@ lowercased with dots turned to hyphens. The page keeps the file's name and exten
 Above `exclude:`.
 
 ```text
-Files that keep their comments: repository-relative glob (the durable-sha-globs dialect) -> why. A test's prose is its own
-subject; an asset is copied or published verbatim elsewhere (a root-config template, the hook's C# source, a standalone
-script), where a residue's docs link would be foreign. Listing this key replaces the default map, so both entries are kept.
+Files that keep their comments: repository-relative glob (the durable-sha-globs dialect) -> why. An asset is copied or
+published verbatim elsewhere (a root-config template, the hook's C# source, a standalone script), where a residue's docs link
+would be foreign. A test is not listed, so its prose moves to a comment page like any other file's. Listing this key replaces
+the default map, so only the asset entry is kept.
 ```
 
 ## comment:6
