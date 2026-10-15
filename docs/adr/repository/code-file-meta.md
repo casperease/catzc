@@ -13,7 +13,7 @@ catzc:
       - ADR-REPO-FORMAT#8
 ---
 
-# ADR: Code file meta — a derived head in the first comment of a C# type file and a PowerShell function file
+# ADR: Code file meta — a derived head in the first comment of every tracked code file
 
 ## Rules: ADR-REPO-CODEMETA
 
@@ -42,9 +42,10 @@ person's own keys, if any, sit under `config`, as in Markdown.
 
 The head is imprinted by the same engine, from the same registry, as a Markdown block
 ([ADR-REPO-FILEMETA#2](file-meta.md#rule-adr-repo-filemeta2), [ADR-REPO-FILEMETA#3](file-meta.md#rule-adr-repo-filemeta3)): a kind is a
-registry entry whose globs name code files, and its processor is a function found by convention. The scope is C# type files and PowerShell
-function files, less the classes `.gitattributes` exempts ([ADR-REPO-FILEMETA#5](file-meta.md#rule-adr-repo-filemeta5)); tests and asset
-files carry no head.
+registry entry whose globs name code files, and its processor is a function found by convention. The scope is every tracked file whose
+language the carrier registry gives a comment head, tests and assets included, less the classes `.gitattributes` exempts
+([ADR-REPO-FILEMETA#5](file-meta.md#rule-adr-repo-filemeta5)). Every such file carries `path` and `kind`; `module`, `visibility` and `adrs`
+stay with the C# type files and PowerShell function files their kinds name.
 
 - [Scope](#scope)
 
@@ -139,11 +140,13 @@ a parser per language, so it is left out until a parser is warranted.
 
 ### Scope
 
-`The authored code, not the tests and not the assets`
+`Every tracked file that is not vendored`
 
-The head applies to the files whose names a reader looks up: C# type files and PowerShell function files. Test files carry no help and there
-are many of them, so a head there costs more diff than it earns, and asset files are data. A later glob in the registry adds them without
-code.
+Every tracked file a reader can open says what it is and where it belongs, so a test, an asset, a script or a template carries the same
+`path` and `kind` as a function does. The carrier registry already knows each language's comment syntax, so the scope comes from it and no
+meta kind repeats a list of globs. The files the head would harm stay out through `.gitattributes`: vendored code is someone else's,
+contract assets and fixtures are compared byte for byte, and generated files are written whole by their generator. The richer keys stay
+with the files that have them: a module and a visibility belong to a function or a type.
 
 ### Hosted by Format-Code
 
