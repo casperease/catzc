@@ -152,6 +152,12 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         [Catzc.Base.QualityGates.CommentEngine]::View($result.Text, '.yml', $result.PageText) | Should -BeExactly $yaml
     }
 
+    It 'names the annotated code line in a code span that survives the backticks inside it' -Tag 'ADR-REPO-COMMENTS#2' {
+        [Catzc.Base.QualityGates.CommentBlock]::CodeSpan('$widget = 1') | Should -BeExactly '`$widget = 1`'
+        [Catzc.Base.QualityGates.CommentBlock]::CodeSpan('Get-Gadget "`"$name`""') | Should -BeExactly '``Get-Gadget "`"$name`""``'
+        [Catzc.Base.QualityGates.CommentBlock]::CodeSpan('`widget``') | Should -BeExactly '``` `widget`` ```'
+    }
+
     It 'keeps a block whose head the language keeps, and moves nothing below min_lines' -Tag 'ADR-PRIN-CONFIG#1' {
         $kept = [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep = @{ yaml = @('# widget-schema:') }; min_lines = 3 })
         $yaml = "# widget-schema: gadget`n# second line`n# third line`nwidget: 1`n# two lines`n# only`ngadget: 2`n"

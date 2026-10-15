@@ -50,9 +50,26 @@ public sealed class CommentBlock
 
     // What the page says the block annotated: its help keyword, or the code line it sat above.
     public string Context =>
-        Keyword != null ? string.Format(CultureInfo.InvariantCulture, "Section `{0}` of the comment-based help.", Keyword)
-        : NextCodeLine != null ? string.Format(CultureInfo.InvariantCulture, "Above `{0}`.", NextCodeLine)
+        Keyword != null ? string.Format(CultureInfo.InvariantCulture, "Section {0} of the comment-based help.", CodeSpan(Keyword))
+        : NextCodeLine != null ? string.Format(CultureInfo.InvariantCulture, "Above {0}.", CodeSpan(NextCodeLine))
         : "At the end of the file.";
+
+    // A Markdown code span that holds the text verbatim, backticks included: its fence is one backtick longer than the
+    // longest run inside, and it is padded with a space only when the text starts or ends with a backtick.
+    public static string CodeSpan(string text)
+    {
+        int longest = 0;
+        int run = 0;
+        foreach (char c in text ?? string.Empty)
+        {
+            run = c == '`' ? run + 1 : 0;
+            longest = Math.Max(longest, run);
+        }
+        string fence = new string('`', longest + 1);
+        bool pad = !string.IsNullOrEmpty(text) && (text[0] == '`' || text[text.Length - 1] == '`');
+        string inner = pad ? " " + text + " " : text;
+        return fence + inner + fence;
+    }
 
     public override string ToString() =>
         string.Format(CultureInfo.InvariantCulture, "{0} lines {1}-{2} ({3} prose line(s)){4}", Kind, StartLine + 1, EndLine + 1, ProseLineCount,
