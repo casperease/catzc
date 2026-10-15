@@ -37,6 +37,6 @@ Describe 'Get-MarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#4' {
     It 'rejects a processor that returns keys its kind does not declare' {
         Mock Get-DocumentKindMarkdownMetaFact { [ordered]@{ surprise = 'x' } } -ModuleName Catzc.Base.QualityGates
         { Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('kind'); processor = 'Get-DocumentKindMarkdownMetaFact' } } } } |
-            Should -Throw "*returned keys [surprise], but kind 'gadget' declares [kind]*"
+            Should -Throw "*returned keys ``[surprise``], but kind 'gadget' declares ``[kind``]*"
     }
 }
