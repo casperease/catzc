@@ -163,7 +163,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
     }
 
     It 'wraps many ignored words into several lines within the page limit, and merges them back on re-export' -Tag 'ADR-REPO-COMMENTS#2' {
-        $many = (1..30 | ForEach-Object { "gadgetword$_" }) -join ' '
+        $many = (1..30 | ForEach-Object { "gadget-widget-$_" }) -join ' '
         $first = & $export "# cspell:ignore $many`n# A widget note`n# on two lines.`nwidget: 1`n" '.yml' 'yaml'
         $ignoreLines = @($first.PageText -split "`n" | Where-Object { $_ -like '<!-- cspell:ignore*' })
         $ignoreLines.Count | Should -BeGreaterThan 1
