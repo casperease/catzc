@@ -15,7 +15,6 @@ catzc:
       - ADR-REPO-CODEMETA#2
       - ADR-REPO-FILEMETA#1
       - ADR-REPO-FORMAT#8
-      - ADR-REPO-LINK#9
     links:
       - docs/adr/principles/configure-not-program.md
       - docs/adr/principles/one-living-version.md
@@ -24,7 +23,7 @@ catzc:
       - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8
 ---
 
-# ADR: Comments in docs — one insight line in the file, the prose in its comment page
+# ADR: Comments in docs — only a one-line comment stays in the file, the rest lives in its comment page
 
 ## Rules: ADR-REPO-COMMENTS
 
@@ -32,20 +31,19 @@ catzc:
 
 A comment in a code or configuration file is at most one line of insight: what the code does not say itself — the invariant it keeps, the
 order it depends on, the edge it guards, the reason a branch exists. A comment that needs more than one line of prose moves, verbatim, to
-the file's **comment page**, and the file keeps in its place a **residue**: the insight line, then the docs link to its section
-(ADR-REPO-LINK#9). A residue in a help section is the insight line alone when its section's name occurs once in the file and once on the
-page: the page section names the help section (`.PARAMETER Path`), and that name pairs them, so `Get-Help` shows no link. The comment's ADR
-citations move to the page with the rest of its prose, and the file's meta head lists them (ADR-REPO-CODEMETA#2). The comment-based help
-sections a reader and the help system need in place stay whole.
+the file's **comment page** and leaves **nothing** in the file: no marker, no insight line, no link. The comment's ADR citations move with
+the rest of its prose, and the file's meta head lists them (ADR-REPO-CODEMETA#2). The file's meta head names the page as its
+`relatives.page` (ADR-REPO-FILEMETA#9), so the way from a file to its prose is derived front matter, never a line of code.
 
-- [One line in the file](#one-line-in-the-file)
+- [Nothing in the file](#nothing-in-the-file)
 
 ### Rule ADR-REPO-COMMENTS:2
 
 The move loses nothing. Each moved comment becomes one section of the page, `## comment:<n>`, holding its lines exactly as they stood in the
-file, comment markers and common indent removed, inside a fenced `text` block so no formatter rewrites them, under one line naming what the
-comment annotated. A section's number is its address for life: a new comment takes the next number after the page's highest, a number is
-never reused, and a section a person edits stays as edited.
+file, comment markers and common indent removed, inside a fenced `text` block so no formatter rewrites them. Above the fence one line names
+where the comment stood: the code line it sat above (and which occurrence of that line, when the file repeats it), or the end of the file,
+and the comment marker it was written with. A section's number is its address for life: a new comment takes the next number after the
+page's highest, a number is never reused, and a section a person edits stays as edited.
 
 - [A lossless move](#a-lossless-move)
 
@@ -64,8 +62,8 @@ line still is.
 ### Rule ADR-REPO-COMMENTS:4
 
 The file with its comments inline is a generated view, never a second copy kept by hand: `Build-CommentView` writes it under `out/`, at the
-file's repository path, from the file and its page. The view of an exported file equals the file before the move, and exporting an exported
-file changes nothing.
+file's repository path, from the file and its page, putting every section back above the code line it names as line comments. The view of
+an exported file reads as the file before the move, and exporting an exported file changes nothing.
 
 - [The view](#the-view)
 
@@ -73,33 +71,30 @@ file changes nothing.
 
 The move is made by tool and checked by a gate: `Export-Comments` moves every long comment in scope, and `Format-Code` runs it as its
 `comments` imprint step ([ADR-REPO-FORMAT#8](uniform-formatting.md#rule-adr-repo-format8)), so formatting a file also moves its prose.
-`Format-Comments` keeps each insight line one line within the file's limit and free of links and of phrasings that state the obvious, drops
-the docs link of a help residue its page names uniquely, and `Test-Comments` fails on a long comment left in a file, a residue whose section
-is missing, a section no residue links, and a residue that links another file's page. A comment page is marked as one in its meta block,
-whose `kind` is `comment-page` ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)).
+`Test-Comments` fails on a long comment left in a file and on a section whose code line the file no longer has. A comment page is marked as
+one in its meta block, whose `kind` is `comment-page` ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)).
 
 - [How this is enforced](#how-this-is-enforced)
 
 ## Context
 
-The repository's code carries a great deal of prose. Comment-based help descriptions run to several paragraphs, configuration files open
-with a page of explanation before their first key, and a branch is often preceded by a paragraph on why it exists. That prose is valuable —
-it is how a reader learns why the code is shaped as it is — but in the file it competes with the code for the reader's attention, and its
-volume hides the one line in it that a reader most needs: the thing the code cannot say for itself.
+The repository's code carries a great deal of prose. Configuration files open with a page of explanation before their first key, and a
+branch is often preceded by a paragraph on why it exists. That prose is valuable — it is how a reader learns why the code is shaped as it
+is — but in the file it competes with the code for the reader's attention.
 
 Prose and code also change at different rates and are reviewed for different things. A long comment in a code file is reviewed as code,
 formatted by a code formatter, and spell-checked line by line between statements; the same text in a Markdown page is reviewed as prose,
 rendered on GitHub, and linked from the module's reference article.
 
-### One line in the file
+### Nothing in the file
 
-A file keeps, per long comment, the line that earns its place next to the code: a fact the code does not state. The rest of the comment is
-not deleted — it moves. The insight line is followed by the docs link, so a reader who wants the full prose is one click away. The comment's
-ADR citations leave with the prose: the page keeps them as written, and the file's meta head lists the codes the file and its page cite, so
-the analyzer map, the rule tags, and `Format-Links` still see every rule the comment invoked.
+A marker in the code, even a short one, is still something the code carries on behalf of the prose: a line to keep in step, to keep within a
+length, to keep unlinked from the wrong page. The file's meta head already carries derived facts about the file, so the pointer to the page
+is one more of them (`relatives.page`), computed from the configured page map, and the code keeps only code and the comments that fit on
+one line. The page does the pairing instead: each section says which code line its comment sat above.
 
-The help sections a reader and `Get-Help` need in place stay whole: the synopsis, the examples, the inputs and outputs. A parameter's
-description is one line or it moves like any other comment.
+The price is that a section is addressed by the line beneath it, so editing that line can orphan the section. `Test-Comments` reports the
+orphan, and the fix is the same one-line edit of the section's context line a reviewer would make by hand.
 
 ### A lossless move
 
@@ -107,8 +102,7 @@ A comment's text is the record of what its author meant, so the move is a biject
 section, and the view puts it back unchanged. The page keeps each comment in a fenced block because the Markdown formatter reflows prose;
 without the fence the page would hold a reworded comment, and the round trip would no longer be exact.
 
-Numbers are addresses. A residue names its section by number, and a link from elsewhere may name the section's anchor, so a number never
-moves to another comment.
+Numbers are addresses. A link from elsewhere may name a section's anchor, so a number never moves to another comment.
 
 ### Where a page lives
 
@@ -124,26 +118,22 @@ the gitignored output folder from the two sources that are reviewed — the file
 
 ## Decision
 
-A code or configuration file carries one insight line per comment; a comment longer than that moves, verbatim and numbered, to the file's
-comment page under `docs/references/`, and the file keeps a residue with the insight and a docs link. The full file is a generated view
-under `out/`. Tools make the move and a gate holds it.
+A code or configuration file carries only comments of one line; a longer comment moves, verbatim and numbered, to the file's comment page
+under `docs/references/` and leaves nothing behind, and the file's meta head names the page. The full file is a generated view under
+`out/`. Tools make the move and a gate holds it.
 
 ### How this is enforced
 
 - **`Export-Comments`** (in `Catzc.Base.QualityGates`) — the one-way move, dry-run first, over every file in scope or the given paths.
   `Format-Code` runs it as the `comments` imprint step, over the same scope.
-- **`Format-Comments`** — keeps each residue's insight line in shape and lists what needs a person.
 - **`Build-CommentView`** — writes the annotated view under `out/`.
-- **`Test-Comments`** — the gate over the pairing of residues and sections and over any long comment left in a file.
+- **`Test-Comments`** — the gate over any long comment left in a file and over sections whose code line is gone.
 - **One engine** — every command drives the compiled `Catzc.Base.QualityGates.CommentEngine`, which finds comments through `CommentLexer`,
   the one place that knows each language's comment syntax; `comments.yml` holds the configured choices.
-- **`Test-Links`** — checks every docs link: its page exists and holds its own section (ADR-REPO-LINK#9).
 
 ## Consequences
 
-- Code files shrink to code and the one line per comment that explains what the code does not; the prose is read as prose, on GitHub, beside
-  the module's reference article.
-- `Get-Help` shows the insight line and a link where it used to show paragraphs; the view under `out/` is where the full text is read in
-  place.
+- Code files shrink to code and one-line comments; the prose is read as prose, on GitHub, beside the module's reference article.
+- The view under `out/` is where the full text is read in place.
 - A long comment written in a file fails the gate until it is exported, so the prose always ends up in one place.
-- An insight line produced by the tool is the comment's first sentence, provisional until someone rewrites it to say what the code does not.
+- Editing the code line under a moved comment orphans its section until the section's context line follows the edit.

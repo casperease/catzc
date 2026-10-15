@@ -54,8 +54,3 @@ agents:
   - name: test-optimization
     supported_by: [ADR-AUTO-TEST#21, ADR-AUTO-TEST#19, ADR-AUTO-TEST#22, ADR-PRIN-NOWASTE#1]
     checks: [Invoke-TestFile, Test-ScriptAnalyzer]
-
-  # Rewrites each comment residue's provisional insight line into the one line that says what the code does not, after Export-Comments.
-  - name: condense-comments
-    supported_by: [ADR-REPO-COMMENTS#5, ADR-REPO-COMMENTS#1, ADR-PRIN-ONELIVE#1]
-    checks: [Format-Comments, Test-Comments]
