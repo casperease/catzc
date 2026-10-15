@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/pwsh/bounded-enumeration.md
     kind: adr
-    body_sha: dec8e94642cc
+    body_sha: b0131730897a
     defines:
       - ADR-PWSH-ENUM#1
       - ADR-PWSH-ENUM#2
@@ -13,8 +13,11 @@ catzc:
       - ADR-PWSH-ENUM#6
     adrs:
       - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TRACKED#1
       - ADR-PWSH-PARAM#4
       - ADR-PWSH-PESTER#9
+    links:
+      - docs/adr/automation/tracked-files-from-the-index.md
 ---
 
 # ADR: Bounded enumeration
@@ -74,6 +77,12 @@ depends on) lists one level with an inline, non-recursive `[System.IO.Directory]
 A recursive listing is the easiest way to find a file and the easiest way to make a command slow and its result wrong. An unbounded walk
 enters `.git`, `node_modules`, and vendored modules, loads the whole tree into memory, and returns files the caller never meant to touch.
 The cost grows with the repository, so a command that is fast today slows down as the tree grows, and nothing in the code says why.
+
+The walker answers "what is on disk below this folder", which includes an untracked file and leaves out a deleted one. "Which files does git
+track" is a different question with its own seam, `Get-GitTrackedPath`
+([tracked-files-from-the-index](../automation/tracked-files-from-the-index.md), `ADR-AUTO-TRACKED#1`). Code that scopes itself by what is
+committed asks that seam and never walks the folder; code that needs what is actually present, such as a build input, a fixture tree, a
+report folder, or a freshly written file, walks.
 
 ### Raw .NET, one way
 

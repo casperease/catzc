@@ -29,7 +29,7 @@ public sealed class CommentsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    static readonly string[] AllowedKeys = { "languages", "min_lines", "keep", "keep_run", "pages", "exclude", "obvious_phrases", "view" };
+    static readonly string[] AllowedKeys = { "languages", "min_lines", "keep", "keep_run", "pages", "exclude", "view" };
 
     public static readonly IReadOnlyDictionary<string, string> DefaultExclude = new Dictionary<string, string>(StringComparer.Ordinal)
     {
@@ -55,11 +55,6 @@ public sealed class CommentsConfig
         ("infrastructure", "docs/references/infrastructure"),
         (".claude/hooks", "docs/references/automation/claude-hooks"),
     };
-    public static readonly IReadOnlyList<string> DefaultObviousPhrases = new[]
-    {
-        "this function", "this script", "this file", "this config", "this type", "this test",
-        "a helper", "helper function", "helper that", "returns the result", "see above", "see below", "as the name says",
-    };
 
     public IReadOnlyList<string> languages { get; }
     public int min_lines { get; }
@@ -67,7 +62,6 @@ public sealed class CommentsConfig
     public IReadOnlyDictionary<string, IReadOnlyList<string>> keep_run { get; }
     public IReadOnlyList<CommentPageMap> pages { get; }
     public IReadOnlyDictionary<string, string> exclude { get; }
-    public IReadOnlyList<string> obvious_phrases { get; }
     public string view { get; }
 
     readonly List<Catzc.Base.Globs.GlobPattern> excludeGlobs = new List<Catzc.Base.Globs.GlobPattern>();
@@ -80,7 +74,6 @@ public sealed class CommentsConfig
         var keepLists = new Dictionary<string, IReadOnlyList<string>>(DefaultKeep, StringComparer.OrdinalIgnoreCase);
         var keepRunLists = new Dictionary<string, IReadOnlyList<string>>(StringComparer.OrdinalIgnoreCase);
         var pageMaps = DefaultPages.Select(d => new CommentPageMap(name + ": pages", new Hashtable { ["source"] = d.source, ["docs"] = d.docs })).ToList();
-        obvious_phrases = DefaultObviousPhrases;
         view = DefaultView;
         var excludeMap = new Dictionary<string, string>(DefaultExclude, StringComparer.Ordinal);
 
@@ -183,11 +176,6 @@ public sealed class CommentsConfig
                 }
             }
 
-            if (raw.Contains("obvious_phrases") && raw["obvious_phrases"] != null)
-            {
-                obvious_phrases = Strings(name, "obvious_phrases", raw["obvious_phrases"], requireAny: false);
-            }
-
             if (raw.Contains("view") && raw["view"] != null)
             {
                 string folder = Convert.ToString(raw["view"], CultureInfo.InvariantCulture).Replace('\\', '/');
@@ -246,13 +234,6 @@ public sealed class CommentsConfig
     // The comment page of a repository-relative file: the first pages map that covers it, or null when none does.
     public string PageFor(string repoRelativePath) =>
         pages.Select(map => map.PageFor(repoRelativePath)).FirstOrDefault(page => page != null);
-
-    // True when a residue line states the obvious: it starts with one of the configured phrases (case-insensitive).
-    public bool IsObvious(string residueLine)
-    {
-        string line = residueLine?.Trim() ?? string.Empty;
-        return obvious_phrases.Any(phrase => line.StartsWith(phrase, StringComparison.OrdinalIgnoreCase));
-    }
 
     static IReadOnlyList<string> Strings(string name, string key, object value, bool requireAny)
     {

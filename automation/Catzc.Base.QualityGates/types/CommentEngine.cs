@@ -9,13 +9,10 @@ catzc:
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-FORMAT#5
-      - ADR-X#8
 ---
 */
 
-// cspell:ignore EXTERNALHELP FORWARDHELPTARGETNAME FORWARDHELPCATEGORY REMOTEHELPRUNSPACE  -- PowerShell help keywords
 // Pure functions over text, so the move and its inverse are provable on fixtures and each comment keeps one living copy.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -28,20 +25,12 @@ namespace Catzc.Base.QualityGates;
 
 public static class CommentEngine
 {
-    static readonly Regex HelpKeyword = new Regex(
-        @"^\s*\.(?<keyword>SYNOPSIS|DESCRIPTION|PARAMETER|EXAMPLE|INPUTS|OUTPUTS|NOTES|LINK|COMPONENT|ROLE|FUNCTIONALITY|EXTERNALHELP|FORWARDHELPTARGETNAME|FORWARDHELPCATEGORY|REMOTEHELPRUNSPACE)\b",
-        RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    static readonly Regex DocsLink = new Regex(@"\[comment:(?<number>\d+)\]\((?<page>/[^)\s#]+)#comment(?<anchor>\d+)\)", RegexOptions.Compiled);
     static readonly Regex CodeSpanText = new Regex(@"(`+)[^`\r\n]+?\1", RegexOptions.Compiled);
-    static readonly Regex Citation = new Regex(@"(?<!\w)(?<code>ADR-[A-Z]+(?:-[A-Z]+)*)(?:[:#](?<rule>\d+))?(?![\w-])", RegexOptions.Compiled);
-    static readonly Regex MarkdownLink = new Regex(@"\[[^\]\r\n]*\]\([^)\s]+\)", RegexOptions.Compiled);
     static readonly Regex SectionHeading = new Regex(@"^## comment:(?<number>\d+)[ \t]*$", RegexOptions.Compiled | RegexOptions.Multiline);
     static readonly Regex Whitespace = new Regex(@"\s+", RegexOptions.Compiled);
-    static readonly Regex EmptyParentheses = new Regex(@"\s*\((?:[\s,;]*)\)", RegexOptions.Compiled);
     static readonly Regex IgnoreDirective = new Regex(@"cspell:ignore[ \t]+(?<words>[^\r\n]*)", RegexOptions.Compiled);
     static readonly Regex IgnoreWord = new Regex(@"^[A-Za-z0-9][A-Za-z0-9'_-]*$", RegexOptions.Compiled);
     static readonly Regex PageIgnoreLine = new Regex(@"^<!-- cspell:ignore (?<words>[^\r\n]*?) -->[ \t]*$", RegexOptions.Compiled | RegexOptions.Multiline);
-    static readonly Regex SpaceBeforePunctuation = new Regex(@"\s+([.,;:])", RegexOptions.Compiled);
     const string FenceOpen = "```text";
     const string FenceClose = "```";
     const int ContextLength = 80;
@@ -67,8 +56,8 @@ public static class CommentEngine
         {
             if (run.Count == 0) { return; }
             var first = run[0];
-            blocks.Add(new CommentBlock(CommentBlockKind.LineRun, first.line, run[run.Count - 1].line, first.indent, first.marker, null,
-                run.Select(r => r.prose).ToList(), lines.NextCodeLine(run[run.Count - 1].line)));
+            blocks.Add(new CommentBlock(CommentBlockKind.LineRun, first.line, run[run.Count - 1].line, first.indent, first.marker,
+                run.Select(r => r.prose).ToList()));
             run.Clear();
         }
 
@@ -98,15 +87,8 @@ public static class CommentEngine
                 {
                     continue;   // the meta head is a front matter document in a comment, never prose
                 }
-                if (comment.StartsWith("<#", StringComparison.Ordinal) && IsHelpBlock(lines, startLine, endLine))
-                {
-                    blocks.AddRange(HelpSections(lines, startLine, endLine));
-                }
-                else
-                {
-                    CommentBlock block = DelimitedBlock(lines, startLine, endLine, before);
-                    if (block != null) { blocks.Add(block); }
-                }
+                CommentBlock block = DelimitedBlock(lines, startLine, endLine, before);
+                if (block != null) { blocks.Add(block); }
                 continue;
             }
 
@@ -151,9 +133,7 @@ public static class CommentEngine
     static bool Moves(CommentBlock block, Lines lines, string language, CommentsConfig config)
     {
         if (block.ProseLineCount < config.min_lines) { return false; }
-        if (block.Lines.Any(line => DocsLink.IsMatch(line))) { return false; }   // a residue: exported already
-        string head = block.Keyword ?? lines[block.StartLine].Trim();
-        return !config.IsKept(language, head);
+        return !config.IsKept(language, lines[block.StartLine].Trim());
     }
 
     // A block whose inner lines open with a front matter fence and then a listed head (catzc:), in the language's own line marker.
@@ -171,40 +151,7 @@ public static class CommentEngine
         return next.StartsWith(indent + marker, StringComparison.Ordinal) && config.IsKeptRun(language, next.Trim());
     }
 
-    static bool IsHelpBlock(Lines lines, int startLine, int endLine)
-    {
-        for (int i = startLine; i <= endLine; i++)
-        {
-            if (HelpKeyword.IsMatch(lines[i])) { return true; }
-        }
-        return false;
-    }
-
-    // A closing marker sharing a body line leaves the block alone, and trailing blank lines stay in place.
-    // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md#comment2)
-    static IEnumerable<CommentBlock> HelpSections(Lines lines, int startLine, int endLine)
-    {
-        if (!lines[endLine].Trim().StartsWith("#>", StringComparison.Ordinal)) { yield break; }
-        var keywordLines = new List<int>();
-        for (int i = startLine; i < endLine; i++)
-        {
-            if (HelpKeyword.IsMatch(lines[i])) { keywordLines.Add(i); }
-        }
-        for (int k = 0; k < keywordLines.Count; k++)
-        {
-            int keywordLine = keywordLines[k];
-            int bodyStart = keywordLine + 1;
-            int bodyEnd = (k + 1 < keywordLines.Count ? keywordLines[k + 1] : endLine) - 1;
-            while (bodyEnd >= bodyStart && lines[bodyEnd].Trim().Length == 0) { bodyEnd--; }
-            if (bodyEnd < bodyStart) { continue; }
-            string indent = CommonIndent(lines, bodyStart, bodyEnd);
-            var prose = new List<string>();
-            for (int i = bodyStart; i <= bodyEnd; i++) { prose.Add(StripIndent(lines[i], indent)); }
-            yield return new CommentBlock(CommentBlockKind.HelpSection, bodyStart, bodyEnd, indent, string.Empty, lines[keywordLine].Trim(), prose, null);
-        }
-    }
-
-    // A `<# … #>` or `/* … */` block that is not help: its inner lines, plus any text beside the delimiters.
+    // A `<# … #>` or `/* … */` block: its inner lines, plus any text beside the delimiters.
     static CommentBlock DelimitedBlock(Lines lines, int startLine, int endLine, string indent)
     {
         string opener = lines[startLine].TrimStart().StartsWith("<!--", StringComparison.Ordinal) ? "<!--" : lines[startLine].TrimStart().Substring(0, 2);
@@ -232,7 +179,7 @@ public static class CommentEngine
             if (lastText.Length > 0) { prose.Add(lastText); }
         }
         if (prose.Count == 0) { return null; }
-        return new CommentBlock(CommentBlockKind.Block, startLine, endLine, indent, string.Empty, null, prose, lines.NextCodeLine(endLine));
+        return new CommentBlock(CommentBlockKind.Block, startLine, endLine, indent, string.Empty, prose);
     }
 
     static string MarkerOf(string comment)
@@ -242,7 +189,7 @@ public static class CommentEngine
         return "#";
     }
 
-    // The line marker a delimited block's residue is written with: the family's line comment.
+    // The line marker a delimited block is written back with: the family's line comment.
     static string FamilyMarker(string extension) =>
         string.Equals(extension, ".cs", StringComparison.OrdinalIgnoreCase) || string.Equals(extension, ".bicep", StringComparison.OrdinalIgnoreCase) ? "//" : "#";
 
@@ -267,10 +214,9 @@ public static class CommentEngine
 
     // ---- exporting --------------------------------------------------------------------------------------------
 
-    // lineLimit is the file's own limit, which the provisional insight line is cut to fit.
-    // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md#comment3)
+    // A moved comment leaves nothing in the file: its page section names the code line it sat above, and the view puts it back there.
     public static CommentFileResult Export(string text, string extension, string language, string repoRelativePath, string pagePath,
-        string existingPageText, CommentsConfig config, int lineLimit)
+        string existingPageText, CommentsConfig config)
     {
         if (string.IsNullOrEmpty(repoRelativePath)) { throw new ArgumentException("comment engine: the file path is required"); }
         if (string.IsNullOrEmpty(pagePath)) { throw new ArgumentException("comment engine: the page path is required"); }
@@ -279,58 +225,43 @@ public static class CommentEngine
 
         Lines lines = Lines.Of(text);
         Page page = Page.Parse(existingPageText);
-        List<HelpHeading> headings = HelpHeadings(text, extension, lines);
-        int number = page.HighestNumber;
         var output = new List<string>();
-        var sections = new List<string>();
+        var removedAt = new List<int>();
         int next = 0;
         foreach (CommentBlock block in blocks)
         {
-            number++;
             for (int i = next; i < block.StartLine; i++) { output.Add(lines[i]); }
-            // A help section its page will name uniquely needs no link: the section's name pairs it.
-            bool linked = block.Kind != CommentBlockKind.HelpSection || !IsUniqueInFile(headings, block.Keyword)
-                || SectionsNamed(page, block.Keyword).Count > 0;
-            output.AddRange(Residue(block, number, pagePath, extension, lineLimit, linked));
-            sections.Add(Section(block, number));
+            removedAt.Add(output.Count);
             next = block.EndLine + 1;
+            // Taking the comment out must not leave two blank lines where one stood on each side of it.
+            bool blankBefore = output.Count == 0 || output[output.Count - 1].Trim().Length == 0;
+            if (blankBefore && next < lines.Count && lines[next].Trim().Length == 0) { next++; }
         }
         for (int i = next; i < lines.Count; i++) { output.Add(lines[i]); }
+
+        int number = page.HighestNumber;
+        var sections = new List<string>();
+        for (int b = 0; b < blocks.Count; b++)
+        {
+            number++;
+            CommentBlock block = blocks[b];
+            int anchorLine = Lines.NextCodeIndex(output, removedAt[b]);
+            string anchor = anchorLine < 0 ? null : AnchorOf(output[anchorLine]);
+            int occurrence = 1;
+            if (anchor != null)
+            {
+                for (int i = 0; i < anchorLine; i++) { if (AnchorOf(output[i]) == anchor) { occurrence++; } }
+            }
+            string marker = block.Kind == CommentBlockKind.Block ? FamilyMarker(extension) : block.Marker;
+            sections.Add(Section(block, number, Context(anchor, occurrence, marker)));
+        }
 
         string newText = lines.Join(output);
         string newPage = page.With(sections, repoRelativePath, IgnoredWords(text, extension));
         return new CommentFileResult(repoRelativePath, pagePath, newText, newPage, blocks);
     }
 
-    static IEnumerable<string> Residue(CommentBlock block, int number, string pagePath, string extension, int lineLimit, bool linked)
-    {
-        string marker = block.Kind == CommentBlockKind.Block ? FamilyMarker(extension) : block.Marker;
-        string prefix = block.Indent + (marker.Length > 0 ? marker + " " : string.Empty);
-        string insight = Insight(block.Text, Math.Max(16, lineLimit - prefix.Length));
-        yield return prefix + insight;
-        if (linked) { yield return prefix + string.Format(CultureInfo.InvariantCulture, "[comment:{0}](/{1}#comment{0})", number, pagePath); }
-    }
-
-    // Provisional only: links and citations go on the link line, and a later pass rewrites the cut sentence.
-    // [comment:4](/docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md#comment4)
-    public static string Insight(string text, int maxLength)
-    {
-        string withoutLinks = MarkdownLink.Replace(text ?? string.Empty, string.Empty);
-        // Citations leave the insight for the link line; an example inside a code span stays, it is part of the sentence.
-        var spans = CodeSpanText.Matches(withoutLinks).Cast<Match>().ToList();
-        string plain = Citation.Replace(withoutLinks, match => spans.Any(span => match.Index >= span.Index && match.Index < span.Index + span.Length) ? match.Value : string.Empty);
-        plain = EmptyParentheses.Replace(plain, string.Empty);
-        string sentence = SpaceBeforePunctuation.Replace(Whitespace.Replace(plain, " "), "$1").Trim();
-        int end = sentence.IndexOf(". ", StringComparison.Ordinal);
-        if (end >= 0) { sentence = sentence.Substring(0, end + 1); }
-        if (sentence.Length <= maxLength) { return sentence; }
-        int cut = sentence.LastIndexOf(' ', Math.Max(0, maxLength - Ellipsis.Length));
-        if (cut <= 0) { cut = maxLength - Ellipsis.Length; }
-        return sentence.Substring(0, cut).TrimEnd() + Ellipsis;
-    }
-
     // The page ignores these words too, or moved prose would fail a spell check the file itself passed.
-    // [comment:5](/docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md#comment5)
     public static IReadOnlyList<string> IgnoredWords(string text, string extension)
     {
         var words = new List<string>();
@@ -351,223 +282,153 @@ public static class CommentEngine
         return words;
     }
 
-    // The ADR citations a text carries, spelled ADR-<CODE>#<n>, each once, in order of appearance.
-    public static IReadOnlyList<string> Citations(string text)
-    {
-        var cites = new List<string>();
-        // A citation inside a code span (`ADR-X#8`) is an example of the spelling, not a citation.
-        foreach (Match match in Citation.Matches(CodeSpanText.Replace(text ?? string.Empty, string.Empty)))
-        {
-            string cite = match.Groups["code"].Value + (match.Groups["rule"].Success ? "#" + match.Groups["rule"].Value : string.Empty);
-            if (!cites.Contains(cite)) { cites.Add(cite); }
-        }
-        return cites;
-    }
-
-    static string Section(CommentBlock block, int number)
+    static string Section(CommentBlock block, int number, string context)
     {
         var builder = new StringBuilder();
         builder.Append("## comment:").Append(number.ToString(CultureInfo.InvariantCulture)).Append("\n\n");
-        builder.Append(block.Context).Append("\n\n");
+        builder.Append(context).Append("\n\n");
         builder.Append(FenceOpen).Append('\n');
         foreach (string line in block.Lines) { builder.Append(line).Append('\n'); }
         builder.Append(FenceClose).Append('\n');
         return builder.ToString();
     }
 
-    // ---- residues and the view --------------------------------------------------------------------------------
+    // ---- anchors, the view and the orphans --------------------------------------------------------------------
 
-    public static IReadOnlyList<CommentResidue> FindResidues(string text, string extension) => FindResidues(text, extension, null, null);
-
-    // With the page, a help section the page names uniquely pairs as a residue of its insight line alone, with no docs link.
-    public static IReadOnlyList<CommentResidue> FindResidues(string text, string extension, string pagePath, string pageText)
+    // The trimmed code line, cut at a word to the context length: what a page section names and what the view looks for.
+    static string AnchorOf(string line)
     {
-        if (string.IsNullOrEmpty(text)) { return Array.Empty<CommentResidue>(); }
-        Lines lines = Lines.Of(text);
-        List<HelpHeading> headings = HelpHeadings(text, extension, lines);
-        var residues = new List<CommentResidue>(LinkedResidues(text, extension, lines, headings));
-        if (pageText == null) { return residues; }
+        string trimmed = line.Trim();
+        if (trimmed.Length <= ContextLength) { return trimmed; }
+        int cut = trimmed.LastIndexOf(' ', ContextLength - Ellipsis.Length);
+        if (cut <= 0) { cut = ContextLength - Ellipsis.Length; }
+        return trimmed.Substring(0, cut).TrimEnd() + Ellipsis;
+    }
 
+    // What the page says the comment annotated: the code line it sat above (and which of equal lines), and how it was written.
+    static string Context(string anchor, int occurrence, string marker)
+    {
+        string written = ", written with " + CommentBlock.CodeSpan(marker) + ".";
+        if (anchor == null) { return "At the end of the file" + written; }
+        string which = occurrence > 1 ? string.Format(CultureInfo.InvariantCulture, " (occurrence {0})", occurrence) : string.Empty;
+        return "Above " + CommentBlock.CodeSpan(anchor) + which + written;
+    }
+
+    sealed class Placement
+    {
+        public int Number { get; set; }
+        public string Anchor { get; set; }   // null: the end of the file
+        public int Occurrence { get; set; }
+        public string Marker { get; set; }
+        public IReadOnlyList<string> Lines { get; set; }
+    }
+
+    static readonly Regex ContextPattern = new Regex(@"^(?:Above (?<span>`.+`)(?: \(occurrence (?<occurrence>\d+)\))?|At the end of the file), written with (?<marker>`+[^`]+`+)\.$", RegexOptions.Compiled);
+
+    // The section's placement, or null when its context line is no placement (a page written by hand).
+    static Placement PlacementOf(int number, PageSection section)
+    {
+        if (section.Context == null) { return null; }
+        Match match = ContextPattern.Match(section.Context);
+        if (!match.Success) { return null; }
+        return new Placement
+        {
+            Number = number,
+            Anchor = match.Groups["span"].Success ? Unspan(match.Groups["span"].Value) : null,
+            Occurrence = match.Groups["occurrence"].Success ? int.Parse(match.Groups["occurrence"].Value, CultureInfo.InvariantCulture) : 1,
+            Marker = Unspan(match.Groups["marker"].Value),
+            Lines = section.Lines,
+        };
+    }
+
+    // The inverse of CommentBlock.CodeSpan: the text inside the fence, less the pad a leading or trailing backtick needed.
+    static string Unspan(string span)
+    {
+        int fence = 0;
+        while (fence < span.Length && span[fence] == '`') { fence++; }
+        string inner = span.Substring(fence, span.Length - 2 * fence);
+        if (inner.Length >= 2 && inner[0] == ' ' && inner[inner.Length - 1] == ' ' && (inner[1] == '`' || inner[inner.Length - 2] == '`'))
+        {
+            inner = inner.Substring(1, inner.Length - 2);
+        }
+        return inner;
+    }
+
+    // The line a section goes above: the nth line equal to its anchor, or the end of the file; -1 when the code no longer has it.
+    static int Place(IReadOnlyList<string> lines, Placement placement)
+    {
+        if (placement.Anchor == null) { return lines.Count; }
+        int seen = 0;
+        for (int i = 0; i < lines.Count; i++)
+        {
+            if (AnchorOf(lines[i]) != placement.Anchor) { continue; }
+            seen++;
+            if (seen == placement.Occurrence) { return i; }
+        }
+        return -1;
+    }
+
+    static List<Placement> Placements(string pageText)
+    {
         Page page = Page.Parse(pageText);
-        var linkedNumbers = new HashSet<int>(residues.Select(r => r.Number));
-        foreach (HelpHeading heading in headings)
+        var placements = new List<Placement>();
+        foreach (KeyValuePair<int, PageSection> section in page.Sections)
         {
-            // Only a section that is the insight line alone pairs by name; more lines, and the link stays the pairing.
-            if (heading.ProseCount != 1 || !IsUniqueInFile(headings, heading.Keyword)) { continue; }
-            bool linked = false;
-            for (int i = heading.Line; i <= heading.End; i++) { linked |= DocsLink.IsMatch(lines[i]); }
-            if (linked) { continue; }
-            List<int> named = SectionsNamed(page, heading.Keyword);
-            if (named.Count != 1 || linkedNumbers.Contains(named[0])) { continue; }
-            string body = lines[heading.Body];
-            string indent = body.Substring(0, body.Length - body.TrimStart().Length);
-            residues.Add(new CommentResidue(named[0], pagePath ?? string.Empty, heading.Body, heading.Body, indent, string.Empty, body.Trim(), heading.Keyword, false));
+            Placement placement = PlacementOf(section.Key, section.Value);
+            if (placement != null) { placements.Add(placement); }
         }
-        return residues.OrderBy(r => r.StartLine).ToList();
+        return placements;
     }
 
-    // True when the residue is a linked help residue that is its whole section, insight and link, and its page section is the only one
-    // naming that help section: its link can go.
-    public static bool PairsByName(string text, string extension, string pageText, CommentResidue residue)
-    {
-        if (residue == null || !residue.Linked || residue.HelpKeyword == null || pageText == null) { return false; }
-        Lines lines = Lines.Of(text ?? string.Empty);
-        List<HelpHeading> headings = HelpHeadings(text, extension, lines);
-        if (!IsUniqueInFile(headings, residue.HelpKeyword)) { return false; }
-        HelpHeading heading = headings.First(h => string.Equals(h.Keyword, residue.HelpKeyword, StringComparison.Ordinal));
-        if (heading.Body != residue.StartLine || heading.ProseCount != residue.LineCount) { return false; }
-        List<int> named = SectionsNamed(Page.Parse(pageText), residue.HelpKeyword);
-        return named.Count == 1 && named[0] == residue.Number;
-    }
-
-    static bool IsUniqueInFile(List<HelpHeading> headings, string keyword) =>
-        headings.Count(h => string.Equals(h.Keyword, keyword, StringComparison.Ordinal)) == 1;
-
-    static List<int> SectionsNamed(Page page, string keyword)
-    {
-        string context = CommentBlock.HelpContext(keyword);
-        return page.Sections.Where(s => s.Value.Context == context).Select(s => s.Key).ToList();
-    }
-
-    sealed class HelpHeading
-    {
-        public string Keyword { get; set; }
-        public int Line { get; set; }
-        public int Body { get; set; }   // the first non-blank line under the keyword, or -1
-        public int End { get; set; }    // the last line of the section, before the next keyword or the closer
-        public int ProseCount { get; set; }   // the non-blank lines under the keyword
-    }
-
-    // Every keyword section of every help block in the file, in order.
-    static List<HelpHeading> HelpHeadings(string text, string extension, Lines lines)
-    {
-        var headings = new List<HelpHeading>();
-        foreach ((int start, int length) in CommentLexer.Comments(text, extension))
-        {
-            if (!text.Substring(start, length).StartsWith("<#", StringComparison.Ordinal)) { continue; }
-            int startLine = lines.LineOf(start);
-            int endLine = lines.LineOf(start + length - 1);
-            if (startLine == endLine || !IsHelpBlock(lines, startLine, endLine)) { continue; }
-            HelpHeading current = null;
-            for (int i = startLine; i <= endLine; i++)
-            {
-                bool closer = i == endLine && lines[i].Trim().StartsWith("#>", StringComparison.Ordinal);
-                if (HelpKeyword.IsMatch(lines[i]) || closer)
-                {
-                    if (current != null) { current.End = i - 1; headings.Add(current); current = null; }
-                    if (!closer) { current = new HelpHeading { Keyword = lines[i].Trim(), Line = i, Body = -1, End = i }; }
-                    continue;
-                }
-                if (current != null && lines[i].Trim().Length > 0)
-                {
-                    if (current.Body < 0) { current.Body = i; }
-                    current.ProseCount++;
-                }
-            }
-            if (current != null) { current.End = endLine; headings.Add(current); }
-        }
-        return headings;
-    }
-
-    static IEnumerable<CommentResidue> LinkedResidues(string text, string extension, Lines lines, List<HelpHeading> headings)
-    {
-        var residues = new List<CommentResidue>();
-        var seen = new HashSet<int>();
-        foreach ((int start, int length) in CommentLexer.Comments(text, extension))
-        {
-            string comment = text.Substring(start, length);
-            foreach (Match match in DocsLink.Matches(comment))
-            {
-                int linkLine = lines.LineOf(start + match.Index);
-                if (!seen.Add(linkLine)) { continue; }
-                string line = lines[linkLine];
-                string indent = line.Substring(0, line.Length - line.TrimStart().Length);
-                string marker = LineMarker(line.TrimStart());
-                string prefix = indent + marker;
-                int first = linkLine;
-                while (first - 1 >= 0 && HasPrefix(lines[first - 1], prefix, marker) && IsMechanical(Body(lines[first - 1], prefix)) && !DocsLink.IsMatch(lines[first - 1]))
-                {
-                    first--;
-                }
-                string insight = string.Empty;
-                if (first - 1 >= 0 && HasPrefix(lines[first - 1], prefix, marker))
-                {
-                    string candidate = Body(lines[first - 1], prefix);
-                    if (candidate.Trim().Length > 0 && !IsMechanical(candidate) && !DocsLink.IsMatch(candidate) && !HelpKeyword.IsMatch(candidate))
-                    {
-                        first--;
-                        insight = candidate.Trim();
-                    }
-                }
-                int number = int.Parse(match.Groups["number"].Value, CultureInfo.InvariantCulture);
-                string keyword = headings.FirstOrDefault(h => h.Line < linkLine && linkLine <= h.End)?.Keyword;
-                residues.Add(new CommentResidue(number, match.Groups["page"].Value.TrimStart('/'), first, linkLine, indent, marker, insight, keyword));
-            }
-        }
-        return residues.OrderBy(r => r.StartLine).ToList();
-    }
-
-    // The annotated copy: every residue whose section the page holds is replaced by the section's lines.
+    // The annotated copy: every section the code still has a line for goes back above that line, as line comments.
     public static string View(string text, string extension, string pageText)
     {
         if (string.IsNullOrEmpty(text)) { return text ?? string.Empty; }
-        Page page = Page.Parse(pageText);
-        IReadOnlyList<CommentResidue> residues = FindResidues(text, extension, string.Empty, pageText);
-        if (residues.Count == 0) { return text; }
-        Lines lines = Lines.Of(text);
-        var output = new List<string>();
-        int next = 0;
-        foreach (CommentResidue residue in residues)
+        Lines source = Lines.Of(text);
+        var lines = new List<string>(source.Count);
+        for (int i = 0; i < source.Count; i++) { lines.Add(source[i]); }
+        var back = new SortedDictionary<int, List<Placement>>();
+        foreach (Placement placement in Placements(pageText))
         {
-            if (!page.Sections.TryGetValue(residue.Number, out PageSection section)) { continue; }
-            for (int i = next; i < residue.StartLine; i++) { output.Add(lines[i]); }
-            foreach (string line in section.Lines)
-            {
-                output.Add(line.Length == 0
-                    ? (residue.Indent + residue.Marker).TrimEnd()
-                    : residue.Indent + (residue.Marker.Length > 0 ? residue.Marker + " " : string.Empty) + line);
-            }
-            next = residue.EndLine + 1;
+            int at = Place(lines, placement);
+            if (at < 0) { continue; }
+            if (!back.TryGetValue(at, out List<Placement> list)) { back[at] = list = new List<Placement>(); }
+            list.Add(placement);
         }
-        for (int i = next; i < lines.Count; i++) { output.Add(lines[i]); }
-        return lines.Join(output);
+        if (back.Count == 0) { return text; }
+        var output = new List<string>();
+        for (int i = 0; i <= lines.Count; i++)
+        {
+            if (back.TryGetValue(i, out List<Placement> here))
+            {
+                string indent = i < lines.Count ? lines[i].Substring(0, lines[i].Length - lines[i].TrimStart().Length) : string.Empty;
+                foreach (Placement placement in here)
+                {
+                    foreach (string line in placement.Lines)
+                    {
+                        output.Add(line.Length == 0 ? (indent + placement.Marker).TrimEnd() : indent + placement.Marker + " " + line);
+                    }
+                }
+            }
+            if (i < lines.Count) { output.Add(lines[i]); }
+        }
+        return source.Join(output);
     }
 
-    // The section numbers a page holds, for the pairing checks.
-    public static IReadOnlyCollection<int> SectionNumbers(string pageText) => Page.Parse(pageText).Sections.Keys;
-
-    // The fenced prose lines of a page's section, or empty when the page does not hold it.
-    public static IReadOnlyList<string> SectionLines(string pageText, int number) =>
-        Page.Parse(pageText).Sections.TryGetValue(number, out PageSection section) ? section.Lines : Array.Empty<string>();
-
-    static string LineMarker(string trimmedLine)
+    // The numbers of the page's sections whose code line the file no longer has: their prose belongs to nothing.
+    public static IReadOnlyList<int> Orphans(string text, string pageText)
     {
-        if (trimmedLine.StartsWith("///", StringComparison.Ordinal)) { return "///"; }
-        if (trimmedLine.StartsWith("//", StringComparison.Ordinal)) { return "//"; }
-        if (trimmedLine.StartsWith("#", StringComparison.Ordinal) && !trimmedLine.StartsWith("#>", StringComparison.Ordinal)) { return "#"; }
-        return string.Empty;
-    }
-
-    static bool HasPrefix(string line, string prefix, string marker)
-    {
-        if (!line.StartsWith(prefix, StringComparison.Ordinal)) { return false; }
-        if (marker.Length > 0) { return true; }
-        // Inside a help block the marker is the indent alone: the line must be indented exactly that far.
-        return line.Length == prefix.Length || line[prefix.Length] != ' ';
-    }
-
-    static string Body(string line, string prefix)
-    {
-        string body = line.Substring(prefix.Length);
-        return body.StartsWith(" ", StringComparison.Ordinal) ? body.Substring(1) : body;
-    }
-
-    // True when a line holds only links, citations and separators — the mechanical part of a residue.
-    public static bool IsMechanical(string body)
-    {
-        if (string.IsNullOrWhiteSpace(body)) { return false; }
-        string rest = Citation.Replace(MarkdownLink.Replace(body, string.Empty), string.Empty);
-        return rest.All(c => c == ' ' || c == ',' || c == ';' || c == '(' || c == ')' || c == '\t');
+        Lines source = Lines.Of(text ?? string.Empty);
+        var lines = new List<string>(source.Count);
+        for (int i = 0; i < source.Count; i++) { lines.Add(source[i]); }
+        var orphans = new List<int>();
+        Page page = Page.Parse(pageText);
+        foreach (KeyValuePair<int, PageSection> section in page.Sections)
+        {
+            Placement placement = PlacementOf(section.Key, section.Value);
+            if (placement == null || Place(lines, placement) < 0) { orphans.Add(section.Key); }
+        }
+        return orphans;
     }
 
     // ---- helpers ----------------------------------------------------------------------------------------------
@@ -615,12 +476,12 @@ public static class CommentEngine
             return index >= 0 ? index : ~index - 1;
         }
 
-        // The trimmed, cut-to-length code line after the given line, or null when only comments or blanks follow.
-        public string NextCodeLine(int afterLine)
+        // The index of the first code line at or after the given one (not blank, not a comment), or -1.
+        public static int NextCodeIndex(IReadOnlyList<string> all, int from)
         {
-            for (int i = afterLine + 1; i < lines.Count; i++)
+            for (int i = from; i < all.Count; i++)
             {
-                string trimmed = lines[i].Trim();
+                string trimmed = all[i].Trim();
                 if (trimmed.Length == 0) { continue; }
                 if (trimmed.StartsWith("#", StringComparison.Ordinal) || trimmed.StartsWith("//", StringComparison.Ordinal)
                     || trimmed.StartsWith("<#", StringComparison.Ordinal) || trimmed.StartsWith("/*", StringComparison.Ordinal)
@@ -628,13 +489,9 @@ public static class CommentEngine
                 {
                     continue;
                 }
-                if (trimmed.Length <= ContextLength) { return trimmed; }
-                // Cut at the last space that fits, so no word is broken (a half word reads as a misspelling).
-                int cut = trimmed.LastIndexOf(' ', ContextLength - Ellipsis.Length);
-                if (cut <= 0) { cut = ContextLength - Ellipsis.Length; }
-                return trimmed.Substring(0, cut).TrimEnd() + Ellipsis;
+                return i;
             }
-            return null;
+            return -1;
         }
 
         public string Join(IEnumerable<string> output) => string.Join(eol, output) + (trailingNewline ? eol : string.Empty);
@@ -703,8 +560,8 @@ public static class CommentEngine
             bool fresh = Sections.Count == 0 && Prefix.Trim().Length == 0;
             string prefix = fresh
                 ? "# " + repoRelativePath + "\n\n"
-                    + "The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per\n"
-                    + "section (Export-Comments), and Build-CommentView puts them back for reading.\n"
+                    + "The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its\n"
+                    + "comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.\n"
                 : Prefix.TrimEnd('\n') + "\n";
             builder.Append(WithIgnoreLine(prefix, repoRelativePath, ignoredWords).TrimEnd('\n')).Append("\n\n");
             if (!fresh)
@@ -716,7 +573,6 @@ public static class CommentEngine
         }
 
         // The prefix comes back untouched when the file ignores nothing new, so a rerun leaves the page unchanged.
-        // [comment:6](/docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md#comment6)
         static string WithIgnoreLine(string prefix, string repoRelativePath, IReadOnlyList<string> ignoredWords)
         {
             if (ignoredWords == null || ignoredWords.Count == 0) { return prefix; }

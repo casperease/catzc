@@ -10,8 +10,7 @@ catzc:
 ---
 */
 
-// Block excludes comment-based help, whose keyword sections are split out as HelpSection instead.
-// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentBlockKind.cs.md#comment1)
+// A run of line comments, or one delimited block; both move to the page the same way.
 
 namespace Catzc.Base.QualityGates;
 
@@ -19,5 +18,4 @@ public enum CommentBlockKind
 {
     LineRun,
     Block,
-    HelpSection,
 }

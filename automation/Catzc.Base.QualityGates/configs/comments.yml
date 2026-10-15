@@ -54,22 +54,6 @@ pages:
 exclude:
   "**/assets/**": an asset is copied or published verbatim elsewhere, where a docs link would be foreign
 
-# A residue line that starts with one of these states the obvious and is refused by Format-Comments.
-obvious_phrases:
-  - this function
-  - this script
-  - this file
-  - this config
-  - this type
-  - this test
-  - a helper
-  - helper function
-  - helper that
-  - returns the result
-  - see above
-  - see below
-  - as the name says
-
 # The view is a derived copy under out/ and is never committed, so editing it changes nothing.
 # [comment:6](/docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md#comment6)
 view: out/annotated
