@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
-    body_sha: "36f143126f06"
+    body_sha: "7120f49b6e4d"
     adrs:
       - ADR-REPO-COMMENTS#3
       - ADR-REPO-FILEMETA#1
@@ -48,9 +48,10 @@ files carry no head.
 
 ### Rule ADR-REPO-CODEMETA:4
 
-`Format-Code` writes the head as an **imprint step** its language names in the file-language registry, after the language's formatter, and
-`Test-Formatting` checks the same steps ([ADR-REPO-FORMAT#8](uniform-formatting.md#rule-adr-repo-format8)). No command and no check names a
-language's step. A step writes text its formatter leaves unchanged, so the formatter, the step and the formatter again change nothing.
+`Format-Code` writes the head as an imprint step ([ADR-REPO-FORMAT#8](uniform-formatting.md#rule-adr-repo-format8)). The step is global: the
+file-language registry lists it once, so it runs after the formatter of every language, and the carrier registry says which files carry a
+head and where. `Test-Formatting` checks the same step. No command and no check names a language's step. A step writes text its formatter
+leaves unchanged, so the formatter, the step and the formatter again change nothing.
 
 - [Hosted by Format-Code](#hosted-by-format-code)
 

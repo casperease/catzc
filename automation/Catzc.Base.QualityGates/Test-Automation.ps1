@@ -22,6 +22,8 @@
 .PARAMETER Workers
     Auto size is max(1, ProcessorCount / 4); past that the box saturates and extra workers inflate per-test time.
     [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment6)
+.PARAMETER GreedyGroupSize
+    Greedy files run side by side in groups of this size, one group after another; 0 reads greedy_group_size from test-policy.yml.
 .PARAMETER TimeoutSeconds
     On expiry every worker is killed and the run throws; the default is this function's own time limit.
     [ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)
@@ -103,6 +105,9 @@ function Test-Automation {
         [ValidateRange(0, 64)]
         [int] $Workers = 0,
 
+        [ValidateRange(0, 64)]
+        [int] $GreedyGroupSize = 0,
+
         [ValidateRange(60, 86400)]
         [int] $TimeoutSeconds = (Get-TimeoutSeconds -Command 'Test-Automation'),
 
@@ -146,7 +151,7 @@ function Test-Automation {
     # [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)
     # [comment:16](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment16)
     Invoke-TestRun -EntryPoint 'Test-Automation' -Title 'Test Automation' -MinLevel $MinLevel -MaxLevel $MaxLevel `
-        -Modules $Modules -Category $Category -Workers $Workers -TimeoutSeconds $TimeoutSeconds -Output $Output `
+        -Modules $Modules -Category $Category -Workers $Workers -GreedyGroupSize $GreedyGroupSize -TimeoutSeconds $TimeoutSeconds -Output $Output `
         -PassThru:$PassThru -EnforceTimings:$EnforceTimings -Rule $Rule -Suite $Suite -OutputFolder $OutputFolder `
         -Isolated:$Isolated -KeepSandbox:$KeepSandbox
 }

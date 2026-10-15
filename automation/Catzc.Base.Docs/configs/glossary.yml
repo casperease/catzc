@@ -385,6 +385,6 @@ concepts:
     domain: repository
     defined_by: ADR-REPO-FORMAT#8
     short:
-      A step a file language's registry entry lists under imprint, which Format-Code runs after the language's formatter to write one
-      derived fact into the file.
+      A step the file-language registry lists under imprint, global or for one language, which Format-Code runs after the formatter to write
+      one derived fact into the file.
     realized_by: { kind: prose-only }

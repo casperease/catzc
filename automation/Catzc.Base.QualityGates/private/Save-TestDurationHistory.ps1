@@ -2,12 +2,15 @@
 .SYNOPSIS
     Merges a run's measured per-file durations into the test duration history.
 .DESCRIPTION
-    Files this run did not measure keep their entries, so a partial run (one module, one tier) forgets nothing.
+    Files this run did not measure keep their entries, so a partial run (one module, one tier) forgets nothing. A faster run lowers
+    an entry only by the decay, so one warm-cache run does not hide a file that is slow when its cache is cold.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Save-TestDurationHistory.ps1.md#comment1)
 .PARAMETER Path
     The history file.
 .PARAMETER DurationMs
     This run's measurements, repository-relative '/'-separated file path -> milliseconds.
+.PARAMETER Decay
+    The share of the stored duration a faster run keeps (0 up to, not including, 1); omitted reads duration_decay from test-policy.yml.
 #>
 function Save-TestDurationHistory {
     [CmdletBinding()]
@@ -16,12 +19,25 @@ function Save-TestDurationHistory {
         [string] $Path,
 
         [Parameter(Mandatory)]
-        [System.Collections.IDictionary] $DurationMs
+        [System.Collections.IDictionary] $DurationMs,
+
+        [ValidateRange(0, 0.999)]
+        [double] $Decay
     )
 
+    if (-not $PSBoundParameters.ContainsKey('Decay')) {
+        $Decay = (Get-Config -Config test-policy).duration_decay
+    }
     $history = Get-TestDurationHistory -Path $Path
     foreach ($key in $DurationMs.Keys) {
-        $history[$key] = [Math]::Round([double] $DurationMs[$key])
+        $measured = [double] $DurationMs[$key]
+        $kept = if ($history.Contains($key)) {
+            $history[$key] * $Decay
+        }
+        else {
+            0
+        }
+        $history[$key] = [Math]::Round([Math]::Max($measured, $kept))
     }
     $sorted = [ordered]@{}
     foreach ($key in @($history.Keys | Sort-Object)) {

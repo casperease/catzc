@@ -37,6 +37,15 @@ A commit only climbs, then ends in one of three ways ([commit-lifecycle](../../a
 | operations     | [An engineer runs the tests and merges; pipelines do the rest](engineer-merges-pipelines-do-the-rest.md)         |
 | governance     | [Only PR build validation, the BVT and the failure stop are checked in code](which-rung-gates-exist-in-code.md)  |
 
+## Commit lifecycle pictures
+
+Two whole-picture diagrams of the same lifecycle ([commit-lifecycle](../../adr/design/commit-lifecycle.md)). They have no separate lenses.
+
+| Picture         | Article                                                                                                                          |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| ten commits     | [Ten numbered commits trace the whole lifecycle across pipeline, environments and git](ten-commits-trace-the-whole-lifecycle.md) |
+| pipeline shapes | [Each pipeline shape runs a stretch of the same ladder](each-pipeline-shape-runs-a-stretch-of-the-ladder.md)                     |
+
 ## Out-of-band topic deploy
 
 Deploying a topic commit is not integrating it ([commit-lifecycle](../../adr/design/commit-lifecycle.md)).

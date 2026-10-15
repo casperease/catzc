@@ -831,8 +831,8 @@ module facet (disk, session).
 
 ### imprint step
 
-A step a file language's registry entry lists under imprint, which Format-Code runs after the language's formatter to write one derived fact
-into the file.
+A step the file-language registry lists under imprint, global or for one language, which Format-Code runs after the formatter to write one
+derived fact into the file.
 
 - **Defined by:** [ADR-REPO-FORMAT#8](repository/uniform-formatting.md#rule-adr-repo-format8)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce

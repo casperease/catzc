@@ -27,21 +27,36 @@ public sealed class TestPolicyConfig
 
     public IReadOnlyDictionary<string, string> l4_mutation { get; }
 
+    // The share of a file's stored duration a faster run keeps, so a cold-cache spike fades over about twenty runs; 0 trusts the last run.
+    public const double DefaultDurationDecay = 0.9;
+
     public int greedy_group_size { get; }
+
+    public double duration_decay { get; }
 
     public TestPolicyConfig(IDictionary raw)
     {
         var mutation = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         int groupSize = DefaultGreedyGroupSize;
+        double decay = DefaultDurationDecay;
         if (raw != null)
         {
             foreach (object key in raw.Keys)
             {
                 string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-                if (name != "l4_mutation" && name != "greedy_group_size")
+                if (name != "l4_mutation" && name != "greedy_group_size" && name != "duration_decay")
                 {
                     throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                        "test-policy config: unknown key '{0}' (allowed: l4_mutation, greedy_group_size)", name));
+                        "test-policy config: unknown key '{0}' (allowed: l4_mutation, greedy_group_size, duration_decay)", name));
+                }
+            }
+
+            if (raw.Contains("duration_decay") && raw["duration_decay"] != null)
+            {
+                if (!double.TryParse(Convert.ToString(raw["duration_decay"], CultureInfo.InvariantCulture), NumberStyles.Float,
+                        CultureInfo.InvariantCulture, out decay) || double.IsNaN(decay) || decay < 0 || decay >= 1)
+                {
+                    throw new ArgumentException("test-policy config: duration_decay must be a number from 0 up to, not including, 1");
                 }
             }
 
@@ -76,6 +91,7 @@ public sealed class TestPolicyConfig
         }
         l4_mutation = mutation;
         greedy_group_size = groupSize;
+        duration_decay = decay;
     }
 
     // The mode an environment allows L4 tests: its entry, or read-only.

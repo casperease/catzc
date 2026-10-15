@@ -53,6 +53,9 @@ function Invoke-TestRun {
         [ValidateRange(0, 64)]
         [int] $Workers = 0,
 
+        [ValidateRange(0, 64)]
+        [int] $GreedyGroupSize = 0,
+
         # The entry point's own limit (its [TimeLimit] through Get-TimeoutSeconds -Command); no default here.
         [Parameter(Mandatory)]
         [ValidateRange(60, 86400)]
@@ -221,7 +224,7 @@ function Invoke-TestRun {
         else {
             Invoke-TestAutomationWorkers -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
                 -SerialFiles @($serialFiles) -Location $location `
-                -RunDirectory $runDir -ExcludeTag $excludeTags -IncludeTag $Rule -Verbosity $Output -Workers $Workers `
+                -RunDirectory $runDir -ExcludeTag $excludeTags -IncludeTag $Rule -Verbosity $Output -Workers $Workers -GreedyGroupSize $GreedyGroupSize `
                 -TimeoutSeconds $TimeoutSeconds -WorkerEnvironment $workerEnvironment `
                 -EntryScript $EntryScript -EntryParameter $EntryParameter
         }

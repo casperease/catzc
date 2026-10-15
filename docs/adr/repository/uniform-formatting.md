@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/uniform-formatting.md
     kind: adr
-    body_sha: "3a7e931b9e69"
+    body_sha: "3cb19c30750a"
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-CODEMETA#4
@@ -85,10 +85,11 @@ Each file language's formatter is configured, not coded: its entry in the file-l
 engine that formats its files, or states in `no_formatter:` why it has none. `Format-Code` runs the engines over every tracked file except
 vendored code and contract assets (`catzc-contract`, whose bytes a contract check compares and a released version freezes,
 [ADR-REPO-CONTRACT#5](api-contracts.md#rule-adr-repo-contract5)), and `Test-Formatting` checks the same entries — there is no formatting
-command per language and no list of formatters in a check (ADR-PRIN-CONFIG#1). The same entry may list, under `imprint:`, an **imprint
-step**: a step `Format-Code` runs after the formatter to write a derived fact into the file, such as the C# namespace or the code file's
-meta head ([ADR-REPO-CODEMETA#4](code-file-meta.md#rule-adr-repo-codemeta4)). `Test-Formatting` checks the same steps, and no check names
-one.
+command per language and no list of formatters in a check (ADR-PRIN-CONFIG#1). The registry lists, under `imprint:`, each **imprint step**:
+a step `Format-Code` runs after the formatter to write a derived fact into the file. A step at the top of the registry is global: it runs
+over every file whose carrier is not none ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)), whatever its language, as the meta
+block does ([ADR-REPO-CODEMETA#4](code-file-meta.md#rule-adr-repo-codemeta4)). A language's own entry lists the steps that concern only its
+files, such as the C# namespace. `Test-Formatting` checks the same steps, and no check names one.
 
 - [Formatting is configured per language](#formatting-is-configured-per-language)
 

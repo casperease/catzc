@@ -45,10 +45,10 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
 
         It 'reads front matter, a property, a sidecar and a reason for none, and keeps declared order' {
             $config = & $script:make ([ordered]@{ carriers = [ordered]@{
-                        widget = [ordered]@{ carrier = 'front-matter' }
-                        gadget = [ordered]@{ carrier = 'property'; property = '//' }
+                        widget   = [ordered]@{ carrier = 'front-matter' }
+                        gadget   = [ordered]@{ carrier = 'property'; property = '//' }
                         sprocket = [ordered]@{ files = @('docs/*.png'); carrier = 'sidecar'; sidecar = '{base}.md' }
-                        cog = [ordered]@{ carrier = 'none'; reason = 'binary' }
+                        cog      = [ordered]@{ carrier = 'none'; reason = 'binary' }
                     }
                 })
             $config.carriers.id | Should -Be @('widget', 'gadget', 'sprocket', 'cog')
