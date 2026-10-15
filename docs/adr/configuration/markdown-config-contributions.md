@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/configuration/markdown-config-contributions.md
     kind: adr
-    body_sha: "5915fcbf68f8"
+    body_sha: "26dbb1665640"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#3
@@ -16,9 +16,7 @@ catzc:
       - ADR-CONF-LOADING#5
 ---
 
-# docs/adr/configuration/markdown-config-contributions.md
-
-`ADR: Markdown config contributions — config values stated in a source-controlled Markdown file`
+# ADR: Markdown config contributions — config values stated in a source-controlled Markdown file
 
 ## Rules: ADR-CONF-MDCONTRIB
 

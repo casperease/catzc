@@ -16,6 +16,7 @@
     [string[]] Absolute paths of the files changed (or, under -DryRun, that would change).
 #>
 function Invoke-PSScriptAnalyzerFormat {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'The shard worker''s analyzer import runs inside each background Start-Job process, never in this session')]
     [CmdletBinding()]
     [OutputType([string[]])]
     param(

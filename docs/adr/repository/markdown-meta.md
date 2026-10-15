@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/markdown-meta.md
     kind: adr
-    body_sha: b332e3de3944
+    body_sha: "60cb5cb3fecb"
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#1
@@ -12,9 +12,7 @@ catzc:
       - ADR-REPO-FORMAT#6
 ---
 
-# docs/adr/repository/markdown-meta.md
-
-`ADR: Markdown meta — one reserved block of derived facts and authored config in a file's front matter`
+# ADR: Markdown meta — one reserved block of derived facts and authored config in a file's front matter
 
 ## Rules: ADR-REPO-MDMETA
 

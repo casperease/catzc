@@ -3,14 +3,12 @@ catzc:
   derived:
     path: docs/adr/automation/sensible-defaults.md
     kind: adr
-    body_sha: "4b0e49b0c27c"
+    body_sha: d10e7f217e23
     adrs:
       - ADR-PWSH-PARAM#4
 ---
 
-# docs/adr/automation/sensible-defaults.md
-
-`ADR: Sensible defaults for all parameters`
+# ADR: Sensible defaults for all parameters
 
 ## Rules: ADR-AUTO-DEFAULT
 

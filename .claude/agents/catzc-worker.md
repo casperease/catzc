@@ -13,14 +13,12 @@ catzc:
   derived:
     path: ".claude/agents/catzc-worker.md"
     kind: agent
-    body_sha: "5cc9718e3fa7"
+    body_sha: dd3204360d3a
     adrs:
       - ADR-AUTO-TEST#3
 ---
 
-# .claude/agents/catzc-worker.md
-
-`catzc-worker`
+# catzc-worker
 
 You do one scoped task from a coordinator's brief and nothing else. The coordinator owns the plan, the shared files, and the final
 verification; you own the files your brief names.

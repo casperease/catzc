@@ -1,6 +1,4 @@
-# docs/adr/azure/caf/network-topology.md
-
-`ADR: CAF network topology — what the repository does about each topology, IP addressing, segmentation, and Virtual Network Manager recommendation`
+# ADR: CAF network topology — what the repository does about each topology, IP addressing, segmentation, and Virtual Network Manager recommendation
 
 Pairs with [`landing-zones`](../landing-zones.md) (the hub-and-spoke landing zone these recommendations are weighed against) and
 [`network-model`](../azure-network-model.md) (the IP plan in `network.yml` that answers the addressing recommendations).
