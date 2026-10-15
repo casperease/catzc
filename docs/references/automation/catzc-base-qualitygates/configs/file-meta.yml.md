@@ -1,3 +1,14 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md
+    kind: reference
+    body_sha: "33bffd301d94"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-FILEMETA#2
+---
+
 # docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md
 
 `automation/Catzc.Base.QualityGates/configs/file-meta.yml`

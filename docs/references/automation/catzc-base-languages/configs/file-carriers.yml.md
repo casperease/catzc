@@ -1,3 +1,15 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-languages/configs/file-carriers.yml.md
+    kind: reference
+    body_sha: "36ec46f9d489"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-PRIN-CONFIG#1
+      - ADR-REPO-FILEMETA#1
+---
+
 # docs/references/automation/catzc-base-languages/configs/file-carriers.yml.md
 
 `automation/Catzc.Base.Languages/configs/file-carriers.yml`

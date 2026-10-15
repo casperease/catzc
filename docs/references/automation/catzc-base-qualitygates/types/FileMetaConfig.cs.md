@@ -1,3 +1,14 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md
+    kind: reference
+    body_sha: f18684bd8c4e
+    adrs:
+      - ADR-CONF-LOADING#4
+      - ADR-REPO-FILEMETA#2
+---
+
 # docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md
 
 `automation/Catzc.Base.QualityGates/types/FileMetaConfig.cs`

@@ -1,3 +1,12 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-markdownmeta/types/MarkdownDocument.cs.md
+    kind: reference
+    body_sha: "56475cf9128b"
+    adrs: []
+---
+
 # docs/references/automation/catzc-base-markdownmeta/types/MarkdownDocument.cs.md
 
 `automation/Catzc.Base.MarkdownMeta/types/MarkdownDocument.cs`

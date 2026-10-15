@@ -1,3 +1,13 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md
+    kind: reference
+    body_sha: efb9987a8f75
+    adrs:
+      - ADR-REPO-LINK#5
+---
+
 # docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md
 
 `automation/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1`

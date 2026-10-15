@@ -1,3 +1,13 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/private/Invoke-FileMetaEngine.ps1.md
+    kind: reference
+    body_sha: b75338f1f4ae
+    adrs:
+      - ADR-REPO-FILEMETA#5
+---
+
 # docs/references/automation/catzc-base-qualitygates/private/Invoke-FileMetaEngine.ps1.md
 
 `automation/Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1`

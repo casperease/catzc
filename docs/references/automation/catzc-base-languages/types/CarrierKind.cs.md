@@ -1,3 +1,13 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-languages/types/CarrierKind.cs.md
+    kind: reference
+    body_sha: "427c587d4ebf"
+    adrs:
+      - ADR-REPO-FILEMETA#1
+---
+
 # docs/references/automation/catzc-base-languages/types/CarrierKind.cs.md
 
 `automation/Catzc.Base.Languages/types/CarrierKind.cs`

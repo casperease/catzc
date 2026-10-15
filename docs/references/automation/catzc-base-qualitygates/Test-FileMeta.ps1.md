@@ -1,3 +1,13 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/Test-FileMeta.ps1.md
+    kind: reference
+    body_sha: cd5336c5460d
+    adrs:
+      - ADR-AUTO-TEST#35
+---
+
 # docs/references/automation/catzc-base-qualitygates/Test-FileMeta.ps1.md
 
 `automation/Catzc.Base.QualityGates/Test-FileMeta.ps1`

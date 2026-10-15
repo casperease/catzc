@@ -1,3 +1,13 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-markdownmeta/Get-MarkdownMetaState.ps1.md
+    kind: reference
+    body_sha: aa22ec7c5c14
+    adrs:
+      - ADR-REPO-FILEMETA#3
+---
+
 # docs/references/automation/catzc-base-markdownmeta/Get-MarkdownMetaState.ps1.md
 
 `automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1`

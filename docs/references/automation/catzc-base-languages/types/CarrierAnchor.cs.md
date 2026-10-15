@@ -1,3 +1,13 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-languages/types/CarrierAnchor.cs.md
+    kind: reference
+    body_sha: ed1e70ab1bd3
+    adrs:
+      - ADR-REPO-FILEMETA#1
+---
+
 # docs/references/automation/catzc-base-languages/types/CarrierAnchor.cs.md
 
 `automation/Catzc.Base.Languages/types/CarrierAnchor.cs`

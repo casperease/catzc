@@ -1,3 +1,13 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md
+    kind: reference
+    body_sha: "679773dffe79"
+    adrs:
+      - ADR-REPO-FILEMETA#1
+---
+
 # docs/references/automation/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md
 
 `automation/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs`

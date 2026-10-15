@@ -1,3 +1,12 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-markdownmeta/Format-MarkdownMetaBlock.ps1.md
+    kind: reference
+    body_sha: "973f5a98e922"
+    adrs: []
+---
+
 # docs/references/automation/catzc-base-markdownmeta/Format-MarkdownMetaBlock.ps1.md
 
 `automation/Catzc.Base.MarkdownMeta/Format-MarkdownMetaBlock.ps1`

@@ -1,3 +1,14 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-languages/types/FileCarrier.cs.md
+    kind: reference
+    body_sha: "5065ad776f20"
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-TYPES#8
+---
+
 # docs/references/automation/catzc-base-languages/types/FileCarrier.cs.md
 
 `automation/Catzc.Base.Languages/types/FileCarrier.cs`

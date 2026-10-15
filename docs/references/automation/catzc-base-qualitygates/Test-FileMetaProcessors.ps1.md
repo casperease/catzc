@@ -1,3 +1,13 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/Test-FileMetaProcessors.ps1.md
+    kind: reference
+    body_sha: ed55e92f8a43
+    adrs:
+      - ADR-AUTO-TEST#35
+---
+
 # docs/references/automation/catzc-base-qualitygates/Test-FileMetaProcessors.ps1.md
 
 `automation/Catzc.Base.QualityGates/Test-FileMetaProcessors.ps1`

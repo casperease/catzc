@@ -1,3 +1,13 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md
+    kind: reference
+    body_sha: "7afbdb5aa82f"
+    adrs:
+      - ADR-AUTO-DRYRUN#2
+---
+
 # docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md
 
 `automation/Catzc.Base.QualityGates/Format-FileMeta.ps1`

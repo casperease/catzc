@@ -1,3 +1,15 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/types/FileMetaKind.cs.md
+    kind: reference
+    body_sha: c0394e47ad72
+    adrs:
+      - ADR-AUTO-DEFAULT#6
+      - ADR-REPO-FILEMETA#2
+      - ADR-REPO-FILEMETA#4
+---
+
 # docs/references/automation/catzc-base-qualitygates/types/FileMetaKind.cs.md
 
 `automation/Catzc.Base.QualityGates/types/FileMetaKind.cs`

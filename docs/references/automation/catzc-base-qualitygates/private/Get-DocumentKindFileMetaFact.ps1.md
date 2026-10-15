@@ -1,3 +1,13 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-qualitygates/private/Get-DocumentKindFileMetaFact.ps1.md
+    kind: reference
+    body_sha: ffc5369094ae
+    adrs:
+      - ADR-PRIN-CONFIG#1
+---
+
 # docs/references/automation/catzc-base-qualitygates/private/Get-DocumentKindFileMetaFact.ps1.md
 
 `automation/Catzc.Base.QualityGates/private/Get-DocumentKindFileMetaFact.ps1`

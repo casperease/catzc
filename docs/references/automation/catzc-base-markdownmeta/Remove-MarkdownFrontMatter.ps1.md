@@ -1,3 +1,12 @@
+---
+catzc:
+  derived:
+    path: docs/references/automation/catzc-base-markdownmeta/Remove-MarkdownFrontMatter.ps1.md
+    kind: reference
+    body_sha: d71720b4d0f4
+    adrs: []
+---
+
 # docs/references/automation/catzc-base-markdownmeta/Remove-MarkdownFrontMatter.ps1.md
 
 `automation/Catzc.Base.MarkdownMeta/Remove-MarkdownFrontMatter.ps1`
