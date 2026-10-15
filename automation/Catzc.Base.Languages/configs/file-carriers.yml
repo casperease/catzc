@@ -1,5 +1,8 @@
 # Where each file class keeps its meta block, or the reason it has none; a class with files: wins over a language of the same file.,,
-# ADR-REPO-FILEMETA#1, ADR-PRIN-CONFIG#1, ADR-AUTO-DEFAULT#6 [comment:1](/docs/references/automation/catzc-base-languages/configs/file-carriers.yml.md#comment1)
+# [ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1),
+# [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
+# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
+# [comment:1](/docs/references/automation/catzc-base-languages/configs/file-carriers.yml.md#comment1)
 carriers:
   # Front matter is the Markdown convention, and the reserved catzc key is the block.
   markdown: { carrier: front-matter }

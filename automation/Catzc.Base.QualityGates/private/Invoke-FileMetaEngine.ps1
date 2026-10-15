@@ -4,7 +4,8 @@
     ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
     An unowned key is reported and the file left alone, since writing would drop the author's key.
-    ADR-REPO-FILEMETA#5 [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-FileMetaEngine.ps1.md#comment1)
+    [ADR-REPO-FILEMETA#5](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-FileMetaEngine.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root paths are relative to.
 .PARAMETER Path

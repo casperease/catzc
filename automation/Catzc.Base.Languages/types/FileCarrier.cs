@@ -1,5 +1,7 @@
 // The properties are snake_case because they mirror the YAML keys; FileCarriersConfig validates an entry and builds one.
-// ADR-AUTO-TYPES#8, ADR-AUTO-DEFAULT#6 [comment:1](/docs/references/automation/catzc-base-languages/types/FileCarrier.cs.md#comment1)
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
+// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
+// [comment:1](/docs/references/automation/catzc-base-languages/types/FileCarrier.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;

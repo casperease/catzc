@@ -25,7 +25,8 @@
     Format-FileMeta -Path docs/references
 #>
 # The repository's preview switch is -DryRun, so ShouldProcess and -WhatIf are deliberately absent.
-# ADR-AUTO-DRYRUN#2 [comment:2](/docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md#comment2)
+# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
+# [comment:2](/docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md#comment2)
 function Format-FileMeta {
     [CmdletBinding()]
     [OutputType([string[]])]

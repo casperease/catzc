@@ -4,7 +4,8 @@
     ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
     The first class whose globs match the path wins; a file no class matches is `other`.
-    ADR-PRIN-CONFIG#1 [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-DocumentKindFileMetaFact.ps1.md#comment1)
+    [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-DocumentKindFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What Get-MarkdownMetaState read from the file.
 .PARAMETER Path

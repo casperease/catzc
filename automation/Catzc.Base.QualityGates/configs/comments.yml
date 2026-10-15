@@ -21,7 +21,8 @@ keep:
   bicep: ["// cspell:"]
 
 # A head listed here keeps the whole run of comment lines it opens, which is how the meta head stays in the file.
-# ADR-REPO-CODEMETA#5 [comment:7](/docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md#comment7)
+# [ADR-REPO-CODEMETA#5](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta5)
+# [comment:7](/docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md#comment7)
 keep_run:
   powershell: ["# catzc:"]
   yaml: ["# catzc:"]
