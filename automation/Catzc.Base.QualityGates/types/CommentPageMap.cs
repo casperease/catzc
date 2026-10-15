@@ -1,0 +1,111 @@
+// One entry of comments.yml's `pages:` list: which docs folder holds the comment pages of the files under a source
+// folder. A comment page is the one living copy of a file's long comments
+// ([ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)); the pages live under
+// docs/references like every other authored source
+// ([ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)).
+//   source — a repository-relative folder (`pipelines`), or `<prefix>/*` for each immediate, non-dot-prefixed
+//            subfolder of the prefix (`automation/*`), the same convention readme.yml uses
+//   docs   — the docs folder the pages go under, starting with `docs/`; with a `/*` source it may carry `{kebab}`,
+//            the matched subfolder's leaf name lowercased with dots turned to hyphens
+//            (automation/Catzc.Base.QualityGates -> catzc-base-qualitygates)
+// The page of a file is `<docs>/<path relative to the matched folder>.md`, so
+// automation/Catzc.Base.QualityGates/private/Get-FormatScope.ps1 ->
+// docs/references/automation/catzc-base-qualitygates/private/Get-FormatScope.ps1.md: the extension stays in the name,
+// so a page maps back to exactly one file. Property names mirror the YAML keys
+// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
+
+using System;
+using System.Collections;
+using System.Globalization;
+
+namespace Catzc.Base.QualityGates;
+
+public sealed class CommentPageMap
+{
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
+    const string KebabPlaceholder = "{kebab}";
+    const string EachSubfolder = "/*";
+
+    public string source { get; }
+    public string docs { get; }
+
+    // True when the source names each immediate subfolder of a prefix (`<prefix>/*`).
+    public bool IsEachSubfolder => source.EndsWith(EachSubfolder, StringComparison.Ordinal);
+
+    public CommentPageMap(string name, IDictionary raw)
+    {
+        if (raw == null)
+        {
+            throw new ArgumentException(name + ": a pages entry must be a map (source, docs)");
+        }
+        foreach (object key in raw.Keys)
+        {
+            string keyName = Convert.ToString(key, CultureInfo.InvariantCulture);
+            if (keyName != "source" && keyName != "docs")
+            {
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0}: unknown key '{1}' (allowed: source, docs)", name, keyName));
+            }
+        }
+        source = Folder(name, "source", raw["source"]);
+        docs = Folder(name, "docs", raw["docs"]);
+
+        string sourceWithoutStar = IsEachSubfolder ? source.Substring(0, source.Length - EachSubfolder.Length) : source;
+        if (sourceWithoutStar.IndexOf('*') >= 0 || sourceWithoutStar.IndexOf('?') >= 0 || sourceWithoutStar.Length == 0)
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                "{0}: source '{1}' must be a folder, or a folder followed by '/*' (only a trailing '/*' is supported)", name, source));
+        }
+        if (!docs.StartsWith("docs/", StringComparison.Ordinal))
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0}: docs '{1}' must be a folder under docs/", name, docs));
+        }
+        if (docs.IndexOf('*') >= 0 || docs.IndexOf('?') >= 0)
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0}: docs '{1}' must be a plain folder, not a pattern", name, docs));
+        }
+        if (docs.Contains(KebabPlaceholder) && !IsEachSubfolder)
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                "{0}: docs '{1}' uses {2}, which needs a source ending in '/*'", name, docs, KebabPlaceholder));
+        }
+    }
+
+    // The page path of a repository-relative file under this map's source, or null when the file is not under it.
+    public string PageFor(string repoRelativePath)
+    {
+        if (string.IsNullOrEmpty(repoRelativePath)) { return null; }
+        string path = repoRelativePath.Replace('\\', '/');
+
+        if (!IsEachSubfolder)
+        {
+            if (!path.StartsWith(source + "/", StringComparison.Ordinal) || path.Length == source.Length + 1) { return null; }
+            return docs + "/" + path.Substring(source.Length + 1) + ".md";
+        }
+
+        string prefix = source.Substring(0, source.Length - EachSubfolder.Length) + "/";
+        if (!path.StartsWith(prefix, StringComparison.Ordinal)) { return null; }
+        string underPrefix = path.Substring(prefix.Length);
+        int slash = underPrefix.IndexOf('/');
+        if (slash <= 0 || slash == underPrefix.Length - 1) { return null; }
+        string leaf = underPrefix.Substring(0, slash);
+        if (leaf[0] == '.') { return null; }
+        string kebab = leaf.ToLowerInvariant().Replace('.', '-');
+        return docs.Replace(KebabPlaceholder, kebab) + "/" + underPrefix.Substring(slash + 1) + ".md";
+    }
+
+    static string Folder(string name, string key, object value)
+    {
+        string folder = Convert.ToString(value, CultureInfo.InvariantCulture);
+        if (string.IsNullOrWhiteSpace(folder))
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0}: {1} is required", name, key));
+        }
+        if (folder.IndexOf('\\') >= 0 || folder.StartsWith("/", StringComparison.Ordinal) || folder.EndsWith("/", StringComparison.Ordinal))
+        {
+            throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                "{0}: {1} '{2}' must be a repository-relative, '/'-separated folder with no leading or trailing '/'", name, key, folder));
+        }
+        return folder;
+    }
+}
