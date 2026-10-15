@@ -8,7 +8,6 @@ catzc:
     adrs:
       - ADR-REPO-LINK#3
       - ADR-REPO-LINK#9
-      - ADR-X
 ---
 */
 

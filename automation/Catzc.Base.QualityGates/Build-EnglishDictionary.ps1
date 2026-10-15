@@ -56,7 +56,8 @@ function Build-EnglishDictionary {
     # Folder casing differs between dictionary packages, so each trie is found by file name, not guessed.
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment4)
     $triePaths = foreach ($trieName in 'en_US.trie.gz', 'en_GB.trie.gz') {
-        $found = [System.IO.Directory]::EnumerateFiles($nodeRoot, $trieName, [System.IO.SearchOption]::AllDirectories) |
+        # The trie sits five levels down (cspell, node_modules, @cspell, package, file); the walk must enter node_modules.
+        $found = Get-ChildPath $nodeRoot -File -Filter $trieName -Depth 5 -Exclude @() -PruneVendor $false |
             Select-Object -First 1
         if (-not $found) {
             throw "Could not find cspell's $trieName under '$nodeRoot'. Install cspell (Install-Cspell)."
