@@ -2,7 +2,7 @@
 .SYNOPSIS
     Writes a run directory's run.json — the atomic, self-describing record of a Test-Automation run's state.
 .DESCRIPTION
-    A run directory's artifact files alone cannot tell a finished run from one still executing (or one that crashed...
+    Completeness is read from this manifest, never inferred from which files exist, since streaming workers leave gaps.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestRunManifest.ps1.md#comment1)
 .PARAMETER RunDirectory
     The run directory the manifest belongs to.

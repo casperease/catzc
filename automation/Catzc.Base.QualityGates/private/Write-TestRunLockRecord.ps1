@@ -2,7 +2,7 @@
 .SYNOPSIS
     Writes the record that names who holds a test-run lock.
 .DESCRIPTION
-    A lock (the working folder's, Enter-TestRunLocation; the user's system-test lock, Enter-SystemTestLock) says only...
+    The lock says only that it is held, so this record names the holder and a blocked run need not guess.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestRunLockRecord.ps1.md#comment1)
 .PARAMETER Path
     The record file. Its folder is created when missing.
