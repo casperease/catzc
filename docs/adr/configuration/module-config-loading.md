@@ -4,8 +4,21 @@ catzc:
     path: docs/adr/configuration/module-config-loading.md
     kind: adr
     body_sha: "54ad5d90da9a"
+    defines:
+      - ADR-CONF-LOADING#1
+      - ADR-CONF-LOADING#2
+      - ADR-CONF-LOADING#3
+      - ADR-CONF-LOADING#4
+      - ADR-CONF-LOADING#5
+      - ADR-CONF-LOADING#6
     adrs:
       - ADR-DSGN-TRACK#3
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/caching.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/repository/controlled-vocabulary.md
+      - docs/adr/repository/conventional-folders.md
 ---
 
 # ADR: Module config loading — one reader (Get-Config), typed configs

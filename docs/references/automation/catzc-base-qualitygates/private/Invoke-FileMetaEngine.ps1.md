@@ -6,6 +6,7 @@ catzc:
     body_sha: abb257ace7eb
     adrs:
       - ADR-REPO-FILEMETA#5
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1

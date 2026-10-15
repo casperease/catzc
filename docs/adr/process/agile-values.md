@@ -4,7 +4,17 @@ catzc:
     path: docs/adr/process/agile-values.md
     kind: adr
     body_sha: "972c86b870f6"
+    defines:
+      - ADR-PROC-VALUES#1
+      - ADR-PROC-VALUES#2
+      - ADR-PROC-VALUES#3
+      - ADR-PROC-VALUES#4
     adrs: []
+    links:
+      - docs/adr/principles/reduce-waste.md
+      - docs/adr/process/agile-principles.md
+      - docs/adr/process/agile.md
+      - "https://agilemanifesto.org"
 ---
 
 # ADR: Agile values — the four preferences of the manifesto

@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "29ef2e17fadd"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png
+      - docs/explanation/configuration/an-address-is-a-read-only-walk.md
 ---
 
 # An address is a read-only walk: the diagram described

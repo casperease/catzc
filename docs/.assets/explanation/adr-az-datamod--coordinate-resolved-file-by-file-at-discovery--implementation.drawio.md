@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: ccd45c8651f3
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-az-datamod--coordinate-resolved-file-by-file-at-discovery--implementation.drawio.png
+      - docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
 ---
 
 # The coordinate is resolved file by file at discovery: the diagram described

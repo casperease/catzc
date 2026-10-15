@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TYPES#8
       - ADR-REPO-OUTDIR#2
+    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/MapsConfig.cs

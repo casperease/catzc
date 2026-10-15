@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "68583318f4f6"
     adrs: []
+    links: []
 ---
 
 # infrastructure/templates/foundation/main.bicep

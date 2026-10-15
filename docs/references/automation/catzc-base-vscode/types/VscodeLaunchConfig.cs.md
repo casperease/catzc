@@ -6,6 +6,7 @@ catzc:
     body_sha: ebd990426161
     adrs:
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Base.VSCode/types/VscodeLaunchConfig.cs

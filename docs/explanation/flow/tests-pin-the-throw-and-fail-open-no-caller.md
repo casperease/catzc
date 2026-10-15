@@ -8,6 +8,18 @@ catzc:
       - ADR-AUTO-FAILFAST#4
       - ADR-FLOW-CD-DETECT#1
       - ADR-FLOW-CD-GLOBS#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png
+      - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/flow/pipeline-detection.md
+      - docs/explanation/flow/every-doubt-fails-open-to-proceed.md
+      - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/range-per-context-then-diff-and-match.md
+      - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Tests pin the throw and the fail-open, a rule pins detection, and no pipeline calls it

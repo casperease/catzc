@@ -4,11 +4,20 @@ catzc:
     path: docs/adr/automation/never-depend-on-pwd.md
     kind: adr
     body_sha: "0a928ba0ca1e"
+    defines:
+      - ADR-AUTO-NOPWD#1
+      - ADR-AUTO-NOPWD#4
+      - ADR-AUTO-NOPWD#6
     adrs:
       - ADR-PWSH-PWD#1
       - ADR-PWSH-PWD#4
       - ADR-PWSH-PWD#5
       - ADR-PWSH-PWD#6
+    links:
+      - docs/adr/automation/internal-asset-dependencies.md
+      - docs/adr/design/run-modes.md
+      - docs/adr/pwsh/working-directory-mechanics.md
+      - docs/adr/pwsh/working-directory-mechanics.md#the-code-root
 ---
 
 # ADR: Never depend on $PWD

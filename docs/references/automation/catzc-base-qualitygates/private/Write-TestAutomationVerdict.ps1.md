@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-CONSOLE#7
       - ADR-AUTO-XPLAT#6
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1

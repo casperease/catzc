@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-LINK#5
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-Links.ps1

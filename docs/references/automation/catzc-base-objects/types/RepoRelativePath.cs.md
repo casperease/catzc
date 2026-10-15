@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-PATH#3
       - ADR-AUTO-PATH#5
       - ADR-AUTO-PATH#8
+    links: []
 ---
 
 # automation/Catzc.Base.Objects/types/RepoRelativePath.cs

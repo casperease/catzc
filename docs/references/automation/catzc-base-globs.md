@@ -6,6 +6,12 @@ catzc:
     body_sha: "4cee0d74457d"
     adrs:
       - ADR-AUTO-TEST#35
+    links:
+      - docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.md
+      - docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/repository/protected-globs.md
 ---
 
 # Catzc.Base.Globs

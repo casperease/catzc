@@ -6,6 +6,7 @@ catzc:
     body_sha: "5cff9835113f"
     adrs:
       - ADR-AUTO-DRYRUN#2
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Format-FileMeta.ps1

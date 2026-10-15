@@ -6,6 +6,7 @@ catzc:
     body_sha: "239a37b9b90e"
     adrs:
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/HighlightReason.cs

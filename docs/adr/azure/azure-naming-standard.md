@@ -4,7 +4,20 @@ catzc:
     path: docs/adr/azure/azure-naming-standard.md
     kind: adr
     body_sha: "73a0cb2d870c"
+    defines:
+      - ADR-AZ-NAMING#1
+      - ADR-AZ-NAMING#2
+      - ADR-AZ-NAMING#3
+      - ADR-AZ-NAMING#4
+      - ADR-AZ-NAMING#5
+      - ADR-AZ-NAMING#6
+      - ADR-AZ-NAMING#7
+      - ADR-AZ-NAMING#8
     adrs: []
+    links:
+      - docs/.assets/azure/azure-name-assembly.drawio.png
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/repository/repo-variants.md
 ---
 
 # ADR: Azure resource naming standard

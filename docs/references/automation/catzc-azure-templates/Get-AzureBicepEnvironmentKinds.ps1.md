@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: c2c0624295bf
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1

@@ -5,6 +5,12 @@ catzc:
     kind: reference
     body_sha: d8b3dc66ab75
     adrs: []
+    links:
+      - docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md
+      - docs/.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.png
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-network-model.md
+      - docs/references/automation/catzc-azure-templates.md
 ---
 
 # Catzc.Azure

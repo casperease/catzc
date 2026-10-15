@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "632b2688cc51"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png
+      - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
 ---
 
 # The import materialises every root file; two gates catch drift: the diagram described

@@ -5,6 +5,26 @@ catzc:
     kind: explanation
     body_sha: ef9adf853ade
     adrs: []
+    links:
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/index.md#automation
+      - docs/explanation/automation/a-declared-allow-list-of-layers.md
+      - docs/explanation/automation/build-then-place-with-one-command.md
+      - docs/explanation/automation/build-verify-then-copy-the-folder.md
+      - docs/explanation/automation/dot-source-one-entry-script.md
+      - docs/explanation/automation/every-code-root-is-a-copy.md
+      - docs/explanation/automation/every-entry-runs-one-load-sequence.md
+      - docs/explanation/automation/invoke-importer-in-code-order.md
+      - docs/explanation/automation/one-commit-one-immutable-package.md
+      - docs/explanation/automation/rule-and-gate-per-load-stage.md
+      - docs/explanation/automation/three-layers-edges-point-down.md
+      - docs/explanation/automation/two-entries-feed-one-importer.md
+      - docs/explanation/automation/two-gates-check-the-layer-pins.md
+      - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
+      - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
+      - docs/explanation/automation/what-gates-each-bundle-stage.md
+      - docs/explanation/index.md
 ---
 
 # Automation explanations

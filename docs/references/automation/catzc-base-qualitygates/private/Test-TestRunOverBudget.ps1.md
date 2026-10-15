@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-FAILFAST#7
       - ADR-AUTO-TEST#44
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1

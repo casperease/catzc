@@ -6,6 +6,7 @@ catzc:
     body_sha: dbfe805d6f2e
     adrs:
       - ADR-PWSH-FORMAT#6
+    links: []
 ---
 
 # automation/.scriptanalyzer/NoWriteErrorOrWarning.psm1

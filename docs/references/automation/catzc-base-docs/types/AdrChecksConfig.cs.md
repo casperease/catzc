@@ -11,6 +11,7 @@ catzc:
       - ADR-CONF-LOADING#4
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-CONFIG#3
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/AdrChecksConfig.cs

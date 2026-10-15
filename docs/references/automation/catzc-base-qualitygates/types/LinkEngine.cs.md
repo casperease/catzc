@@ -9,6 +9,7 @@ catzc:
       - ADR-REPO-LINK#5
       - ADR-REPO-LINK#6
       - ADR-REPO-LINK#8
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/LinkEngine.cs

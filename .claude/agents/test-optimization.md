@@ -25,6 +25,8 @@ catzc:
       - ADR-AUTO-TEST#23
       - ADR-PRIN-NOWASTE#1
       - ADR-PWSH-PESTER#9
+    links:
+      - docs/adr/automation/test-automation.md
 ---
 
 # test-optimization

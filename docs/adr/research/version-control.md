@@ -4,7 +4,36 @@ catzc:
     path: docs/adr/research/version-control.md
     kind: adr
     body_sha: "018c90c9fb6e"
+    defines:
+      - ADR-DORA-VCS#1
+      - ADR-DORA-VCS#2
+      - ADR-DORA-VCS#3
+      - ADR-DORA-VCS#4
     adrs: []
+    links:
+      - docs/adr/design/server-remote-integration.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/principles/everything-as-code.md
+      - docs/adr/principles/one-living-version.md
+      - docs/references/dora/ai.md#ai-capabilities-model
+      - docs/references/dora/ai.md#individual-effectiveness
+      - docs/references/dora/ai.md#team-performance
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#deployment-automation
+      - docs/references/dora/capabilities.md#fast-flow
+      - docs/references/dora/capabilities.md#trunk-based-development
+      - docs/references/dora/capabilities.md#version-control
+      - docs/references/dora/core-model.md#fast-flow
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/index.md
+      - docs/references/dora/publications.md#2014-state-of-devops-report
+      - docs/references/dora/publications.md#2017-state-of-devops-report
+      - docs/references/dora/publications.md#2019-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2022-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2025-dora-ai-capabilities-model
+      - docs/references/dora/publications.md#2025-state-of-ai-assisted-software-development
+      - "https://dora.dev/capabilities/version-control/"
 ---
 
 # ADR: DORA — Version control

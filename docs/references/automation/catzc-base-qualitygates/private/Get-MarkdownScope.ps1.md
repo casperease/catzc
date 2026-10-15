@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: dc5fadaac069
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-MarkdownScope.ps1

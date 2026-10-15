@@ -4,8 +4,25 @@ catzc:
     path: docs/adr/automation/consumer-overlay.md
     kind: adr
     body_sha: ff4554a3466b
-    adrs:
+    defines:
+      - ADR-AUTO-OVERLAY#1
+      - ADR-AUTO-OVERLAY#2
+      - ADR-AUTO-OVERLAY#3
+      - ADR-AUTO-OVERLAY#4
+      - ADR-AUTO-OVERLAY#5
+      - ADR-AUTO-OVERLAY#6
+      - ADR-AUTO-OVERLAY#7
+      - ADR-AUTO-OVERLAY#8
       - ADR-AUTO-OVERLAY#9
+    adrs: []
+    links:
+      - docs/adr/automation/internal-asset-dependencies.md
+      - docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/automation/sensible-defaults.md
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/design/run-modes.md
+      - docs/adr/principles/one-living-version.md
 ---
 
 # ADR: Consumer overlay — a consumer changes a built bundle only through .catzc/

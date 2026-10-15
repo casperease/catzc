@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "4bcb40c321e0"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/DocPattern.cs

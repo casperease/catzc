@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.chain.md
+      - docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.grid.md
+      - docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.tree.md
+      - docs/explanation/flow/one-scan-program-feeds-three-roles.md
 ---
 
 # ScanProgram() feeds three role functions: the diagram described

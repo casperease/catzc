@@ -6,6 +6,8 @@ catzc:
     body_sha: "4ed873adc971"
     adrs:
       - ADR-FLOW-CD-GLOBS#10
+    links:
+      - docs/how-to/automation/manual-test-plan.md
 ---
 
 # Manual test plan — Pipelines and globs

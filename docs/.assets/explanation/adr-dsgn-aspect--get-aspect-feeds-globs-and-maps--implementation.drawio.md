@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: c5c596323647
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png
+      - docs/explanation/design/get-aspect-feeds-globs-and-maps.md
 ---
 
 # Get-Aspect feeds Globs and Maps: the diagram described

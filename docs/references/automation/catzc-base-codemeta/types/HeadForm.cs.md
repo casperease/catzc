@@ -6,6 +6,7 @@ catzc:
     body_sha: "3e297be3087b"
     adrs:
       - ADR-REPO-CODEMETA#1
+    links: []
 ---
 
 # automation/Catzc.Base.CodeMeta/types/HeadForm.cs

@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-DSGN-TRACK#1
       - ADR-THES-ONETRUTH#3
+    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/WorldMapHighlight.cs

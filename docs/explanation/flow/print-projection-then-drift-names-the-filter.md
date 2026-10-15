@@ -6,6 +6,16 @@ catzc:
     body_sha: "2678d113eea1"
     adrs:
       - ADR-FLOW-CD-GLOBS#6
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
+      - docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
+      - docs/explanation/flow/globs-projects-and-three-consumers-read.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/one-program-two-vendor-dialects.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Print the projection, and a drifted pipeline fails naming the filter that differs

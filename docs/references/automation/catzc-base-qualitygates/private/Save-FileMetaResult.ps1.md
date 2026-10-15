@@ -6,6 +6,7 @@ catzc:
     body_sha: e1dc40cf543a
     adrs:
       - ADR-REPO-FILEMETA#3
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Save-FileMetaResult.ps1

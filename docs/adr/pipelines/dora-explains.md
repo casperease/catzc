@@ -4,7 +4,21 @@ catzc:
     path: docs/adr/pipelines/dora-explains.md
     kind: adr
     body_sha: "25ebce541ef8"
+    defines: []
     adrs: []
+    links:
+      - docs/adr/pipelines/custom-template-discipline.md
+      - docs/adr/pipelines/dual-authentication.md
+      - docs/adr/pipelines/pipeline-naming-and-placement.md
+      - docs/adr/pipelines/pipeline-variables.md
+      - docs/references/dora/capabilities.md#code-maintainability
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#documentation-quality
+      - docs/references/dora/capabilities.md#monitoring-and-observability
+      - docs/references/dora/capabilities.md#pervasive-security
+      - docs/references/dora/capabilities.md#streamlining-change-approval
+      - docs/references/dora/index.md
 ---
 
 # DORA explanations — pipelines

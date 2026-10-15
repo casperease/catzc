@@ -5,6 +5,13 @@ catzc:
     kind: reference
     body_sha: "0ac4c274fd5e"
     adrs: []
+    links:
+      - docs/adr/automation/devbox-pipeline-parity.md
+      - docs/adr/automation/dry-run.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/configuration/module-config-loading.md
+      - docs/references/automation/catzc-tooling-core.md
+      - docs/references/automation/catzc-tooling-github.md
 ---
 
 # Catzc.Tooling.KeyHandler

@@ -7,6 +7,16 @@ catzc:
     adrs:
       - ADR-AUTO-BUNDLE#2
       - ADR-AUTO-BUNDLE#3
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.md
+      - docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.png
+      - docs/adr/automation/platform-bundle.md
+      - docs/explanation/automation/dot-source-one-entry-script.md
+      - docs/explanation/automation/every-entry-runs-one-load-sequence.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/invoke-importer-in-code-order.md
+      - docs/explanation/automation/rule-and-gate-per-load-stage.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Two entry scripts feed one importer, and the importer leaves once the load is done

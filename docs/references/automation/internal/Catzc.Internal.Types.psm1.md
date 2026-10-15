@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-TYPES#12
       - ADR-AUTO-TYPES#7
       - ADR-PWSH-PESTER#9
+    links: []
 ---
 
 # automation/.internal/Catzc.Internal.Types.psm1

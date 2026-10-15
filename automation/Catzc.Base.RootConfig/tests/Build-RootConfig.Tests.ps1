@@ -53,12 +53,12 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     It 'copies a source entry out under a generated-from-source head naming the source' {
         Build-RootConfig | Out-Null
         $text = [System.IO.File]::ReadAllText($script:copyTarget)
-        $text | Should -BeExactly "# ---`n# catzc:`n#   derived:`n#     path: fixture.yml`n#     kind: generated-from-source`n#     source: sources/fixture.yml`n# ---`n`nalpha: 1`nbeta: 2`n"
+        $text | Should -BeExactly "# ---`n# catzc:`n#   derived:`n#     path: fixture.yml`n#     source: sources/fixture.yml`n#     kind: generated-from-source`n# ---`n`nalpha: 1`nbeta: 2`n"
     }
 
     It 'renders a generator entry through the dispatch, under a head naming the generator and its sources' {
         Build-RootConfig | Out-Null
-        [System.IO.File]::ReadAllText($script:genTarget) | Should -BeExactly "# ---`n# catzc:`n#   derived:`n#     path: generated.txt`n#     kind: generated-from-source`n#     generator: Fake-Generator`n#     source: sources/fixture.yml`n# ---`n`nrendered output`n"
+        [System.IO.File]::ReadAllText($script:genTarget) | Should -BeExactly "# ---`n# catzc:`n#   derived:`n#     path: generated.txt`n#     source: sources/fixture.yml`n#     kind: generated-from-source`n#     generator: Fake-Generator`n# ---`n`nrendered output`n"
         Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'Fake-Generator' -and $Target -eq 'generated.txt' }
     }
 

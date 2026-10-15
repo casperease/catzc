@@ -6,6 +6,7 @@ catzc:
     body_sha: "033165f04d1d"
     adrs:
       - ADR-AUTO-TEST#31
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestOptOutExclusion.ps1

@@ -4,6 +4,42 @@ catzc:
     path: docs/adr/azure/caf/resource-organization.md
     kind: adr
     body_sha: e19e260878a6
+    defines:
+      - ADR-AZ-CAFRESORG#1
+      - ADR-AZ-CAFRESORG#2
+      - ADR-AZ-CAFRESORG#3
+      - ADR-AZ-CAFRESORG#4
+      - ADR-AZ-CAFRESORG#5
+      - ADR-AZ-CAFRESORG#6
+      - ADR-AZ-CAFRESORG#7
+      - ADR-AZ-CAFRESORG#8
+      - ADR-AZ-CAFRESORG#9
+      - ADR-AZ-CAFRESORG#10
+      - ADR-AZ-CAFRESORG#11
+      - ADR-AZ-CAFRESORG#12
+      - ADR-AZ-CAFRESORG#13
+      - ADR-AZ-CAFRESORG#14
+      - ADR-AZ-CAFRESORG#15
+      - ADR-AZ-CAFRESORG#16
+      - ADR-AZ-CAFRESORG#17
+      - ADR-AZ-CAFRESORG#18
+      - ADR-AZ-CAFRESORG#19
+      - ADR-AZ-CAFRESORG#20
+      - ADR-AZ-CAFRESORG#21
+      - ADR-AZ-CAFRESORG#22
+      - ADR-AZ-CAFRESORG#23
+      - ADR-AZ-CAFRESORG#24
+      - ADR-AZ-CAFRESORG#25
+      - ADR-AZ-CAFRESORG#26
+      - ADR-AZ-CAFRESORG#27
+      - ADR-AZ-CAFRESORG#28
+      - ADR-AZ-CAFRESORG#29
+      - ADR-AZ-CAFRESORG#30
+      - ADR-AZ-CAFRESORG#31
+      - ADR-AZ-CAFRESORG#32
+      - ADR-AZ-CAFRESORG#33
+      - ADR-AZ-CAFRESORG#34
+      - ADR-AZ-CAFRESORG#35
     adrs:
       - ADR-AZ-CUSTOMER#2
       - ADR-AZ-CUSTOMER#4
@@ -26,6 +62,35 @@ catzc:
       - ADR-AZ-NETWORK#6
       - ADR-AZ-WAFRE#10
       - ADR-DSGN-SELFSERV#1
+    links:
+      - docs/adr/azure/azure-customer-model.md
+      - docs/adr/azure/azure-customer-model.md#rule-adr-az-customer2
+      - docs/adr/azure/azure-customer-model.md#rule-adr-az-customer4
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod1
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod3
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/azure-network-model.md
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network1
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network3
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network5
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network6
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz2
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz5
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz6
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz7
+      - docs/adr/azure/prefer-az-cli.md
+      - docs/adr/azure/waf/reliability.md#rule-adr-az-wafre10
+      - docs/adr/design/self-service.md#rule-adr-dsgn-selfserv1
+      - docs/references/caf/index.md
+      - "https://learn.microsoft.com/en-us/legal/termsofuse"
 ---
 
 # ADR: CAF resource organization — what the repository does about each management group and subscription recommendation

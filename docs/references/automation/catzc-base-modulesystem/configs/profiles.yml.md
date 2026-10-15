@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "5ad8d23a7ed7"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/configs/profiles.yml

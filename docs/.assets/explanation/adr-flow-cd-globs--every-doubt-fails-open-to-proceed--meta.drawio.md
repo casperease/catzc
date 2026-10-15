@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "2bc46fc32fea"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--every-doubt-fails-open-to-proceed--meta.drawio.png
+      - docs/explanation/flow/every-doubt-fails-open-to-proceed.md
 ---
 
 # Every doubt fails open to proceed: the diagram described

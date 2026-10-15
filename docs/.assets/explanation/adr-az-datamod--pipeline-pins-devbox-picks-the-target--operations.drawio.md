@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "6764f10936d7"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-az-datamod--pipeline-pins-devbox-picks-the-target--operations.drawio.png
+      - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
 ---
 
 # A pipeline pins, a devbox picks the target: the diagram described

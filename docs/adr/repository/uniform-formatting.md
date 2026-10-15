@@ -4,6 +4,16 @@ catzc:
     path: docs/adr/repository/uniform-formatting.md
     kind: adr
     body_sha: "67d57c0ab117"
+    defines:
+      - ADR-REPO-FORMAT#1
+      - ADR-REPO-FORMAT#2
+      - ADR-REPO-FORMAT#3
+      - ADR-REPO-FORMAT#4
+      - ADR-REPO-FORMAT#5
+      - ADR-REPO-FORMAT#6
+      - ADR-REPO-FORMAT#7
+      - ADR-REPO-FORMAT#8
+      - ADR-REPO-FORMAT#9
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-CODEMETA#4
@@ -13,8 +23,20 @@ catzc:
       - ADR-REPO-FILEMETA#1
       - ADR-REPO-FILEMETA#3
       - ADR-REPO-FILEMETA#5
-      - ADR-REPO-FORMAT#1
-      - ADR-REPO-FORMAT#7
+    links:
+      - docs/adr/pipelines/pipeline-naming-and-placement.md
+      - docs/adr/principles/configure-not-program.md
+      - docs/adr/pwsh/powershell-formatting.md
+      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract5
+      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract6
+      - docs/adr/repository/code-file-meta.md
+      - docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta4
+      - docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5
+      - docs/adr/repository/file-meta.md
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5
+      - docs/adr/repository/markdown-links.md
 ---
 
 # ADR: Uniform formatting — the whole repository, one mechanical standard

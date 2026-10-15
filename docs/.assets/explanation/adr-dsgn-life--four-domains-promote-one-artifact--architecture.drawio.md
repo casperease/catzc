@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.chain.md
+      - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
+      - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.grid.md
+      - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.tree.md
+      - docs/explanation/design/four-domains-promote-one-artifact.md
 ---
 
 # Four pipeline kinds promote one artifact: the diagram described

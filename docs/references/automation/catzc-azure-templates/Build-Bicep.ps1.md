@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AZ-DATAMOD#10
       - ADR-PWSH-ERROR#8
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Build-Bicep.ps1

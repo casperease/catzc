@@ -4,9 +4,43 @@ catzc:
     path: docs/adr/automation/platform-bundle.md
     kind: adr
     body_sha: "4dacfa995a0b"
-    adrs:
+    defines:
+      - ADR-AUTO-BUNDLE#1
+      - ADR-AUTO-BUNDLE#2
+      - ADR-AUTO-BUNDLE#3
+      - ADR-AUTO-BUNDLE#5
+      - ADR-AUTO-BUNDLE#6
+      - ADR-AUTO-BUNDLE#7
       - ADR-AUTO-BUNDLE#8
+    adrs:
       - ADR-FLOW-CD-GLOBS#5
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/effective-in-enterprises.md
+      - docs/adr/automation/environment-variables.md
+      - docs/adr/automation/environment-variables.md#rule-adr-auto-envvar5
+      - docs/adr/automation/idempotent-state-functions.md
+      - docs/adr/automation/internal-asset-dependencies.md
+      - docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4
+      - docs/adr/automation/sensible-defaults.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/design/module-aspects.md
+      - docs/adr/design/run-modes.md
+      - docs/adr/design/self-service.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd3
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5
+      - docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs9
+      - docs/adr/github/github-release.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/pwsh/dynamic-module-manifests.md
+      - docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5
+      - docs/adr/pwsh/one-function-per-file.md
+      - docs/adr/pwsh/pwsh-engine.md
+      - docs/adr/pwsh/use-ps1-not-psm1.md
+      - docs/adr/repository/conventional-folders.md
+      - docs/adr/repository/dedicated-output-directory.md
 ---
 
 # ADR: Platform bundle — the merged, versioned, installable Catzc build

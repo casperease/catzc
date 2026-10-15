@@ -8,6 +8,7 @@ catzc:
       - ADR-AZ-DATAMOD#10
       - ADR-CONF-ADDRESSING#1
       - ADR-CONF-ADDRESSING#3
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1

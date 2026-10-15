@@ -8,6 +8,17 @@ catzc:
       - ADR-DSGN-REMOTE#2
       - ADR-DSGN-REMOTE#4
       - ADR-REPO-VARIANT#6
+    links:
+      - docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.md
+      - docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png
+      - docs/adr/design/server-remote-integration.md
+      - docs/adr/repository/repo-variants.md
+      - docs/explanation/design/clients-bridge-to-one-server.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/ingress-gated-the-rest-by-review.md
+      - docs/explanation/design/local-guard-and-server-policies.md
+      - docs/explanation/design/one-door-in-one-stable-point-out.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # A person turns on the local guard with one variant; an admin syncs the server policies with one command

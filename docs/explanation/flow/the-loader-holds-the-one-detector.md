@@ -7,6 +7,17 @@ catzc:
     adrs:
       - ADR-AUTO-PARITY#3
       - ADR-FLOW-CD-DETECT#1
+    links:
+      - docs/.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png
+      - docs/adr/automation/devbox-pipeline-parity.md
+      - docs/adr/flow/pipeline-detection.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/one-boolean-answer-from-one-function.md
+      - docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
+      - docs/explanation/flow/the-analyzer-names-the-raw-read.md
+      - docs/explanation/flow/two-variables-read-in-one-place.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # The detector lives in the loader, which both run modes import first and keep loaded

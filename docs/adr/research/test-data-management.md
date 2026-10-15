@@ -4,10 +4,36 @@ catzc:
     path: docs/adr/research/test-data-management.md
     kind: adr
     body_sha: fca065d02994
+    defines:
+      - ADR-DORA-TESTDATA#1
+      - ADR-DORA-TESTDATA#2
+      - ADR-DORA-TESTDATA#3
+      - ADR-DORA-TESTDATA#4
+      - ADR-DORA-TESTDATA#5
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#6
       - ADR-AUTO-TEST#9
+    links:
+      - docs/adr/automation/test-automation.md
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test3
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test6
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test9
+      - docs/adr/repository/conventional-folders.md
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#database-change-management
+      - docs/references/dora/capabilities.md#fast-feedback
+      - docs/references/dora/capabilities.md#pervasive-security
+      - docs/references/dora/capabilities.md#test-automation
+      - docs/references/dora/capabilities.md#test-data-management
+      - docs/references/dora/core-model.md#fast-feedback
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/core-model.md#what-qualifies-for-core
+      - docs/references/dora/index.md
+      - "https://dora.dev/capabilities/test-data-management/"
 ---
 
 # ADR: DORA — Test data management

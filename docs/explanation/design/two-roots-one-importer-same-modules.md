@@ -9,6 +9,16 @@ catzc:
       - ADR-DSGN-RUNMODE#2
       - ADR-DSGN-RUNMODE#3
       - ADR-DSGN-RUNMODE#7
+    links:
+      - docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.md
+      - docs/.assets/explanation/adr-dsgn-runmode--two-roots-one-importer-same-modules--architecture.drawio.png
+      - docs/adr/design/run-modes.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/one-entry-script-per-mode.md
+      - docs/explanation/design/shims-set-roots-mode-read-back.md
+      - docs/explanation/design/where-code-loads-from-decides-the-mode.md
+      - docs/explanation/design/which-run-mode-rules-have-a-gate.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Two code roots feed one importer, which loads the same modules

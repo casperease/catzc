@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.chain.md
+      - docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png
+      - docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.grid.md
+      - docs/.assets/explanation/adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.tree.md
+      - docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
 ---
 
 # The CI budget is the only promotion rule a quality gate checks: the diagram described

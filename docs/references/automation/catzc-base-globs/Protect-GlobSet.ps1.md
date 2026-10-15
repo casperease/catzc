@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-PROTGLOB#4
+    links: []
 ---
 
 # automation/Catzc.Base.Globs/Protect-GlobSet.ps1

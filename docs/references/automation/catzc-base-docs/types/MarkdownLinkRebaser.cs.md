@@ -6,6 +6,7 @@ catzc:
     body_sha: "9609576333ae"
     adrs:
       - ADR-REPO-README#6
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/MarkdownLinkRebaser.cs

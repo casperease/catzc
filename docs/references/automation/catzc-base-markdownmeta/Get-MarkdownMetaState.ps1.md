@@ -6,6 +6,7 @@ catzc:
     body_sha: ae572d032cde
     adrs:
       - ADR-REPO-FILEMETA#3
+    links: []
 ---
 
 # automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1

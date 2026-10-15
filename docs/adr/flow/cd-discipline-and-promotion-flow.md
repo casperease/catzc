@@ -4,14 +4,8 @@ catzc:
     path: docs/adr/flow/cd-discipline-and-promotion-flow.md
     kind: adr
     body_sha: "9a3a343e530b"
-    adrs:
-      - ADR-AUTO-TEST#35
-      - ADR-DSGN-LIFE#1
-      - ADR-DSGN-LIFE#3
-      - ADR-DSGN-LIFE#4
-      - ADR-DSGN-LIFE#5
+    defines:
       - ADR-FLOW-CD#1
-      - ADR-FLOW-CD#10
       - ADR-FLOW-CD#2
       - ADR-FLOW-CD#3
       - ADR-FLOW-CD#4
@@ -20,11 +14,38 @@ catzc:
       - ADR-FLOW-CD#7
       - ADR-FLOW-CD#8
       - ADR-FLOW-CD#9
+      - ADR-FLOW-CD#10
+      - ADR-FLOW-CD#11
+      - ADR-FLOW-CD#12
+      - ADR-FLOW-CD#13
+      - ADR-FLOW-CD#14
+    adrs:
+      - ADR-AUTO-TEST#35
+      - ADR-DSGN-LIFE#1
+      - ADR-DSGN-LIFE#3
+      - ADR-DSGN-LIFE#4
+      - ADR-DSGN-LIFE#5
       - ADR-FLOW-CD-TYPE#11
       - ADR-FLOW-CD-TYPE#3
       - ADR-FLOW-CD-TYPE#4
       - ADR-FLOW-CD-TYPE#8
       - ADR-REPO-VARIANT#6
+    links:
+      - docs/adr/automation/test-automation.md
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/flow/pipeline-runner-pattern.md
+      - docs/adr/flow/pipeline-types.md
+      - docs/adr/flow/pipeline-types.md#ci
+      - docs/adr/flow/pipeline-types.md#deploy
+      - docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type11
+      - docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type3
+      - docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4
+      - docs/adr/principles/everything-as-code.md
+      - docs/adr/principles/reduce-waste.md
+      - docs/adr/repository/repo-variants.md
+      - docs/adr/research/continuous-integration.md
+      - docs/references/dora/capabilities.md#continuous-integration
 ---
 
 # ADR: The CI discipline and the promotion flow — pipeline kinds keyed by the tagged artifact

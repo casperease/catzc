@@ -6,6 +6,7 @@ catzc:
     body_sha: "5ba8c83cab6d"
     adrs:
       - ADR-AUTO-CACHE#8
+    links: []
 ---
 
 # automation/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1

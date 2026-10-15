@@ -6,6 +6,16 @@ catzc:
     body_sha: f0db1a761e05
     adrs:
       - ADR-DSGN-LIFE#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.md
+      - docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png
+      - docs/adr/design/commit-lifecycle.md
+      - docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
+      - docs/explanation/design/deploying-is-not-integrating.md
+      - docs/explanation/design/every-deploy-stage-is-main-only.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/out-of-band-deploy-is-adr-only.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Merging to main is what deploys; there is no run that deploys a topic

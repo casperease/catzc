@@ -9,6 +9,7 @@ catzc:
       - ADR-AUTO-SPELL#6
       - ADR-AUTO-SPELL#8
       - ADR-AUTO-TEST#35
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-Terminology.ps1

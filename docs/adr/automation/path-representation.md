@@ -4,12 +4,26 @@ catzc:
     path: docs/adr/automation/path-representation.md
     kind: adr
     body_sha: c24894c6fcd5
-    adrs:
-      - ADR-AUTO-PATH#11
+    defines:
+      - ADR-AUTO-PATH#1
+      - ADR-AUTO-PATH#2
+      - ADR-AUTO-PATH#3
+      - ADR-AUTO-PATH#4
+      - ADR-AUTO-PATH#5
       - ADR-AUTO-PATH#6
+      - ADR-AUTO-PATH#7
       - ADR-AUTO-PATH#8
       - ADR-AUTO-PATH#9
+      - ADR-AUTO-PATH#10
+      - ADR-AUTO-PATH#11
+    adrs:
       - ADR-PWSH-XPLAT#10
+    links:
+      - docs/adr/automation/never-depend-on-pwd.md
+      - docs/adr/pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat2
+      - docs/adr/repository/dedicated-output-directory.md
+      - docs/adr/repository/inspiration.md
+      - docs/adr/repository/markdown-links.md
 ---
 
 # ADR: Path representation — relative across boundaries, absolute only at the bind

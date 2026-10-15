@@ -6,6 +6,7 @@ catzc:
     body_sha: bfad51b4ad62
     adrs:
       - ADR-REPO-FORMAT#5
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/Format-MarkdownParagraph.ps1

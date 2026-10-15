@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "085640e8bc5c"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png
+      - docs/explanation/repository/one-registry-one-writer-two-primitives.md
 ---
 
 # One registry, one writer, two write primitives: the diagram described

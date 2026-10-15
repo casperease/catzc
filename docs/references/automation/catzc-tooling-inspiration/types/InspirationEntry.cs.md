@@ -6,6 +6,7 @@ catzc:
     body_sha: "118bff2bac7a"
     adrs:
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Tooling.Inspiration/types/InspirationEntry.cs

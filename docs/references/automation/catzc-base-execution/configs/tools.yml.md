@@ -6,6 +6,7 @@ catzc:
     body_sha: "394f78a2791b"
     adrs:
       - ADR-AUTO-BASH#6
+    links: []
 ---
 
 # automation/Catzc.Base.Execution/configs/tools.yml

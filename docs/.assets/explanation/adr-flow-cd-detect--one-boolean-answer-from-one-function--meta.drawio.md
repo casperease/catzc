@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "3b6e97a391d7"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png
+      - docs/explanation/flow/one-boolean-answer-from-one-function.md
 ---
 
 # One boolean answer from one function: the diagram described

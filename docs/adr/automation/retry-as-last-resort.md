@@ -4,7 +4,19 @@ catzc:
     path: docs/adr/automation/retry-as-last-resort.md
     kind: adr
     body_sha: c8be4b47cb1e
+    defines:
+      - ADR-AUTO-RETRY#1
+      - ADR-AUTO-RETRY#2
+      - ADR-AUTO-RETRY#3
+      - ADR-AUTO-RETRY#4
+      - ADR-AUTO-RETRY#5
+      - ADR-AUTO-RETRY#6
     adrs: []
+    links:
+      - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/adr/automation/single-responsibility-functions.md
+      - docs/adr/pwsh/error-handling.md
+      - docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error10
 ---
 
 # ADR: Retry is a last resort — lowest level only, never in tests

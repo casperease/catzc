@@ -4,6 +4,17 @@ catzc:
     path: docs/adr/azure/waf/reliability.md
     kind: adr
     body_sha: "8fe3ab1c81d6"
+    defines:
+      - ADR-AZ-WAFRE#1
+      - ADR-AZ-WAFRE#2
+      - ADR-AZ-WAFRE#3
+      - ADR-AZ-WAFRE#4
+      - ADR-AZ-WAFRE#5
+      - ADR-AZ-WAFRE#6
+      - ADR-AZ-WAFRE#7
+      - ADR-AZ-WAFRE#8
+      - ADR-AZ-WAFRE#9
+      - ADR-AZ-WAFRE#10
     adrs:
       - ADR-AZ-DATAMOD#6
       - ADR-AZ-DATAMOD#9
@@ -16,8 +27,23 @@ catzc:
       - ADR-AZ-LZ#7
       - ADR-AZ-NETWORK#3
       - ADR-AZ-NETWORK#5
-      - ADR-AZ-WAFRE#10
-      - ADR-AZ-WAFRE#5
+    links:
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod6
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/azure/azure-network-model.md
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network3
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network5
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz2
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz5
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz6
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz7
+      - docs/references/waf/index.md
+      - "https://learn.microsoft.com/en-us/legal/termsofuse"
 ---
 
 # ADR: Well-Architected reliability — Microsoft's reliability checklist, cited, and what the templates do about each item

@@ -8,6 +8,8 @@ catzc:
       - ADR-AUTO-TEST#37
       - ADR-AZ-DATAMOD#9
       - ADR-AZ-NETWORK#2
+    links:
+      - docs/how-to/automation/manual-test-plan.md
 ---
 
 # Manual test plan — Azure

@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.chain.md
+      - docs/.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.grid.md
+      - docs/.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.tree.md
+      - docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
 ---
 
 # Declare or add a folder, and the gate names overlaps: the diagram described

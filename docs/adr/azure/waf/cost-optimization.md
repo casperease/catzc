@@ -4,6 +4,21 @@ catzc:
     path: docs/adr/azure/waf/cost-optimization.md
     kind: adr
     body_sha: b885ae6df735
+    defines:
+      - ADR-AZ-WAFCO#1
+      - ADR-AZ-WAFCO#2
+      - ADR-AZ-WAFCO#3
+      - ADR-AZ-WAFCO#4
+      - ADR-AZ-WAFCO#5
+      - ADR-AZ-WAFCO#6
+      - ADR-AZ-WAFCO#7
+      - ADR-AZ-WAFCO#8
+      - ADR-AZ-WAFCO#9
+      - ADR-AZ-WAFCO#10
+      - ADR-AZ-WAFCO#11
+      - ADR-AZ-WAFCO#12
+      - ADR-AZ-WAFCO#13
+      - ADR-AZ-WAFCO#14
     adrs:
       - ADR-AZ-DATAMOD#10
       - ADR-AZ-DATAMOD#11
@@ -15,6 +30,22 @@ catzc:
       - ADR-AZ-LZ#4
       - ADR-AZ-LZ#5
       - ADR-AZ-NAMING#1
+    links:
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming1
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz2
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz5
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/principles/reduce-waste.md
+      - docs/references/waf/index.md
 ---
 
 # ADR: Well-Architected cost optimization — what the repository does about each item of Microsoft's checklist

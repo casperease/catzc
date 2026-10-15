@@ -5,6 +5,14 @@ catzc:
     kind: reference
     body_sha: fe36ba59a54c
     adrs: []
+    links:
+      - docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.md
+      - docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png
+      - docs/adr/azure/az-session-verification.md
+      - docs/references/automation/catzc-azure.md
+      - docs/references/automation/catzc-base-execution.md
+      - docs/references/automation/catzc-tooling-core.md
+      - docs/references/automation/catzc-tooling-toolchain.md
 ---
 
 # Catzc.Azure.Cli

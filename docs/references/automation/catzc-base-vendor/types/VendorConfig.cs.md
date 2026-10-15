@@ -6,6 +6,7 @@ catzc:
     body_sha: "47c10e006b1d"
     adrs:
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Base.Vendor/types/VendorConfig.cs

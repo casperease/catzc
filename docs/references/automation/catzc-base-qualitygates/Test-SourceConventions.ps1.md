@@ -10,6 +10,7 @@ catzc:
       - ADR-AUTO-TEST#35
       - ADR-PWSH-PESTER#5
       - ADR-PWSH-PESTER#9
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-SourceConventions.ps1

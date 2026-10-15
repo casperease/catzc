@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.chain.md
+      - docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.drawio.png
+      - docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.grid.md
+      - docs/.assets/explanation/adr-auto-bundle--invoke-importer-in-code-order--implementation.tree.md
+      - docs/explanation/automation/invoke-importer-in-code-order.md
 ---
 
 # Invoke-Importer in code order: the diagram described

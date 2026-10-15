@@ -10,6 +10,17 @@ catzc:
       - ADR-AUTO-BUNDLE#3
       - ADR-AUTO-BUNDLE#6
       - ADR-DSGN-RUNMODE#7
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.md
+      - docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/design/run-modes.md
+      - docs/explanation/automation/build-then-place-with-one-command.md
+      - docs/explanation/automation/build-verify-then-copy-the-folder.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/one-commit-one-immutable-package.md
+      - docs/explanation/automation/what-gates-each-bundle-stage.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # One engine builds the bundle, and every code root is a copy of its output

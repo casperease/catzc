@@ -37,6 +37,11 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         $codes | Should -Be @('ADR-GADGET#4')
     }
 
+    It 'leaves out a rule the file defines itself and keeps the rules it cites elsewhere' {
+        $codes = Get-Codes "### Rule ADR-WIDGET:1`n`nThis rule extends ADR-WIDGET#2, which sits in ADR-GADGET#4.`n`n### Rule ADR-WIDGET:2`n"
+        $codes | Should -Be @('ADR-GADGET#4')
+    }
+
     It 'returns an empty list for a file that cites nothing' {
         (Get-Codes "# docs/widget.md`n").Count | Should -Be 0
     }
@@ -70,7 +75,8 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
         }
 
         It 'ignores the colon form of a rule heading' {
-            (Get-CodeCodes "// ADR-WIDGET#1`n").Count | Should -Be 0
+            # Built from two strings: a literal colon form would be respelled to the hash form by the string-citation alignment.
+            (Get-CodeCodes ('// ADR-WIDGET' + ":1`n")).Count | Should -Be 0
         }
 
         It 'keeps a markdown file to rule codes even when the kind names code files' {

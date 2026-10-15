@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.chain.md
+      - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png
+      - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.grid.md
+      - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.tree.md
+      - docs/explanation/automation/build-then-place-with-one-command.md
 ---
 
 # Build, then place with one command: the diagram described

@@ -9,6 +9,13 @@ catzc:
       - ADR-REPO-CONTRACT#2
       - ADR-REPO-CONTRACT#3
       - ADR-REPO-CONTRACT#6
+    links:
+      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract1
+      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract2
+      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract3
+      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract6
+      - docs/references/automation/catzc-base-execution.md
+      - docs/references/automation/catzc-base-git.md
 ---
 
 # Catzc.Tooling.Github

@@ -4,12 +4,24 @@ catzc:
     path: docs/adr/automation/console-output-matters.md
     kind: adr
     body_sha: "62369ae583c9"
-    adrs:
+    defines:
       - ADR-AUTO-CONSOLE#1
-      - ADR-AUTO-CONSOLE#12
       - ADR-AUTO-CONSOLE#3
+      - ADR-AUTO-CONSOLE#4
       - ADR-AUTO-CONSOLE#5
+      - ADR-AUTO-CONSOLE#6
+      - ADR-AUTO-CONSOLE#7
       - ADR-AUTO-CONSOLE#8
+      - ADR-AUTO-CONSOLE#9
+      - ADR-AUTO-CONSOLE#10
+      - ADR-AUTO-CONSOLE#11
+      - ADR-AUTO-CONSOLE#12
+    adrs: []
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types14
+      - docs/adr/automation/log-before-invoke.md
+      - docs/adr/automation/log-before-invoke.md#rule-adr-auto-prelog1
+      - docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce4
 ---
 
 # ADR: Console output matters

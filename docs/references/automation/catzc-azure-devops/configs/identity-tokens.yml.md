@@ -6,6 +6,7 @@ catzc:
     body_sha: "2d514bd61cb9"
     adrs:
       - ADR-AUTO-TEST#3
+    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/configs/identity-tokens.yml

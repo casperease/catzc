@@ -4,7 +4,39 @@ catzc:
     path: docs/adr/process/dora-explains.md
     kind: adr
     body_sha: "084c203254f8"
+    defines: []
     adrs: []
+    links:
+      - docs/adr/process/agile-principles.md
+      - docs/adr/process/agile-values.md
+      - docs/adr/process/agile.md
+      - docs/adr/process/build-quality-in.md
+      - docs/adr/process/holding-the-line.md
+      - docs/adr/process/inspect-and-adapt.md
+      - docs/adr/process/lean.md
+      - docs/adr/process/observe-work.md
+      - docs/adr/process/process-terms.md
+      - docs/adr/process/pull-work.md
+      - docs/adr/process/queues-cost-money.md
+      - docs/references/dora/capabilities.md#code-maintainability
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#customer-feedback
+      - docs/references/dora/capabilities.md#deployment-automation
+      - docs/references/dora/capabilities.md#flexible-infrastructure
+      - docs/references/dora/capabilities.md#generative-organizational-culture
+      - docs/references/dora/capabilities.md#learning-culture
+      - docs/references/dora/capabilities.md#loosely-coupled-teams
+      - docs/references/dora/capabilities.md#monitoring-and-observability
+      - docs/references/dora/capabilities.md#team-experimentation
+      - docs/references/dora/capabilities.md#teams-empowered-to-choose-tools
+      - docs/references/dora/capabilities.md#test-automation
+      - docs/references/dora/capabilities.md#trunk-based-development
+      - docs/references/dora/capabilities.md#visual-management
+      - docs/references/dora/capabilities.md#wip-limits
+      - docs/references/dora/capabilities.md#work-visibility-in-value-stream
+      - docs/references/dora/capabilities.md#working-in-small-batches
+      - docs/references/dora/index.md
 ---
 
 # DORA explanations — process

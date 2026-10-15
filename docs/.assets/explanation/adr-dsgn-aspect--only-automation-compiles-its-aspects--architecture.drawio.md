@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: d67e1218359f
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png
+      - docs/explanation/design/only-automation-compiles-its-aspects.md
 ---
 
 # Only automation compiles its aspects: the diagram described

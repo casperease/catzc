@@ -4,8 +4,16 @@ catzc:
     path: docs/adr/pipelines/pipeline-variables.md
     kind: adr
     body_sha: "539e1e9a45a2"
-    adrs:
+    defines:
       - ADR-PIPE-VAR#1
+      - ADR-PIPE-VAR#2
+      - ADR-PIPE-VAR#3
+      - ADR-PIPE-VAR#4
+      - ADR-PIPE-VAR#5
+      - ADR-PIPE-VAR#6
+    adrs: []
+    links:
+      - docs/adr/flow/pipeline-detection.md
 ---
 
 # ADR: Pipeline variable interface — setting ADO output variables from PowerShell

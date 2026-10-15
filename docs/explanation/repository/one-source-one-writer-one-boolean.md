@@ -9,6 +9,16 @@ catzc:
       - ADR-REPO-ROOTCFG#2
       - ADR-REPO-ROOTCFG#3
       - ADR-REPO-ROOTCFG#4
+    links:
+      - docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.md
+      - docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png
+      - docs/adr/repository/generated-root-configs.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
+      - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
+      - docs/explanation/repository/index.md
+      - docs/explanation/repository/one-registry-one-writer-two-primitives.md
+      - docs/explanation/repository/opted-in-then-link-copy-or-render.md
+      - docs/explanation/repository/three-gates-check-registry-drift-membership.md
 ---
 
 # Every managed root file has one source of truth, one writer, and one boolean that decides git membership

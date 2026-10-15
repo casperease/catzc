@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: a2e00a55b673
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-AzureBicepDeploymentTargets.ps1

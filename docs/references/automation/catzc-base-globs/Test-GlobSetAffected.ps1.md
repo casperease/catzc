@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-FLOW-CD-GLOBS#1
       - ADR-REPO-PROTGLOB#5
+    links: []
 ---
 
 # automation/Catzc.Base.Globs/Test-GlobSetAffected.ps1

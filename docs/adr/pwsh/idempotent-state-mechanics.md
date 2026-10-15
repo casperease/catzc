@@ -4,6 +4,13 @@ catzc:
     path: docs/adr/pwsh/idempotent-state-mechanics.md
     kind: adr
     body_sha: "2b0b2d9c8f9f"
+    defines:
+      - ADR-PWSH-IDEM#1
+      - ADR-PWSH-IDEM#2
+      - ADR-PWSH-IDEM#3
+      - ADR-PWSH-IDEM#4
+      - ADR-PWSH-IDEM#5
+      - ADR-PWSH-IDEM#6
     adrs:
       - ADR-AUTO-IDEM#1
       - ADR-AUTO-IDEM#2
@@ -11,7 +18,12 @@ catzc:
       - ADR-AUTO-IDEM#4
       - ADR-AUTO-IDEM#5
       - ADR-AUTO-REMOVE#4
-      - ADR-PWSH-IDEM#6
+    links:
+      - docs/adr/automation/idempotent-state-functions.md
+      - docs/adr/automation/idempotent-state-functions.md#where-it-applies
+      - docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4
+      - docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param3
+      - docs/adr/pwsh/pester-testing.md#gotchas
 ---
 
 # ADR: Idempotent state mechanics — the PowerShell layer over idempotent-state-functions

@@ -6,6 +6,7 @@ catzc:
     body_sha: f752260e7164
     adrs:
       - ADR-AUTO-ASSETDEP#2
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1

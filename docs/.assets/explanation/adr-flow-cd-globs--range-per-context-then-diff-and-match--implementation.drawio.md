@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: d621f7198d22
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.png
+      - docs/explanation/flow/range-per-context-then-diff-and-match.md
 ---
 
 # Range per context, then diff and match: the diagram described

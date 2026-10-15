@@ -5,6 +5,13 @@ catzc:
     kind: reference
     body_sha: "61c35cdfedaa"
     adrs: []
+    links:
+      - docs/adr/azure/
+      - docs/references/infrastructure/discovery.md
+      - docs/references/infrastructure/expedition.md
+      - docs/references/infrastructure/foundation.md
+      - docs/references/infrastructure/modules.md
+      - docs/references/infrastructure/overview.md
 ---
 
 # Infrastructure reference

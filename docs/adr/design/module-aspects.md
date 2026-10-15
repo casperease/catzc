@@ -4,10 +4,24 @@ catzc:
     path: docs/adr/design/module-aspects.md
     kind: adr
     body_sha: ce9d5dbe10f2
+    defines:
+      - ADR-DSGN-ASPECT#1
+      - ADR-DSGN-ASPECT#2
+      - ADR-DSGN-ASPECT#3
+      - ADR-DSGN-ASPECT#4
+      - ADR-DSGN-ASPECT#5
     adrs:
       - ADR-FLOW-CD-GLOBS#4
       - ADR-FLOW-CD-GLOBS#5
       - ADR-FLOW-CD-GLOBS#7
+    links:
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5
+      - docs/adr/repository/protected-globs.md
+      - docs/adr/repository/protected-globs.md#rule-adr-repo-protglob8
+      - docs/adr/repository/repo-variants.md
 ---
 
 # ADR: Module aspects — a unit's files partition into live and tests

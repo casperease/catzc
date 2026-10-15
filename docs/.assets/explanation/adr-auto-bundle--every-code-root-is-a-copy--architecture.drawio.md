@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.chain.md
+      - docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.drawio.png
+      - docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.grid.md
+      - docs/.assets/explanation/adr-auto-bundle--every-code-root-is-a-copy--architecture.tree.md
+      - docs/explanation/automation/every-code-root-is-a-copy.md
 ---
 
 # One engine builds, every code root is a copy: the diagram described

@@ -6,6 +6,7 @@ catzc:
     body_sha: "939eae7cc477"
     adrs:
       - ADR-PWSH-ASSERT#1
+    links: []
 ---
 
 # automation/Catzc.Base.Timeouts/configs/timeouts.yml

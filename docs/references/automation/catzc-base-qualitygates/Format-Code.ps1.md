@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-CONSOLE#10
       - ADR-REPO-FORMAT#4
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Format-Code.ps1

@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.chain.md
+      - docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.drawio.png
+      - docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.grid.md
+      - docs/.assets/explanation/adr-dsgn-life--merging-to-main-is-what-deploys--operations.tree.md
+      - docs/explanation/design/merging-to-main-is-what-deploys.md
 ---
 
 # Merging to main is what deploys: the diagram described

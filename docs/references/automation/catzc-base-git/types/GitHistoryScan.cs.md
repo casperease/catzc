@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "1c41a7f8825d"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.Git/types/GitHistoryScan.cs

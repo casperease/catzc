@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "05e637848678"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--tests-pin-the-throw-and-fail-open-no-caller--governance.drawio.png
+      - docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
 ---
 
 # Tests pin the throw and the fail-open, no caller: the diagram described

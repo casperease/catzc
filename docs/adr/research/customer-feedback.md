@@ -4,7 +4,31 @@ catzc:
     path: docs/adr/research/customer-feedback.md
     kind: adr
     body_sha: "6d931cf1787f"
+    defines:
+      - ADR-DORA-FEEDBACK#1
+      - ADR-DORA-FEEDBACK#2
+      - ADR-DORA-FEEDBACK#3
+      - ADR-DORA-FEEDBACK#4
+      - ADR-DORA-FEEDBACK#5
     adrs: []
+    links:
+      - docs/adr/design/thin-platforms.md
+      - docs/adr/process/agile-values.md#rule-adr-proc-values3
+      - docs/adr/process/inspect-and-adapt.md
+      - docs/references/dora/capabilities.md#customer-feedback
+      - docs/references/dora/capabilities.md#fast-feedback
+      - docs/references/dora/capabilities.md#team-experimentation
+      - docs/references/dora/capabilities.md#work-visibility-in-value-stream
+      - docs/references/dora/capabilities.md#working-in-small-batches
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#instability
+      - docs/references/dora/metrics.md#reliability
+      - docs/references/dora/metrics.md#throughput
+      - docs/references/dora/publications.md#2016-state-of-devops-report
+      - docs/references/dora/publications.md#2017-state-of-devops-report
+      - docs/references/dora/publications.md#2019-accelerate-state-of-devops-report
+      - "https://dora.dev/capabilities/customer-feedback/"
 ---
 
 # ADR: DORA — Customer feedback

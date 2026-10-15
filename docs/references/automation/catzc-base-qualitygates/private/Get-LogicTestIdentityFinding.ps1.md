@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-PWSH-FORMAT#6
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-LogicTestIdentityFinding.ps1

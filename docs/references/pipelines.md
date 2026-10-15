@@ -5,6 +5,13 @@ catzc:
     kind: reference
     body_sha: "377b5cfd38e4"
     adrs: []
+    links:
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/flow/durable-sha-globs.md#native-projection-the-no-start-trigger
+      - docs/adr/flow/pipeline-types.md
+      - docs/adr/pipelines/custom-template-discipline.md
+      - docs/adr/pipelines/pipeline-naming-and-placement.md
+      - docs/how-to/getting-started/automation/add-a-deployable-unit.md
 ---
 
 # pipelines

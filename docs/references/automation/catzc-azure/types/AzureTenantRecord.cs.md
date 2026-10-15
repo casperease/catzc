@@ -6,6 +6,7 @@ catzc:
     body_sha: "0f3f25dc5069"
     adrs:
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Azure/types/AzureTenantRecord.cs

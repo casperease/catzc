@@ -11,6 +11,16 @@ catzc:
       - ADR-REPO-VARIANT#4
       - ADR-REPO-VARIANT#5
       - ADR-REPO-VARIANT#6
+    links:
+      - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.md
+      - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png
+      - docs/adr/repository/repo-variants.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
+      - docs/explanation/repository/a-base-module-between-config-and-its-callers.md
+      - docs/explanation/repository/an-edit-lands-at-the-next-import.md
+      - docs/explanation/repository/index.md
+      - docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
+      - docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
 ---
 
 # Five keys, one private reader, twelve exported primitives

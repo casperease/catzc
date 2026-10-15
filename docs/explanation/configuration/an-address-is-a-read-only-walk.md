@@ -8,6 +8,16 @@ catzc:
       - ADR-CONF-ADDRESSING#1
       - ADR-CONF-ADDRESSING#4
       - ADR-CONF-ADDRESSING#5
+    links:
+      - docs/.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.md
+      - docs/.assets/explanation/adr-conf-addressing--an-address-is-a-read-only-walk--meta.drawio.png
+      - docs/adr/configuration/config-value-addressing.md
+      - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
+      - docs/explanation/configuration/index.md
+      - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
+      - docs/explanation/configuration/two-test-files-check-the-address-rules.md
+      - docs/explanation/configuration/type-an-address-get-the-value.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # A config address is a read-only walk over the one cached config, never a second reader

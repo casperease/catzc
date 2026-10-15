@@ -4,9 +4,22 @@ catzc:
     path: docs/adr/repository/generated-readmes.md
     kind: adr
     body_sha: b2ec30d4291a
+    defines:
+      - ADR-REPO-README#1
+      - ADR-REPO-README#2
+      - ADR-REPO-README#3
+      - ADR-REPO-README#4
+      - ADR-REPO-README#5
+      - ADR-REPO-README#6
+      - ADR-REPO-README#7
     adrs:
       - ADR-PWSH-MANIFEST#3
       - ADR-REPO-FILEMETA#1
+    links:
+      - docs/adr/automation/caching.md
+      - docs/adr/pwsh/dynamic-module-manifests.md
+      - docs/adr/repository/dedicated-output-directory.md
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1
 ---
 
 # ADR: Generated READMEs — one authored source, copied out per conventional folder with its links rebased

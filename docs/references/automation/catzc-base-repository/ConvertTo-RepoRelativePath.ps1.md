@@ -6,6 +6,7 @@ catzc:
     body_sha: f39e1ceb6d86
     adrs:
       - ADR-AUTO-PATH#5
+    links: []
 ---
 
 # automation/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1

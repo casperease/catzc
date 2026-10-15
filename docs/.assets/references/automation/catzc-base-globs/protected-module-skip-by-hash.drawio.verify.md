@@ -9,6 +9,7 @@ catzc:
       - ADR-FLOW-CD-GLOBS#5
       - ADR-PWSH-CACHE#4
       - ADR-REPO-PROTGLOB#4
+    links: []
 ---
 
 # out/diagrams/wave-9/catzc-base-globs/protected-module-skip-by-hash.drawio.verify.md

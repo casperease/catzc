@@ -4,11 +4,26 @@ catzc:
     path: docs/adr/automation/tracked-files-from-the-index.md
     kind: adr
     body_sha: "2f64cc7666e4"
+    defines:
+      - ADR-AUTO-TRACKED#1
+      - ADR-AUTO-TRACKED#2
+      - ADR-AUTO-TRACKED#3
+      - ADR-AUTO-TRACKED#4
+      - ADR-AUTO-TRACKED#5
+      - ADR-AUTO-TRACKED#6
+      - ADR-AUTO-TRACKED#7
+      - ADR-AUTO-TRACKED#8
+      - ADR-AUTO-TRACKED#9
+      - ADR-AUTO-TRACKED#10
+      - ADR-AUTO-TRACKED#11
     adrs:
       - ADR-AUTO-CACHE#9
       - ADR-AUTO-FAILFAST#7
       - ADR-AUTO-TEST#10
-      - ADR-AUTO-TRACKED#5
+    links:
+      - docs/adr/automation/caching.md#rule-adr-auto-cache6
+      - docs/adr/automation/managed-guids.md
+      - docs/adr/flow/durable-sha-globs.md
 ---
 
 # ADR: Tracked files are read from the git index, in-process, through one seam

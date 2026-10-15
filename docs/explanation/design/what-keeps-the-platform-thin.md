@@ -13,6 +13,17 @@ catzc:
       - ADR-DSGN-THINPLAT#3
       - ADR-DSGN-THINPLAT#4
       - ADR-DSGN-THINPLAT#5
+    links:
+      - docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.md
+      - docs/.assets/explanation/adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png
+      - docs/adr/azure/prefer-az-cli.md
+      - docs/adr/design/thin-platforms.md
+      - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
+      - docs/explanation/design/deploy-bicep-delegates-to-az.md
+      - docs/explanation/design/every-vendor-call-leaves-through-az.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/same-deploy-bicep-on-both-sides.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Three gates guard the CLI and az, but nothing checks that cats stays thin

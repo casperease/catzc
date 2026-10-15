@@ -11,6 +11,7 @@ catzc:
       - ADR-AUTO-TEST#44
       - ADR-PWSH-ANNOUNCE#6
       - ADR-REPO-PROTGLOB#9
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1

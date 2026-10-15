@@ -6,6 +6,7 @@ catzc:
     body_sha: d309524a2945
     adrs:
       - ADR-AUTO-CONSOLE#11
+    links: []
 ---
 
 # automation/Catzc.Base.Environment/Sync-SessionPath.ps1

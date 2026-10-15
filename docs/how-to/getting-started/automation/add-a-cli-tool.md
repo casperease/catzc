@@ -6,6 +6,12 @@ catzc:
     body_sha: "7e3a289fb0e4"
     adrs:
       - ADR-AUTO-UVPY#4
+    links:
+      - docs/adr/automation/controlling-systemwide-deps.md
+      - docs/adr/automation/log-before-invoke.md
+      - docs/adr/automation/use-proper-package-managers.md
+      - docs/adr/automation/uv-python-handler.md
+      - docs/adr/azure/prefer-az-cli.md
 ---
 
 # Add a CLI tool

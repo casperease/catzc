@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-DRYRUN#2
       - ADR-REPO-OUTDIR#10
+    links: []
 ---
 
 # automation/Catzc.Base.Git/Reset-GitCleanFxd.ps1

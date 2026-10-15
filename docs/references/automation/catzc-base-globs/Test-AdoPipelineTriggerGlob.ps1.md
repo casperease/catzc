@@ -6,6 +6,7 @@ catzc:
     body_sha: ce3ffdf7ad2b
     adrs:
       - ADR-AUTO-TEST#35
+    links: []
 ---
 
 # automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1

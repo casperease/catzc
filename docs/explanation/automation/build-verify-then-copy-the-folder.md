@@ -10,6 +10,16 @@ catzc:
       - ADR-AUTO-BUNDLE#5
       - ADR-AUTO-BUNDLE#6
       - ADR-AUTO-BUNDLE#7
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.md
+      - docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png
+      - docs/adr/automation/platform-bundle.md
+      - docs/explanation/automation/build-then-place-with-one-command.md
+      - docs/explanation/automation/every-code-root-is-a-copy.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/one-commit-one-immutable-package.md
+      - docs/explanation/automation/what-gates-each-bundle-stage.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Build-Modules builds, verifies, and leaves one folder that every target copies whole

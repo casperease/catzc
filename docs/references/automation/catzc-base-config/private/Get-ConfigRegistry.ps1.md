@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-PWSH-CACHE#4
+    links: []
 ---
 
 # automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1

@@ -6,6 +6,7 @@ catzc:
     body_sha: "56feace05904"
     adrs:
       - ADR-PRIN-CONFIG#2
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-ImprintStep.ps1

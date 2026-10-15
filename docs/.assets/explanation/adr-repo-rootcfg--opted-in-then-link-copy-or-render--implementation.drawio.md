@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "4894e8cb3096"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-repo-rootcfg--opted-in-then-link-copy-or-render--implementation.drawio.png
+      - docs/explanation/repository/opted-in-then-link-copy-or-render.md
 ---
 
 # The optIn filter, then link, copy or render: the diagram described

@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-REPO-INSPIRE#1
       - ADR-REPO-INSPIRE#2
+    links: []
 ---
 
 # automation/Catzc.Tooling.Inspiration/Get-Inspiration.ps1

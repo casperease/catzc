@@ -4,7 +4,11 @@ catzc:
     path: docs/adr/automation/bash/index.md
     kind: adr
     body_sha: "22ad4883d6b9"
+    defines: []
     adrs: []
+    links:
+      - docs/adr/automation/bash/bash-test-artifacts.md
+      - docs/adr/automation/execution-engines.md
 ---
 
 # Bash automation ADRs

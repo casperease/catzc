@@ -5,6 +5,11 @@ catzc:
     kind: how-to
     body_sha: "7fb02af5197f"
     adrs: []
+    links:
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/azure/azure-network-model.md
+      - docs/adr/pwsh/prepost-extension-modules.md
 ---
 
 # Add an infrastructure template

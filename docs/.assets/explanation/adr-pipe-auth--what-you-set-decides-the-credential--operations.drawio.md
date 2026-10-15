@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.chain.md
+      - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png
+      - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.grid.md
+      - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.tree.md
+      - docs/explanation/pipelines/what-you-set-decides-the-credential.md
 ---
 
 # What you set decides the credential: the diagram described

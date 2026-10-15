@@ -4,7 +4,18 @@ catzc:
     path: docs/adr/automation/use-proper-package-managers.md
     kind: adr
     body_sha: "7deec46cbb66"
+    defines:
+      - ADR-AUTO-PKGMGR#1
+      - ADR-AUTO-PKGMGR#2
+      - ADR-AUTO-PKGMGR#3
+      - ADR-AUTO-PKGMGR#4
+      - ADR-AUTO-PKGMGR#5
+      - ADR-AUTO-PKGMGR#6
     adrs: []
+    links:
+      - docs/adr/automation/controlling-systemwide-deps.md
+      - "https://docs.chocolatey.org/en-us/information/security/"
+      - "https://www.bleepingcomputer.com/news/security/serpent-malware-campaign-abuses-chocolatey-windows-package-manager/"
 ---
 
 # ADR: Use proper package managers

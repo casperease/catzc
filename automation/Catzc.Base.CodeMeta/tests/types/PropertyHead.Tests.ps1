@@ -39,7 +39,7 @@ Describe 'Catzc.Base.CodeMeta.PropertyHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEME
         $text = '{"url": "http://widget/{gadget}", "list": [1, {"a": "}"}], "n": 2}'
         $once = [Catzc.Base.CodeMeta.PropertyHead]::Parse($text, '//').WithFacts($script:facts)
         $parsed = $once | ConvertFrom-Json -AsHashtable
-        @($parsed.Keys)[0] | Should -Be '//'
+        ($parsed.Keys | Select-Object -First 1) | Should -Be '//'
         $parsed['url'] | Should -Be 'http://widget/{gadget}'
         $parsed['n'] | Should -Be 2
         $parsed['//'] | Should -Be "catzc:`n  derived:`n    path: a/b.json`n    kind: other"

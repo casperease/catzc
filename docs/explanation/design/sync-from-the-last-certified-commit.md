@@ -8,6 +8,14 @@ catzc:
       - ADR-DSGN-LIFE#6
       - ADR-DSGN-LIFE#7
       - ADR-DSGN-LIFE#8
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.md
+      - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png
+      - docs/adr/design/commit-lifecycle.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/integrators-depend-on-an-occupant.md
+      - docs/explanation/design/sync-point-rules-are-adr-only.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Sync from the last certified commit, not from the tip of main

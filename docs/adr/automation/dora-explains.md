@@ -4,7 +4,59 @@ catzc:
     path: docs/adr/automation/dora-explains.md
     kind: adr
     body_sha: "3627036d4752"
+    defines: []
     adrs: []
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/avoid-deep-nesting.md
+      - docs/adr/automation/bash/bash-test-artifacts.md
+      - docs/adr/automation/caching.md
+      - docs/adr/automation/console-output-matters.md
+      - docs/adr/automation/consumer-overlay.md
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/adr/automation/controlling-systemwide-deps.md
+      - docs/adr/automation/cross-platform.md
+      - docs/adr/automation/devbox-pipeline-parity.md
+      - docs/adr/automation/dry-run.md
+      - docs/adr/automation/effective-in-enterprises.md
+      - docs/adr/automation/environment-variables.md
+      - docs/adr/automation/execution-engines.md
+      - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/adr/automation/go/go-test-artifacts.md
+      - docs/adr/automation/idempotent-state-functions.md
+      - docs/adr/automation/internal-asset-dependencies.md
+      - docs/adr/automation/log-before-invoke.md
+      - docs/adr/automation/managed-guids.md
+      - docs/adr/automation/never-depend-on-pwd.md
+      - docs/adr/automation/open-closed-architecture.md
+      - docs/adr/automation/path-representation.md
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/automation/python/python-test-artifacts.md
+      - docs/adr/automation/retry-as-last-resort.md
+      - docs/adr/automation/sensible-defaults.md
+      - docs/adr/automation/single-responsibility-functions.md
+      - docs/adr/automation/spell-out-names.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/automation/tool-removal-lifecycle.md
+      - docs/adr/automation/tracked-files-from-the-index.md
+      - docs/adr/automation/use-proper-package-managers.md
+      - docs/adr/automation/uv-python-handler.md
+      - docs/adr/automation/zero-ceremony-poka-yoke.md
+      - docs/references/dora/capabilities.md#code-maintainability
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#deployment-automation
+      - docs/references/dora/capabilities.md#documentation-quality
+      - docs/references/dora/capabilities.md#flexible-infrastructure
+      - docs/references/dora/capabilities.md#learning-culture
+      - docs/references/dora/capabilities.md#loosely-coupled-teams
+      - docs/references/dora/capabilities.md#monitoring-and-observability
+      - docs/references/dora/capabilities.md#pervasive-security
+      - docs/references/dora/capabilities.md#platform-engineering
+      - docs/references/dora/capabilities.md#teams-empowered-to-choose-tools
+      - docs/references/dora/capabilities.md#test-automation
+      - docs/references/dora/capabilities.md#version-control
+      - docs/references/dora/index.md
 ---
 
 # DORA explanations — automation

@@ -11,6 +11,7 @@ catzc:
       - ADR-PWSH-ANNOUNCE#1
       - ADR-PWSH-ANNOUNCE#6
       - ADR-REPO-FORMAT#1
+    links: []
 ---
 
 # automation/.internal/Catzc.Internal.Bootstrap.psm1

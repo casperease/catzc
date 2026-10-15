@@ -9,6 +9,17 @@ catzc:
       - ADR-DSGN-LIFE#1
       - ADR-DSGN-LIFE#8
       - ADR-FLOW-CD#8
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.md
+      - docs/.assets/explanation/adr-dsgn-life--engineer-merges-pipelines-do-the-rest--operations.drawio.png
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/design/code-wires-only-the-first-rungs.md
+      - docs/explanation/design/four-domains-promote-one-artifact.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/one-way-climb-three-endings.md
+      - docs/explanation/design/which-rung-gates-exist-in-code.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # An engineer runs the tests and merges; pipelines do the rest

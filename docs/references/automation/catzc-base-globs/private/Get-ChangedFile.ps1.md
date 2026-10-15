@@ -6,6 +6,7 @@ catzc:
     body_sha: "25cd7959f074"
     adrs:
       - ADR-FLOW-CD-GLOBS#4
+    links: []
 ---
 
 # automation/Catzc.Base.Globs/private/Get-ChangedFile.ps1

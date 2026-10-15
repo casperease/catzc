@@ -11,6 +11,17 @@ catzc:
       - ADR-DSGN-THINPLAT#1
       - ADR-DSGN-THINPLAT#2
       - ADR-DSGN-THINPLAT#3
+    links:
+      - docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.md
+      - docs/.assets/explanation/adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png
+      - docs/adr/azure/prefer-az-cli.md
+      - docs/adr/design/thin-platforms.md
+      - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
+      - docs/explanation/design/deploy-bicep-delegates-to-az.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/same-deploy-bicep-on-both-sides.md
+      - docs/explanation/design/what-keeps-the-platform-thin.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Every vendor call leaves cats through the az CLI

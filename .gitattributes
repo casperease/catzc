@@ -2,8 +2,8 @@
 # catzc:
 #   derived:
 #     path: ".gitattributes"
-#     kind: generated-from-source
 #     source: automation/Catzc.Base.RootConfig/assets/root/.gitattributes
+#     kind: generated-from-source
 # ---
 
 # Binary files must never be line-ending normalized — EOL conversion rewrites the bytes, which corrupts

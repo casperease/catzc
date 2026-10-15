@@ -5,6 +5,10 @@ catzc:
     kind: how-to
     body_sha: adca12471052
     adrs: []
+    links:
+      - docs/adr/azure/prefer-az-cli.md
+      - docs/adr/pwsh/vendor-toolset-dependencies.md
+      - docs/how-to/getting-started/automation/add-a-cli-tool.md
 ---
 
 # Vendor a module

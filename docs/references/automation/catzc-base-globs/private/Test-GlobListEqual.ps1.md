@@ -6,6 +6,7 @@ catzc:
     body_sha: "959cefd67203"
     adrs:
       - ADR-FLOW-CD-GLOBS#2
+    links: []
 ---
 
 # automation/Catzc.Base.Globs/private/Test-GlobListEqual.ps1

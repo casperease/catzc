@@ -4,7 +4,32 @@ catzc:
     path: docs/adr/design/run-modes.md
     kind: adr
     body_sha: feb2d9ae1bab
+    defines:
+      - ADR-DSGN-RUNMODE#1
+      - ADR-DSGN-RUNMODE#2
+      - ADR-DSGN-RUNMODE#3
+      - ADR-DSGN-RUNMODE#4
+      - ADR-DSGN-RUNMODE#5
+      - ADR-DSGN-RUNMODE#6
+      - ADR-DSGN-RUNMODE#7
     adrs: []
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/effective-in-enterprises.md
+      - docs/adr/automation/environment-variables.md#rule-adr-auto-envvar5
+      - docs/adr/automation/internal-asset-dependencies.md
+      - docs/adr/automation/never-depend-on-pwd.md
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle3
+      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5
+      - docs/adr/automation/test-automation.md
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test30
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test31
+      - docs/adr/configuration/module-config-loading.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/pwsh/one-function-per-file.md
+      - docs/adr/pwsh/script-scope-caching.md
+      - docs/adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd4
 ---
 
 # ADR: Run modes — source mode and build mode

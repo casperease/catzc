@@ -4,14 +4,27 @@ catzc:
     path: docs/adr/principles/one-living-version.md
     kind: adr
     body_sha: c6a66d2338ab
-    adrs:
-      - ADR-CONF-LOADING#4
+    defines:
+      - ADR-PRIN-ONELIVE#1
       - ADR-PRIN-ONELIVE#2
+      - ADR-PRIN-ONELIVE#3
+      - ADR-PRIN-ONELIVE#4
+      - ADR-PRIN-ONELIVE#5
       - ADR-PRIN-ONELIVE#6
       - ADR-PRIN-ONELIVE#7
       - ADR-PRIN-ONELIVE#8
+    adrs:
+      - ADR-CONF-LOADING#4
       - ADR-REPO-CONTRACT#2
       - ADR-THES-ONETRUTH#4
+    links:
+      - docs/adr/index.md
+      - docs/adr/principles/everything-as-code.md
+      - docs/adr/principles/reduce-variability.md
+      - docs/adr/repository/api-contracts.md
+      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract2
+      - docs/adr/repository/conventional-folders.md#rule-adr-repo-folders11
+      - docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth4
 ---
 
 # Principle: One living version — no legacy, no back-compat, history in git

@@ -4,11 +4,20 @@ catzc:
     path: docs/adr/configuration/config-value-addressing.md
     kind: adr
     body_sha: "0556ee64f476"
+    defines:
+      - ADR-CONF-ADDRESSING#1
+      - ADR-CONF-ADDRESSING#2
+      - ADR-CONF-ADDRESSING#3
+      - ADR-CONF-ADDRESSING#4
+      - ADR-CONF-ADDRESSING#5
     adrs:
       - ADR-AUTO-ENVVAR#7
       - ADR-CONF-LOADING#1
       - ADR-CONF-LOADING#2
       - ADR-CONF-LOADING#3
+    links:
+      - docs/adr/automation/environment-variables.md
+      - docs/adr/configuration/module-config-loading.md
 ---
 
 # ADR: Config value addressing — a by-reference handle into a named config

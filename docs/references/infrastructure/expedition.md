@@ -5,6 +5,11 @@ catzc:
     kind: reference
     body_sha: "562382a9cb1f"
     adrs: []
+    links:
+      - docs/adr/azure/azure-data-model.md
+      - docs/references/infrastructure/discovery.md
+      - docs/references/infrastructure/foundation.md
+      - docs/references/infrastructure/modules.md
 ---
 
 # expedition

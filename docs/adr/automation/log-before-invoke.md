@@ -4,8 +4,16 @@ catzc:
     path: docs/adr/automation/log-before-invoke.md
     kind: adr
     body_sha: "2c0702674ab9"
+    defines:
+      - ADR-AUTO-PRELOG#1
+      - ADR-AUTO-PRELOG#2
+      - ADR-AUTO-PRELOG#4
+      - ADR-AUTO-PRELOG#5
     adrs:
       - ADR-AUTO-CONSOLE#3
+    links:
+      - docs/adr/automation/console-output-matters.md#rule-adr-auto-console3
+      - docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce10
 ---
 
 # ADR: Log the exact command before every invocation

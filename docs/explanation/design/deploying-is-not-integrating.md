@@ -9,6 +9,17 @@ catzc:
       - ADR-DSGN-LIFE#9
       - ADR-DSGN-VISUAL#13
       - ADR-DSGN-VISUAL#4
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.md
+      - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/visual-design.md
+      - docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
+      - docs/explanation/design/every-deploy-stage-is-main-only.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/merging-to-main-is-what-deploys.md
+      - docs/explanation/design/out-of-band-deploy-is-adr-only.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Deploying a topic commit is not integrating it

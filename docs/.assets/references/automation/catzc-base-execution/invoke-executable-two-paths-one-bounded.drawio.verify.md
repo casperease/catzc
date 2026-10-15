@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-FAILFAST#7
       - ADR-PWSH-ASSERT#1
+    links: []
 ---
 
 # out/diagrams/wave-9/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.verify.md

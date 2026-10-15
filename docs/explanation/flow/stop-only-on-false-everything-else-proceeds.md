@@ -6,6 +6,16 @@ catzc:
     body_sha: "4eb015514f04"
     adrs:
       - ADR-FLOW-CD-GLOBS#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-globs--stop-only-on-false-everything-else-proceeds--operations.drawio.png
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/flow/every-doubt-fails-open-to-proceed.md
+      - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/range-per-context-then-diff-and-match.md
+      - docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # A stage returns only on $false; a doubt prints a message and proceeds; a typo throws

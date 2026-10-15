@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-TYPES#9
       - ADR-AZ-NAMING#2
       - ADR-AZ-NAMING#6
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/types/BicepShortName.cs

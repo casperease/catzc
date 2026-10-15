@@ -6,6 +6,7 @@ catzc:
     body_sha: f0a9c7a82957
     adrs:
       - ADR-AUTO-CACHE#10
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Exit-TestRunLocation.ps1

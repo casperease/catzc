@@ -6,6 +6,7 @@ catzc:
     body_sha: d7f5a9c53da7
     adrs:
       - ADR-AUTO-XPLAT#6
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestAutomationVerdict.ps1

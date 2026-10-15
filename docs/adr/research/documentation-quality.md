@@ -4,7 +4,29 @@ catzc:
     path: docs/adr/research/documentation-quality.md
     kind: adr
     body_sha: b8b7bf2ed828
+    defines:
+      - ADR-DORA-DOCS#1
+      - ADR-DORA-DOCS#2
+      - ADR-DORA-DOCS#3
+      - ADR-DORA-DOCS#4
+      - ADR-DORA-DOCS#5
     adrs: []
+    links:
+      - docs/adr/repository/documentation-examples.md
+      - docs/adr/repository/generated-readmes.md
+      - docs/references/dora/capabilities.md#climate-for-learning
+      - docs/references/dora/capabilities.md#code-maintainability
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#documentation-quality
+      - docs/references/dora/capabilities.md#trunk-based-development
+      - docs/references/dora/core-model.md#climate-for-learning
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/index.md
+      - docs/references/dora/publications.md#2021-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2022-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2023-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2024-accelerate-state-of-devops-report
+      - "https://dora.dev/capabilities/documentation-quality/"
 ---
 
 # ADR: DORA — Documentation quality

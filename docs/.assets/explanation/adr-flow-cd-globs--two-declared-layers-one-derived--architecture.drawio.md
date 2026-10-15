@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.chain.md
+      - docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.grid.md
+      - docs/.assets/explanation/adr-flow-cd-globs--two-declared-layers-one-derived--architecture.tree.md
+      - docs/explanation/flow/two-declared-layers-one-derived.md
 ---
 
 # Two layers declared, the third derived: the diagram described

@@ -6,6 +6,7 @@ catzc:
     body_sha: "109bd3edbc67"
     adrs:
       - ADR-AUTO-DRYRUN#2
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Format-MarkdownTitle.ps1

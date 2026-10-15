@@ -5,6 +5,20 @@ catzc:
     kind: how-to
     body_sha: "63acd364cda0"
     adrs: []
+    links:
+      - docs/how-to/automation/manual-test-plan/adr-registry.md
+      - docs/how-to/automation/manual-test-plan/azure.md
+      - docs/how-to/automation/manual-test-plan/configs.md
+      - docs/how-to/automation/manual-test-plan/csharp-types.md
+      - docs/how-to/automation/manual-test-plan/docs-and-links.md
+      - docs/how-to/automation/manual-test-plan/module-system.md
+      - docs/how-to/automation/manual-test-plan/pipelines-and-globs.md
+      - docs/how-to/automation/manual-test-plan/repository-conventions.md
+      - docs/how-to/automation/manual-test-plan/root-config-and-editor.md
+      - docs/how-to/automation/manual-test-plan/spelling-and-language.md
+      - docs/how-to/automation/manual-test-plan/static-analysis.md
+      - docs/how-to/automation/manual-test-plan/test-harness.md
+      - docs/how-to/automation/manual-test-plan/tooling.md
 ---
 
 # Manual test plan — integrity assertions

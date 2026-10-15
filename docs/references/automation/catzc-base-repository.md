@@ -5,6 +5,13 @@ catzc:
     kind: reference
     body_sha: aa36a4ef1cbb
     adrs: []
+    links:
+      - docs/adr/automation/never-depend-on-pwd.md
+      - docs/adr/flow/pipeline-detection.md
+      - docs/adr/repository/dedicated-output-directory.md
+      - docs/references/automation/catzc-base-asserts.md
+      - docs/references/automation/catzc-base-files.md
+      - docs/references/automation/internal/catzc-internal-loader.md
 ---
 
 # Catzc.Base.Repository

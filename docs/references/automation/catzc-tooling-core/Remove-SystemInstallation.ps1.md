@@ -6,6 +6,7 @@ catzc:
     body_sha: "0ae32a4180ca"
     adrs:
       - ADR-AUTO-TEST#33
+    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Remove-SystemInstallation.ps1

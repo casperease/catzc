@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "5052bd9a2ea0"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Assert-ManagedGuid.ps1

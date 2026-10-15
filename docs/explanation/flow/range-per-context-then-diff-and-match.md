@@ -7,6 +7,17 @@ catzc:
     adrs:
       - ADR-FLOW-CD-DETECT#1
       - ADR-FLOW-CD-GLOBS#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-globs--range-per-context-then-diff-and-match--implementation.drawio.png
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/flow/pipeline-detection.md
+      - docs/explanation/flow/every-doubt-fails-open-to-proceed.md
+      - docs/explanation/flow/globs-asks-loader-for-context-and-git-for-diff.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/stop-only-on-false-everything-else-proceeds.md
+      - docs/explanation/flow/tests-pin-the-throw-and-fail-open-no-caller.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Check the name, pick the range per context, then diff git and match the paths

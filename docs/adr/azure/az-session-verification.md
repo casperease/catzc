@@ -4,9 +4,17 @@ catzc:
     path: docs/adr/azure/az-session-verification.md
     kind: adr
     body_sha: b86a677eda72
-    adrs:
+    defines:
+      - ADR-AZ-SESSION#1
       - ADR-AZ-SESSION#2
+      - ADR-AZ-SESSION#3
       - ADR-AZ-SESSION#4
+      - ADR-AZ-SESSION#5
+    adrs: []
+    links:
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod7
+      - docs/adr/azure/prefer-az-cli.md
+      - docs/adr/pipelines/dual-authentication.md
 ---
 
 # ADR: Az CLI session verification — three layers, and verify is not connect

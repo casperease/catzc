@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.chain.md
+      - docs/.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.drawio.png
+      - docs/.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.grid.md
+      - docs/.assets/explanation/adr-auto-bundle--every-entry-runs-one-load-sequence--meta.tree.md
+      - docs/explanation/automation/every-entry-runs-one-load-sequence.md
 ---
 
 # Every entry runs one load sequence: the diagram described

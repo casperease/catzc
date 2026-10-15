@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FOLDERS#7
+    links: []
 ---
 
 # automation/Catzc.Base.Languages/types/PythonConfig.cs

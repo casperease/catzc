@@ -4,9 +4,21 @@ catzc:
     path: docs/adr/pwsh/one-function-per-file.md
     kind: adr
     body_sha: d121b8193149
+    defines:
+      - ADR-PWSH-ONEFUNC#1
+      - ADR-PWSH-ONEFUNC#2
+      - ADR-PWSH-ONEFUNC#3
     adrs:
       - ADR-AUTO-EXTEND#4
       - ADR-PWSH-USEPS#1
+    links:
+      - docs/adr/automation/effective-in-enterprises.md
+      - docs/adr/automation/open-closed-architecture.md#rule-adr-auto-extend4
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/automation/zero-ceremony-poka-yoke.md#rule-adr-auto-zero2
+      - docs/adr/design/run-modes.md
+      - docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5
+      - docs/adr/pwsh/use-ps1-not-psm1.md#source-and-the-generated-build
 ---
 
 # ADR: One function per file

@@ -4,7 +4,16 @@ catzc:
     path: docs/adr/pwsh/use-ps1-not-psm1.md
     kind: adr
     body_sha: fa2e9b2b1535
+    defines:
+      - ADR-PWSH-USEPS#1
+      - ADR-PWSH-USEPS#2
     adrs: []
+    links:
+      - docs/adr/design/run-modes.md
+      - docs/adr/pwsh/dynamic-module-manifests.md#regenerated-manifests
+      - docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5
+      - docs/adr/pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc3
+      - docs/adr/pwsh/prepost-extension-modules.md
 ---
 
 # ADR: Use .ps1 for function files, not .psm1

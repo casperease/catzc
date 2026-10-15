@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "31a343c58b36"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png
+      - docs/explanation/azure/read-the-session-guard-then-pick-slot.md
 ---
 
 # Read the session, guard, then pick the slot: the diagram described

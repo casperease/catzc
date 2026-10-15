@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-VOCAB#2
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/Get-Glossary.ps1

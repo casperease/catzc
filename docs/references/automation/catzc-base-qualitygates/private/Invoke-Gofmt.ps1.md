@@ -6,6 +6,7 @@ catzc:
     body_sha: eaf9157f8c08
     adrs:
       - ADR-PRIN-CONFIG#2
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-Gofmt.ps1

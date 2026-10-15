@@ -9,6 +9,7 @@ catzc:
       - ADR-AUTO-ASSETDEP#3
       - ADR-AUTO-ASSETDEP#4
       - ADR-AUTO-TEST#35
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1

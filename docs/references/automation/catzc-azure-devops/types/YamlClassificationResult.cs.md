@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "063a1836ebfb"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/types/YamlClassificationResult.cs

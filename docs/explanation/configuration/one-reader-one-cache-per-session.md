@@ -7,6 +7,16 @@ catzc:
     adrs:
       - ADR-CONF-LOADING#1
       - ADR-CONF-LOADING#3
+    links:
+      - docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.md
+      - docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png
+      - docs/adr/configuration/module-config-loading.md
+      - docs/explanation/configuration/ask-by-name-get-the-cached-object.md
+      - docs/explanation/configuration/callers-depend-on-one-config-module.md
+      - docs/explanation/configuration/index.md
+      - docs/explanation/configuration/one-gate-guards-the-read-path.md
+      - docs/explanation/configuration/three-caches-back-one-reader.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Every config read goes through one reader and one session cache

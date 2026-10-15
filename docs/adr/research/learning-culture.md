@@ -4,7 +4,30 @@ catzc:
     path: docs/adr/research/learning-culture.md
     kind: adr
     body_sha: acfd23004c4f
+    defines:
+      - ADR-DORA-LEARNING#1
+      - ADR-DORA-LEARNING#2
+      - ADR-DORA-LEARNING#3
+      - ADR-DORA-LEARNING#4
+      - ADR-DORA-LEARNING#5
     adrs: []
+    links:
+      - docs/adr/principles/reduce-waste.md
+      - docs/adr/process/holding-the-line.md
+      - docs/adr/process/inspect-and-adapt.md
+      - docs/references/dora/capabilities.md#climate-for-learning
+      - docs/references/dora/capabilities.md#generative-organizational-culture
+      - docs/references/dora/capabilities.md#job-satisfaction
+      - docs/references/dora/capabilities.md#learning-culture
+      - docs/references/dora/capabilities.md#team-experimentation
+      - docs/references/dora/core-model.md#climate-for-learning
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#change-fail-rate
+      - docs/references/dora/metrics.md#change-lead-time
+      - docs/references/dora/metrics.md#deployment-frequency
+      - docs/references/dora/metrics.md#failed-deployment-recovery-time
+      - "https://dora.dev/capabilities/learning-culture/"
 ---
 
 # ADR: DORA — Learning culture

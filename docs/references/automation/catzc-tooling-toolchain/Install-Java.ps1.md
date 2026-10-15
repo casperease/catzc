@@ -6,6 +6,7 @@ catzc:
     body_sha: "87f1d030ef73"
     adrs:
       - ADR-AUTO-CONSOLE#11
+    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/Install-Java.ps1

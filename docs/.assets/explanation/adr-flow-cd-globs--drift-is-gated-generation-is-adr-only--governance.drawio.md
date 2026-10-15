@@ -6,6 +6,9 @@ catzc:
     body_sha: "9e788ffe9315"
     adrs:
       - ADR-AUTO-TEST#35
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--drift-is-gated-generation-is-adr-only--governance.drawio.png
+      - docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
 ---
 
 # Drift has a gate, generation is ADR-only: the diagram described

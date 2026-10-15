@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.chain.md
+      - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png
+      - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.grid.md
+      - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.tree.md
+      - docs/explanation/automation/rule-and-gate-per-load-stage.md
 ---
 
 # Every load stage but the unload has an ADR rule: the diagram described

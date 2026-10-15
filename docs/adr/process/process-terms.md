@@ -4,7 +4,22 @@ catzc:
     path: docs/adr/process/process-terms.md
     kind: adr
     body_sha: "85f093b7747b"
+    defines:
+      - ADR-PROC-LEANTERMS#1
+      - ADR-PROC-LEANTERMS#2
+      - ADR-PROC-LEANTERMS#3
+      - ADR-PROC-LEANTERMS#4
+      - ADR-PROC-LEANTERMS#5
     adrs: []
+    links:
+      - docs/adr/automation/caching.md
+      - docs/adr/automation/zero-ceremony-poka-yoke.md
+      - docs/adr/principles/everything-as-code.md
+      - docs/adr/principles/reduce-waste.md
+      - docs/adr/process/lean.md
+      - docs/adr/process/observe-work.md
+      - docs/adr/process/pull-work.md
+      - docs/adr/process/queues-cost-money.md
 ---
 
 # ADR: Process terms — the foundational vocabulary of flow

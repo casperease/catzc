@@ -4,9 +4,13 @@ catzc:
     path: docs/adr/azure/caf/design-principles.md
     kind: adr
     body_sha: b891f6ab0cc2
-    adrs:
+    defines:
+      - ADR-AZ-CAFPRIN#1
       - ADR-AZ-CAFPRIN#2
+      - ADR-AZ-CAFPRIN#3
+      - ADR-AZ-CAFPRIN#4
       - ADR-AZ-CAFPRIN#5
+    adrs:
       - ADR-AZ-CLI#1
       - ADR-AZ-CUSTOMER#2
       - ADR-AZ-DATAMOD#1
@@ -24,6 +28,28 @@ catzc:
       - ADR-DSGN-SELFSERV#1
       - ADR-DSGN-SELFSERV#2
       - ADR-DSGN-THINPLAT#2
+    links:
+      - docs/adr/azure/azure-customer-model.md#rule-adr-az-customer2
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod1
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod3
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network5
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz5
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz6
+      - docs/adr/azure/prefer-az-cli.md#rule-adr-az-cli1
+      - docs/adr/design/self-service.md#rule-adr-dsgn-selfserv1
+      - docs/adr/design/self-service.md#rule-adr-dsgn-selfserv2
+      - docs/adr/design/thin-platforms.md#rule-adr-dsgn-thinplat2
+      - docs/references/caf/index.md
+      - "https://learn.microsoft.com/en-us/legal/termsofuse"
 ---
 
 # ADR: CAF landing zone design principles — Microsoft's five principles, cited, and where this repository follows or deviates from each

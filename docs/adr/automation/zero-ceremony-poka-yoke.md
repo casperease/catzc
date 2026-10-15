@@ -4,9 +4,24 @@ catzc:
     path: docs/adr/automation/zero-ceremony-poka-yoke.md
     kind: adr
     body_sha: "203576ad0251"
+    defines:
+      - ADR-AUTO-ZERO#1
+      - ADR-AUTO-ZERO#2
+      - ADR-AUTO-ZERO#3
     adrs:
       - ADR-AUTO-EXTEND#4
       - ADR-PWSH-MANIFEST#9
+    links:
+      - docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm8
+      - docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast1
+      - docs/adr/principles/poka-yoke.md
+      - docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest8
+      - docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest9
+      - docs/adr/pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc1
+      - docs/adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs1
+      - docs/adr/pwsh/use-ps1-not-psm1.md
+      - docs/adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd2
+      - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format1
 ---
 
 # ADR: Zero ceremony, hard to fail

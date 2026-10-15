@@ -6,6 +6,7 @@ catzc:
     body_sha: "686a74b070f4"
     adrs:
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/GuidsConfig.cs

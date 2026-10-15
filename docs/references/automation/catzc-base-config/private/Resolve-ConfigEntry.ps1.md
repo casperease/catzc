@@ -6,6 +6,7 @@ catzc:
     body_sha: "367fe216f621"
     adrs:
       - ADR-PWSH-CACHE#4
+    links: []
 ---
 
 # automation/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1

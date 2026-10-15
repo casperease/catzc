@@ -5,6 +5,9 @@ catzc:
     kind: reference
     body_sha: "0de04e1f42fa"
     adrs: []
+    links:
+      - docs/adr/repository/file-meta.md
+      - docs/references/automation/catzc-base-config.md
 ---
 
 # Catzc.Base.MarkdownMeta

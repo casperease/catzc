@@ -4,8 +4,12 @@ catzc:
     path: docs/adr/repository/documentation-examples.md
     kind: adr
     body_sha: "2524bd0104f1"
-    adrs:
+    defines:
       - ADR-REPO-EXAMPLE#1
+      - ADR-REPO-EXAMPLE#2
+    adrs: []
+    links:
+      - docs/adr/azure/landing-zones.md
 ---
 
 # ADR: Documentation examples — the discovery theme

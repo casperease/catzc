@@ -5,6 +5,11 @@ catzc:
     kind: reference
     body_sha: a2a9963d9de6
     adrs: []
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/caching.md#rule-adr-auto-cache8
+      - docs/references/automation/catzc-base-objects.md
+      - docs/references/automation/catzc-base-typessystem.md
 ---
 
 # The BCL type system

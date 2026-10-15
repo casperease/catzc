@@ -4,6 +4,11 @@ catzc:
     path: docs/adr/automation/cross-platform.md
     kind: adr
     body_sha: "5991ca784914"
+    defines:
+      - ADR-AUTO-XPLAT#3
+      - ADR-AUTO-XPLAT#6
+      - ADR-AUTO-XPLAT#7
+      - ADR-AUTO-XPLAT#9
     adrs:
       - ADR-AUTO-PARITY#1
       - ADR-PWSH-XPLAT#2
@@ -11,6 +16,10 @@ catzc:
       - ADR-PWSH-XPLAT#6
       - ADR-PWSH-XPLAT#7
       - ADR-PWSH-XPLAT#8
+    links:
+      - docs/adr/automation/controlling-systemwide-deps.md
+      - docs/adr/automation/devbox-pipeline-parity.md#rule-adr-auto-parity1
+      - docs/adr/pwsh/cross-platform-powershell.md
 ---
 
 # ADR: Must be cross-platform

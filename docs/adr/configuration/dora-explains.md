@@ -4,7 +4,17 @@ catzc:
     path: docs/adr/configuration/dora-explains.md
     kind: adr
     body_sha: da96fc3b252a
+    defines: []
     adrs: []
+    links:
+      - docs/adr/configuration/config-value-addressing.md
+      - docs/adr/configuration/markdown-config-contributions.md
+      - docs/adr/configuration/module-config-loading.md
+      - docs/references/dora/capabilities.md#code-maintainability
+      - docs/references/dora/capabilities.md#pervasive-security
+      - docs/references/dora/capabilities.md#trunk-based-development
+      - docs/references/dora/capabilities.md#version-control
+      - docs/references/dora/index.md
 ---
 
 # DORA explanations — configuration

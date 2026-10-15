@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.chain.md
+      - docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.grid.md
+      - docs/.assets/explanation/adr-flow-cd-runner--three-tasks-one-guard-one-runner--implementation.tree.md
+      - docs/explanation/flow/three-tasks-one-guard-one-runner.md
 ---
 
 # Three tasks, one guard, one runner: the diagram described

@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-TYPES#8
       - ADR-AZ-CUSTOMER#3
       - ADR-FLOW-CD-TYPE#4
+    links: []
 ---
 
 # automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs

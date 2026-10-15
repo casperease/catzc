@@ -6,6 +6,7 @@ catzc:
     body_sha: "60aab09b65b9"
     adrs:
       - ADR-AUTO-DRYRUN#2
+    links: []
 ---
 
 # automation/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1

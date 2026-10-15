@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-OVERLAY#7
       - ADR-PWSH-CACHE#4
+    links: []
 ---
 
 # Verification: Overlay merges unless sealed; the registered type builds it (source lens, Catzc.Base.Config)

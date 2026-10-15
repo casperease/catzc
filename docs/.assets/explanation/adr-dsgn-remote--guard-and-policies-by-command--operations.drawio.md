@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.chain.md
+      - docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.drawio.png
+      - docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.grid.md
+      - docs/.assets/explanation/adr-dsgn-remote--guard-and-policies-by-command--operations.tree.md
+      - docs/explanation/design/guard-and-policies-by-command.md
 ---
 
 # Flip git_workspace; sync the ADO policies: the diagram described

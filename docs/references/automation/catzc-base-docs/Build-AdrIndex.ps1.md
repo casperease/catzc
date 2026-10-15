@@ -6,6 +6,7 @@ catzc:
     body_sha: fa552b59188e
     adrs:
       - ADR-REPO-FORMAT#5
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/Build-AdrIndex.ps1

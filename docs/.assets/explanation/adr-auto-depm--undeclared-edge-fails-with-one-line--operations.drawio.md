@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.chain.md
+      - docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
+      - docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.grid.md
+      - docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.tree.md
+      - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
 ---
 
 # An undeclared edge fails with one line: the diagram described

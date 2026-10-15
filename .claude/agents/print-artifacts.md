@@ -13,6 +13,8 @@ catzc:
     kind: agent
     body_sha: a50534912aec
     adrs: []
+    links:
+      - ".claude/CLAUDE.md#time-safeguard"
 ---
 
 # print-artifacts

@@ -4,9 +4,30 @@ catzc:
     path: docs/adr/repository/inspiration.md
     kind: adr
     body_sha: "555677c00938"
+    defines:
+      - ADR-REPO-INSPIRE#1
+      - ADR-REPO-INSPIRE#2
+      - ADR-REPO-INSPIRE#3
+      - ADR-REPO-INSPIRE#4
+      - ADR-REPO-INSPIRE#5
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-PATH#11
+    links:
+      - docs/adr/automation/go/go-test-artifacts.md
+      - docs/adr/automation/path-representation.md#rule-adr-auto-path11
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/automation/test-automation.md
+      - docs/adr/automation/use-proper-package-managers.md
+      - docs/adr/automation/uv-python-handler.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/flow/pipeline-runner-pattern.md
+      - docs/adr/index.md#authoring-conventions
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/pwsh/one-function-per-file.md
+      - docs/adr/pwsh/parameter-design.md
+      - docs/adr/repository/agent-definitions.md
+      - docs/adr/repository/api-contracts.md
 ---
 
 # ADR: Inspiration — read for ideas, never a reference implementation

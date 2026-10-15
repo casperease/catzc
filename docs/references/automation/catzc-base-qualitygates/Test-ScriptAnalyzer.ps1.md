@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-NOPWD#1
       - ADR-AUTO-TEST#35
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1

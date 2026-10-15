@@ -4,6 +4,14 @@ catzc:
     path: docs/adr/configuration/markdown-config-contributions.md
     kind: adr
     body_sha: e8192d50ae2b
+    defines:
+      - ADR-CONF-MDCONTRIB#1
+      - ADR-CONF-MDCONTRIB#2
+      - ADR-CONF-MDCONTRIB#3
+      - ADR-CONF-MDCONTRIB#4
+      - ADR-CONF-MDCONTRIB#5
+      - ADR-CONF-MDCONTRIB#6
+      - ADR-CONF-MDCONTRIB#7
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#3
@@ -14,6 +22,16 @@ catzc:
       - ADR-CONF-LOADING#3
       - ADR-CONF-LOADING#4
       - ADR-CONF-LOADING#5
+    links:
+      - docs/adr/automation/consumer-overlay.md#rule-adr-auto-overlay4
+      - docs/adr/automation/consumer-overlay.md#rule-adr-auto-overlay7
+      - docs/adr/automation/open-closed-architecture.md#rule-adr-auto-extend3
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing3
+      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading1
+      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading3
+      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4
+      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading5
 ---
 
 # ADR: Markdown config contributions — config values stated in a source-controlled Markdown file

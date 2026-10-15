@@ -6,6 +6,7 @@ catzc:
     body_sha: "1e30e60946b0"
     adrs:
       - ADR-REPO-HELP#2
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Move-FunctionHelpCitation.ps1

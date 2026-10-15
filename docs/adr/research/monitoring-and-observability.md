@@ -4,7 +4,32 @@ catzc:
     path: docs/adr/research/monitoring-and-observability.md
     kind: adr
     body_sha: "8030049afc9c"
+    defines:
+      - ADR-DORA-OBSERV#1
+      - ADR-DORA-OBSERV#2
+      - ADR-DORA-OBSERV#3
+      - ADR-DORA-OBSERV#4
+      - ADR-DORA-OBSERV#5
     adrs: []
+    links:
+      - docs/adr/automation/console-output-matters.md
+      - docs/adr/automation/log-before-invoke.md
+      - docs/adr/process/observe-work.md
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#fast-feedback
+      - docs/references/dora/capabilities.md#monitoring-and-observability
+      - docs/references/dora/capabilities.md#proactive-failure-notification
+      - docs/references/dora/capabilities.md#reliability-engineering
+      - docs/references/dora/capabilities.md#version-control
+      - docs/references/dora/core-model.md#fast-feedback
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#reliability
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#failed-deployment-recovery-time
+      - docs/references/dora/publications.md#2018-accelerate-state-of-devops-report
+      - "https://dora.dev/capabilities/monitoring-and-observability/"
 ---
 
 # ADR: DORA — Monitoring and observability

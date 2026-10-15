@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.chain.md
+      - docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.drawio.png
+      - docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.grid.md
+      - docs/.assets/explanation/adr-auto-bundle--one-commit-one-immutable-package--meta.tree.md
+      - docs/explanation/automation/one-commit-one-immutable-package.md
 ---
 
 # One commit, one verified, immutable package: the diagram described

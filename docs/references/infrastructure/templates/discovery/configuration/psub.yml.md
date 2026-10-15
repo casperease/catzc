@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "61e60c8ee61f"
     adrs: []
+    links: []
 ---
 
 # infrastructure/templates/discovery/configuration/psub.yml

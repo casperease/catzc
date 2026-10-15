@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-REPO-FORMAT#8
       - ADR-REPO-LINK#3
+    links: []
 ---
 
 # automation/Catzc.Base.VSCode/configs/vscode-extensions.yml

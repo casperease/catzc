@@ -4,13 +4,21 @@ catzc:
     path: docs/adr/pipelines/pipeline-naming-and-placement.md
     kind: adr
     body_sha: "5dccdb8ff1e9"
-    adrs:
-      - ADR-AUTO-TEST#35
+    defines:
       - ADR-PIPE-NAME#1
       - ADR-PIPE-NAME#2
       - ADR-PIPE-NAME#3
       - ADR-PIPE-NAME#4
+      - ADR-PIPE-NAME#5
       - ADR-PIPE-NAME#6
+      - ADR-PIPE-NAME#7
+    adrs:
+      - ADR-AUTO-TEST#35
+    links:
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
+      - docs/adr/flow/pipeline-types.md
+      - docs/adr/pipelines/custom-template-discipline.md
+      - docs/adr/repository/conventional-folders.md
 ---
 
 # ADR: Pipeline naming and placement

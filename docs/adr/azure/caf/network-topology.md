@@ -4,6 +4,72 @@ catzc:
     path: docs/adr/azure/caf/network-topology.md
     kind: adr
     body_sha: d686931f9aad
+    defines:
+      - ADR-AZ-CAFNETTOP#1
+      - ADR-AZ-CAFNETTOP#2
+      - ADR-AZ-CAFNETTOP#3
+      - ADR-AZ-CAFNETTOP#4
+      - ADR-AZ-CAFNETTOP#5
+      - ADR-AZ-CAFNETTOP#6
+      - ADR-AZ-CAFNETTOP#7
+      - ADR-AZ-CAFNETTOP#8
+      - ADR-AZ-CAFNETTOP#9
+      - ADR-AZ-CAFNETTOP#10
+      - ADR-AZ-CAFNETTOP#11
+      - ADR-AZ-CAFNETTOP#12
+      - ADR-AZ-CAFNETTOP#13
+      - ADR-AZ-CAFNETTOP#14
+      - ADR-AZ-CAFNETTOP#15
+      - ADR-AZ-CAFNETTOP#16
+      - ADR-AZ-CAFNETTOP#17
+      - ADR-AZ-CAFNETTOP#18
+      - ADR-AZ-CAFNETTOP#19
+      - ADR-AZ-CAFNETTOP#20
+      - ADR-AZ-CAFNETTOP#21
+      - ADR-AZ-CAFNETTOP#22
+      - ADR-AZ-CAFNETTOP#23
+      - ADR-AZ-CAFNETTOP#24
+      - ADR-AZ-CAFNETTOP#25
+      - ADR-AZ-CAFNETTOP#26
+      - ADR-AZ-CAFNETTOP#27
+      - ADR-AZ-CAFNETTOP#28
+      - ADR-AZ-CAFNETTOP#29
+      - ADR-AZ-CAFNETTOP#30
+      - ADR-AZ-CAFNETTOP#31
+      - ADR-AZ-CAFNETTOP#32
+      - ADR-AZ-CAFNETTOP#33
+      - ADR-AZ-CAFNETTOP#34
+      - ADR-AZ-CAFNETTOP#35
+      - ADR-AZ-CAFNETTOP#36
+      - ADR-AZ-CAFNETTOP#37
+      - ADR-AZ-CAFNETTOP#38
+      - ADR-AZ-CAFNETTOP#39
+      - ADR-AZ-CAFNETTOP#40
+      - ADR-AZ-CAFNETTOP#41
+      - ADR-AZ-CAFNETTOP#42
+      - ADR-AZ-CAFNETTOP#43
+      - ADR-AZ-CAFNETTOP#44
+      - ADR-AZ-CAFNETTOP#45
+      - ADR-AZ-CAFNETTOP#46
+      - ADR-AZ-CAFNETTOP#47
+      - ADR-AZ-CAFNETTOP#48
+      - ADR-AZ-CAFNETTOP#49
+      - ADR-AZ-CAFNETTOP#50
+      - ADR-AZ-CAFNETTOP#51
+      - ADR-AZ-CAFNETTOP#52
+      - ADR-AZ-CAFNETTOP#53
+      - ADR-AZ-CAFNETTOP#54
+      - ADR-AZ-CAFNETTOP#55
+      - ADR-AZ-CAFNETTOP#56
+      - ADR-AZ-CAFNETTOP#57
+      - ADR-AZ-CAFNETTOP#58
+      - ADR-AZ-CAFNETTOP#59
+      - ADR-AZ-CAFNETTOP#60
+      - ADR-AZ-CAFNETTOP#61
+      - ADR-AZ-CAFNETTOP#62
+      - ADR-AZ-CAFNETTOP#63
+      - ADR-AZ-CAFNETTOP#64
+      - ADR-AZ-CAFNETTOP#65
     adrs:
       - ADR-AZ-CAFMGMT#4
       - ADR-AZ-DATAMOD#9
@@ -18,6 +84,25 @@ catzc:
       - ADR-AZ-NETWORK#6
       - ADR-AZ-WAFSE#4
       - ADR-AZ-WAFSE#6
+    links:
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/azure/azure-network-model.md
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network1
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network3
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network5
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network6
+      - docs/adr/azure/caf/management.md#rule-adr-az-cafmgmt4
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz2
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz7
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse4
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse6
+      - docs/references/caf/index.md
+      - "https://learn.microsoft.com/en-us/legal/termsofuse"
 ---
 
 # ADR: CAF network topology — what the repository does about each topology, IP addressing, segmentation, and Virtual Network Manager recommendation

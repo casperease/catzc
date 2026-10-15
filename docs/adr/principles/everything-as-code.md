@@ -4,8 +4,15 @@ catzc:
     path: docs/adr/principles/everything-as-code.md
     kind: adr
     body_sha: "791634cbbe6b"
+    defines:
+      - ADR-PRIN-EAC#1
+      - ADR-PRIN-EAC#2
+      - ADR-PRIN-EAC#3
     adrs:
       - ADR-THES-ONETRUTH#2
+    links:
+      - docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth2
+      - docs/references/dora/capabilities.md#version-control
 ---
 
 # Principle: Everything as code

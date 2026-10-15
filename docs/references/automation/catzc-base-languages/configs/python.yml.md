@@ -6,6 +6,7 @@ catzc:
     body_sha: c3fa75021763
     adrs:
       - ADR-AUTO-DEFAULT#6
+    links: []
 ---
 
 # automation/Catzc.Base.Languages/configs/python.yml

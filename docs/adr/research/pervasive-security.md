@@ -4,7 +4,32 @@ catzc:
     path: docs/adr/research/pervasive-security.md
     kind: adr
     body_sha: aa1fb107b65d
+    defines:
+      - ADR-DORA-SECURITY#1
+      - ADR-DORA-SECURITY#2
+      - ADR-DORA-SECURITY#3
+      - ADR-DORA-SECURITY#4
+      - ADR-DORA-SECURITY#5
     adrs: []
+    links:
+      - docs/adr/automation/use-proper-package-managers.md
+      - docs/adr/azure/az-session-verification.md
+      - docs/adr/pipelines/dual-authentication.md
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#deployment-automation
+      - docs/references/dora/capabilities.md#fast-feedback
+      - docs/references/dora/capabilities.md#pervasive-security
+      - docs/references/dora/capabilities.md#working-in-small-batches
+      - docs/references/dora/core-model.md#fast-feedback
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/index.md
+      - docs/references/dora/publications.md#2016-state-of-devops-report
+      - docs/references/dora/publications.md#2018-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2021-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2022-accelerate-state-of-devops-report
+      - "https://dora.dev/capabilities/pervasive-security/"
 ---
 
 # ADR: DORA — Pervasive security

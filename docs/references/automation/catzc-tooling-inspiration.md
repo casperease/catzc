@@ -5,6 +5,13 @@ catzc:
     kind: reference
     body_sha: e2cb090c3f31
     adrs: []
+    links:
+      - docs/adr/automation/path-representation.md
+      - docs/adr/automation/sensible-defaults.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/configuration/module-config-loading.md
+      - docs/adr/repository/inspiration.md
+      - docs/references/automation/catzc-tooling-keyhandler.md
 ---
 
 # Catzc.Tooling.Inspiration

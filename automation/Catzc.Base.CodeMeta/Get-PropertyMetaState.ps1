@@ -15,7 +15,8 @@ catzc:
 .SYNOPSIS
     Reads what a JSON text says about its own meta property, without changing it.
 .DESCRIPTION
-    Pure: it takes the text and the property's name, reads no file and no config (ADR-REPO-FILEMETA#8).
+    Pure: it takes the text and the property's name, reads no file and no config
+    ([ADR-REPO-FILEMETA#8](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta8)).
 .PARAMETER Text
     The whole JSON file as text.
 .PARAMETER Property

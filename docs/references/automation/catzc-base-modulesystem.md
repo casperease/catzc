@@ -6,6 +6,17 @@ catzc:
     body_sha: "840dcfca8845"
     adrs:
       - ADR-AUTO-TEST#35
+    links:
+      - docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.md
+      - docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.png
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/adr/automation/internal-asset-dependencies.md
+      - docs/adr/automation/open-closed-architecture.md
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
+      - docs/adr/repository/conventional-folders.md
+      - docs/references/automation/catzc-base-typessystem.md
+      - docs/references/automation/catzc-base-vendor.md
 ---
 
 # Catzc.Base.ModuleSystem

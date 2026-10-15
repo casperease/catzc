@@ -4,11 +4,41 @@ catzc:
     path: docs/adr/research/continuous-delivery.md
     kind: adr
     body_sha: f32418cd25eb
+    defines:
+      - ADR-DORA-CD#1
+      - ADR-DORA-CD#2
+      - ADR-DORA-CD#3
+      - ADR-DORA-CD#4
+      - ADR-DORA-CD#5
     adrs:
       - ADR-FLOW-CD-TYPE#10
       - ADR-FLOW-CD-TYPE#3
       - ADR-FLOW-CD-TYPE#4
       - ADR-FLOW-CD-TYPE#8
+    links:
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/flow/pipeline-types.md
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#deployment-automation
+      - docs/references/dora/capabilities.md#fast-flow
+      - docs/references/dora/capabilities.md#loosely-coupled-teams
+      - docs/references/dora/capabilities.md#trunk-based-development
+      - docs/references/dora/core-model.md#fast-flow
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#instability
+      - docs/references/dora/metrics.md#reliability
+      - docs/references/dora/metrics.md#throughput
+      - docs/references/dora/publications.md#2014-state-of-devops-report
+      - docs/references/dora/publications.md#2015-state-of-devops-report
+      - docs/references/dora/publications.md#2016-state-of-devops-report
+      - docs/references/dora/publications.md#2017-state-of-devops-report
+      - docs/references/dora/publications.md#2018-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2019-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2022-accelerate-state-of-devops-report
+      - "https://dora.dev/capabilities/continuous-delivery/"
 ---
 
 # ADR: DORA — Continuous delivery

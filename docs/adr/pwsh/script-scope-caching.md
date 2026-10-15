@@ -4,11 +4,27 @@ catzc:
     path: docs/adr/pwsh/script-scope-caching.md
     kind: adr
     body_sha: "58af15b8aa6f"
+    defines:
+      - ADR-PWSH-CACHE#1
+      - ADR-PWSH-CACHE#2
+      - ADR-PWSH-CACHE#4
+      - ADR-PWSH-CACHE#5
     adrs:
       - ADR-AUTO-CACHE#6
       - ADR-AUTO-CACHE#8
-      - ADR-PWSH-CACHE#4
       - ADR-PWSH-PESTER#3
+    links:
+      - docs/adr/automation/caching.md
+      - docs/adr/automation/caching.md#rule-adr-auto-cache6
+      - docs/adr/automation/caching.md#rule-adr-auto-cache8
+      - docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob5
+      - docs/adr/automation/test-automation.md
+      - docs/adr/configuration/module-config-loading.md
+      - docs/adr/pwsh/environment-variable-mechanics.md
+      - docs/adr/pwsh/error-handling.md
+      - docs/adr/pwsh/hosting-csharp-types.md
+      - docs/adr/pwsh/one-function-per-file.md
+      - docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3
 ---
 
 # ADR: Script-scope caching — the PowerShell layer over caching

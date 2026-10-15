@@ -4,16 +4,31 @@ catzc:
     path: docs/adr/azure/landing-zones.md
     kind: adr
     body_sha: ddae9ec7174a
+    defines:
+      - ADR-AZ-LZ#1
+      - ADR-AZ-LZ#2
+      - ADR-AZ-LZ#3
+      - ADR-AZ-LZ#4
+      - ADR-AZ-LZ#5
+      - ADR-AZ-LZ#6
+      - ADR-AZ-LZ#7
     adrs:
       - ADR-AZ-DATAMOD#10
       - ADR-AZ-DATAMOD#11
       - ADR-AZ-DATAMOD#9
-      - ADR-AZ-LZ#5
-      - ADR-AZ-LZ#6
-      - ADR-AZ-LZ#7
       - ADR-AZ-NETWORK#1
       - ADR-AZ-NETWORK#5
       - ADR-AZ-NETWORK#6
+    links:
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/azure-network-model.md
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network1
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network5
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network6
+      - docs/adr/flow/durable-sha-globs.md
 ---
 
 # ADR: Landing zones — a CAF landing zone per subscription and the Well-Architected workload in it

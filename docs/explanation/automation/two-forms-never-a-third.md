@@ -10,6 +10,16 @@ catzc:
       - ADR-AUTO-PATH#2
       - ADR-AUTO-PATH#3
       - ADR-AUTO-PATH#4
+    links:
+      - docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.md
+      - docs/.assets/explanation/adr-auto-path--two-forms-never-a-third--meta.drawio.png
+      - docs/adr/automation/path-representation.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/one-out-string-two-places.md
+      - docs/explanation/automation/output-root-first-then-repo-root.md
+      - docs/explanation/automation/two-crossers-and-three-anchors.md
+      - docs/explanation/automation/types-check-forms-review-checks-crossers.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # A path has two forms, never a third, and one pair of crossers moves it between them

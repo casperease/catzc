@@ -7,6 +7,16 @@ catzc:
     adrs:
       - ADR-PWSH-ANNOUNCE#6
       - ADR-REPO-FORMAT#1
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/caching.md
+      - docs/adr/pwsh/use-ps1-not-psm1.md
+      - docs/adr/repository/uniform-formatting.md
+      - docs/references/automation/BCL/types-system.md
+      - docs/references/automation/catzc-base-modulesystem.md
+      - docs/references/automation/internal/catzc-internal-importer.md
+      - docs/references/automation/internal/catzc-internal-types.md
+      - docs/references/automation/internal/index.md
 ---
 
 # Catzc.Internal.Bootstrap

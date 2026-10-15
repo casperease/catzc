@@ -6,6 +6,7 @@ catzc:
     body_sha: "47a4211809fd"
     adrs:
       - ADR-PWSH-PESTER#9
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1

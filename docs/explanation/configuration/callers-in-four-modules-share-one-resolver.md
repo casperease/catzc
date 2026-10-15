@@ -8,6 +8,16 @@ catzc:
       - ADR-CONF-ADDRESSING#1
       - ADR-CONF-ADDRESSING#2
       - ADR-CONF-ADDRESSING#3
+    links:
+      - docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.md
+      - docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png
+      - docs/adr/configuration/config-value-addressing.md
+      - docs/explanation/configuration/an-address-is-a-read-only-walk.md
+      - docs/explanation/configuration/index.md
+      - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
+      - docs/explanation/configuration/two-test-files-check-the-address-rules.md
+      - docs/explanation/configuration/type-an-address-get-the-value.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private

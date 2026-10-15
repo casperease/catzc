@@ -6,6 +6,7 @@ catzc:
     body_sha: "124416c135e8"
     adrs:
       - ADR-PWSH-PESTER#9
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/Build-GitKeep.ps1

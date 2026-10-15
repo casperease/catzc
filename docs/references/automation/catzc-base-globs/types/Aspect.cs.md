@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-DSGN-ASPECT#5
       - ADR-FLOW-CD-GLOBS#4
+    links: []
 ---
 
 # automation/Catzc.Base.Globs/types/Aspect.cs

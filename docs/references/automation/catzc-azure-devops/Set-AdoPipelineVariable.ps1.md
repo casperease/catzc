@@ -6,6 +6,7 @@ catzc:
     body_sha: "1985951588fe"
     adrs:
       - ADR-PWSH-ANNOUNCE#1
+    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1

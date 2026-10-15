@@ -10,6 +10,16 @@ catzc:
       - ADR-FLOW-CD-GLOBS#6
       - ADR-FLOW-CD-GLOBS#9
       - ADR-REPO-PROTGLOB#5
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-globs--one-scan-program-feeds-three-roles--implementation.drawio.png
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/flow/edit-globs-yml-then-read-the-output.md
+      - docs/explanation/flow/gates-check-source-and-trigger.md
+      - docs/explanation/flow/globs-module-owns-config-and-types.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/three-views-derived-live-from-one-program.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # One method, GlobSet.ScanProgram(), feeds all three globset role functions

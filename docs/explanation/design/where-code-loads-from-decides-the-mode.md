@@ -9,6 +9,16 @@ catzc:
       - ADR-DSGN-RUNMODE#2
       - ADR-DSGN-RUNMODE#4
       - ADR-DSGN-RUNMODE#5
+    links:
+      - docs/.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.md
+      - docs/.assets/explanation/adr-dsgn-runmode--where-code-loads-from-decides-the-mode--meta.drawio.png
+      - docs/adr/design/run-modes.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/one-entry-script-per-mode.md
+      - docs/explanation/design/shims-set-roots-mode-read-back.md
+      - docs/explanation/design/two-roots-one-importer-same-modules.md
+      - docs/explanation/design/which-run-mode-rules-have-a-gate.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Where the code loads from decides the run mode

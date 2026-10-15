@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "5c930115f30b"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png
+      - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
 ---
 
 # The hook compiles the module's own verdict and limits: the diagram described

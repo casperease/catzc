@@ -12,6 +12,17 @@ catzc:
       - ADR-AZ-DATAMOD#3
       - ADR-AZ-DATAMOD#5
       - ADR-AZ-DATAMOD#8
+    links:
+      - docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.md
+      - docs/.assets/explanation/adr-az-datamod--coordinate-rules-and-their-gates--governance.drawio.png
+      - docs/adr/azure/azure-customer-model.md
+      - docs/adr/azure/azure-data-model.md
+      - docs/explanation/azure/a-bad-coordinate-stops-discovery.md
+      - docs/explanation/azure/config-path-is-a-coordinate.md
+      - docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
+      - docs/explanation/azure/index.md
+      - docs/explanation/azure/two-layers-join-through-one-resolver.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Two ADRs rule the coordinate; one shared check and the integrity tests hold them

@@ -13,6 +13,15 @@ catzc:
       - ADR-FLOW-CD#11
       - ADR-FLOW-CD#5
       - ADR-FLOW-CD#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.md
+      - docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.png
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/integrators-depend-on-an-occupant.md
+      - docs/explanation/design/sync-from-the-last-certified-commit.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Only BVT has a gate in code; the sync-point rules are ADR-only

@@ -6,6 +6,7 @@ catzc:
     body_sha: eecfc11d89a6
     adrs:
       - ADR-AZ-CUSTOMER#3
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml

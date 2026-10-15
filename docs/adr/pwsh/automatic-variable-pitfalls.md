@@ -4,7 +4,19 @@ catzc:
     path: docs/adr/pwsh/automatic-variable-pitfalls.md
     kind: adr
     body_sha: "6e7918d7cfad"
+    defines:
+      - ADR-PWSH-AUTOVAR#1
+      - ADR-PWSH-AUTOVAR#2
+      - ADR-PWSH-AUTOVAR#3
+      - ADR-PWSH-AUTOVAR#4
+      - ADR-PWSH-AUTOVAR#5
+      - ADR-PWSH-AUTOVAR#6
+      - ADR-PWSH-AUTOVAR#7
     adrs: []
+    links:
+      - docs/adr/pwsh/error-handling.md
+      - docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error1
+      - "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables"
 ---
 
 # ADR: Automatic variable pitfalls

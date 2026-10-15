@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.chain.md
+      - docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png
+      - docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.grid.md
+      - docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.tree.md
+      - docs/explanation/design/integrators-depend-on-an-occupant.md
 ---
 
 # Integrators depend on the main-UAT occupant: the diagram described

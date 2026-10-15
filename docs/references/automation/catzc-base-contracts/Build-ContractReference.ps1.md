@@ -8,6 +8,7 @@ catzc:
       - ADR-REPO-CONTRACT#2
       - ADR-REPO-FORMAT#5
       - ADR-REPO-README#7
+    links: []
 ---
 
 # automation/Catzc.Base.Contracts/Build-ContractReference.ps1

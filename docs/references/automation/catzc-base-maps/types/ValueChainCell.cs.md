@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#10
       - ADR-DSGN-TRACK#16
+    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/ValueChainCell.cs

@@ -5,6 +5,14 @@ catzc:
     kind: reference
     body_sha: "786214e1e4e5"
     adrs: []
+    links:
+      - docs/adr/automation/idempotent-state-functions.md
+      - docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/flow/pipeline-types.md
+      - docs/adr/pipelines/dual-authentication.md
+      - docs/adr/principles/everything-as-code.md
+      - docs/references/automation/catzc-base-globs.md
 ---
 
 # Catzc.Azure.DevOps.BuildValidation

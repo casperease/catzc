@@ -5,6 +5,12 @@ catzc:
     kind: reference
     body_sha: "38e1998cf760"
     adrs: []
+    links:
+      - docs/adr/automation/test-automation.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/pwsh/use-ps1-not-psm1.md
+      - docs/references/automation/internal/catzc-internal-loader.md
+      - docs/references/automation/internal/index.md
 ---
 
 # Catzc.Internal.TestKit

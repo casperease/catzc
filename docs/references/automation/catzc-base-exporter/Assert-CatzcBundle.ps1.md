@@ -6,6 +6,7 @@ catzc:
     body_sha: "40d0fcc275a2"
     adrs:
       - ADR-AUTO-BUNDLE#5
+    links: []
 ---
 
 # automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1

@@ -6,6 +6,7 @@ catzc:
     body_sha: "2e7551947bfb"
     adrs:
       - ADR-AUTO-ENGINE#2
+    links: []
 ---
 
 # automation/Catzc.Base.Timeouts/types/BoundedCommand.cs

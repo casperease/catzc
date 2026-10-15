@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-CONSOLE#7
       - ADR-AUTO-CONSOLE#8
+    links: []
 ---
 
 # automation/Catzc.Base.Writers/Write-Message.ps1

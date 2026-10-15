@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-CONTRACT#7
+    links: []
 ---
 
 # automation/Catzc.Base.Contracts/types/ContractManifest.cs

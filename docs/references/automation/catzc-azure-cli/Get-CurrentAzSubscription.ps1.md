@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "83c807632d93"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Get-CurrentAzSubscription.ps1

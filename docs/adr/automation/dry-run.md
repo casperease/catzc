@@ -4,7 +4,16 @@ catzc:
     path: docs/adr/automation/dry-run.md
     kind: adr
     body_sha: "349056ff35c6"
+    defines:
+      - ADR-AUTO-DRYRUN#1
+      - ADR-AUTO-DRYRUN#2
+      - ADR-AUTO-DRYRUN#3
+      - ADR-AUTO-DRYRUN#4
     adrs: []
+    links:
+      - docs/adr/automation/console-output-matters.md
+      - docs/adr/automation/idempotent-state-functions.md
+      - docs/adr/automation/test-automation.md
 ---
 
 # ADR: An explicit dry-run parameter on every side-effecting function

@@ -6,6 +6,7 @@ catzc:
     body_sha: "4b4043750136"
     adrs:
       - ADR-REPO-LINK#2
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/Update-AdrCitation.ps1

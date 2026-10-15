@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: ac3e5a26b085
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.Execution/types/CliResult.cs

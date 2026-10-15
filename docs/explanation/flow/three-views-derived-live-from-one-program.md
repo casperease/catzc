@@ -9,6 +9,16 @@ catzc:
       - ADR-FLOW-CD-GLOBS#4
       - ADR-FLOW-CD-GLOBS#5
       - ADR-FLOW-CD-GLOBS#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-globs--three-views-derived-live-from-one-program--meta.drawio.png
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/flow/edit-globs-yml-then-read-the-output.md
+      - docs/explanation/flow/gates-check-source-and-trigger.md
+      - docs/explanation/flow/globs-module-owns-config-and-types.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/one-scan-program-feeds-three-roles.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # A globset is one ordered program, and its three views are derived live, never committed

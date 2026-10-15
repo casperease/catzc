@@ -6,6 +6,14 @@ catzc:
     body_sha: a4747cdafc78
     adrs:
       - ADR-CONF-LOADING#4
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/open-closed-architecture.md
+      - docs/adr/automation/zero-ceremony-poka-yoke.md
+      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4
+      - docs/adr/repository/conventional-folders.md
+      - docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
+      - docs/how-to/getting-started/automation/powershell/add-a-function.md
 ---
 
 # Add a module

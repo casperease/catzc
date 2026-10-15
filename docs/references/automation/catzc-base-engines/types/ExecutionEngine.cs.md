@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-FAILFAST#7
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Base.Engines/types/ExecutionEngine.cs

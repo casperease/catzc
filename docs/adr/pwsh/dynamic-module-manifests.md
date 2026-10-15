@@ -4,6 +4,17 @@ catzc:
     path: docs/adr/pwsh/dynamic-module-manifests.md
     kind: adr
     body_sha: "4511f151b87b"
+    defines:
+      - ADR-PWSH-MANIFEST#1
+      - ADR-PWSH-MANIFEST#2
+      - ADR-PWSH-MANIFEST#3
+      - ADR-PWSH-MANIFEST#4
+      - ADR-PWSH-MANIFEST#5
+      - ADR-PWSH-MANIFEST#6
+      - ADR-PWSH-MANIFEST#7
+      - ADR-PWSH-MANIFEST#8
+      - ADR-PWSH-MANIFEST#9
+      - ADR-PWSH-MANIFEST#10
     adrs:
       - ADR-AUTO-DEPM#1
       - ADR-AUTO-DEPM#2
@@ -12,7 +23,15 @@ catzc:
       - ADR-AUTO-ZERO#2
       - ADR-AUTO-ZERO#3
       - ADR-PWSH-ENGINE#4
-      - ADR-PWSH-MANIFEST#8
+    links:
+      - docs/adr/automation/open-closed-architecture.md
+      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle1
+      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle6
+      - docs/adr/design/module-aspects.md
+      - docs/adr/design/run-modes.md
+      - docs/adr/pwsh/pwsh-engine.md#rule-adr-pwsh-engine5
+      - docs/adr/pwsh/use-ps1-not-psm1.md
+      - docs/adr/pwsh/vendor-toolset-dependencies.md
 ---
 
 # ADR: Dynamic module manifests — the PowerShell layer over open-closed-architecture

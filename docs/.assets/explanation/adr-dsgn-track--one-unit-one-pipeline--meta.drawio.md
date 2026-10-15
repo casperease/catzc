@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.chain.md
+      - docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.drawio.png
+      - docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.grid.md
+      - docs/.assets/explanation/adr-dsgn-track--one-unit-one-pipeline--meta.tree.md
+      - docs/explanation/design/one-unit-one-pipeline.md
 ---
 
 # One unit, one pipeline; tracks ship through units: the diagram described

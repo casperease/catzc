@@ -4,10 +4,42 @@ catzc:
     path: docs/adr/research/test-automation.md
     kind: adr
     body_sha: b779f54fa075
+    defines:
+      - ADR-DORA-TESTAUTO#1
+      - ADR-DORA-TESTAUTO#2
+      - ADR-DORA-TESTAUTO#3
+      - ADR-DORA-TESTAUTO#4
+      - ADR-DORA-TESTAUTO#5
     adrs:
       - ADR-AUTO-TEST#22
       - ADR-AUTO-TEST#24
       - ADR-AUTO-TEST#8
+    links:
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test1
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test22
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test24
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test8
+      - docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester1
+      - docs/references/dora/capabilities.md#code-maintainability
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#fast-feedback
+      - docs/references/dora/capabilities.md#test-automation
+      - docs/references/dora/core-model.md#fast-feedback
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#instability
+      - docs/references/dora/publications.md#2014-state-of-devops-report
+      - docs/references/dora/publications.md#2016-state-of-devops-report
+      - docs/references/dora/publications.md#2017-state-of-devops-report
+      - docs/references/dora/publications.md#2018-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2019-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2021-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2024-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2025-impact-of-generative-ai-in-software-development
+      - "https://dora.dev/capabilities/test-automation/"
 ---
 
 # ADR: DORA — Test automation

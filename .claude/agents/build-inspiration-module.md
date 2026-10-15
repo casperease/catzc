@@ -18,6 +18,8 @@ catzc:
       - ADR-AUTO-PATH#3
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TYPES#8
+    links:
+      - ".claude/CLAUDE.md#time-safeguard"
 ---
 
 # build-inspiration-module

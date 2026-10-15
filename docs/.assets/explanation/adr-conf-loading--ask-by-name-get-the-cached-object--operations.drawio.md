@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.chain.md
+      - docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png
+      - docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.grid.md
+      - docs/.assets/explanation/adr-conf-loading--ask-by-name-get-the-cached-object--operations.tree.md
+      - docs/explanation/configuration/ask-by-name-get-the-cached-object.md
 ---
 
 # Ask by name, get the cached object: the diagram described

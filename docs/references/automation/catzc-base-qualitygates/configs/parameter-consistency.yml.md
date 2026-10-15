@@ -6,6 +6,7 @@ catzc:
     body_sha: "1dc57b53c8c3"
     adrs:
       - ADR-AUTO-DEFAULT#6
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/configs/parameter-consistency.yml

@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "8f428ff3f31c"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/types/YamlFileRecord.cs

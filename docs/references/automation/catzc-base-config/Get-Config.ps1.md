@@ -6,6 +6,7 @@ catzc:
     body_sha: "3036424d4c2a"
     adrs:
       - ADR-PWSH-CACHE#4
+    links: []
 ---
 
 # automation/Catzc.Base.Config/Get-Config.ps1

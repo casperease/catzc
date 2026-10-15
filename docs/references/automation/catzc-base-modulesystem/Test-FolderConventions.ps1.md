@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-FOLDERS#4
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1

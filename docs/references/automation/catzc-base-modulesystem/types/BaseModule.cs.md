@@ -6,6 +6,7 @@ catzc:
     body_sha: badf79992097
     adrs:
       - ADR-AUTO-TYPES#9
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/BaseModule.cs

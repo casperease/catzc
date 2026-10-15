@@ -4,7 +4,34 @@ catzc:
     path: docs/adr/research/user-centric-focus.md
     kind: adr
     body_sha: f9bb86787adb
+    defines:
+      - ADR-DORA-USERFOCUS#1
+      - ADR-DORA-USERFOCUS#2
+      - ADR-DORA-USERFOCUS#3
+      - ADR-DORA-USERFOCUS#4
+      - ADR-DORA-USERFOCUS#5
     adrs: []
+    links:
+      - docs/adr/automation/console-output-matters.md
+      - docs/adr/automation/sensible-defaults.md
+      - docs/adr/automation/zero-ceremony-poka-yoke.md
+      - docs/references/dora/ai.md#ai-capabilities-model
+      - docs/references/dora/ai.md#individual-effectiveness
+      - docs/references/dora/ai.md#team-performance
+      - docs/references/dora/capabilities.md#ai
+      - docs/references/dora/capabilities.md#customer-feedback
+      - docs/references/dora/capabilities.md#job-satisfaction
+      - docs/references/dora/capabilities.md#monitoring-and-observability
+      - docs/references/dora/capabilities.md#user-centric-focus
+      - docs/references/dora/capabilities.md#working-in-small-batches
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/index.md
+      - docs/references/dora/publications.md#2023-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2024-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2025-dora-ai-capabilities-model
+      - docs/references/dora/publications.md#2025-state-of-ai-assisted-software-development
+      - "https://dora.dev/capabilities/user-centric-focus/"
 ---
 
 # ADR: DORA — User-centric focus

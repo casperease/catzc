@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "6983f5a59415"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/private/Get-BicepKeyVaultReferenceViolations.ps1

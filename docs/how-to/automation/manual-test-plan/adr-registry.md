@@ -5,6 +5,8 @@ catzc:
     kind: how-to
     body_sha: "9130e4758ce4"
     adrs: []
+    links:
+      - docs/how-to/automation/manual-test-plan.md
 ---
 
 # Manual test plan — ADR registry

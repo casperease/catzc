@@ -8,6 +8,16 @@ catzc:
       - ADR-DSGN-ASPECT#1
       - ADR-DSGN-ASPECT#2
       - ADR-DSGN-ASPECT#3
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.md
+      - docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png
+      - docs/adr/design/module-aspects.md
+      - docs/explanation/design/gate-checks-order-not-liveness.md
+      - docs/explanation/design/get-aspect-feeds-globs-and-maps.md
+      - docs/explanation/design/get-aspect-names-the-remainder.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/only-automation-compiles-its-aspects.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Each track picks its catch-all: a stray module file falls to tests, a stray template file to live

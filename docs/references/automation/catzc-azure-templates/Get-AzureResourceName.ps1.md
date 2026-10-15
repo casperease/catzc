@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AZ-NAMING#4
       - ADR-AZ-NAMING#6
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-AzureResourceName.ps1

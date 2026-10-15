@@ -6,6 +6,7 @@ catzc:
     body_sha: "4b3d89593227"
     adrs:
       - ADR-PRIN-ONELIVE#1
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/CommentFindingKind.cs

@@ -6,6 +6,7 @@ catzc:
     body_sha: "1f0ae2e5e936"
     adrs:
       - ADR-PWSH-FORMAT#6
+    links: []
 ---
 
 # automation/.scriptanalyzer/VariableCasing.psm1

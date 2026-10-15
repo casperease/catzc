@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "75f927bfe7bd"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Tooling.Provisioning/types/ToolStatusKind.cs

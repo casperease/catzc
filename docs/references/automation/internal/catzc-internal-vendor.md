@@ -5,6 +5,12 @@ catzc:
     kind: reference
     body_sha: af35dd6b1d66
     adrs: []
+    links:
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/pwsh/use-ps1-not-psm1.md
+      - docs/adr/pwsh/vendor-toolset-dependencies.md
+      - docs/references/automation/catzc-base-vendor.md
+      - docs/references/automation/internal/index.md
 ---
 
 # Catzc.Internal.Vendor

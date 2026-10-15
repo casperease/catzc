@@ -6,6 +6,7 @@ catzc:
     body_sha: "6f6827f4cb31"
     adrs:
       - ADR-AUTO-PY#8
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-PythonLint.ps1

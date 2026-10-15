@@ -6,6 +6,13 @@ catzc:
     body_sha: d917267d0225
     adrs:
       - ADR-AUTO-TEST#37
+    links:
+      - docs/adr/automation/retry-as-last-resort.md
+      - docs/adr/automation/spell-out-names.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test37
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/repository/protected-globs.md
 ---
 
 # Run tests and checks

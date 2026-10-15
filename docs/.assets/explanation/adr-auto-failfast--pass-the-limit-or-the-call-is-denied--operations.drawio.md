@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "0639c2f179a2"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-auto-failfast--pass-the-limit-or-the-call-is-denied--operations.drawio.png
+      - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
 ---
 
 # Pass the limit or the call is denied: the diagram described

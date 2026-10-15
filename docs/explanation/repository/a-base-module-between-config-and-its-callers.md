@@ -9,6 +9,17 @@ catzc:
       - ADR-CONF-LOADING#1
       - ADR-REPO-VARIANT#1
       - ADR-REPO-VARIANT#3
+    links:
+      - docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.md
+      - docs/.assets/explanation/adr-repo-variant--a-base-module-between-config-and-its-callers--architecture.drawio.png
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/adr/repository/repo-variants.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
+      - docs/explanation/repository/an-edit-lands-at-the-next-import.md
+      - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
+      - docs/explanation/repository/index.md
+      - docs/explanation/repository/one-home-one-read-path-one-vocabulary.md
+      - docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
 ---
 
 # Catzc.Base.Variants sits in Base, over Config, under every real caller

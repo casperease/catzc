@@ -4,14 +4,25 @@ catzc:
     path: docs/adr/repository/repo-variants.md
     kind: adr
     body_sha: aacdd93c1006
+    defines:
+      - ADR-REPO-VARIANT#1
+      - ADR-REPO-VARIANT#2
+      - ADR-REPO-VARIANT#3
+      - ADR-REPO-VARIANT#4
+      - ADR-REPO-VARIANT#5
+      - ADR-REPO-VARIANT#6
     adrs:
       - ADR-AUTO-CACHE#6
       - ADR-CONF-LOADING#1
       - ADR-PWSH-CACHE#1
       - ADR-PWSH-VERBS#6
-      - ADR-REPO-VARIANT#4
-      - ADR-REPO-VARIANT#5
-      - ADR-REPO-VARIANT#6
+    links:
+      - docs/adr/automation/caching.md
+      - docs/adr/azure/azure-customer-model.md
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/design/module-aspects.md
+      - docs/adr/design/tracks.md
+      - docs/adr/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs6
 ---
 
 # ADR: Repo-wide variants — session-fixed settings behind Test-/Assert- primitives

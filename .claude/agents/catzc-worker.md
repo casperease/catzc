@@ -16,6 +16,11 @@ catzc:
     body_sha: dd3204360d3a
     adrs:
       - ADR-AUTO-TEST#3
+    links:
+      - ".claude/CLAUDE.md"
+      - ".claude/CLAUDE.md#time-safeguard"
+      - docs/adr/glossary.md
+      - docs/adr/index.md
 ---
 
 # catzc-worker

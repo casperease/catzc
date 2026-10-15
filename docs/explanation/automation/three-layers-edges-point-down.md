@@ -8,6 +8,16 @@ catzc:
       - ADR-AUTO-DEPM#1
       - ADR-AUTO-DEPM#3
       - ADR-AUTO-DEPM#4
+    links:
+      - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.md
+      - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/explanation/automation/a-declared-allow-list-of-layers.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/two-gates-check-the-layer-pins.md
+      - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
+      - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Module dependencies form three layers, and every edge points down

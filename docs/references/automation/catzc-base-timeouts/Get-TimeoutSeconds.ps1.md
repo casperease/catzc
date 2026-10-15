@@ -6,6 +6,7 @@ catzc:
     body_sha: "3dc14ef52f08"
     adrs:
       - ADR-PWSH-ASSERT#1
+    links: []
 ---
 
 # automation/Catzc.Base.Timeouts/Get-TimeoutSeconds.ps1

@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.chain.md
+      - docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png
+      - docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.grid.md
+      - docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.tree.md
+      - docs/explanation/design/clients-bridge-to-one-server.md
 ---
 
 # Clients bridge to one server remote: the diagram described

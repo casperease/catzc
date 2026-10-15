@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-CONSOLE#8
       - ADR-PWSH-ANNOUNCE#1
+    links: []
 ---
 
 # automation/Catzc.Base.Writers/private/Write-InformationColored.ps1

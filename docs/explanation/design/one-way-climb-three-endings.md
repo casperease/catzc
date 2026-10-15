@@ -11,6 +11,17 @@ catzc:
       - ADR-DSGN-LIFE#4
       - ADR-DSGN-LIFE#8
       - ADR-DSGN-VISUAL#14
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.md
+      - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/visual-design.md
+      - docs/explanation/design/code-wires-only-the-first-rungs.md
+      - docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
+      - docs/explanation/design/four-domains-promote-one-artifact.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/which-rung-gates-exist-in-code.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # A commit only climbs, then ends in one of three ways

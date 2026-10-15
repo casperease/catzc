@@ -6,6 +6,7 @@ catzc:
     body_sha: bc74efa62d11
     adrs:
       - ADR-AUTO-REMOVE#3
+    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Test-ExpectedPackageManager.ps1

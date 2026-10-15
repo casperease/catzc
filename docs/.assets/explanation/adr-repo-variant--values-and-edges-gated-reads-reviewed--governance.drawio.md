@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "5af07de768ed"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-repo-variant--values-and-edges-gated-reads-reviewed--governance.drawio.png
+      - docs/explanation/repository/values-and-edges-gated-reads-reviewed.md
 ---
 
 # Values and module edges have a gate; the no-direct-read rule is left to review: the diagram described

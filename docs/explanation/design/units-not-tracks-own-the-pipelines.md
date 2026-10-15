@@ -9,6 +9,16 @@ catzc:
       - ADR-DSGN-TRACK#3
       - ADR-DSGN-TRACK#4
       - ADR-DSGN-TRACK#5
+    links:
+      - docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.md
+      - docs/.assets/explanation/adr-dsgn-track--units-not-tracks-own-the-pipelines--architecture.drawio.png
+      - docs/adr/design/tracks.md
+      - docs/explanation/design/a-push-fires-only-touched-pipelines.md
+      - docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/one-unit-one-pipeline.md
+      - docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly

@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: aa6069a49869
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/GithubArtifactsTarget.cs

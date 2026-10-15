@@ -6,6 +6,10 @@ catzc:
     body_sha: c7171ef4d460
     adrs:
       - ADR-AUTO-TRACKED#9
+    links:
+      - docs/adr/automation/open-closed-architecture.md
+      - docs/adr/automation/tracked-files-from-the-index.md
+      - docs/references/automation/catzc-base-git.md
 ---
 
 # Catzc.Base.Files

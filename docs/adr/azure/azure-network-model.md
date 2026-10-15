@@ -4,12 +4,23 @@ catzc:
     path: docs/adr/azure/azure-network-model.md
     kind: adr
     body_sha: d2049d5d7120
-    adrs:
-      - ADR-AUTO-TEST#35
+    defines:
+      - ADR-AZ-NETWORK#1
+      - ADR-AZ-NETWORK#2
+      - ADR-AZ-NETWORK#3
       - ADR-AZ-NETWORK#4
       - ADR-AZ-NETWORK#5
       - ADR-AZ-NETWORK#6
+    adrs:
+      - ADR-AUTO-TEST#35
       - ADR-CONF-LOADING#4
+    links:
+      - docs/adr/automation/test-automation.md
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/configuration/config-value-addressing.md
+      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4
+      - docs/adr/pwsh/prepost-extension-modules.md
 ---
 
 # ADR: Network model (network.yml)

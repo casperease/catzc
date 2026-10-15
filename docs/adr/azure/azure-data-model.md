@@ -4,9 +4,29 @@ catzc:
     path: docs/adr/azure/azure-data-model.md
     kind: adr
     body_sha: "62bbc25cbfea"
-    adrs:
+    defines:
+      - ADR-AZ-DATAMOD#1
+      - ADR-AZ-DATAMOD#2
       - ADR-AZ-DATAMOD#3
+      - ADR-AZ-DATAMOD#4
+      - ADR-AZ-DATAMOD#5
+      - ADR-AZ-DATAMOD#6
+      - ADR-AZ-DATAMOD#7
+      - ADR-AZ-DATAMOD#8
       - ADR-AZ-DATAMOD#9
+      - ADR-AZ-DATAMOD#10
+      - ADR-AZ-DATAMOD#11
+    adrs: []
+    links:
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/azure/azure-customer-model.md
+      - docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2
+      - docs/adr/azure/azure-network-model.md
+      - docs/adr/configuration/config-value-addressing.md
+      - docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing3
+      - docs/adr/repository/repo-variants.md
 ---
 
 # ADR: Templating data model (azure.yml+infrastructure/**)

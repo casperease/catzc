@@ -4,8 +4,30 @@ catzc:
     path: docs/adr/azure/caf/naming-and-tagging.md
     kind: adr
     body_sha: "87723a9fb3e1"
-    adrs:
+    defines:
+      - ADR-AZ-CAFNAME#1
+      - ADR-AZ-CAFNAME#2
+      - ADR-AZ-CAFNAME#3
+      - ADR-AZ-CAFNAME#4
+      - ADR-AZ-CAFNAME#5
+      - ADR-AZ-CAFNAME#6
+      - ADR-AZ-CAFNAME#7
+      - ADR-AZ-CAFNAME#8
+      - ADR-AZ-CAFNAME#9
+      - ADR-AZ-CAFNAME#10
+      - ADR-AZ-CAFNAME#11
       - ADR-AZ-CAFNAME#12
+      - ADR-AZ-CAFNAME#13
+      - ADR-AZ-CAFNAME#14
+      - ADR-AZ-CAFNAME#15
+      - ADR-AZ-CAFNAME#16
+      - ADR-AZ-CAFNAME#17
+      - ADR-AZ-CAFNAME#18
+      - ADR-AZ-CAFNAME#19
+      - ADR-AZ-CAFNAME#20
+      - ADR-AZ-CAFNAME#21
+      - ADR-AZ-CAFNAME#22
+    adrs:
       - ADR-AZ-DATAMOD#10
       - ADR-AZ-DATAMOD#11
       - ADR-AZ-DATAMOD#5
@@ -25,6 +47,29 @@ catzc:
       - ADR-AZ-WAFCO#3
       - ADR-AZ-WAFSE#3
       - ADR-REPO-VARIANT#4
+    links:
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod5
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming1
+      - docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2
+      - docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming3
+      - docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming4
+      - docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming5
+      - docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming6
+      - docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming7
+      - docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming8
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz6
+      - docs/adr/azure/waf/cost-optimization.md#rule-adr-az-wafco3
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse3
+      - docs/adr/repository/repo-variants.md#rule-adr-repo-variant4
+      - docs/references/caf/index.md
 ---
 
 # ADR: CAF naming and tagging — what the repository does about each of Microsoft's naming and tagging recommendations

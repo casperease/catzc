@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-BUNDLE#1
       - ADR-AUTO-DRYRUN#2
+    links: []
 ---
 
 # automation/Catzc.Base.Exporter/Build-Modules.ps1

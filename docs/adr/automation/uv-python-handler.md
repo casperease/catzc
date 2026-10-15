@@ -4,7 +4,15 @@ catzc:
     path: docs/adr/automation/uv-python-handler.md
     kind: adr
     body_sha: "53cadb758d1b"
+    defines:
+      - ADR-AUTO-UVPY#1
+      - ADR-AUTO-UVPY#2
+      - ADR-AUTO-UVPY#3
+      - ADR-AUTO-UVPY#4
+      - ADR-AUTO-UVPY#5
     adrs: []
+    links:
+      - docs/adr/azure/prefer-az-cli.md
 ---
 
 # ADR: uv is the standard Python handler; tools install user-space

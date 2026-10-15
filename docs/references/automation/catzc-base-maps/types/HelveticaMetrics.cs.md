@@ -6,6 +6,7 @@ catzc:
     body_sha: "79f4779831a8"
     adrs:
       - ADR-PWSH-TYPES#1
+    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/HelveticaMetrics.cs

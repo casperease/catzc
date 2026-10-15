@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: f24e6f3172ef
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-conf-addressing--callers-in-four-modules-share-one-resolver--architecture.drawio.png
+      - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
 ---
 
 # Callers in four modules share one resolver: the diagram described

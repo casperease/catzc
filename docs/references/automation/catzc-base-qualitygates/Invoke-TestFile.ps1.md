@@ -11,6 +11,7 @@ catzc:
       - ADR-AUTO-TEST#34
       - ADR-AUTO-TEST#41
       - ADR-PWSH-ASSERT#1
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Invoke-TestFile.ps1

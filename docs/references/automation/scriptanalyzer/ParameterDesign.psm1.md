@@ -9,6 +9,7 @@ catzc:
       - ADR-PWSH-PARAM#2
       - ADR-PWSH-PARAM#3
       - ADR-PWSH-PARAM#4
+    links: []
 ---
 
 # automation/.scriptanalyzer/ParameterDesign.psm1

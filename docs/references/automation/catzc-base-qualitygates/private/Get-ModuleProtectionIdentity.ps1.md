@@ -6,6 +6,7 @@ catzc:
     body_sha: "64c91c40f17f"
     adrs:
       - ADR-FLOW-CD-GLOBS#5
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1

@@ -6,6 +6,7 @@ catzc:
     body_sha: "8f7339fe6c69"
     adrs:
       - ADR-REPO-FORMAT#7
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-RepointedMarkdownText.ps1

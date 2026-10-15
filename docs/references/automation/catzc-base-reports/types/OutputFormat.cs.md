@@ -9,6 +9,7 @@ catzc:
       - ADR-REPO-OUTFMT#1
       - ADR-REPO-OUTFMT#3
       - ADR-REPO-OUTFMT#5
+    links: []
 ---
 
 # automation/Catzc.Base.Reports/types/OutputFormat.cs

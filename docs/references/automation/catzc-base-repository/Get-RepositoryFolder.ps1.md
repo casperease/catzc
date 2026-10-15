@@ -6,6 +6,7 @@ catzc:
     body_sha: "0a885351a8c7"
     adrs:
       - ADR-AUTO-PATH#7
+    links: []
 ---
 
 # automation/Catzc.Base.Repository/Get-RepositoryFolder.ps1

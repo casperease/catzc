@@ -6,6 +6,7 @@ catzc:
     body_sha: "5ba698e1e81e"
     adrs:
       - ADR-REPO-FILEMETA#5
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/FileCarrierResolver.cs

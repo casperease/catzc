@@ -9,6 +9,16 @@ catzc:
       - ADR-AZ-NAMING#5
       - ADR-AZ-NAMING#6
       - ADR-AZ-NAMING#7
+    links:
+      - docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.md
+      - docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/explanation/azure/how-each-naming-rule-is-held.md
+      - docs/explanation/azure/index.md
+      - docs/explanation/azure/names-are-derived-never-typed.md
+      - docs/explanation/azure/names-are-pure-and-never-truncated.md
+      - docs/explanation/azure/one-namer-assembles-every-name.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # The namer looks up, forms, checks and renders a name in that order

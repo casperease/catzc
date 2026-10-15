@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#6
       - ADR-AUTO-REMOVE#7
+    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/Remove-Dotnet.ps1

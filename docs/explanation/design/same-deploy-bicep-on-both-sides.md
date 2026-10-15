@@ -8,6 +8,17 @@ catzc:
       - ADR-AUTO-PARITY#3
       - ADR-DSGN-THINPLAT#2
       - ADR-DSGN-THINPLAT#3
+    links:
+      - docs/.assets/explanation/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.md
+      - docs/.assets/explanation/adr-dsgn-thinplat--same-deploy-bicep-on-both-sides--operations.drawio.png
+      - docs/adr/automation/devbox-pipeline-parity.md
+      - docs/adr/design/thin-platforms.md
+      - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
+      - docs/explanation/design/deploy-bicep-delegates-to-az.md
+      - docs/explanation/design/every-vendor-call-leaves-through-az.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/what-keeps-the-platform-thin.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription

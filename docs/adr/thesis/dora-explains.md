@@ -4,7 +4,14 @@ catzc:
     path: docs/adr/thesis/dora-explains.md
     kind: adr
     body_sha: e9ca16ab63b7
+    defines: []
     adrs: []
+    links:
+      - docs/adr/thesis/one-source-of-truth.md
+      - docs/references/dora/capabilities.md#streamlining-change-approval
+      - docs/references/dora/capabilities.md#trunk-based-development
+      - docs/references/dora/capabilities.md#version-control
+      - docs/references/dora/index.md
 ---
 
 # DORA explanations — thesis

@@ -5,6 +5,15 @@ catzc:
     kind: explanation
     body_sha: ee060595c823
     adrs: []
+    links:
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/index.md#azure
+      - docs/explanation/azure/how-each-naming-rule-is-held.md
+      - docs/explanation/azure/lookup-form-check-render-in-order.md
+      - docs/explanation/azure/names-are-derived-never-typed.md
+      - docs/explanation/azure/names-are-pure-and-never-truncated.md
+      - docs/explanation/azure/one-namer-assembles-every-name.md
+      - docs/explanation/index.md
 ---
 
 # Azure explanations

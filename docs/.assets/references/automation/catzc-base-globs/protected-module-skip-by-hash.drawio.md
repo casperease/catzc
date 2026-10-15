@@ -10,6 +10,8 @@ catzc:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-PROTGLOB#4
       - ADR-REPO-PROTGLOB#9
+    links:
+      - docs/.assets/references/automation/catzc-base-globs/protected-module-skip-by-hash.drawio.png
 ---
 
 # Skip a module only if its folded hash matches its last green: the diagram described

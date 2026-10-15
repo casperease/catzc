@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.chain.md
+      - docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.drawio.png
+      - docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.grid.md
+      - docs/.assets/explanation/adr-auto-bundle--build-verify-then-copy-the-folder--implementation.tree.md
+      - docs/explanation/automation/build-verify-then-copy-the-folder.md
 ---
 
 # Build, verify, then copy the folder: the diagram described

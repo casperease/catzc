@@ -6,6 +6,7 @@ catzc:
     body_sha: "9ba5e9ab045c"
     adrs:
       - ADR-AUTO-TYPES#9
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Copy-Automation.ps1

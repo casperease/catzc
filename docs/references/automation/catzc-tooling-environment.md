@@ -7,6 +7,12 @@ catzc:
     adrs:
       - ADR-AUTO-ENVVAR#1
       - ADR-AUTO-ENVVAR#7
+    links:
+      - docs/adr/automation/cross-platform.md
+      - docs/adr/automation/environment-variables.md
+      - docs/adr/configuration/config-value-addressing.md
+      - docs/references/automation/catzc-base-config.md
+      - docs/references/automation/catzc-base-objects.md
 ---
 
 # Catzc.Tooling.Environment

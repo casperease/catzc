@@ -11,6 +11,17 @@ catzc:
       - ADR-DSGN-LIFE#8
       - ADR-FLOW-CD#3
       - ADR-FLOW-CD#4
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.md
+      - docs/.assets/explanation/adr-dsgn-life--four-domains-promote-one-artifact--architecture.drawio.png
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/design/code-wires-only-the-first-rungs.md
+      - docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/one-way-climb-three-endings.md
+      - docs/explanation/design/which-rung-gates-exist-in-code.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Four pipeline kinds promote one artifact that CI built once

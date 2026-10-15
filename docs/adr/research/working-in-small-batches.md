@@ -4,7 +4,46 @@ catzc:
     path: docs/adr/research/working-in-small-batches.md
     kind: adr
     body_sha: "9e7c3e8c16ec"
+    defines:
+      - ADR-DORA-SMALLBATCH#1
+      - ADR-DORA-SMALLBATCH#2
+      - ADR-DORA-SMALLBATCH#3
+      - ADR-DORA-SMALLBATCH#4
+      - ADR-DORA-SMALLBATCH#5
+      - ADR-DORA-SMALLBATCH#6
     adrs: []
+    links:
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/process/pull-work.md
+      - docs/adr/process/queues-cost-money.md
+      - docs/references/dora/ai.md#ai-capabilities-model
+      - docs/references/dora/ai.md#individual-effectiveness
+      - docs/references/dora/ai.md#product-performance
+      - docs/references/dora/ai.md#reduced-friction
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#fast-flow
+      - docs/references/dora/capabilities.md#trunk-based-development
+      - docs/references/dora/capabilities.md#wip-limits
+      - docs/references/dora/capabilities.md#working-in-small-batches
+      - docs/references/dora/core-model.md#fast-flow
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/core-model.md#version-history
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#change-fail-rate
+      - docs/references/dora/metrics.md#change-lead-time
+      - docs/references/dora/metrics.md#deployment-frequency
+      - docs/references/dora/metrics.md#deployment-rework-rate
+      - docs/references/dora/metrics.md#failed-deployment-recovery-time
+      - docs/references/dora/metrics.md#key-insights
+      - docs/references/dora/publications.md#2016-state-of-devops-report
+      - docs/references/dora/publications.md#2017-state-of-devops-report
+      - docs/references/dora/publications.md#2023-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2024-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2025-dora-ai-capabilities-model
+      - docs/references/dora/publications.md#2025-state-of-ai-assisted-software-development
+      - "https://dora.dev/capabilities/working-in-small-batches/"
 ---
 
 # ADR: DORA — Working in small batches

@@ -5,6 +5,20 @@ catzc:
     kind: reference
     body_sha: "15269ce699bd"
     adrs: []
+    links:
+      - docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.md
+      - docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.png
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/controlling-systemwide-deps.md
+      - docs/adr/automation/idempotent-state-functions.md
+      - docs/adr/automation/use-proper-package-managers.md
+      - docs/adr/automation/uv-python-handler.md
+      - docs/references/automation/catzc-base-execution.md
+      - docs/references/automation/catzc-base-objects.md
+      - docs/references/automation/catzc-tooling-node.md
+      - docs/references/automation/catzc-tooling-provisioning.md
+      - docs/references/automation/catzc-tooling-python.md
+      - docs/references/automation/catzc-tooling-toolchain.md
 ---
 
 # Catzc.Tooling.Core

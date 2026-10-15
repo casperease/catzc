@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.chain.md
+      - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png
+      - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.grid.md
+      - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.tree.md
+      - docs/explanation/automation/a-declared-allow-list-of-layers.md
 ---
 
 # One declared allow-list, edges point down: the diagram described

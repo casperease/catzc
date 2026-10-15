@@ -6,6 +6,7 @@ catzc:
     body_sha: a7bcdce9f640
     adrs:
       - ADR-PWSH-FORMAT#6
+    links: []
 ---
 
 # automation/.scriptanalyzer/NoAzModuleNaming.psm1

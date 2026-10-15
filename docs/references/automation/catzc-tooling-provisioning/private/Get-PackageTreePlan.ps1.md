@@ -6,6 +6,7 @@ catzc:
     body_sha: "82a85999900e"
     adrs:
       - ADR-AUTO-REMOVE#2
+    links: []
 ---
 
 # automation/Catzc.Tooling.Provisioning/private/Get-PackageTreePlan.ps1

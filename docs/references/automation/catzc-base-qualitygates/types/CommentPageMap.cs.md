@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-TYPES#8
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-README#7
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/CommentPageMap.cs

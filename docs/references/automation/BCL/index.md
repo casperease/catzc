@@ -6,6 +6,17 @@ catzc:
     body_sha: "4fca178e7865"
     adrs:
       - ADR-PWSH-TYPES#1
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/pwsh/hosting-csharp-types.md
+      - docs/references/automation/BCL/types-system.md
+      - docs/references/automation/catzc-base-objects.md
+      - docs/references/automation/catzc-base-typessystem.md
+      - "https://learn.microsoft.com/en-us/dotnet/api/"
+      - "https://learn.microsoft.com/en-us/dotnet/standard/class-library-overview"
+      - "https://learn.microsoft.com/en-us/dotnet/standard/glossary#bcl"
+      - "https://learn.microsoft.com/en-us/dotnet/standard/runtime-libraries-overview"
+      - "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/add-type"
 ---
 
 # BCL (C# / .NET types) — automation reference

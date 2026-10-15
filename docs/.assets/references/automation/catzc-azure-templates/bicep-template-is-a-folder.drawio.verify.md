@@ -11,6 +11,7 @@ catzc:
       - ADR-CONF-ADDRESSING#1
       - ADR-PWSH-CACHE#4
       - ADR-PWSH-ERROR#8
+    links: []
 ---
 
 # Verification: A template is a folder; options.yml overrides five defaults (source lens, Catzc.Azure.Templates)

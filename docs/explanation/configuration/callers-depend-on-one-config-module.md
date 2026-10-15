@@ -10,6 +10,16 @@ catzc:
       - ADR-CONF-LOADING#3
       - ADR-CONF-LOADING#4
       - ADR-CONF-LOADING#6
+    links:
+      - docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.md
+      - docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png
+      - docs/adr/configuration/module-config-loading.md
+      - docs/explanation/configuration/ask-by-name-get-the-cached-object.md
+      - docs/explanation/configuration/index.md
+      - docs/explanation/configuration/one-gate-guards-the-read-path.md
+      - docs/explanation/configuration/one-reader-one-cache-per-session.md
+      - docs/explanation/configuration/three-caches-back-one-reader.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Callers in any module read config through one module

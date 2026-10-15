@@ -4,7 +4,15 @@ catzc:
     path: docs/adr/pwsh/module-path-hygiene.md
     kind: adr
     body_sha: ba9e66a45031
+    defines:
+      - ADR-PWSH-MODPATH#1
+      - ADR-PWSH-MODPATH#2
+      - ADR-PWSH-MODPATH#3
     adrs: []
+    links:
+      - docs/adr/automation/effective-in-enterprises.md
+      - docs/adr/pwsh/vendor-toolset-dependencies.md
+      - docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor8
 ---
 
 # ADR: Module-path hygiene — the PowerShell layer over effective-in-enterprises

@@ -4,7 +4,19 @@ catzc:
     path: docs/adr/github/github-release.md
     kind: adr
     body_sha: c7fbe67c5617
+    defines:
+      - ADR-GH-RELEASE#1
+      - ADR-GH-RELEASE#2
+      - ADR-GH-RELEASE#3
+      - ADR-GH-RELEASE#4
+      - ADR-GH-RELEASE#5
     adrs: []
+    links:
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle7
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/pwsh/vendor-toolset-dependencies.md
 ---
 
 # ADR: GitHub release flow — publishing the Catzc package

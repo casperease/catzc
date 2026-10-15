@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "9ec80b2104d3"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/AdoArtifactsTarget.cs

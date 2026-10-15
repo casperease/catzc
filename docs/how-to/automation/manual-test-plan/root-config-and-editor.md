@@ -5,6 +5,8 @@ catzc:
     kind: how-to
     body_sha: "134788ad7604"
     adrs: []
+    links:
+      - docs/how-to/automation/manual-test-plan.md
 ---
 
 # Manual test plan — Root config and editor

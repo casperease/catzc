@@ -6,6 +6,7 @@ catzc:
     body_sha: a16108d925b4
     adrs:
       - ADR-AUTO-TEST#35
+    links: []
 ---
 
 # automation/Catzc.Base.Reports/configs/reports.yml

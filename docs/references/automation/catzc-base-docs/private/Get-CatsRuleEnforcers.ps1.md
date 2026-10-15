@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-NOPWD#1
       - ADR-CONF-LOADING#6
       - ADR-PWSH-CACHE#4
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1

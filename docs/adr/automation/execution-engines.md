@@ -4,20 +4,24 @@ catzc:
     path: docs/adr/automation/execution-engines.md
     kind: adr
     body_sha: "9f2c295bbc83"
-    adrs:
-      - ADR-AUTO-BASH#3
-      - ADR-AUTO-BASH#6
-      - ADR-AUTO-DEFAULT#6
-      - ADR-AUTO-DEPS#3
+    defines:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-ENGINE#2
       - ADR-AUTO-ENGINE#3
       - ADR-AUTO-ENGINE#4
       - ADR-AUTO-ENGINE#5
       - ADR-AUTO-ENGINE#6
+      - ADR-AUTO-ENGINE#7
+    adrs:
+      - ADR-AUTO-BASH#3
+      - ADR-AUTO-BASH#6
+      - ADR-AUTO-DEFAULT#6
+      - ADR-AUTO-DEPS#3
       - ADR-AUTO-GO#3
       - ADR-AUTO-PARITY#1
       - ADR-AUTO-PY#3
+    links:
+      - docs/adr/automation/bash/bash-test-artifacts.md
 ---
 
 # ADR: Execution engines — pwsh, bash and zsh, declared once

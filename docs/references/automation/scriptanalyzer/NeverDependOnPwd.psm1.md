@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-NOPWD#1
       - ADR-PWSH-FORMAT#6
       - ADR-PWSH-PWD#2
+    links: []
 ---
 
 # automation/.scriptanalyzer/NeverDependOnPwd.psm1

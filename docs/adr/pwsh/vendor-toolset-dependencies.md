@@ -4,9 +4,22 @@ catzc:
     path: docs/adr/pwsh/vendor-toolset-dependencies.md
     kind: adr
     body_sha: "6eefb77c0042"
+    defines:
+      - ADR-PWSH-VENDOR#1
+      - ADR-PWSH-VENDOR#3
+      - ADR-PWSH-VENDOR#4
+      - ADR-PWSH-VENDOR#5
+      - ADR-PWSH-VENDOR#6
+      - ADR-PWSH-VENDOR#7
+      - ADR-PWSH-VENDOR#8
     adrs:
       - ADR-AUTO-DEPM#8
-      - ADR-PWSH-VENDOR#4
+    links:
+      - docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm8
+      - docs/adr/automation/effective-in-enterprises.md
+      - docs/adr/azure/prefer-az-cli.md
+      - docs/adr/pwsh/module-path-hygiene.md
+      - docs/adr/repository/protected-globs.md
 ---
 
 # ADR: Vendor toolset dependencies

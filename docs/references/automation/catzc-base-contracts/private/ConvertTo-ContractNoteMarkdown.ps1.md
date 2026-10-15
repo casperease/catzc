@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-REPO-LINK#2
       - ADR-REPO-LINK#3
+    links: []
 ---
 
 # automation/Catzc.Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1

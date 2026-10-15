@@ -5,6 +5,8 @@ catzc:
     kind: how-to
     body_sha: cc05af7967c1
     adrs: []
+    links:
+      - docs/how-to/automation/manual-test-plan.md
 ---
 
 # Manual test plan — Spelling and language

@@ -6,6 +6,7 @@ catzc:
     body_sha: "6181eb1c5b67"
     adrs:
       - ADR-REPO-FORMAT#8
+    links: []
 ---
 
 # automation/Catzc.Base.Languages/types/ImprintStep.cs

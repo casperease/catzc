@@ -15,6 +15,20 @@ catzc:
       - ADR-PWSH-ONEFUNC#1
       - ADR-REPO-FOLDERS#10
       - ADR-REPO-FOLDERS#6
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.md
+      - docs/.assets/explanation/adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png
+      - docs/adr/design/module-aspects.md
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/pwsh/dynamic-module-manifests.md
+      - docs/adr/pwsh/one-function-per-file.md
+      - docs/adr/repository/conventional-folders.md
+      - docs/explanation/design/drop-a-file-the-import-exports-it.md
+      - docs/explanation/design/every-file-in-exactly-one-aspect.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/manifest-and-aspects-from-one-folder.md
+      - docs/explanation/design/one-folder-two-independent-readers.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Partition integrity runs only in unit tests

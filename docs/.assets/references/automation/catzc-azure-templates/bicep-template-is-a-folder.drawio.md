@@ -11,6 +11,8 @@ catzc:
       - ADR-CONF-ADDRESSING#1
       - ADR-PWSH-CACHE#4
       - ADR-PWSH-ERROR#8
+    links:
+      - docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png
 ---
 
 # A template is a folder; options.yml overrides five defaults: the diagram described

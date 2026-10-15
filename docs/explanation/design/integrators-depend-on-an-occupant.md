@@ -12,6 +12,15 @@ catzc:
       - ADR-DSGN-VISUAL#13
       - ADR-FLOW-CD#11
       - ADR-FLOW-CD#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.md
+      - docs/.assets/explanation/adr-dsgn-life--integrators-depend-on-an-occupant--architecture.drawio.png
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/sync-from-the-last-certified-commit.md
+      - docs/explanation/design/sync-point-rules-are-adr-only.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Upstream integrators depend on the main-UAT occupant, never on the tip of main

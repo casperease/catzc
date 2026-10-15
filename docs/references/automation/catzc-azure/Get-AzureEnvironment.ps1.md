@@ -6,6 +6,7 @@ catzc:
     body_sha: fd868c7b13d3
     adrs:
       - ADR-AZ-DATAMOD#4
+    links: []
 ---
 
 # automation/Catzc.Azure/Get-AzureEnvironment.ps1

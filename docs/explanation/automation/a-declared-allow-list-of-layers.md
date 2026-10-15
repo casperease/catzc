@@ -9,6 +9,16 @@ catzc:
       - ADR-AUTO-DEPM#3
       - ADR-AUTO-DEPM#4
       - ADR-AUTO-DEPM#5
+    links:
+      - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.md
+      - docs/.assets/explanation/adr-auto-depm--a-declared-allow-list-of-layers--meta.drawio.png
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/three-layers-edges-point-down.md
+      - docs/explanation/automation/two-gates-check-the-layer-pins.md
+      - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
+      - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # One declared allow-list says what may depend on what, and every edge points down

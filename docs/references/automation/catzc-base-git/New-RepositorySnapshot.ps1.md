@@ -6,6 +6,7 @@ catzc:
     body_sha: "9300c1ec0fd2"
     adrs:
       - ADR-AUTO-CONSOLE#10
+    links: []
 ---
 
 # automation/Catzc.Base.Git/New-RepositorySnapshot.ps1

@@ -4,10 +4,16 @@ catzc:
     path: docs/adr/principles/configure-not-program.md
     kind: adr
     body_sha: dc551b9dd238
+    defines:
+      - ADR-PRIN-CONFIG#1
+      - ADR-PRIN-CONFIG#2
+      - ADR-PRIN-CONFIG#3
+      - ADR-PRIN-CONFIG#4
+      - ADR-PRIN-CONFIG#5
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-CONF-LOADING#4
-      - ADR-PRIN-CONFIG#2
+    links: []
 ---
 
 # Principle: Configure, don't program — one mechanism per kind, one config entry per instance

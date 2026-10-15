@@ -4,12 +4,24 @@ catzc:
     path: docs/adr/repository/comments-in-docs.md
     kind: adr
     body_sha: "572d6b24a295"
+    defines:
+      - ADR-REPO-COMMENTS#1
+      - ADR-REPO-COMMENTS#2
+      - ADR-REPO-COMMENTS#3
+      - ADR-REPO-COMMENTS#4
+      - ADR-REPO-COMMENTS#5
     adrs:
       - ADR-REPO-CODEMETA#1
       - ADR-REPO-CODEMETA#2
       - ADR-REPO-FILEMETA#1
       - ADR-REPO-FORMAT#8
       - ADR-REPO-LINK#9
+    links:
+      - docs/adr/principles/configure-not-program.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta1
+      - docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1
+      - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8
 ---
 
 # ADR: Comments in docs — one insight line in the file, the prose in its comment page

@@ -15,6 +15,23 @@ catzc:
       - ADR-DSGN-VISUAL#12
       - ADR-DSGN-VISUAL#13
       - ADR-FLOW-CD#9
+    links:
+      - docs/.assets/commits-quality/10-commits-story.drawio.png
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life1
+      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life10
+      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life2
+      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life6
+      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life7
+      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life8
+      - docs/adr/design/visual-design.md
+      - docs/adr/design/visual-design.md#rule-adr-dsgn-visual12
+      - docs/adr/design/visual-design.md#rule-adr-dsgn-visual13
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9
+      - docs/explanation/design/each-pipeline-shape-runs-a-stretch-of-the-ladder.md
+      - docs/explanation/design/index.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Ten numbered commits trace the whole lifecycle across pipeline, environments and git

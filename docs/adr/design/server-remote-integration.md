@@ -4,13 +4,24 @@ catzc:
     path: docs/adr/design/server-remote-integration.md
     kind: adr
     body_sha: "52541bcc7cdf"
+    defines:
+      - ADR-DSGN-REMOTE#1
+      - ADR-DSGN-REMOTE#2
+      - ADR-DSGN-REMOTE#3
+      - ADR-DSGN-REMOTE#4
     adrs:
       - ADR-DSGN-LIFE#1
       - ADR-DSGN-LIFE#6
       - ADR-DSGN-LIFE#7
-      - ADR-DSGN-REMOTE#4
       - ADR-PRIN-ONELIVE#4
       - ADR-REPO-VARIANT#6
+    links:
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/self-service.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/repository/repo-variants.md
+      - docs/adr/repository/repo-variants.md#rule-adr-repo-variant6
 ---
 
 # ADR: The audited server git remote — verified integration and PR ingress

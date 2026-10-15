@@ -6,6 +6,7 @@ catzc:
     body_sha: "39d18eb1956a"
     adrs:
       - ADR-AUTO-ENGINE#1
+    links: []
 ---
 
 # automation/Catzc.Tooling.Core/types/EngineCaseTable.cs

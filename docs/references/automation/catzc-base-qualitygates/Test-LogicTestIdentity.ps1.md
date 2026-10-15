@@ -6,6 +6,7 @@ catzc:
     body_sha: "67ef064c5b03"
     adrs:
       - ADR-AUTO-TEST#35
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1

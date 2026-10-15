@@ -9,6 +9,8 @@ catzc:
       - ADR-AUTO-TEST#26
       - ADR-AUTO-TEST#30
       - ADR-REPO-PROTGLOB#9
+    links:
+      - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png
 ---
 
 # One discovery feeds three phases; finally stamps run.json: the diagram described

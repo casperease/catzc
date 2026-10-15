@@ -6,6 +6,22 @@ catzc:
     body_sha: "855319b6f7ee"
     adrs:
       - ADR-AUTO-TEST#1
+    links:
+      - docs/adr/automation/bash/bash-test-artifacts.md
+      - docs/adr/automation/execution-engines.md
+      - docs/adr/automation/python/python-test-artifacts.md
+      - docs/adr/automation/sensible-defaults.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/repository/conventional-folders.md
+      - docs/adr/repository/generated-root-configs.md
+      - docs/references/automation/catzc-base-config.md
+      - docs/references/automation/catzc-base-execution.md
+      - docs/references/automation/catzc-base-objects.md
+      - docs/references/automation/catzc-base-qualitygates.md
+      - docs/references/automation/catzc-base-repository.md
+      - docs/references/automation/catzc-base-rootconfig.md
+      - docs/references/automation/catzc-base-timeouts.md
+      - docs/references/automation/catzc-tooling-toolchain.md
 ---
 
 # Catzc.Base.Languages

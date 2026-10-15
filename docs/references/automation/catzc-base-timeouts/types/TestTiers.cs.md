@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#13
       - ADR-AUTO-TEST#41
+    links: []
 ---
 
 # automation/Catzc.Base.Timeouts/types/TestTiers.cs

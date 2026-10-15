@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "3860a5338d18"
     adrs: []
+    links: []
 ---
 
 # infrastructure/templates/discovery/options.yml

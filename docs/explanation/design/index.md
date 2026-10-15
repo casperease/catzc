@@ -5,6 +5,55 @@ catzc:
     kind: explanation
     body_sha: "8baab60578b3"
     adrs: []
+    links:
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/module-aspects.md
+      - docs/adr/design/run-modes.md
+      - docs/adr/design/server-remote-integration.md
+      - docs/adr/design/thin-platforms.md
+      - docs/adr/design/tracks.md
+      - docs/adr/index.md#design
+      - docs/explanation/design/a-push-fires-only-touched-pipelines.md
+      - docs/explanation/design/bind-to-one-cli-delegate-the-rest.md
+      - docs/explanation/design/clients-bridge-to-one-server.md
+      - docs/explanation/design/code-wires-only-the-first-rungs.md
+      - docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
+      - docs/explanation/design/deploy-bicep-delegates-to-az.md
+      - docs/explanation/design/deploying-is-not-integrating.md
+      - docs/explanation/design/drop-a-file-the-import-exports-it.md
+      - docs/explanation/design/each-pipeline-shape-runs-a-stretch-of-the-ladder.md
+      - docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
+      - docs/explanation/design/every-deploy-stage-is-main-only.md
+      - docs/explanation/design/every-file-in-exactly-one-aspect.md
+      - docs/explanation/design/every-vendor-call-leaves-through-az.md
+      - docs/explanation/design/four-domains-promote-one-artifact.md
+      - docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
+      - docs/explanation/design/guard-and-policies-by-command.md
+      - docs/explanation/design/ingress-gated-the-rest-by-review.md
+      - docs/explanation/design/integrators-depend-on-an-occupant.md
+      - docs/explanation/design/local-guard-and-server-policies.md
+      - docs/explanation/design/manifest-and-aspects-from-one-folder.md
+      - docs/explanation/design/merging-to-main-is-what-deploys.md
+      - docs/explanation/design/one-door-in-one-stable-point-out.md
+      - docs/explanation/design/one-entry-script-per-mode.md
+      - docs/explanation/design/one-folder-two-independent-readers.md
+      - docs/explanation/design/one-unit-one-pipeline.md
+      - docs/explanation/design/one-way-climb-three-endings.md
+      - docs/explanation/design/out-of-band-deploy-is-adr-only.md
+      - docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
+      - docs/explanation/design/same-deploy-bicep-on-both-sides.md
+      - docs/explanation/design/shims-set-roots-mode-read-back.md
+      - docs/explanation/design/sync-from-the-last-certified-commit.md
+      - docs/explanation/design/sync-point-rules-are-adr-only.md
+      - docs/explanation/design/ten-commits-trace-the-whole-lifecycle.md
+      - docs/explanation/design/two-roots-one-importer-same-modules.md
+      - docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
+      - docs/explanation/design/units-not-tracks-own-the-pipelines.md
+      - docs/explanation/design/what-keeps-the-platform-thin.md
+      - docs/explanation/design/where-code-loads-from-decides-the-mode.md
+      - docs/explanation/design/which-run-mode-rules-have-a-gate.md
+      - docs/explanation/design/which-rung-gates-exist-in-code.md
+      - docs/explanation/index.md
 ---
 
 # Design explanations

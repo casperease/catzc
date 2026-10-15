@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: c72dc0bf389c
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.Reports/configs/output-formats.yml

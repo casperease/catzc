@@ -4,15 +4,27 @@ catzc:
     path: docs/adr/pwsh/assert-idioms.md
     kind: adr
     body_sha: "780f878a5b15"
+    defines:
+      - ADR-PWSH-ASSERT#1
+      - ADR-PWSH-ASSERT#2
+      - ADR-PWSH-ASSERT#3
+      - ADR-PWSH-ASSERT#4
+      - ADR-PWSH-ASSERT#5
+      - ADR-PWSH-ASSERT#6
     adrs:
       - ADR-AUTO-FAILFAST#1
       - ADR-AUTO-FAILFAST#2
       - ADR-AUTO-FAILFAST#4
       - ADR-AUTO-FAILFAST#5
       - ADR-AUTO-FAILFAST#7
-      - ADR-PWSH-ASSERT#1
       - ADR-PWSH-AUTOVAR#2
       - ADR-PWSH-ERROR#3
+    links:
+      - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7
+      - docs/adr/pwsh/automatic-variable-pitfalls.md#rule-adr-pwsh-autovar7
+      - docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error3
+      - docs/adr/pwsh/pester-testing.md
 ---
 
 # ADR: Assert idioms — failing fast in pwsh

@@ -9,6 +9,16 @@ catzc:
       - ADR-DSGN-THINPLAT#2
       - ADR-DSGN-THINPLAT#3
       - ADR-DSGN-THINPLAT#5
+    links:
+      - docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.md
+      - docs/.assets/explanation/adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png
+      - docs/adr/design/thin-platforms.md
+      - docs/explanation/design/deploy-bicep-delegates-to-az.md
+      - docs/explanation/design/every-vendor-call-leaves-through-az.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/same-deploy-bicep-on-both-sides.md
+      - docs/explanation/design/what-keeps-the-platform-thin.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Consumers bind to one CLI, and everything behind it is delegated to the vendor

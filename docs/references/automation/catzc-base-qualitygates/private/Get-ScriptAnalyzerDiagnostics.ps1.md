@@ -12,6 +12,7 @@ catzc:
       - ADR-PWSH-ANNOUNCE#1
       - ADR-PWSH-PWD#2
       - ADR-PWSH-PWD#3
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-ScriptAnalyzerDiagnostics.ps1

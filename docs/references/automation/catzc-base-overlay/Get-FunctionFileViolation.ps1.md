@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-PWSH-MANIFEST#5
+    links: []
 ---
 
 # automation/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1

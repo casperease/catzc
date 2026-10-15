@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "1e2ef25ba7f1"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--each-track-picks-its-catch-all--meta.drawio.png
+      - docs/explanation/design/each-track-picks-its-catch-all.md
 ---
 
 # Each track picks its catch-all: the diagram described

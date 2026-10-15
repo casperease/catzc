@@ -6,6 +6,7 @@ catzc:
     body_sha: "065d6cb3217f"
     adrs:
       - ADR-AUTO-CONSOLE#10
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Measure-QualityGates.ps1

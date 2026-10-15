@@ -9,6 +9,7 @@ catzc:
       - ADR-AUTO-REMOVE#4
       - ADR-AUTO-REMOVE#5
       - ADR-AUTO-REMOVE#6
+    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/Remove-AzCli.ps1

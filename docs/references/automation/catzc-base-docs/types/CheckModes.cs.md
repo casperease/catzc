@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-ONELIVE#1
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/CheckModes.cs

@@ -5,6 +5,11 @@ catzc:
     kind: reference
     body_sha: a4a0355391e6
     adrs: []
+    links:
+      - docs/adr/automation/consumer-overlay.md
+      - docs/adr/automation/platform-bundle.md
+      - docs/references/automation/catzc-base-config.md
+      - docs/references/automation/catzc-base-repository.md
 ---
 
 # Catzc.Base.Overlay

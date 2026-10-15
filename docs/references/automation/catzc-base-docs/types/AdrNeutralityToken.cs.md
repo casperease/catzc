@@ -6,6 +6,7 @@ catzc:
     body_sha: a500c7131628
     adrs:
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/AdrNeutralityToken.cs

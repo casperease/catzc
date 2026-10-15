@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.chain.md
+      - docs/.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.grid.md
+      - docs/.assets/explanation/adr-flow-cd-globs--independence-check-groups-by-layer--implementation.tree.md
+      - docs/explanation/flow/independence-check-groups-by-layer.md
 ---
 
 # Test-GlobSetIndependence groups by layer: the diagram described

@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.chain.md
+      - docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.png
+      - docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.grid.md
+      - docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.tree.md
+      - docs/explanation/design/one-folder-two-independent-readers.md
 ---
 
 # One module folder has two independent readers: the diagram described

@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: adb808ebd2dd
     adrs: []
+    links: []
 ---
 
 # infrastructure/modules/route-table.bicep

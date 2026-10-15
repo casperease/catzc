@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.chain.md
+      - docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.drawio.png
+      - docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.grid.md
+      - docs/.assets/explanation/adr-az-naming--one-namer-assembles-every-name--architecture.tree.md
+      - docs/explanation/azure/one-namer-assembles-every-name.md
 ---
 
 # One namer assembles every Azure name: the diagram described

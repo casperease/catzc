@@ -6,6 +6,7 @@ catzc:
     body_sha: e2e5be7ffc82
     adrs:
       - ADR-AUTO-TEST#8
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-LanguageTestOutcomes.ps1

@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-CONTRACT#4
       - ADR-REPO-CONTRACT#6
+    links: []
 ---
 
 # automation/Catzc.Base.Contracts/types/ContractCheckResult.cs

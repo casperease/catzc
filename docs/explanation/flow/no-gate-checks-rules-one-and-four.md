@@ -10,6 +10,17 @@ catzc:
       - ADR-FLOW-CD-RUNNER#3
       - ADR-FLOW-CD-RUNNER#4
       - ADR-PIPE-NAME#4
+    links:
+      - docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-runner--no-gate-checks-rules-one-and-four--governance.drawio.png
+      - docs/adr/flow/pipeline-runner-pattern.md
+      - docs/adr/pipelines/pipeline-naming-and-placement.md
+      - docs/explanation/flow/a-step-only-names-a-command.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/the-runner-is-the-only-seam.md
+      - docs/explanation/flow/the-step-is-named-after-its-command.md
+      - docs/explanation/flow/three-tasks-one-guard-one-runner.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # No gate checks the runner rules 1 or 4, and the step template breaks rule 3

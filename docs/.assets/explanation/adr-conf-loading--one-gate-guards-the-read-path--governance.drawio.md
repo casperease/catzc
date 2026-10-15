@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.chain.md
+      - docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png
+      - docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.grid.md
+      - docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.tree.md
+      - docs/explanation/configuration/one-gate-guards-the-read-path.md
 ---
 
 # One gate guards the read path: the diagram described

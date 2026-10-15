@@ -4,7 +4,28 @@ catzc:
     path: docs/adr/research/team-experimentation.md
     kind: adr
     body_sha: "2f9ea2451e97"
+    defines:
+      - ADR-DORA-EXPERIMENT#1
+      - ADR-DORA-EXPERIMENT#2
+      - ADR-DORA-EXPERIMENT#3
+      - ADR-DORA-EXPERIMENT#4
     adrs: []
+    links:
+      - docs/adr/design/self-service.md
+      - docs/adr/design/thin-platforms.md
+      - docs/adr/process/agile-values.md
+      - docs/references/dora/capabilities.md#climate-for-learning
+      - docs/references/dora/capabilities.md#customer-feedback
+      - docs/references/dora/capabilities.md#generative-organizational-culture
+      - docs/references/dora/capabilities.md#learning-culture
+      - docs/references/dora/capabilities.md#team-experimentation
+      - docs/references/dora/capabilities.md#transformational-leadership
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/index.md
+      - docs/references/dora/publications.md#2016-state-of-devops-report
+      - docs/references/dora/publications.md#2017-state-of-devops-report
+      - "https://dora.dev/capabilities/team-experimentation/"
 ---
 
 # ADR: DORA — Team experimentation

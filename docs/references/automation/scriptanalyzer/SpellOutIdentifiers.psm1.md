@@ -9,6 +9,7 @@ catzc:
       - ADR-AUTO-SPELL#4
       - ADR-AUTO-SPELL#6
       - ADR-PWSH-FORMAT#6
+    links: []
 ---
 
 # automation/.scriptanalyzer/SpellOutIdentifiers.psm1

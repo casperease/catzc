@@ -5,6 +5,14 @@ catzc:
     kind: reference
     body_sha: "81f4203494e3"
     adrs: []
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/caching.md
+      - docs/adr/principles/one-living-version.md
+      - docs/references/automation/BCL/types-system.md
+      - docs/references/automation/catzc-base-typessystem.md
+      - docs/references/automation/internal/catzc-internal-bootstrap.md
+      - docs/references/automation/internal/index.md
 ---
 
 # Catzc.Internal.Types

@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "28567547d86d"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Connect-AzCli.ps1

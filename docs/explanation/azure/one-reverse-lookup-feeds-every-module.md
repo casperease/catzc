@@ -8,6 +8,17 @@ catzc:
       - ADR-AZ-DATAMOD#4
       - ADR-AZ-DATAMOD#7
       - ADR-AZ-NAMING#8
+    links:
+      - docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.md
+      - docs/.assets/explanation/adr-az-datamod--one-reverse-lookup-feeds-every-module--architecture.drawio.png
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/explanation/azure/four-gates-hold-the-session-rule.md
+      - docs/explanation/azure/index.md
+      - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
+      - docs/explanation/azure/read-the-session-guard-then-pick-slot.md
+      - docs/explanation/azure/the-session-is-the-deploy-target.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # One reverse lookup in Catzc.Azure.Cli hands the session to every module

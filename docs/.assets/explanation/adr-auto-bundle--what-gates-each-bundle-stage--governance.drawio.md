@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.chain.md
+      - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.drawio.png
+      - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.grid.md
+      - docs/.assets/explanation/adr-auto-bundle--what-gates-each-bundle-stage--governance.tree.md
+      - docs/explanation/automation/what-gates-each-bundle-stage.md
 ---
 
 # Every stage has a rule, two gates check it: the diagram described

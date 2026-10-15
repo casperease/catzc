@@ -8,6 +8,17 @@ catzc:
       - ADR-AUTO-PARITY#3
       - ADR-FLOW-CD-DETECT#1
       - ADR-FLOW-CD-DETECT#4
+    links:
+      - docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-detect--one-boolean-answer-from-one-function--meta.drawio.png
+      - docs/adr/automation/devbox-pipeline-parity.md
+      - docs/adr/flow/pipeline-detection.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
+      - docs/explanation/flow/the-analyzer-names-the-raw-read.md
+      - docs/explanation/flow/the-loader-holds-the-one-detector.md
+      - docs/explanation/flow/two-variables-read-in-one-place.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # One function answers "am I in a pipeline?", and every branch on context asks it

@@ -4,7 +4,12 @@ catzc:
     path: docs/adr/principles/reduce-variability.md
     kind: adr
     body_sha: "6c7182f0738c"
+    defines:
+      - ADR-PRIN-REDUCEVAR#1
+      - ADR-PRIN-REDUCEVAR#2
+      - ADR-PRIN-REDUCEVAR#3
     adrs: []
+    links: []
 ---
 
 # Principle: Reduce variability

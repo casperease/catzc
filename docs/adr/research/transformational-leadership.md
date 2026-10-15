@@ -4,7 +4,30 @@ catzc:
     path: docs/adr/research/transformational-leadership.md
     kind: adr
     body_sha: "7ebd59f1084e"
+    defines:
+      - ADR-DORA-LEADERSHIP#1
+      - ADR-DORA-LEADERSHIP#2
+      - ADR-DORA-LEADERSHIP#3
+      - ADR-DORA-LEADERSHIP#4
+      - ADR-DORA-LEADERSHIP#5
     adrs: []
+    links:
+      - docs/adr/process/holding-the-line.md
+      - docs/adr/process/inspect-and-adapt.md
+      - docs/references/dora/capabilities.md#climate-for-learning
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#generative-organizational-culture
+      - docs/references/dora/capabilities.md#job-satisfaction
+      - docs/references/dora/capabilities.md#learning-culture
+      - docs/references/dora/capabilities.md#transformational-leadership
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/index.md
+      - docs/references/dora/publications.md#2017-state-of-devops-report
+      - docs/references/dora/publications.md#2018-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2024-accelerate-state-of-devops-report
+      - "https://dora.dev/capabilities/transformational-leadership/"
 ---
 
 # ADR: DORA — Transformational leadership

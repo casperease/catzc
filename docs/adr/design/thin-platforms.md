@@ -4,12 +4,16 @@ catzc:
     path: docs/adr/design/thin-platforms.md
     kind: adr
     body_sha: "773f2f646c1a"
-    adrs:
+    defines:
       - ADR-DSGN-THINPLAT#1
       - ADR-DSGN-THINPLAT#2
       - ADR-DSGN-THINPLAT#3
       - ADR-DSGN-THINPLAT#4
       - ADR-DSGN-THINPLAT#5
+    adrs: []
+    links:
+      - "https://architectelevator.com"
+      - "https://teamtopologies.com/key-concepts-content/what-is-a-thinnest-viable-platform-tvp"
 ---
 
 # ADR: Thin platforms — an API/CLI abstraction over a vendor layer

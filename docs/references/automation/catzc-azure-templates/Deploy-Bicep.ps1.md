@@ -6,6 +6,7 @@ catzc:
     body_sha: "2719b4d175f2"
     adrs:
       - ADR-PWSH-ERROR#8
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Deploy-Bicep.ps1

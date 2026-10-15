@@ -10,6 +10,7 @@ catzc:
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#7
       - ADR-DSGN-TRACK#8
+    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/MapsLabels.cs

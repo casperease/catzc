@@ -5,6 +5,11 @@ catzc:
     kind: reference
     body_sha: "91d4c2ecf7e8"
     adrs: []
+    links:
+      - docs/adr/automation/controlling-systemwide-deps.md
+      - docs/adr/automation/cross-platform.md
+      - docs/adr/automation/uv-python-handler.md
+      - docs/references/automation/catzc-tooling-core.md
 ---
 
 # Catzc.Tooling.Python

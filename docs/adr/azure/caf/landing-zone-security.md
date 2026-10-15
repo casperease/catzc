@@ -4,6 +4,52 @@ catzc:
     path: docs/adr/azure/caf/landing-zone-security.md
     kind: adr
     body_sha: acf70e0b97e3
+    defines:
+      - ADR-AZ-CAFSEC#1
+      - ADR-AZ-CAFSEC#2
+      - ADR-AZ-CAFSEC#3
+      - ADR-AZ-CAFSEC#4
+      - ADR-AZ-CAFSEC#5
+      - ADR-AZ-CAFSEC#6
+      - ADR-AZ-CAFSEC#7
+      - ADR-AZ-CAFSEC#8
+      - ADR-AZ-CAFSEC#9
+      - ADR-AZ-CAFSEC#10
+      - ADR-AZ-CAFSEC#11
+      - ADR-AZ-CAFSEC#12
+      - ADR-AZ-CAFSEC#13
+      - ADR-AZ-CAFSEC#14
+      - ADR-AZ-CAFSEC#15
+      - ADR-AZ-CAFSEC#16
+      - ADR-AZ-CAFSEC#17
+      - ADR-AZ-CAFSEC#18
+      - ADR-AZ-CAFSEC#19
+      - ADR-AZ-CAFSEC#20
+      - ADR-AZ-CAFSEC#21
+      - ADR-AZ-CAFSEC#22
+      - ADR-AZ-CAFSEC#23
+      - ADR-AZ-CAFSEC#24
+      - ADR-AZ-CAFSEC#25
+      - ADR-AZ-CAFSEC#26
+      - ADR-AZ-CAFSEC#27
+      - ADR-AZ-CAFSEC#28
+      - ADR-AZ-CAFSEC#29
+      - ADR-AZ-CAFSEC#30
+      - ADR-AZ-CAFSEC#31
+      - ADR-AZ-CAFSEC#32
+      - ADR-AZ-CAFSEC#33
+      - ADR-AZ-CAFSEC#34
+      - ADR-AZ-CAFSEC#35
+      - ADR-AZ-CAFSEC#36
+      - ADR-AZ-CAFSEC#37
+      - ADR-AZ-CAFSEC#38
+      - ADR-AZ-CAFSEC#39
+      - ADR-AZ-CAFSEC#40
+      - ADR-AZ-CAFSEC#41
+      - ADR-AZ-CAFSEC#42
+      - ADR-AZ-CAFSEC#43
+      - ADR-AZ-CAFSEC#44
+      - ADR-AZ-CAFSEC#45
     adrs:
       - ADR-AZ-DATAMOD#11
       - ADR-AZ-DATAMOD#2
@@ -28,6 +74,35 @@ catzc:
       - ADR-AZ-WAFSE#7
       - ADR-AZ-WAFSE#8
       - ADR-AZ-WAFSE#9
+    links:
+      - docs/adr/azure/az-session-verification.md
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network1
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network3
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network6
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz6
+      - docs/adr/azure/waf/operational-excellence.md#rule-adr-az-wafoe7
+      - docs/adr/azure/waf/reliability.md#rule-adr-az-wafre1
+      - docs/adr/azure/waf/reliability.md#rule-adr-az-wafre5
+      - docs/adr/azure/waf/security.md
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse1
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse10
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse12
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse3
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse4
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse5
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse6
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse7
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse8
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse9
+      - docs/references/caf/index.md
 ---
 
 # ADR: CAF security — what the repository does about each recommendation of the landing-zone security design area

@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "4b09a878c2b8"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-flow-cd-detect--the-analyzer-names-the-raw-read--operations.drawio.png
+      - docs/explanation/flow/the-analyzer-names-the-raw-read.md
 ---
 
 # The analyzer names the raw read: the diagram described

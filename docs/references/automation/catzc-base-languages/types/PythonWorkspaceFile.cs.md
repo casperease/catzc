@@ -6,6 +6,7 @@ catzc:
     body_sha: "336ea67e73b2"
     adrs:
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Base.Languages/types/PythonWorkspaceFile.cs

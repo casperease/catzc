@@ -5,6 +5,8 @@ catzc:
     kind: reference
     body_sha: b2174730a4a1
     adrs: []
+    links:
+      - docs/adr/principles/everything-as-code.md
 ---
 
 # Catzc.Azure.Firewall

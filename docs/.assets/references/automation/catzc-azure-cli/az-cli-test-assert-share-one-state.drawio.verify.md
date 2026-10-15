@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-PRELOG#5
       - ADR-AZ-CLI#1
       - ADR-AZ-DATAMOD#4
+    links: []
 ---
 
 # out/diagrams/wave-9/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.verify.md

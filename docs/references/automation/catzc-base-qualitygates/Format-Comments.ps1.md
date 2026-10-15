@@ -9,6 +9,7 @@ catzc:
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-COMMENTS#1
       - ADR-REPO-COMMENTS#5
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Format-Comments.ps1

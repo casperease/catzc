@@ -6,6 +6,7 @@ catzc:
     body_sha: "036053c04766"
     adrs:
       - ADR-REPO-CONTRACT#6
+    links: []
 ---
 
 # automation/Catzc.Base.Contracts/private/Get-ContractSchemaFindings.ps1

@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "289629f58664"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Assert-AzCliConnected.ps1

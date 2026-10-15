@@ -11,6 +11,7 @@ catzc:
       - ADR-AUTO-DRYRUN#2
       - ADR-CONF-LOADING#6
       - ADR-PWSH-CACHE#4
+    links: []
 ---
 
 # Verification: Each `Invoke-<Tool>` asserts the locked version before it runs (source lens, Catzc.Tooling.Core)

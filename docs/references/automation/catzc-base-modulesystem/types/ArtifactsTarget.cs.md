@@ -6,6 +6,7 @@ catzc:
     body_sha: "592effb6da08"
     adrs:
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/ArtifactsTarget.cs

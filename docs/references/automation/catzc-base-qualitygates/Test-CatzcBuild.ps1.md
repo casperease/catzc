@@ -9,6 +9,7 @@ catzc:
       - ADR-AUTO-TEST#31
       - ADR-AUTO-TEST#33
       - ADR-DSGN-RUNMODE#6
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-CatzcBuild.ps1

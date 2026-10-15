@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-DEPS#1
       - ADR-AUTO-PKGMGR#6
+    links: []
 ---
 
 # automation/Catzc.Base.Execution/types/ToolConfig.cs

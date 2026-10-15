@@ -6,6 +6,7 @@ catzc:
     body_sha: a60b8892aaf5
     adrs:
       - ADR-AUTO-DEPS#4
+    links: []
 ---
 
 # automation/Catzc.Base.Execution/types/ToolsConfig.cs

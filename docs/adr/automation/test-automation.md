@@ -4,24 +4,30 @@ catzc:
     path: docs/adr/automation/test-automation.md
     kind: adr
     body_sha: "4c8d25e5c86b"
-    adrs:
-      - ADR-AUTO-BASH#5
-      - ADR-AUTO-CACHE#5
-      - ADR-AUTO-FAILFAST#7
-      - ADR-AUTO-GO#7
-      - ADR-AUTO-PY#7
-      - ADR-AUTO-RETRY#1
+    defines:
       - ADR-AUTO-TEST#1
+      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#4
+      - ADR-AUTO-TEST#6
+      - ADR-AUTO-TEST#7
+      - ADR-AUTO-TEST#8
+      - ADR-AUTO-TEST#9
+      - ADR-AUTO-TEST#10
       - ADR-AUTO-TEST#13
       - ADR-AUTO-TEST#14
+      - ADR-AUTO-TEST#15
+      - ADR-AUTO-TEST#16
       - ADR-AUTO-TEST#17
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#20
       - ADR-AUTO-TEST#21
       - ADR-AUTO-TEST#22
+      - ADR-AUTO-TEST#23
+      - ADR-AUTO-TEST#24
       - ADR-AUTO-TEST#25
       - ADR-AUTO-TEST#26
-      - ADR-AUTO-TEST#3
+      - ADR-AUTO-TEST#27
+      - ADR-AUTO-TEST#28
       - ADR-AUTO-TEST#30
       - ADR-AUTO-TEST#31
       - ADR-AUTO-TEST#32
@@ -32,21 +38,57 @@ catzc:
       - ADR-AUTO-TEST#37
       - ADR-AUTO-TEST#38
       - ADR-AUTO-TEST#39
-      - ADR-AUTO-TEST#4
       - ADR-AUTO-TEST#40
       - ADR-AUTO-TEST#41
       - ADR-AUTO-TEST#42
       - ADR-AUTO-TEST#43
       - ADR-AUTO-TEST#44
-      - ADR-AUTO-TEST#7
-      - ADR-AUTO-TEST#8
-      - ADR-AUTO-TEST#9
+    adrs:
+      - ADR-AUTO-BASH#5
+      - ADR-AUTO-CACHE#5
+      - ADR-AUTO-FAILFAST#7
+      - ADR-AUTO-GO#7
+      - ADR-AUTO-PY#7
+      - ADR-AUTO-RETRY#1
       - ADR-PWSH-PESTER#14
       - ADR-PWSH-PESTER#16
       - ADR-PWSH-PESTER#2
       - ADR-PWSH-PESTER#4
       - ADR-PWSH-PESTER#5
       - ADR-PWSH-PESTER#9
+    links:
+      - docs/adr/automation/bash/bash-test-artifacts.md
+      - docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2
+      - docs/adr/automation/execution-engines.md
+      - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/adr/automation/go/go-test-artifacts.md
+      - docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2
+      - docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3
+      - docs/adr/automation/never-depend-on-pwd.md
+      - docs/adr/automation/python/python-test-artifacts.md
+      - docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2
+      - docs/adr/automation/spell-out-names.md
+      - docs/adr/configuration/module-config-loading.md
+      - docs/adr/design/run-modes.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
+      - docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7
+      - docs/adr/flow/pipeline-runner-pattern.md
+      - docs/adr/principles/everything-as-code.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/principles/one-living-version.md#rule-adr-prin-onelive4
+      - docs/adr/principles/poka-yoke.md
+      - docs/adr/principles/reduce-waste.md
+      - docs/adr/process/queues-cost-money.md
+      - docs/adr/pwsh/pester-testing.md
+      - docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester17
+      - docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester18
+      - docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester19
+      - docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester20
+      - docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester5
+      - docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor5
+      - docs/adr/repository/conventional-folders.md
+      - docs/adr/repository/protected-globs.md
 ---
 
 # ADR: Test automation — logic tests vs integrity tests, and how to isolate

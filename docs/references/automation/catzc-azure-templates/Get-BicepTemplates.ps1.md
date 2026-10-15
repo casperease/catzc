@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AZ-NAMING#2
       - ADR-PWSH-CACHE#4
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-BicepTemplates.ps1

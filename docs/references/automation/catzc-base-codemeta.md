@@ -5,6 +5,10 @@ catzc:
     kind: reference
     body_sha: "09a881a934b4"
     adrs: []
+    links:
+      - docs/adr/repository/code-file-meta.md
+      - docs/references/automation/catzc-base-config.md
+      - docs/references/automation/catzc-base-markdownmeta.md
 ---
 
 # Catzc.Base.CodeMeta

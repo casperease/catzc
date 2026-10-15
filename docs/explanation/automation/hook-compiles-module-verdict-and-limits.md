@@ -6,6 +6,16 @@ catzc:
     body_sha: "334633557e7c"
     adrs:
       - ADR-AUTO-FAILFAST#7
+    links:
+      - docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.md
+      - docs/.assets/explanation/adr-auto-failfast--hook-compiles-module-verdict-and-limits--architecture.drawio.png
+      - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
+      - docs/explanation/automation/decide-returns-null-or-a-reason.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
+      - docs/explanation/automation/three-tests-prove-the-hook.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree

@@ -8,6 +8,16 @@ catzc:
       - ADR-FLOW-CD-GLOBS#10
       - ADR-FLOW-CD-GLOBS#7
       - ADR-REPO-LINK#5
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-globs--declare-or-add-folder-gate-names-overlaps--operations.drawio.png
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/flow/independence-check-groups-by-layer.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/overlap-gated-for-units-and-modules.md
+      - docs/explanation/flow/peers-in-a-layer-never-overlap.md
+      - docs/explanation/flow/two-declared-layers-one-derived.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Declare a unit or add a module folder, and the gate names every overlap

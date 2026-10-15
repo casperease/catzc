@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: c3b7977b4437
     adrs: []
+    links: []
 ---
 
 # infrastructure/templates/discovery/configuration/flux/nsub.yml

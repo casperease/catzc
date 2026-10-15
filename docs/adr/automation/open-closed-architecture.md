@@ -4,11 +4,21 @@ catzc:
     path: docs/adr/automation/open-closed-architecture.md
     kind: adr
     body_sha: "311142b2a5ab"
-    adrs:
+    defines:
       - ADR-AUTO-EXTEND#1
       - ADR-AUTO-EXTEND#3
       - ADR-AUTO-EXTEND#4
       - ADR-AUTO-EXTEND#5
+    adrs: []
+    links:
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/adr/design/tracks.md
+      - docs/adr/pwsh/dynamic-module-manifests.md
+      - docs/adr/pwsh/dynamic-module-manifests.md#one-function-namespace
+      - docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest9
+      - docs/adr/pwsh/one-function-per-file.md
+      - docs/adr/pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc1
+      - docs/adr/repository/conventional-folders.md
 ---
 
 # ADR: Open/closed architecture

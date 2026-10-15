@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.chain.md
+      - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.drawio.png
+      - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.grid.md
+      - docs/.assets/explanation/adr-dsgn-life--one-way-climb-three-endings--meta.tree.md
+      - docs/explanation/design/one-way-climb-three-endings.md
 ---
 
 # A commit only climbs, then ends in one of three ways: the diagram described

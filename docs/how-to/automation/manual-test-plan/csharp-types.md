@@ -5,6 +5,8 @@ catzc:
     kind: how-to
     body_sha: "6880bc8382a3"
     adrs: []
+    links:
+      - docs/how-to/automation/manual-test-plan.md
 ---
 
 # Manual test plan — C# types

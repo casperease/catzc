@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-CONF-LOADING#4
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1

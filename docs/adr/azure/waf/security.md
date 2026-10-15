@@ -4,6 +4,19 @@ catzc:
     path: docs/adr/azure/waf/security.md
     kind: adr
     body_sha: "945a8dd38e53"
+    defines:
+      - ADR-AZ-WAFSE#1
+      - ADR-AZ-WAFSE#2
+      - ADR-AZ-WAFSE#3
+      - ADR-AZ-WAFSE#4
+      - ADR-AZ-WAFSE#5
+      - ADR-AZ-WAFSE#6
+      - ADR-AZ-WAFSE#7
+      - ADR-AZ-WAFSE#8
+      - ADR-AZ-WAFSE#9
+      - ADR-AZ-WAFSE#10
+      - ADR-AZ-WAFSE#11
+      - ADR-AZ-WAFSE#12
     adrs:
       - ADR-AUTO-ENVVAR#7
       - ADR-AUTO-GUIDS#1
@@ -24,6 +37,31 @@ catzc:
       - ADR-AZ-NETWORK#6
       - ADR-CONF-ADDRESSING#3
       - ADR-DORA-SECURITY#3
+    links:
+      - docs/adr/automation/environment-variables.md#rule-adr-auto-envvar7
+      - docs/adr/automation/managed-guids.md#rule-adr-auto-guids1
+      - docs/adr/automation/managed-guids.md#rule-adr-auto-guids4
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test3
+      - docs/adr/azure/az-session-verification.md
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/azure-network-model.md
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network1
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network5
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network6
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz2
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz5
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz6
+      - docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing3
+      - docs/adr/research/pervasive-security.md#rule-adr-dora-security3
+      - docs/references/waf/index.md
 ---
 
 # ADR: Well-Architected security — what the repository does about each item of the WAF security checklist

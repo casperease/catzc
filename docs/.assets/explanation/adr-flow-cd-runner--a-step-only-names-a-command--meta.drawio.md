@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.chain.md
+      - docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.grid.md
+      - docs/.assets/explanation/adr-flow-cd-runner--a-step-only-names-a-command--meta.tree.md
+      - docs/explanation/flow/a-step-only-names-a-command.md
 ---
 
 # A pipeline step only names a command: the diagram described

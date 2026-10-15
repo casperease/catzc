@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "326fb76ea4e5"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-auto-failfast--one-rule-per-stage-and-two-gaps--governance.drawio.png
+      - docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
 ---
 
 # Two rules govern every stage, tests and the hook check them, and two gaps remain: the diagram described

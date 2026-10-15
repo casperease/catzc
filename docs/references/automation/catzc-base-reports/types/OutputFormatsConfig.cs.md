@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-OUTFMT#1
+    links: []
 ---
 
 # automation/Catzc.Base.Reports/types/OutputFormatsConfig.cs

@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: edf3853e8444
     adrs: []
+    links: []
 ---
 
 # infrastructure/templates/discovery/configuration/nova/nsub.yml

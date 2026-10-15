@@ -8,6 +8,15 @@ catzc:
       - ADR-AUTO-TEST#35
       - ADR-REPO-ROOTCFG#6
       - ADR-REPO-ROOTCFG#7
+    links:
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
+      - docs/adr/repository/generated-root-configs.md
+      - docs/references/automation/catzc-base-config.md
+      - docs/references/automation/catzc-base-docs.md
+      - docs/references/automation/catzc-base-files.md
+      - docs/references/automation/catzc-base-languages.md
+      - docs/references/automation/catzc-base-modulesystem.md
+      - docs/references/automation/catzc-base-qualitygates.md
 ---
 
 # Catzc.Base.RootConfig

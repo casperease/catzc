@@ -11,6 +11,18 @@ catzc:
       - ADR-DSGN-VISUAL#13
       - ADR-DSGN-VISUAL#2
       - ADR-DSGN-VISUAL#4
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.md
+      - docs/.assets/explanation/adr-dsgn-life--out-of-band-deploy-is-adr-only--governance.drawio.png
+      - docs/adr/automation/test-automation.md
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/visual-design.md
+      - docs/explanation/design/deploy-and-integrate-share-only-the-topic.md
+      - docs/explanation/design/deploying-is-not-integrating.md
+      - docs/explanation/design/every-deploy-stage-is-main-only.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/merging-to-main-is-what-deploys.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only

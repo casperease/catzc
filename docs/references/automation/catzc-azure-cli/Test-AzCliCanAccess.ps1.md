@@ -6,6 +6,7 @@ catzc:
     body_sha: "653359804d3d"
     adrs:
       - ADR-AZ-CLI#1
+    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1

@@ -6,6 +6,7 @@ catzc:
     body_sha: "1ca13dbdb087"
     adrs:
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Azure/types/AzureCustomer.cs

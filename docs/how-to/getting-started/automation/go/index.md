@@ -5,6 +5,8 @@ catzc:
     kind: how-to
     body_sha: "03642fb25d9b"
     adrs: []
+    links:
+      - docs/adr/automation/go/go-test-artifacts.md
 ---
 
 # Go how-to guides

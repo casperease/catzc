@@ -6,6 +6,8 @@ catzc:
     body_sha: "405dd3ce034b"
     adrs:
       - ADR-AUTO-TEST#25
+    links:
+      - docs/how-to/automation/manual-test-plan.md
 ---
 
 # Manual test plan — Test harness

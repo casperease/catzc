@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "24ea4129199e"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/GlossaryScan.cs

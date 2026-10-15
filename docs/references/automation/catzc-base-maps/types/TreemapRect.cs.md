@@ -6,6 +6,7 @@ catzc:
     body_sha: "3f9def9298ba"
     adrs:
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/TreemapRect.cs

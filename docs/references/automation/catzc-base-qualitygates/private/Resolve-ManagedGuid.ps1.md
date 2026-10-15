@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: fcd052cd9899
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Resolve-ManagedGuid.ps1

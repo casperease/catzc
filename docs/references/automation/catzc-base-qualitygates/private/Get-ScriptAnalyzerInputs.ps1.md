@@ -6,6 +6,7 @@ catzc:
     body_sha: "6ed252390d0f"
     adrs:
       - ADR-AUTO-CACHE#10
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-ScriptAnalyzerInputs.ps1

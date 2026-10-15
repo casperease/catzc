@@ -6,6 +6,7 @@ catzc:
     body_sha: eff78d97f7ca
     adrs:
       - ADR-AUTO-TEST#35
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-FileMetaProcessors.ps1

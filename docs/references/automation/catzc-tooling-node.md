@@ -5,6 +5,12 @@ catzc:
     kind: reference
     body_sha: "7e3f927bebba"
     adrs: []
+    links:
+      - docs/adr/automation/controlling-systemwide-deps.md
+      - docs/adr/automation/cross-platform.md
+      - docs/adr/automation/use-proper-package-managers.md
+      - docs/references/automation/catzc-base-qualitygates.md
+      - docs/references/automation/catzc-tooling-core.md
 ---
 
 # Catzc.Tooling.Node

@@ -6,6 +6,7 @@ catzc:
     body_sha: "895ab2006d77"
     adrs:
       - ADR-AUTO-DEPM#3
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/types/ModuleGroup.cs

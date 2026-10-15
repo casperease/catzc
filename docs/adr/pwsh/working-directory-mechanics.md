@@ -4,15 +4,32 @@ catzc:
     path: docs/adr/pwsh/working-directory-mechanics.md
     kind: adr
     body_sha: "215b77f1e4d2"
+    defines:
+      - ADR-PWSH-PWD#1
+      - ADR-PWSH-PWD#2
+      - ADR-PWSH-PWD#3
+      - ADR-PWSH-PWD#4
+      - ADR-PWSH-PWD#5
+      - ADR-PWSH-PWD#6
+      - ADR-PWSH-PWD#7
     adrs:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-ASSETDEP#2
       - ADR-AUTO-NOPWD#1
       - ADR-AUTO-NOPWD#4
       - ADR-AUTO-NOPWD#6
-      - ADR-PWSH-PWD#2
-      - ADR-PWSH-PWD#4
-      - ADR-PWSH-PWD#6
+    links:
+      - docs/adr/automation/environment-variables.md
+      - docs/adr/automation/internal-asset-dependencies.md
+      - docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1
+      - docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2
+      - docs/adr/automation/never-depend-on-pwd.md
+      - docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1
+      - docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd4
+      - docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd6
+      - docs/adr/automation/path-representation.md
+      - docs/adr/design/run-modes.md
+      - docs/adr/pwsh/cross-platform-powershell.md
 ---
 
 # ADR: Working-directory mechanics — the PowerShell layer over never-depend-on-pwd

@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "2459dc87f557"
     adrs: []
+    links: []
 ---
 
 # infrastructure/modules/diagnostic-setting.bicep

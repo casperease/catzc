@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: e6e91ae8e081
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-flow-cd-detect--the-loader-holds-the-one-detector--architecture.drawio.png
+      - docs/explanation/flow/the-loader-holds-the-one-detector.md
 ---
 
 # The loader holds the one detector: the diagram described

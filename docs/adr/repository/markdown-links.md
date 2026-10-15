@@ -4,10 +4,24 @@ catzc:
     path: docs/adr/repository/markdown-links.md
     kind: adr
     body_sha: "0da3070ab563"
+    defines:
+      - ADR-REPO-LINK#1
+      - ADR-REPO-LINK#2
+      - ADR-REPO-LINK#3
+      - ADR-REPO-LINK#4
+      - ADR-REPO-LINK#5
+      - ADR-REPO-LINK#6
+      - ADR-REPO-LINK#7
+      - ADR-REPO-LINK#8
+      - ADR-REPO-LINK#9
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PWSH-ERROR#3
-      - ADR-REPO-LINK#9
+    links:
+      - docs/adr/automation/path-representation.md
+      - docs/adr/automation/sensible-defaults.md
+      - docs/adr/repository/comments-in-docs.md
+      - docs/adr/repository/generated-readmes.md
 ---
 
 # ADR: Markdown links — relative in documents, repository-rooted out of code

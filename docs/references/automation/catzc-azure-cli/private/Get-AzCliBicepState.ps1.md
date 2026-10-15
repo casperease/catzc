@@ -6,6 +6,7 @@ catzc:
     body_sha: d86464a35df3
     adrs:
       - ADR-AUTO-PRELOG#5
+    links: []
 ---
 
 # automation/Catzc.Azure.Cli/private/Get-AzCliBicepState.ps1

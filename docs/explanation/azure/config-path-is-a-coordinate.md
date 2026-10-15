@@ -9,6 +9,17 @@ catzc:
       - ADR-AZ-DATAMOD#1
       - ADR-AZ-DATAMOD#2
       - ADR-AZ-DATAMOD#3
+    links:
+      - docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.md
+      - docs/.assets/explanation/adr-az-datamod--config-path-is-a-coordinate--meta.drawio.png
+      - docs/adr/azure/azure-customer-model.md
+      - docs/adr/azure/azure-data-model.md
+      - docs/explanation/azure/a-bad-coordinate-stops-discovery.md
+      - docs/explanation/azure/coordinate-resolved-file-by-file-at-discovery.md
+      - docs/explanation/azure/coordinate-rules-and-their-gates.md
+      - docs/explanation/azure/index.md
+      - docs/explanation/azure/two-layers-join-through-one-resolver.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # A config file's path is a coordinate that resolves to one subscription and one resource group

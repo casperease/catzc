@@ -4,6 +4,68 @@ catzc:
     path: docs/adr/azure/caf/billing-and-tenant.md
     kind: adr
     body_sha: "43969d556544"
+    defines:
+      - ADR-AZ-CAFBILL#1
+      - ADR-AZ-CAFBILL#2
+      - ADR-AZ-CAFBILL#3
+      - ADR-AZ-CAFBILL#4
+      - ADR-AZ-CAFBILL#5
+      - ADR-AZ-CAFBILL#6
+      - ADR-AZ-CAFBILL#7
+      - ADR-AZ-CAFBILL#8
+      - ADR-AZ-CAFBILL#9
+      - ADR-AZ-CAFBILL#10
+      - ADR-AZ-CAFBILL#11
+      - ADR-AZ-CAFBILL#12
+      - ADR-AZ-CAFBILL#13
+      - ADR-AZ-CAFBILL#14
+      - ADR-AZ-CAFBILL#15
+      - ADR-AZ-CAFBILL#16
+      - ADR-AZ-CAFBILL#17
+      - ADR-AZ-CAFBILL#18
+      - ADR-AZ-CAFBILL#19
+      - ADR-AZ-CAFBILL#20
+      - ADR-AZ-CAFBILL#21
+      - ADR-AZ-CAFBILL#22
+      - ADR-AZ-CAFBILL#23
+      - ADR-AZ-CAFBILL#24
+      - ADR-AZ-CAFBILL#25
+      - ADR-AZ-CAFBILL#26
+      - ADR-AZ-CAFBILL#27
+      - ADR-AZ-CAFBILL#28
+      - ADR-AZ-CAFBILL#29
+      - ADR-AZ-CAFBILL#30
+      - ADR-AZ-CAFBILL#31
+      - ADR-AZ-CAFBILL#32
+      - ADR-AZ-CAFBILL#33
+      - ADR-AZ-CAFBILL#34
+      - ADR-AZ-CAFBILL#35
+      - ADR-AZ-CAFBILL#36
+      - ADR-AZ-CAFBILL#37
+      - ADR-AZ-CAFBILL#38
+      - ADR-AZ-CAFBILL#39
+      - ADR-AZ-CAFBILL#40
+      - ADR-AZ-CAFBILL#41
+      - ADR-AZ-CAFBILL#42
+      - ADR-AZ-CAFBILL#43
+      - ADR-AZ-CAFBILL#44
+      - ADR-AZ-CAFBILL#45
+      - ADR-AZ-CAFBILL#46
+      - ADR-AZ-CAFBILL#47
+      - ADR-AZ-CAFBILL#48
+      - ADR-AZ-CAFBILL#49
+      - ADR-AZ-CAFBILL#50
+      - ADR-AZ-CAFBILL#51
+      - ADR-AZ-CAFBILL#52
+      - ADR-AZ-CAFBILL#53
+      - ADR-AZ-CAFBILL#54
+      - ADR-AZ-CAFBILL#55
+      - ADR-AZ-CAFBILL#56
+      - ADR-AZ-CAFBILL#57
+      - ADR-AZ-CAFBILL#58
+      - ADR-AZ-CAFBILL#59
+      - ADR-AZ-CAFBILL#60
+      - ADR-AZ-CAFBILL#61
     adrs:
       - ADR-AZ-CAFGOV#10
       - ADR-AZ-CAFGOV#9
@@ -23,6 +85,31 @@ catzc:
       - ADR-AZ-SESSION#4
       - ADR-AZ-SESSION#5
       - ADR-AZ-WAFSE#5
+    links:
+      - docs/adr/automation/managed-guids.md
+      - docs/adr/azure/az-session-verification.md#rule-adr-az-session4
+      - docs/adr/azure/az-session-verification.md#rule-adr-az-session5
+      - docs/adr/azure/azure-customer-model.md
+      - docs/adr/azure/azure-customer-model.md#rule-adr-az-customer2
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod1
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod3
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod7
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/caf/governance.md#rule-adr-az-cafgov10
+      - docs/adr/azure/caf/governance.md#rule-adr-az-cafgov9
+      - docs/adr/azure/caf/resource-organization.md#rule-adr-az-cafresorg19
+      - docs/adr/azure/caf/resource-organization.md#rule-adr-az-cafresorg5
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz2
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz6
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse5
+      - docs/references/caf/index.md
+      - "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/azure-billing-microsoft-entra-tenant"
 ---
 
 # ADR: CAF billing and tenant — what the repository does about each of Microsoft's billing and Entra tenant design recommendations

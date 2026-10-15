@@ -6,6 +6,7 @@ catzc:
     body_sha: "3cfc07bb568b"
     adrs:
       - ADR-REPO-CONTRACT#5
+    links: []
 ---
 
 # automation/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1

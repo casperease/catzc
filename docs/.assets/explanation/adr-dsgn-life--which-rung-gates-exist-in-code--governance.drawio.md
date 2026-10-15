@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.chain.md
+      - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png
+      - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.grid.md
+      - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.tree.md
+      - docs/explanation/design/which-rung-gates-exist-in-code.md
 ---
 
 # Only PR build validation, the BVT and the failure stop are checked in code: the diagram described

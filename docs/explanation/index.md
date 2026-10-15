@@ -8,6 +8,22 @@ catzc:
       - ADR-DSGN-TRACK#12
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/glyphs.drawio.md
+      - docs/.assets/explanation/glyphs.drawio.png
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track12
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track16
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track9
+      - docs/adr/index.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/azure/index.md
+      - docs/explanation/configuration/index.md
+      - docs/explanation/design/index.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/pipelines/index.md
+      - docs/explanation/repository/index.md
+      - docs/how-to/getting-started/automation/index.md
+      - docs/references/automation/index.md
 ---
 
 # Explanation

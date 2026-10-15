@@ -7,6 +7,16 @@ catzc:
     adrs:
       - ADR-REPO-ROOTCFG#4
       - ADR-REPO-ROOTCFG#6
+    links:
+      - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.md
+      - docs/.assets/explanation/adr-repo-rootcfg--import-materialises-two-gates-name-the-fix--operations.drawio.png
+      - docs/adr/repository/generated-root-configs.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
+      - docs/explanation/repository/index.md
+      - docs/explanation/repository/one-registry-one-writer-two-primitives.md
+      - docs/explanation/repository/one-source-one-writer-one-boolean.md
+      - docs/explanation/repository/opted-in-then-link-copy-or-render.md
+      - docs/explanation/repository/three-gates-check-registry-drift-membership.md
 ---
 
 # The import materialises every root file; two gates catch drift and name the fix

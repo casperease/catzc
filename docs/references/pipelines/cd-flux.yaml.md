@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "6998cf4edc8d"
     adrs: []
+    links: []
 ---
 
 # pipelines/cd-flux.yaml

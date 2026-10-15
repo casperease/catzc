@@ -6,6 +6,7 @@ catzc:
     body_sha: b1b33866f568
     adrs:
       - ADR-AZ-CLI#1
+    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1

@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.chain.md
+      - docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.png
+      - docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.grid.md
+      - docs/.assets/explanation/adr-auto-bundle--two-entries-feed-one-importer--architecture.tree.md
+      - docs/explanation/automation/two-entries-feed-one-importer.md
 ---
 
 # Two entry scripts feed one importer: the diagram described

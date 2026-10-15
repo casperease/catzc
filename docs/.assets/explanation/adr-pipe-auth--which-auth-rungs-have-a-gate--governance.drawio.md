@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.chain.md
+      - docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.drawio.png
+      - docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.grid.md
+      - docs/.assets/explanation/adr-pipe-auth--which-auth-rungs-have-a-gate--governance.tree.md
+      - docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
 ---
 
 # Which auth rungs have a gate: the diagram described

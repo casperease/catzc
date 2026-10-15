@@ -4,7 +4,31 @@ catzc:
     path: docs/adr/research/streamlining-change-approval.md
     kind: adr
     body_sha: ab4ed1a741a8
+    defines:
+      - ADR-DORA-APPROVAL#1
+      - ADR-DORA-APPROVAL#2
+      - ADR-DORA-APPROVAL#3
+      - ADR-DORA-APPROVAL#4
+      - ADR-DORA-APPROVAL#5
     adrs: []
+    links:
+      - docs/adr/design/self-service.md
+      - docs/adr/design/server-remote-integration.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#deployment-automation
+      - docs/references/dora/capabilities.md#fast-flow
+      - docs/references/dora/capabilities.md#streamlining-change-approval
+      - docs/references/dora/capabilities.md#trunk-based-development
+      - docs/references/dora/capabilities.md#version-control
+      - docs/references/dora/core-model.md#fast-flow
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#change-fail-rate
+      - docs/references/dora/publications.md#2017-state-of-devops-report
+      - docs/references/dora/publications.md#2019-accelerate-state-of-devops-report
+      - "https://dora.dev/capabilities/streamlining-change-approval/"
 ---
 
 # ADR: DORA — Streamlining change approval

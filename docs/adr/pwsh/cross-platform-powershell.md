@@ -4,6 +4,16 @@ catzc:
     path: docs/adr/pwsh/cross-platform-powershell.md
     kind: adr
     body_sha: d914df52e6db
+    defines:
+      - ADR-PWSH-XPLAT#1
+      - ADR-PWSH-XPLAT#2
+      - ADR-PWSH-XPLAT#3
+      - ADR-PWSH-XPLAT#4
+      - ADR-PWSH-XPLAT#6
+      - ADR-PWSH-XPLAT#7
+      - ADR-PWSH-XPLAT#8
+      - ADR-PWSH-XPLAT#9
+      - ADR-PWSH-XPLAT#10
     adrs:
       - ADR-AUTO-DEPS#5
       - ADR-AUTO-PARITY#1
@@ -12,8 +22,15 @@ catzc:
       - ADR-AUTO-XPLAT#6
       - ADR-AUTO-XPLAT#7
       - ADR-AUTO-XPLAT#9
-      - ADR-PWSH-XPLAT#2
-      - ADR-PWSH-XPLAT#9
+    links:
+      - docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps5
+      - docs/adr/automation/cross-platform.md
+      - docs/adr/automation/cross-platform.md#rule-adr-auto-xplat3
+      - docs/adr/automation/cross-platform.md#rule-adr-auto-xplat6
+      - docs/adr/automation/cross-platform.md#rule-adr-auto-xplat7
+      - docs/adr/automation/cross-platform.md#rule-adr-auto-xplat9
+      - docs/adr/automation/devbox-pipeline-parity.md#rule-adr-auto-parity1
+      - docs/adr/automation/path-representation.md#rule-adr-auto-path4
 ---
 
 # ADR: Cross-platform PowerShell — the language layer over cross-platform

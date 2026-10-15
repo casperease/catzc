@@ -6,6 +6,7 @@ catzc:
     body_sha: "2641df39c91b"
     adrs:
       - ADR-PWSH-ANNOUNCE#7
+    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Write-ToolProbeReport.ps1

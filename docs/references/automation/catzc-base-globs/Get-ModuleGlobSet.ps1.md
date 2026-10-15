@@ -11,6 +11,7 @@ catzc:
       - ADR-FLOW-CD-GLOBS#10
       - ADR-FLOW-CD-GLOBS#7
       - ADR-REPO-PROTGLOB#7
+    links: []
 ---
 
 # automation/Catzc.Base.Globs/Get-ModuleGlobSet.ps1

@@ -5,6 +5,18 @@ catzc:
     kind: reference
     body_sha: a090a16238c9
     adrs: []
+    links:
+      - docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md
+      - docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/controlling-systemwide-deps.md
+      - docs/adr/automation/cross-platform.md
+      - docs/adr/automation/dry-run.md
+      - docs/adr/automation/idempotent-state-functions.md
+      - docs/references/automation/catzc-tooling-core.md
+      - docs/references/automation/catzc-tooling-node.md
+      - docs/references/automation/catzc-tooling-python.md
+      - docs/references/automation/catzc-tooling-toolchain.md
 ---
 
 # Catzc.Tooling.Provisioning

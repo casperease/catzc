@@ -6,6 +6,7 @@ catzc:
     body_sha: "2dcad4b211ec"
     adrs:
       - ADR-AUTO-BUNDLE#6
+    links: []
 ---
 
 # automation/Catzc.Base.Exporter/Export-Catzc.ps1

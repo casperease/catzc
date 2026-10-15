@@ -6,6 +6,7 @@ catzc:
     body_sha: "2d2a717d0041"
     adrs:
       - ADR-REPO-LINK#3
+    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/CitationScanner.cs

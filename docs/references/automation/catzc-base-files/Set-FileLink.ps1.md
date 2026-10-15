@@ -6,6 +6,7 @@ catzc:
     body_sha: "9683e4e5a050"
     adrs:
       - ADR-AUTO-XPLAT#7
+    links: []
 ---
 
 # automation/Catzc.Base.Files/Set-FileLink.ps1

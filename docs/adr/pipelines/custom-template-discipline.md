@@ -4,7 +4,20 @@ catzc:
     path: docs/adr/pipelines/custom-template-discipline.md
     kind: adr
     body_sha: "215f3b3c5d76"
+    defines:
+      - ADR-PIPE-TEMPLATE#1
+      - ADR-PIPE-TEMPLATE#2
+      - ADR-PIPE-TEMPLATE#3
+      - ADR-PIPE-TEMPLATE#4
+      - ADR-PIPE-TEMPLATE#5
+      - ADR-PIPE-TEMPLATE#6
+      - ADR-PIPE-TEMPLATE#7
     adrs: []
+    links:
+      - docs/adr/flow/pipeline-runner-pattern.md
+      - docs/adr/principles/everything-as-code.md
+      - "https://learn.microsoft.com/en-us/azure/devops/pipelines/process/template-parameters?view=azure-devops"
+      - "https://richardwbown.com/azure-devops-yaml-pipelines-the-land-of-confusion/"
 ---
 
 # ADR: Custom template discipline — when and how to use ADO templates

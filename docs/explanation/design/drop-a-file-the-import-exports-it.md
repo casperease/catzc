@@ -8,6 +8,16 @@ catzc:
       - ADR-DSGN-ASPECT#1
       - ADR-DSGN-ASPECT#2
       - ADR-REPO-FOLDERS#10
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.md
+      - docs/.assets/explanation/adr-dsgn-aspect--drop-a-file-the-import-exports-it--operations.drawio.png
+      - docs/adr/design/module-aspects.md
+      - docs/explanation/design/every-file-in-exactly-one-aspect.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/manifest-and-aspects-from-one-folder.md
+      - docs/explanation/design/one-folder-two-independent-readers.md
+      - docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Drop a file, and the next import exports it

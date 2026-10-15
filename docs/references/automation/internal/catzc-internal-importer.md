@@ -6,6 +6,14 @@ catzc:
     body_sha: e9a5cd44ce14
     adrs:
       - ADR-AUTO-TYPES#13
+    links:
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/pwsh/use-ps1-not-psm1.md
+      - docs/references/automation/catzc-base-modulesystem.md
+      - docs/references/automation/internal/catzc-internal-bootstrap.md
+      - docs/references/automation/internal/catzc-internal-types.md
+      - docs/references/automation/internal/catzc-internal-vendor.md
+      - docs/references/automation/internal/index.md
 ---
 
 # Catzc.Internal.Importer

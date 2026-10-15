@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-TEST#35
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/configs/adr-checks.yml

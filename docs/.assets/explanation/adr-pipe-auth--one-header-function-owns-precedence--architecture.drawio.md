@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.chain.md
+      - docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.drawio.png
+      - docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.grid.md
+      - docs/.assets/explanation/adr-pipe-auth--one-header-function-owns-precedence--architecture.tree.md
+      - docs/explanation/pipelines/one-header-function-owns-precedence.md
 ---
 
 # One function owns the precedence: the diagram described

@@ -21,7 +21,7 @@ Describe 'Get-AdrDefinedRule' -Tag 'L0', 'logic', 'ADR-REPO-LINK#5' {
 
     It 'spells each rule heading as a citation, in document order' {
         $text = "## Rules: ADR-WIDGET`n`n### Rule ADR-WIDGET:1`n`nText.`n`n### Rule ADR-WIDGET:2`n`n### Rule ADR-WIDGET:10`n"
-        Get-Defined $text | Should -Be @('ADR-WIDGET#1', 'ADR-WIDGET#2', 'ADR-WIDGET#10')
+        (Get-Defined $text) | Should -Be @('ADR-WIDGET#1', 'ADR-WIDGET#2', 'ADR-WIDGET#10')
     }
 
     It 'reads a code of several segments' {

@@ -4,8 +4,20 @@ catzc:
     path: docs/adr/automation/fail-fast-with-asserts.md
     kind: adr
     body_sha: "64ab2812bb25"
+    defines:
+      - ADR-AUTO-FAILFAST#1
+      - ADR-AUTO-FAILFAST#2
+      - ADR-AUTO-FAILFAST#3
+      - ADR-AUTO-FAILFAST#4
+      - ADR-AUTO-FAILFAST#5
+      - ADR-AUTO-FAILFAST#6
+      - ADR-AUTO-FAILFAST#7
     adrs:
       - ADR-AUTO-ENGINE#1
+    links:
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine1
+      - docs/adr/automation/managed-guids.md
+      - docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert6
 ---
 
 # ADR: Fail fast with inline assertions

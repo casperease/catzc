@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "442985107c83"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/types/BicepArtifacts.cs

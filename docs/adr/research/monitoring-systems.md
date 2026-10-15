@@ -4,7 +4,29 @@ catzc:
     path: docs/adr/research/monitoring-systems.md
     kind: adr
     body_sha: "6298028e02bd"
+    defines:
+      - ADR-DORA-MONITOR#1
+      - ADR-DORA-MONITOR#2
+      - ADR-DORA-MONITOR#3
+      - ADR-DORA-MONITOR#4
+      - ADR-DORA-MONITOR#5
     adrs: []
+    links:
+      - docs/adr/automation/console-output-matters.md
+      - docs/adr/process/observe-work.md
+      - docs/references/dora/capabilities.md#customer-feedback
+      - docs/references/dora/capabilities.md#fast-feedback
+      - docs/references/dora/capabilities.md#monitoring-and-observability
+      - docs/references/dora/capabilities.md#monitoring-systems
+      - docs/references/dora/capabilities.md#proactive-failure-notification
+      - docs/references/dora/capabilities.md#visual-management
+      - docs/references/dora/capabilities.md#wip-limits
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/index.md
+      - docs/references/dora/publications.md#2015-state-of-devops-report
+      - "https://dora.dev/capabilities/monitoring-systems/"
 ---
 
 # ADR: DORA — Monitoring systems to inform business decisions

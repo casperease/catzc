@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.chain.md
+      - docs/.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.drawio.png
+      - docs/.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.grid.md
+      - docs/.assets/explanation/adr-dsgn-life--every-deploy-stage-is-main-only--implementation.tree.md
+      - docs/explanation/design/every-deploy-stage-is-main-only.md
 ---
 
 # Every Deploy stage runs only from main: the diagram described

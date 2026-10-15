@@ -6,6 +6,7 @@ catzc:
     body_sha: "8486f495bf25"
     adrs:
       - ADR-PWSH-ANNOUNCE#1
+    links: []
 ---
 
 # automation/Catzc.Base.Execution/Invoke-WithProgress.ps1

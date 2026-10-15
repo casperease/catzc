@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.chain.md
+      - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.png
+      - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.grid.md
+      - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.tree.md
+      - docs/explanation/azure/names-are-derived-never-typed.md
 ---
 
 # Names are derived, never typed: the diagram described

@@ -4,6 +4,19 @@ catzc:
     path: docs/adr/azure/waf/performance-efficiency.md
     kind: adr
     body_sha: "5442f36725bb"
+    defines:
+      - ADR-AZ-WAFPE#1
+      - ADR-AZ-WAFPE#2
+      - ADR-AZ-WAFPE#3
+      - ADR-AZ-WAFPE#4
+      - ADR-AZ-WAFPE#5
+      - ADR-AZ-WAFPE#6
+      - ADR-AZ-WAFPE#7
+      - ADR-AZ-WAFPE#8
+      - ADR-AZ-WAFPE#9
+      - ADR-AZ-WAFPE#10
+      - ADR-AZ-WAFPE#11
+      - ADR-AZ-WAFPE#12
     adrs:
       - ADR-AUTO-TEST#41
       - ADR-AZ-DATAMOD#10
@@ -16,10 +29,15 @@ catzc:
       - ADR-AZ-LZ#5
       - ADR-AZ-LZ#6
       - ADR-AZ-LZ#7
-      - ADR-AZ-WAFPE#1
-      - ADR-AZ-WAFPE#2
-      - ADR-AZ-WAFPE#3
-      - ADR-AZ-WAFPE#4
+    links:
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test41
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/landing-zones.md
+      - docs/references/waf/index.md
+      - "https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/checklist"
 ---
 
 # ADR: Performance efficiency — the Well-Architected checklist PE:01 to PE:12, rule by rule, against foundation, discovery and expedition

@@ -14,6 +14,7 @@ catzc:
       - ADR-FLOW-CD-GLOBS#7
       - ADR-PWSH-ASSERT#1
       - ADR-PWSH-ERROR#3
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-Automation.ps1

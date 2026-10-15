@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "8f9dac776fd2"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.TypesSystem/private/Test-ConsoleReadyType.ps1

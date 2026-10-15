@@ -4,9 +4,24 @@ catzc:
     path: docs/adr/automation/managed-guids.md
     kind: adr
     body_sha: "94f06d40fd5a"
+    defines:
+      - ADR-AUTO-GUIDS#1
+      - ADR-AUTO-GUIDS#2
+      - ADR-AUTO-GUIDS#3
+      - ADR-AUTO-GUIDS#4
+      - ADR-AUTO-GUIDS#5
+      - ADR-AUTO-GUIDS#6
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-FLOW-CD-GLOBS#4
+    links:
+      - docs/adr/automation/spell-out-names.md
+      - docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
+      - docs/adr/configuration/module-config-loading.md
+      - docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4
+      - docs/adr/principles/everything-as-code.md
+      - docs/adr/repository/protected-globs.md#rule-adr-repo-protglob6
 ---
 
 # ADR: Managed GUIDs — every GUID literal is a registered, described identity

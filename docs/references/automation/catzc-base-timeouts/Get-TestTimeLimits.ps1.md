@@ -6,6 +6,7 @@ catzc:
     body_sha: "842315c62faf"
     adrs:
       - ADR-AUTO-FAILFAST#7
+    links: []
 ---
 
 # automation/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1

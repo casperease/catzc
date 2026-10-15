@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "78fb1eab09ea"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.Objects/types/ConsoleText.cs

@@ -17,6 +17,10 @@ catzc:
     kind: agent
     body_sha: dc56e6631c20
     adrs: []
+    links:
+      - ".claude/CLAUDE.md#time-safeguard"
+      - ".claude/drawio/STYLE.md"
+      - ".claude/drawio/glyphs.xml"
 ---
 
 # write-drawio-files

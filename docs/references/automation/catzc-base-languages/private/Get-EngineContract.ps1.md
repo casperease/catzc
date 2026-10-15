@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-GO#3
       - ADR-AUTO-PY#3
+    links: []
 ---
 
 # automation/Catzc.Base.Languages/private/Get-EngineContract.ps1

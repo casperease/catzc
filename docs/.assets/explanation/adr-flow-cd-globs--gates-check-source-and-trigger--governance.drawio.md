@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.chain.md
+      - docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.grid.md
+      - docs/.assets/explanation/adr-flow-cd-globs--gates-check-source-and-trigger--governance.tree.md
+      - docs/explanation/flow/gates-check-source-and-trigger.md
 ---
 
 # Gates check the source and the trigger only: the diagram described

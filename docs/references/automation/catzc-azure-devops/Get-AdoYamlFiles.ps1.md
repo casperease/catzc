@@ -6,6 +6,7 @@ catzc:
     body_sha: d765d9ee9ef9
     adrs:
       - ADR-PWSH-PESTER#9
+    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/Get-AdoYamlFiles.ps1

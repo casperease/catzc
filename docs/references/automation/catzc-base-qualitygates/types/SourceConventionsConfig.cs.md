@@ -9,6 +9,7 @@ catzc:
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/SourceConventionsConfig.cs

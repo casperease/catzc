@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.md
+      - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png
+      - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.grid.md
+      - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.tree.md
+      - docs/explanation/automation/two-gates-check-the-layer-pins.md
 ---
 
 # Two gates check the layer pins: the diagram described

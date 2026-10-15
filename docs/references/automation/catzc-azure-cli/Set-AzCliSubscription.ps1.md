@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: b75242ab6194
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Set-AzCliSubscription.ps1

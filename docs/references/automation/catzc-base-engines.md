@@ -5,6 +5,9 @@ catzc:
     kind: reference
     body_sha: "1b597cfd377d"
     adrs: []
+    links:
+      - docs/adr/automation/execution-engines.md
+      - docs/references/automation/catzc-base-execution.md
 ---
 
 # Catzc.Base.Engines

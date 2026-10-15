@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.chain.md
+      - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
+      - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.grid.md
+      - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.tree.md
+      - docs/explanation/azure/how-each-naming-rule-is-held.md
 ---
 
 # How each naming rule is held: the diagram described

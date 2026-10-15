@@ -8,6 +8,8 @@ catzc:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-OVERLAY#7
       - ADR-PWSH-CACHE#4
+    links:
+      - docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.png
 ---
 
 # Overlay merges unless sealed; the registered type builds it: the diagram described

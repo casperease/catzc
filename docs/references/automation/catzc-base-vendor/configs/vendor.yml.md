@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: a94697cc3926
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.Vendor/configs/vendor.yml

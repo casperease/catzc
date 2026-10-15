@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#30
       - ADR-DSGN-RUNMODE#4
+    links: []
 ---
 
 # automation/.internal/Catzc.Internal.TestKit.psm1

@@ -6,6 +6,7 @@ catzc:
     body_sha: df4365e7c671
     adrs:
       - ADR-PWSH-PESTER#9
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1

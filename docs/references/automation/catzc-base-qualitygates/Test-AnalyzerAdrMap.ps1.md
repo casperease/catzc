@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PWSH-FORMAT#7
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1

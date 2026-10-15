@@ -11,6 +11,7 @@ catzc:
       - ADR-DSGN-TRACK#6
       - ADR-PWSH-CACHE#4
       - ADR-THES-ONETRUTH#3
+    links: []
 ---
 
 # automation/Catzc.Base.Maps/Get-WorldMap.ps1

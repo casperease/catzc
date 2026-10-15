@@ -6,6 +6,7 @@ catzc:
     body_sha: "73fa88557342"
     adrs:
       - ADR-REPO-CONTRACT#6
+    links: []
 ---
 
 # automation/Catzc.Base.Contracts/private/Read-ContractData.ps1

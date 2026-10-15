@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PWSH-PARAM#4
+    links: []
 ---
 
 # automation/Catzc.Base.Reports/Write-QualityGateReport.ps1

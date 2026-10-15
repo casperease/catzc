@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-BASH#6
       - ADR-AUTO-ENGINE#2
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-ShellScripts.ps1

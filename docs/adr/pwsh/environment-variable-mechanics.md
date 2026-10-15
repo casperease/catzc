@@ -4,6 +4,18 @@ catzc:
     path: docs/adr/pwsh/environment-variable-mechanics.md
     kind: adr
     body_sha: f06f5693d22e
+    defines:
+      - ADR-PWSH-ENV#1
+      - ADR-PWSH-ENV#2
+      - ADR-PWSH-ENV#3
+      - ADR-PWSH-ENV#4
+      - ADR-PWSH-ENV#5
+      - ADR-PWSH-ENV#6
+      - ADR-PWSH-ENV#7
+      - ADR-PWSH-ENV#8
+      - ADR-PWSH-ENV#9
+      - ADR-PWSH-ENV#10
+      - ADR-PWSH-ENV#11
     adrs:
       - ADR-AUTO-ENVVAR#1
       - ADR-AUTO-ENVVAR#2
@@ -14,8 +26,22 @@ catzc:
       - ADR-AUTO-ENVVAR#7
       - ADR-AUTO-NOPWD#6
       - ADR-FLOW-CD-DETECT#1
-      - ADR-PWSH-ENV#2
-      - ADR-PWSH-ENV#9
+    links:
+      - docs/adr/automation/caching.md
+      - docs/adr/automation/cross-platform.md
+      - docs/adr/automation/environment-variables.md
+      - docs/adr/automation/environment-variables.md#rule-adr-auto-envvar1
+      - docs/adr/automation/environment-variables.md#rule-adr-auto-envvar2
+      - docs/adr/automation/environment-variables.md#rule-adr-auto-envvar3
+      - docs/adr/automation/environment-variables.md#rule-adr-auto-envvar4
+      - docs/adr/automation/environment-variables.md#rule-adr-auto-envvar5
+      - docs/adr/automation/environment-variables.md#rule-adr-auto-envvar6
+      - docs/adr/automation/environment-variables.md#rule-adr-auto-envvar7
+      - docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd6
+      - docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1
+      - docs/adr/pwsh/prefer-foreach-over-foreach-object.md
+      - docs/adr/pwsh/script-scope-caching.md
+      - docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4
 ---
 
 # ADR: Environment-variable mechanics — the PowerShell layer over environment-variables

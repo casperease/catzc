@@ -8,6 +8,16 @@ catzc:
       - ADR-FLOW-CD-GLOBS#4
       - ADR-FLOW-CD-GLOBS#6
       - ADR-FLOW-CD-GLOBS#8
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-globs--apex-thirteen-rules-seven-includes-six-excludes--implementation.drawio.png
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
+      - docs/explanation/flow/globs-projects-and-three-consumers-read.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/one-program-two-vendor-dialects.md
+      - docs/explanation/flow/print-projection-then-drift-names-the-filter.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # The apex unit flattens to 13 rules, 13 GitHub paths, and 7 Azure DevOps includes with 6 excludes

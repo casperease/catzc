@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "4cb4d72923c0"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-flow-cd-detect--one-gate-checks-the-raw-read-rule--governance.drawio.png
+      - docs/explanation/flow/one-gate-checks-the-raw-read-rule.md
 ---
 
 # One gate checks the raw-read rule: the diagram described

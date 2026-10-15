@@ -4,7 +4,27 @@ catzc:
     path: docs/adr/research/work-visibility-in-value-stream.md
     kind: adr
     body_sha: "9bffc5515fba"
+    defines:
+      - ADR-DORA-WORKVIS#1
+      - ADR-DORA-WORKVIS#2
+      - ADR-DORA-WORKVIS#3
+      - ADR-DORA-WORKVIS#4
+      - ADR-DORA-WORKVIS#5
     adrs: []
+    links:
+      - docs/adr/design/visual-design.md
+      - docs/adr/process/observe-work.md
+      - docs/references/dora/capabilities.md#customer-feedback
+      - docs/references/dora/capabilities.md#fast-feedback
+      - docs/references/dora/capabilities.md#visual-management
+      - docs/references/dora/capabilities.md#wip-limits
+      - docs/references/dora/capabilities.md#work-visibility-in-value-stream
+      - docs/references/dora/capabilities.md#working-in-small-batches
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/index.md
+      - docs/references/dora/publications.md#2016-state-of-devops-report
+      - "https://dora.dev/capabilities/work-visibility-in-value-stream/"
 ---
 
 # ADR: DORA — Visibility of work in the value stream

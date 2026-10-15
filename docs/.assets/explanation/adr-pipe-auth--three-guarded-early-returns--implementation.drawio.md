@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.chain.md
+      - docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.drawio.png
+      - docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.grid.md
+      - docs/.assets/explanation/adr-pipe-auth--three-guarded-early-returns--implementation.tree.md
+      - docs/explanation/pipelines/three-guarded-early-returns.md
 ---
 
 # Four checks, three returns, no fall-through: the diagram described

@@ -4,13 +4,41 @@ catzc:
     path: docs/adr/repository/conventional-folders.md
     kind: adr
     body_sha: "4830a266e06c"
-    adrs:
-      - ADR-REPO-CONTRACT#10
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-FOLDERS#11
+    defines:
+      - ADR-REPO-FOLDERS#1
+      - ADR-REPO-FOLDERS#2
       - ADR-REPO-FOLDERS#3
       - ADR-REPO-FOLDERS#4
       - ADR-REPO-FOLDERS#5
+      - ADR-REPO-FOLDERS#6
+      - ADR-REPO-FOLDERS#7
+      - ADR-REPO-FOLDERS#8
+      - ADR-REPO-FOLDERS#9
+      - ADR-REPO-FOLDERS#10
+      - ADR-REPO-FOLDERS#11
+    adrs:
+      - ADR-REPO-CONTRACT#10
+      - ADR-REPO-CONTRACT#2
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/bash/bash-test-artifacts.md
+      - docs/adr/automation/go/go-test-artifacts.md
+      - docs/adr/automation/internal-asset-dependencies.md
+      - docs/adr/automation/python/python-test-artifacts.md
+      - docs/adr/automation/sensible-defaults.md
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/configuration/module-config-loading.md
+      - docs/adr/design/tracks.md
+      - docs/adr/pipelines/pipeline-naming-and-placement.md
+      - docs/adr/principles/one-living-version.md#rule-adr-prin-onelive7
+      - docs/adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd4
+      - docs/adr/repository/api-contracts.md
+      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract10
+      - docs/adr/repository/api-contracts.md#rule-adr-repo-contract2
+      - docs/adr/repository/dedicated-output-directory.md
+      - docs/adr/repository/generated-readmes.md
+      - docs/adr/repository/generated-root-configs.md
 ---
 
 # ADR: Conventional folders — every folder in the repository, by convention

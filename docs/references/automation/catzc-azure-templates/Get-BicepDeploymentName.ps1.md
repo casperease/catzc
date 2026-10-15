@@ -6,6 +6,7 @@ catzc:
     body_sha: "069bf26c2cb6"
     adrs:
       - ADR-FLOW-CD-DETECT#1
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1

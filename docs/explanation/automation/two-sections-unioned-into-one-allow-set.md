@@ -8,6 +8,16 @@ catzc:
       - ADR-AUTO-DEPM#2
       - ADR-AUTO-DEPM#3
       - ADR-AUTO-DEPM#4
+    links:
+      - docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.md
+      - docs/.assets/explanation/adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/explanation/automation/a-declared-allow-list-of-layers.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/three-layers-edges-point-down.md
+      - docs/explanation/automation/two-gates-check-the-layer-pins.md
+      - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Two sections of dependencies.yml are unioned into one allow-set per source module

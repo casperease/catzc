@@ -4,7 +4,31 @@ catzc:
     path: docs/adr/research/code-maintainability.md
     kind: adr
     body_sha: "226e53fa0afe"
+    defines:
+      - ADR-DORA-MAINTAIN#1
+      - ADR-DORA-MAINTAIN#2
+      - ADR-DORA-MAINTAIN#3
+      - ADR-DORA-MAINTAIN#4
+      - ADR-DORA-MAINTAIN#5
     adrs: []
+    links:
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/adr/automation/use-proper-package-managers.md
+      - docs/adr/design/server-remote-integration.md
+      - docs/adr/pwsh/vendor-toolset-dependencies.md
+      - docs/references/dora/capabilities.md#climate-for-learning
+      - docs/references/dora/capabilities.md#code-maintainability
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#loosely-coupled-teams
+      - docs/references/dora/capabilities.md#test-automation
+      - docs/references/dora/core-model.md#climate-for-learning
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#instability
+      - docs/references/dora/metrics.md#throughput
+      - docs/references/dora/publications.md#2019-accelerate-state-of-devops-report
+      - "https://dora.dev/capabilities/code-maintainability/"
 ---
 
 # ADR: DORA — Code maintainability

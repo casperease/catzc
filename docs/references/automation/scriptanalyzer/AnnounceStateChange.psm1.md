@@ -12,6 +12,7 @@ catzc:
       - ADR-PWSH-ANNOUNCE#8
       - ADR-PWSH-ANNOUNCE#9
       - ADR-PWSH-FORMAT#6
+    links: []
 ---
 
 # automation/.scriptanalyzer/AnnounceStateChange.psm1

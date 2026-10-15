@@ -5,6 +5,15 @@ catzc:
     kind: reference
     body_sha: "89494fa95a45"
     adrs: []
+    links:
+      - docs/adr/automation/bash/bash-test-artifacts.md
+      - docs/adr/automation/cross-platform.md
+      - docs/adr/automation/use-proper-package-managers.md
+      - docs/adr/automation/uv-python-handler.md
+      - docs/adr/azure/az-session-verification.md
+      - docs/adr/azure/prefer-az-cli.md
+      - docs/references/automation/catzc-azure-cli.md
+      - docs/references/automation/catzc-tooling-core.md
 ---
 
 # Catzc.Tooling.Toolchain

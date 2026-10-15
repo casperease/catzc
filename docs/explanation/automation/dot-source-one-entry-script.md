@@ -7,6 +7,16 @@ catzc:
     adrs:
       - ADR-AUTO-BUNDLE#3
       - ADR-AUTO-BUNDLE#8
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.md
+      - docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png
+      - docs/adr/automation/platform-bundle.md
+      - docs/explanation/automation/every-entry-runs-one-load-sequence.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/invoke-importer-in-code-order.md
+      - docs/explanation/automation/rule-and-gate-per-load-stage.md
+      - docs/explanation/automation/two-entries-feed-one-importer.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Dot-source one entry script, and a failed check stops the load with a named error

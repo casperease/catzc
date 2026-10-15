@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.chain.md
+      - docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png
+      - docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.grid.md
+      - docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.tree.md
+      - docs/explanation/design/local-guard-and-server-policies.md
 ---
 
 # A local guard and ADO policies, no resolver: the diagram described

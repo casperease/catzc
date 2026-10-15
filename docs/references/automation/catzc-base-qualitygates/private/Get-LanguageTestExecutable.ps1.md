@@ -9,6 +9,7 @@ catzc:
       - ADR-AUTO-ENGINE#4
       - ADR-AUTO-GO#7
       - ADR-AUTO-PY#7
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-LanguageTestExecutable.ps1

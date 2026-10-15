@@ -6,6 +6,16 @@ catzc:
     body_sha: "9302c72f3cc8"
     adrs:
       - ADR-AUTO-FAILFAST#7
+    links:
+      - docs/.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.md
+      - docs/.assets/explanation/adr-auto-failfast--decide-returns-null-or-a-reason--implementation.drawio.png
+      - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
+      - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
+      - docs/explanation/automation/three-tests-prove-the-hook.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Main loads the limits and the run environment, then Decide returns null or a reason

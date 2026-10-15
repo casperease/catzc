@@ -4,7 +4,21 @@ catzc:
     path: docs/adr/process/build-quality-in.md
     kind: adr
     body_sha: df9bdb9dc6a2
+    defines:
+      - ADR-PROC-BUILTIN#1
+      - ADR-PROC-BUILTIN#2
+      - ADR-PROC-BUILTIN#3
+      - ADR-PROC-BUILTIN#4
     adrs: []
+    links:
+      - docs/adr/automation/devbox-pipeline-parity.md
+      - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/principles/poka-yoke.md
+      - docs/adr/principles/reduce-variability.md
+      - docs/adr/principles/reduce-waste.md
+      - docs/adr/process/holding-the-line.md
+      - docs/adr/process/lean.md
 ---
 
 # ADR: Build quality in — you cannot inspect it in at the end

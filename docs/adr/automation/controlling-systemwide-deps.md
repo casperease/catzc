@@ -4,10 +4,23 @@ catzc:
     path: docs/adr/automation/controlling-systemwide-deps.md
     kind: adr
     body_sha: f306aec32d72
-    adrs:
+    defines:
       - ADR-AUTO-DEPS#1
+      - ADR-AUTO-DEPS#2
+      - ADR-AUTO-DEPS#3
+      - ADR-AUTO-DEPS#4
+      - ADR-AUTO-DEPS#5
+      - ADR-AUTO-DEPS#6
+      - ADR-AUTO-DEPS#7
       - ADR-AUTO-DEPS#8
+    adrs:
       - ADR-AUTO-PARITY#1
+    links:
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/adr/automation/devbox-pipeline-parity.md#rule-adr-auto-parity1
+      - docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem1
+      - docs/adr/automation/tool-removal-lifecycle.md
+      - docs/adr/automation/uv-python-handler.md
 ---
 
 # ADR: Controlling system-wide dependencies

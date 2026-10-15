@@ -6,6 +6,7 @@ catzc:
     body_sha: "675111b0bc30"
     adrs:
       - ADR-PWSH-PARAM#4
+    links: []
 ---
 
 # automation/Catzc.Azure.Firewall/Convert-FirewallCsvToYaml.ps1

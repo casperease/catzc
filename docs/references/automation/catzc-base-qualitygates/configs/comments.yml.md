@@ -10,6 +10,7 @@ catzc:
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-CODEMETA#5
       - ADR-REPO-OUTDIR#1
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/configs/comments.yml

@@ -4,7 +4,38 @@ catzc:
     path: docs/adr/research/continuous-integration.md
     kind: adr
     body_sha: "6e3811077548"
+    defines:
+      - ADR-DORA-CI#1
+      - ADR-DORA-CI#2
+      - ADR-DORA-CI#3
+      - ADR-DORA-CI#4
+      - ADR-DORA-CI#5
     adrs: []
+    links:
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test8
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#fast-feedback
+      - docs/references/dora/capabilities.md#trunk-based-development
+      - docs/references/dora/capabilities.md#version-control
+      - docs/references/dora/core-model.md#fast-feedback
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#reliability
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#deployment-frequency
+      - docs/references/dora/metrics.md#instability
+      - docs/references/dora/publications.md#2014-state-of-devops-report
+      - docs/references/dora/publications.md#2015-state-of-devops-report
+      - docs/references/dora/publications.md#2016-state-of-devops-report
+      - docs/references/dora/publications.md#2017-state-of-devops-report
+      - docs/references/dora/publications.md#2022-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2023-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2025-impact-of-generative-ai-in-software-development
+      - "https://dora.dev/capabilities/continuous-integration/"
 ---
 
 # ADR: DORA — Continuous integration

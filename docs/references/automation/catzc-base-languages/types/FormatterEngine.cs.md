@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-REPO-FORMAT#8
+    links: []
 ---
 
 # automation/Catzc.Base.Languages/types/FormatterEngine.cs

@@ -8,6 +8,16 @@ catzc:
       - ADR-FLOW-CD#5
       - ADR-FLOW-CD#6
       - ADR-FLOW-CD#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.md
+      - docs/.assets/explanation/adr-flow-cd--a-merge-runs-cd-to-prod--operations.drawio.png
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/flow/cd-builds-once-then-deploys-prod-itself.md
+      - docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/one-artifact-climbs-unchanged.md
+      - docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # A merge to main runs the CD pipeline all the way to prod, with no approval

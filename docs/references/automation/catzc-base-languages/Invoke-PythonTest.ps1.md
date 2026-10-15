@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-ENVVAR#1
       - ADR-AUTO-PY#6
+    links: []
 ---
 
 # automation/Catzc.Base.Languages/Invoke-PythonTest.ps1

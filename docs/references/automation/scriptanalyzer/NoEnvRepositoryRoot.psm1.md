@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-NOPWD#6
       - ADR-PWSH-FORMAT#6
+    links: []
 ---
 
 # automation/.scriptanalyzer/NoEnvRepositoryRoot.psm1

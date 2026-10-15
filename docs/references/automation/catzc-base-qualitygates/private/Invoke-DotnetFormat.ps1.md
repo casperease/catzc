@@ -6,6 +6,7 @@ catzc:
     body_sha: acbf860ccb79
     adrs:
       - ADR-PRIN-CONFIG#2
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-DotnetFormat.ps1

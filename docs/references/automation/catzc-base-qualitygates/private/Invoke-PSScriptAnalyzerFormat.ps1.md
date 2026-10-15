@@ -9,6 +9,7 @@ catzc:
       - ADR-AUTO-CONSOLE#10
       - ADR-PRIN-CONFIG#2
       - ADR-REPO-FORMAT#3
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-PSScriptAnalyzerFormat.ps1

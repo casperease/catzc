@@ -4,10 +4,18 @@ catzc:
     path: docs/adr/pwsh/bounded-enumeration.md
     kind: adr
     body_sha: "6a7207852e05"
+    defines:
+      - ADR-PWSH-ENUM#1
+      - ADR-PWSH-ENUM#2
+      - ADR-PWSH-ENUM#3
+      - ADR-PWSH-ENUM#4
+      - ADR-PWSH-ENUM#5
+      - ADR-PWSH-ENUM#6
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PWSH-PARAM#4
       - ADR-PWSH-PESTER#9
+    links: []
 ---
 
 # ADR: Bounded enumeration

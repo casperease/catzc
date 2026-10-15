@@ -6,6 +6,7 @@ catzc:
     body_sha: e2e4bc0d3e95
     adrs:
       - ADR-PWSH-TYPES#1
+    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/PdfDocument.cs

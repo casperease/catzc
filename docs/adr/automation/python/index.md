@@ -4,7 +4,11 @@ catzc:
     path: docs/adr/automation/python/index.md
     kind: adr
     body_sha: daf24257c517
+    defines: []
     adrs: []
+    links:
+      - docs/adr/automation/python/python-test-artifacts.md
+      - docs/adr/automation/uv-python-handler.md
 ---
 
 # Python automation ADRs

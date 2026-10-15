@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-REMOVE#6
       - ADR-AUTO-REMOVE#7
+    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Remove-LinuxToolInstall.ps1

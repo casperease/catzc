@@ -4,14 +4,30 @@ catzc:
     path: docs/adr/automation/caching.md
     kind: adr
     body_sha: a9b615c0027f
-    adrs:
-      - ADR-AUTO-CACHE#10
+    defines:
+      - ADR-AUTO-CACHE#1
+      - ADR-AUTO-CACHE#2
+      - ADR-AUTO-CACHE#4
+      - ADR-AUTO-CACHE#5
       - ADR-AUTO-CACHE#6
+      - ADR-AUTO-CACHE#7
       - ADR-AUTO-CACHE#8
       - ADR-AUTO-CACHE#9
+      - ADR-AUTO-CACHE#10
+    adrs:
       - ADR-AUTO-TEST#10
       - ADR-PWSH-CACHE#1
       - ADR-PWSH-CACHE#5
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/effective-in-enterprises.md
+      - docs/adr/automation/tracked-files-from-the-index.md
+      - docs/adr/configuration/module-config-loading.md
+      - docs/adr/pipelines/dual-authentication.md#rule-adr-pipe-auth7
+      - docs/adr/principles/reduce-waste.md
+      - docs/adr/pwsh/script-scope-caching.md
+      - docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor5
+      - docs/adr/repository/conventional-folders.md
 ---
 
 # ADR: Caching — static reads and filesystem-derived information (the importer is the cache boundary)

@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-REPO-VOCAB#2
       - ADR-REPO-VOCAB#5
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-GlossaryPhrasingViolations.ps1

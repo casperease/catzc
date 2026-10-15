@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "4383d9b35540"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure/Get-AzureCustomers.ps1

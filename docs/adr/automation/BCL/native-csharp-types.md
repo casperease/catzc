@@ -4,16 +4,30 @@ catzc:
     path: docs/adr/automation/BCL/native-csharp-types.md
     kind: adr
     body_sha: a55d51dfadd7
-    adrs:
-      - ADR-AUTO-CACHE#8
-      - ADR-AUTO-TYPES#13
-      - ADR-AUTO-TYPES#14
-      - ADR-AUTO-TYPES#15
+    defines:
+      - ADR-AUTO-TYPES#1
       - ADR-AUTO-TYPES#2
       - ADR-AUTO-TYPES#3
       - ADR-AUTO-TYPES#4
       - ADR-AUTO-TYPES#7
       - ADR-AUTO-TYPES#8
+      - ADR-AUTO-TYPES#9
+      - ADR-AUTO-TYPES#11
+      - ADR-AUTO-TYPES#12
+      - ADR-AUTO-TYPES#13
+      - ADR-AUTO-TYPES#14
+      - ADR-AUTO-TYPES#15
+    adrs:
+      - ADR-AUTO-CACHE#8
+    links:
+      - docs/adr/automation/caching.md#rule-adr-auto-cache8
+      - docs/adr/automation/console-output-matters.md#rule-adr-auto-console1
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1
+      - docs/adr/principles/everything-as-code.md
+      - docs/adr/principles/poka-yoke.md
+      - docs/adr/pwsh/hosting-csharp-types.md
+      - docs/adr/repository/conventional-folders.md
 ---
 
 # ADR: Native C# types — one combined assembly, namespace per module

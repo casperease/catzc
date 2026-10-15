@@ -4,10 +4,21 @@ catzc:
     path: docs/adr/repository/function-help.md
     kind: adr
     body_sha: "0c6470fe90a3"
+    defines:
+      - ADR-REPO-HELP#1
+      - ADR-REPO-HELP#2
+      - ADR-REPO-HELP#3
+      - ADR-REPO-HELP#4
+      - ADR-REPO-HELP#5
     adrs:
       - ADR-REPO-FORMAT#8
       - ADR-REPO-LINK#3
       - ADR-REPO-LINK#9
+    links:
+      - docs/adr/repository/code-file-meta.md
+      - docs/adr/repository/markdown-links.md#rule-adr-repo-link3
+      - docs/adr/repository/markdown-links.md#rule-adr-repo-link9
+      - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8
 ---
 
 # ADR: Function help — one normal form for the help block of a PowerShell function file

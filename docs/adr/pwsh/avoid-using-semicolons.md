@@ -4,7 +4,13 @@ catzc:
     path: docs/adr/pwsh/avoid-using-semicolons.md
     kind: adr
     body_sha: "47103cd2d19b"
+    defines:
+      - ADR-PWSH-NOSEMI#1
+      - ADR-PWSH-NOSEMI#2
+      - ADR-PWSH-NOSEMI#3
+      - ADR-PWSH-NOSEMI#4
     adrs: []
+    links: []
 ---
 
 # ADR: Avoid using semicolons

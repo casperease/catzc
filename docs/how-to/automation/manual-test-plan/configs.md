@@ -11,6 +11,10 @@ catzc:
       - ADR-REPO-FILEMETA#1
       - ADR-REPO-FILEMETA#5
       - ADR-REPO-FORMAT#8
+    links:
+      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4
+      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading5
+      - docs/how-to/automation/manual-test-plan.md
 ---
 
 # Manual test plan — Configs

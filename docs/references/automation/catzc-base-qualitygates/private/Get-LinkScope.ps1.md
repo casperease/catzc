@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: ac39ac529abe
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-LinkScope.ps1

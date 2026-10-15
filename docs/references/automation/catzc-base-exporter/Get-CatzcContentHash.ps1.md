@@ -6,6 +6,7 @@ catzc:
     body_sha: "990d6d7cf67b"
     adrs:
       - ADR-FLOW-CD-GLOBS#5
+    links: []
 ---
 
 # automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1

@@ -6,6 +6,7 @@ catzc:
     body_sha: ce942eed4b7e
     adrs:
       - ADR-AUTO-TYPES#9
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/AdrCitationRewrite.cs

@@ -6,6 +6,19 @@ catzc:
     body_sha: "552fcd9f3460"
     adrs:
       - ADR-PWSH-USEPS#2
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/caching.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/pwsh/use-ps1-not-psm1.md
+      - docs/references/automation/BCL/index.md
+      - docs/references/automation/index.md
+      - docs/references/automation/internal/catzc-internal-bootstrap.md
+      - docs/references/automation/internal/catzc-internal-importer.md
+      - docs/references/automation/internal/catzc-internal-loader.md
+      - docs/references/automation/internal/catzc-internal-testkit.md
+      - docs/references/automation/internal/catzc-internal-types.md
+      - docs/references/automation/internal/catzc-internal-vendor.md
 ---
 
 # Internal (.psm1 shared infrastructure) — automation reference

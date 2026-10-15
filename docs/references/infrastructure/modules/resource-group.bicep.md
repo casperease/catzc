@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: bff4fc640bd3
     adrs: []
+    links: []
 ---
 
 # infrastructure/modules/resource-group.bicep

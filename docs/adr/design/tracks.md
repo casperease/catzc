@@ -4,16 +4,8 @@ catzc:
     path: docs/adr/design/tracks.md
     kind: adr
     body_sha: ad1e63e6e8fd
-    adrs:
+    defines:
       - ADR-DSGN-TRACK#1
-      - ADR-DSGN-TRACK#10
-      - ADR-DSGN-TRACK#11
-      - ADR-DSGN-TRACK#12
-      - ADR-DSGN-TRACK#13
-      - ADR-DSGN-TRACK#14
-      - ADR-DSGN-TRACK#15
-      - ADR-DSGN-TRACK#16
-      - ADR-DSGN-TRACK#17
       - ADR-DSGN-TRACK#2
       - ADR-DSGN-TRACK#3
       - ADR-DSGN-TRACK#4
@@ -22,7 +14,23 @@ catzc:
       - ADR-DSGN-TRACK#7
       - ADR-DSGN-TRACK#8
       - ADR-DSGN-TRACK#9
+      - ADR-DSGN-TRACK#10
+      - ADR-DSGN-TRACK#11
+      - ADR-DSGN-TRACK#12
+      - ADR-DSGN-TRACK#13
+      - ADR-DSGN-TRACK#14
+      - ADR-DSGN-TRACK#15
+      - ADR-DSGN-TRACK#16
+      - ADR-DSGN-TRACK#17
+    adrs:
       - ADR-REPO-VOCAB#1
+    links:
+      - docs/adr/automation/bash/bash-test-artifacts.md
+      - docs/adr/automation/go/go-test-artifacts.md
+      - docs/adr/automation/python/python-test-artifacts.md
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/design/visual-design.md
+      - docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1
 ---
 
 # ADR: Tracks — the repository's root concerns

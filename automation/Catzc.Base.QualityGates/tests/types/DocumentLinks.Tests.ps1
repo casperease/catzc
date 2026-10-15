@@ -30,12 +30,12 @@ Describe 'DocumentLinks' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
 
     It 'lists an image, a reference definition and an autolink as links' {
         $text = "![chart](../.assets/chart.png)`n`n[spec]: ../gadget/spec.md`n`nSee <https://example.com/doc>.`n"
-        Get-Links $text | Should -Be @('docs/.assets/chart.png', 'docs/gadget/spec.md', 'https://example.com/doc')
+        (Get-Links $text) | Should -Be @('docs/.assets/chart.png', 'docs/gadget/spec.md', 'https://example.com/doc')
     }
 
     It 'sorts the links and lists each once, however it was spelled' {
-        $text = "[b](../gadget/spec.md) [a](/docs/gadget/spec.md) [c](part.md#x) [d](../gadget/other.md)"
-        Get-Links $text | Should -Be @('docs/gadget/other.md', 'docs/gadget/spec.md', 'docs/widget/part.md#x')
+        $text = "[b](../gadget/spec.md) [a](/docs/gadget/spec.md) [c](other.md#x) [d](../gadget/other.md)"
+        (Get-Links $text) | Should -Be @('docs/gadget/other.md', 'docs/gadget/spec.md', 'docs/widget/other.md#x')
     }
 
     It 'leaves out a link that stays inside the file' {

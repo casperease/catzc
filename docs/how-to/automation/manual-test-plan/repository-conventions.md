@@ -18,6 +18,8 @@ catzc:
       - ADR-REPO-CONTRACT#5
       - ADR-REPO-CONTRACT#9
       - ADR-REPO-FILEMETA#4
+    links:
+      - docs/how-to/automation/manual-test-plan.md
 ---
 
 # Manual test plan — Repository conventions

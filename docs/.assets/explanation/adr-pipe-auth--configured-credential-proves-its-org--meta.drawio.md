@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.chain.md
+      - docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.drawio.png
+      - docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.grid.md
+      - docs/.assets/explanation/adr-pipe-auth--configured-credential-proves-its-org--meta.tree.md
+      - docs/explanation/pipelines/configured-credential-proves-its-org.md
 ---
 
 # The first configured credential wins: the diagram described

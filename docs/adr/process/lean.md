@@ -4,7 +4,28 @@ catzc:
     path: docs/adr/process/lean.md
     kind: adr
     body_sha: "0b8c763416c5"
+    defines:
+      - ADR-PROC-LEAN#1
+      - ADR-PROC-LEAN#2
+      - ADR-PROC-LEAN#3
+      - ADR-PROC-LEAN#4
+      - ADR-PROC-LEAN#5
     adrs: []
+    links:
+      - docs/adr/automation/caching.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/principles/poka-yoke.md
+      - docs/adr/principles/reduce-waste.md
+      - docs/adr/process/agile-principles.md
+      - docs/adr/process/agile-values.md
+      - docs/adr/process/agile.md
+      - docs/adr/process/build-quality-in.md
+      - docs/adr/process/holding-the-line.md
+      - docs/adr/process/inspect-and-adapt.md
+      - docs/adr/process/observe-work.md
+      - docs/adr/process/process-terms.md
+      - docs/adr/process/pull-work.md
+      - docs/adr/process/queues-cost-money.md
 ---
 
 # ADR: Lean — the Toyota Production System, mapped to software by the Poppendiecks

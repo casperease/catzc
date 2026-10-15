@@ -6,6 +6,7 @@ catzc:
     body_sha: "40dd298c1834"
     adrs:
       - ADR-AUTO-REMOVE#7
+    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/private/Get-RegisteredInstallProduct.ps1

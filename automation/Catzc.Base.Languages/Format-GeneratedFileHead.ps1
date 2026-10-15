@@ -33,6 +33,8 @@ catzc:
     The carrier registry. Default: the shipped file-carriers.yml.
 .PARAMETER Languages
     The file-language registry. Default: the shipped languages.yml.
+.PARAMETER Head
+    The head keys in writing order. Default: the shipped generated-head.yml.
 .OUTPUTS
     [string] The text with the head written first.
 .EXAMPLE
@@ -59,7 +61,9 @@ function Format-GeneratedFileHead {
 
         [Catzc.Base.Languages.FileCarriersConfig] $Carriers = (Get-Config -Config file-carriers),
 
-        [Catzc.Base.Languages.LanguagesConfig] $Languages = (Get-Config -Config languages)
+        [Catzc.Base.Languages.LanguagesConfig] $Languages = (Get-Config -Config languages),
+
+        [Catzc.Base.Languages.GeneratedHeadConfig] $Head = (Get-Config -Config generated-head)
     )
 
     $relative = $Path -replace '\\', '/'
@@ -72,15 +76,21 @@ function Format-GeneratedFileHead {
     $entry = $Carriers.Find($id)
     Assert-NotNull $entry -ErrorText "Format-GeneratedFileHead: '$relative' names the carrier '$id', which file-carriers.yml does not declare."
 
-    $facts = [ordered]@{ path = $relative; kind = $Kind }
+    $values = @{ path = $relative; kind = $Kind }
     if ($Generator) {
-        $facts['generator'] = $Generator
+        $values['generator'] = $Generator
     }
     if ($Source.Count -eq 1) {
-        $facts['source'] = $Source[0]
+        $values['source'] = $Source[0]
     }
     elseif ($Source.Count -gt 1) {
-        $facts['source'] = [string[]] $Source
+        $values['source'] = [string[]] $Source
+    }
+    $facts = [ordered]@{}
+    foreach ($key in $Head.order) {
+        if ($values.ContainsKey($key)) {
+            $facts[$key] = $values[$key]
+        }
     }
 
     switch ($entry.carrier) {

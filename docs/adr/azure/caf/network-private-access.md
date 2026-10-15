@@ -4,6 +4,20 @@ catzc:
     path: docs/adr/azure/caf/network-private-access.md
     kind: adr
     body_sha: afa53038a9df
+    defines:
+      - ADR-AZ-CAFNETPRV#1
+      - ADR-AZ-CAFNETPRV#2
+      - ADR-AZ-CAFNETPRV#3
+      - ADR-AZ-CAFNETPRV#4
+      - ADR-AZ-CAFNETPRV#5
+      - ADR-AZ-CAFNETPRV#6
+      - ADR-AZ-CAFNETPRV#7
+      - ADR-AZ-CAFNETPRV#8
+      - ADR-AZ-CAFNETPRV#9
+      - ADR-AZ-CAFNETPRV#10
+      - ADR-AZ-CAFNETPRV#11
+      - ADR-AZ-CAFNETPRV#12
+      - ADR-AZ-CAFNETPRV#13
     adrs:
       - ADR-AZ-CAFSEC#21
       - ADR-AZ-LZ#2
@@ -14,6 +28,21 @@ catzc:
       - ADR-AZ-NETWORK#5
       - ADR-AZ-NETWORK#6
       - ADR-AZ-WAFSE#6
+    links:
+      - docs/adr/azure/azure-network-model.md
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network1
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network5
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network6
+      - docs/adr/azure/caf/landing-zone-security.md
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec21
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz2
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz7
+      - docs/adr/azure/waf/cost-optimization.md
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse6
+      - docs/references/caf/index.md
 ---
 
 # ADR: CAF network private access — what the repository does about each recommendation on PaaS connectivity and DNS

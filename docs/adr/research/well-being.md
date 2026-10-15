@@ -4,7 +4,33 @@ catzc:
     path: docs/adr/research/well-being.md
     kind: adr
     body_sha: bfee8c5bb34b
+    defines:
+      - ADR-DORA-WELLBEING#1
+      - ADR-DORA-WELLBEING#2
+      - ADR-DORA-WELLBEING#3
+      - ADR-DORA-WELLBEING#4
     adrs: []
+    links:
+      - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/adr/automation/zero-ceremony-poka-yoke.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/references/dora/capabilities.md#climate-for-learning
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#generative-organizational-culture
+      - docs/references/dora/capabilities.md#job-satisfaction
+      - docs/references/dora/capabilities.md#transformational-leadership
+      - docs/references/dora/capabilities.md#well-being
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/index.md
+      - docs/references/dora/publications.md#2015-state-of-devops-report
+      - docs/references/dora/publications.md#2016-state-of-devops-report
+      - docs/references/dora/publications.md#2018-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2021-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2022-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2023-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2024-accelerate-state-of-devops-report
+      - "https://dora.dev/capabilities/well-being/"
 ---
 
 # ADR: DORA — Well-being

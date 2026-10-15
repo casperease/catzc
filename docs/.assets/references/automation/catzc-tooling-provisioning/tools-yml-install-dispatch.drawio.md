@@ -7,6 +7,8 @@ catzc:
     adrs:
       - ADR-AUTO-BASH#6
       - ADR-AUTO-DEPS#4
+    links:
+      - docs/.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png
 ---
 
 # tools.yml is the one locked list; dispatch is by key name: the diagram described

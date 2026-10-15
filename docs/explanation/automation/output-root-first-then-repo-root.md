@@ -9,6 +9,16 @@ catzc:
       - ADR-AUTO-PATH#4
       - ADR-AUTO-PATH#5
       - ADR-AUTO-PATH#9
+    links:
+      - docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.md
+      - docs/.assets/explanation/adr-auto-path--output-root-first-then-repo-root--implementation.drawio.png
+      - docs/adr/automation/path-representation.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/one-out-string-two-places.md
+      - docs/explanation/automation/two-crossers-and-three-anchors.md
+      - docs/explanation/automation/two-forms-never-a-third.md
+      - docs/explanation/automation/types-check-forms-review-checks-crossers.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # The output root is tried first, then the repository root, else the path stays absolute, and out/ re-anchors on the output root

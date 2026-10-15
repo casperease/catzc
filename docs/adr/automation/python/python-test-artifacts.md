@@ -4,12 +4,7 @@ catzc:
     path: docs/adr/automation/python/python-test-artifacts.md
     kind: adr
     body_sha: a619bc4a2253
-    adrs:
-      - ADR-AUTO-DEPS#3
-      - ADR-AUTO-ENGINE#4
-      - ADR-AUTO-GO#3
-      - ADR-AUTO-GO#6
-      - ADR-AUTO-GO#7
+    defines:
       - ADR-AUTO-PY#1
       - ADR-AUTO-PY#2
       - ADR-AUTO-PY#3
@@ -18,12 +13,35 @@ catzc:
       - ADR-AUTO-PY#6
       - ADR-AUTO-PY#7
       - ADR-AUTO-PY#8
+    adrs:
+      - ADR-AUTO-DEPS#3
+      - ADR-AUTO-ENGINE#4
+      - ADR-AUTO-GO#3
+      - ADR-AUTO-GO#6
+      - ADR-AUTO-GO#7
       - ADR-AUTO-TEST#42
       - ADR-AUTO-TEST#8
       - ADR-AUTO-TEST#9
       - ADR-AUTO-UVPY#1
       - ADR-AUTO-UVPY#2
       - ADR-AUTO-UVPY#4
+    links:
+      - docs/adr/automation/controlling-systemwide-deps.md
+      - docs/adr/automation/execution-engines.md
+      - docs/adr/automation/go/go-test-artifacts.md
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/automation/sensible-defaults.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/automation/uv-python-handler.md
+      - docs/adr/configuration/config-value-addressing.md
+      - docs/adr/design/run-modes.md
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track2
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track3
+      - docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester20
+      - docs/adr/repository/controlled-vocabulary.md
+      - docs/adr/repository/conventional-folders.md#rule-adr-repo-folders7
+      - docs/adr/repository/generated-root-configs.md#rule-adr-repo-rootcfg8
+      - docs/adr/repository/uniform-formatting.md
 ---
 
 # ADR: Python test artifacts — black-box tests of the engine, never shipped

@@ -6,6 +6,7 @@ catzc:
     body_sha: "793371b77409"
     adrs:
       - ADR-AUTO-TYPES#13
+    links: []
 ---
 
 # automation/Catzc.Base.Repository/Get-SessionActor.ps1

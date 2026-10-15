@@ -5,6 +5,12 @@ catzc:
     kind: reference
     body_sha: "4d573737a7ac"
     adrs: []
+    links:
+      - docs/adr/automation/effective-in-enterprises.md
+      - docs/adr/automation/environment-variables.md
+      - docs/adr/pwsh/module-path-hygiene.md
+      - docs/references/automation/catzc-base-asserts.md
+      - docs/references/automation/catzc-base-repository.md
 ---
 
 # Catzc.Base.Environment

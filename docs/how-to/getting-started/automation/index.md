@@ -5,6 +5,25 @@ catzc:
     kind: how-to
     body_sha: f1c4f850cec7
     adrs: []
+    links:
+      - docs/adr/automation/caching.md
+      - docs/adr/automation/zero-ceremony-poka-yoke.md
+      - docs/adr/flow/pipeline-runner-pattern.md
+      - docs/adr/index.md
+      - docs/adr/pwsh/error-handling.md
+      - docs/adr/repository/conventional-folders.md
+      - docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
+      - docs/how-to/getting-started/automation/add-a-cli-tool.md
+      - docs/how-to/getting-started/automation/add-a-deployable-unit.md
+      - docs/how-to/getting-started/automation/add-a-doc-chapter.md
+      - docs/how-to/getting-started/automation/add-a-module.md
+      - docs/how-to/getting-started/automation/add-an-infrastructure-template.md
+      - docs/how-to/getting-started/automation/debug-in-vscode.md
+      - docs/how-to/getting-started/automation/faq.md
+      - docs/how-to/getting-started/automation/powershell/add-a-function.md
+      - docs/how-to/getting-started/automation/run-tests-and-checks.md
+      - docs/how-to/getting-started/automation/vendor-a-module.md
+      - docs/references/automation/index.md
 ---
 
 # Getting started with the automation system

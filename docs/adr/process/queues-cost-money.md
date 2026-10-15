@@ -4,7 +4,20 @@ catzc:
     path: docs/adr/process/queues-cost-money.md
     kind: adr
     body_sha: "620d1efbab2c"
+    defines:
+      - ADR-PROC-QUEUECOST#1
+      - ADR-PROC-QUEUECOST#2
+      - ADR-PROC-QUEUECOST#3
+      - ADR-PROC-QUEUECOST#4
+      - ADR-PROC-QUEUECOST#5
     adrs: []
+    links:
+      - docs/adr/automation/caching.md
+      - docs/adr/automation/devbox-pipeline-parity.md
+      - docs/adr/principles/reduce-waste.md
+      - docs/adr/process/lean.md
+      - docs/adr/process/observe-work.md
+      - docs/adr/process/pull-work.md
 ---
 
 # ADR: The money is lost in the queues — Little's Law and the cost of delay

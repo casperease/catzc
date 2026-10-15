@@ -10,6 +10,18 @@ catzc:
       - ADR-DSGN-LIFE#8
       - ADR-FLOW-CD#10
       - ADR-FLOW-CD#9
+    links:
+      - docs/.assets/commits-quality/state-changes.drawio.png
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life1
+      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life2
+      - docs/adr/design/commit-lifecycle.md#rule-adr-dsgn-life8
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd10
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9
+      - docs/explanation/design/index.md
+      - docs/explanation/design/ten-commits-trace-the-whole-lifecycle.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Each pipeline shape runs a stretch of the same ladder

@@ -6,6 +6,7 @@ catzc:
     body_sha: "2c9e2b362e54"
     adrs:
       - ADR-PWSH-CACHE#4
+    links: []
 ---
 
 # automation/Catzc.Base.Globs/Test-GlobSetProtection.ps1

@@ -5,6 +5,10 @@ catzc:
     kind: how-to
     body_sha: "8cedc41c9bd5"
     adrs: []
+    links:
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/flow/durable-sha-globs.md#native-projection-the-no-start-trigger
+      - docs/adr/repository/protected-globs.md
 ---
 
 # Add a deployable unit (a globset and its triggers)

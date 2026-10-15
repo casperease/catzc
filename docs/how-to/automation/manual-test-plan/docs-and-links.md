@@ -6,6 +6,8 @@ catzc:
     body_sha: cb7bfab391fb
     adrs:
       - ADR-AUTO-ASSETDEP#3
+    links:
+      - docs/how-to/automation/manual-test-plan.md
 ---
 
 # Manual test plan — Docs and links

@@ -4,19 +4,47 @@ catzc:
     path: docs/adr/azure/caf/platform-automation-and-devops.md
     kind: adr
     body_sha: "357b29a93d56"
+    defines:
+      - ADR-AZ-CAFDEVOPS#1
+      - ADR-AZ-CAFDEVOPS#2
+      - ADR-AZ-CAFDEVOPS#3
+      - ADR-AZ-CAFDEVOPS#4
+      - ADR-AZ-CAFDEVOPS#5
+      - ADR-AZ-CAFDEVOPS#6
+      - ADR-AZ-CAFDEVOPS#7
+      - ADR-AZ-CAFDEVOPS#8
+      - ADR-AZ-CAFDEVOPS#9
+      - ADR-AZ-CAFDEVOPS#10
+      - ADR-AZ-CAFDEVOPS#11
+      - ADR-AZ-CAFDEVOPS#12
+      - ADR-AZ-CAFDEVOPS#13
+      - ADR-AZ-CAFDEVOPS#14
+      - ADR-AZ-CAFDEVOPS#15
+      - ADR-AZ-CAFDEVOPS#16
+      - ADR-AZ-CAFDEVOPS#17
+      - ADR-AZ-CAFDEVOPS#18
+      - ADR-AZ-CAFDEVOPS#19
+      - ADR-AZ-CAFDEVOPS#20
+      - ADR-AZ-CAFDEVOPS#21
+      - ADR-AZ-CAFDEVOPS#22
+      - ADR-AZ-CAFDEVOPS#23
+      - ADR-AZ-CAFDEVOPS#24
+      - ADR-AZ-CAFDEVOPS#25
+      - ADR-AZ-CAFDEVOPS#26
+      - ADR-AZ-CAFDEVOPS#27
+      - ADR-AZ-CAFDEVOPS#28
+      - ADR-AZ-CAFDEVOPS#29
+      - ADR-AZ-CAFDEVOPS#30
+      - ADR-AZ-CAFDEVOPS#31
+      - ADR-AZ-CAFDEVOPS#32
+      - ADR-AZ-CAFDEVOPS#33
+      - ADR-AZ-CAFDEVOPS#34
+      - ADR-AZ-CAFDEVOPS#35
+      - ADR-AZ-CAFDEVOPS#36
+      - ADR-AZ-CAFDEVOPS#37
     adrs:
       - ADR-AUTO-DEPS#1
       - ADR-AUTO-TEST#33
-      - ADR-AZ-CAFDEVOPS#1
-      - ADR-AZ-CAFDEVOPS#16
-      - ADR-AZ-CAFDEVOPS#25
-      - ADR-AZ-CAFDEVOPS#26
-      - ADR-AZ-CAFDEVOPS#28
-      - ADR-AZ-CAFDEVOPS#30
-      - ADR-AZ-CAFDEVOPS#31
-      - ADR-AZ-CAFDEVOPS#33
-      - ADR-AZ-CAFDEVOPS#34
-      - ADR-AZ-CAFDEVOPS#5
       - ADR-AZ-CAFGOV#1
       - ADR-AZ-CAFGOV#4
       - ADR-AZ-CAFGOV#6
@@ -66,6 +94,90 @@ catzc:
       - ADR-PRIN-ONELIVE#5
       - ADR-PROC-KAIZEN#2
       - ADR-REPO-VARIANT#6
+    links:
+      - docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps1
+      - docs/adr/automation/devbox-pipeline-parity.md
+      - docs/adr/automation/dry-run.md
+      - docs/adr/automation/managed-guids.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test33
+      - docs/adr/automation/use-proper-package-managers.md
+      - docs/adr/azure/az-session-verification.md#rule-adr-az-session5
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod7
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/caf/governance.md#rule-adr-az-cafgov1
+      - docs/adr/azure/caf/governance.md#rule-adr-az-cafgov4
+      - docs/adr/azure/caf/governance.md#rule-adr-az-cafgov6
+      - docs/adr/azure/caf/landing-zone-security.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz6
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz7
+      - docs/adr/azure/prefer-az-cli.md
+      - docs/adr/azure/waf/operational-excellence.md
+      - docs/adr/azure/waf/operational-excellence.md#rule-adr-az-wafoe10
+      - docs/adr/azure/waf/operational-excellence.md#rule-adr-az-wafoe11
+      - docs/adr/azure/waf/operational-excellence.md#rule-adr-az-wafoe2
+      - docs/adr/azure/waf/operational-excellence.md#rule-adr-az-wafoe3
+      - docs/adr/azure/waf/operational-excellence.md#rule-adr-az-wafoe4
+      - docs/adr/azure/waf/operational-excellence.md#rule-adr-az-wafoe5
+      - docs/adr/azure/waf/operational-excellence.md#rule-adr-az-wafoe6
+      - docs/adr/azure/waf/operational-excellence.md#rule-adr-az-wafoe9
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse9
+      - docs/adr/design/server-remote-integration.md#rule-adr-dsgn-remote4
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd1
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd2
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd3
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd4
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd5
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd6
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd8
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4
+      - docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs6
+      - docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs9
+      - docs/adr/flow/pipeline-runner-pattern.md
+      - docs/adr/flow/pipeline-runner-pattern.md#rule-adr-flow-cd-runner1
+      - docs/adr/flow/pipeline-runner-pattern.md#rule-adr-flow-cd-runner2
+      - docs/adr/flow/pipeline-types.md
+      - docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type10
+      - docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type14
+      - docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type3
+      - docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type6
+      - docs/adr/github/github-release.md
+      - docs/adr/github/github-release.md#rule-adr-gh-release1
+      - docs/adr/pipelines/custom-template-discipline.md
+      - docs/adr/pipelines/custom-template-discipline.md#rule-adr-pipe-template6
+      - docs/adr/pipelines/dual-authentication.md#rule-adr-pipe-auth6
+      - docs/adr/pipelines/pipeline-naming-and-placement.md
+      - docs/adr/principles/everything-as-code.md
+      - docs/adr/principles/everything-as-code.md#rule-adr-prin-eac1
+      - docs/adr/principles/everything-as-code.md#rule-adr-prin-eac2
+      - docs/adr/principles/everything-as-code.md#rule-adr-prin-eac3
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/principles/one-living-version.md#rule-adr-prin-onelive4
+      - docs/adr/principles/one-living-version.md#rule-adr-prin-onelive5
+      - docs/adr/process/holding-the-line.md
+      - docs/adr/process/inspect-and-adapt.md#rule-adr-proc-kaizen2
+      - docs/adr/repository/repo-variants.md#rule-adr-repo-variant6
+      - docs/adr/research/trunk-based-development.md
+      - docs/adr/research/version-control.md
+      - docs/references/caf/index.md
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md
+      - docs/references/dora/metrics.md#change-fail-rate
+      - docs/references/dora/metrics.md#change-lead-time
+      - docs/references/dora/metrics.md#deployment-frequency
+      - docs/references/dora/metrics.md#failed-deployment-recovery-time
+      - "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/development-strategy-test-driven-development"
+      - "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/environments"
+      - "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/security-considerations-overview"
+      - "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/subscription-vending"
+      - "https://learn.microsoft.com/en-us/legal/termsofuse"
 ---
 
 # ADR: CAF platform automation and DevOps — what the repository does about each recommendation of the design area

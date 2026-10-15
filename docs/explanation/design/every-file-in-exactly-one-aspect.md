@@ -10,6 +10,16 @@ catzc:
       - ADR-DSGN-ASPECT#4
       - ADR-DSGN-ASPECT#5
       - ADR-FLOW-CD-GLOBS#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.md
+      - docs/.assets/explanation/adr-dsgn-aspect--every-file-in-exactly-one-aspect--meta.drawio.png
+      - docs/adr/design/module-aspects.md
+      - docs/explanation/design/drop-a-file-the-import-exports-it.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/manifest-and-aspects-from-one-folder.md
+      - docs/explanation/design/one-folder-two-independent-readers.md
+      - docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Every module file is in exactly one aspect

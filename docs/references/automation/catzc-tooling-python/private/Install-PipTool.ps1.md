@@ -6,6 +6,7 @@ catzc:
     body_sha: "227fd0b0c0ba"
     adrs:
       - ADR-AUTO-UVPY#2
+    links: []
 ---
 
 # automation/Catzc.Tooling.Python/private/Install-PipTool.ps1

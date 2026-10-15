@@ -9,6 +9,17 @@ catzc:
       - ADR-AZ-DATAMOD#5
       - ADR-AZ-DATAMOD#7
       - ADR-AZ-NAMING#8
+    links:
+      - docs/.assets/explanation/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.md
+      - docs/.assets/explanation/adr-az-datamod--four-gates-hold-the-session-rule--governance.drawio.png
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/explanation/azure/index.md
+      - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
+      - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
+      - docs/explanation/azure/read-the-session-guard-then-pick-slot.md
+      - docs/explanation/azure/the-session-is-the-deploy-target.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Four gates hold the session rule; the customer and the name hold by construction

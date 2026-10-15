@@ -7,6 +7,16 @@ catzc:
     adrs:
       - ADR-FLOW-CD-GLOBS#6
       - ADR-FLOW-CD-GLOBS#8
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-globs--globs-projects-and-three-consumers-read--architecture.drawio.png
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/flow/apex-thirteen-rules-seven-includes-six-excludes.md
+      - docs/explanation/flow/drift-is-gated-generation-is-adr-only.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/one-program-two-vendor-dialects.md
+      - docs/explanation/flow/print-projection-then-drift-names-the-filter.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it

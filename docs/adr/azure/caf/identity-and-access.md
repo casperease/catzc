@@ -4,6 +4,75 @@ catzc:
     path: docs/adr/azure/caf/identity-and-access.md
     kind: adr
     body_sha: e192bb608891
+    defines:
+      - ADR-AZ-CAFIAM#1
+      - ADR-AZ-CAFIAM#2
+      - ADR-AZ-CAFIAM#3
+      - ADR-AZ-CAFIAM#4
+      - ADR-AZ-CAFIAM#5
+      - ADR-AZ-CAFIAM#6
+      - ADR-AZ-CAFIAM#7
+      - ADR-AZ-CAFIAM#8
+      - ADR-AZ-CAFIAM#9
+      - ADR-AZ-CAFIAM#10
+      - ADR-AZ-CAFIAM#11
+      - ADR-AZ-CAFIAM#12
+      - ADR-AZ-CAFIAM#13
+      - ADR-AZ-CAFIAM#14
+      - ADR-AZ-CAFIAM#15
+      - ADR-AZ-CAFIAM#16
+      - ADR-AZ-CAFIAM#17
+      - ADR-AZ-CAFIAM#18
+      - ADR-AZ-CAFIAM#19
+      - ADR-AZ-CAFIAM#20
+      - ADR-AZ-CAFIAM#21
+      - ADR-AZ-CAFIAM#22
+      - ADR-AZ-CAFIAM#23
+      - ADR-AZ-CAFIAM#24
+      - ADR-AZ-CAFIAM#25
+      - ADR-AZ-CAFIAM#26
+      - ADR-AZ-CAFIAM#27
+      - ADR-AZ-CAFIAM#28
+      - ADR-AZ-CAFIAM#29
+      - ADR-AZ-CAFIAM#30
+      - ADR-AZ-CAFIAM#31
+      - ADR-AZ-CAFIAM#32
+      - ADR-AZ-CAFIAM#33
+      - ADR-AZ-CAFIAM#34
+      - ADR-AZ-CAFIAM#35
+      - ADR-AZ-CAFIAM#36
+      - ADR-AZ-CAFIAM#37
+      - ADR-AZ-CAFIAM#38
+      - ADR-AZ-CAFIAM#39
+      - ADR-AZ-CAFIAM#40
+      - ADR-AZ-CAFIAM#41
+      - ADR-AZ-CAFIAM#42
+      - ADR-AZ-CAFIAM#43
+      - ADR-AZ-CAFIAM#44
+      - ADR-AZ-CAFIAM#45
+      - ADR-AZ-CAFIAM#46
+      - ADR-AZ-CAFIAM#47
+      - ADR-AZ-CAFIAM#48
+      - ADR-AZ-CAFIAM#49
+      - ADR-AZ-CAFIAM#50
+      - ADR-AZ-CAFIAM#51
+      - ADR-AZ-CAFIAM#52
+      - ADR-AZ-CAFIAM#53
+      - ADR-AZ-CAFIAM#54
+      - ADR-AZ-CAFIAM#55
+      - ADR-AZ-CAFIAM#56
+      - ADR-AZ-CAFIAM#57
+      - ADR-AZ-CAFIAM#58
+      - ADR-AZ-CAFIAM#59
+      - ADR-AZ-CAFIAM#60
+      - ADR-AZ-CAFIAM#61
+      - ADR-AZ-CAFIAM#62
+      - ADR-AZ-CAFIAM#63
+      - ADR-AZ-CAFIAM#64
+      - ADR-AZ-CAFIAM#65
+      - ADR-AZ-CAFIAM#66
+      - ADR-AZ-CAFIAM#67
+      - ADR-AZ-CAFIAM#68
     adrs:
       - ADR-AUTO-GUIDS#1
       - ADR-AUTO-GUIDS#4
@@ -42,6 +111,50 @@ catzc:
       - ADR-AZ-WAFSE#8
       - ADR-AZ-WAFSE#9
       - ADR-FLOW-CD-RUNNER#3
+    links:
+      - docs/adr/automation/managed-guids.md#rule-adr-auto-guids1
+      - docs/adr/automation/managed-guids.md#rule-adr-auto-guids4
+      - docs/adr/azure/az-session-verification.md
+      - docs/adr/azure/az-session-verification.md#rule-adr-az-session2
+      - docs/adr/azure/az-session-verification.md#rule-adr-az-session4
+      - docs/adr/azure/az-session-verification.md#rule-adr-az-session5
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod7
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network3
+      - docs/adr/azure/caf/governance.md#rule-adr-az-cafgov6
+      - docs/adr/azure/caf/landing-zone-security.md
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec13
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec15
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec16
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec22
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec25
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec26
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec28
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec29
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec3
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec34
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec37
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec38
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec43
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec7
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz2
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz5
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz6
+      - docs/adr/azure/waf/security.md
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse10
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse4
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse5
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse8
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse9
+      - docs/adr/flow/pipeline-runner-pattern.md#rule-adr-flow-cd-runner3
+      - docs/references/caf/index.md
+      - "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/considerations/security-considerations-overview"
 ---
 
 # ADR: CAF identity and access — what the repository does about each recommendation of the landing-zone identity and access design area

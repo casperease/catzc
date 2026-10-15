@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.chain.md
+      - docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.drawio.png
+      - docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.grid.md
+      - docs/.assets/explanation/adr-auto-bundle--dot-source-one-entry-script--operations.tree.md
+      - docs/explanation/automation/dot-source-one-entry-script.md
 ---
 
 # Dot-source one entry script: the diagram described

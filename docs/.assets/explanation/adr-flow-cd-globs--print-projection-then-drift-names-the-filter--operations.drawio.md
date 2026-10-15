@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "5d810ac1cc08"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--print-projection-then-drift-names-the-filter--operations.drawio.png
+      - docs/explanation/flow/print-projection-then-drift-names-the-filter.md
 ---
 
 # Print the projection, then drift names the filter: the diagram described

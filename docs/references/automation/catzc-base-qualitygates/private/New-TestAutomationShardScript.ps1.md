@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-ASSETDEP#1
       - ADR-AUTO-TEST#25
       - ADR-AUTO-TEST#30
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/New-TestAutomationShardScript.ps1

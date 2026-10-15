@@ -8,6 +8,7 @@ catzc:
       - ADR-DSGN-TRACK#3
       - ADR-DSGN-TRACK#7
       - ADR-DSGN-TRACK#8
+    links: []
 ---
 
 # automation/Catzc.Base.Maps/types/WorldMapPdf.cs

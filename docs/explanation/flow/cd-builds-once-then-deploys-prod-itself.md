@@ -9,6 +9,16 @@ catzc:
       - ADR-FLOW-CD#3
       - ADR-FLOW-CD#4
       - ADR-FLOW-CD#5
+    links:
+      - docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.md
+      - docs/.assets/explanation/adr-flow-cd--cd-builds-once-then-deploys-prod-itself--implementation.drawio.png
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/flow/a-merge-runs-cd-to-prod.md
+      - docs/explanation/flow/ci-budget-is-the-only-quality-gate.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/one-artifact-climbs-unchanged.md
+      - docs/explanation/flow/pipeline-kinds-keyed-by-one-artifact.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # The customer CD pipeline builds once, then deploys the prod tier itself

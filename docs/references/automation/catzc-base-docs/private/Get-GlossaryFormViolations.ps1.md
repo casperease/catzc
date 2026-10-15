@@ -6,6 +6,7 @@ catzc:
     body_sha: b805c29bc5a1
     adrs:
       - ADR-REPO-VOCAB#8
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-GlossaryFormViolations.ps1

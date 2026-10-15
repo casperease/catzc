@@ -4,7 +4,32 @@ catzc:
     path: docs/adr/research/clear-and-communicated-ai-stance.md
     kind: adr
     body_sha: b477e777a6cd
+    defines:
+      - ADR-DORA-AISTANCE#1
+      - ADR-DORA-AISTANCE#2
+      - ADR-DORA-AISTANCE#3
+      - ADR-DORA-AISTANCE#4
+      - ADR-DORA-AISTANCE#5
     adrs: []
+    links:
+      - docs/references/dora/ai.md#ai-capabilities-model
+      - docs/references/dora/ai.md#individual-effectiveness
+      - docs/references/dora/ai.md#organizational-performance
+      - docs/references/dora/ai.md#product-performance
+      - docs/references/dora/ai.md#reduced-friction
+      - docs/references/dora/ai.md#software-delivery-throughput
+      - docs/references/dora/capabilities.md#ai
+      - docs/references/dora/capabilities.md#ai-accessible-internal-data
+      - docs/references/dora/capabilities.md#clear-and-communicated-ai-stance
+      - docs/references/dora/capabilities.md#generative-organizational-culture
+      - docs/references/dora/capabilities.md#healthy-data-ecosystems
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#throughput
+      - docs/references/dora/publications.md#2024-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2025-dora-ai-capabilities-model
+      - docs/references/dora/publications.md#2025-impact-of-generative-ai-in-software-development
+      - docs/references/dora/publications.md#2025-state-of-ai-assisted-software-development
+      - "https://dora.dev/capabilities/clear-and-communicated-ai-stance/"
 ---
 
 # ADR: DORA — Clear and communicated AI stance

@@ -9,6 +9,17 @@ catzc:
       - ADR-CONF-ADDRESSING#1
       - ADR-CONF-ADDRESSING#3
       - ADR-CONF-ADDRESSING#4
+    links:
+      - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.md
+      - docs/.assets/explanation/adr-conf-addressing--type-an-address-get-the-value--operations.drawio.png
+      - docs/adr/automation/environment-variables.md
+      - docs/adr/configuration/config-value-addressing.md
+      - docs/explanation/configuration/an-address-is-a-read-only-walk.md
+      - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
+      - docs/explanation/configuration/index.md
+      - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
+      - docs/explanation/configuration/two-test-files-check-the-address-rules.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Type an address and get its value back; a wrong address throws its message at the call

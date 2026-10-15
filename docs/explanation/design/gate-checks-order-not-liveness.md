@@ -8,6 +8,16 @@ catzc:
       - ADR-DSGN-ASPECT#2
       - ADR-DSGN-ASPECT#3
       - ADR-DSGN-ASPECT#5
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.md
+      - docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png
+      - docs/adr/design/module-aspects.md
+      - docs/explanation/design/each-track-picks-its-catch-all.md
+      - docs/explanation/design/get-aspect-feeds-globs-and-maps.md
+      - docs/explanation/design/get-aspect-names-the-remainder.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/only-automation-compiles-its-aspects.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call

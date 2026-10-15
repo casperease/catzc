@@ -7,6 +7,17 @@ catzc:
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
+    links:
+      - docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.md
+      - docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png
+      - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/adr/automation/sensible-defaults.md
+      - docs/explanation/automation/a-stopped-run-names-its-limit.md
+      - docs/explanation/automation/callers-value-else-config-else-default.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/one-resolver-every-consumer-but-the-hook.md
+      - docs/explanation/automation/one-rule-per-stage-and-two-gaps.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling, in that order

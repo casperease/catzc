@@ -4,7 +4,20 @@ catzc:
     path: docs/adr/process/observe-work.md
     kind: adr
     body_sha: "352ee47a842a"
+    defines:
+      - ADR-PROC-OBSERVEWIP#1
+      - ADR-PROC-OBSERVEWIP#2
+      - ADR-PROC-OBSERVEWIP#3
+      - ADR-PROC-OBSERVEWIP#4
     adrs: []
+    links:
+      - docs/adr/automation/console-output-matters.md
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/visual-design.md
+      - docs/adr/process/agile-principles.md
+      - docs/adr/process/inspect-and-adapt.md
+      - docs/adr/process/lean.md
+      - docs/adr/process/queues-cost-money.md
 ---
 
 # ADR: Observe the work — make it visible, and go and see

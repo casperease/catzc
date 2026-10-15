@@ -6,6 +6,7 @@ catzc:
     body_sha: "9cf3ab93d712"
     adrs:
       - ADR-AZ-DATAMOD#2
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/private/Get-BicepConfigName.ps1

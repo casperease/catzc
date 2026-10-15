@@ -6,6 +6,20 @@ catzc:
     body_sha: "5e937306972e"
     adrs:
       - ADR-PWSH-ERROR#3
+    links:
+      - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/adr/automation/never-depend-on-pwd.md
+      - docs/adr/automation/sensible-defaults.md
+      - docs/adr/automation/single-responsibility-functions.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/pwsh/error-handling.md
+      - docs/adr/pwsh/one-function-per-file.md
+      - docs/adr/pwsh/parameter-design.md
+      - docs/adr/pwsh/pester-testing.md
+      - docs/adr/pwsh/powershell-formatting.md
+      - docs/adr/pwsh/respect-pwsh-verb-rules.md
+      - docs/how-to/getting-started/automation/add-a-module.md
+      - docs/how-to/getting-started/automation/run-tests-and-checks.md
 ---
 
 # Add a function

@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-TYPES#8
       - ADR-DSGN-TRACK#1
       - ADR-DSGN-TRACK#2
+    links: []
 ---
 
 # automation/Catzc.Base.Variants/types/VariantsConfig.cs

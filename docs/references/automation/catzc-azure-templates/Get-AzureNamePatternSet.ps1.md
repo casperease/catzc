@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: b8100467e6c4
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-AzureNamePatternSet.ps1

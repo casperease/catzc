@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-REPO-VOCAB#1
       - ADR-REPO-VOCAB#5
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-GlossaryRuleStatements.ps1

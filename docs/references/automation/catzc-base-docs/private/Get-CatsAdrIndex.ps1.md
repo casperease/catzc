@@ -6,6 +6,7 @@ catzc:
     body_sha: f7a11c922f36
     adrs:
       - ADR-PWSH-CACHE#4
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-CatsAdrIndex.ps1

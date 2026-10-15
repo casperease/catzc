@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-CACHE#9
       - ADR-PWSH-CACHE#4
+    links: []
 ---
 
 # automation/Catzc.Base.Files/Get-GitTrackedPath.ps1

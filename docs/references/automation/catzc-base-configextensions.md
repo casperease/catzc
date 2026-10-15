@@ -5,6 +5,9 @@ catzc:
     kind: reference
     body_sha: "72b0ca900c47"
     adrs: []
+    links:
+      - docs/adr/configuration/module-config-loading.md
+      - docs/references/automation/catzc-base-config.md
 ---
 
 # Catzc.Base.ConfigExtensions

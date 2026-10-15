@@ -7,6 +7,16 @@ catzc:
     adrs:
       - ADR-DSGN-TRACK#4
       - ADR-DSGN-TRACK#5
+    links:
+      - docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.md
+      - docs/.assets/explanation/adr-dsgn-track--a-push-fires-only-touched-pipelines--operations.drawio.png
+      - docs/adr/design/tracks.md
+      - docs/explanation/design/globs-yml-pipeline-field-is-the-binding.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/one-unit-one-pipeline.md
+      - docs/explanation/design/unit-to-pipeline-rule-is-review-only.md
+      - docs/explanation/design/units-not-tracks-own-the-pipelines.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # A push starts only the pipelines whose globset it touches

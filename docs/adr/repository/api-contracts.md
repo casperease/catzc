@@ -4,20 +4,33 @@ catzc:
     path: docs/adr/repository/api-contracts.md
     kind: adr
     body_sha: cdee2333ea01
+    defines:
+      - ADR-REPO-CONTRACT#1
+      - ADR-REPO-CONTRACT#2
+      - ADR-REPO-CONTRACT#3
+      - ADR-REPO-CONTRACT#4
+      - ADR-REPO-CONTRACT#5
+      - ADR-REPO-CONTRACT#6
+      - ADR-REPO-CONTRACT#7
+      - ADR-REPO-CONTRACT#8
+      - ADR-REPO-CONTRACT#9
+      - ADR-REPO-CONTRACT#10
     adrs:
       - ADR-AUTO-BUNDLE#7
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-ONELIVE#7
-      - ADR-REPO-CONTRACT#1
-      - ADR-REPO-CONTRACT#10
-      - ADR-REPO-CONTRACT#2
-      - ADR-REPO-CONTRACT#3
-      - ADR-REPO-CONTRACT#5
-      - ADR-REPO-CONTRACT#6
-      - ADR-REPO-CONTRACT#7
-      - ADR-REPO-CONTRACT#9
       - ADR-REPO-FOLDERS#4
       - ADR-REPO-ROOTCFG#1
+    links:
+      - docs/adr/automation/execution-engines.md
+      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle7
+      - docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6
+      - docs/adr/automation/zero-ceremony-poka-yoke.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/principles/one-living-version.md#rule-adr-prin-onelive7
+      - docs/adr/repository/conventional-folders.md#rule-adr-repo-folders11
+      - docs/adr/repository/conventional-folders.md#rule-adr-repo-folders4
+      - docs/adr/repository/generated-root-configs.md#rule-adr-repo-rootcfg1
 ---
 
 # ADR: Contracts at the repository boundary — both directions, versioned with their unit, proven by tests

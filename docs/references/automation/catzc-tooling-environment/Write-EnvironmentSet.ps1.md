@@ -6,6 +6,7 @@ catzc:
     body_sha: "3e7e64d27560"
     adrs:
       - ADR-AUTO-ENVVAR#7
+    links: []
 ---
 
 # automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1

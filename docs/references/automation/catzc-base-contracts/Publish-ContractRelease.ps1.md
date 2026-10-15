@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-BUNDLE#7
       - ADR-PWSH-VERBS#1
       - ADR-REPO-CONTRACT#5
+    links: []
 ---
 
 # automation/Catzc.Base.Contracts/Publish-ContractRelease.ps1

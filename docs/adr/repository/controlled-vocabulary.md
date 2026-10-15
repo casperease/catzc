@@ -4,15 +4,27 @@ catzc:
     path: docs/adr/repository/controlled-vocabulary.md
     kind: adr
     body_sha: e303a0153364
-    adrs:
-      - ADR-AUTO-TEST#9
+    defines:
       - ADR-REPO-VOCAB#1
       - ADR-REPO-VOCAB#2
       - ADR-REPO-VOCAB#3
       - ADR-REPO-VOCAB#4
       - ADR-REPO-VOCAB#5
       - ADR-REPO-VOCAB#6
+      - ADR-REPO-VOCAB#7
       - ADR-REPO-VOCAB#8
+    adrs:
+      - ADR-AUTO-TEST#9
+    links:
+      - docs/adr/automation/sensible-defaults.md
+      - docs/adr/automation/spell-out-names.md
+      - docs/adr/automation/zero-ceremony-poka-yoke.md
+      - docs/adr/configuration/module-config-loading.md
+      - docs/adr/design/module-aspects.md
+      - docs/adr/index.md#authoring-conventions
+      - docs/adr/principles/everything-as-code.md
+      - docs/adr/process/process-terms.md
+      - docs/adr/repository/domain-language-separation.md
 ---
 
 # ADR: Controlled vocabulary — one definition per term, opt-in glossary sources

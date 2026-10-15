@@ -9,6 +9,7 @@ catzc:
       - ADR-AUTO-GO#2
       - ADR-AUTO-PY#2
       - ADR-DSGN-TRACK#2
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1

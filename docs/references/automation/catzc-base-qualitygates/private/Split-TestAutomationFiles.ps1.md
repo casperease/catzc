@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#26
       - ADR-AUTO-TEST#33
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Split-TestAutomationFiles.ps1

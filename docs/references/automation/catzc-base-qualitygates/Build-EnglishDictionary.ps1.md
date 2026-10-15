@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-CONSOLE#10
       - ADR-REPO-OUTDIR#5
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Build-EnglishDictionary.ps1

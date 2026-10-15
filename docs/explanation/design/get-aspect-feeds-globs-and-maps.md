@@ -11,6 +11,19 @@ catzc:
       - ADR-DSGN-TRACK#3
       - ADR-FLOW-CD-GLOBS#4
       - ADR-REPO-VARIANT#1
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.md
+      - docs/.assets/explanation/adr-dsgn-aspect--get-aspect-feeds-globs-and-maps--implementation.drawio.png
+      - docs/adr/design/module-aspects.md
+      - docs/adr/design/tracks.md
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/repository/repo-variants.md
+      - docs/explanation/design/each-track-picks-its-catch-all.md
+      - docs/explanation/design/gate-checks-order-not-liveness.md
+      - docs/explanation/design/get-aspect-names-the-remainder.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/only-automation-compiles-its-aspects.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live

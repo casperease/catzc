@@ -6,6 +6,16 @@ catzc:
     body_sha: fd4f00055329
     adrs:
       - ADR-AUTO-FAILFAST#7
+    links:
+      - docs/.assets/explanation/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.md
+      - docs/.assets/explanation/adr-auto-failfast--a-shell-call-carries-its-limit-or-is-denied--meta.drawio.png
+      - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/explanation/automation/decide-returns-null-or-a-reason.md
+      - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
+      - docs/explanation/automation/three-tests-prove-the-hook.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # A shell call carries its limit, or the hook denies it with a reason; it is never rewritten

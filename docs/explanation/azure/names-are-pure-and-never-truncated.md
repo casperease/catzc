@@ -9,6 +9,16 @@ catzc:
       - ADR-AZ-NAMING#3
       - ADR-AZ-NAMING#7
       - ADR-AZ-NAMING#8
+    links:
+      - docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.md
+      - docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/explanation/azure/how-each-naming-rule-is-held.md
+      - docs/explanation/azure/index.md
+      - docs/explanation/azure/lookup-form-check-render-in-order.md
+      - docs/explanation/azure/names-are-derived-never-typed.md
+      - docs/explanation/azure/one-namer-assembles-every-name.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # An Azure name is a pure function of its components, and it is never truncated

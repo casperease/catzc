@@ -4,7 +4,16 @@ catzc:
     path: docs/adr/flow/pipeline-detection.md
     kind: adr
     body_sha: "0934c24a5d75"
+    defines:
+      - ADR-FLOW-CD-DETECT#1
+      - ADR-FLOW-CD-DETECT#2
+      - ADR-FLOW-CD-DETECT#3
+      - ADR-FLOW-CD-DETECT#4
+      - ADR-FLOW-CD-DETECT#5
     adrs: []
+    links:
+      - docs/adr/pipelines/dual-authentication.md
+      - docs/adr/pipelines/pipeline-variables.md
 ---
 
 # ADR: Pipeline detection — how functions adapt to their execution context

@@ -24,7 +24,7 @@ Describe 'Get-AdrDefinesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' 
     It 'lists the rules the file defines under the kind''s key' {
         $fact = Get-Defines "# ADR: Widget`n`n## Rules: ADR-WIDGET`n`n### Rule ADR-WIDGET:1`n`n### Rule ADR-WIDGET:2`n"
         @($fact.Keys) | Should -Be @('defines')
-        , @($fact['defines']) | Should -Be @('ADR-WIDGET#1', 'ADR-WIDGET#2')
+        @($fact['defines']) | Should -Be @('ADR-WIDGET#1', 'ADR-WIDGET#2')
     }
 
     It 'lists no rule for a file that defines none, however many it cites' {

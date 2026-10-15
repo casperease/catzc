@@ -6,6 +6,7 @@ catzc:
     body_sha: "5ead0415cdb6"
     adrs:
       - ADR-REPO-AGENTS#4
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/configs/agents.yml

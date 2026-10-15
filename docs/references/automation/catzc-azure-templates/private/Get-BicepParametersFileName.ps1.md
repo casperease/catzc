@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: d0d7471f1137
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1

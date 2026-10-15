@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: e80a6c5e453f
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure/Get-AzureBicepMinVersion.ps1

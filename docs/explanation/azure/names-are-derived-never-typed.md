@@ -10,6 +10,16 @@ catzc:
       - ADR-AZ-NAMING#6
       - ADR-AZ-NAMING#7
       - ADR-AZ-NAMING#8
+    links:
+      - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.md
+      - docs/.assets/explanation/adr-az-naming--names-are-derived-never-typed--operations.drawio.png
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/explanation/azure/how-each-naming-rule-is-held.md
+      - docs/explanation/azure/index.md
+      - docs/explanation/azure/lookup-form-check-render-in-order.md
+      - docs/explanation/azure/names-are-pure-and-never-truncated.md
+      - docs/explanation/azure/one-namer-assembles-every-name.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Nobody types an Azure name: cats derives it, and a bad name stops with an error

@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-PWSH-CACHE#4
       - ADR-REPO-LINK#3
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/Get-AdrCitationMap.ps1

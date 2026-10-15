@@ -4,12 +4,19 @@ catzc:
     path: docs/adr/design/self-service.md
     kind: adr
     body_sha: fd71bc64643a
-    adrs:
+    defines:
       - ADR-DSGN-SELFSERV#1
       - ADR-DSGN-SELFSERV#2
       - ADR-DSGN-SELFSERV#3
       - ADR-DSGN-SELFSERV#4
       - ADR-DSGN-SELFSERV#5
+    adrs: []
+    links:
+      - docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5
+      - docs/adr/repository/generated-root-configs.md#rule-adr-repo-rootcfg6
+      - "https://reproducible-builds.org/"
+      - "https://slsa.dev/"
+      - "https://trunkbaseddevelopment.com/"
 ---
 
 # ADR: Self-service — safe by construction in controlled settings

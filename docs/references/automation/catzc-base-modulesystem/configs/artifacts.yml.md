@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: a53b2f103930
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/configs/artifacts.yml

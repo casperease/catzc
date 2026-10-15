@@ -4,7 +4,32 @@ catzc:
     path: docs/adr/research/job-satisfaction.md
     kind: adr
     body_sha: b12564197b48
+    defines:
+      - ADR-DORA-JOBSAT#1
+      - ADR-DORA-JOBSAT#2
+      - ADR-DORA-JOBSAT#3
+      - ADR-DORA-JOBSAT#4
+      - ADR-DORA-JOBSAT#5
+      - ADR-DORA-JOBSAT#6
     adrs: []
+    links:
+      - docs/adr/automation/effective-in-enterprises.md
+      - docs/adr/automation/zero-ceremony-poka-yoke.md
+      - docs/adr/design/self-service.md
+      - docs/references/dora/capabilities.md#climate-for-learning
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#deployment-automation
+      - docs/references/dora/capabilities.md#job-satisfaction
+      - docs/references/dora/capabilities.md#teams-empowered-to-choose-tools
+      - docs/references/dora/capabilities.md#test-automation
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/index.md
+      - docs/references/dora/publications.md#2014-state-of-devops-report
+      - docs/references/dora/publications.md#2024-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2025-impact-of-generative-ai-in-software-development
+      - "https://dora.dev/capabilities/job-satisfaction/"
 ---
 
 # ADR: DORA — Job satisfaction

@@ -4,11 +4,22 @@ catzc:
     path: docs/adr/automation/environment-variables.md
     kind: adr
     body_sha: "1858e9dff417"
-    adrs:
+    defines:
       - ADR-AUTO-ENVVAR#1
+      - ADR-AUTO-ENVVAR#2
+      - ADR-AUTO-ENVVAR#3
+      - ADR-AUTO-ENVVAR#4
+      - ADR-AUTO-ENVVAR#5
       - ADR-AUTO-ENVVAR#6
       - ADR-AUTO-ENVVAR#7
+    adrs:
       - ADR-FLOW-CD-DETECT#1
+    links:
+      - docs/adr/automation/caching.md
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1
+      - docs/adr/pwsh/environment-variable-mechanics.md
+      - docs/adr/pwsh/environment-variable-mechanics.md#the-secret-hand-off
 ---
 
 # ADR: Environment variables are for external boundaries, not internal state

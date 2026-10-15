@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: cd7c8c4117e8
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-repo-rootcfg--three-gates-check-registry-drift-membership--governance.drawio.png
+      - docs/explanation/repository/three-gates-check-registry-drift-membership.md
 ---
 
 # Three gates check the registry, the drift and the git membership: the diagram described

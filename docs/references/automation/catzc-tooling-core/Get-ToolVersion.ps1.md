@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "8fb6b90a307e"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Tooling.Core/Get-ToolVersion.ps1

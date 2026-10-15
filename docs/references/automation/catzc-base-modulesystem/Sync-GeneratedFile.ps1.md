@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-CACHE#8
       - ADR-AUTO-TYPES#13
       - ADR-REPO-VARIANT#6
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1

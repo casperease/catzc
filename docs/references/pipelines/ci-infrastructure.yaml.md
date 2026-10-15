@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#37
       - ADR-AZ-DATAMOD#9
+    links: []
 ---
 
 # pipelines/ci-infrastructure.yaml

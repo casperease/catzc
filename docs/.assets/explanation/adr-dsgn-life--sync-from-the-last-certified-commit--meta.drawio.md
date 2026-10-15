@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md
+      - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png
+      - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.grid.md
+      - docs/.assets/explanation/adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md
+      - docs/explanation/design/sync-from-the-last-certified-commit.md
 ---
 
 # Sync from the last certified commit, not HEAD: the diagram described

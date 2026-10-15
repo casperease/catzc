@@ -4,7 +4,32 @@ catzc:
     path: docs/adr/research/platform-engineering.md
     kind: adr
     body_sha: "026da3c7367a"
+    defines:
+      - ADR-DORA-PLATFORM#1
+      - ADR-DORA-PLATFORM#2
+      - ADR-DORA-PLATFORM#3
+      - ADR-DORA-PLATFORM#4
+      - ADR-DORA-PLATFORM#5
     adrs: []
+    links:
+      - docs/adr/design/self-service.md
+      - docs/adr/design/thin-platforms.md
+      - docs/references/dora/ai.md#ai-capabilities-model
+      - docs/references/dora/ai.md#organizational-performance
+      - docs/references/dora/ai.md#reduced-friction
+      - docs/references/dora/capabilities.md#ai
+      - docs/references/dora/capabilities.md#flexible-infrastructure
+      - docs/references/dora/capabilities.md#platform-engineering
+      - docs/references/dora/capabilities.md#teams-empowered-to-choose-tools
+      - docs/references/dora/capabilities.md#working-in-small-batches
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#instability
+      - docs/references/dora/metrics.md#throughput
+      - docs/references/dora/publications.md#2024-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2025-dora-ai-capabilities-model
+      - docs/references/dora/publications.md#2025-state-of-ai-assisted-software-development
+      - "https://dora.dev/capabilities/platform-engineering/"
 ---
 
 # ADR: DORA — Platform engineering

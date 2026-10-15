@@ -12,6 +12,17 @@ catzc:
       - ADR-AUTO-DEPM#5
       - ADR-AUTO-DEPM#6
       - ADR-AUTO-TEST#35
+    links:
+      - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.md
+      - docs/.assets/explanation/adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/adr/automation/test-automation.md
+      - docs/explanation/automation/a-declared-allow-list-of-layers.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/three-layers-edges-point-down.md
+      - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
+      - docs/explanation/automation/undeclared-edge-fails-with-one-line.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Two gates check the layer pins, and one rule is left to review

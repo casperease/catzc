@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-NOPWD#1
       - ADR-PWSH-CACHE#4
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/Get-CatsAdrRuleIds.ps1

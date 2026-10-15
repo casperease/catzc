@@ -6,6 +6,7 @@ catzc:
     body_sha: "05a0beeccd40"
     adrs:
       - ADR-AUTO-CACHE#10
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-ContentStamp.ps1

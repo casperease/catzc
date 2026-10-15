@@ -6,6 +6,15 @@ catzc:
     body_sha: eaf719a948db
     adrs:
       - ADR-AUTO-TEST#35
+    links:
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
+      - docs/adr/repository/agent-definitions.md
+      - docs/adr/repository/controlled-vocabulary.md
+      - docs/adr/repository/generated-readmes.md
+      - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5
+      - docs/references/automation/catzc-base-config.md
+      - docs/references/automation/catzc-base-files.md
+      - docs/references/automation/catzc-base-qualitygates.md
 ---
 
 # Catzc.Base.Docs

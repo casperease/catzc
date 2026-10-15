@@ -8,6 +8,16 @@ catzc:
       - ADR-AUTO-DEPM#3
       - ADR-AUTO-DEPM#4
       - ADR-AUTO-DEPM#5
+    links:
+      - docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.md
+      - docs/.assets/explanation/adr-auto-depm--undeclared-edge-fails-with-one-line--operations.drawio.png
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/explanation/automation/a-declared-allow-list-of-layers.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/three-layers-edges-point-down.md
+      - docs/explanation/automation/two-gates-check-the-layer-pins.md
+      - docs/explanation/automation/two-sections-unioned-into-one-allow-set.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # An undeclared module edge fails the gate with one line per issue

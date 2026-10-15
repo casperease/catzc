@@ -8,6 +8,7 @@ catzc:
       - ADR-CONF-LOADING#6
       - ADR-REPO-OUTDIR#10
       - ADR-REPO-OUTDIR#8
+    links: []
 ---
 
 # automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1

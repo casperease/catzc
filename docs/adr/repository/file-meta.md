@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/file-meta.md
     kind: adr
-    body_sha: "7307d4dd8764"
+    body_sha: d15458bd7a76
     defines:
       - ADR-REPO-FILEMETA#1
       - ADR-REPO-FILEMETA#2
@@ -13,12 +13,14 @@ catzc:
       - ADR-REPO-FILEMETA#6
       - ADR-REPO-FILEMETA#7
       - ADR-REPO-FILEMETA#8
+      - ADR-REPO-FILEMETA#9
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#1
       - ADR-CONF-LOADING#5
       - ADR-REPO-FORMAT#5
       - ADR-REPO-FORMAT#6
+      - ADR-REPO-LINK#4
     links:
       - docs/adr/automation/controlling-module-dependencies.md
       - docs/adr/automation/open-closed-architecture.md#rule-adr-auto-extend1
@@ -28,6 +30,7 @@ catzc:
       - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading5
       - docs/adr/repository/code-file-meta.md
       - docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta1
+      - docs/adr/repository/markdown-links.md#rule-adr-repo-link4
       - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5
       - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6
 ---
@@ -118,6 +121,17 @@ without one is a visible finding, or an `exclude` entry of its carrier with the 
 
 - [Property and sidecar carriers](#property-and-sidecar-carriers)
 
+### Rule ADR-REPO-FILEMETA:9
+
+The derived part of a Markdown file says what the file defines and what it points at, and the two never mix. An ADR lists under `defines`
+the rules its own headings declare, each spelled as a citation, `ADR-<CODE>#<n>`, and its `adrs` lists only the rules it cites from
+elsewhere, so a rule's own text is never a citation of itself. Every Markdown file lists under `links` each link that leaves it, whatever
+its form (relative, repository-rooted, absolute URL, image, reference definition or autolink), spelled once as a repository-relative path
+with its anchor or as the absolute URL, sorted and without duplicates. A link that stays inside the file, an anchor in it, the file itself
+or its own comment page, is internal and is not listed.
+
+- [What a Markdown file defines and points at](#what-a-markdown-file-defines-and-points-at)
+
 ## Context
 
 A file in this repository is more than its text. A Markdown agent definition declares a name, a description and its tools. An ADR sits in a
@@ -150,6 +164,7 @@ catzc:
     kind: agent
     body_sha: "3fa91c0d2b7e"
     adrs: []
+    links: []
   config:
     agents:
       example-agent:
@@ -219,6 +234,17 @@ no banner is hand-worded, because a banner would be a second statement of what t
 JSON has no comment syntax, and a leading `//` block makes it invalid, so the block is a property a reader of the data ignores. The property
 holds the block as text, so one parser serves it as it serves a comment head, and a JSON Schema, whose `$comment` must be a string, takes
 the same form. A diagram is a binary picture, so its description beside it is the place a reader looks and the block lives there.
+
+### What a Markdown file defines and points at
+
+`Declared rules, cited rules and outgoing links, each in its own key`
+
+A rule an ADR declares and a rule it cites answer different questions: which decisions does this file own, and which decisions does it rest
+on. Listing both under one key would make every ADR depend on itself, so the declared rules have their own key and the citations leave them
+out. The links answer a third question, what the file points at, in a spelling that does not depend on where the link was written, so a
+reader or a tool can find every file that points at a given page without parsing Markdown. Code links in comments only ever point into the
+ADRs ([ADR-REPO-LINK#4](markdown-links.md#rule-adr-repo-link4)), which `adrs` already lists, so the key belongs to Markdown. A link that stays inside the file tells a reader nothing about where the
+file leads, so it is left out.
 
 ### How this is enforced
 

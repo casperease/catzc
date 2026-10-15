@@ -4,8 +4,21 @@ catzc:
     path: docs/adr/automation/sensible-defaults.md
     kind: adr
     body_sha: d10e7f217e23
+    defines:
+      - ADR-AUTO-DEFAULT#1
+      - ADR-AUTO-DEFAULT#2
+      - ADR-AUTO-DEFAULT#5
+      - ADR-AUTO-DEFAULT#6
     adrs:
       - ADR-PWSH-PARAM#4
+    links:
+      - docs/adr/automation/consumer-overlay.md#rule-adr-auto-overlay4
+      - docs/adr/automation/never-depend-on-pwd.md
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test33
+      - docs/adr/configuration/module-config-loading.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/pwsh/parameter-design.md
+      - docs/adr/pwsh/parameter-design.md#configurable-parameters
 ---
 
 # ADR: Sensible defaults for all parameters

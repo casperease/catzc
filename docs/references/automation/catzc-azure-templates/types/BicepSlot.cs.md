@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "900edce83a54"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/types/BicepSlot.cs

@@ -8,6 +8,16 @@ catzc:
       - ADR-REPO-ROOTCFG#2
       - ADR-REPO-ROOTCFG#4
       - ADR-REPO-ROOTCFG#7
+    links:
+      - docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.md
+      - docs/.assets/explanation/adr-repo-rootcfg--one-registry-one-writer-two-primitives--architecture.drawio.png
+      - docs/adr/repository/generated-root-configs.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
+      - docs/explanation/repository/import-materialises-two-gates-name-the-fix.md
+      - docs/explanation/repository/index.md
+      - docs/explanation/repository/one-source-one-writer-one-boolean.md
+      - docs/explanation/repository/opted-in-then-link-copy-or-render.md
+      - docs/explanation/repository/three-gates-check-registry-drift-membership.md
 ---
 
 # One registry, one writer, two write primitives, two kinds of target

@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.chain.md
+      - docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.drawio.png
+      - docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.grid.md
+      - docs/.assets/explanation/adr-dsgn-remote--one-door-in-one-stable-point-out--meta.tree.md
+      - docs/explanation/design/one-door-in-one-stable-point-out.md
 ---
 
 # One door in, one stable point out: the diagram described

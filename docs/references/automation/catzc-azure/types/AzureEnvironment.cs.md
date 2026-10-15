@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "2be360de1ee4"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure/types/AzureEnvironment.cs

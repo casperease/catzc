@@ -9,6 +9,16 @@ catzc:
       - ADR-DSGN-ASPECT#2
       - ADR-DSGN-ASPECT#4
       - ADR-FLOW-CD-GLOBS#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.md
+      - docs/.assets/explanation/adr-dsgn-aspect--one-folder-two-independent-readers--architecture.drawio.png
+      - docs/adr/design/module-aspects.md
+      - docs/explanation/design/drop-a-file-the-import-exports-it.md
+      - docs/explanation/design/every-file-in-exactly-one-aspect.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/manifest-and-aspects-from-one-folder.md
+      - docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # One module folder has two independent readers

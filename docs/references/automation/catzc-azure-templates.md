@@ -5,6 +5,19 @@ catzc:
     kind: reference
     body_sha: c62eb7ef9ecb
     adrs: []
+    links:
+      - docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.md
+      - docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.png
+      - docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.md
+      - docs/.assets/references/automation/catzc-azure-templates/bicep-template-is-a-folder.drawio.png
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/configuration/config-value-addressing.md
+      - docs/adr/pwsh/prepost-extension-modules.md
+      - docs/references/automation/catzc-azure-cli.md
+      - docs/references/automation/catzc-azure.md
 ---
 
 # Catzc.Azure.Templates

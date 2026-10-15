@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: b45719ced3fb
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/LinkFinding.cs

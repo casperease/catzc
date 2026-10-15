@@ -4,12 +4,30 @@ catzc:
     path: docs/adr/automation/controlling-module-dependencies.md
     kind: adr
     body_sha: d7e079d24e76
-    adrs:
+    defines:
       - ADR-AUTO-DEPM#1
+      - ADR-AUTO-DEPM#2
+      - ADR-AUTO-DEPM#3
+      - ADR-AUTO-DEPM#4
       - ADR-AUTO-DEPM#5
+      - ADR-AUTO-DEPM#6
       - ADR-AUTO-DEPM#7
       - ADR-AUTO-DEPM#8
+      - ADR-AUTO-DEPM#9
+      - ADR-AUTO-DEPM#10
+    adrs:
       - ADR-AUTO-TEST#35
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types4
+      - docs/adr/automation/controlling-systemwide-deps.md
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
+      - docs/adr/automation/use-proper-package-managers.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/principles/poka-yoke.md
+      - docs/adr/pwsh/dynamic-module-manifests.md
+      - docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest10
+      - docs/adr/pwsh/vendor-toolset-dependencies.md
 ---
 
 # ADR: Controlling module dependencies

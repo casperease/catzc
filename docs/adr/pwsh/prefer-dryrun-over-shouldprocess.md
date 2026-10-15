@@ -4,12 +4,19 @@ catzc:
     path: docs/adr/pwsh/prefer-dryrun-over-shouldprocess.md
     kind: adr
     body_sha: b09ed58f0b41
+    defines:
+      - ADR-PWSH-DRYRUN#1
+      - ADR-PWSH-DRYRUN#2
+      - ADR-PWSH-DRYRUN#3
+      - ADR-PWSH-DRYRUN#4
+      - ADR-PWSH-DRYRUN#5
     adrs:
       - ADR-AUTO-DRYRUN#1
       - ADR-AUTO-DRYRUN#2
       - ADR-AUTO-DRYRUN#3
       - ADR-AUTO-DRYRUN#4
-      - ADR-PWSH-DRYRUN#1
+    links:
+      - docs/adr/automation/dry-run.md
 ---
 
 # ADR: Prefer an explicit -DryRun switch over the ShouldProcess subsystem

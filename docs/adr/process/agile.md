@@ -4,7 +4,17 @@ catzc:
     path: docs/adr/process/agile.md
     kind: adr
     body_sha: d01d0860d047
+    defines:
+      - ADR-PROC-AGILE#1
+      - ADR-PROC-AGILE#2
+      - ADR-PROC-AGILE#3
+      - ADR-PROC-AGILE#4
     adrs: []
+    links:
+      - docs/adr/principles/reduce-waste.md
+      - docs/adr/process/agile-principles.md
+      - docs/adr/process/agile-values.md
+      - "https://agilemanifesto.org"
 ---
 
 # ADR: Agile — defined by the manifesto, measured by responsiveness

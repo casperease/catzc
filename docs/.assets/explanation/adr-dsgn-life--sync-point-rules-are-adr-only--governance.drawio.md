@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.chain.md
+      - docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.drawio.png
+      - docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.grid.md
+      - docs/.assets/explanation/adr-dsgn-life--sync-point-rules-are-adr-only--governance.tree.md
+      - docs/explanation/design/sync-point-rules-are-adr-only.md
 ---
 
 # Only BVT has a gate; the sync point is ADR-only: the diagram described

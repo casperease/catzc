@@ -9,6 +9,16 @@ catzc:
       - ADR-PIPE-AUTH#2
       - ADR-PIPE-AUTH#5
       - ADR-PIPE-AUTH#6
+    links:
+      - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.md
+      - docs/.assets/explanation/adr-pipe-auth--what-you-set-decides-the-credential--operations.drawio.png
+      - docs/adr/pipelines/dual-authentication.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
+      - docs/explanation/pipelines/configured-credential-proves-its-org.md
+      - docs/explanation/pipelines/index.md
+      - docs/explanation/pipelines/one-header-function-owns-precedence.md
+      - docs/explanation/pipelines/three-guarded-early-returns.md
+      - docs/explanation/pipelines/which-auth-rungs-have-a-gate.md
 ---
 
 # What you set decides the credential, and each wrong setup stops with its own message

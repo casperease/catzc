@@ -6,6 +6,7 @@ catzc:
     body_sha: fe5d46850511
     adrs:
       - ADR-REPO-FILEMETA#1
+    links: []
 ---
 
 # automation/Catzc.Base.Languages/types/CarrierKind.cs

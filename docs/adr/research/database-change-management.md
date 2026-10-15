@@ -4,7 +4,27 @@ catzc:
     path: docs/adr/research/database-change-management.md
     kind: adr
     body_sha: d48de2b4f591
+    defines:
+      - ADR-DORA-DBCHANGE#1
+      - ADR-DORA-DBCHANGE#2
+      - ADR-DORA-DBCHANGE#3
+      - ADR-DORA-DBCHANGE#4
+      - ADR-DORA-DBCHANGE#5
     adrs: []
+    links:
+      - docs/adr/principles/everything-as-code.md
+      - docs/adr/principles/one-living-version.md
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#database-change-management
+      - docs/references/dora/capabilities.md#deployment-automation
+      - docs/references/dora/capabilities.md#fast-flow
+      - docs/references/dora/capabilities.md#version-control
+      - docs/references/dora/core-model.md#fast-flow
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#reliability
+      - docs/references/dora/publications.md#2018-accelerate-state-of-devops-report
+      - "https://dora.dev/capabilities/database-change-management/"
 ---
 
 # ADR: DORA — Database change management

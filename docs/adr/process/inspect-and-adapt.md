@@ -4,7 +4,23 @@ catzc:
     path: docs/adr/process/inspect-and-adapt.md
     kind: adr
     body_sha: "7e821d6725bb"
+    defines:
+      - ADR-PROC-KAIZEN#1
+      - ADR-PROC-KAIZEN#2
+      - ADR-PROC-KAIZEN#3
+      - ADR-PROC-KAIZEN#4
     adrs: []
+    links:
+      - docs/adr/automation/devbox-pipeline-parity.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/principles/poka-yoke.md
+      - docs/adr/principles/reduce-waste.md
+      - docs/adr/process/agile-principles.md
+      - docs/adr/process/holding-the-line.md
+      - docs/adr/process/lean.md
+      - docs/adr/process/observe-work.md
+      - docs/adr/process/queues-cost-money.md
 ---
 
 # ADR: Inspect and adapt — kaizen built into the process

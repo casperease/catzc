@@ -4,6 +4,18 @@ catzc:
     path: docs/adr/azure/waf/operational-excellence.md
     kind: adr
     body_sha: be1d73e111ce
+    defines:
+      - ADR-AZ-WAFOE#1
+      - ADR-AZ-WAFOE#2
+      - ADR-AZ-WAFOE#3
+      - ADR-AZ-WAFOE#4
+      - ADR-AZ-WAFOE#5
+      - ADR-AZ-WAFOE#6
+      - ADR-AZ-WAFOE#7
+      - ADR-AZ-WAFOE#8
+      - ADR-AZ-WAFOE#9
+      - ADR-AZ-WAFOE#10
+      - ADR-AZ-WAFOE#11
     adrs:
       - ADR-AUTO-DEPS#1
       - ADR-AUTO-FAILFAST#7
@@ -20,13 +32,6 @@ catzc:
       - ADR-AZ-LZ#6
       - ADR-AZ-LZ#7
       - ADR-AZ-NAMING#1
-      - ADR-AZ-WAFOE#11
-      - ADR-AZ-WAFOE#3
-      - ADR-AZ-WAFOE#4
-      - ADR-AZ-WAFOE#5
-      - ADR-AZ-WAFOE#6
-      - ADR-AZ-WAFOE#7
-      - ADR-AZ-WAFOE#9
       - ADR-DSGN-REMOTE#4
       - ADR-FLOW-CD#12
       - ADR-FLOW-CD#2
@@ -46,6 +51,61 @@ catzc:
       - ADR-PROC-ANDON#1
       - ADR-PROC-KAIZEN#3
       - ADR-REPO-FORMAT#8
+    links:
+      - docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps1
+      - docs/adr/automation/devbox-pipeline-parity.md
+      - docs/adr/automation/dry-run.md
+      - docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7
+      - docs/adr/automation/idempotent-state-functions.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test33
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test41
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming1
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz2
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz5
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz6
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz7
+      - docs/adr/azure/prefer-az-cli.md
+      - docs/adr/design/server-remote-integration.md#rule-adr-dsgn-remote4
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd12
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd2
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd3
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd5
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd6
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd8
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9
+      - docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs6
+      - docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type10
+      - docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type2
+      - docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type3
+      - docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type5
+      - docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type6
+      - docs/adr/principles/everything-as-code.md#rule-adr-prin-eac1
+      - docs/adr/principles/everything-as-code.md#rule-adr-prin-eac3
+      - docs/adr/process/agile.md
+      - docs/adr/process/holding-the-line.md
+      - docs/adr/process/holding-the-line.md#rule-adr-proc-andon1
+      - docs/adr/process/inspect-and-adapt.md
+      - docs/adr/process/inspect-and-adapt.md#rule-adr-proc-kaizen3
+      - docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8
+      - docs/adr/research/generative-organizational-culture.md
+      - docs/adr/research/monitoring-and-observability.md
+      - docs/adr/research/trunk-based-development.md
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md
+      - docs/references/waf/index.md
+      - "https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/checklist"
+      - "https://learn.microsoft.com/en-us/legal/termsofuse"
 ---
 
 # ADR: Operational excellence — the Well-Architected checklist, item by item, as this repository delivers and runs its infrastructure

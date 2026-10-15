@@ -2,8 +2,8 @@
 # catzc:
 #   derived:
 #     path: importer.sh
-#     kind: generated-from-source
 #     source: automation/Catzc.Base.RootConfig/assets/root/importer.sh
+#     kind: generated-from-source
 # ---
 
 # shellcheck shell=bash

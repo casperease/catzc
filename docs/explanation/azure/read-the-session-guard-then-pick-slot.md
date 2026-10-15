@@ -8,6 +8,16 @@ catzc:
       - ADR-AZ-DATAMOD#4
       - ADR-AZ-DATAMOD#5
       - ADR-AZ-DATAMOD#7
+    links:
+      - docs/.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.md
+      - docs/.assets/explanation/adr-az-datamod--read-the-session-guard-then-pick-slot--implementation.drawio.png
+      - docs/adr/azure/azure-data-model.md
+      - docs/explanation/azure/four-gates-hold-the-session-rule.md
+      - docs/explanation/azure/index.md
+      - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
+      - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
+      - docs/explanation/azure/the-session-is-the-deploy-target.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Get-BicepDeploymentContext reads the session, guards it, then picks the slot

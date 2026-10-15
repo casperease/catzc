@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.chain.md
+      - docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.drawio.png
+      - docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.grid.md
+      - docs/.assets/explanation/adr-az-naming--lookup-form-check-render-in-order--implementation.tree.md
+      - docs/explanation/azure/lookup-form-check-render-in-order.md
 ---
 
 # The namer looks up, forms, checks and renders in order: the diagram described

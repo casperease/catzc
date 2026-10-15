@@ -6,6 +6,7 @@ catzc:
     body_sha: e887d8e5c3b8
     adrs:
       - ADR-PWSH-PESTER#9
+    links: []
 ---
 
 # automation/Catzc.Base.TypesSystem/Get-AutomationModules.ps1

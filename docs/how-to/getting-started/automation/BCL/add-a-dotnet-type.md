@@ -6,6 +6,9 @@ catzc:
     body_sha: d7792a0fc3a0
     adrs:
       - ADR-AUTO-TYPES#8
+    links:
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/how-to/getting-started/automation/add-a-module.md#declaring-dependencies
 ---
 
 # Add a C# type

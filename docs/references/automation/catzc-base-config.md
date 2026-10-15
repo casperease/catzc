@@ -5,6 +5,16 @@ catzc:
     kind: reference
     body_sha: "900ad440bd3c"
     adrs: []
+    links:
+      - docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md
+      - docs/.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.png
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/configuration/config-value-addressing.md
+      - docs/adr/configuration/module-config-loading.md
+      - docs/references/automation/catzc-base-asserts.md
+      - docs/references/automation/catzc-base-configextensions.md
+      - docs/references/automation/catzc-base-objects.md
+      - docs/references/automation/catzc-base-repository.md
 ---
 
 # Catzc.Base.Config

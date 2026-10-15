@@ -6,6 +6,7 @@ catzc:
     body_sha: "492f9dc9878f"
     adrs:
       - ADR-PWSH-PESTER#9
+    links: []
 ---
 
 # automation/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1

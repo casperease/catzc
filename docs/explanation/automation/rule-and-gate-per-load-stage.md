@@ -16,6 +16,22 @@ catzc:
       - ADR-PWSH-TYPES#2
       - ADR-REPO-ROOTCFG#1
       - ADR-REPO-ROOTCFG#4
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.md
+      - docs/.assets/explanation/adr-auto-bundle--rule-and-gate-per-load-stage--governance.drawio.png
+      - docs/adr/automation/BCL/native-csharp-types.md
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/design/run-modes.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/pwsh/error-handling.md
+      - docs/adr/pwsh/hosting-csharp-types.md
+      - docs/adr/repository/generated-root-configs.md
+      - docs/explanation/automation/dot-source-one-entry-script.md
+      - docs/explanation/automation/every-entry-runs-one-load-sequence.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/invoke-importer-in-code-order.md
+      - docs/explanation/automation/two-entries-feed-one-importer.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Every load stage but the unload has an ADR rule and a gate

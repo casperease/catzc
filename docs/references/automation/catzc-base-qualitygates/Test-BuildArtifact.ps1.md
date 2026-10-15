@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-TEST#24
       - ADR-AUTO-TEST#35
       - ADR-DSGN-RUNMODE#2
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-BuildArtifact.ps1

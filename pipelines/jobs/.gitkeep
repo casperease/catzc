@@ -2,9 +2,9 @@
 # catzc:
 #   derived:
 #     path: pipelines/jobs/.gitkeep
+#     source: automation/Catzc.Base.Docs/assets/gitkeep
 #     kind: generated-from-source
 #     generator: Build-GitKeep
-#     source: automation/Catzc.Base.Docs/assets/gitkeep
 # ---
 
 This .gitkeep keeps its otherwise-empty (or content-ignored) folder tracked in git.

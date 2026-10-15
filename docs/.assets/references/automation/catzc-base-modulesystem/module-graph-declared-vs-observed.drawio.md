@@ -11,6 +11,8 @@ catzc:
       - ADR-AUTO-TEST#4
       - ADR-PWSH-CACHE#4
       - ADR-PWSH-PESTER#9
+    links:
+      - docs/.assets/references/automation/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.png
 ---
 
 # Declared graph orders and closes; observed graph is checked: the diagram described

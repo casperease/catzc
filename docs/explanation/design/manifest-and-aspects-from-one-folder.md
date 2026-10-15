@@ -8,6 +8,16 @@ catzc:
       - ADR-DSGN-ASPECT#1
       - ADR-DSGN-ASPECT#2
       - ADR-PWSH-MANIFEST#3
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.md
+      - docs/.assets/explanation/adr-dsgn-aspect--manifest-and-aspects-from-one-folder--implementation.drawio.png
+      - docs/adr/design/module-aspects.md
+      - docs/explanation/design/drop-a-file-the-import-exports-it.md
+      - docs/explanation/design/every-file-in-exactly-one-aspect.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/one-folder-two-independent-readers.md
+      - docs/explanation/design/partition-integrity-runs-only-in-unit-tests.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # The manifest and the aspects both come from one folder

@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.chain.md
+      - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.drawio.png
+      - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.grid.md
+      - docs/.assets/explanation/adr-dsgn-runmode--one-entry-script-per-mode--operations.tree.md
+      - docs/explanation/design/one-entry-script-per-mode.md
 ---
 
 # Each run mode has one entry script, and a mixed session throws: the diagram described

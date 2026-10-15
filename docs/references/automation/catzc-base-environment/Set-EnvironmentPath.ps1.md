@@ -6,6 +6,7 @@ catzc:
     body_sha: c29c8e5ac152
     adrs:
       - ADR-AUTO-CONSOLE#11
+    links: []
 ---
 
 # automation/Catzc.Base.Environment/Set-EnvironmentPath.ps1

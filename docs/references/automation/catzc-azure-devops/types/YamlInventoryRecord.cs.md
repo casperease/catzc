@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: c616e633a245
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/types/YamlInventoryRecord.cs

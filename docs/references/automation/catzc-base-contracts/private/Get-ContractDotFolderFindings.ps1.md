@@ -8,6 +8,7 @@ catzc:
       - ADR-REPO-CONTRACT#10
       - ADR-REPO-CONTRACT#2
       - ADR-REPO-FOLDERS#4
+    links: []
 ---
 
 # automation/Catzc.Base.Contracts/private/Get-ContractDotFolderFindings.ps1

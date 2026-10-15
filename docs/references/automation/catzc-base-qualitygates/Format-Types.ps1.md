@@ -6,6 +6,7 @@ catzc:
     body_sha: c68fd287fe1c
     adrs:
       - ADR-PWSH-PESTER#9
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Format-Types.ps1

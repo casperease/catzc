@@ -5,6 +5,10 @@ catzc:
     kind: reference
     body_sha: "056458e98539"
     adrs: []
+    links:
+      - ".claude/CLAUDE.md#time-safeguard"
+      - docs/adr/repository/generated-readmes.md
+      - docs/references/infrastructure/modules.md
 ---
 
 # Authoring an infrastructure reference

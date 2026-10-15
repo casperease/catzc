@@ -4,13 +4,35 @@ catzc:
     path: docs/adr/pwsh/pwsh-engine.md
     kind: adr
     body_sha: b8e8750cdd85
+    defines:
+      - ADR-PWSH-ENGINE#1
+      - ADR-PWSH-ENGINE#2
+      - ADR-PWSH-ENGINE#3
+      - ADR-PWSH-ENGINE#4
+      - ADR-PWSH-ENGINE#5
+      - ADR-PWSH-ENGINE#6
     adrs:
       - ADR-AUTO-BUNDLE#3
       - ADR-AUTO-BUNDLE#8
-      - ADR-PWSH-ENGINE#3
-      - ADR-PWSH-ENGINE#5
       - ADR-PWSH-ERROR#1
       - ADR-PWSH-ERROR#2
+    links:
+      - docs/adr/automation/console-output-matters.md#rule-adr-auto-console11
+      - docs/adr/automation/cross-platform.md
+      - docs/adr/automation/execution-engines.md
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine1
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine2
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine3
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine4
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine5
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/design/run-modes.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/pwsh/dynamic-module-manifests.md
+      - docs/adr/pwsh/error-handling.md
+      - docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8
+      - docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types2
+      - docs/adr/pwsh/pester-testing.md
 ---
 
 # ADR: The pwsh engine — PowerShell 7 as catzc's module engine

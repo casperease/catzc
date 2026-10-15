@@ -11,6 +11,7 @@ catzc:
       - ADR-FLOW-CD-GLOBS#8
       - ADR-REPO-PROTGLOB#6
       - ADR-REPO-PROTGLOB#7
+    links: []
 ---
 
 # automation/Catzc.Base.Globs/configs/globs.yml

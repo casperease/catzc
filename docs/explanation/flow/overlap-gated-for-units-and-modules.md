@@ -9,6 +9,19 @@ catzc:
       - ADR-FLOW-CD-GLOBS#10
       - ADR-FLOW-CD-GLOBS#7
       - ADR-REPO-PROTGLOB#7
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-globs--overlap-gated-for-units-and-modules--governance.drawio.png
+      - docs/adr/automation/test-automation.md
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/repository/protected-globs.md
+      - docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
+      - docs/explanation/flow/independence-check-groups-by-layer.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/peers-in-a-layer-never-overlap.md
+      - docs/explanation/flow/two-declared-layers-one-derived.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # A gate checks overlap for units and modules, and loose-filesets are exempt

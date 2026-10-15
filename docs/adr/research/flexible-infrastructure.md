@@ -4,7 +4,35 @@ catzc:
     path: docs/adr/research/flexible-infrastructure.md
     kind: adr
     body_sha: "0aba2454ac45"
+    defines:
+      - ADR-DORA-FLEXINFRA#1
+      - ADR-DORA-FLEXINFRA#2
+      - ADR-DORA-FLEXINFRA#3
+      - ADR-DORA-FLEXINFRA#4
+      - ADR-DORA-FLEXINFRA#5
     adrs: []
+    links:
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/design/self-service.md
+      - docs/adr/design/thin-platforms.md
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#deployment-automation
+      - docs/references/dora/capabilities.md#fast-flow
+      - docs/references/dora/capabilities.md#flexible-infrastructure
+      - docs/references/dora/capabilities.md#platform-engineering
+      - docs/references/dora/capabilities.md#version-control
+      - docs/references/dora/core-model.md#fast-flow
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#reliability
+      - docs/references/dora/publications.md#2018-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2019-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2021-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2022-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2023-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2024-accelerate-state-of-devops-report
+      - "https://dora.dev/capabilities/flexible-infrastructure/"
 ---
 
 # ADR: DORA — Flexible infrastructure

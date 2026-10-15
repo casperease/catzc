@@ -5,6 +5,11 @@ catzc:
     kind: reference
     body_sha: c9314955e75e
     adrs: []
+    links:
+      - docs/references/automation/catzc-base-config.md
+      - docs/references/automation/catzc-base-execution.md
+      - docs/references/automation/catzc-base-objects.md
+      - docs/references/automation/catzc-base-repository.md
 ---
 
 # Catzc.Base.Timeouts

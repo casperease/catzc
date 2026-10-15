@@ -6,6 +6,7 @@ catzc:
     body_sha: "18c7dd4fee8a"
     adrs:
       - ADR-PIPE-VAR#1
+    links: []
 ---
 
 # automation/.scriptanalyzer/NoRawVsoCommand.psm1

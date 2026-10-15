@@ -4,7 +4,24 @@ catzc:
     path: docs/adr/azure/dora-explains.md
     kind: adr
     body_sha: "018849f8c800"
+    defines: []
     adrs: []
+    links:
+      - docs/adr/azure/az-session-verification.md
+      - docs/adr/azure/azure-customer-model.md
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/azure/azure-network-model.md
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/prefer-az-cli.md
+      - docs/references/dora/capabilities.md#code-maintainability
+      - docs/references/dora/capabilities.md#deployment-automation
+      - docs/references/dora/capabilities.md#flexible-infrastructure
+      - docs/references/dora/capabilities.md#loosely-coupled-teams
+      - docs/references/dora/capabilities.md#pervasive-security
+      - docs/references/dora/capabilities.md#trunk-based-development
+      - docs/references/dora/capabilities.md#version-control
+      - docs/references/dora/index.md
 ---
 
 # DORA explanations — azure

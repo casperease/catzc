@@ -6,6 +6,7 @@ catzc:
     body_sha: "6260b077e224"
     adrs:
       - ADR-AUTO-DEFAULT#6
+    links: []
 ---
 
 # automation/Catzc.Base.Languages/configs/go.yml

@@ -6,6 +6,7 @@ catzc:
     body_sha: f3201ea9cdee
     adrs:
       - ADR-PWSH-VENDOR#7
+    links: []
 ---
 
 # automation/Catzc.Base.Vendor/Install-VendorModule.ps1

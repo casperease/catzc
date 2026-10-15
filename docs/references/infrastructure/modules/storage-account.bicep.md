@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "8c004fbceb14"
     adrs: []
+    links: []
 ---
 
 # infrastructure/modules/storage-account.bicep

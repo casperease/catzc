@@ -13,6 +13,16 @@ catzc:
       - ADR-AZ-NAMING#6
       - ADR-AZ-NAMING#7
       - ADR-AZ-NAMING#8
+    links:
+      - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.md
+      - docs/.assets/explanation/adr-az-naming--how-each-naming-rule-is-held--governance.drawio.png
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/explanation/azure/index.md
+      - docs/explanation/azure/lookup-form-check-render-in-order.md
+      - docs/explanation/azure/names-are-derived-never-typed.md
+      - docs/explanation/azure/names-are-pure-and-never-truncated.md
+      - docs/explanation/azure/one-namer-assembles-every-name.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Code holds all eight naming rules, seven of them behind a check that throws

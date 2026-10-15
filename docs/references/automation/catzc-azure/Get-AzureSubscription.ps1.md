@@ -6,6 +6,7 @@ catzc:
     body_sha: "2aa65ca3b1c6"
     adrs:
       - ADR-AZ-DATAMOD#4
+    links: []
 ---
 
 # automation/Catzc.Azure/Get-AzureSubscription.ps1

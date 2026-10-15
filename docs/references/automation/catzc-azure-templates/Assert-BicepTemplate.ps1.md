@@ -6,6 +6,7 @@ catzc:
     body_sha: bb66d99b54b9
     adrs:
       - ADR-AZ-DATAMOD#9
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Assert-BicepTemplate.ps1

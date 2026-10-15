@@ -6,6 +6,7 @@ catzc:
     body_sha: c0906cc637e1
     adrs:
       - ADR-PWSH-CACHE#4
+    links: []
 ---
 
 # automation/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1

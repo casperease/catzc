@@ -6,6 +6,7 @@ catzc:
     body_sha: "1adfd7e45330"
     adrs:
       - ADR-PWSH-PARAM#4
+    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/private/Resolve-DotnetRemovalTarget.ps1

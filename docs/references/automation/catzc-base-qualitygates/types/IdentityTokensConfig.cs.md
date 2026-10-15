@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "8e6e8cfb5048"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/IdentityTokensConfig.cs

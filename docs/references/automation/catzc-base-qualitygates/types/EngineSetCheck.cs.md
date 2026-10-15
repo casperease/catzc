@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-ENGINE#1
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/EngineSetCheck.cs

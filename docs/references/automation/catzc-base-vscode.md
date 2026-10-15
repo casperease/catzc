@@ -5,6 +5,10 @@ catzc:
     kind: reference
     body_sha: eff1880109ad
     adrs: []
+    links:
+      - docs/adr/repository/generated-root-configs.md
+      - docs/references/automation/catzc-base-git.md
+      - docs/references/automation/catzc-base-rootconfig.md
 ---
 
 # Catzc.Base.VSCode

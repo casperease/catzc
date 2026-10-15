@@ -6,6 +6,7 @@ catzc:
     body_sha: a3f2c3027cf1
     adrs:
       - ADR-REPO-HELP#1
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-FunctionHelpSection.ps1

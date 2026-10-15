@@ -6,6 +6,7 @@ catzc:
     body_sha: fcbbd5d53589
     adrs:
       - ADR-PWSH-ERROR#3
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-TestRuleTags.ps1

@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "22fa3dc3233b"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-repo-variant--five-keys-one-reader-twelve-primitives--implementation.drawio.png
+      - docs/explanation/repository/five-keys-one-reader-twelve-primitives.md
 ---
 
 # Five keys, one private reader, twelve exported primitives: the diagram described

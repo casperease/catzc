@@ -18,6 +18,8 @@ catzc:
       - ADR-DSGN-VISUAL#4
       - ADR-FLOW-CD#3
       - ADR-REPO-FORMAT#6
+    links:
+      - ".claude/drawio/glyphs.xml"
 ---
 
 # Maker kit: style for new docs/.assets diagrams

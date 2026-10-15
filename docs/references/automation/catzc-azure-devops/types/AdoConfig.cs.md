@@ -6,6 +6,7 @@ catzc:
     body_sha: "327280ee7de3"
     adrs:
       - ADR-AUTO-TYPES#8
+    links: []
 ---
 
 # automation/Catzc.Azure.DevOps/types/AdoConfig.cs

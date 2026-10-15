@@ -10,6 +10,7 @@ catzc:
       - ADR-PIPE-NAME#6
       - ADR-PRIN-CONFIG#1
       - ADR-REPO-FORMAT#8
+    links: []
 ---
 
 # automation/Catzc.Base.Languages/configs/languages.yml

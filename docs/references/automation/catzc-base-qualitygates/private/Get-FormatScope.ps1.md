@@ -9,6 +9,7 @@ catzc:
       - ADR-PRIN-CONFIG#4
       - ADR-REPO-CONTRACT#5
       - ADR-REPO-CONTRACT#6
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-FormatScope.ps1

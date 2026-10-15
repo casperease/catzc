@@ -6,6 +6,7 @@ catzc:
     body_sha: "2e776c9942e7"
     adrs:
       - ADR-REPO-VOCAB#1
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-GlossaryAnchorViolations.ps1

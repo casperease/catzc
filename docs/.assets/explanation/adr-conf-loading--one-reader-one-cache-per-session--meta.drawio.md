@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.chain.md
+      - docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.drawio.png
+      - docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.grid.md
+      - docs/.assets/explanation/adr-conf-loading--one-reader-one-cache-per-session--meta.tree.md
+      - docs/explanation/configuration/one-reader-one-cache-per-session.md
 ---
 
 # One reader, one cache per session: the diagram described

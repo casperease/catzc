@@ -6,6 +6,7 @@ catzc:
     body_sha: "77a0c7e70157"
     adrs:
       - ADR-AZ-CLI#1
+    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Install-AzCliBicep.ps1

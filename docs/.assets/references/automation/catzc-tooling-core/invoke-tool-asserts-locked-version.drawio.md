@@ -9,6 +9,8 @@ catzc:
       - ADR-AUTO-DRYRUN#2
       - ADR-CONF-LOADING#6
       - ADR-PWSH-CACHE#4
+    links:
+      - docs/.assets/references/automation/catzc-tooling-core/invoke-tool-asserts-locked-version.drawio.png
 ---
 
 # Each `Invoke-<Tool>` asserts the locked version before it runs: the diagram described

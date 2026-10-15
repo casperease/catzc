@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-GO#6
       - ADR-AUTO-PY#4
       - ADR-REPO-FORMAT#8
+    links: []
 ---
 
 # automation/Catzc.Base.RootConfig/private/Invoke-RootConfigGenerator.ps1

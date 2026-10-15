@@ -6,6 +6,7 @@ catzc:
     body_sha: "00b2b559575b"
     adrs:
       - ADR-AUTO-TEST#3
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1

@@ -2,11 +2,11 @@
 # catzc:
 #   derived:
 #     path: ".gitignore"
-#     kind: generated-from-source
-#     generator: New-GitIgnore
 #     source:
 #       - automation/Catzc.Base.Git/configs/gitignore.yml
 #       - automation/Catzc.Base.RootConfig/configs/rootconfig.yml
+#     kind: generated-from-source
+#     generator: New-GitIgnore
 # ---
 
 # ── Local, never-committed files ────────────────────────────────────────────────────────────────────────────────────

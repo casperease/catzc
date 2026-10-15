@@ -4,7 +4,18 @@ catzc:
     path: docs/adr/automation/devbox-pipeline-parity.md
     kind: adr
     body_sha: "6b5b0f557acf"
+    defines:
+      - ADR-AUTO-PARITY#1
+      - ADR-AUTO-PARITY#2
+      - ADR-AUTO-PARITY#3
+      - ADR-AUTO-PARITY#4
     adrs: []
+    links:
+      - docs/adr/automation/test-automation.md
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/flow/pipeline-detection.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/principles/reduce-variability.md
 ---
 
 # ADR: Devbox and pipeline parity — one CLI, two environments, one seam

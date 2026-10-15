@@ -6,6 +6,7 @@ catzc:
     body_sha: "9e130ce6e84a"
     adrs:
       - ADR-AUTO-TEST#13
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Assert-TestTagGate.ps1

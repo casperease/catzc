@@ -8,6 +8,8 @@ catzc:
       - ADR-AZ-DATAMOD#4
       - ADR-PWSH-DRYRUN#1
       - ADR-PWSH-ERROR#8
+    links:
+      - docs/.assets/references/automation/catzc-azure-templates/bicep-deploy-one-immutable-context.drawio.png
 ---
 
 # One immutable context, resolved from the az session: the diagram described

@@ -6,6 +6,11 @@ catzc:
     body_sha: "3735962b4882"
     adrs:
       - ADR-PWSH-ERROR#3
+    links:
+      - docs/adr/index.md
+      - docs/adr/repository/conventional-folders.md
+      - docs/adr/repository/uniform-formatting.md
+      - docs/index.md
 ---
 
 # Add a doc chapter

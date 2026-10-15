@@ -4,13 +4,14 @@ catzc:
     path: docs/adr/automation/bash/bash-test-artifacts.md
     kind: adr
     body_sha: "21cff11877fd"
-    adrs:
+    defines:
       - ADR-AUTO-BASH#1
       - ADR-AUTO-BASH#2
       - ADR-AUTO-BASH#3
       - ADR-AUTO-BASH#4
       - ADR-AUTO-BASH#5
       - ADR-AUTO-BASH#6
+    adrs:
       - ADR-AUTO-ENGINE#4
       - ADR-AUTO-ENGINE#6
       - ADR-AUTO-GO#7
@@ -18,6 +19,19 @@ catzc:
       - ADR-AUTO-TEST#42
       - ADR-AUTO-TEST#8
       - ADR-AUTO-TEST#9
+    links:
+      - docs/adr/automation/execution-engines.md
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine3
+      - docs/adr/automation/execution-engines.md#rule-adr-auto-engine4
+      - docs/adr/automation/go/go-test-artifacts.md
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/automation/python/python-test-artifacts.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/design/run-modes.md
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track2
+      - docs/adr/design/tracks.md#rule-adr-dsgn-track3
+      - docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester20
+      - docs/adr/repository/conventional-folders.md#rule-adr-repo-folders7
 ---
 
 # ADR: Bash test artifacts — black-box tests of the engine through cats, run by a vendored bats

@@ -6,6 +6,7 @@ catzc:
     body_sha: "06c3fe5dd6b5"
     adrs:
       - ADR-REPO-LINK#1
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/LinkKind.cs

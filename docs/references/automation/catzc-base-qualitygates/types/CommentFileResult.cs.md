@@ -6,6 +6,7 @@ catzc:
     body_sha: "2ef1b4a9c8fc"
     adrs:
       - ADR-AUTO-TYPES#9
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/CommentFileResult.cs

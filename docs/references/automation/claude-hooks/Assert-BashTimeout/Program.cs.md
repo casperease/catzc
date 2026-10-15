@@ -6,6 +6,7 @@ catzc:
     body_sha: "605398973015"
     adrs:
       - ADR-AUTO-FAILFAST#7
+    links: []
 ---
 
 # .claude/hooks/Assert-BashTimeout/Program.cs

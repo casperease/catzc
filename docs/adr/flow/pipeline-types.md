@@ -4,17 +4,44 @@ catzc:
     path: docs/adr/flow/pipeline-types.md
     kind: adr
     body_sha: c03623e9b407
+    defines:
+      - ADR-FLOW-CD-TYPE#1
+      - ADR-FLOW-CD-TYPE#2
+      - ADR-FLOW-CD-TYPE#3
+      - ADR-FLOW-CD-TYPE#4
+      - ADR-FLOW-CD-TYPE#5
+      - ADR-FLOW-CD-TYPE#6
+      - ADR-FLOW-CD-TYPE#7
+      - ADR-FLOW-CD-TYPE#8
+      - ADR-FLOW-CD-TYPE#9
+      - ADR-FLOW-CD-TYPE#10
+      - ADR-FLOW-CD-TYPE#11
+      - ADR-FLOW-CD-TYPE#12
+      - ADR-FLOW-CD-TYPE#13
+      - ADR-FLOW-CD-TYPE#14
     adrs:
       - ADR-FLOW-CD#11
       - ADR-FLOW-CD#13
       - ADR-FLOW-CD#9
-      - ADR-FLOW-CD-TYPE#10
-      - ADR-FLOW-CD-TYPE#11
-      - ADR-FLOW-CD-TYPE#14
-      - ADR-FLOW-CD-TYPE#3
-      - ADR-FLOW-CD-TYPE#6
-      - ADR-FLOW-CD-TYPE#8
-      - ADR-FLOW-CD-TYPE#9
+    links:
+      - docs/adr/automation/idempotent-state-functions.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd11
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs6
+      - docs/adr/flow/pipeline-detection.md
+      - docs/adr/flow/pipeline-runner-pattern.md
+      - docs/adr/pipelines/custom-template-discipline.md
+      - docs/adr/pipelines/dual-authentication.md
+      - docs/adr/pipelines/pipeline-variables.md
+      - docs/adr/research/continuous-integration.md
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#streamlining-change-approval
+      - docs/references/dora/capabilities.md#test-automation
 ---
 
 # ADR: Pipeline types — the six kinds of ADO artifact, named

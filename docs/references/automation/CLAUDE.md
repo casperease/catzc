@@ -6,6 +6,9 @@ catzc:
     body_sha: ae7fdacb19ff
     adrs:
       - ADR-REPO-FORMAT#6
+    links:
+      - ".claude/CLAUDE.md#time-safeguard"
+      - docs/adr/repository/uniform-formatting.md
 ---
 
 # Authoring a module reference

@@ -6,6 +6,7 @@ catzc:
     body_sha: b28a30c0e498
     adrs:
       - ADR-AUTO-TEST#35
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/Test-Glossary.ps1

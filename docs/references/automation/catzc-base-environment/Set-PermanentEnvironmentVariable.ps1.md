@@ -6,6 +6,7 @@ catzc:
     body_sha: "2ac77b2dbffb"
     adrs:
       - ADR-AUTO-CONSOLE#11
+    links: []
 ---
 
 # automation/Catzc.Base.Environment/Set-PermanentEnvironmentVariable.ps1

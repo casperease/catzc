@@ -4,7 +4,18 @@ catzc:
     path: docs/adr/automation/effective-in-enterprises.md
     kind: adr
     body_sha: "600c7ffc8192"
+    defines:
+      - ADR-AUTO-ENTERP#4
     adrs: []
+    links:
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm8
+      - docs/adr/automation/controlling-systemwide-deps.md
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/design/run-modes.md
+      - docs/adr/pwsh/module-path-hygiene.md
+      - docs/adr/pwsh/one-function-per-file.md
+      - docs/adr/pwsh/vendor-toolset-dependencies.md
 ---
 
 # ADR: Effective in enterprise environments

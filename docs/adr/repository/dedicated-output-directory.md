@@ -4,12 +4,23 @@ catzc:
     path: docs/adr/repository/dedicated-output-directory.md
     kind: adr
     body_sha: "74388027e701"
-    adrs:
-      - ADR-AUTO-SPELL#5
-      - ADR-REPO-OUTDIR#11
+    defines:
+      - ADR-REPO-OUTDIR#1
+      - ADR-REPO-OUTDIR#2
+      - ADR-REPO-OUTDIR#3
       - ADR-REPO-OUTDIR#4
       - ADR-REPO-OUTDIR#5
+      - ADR-REPO-OUTDIR#6
+      - ADR-REPO-OUTDIR#7
       - ADR-REPO-OUTDIR#8
+      - ADR-REPO-OUTDIR#9
+      - ADR-REPO-OUTDIR#10
+      - ADR-REPO-OUTDIR#11
+    adrs:
+      - ADR-AUTO-SPELL#5
+    links:
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5
 ---
 
 # ADR: Dedicated output directory

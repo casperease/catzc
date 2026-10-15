@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.chain.md
+      - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.drawio.png
+      - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.grid.md
+      - docs/.assets/explanation/adr-conf-loading--three-caches-back-one-reader--implementation.tree.md
+      - docs/explanation/configuration/three-caches-back-one-reader.md
 ---
 
 # Three caches back one reader: the diagram described

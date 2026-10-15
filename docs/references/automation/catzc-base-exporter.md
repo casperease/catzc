@@ -5,6 +5,20 @@ catzc:
     kind: reference
     body_sha: "2bc4f4d07db0"
     adrs: []
+    links:
+      - docs/adr/automation/platform-bundle.md
+      - docs/adr/design/run-modes.md
+      - docs/adr/design/self-service.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/adr/github/github-release.md
+      - docs/references/automation/catzc-base-asserts.md
+      - docs/references/automation/catzc-base-config.md
+      - docs/references/automation/catzc-base-files.md
+      - docs/references/automation/catzc-base-globs.md
+      - docs/references/automation/catzc-base-modulesystem.md
+      - docs/references/automation/catzc-base-repository.md
+      - docs/references/automation/catzc-base-writers.md
 ---
 
 # Catzc.Base.Exporter

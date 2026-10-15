@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.chain.md
+      - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.drawio.png
+      - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.grid.md
+      - docs/.assets/explanation/adr-auto-depm--three-layers-edges-point-down--architecture.tree.md
+      - docs/explanation/automation/three-layers-edges-point-down.md
 ---
 
 # Module dependencies form three layers: the diagram described

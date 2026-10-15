@@ -4,7 +4,35 @@ catzc:
     path: docs/adr/research/generative-organizational-culture.md
     kind: adr
     body_sha: e4535674c432
+    defines:
+      - ADR-DORA-CULTURE#1
+      - ADR-DORA-CULTURE#2
+      - ADR-DORA-CULTURE#3
+      - ADR-DORA-CULTURE#4
+      - ADR-DORA-CULTURE#5
     adrs: []
+    links:
+      - docs/adr/process/build-quality-in.md
+      - docs/adr/process/holding-the-line.md
+      - docs/adr/process/inspect-and-adapt.md
+      - docs/references/dora/capabilities.md#climate-for-learning
+      - docs/references/dora/capabilities.md#generative-organizational-culture
+      - docs/references/dora/capabilities.md#job-satisfaction
+      - docs/references/dora/capabilities.md#learning-culture
+      - docs/references/dora/capabilities.md#team-experimentation
+      - docs/references/dora/capabilities.md#transformational-leadership
+      - docs/references/dora/core-model.md#climate-for-learning
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/index.md
+      - docs/references/dora/publications.md#2014-state-of-devops-report
+      - docs/references/dora/publications.md#2018-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2019-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2021-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2022-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2023-accelerate-state-of-devops-report
+      - "https://dora.dev/capabilities/generative-organizational-culture/"
 ---
 
 # ADR: DORA — Generative organizational culture

@@ -11,6 +11,17 @@ catzc:
       - ADR-CONF-ADDRESSING#3
       - ADR-CONF-ADDRESSING#4
       - ADR-CONF-ADDRESSING#5
+    links:
+      - docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.md
+      - docs/.assets/explanation/adr-conf-addressing--two-test-files-check-the-address-rules--governance.drawio.png
+      - docs/adr/automation/environment-variables.md
+      - docs/adr/configuration/config-value-addressing.md
+      - docs/explanation/configuration/an-address-is-a-read-only-walk.md
+      - docs/explanation/configuration/callers-in-four-modules-share-one-resolver.md
+      - docs/explanation/configuration/index.md
+      - docs/explanation/configuration/strip-split-walk-every-wrong-turn-throws.md
+      - docs/explanation/configuration/type-an-address-get-the-value.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Two L0 test files check the address rules; read-only and committed-only rest on convention

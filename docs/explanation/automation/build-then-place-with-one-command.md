@@ -8,6 +8,16 @@ catzc:
       - ADR-AUTO-BUNDLE#5
       - ADR-AUTO-BUNDLE#6
       - ADR-AUTO-BUNDLE#7
+    links:
+      - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.md
+      - docs/.assets/explanation/adr-auto-bundle--build-then-place-with-one-command--operations.drawio.png
+      - docs/adr/automation/platform-bundle.md
+      - docs/explanation/automation/build-verify-then-copy-the-folder.md
+      - docs/explanation/automation/every-code-root-is-a-copy.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/one-commit-one-immutable-package.md
+      - docs/explanation/automation/what-gates-each-bundle-stage.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Build the bundle once, then place it with one command

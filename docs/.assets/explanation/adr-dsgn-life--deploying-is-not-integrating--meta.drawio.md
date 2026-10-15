@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.chain.md
+      - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.drawio.png
+      - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.grid.md
+      - docs/.assets/explanation/adr-dsgn-life--deploying-is-not-integrating--meta.tree.md
+      - docs/explanation/design/deploying-is-not-integrating.md
 ---
 
 # Deploying a topic commit is not integrating it: the diagram described

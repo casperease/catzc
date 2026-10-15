@@ -4,7 +4,37 @@ catzc:
     path: docs/adr/research/loosely-coupled-teams.md
     kind: adr
     body_sha: "24f01e1c2517"
+    defines:
+      - ADR-DORA-LOOSETEAMS#1
+      - ADR-DORA-LOOSETEAMS#2
+      - ADR-DORA-LOOSETEAMS#3
+      - ADR-DORA-LOOSETEAMS#4
+      - ADR-DORA-LOOSETEAMS#5
     adrs: []
+    links:
+      - docs/adr/automation/controlling-module-dependencies.md
+      - docs/adr/automation/open-closed-architecture.md
+      - docs/adr/design/tracks.md
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#deployment-automation
+      - docs/references/dora/capabilities.md#fast-flow
+      - docs/references/dora/capabilities.md#job-satisfaction
+      - docs/references/dora/capabilities.md#loosely-coupled-teams
+      - docs/references/dora/capabilities.md#team-experimentation
+      - docs/references/dora/capabilities.md#teams-empowered-to-choose-tools
+      - docs/references/dora/core-model.md#fast-flow
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#software-delivery-performance
+      - docs/references/dora/core-model.md#version-history
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/index.md
+      - docs/references/dora/metrics.md#instability
+      - docs/references/dora/metrics.md#throughput
+      - docs/references/dora/publications.md#2017-state-of-devops-report
+      - docs/references/dora/publications.md#2021-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2022-accelerate-state-of-devops-report
+      - docs/references/dora/publications.md#2023-accelerate-state-of-devops-report
+      - "https://dora.dev/capabilities/loosely-coupled-teams/"
 ---
 
 # ADR: DORA — Loosely coupled teams

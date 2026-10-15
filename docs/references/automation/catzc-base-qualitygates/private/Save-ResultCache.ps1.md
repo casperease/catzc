@@ -6,6 +6,7 @@ catzc:
     body_sha: b9165c0eb245
     adrs:
       - ADR-AUTO-CACHE#10
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Save-ResultCache.ps1

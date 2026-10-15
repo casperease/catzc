@@ -6,6 +6,9 @@ catzc:
     body_sha: "9dcdf39c95c2"
     adrs:
       - ADR-DSGN-VISUAL#4
+    links:
+      - docs/.assets/explanation/glyphs.drawio.png
+      - docs/explanation/index.md
 ---
 
 # The glyph library described

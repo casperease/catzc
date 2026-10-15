@@ -23,6 +23,8 @@ configs:
     type: Catzc.Base.QualityGates.FileMetaConfig
   generated-files:
     type: Catzc.Base.QualityGates.GeneratedFilesConfig
+  generated-head:
+    type: Catzc.Base.Languages.GeneratedHeadConfig
   test-policy:
     type: Catzc.Base.QualityGates.TestPolicyConfig
   parameter-consistency:

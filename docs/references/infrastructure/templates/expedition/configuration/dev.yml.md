@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "517ad215dc65"
     adrs: []
+    links: []
 ---
 
 # infrastructure/templates/expedition/configuration/dev.yml

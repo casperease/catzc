@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-CONSOLE#10
       - ADR-AUTO-TEST#32
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/private/Invoke-TestAutomationWorkers.ps1

@@ -6,6 +6,16 @@ catzc:
     body_sha: d6736cd3c5ce
     adrs:
       - ADR-AZ-DATAMOD#7
+    links:
+      - docs/.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.md
+      - docs/.assets/explanation/adr-az-datamod--the-session-is-the-deploy-target--meta.drawio.png
+      - docs/adr/azure/azure-data-model.md
+      - docs/explanation/azure/four-gates-hold-the-session-rule.md
+      - docs/explanation/azure/index.md
+      - docs/explanation/azure/one-reverse-lookup-feeds-every-module.md
+      - docs/explanation/azure/pipeline-pins-devbox-picks-the-target.md
+      - docs/explanation/azure/read-the-session-guard-then-pick-slot.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # The az session is the deploy target, and the guard only checks it

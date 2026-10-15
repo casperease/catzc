@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.chain.md
+      - docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.drawio.png
+      - docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.grid.md
+      - docs/.assets/explanation/adr-flow-cd--one-artifact-climbs-unchanged--meta.tree.md
+      - docs/explanation/flow/one-artifact-climbs-unchanged.md
 ---
 
 # One artifact climbs to production unchanged: the diagram described

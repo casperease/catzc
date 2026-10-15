@@ -6,6 +6,7 @@ catzc:
     body_sha: "8194c6fcd060"
     adrs:
       - ADR-REPO-README#6
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-ReadmeContent.ps1

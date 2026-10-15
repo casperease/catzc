@@ -7,6 +7,16 @@ catzc:
     adrs:
       - ADR-FLOW-CD-GLOBS#10
       - ADR-FLOW-CD-GLOBS#7
+    links:
+      - docs/.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.md
+      - docs/.assets/explanation/adr-flow-cd-globs--peers-in-a-layer-never-overlap--meta.drawio.png
+      - docs/adr/flow/durable-sha-globs.md
+      - docs/explanation/flow/declare-or-add-folder-gate-names-overlaps.md
+      - docs/explanation/flow/independence-check-groups-by-layer.md
+      - docs/explanation/flow/index.md
+      - docs/explanation/flow/overlap-gated-for-units-and-modules.md
+      - docs/explanation/flow/two-declared-layers-one-derived.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Peers in a layer never share a file, except in the loose-fileset layer

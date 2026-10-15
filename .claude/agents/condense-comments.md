@@ -18,6 +18,8 @@ catzc:
       - ADR-PRIN-ONELIVE#1
       - ADR-REPO-COMMENTS#1
       - ADR-REPO-COMMENTS#5
+    links:
+      - ".claude/CLAUDE.md#time-safeguard"
 ---
 
 # condense-comments

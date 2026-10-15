@@ -5,6 +5,11 @@ catzc:
     kind: reference
     body_sha: b5678246da49
     adrs: []
+    links:
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/repository/api-contracts.md
+      - docs/adr/repository/conventional-folders.md
+      - docs/references/contracts/catzc.md
 ---
 
 # The contracts surface

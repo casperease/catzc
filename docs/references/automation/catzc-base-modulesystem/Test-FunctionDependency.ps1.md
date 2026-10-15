@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-PWSH-PESTER#9
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1

@@ -4,8 +4,22 @@ catzc:
     path: docs/adr/process/holding-the-line.md
     kind: adr
     body_sha: d2cb16c40656
+    defines:
+      - ADR-PROC-ANDON#1
+      - ADR-PROC-ANDON#2
+      - ADR-PROC-ANDON#3
+      - ADR-PROC-ANDON#4
     adrs:
       - ADR-PRIN-POKAYOKE#3
+    links:
+      - docs/adr/automation/devbox-pipeline-parity.md
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/visual-design.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/adr/principles/poka-yoke.md#rule-adr-prin-pokayoke3
+      - docs/adr/principles/reduce-waste.md
+      - docs/adr/process/lean.md
+      - docs/adr/pwsh/error-handling.md
 ---
 
 # ADR: Holding the line — a gate that fails stops the flow until it is green

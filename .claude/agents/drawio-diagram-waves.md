@@ -14,6 +14,10 @@ catzc:
     body_sha: "3c31582376b4"
     adrs:
       - ADR-DSGN-VISUAL#4
+    links:
+      - ".claude/CLAUDE.md#time-safeguard"
+      - ".claude/drawio/STYLE.md"
+      - ".claude/drawio/drawio_png.py"
 ---
 
 # drawio-diagram-waves

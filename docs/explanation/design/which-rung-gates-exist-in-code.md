@@ -19,6 +19,19 @@ catzc:
       - ADR-FLOW-CD#5
       - ADR-FLOW-CD#8
       - ADR-FLOW-CD#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.md
+      - docs/.assets/explanation/adr-dsgn-life--which-rung-gates-exist-in-code--governance.drawio.png
+      - docs/adr/automation/test-automation.md
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/visual-design.md
+      - docs/adr/flow/cd-discipline-and-promotion-flow.md
+      - docs/explanation/design/code-wires-only-the-first-rungs.md
+      - docs/explanation/design/engineer-merges-pipelines-do-the-rest.md
+      - docs/explanation/design/four-domains-promote-one-artifact.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/one-way-climb-three-endings.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Only PR build validation, the BVT and the failure stop are checked in code

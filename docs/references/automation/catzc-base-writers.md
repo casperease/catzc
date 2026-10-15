@@ -5,6 +5,10 @@ catzc:
     kind: reference
     body_sha: "1484afabb639"
     adrs: []
+    links:
+      - docs/adr/automation/console-output-matters.md
+      - docs/references/automation/catzc-base-asserts.md
+      - docs/references/automation/catzc-base-objects.md
 ---
 
 # Catzc.Base.Writers

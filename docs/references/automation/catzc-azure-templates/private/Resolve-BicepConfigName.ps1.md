@@ -6,6 +6,7 @@ catzc:
     body_sha: "49eb6a96bd31"
     adrs:
       - ADR-AZ-DATAMOD#2
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/private/Resolve-BicepConfigName.ps1

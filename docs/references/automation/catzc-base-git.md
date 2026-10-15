@@ -5,6 +5,13 @@ catzc:
     kind: reference
     body_sha: acb4f4fa1504
     adrs: []
+    links:
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test32
+      - docs/adr/automation/tracked-files-from-the-index.md
+      - docs/adr/repository/generated-root-configs.md
+      - docs/references/automation/catzc-base-files.md
+      - docs/references/automation/catzc-base-rootconfig.md
+      - docs/references/automation/catzc-tooling-github.md
 ---
 
 # Catzc.Base.Git

@@ -17,6 +17,18 @@ catzc:
       - ADR-CONF-LOADING#4
       - ADR-CONF-LOADING#5
       - ADR-CONF-LOADING#6
+    links:
+      - docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.md
+      - docs/.assets/explanation/adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png
+      - docs/adr/automation/test-automation.md
+      - docs/adr/configuration/config-value-addressing.md
+      - docs/adr/configuration/module-config-loading.md
+      - docs/explanation/configuration/ask-by-name-get-the-cached-object.md
+      - docs/explanation/configuration/callers-depend-on-one-config-module.md
+      - docs/explanation/configuration/index.md
+      - docs/explanation/configuration/one-reader-one-cache-per-session.md
+      - docs/explanation/configuration/three-caches-back-one-reader.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # One quality gate guards the config read path, and it checks only the typed step

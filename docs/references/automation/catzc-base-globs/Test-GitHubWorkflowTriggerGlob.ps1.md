@@ -6,6 +6,7 @@ catzc:
     body_sha: "5bb085227a6e"
     adrs:
       - ADR-AUTO-TEST#35
+    links: []
 ---
 
 # automation/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1

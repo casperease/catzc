@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "77b6354ba2b8"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1

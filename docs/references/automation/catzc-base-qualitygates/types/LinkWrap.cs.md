@@ -6,6 +6,7 @@ catzc:
     body_sha: "575c89666bba"
     adrs:
       - ADR-REPO-LINK#8
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/LinkWrap.cs

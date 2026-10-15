@@ -9,6 +9,7 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-THES-ONETRUTH#3
+    links: []
 ---
 
 # automation/Catzc.Base.Maps/Get-ValueChainMap.ps1

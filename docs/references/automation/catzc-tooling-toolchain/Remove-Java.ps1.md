@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-REMOVE#3
       - ADR-AUTO-REMOVE#6
+    links: []
 ---
 
 # automation/Catzc.Tooling.Toolchain/Remove-Java.ps1

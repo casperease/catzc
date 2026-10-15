@@ -5,6 +5,10 @@ catzc:
     kind: how-to
     body_sha: a210ea69b439
     adrs: []
+    links:
+      - docs/adr/automation/effective-in-enterprises.md
+      - docs/adr/pwsh/module-path-hygiene.md
+      - docs/how-to/getting-started/automation/BCL/add-a-dotnet-type.md
 ---
 
 # Debug in VS Code

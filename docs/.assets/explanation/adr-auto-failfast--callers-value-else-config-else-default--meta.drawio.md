@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "1be7d8fdbd51"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-auto-failfast--callers-value-else-config-else-default--meta.drawio.png
+      - docs/explanation/automation/callers-value-else-config-else-default.md
 ---
 
 # Every wait is bounded: the caller's value, else the config, else the default: the diagram described

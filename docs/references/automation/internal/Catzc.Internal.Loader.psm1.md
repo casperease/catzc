@@ -6,6 +6,7 @@ catzc:
     body_sha: "2b32ee4296ca"
     adrs:
       - ADR-FLOW-CD-DETECT#1
+    links: []
 ---
 
 # automation/.internal/Catzc.Internal.Loader.psm1

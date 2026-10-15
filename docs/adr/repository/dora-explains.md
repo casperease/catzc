@@ -4,7 +4,43 @@ catzc:
     path: docs/adr/repository/dora-explains.md
     kind: adr
     body_sha: "25f6f76e79b8"
+    defines: []
     adrs: []
+    links:
+      - docs/adr/repository/agent-definitions.md
+      - docs/adr/repository/api-contracts.md
+      - docs/adr/repository/code-file-meta.md
+      - docs/adr/repository/comments-in-docs.md
+      - docs/adr/repository/controlled-vocabulary.md
+      - docs/adr/repository/conventional-folders.md
+      - docs/adr/repository/dedicated-output-directory.md
+      - docs/adr/repository/documentation-examples.md
+      - docs/adr/repository/domain-language-separation.md
+      - docs/adr/repository/file-meta.md
+      - docs/adr/repository/function-help.md
+      - docs/adr/repository/generated-readmes.md
+      - docs/adr/repository/generated-root-configs.md
+      - docs/adr/repository/inspiration.md
+      - docs/adr/repository/markdown-links.md
+      - docs/adr/repository/output-formats.md
+      - docs/adr/repository/protected-globs.md
+      - docs/adr/repository/repo-variants.md
+      - docs/adr/repository/uniform-formatting.md
+      - docs/references/dora/capabilities.md#ai-accessible-internal-data
+      - docs/references/dora/capabilities.md#clear-and-communicated-ai-stance
+      - docs/references/dora/capabilities.md#code-maintainability
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#continuous-integration
+      - docs/references/dora/capabilities.md#documentation-quality
+      - docs/references/dora/capabilities.md#learning-culture
+      - docs/references/dora/capabilities.md#loosely-coupled-teams
+      - docs/references/dora/capabilities.md#pervasive-security
+      - docs/references/dora/capabilities.md#platform-engineering
+      - docs/references/dora/capabilities.md#team-experimentation
+      - docs/references/dora/capabilities.md#test-automation
+      - docs/references/dora/capabilities.md#version-control
+      - docs/references/dora/capabilities.md#working-in-small-batches
+      - docs/references/dora/index.md
 ---
 
 # DORA explanations — repository

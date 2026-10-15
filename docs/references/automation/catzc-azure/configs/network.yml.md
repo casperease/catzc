@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "8857c38dd887"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure/configs/network.yml

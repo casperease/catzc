@@ -5,6 +5,22 @@ catzc:
     kind: reference
     body_sha: "9a14fc93241c"
     adrs: []
+    links:
+      - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md
+      - docs/.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png
+      - docs/adr/automation/bash/bash-test-artifacts.md
+      - docs/adr/automation/go/go-test-artifacts.md
+      - docs/adr/automation/managed-guids.md
+      - docs/adr/automation/python/python-test-artifacts.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
+      - docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4
+      - docs/adr/principles/configure-not-program.md
+      - docs/adr/repository/comments-in-docs.md
+      - docs/adr/repository/markdown-links.md
+      - docs/references/automation/catzc-base-languages.md
+      - docs/references/automation/catzc-base-modulesystem.md
+      - docs/references/automation/catzc-base-reports.md
 ---
 
 # Catzc.Base.QualityGates

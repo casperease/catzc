@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.chain.md
+      - docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.drawio.png
+      - docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.grid.md
+      - docs/.assets/explanation/adr-conf-loading--callers-depend-on-one-config-module--architecture.tree.md
+      - docs/explanation/configuration/callers-depend-on-one-config-module.md
 ---
 
 # Callers anywhere depend on one module: the diagram described

@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-DSGN-RUNMODE#2
       - ADR-REPO-FOLDERS#4
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-CatsModules.ps1

@@ -10,6 +10,17 @@ catzc:
       - ADR-DSGN-REMOTE#1
       - ADR-DSGN-REMOTE#2
       - ADR-DSGN-REMOTE#4
+    links:
+      - docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.md
+      - docs/.assets/explanation/adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/server-remote-integration.md
+      - docs/explanation/design/guard-and-policies-by-command.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/ingress-gated-the-rest-by-review.md
+      - docs/explanation/design/local-guard-and-server-policies.md
+      - docs/explanation/design/one-door-in-one-stable-point-out.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Clients bridge to one server remote: in through a pull request, out from the verified point

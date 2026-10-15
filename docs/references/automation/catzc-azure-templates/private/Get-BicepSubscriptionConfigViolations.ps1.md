@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "12c1f494b78d"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/private/Get-BicepSubscriptionConfigViolations.ps1

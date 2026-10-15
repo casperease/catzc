@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "1b406574cfcb"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Cli/Test-AzCliExtension.ps1

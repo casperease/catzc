@@ -6,6 +6,7 @@ catzc:
     body_sha: "7f44e182d95c"
     adrs:
       - ADR-AZ-DATAMOD#11
+    links: []
 ---
 
 # automation/Catzc.Azure/configs/azure.yml

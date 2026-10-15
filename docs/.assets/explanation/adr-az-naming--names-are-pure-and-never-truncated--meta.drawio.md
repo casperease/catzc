@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.chain.md
+      - docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.drawio.png
+      - docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.grid.md
+      - docs/.assets/explanation/adr-az-naming--names-are-pure-and-never-truncated--meta.tree.md
+      - docs/explanation/azure/names-are-pure-and-never-truncated.md
 ---
 
 # Names are pure and never truncated: the diagram described

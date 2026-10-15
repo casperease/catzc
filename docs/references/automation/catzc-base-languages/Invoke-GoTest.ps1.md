@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-ENVVAR#1
       - ADR-AUTO-GO#6
+    links: []
 ---
 
 # automation/Catzc.Base.Languages/Invoke-GoTest.ps1

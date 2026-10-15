@@ -4,6 +4,17 @@ catzc:
     path: docs/adr/azure/caf/governance.md
     kind: adr
     body_sha: ff679b35f782
+    defines:
+      - ADR-AZ-CAFGOV#1
+      - ADR-AZ-CAFGOV#2
+      - ADR-AZ-CAFGOV#3
+      - ADR-AZ-CAFGOV#4
+      - ADR-AZ-CAFGOV#5
+      - ADR-AZ-CAFGOV#6
+      - ADR-AZ-CAFGOV#7
+      - ADR-AZ-CAFGOV#8
+      - ADR-AZ-CAFGOV#9
+      - ADR-AZ-CAFGOV#10
     adrs:
       - ADR-AZ-DATAMOD#11
       - ADR-AZ-DATAMOD#9
@@ -11,6 +22,18 @@ catzc:
       - ADR-AZ-LZ#3
       - ADR-AZ-LZ#4
       - ADR-AZ-WAFCO#3
+    links:
+      - docs/adr/automation/managed-guids.md
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/waf/cost-optimization.md#rule-adr-az-wafco3
+      - docs/adr/principles/one-living-version.md
+      - docs/references/caf/index.md
 ---
 
 # ADR: CAF governance — what the repository does about each of Microsoft's governance design recommendations

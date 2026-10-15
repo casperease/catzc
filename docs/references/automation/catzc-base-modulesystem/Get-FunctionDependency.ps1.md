@@ -12,6 +12,7 @@ catzc:
       - ADR-AUTO-TEST#4
       - ADR-PWSH-CACHE#4
       - ADR-PWSH-PESTER#9
+    links: []
 ---
 
 # automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1

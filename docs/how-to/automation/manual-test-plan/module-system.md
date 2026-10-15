@@ -7,6 +7,8 @@ catzc:
     adrs:
       - ADR-AUTO-ASSETDEP#3
       - ADR-AUTO-ASSETDEP#4
+    links:
+      - docs/how-to/automation/manual-test-plan.md
 ---
 
 # Manual test plan — Module system

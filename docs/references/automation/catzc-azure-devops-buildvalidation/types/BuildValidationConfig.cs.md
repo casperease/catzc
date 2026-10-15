@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TYPES#8
       - ADR-FLOW-CD-TYPE#4
+    links: []
 ---
 
 # automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs

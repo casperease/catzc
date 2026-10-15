@@ -5,6 +5,35 @@ catzc:
     kind: reference
     body_sha: "3cfd89b51712"
     adrs: []
+    links:
+      - docs/adr/research/index.md
+      - docs/references/dora/ai.md
+      - docs/references/dora/ai.md#ai-capabilities-model
+      - docs/references/dora/capabilities.md
+      - docs/references/dora/core-model.md
+      - docs/references/dora/core-model.md#climate-for-learning
+      - docs/references/dora/core-model.md#fast-feedback
+      - docs/references/dora/core-model.md#fast-flow
+      - docs/references/dora/core-model.md#organizational-performance
+      - docs/references/dora/core-model.md#well-being
+      - docs/references/dora/metrics.md
+      - docs/references/dora/metrics.md#performance-clusters
+      - docs/references/dora/metrics.md#reliability
+      - docs/references/dora/publications.md
+      - "https://creativecommons.org/licenses/by/4.0/"
+      - "https://dora.dev/brand-guidelines/"
+      - "https://dora.dev/faq/"
+      - "https://dora.dev/insights/dora-2025-year-in-review/"
+      - "https://dora.dev/news/dora-joins-google-cloud/"
+      - "https://dora.dev/research/"
+      - "https://dora.dev/research/2018/"
+      - "https://dora.dev/research/2022/structural-equation-model/"
+      - "https://dora.dev/research/2023/structural-equation-models/"
+      - "https://dora.dev/research/2024/ai-preview/"
+      - "https://dora.dev/research/2025/questions/"
+      - "https://dora.dev/research/core/questions/"
+      - "https://dora.dev/research/team/"
+      - "https://github.com/dora-team/dora.dev"
 ---
 
 # DORA research reference

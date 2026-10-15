@@ -4,6 +4,69 @@ catzc:
     path: docs/adr/azure/caf/network-connectivity.md
     kind: adr
     body_sha: "1bb977ab38e6"
+    defines:
+      - ADR-AZ-CAFNETCON#1
+      - ADR-AZ-CAFNETCON#2
+      - ADR-AZ-CAFNETCON#3
+      - ADR-AZ-CAFNETCON#4
+      - ADR-AZ-CAFNETCON#5
+      - ADR-AZ-CAFNETCON#6
+      - ADR-AZ-CAFNETCON#7
+      - ADR-AZ-CAFNETCON#8
+      - ADR-AZ-CAFNETCON#9
+      - ADR-AZ-CAFNETCON#10
+      - ADR-AZ-CAFNETCON#11
+      - ADR-AZ-CAFNETCON#12
+      - ADR-AZ-CAFNETCON#13
+      - ADR-AZ-CAFNETCON#14
+      - ADR-AZ-CAFNETCON#15
+      - ADR-AZ-CAFNETCON#16
+      - ADR-AZ-CAFNETCON#17
+      - ADR-AZ-CAFNETCON#18
+      - ADR-AZ-CAFNETCON#19
+      - ADR-AZ-CAFNETCON#20
+      - ADR-AZ-CAFNETCON#21
+      - ADR-AZ-CAFNETCON#22
+      - ADR-AZ-CAFNETCON#23
+      - ADR-AZ-CAFNETCON#24
+      - ADR-AZ-CAFNETCON#25
+      - ADR-AZ-CAFNETCON#26
+      - ADR-AZ-CAFNETCON#27
+      - ADR-AZ-CAFNETCON#28
+      - ADR-AZ-CAFNETCON#29
+      - ADR-AZ-CAFNETCON#30
+      - ADR-AZ-CAFNETCON#31
+      - ADR-AZ-CAFNETCON#32
+      - ADR-AZ-CAFNETCON#33
+      - ADR-AZ-CAFNETCON#34
+      - ADR-AZ-CAFNETCON#35
+      - ADR-AZ-CAFNETCON#36
+      - ADR-AZ-CAFNETCON#37
+      - ADR-AZ-CAFNETCON#38
+      - ADR-AZ-CAFNETCON#39
+      - ADR-AZ-CAFNETCON#40
+      - ADR-AZ-CAFNETCON#41
+      - ADR-AZ-CAFNETCON#42
+      - ADR-AZ-CAFNETCON#43
+      - ADR-AZ-CAFNETCON#44
+      - ADR-AZ-CAFNETCON#45
+      - ADR-AZ-CAFNETCON#46
+      - ADR-AZ-CAFNETCON#47
+      - ADR-AZ-CAFNETCON#48
+      - ADR-AZ-CAFNETCON#49
+      - ADR-AZ-CAFNETCON#50
+      - ADR-AZ-CAFNETCON#51
+      - ADR-AZ-CAFNETCON#52
+      - ADR-AZ-CAFNETCON#53
+      - ADR-AZ-CAFNETCON#54
+      - ADR-AZ-CAFNETCON#55
+      - ADR-AZ-CAFNETCON#56
+      - ADR-AZ-CAFNETCON#57
+      - ADR-AZ-CAFNETCON#58
+      - ADR-AZ-CAFNETCON#59
+      - ADR-AZ-CAFNETCON#60
+      - ADR-AZ-CAFNETCON#61
+      - ADR-AZ-CAFNETCON#62
     adrs:
       - ADR-AZ-CAFSEC#41
       - ADR-AZ-CAFSEC#42
@@ -24,6 +87,32 @@ catzc:
       - ADR-AZ-WAFSE#7
       - ADR-AZ-WAFSE#8
       - ADR-AZ-WAFSE#9
+    links:
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network1
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network5
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network6
+      - docs/adr/azure/caf/landing-zone-security.md
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec41
+      - docs/adr/azure/caf/landing-zone-security.md#rule-adr-az-cafsec42
+      - docs/adr/azure/caf/network-private-access.md
+      - docs/adr/azure/caf/network-topology.md
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz2
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz5
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz6
+      - docs/adr/azure/waf/security.md
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse10
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse4
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse5
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse6
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse7
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse8
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse9
+      - docs/references/caf/index.md
 ---
 
 # ADR: CAF network connectivity — what the repository does about each recommendation on reaching, leaving, and protecting its networks

@@ -6,6 +6,7 @@ catzc:
     body_sha: dca12d803c34
     adrs:
       - ADR-AUTO-TEST#3
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/types/IdentityTokenRule.cs

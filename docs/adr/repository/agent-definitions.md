@@ -4,9 +4,21 @@ catzc:
     path: docs/adr/repository/agent-definitions.md
     kind: adr
     body_sha: e4f338926673
+    defines:
+      - ADR-REPO-AGENTS#1
+      - ADR-REPO-AGENTS#2
+      - ADR-REPO-AGENTS#3
+      - ADR-REPO-AGENTS#4
+      - ADR-REPO-AGENTS#5
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-LINK#5
+    links:
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test35
+      - docs/adr/configuration/module-config-loading.md
+      - docs/adr/design/visual-design.md
+      - docs/adr/principles/reduce-variability.md
+      - docs/adr/repository/markdown-links.md#rule-adr-repo-link5
 ---
 
 # ADR: Agent definitions — every sub-agent rests on a rule and maps to its checks

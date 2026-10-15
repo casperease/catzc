@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.chain.md
+      - docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.drawio.png
+      - docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.grid.md
+      - docs/.assets/explanation/adr-dsgn-life--code-wires-only-the-first-rungs--implementation.tree.md
+      - docs/explanation/design/code-wires-only-the-first-rungs.md
 ---
 
 # The pipelines wire only topic, landed and BVT: the diagram described

@@ -11,6 +11,18 @@ catzc:
       - ADR-DSGN-TRACK#3
       - ADR-REPO-VARIANT#1
       - ADR-REPO-VARIANT#2
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.md
+      - docs/.assets/explanation/adr-dsgn-aspect--only-automation-compiles-its-aspects--architecture.drawio.png
+      - docs/adr/design/module-aspects.md
+      - docs/adr/design/tracks.md
+      - docs/adr/repository/repo-variants.md
+      - docs/explanation/design/each-track-picks-its-catch-all.md
+      - docs/explanation/design/gate-checks-order-not-liveness.md
+      - docs/explanation/design/get-aspect-feeds-globs-and-maps.md
+      - docs/explanation/design/get-aspect-names-the-remainder.md
+      - docs/explanation/design/index.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # Both tracks' conventions are read, but only the automation track's compiles into globsets

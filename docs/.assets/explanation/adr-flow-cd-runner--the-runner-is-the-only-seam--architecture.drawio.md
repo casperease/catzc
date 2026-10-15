@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.chain.md
+      - docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.grid.md
+      - docs/.assets/explanation/adr-flow-cd-runner--the-runner-is-the-only-seam--architecture.tree.md
+      - docs/explanation/flow/the-runner-is-the-only-seam.md
 ---
 
 # The runner is the only seam into PowerShell: the diagram described

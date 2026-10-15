@@ -4,7 +4,12 @@ catzc:
     path: docs/adr/principles/reduce-waste.md
     kind: adr
     body_sha: "04f58188ca31"
+    defines:
+      - ADR-PRIN-NOWASTE#1
+      - ADR-PRIN-NOWASTE#2
+      - ADR-PRIN-NOWASTE#3
     adrs: []
+    links: []
 ---
 
 # Principle: Reduce waste

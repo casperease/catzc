@@ -9,6 +9,12 @@ catzc:
       - ADR-DSGN-TRACK#15
       - ADR-DSGN-TRACK#16
       - ADR-DSGN-TRACK#9
+    links:
+      - docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.chain.md
+      - docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.drawio.png
+      - docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.grid.md
+      - docs/.assets/explanation/adr-flow-cd-runner--the-step-is-named-after-its-command--operations.tree.md
+      - docs/explanation/flow/the-step-is-named-after-its-command.md
 ---
 
 # The step is named after its command: the diagram described

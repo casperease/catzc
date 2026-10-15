@@ -6,6 +6,7 @@ catzc:
     body_sha: de2e4961a2f9
     adrs:
       - ADR-AUTO-TEST#35
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-FileMeta.ps1

@@ -5,6 +5,12 @@ catzc:
     kind: reference
     body_sha: "8d46afba173c"
     adrs: []
+    links:
+      - automation/Catzc.Base.QualityGates/configs/terminology.yml
+      - docs/adr/automation/spell-out-names.md
+      - docs/adr/repository/dedicated-output-directory.md
+      - docs/adr/repository/generated-readmes.md
+      - docs/adr/repository/generated-root-configs.md
 ---
 
 # The cspell dictionary folder

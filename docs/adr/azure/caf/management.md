@@ -4,10 +4,32 @@ catzc:
     path: docs/adr/azure/caf/management.md
     kind: adr
     body_sha: "5bb2b8a1cdb8"
+    defines:
+      - ADR-AZ-CAFMGMT#1
+      - ADR-AZ-CAFMGMT#2
+      - ADR-AZ-CAFMGMT#3
+      - ADR-AZ-CAFMGMT#4
+      - ADR-AZ-CAFMGMT#5
+      - ADR-AZ-CAFMGMT#6
+      - ADR-AZ-CAFMGMT#7
+      - ADR-AZ-CAFMGMT#8
+      - ADR-AZ-CAFMGMT#9
+      - ADR-AZ-CAFMGMT#10
+      - ADR-AZ-CAFMGMT#11
+      - ADR-AZ-CAFMGMT#12
+      - ADR-AZ-CAFMGMT#13
+      - ADR-AZ-CAFMGMT#14
+      - ADR-AZ-CAFMGMT#15
+      - ADR-AZ-CAFMGMT#16
+      - ADR-AZ-CAFMGMT#17
+      - ADR-AZ-CAFMGMT#18
+      - ADR-AZ-CAFMGMT#19
+      - ADR-AZ-CAFMGMT#20
+      - ADR-AZ-CAFMGMT#21
+      - ADR-AZ-CAFMGMT#22
     adrs:
       - ADR-AZ-CAFGOV#4
       - ADR-AZ-CAFGOV#6
-      - ADR-AZ-CAFMGMT#16
       - ADR-AZ-CAFPRIN#3
       - ADR-AZ-DATAMOD#11
       - ADR-AZ-DATAMOD#9
@@ -29,6 +51,34 @@ catzc:
       - ADR-AZ-WAFSE#4
       - ADR-AZ-WAFSE#5
       - ADR-AZ-WAFSE#6
+    links:
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11
+      - docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network1
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network3
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network5
+      - docs/adr/azure/azure-network-model.md#rule-adr-az-network6
+      - docs/adr/azure/caf/design-principles.md#rule-adr-az-cafprin3
+      - docs/adr/azure/caf/governance.md#rule-adr-az-cafgov4
+      - docs/adr/azure/caf/governance.md#rule-adr-az-cafgov6
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz1
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz3
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz4
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz5
+      - docs/adr/azure/landing-zones.md#rule-adr-az-lz6
+      - docs/adr/azure/waf/operational-excellence.md
+      - docs/adr/azure/waf/operational-excellence.md#rule-adr-az-wafoe10
+      - docs/adr/azure/waf/operational-excellence.md#rule-adr-az-wafoe7
+      - docs/adr/azure/waf/operational-excellence.md#rule-adr-az-wafoe8
+      - docs/adr/azure/waf/reliability.md#rule-adr-az-wafre10
+      - docs/adr/azure/waf/reliability.md#rule-adr-az-wafre5
+      - docs/adr/azure/waf/reliability.md#rule-adr-az-wafre9
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse4
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse5
+      - docs/adr/azure/waf/security.md#rule-adr-az-wafse6
+      - docs/references/caf/index.md
+      - "https://learn.microsoft.com/en-us/legal/termsofuse"
 ---
 
 # ADR: CAF management — what the repository does about each of Microsoft's management design recommendations

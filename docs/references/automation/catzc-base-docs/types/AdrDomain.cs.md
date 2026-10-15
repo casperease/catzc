@@ -8,6 +8,7 @@ catzc:
       - ADR-AUTO-TYPES#9
       - ADR-DSGN-TRACK#14
       - ADR-DSGN-TRACK#15
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/types/AdrDomain.cs

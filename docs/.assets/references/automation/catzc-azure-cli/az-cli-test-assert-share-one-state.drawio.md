@@ -8,6 +8,8 @@ catzc:
       - ADR-AUTO-PRELOG#5
       - ADR-AZ-CLI#1
       - ADR-AZ-DATAMOD#4
+    links:
+      - docs/.assets/references/automation/catzc-azure-cli/az-cli-test-assert-share-one-state.drawio.png
 ---
 
 # Three az checks: Test and Assert share one state call: the diagram described

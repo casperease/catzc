@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: a3332eead5c3
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-dsgn-aspect--gate-checks-order-not-liveness--governance.drawio.png
+      - docs/explanation/design/gate-checks-order-not-liveness.md
 ---
 
 # The gate checks order, not liveness: the diagram described

@@ -7,6 +7,17 @@ catzc:
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-FAILFAST#7
+    links:
+      - docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.md
+      - docs/.assets/explanation/adr-auto-failfast--three-tests-prove-the-hook--governance.drawio.png
+      - docs/adr/automation/fail-fast-with-asserts.md
+      - docs/adr/automation/sensible-defaults.md
+      - docs/explanation/automation/a-shell-call-carries-its-limit-or-is-denied.md
+      - docs/explanation/automation/decide-returns-null-or-a-reason.md
+      - docs/explanation/automation/hook-compiles-module-verdict-and-limits.md
+      - docs/explanation/automation/index.md
+      - docs/explanation/automation/pass-the-limit-or-the-call-is-denied.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # One rule bounds every call, three tests prove the hook, and the exemption route is ADR-only

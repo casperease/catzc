@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#35
       - ADR-REPO-README#7
+    links: []
 ---
 
 # automation/Catzc.Base.QualityGates/Test-Markdownlint.ps1

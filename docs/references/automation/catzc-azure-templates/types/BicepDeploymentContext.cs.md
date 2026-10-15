@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: "65120533b0b2"
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/types/BicepDeploymentContext.cs

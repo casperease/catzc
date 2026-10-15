@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "38d8907aea0f"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-auto-failfast--resolve-one-limit-in-code-order--implementation.drawio.png
+      - docs/explanation/automation/resolve-one-limit-in-code-order.md
 ---
 
 # Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling: the diagram described

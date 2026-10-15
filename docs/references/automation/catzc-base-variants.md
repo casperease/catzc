@@ -5,6 +5,15 @@ catzc:
     kind: reference
     body_sha: f850a5c1b74e
     adrs: []
+    links:
+      - docs/adr/automation/caching.md
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/design/module-aspects.md
+      - docs/adr/repository/repo-variants.md
+      - docs/references/automation/catzc-base-asserts.md
+      - docs/references/automation/catzc-base-config.md
+      - docs/references/automation/catzc-base-globs.md
+      - docs/references/automation/catzc-base-objects.md
 ---
 
 # Catzc.Base.Variants

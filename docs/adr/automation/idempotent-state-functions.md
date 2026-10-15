@@ -4,7 +4,15 @@ catzc:
     path: docs/adr/automation/idempotent-state-functions.md
     kind: adr
     body_sha: "5f53c1942c70"
+    defines:
+      - ADR-AUTO-IDEM#1
+      - ADR-AUTO-IDEM#2
+      - ADR-AUTO-IDEM#3
+      - ADR-AUTO-IDEM#4
+      - ADR-AUTO-IDEM#5
     adrs: []
+    links:
+      - docs/adr/pwsh/idempotent-state-mechanics.md
 ---
 
 # ADR: State-changing functions must be idempotent

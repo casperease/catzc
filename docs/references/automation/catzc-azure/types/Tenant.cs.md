@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: a62e246cee2c
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure/types/Tenant.cs

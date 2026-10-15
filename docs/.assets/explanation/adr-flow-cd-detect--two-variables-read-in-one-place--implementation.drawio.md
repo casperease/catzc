@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "7261e1b7fb1a"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-flow-cd-detect--two-variables-read-in-one-place--implementation.drawio.png
+      - docs/explanation/flow/two-variables-read-in-one-place.md
 ---
 
 # Two variables read in one place: the diagram described

@@ -6,6 +6,22 @@ catzc:
     body_sha: "1c89ab77c942"
     adrs:
       - ADR-AZ-WAFRE#4
+    links:
+      - docs/adr/azure/landing-zones.md
+      - docs/adr/azure/waf/
+      - docs/adr/azure/waf/cost-optimization.md
+      - docs/adr/azure/waf/operational-excellence.md
+      - docs/adr/azure/waf/performance-efficiency.md
+      - docs/adr/azure/waf/reliability.md
+      - docs/adr/azure/waf/security.md
+      - docs/references/dora/index.md
+      - "https://learn.microsoft.com/en-us/azure/well-architected/"
+      - "https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/checklist"
+      - "https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/checklist"
+      - "https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/checklist"
+      - "https://learn.microsoft.com/en-us/azure/well-architected/reliability/checklist"
+      - "https://learn.microsoft.com/en-us/azure/well-architected/security/checklist"
+      - "https://learn.microsoft.com/en-us/legal/termsofuse"
 ---
 
 # Azure Well-Architected Framework reference

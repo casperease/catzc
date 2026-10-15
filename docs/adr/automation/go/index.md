@@ -4,7 +4,10 @@ catzc:
     path: docs/adr/automation/go/index.md
     kind: adr
     body_sha: "57d973bedb2e"
+    defines: []
     adrs: []
+    links:
+      - docs/adr/automation/go/go-test-artifacts.md
 ---
 
 # Go automation ADRs

@@ -10,6 +10,7 @@ catzc:
       - ADR-AUTO-TEST#4
       - ADR-PWSH-CACHE#4
       - ADR-PWSH-PESTER#9
+    links: []
 ---
 
 # out/diagrams/wave-9/catzc-base-modulesystem/module-graph-declared-vs-observed.drawio.verify.md

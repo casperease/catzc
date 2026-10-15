@@ -6,6 +6,7 @@ catzc:
     body_sha: fb62a2bd8583
     adrs:
       - ADR-REPO-AGENTS#1
+    links: []
 ---
 
 # automation/Catzc.Base.Docs/private/Get-AgentFrontMatter.ps1

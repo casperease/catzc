@@ -5,6 +5,9 @@ catzc:
     kind: asset-description
     body_sha: "190a3297513d"
     adrs: []
+    links:
+      - docs/.assets/explanation/adr-repo-rootcfg--one-source-one-writer-one-boolean--meta.drawio.png
+      - docs/explanation/repository/one-source-one-writer-one-boolean.md
 ---
 
 # One source of truth, one writer, one boolean: the diagram described

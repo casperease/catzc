@@ -4,8 +4,25 @@ catzc:
     path: docs/adr/automation/tool-removal-lifecycle.md
     kind: adr
     body_sha: dd151d99a6db
+    defines:
+      - ADR-AUTO-REMOVE#1
+      - ADR-AUTO-REMOVE#2
+      - ADR-AUTO-REMOVE#3
+      - ADR-AUTO-REMOVE#4
+      - ADR-AUTO-REMOVE#5
+      - ADR-AUTO-REMOVE#6
+      - ADR-AUTO-REMOVE#7
+      - ADR-AUTO-REMOVE#8
     adrs:
       - ADR-AUTO-DEPS#2
+    links:
+      - docs/adr/automation/controlling-systemwide-deps.md
+      - docs/adr/automation/dry-run.md
+      - docs/adr/automation/idempotent-state-functions.md
+      - docs/adr/automation/use-proper-package-managers.md
+      - docs/adr/automation/uv-python-handler.md
+      - docs/adr/principles/one-living-version.md
+      - docs/adr/pwsh/respect-pwsh-verb-rules.md
 ---
 
 # ADR: Install / Uninstall / Remove — the tool lifecycle and the destructive-eviction escalation

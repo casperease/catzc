@@ -6,6 +6,7 @@ catzc:
     body_sha: "2cdc2c6913dd"
     adrs:
       - ADR-AUTO-FAILFAST#7
+    links: []
 ---
 
 # automation/Catzc.Base.TypesSystem/Build-BashTimeoutHook.ps1

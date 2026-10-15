@@ -6,6 +6,7 @@ catzc:
     body_sha: "362c50782a72"
     adrs:
       - ADR-REPO-CONTRACT#6
+    links: []
 ---
 
 # automation/Catzc.Base.Contracts/types/ContractAssetKind.cs

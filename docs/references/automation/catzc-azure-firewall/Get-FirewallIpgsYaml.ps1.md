@@ -5,6 +5,7 @@ catzc:
     kind: comment-page
     body_sha: f6eeeed5ac18
     adrs: []
+    links: []
 ---
 
 # automation/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1

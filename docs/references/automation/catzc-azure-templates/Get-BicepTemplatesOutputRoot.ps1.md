@@ -7,6 +7,7 @@ catzc:
     adrs:
       - ADR-AUTO-TEST#26
       - ADR-PWSH-PESTER#2
+    links: []
 ---
 
 # automation/Catzc.Azure.Templates/Get-BicepTemplatesOutputRoot.ps1

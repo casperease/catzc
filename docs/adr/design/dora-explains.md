@@ -4,7 +4,30 @@ catzc:
     path: docs/adr/design/dora-explains.md
     kind: adr
     body_sha: af0afde9a632
+    defines: []
     adrs: []
+    links:
+      - docs/adr/design/commit-lifecycle.md
+      - docs/adr/design/module-aspects.md
+      - docs/adr/design/run-modes.md
+      - docs/adr/design/self-service.md
+      - docs/adr/design/server-remote-integration.md
+      - docs/adr/design/thin-platforms.md
+      - docs/adr/design/tracks.md
+      - docs/adr/design/visual-design.md
+      - docs/references/dora/capabilities.md#code-maintainability
+      - docs/references/dora/capabilities.md#continuous-delivery
+      - docs/references/dora/capabilities.md#deployment-automation
+      - docs/references/dora/capabilities.md#flexible-infrastructure
+      - docs/references/dora/capabilities.md#loosely-coupled-teams
+      - docs/references/dora/capabilities.md#pervasive-security
+      - docs/references/dora/capabilities.md#streamlining-change-approval
+      - docs/references/dora/capabilities.md#teams-empowered-to-choose-tools
+      - docs/references/dora/capabilities.md#test-automation
+      - docs/references/dora/capabilities.md#trunk-based-development
+      - docs/references/dora/capabilities.md#version-control
+      - docs/references/dora/capabilities.md#working-in-small-batches
+      - docs/references/dora/index.md
 ---
 
 # DORA explanations — design

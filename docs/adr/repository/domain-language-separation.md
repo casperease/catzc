@@ -4,11 +4,28 @@ catzc:
     path: docs/adr/repository/domain-language-separation.md
     kind: adr
     body_sha: "3ec1338daf69"
+    defines:
+      - ADR-REPO-LANG#1
+      - ADR-REPO-LANG#2
+      - ADR-REPO-LANG#3
+      - ADR-REPO-LANG#4
+      - ADR-REPO-LANG#5
+      - ADR-REPO-LANG#6
+      - ADR-REPO-LANG#7
     adrs:
       - ADR-AUTO-TEST#1
       - ADR-AUTO-TEST#3
-      - ADR-REPO-LANG#4
-      - ADR-REPO-LANG#5
+    links:
+      - docs/adr/automation/spell-out-names.md
+      - docs/adr/automation/test-automation.md
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test1
+      - docs/adr/automation/test-automation.md#rule-adr-auto-test3
+      - docs/adr/azure/azure-customer-model.md
+      - docs/adr/azure/azure-data-model.md
+      - docs/adr/azure/azure-naming-standard.md
+      - docs/adr/principles/poka-yoke.md
+      - docs/adr/principles/reduce-variability.md
+      - docs/adr/repository/documentation-examples.md
 ---
 
 # ADR: Language-zone separation — three zones, three terminologies

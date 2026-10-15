@@ -8,6 +8,17 @@ catzc:
       - ADR-DSGN-REMOTE#2
       - ADR-DSGN-REMOTE#4
       - ADR-REPO-VARIANT#6
+    links:
+      - docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.md
+      - docs/.assets/explanation/adr-dsgn-remote--local-guard-and-server-policies--implementation.drawio.png
+      - docs/adr/design/server-remote-integration.md
+      - docs/adr/repository/repo-variants.md
+      - docs/explanation/design/clients-bridge-to-one-server.md
+      - docs/explanation/design/guard-and-policies-by-command.md
+      - docs/explanation/design/index.md
+      - docs/explanation/design/ingress-gated-the-rest-by-review.md
+      - docs/explanation/design/one-door-in-one-stable-point-out.md
+      - docs/explanation/index.md#how-to-read-the-diagrams
 ---
 
 # The code carries both halves of ingress, but nothing finds the last verified commit

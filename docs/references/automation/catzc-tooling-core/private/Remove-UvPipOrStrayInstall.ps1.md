@@ -6,6 +6,7 @@ catzc:
     body_sha: "87b2bec6020f"
     adrs:
       - ADR-AUTO-REMOVE#6
+    links: []
 ---
 
 # automation/Catzc.Tooling.Core/private/Remove-UvPipOrStrayInstall.ps1
