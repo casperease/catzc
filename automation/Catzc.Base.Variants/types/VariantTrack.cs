@@ -1,9 +1,7 @@
-// One track of the `tracks` variant (configs/variants.yml, [ADR-DSGN-TRACK](/docs/adr/design/tracks.md)): a named
-// repository root concern, its root folder, its class from the taxonomy, and the file languages its tech-stack is
-// declared as ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)). The entry's fields mirror the
-// YAML keys, so the properties are snake_case
-// ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)); `name` is the entry's
-// YAML key. VariantsConfig validates the entry and builds one; Get-Track returns them.
+// One track of the `tracks` variant (configs/variants.yml, ): a named repository root concern, its root folder, its class from the...
+// [ADR-DSGN-TRACK](/docs/adr/design/tracks.md), [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-base-variants/types/VariantTrack.cs.md#comment1)
 
 using System;
 using System.Collections.Generic;
@@ -26,8 +24,8 @@ public sealed class VariantTrack
     // The track's class: one of Classes.
     public string @class { get; }
 
-    // The file-language names of the track's declared tech-stack, in declared order. Empty when the track declares
-    // none. The names are not resolved here: the file-language registry lives in Catzc.Base.Languages.
+    // The file-language names of the track's declared tech-stack, in declared order.
+    // [comment:2](/docs/references/automation/catzc-base-variants/types/VariantTrack.cs.md#comment2)
     public IReadOnlyList<string> languages { get; }
 
     public VariantTrack(string name, string root, string trackClass, string[] languages)

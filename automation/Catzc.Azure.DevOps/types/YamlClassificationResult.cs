@@ -14,8 +14,8 @@ public sealed class YamlClassificationResult
     // The template sub-kind. Null for non-Template files (Pipeline/Unknown).
     public Nullable<YamlTemplateType> TemplateType { get; }
 
-    // The constructor takes the two values as strings and parses them to the enums, so a caller that
-    // computed string literals binds directly without first converting to enum values.
+    // The constructor takes the two values as strings and parses them to the enums, so a caller that computed string literals binds...
+    // [comment:1](/docs/references/automation/catzc-azure-devops/types/YamlClassificationResult.cs.md#comment1)
     public YamlClassificationResult(string classification, string templateType)
     {
         Classification = (YamlClassification)Enum.Parse(typeof(YamlClassification), classification, true);

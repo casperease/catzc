@@ -2,10 +2,8 @@
 .SYNOPSIS
     Displays whitelisted environment variables for pipeline diagnostics.
 .DESCRIPTION
-    Reads the whitelist from configs/pipeline-env.yml and displays
-    only those environment variables. Variables that are not set are shown
-    as empty. Designed for the top of every Invoke-AdoScript run so
-    operators see build context, paths, and agent info at a glance.
+    Reads the whitelist from configs/pipeline-env.yml and displays only those environment variables.
+    [comment:1](/docs/references/automation/catzc-azure-devops/Write-AdoEnvironmentDiagnostic.ps1.md#comment1)
 .EXAMPLE
     Write-AdoEnvironmentDiagnostic
 #>

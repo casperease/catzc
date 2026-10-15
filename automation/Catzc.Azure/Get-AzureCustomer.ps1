@@ -2,11 +2,8 @@
 .SYNOPSIS
     Resolves a customer reference (its key OR its shortcode) to the canonical customer record.
 .DESCRIPTION
-    A customer is named two ways — its readable key (apex) or its 2-char shortcode (ap). A subscription's
-    `customer` field in azure.yml may use either; this resolves both to the same record so downstream code
-    always works with the canonical key. Reads customer.yml (Get-Config -Config customer). The key/shortcode
-    name-spaces are kept distinct by the CustomerConfig type, so the match is unambiguous: keys first, then
-    shortcodes. Throws when the token is neither.
+    A customer is named two ways — its readable key (apex) or its 2-char shortcode (ap).
+    [comment:1](/docs/references/automation/catzc-azure/Get-AzureCustomer.ps1.md#comment1)
 .PARAMETER Name
     A customer key or shortcode.
 .OUTPUTS

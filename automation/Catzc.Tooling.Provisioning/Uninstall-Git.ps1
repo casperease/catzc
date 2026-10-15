@@ -3,9 +3,7 @@
     Uninstalls Git installed by Install-Git.
 .DESCRIPTION
     Windows: Removes LOCALAPPDATA\Git and cleans PATH.
-    macOS: brew uninstall git.
-    Linux: apt-get remove git (requires root).
-    Idempotent — skips if not installed.
+    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Git.ps1.md#comment1)
 .EXAMPLE
     Uninstall-Git
 #>

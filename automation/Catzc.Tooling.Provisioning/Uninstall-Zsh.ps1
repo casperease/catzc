@@ -2,21 +2,11 @@
 .SYNOPSIS
     Uninstalls the zsh Install-Zsh placed: in Git Bash's tree on Windows, the apt-get package on Linux.
 .DESCRIPTION
-    Windows: reads the manifest Install-Zsh wrote inside the Git for Windows tree (the zsh entry's windows_install_dir,
-    which Get-ScriptInstallDir resolves) and deletes exactly the files it lists, then the folders it lists once they
-    are empty, then the manifest. A file Git's tree had before Install-Zsh ran is never in the manifest, so it stays
-    ([ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2)). No admin required.
-
-    Linux: removes the package the entry's apt_package names through Uninstall-Tool (apt-get), the manager Install-Zsh
-    installs it through ([ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2)).
-    A zsh that apt does not own stops the uninstall rather than being removed; the apt step needs root
-    ([ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)).
-
-    macOS: zsh is the system's /bin/zsh, and Install-Zsh installed nothing, so there is nothing to uninstall.
-
-    Idempotent ([ADR-AUTO-IDEM#2](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem2)): without a
-    manifest (Windows) or without zsh (Linux) it reports that there is nothing to do, and a listed file already gone is
-    skipped.
+    Windows: reads the manifest Install-Zsh wrote inside the Git for Windows tree (the zsh entry's...
+    [ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2),
+    [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6),
+    [ADR-AUTO-IDEM#2](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem2)
+    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md#comment1)
 .EXAMPLE
     Uninstall-Zsh
 #>
@@ -51,8 +41,8 @@ function Uninstall-Zsh {
     }
     [System.IO.File]::Delete($layout.Manifest)
 
-    # Children before parents: a child sorts after its parent, so the reverse ordinal order removes the deepest first. A
-    # folder that still holds anything (a file another tool put there) stays.
+    # Children before parents: a child sorts after its parent, so the reverse ordinal order removes the deepest first.
+    # [comment:2](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md#comment2)
     $directories = [System.Collections.Generic.List[string]]::new([string[]] @($manifest.Directories))
     $directories.Sort([System.StringComparer]::Ordinal)
     $directories.Reverse()

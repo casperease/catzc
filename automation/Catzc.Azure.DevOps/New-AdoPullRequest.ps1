@@ -2,18 +2,14 @@
 .SYNOPSIS
     Creates an Azure DevOps pull request via the Git REST API.
 .DESCRIPTION
-    The "land via PR" half of an INPUT pipeline (see [ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md)): once an
-    INPUT step has committed a config change to a branch, this opens a PR so the change goes through the
-    normal PR gate before the CD pipeline deploys it.
-
-    Resolves the repository by name, normalizes branch names to refs/heads/<branch>, and POSTs the PR.
-    Authentication is the dual-auth pattern via Invoke-AdoRestMethod / Get-AdoAuthorizationHeader
-    (pipeline SYSTEM_ACCESSTOKEN, PAT, or az login).
+    The "land via PR" half of an INPUT pipeline (see ): once an INPUT step has committed a config change to a branch,...
+    [ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md)
+    [comment:1](/docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md#comment1)
 .PARAMETER Title
     PR title.
 .PARAMETER SourceBranch
-    The branch with the change (e.g. 'input/discovery-dev-1234'). Accepts a bare branch name or
-    a full 'refs/heads/...' ref.
+    The branch with the change (e.g.
+    [comment:2](/docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md#comment2)
 .PARAMETER TargetBranch
     The branch to merge into. Defaults to 'main'. Bare name or full ref.
 .PARAMETER Description
@@ -86,8 +82,8 @@ function New-AdoPullRequest {
     }
 
     $pr = Invoke-AdoRestMethod -Uri "$apiBase/git/repositories/$($repo.id)/pullrequests?api-version=7.1" -Method Post -Body $body
-    # Postcondition: confirm the PR actually came back created. A non-throwing response with no id means the
-    # create did not take effect — fail fast here rather than return a phantom result downstream.
+    # Postcondition: confirm the PR actually came back created.
+    # [comment:3](/docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md#comment3)
     Assert-NotNull $pr.pullRequestId -ErrorText "Pull request creation returned no pullRequestId for '$Title' ($sourceRef -> $targetRef) — the PR was not created."
     Write-Message "Created PR #$($pr.pullRequestId): $Title ($sourceRef -> $targetRef)"
     $pr

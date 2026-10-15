@@ -2,11 +2,8 @@
 .SYNOPSIS
     Provisions the local development environment with all required tools.
 .DESCRIPTION
-    Installs all locked tool versions in dependency order (derived from
-    DependsOn in tools.yml). Idempotent — safe to run repeatedly. Skips
-    tools that are already installed at the correct version. Tools at the
-    correct version but installed outside the expected manager are left
-    untouched with a message.
+    Installs all locked tool versions in dependency order (derived from DependsOn in tools.yml).
+    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md#comment1)
 .PARAMETER Force
     Replace existing installations that are at the wrong version.
 .EXAMPLE
@@ -21,7 +18,7 @@ function Install-DevBoxTools {
     )
 
     # Remove Chocolatey if present — this toolset uses winget on Windows.
-    # See ADR: use-proper-package-managers.
+    # [comment:2](/docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md#comment2)
     Uninstall-Chocolatey
 
     # Report tools that work but aren't managed by us — left untouched.
@@ -31,8 +28,8 @@ function Install-DevBoxTools {
         Write-Message "Skipping $($tool.Tool) — $($tool.Installed) already installed, not managed by tools system"
     }
 
-    # Git first: a base tool (not version-locked, not in tools.yml) that the locked set builds on — on Windows its
-    # Git Bash is the platform-provided `bash` asserted below.
+    # Git first: a base tool (not version-locked, not in tools.yml) that the locked set builds on — on Windows its...
+    # [comment:3](/docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md#comment3)
     Install-Git -Force:$Force
 
     # Version-locked tools (from tools.yml, dependency-ordered via DependsOn)
@@ -45,9 +42,8 @@ function Install-DevBoxTools {
             continue
         }
 
-        # Platform-provided tools (winget; bash — the OS's, or Git Bash on Windows) are never installed — assert
-        # present (Test-Tool: winget by name, kept on PATH by its session_path_hints; bash at its candidate paths)
-        # and move on, so the tools that depend on them fail fast if absent.
+        # Platform-provided tools (winget; bash — the OS's, or Git Bash on Windows) are never installed — assert...
+        # [comment:4](/docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md#comment4)
         if ($config.system_provided) {
             Assert-True (Test-Tool $toolName -SkipVersionCheck) -ErrorText (
                 "$toolName is required but is provided by the platform, not the toolchain — install it and re-run " +
@@ -57,18 +53,16 @@ function Install-DevBoxTools {
             continue
         }
 
-        # Elevation-bound tools (admin_only machine-scope installers, or apt-get-routed Linux installs —
-        # Test-ToolRequiresElevation) cannot install without elevation. Skip and report in a non-elevated run
-        # rather than failing the whole provision; re-run elevated to get them.
+        # Elevation-bound tools (admin_only machine-scope installers, or apt-get-routed Linux installs —...
+        # [comment:5](/docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md#comment5)
         if ((Test-ToolRequiresElevation $config) -and -not (Test-IsAdministrator)) {
             Write-Message "Skipping $toolName — requires elevation on this platform. Re-run Install-DevBoxTools elevated to install it."
             $skipped.Add($toolName) | Out-Null
             continue
         }
 
-        # A tool whose declared dependency was skipped this run — and whose dependency's command is not
-        # available from an earlier install either — cannot install. Skip and report it with the same
-        # remediation instead of letting its installer fail the whole provision.
+        # A tool whose declared dependency was skipped this run — and whose dependency's command is not available...
+        # [comment:6](/docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md#comment6)
         if ($config.depends_on -and $skipped.Contains([string] $config.depends_on)) {
             $dependencyCommand = (Get-ToolConfig -Tool $config.depends_on).command
             if (-not (Test-Command $dependencyCommand)) {

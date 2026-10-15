@@ -2,12 +2,9 @@
 .SYNOPSIS
     Returns the per-subscription identity environment (nsub/psub) of a named subscription.
 .DESCRIPTION
-    Each subscription carries exactly one per-subscription env (nsub or psub — see
-    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)), the identity env that environment_kind:subscription
-    templates deploy
-    once-per-subscription. This returns it for a named subscription, so an environment_kind:standard
-    template can locate the once-per-subscription foundation (and its Key Vault) that lives in the same
-    subscription.
+    Each subscription carries exactly one per-subscription env (nsub or psub — see ), the identity env that...
+    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
+    [comment:1](/docs/references/automation/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md#comment1)
 .PARAMETER Subscription
     Subscription name — a key in azure.yml's `subscriptions`.
 .EXAMPLE

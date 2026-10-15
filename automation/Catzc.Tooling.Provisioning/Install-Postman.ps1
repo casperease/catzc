@@ -2,12 +2,8 @@
 .SYNOPSIS
     Installs the Postman desktop app (user-space, no admin required).
 .DESCRIPTION
-    Windows: Downloads the official installer from dl.pstmn.io and runs it
-    silently. Installs to LOCALAPPDATA\Postman (Squirrel/Electron default).
-    macOS: brew install --cask postman.
-    Linux: Downloads the tar.gz from dl.pstmn.io and extracts to
-    HOME/.local/Postman.
-    Idempotent — skips if already installed.
+    Windows: Downloads the official installer from dl.pstmn.io and runs it silently.
+    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md#comment1)
 .PARAMETER Force
     Remove an existing installation before reinstalling.
 .EXAMPLE
@@ -37,8 +33,8 @@ function Install-Postman {
 
         $setupPath = Join-Path ([IO.Path]::GetTempPath()) 'Postman-win64-setup.exe'
 
-        # Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download
-        # is TLS-only — no checksum verification. See ADR controlling-systemwide-deps (latest base-tool allowlist).
+        # Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download is...
+        # [comment:2](/docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md#comment2)
         Write-Message 'Downloading Postman from dl.pstmn.io'
         Invoke-WebRequest -Uri 'https://dl.pstmn.io/download/latest/win64' -OutFile $setupPath -UseBasicParsing
         Assert-PathExist $setupPath
@@ -82,8 +78,8 @@ function Install-Postman {
 
         $tarPath = Join-Path ([IO.Path]::GetTempPath()) 'postman-linux-x64.tar.gz'
 
-        # Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download
-        # is TLS-only — no checksum verification. See ADR controlling-systemwide-deps (latest base-tool allowlist).
+        # Postman publishes no per-download checksum and is a sanctioned 'latest' base tool, so this download is...
+        # [comment:3](/docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md#comment3)
         Write-Message 'Downloading Postman from dl.pstmn.io'
         Invoke-WebRequest -Uri 'https://dl.pstmn.io/download/latest/linux_64' -OutFile $tarPath -UseBasicParsing
         Assert-PathExist $tarPath

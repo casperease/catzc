@@ -2,16 +2,11 @@
 .SYNOPSIS
     Classifies a parsed YAML document as Pipeline, Template, or Unknown.
 .DESCRIPTION
-    Inspects the top-level keys of a parsed YAML dictionary and applies
-    heuristics to determine whether the file is an Azure DevOps pipeline,
-    a template (stages/jobs/steps/variables), or unknown.
-
-    Returns a PSCustomObject with Classification and TemplateType properties.
-    TemplateType is set for templates (Stages, Jobs, Steps, Variables) and
-    $null for non-templates.
+    Inspects the top-level keys of a parsed YAML dictionary and applies heuristics to determine whether the file is...
+    [comment:1](/docs/references/automation/catzc-azure-devops/private/Resolve-AdoYamlClassification.ps1.md#comment1)
 .PARAMETER Yaml
-    The parsed YAML object from ConvertFrom-Yaml. Accepts $null for files
-    that failed to parse — returns Unknown classification.
+    The parsed YAML object from ConvertFrom-Yaml.
+    [comment:2](/docs/references/automation/catzc-azure-devops/private/Resolve-AdoYamlClassification.ps1.md#comment2)
 .EXAMPLE
     $yaml = Get-Content 'ci.yml' -Raw | ConvertFrom-Yaml -Ordered
     $result = Resolve-AdoYamlClassification -Yaml $yaml

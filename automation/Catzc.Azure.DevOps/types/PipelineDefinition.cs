@@ -1,5 +1,5 @@
-// One pipeline (build definition) registered in Azure DevOps. The registration-side view of a pipeline:
-// its identity and folder placement, and — for YAML pipelines — which file in which repo backs it.
+// One pipeline (build definition) registered in Azure DevOps.
+// [comment:1](/docs/references/automation/catzc-azure-devops/types/PipelineDefinition.cs.md#comment1)
 
 using System;
 

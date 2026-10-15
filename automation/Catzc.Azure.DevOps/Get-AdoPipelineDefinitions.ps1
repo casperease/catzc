@@ -2,12 +2,8 @@
 .SYNOPSIS
     Lists all registered pipeline definitions from Azure DevOps.
 .DESCRIPTION
-    Queries the ADO Build Definitions REST API and returns a flattened
-    list of pipeline definitions with their YAML paths, repository names,
-    and ADO folder placement.
-
-    YamlPath is normalized (leading '/' stripped) to match the RelativePath
-    output of Get-AdoYamlFiles for easy cross-referencing.
+    Queries the ADO Build Definitions REST API and returns a flattened list of pipeline definitions with their YAML...
+    [comment:1](/docs/references/automation/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md#comment1)
 .PARAMETER Project
     Azure DevOps project name. Defaults to the value in ado.yml.
 .PARAMETER Organization
@@ -42,7 +38,7 @@ function Get-AdoPipelineDefinitions {
     $count = ($definitions | Measure-Object).Count
 
     # includeAllProperties should return process.yamlFilename inline.
-    # Older ADO Server versions may ignore this — fall back to per-definition fetches.
+    # [comment:2](/docs/references/automation/catzc-azure-devops/Get-AdoPipelineDefinitions.ps1.md#comment2)
     $hasProcessDetails = $definitions | Where-Object { $_.process.yamlFilename } | Select-Object -First 1
     if (-not $hasProcessDetails -and $count -gt 0) {
         Write-Message "Found $count pipeline definitions, fetching details individually"

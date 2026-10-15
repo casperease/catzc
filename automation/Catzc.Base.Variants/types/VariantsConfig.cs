@@ -1,32 +1,9 @@
-// The repo-wide variants (configs/variants.yml, [ADR-REPO-VARIANT](/docs/adr/repository/repo-variants.md)) —
-// settings fixed for the importer session. Registered in Catzc.Base.Config/configs/configs.yml
-// (type: Catzc.Base.Variants.VariantsConfig), so Get-Config -Config variants returns this typed record; the
-// private Get-Variant reads one key off it and the named primitives (Get-AdoNaming, Get-EnabledCustomers,
-// Get-Aspect, …) default an absent key. Mirrors the YAML mapping (snake_case keys,
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)); an absent key is null,
-// so the record's Contains(key) answers "is it set".
-//
-// Constructing an instance validates the file, collecting every violation into one ArgumentException. Every key is
-// optional, and an unknown key throws (a typo fails fast at load):
-//   ado_naming      'standard' | 'classic' (the keys of Get-AzureNameOrderSet, mirrored as literals because this
-//                   Base type must not depend up into the Azure/Templates layer)
-//   git_workspace   'main-direct' | 'main-via-pr'
-//   have_customers  a boolean (false = none, true = all), the literal 'all', or a list of unique customer-name
-//                   tokens (^[a-z][a-z0-9]+$; empty = none). Not cross-checked against customer.yml (one layer up,
-//                   in Catzc.Azure) — an Azure-layer integrity test confirms every listed name is a customer.
-//   aspects         a non-empty map of track -> ordered list of single-key {name: [patterns]} entries
-//                   ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)): kebab-case unique names, non-empty
-//                   patterns, the LAST entry the bare '**' catch-all remainder and no earlier entry using it. The
-//                   catch-all's liveness is the container's call, and glob syntax is the Globs aspect engine's
-//                   check — structural checks only.
-//   tracks          a non-empty map of track -> { root, class, languages } ([ADR-DSGN-TRACK](/docs/adr/design/tracks.md)),
-//                   in declared order: a kebab-case or dot-prefixed track name; 'root' required, one folder segment
-//                   (no '/', '\', '.' or '..'), never 'out' (gitignored output,
-//                   [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)), and unique across tracks;
-//                   'class' required, one of VariantTrack.Classes
-//                   ([ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2)); 'languages' optional
-//                   (default: none), a list of unique kebab-case file-language names. This file is validated alone:
-//                   that each name is a registered file language is an integrity test in Catzc.Base.Languages.
+// The repo-wide variants (configs/variants.yml, ) — settings fixed for the importer session.
+// [ADR-REPO-VARIANT](/docs/adr/repository/repo-variants.md),
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
+// [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md), [ADR-DSGN-TRACK](/docs/adr/design/tracks.md),
+// [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1), [ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2)
+// [comment:1](/docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -50,8 +27,8 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     // How changes reach main: 'main-direct' or 'main-via-pr'. Null when unset.
     public string git_workspace { get; }
 
-    // The enabled-customer set as written: a bool, the string 'all', or a string[] of customer names. Null when
-    // unset. Get-EnabledCustomers is its single interpreter.
+    // The enabled-customer set as written: a bool, the string 'all', or a string[] of customer names.
+    // [comment:2](/docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md#comment2)
     public object have_customers { get; }
 
     // Per-track ordered aspect classifications. Null when unset.

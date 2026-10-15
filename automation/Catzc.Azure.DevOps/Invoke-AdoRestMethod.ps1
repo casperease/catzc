@@ -2,14 +2,8 @@
 .SYNOPSIS
     Calls an Azure DevOps REST API endpoint with authentication and standard error handling.
 .DESCRIPTION
-    Wraps Invoke-RestMethod with the dual-auth pattern (Get-AdoAuthorizationHeader),
-    JSON content type for POST/PUT/PATCH, and response unwrapping for list endpoints
-    (extracts the .value array automatically).
-
-    Designed for the ADO REST API conventions:
-    - Bearer token authentication
-    - JSON request/response bodies
-    - List responses wrapped in { "count": N, "value": [...] }
+    Wraps Invoke-RestMethod with the dual-auth pattern (Get-AdoAuthorizationHeader), JSON content type for...
+    [comment:1](/docs/references/automation/catzc-azure-devops/Invoke-AdoRestMethod.ps1.md#comment1)
 .PARAMETER Uri
     The full API URL including api-version query parameter.
 .PARAMETER Method
@@ -17,8 +11,8 @@
 .PARAMETER Body
     Request body for POST/PUT/PATCH. Accepts a hashtable or array — serialized to JSON automatically.
 .PARAMETER UnwrapValue
-    For list endpoints, extract the .value array from the response instead of returning the wrapper.
-    Defaults to true for GET requests.
+    For list endpoints, extract the.value array from the response instead of returning the wrapper.
+    [comment:2](/docs/references/automation/catzc-azure-devops/Invoke-AdoRestMethod.ps1.md#comment2)
 .EXAMPLE
     $environments = Invoke-AdoRestMethod -Uri "$apiRoot/distributedtask/environments?api-version=7.1-preview.1&`$top=300"
 .EXAMPLE

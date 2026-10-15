@@ -2,19 +2,13 @@
 .SYNOPSIS
     Combines YAML file scanning with ADO pipeline registration data.
 .DESCRIPTION
-    Runs Get-AdoYamlFiles to classify files by heuristics, then
-    Get-AdoPipelineDefinitions to fetch registered pipelines from ADO.
-    Cross-references the two datasets to:
-
-    - Mark each file as registered or not.
-    - Resolve Unknown classifications: if a file is registered as a
-      pipeline in ADO, it is reclassified as Pipeline.
-    - Attach the ADO pipeline name and ID to registered files.
+    Runs Get-AdoYamlFiles to classify files by heuristics, then Get-AdoPipelineDefinitions to fetch registered...
+    [comment:1](/docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md#comment1)
 .PARAMETER Path
     Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
 .PARAMETER Exclude
-    Directory names to skip during scanning. Matched as exact names anywhere in the path.
-    Defaults to @('.git', 'node_modules', '.terraform').
+    Directory names to skip during scanning.
+    [comment:2](/docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md#comment2)
 .PARAMETER Project
     Azure DevOps project name. Defaults to the value in ado.yml.
 .PARAMETER Organization
@@ -61,11 +55,8 @@ function Get-AdoYamlInventory {
         }
     }
 
-    # ADO YamlPaths are relative to the repo root, but RelativePaths are
-    # relative to the scan root. When scanning a subdirectory (e.g.,
-    # -Path ..\infra\azure-pipelines), there is a prefix mismatch.
-    # Detect it from the data: find a local file whose RelativePath is a
-    # suffix of an ADO YamlPath and extract the prefix.
+    # ADO YamlPaths are relative to the repo root, but RelativePaths are relative to the scan root.
+    # [comment:3](/docs/references/automation/catzc-azure-devops/Get-AdoYamlInventory.ps1.md#comment3)
     $pathPrefix = ''
     foreach ($file in $files) {
         foreach ($definition in $definitions) {

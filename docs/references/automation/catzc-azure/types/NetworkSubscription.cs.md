@@ -1,0 +1,51 @@
+# docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md
+
+`automation/Catzc.Azure/types/NetworkSubscription.cs`
+
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
+
+## comment:1
+
+Above `using System;`.
+
+```text
+One subscription's network in configs/network.yml ([ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md)): a hub
+or a spoke VNet, keyed by the azure.yml subscription name. Mirrors a `subscriptions` entry (snake_case keys,
+[ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)). NetworkConfig builds one
+per entry and collects its violations with the file's.
+
+Shape: the name is a lower-snake_case identifier; `kind` is `hub` or `spoke`; `vnet_address_space` is an aligned
+IPv4 CIDR (NetworkCidr); `subnets` is a non-empty map of subnet name -> aligned IPv4 CIDR, each inside the VNet and
+no two overlapping; no other key. A hub carries exactly the hub subnets (GatewaySubnet and AzureFirewallSubnet,
+reserved, and shared-services). A spoke carries private-endpoints plus workload subnets, each named for the
+environment it serves (a lower-snake_case identifier). Which kind a subscription needs, and which environments it
+serves, are azure.yml facts, so that join is the quality gate Test-AzureNetworkPlan's, not this type's.
+```
+
+## comment:2
+
+Above `public static IReadOnlyList<string> HubSubnets => HubSubnetNames;`.
+
+```text
+The subnets a hub carries, exactly: the two reserved Azure subnets (nothing is deployed into them) and
+shared-services.
+```
+
+## comment:3
+
+Above `private static List<string> SubnetNames(IDictionary d)`.
+
+```text
+The subnet names as written, including those with an invalid range, so a subnet with a bad range is reported
+once (as a bad range), not also as missing. Empty when subnets is missing or not a map.
+```
+
+## comment:4
+
+Above `private static void CheckSpoke(string where, List<string> names, List<string>...`.
+
+```text
+A spoke carries private-endpoints; every other subnet is a workload subnet named for an environment. Skipped
+when subnets is missing or empty (reported already).
+```

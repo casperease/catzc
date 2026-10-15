@@ -1,5 +1,5 @@
-// A tool's status relative to its tools.yml lock — the verdict of comparing what's installed against what
-// is required. Load-bearing: Missing/WrongVersion are hard failures, Usable is a "migrate me" hint.
+// A tool's status relative to its tools.yml lock — the verdict of comparing what's installed against what is required.
+// [comment:1](/docs/references/automation/catzc-tooling-provisioning/types/ToolStatusKind.cs.md#comment1)
 
 namespace Catzc.Tooling.Provisioning;
 

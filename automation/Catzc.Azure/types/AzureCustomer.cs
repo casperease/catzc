@@ -1,13 +1,7 @@
-// One customer of the catalogue (configs/customer.yml, [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)):
-// a readable key (the customers-map key — the customer-segment of relaxed resource names and the configuration
-// subfolder name), a 2-char shortcode (the customer-segment of the restricted kv/storage/vm patterns), and optional
-// free-text details. Mirrors a `customers` entry (snake_case keys,
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)); `key` is the map key.
-//
-// Constructing an instance validates the entry, collecting every violation into one ArgumentException: the key is
-// 2+ lowercase alphanumeric with a leading letter, the shortcode is exactly 2 lowercase letters, and the entry
-// carries no key but shortcode and details. Catalogue-wide rules (shortcode uniqueness, key ≠ any shortcode) are
-// CustomerConfig's.
+// One customer of the catalogue (configs/customer.yml, ): a readable key (the customers-map key — the customer-segment of relaxed...
+// [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md),
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-azure/types/AzureCustomer.cs.md#comment1)
 
 using System;
 using System.Collections;

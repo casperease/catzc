@@ -3,8 +3,7 @@
     Tests whether one named customer is enabled for the repo (singular cover over Test-HaveCustomers).
 .DESCRIPTION
     The single-customer form of Test-HaveCustomers, for the common "is this one customer enabled" check.
-    A thin cover: Test-HaveCustomers -Name $Name. Returns $true when the `have_customers` variant is 'all'
-    or includes the name.
+    [comment:1](/docs/references/automation/catzc-base-variants/Test-HaveCustomer.ps1.md#comment1)
 .PARAMETER Name
     The customer name to test.
 .EXAMPLE

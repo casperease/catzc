@@ -3,8 +3,7 @@
     Uninstalls Chocolatey from the current machine.
 .DESCRIPTION
     Removes the Chocolatey package manager if it is installed.
-    Idempotent — safe to run when Chocolatey is not present.
-    Windows-only; returns immediately on other platforms.
+    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md#comment1)
 .EXAMPLE
     Uninstall-Chocolatey
 #>
@@ -36,13 +35,14 @@ function Uninstall-Chocolatey {
     # Remove Chocolatey directory
     Write-Verbose "Removing Chocolatey directory: $chocoDir"
     Remove-Item $chocoDir -Recurse -Force
-    # Remove environment variable
-    # the seam announces each removal, and does nothing in a scope where the variable is not set
+    # Remove environment variable the seam announces each removal, and does nothing in a scope where the variable is...
+    # [comment:2](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md#comment2)
     Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope Machine
     Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope User
 
     # Remove Chocolatey from PATH — through the PATH seams, which announce the change
-    # ([ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33))
+    # [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)
+    # [comment:3](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md#comment3)
     foreach ($scope in 'Machine', 'User') {
         $path = Get-EnvironmentPath -Scope $scope
         if (-not $path) {

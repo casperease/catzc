@@ -4,13 +4,8 @@
     naming/placement quality gate checks for absoluteness
     ([ADR-PIPE-NAME#4](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name4)).
 .DESCRIPTION
-    Reads the file and returns each `template:` mapping value, whether written as a `steps`/`jobs`/… include
-    (`- template: /pipelines/steps/x.yaml`) or inside an `extends:` block (`template: /pipelines/extends/…`).
-    It is a line scan, not a YAML parse, so it is robust to the template expressions ADO YAML carries.
-
-    Only genuine file references are returned: a value that is a template EXPRESSION (`${{ … }}`) or carries
-    a runtime variable (`$( … )`) is skipped (its target is not statically known), and a value that does not
-    end in `.yaml` is ignored (it is not a template path). Comment lines (`#`) never match.
+    Reads the file and returns each `template:` mapping value, whether written as a `steps`/`jobs`/… include (`-...
+    [comment:1](/docs/references/automation/catzc-azure-devops/private/Get-PipelineTemplateReference.ps1.md#comment1)
 .PARAMETER Path
     The pipeline YAML file to scan.
 .OUTPUTS

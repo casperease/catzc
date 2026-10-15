@@ -1,6 +1,5 @@
-// An Entra ID tenant — the directory boundary that owns one or more subscriptions. The leaf of the
-// resolved identity graph (Tenant ← AzureSubscription ← AzureEnvironment). Mirrors one entry of the
-// `tenants` map in configs/azure.yml, so the property names are the YAML keys verbatim.
+// An Entra ID tenant — the directory boundary that owns one or more subscriptions.
+// [comment:1](/docs/references/automation/catzc-azure/types/Tenant.cs.md#comment1)
 
 using System;
 

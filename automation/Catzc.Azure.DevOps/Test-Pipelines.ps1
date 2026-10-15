@@ -3,33 +3,16 @@
     Quality gate: checks the pipelines/ tree against the naming-and-placement contract
     ([ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md)).
 .DESCRIPTION
-    Classifies every YAML under pipelines/ with Get-AdoYamlFiles (offline — structure heuristics, no ADO
-    call), applies the deterministic [ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md) rules,
-    collects every violation, and ends with Write-QualityGateReport
-    ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): the report lands in
-    out/test-pipelines/, and the gate throws once listing every violation (or returns the result with -PassThru).
-
-    Rules enforced (each violation names its rule code, as '[<rule>] pipelines/<file>: <message>'):
-
-      [ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6)  Executable YAML is
-      `.yaml`; there is no `.yml` under pipelines/ (config is `.yml`, but
-                      it lives outside pipelines/).
-      [ADR-PIPE-NAME#2](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name2)  Pipelines live FLAT
-      in pipelines/. Every `.yaml` is either at the root or directly in a
-                      per-kind template folder — never deeper, never in another subfolder. A file whose
-                      STRUCTURE is a pipeline (trigger/pr/…) must be at the root, not inside a template folder.
-      [ADR-PIPE-NAME#3](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name3)  Template folders are
-      the closed set steps/ jobs/ stages/ variables/ extends/, and a
-                      fragment's structural kind matches its folder (a steps template lives in steps/, …).
-      [ADR-PIPE-NAME#1](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name1)  A root pipeline's
-      filename starts with its type — cron | ci | cd | cde | deploy | input.
-      [ADR-PIPE-NAME#4](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name4)  Templates are
-      referenced by absolute path (`/pipelines/<kind>/<name>.yaml`), never a
-                      relative path.
-
-    Invoke-AdoScript.ps1 is a `.ps1`, not YAML, so it never enters the scan
-    ([ADR-PIPE-NAME#7](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name7)). A file that
-    fails to parse is reported as a violation so a broken pipeline cannot slip through silently.
+    Classifies every YAML under pipelines/ with Get-AdoYamlFiles (offline — structure heuristics, no ADO call),...
+    [ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md),
+    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
+    [ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6),
+    [ADR-PIPE-NAME#2](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name2),
+    [ADR-PIPE-NAME#3](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name3),
+    [ADR-PIPE-NAME#1](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name1),
+    [ADR-PIPE-NAME#4](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name4),
+    [ADR-PIPE-NAME#7](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name7)
+    [comment:1](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment1)
 .PARAMETER Path
     The pipelines/ directory to check. Defaults to `<repo>/pipelines`.
 .PARAMETER OutputFolder
@@ -97,26 +80,27 @@ function Test-Pipelines {
             continue
         }
 
-        # [ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6) — executable YAML
-        # under pipelines/ is `.yaml`, never `.yml`.
+        # — executable YAML under pipelines/ is `.yaml`, never `.yml`.
+        # [ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6)
+        # [comment:2](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment2)
         if ($extension -eq '.yml') {
             $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#6' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
             continue
         }
 
         if ($segments.Count -eq 0) {
-            # --- Root of pipelines/ : this is a pipeline entry point. ---
-            # [ADR-PIPE-NAME#1](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name1) — filename
-            # starts with a valid type token.
+            # --- Root of pipelines/: this is a pipeline entry point.
+            # [ADR-PIPE-NAME#1](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name1)
+            # [comment:3](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment3)
             $prefix = ($name -split '-', 2)[0]
             if ($prefix -notin $typePrefixes) {
                 $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#1' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
             }
         }
         else {
-            # --- Inside a subfolder : must be a per-kind template folder, one level deep. ---
-            # [ADR-PIPE-NAME#3](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name3) — the folder
-            # is in the closed set, and no deeper nesting.
+            # --- Inside a subfolder: must be a per-kind template folder, one level deep.
+            # [ADR-PIPE-NAME#3](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name3)
+            # [comment:4](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment4)
             if ($topFolder -notin $templateFolders) {
                 $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#3' -Message "Template folder '$topFolder' is not one of: $($templateFolders -join ' | ')."))
             }
@@ -124,21 +108,24 @@ function Test-Pipelines {
                 $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#2' -Message "Templates live directly in '$topFolder/', not nested deeper ('$dir/')."))
             }
             else {
-                # [ADR-PIPE-NAME#2](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name2) — a
-                # structural pipeline has no business inside a template folder.
+                # — a structural pipeline has no business inside a template folder.
+                # [ADR-PIPE-NAME#2](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name2)
+                # [comment:5](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment5)
                 if ($record.Classification -eq 'Pipeline') {
                     $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#2' -Message "A pipeline (trigger/pr/… shape) must live flat in pipelines/, not inside '$topFolder/'."))
                 }
-                # [ADR-PIPE-NAME#3](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name3) — a
-                # fragment's structural kind matches its folder (extends/ exempt).
+                # — a fragment's structural kind matches its folder (extends/ exempt).
+                # [ADR-PIPE-NAME#3](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name3)
+                # [comment:6](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment6)
                 elseif ($folderKind.ContainsKey($topFolder) -and $record.TemplateType -and "$($record.TemplateType)" -ne $folderKind[$topFolder]) {
                     $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#3' -Message "A '$($record.TemplateType)' template does not belong in '$topFolder/' (expected $($folderKind[$topFolder]))."))
                 }
             }
         }
 
-        # [ADR-PIPE-NAME#4](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name4) — template
-        # references are absolute (/pipelines/<kind>/<name>.yaml).
+        # — template references are absolute (/pipelines/<kind>/<name>.yaml).
+        # [ADR-PIPE-NAME#4](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name4)
+        # [comment:7](/docs/references/automation/catzc-azure-devops/Test-Pipelines.ps1.md#comment7)
         foreach ($ref in (Get-PipelineTemplateReference -Path $record.Path)) {
             if ($ref -notmatch '^/pipelines/') {
                 $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-PIPE-NAME#4' -Message "Template reference '$ref' must be an absolute path starting with /pipelines/."))

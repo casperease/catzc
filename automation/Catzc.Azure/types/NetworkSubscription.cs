@@ -1,14 +1,7 @@
-// One subscription's network in configs/network.yml ([ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md)): a hub
-// or a spoke VNet, keyed by the azure.yml subscription name. Mirrors a `subscriptions` entry (snake_case keys,
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)). NetworkConfig builds one
-// per entry and collects its violations with the file's.
-//
-// Shape: the name is a lower-snake_case identifier; `kind` is `hub` or `spoke`; `vnet_address_space` is an aligned
-// IPv4 CIDR (NetworkCidr); `subnets` is a non-empty map of subnet name -> aligned IPv4 CIDR, each inside the VNet and
-// no two overlapping; no other key. A hub carries exactly the hub subnets (GatewaySubnet and AzureFirewallSubnet,
-// reserved, and shared-services). A spoke carries private-endpoints plus workload subnets, each named for the
-// environment it serves (a lower-snake_case identifier). Which kind a subscription needs, and which environments it
-// serves, are azure.yml facts, so that join is the quality gate Test-AzureNetworkPlan's, not this type's.
+// One subscription's network in configs/network.yml: a hub or a spoke VNet, keyed by the azure.yml subscription name.
+// [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md),
+// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
+// [comment:1](/docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md#comment1)
 
 using System;
 using System.Collections;
@@ -32,8 +25,8 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
 
     private static readonly string[] HubSubnetNames = { "GatewaySubnet", "AzureFirewallSubnet", "shared-services" };
 
-    // The subnets a hub carries, exactly: the two reserved Azure subnets (nothing is deployed into them) and
-    // shared-services.
+    // The subnets a hub carries, exactly: the two reserved Azure subnets (nothing is deployed into them) and shared-services.
+    // [comment:2](/docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md#comment2)
     public static IReadOnlyList<string> HubSubnets => HubSubnetNames;
 
     // The subscription name (the map key; an azure.yml subscription).
@@ -162,8 +155,8 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
-    // The subnet names as written, including those with an invalid range, so a subnet with a bad range is reported
-    // once (as a bad range), not also as missing. Empty when subnets is missing or not a map.
+    // The subnet names as written, including those with an invalid range, so a subnet with a bad range is reported once (as a bad...
+    // [comment:3](/docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md#comment3)
     private static List<string> SubnetNames(IDictionary d)
     {
         List<string> names = new List<string>();
@@ -193,8 +186,8 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
         }
     }
 
-    // A spoke carries private-endpoints; every other subnet is a workload subnet named for an environment. Skipped
-    // when subnets is missing or empty (reported already).
+    // A spoke carries private-endpoints; every other subnet is a workload subnet named for an environment.
+    // [comment:4](/docs/references/automation/catzc-azure/types/NetworkSubscription.cs.md#comment4)
     private static void CheckSpoke(string where, List<string> names, List<string> errors)
     {
         if (names.Count == 0) { return; }

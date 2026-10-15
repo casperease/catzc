@@ -3,9 +3,7 @@
     Uninstalls the Postman desktop app.
 .DESCRIPTION
     Windows: Removes LOCALAPPDATA\Postman directory.
-    macOS: brew uninstall --cask postman.
-    Linux: Removes HOME/.local/Postman directory.
-    Idempotent — skips if not installed.
+    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Postman.ps1.md#comment1)
 .EXAMPLE
     Uninstall-Postman
 #>

@@ -2,9 +2,8 @@
 .SYNOPSIS
     Asserts the repo has customer deployments enabled — for all customers, or for specific names — else throws.
 .DESCRIPTION
-    The throwing companion to Test-HaveCustomers. With no -Name it requires the repo to be customer-enabled
-    at all; with -Name it requires every named customer to be enabled. Throws naming the disabled or
-    not-enabled customer(s) and pointing at the `have_customers` variant. Guards a customer-only code path.
+    The throwing companion to Test-HaveCustomers.
+    [comment:1](/docs/references/automation/catzc-base-variants/Assert-HaveCustomers.ps1.md#comment1)
 .PARAMETER Name
     Zero or more customer names to require. Omit to require the repo-wide capability.
 .EXAMPLE

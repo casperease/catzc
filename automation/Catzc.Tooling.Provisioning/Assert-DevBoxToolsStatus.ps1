@@ -3,8 +3,7 @@
     Asserts all tools are available at the correct version.
 .DESCRIPTION
     Calls Get-ToolsStatus and throws if any tool is Missing or WrongVersion.
-    Tools with status OK or Usable pass — the tool works regardless of how
-    it was installed. Chocolatey status is ignored.
+    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Assert-DevBoxToolsStatus.ps1.md#comment1)
 .EXAMPLE
     Assert-DevBoxToolsStatus
 #>

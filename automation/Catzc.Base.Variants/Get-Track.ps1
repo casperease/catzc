@@ -2,16 +2,11 @@
 .SYNOPSIS
     Returns the repository's tracks — all of them, the named ones, or the track that owns a path.
 .DESCRIPTION
-    The `tracks` repo-wide variant (configs/variants.yml, [ADR-DSGN-TRACK](/docs/adr/design/tracks.md)) declares each
-    track: its root folder, its class (core, adapter, external-port or verification,
-    [ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2)) and the file languages of its tech-stack
-    ([ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)). Each result is a VariantTrack, in declared
-    order; the shape is validated by the VariantsConfig type.
-
-    -Path answers "which track does this file belong to?"
-    ([ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)): the track whose root is the path's first
-    segment (a bare root folder, e.g. 'docs', is its own track's path). A file at the repository root, a path under
-    out/ (gitignored output, never a track), and a root folder no track declares return nothing.
+    The `tracks` repo-wide variant (configs/variants.yml, ) declares each track: its root folder, its class (core,...
+    [ADR-DSGN-TRACK](/docs/adr/design/tracks.md), [ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2),
+    [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
+    [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)
+    [comment:1](/docs/references/automation/catzc-base-variants/Get-Track.ps1.md#comment1)
 .PARAMETER Name
     The track name(s) to return. An unknown name throws, naming the config file.
 .PARAMETER Path

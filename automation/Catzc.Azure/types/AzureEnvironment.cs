@@ -1,7 +1,5 @@
-// A resolved environment identity: a named deployment environment paired with the subscription that
-// serves it. The root of the identity graph (AzureEnvironment → AzureSubscription → Tenant). The name and
-// short codes compose Azure resource names per the naming standard. Mirrors an `environments` entry in
-// configs/azure.yml (joined to its serving subscription), so the property names are the YAML keys.
+// A resolved environment identity: a named deployment environment paired with the subscription that serves it.
+// [comment:1](/docs/references/automation/catzc-azure/types/AzureEnvironment.cs.md#comment1)
 
 using System;
 
