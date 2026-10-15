@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Azure.DevOps/private/Resolve-AdoYamlClassification.ps1
-#   module: Catzc.Azure.DevOps
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/private/Resolve-AdoYamlClassification.ps1
+    kind: function
+    module: Catzc.Azure.DevOps
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

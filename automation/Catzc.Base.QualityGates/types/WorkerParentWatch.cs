@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/WorkerParentWatch.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/WorkerParentWatch.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // A reused PID is told apart from the parent by start time, so a recycled PID never keeps an orphaned worker alive.
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/WorkerParentWatch.cs.md#comment1)

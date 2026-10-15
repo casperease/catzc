@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.TypesSystem/private/Format-FileLockingProcess.ps1
-#   module: Catzc.Base.TypesSystem
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.TypesSystem/private/Format-FileLockingProcess.ps1
+    kind: function
+    module: Catzc.Base.TypesSystem
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

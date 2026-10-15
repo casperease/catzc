@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Objects/private/Expand-ObjectProperties.ps1
-#   module: Catzc.Base.Objects
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/private/Expand-ObjectProperties.ps1
+    kind: function
+    module: Catzc.Base.Objects
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/SpellingOracle.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/SpellingOracle.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 namespace Catzc.Base.QualityGates;
 

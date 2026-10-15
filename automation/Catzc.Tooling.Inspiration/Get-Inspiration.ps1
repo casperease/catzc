@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
-#   module: Catzc.Tooling.Inspiration
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
+    kind: function
+    module: Catzc.Tooling.Inspiration
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

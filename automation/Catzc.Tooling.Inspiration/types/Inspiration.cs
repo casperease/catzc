@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Tooling.Inspiration/types/Inspiration.cs
-//   module: Catzc.Tooling.Inspiration
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Inspiration/types/Inspiration.cs
+    kind: type
+    module: Catzc.Tooling.Inspiration
+---
+*/
 
 // Root is absolute because an inspiration lives outside the repository; the portable form stays in inspiration.yml.
 // [ADR-REPO-INSPIRE#1](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire1),

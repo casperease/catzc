@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Reports/Write-QualityGateReport.ps1
-#   module: Catzc.Base.Reports
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Reports/Write-QualityGateReport.ps1
+    kind: function
+    module: Catzc.Base.Reports
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

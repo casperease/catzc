@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Azure/Get-AzureCustomer.ps1
-#   module: Catzc.Azure
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/Get-AzureCustomer.ps1
+    kind: function
+    module: Catzc.Azure
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

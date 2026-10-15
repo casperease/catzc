@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/AdrDoraCheck.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/AdrDoraCheck.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // Each exempt domain or folder carries a reason for having no DORA section, so an exemption is never silent.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),

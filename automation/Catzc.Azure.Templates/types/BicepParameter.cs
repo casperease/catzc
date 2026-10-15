@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure.Templates/types/BicepParameter.cs
-//   module: Catzc.Azure.Templates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/types/BicepParameter.cs
+    kind: type
+    module: Catzc.Azure.Templates
+---
+*/
 
 // Nested object or array shapes (items, properties) are not modelled, only the top-level type, allowed values and bounds.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),

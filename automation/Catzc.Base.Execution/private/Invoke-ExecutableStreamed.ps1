@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Execution/private/Invoke-ExecutableStreamed.ps1
-#   module: Catzc.Base.Execution
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/private/Invoke-ExecutableStreamed.ps1
+    kind: function
+    module: Catzc.Base.Execution
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

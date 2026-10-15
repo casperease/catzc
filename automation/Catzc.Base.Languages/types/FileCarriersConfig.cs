@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Languages/types/FileCarriersConfig.cs
-//   module: Catzc.Base.Languages
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/types/FileCarriersConfig.cs
+    kind: type
+    module: Catzc.Base.Languages
+---
+*/
 
 // Every file class names where its meta block lives or why it has none, so a gap is a visible, reviewed entry.
 // [ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1),
@@ -23,7 +29,7 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
 
     private const string Failed = "file-carriers config validation failed:\n";
     private static readonly string[] AllowedKeys = { "carriers" };
-    private static readonly string[] AllowedEntryKeys = { "files", "carrier", "line", "block", "anchor", "preamble_lines", "property", "sidecar", "reason", "exclude" };
+    private static readonly string[] AllowedEntryKeys = { "files", "carrier", "line", "block", "anchor", "preamble_lines", "property", "sidecar", "reason", "exclude", "strip" };
     private static readonly Regex EntryId = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
     // The file classes in declared order. Empty when the file declares none.
@@ -127,6 +133,7 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
 
         string line = Has(entry, "line") ? Text(entry["line"]) : null;
         string[] block = ReadStrings(id, "block", entry, errors);
+        string[] strip = ReadStrings(id, "strip", entry, errors);
         string property = Has(entry, "property") ? Text(entry["property"]) : null;
         string sidecar = Has(entry, "sidecar") ? Text(entry["sidecar"]) : null;
         string reason = Has(entry, "reason") ? Text(entry["reason"]).Trim() : null;
@@ -145,6 +152,8 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
         Require(errors, id, line == null || (line.Length > 0 && !line.Any(char.IsWhiteSpace)), "line must be a non-empty comment prefix without spaces");
         Require(errors, id, block.Length == 0 || (block.Length == 2 && block.All(b => b.Length > 0)), "block must be the opening and the closing delimiter");
         Require(errors, id, carrier == CarrierKind.CommentHead || !entry.Contains("anchor"), "anchor belongs to a comment-head carrier");
+        Require(errors, id, carrier == CarrierKind.CommentHead || strip.Length == 0, "strip belongs to a comment-head carrier");
+        Require(errors, id, strip.All(opener => opener.Length > 0 && opener.Trim() == opener), "strip lists the first line of each old head, without surrounding spaces");
         Require(errors, id, anchor == Catzc.Base.CodeMeta.HeadAnchor.AfterPreamble ? preambleLines > 0 : preambleLines == 0, "preamble_lines is required, and only allowed, with anchor after-preamble");
         Require(errors, id, carrier == CarrierKind.Property ? !string.IsNullOrEmpty(property) : property == null, "property is required, and only allowed, for a property carrier");
         Require(errors, id, carrier == CarrierKind.Sidecar ? (sidecar != null && sidecar.Contains("{base}")) : sidecar == null, "sidecar is required, and only allowed, for a sidecar carrier, and names {base}");
@@ -152,7 +161,7 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
         Require(errors, id, carrier != CarrierKind.Sidecar || files.Length > 0, "a sidecar carrier selects its files with files");
         if (errors.Count > before) { return null; }
 
-        return new FileCarrier(id, files, carrier, line, block, anchor, preambleLines, property, sidecar, reason, exclude);
+        return new FileCarrier(id, files, carrier, line, block, anchor, preambleLines, property, sidecar, reason, exclude, strip);
     }
 
     // A map of glob to the reason its files carry no block, so a gap in the coverage is a visible, reviewed entry.

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Execution/types/ToolConfig.cs
-//   module: Catzc.Base.Execution
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/types/ToolConfig.cs
+    kind: type
+    module: Catzc.Base.Execution
+---
+*/
 
 // An unknown key would be invisible to every caller, so the constructor rejects it and lists all violations at once.
 // [ADR-AUTO-DEPS#1](/docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps1),

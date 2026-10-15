@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Core/Remove-MacToolInstall.ps1
-#   module: Catzc.Tooling.Core
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/Remove-MacToolInstall.ps1
+    kind: function
+    module: Catzc.Tooling.Core
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

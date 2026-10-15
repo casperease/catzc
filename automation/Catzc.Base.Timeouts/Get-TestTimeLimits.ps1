@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1
-#   module: Catzc.Base.Timeouts
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1
+    kind: function
+    module: Catzc.Base.Timeouts
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Git/types/GitIgnorePattern.cs
-//   module: Catzc.Base.Git
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/types/GitIgnorePattern.cs
+    kind: type
+    module: Catzc.Base.Git
+---
+*/
 
 // The pattern text is never rewritten: what the registry says is what .gitignore gets.
 // [comment:1](/docs/references/automation/catzc-base-git/types/GitIgnorePattern.cs.md#comment1)

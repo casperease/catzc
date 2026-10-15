@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/GlossaryScan.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/GlossaryScan.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // A file's prose is read once per run via the surface cache, and hits come sorted by file, line and message, de-duplicated.
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryScan.cs.md#comment1)

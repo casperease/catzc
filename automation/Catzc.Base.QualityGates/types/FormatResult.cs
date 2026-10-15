@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/FormatResult.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/FormatResult.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // Paths are absolute because Format-Code -Path also formats files outside the repository, such as a built module manifest.
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/FormatResult.cs.md#comment1)

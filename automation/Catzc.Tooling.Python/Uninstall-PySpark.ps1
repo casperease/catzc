@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Python/Uninstall-PySpark.ps1
-#   module: Catzc.Tooling.Python
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Python/Uninstall-PySpark.ps1
+    kind: function
+    module: Catzc.Tooling.Python
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

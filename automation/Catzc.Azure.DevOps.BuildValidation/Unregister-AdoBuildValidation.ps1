@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
-#   module: Catzc.Azure.DevOps.BuildValidation
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
+    kind: function
+    module: Catzc.Azure.DevOps.BuildValidation
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

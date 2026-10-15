@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure.DevOps/types/AdoConfig.cs
-//   module: Catzc.Azure.DevOps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/types/AdoConfig.cs
+    kind: type
+    module: Catzc.Azure.DevOps
+---
+*/
 
 // Any key beyond organization, project and tenant fails fast at load, so a misspelled key is never silently ignored.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

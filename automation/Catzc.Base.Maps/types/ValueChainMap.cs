@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/ValueChainMap.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/ValueChainMap.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // Strays and Unplaced record what the axes cannot place instead of dropping it, so Test-ValueChainMap can report it.
 // [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16),

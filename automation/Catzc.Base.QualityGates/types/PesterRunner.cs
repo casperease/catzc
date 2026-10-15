@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/PesterRunner.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/PesterRunner.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // Later workers buffer and replay in order, so the console reads sequentially while the wall clock runs in parallel.
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/PesterRunner.cs.md#comment1)

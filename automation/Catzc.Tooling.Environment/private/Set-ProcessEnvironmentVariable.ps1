@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Environment/private/Set-ProcessEnvironmentVariable.ps1
-#   module: Catzc.Tooling.Environment
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Environment/private/Set-ProcessEnvironmentVariable.ps1
+    kind: function
+    module: Catzc.Tooling.Environment
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

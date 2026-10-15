@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Timeouts/types/TimeLimitAttribute.cs
-//   module: Catzc.Base.Timeouts
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/types/TimeLimitAttribute.cs
+    kind: type
+    module: Catzc.Base.Timeouts
+---
+*/
 
 // The values are checked on creation: whole seconds above zero, and the pipeline limit no lower than the devbox one.
 // [ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)

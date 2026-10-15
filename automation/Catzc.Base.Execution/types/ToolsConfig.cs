@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Execution/types/ToolsConfig.cs
-//   module: Catzc.Base.Execution
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/types/ToolsConfig.cs
+    kind: type
+    module: Catzc.Base.Execution
+---
+*/
 
 // The YAML root is the tool map itself, and validation collects every violation into one exception.
 // [ADR-AUTO-DEPS#4](/docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps4)

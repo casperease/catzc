@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs
-//   module: Catzc.Base.Objects
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/types/ConsoleDisplayAttribute.cs
+    kind: type
+    module: Catzc.Base.Objects
+---
+*/
 
 // One list drives both the text form and the prompt columns; an unknown property name throws when the type is rendered.
 // [comment:1](/docs/references/automation/catzc-base-objects/types/ConsoleDisplayAttribute.cs.md#comment1)

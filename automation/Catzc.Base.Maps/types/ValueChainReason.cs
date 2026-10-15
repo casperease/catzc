@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/ValueChainReason.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/ValueChainReason.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // Override is true when the ADR declares its own concerns instead of taking its ADR domain's default.
 // [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14),

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure.DevOps/types/YamlClassificationResult.cs
-//   module: Catzc.Azure.DevOps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/types/YamlClassificationResult.cs
+    kind: type
+    module: Catzc.Azure.DevOps
+---
+*/
 
 // The outcome of classifying one ADO YAML file: the coarse kind plus, for templates, the body sub-kind.
 

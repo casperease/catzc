@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Environment/Set-PermanentEnvironmentVariable.ps1
-#   module: Catzc.Base.Environment
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Environment/Set-PermanentEnvironmentVariable.ps1
+    kind: function
+    module: Catzc.Base.Environment
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

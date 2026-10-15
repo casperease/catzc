@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/CommentsConfig.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/CommentsConfig.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // Every key is optional and a fresh checkout without the file behaves like the defaults, so no function restates a value.
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),

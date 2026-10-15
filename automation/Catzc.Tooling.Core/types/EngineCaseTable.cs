@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Tooling.Core/types/EngineCaseTable.cs
-//   module: Catzc.Tooling.Core
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/types/EngineCaseTable.cs
+    kind: type
+    module: Catzc.Tooling.Core
+---
+*/
 
 // Construction collects every violation into one ArgumentException, so a case can never silently skip an engine.
 // [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)

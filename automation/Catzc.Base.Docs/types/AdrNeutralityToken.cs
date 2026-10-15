@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/AdrNeutralityToken.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/AdrNeutralityToken.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // AdrNeutralityCheck rejects a name that is not kebab-case and a pattern that does not compile; matching is case-sensitive.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/AdrCheck.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/AdrCheck.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // Only a mode is configurable here; an omitted mode takes the default CheckMode declares, which is gate.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

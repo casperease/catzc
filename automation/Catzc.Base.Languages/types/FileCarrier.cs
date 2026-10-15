@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Languages/types/FileCarrier.cs
-//   module: Catzc.Base.Languages
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/types/FileCarrier.cs
+    kind: type
+    module: Catzc.Base.Languages
+---
+*/
 
 // The properties are snake_case because they mirror the YAML keys; FileCarriersConfig validates an entry and builds one.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
@@ -9,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Catzc.Base.Languages;
 
@@ -47,9 +54,13 @@ public sealed class FileCarrier
     // Globs of files in this class that carry no block, each with the reason. Empty when none is left out.
     public IReadOnlyDictionary<string, string> exclude { get; }
 
+    // First lines of old heads the formatter removes with their comment run before it writes the head. Empty when none is left to strip.
+    public IReadOnlyList<string> strip { get; }
+
     public FileCarrier(string id, string[] files, CarrierKind carrier, string line, string[] block, Catzc.Base.CodeMeta.HeadAnchor anchor,
-        int preambleLines, string property, string sidecar, string reason, IDictionary<string, string> exclude)
+        int preambleLines, string property, string sidecar, string reason, IDictionary<string, string> exclude, string[] strip = null)
     {
+        this.strip = strip == null ? Array.Empty<string>() : (string[])strip.Clone();
         this.exclude = exclude == null ? new Dictionary<string, string>() : new Dictionary<string, string>(exclude);
         this.id = id;
         this.files = files == null ? Array.Empty<string>() : (string[])files.Clone();
@@ -68,7 +79,7 @@ public sealed class FileCarrier
     {
         if (carrier != CarrierKind.CommentHead) { return null; }
         return line != null
-            ? Catzc.Base.CodeMeta.HeadForm.ForLine(line, anchor, preamble_lines)
-            : Catzc.Base.CodeMeta.HeadForm.ForBlock(block[0], block[1], anchor, preamble_lines);
+            ? Catzc.Base.CodeMeta.HeadForm.ForLine(line, anchor, preamble_lines, strip.ToArray())
+            : Catzc.Base.CodeMeta.HeadForm.ForBlock(block[0], block[1], anchor, preamble_lines, strip.ToArray());
     }
 }

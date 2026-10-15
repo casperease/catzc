@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
-//   module: Catzc.Azure.DevOps.BuildValidation
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
+    kind: type
+    module: Catzc.Azure.DevOps.BuildValidation
+---
+*/
 
 // Globset existence is not checked here, so loading the config stays hermetic; runtime and an integrity test enforce it.
 // [ADR-FLOW-CD-TYPE#4](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4),

@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownTable.ps1
-#   module: Catzc.Azure.Firewall
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Firewall/private/Get-FirewallMarkdownTable.ps1
+    kind: function
+    module: Catzc.Azure.Firewall
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

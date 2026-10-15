@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.ConfigExtensions/Invoke-ConfigValidator.ps1
-#   module: Catzc.Base.ConfigExtensions
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ConfigExtensions/Invoke-ConfigValidator.ps1
+    kind: function
+    module: Catzc.Base.ConfigExtensions
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

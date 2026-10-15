@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
-//   module: Catzc.Tooling.KeyHandler
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.KeyHandler/types/KeyHandlerSupportedConfig.cs
+    kind: type
+    module: Catzc.Tooling.KeyHandler
+---
+*/
 
 // The allow-list lets a Windows-only function be skipped rather than throw; a blank function name is rejected at load.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

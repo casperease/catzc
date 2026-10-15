@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/CheckModes.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/CheckModes.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // One parser keeps one accepted spelling and one error text for every check config, and an omitted mode means Gate.
 // [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),

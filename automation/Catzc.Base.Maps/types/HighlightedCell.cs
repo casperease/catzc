@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/HighlightedCell.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/HighlightedCell.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // Touched is true only when every reason is a passing mention, so a cell lit by mentions alone is told apart.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Maps/Test-WorldMap.ps1
-#   module: Catzc.Base.Maps
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/Test-WorldMap.ps1
+    kind: function
+    module: Catzc.Base.Maps
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

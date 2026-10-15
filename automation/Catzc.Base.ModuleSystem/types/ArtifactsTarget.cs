@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.ModuleSystem/types/ArtifactsTarget.cs
-//   module: Catzc.Base.ModuleSystem
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/types/ArtifactsTarget.cs
+    kind: type
+    module: Catzc.Base.ModuleSystem
+---
+*/
 
 // An enabled target needs somewhere to publish, so its coordinates may be empty only while it is disabled.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

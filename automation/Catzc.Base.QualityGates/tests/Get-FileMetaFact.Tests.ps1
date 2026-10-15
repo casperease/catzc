@@ -29,14 +29,14 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
     }
 
     It 'uses the function an entry names instead of the convention' {
-        Mock Get-DocumentKindFileMetaFact { [ordered]@{ kind = 'widget' } } -ModuleName Catzc.Base.QualityGates
-        $facts = Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('kind'); processor = 'Get-DocumentKindFileMetaFact' } } }
+        Mock Get-FileKindFileMetaFact { [ordered]@{ kind = 'widget' } } -ModuleName Catzc.Base.QualityGates
+        $facts = Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('kind'); processor = 'Get-FileKindFileMetaFact' } } }
         $facts['kind'] | Should -BeExactly 'widget'
     }
 
     It 'rejects a processor that returns keys its kind does not declare' {
-        Mock Get-DocumentKindFileMetaFact { [ordered]@{ surprise = 'x' } } -ModuleName Catzc.Base.QualityGates
-        { Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('kind'); processor = 'Get-DocumentKindFileMetaFact' } } } } |
+        Mock Get-FileKindFileMetaFact { [ordered]@{ surprise = 'x' } } -ModuleName Catzc.Base.QualityGates
+        { Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('kind'); processor = 'Get-FileKindFileMetaFact' } } } } |
             Should -Throw "*returned keys ``[surprise``], but kind 'gadget' declares ``[kind``]*"
     }
 }

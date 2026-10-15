@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Vendor/private/Resolve-VendorRepository.ps1
-#   module: Catzc.Base.Vendor
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Vendor/private/Resolve-VendorRepository.ps1
+    kind: function
+    module: Catzc.Base.Vendor
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

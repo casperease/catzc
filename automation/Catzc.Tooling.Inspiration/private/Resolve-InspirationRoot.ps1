@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
-#   module: Catzc.Tooling.Inspiration
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
+    kind: function
+    module: Catzc.Tooling.Inspiration
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

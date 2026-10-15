@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Globs/types/DurableHash.cs
-//   module: Catzc.Base.Globs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/types/DurableHash.cs
+    kind: type
+    module: Catzc.Base.Globs
+---
+*/
 
 // Native code because a per-byte PowerShell pipeline over a tracked binary takes minutes; CR stripping keeps CRLF and LF equal.
 // [ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5),

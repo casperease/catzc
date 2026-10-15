@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.MarkdownMeta/Remove-MarkdownFrontMatter.ps1
-#   module: Catzc.Base.MarkdownMeta
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.MarkdownMeta/Remove-MarkdownFrontMatter.ps1
+    kind: function
+    module: Catzc.Base.MarkdownMeta
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

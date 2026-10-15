@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/AdrDomainEdge.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/AdrDomainEdge.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // The constructor guards the edge invariant: both ends non-empty and distinct, so no domain depends on itself.
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)

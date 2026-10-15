@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Engines/types/ExecutionEngine.cs
-//   module: Catzc.Base.Engines
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Engines/types/ExecutionEngine.cs
+    kind: type
+    module: Catzc.Base.Engines
+---
+*/
 
 // No public constructor, so the three instances in ExecutionEngines are the only engines and no caller invents a fourth.
 // [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md),

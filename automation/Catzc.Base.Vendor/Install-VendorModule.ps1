@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Vendor/Install-VendorModule.ps1
-#   module: Catzc.Base.Vendor
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Vendor/Install-VendorModule.ps1
+    kind: function
+    module: Catzc.Base.Vendor
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

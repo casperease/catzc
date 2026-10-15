@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Objects/types/DictionaryRecord.cs
-//   module: Catzc.Base.Objects
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/types/DictionaryRecord.cs
+    kind: type
+    module: Catzc.Base.Objects
+---
+*/
 
 // A key counts as present only when its property exists and is non-null, so nulling an optional makes Contains false.
 // [comment:1](/docs/references/automation/catzc-base-objects/types/DictionaryRecord.cs.md#comment1)

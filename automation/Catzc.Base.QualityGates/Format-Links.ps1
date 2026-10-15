@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.QualityGates/Format-Links.ps1
-#   module: Catzc.Base.QualityGates
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/Format-Links.ps1
+    kind: function
+    module: Catzc.Base.QualityGates
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

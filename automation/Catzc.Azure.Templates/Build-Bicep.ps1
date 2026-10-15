@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Azure.Templates/Build-Bicep.ps1
-#   module: Catzc.Azure.Templates
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/Build-Bicep.ps1
+    kind: function
+    module: Catzc.Azure.Templates
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

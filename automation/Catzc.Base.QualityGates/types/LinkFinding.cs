@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/LinkFinding.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/LinkFinding.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // The replacement is empty when the aligner cannot fix the finding, so an empty one marks a finding for a person.
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinkFinding.cs.md#comment1)

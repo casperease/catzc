@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
-#   module: Catzc.Base.Config
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
+    kind: function
+    module: Catzc.Base.Config
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

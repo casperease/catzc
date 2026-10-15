@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/GzipText.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/GzipText.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 namespace Catzc.Base.QualityGates;
 

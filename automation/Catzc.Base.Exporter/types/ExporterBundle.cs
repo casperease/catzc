@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Exporter/types/ExporterBundle.cs
-//   module: Catzc.Base.Exporter
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Exporter/types/ExporterBundle.cs
+    kind: type
+    module: Catzc.Base.Exporter
+---
+*/
 
 // A footprint limit is opt-in: a bundle that ships to a constrained target states one, and the others go unchecked.
 // [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md),

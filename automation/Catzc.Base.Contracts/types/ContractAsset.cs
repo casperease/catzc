@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Contracts/types/ContractAsset.cs
-//   module: Catzc.Base.Contracts
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/types/ContractAsset.cs
+    kind: type
+    module: Catzc.Base.Contracts
+---
+*/
 
 // Construction rejects any path that is not relative and '/'-separated, or that has a '.', '..' or empty segment.
 // [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),

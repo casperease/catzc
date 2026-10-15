@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/FileMetaDirection.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/FileMetaDirection.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // Imprint writes derived facts into a file's meta block; gather reads config contributions out of it.
 // [ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2)

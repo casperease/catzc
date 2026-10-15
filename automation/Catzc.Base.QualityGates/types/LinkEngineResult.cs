@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/LinkEngineResult.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/LinkEngineResult.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // The engine never writes: Format-Links writes Changed, and Test-Links only reports Findings.
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinkEngineResult.cs.md#comment1)

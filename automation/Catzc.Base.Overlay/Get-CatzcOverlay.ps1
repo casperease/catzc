@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Overlay/Get-CatzcOverlay.ps1
-#   module: Catzc.Base.Overlay
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Overlay/Get-CatzcOverlay.ps1
+    kind: function
+    module: Catzc.Base.Overlay
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

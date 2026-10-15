@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/GlossaryAvoid.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/GlossaryAvoid.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // The phrase is stored lower-cased and its replacement is required, so a violation can always name the fix.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),

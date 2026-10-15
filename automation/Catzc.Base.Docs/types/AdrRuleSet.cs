@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/AdrRuleSet.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/AdrRuleSet.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // Code and Concerns are the effective values: a ruleset override if given, else the domain default, so readers never resolve them.
 // [ADR-AUTO-TYPES](/docs/adr/automation/BCL/native-csharp-types.md),

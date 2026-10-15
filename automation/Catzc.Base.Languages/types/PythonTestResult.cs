@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Languages/types/PythonTestResult.cs
-//   module: Catzc.Base.Languages
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/types/PythonTestResult.cs
+    kind: type
+    module: Catzc.Base.Languages
+---
+*/
 
 // The category is derived here, the one place the rule lives: a name starting test_integrity is integrity, all else logic.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),

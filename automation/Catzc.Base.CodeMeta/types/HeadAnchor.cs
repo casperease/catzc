@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.CodeMeta/types/HeadAnchor.cs
-//   module: Catzc.Base.CodeMeta
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.CodeMeta/types/HeadAnchor.cs
+    kind: type
+    module: Catzc.Base.CodeMeta
+---
+*/
 
 // What must stay above a comment head: nothing, a shebang, an XML or HTML prolog, or a fixed number of preamble lines.
 // [ADR-REPO-CODEMETA#1](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta1)

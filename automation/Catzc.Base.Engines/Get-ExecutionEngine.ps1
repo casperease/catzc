@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Engines/Get-ExecutionEngine.ps1
-#   module: Catzc.Base.Engines
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Engines/Get-ExecutionEngine.ps1
+    kind: function
+    module: Catzc.Base.Engines
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

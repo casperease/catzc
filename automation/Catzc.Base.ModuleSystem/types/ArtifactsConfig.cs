@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
-//   module: Catzc.Base.ModuleSystem
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
+    kind: type
+    module: Catzc.Base.ModuleSystem
+---
+*/
 
 // The targets are inert config surface: no publish code reads them yet, but the file still loads validated.
 // [ADR-AUTO-TEST#24](/docs/adr/automation/test-automation.md#rule-adr-auto-test24),

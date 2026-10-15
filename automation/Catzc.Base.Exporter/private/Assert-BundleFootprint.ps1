@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
-#   module: Catzc.Base.Exporter
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+    kind: function
+    module: Catzc.Base.Exporter
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

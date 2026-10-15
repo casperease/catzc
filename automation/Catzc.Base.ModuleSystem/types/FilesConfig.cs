@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.ModuleSystem/types/FilesConfig.cs
-//   module: Catzc.Base.ModuleSystem
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/types/FilesConfig.cs
+    kind: type
+    module: Catzc.Base.ModuleSystem
+---
+*/
 
 // Each package name is globally unique across all modules, because a package is the unit -ExcludePackages drops.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

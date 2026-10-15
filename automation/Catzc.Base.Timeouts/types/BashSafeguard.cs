@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Timeouts/types/BashSafeguard.cs
-//   module: Catzc.Base.Timeouts
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/types/BashSafeguard.cs
+    kind: type
+    module: Catzc.Base.Timeouts
+---
+*/
 
 // The hook only ever denies and never rewrites a command, since an allow skips the prompt and a rewrite can dodge deny rules.
 // [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)

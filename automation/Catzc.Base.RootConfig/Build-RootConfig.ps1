@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
-#   module: Catzc.Base.RootConfig
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.RootConfig/Build-RootConfig.ps1
+    kind: function
+    module: Catzc.Base.RootConfig
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

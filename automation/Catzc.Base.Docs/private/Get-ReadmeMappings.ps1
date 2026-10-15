@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1
-#   module: Catzc.Base.Docs
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1
+    kind: function
+    module: Catzc.Base.Docs
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

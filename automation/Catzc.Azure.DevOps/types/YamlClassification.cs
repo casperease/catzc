@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure.DevOps/types/YamlClassification.cs
-//   module: Catzc.Azure.DevOps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/types/YamlClassification.cs
+    kind: type
+    module: Catzc.Azure.DevOps
+---
+*/
 
 // Only the coarse kind lives here; a Template is refined further by YamlTemplateType.
 // [comment:1](/docs/references/automation/catzc-azure-devops/types/YamlClassification.cs.md#comment1)

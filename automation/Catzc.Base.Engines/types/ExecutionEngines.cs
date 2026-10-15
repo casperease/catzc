@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Engines/types/ExecutionEngines.cs
-//   module: Catzc.Base.Engines
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Engines/types/ExecutionEngines.cs
+    kind: type
+    module: Catzc.Base.Engines
+---
+*/
 
 // Every engine list in the codebase is Names, so adding or changing an engine is one edit here.
 // [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.MarkdownMeta/types/MarkdownDocument.cs
-//   module: Catzc.Base.MarkdownMeta
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.MarkdownMeta/types/MarkdownDocument.cs
+    kind: type
+    module: Catzc.Base.MarkdownMeta
+---
+*/
 
 using System;
 using System.Collections.Generic;

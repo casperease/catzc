@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Azure/private/Get-NetworkPlanViolations.ps1
-#   module: Catzc.Azure
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/private/Get-NetworkPlanViolations.ps1
+    kind: function
+    module: Catzc.Azure
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

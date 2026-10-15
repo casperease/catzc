@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Objects/types/ConsoleText.cs
-//   module: Catzc.Base.Objects
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/types/ConsoleText.cs
+    kind: type
+    module: Catzc.Base.Objects
+---
+*/
 
 // PowerShell string casts call the .NET ToString and ignore an ETS one, so each type must override it to delegate here.
 // [comment:1](/docs/references/automation/catzc-base-objects/types/ConsoleText.cs.md#comment1)

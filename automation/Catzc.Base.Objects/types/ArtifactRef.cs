@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Objects/types/ArtifactRef.cs
-//   module: Catzc.Base.Objects
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/types/ArtifactRef.cs
+    kind: type
+    module: Catzc.Base.Objects
+---
+*/
 
 // Identity is artifact-relative because ADO strips the out/template/ prefix on publish, so only the artifact root survives.
 // [ADR-AUTO-PATH#10](/docs/adr/automation/path-representation.md#rule-adr-auto-path10)

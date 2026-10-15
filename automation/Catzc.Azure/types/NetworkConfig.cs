@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure/types/NetworkConfig.cs
-//   module: Catzc.Azure
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/types/NetworkConfig.cs
+    kind: type
+    module: Catzc.Azure
+---
+*/
 
 // Checks this file alone: the cross-asset sync with azure.yml is the quality gate Test-AzureNetworkPlan, not a constructor.
 // [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md),

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Objects/types/PSTypeAliasAttribute.cs
-//   module: Catzc.Base.Objects
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/types/PSTypeAliasAttribute.cs
+    kind: type
+    module: Catzc.Base.Objects
+---
+*/
 
 // The alias literal lives in the C# source so a search for the alias lands on the declaring type; a type may carry several.
 // [comment:1](/docs/references/automation/catzc-base-objects/types/PSTypeAliasAttribute.cs.md#comment1)

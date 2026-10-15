@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Git/types/GitIgnoreSection.cs
-//   module: Catzc.Base.Git
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/types/GitIgnoreSection.cs
+    kind: type
+    module: Catzc.Base.Git
+---
+*/
 
 // Exactly one of patterns or inject per section, never both, so each rule has a single source of truth.
 // [comment:1](/docs/references/automation/catzc-base-git/types/GitIgnoreSection.cs.md#comment1)

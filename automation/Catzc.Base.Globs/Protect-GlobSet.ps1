@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Globs/Protect-GlobSet.ps1
-#   module: Catzc.Base.Globs
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/Protect-GlobSet.ps1
+    kind: function
+    module: Catzc.Base.Globs
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

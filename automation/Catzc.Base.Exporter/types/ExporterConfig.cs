@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Exporter/types/ExporterConfig.cs
-//   module: Catzc.Base.Exporter
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Exporter/types/ExporterConfig.cs
+    kind: type
+    module: Catzc.Base.Exporter
+---
+*/
 
 // Every key is required and an unknown key throws, so a typo fails fast at load instead of falling to a default.
 // [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md),

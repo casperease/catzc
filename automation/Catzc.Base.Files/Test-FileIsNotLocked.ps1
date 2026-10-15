@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Files/Test-FileIsNotLocked.ps1
-#   module: Catzc.Base.Files
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/Test-FileIsNotLocked.ps1
+    kind: function
+    module: Catzc.Base.Files
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

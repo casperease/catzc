@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Toolchain/private/Get-DotnetInstallHolder.ps1
-#   module: Catzc.Tooling.Toolchain
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/private/Get-DotnetInstallHolder.ps1
+    kind: function
+    module: Catzc.Tooling.Toolchain
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

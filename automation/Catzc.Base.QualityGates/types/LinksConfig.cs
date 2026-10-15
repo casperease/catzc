@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/LinksConfig.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/LinksConfig.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // The one declaration of the defaults: every key is optional, so no function restates a value and a missing file acts the same.
 // [ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8),

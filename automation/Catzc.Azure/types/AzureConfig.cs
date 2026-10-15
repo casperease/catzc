@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure/types/AzureConfig.cs
-//   module: Catzc.Azure
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/types/AzureConfig.cs
+    kind: type
+    module: Catzc.Azure
+---
+*/
 
 // Hermetic: a subscription's customer reference is not resolved here, and completeness is an integrity concern, not a load rule.
 // [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),

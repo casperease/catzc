@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/LinkFindingType.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/LinkFindingType.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // Overlong is informational: a line still over its limit after the aligner did what it can, with no mechanical fix.
 // [ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)

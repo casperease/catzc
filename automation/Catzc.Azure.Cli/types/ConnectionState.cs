@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure.Cli/types/ConnectionState.cs
-//   module: Catzc.Azure.Cli
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Cli/types/ConnectionState.cs
+    kind: type
+    module: Catzc.Azure.Cli
+---
+*/
 
 // Pairs the expected ids with the session's actual ones plus the verdict; a point-in-time probe, not a config record.
 // [comment:1](/docs/references/automation/catzc-azure-cli/types/ConnectionState.cs.md#comment1)

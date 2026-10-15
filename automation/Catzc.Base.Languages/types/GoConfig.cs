@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Languages/types/GoConfig.cs
-//   module: Catzc.Base.Languages
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/types/GoConfig.cs
+    kind: type
+    module: Catzc.Base.Languages
+---
+*/
 
 // An omitted key behaves exactly like its default, so no function restates a value.
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),

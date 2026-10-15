@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Overlay/private/Get-OverlayContractViolation.ps1
-#   module: Catzc.Base.Overlay
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Overlay/private/Get-OverlayContractViolation.ps1
+    kind: function
+    module: Catzc.Base.Overlay
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/WorldMap.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/WorldMap.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // Two buckets, NoTrack and NoFileLanguage, close the grid so every tracked file sits in exactly one cell.
 // [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1), [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),

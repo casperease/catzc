@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Files/private/Get-GitIndexPath.ps1
-#   module: Catzc.Base.Files
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/private/Get-GitIndexPath.ps1
+    kind: function
+    module: Catzc.Base.Files
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

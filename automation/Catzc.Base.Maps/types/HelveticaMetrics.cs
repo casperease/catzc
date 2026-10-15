@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/HelveticaMetrics.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/HelveticaMetrics.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // An unlisted character is measured at the widest Latin letter, so a measured label is never narrower than the drawn one.
 // [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)

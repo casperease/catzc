@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Contracts/private/Get-ContractSchemaFindings.ps1
-#   module: Catzc.Base.Contracts
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/private/Get-ContractSchemaFindings.ps1
+    kind: function
+    module: Catzc.Base.Contracts
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

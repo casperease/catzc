@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.TypesSystem/Assert-LoadedTypesCurrent.ps1
-#   module: Catzc.Base.TypesSystem
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.TypesSystem/Assert-LoadedTypesCurrent.ps1
+    kind: function
+    module: Catzc.Base.TypesSystem
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

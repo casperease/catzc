@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.KeyHandler/Import-PSReadLineKeyHandlerSet.ps1
-#   module: Catzc.Tooling.KeyHandler
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.KeyHandler/Import-PSReadLineKeyHandlerSet.ps1
+    kind: function
+    module: Catzc.Tooling.KeyHandler
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

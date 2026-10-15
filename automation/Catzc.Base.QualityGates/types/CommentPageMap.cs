@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/CommentPageMap.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/CommentPageMap.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // The extension stays in the page name, so a page maps back to exactly one file.
 // [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),

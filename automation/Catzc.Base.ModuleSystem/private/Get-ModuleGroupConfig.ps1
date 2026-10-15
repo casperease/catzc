@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleGroupConfig.ps1
-#   module: Catzc.Base.ModuleSystem
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/private/Get-ModuleGroupConfig.ps1
+    kind: function
+    module: Catzc.Base.ModuleSystem
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

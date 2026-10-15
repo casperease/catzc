@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Config/Get-ConfigValue.ps1
-#   module: Catzc.Base.Config
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Config/Get-ConfigValue.ps1
+    kind: function
+    module: Catzc.Base.Config
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

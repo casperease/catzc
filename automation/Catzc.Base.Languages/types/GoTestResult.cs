@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Languages/types/GoTestResult.cs
-//   module: Catzc.Base.Languages
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/types/GoTestResult.cs
+    kind: type
+    module: Catzc.Base.Languages
+---
+*/
 
 // The category is derived here, the one place the rule lives: a TestIntegrity name is integrity, all else logic.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),

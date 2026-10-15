@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/GitHubAnchor.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/GitHubAnchor.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // A fragment resolves only if it matches GitHub's rendered slug, which drops every character but letters, digits, space, - and _.
 // [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)

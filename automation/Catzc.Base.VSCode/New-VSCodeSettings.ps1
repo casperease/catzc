@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.VSCode/New-VSCodeSettings.ps1
-#   module: Catzc.Base.VSCode
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.VSCode/New-VSCodeSettings.ps1
+    kind: function
+    module: Catzc.Base.VSCode
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

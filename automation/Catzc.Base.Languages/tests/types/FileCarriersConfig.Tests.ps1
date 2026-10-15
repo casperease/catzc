@@ -80,6 +80,19 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             $config.Find('cog').Form() | Should -BeNullOrEmpty
         }
 
+        It 'reads the openers of old heads a comment-head entry strips, and passes them to its head form' -Tag 'ADR-REPO-CODEMETA#1' {
+            $config = & $script:make ([ordered]@{ carriers = [ordered]@{
+                        widget = [ordered]@{ carrier = 'comment-head'; block = @('/*', '*/'); strip = @('// catzc:') }
+                        gadget = [ordered]@{ carrier = 'comment-head'; line = '#' }
+                    }
+                })
+            $config.Find('widget').strip | Should -Be @('// catzc:')
+            $config.Find('widget').Form().Strip | Should -Be @('// catzc:')
+            $config.Find('gadget').strip.Count | Should -Be 0
+            { & $script:one ([ordered]@{ carrier = 'front-matter'; strip = @('// catzc:') }) } | Should -Throw '*strip belongs to a comment-head carrier*'
+            { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; strip = @(' # catzc:') }) } | Should -Throw '*without surrounding spaces*'
+        }
+
         It 'reads front matter, a property, a sidecar and a reason for none, and keeps declared order' {
             $config = & $script:make ([ordered]@{ carriers = [ordered]@{
                         widget   = [ordered]@{ carrier = 'front-matter' }

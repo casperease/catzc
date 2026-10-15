@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.ModuleSystem/types/ModulePackage.cs
-//   module: Catzc.Base.ModuleSystem
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/types/ModulePackage.cs
+    kind: type
+    module: Catzc.Base.ModuleSystem
+---
+*/
 
 // The unit Copy-Automation excludes by name, which is why package names are unique across all modules.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/ModulePackage.cs.md#comment1)

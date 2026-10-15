@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure/types/AzureEnvironment.cs
-//   module: Catzc.Azure
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/types/AzureEnvironment.cs
+    kind: type
+    module: Catzc.Azure
+---
+*/
 
 // The root of the identity graph, so its property names are the YAML keys verbatim and the codes compose resource names.
 // [comment:1](/docs/references/automation/catzc-azure/types/AzureEnvironment.cs.md#comment1)

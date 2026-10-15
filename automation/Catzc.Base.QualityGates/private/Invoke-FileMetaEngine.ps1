@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1
-#   module: Catzc.Base.QualityGates
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1
+    kind: function
+    module: Catzc.Base.QualityGates
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS
@@ -56,8 +62,11 @@ function Invoke-FileMetaEngine {
         if ($isHead) {
             $form = $entry.Carrier.Form()
             $state = Get-CodeMetaState -Text $text -Form $form
-            foreach ($key in $state.Keys | Where-Object { -not $owned.Contains($_) }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc head.$key"; Expected = 'a key a meta kind owns' })
+            foreach ($section in $state.Sections | Where-Object { $_ -notin 'derived', 'config' }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.$section"; Expected = 'derived or config' })
+            }
+            foreach ($key in $state.DerivedKeys | Where-Object { -not $owned.Contains($_) }) {
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.derived.$key"; Expected = 'a key a meta kind owns' })
             }
         }
         else {

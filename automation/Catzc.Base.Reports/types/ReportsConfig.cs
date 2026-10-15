@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Reports/types/ReportsConfig.cs
-//   module: Catzc.Base.Reports
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Reports/types/ReportsConfig.cs
+    kind: type
+    module: Catzc.Base.Reports
+---
+*/
 
 // Every key has a default, so an empty reports.yml is valid and the file overrides only what differs.
 // [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),

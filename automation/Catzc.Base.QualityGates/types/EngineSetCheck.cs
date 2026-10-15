@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/EngineSetCheck.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/EngineSetCheck.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // No engine name or count is a literal here: each phrase carries a placeholder the matcher fills from the engines model.
 // [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1),

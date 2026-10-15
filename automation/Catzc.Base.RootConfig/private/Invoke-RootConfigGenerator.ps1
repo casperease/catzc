@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.RootConfig/private/Invoke-RootConfigGenerator.ps1
-#   module: Catzc.Base.RootConfig
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.RootConfig/private/Invoke-RootConfigGenerator.ps1
+    kind: function
+    module: Catzc.Base.RootConfig
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1
-#   module: Catzc.Azure.Firewall
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1
+    kind: function
+    module: Catzc.Azure.Firewall
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

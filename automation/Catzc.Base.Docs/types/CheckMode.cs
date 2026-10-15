@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/CheckMode.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/CheckMode.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // Gate is the zero value, so a check whose config omits mode fails on findings; Report is the opt-in while its work list drains.
 // [ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4),

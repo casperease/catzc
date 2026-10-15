@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.ModuleSystem/types/GithubArtifactsTarget.cs
-//   module: Catzc.Base.ModuleSystem
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/types/GithubArtifactsTarget.cs
+    kind: type
+    module: Catzc.Base.ModuleSystem
+---
+*/
 
 // Validation is the shared target shape, so this type only declares the owner, repository and feed coordinates.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/GithubArtifactsTarget.cs.md#comment1)

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/MarkdownLinkRebaser.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/MarkdownLinkRebaser.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // Pure and repository-relative, so the result never depends on OS or disk; code, URLs, anchors and rooted links stay as written.
 // [ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)

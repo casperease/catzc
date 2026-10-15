@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/WinAnsi.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/WinAnsi.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // The multiplication sign is encodable but the arrow is not, so MapsConfig rejects any other label at load.
 // [comment:1](/docs/references/automation/catzc-base-maps/types/WinAnsi.cs.md#comment1)

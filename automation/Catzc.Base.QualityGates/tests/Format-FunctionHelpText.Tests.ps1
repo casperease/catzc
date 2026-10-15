@@ -10,8 +10,8 @@ Describe 'Format-FunctionHelpText' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1', 'ADR-R
     Turns a widget into a gadget.
 .DESCRIPTION
     The gadget keeps the widget's colour.
-    [ADR-REPO-COMMENTS#1](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1),
-    [ADR-REPO-HELP#2](/docs/adr/repository/function-help.md#rule-adr-repo-help2)
+    [ADR-WIDGET-COG#1](/docs/adr/widget/cog.md#rule-adr-widget-cog1),
+    [ADR-WIDGET-GADGET#2](/docs/adr/widget/gadget.md#rule-adr-widget-gadget2)
 .PARAMETER Widget
     The widget to turn.
 .OUTPUTS
@@ -53,11 +53,11 @@ function ConvertTo-Gadget {
 <#
 .SYNOPSIS
     Turns a widget into a gadget
-    ([ADR-REPO-HELP#2](/docs/adr/repository/function-help.md#rule-adr-repo-help2)).
+    ([ADR-WIDGET-GADGET#2](/docs/adr/widget/gadget.md#rule-adr-widget-gadget2)).
 .DESCRIPTION
     The gadget keeps the widget's colour.
-    [ADR-REPO-HELP#2](/docs/adr/repository/function-help.md#rule-adr-repo-help2),
-    [ADR-REPO-COMMENTS#1](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1)
+    [ADR-WIDGET-GADGET#2](/docs/adr/widget/gadget.md#rule-adr-widget-gadget2),
+    [ADR-WIDGET-COG#1](/docs/adr/widget/cog.md#rule-adr-widget-cog1)
     [comment:1](/docs/references/widget.md#comment1)
 #>
 function ConvertTo-Gadget {
@@ -71,8 +71,8 @@ function ConvertTo-Gadget {
     Turns a widget into a gadget.
 .DESCRIPTION
     The gadget keeps the widget's colour.
-    [ADR-REPO-COMMENTS#1](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1),
-    [ADR-REPO-HELP#2](/docs/adr/repository/function-help.md#rule-adr-repo-help2)
+    [ADR-WIDGET-COG#1](/docs/adr/widget/cog.md#rule-adr-widget-cog1),
+    [ADR-WIDGET-GADGET#2](/docs/adr/widget/gadget.md#rule-adr-widget-gadget2)
     [comment:1](/docs/references/widget.md#comment1)
 #>
 function ConvertTo-Gadget {

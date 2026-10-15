@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/SquarifiedTreemap.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/SquarifiedTreemap.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // Heaviest first with ordinal key ties, so the same weights give the same rectangles in whatever order they arrive.
 // [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)

@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
-#   module: Catzc.Tooling.Provisioning
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/Assert-DevBoxToolsStatus.ps1
+    kind: function
+    module: Catzc.Tooling.Provisioning
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

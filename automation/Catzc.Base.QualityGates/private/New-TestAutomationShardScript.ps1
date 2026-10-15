@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.QualityGates/private/New-TestAutomationShardScript.ps1
-#   module: Catzc.Base.QualityGates
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/private/New-TestAutomationShardScript.ps1
+    kind: function
+    module: Catzc.Base.QualityGates
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

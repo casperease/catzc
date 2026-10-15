@@ -12,7 +12,7 @@ Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
         # The gate sees every processor function of the module, so each fixture registry also names the shipped ones.
         function script:Invoke-Gate {
             param($Kinds, [switch] $PassThru)
-            $all = [ordered]@{ 'file-path' = @{ keys = @('path') }; 'document-kind' = @{ keys = @('kind') }; 'body-sha' = @{ keys = @('body_sha') }; 'adr-codes' = @{ keys = @('adrs') }; 'module-name' = @{ keys = @('module') }; visibility = @{ keys = @('visibility') } }
+            $all = [ordered]@{ 'file-path' = @{ keys = @('path') }; 'file-kind' = @{ keys = @('kind') }; 'body-sha' = @{ keys = @('body_sha') }; 'adr-codes' = @{ keys = @('adrs') }; 'module-name' = @{ keys = @('module') }; visibility = @{ keys = @('visibility') } }
             foreach ($id in $Kinds.Keys) {
                 $all[$id] = $Kinds[$id]
             }

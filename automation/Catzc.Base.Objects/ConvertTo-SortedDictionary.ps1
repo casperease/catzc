@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1
-#   module: Catzc.Base.Objects
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/ConvertTo-SortedDictionary.ps1
+    kind: function
+    module: Catzc.Base.Objects
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

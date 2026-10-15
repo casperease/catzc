@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Reports/types/OutputFormatsConfig.cs
-//   module: Catzc.Base.Reports
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Reports/types/OutputFormatsConfig.cs
+    kind: type
+    module: Catzc.Base.Reports
+---
+*/
 
 // Load rejects any two formats whose patterns can overlap; which format a file belongs to is Test-OutputFormats' job.
 // [ADR-REPO-OUTFMT#1](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt1),

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/PdfNumber.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/PdfNumber.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // Invariant culture and no exponent, so the same value gives the same bytes in any session; a PDF number has no exponent form.
 // [comment:1](/docs/references/automation/catzc-base-maps/types/PdfNumber.cs.md#comment1)

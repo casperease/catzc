@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/AgentEntry.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/AgentEntry.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // Real rule ids, existing commands and the agent file are session facts left to Test-AgentDefinitions, not checked on load.
 // [ADR-REPO-AGENTS#2](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents2),

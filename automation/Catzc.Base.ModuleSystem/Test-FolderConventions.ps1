@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
-#   module: Catzc.Base.ModuleSystem
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
+    kind: function
+    module: Catzc.Base.ModuleSystem
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

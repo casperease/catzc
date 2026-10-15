@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Reports/types/OutputFormat.cs
-//   module: Catzc.Base.Reports
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Reports/types/OutputFormat.cs
+    kind: type
+    module: Catzc.Base.Reports
+---
+*/
 
 // Construction collects every violation into one throw; that no two formats overlap spans entries, so the catalogue checks it.
 // [ADR-REPO-OUTFMT#1](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt1),

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/WorldMapGridLayout.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/WorldMapGridLayout.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // File-language names take two header lines, so a name that wraps leaves every column the same height; row 0 is the top row.
 // [ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7), [ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8),

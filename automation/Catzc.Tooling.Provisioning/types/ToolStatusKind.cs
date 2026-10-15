@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Tooling.Provisioning/types/ToolStatusKind.cs
-//   module: Catzc.Tooling.Provisioning
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/types/ToolStatusKind.cs
+    kind: type
+    module: Catzc.Tooling.Provisioning
+---
+*/
 
 // Missing and WrongVersion are hard failures, while Usable is only a migrate-me hint, so the split is load-bearing.
 // [comment:1](/docs/references/automation/catzc-tooling-provisioning/types/ToolStatusKind.cs.md#comment1)

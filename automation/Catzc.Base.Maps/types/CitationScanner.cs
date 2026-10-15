@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/CitationScanner.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/CitationScanner.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // A look-alike is no citation: an unlisted code, a code glued to a letter, digit, underscore or hyphen, or lowercase text.
 // [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)

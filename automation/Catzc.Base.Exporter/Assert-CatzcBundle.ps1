@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
-#   module: Catzc.Base.Exporter
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
+    kind: function
+    module: Catzc.Base.Exporter
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

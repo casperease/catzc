@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Toolchain/Install-Shellcheck.ps1
-#   module: Catzc.Tooling.Toolchain
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/Install-Shellcheck.ps1
+    kind: function
+    module: Catzc.Tooling.Toolchain
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

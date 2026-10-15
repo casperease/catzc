@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1
-#   module: Catzc.Tooling.Github
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1
+    kind: function
+    module: Catzc.Tooling.Github
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/AdrCitationChange.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/AdrCitationChange.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // An Unhandled change carries no new text: the reference is left as written for a person to resolve.
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)

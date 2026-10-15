@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/DocsConfig.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/DocsConfig.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // Patterns and mappings are each optional but need at least one entry across both; a malformed shape throws at the first fault.
 // [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md), [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)

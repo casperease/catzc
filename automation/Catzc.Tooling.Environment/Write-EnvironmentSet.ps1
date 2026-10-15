@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
-#   module: Catzc.Tooling.Environment
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+    kind: function
+    module: Catzc.Tooling.Environment
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

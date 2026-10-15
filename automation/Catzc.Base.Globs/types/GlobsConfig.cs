@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Globs/types/GlobsConfig.cs
-//   module: Catzc.Base.Globs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/types/GlobsConfig.cs
+    kind: type
+    module: Catzc.Base.Globs
+---
+*/
 
 // Construction validates the whole registry and collects every error before throwing, so one run shows all faults.
 // [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),

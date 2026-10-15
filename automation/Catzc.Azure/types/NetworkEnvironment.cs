@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure/types/NetworkEnvironment.cs
-//   module: Catzc.Azure
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/types/NetworkEnvironment.cs
+    kind: type
+    module: Catzc.Azure
+---
+*/
 
 // Per-entry shape only: NetworkConfig builds one per entry and collects its violations with the file's.
 // [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md),

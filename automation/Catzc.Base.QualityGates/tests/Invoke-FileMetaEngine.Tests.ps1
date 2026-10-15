@@ -3,7 +3,7 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $script:widgetRoot = Join-Path $TestDrive 'engine-repository'
         $carriers = [Catzc.Base.Languages.FileCarriersConfig]::new(@{
                 carriers = [ordered]@{
-                    powershell = @{ carrier = 'comment-head'; line = '#' }
+                    powershell = @{ carrier = 'comment-head'; block = @('<#', '#>') }
                     markdown   = @{ carrier = 'front-matter' }
                 }
             })
@@ -44,8 +44,8 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
         $result.FileCount | Should -Be 2
         $result.Files.Count | Should -Be 2
         $result.Files[0].Findings[0].Kind | Should -Be 'Drift'
-        $result.Files[0].Fixed | Should -BeExactly "# catzc:`n#   path: automation/Catzc.Widget/Get-Gadget.ps1`n#   module: Catzc.Widget`n#   visibility: public`n`nfunction Get-Gadget { }`n"
-        $result.Files[1].Fixed | Should -BeLike "*#   visibility: private`n`nfunction Get-Sprocket { }`n"
+        $result.Files[0].Fixed | Should -BeExactly "<#`n---`ncatzc:`n  derived:`n    path: automation/Catzc.Widget/Get-Gadget.ps1`n    module: Catzc.Widget`n    visibility: public`n---`n#>`n`nfunction Get-Gadget { }`n"
+        $result.Files[1].Fixed | Should -BeLike "*    visibility: private`n---`n#>`n`nfunction Get-Sprocket { }`n"
     }
 
     It 'finds nothing to change once the head is written' {
@@ -59,11 +59,11 @@ Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR
     }
 
     It 'reports a head key no kind owns, and leaves that file''s text as written' {
-        $text = "# catzc:`n#   colour: red`n`nfunction Get-Gadget { }`n"
+        $text = "<#`n---`ncatzc:`n  derived:`n    colour: red`n---`n#>`n`nfunction Get-Gadget { }`n"
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'automation/Catzc.Widget/Get-Gadget.ps1'), $text)
         $result = & $script:run $script:entries[0]
         $result.Files[0].Findings.Kind | Should -Be @('UnownedHead')
-        $result.Files[0].Findings[0].Actual | Should -Be 'catzc head.colour'
+        $result.Files[0].Findings[0].Actual | Should -Be 'catzc.derived.colour'
         $result.Files[0].Fixed | Should -BeExactly $text
     }
 

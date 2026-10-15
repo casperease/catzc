@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure/types/AzureEnvironmentRecord.cs
-//   module: Catzc.Azure
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/types/AzureEnvironmentRecord.cs
+    kind: type
+    module: Catzc.Azure
+---
+*/
 
 // Per-entry shape only: shortcode uniqueness across environments is AzureConfig's, which collects these violations too.
 // [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md), [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md),

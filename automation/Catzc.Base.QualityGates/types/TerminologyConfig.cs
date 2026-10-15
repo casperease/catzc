@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/TerminologyConfig.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/TerminologyConfig.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // A category with no scope is global; a scoped one is zone-bound, and cspell enforces that its terms stay under the scope.
 // [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),

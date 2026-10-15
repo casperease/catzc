@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
-#   module: Catzc.Base.Maps
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+    kind: function
+    module: Catzc.Base.Maps
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

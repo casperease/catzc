@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/GlossaryProse.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/GlossaryProse.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // PowerShell is read through the real parser's tokens and AST, never a regex, so comments, help and messages stay distinct.
 // [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5),

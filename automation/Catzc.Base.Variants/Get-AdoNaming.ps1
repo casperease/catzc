@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Variants/Get-AdoNaming.ps1
-#   module: Catzc.Base.Variants
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/Get-AdoNaming.ps1
+    kind: function
+    module: Catzc.Base.Variants
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

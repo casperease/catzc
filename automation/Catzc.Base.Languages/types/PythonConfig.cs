@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Languages/types/PythonConfig.cs
-//   module: Catzc.Base.Languages
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/types/PythonConfig.cs
+    kind: type
+    module: Catzc.Base.Languages
+---
+*/
 
 // The Python version is not a setting here: it is the tools.yml pin, the one Python version.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),

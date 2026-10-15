@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Toolchain/Invoke-Go.ps1
-#   module: Catzc.Tooling.Toolchain
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/Invoke-Go.ps1
+    kind: function
+    module: Catzc.Tooling.Toolchain
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

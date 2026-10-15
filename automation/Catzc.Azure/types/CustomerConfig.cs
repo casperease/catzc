@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure/types/CustomerConfig.cs
-//   module: Catzc.Azure
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/types/CustomerConfig.cs
+    kind: type
+    module: Catzc.Azure
+---
+*/
 
 // Self-contained: azure.yml depends on customer.yml, never the reverse, so this type never reads azure.yml.
 // [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md),

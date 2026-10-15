@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/PdfPage.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/PdfPage.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // A character outside WinAnsi throws instead of printing a wrong glyph; the origin is the bottom-left corner.
 // [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)

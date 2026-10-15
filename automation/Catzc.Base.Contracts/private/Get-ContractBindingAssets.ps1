@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Contracts/private/Get-ContractBindingAssets.ps1
-#   module: Catzc.Base.Contracts
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/private/Get-ContractBindingAssets.ps1
+    kind: function
+    module: Catzc.Base.Contracts
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Provisioning/private/Get-PackageTreePlan.ps1
-#   module: Catzc.Tooling.Provisioning
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/private/Get-PackageTreePlan.ps1
+    kind: function
+    module: Catzc.Tooling.Provisioning
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

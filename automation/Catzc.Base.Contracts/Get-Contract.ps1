@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Contracts/Get-Contract.ps1
-#   module: Catzc.Base.Contracts
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/Get-Contract.ps1
+    kind: function
+    module: Catzc.Base.Contracts
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/LinkKind.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/LinkKind.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // A flags enum, so Both is Code | Markdown and the engine tests HasFlag instead of special-casing Both.
 // [ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1)

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/GlossaryOptions.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/GlossaryOptions.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // Default excludes are always added to a source's own, so no source can scan research text, generated output or vendored code.
 // [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2),

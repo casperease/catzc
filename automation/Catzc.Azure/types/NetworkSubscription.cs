@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure/types/NetworkSubscription.cs
-//   module: Catzc.Azure
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/types/NetworkSubscription.cs
+    kind: type
+    module: Catzc.Azure
+---
+*/
 
 // Which kind a subscription needs and which environments it serves are azure.yml facts, joined by Test-AzureNetworkPlan.
 // [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md),

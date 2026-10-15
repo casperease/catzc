@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Azure.Cli/Test-AzCliConnected.ps1
-#   module: Catzc.Azure.Cli
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Cli/Test-AzCliConnected.ps1
+    kind: function
+    module: Catzc.Azure.Cli
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
-#   module: Catzc.Base.Git
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
+    kind: function
+    module: Catzc.Base.Git
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

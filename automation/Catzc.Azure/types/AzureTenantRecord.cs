@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure/types/AzureTenantRecord.cs
-//   module: Catzc.Azure
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/types/AzureTenantRecord.cs
+    kind: type
+    module: Catzc.Azure
+---
+*/
 
 // Per-entry shape only: AzureConfig builds one per entry and collects its violations with the file's.
 // [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),

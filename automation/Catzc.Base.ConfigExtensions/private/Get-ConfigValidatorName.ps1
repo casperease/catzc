@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.ConfigExtensions/private/Get-ConfigValidatorName.ps1
-#   module: Catzc.Base.ConfigExtensions
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ConfigExtensions/private/Get-ConfigValidatorName.ps1
+    kind: function
+    module: Catzc.Base.ConfigExtensions
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

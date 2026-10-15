@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Toolchain/private/Resolve-DotnetRemovalTarget.ps1
-#   module: Catzc.Tooling.Toolchain
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/private/Resolve-DotnetRemovalTarget.ps1
+    kind: function
+    module: Catzc.Tooling.Toolchain
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

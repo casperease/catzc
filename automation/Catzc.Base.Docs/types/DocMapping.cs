@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/DocMapping.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/DocMapping.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // Both paths are root-relative and slash-separated, so source and folder compare the same on every OS.
 // [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)

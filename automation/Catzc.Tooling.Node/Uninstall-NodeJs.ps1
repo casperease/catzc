@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Node/Uninstall-NodeJs.ps1
-#   module: Catzc.Tooling.Node
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Node/Uninstall-NodeJs.ps1
+    kind: function
+    module: Catzc.Tooling.Node
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

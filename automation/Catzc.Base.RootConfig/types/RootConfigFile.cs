@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.RootConfig/types/RootConfigFile.cs
-//   module: Catzc.Base.RootConfig
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.RootConfig/types/RootConfigFile.cs
+    kind: type
+    module: Catzc.Base.RootConfig
+---
+*/
 
 // A wildcard target is allowed only on a generator entry, and every record it returns must match the target pattern.
 // [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)

@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Languages/Get-FileLanguage.ps1
-#   module: Catzc.Base.Languages
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/Get-FileLanguage.ps1
+    kind: function
+    module: Catzc.Base.Languages
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

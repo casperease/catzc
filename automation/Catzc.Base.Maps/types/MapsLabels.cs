@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/MapsLabels.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/MapsLabels.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // Each label names a defined term in its head, so Test-WorldMap and Test-ValueChainMap can check the printed text.
 // [ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7), [ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8),

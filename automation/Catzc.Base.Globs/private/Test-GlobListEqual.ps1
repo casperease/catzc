@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Globs/private/Test-GlobListEqual.ps1
-#   module: Catzc.Base.Globs
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/private/Test-GlobListEqual.ps1
+    kind: function
+    module: Catzc.Base.Globs
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

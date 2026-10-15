@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Reports/types/OutputPattern.cs
-//   module: Catzc.Base.Reports
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Reports/types/OutputPattern.cs
+    kind: type
+    module: Catzc.Base.Reports
+---
+*/
 
 // A stamp segment against a wildcard segment counts as overlapping, so an accepted catalogue is always overlap-free.
 // [ADR-REPO-OUTFMT#1](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt1)

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/GlossaryConfig.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/GlossaryConfig.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // Load reads this one file only; cross-source facts such as term uniqueness and defined_by belong to Test-Glossary.
 // [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),

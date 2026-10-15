@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Languages/types/GoWorkspaceFile.cs
-//   module: Catzc.Base.Languages
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/types/GoWorkspaceFile.cs
+    kind: type
+    module: Catzc.Base.Languages
+---
+*/
 
 // The renderer only composes content; Build-RootConfig owns the write.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),

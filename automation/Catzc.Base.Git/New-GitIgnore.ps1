@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Git/New-GitIgnore.ps1
-#   module: Catzc.Base.Git
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/New-GitIgnore.ps1
+    kind: function
+    module: Catzc.Base.Git
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

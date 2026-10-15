@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Languages/types/FormatterEngine.cs
-//   module: Catzc.Base.Languages
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/types/FormatterEngine.cs
+    kind: type
+    module: Catzc.Base.Languages
+---
+*/
 
 // The settings files are listed so Format-Code's result cache is invalidated when one of them changes the engine's output.
 // [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8),

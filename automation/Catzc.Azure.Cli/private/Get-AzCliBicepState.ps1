@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Azure.Cli/private/Get-AzCliBicepState.ps1
-#   module: Catzc.Azure.Cli
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Cli/private/Get-AzCliBicepState.ps1
+    kind: function
+    module: Catzc.Azure.Cli
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

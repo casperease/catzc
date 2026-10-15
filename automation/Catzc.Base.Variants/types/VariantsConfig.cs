@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Variants/types/VariantsConfig.cs
-//   module: Catzc.Base.Variants
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/types/VariantsConfig.cs
+    kind: type
+    module: Catzc.Base.Variants
+---
+*/
 
 // Every key is optional and an unknown key throws, so a typo fails fast at load; an absent key is null.
 // [ADR-REPO-VARIANT](/docs/adr/repository/repo-variants.md),

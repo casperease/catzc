@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.CodeMeta/Format-CodeMetaHead.ps1
-#   module: Catzc.Base.CodeMeta
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.CodeMeta/Format-CodeMetaHead.ps1
+    kind: function
+    module: Catzc.Base.CodeMeta
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS
@@ -19,7 +25,7 @@
 .OUTPUTS
     [string] the whole text, with the head replaced.
 .EXAMPLE
-    Format-CodeMetaHead -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForLine('//')) -Fact ([ordered]@{ path = 'automation/Widget/types/Gadget.cs'; module = 'Widget' })
+    Format-CodeMetaHead -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')) -Fact ([ordered]@{ path = 'automation/Widget/types/Gadget.cs'; module = 'Widget' })
 #>
 function Format-CodeMetaHead {
     [CmdletBinding()]

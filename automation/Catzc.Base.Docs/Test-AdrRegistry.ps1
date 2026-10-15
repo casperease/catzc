@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Docs/Test-AdrRegistry.ps1
-#   module: Catzc.Base.Docs
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/Test-AdrRegistry.ps1
+    kind: function
+    module: Catzc.Base.Docs
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

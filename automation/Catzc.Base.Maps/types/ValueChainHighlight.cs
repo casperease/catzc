@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/ValueChainHighlight.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/ValueChainHighlight.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // A rule sits where its ADR sits, so a one-rule reference lights the same cells as its whole ADR.
 // [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16),

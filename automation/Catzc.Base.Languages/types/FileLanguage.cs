@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Languages/types/FileLanguage.cs
-//   module: Catzc.Base.Languages
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/types/FileLanguage.cs
+    kind: type
+    module: Catzc.Base.Languages
+---
+*/
 
 // The properties are snake_case because they mirror the YAML keys; LanguagesConfig validates an entry and builds one.
 // [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),

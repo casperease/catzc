@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1
-#   module: Catzc.Azure.DevOps
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/Set-AdoPipelineVariable.ps1
+    kind: function
+    module: Catzc.Azure.DevOps
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

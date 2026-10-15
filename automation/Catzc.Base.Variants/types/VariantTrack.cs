@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Variants/types/VariantTrack.cs
-//   module: Catzc.Base.Variants
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/types/VariantTrack.cs
+    kind: type
+    module: Catzc.Base.Variants
+---
+*/
 
 // Fields mirror the YAML keys, so the properties are snake_case; name is the entry's own YAML key.
 // [ADR-DSGN-TRACK](/docs/adr/design/tracks.md), [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),

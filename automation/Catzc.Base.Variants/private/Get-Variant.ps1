@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Variants/private/Get-Variant.ps1
-#   module: Catzc.Base.Variants
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/private/Get-Variant.ps1
+    kind: function
+    module: Catzc.Base.Variants
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

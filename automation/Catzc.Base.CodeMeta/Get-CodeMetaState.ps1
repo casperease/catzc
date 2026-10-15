@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.CodeMeta/Get-CodeMetaState.ps1
-#   module: Catzc.Base.CodeMeta
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.CodeMeta/Get-CodeMetaState.ps1
+    kind: function
+    module: Catzc.Base.CodeMeta
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS
@@ -15,9 +21,10 @@
 .PARAMETER Form
     The head's comment syntax: a Catzc.Base.CodeMeta.HeadForm.
 .OUTPUTS
-    [pscustomobject] @{ HasHead; Keys; Facts; Before; Rest; NewLine } — Facts is an ordered dictionary of key to value.
+    [pscustomobject] @{ HasHead; Sections; DerivedKeys; ConfigLines; Before; Rest; NewLine } — Sections are the keys directly under `catzc`,
+    DerivedKeys the keys under `derived`, and ConfigLines the authored lines under `config`, as written.
 .EXAMPLE
-    Get-CodeMetaState -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForLine('#')) | Select-Object -ExpandProperty Keys
+    Get-CodeMetaState -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')) | Select-Object -ExpandProperty DerivedKeys
 #>
 function Get-CodeMetaState {
     [CmdletBinding()]
@@ -32,16 +39,13 @@ function Get-CodeMetaState {
     )
 
     $head = [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($Text, $Form)
-    $facts = [ordered]@{}
-    foreach ($fact in $head.Facts) {
-        $facts[$fact.Key] = $fact.Value
-    }
     [pscustomobject]@{
-        HasHead = $head.HasHead
-        Keys    = [string[]] @($facts.Keys)
-        Facts   = $facts
-        Before  = $head.Before
-        Rest    = $head.Rest
-        NewLine = $head.NewLine
+        HasHead     = $head.HasHead
+        Sections    = [string[]] @($head.Sections)
+        DerivedKeys = [string[]] @($head.DerivedKeys)
+        ConfigLines = [string[]] @($head.ConfigLines)
+        Before      = $head.Before
+        Rest        = $head.Rest
+        NewLine     = $head.NewLine
     }
 }

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/GlossaryEntry.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/GlossaryEntry.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // A result type, not a YAML mirror: the concept travels with its owner, source path and options, so a gate needs no lookup.
 // [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),

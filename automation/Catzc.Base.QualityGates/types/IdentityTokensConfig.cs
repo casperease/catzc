@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/IdentityTokensConfig.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/IdentityTokensConfig.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // Only shape is checked at load; that a rule's config belongs to the declaring module is checked later, where both are known.
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/IdentityTokensConfig.cs.md#comment1)

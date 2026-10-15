@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Languages/private/ConvertFrom-PytestJunit.ps1
-#   module: Catzc.Base.Languages
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/private/ConvertFrom-PytestJunit.ps1
+    kind: function
+    module: Catzc.Base.Languages
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

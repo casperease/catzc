@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Azure.Templates/private/Get-BicepSubscriptionConfigViolations.ps1
-#   module: Catzc.Azure.Templates
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/private/Get-BicepSubscriptionConfigViolations.ps1
+    kind: function
+    module: Catzc.Azure.Templates
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

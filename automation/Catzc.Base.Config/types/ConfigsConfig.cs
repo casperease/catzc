@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Config/types/ConfigsConfig.cs
-//   module: Catzc.Base.Config
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Config/types/ConfigsConfig.cs
+    kind: type
+    module: Catzc.Base.Config
+---
+*/
 
 // Construction alone enforces the registry shape, so a malformed registry can never produce an instance.
 // [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)

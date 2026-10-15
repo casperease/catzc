@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Provisioning/Uninstall-Zsh.ps1
-#   module: Catzc.Tooling.Provisioning
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/Uninstall-Zsh.ps1
+    kind: function
+    module: Catzc.Tooling.Provisioning
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

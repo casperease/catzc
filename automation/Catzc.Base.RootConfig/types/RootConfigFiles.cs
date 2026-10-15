@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.RootConfig/types/RootConfigFiles.cs
-//   module: Catzc.Base.RootConfig
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.RootConfig/types/RootConfigFiles.cs
+    kind: type
+    module: Catzc.Base.RootConfig
+---
+*/
 
 // Every malformed entry is collected into one error, so a bad registry reports all its faults at once.
 // [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md), [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)

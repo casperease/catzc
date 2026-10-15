@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/MapPlacement.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/MapPlacement.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // The cell is exact (root folder gives the track, extension the file language); only the lighting follows a fixed order.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

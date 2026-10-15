@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1
-#   module: Catzc.Base.MarkdownMeta
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1
+    kind: function
+    module: Catzc.Base.MarkdownMeta
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/CommentFormatResult.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/CommentFormatResult.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // A null text means nothing changes, and findings include the unfixed ones, so the caller sees what was left.
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)

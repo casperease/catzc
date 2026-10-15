@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/SourceConventionsConfig.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/SourceConventionsConfig.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // An omitted check takes every default of its type: gate mode, nothing exempt, no phrases.
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),

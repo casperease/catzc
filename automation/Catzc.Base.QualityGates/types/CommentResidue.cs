@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/CommentResidue.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/CommentResidue.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // Lines are 0-based and inclusive; any mechanical lines between insight and docs link hold citations and links only.
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)

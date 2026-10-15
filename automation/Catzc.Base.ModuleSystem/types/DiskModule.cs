@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.ModuleSystem/types/DiskModule.cs
-//   module: Catzc.Base.ModuleSystem
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/types/DiskModule.cs
+    kind: type
+    module: Catzc.Base.ModuleSystem
+---
+*/
 
 // This is the facet Copy-Automation copies: a repository-root-relative folder path plus its named packages.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/DiskModule.cs.md#comment1)

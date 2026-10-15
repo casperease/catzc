@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.VSCode/types/VscodeExtensionsConfig.cs
-//   module: Catzc.Base.VSCode
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.VSCode/types/VscodeExtensionsConfig.cs
+    kind: type
+    module: Catzc.Base.VSCode
+---
+*/
 
 // Every load-time violation is collected into one throw, so a bad registry reports all its problems at once.
 // [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md),

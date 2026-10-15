@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure.Templates/types/BicepShortName.cs
-//   module: Catzc.Azure.Templates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/types/BicepShortName.cs
+    kind: type
+    module: Catzc.Azure.Templates
+---
+*/
 
 // Only the short_name is Azure-facing; the kebab-case folder name never reaches a resource name.
 // [ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2),

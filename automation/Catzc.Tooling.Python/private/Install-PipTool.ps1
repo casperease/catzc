@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Python/private/Install-PipTool.ps1
-#   module: Catzc.Tooling.Python
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Python/private/Install-PipTool.ps1
+    kind: function
+    module: Catzc.Tooling.Python
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

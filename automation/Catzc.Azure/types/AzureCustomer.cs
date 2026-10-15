@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Azure/types/AzureCustomer.cs
-//   module: Catzc.Azure
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/types/AzureCustomer.cs
+    kind: type
+    module: Catzc.Azure
+---
+*/
 
 // Per-entry shape only: catalogue-wide rules, shortcode uniqueness and key not equal to any shortcode, belong to CustomerConfig.
 // [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md),

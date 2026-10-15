@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Writers/private/Resolve-WriterColor.ps1
-#   module: Catzc.Base.Writers
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Writers/private/Resolve-WriterColor.ps1
+    kind: function
+    module: Catzc.Base.Writers
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

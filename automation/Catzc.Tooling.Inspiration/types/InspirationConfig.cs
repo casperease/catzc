@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Tooling.Inspiration/types/InspirationConfig.cs
-//   module: Catzc.Tooling.Inspiration
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Inspiration/types/InspirationConfig.cs
+    kind: type
+    module: Catzc.Tooling.Inspiration
+---
+*/
 
 // An empty file and an omitted inspirations key take the eac default; an explicit empty list declares none.
 // [ADR-REPO-INSPIRE](/docs/adr/repository/inspiration.md),

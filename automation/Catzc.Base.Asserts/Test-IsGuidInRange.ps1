@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Asserts/Test-IsGuidInRange.ps1
-#   module: Catzc.Base.Asserts
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/Test-IsGuidInRange.ps1
+    kind: function
+    module: Catzc.Base.Asserts
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

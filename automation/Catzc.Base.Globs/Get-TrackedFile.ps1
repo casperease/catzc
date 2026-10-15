@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Globs/Get-TrackedFile.ps1
-#   module: Catzc.Base.Globs
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/Get-TrackedFile.ps1
+    kind: function
+    module: Catzc.Base.Globs
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

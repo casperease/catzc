@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.ModuleSystem/types/SessionModule.cs
-//   module: Catzc.Base.ModuleSystem
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/types/SessionModule.cs
+    kind: type
+    module: Catzc.Base.ModuleSystem
+---
+*/
 
 // The runtime facet, for introspection and collision reporting rather than copying; residue means genuinely foreign.
 // [comment:1](/docs/references/automation/catzc-base-modulesystem/types/SessionModule.cs.md#comment1)

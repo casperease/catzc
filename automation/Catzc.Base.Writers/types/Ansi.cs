@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Writers/types/Ansi.cs
-//   module: Catzc.Base.Writers
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Writers/types/Ansi.cs
+    kind: type
+    module: Catzc.Base.Writers
+---
+*/
 
 // The one colour-to-escape table: Write-InformationColored and RainbowColor both read it, so no inline switch can drift.
 // [ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)

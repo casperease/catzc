@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Contracts/types/ContractFragment.cs
-//   module: Catzc.Base.Contracts
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/types/ContractFragment.cs
+    kind: type
+    module: Catzc.Base.Contracts
+---
+*/
 
 // Matching is a key subset: the target may hold more keys and elements, and a null in the fragment pins only that its key exists.
 // [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)

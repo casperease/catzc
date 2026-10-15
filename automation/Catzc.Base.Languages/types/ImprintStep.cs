@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Languages/types/ImprintStep.cs
-//   module: Catzc.Base.Languages
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/types/ImprintStep.cs
+    kind: type
+    module: Catzc.Base.Languages
+---
+*/
 
 // One imprint step of the file-language registry: its name, and the files whose bytes change what it writes.
 // [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)

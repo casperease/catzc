@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/CitationSite.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/CitationSite.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // The kind tells a subject citation from a passing mention, so a highlight can say why a lit file cites the request.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

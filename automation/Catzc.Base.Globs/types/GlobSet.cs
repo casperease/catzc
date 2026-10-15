@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Globs/types/GlobSet.cs
-//   module: Catzc.Base.Globs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/types/GlobSet.cs
+    kind: type
+    module: Catzc.Base.Globs
+---
+*/
 
 // Membership is a last-match-wins scan program, and a composing set's own rules come last so they override its base.
 // [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),

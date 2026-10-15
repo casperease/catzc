@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Docs/Get-Glossary.ps1
-#   module: Catzc.Base.Docs
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/Get-Glossary.ps1
+    kind: function
+    module: Catzc.Base.Docs
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/GlossaryRealization.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/GlossaryRealization.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // Every kind except prose-only needs a locating pattern, and a pattern is never a URL; a prose-only term carries none.
 // [ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3),

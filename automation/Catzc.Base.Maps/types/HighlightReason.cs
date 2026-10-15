@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/HighlightReason.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/HighlightReason.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // A file lit only by comment sites is a passing mention, so a reader can tell a lit file's subject from a mention.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

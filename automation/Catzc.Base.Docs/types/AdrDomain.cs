@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Docs/types/AdrDomain.cs
-//   module: Catzc.Base.Docs
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/types/AdrDomain.cs
+    kind: type
+    module: Catzc.Base.Docs
+---
+*/
 
 // Built and validated only by AdrsConfig; Stack and Concerns are the domain defaults that a ruleset may override.
 // [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9),

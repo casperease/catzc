@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.QualityGates/types/CommentEngine.cs
-//   module: Catzc.Base.QualityGates
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/types/CommentEngine.cs
+    kind: type
+    module: Catzc.Base.QualityGates
+---
+*/
 
 // cspell:ignore EXTERNALHELP FORWARDHELPTARGETNAME FORWARDHELPCATEGORY REMOTEHELPRUNSPACE  -- PowerShell help keywords
 // Pure functions over text, so the move and its inverse are provable on fixtures and each comment keeps one living copy.
@@ -86,6 +92,10 @@ public static class CommentEngine
                 {
                     continue;   // code after the closer on its line: left as written
                 }
+                if (IsMetaHead(lines, startLine, endLine, extension, language, config))
+                {
+                    continue;   // the meta head is a front matter document in a comment, never prose
+                }
                 if (comment.StartsWith("<#", StringComparison.Ordinal) && IsHelpBlock(lines, startLine, endLine))
                 {
                     blocks.AddRange(HelpSections(lines, startLine, endLine));
@@ -142,6 +152,13 @@ public static class CommentEngine
         if (block.Lines.Any(line => DocsLink.IsMatch(line))) { return false; }   // a residue: exported already
         string head = block.Keyword ?? lines[block.StartLine].Trim();
         return !config.IsKept(language, head);
+    }
+
+    // A block whose inner lines open with a front matter fence and then a listed head (catzc:), in the language's own line marker.
+    static bool IsMetaHead(Lines lines, int startLine, int endLine, string extension, string language, CommentsConfig config)
+    {
+        if (endLine - startLine < 3 || lines[startLine + 1].Trim() != "---") { return false; }
+        return config.IsKeptRun(language, FamilyMarker(extension) + " " + lines[startLine + 2].Trim());
     }
 
     static bool IsHelpBlock(Lines lines, int startLine, int endLine)

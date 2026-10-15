@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Tooling.Github/private/Assert-RemoteMatchesBranch.ps1
-#   module: Catzc.Tooling.Github
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Github/private/Assert-RemoteMatchesBranch.ps1
+    kind: function
+    module: Catzc.Tooling.Github
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

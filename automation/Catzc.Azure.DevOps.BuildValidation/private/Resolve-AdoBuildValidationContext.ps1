@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Azure.DevOps.BuildValidation/private/Resolve-AdoBuildValidationContext.ps1
-#   module: Catzc.Azure.DevOps.BuildValidation
-#   visibility: private
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps.BuildValidation/private/Resolve-AdoBuildValidationContext.ps1
+    kind: function
+    module: Catzc.Azure.DevOps.BuildValidation
+    visibility: private
+---
+#>
 
 <#
 .SYNOPSIS

@@ -1,6 +1,12 @@
-// catzc:
-//   path: automation/Catzc.Base.Maps/types/MapsPin.cs
-//   module: Catzc.Base.Maps
+/*
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/types/MapsPin.cs
+    kind: type
+    module: Catzc.Base.Maps
+---
+*/
 
 // Only the shape is validated at load; whether the track and file language exist is checked where the map is built.
 // [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)

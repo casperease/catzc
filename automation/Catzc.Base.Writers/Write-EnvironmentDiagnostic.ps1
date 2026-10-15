@@ -1,7 +1,13 @@
-# catzc:
-#   path: automation/Catzc.Base.Writers/Write-EnvironmentDiagnostic.ps1
-#   module: Catzc.Base.Writers
-#   visibility: public
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Writers/Write-EnvironmentDiagnostic.ps1
+    kind: function
+    module: Catzc.Base.Writers
+    visibility: public
+---
+#>
 
 <#
 .SYNOPSIS
