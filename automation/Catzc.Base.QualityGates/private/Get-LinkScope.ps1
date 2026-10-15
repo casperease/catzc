@@ -47,7 +47,8 @@ function Get-LinkScope {
             $full = [System.IO.Path]::GetFullPath((Resolve-Path -LiteralPath $item).Path)
             Assert-False (& $isDiskRoot $full) -ErrorText "Get-LinkScope: -Path '$item' resolves to the disk root '$full' — refusing to scan a whole drive."
             $found = if (Test-Path -LiteralPath $full -PathType Container) {
-                [System.IO.Directory]::EnumerateFiles($full, '*', [System.IO.SearchOption]::AllDirectories)
+                # A scope as wide as the repository: tracked files reach nine levels below the root, so ten leaves one level of headroom.
+                Get-ChildPath $full -File -Depth 10
             }
             else {
                 $full

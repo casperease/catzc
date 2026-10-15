@@ -46,7 +46,8 @@ function Get-ScriptAnalyzerInputs {
             else {
                 '*.ps*1'
             }
-            foreach ($file in @([System.IO.Directory]::EnumerateFiles($folder, $pattern, [System.IO.SearchOption]::AllDirectories) | Sort-Object)) {
+            # The rule files sit directly in .scriptanalyzer and the manifest one version folder into the vendored module.
+            foreach ($file in @(Get-ChildPath $folder -File -Filter $pattern -Depth 3 -PruneVendor $false | Sort-Object)) {
                 if ($file -notmatch '[\\/]tests[\\/]') {
                     $inputs.Add($file)
                 }
