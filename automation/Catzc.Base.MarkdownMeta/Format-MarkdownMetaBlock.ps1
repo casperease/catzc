@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Returns a Markdown text with its meta block imprinted from the given facts
-    ([ADR-REPO-MDMETA#3](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta3)).
+    ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
     The `derived` part is written from -Fact in the order given, one canonical form, so the same facts always give the same bytes.
     The authored `config` part and every other byte of the text are kept as written. With no facts and no config lines the block is

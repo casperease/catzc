@@ -1,4 +1,4 @@
-Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#1' {
+Describe 'MarkdownDocument' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
     BeforeAll {
         $script:withMeta = "---`nname: widget`ncatzc:`n  derived:`n    kind: gadget`nother: 1`n---`n# docs/widget.md`n`nbody text`n"
         $script:plain = "# docs/widget.md`n`nbody text`n"

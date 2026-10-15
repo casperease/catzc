@@ -829,6 +829,15 @@ module facet (disk, session).
 - **Contrasts:**
   - [layer](#layer): A layer is one level of a stack, sitting on or containing the next; a facet is a parallel view of the same thing.
 
+### imprint step
+
+A step a file language's registry entry lists under imprint, which Format-Code runs after the language's formatter to write one derived fact
+into the file.
+
+- **Defined by:** [ADR-REPO-FORMAT#8](repository/uniform-formatting.md#rule-adr-repo-format8)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+
 ### inspiration
 
 A sibling repository declared in inspiration.yml and read for ideas, never as a reference implementation.
@@ -883,26 +892,38 @@ A link inside a rendered .md file, written relative to that file so it resolves 
 
 ### meta block
 
-The one reserved front-matter key, catzc, of a tracked Markdown file, holding its derived facts and its authored config contributions and
-nothing else the tooling owns.
+The facts the tooling owns about one tracked file, written into the file's carrier, which is the reserved front-matter key catzc of a
+Markdown file or the meta head of a code file.
 
-- **Defined by:** [ADR-REPO-MDMETA#1](repository/markdown-meta.md#rule-adr-repo-mdmeta1)
+- **Defined by:** [ADR-REPO-FILEMETA#1](repository/file-meta.md#rule-adr-repo-filemeta1)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [meta kind](#meta-kind): The meta block is the key in one file; a meta kind is the registry entry that says what goes in that key across
-    files.
+  - [meta head](#meta-head): The meta block is the facts in any file; the meta head is the form they take in a code file.
+  - [meta kind](#meta-kind): The meta block is the block in one file; a meta kind is the registry entry that says what goes in that block
+    across files.
+
+### meta head
+
+The leading comment run of a code file, opened by a catzc line, that holds the file's derived facts, so it is the form a meta block takes in
+a C# or PowerShell file.
+
+- **Defined by:** [ADR-REPO-CODEMETA#1](repository/code-file-meta.md#rule-adr-repo-codemeta1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [meta block](#meta-block): The meta block is the facts in any file; the meta head is the form they take in a code file.
 
 ### meta kind
 
-One entry of the meta-kind registry, naming a kind of derived fact imprinted into Markdown files, or of config contribution gathered out of
-them, with the files it applies to, the keys it owns and, for a gather kind, the config it feeds.
+One entry of the meta-kind registry, naming a kind of derived fact imprinted into files, or of config contribution gathered out of Markdown
+files, with the files it applies to, the keys it owns and, for a gather kind, the config it feeds.
 
-- **Defined by:** [ADR-REPO-MDMETA#2](repository/markdown-meta.md#rule-adr-repo-mdmeta2)
+- **Defined by:** [ADR-REPO-FILEMETA#2](repository/file-meta.md#rule-adr-repo-filemeta2)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [meta block](#meta-block): The meta block is the key in one file; a meta kind is the registry entry that says what goes in that key
+  - [meta block](#meta-block): The meta block is the block in one file; a meta kind is the registry entry that says what goes in that block
     across files.
 
 ### provided contract

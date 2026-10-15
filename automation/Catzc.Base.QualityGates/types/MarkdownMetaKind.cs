@@ -1,5 +1,5 @@
 // One entry of the meta-kind registry; the defaults of an omitted key are declared here, once.
-// [ADR-REPO-MDMETA#2](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta2),
+// [ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2),
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 
 using System;
@@ -103,7 +103,7 @@ public sealed class MarkdownMetaKind
     }
 
     // The function a module subscribes by default: Get-<Id>MarkdownMetaFact, or Get-<Id>MarkdownConfigContribution
-    // ([ADR-REPO-MDMETA#4](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta4)).
+    // ([ADR-REPO-FILEMETA#4](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta4)).
     public static string ConventionName(string id, MarkdownMetaDirection direction)
     {
         string words = string.Concat(id.Split('-').Select(word => char.ToUpperInvariant(word[0]) + word.Substring(1)));

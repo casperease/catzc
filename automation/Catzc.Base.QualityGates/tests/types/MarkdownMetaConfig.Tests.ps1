@@ -1,7 +1,7 @@
 # MarkdownMetaConfig maps markdown-meta.yml and is the one declaration of its defaults
 # ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key behaves exactly like the default,
 # and a malformed value fails at construction with the allowed set.
-Describe 'MarkdownMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#2' {
+Describe 'MarkdownMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#2' {
     It 'takes the declared defaults for every omitted key of a kind' -Tag 'ADR-AUTO-DEFAULT#6' {
         $config = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{ kinds = [ordered]@{ 'body-sha' = $null } })
         $kind = $config.kinds[0]
@@ -33,7 +33,7 @@ Describe 'MarkdownMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#2' {
         @{ Id = 'body-sha'; Direction = 'Imprint'; Expected = 'Get-BodyShaMarkdownMetaFact' }
         @{ Id = 'widget'; Direction = 'Imprint'; Expected = 'Get-WidgetMarkdownMetaFact' }
         @{ Id = 'gadget-list'; Direction = 'Gather'; Expected = 'Get-GadgetListMarkdownConfigContribution' }
-    ) -Tag 'ADR-REPO-MDMETA#4' {
+    ) -Tag 'ADR-REPO-FILEMETA#4' {
         [Catzc.Base.QualityGates.MarkdownMetaKind]::ConventionName($Id, [Catzc.Base.QualityGates.MarkdownMetaDirection]$Direction) | Should -BeExactly $Expected
     }
 

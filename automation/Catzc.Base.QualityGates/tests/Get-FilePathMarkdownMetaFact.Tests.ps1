@@ -1,4 +1,4 @@
-Describe 'Get-FilePathMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#3' {
+Describe 'Get-FilePathMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {
         $script:kind = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{ kinds = [ordered]@{ 'file-path' = @{ keys = @('path') } } }).kinds[0]
     }

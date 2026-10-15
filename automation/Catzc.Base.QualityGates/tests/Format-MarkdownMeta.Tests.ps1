@@ -1,4 +1,4 @@
-Describe 'Format-MarkdownMeta and Test-MarkdownMeta' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#3', 'ADR-REPO-FORMAT#9' {
+Describe 'Format-MarkdownMeta and Test-MarkdownMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR-REPO-FORMAT#9' {
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null

@@ -3,16 +3,17 @@ catzc:
   derived:
     path: docs/adr/repository/uniform-formatting.md
     kind: adr
-    body_sha: "8a467be832c2"
+    body_sha: "2859d12d78c6"
     adrs:
       - ADR-PRIN-CONFIG#1
+      - ADR-REPO-CODEMETA#4
       - ADR-REPO-CONTRACT#5
       - ADR-REPO-CONTRACT#6
+      - ADR-REPO-FILEMETA#1
+      - ADR-REPO-FILEMETA#3
+      - ADR-REPO-FILEMETA#5
       - ADR-REPO-FORMAT#1
-      - ADR-REPO-FORMAT#6
       - ADR-REPO-FORMAT#7
-      - ADR-REPO-MDMETA#1
-      - ADR-REPO-MDMETA#3
 ---
 
 # ADR: Uniform formatting — the whole repository, one mechanical standard
@@ -59,7 +60,7 @@ cleanly across commits. It is never hand-formatted, not even inside a generator'
 
 Every git-tracked Markdown file opens — after any YAML front matter — with an H1 that is the document's title: words that say what it is,
 never its repository path. The path is a derived fact in the file's meta block (`path`,
-[ADR-REPO-MDMETA#3](markdown-meta.md#rule-adr-repo-mdmeta3)), written by `Format-MarkdownMeta`. `Test-MarkdownTitle` checks the title, and a
+[ADR-REPO-FILEMETA#3](file-meta.md#rule-adr-repo-filemeta3)), written by `Format-FileMeta`. `Test-MarkdownTitle` checks the title, and a
 file whose H1 is its own path, or that has no H1, is reported for its author to write, since no tool can invent a title. The scope follows
 the repository's own file classes: every tracked `.md` file except those `.gitattributes` marks `linguist-vendored`, `linguist-generated`,
 `catzc-fixture` (the test fixture trees), or `catzc-contract` (the contract assets,
@@ -84,17 +85,20 @@ Each file language's formatter is configured, not coded: its entry in the file-l
 engine that formats its files, or states in `no_formatter:` why it has none. `Format-Code` runs the engines over every tracked file except
 vendored code and contract assets (`catzc-contract`, whose bytes a contract check compares and a released version freezes,
 [ADR-REPO-CONTRACT#5](api-contracts.md#rule-adr-repo-contract5)), and `Test-Formatting` checks the same entries — there is no formatting
-command per language and no list of formatters in a check (ADR-PRIN-CONFIG#1).
+command per language and no list of formatters in a check (ADR-PRIN-CONFIG#1). The same entry may list, under `imprint:`, an **imprint step**:
+a step `Format-Code` runs after the formatter to write a derived fact into the file, such as the C# namespace or the code file's meta head
+([ADR-REPO-CODEMETA#4](code-file-meta.md#rule-adr-repo-codemeta4)). `Test-Formatting` checks the same steps, and no check names one.
 
 - [Formatting is configured per language](#formatting-is-configured-per-language)
 
 ### Rule ADR-REPO-FORMAT:9
 
-The `derived` part of a Markdown file's meta block ([ADR-REPO-MDMETA#1](markdown-meta.md#rule-adr-repo-mdmeta1)) is formatter output like
-the title: `Format-MarkdownMeta` writes it in canonical, prettier-stable form, byte-identical on every run, and `Test-MarkdownMeta` checks
-it, over the same file class as the title (ADR-REPO-FORMAT#6). A hand edit to a derived value is overwritten.
+The `derived` part of a file's meta block ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)) is formatter output like the title:
+`Format-FileMeta` writes it in canonical form the file's formatter leaves unchanged, byte-identical on every run, and `Test-FileMeta` checks
+it, over the files the scope rule selects ([ADR-REPO-FILEMETA#5](file-meta.md#rule-adr-repo-filemeta5)). A hand edit to a derived value is
+overwritten.
 
-- [Markdown meta is imprinted](#markdown-meta-is-imprinted)
+- [File meta is imprinted](#file-meta-is-imprinted)
 
 ## Context
 
@@ -141,13 +145,13 @@ reviewed as such, and the editor, the formatting command, and the `Test-Formatti
 format says why in `no_formatter:`, so a gap is a visible entry rather than a missing command. Adding a language means adding its registry
 entry and its `.editorconfig` section — not a new command, and not a new formatting philosophy.
 
-### Markdown meta is imprinted
+### File meta is imprinted
 
-`Derived front matter is written, not typed`
+`Derived facts are written, not typed`
 
-A fact that can be computed from a Markdown file and the repository sits in the file's meta block, where a reader and a tool both see it.
-Because the formatter writes it in one fixed form, a rerun changes nothing and a diff never carries it as noise. The kinds of fact, the
-reserved key and the subscription of each kind are in [markdown-meta](markdown-meta.md).
+A fact that can be computed from a file and the repository sits in the file's meta block, where a reader and a tool both see it. Because the
+formatter writes it in one fixed form, a rerun changes nothing and a diff never carries it as noise. The kinds of fact, the carriers and the
+subscription of each kind are in [file-meta](file-meta.md) and [code-file-meta](code-file-meta.md).
 
 ### `.gitattributes` and binary files
 
@@ -227,8 +231,8 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
   path H1), brings its headings into normal form (moving trailing reference groups out, quoting `dora-explains` paragraphs, and re-pointing
   every link to a heading whose anchor changed), and `Test-MarkdownTitle` checks both, including duplicate anchors and files with no title;
   an L1 test asserts the tracked tree has no finding.
-- **Markdown meta** — `Format-MarkdownMeta` imprints the `derived` part of every in-scope Markdown file's meta block, and
-  `Test-MarkdownMeta` fails any file that differs from what the formatter would write ([markdown-meta](markdown-meta.md)).
+- **File meta** — `Format-FileMeta` imprints the `derived` part of every in-scope file's meta block, and `Test-FileMeta` fails any file that
+  differs from what the formatter would write ([file-meta](file-meta.md)).
 
 ## Consequences
 

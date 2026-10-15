@@ -1,5 +1,5 @@
 // The meta-kind registry (markdown-meta.yml): which kinds of derived fact and of config contribution exist is data, never a list in an engine.
-// [ADR-REPO-MDMETA#2](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta2),
+// [ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2),
 // [ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4)
 
 using System;

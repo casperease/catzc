@@ -1,4 +1,4 @@
-Describe 'Get-BodyShaMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#3' {
+Describe 'Get-BodyShaMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {
         $script:kind = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{ kinds = [ordered]@{ 'body-sha' = @{ keys = @('body_sha') } } }).kinds[0]
     }

@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     The body-sha meta kind's fact: the hash of the file's body below its front matter
-    ([ADR-REPO-MDMETA#3](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta3)).
+    ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
     The hash changes exactly when the body does; front matter and line endings never move it.
 .PARAMETER State

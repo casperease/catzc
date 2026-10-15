@@ -352,20 +352,39 @@ concepts:
   meta block:
     key: meta_block
     domain: repository
-    defined_by: ADR-REPO-MDMETA#1
+    defined_by: ADR-REPO-FILEMETA#1
     short:
-      The one reserved front-matter key, catzc, of a tracked Markdown file, holding its derived facts and its authored config contributions
-      and nothing else the tooling owns.
+      The facts the tooling owns about one tracked file, written into the file's carrier, which is the reserved front-matter key catzc of a
+      Markdown file or the meta head of a code file.
     realized_by: { kind: prose-only }
     contrasts:
-      meta kind: The meta block is the key in one file; a meta kind is the registry entry that says what goes in that key across files.
+      meta kind: The meta block is the block in one file; a meta kind is the registry entry that says what goes in that block across files.
+      meta head: The meta block is the facts in any file; the meta head is the form they take in a code file.
   meta kind:
     key: meta_kind
     domain: repository
-    defined_by: ADR-REPO-MDMETA#2
+    defined_by: ADR-REPO-FILEMETA#2
     short:
-      One entry of the meta-kind registry, naming a kind of derived fact imprinted into Markdown files, or of config contribution gathered
-      out of them, with the files it applies to, the keys it owns and, for a gather kind, the config it feeds.
+      One entry of the meta-kind registry, naming a kind of derived fact imprinted into files, or of config contribution gathered out of
+      Markdown files, with the files it applies to, the keys it owns and, for a gather kind, the config it feeds.
     realized_by: { kind: prose-only }
     contrasts:
-      meta block: The meta block is the key in one file; a meta kind is the registry entry that says what goes in that key across files.
+      meta block: The meta block is the block in one file; a meta kind is the registry entry that says what goes in that block across files.
+  meta head:
+    key: meta_head
+    domain: repository
+    defined_by: ADR-REPO-CODEMETA#1
+    short:
+      The leading comment run of a code file, opened by a catzc line, that holds the file's derived facts, so it is the form a meta block takes in
+      a C# or PowerShell file.
+    realized_by: { kind: prose-only }
+    contrasts:
+      meta block: The meta block is the facts in any file; the meta head is the form they take in a code file.
+  imprint step:
+    key: imprint_step
+    domain: repository
+    defined_by: ADR-REPO-FORMAT#8
+    short:
+      A step a file language's registry entry lists under imprint, which Format-Code runs after the language's formatter to write one derived
+      fact into the file.
+    realized_by: { kind: prose-only }

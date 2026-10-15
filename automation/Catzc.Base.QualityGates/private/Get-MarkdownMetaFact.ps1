@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Collects the derived facts of one Markdown file from every imprint kind whose globs match it
-    ([ADR-REPO-MDMETA#4](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta4)).
+    ([ADR-REPO-FILEMETA#4](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta4)).
 .DESCRIPTION
     Each kind's processor is the function the registry names, found in this module's scope; a kind with no such function fails the
     run and names the function it expected. A processor must return exactly the keys its kind declares, so a kind can never write a

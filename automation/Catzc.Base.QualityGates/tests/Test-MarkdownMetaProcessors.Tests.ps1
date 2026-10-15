@@ -1,6 +1,6 @@
 # Test-MarkdownMetaProcessors over in-memory registries and fixture processor functions defined in the module scope.
 # Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
-Describe 'Test-MarkdownMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#4' {
+Describe 'Test-MarkdownMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
     BeforeAll {
         InModuleScope Catzc.Base.QualityGates {
             function script:Get-WidgetMarkdownMetaFact {
@@ -61,7 +61,7 @@ Describe 'Test-MarkdownMetaProcessors' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#4' {
     }
 }
 
-Describe 'Markdown meta processor coverage' -Tag 'L0', 'integrity', 'ADR-REPO-MDMETA#4' {
+Describe 'Markdown meta processor coverage' -Tag 'L0', 'integrity', 'ADR-REPO-FILEMETA#4' {
     It 'every kind of the shipped registry has its function and every processor function has its kind' {
         $result = Test-MarkdownMetaProcessors -PassThru -OutputFolder (Join-Path $TestDrive 'markdown-meta-processors')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")

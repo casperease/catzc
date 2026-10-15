@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/private/Get-ReadmeContent.ps1.md
     kind: reference
-    body_sha: "7abfb4ec0401"
+    body_sha: "8194c6fcd060"
     adrs:
       - ADR-REPO-README#6
 ---
@@ -22,5 +22,6 @@ The one composer behind Build-Readme (the writer) and Test-GeneratedReadmes (the
 are rebased from the source's folder to the README's (MarkdownLinkRebaser), so every link works where the README is
 opened; a line under the title links back to the source as the one place to edit
 ([ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)). The line goes after the
-source's '# ' title when it opens with one, else at the top.
+source's '# ' title when it opens with one, else at the top. The copy opens with its own meta block,
+`kind: generated-from-source`, above both.
 ```

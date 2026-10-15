@@ -1,11 +1,11 @@
 <#
 .SYNOPSIS
     Computes the meta block of every in-scope Markdown file — the one place Format-MarkdownMeta and Test-MarkdownMeta share
-    ([ADR-REPO-MDMETA#3](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta3)).
+    ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
     Each file's `derived` part is rebuilt from the imprint kinds of the registry, and its authored `config` part is kept as written.
     A file whose block holds a key no kind owns is reported as Unowned and left unchanged, since writing it would drop the author's key
-    ([ADR-REPO-MDMETA#5](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta5)).
+    ([ADR-REPO-FILEMETA#5](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5)).
 .PARAMETER RepositoryRoot
     The repository root paths are relative to.
 .PARAMETER Path

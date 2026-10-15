@@ -3,8 +3,9 @@ catzc:
   derived:
     path: docs/adr/repository/comments-in-docs.md
     kind: adr
-    body_sha: "325e01b775df"
+    body_sha: d695189c2303
     adrs:
+      - ADR-REPO-CODEMETA#1
       - ADR-REPO-LINK#9
 ---
 
@@ -34,7 +35,9 @@ never reused, and a section a person edits stays as edited.
 
 A file's comment page lives under `docs/references/`, at the place `comments.yml`'s `pages` map gives its source folder, and keeps the
 file's own name and extension plus `.md`, so a page maps back to exactly one file. What moves — the file languages in scope, the shortest
-comment that moves, the comment heads each language keeps — is configured there too, with its defaults declared once on the config type.
+comment that moves, the comment heads each language keeps — is configured there too, with its defaults declared once on the config type. A
+head the engine keeps keeps the whole contiguous run it opens, so the meta head of a code file
+([ADR-REPO-CODEMETA#1](code-file-meta.md#rule-adr-repo-codemeta1)) is never moved as prose.
 
 - [Where a page lives](#where-a-page-lives)
 

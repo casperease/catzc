@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Quality gate: every meta kind resolves to a processor function, and every convention-named processor function belongs to a kind
-    ([ADR-REPO-MDMETA#4](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta4)).
+    ([ADR-REPO-FILEMETA#4](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta4)).
 .DESCRIPTION
     A kind whose function is missing fails the run that reads the registry, and a function no kind names is never called, so this gate
     lists both orphans. A function is a processor candidate when it is named Get-<Kind>MarkdownMetaFact or

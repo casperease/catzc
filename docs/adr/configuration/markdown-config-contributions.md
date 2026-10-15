@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/configuration/markdown-config-contributions.md
     kind: adr
-    body_sha: "26dbb1665640"
+    body_sha: e8192d50ae2b
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-AUTO-EXTEND#3
@@ -155,8 +155,8 @@ function file, with no edit to `Get-Config`. The loader stays content-agnostic
 
 - **`Get-Config`** gathers the contributions of an opted-in config and merges them in the order of Rule 2.
 - **`Test-ShippedConfigs`** fails a `markdown_sources` entry on a sealed config, and a glob that matches no tracked Markdown file.
-- **`Test-MarkdownMeta`** fails two contributions to one key path and a contribution outside its config's globs.
-- **`Test-MarkdownMetaProcessors`** fails a gather kind whose reader function is missing, and a reader no kind names.
+- **`Test-FileMeta`** fails two contributions to one key path and a contribution outside its config's globs.
+- **`Test-FileMetaProcessors`** fails a gather kind whose reader function is missing, and a reader no kind names.
 
 ## Consequences
 

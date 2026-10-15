@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     The adr-codes meta kind's fact: the rule citations the file's body makes, sorted and without duplicates
-    ([ADR-REPO-MDMETA#3](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta3)).
+    ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
     A citation is `ADR-<CODE>#<n>` ([ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)); the colon form
     belongs to a rule's own heading and is no citation. The order is ordinal, so a rerun never moves a code.

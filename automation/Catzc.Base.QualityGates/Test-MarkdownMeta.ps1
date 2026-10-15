@@ -2,7 +2,7 @@
 .SYNOPSIS
     The Markdown meta quality gate: fails on any in-scope file whose meta block differs from what Format-MarkdownMeta would write
     ([ADR-REPO-FORMAT#9](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format9),
-    [ADR-REPO-MDMETA#3](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta3)).
+    [ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
     A key no meta kind owns is reported too: the author decides whether it belongs in `config` or goes.
     [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)

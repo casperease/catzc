@@ -302,7 +302,8 @@ skips a repeated scan over an unchanged globset.
 | `ADR-REPO-VOCAB`    | [controlled-vocabulary](repository/controlled-vocabulary.md)           |
 | `ADR-REPO-LINK`     | [markdown-links](repository/markdown-links.md)                         |
 | `ADR-REPO-COMMENTS` | [comments-in-docs](repository/comments-in-docs.md)                     |
-| `ADR-REPO-MDMETA`   | [markdown-meta](repository/markdown-meta.md)                           |
+| `ADR-REPO-FILEMETA` | [file-meta](repository/file-meta.md)                                   |
+| `ADR-REPO-CODEMETA` | [code-file-meta](repository/code-file-meta.md)                         |
 | `ADR-REPO-AGENTS`   | [agent-definitions](repository/agent-definitions.md)                   |
 | `ADR-REPO-INSPIRE`  | [inspiration](repository/inspiration.md)                               |
 | `ADR-REPO-PROTGLOB` | [protected-globs](repository/protected-globs.md)                       |

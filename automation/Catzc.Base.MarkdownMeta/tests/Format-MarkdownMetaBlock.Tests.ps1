@@ -1,4 +1,4 @@
-Describe 'Format-MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#3' {
+Describe 'Format-MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     It 'creates front matter above a text with none' {
         Format-MarkdownMetaBlock -Text "# docs/widget.md`n" -Fact ([ordered]@{ kind = 'gadget' }) |
             Should -BeExactly "---`ncatzc:`n  derived:`n    kind: gadget`n---`n`n# docs/widget.md`n"

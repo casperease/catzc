@@ -2,7 +2,7 @@
 .SYNOPSIS
     Lists the repository-relative Markdown files in the file class the title and the meta block share
     ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6),
-    [ADR-REPO-MDMETA#5](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta5)).
+    [ADR-REPO-FILEMETA#5](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5)).
 .DESCRIPTION
     A gitignored generated README is out of scope while its tracked source is in, because only tracked files count.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownScope.ps1.md#comment1)

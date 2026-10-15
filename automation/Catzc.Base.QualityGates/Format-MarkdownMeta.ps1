@@ -2,7 +2,7 @@
 .SYNOPSIS
     Imprints the derived facts into the meta block of every in-scope Markdown file
     ([ADR-REPO-FORMAT#9](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format9),
-    [ADR-REPO-MDMETA#3](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta3)).
+    [ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
     The output is byte-identical on every run, so a second run changes no file. The authored `config` part is kept as written, and a
     file whose block holds a key no meta kind owns is reported and left unchanged.

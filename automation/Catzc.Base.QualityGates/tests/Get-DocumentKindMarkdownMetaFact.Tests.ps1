@@ -1,4 +1,4 @@
-Describe 'Get-DocumentKindMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-MDMETA#3', 'ADR-PRIN-CONFIG#1' {
+Describe 'Get-DocumentKindMarkdownMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR-PRIN-CONFIG#1' {
     BeforeAll {
         $script:kind = [Catzc.Base.QualityGates.MarkdownMetaConfig]::new(@{
                 kinds = [ordered]@{

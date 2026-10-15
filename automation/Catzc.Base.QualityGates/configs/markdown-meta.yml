@@ -1,6 +1,6 @@
 # The meta-kind registry: each entry is one kind of derived fact imprinted into a Markdown file's meta block.
 # Every key of an entry is optional; the defaults are declared once on MarkdownMetaKind.
-# [ADR-REPO-MDMETA#2](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta2),
+# [ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2),
 # [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 kinds:
   # The repository-relative path of the file, first so it is written first; the H1 is the title.

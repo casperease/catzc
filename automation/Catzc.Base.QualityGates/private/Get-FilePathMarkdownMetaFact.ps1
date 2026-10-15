@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     The file-path meta kind's fact: the file's repository-relative path
-    ([ADR-REPO-MDMETA#3](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta3)).
+    ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
     The path is a derived fact, so a moved file drifts and the formatter rewrites it; the H1 is the file's title, never its path
     ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6)).

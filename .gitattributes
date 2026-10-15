@@ -106,6 +106,6 @@ automation/.compiled/** linguist-generated
 
 # catzc: these two files are read verbatim by another tool, so they carry no meta block: the session instructions are
 # injected as written into every Claude session, and the repository landing page is what GitHub renders first
-# (docs/adr/repository/markdown-meta.md, ADR-REPO-MDMETA#5).
+# (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA#5).
 /.claude/CLAUDE.md -catzc-meta
 /.github/README.md -catzc-meta

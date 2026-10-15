@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/dora-explains.md
     kind: adr
-    body_sha: "19ea8a350ffd"
+    body_sha: "000532439b64"
     adrs: []
 ---
 
@@ -237,11 +237,11 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   not say, so a change is made against what matters.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Markdown meta
+## File meta
 
-`Markdown meta — one reserved block of derived facts and authored config in a file's front matter`
+`File meta — one block of derived facts, in the carrier each kind of file has`
 
-[ADR-REPO-MDMETA](markdown-meta.md)
+[ADR-REPO-FILEMETA](file-meta.md)
 
 > DORA's research ties maintainable systems to a single source of truth and to checks that catch drift early. Computable facts written by a
 > formatter in one fixed form, and authored values stated once beside the thing they describe, keep files and registries from drifting apart
@@ -253,6 +253,21 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   carries only real change.
 - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — the meta check fails a drifted file in the
   pipeline, before it reaches the trunk.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Code file meta
+
+`Code file meta — a derived head in the first comment run of a C# type file and a PowerShell function file`
+
+[ADR-REPO-CODEMETA](code-file-meta.md)
+
+> DORA's research finds that code which shows its place and tier at a glance is easier to change safely, and that a fact a tool writes
+> cannot go stale the way a typed one does. A head that changes only when a file moves or changes tier adds no noise to a change.
+
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a file states its path, module and tier at the top,
+  so a reader changes it with its place in view.
+- [Version control](../../references/dora/capabilities.md#version-control) — the head holds no hash of the body, so an edit stays one hunk
+  and concurrent edits do not conflict on it.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Agent definitions

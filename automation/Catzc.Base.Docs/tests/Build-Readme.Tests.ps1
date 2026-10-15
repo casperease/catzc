@@ -39,10 +39,16 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         Remove-Item $script:readme -Force -ErrorAction Ignore
     }
 
-    It 'generates a plain-file copy whose links resolve from the README folder, under a line naming the source' {
+    It 'generates a plain-file copy whose links resolve from the README folder, under a meta block and a line naming the source' -Tag 'ADR-REPO-README#6' {
         Build-Readme | Out-Null
         (Get-Item -LiteralPath $script:readme -Force).LinkType | Should -BeNullOrEmpty
         [System.IO.File]::ReadAllText($script:readme) | Should -BeExactly (@(
+                '---'
+                'catzc:'
+                '  derived:'
+                '    kind: generated-from-source'
+                '---'
+                ''
                 '# Fixture Title'
                 ''
                 '> Generated from [docs/references/automation/foo.md](../../docs/references/automation/foo.md) — edit the source; this copy is rewritten on every import.'

@@ -10,7 +10,7 @@ public sealed class MarkdownDocument
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // The reserved front-matter key the tooling owns ([ADR-REPO-MDMETA#1](/docs/adr/repository/markdown-meta.md#rule-adr-repo-mdmeta1)).
+    // The reserved front-matter key the tooling owns ([ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1)).
     public const string MetaKey = "catzc";
 
     readonly List<string> frontMatter;
