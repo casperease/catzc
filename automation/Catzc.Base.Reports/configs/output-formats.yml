@@ -165,10 +165,9 @@ formats:
     validator: { kind: text }
 
   # ---- agent sessions: plans, handoffs, scripts, dumps, logs (the top of out/ and their own folders) ----
-  # A plan cannot be regenerated (ADR-REPO-OUTDIR#10), so the root's Markdown never ages out; a person retires it.
   session-document:
     area: session
-    max_age: none
+    max_age: none # a plan cannot be regenerated (ADR-REPO-OUTDIR#10), so a person retires it
     patterns: ["*.md"]
     producer: an agent session (plan-*.md and handoff-*.md, where .claude/CLAUDE.md places them, and other notes)
     audience: the user reviewing a plan, and the next session picking up a handoff
