@@ -3,8 +3,8 @@
     The visibility meta kind's fact: whether a module's function file is public or private, from its folder
     ([ADR-REPO-CODEMETA#2](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta2)).
 .DESCRIPTION
-    A file in the module's private folder is private, and any other file of the module is public. The modules root and the folder name
-    are the kind's `root` and `private_folder` settings, `automation` and `private` unless the registry says otherwise.
+    A file in the module's private folder is private, and any other file of the module is public.
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-VisibilityFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What the file's carrier reader returned.
 .PARAMETER Path
@@ -44,5 +44,11 @@ function Get-VisibilityFileMetaFact {
     $inModule = [regex]::IsMatch($Path, '^' + [regex]::Escape($root) + '/[^/]+/')
     Assert-True $inModule -ErrorText "file-meta config: kind '$($Kind.id)' applies to files under $root/<module>/, but selected '$Path'."
     $isPrivate = [regex]::IsMatch($Path, '^' + [regex]::Escape($root) + '/[^/]+/' + [regex]::Escape($folder) + '/')
-    [ordered]@{ $Kind.keys[0] = if ($isPrivate) { 'private' } else { 'public' } }
+    $visibility = if ($isPrivate) {
+        'private'
+    }
+    else {
+        'public'
+    }
+    [ordered]@{ $Kind.keys[0] = $visibility }
 }

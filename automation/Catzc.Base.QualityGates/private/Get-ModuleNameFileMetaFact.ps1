@@ -3,8 +3,8 @@
     The module-name meta kind's fact: the module a file belongs to, the folder under the modules root
     ([ADR-REPO-CODEMETA#2](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta2)).
 .DESCRIPTION
-    The modules root is the kind's `root` setting, `automation` unless the registry says otherwise. A file outside any module is an error,
-    since the kind's globs should never select one.
+    The modules root is the kind's `root` setting, `automation` unless the registry says otherwise.
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleNameFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What the file's carrier reader returned.
 .PARAMETER Path

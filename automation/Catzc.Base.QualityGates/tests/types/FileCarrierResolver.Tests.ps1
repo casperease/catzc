@@ -9,8 +9,8 @@ Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
             })
         $script:carriers = [Catzc.Base.Languages.FileCarriersConfig]::new(@{
                 carriers = [ordered]@{
-                    widget = @{ carrier = 'comment-head'; line = '#'; exclude = @{ '**/tests/**' = 'a test carries no head' } }
-                    gadget = @{ carrier = 'front-matter' }
+                    widget   = @{ carrier = 'comment-head'; line = '#'; exclude = @{ '**/tests/**' = 'a test carries no head' } }
+                    gadget   = @{ carrier = 'front-matter' }
                     sprocket = @{ files = @('docs/special/**', '**/*.wdg.keep'); carrier = 'none'; reason = 'kept verbatim' }
                 }
             })

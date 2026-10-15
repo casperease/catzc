@@ -8,7 +8,7 @@
 .PARAMETER Path
     Optional files or folders (absolute or relative to the current location).
 .PARAMETER Command
-    The name of the calling scope, for the refusal message.
+    The name of the calling command, for the refusal message.
 .OUTPUTS
     [string[]] repository-relative, '/'-separated paths, or '.' for the whole repository.
 #>

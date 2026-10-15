@@ -3,7 +3,9 @@ Describe 'Get-ModuleNameFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#2' 
         function script:Get-Fact {
             param([string] $Path, [hashtable] $Settings = @{})
             $entry = @{ keys = @('module') }
-            if ($Settings.Count -gt 0) { $entry['settings'] = $Settings }
+            if ($Settings.Count -gt 0) {
+                $entry['settings'] = $Settings
+            }
             $kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'module-name' = $entry } }).kinds[0]
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Kind = $kind; Path = $Path } {
                 param($Kind, $Path)
