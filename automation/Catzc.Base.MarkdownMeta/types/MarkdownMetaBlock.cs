@@ -9,9 +9,8 @@ namespace Catzc.Base.MarkdownMeta;
 
 public static class MarkdownMetaBlock
 {
-    // The two parts of the block, each a two-space-indented key under `catzc:`
-    // ([ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1)). The facts come as an
-    // ordered dictionary, so their order is the order written.
+    // The two parts of the block, each a two-space-indented key under `catzc:`.
+    // ADR-REPO-FILEMETA#1 [comment:1](/docs/references/automation/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md#comment1)
     public const string DerivedKey = "derived";
     public const string ConfigKey = "config";
 
@@ -23,7 +22,7 @@ public static class MarkdownMetaBlock
     };
 
     // Renders the block in its one canonical form: the derived facts in the order given, then the authored config lines as written.
-    // A value is a scalar or a list of scalars. No facts and no config lines render no block at all.
+    // [comment:2](/docs/references/automation/catzc-base-markdownmeta/types/MarkdownMetaBlock.cs.md#comment2)
     public static IReadOnlyList<string> Render(IDictionary derived, IReadOnlyList<string> config)
     {
         var lines = new List<string>();

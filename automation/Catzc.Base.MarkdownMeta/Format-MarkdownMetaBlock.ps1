@@ -3,9 +3,8 @@
     Returns a Markdown text with its meta block imprinted from the given facts
     ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
-    The `derived` part is written from -Fact in the order given, one canonical form, so the same facts always give the same bytes.
-    The authored `config` part and every other byte of the text are kept as written. With no facts and no config lines the block is
-    removed. Pure: it reads no file and no config, and it returns the text rather than writing it.
+    The same facts always give the same bytes, so a second run changes no file and prettier never undoes the block.
+    [comment:1](/docs/references/automation/catzc-base-markdownmeta/Format-MarkdownMetaBlock.ps1.md#comment1)
 .PARAMETER Text
     The whole Markdown file as text.
 .PARAMETER Fact

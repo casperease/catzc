@@ -203,7 +203,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $moved.Text.StartsWith("# catzc:`n#   path: docs/widget.yml`n#   module: Catzc.Widget`n`n") | Should -BeTrue
     }
 
-    It 'reads an unconfigured head as prose, so the run is a block' -Tag 'ADR-REPO-CODEMETA#5' {
+    It 'reads a head the config does not list as prose, so the run is a block' -Tag 'ADR-REPO-CODEMETA#5' {
         $yaml = "# catzc:`n#   path: docs/widget.yml`n#   module: Catzc.Widget`n`ngadget: 1`n"
         [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', [Catzc.Base.QualityGates.CommentsConfig]::new(@{})).Count | Should -Be 1
     }

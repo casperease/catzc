@@ -3,9 +3,8 @@
     Computes the meta block of every in-scope Markdown file — the one place Format-FileMeta and Test-FileMeta share
     ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
-    Each file's `derived` part is rebuilt from the imprint kinds of the registry, and its authored `config` part is kept as written.
-    A file whose block holds a key no kind owns is reported as Unowned and left unchanged, since writing it would drop the author's key
-    ([ADR-REPO-FILEMETA#5](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta5)).
+    An unowned key is reported and the file left alone, since writing would drop the author's key.
+    ADR-REPO-FILEMETA#5 [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-FileMetaEngine.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root paths are relative to.
 .PARAMETER Path

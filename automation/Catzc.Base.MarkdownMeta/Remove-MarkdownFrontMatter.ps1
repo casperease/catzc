@@ -2,9 +2,8 @@
 .SYNOPSIS
     Returns a Markdown text without its YAML front matter.
 .DESCRIPTION
-    For a copy that carries the content but not the file's meta: a generated README, which a reader opens with its title first. The
-    blank line that separates written front matter from the body goes with it. A text with no front matter comes back unchanged.
-    Pure: it reads no file and no config.
+    A generated README copies the content but not the source's meta block, so a reader opens it at its title.
+    [comment:1](/docs/references/automation/catzc-base-markdownmeta/Remove-MarkdownFrontMatter.ps1.md#comment1)
 .PARAMETER Text
     The whole Markdown file as text.
 .OUTPUTS

@@ -99,8 +99,8 @@ public sealed class MarkdownDocument
     // The document as it was parsed.
     public string ToText() => WithMetaBlock(MetaBlock);
 
-    // The first 12 hex characters of the SHA-256 of the body, its line endings read as LF and its leading blank lines dropped. The blank
-    // line that separates written front matter from the body is no part of the body, so imprinting never changes the hash it records.
+    // The first 12 hex characters of the SHA-256 of the body, its line endings read as LF and its leading blank lines dropped.
+    // [comment:1](/docs/references/automation/catzc-base-markdownmeta/types/MarkdownDocument.cs.md#comment1)
     public string BodyHash()
     {
         byte[] bytes = Encoding.UTF8.GetBytes(Body.Replace("\r\n", "\n").TrimStart('\n'));

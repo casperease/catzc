@@ -3,10 +3,8 @@
     Quality gate: every meta kind resolves to a processor function, and every convention-named processor function belongs to a kind
     ([ADR-REPO-FILEMETA#4](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta4)).
 .DESCRIPTION
-    A kind whose function is missing fails the run that reads the registry, and a function no kind names is never called, so this gate
-    lists both orphans. A function is a processor candidate when it is named Get-<Kind>FileMetaFact or
-    Get-<Kind>MarkdownConfigContribution.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
+    Orphans are listed both ways, because neither a missing function nor a missing kind fails alone.
+    ADR-AUTO-TEST#35 [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-FileMetaProcessors.ps1.md#comment1)
 .PARAMETER Config
     The meta-kind registry. Default: the shipped one.
 .PARAMETER OutputFolder

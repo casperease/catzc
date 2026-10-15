@@ -3,11 +3,12 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md
     kind: reference
-    body_sha: "74afd471e3dc"
+    body_sha: e70dc79c3dad
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
+      - ADR-REPO-CODEMETA#5
       - ADR-REPO-OUTDIR#1
 ---
 
@@ -81,4 +82,13 @@ Above `view: out/annotated`.
 ```text
 The gitignored folder, under out/, Build-CommentView writes the annotated view to
 ([ADR-REPO-OUTDIR#1](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir1)).
+```
+
+## comment:7
+
+Above `keep_run:`.
+
+```text
+A head listed here keeps the whole run of comment lines it opens, which is how the meta head stays in the file.
+[ADR-REPO-CODEMETA#5](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta5)
 ```

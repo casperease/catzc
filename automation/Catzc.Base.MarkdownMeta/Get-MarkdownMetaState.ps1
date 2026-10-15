@@ -3,9 +3,8 @@
     Reads what a Markdown text says about its own meta block, without changing it
     ([ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1)).
 .DESCRIPTION
-    Pure: it takes the text, reads no file and no config. The body is what follows the front matter, and its hash drops the
-    blank line that separates written front matter from it, so imprinting never changes the hash it records
-    ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
+    Pure: it takes the text, reads no file and no config.
+    ADR-REPO-FILEMETA#3 [comment:1](/docs/references/automation/catzc-base-markdownmeta/Get-MarkdownMetaState.ps1.md#comment1)
 .PARAMETER Text
     The whole Markdown file as text.
 .OUTPUTS

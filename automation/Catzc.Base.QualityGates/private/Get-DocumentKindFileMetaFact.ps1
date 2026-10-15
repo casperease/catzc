@@ -3,8 +3,8 @@
     The document-kind meta kind's fact: the class of the file, from the path globs the kind's settings declare
     ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
-    The first class whose globs match the path wins; a file no class matches is `other`. The classes are data in the
-    registry (`settings.classes`), never a list in this function ([ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)).
+    The first class whose globs match the path wins; a file no class matches is `other`.
+    ADR-PRIN-CONFIG#1 [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-DocumentKindFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What Get-MarkdownMetaState read from the file.
 .PARAMETER Path

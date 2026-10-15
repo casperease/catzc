@@ -3,8 +3,8 @@
     The file-path meta kind's fact: the file's repository-relative path
     ([ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)).
 .DESCRIPTION
-    The path is a derived fact, so a moved file drifts and the formatter rewrites it; the H1 is the file's title, never its path
-    ([ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6)).
+    The path is derived, so a moved file drifts and the formatter rewrites it, while a Markdown H1 stays the title.
+    ADR-REPO-FORMAT#6 [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FilePathFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What Get-MarkdownMetaState read from the file.
 .PARAMETER Path

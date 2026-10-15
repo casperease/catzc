@@ -1,6 +1,5 @@
 # The meta-kind registry: each entry is one kind of derived fact imprinted into a file's meta block, with defaults on FileMetaKind.
-# [ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2),
-# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
+# ADR-REPO-FILEMETA#2, ADR-AUTO-DEFAULT#6 [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md#comment1)
 kinds:
   # The repository-relative path of every file that carries a block, first so it is written first; a Markdown H1 is the title.
   file-path:

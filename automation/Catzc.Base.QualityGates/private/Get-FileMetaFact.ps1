@@ -3,9 +3,8 @@
     Collects the derived facts of one Markdown file from every imprint kind whose globs match it
     ([ADR-REPO-FILEMETA#4](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta4)).
 .DESCRIPTION
-    Each kind's processor is the function the registry names, found in this module's scope; a kind with no such function fails the
-    run and names the function it expected. A processor must return exactly the keys its kind declares, so a kind can never write a
-    key another kind owns. The facts come back in registry order, which is the order they are written.
+    A processor must return exactly its kind's keys, so a kind can never write a key another kind owns.
+    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What Get-MarkdownMetaState read from the file.
 .PARAMETER Path
