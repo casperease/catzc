@@ -17,7 +17,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 
 - .claude × markdown: 1 lit of 9 files
 - automation × yaml: 1 lit of 97 files
-- docs × markdown: 7 lit of 744 files
+- docs × markdown: 3 lit of 744 files
 - pipelines × pipeline-yaml: 1 lit of 9 files
 
 ## Key
@@ -44,46 +44,36 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][6]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 119 (text).
 
-### docs × markdown (7 lit files)
+### docs × markdown (3 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/flow/cd-discipline-and-promotion-flow.md][7]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/flow/dora-explains.md][8]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/flow/durable-sha-globs.md][9]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/flow/pipeline-detection.md][10]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/flow/pipeline-runner-pattern.md][1]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/flow/pipeline-types.md][11]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/index.md][12]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 108 (text).
+- [docs/adr/flow/dora-explains.md][7]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 33 (text).
+- [docs/adr/flow/pipeline-runner-pattern.md][1]: selected by [ADR-FLOW-CD-RUNNER][1]: the ADR's own file.
+- [docs/adr/index.md][8]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 108 (text).
 
 ### pipelines × pipeline-yaml (1 lit file)
 
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][2]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [pipelines/steps/invoke-automation.yaml][13]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 18 (header).
+- [pipelines/steps/invoke-automation.yaml][9]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 18 (header).
 
 ## Keywords
 
-- [world map][14]
-- [track][15]
-- [file language][16]
-- [cell][17]
-- [lit cell][18]
-- [.claude][19]: a track
-- [automation][19]: a track
-- [docs][19]: a track
-- [pipelines][19]: a track
-- [markdown][20]: a file language
-- [pipeline-yaml][20]: a file language
-- [yaml][20]: a file language
+- [world map][10]
+- [track][11]
+- [file language][12]
+- [cell][13]
+- [lit cell][14]
+- [.claude][15]: a track
+- [automation][15]: a track
+- [docs][15]: a track
+- [pipelines][15]: a track
+- [markdown][16]: a file language
+- [pipeline-yaml][16]: a file language
+- [yaml][16]: a file language
 
 [1]: ../../adr/flow/pipeline-runner-pattern.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -91,17 +81,13 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [4]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
 [5]: ../../../.claude/CLAUDE.md
 [6]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[7]: ../../adr/flow/cd-discipline-and-promotion-flow.md
-[8]: ../../adr/flow/dora-explains.md
-[9]: ../../adr/flow/durable-sha-globs.md
-[10]: ../../adr/flow/pipeline-detection.md
-[11]: ../../adr/flow/pipeline-types.md
-[12]: ../../adr/index.md
-[13]: ../../../pipelines/steps/invoke-automation.yaml
-[14]: ../../adr/glossary.md#world-map
-[15]: ../../adr/glossary.md#track
-[16]: ../../adr/glossary.md#file-language
-[17]: ../../adr/glossary.md#cell
-[18]: ../../adr/glossary.md#lit-cell
-[19]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[20]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[7]: ../../adr/flow/dora-explains.md
+[8]: ../../adr/index.md
+[9]: ../../../pipelines/steps/invoke-automation.yaml
+[10]: ../../adr/glossary.md#world-map
+[11]: ../../adr/glossary.md#track
+[12]: ../../adr/glossary.md#file-language
+[13]: ../../adr/glossary.md#cell
+[14]: ../../adr/glossary.md#lit-cell
+[15]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[16]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

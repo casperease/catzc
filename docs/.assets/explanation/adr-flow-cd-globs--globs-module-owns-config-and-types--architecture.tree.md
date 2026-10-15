@@ -10,14 +10,14 @@ The tree minimap of the slide `adr-flow-cd-globs--globs-module-owns-config-and-t
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
-domain), and lights 65 files in 10 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 61 files in 10 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - Globs (automation/Catzc.Base.Globs): 38 lit files
-- adr/flow (docs/adr/flow): 6 lit files
 - pipelines: 6 lit files
 - Az.DevOps.BuildValidation (automation/Catzc.Azure.DevOps.BuildValidation): 5 lit files
 - QualityGates (automation/Catzc.Base.QualityGates): 4 lit files
+- adr/flow (docs/adr/flow): 2 lit files
 - docs (docs/ outside docs/adr/): 2 lit files
 - .github: 1 lit file
 - Docs (automation/Catzc.Base.Docs): 1 lit file
@@ -26,7 +26,7 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 ## Why each group is lit
 
-### Globs (38 lit files)
+### Globs (automation/Catzc.Base.Globs, 38 lit files)
 
 The group holds the files of automation/Catzc.Base.Globs; each sits in its world-map cell and is lit by:
 
@@ -113,120 +113,111 @@ The group holds the files of automation/Catzc.Base.Globs; each sits in its world
   cites it at line 3 (header), line 7 (header), line 10 (header), line 88 (text), line 143 (body comment), line 154 (text), line 158 (text)
   and line 172 (text).
 
-### adr/flow (6 lit files)
-
-The group holds the files of docs/adr/flow; each sits in its world-map cell and is lit by:
-
-- [docs/adr/flow/cd-discipline-and-promotion-flow.md][40], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: an ADR file of
-  the `flow` ADR domain, the ADR domain of that code.
-- [docs/adr/flow/dora-explains.md][41], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: an ADR file of the `flow` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/flow/durable-sha-globs.md][1], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: an ADR file of the `flow` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/flow/pipeline-detection.md][42], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: an ADR file of the `flow` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/flow/pipeline-runner-pattern.md][43], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: an ADR file of the `flow`
-  ADR domain, the ADR domain of that code.
-- [docs/adr/flow/pipeline-types.md][44], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: an ADR file of the `flow` ADR
-  domain, the ADR domain of that code.
-
 ### pipelines (6 lit files)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/cd-apex.yaml][45], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 15
+- [pipelines/cd-apex.yaml][40], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 15
   (header).
-- [pipelines/cd-flux.yaml][46], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14
+- [pipelines/cd-flux.yaml][41], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14
   (header).
-- [pipelines/cd-nova.yaml][47], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14
+- [pipelines/cd-nova.yaml][42], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14
   (header).
-- [pipelines/cd-shared.yaml][48], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 29
+- [pipelines/cd-shared.yaml][43], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 29
   (header).
-- [pipelines/ci-automation.yaml][49], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 4
+- [pipelines/ci-automation.yaml][44], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 4
   (header).
-- [pipelines/ci-infrastructure.yaml][50], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+- [pipelines/ci-infrastructure.yaml][45], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
   line 17 (header).
 
-### Az.DevOps.BuildValidation (5 lit files)
+### Az.DevOps.BuildValidation (automation/Catzc.Azure.DevOps.BuildValidation, 5 lit files)
 
 The group holds the files of automation/Catzc.Azure.DevOps.BuildValidation; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1][51], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1][46], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 10 (header).
-- [automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1][52], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1][47], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 6 (header) and line 98 (body comment).
-- [automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1][53], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1][48], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 6 (header).
-- [automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml][54], in the cell automation × yaml: selected by
+- [automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml][49], in the cell automation × yaml: selected by
   [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 5 (header).
-- [automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1][55], in the cell automation × powershell:
+- [automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1][50], in the cell automation × powershell:
   selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 8 (header).
 
-### QualityGates (4 lit files)
+### QualityGates (automation/Catzc.Base.QualityGates, 4 lit files)
 
 The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.QualityGates/Test-Automation.ps1][56], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][1]: the
+- [automation/Catzc.Base.QualityGates/Test-Automation.ps1][51], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][1]: the
   file cites it at line 72 (header).
-- [automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1][57], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1][52], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 7 (header).
-- [automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1][58], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1][53], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 143 (body comment) (a passing mention only).
-- [automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1][59], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1][54], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 9 (header).
 
-### docs (2 lit files)
+### adr/flow (docs/adr/flow, 2 lit files)
+
+The group holds the files of docs/adr/flow; each sits in its world-map cell and is lit by:
+
+- [docs/adr/flow/dora-explains.md][55], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 94
+  (text).
+- [docs/adr/flow/durable-sha-globs.md][1], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: the ADR's own file.
+
+### docs (docs/ outside docs/adr/, 2 lit files)
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][60], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: the
+- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][56], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: the
   file cites it at line 18 (text).
-- [docs/references/automation/catzc-base-globs.md][61], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
+- [docs/references/automation/catzc-base-globs.md][57], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it
   at line 29 (text).
 
 ### .github (1 lit file)
 
 The group holds the files of .github; each sits in its world-map cell and is lit by:
 
-- [.github/workflows/ci-automation.yml][62], in the cell .github × yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 4
+- [.github/workflows/ci-automation.yml][58], in the cell .github × yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 4
   (body comment) (a passing mention only).
 
-### Docs (1 lit file)
+### Docs (automation/Catzc.Base.Docs, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][63], in the cell automation × yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
+- [automation/Catzc.Base.Docs/configs/adrs.yml][59], in the cell automation × yaml: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at
   line 122 (text).
 
-### Exporter (1 lit file)
+### Exporter (automation/Catzc.Base.Exporter, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Exporter; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1][64], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][1]:
+- [automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1][60], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][1]:
   the file cites it at line 6 (header).
 
-### adr/* (1 lit file)
+### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][65], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 111 (text).
+- [docs/adr/index.md][61], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 111 (text).
 
 ## Keywords
 
-- [world map][66]
-- [track][67]
-- [file language][68]
-- [cell][69]
-- [lit cell][70]
-- [.github][71]: a track
-- [automation][71]: a track
-- [docs][71]: a track
-- [pipelines][71]: a track
-- [csharp][72]: a file language
-- [markdown][72]: a file language
-- [pipeline-yaml][72]: a file language
-- [powershell][72]: a file language
-- [yaml][72]: a file language
+- [world map][62]
+- [track][63]
+- [file language][64]
+- [cell][65]
+- [lit cell][66]
+- [.github][67]: a track
+- [automation][67]: a track
+- [docs][67]: a track
+- [pipelines][67]: a track
+- [csharp][68]: a file language
+- [markdown][68]: a file language
+- [pipeline-yaml][68]: a file language
+- [powershell][68]: a file language
+- [yaml][68]: a file language
 
 [1]: ../../adr/flow/durable-sha-globs.md
 [2]: ../../../automation/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
@@ -267,36 +258,32 @@ The group holds the files of the files directly in docs/adr/; each sits in its w
 [37]: ../../../automation/Catzc.Base.Globs/types/GlobPattern.cs
 [38]: ../../../automation/Catzc.Base.Globs/types/GlobSet.cs
 [39]: ../../../automation/Catzc.Base.Globs/types/GlobsConfig.cs
-[40]: ../../adr/flow/cd-discipline-and-promotion-flow.md
-[41]: ../../adr/flow/dora-explains.md
-[42]: ../../adr/flow/pipeline-detection.md
-[43]: ../../adr/flow/pipeline-runner-pattern.md
-[44]: ../../adr/flow/pipeline-types.md
-[45]: ../../../pipelines/cd-apex.yaml
-[46]: ../../../pipelines/cd-flux.yaml
-[47]: ../../../pipelines/cd-nova.yaml
-[48]: ../../../pipelines/cd-shared.yaml
-[49]: ../../../pipelines/ci-automation.yaml
-[50]: ../../../pipelines/ci-infrastructure.yaml
-[51]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
-[52]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
-[53]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
-[54]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-[55]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-[56]: ../../../automation/Catzc.Base.QualityGates/Test-Automation.ps1
-[57]: ../../../automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
-[58]: ../../../automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
-[59]: ../../../automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
-[60]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
-[61]: ../../references/automation/catzc-base-globs.md
-[62]: ../../../.github/workflows/ci-automation.yml
-[63]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[64]: ../../../automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-[65]: ../../adr/index.md
-[66]: ../../adr/glossary.md#world-map
-[67]: ../../adr/glossary.md#track
-[68]: ../../adr/glossary.md#file-language
-[69]: ../../adr/glossary.md#cell
-[70]: ../../adr/glossary.md#lit-cell
-[71]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[72]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[40]: ../../../pipelines/cd-apex.yaml
+[41]: ../../../pipelines/cd-flux.yaml
+[42]: ../../../pipelines/cd-nova.yaml
+[43]: ../../../pipelines/cd-shared.yaml
+[44]: ../../../pipelines/ci-automation.yaml
+[45]: ../../../pipelines/ci-infrastructure.yaml
+[46]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
+[47]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+[48]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
+[49]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+[50]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
+[51]: ../../../automation/Catzc.Base.QualityGates/Test-Automation.ps1
+[52]: ../../../automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
+[53]: ../../../automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+[54]: ../../../automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
+[55]: ../../adr/flow/dora-explains.md
+[56]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
+[57]: ../../references/automation/catzc-base-globs.md
+[58]: ../../../.github/workflows/ci-automation.yml
+[59]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[60]: ../../../automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
+[61]: ../../adr/index.md
+[62]: ../../adr/glossary.md#world-map
+[63]: ../../adr/glossary.md#track
+[64]: ../../adr/glossary.md#file-language
+[65]: ../../adr/glossary.md#cell
+[66]: ../../adr/glossary.md#lit-cell
+[67]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[68]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

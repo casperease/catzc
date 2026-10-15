@@ -388,7 +388,6 @@ function Get-DynamicManifestContent {
 #>
 function Import-CSharpTypes {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Session-global by design: $global:__CatzcTypes (per-ModulesRoot hash+snapshot) must survive module reimport to detect C# source changes across the session, and $global:__CatzcLoadTimings collects import diagnostics')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawPipelineDetection', '', Justification = 'Pipeline detection is inlined here because Test-IsRunningInPipeline lives in Catzc.Base.Repository, which loads after this C#-types pre-pass and so is not callable yet')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -473,9 +472,8 @@ function Import-CSharpTypes {
         # here. A changed or removed type degrades gracefully — keep the already-loaded types this session,
         # warn (orange), and return WITHOUT recording the new hash, so the warning repeats on every re-import
         # until you restart. A person's interactive console never reaches here: the importer restarts it in a
-        # fresh process first (Invoke-Importer). The pipeline check is INLINED because Test-IsRunningInPipeline
-        # lives in Catzc.Base.Repository, which loads AFTER this pre-pass runs and so is not callable here.
-        if (([bool]$env:TF_BUILD) -or ([bool]$env:GITHUB_ACTIONS) -or $typeState.MissingTypes.Count) {
+        # fresh process first (Invoke-Importer).
+        if ((Test-IsRunningInPipeline) -or $typeState.MissingTypes.Count) {
             throw "$changeSummary Restart PowerShell to pick up the change."
         }
         Write-ImporterMessage "Using old cached C# types — $changeSummary Restart PowerShell to pick up the change." -ForegroundColor DarkYellow

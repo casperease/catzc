@@ -1,7 +1,7 @@
 # Get-ConfigRegistry is private, so it is exercised through the module (InModuleScope, per
 # [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).
 # Each test resets the session's cache entry before and after
-# ([ADR-PWSH-CACHE#3](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache3)), so a fixture
+# ([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3)), so a fixture
 # registry never
 # leaks into the rest of the run.
 Describe 'Get-ConfigRegistry' -Tag 'L0', 'logic' {

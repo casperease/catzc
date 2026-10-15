@@ -41,12 +41,11 @@ Integrate from verified and the reconciliation problem does not exist.
 
 ### Rule ADR-DSGN-REMOTE:4
 
-**A pull request is the authenticated ingress engine, not merely a review.** In the audited regime (`git_workspace: main-via-pr`,
-[ADR-REPO-VARIANT#6](../repository/repo-variants.md#rule-adr-repo-variant6)) the PR is the one sanctioned way a change enters the server's
-`main` / `master`: it **authenticates** the author against the server's identity model, runs the mandatory merge gates, and **performs the
-merge** itself. Review is one gate a PR can carry, but the load-bearing role is authentication-plus-merge: the PR is the audited doorway,
-and closing every other door — no direct push to the protected branch — is what lets the `git log` audit trail be trusted as complete. Solo
-`main-direct` is the deliberate single-author exception (ADR-REPO-VARIANT#6).
+**A pull request is the authenticated ingress engine, not merely a review.** In the audited regime (`git_workspace: main-via-pr`) the PR is
+the one sanctioned way a change enters the server's `main` / `master`: it **authenticates** the author against the server's identity model,
+runs the mandatory merge gates, and **performs the merge** itself. Review is one gate a PR can carry, but the load-bearing role is
+authentication-plus-merge: the PR is the audited doorway, and closing every other door — no direct push to the protected branch — is what
+lets the `git log` audit trail be trusted as complete. Solo `main-direct` is the deliberate single-author exception.
 
 - [PR as authenticated ingress](#pr-as-authenticated-ingress)
 
@@ -106,10 +105,11 @@ non-event for everyone downstream.
 
 `PR is authenticated ingress, not just review`
 
-It is easy to read a pull request as a review checkpoint — a second pair of eyes. That undersells it. In the audited regime the PR is the
-**only** ingress into the server's mainline, and it is what makes ingress _safe_: it authenticates the change against the server's identity
-model (so every commit on main is attributable to an authenticated principal), runs the mandatory merge gates, and performs the merge itself
-— the change reaches `main` / `master` by no other route. Review is one of the gates a PR can carry; the load-bearing property is
+It is easy to read a pull request as a review checkpoint — a second pair of eyes. That undersells it. In the audited regime
+(`git_workspace: main-via-pr`, [ADR-REPO-VARIANT#6](../repository/repo-variants.md#rule-adr-repo-variant6)) the PR is the **only** ingress
+into the server's mainline, and it is what makes ingress _safe_: it authenticates the change against the server's identity model (so every
+commit on main is attributable to an authenticated principal), runs the mandatory merge gates, and performs the merge itself — the change
+reaches `main` / `master` by no other route. Review is one of the gates a PR can carry; the load-bearing property is
 authentication-plus-merge. The PR is the audited doorway, and closing every other door (no direct push to the protected branch) is what lets
 the audit trail in `git log` be trusted as complete. The solo `main-direct` mode (`ADR-REPO-VARIANT:6`) is the deliberate exception for a
 single-author trunk, where the author _is_ the sole authenticated principal and the doorway collapses to a direct commit; the moment there

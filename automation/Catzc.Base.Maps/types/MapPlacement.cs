@@ -1,6 +1,6 @@
 // Where one tracked file sits on the world map, and what lights it. The cell is exact: the root folder gives the track
 // and the extension gives the file language. The highlight relation follows the fixed order per artifact kind that
-// WorldMapBuilder applies: an ADR file carries its domain; every other file carries ADR citations, and Basis names the
+// WorldMapBuilder applies: an ADR file carries its own ADR code; every other file carries ADR citations, and Basis names the
 // step that produced them. A result type, so the properties are PascalCase
 // ([ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)).
 
@@ -12,7 +12,7 @@ namespace Catzc.Base.Maps;
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Path), nameof(Track), nameof(FileLanguage), nameof(Basis))]
 public sealed class MapPlacement
 {
-    // An ADR file under docs/adr/: it lights for every code of its domain.
+    // The file of an ADR (the registry maps the code to it): it lights for its own code only.
     public const string BasisAdrFile = "adr-file";
 
     // The file's own citations.
@@ -46,8 +46,8 @@ public sealed class MapPlacement
     // The step that produced the highlight relation: one of the Basis constants.
     public string Basis { get; }
 
-    // The ADR domain an ADR file belongs to; null for every other file.
-    public string Domain { get; }
+    // The ADR code whose file this is (ADR-<CODE>); null for every other file.
+    public string Adr { get; }
 
     // The ADR citations that light the file, canonical (ADR-<CODE> or ADR-<CODE>#n), distinct, in ordinal order.
     public IReadOnlyList<string> Citations { get; }
@@ -58,7 +58,7 @@ public sealed class MapPlacement
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public MapPlacement(string path, string track, string fileLanguage, bool live, bool stackViolation, string basis, string domain,
+    public MapPlacement(string path, string track, string fileLanguage, bool live, bool stackViolation, string basis, string adr,
         string[] citations, CitationSite[] sites = null)
     {
         Path = path;
@@ -67,7 +67,7 @@ public sealed class MapPlacement
         Live = live;
         StackViolation = stackViolation;
         Basis = basis;
-        Domain = domain;
+        Adr = adr;
         Citations = citations == null ? Array.Empty<string>() : (string[])citations.Clone();
         Sites = sites == null ? Array.Empty<CitationSite>() : (CitationSite[])sites.Clone();
     }

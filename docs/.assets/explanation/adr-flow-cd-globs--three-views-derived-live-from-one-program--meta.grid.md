@@ -18,7 +18,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 - automation × csharp: 5 lit of 229 files
 - automation × powershell: 41 lit of 1443 files
 - automation × yaml: 3 lit of 97 files
-- docs × markdown: 9 lit of 744 files
+- docs × markdown: 5 lit of 744 files
 - pipelines × pipeline-yaml: 6 lit of 9 files
 
 ## Key
@@ -149,56 +149,46 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.Globs/configs/globs.yml][54]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 2 (header), line 7
   (header), line 15 (header), line 17 (header), line 26 (body comment), line 61 (body comment) and line 81 (body comment).
 
-### docs × markdown (9 lit files)
+### docs × markdown (5 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/flow/cd-discipline-and-promotion-flow.md][55]: selected by [ADR-FLOW-CD-GLOBS][1]: an ADR file of the `flow` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/flow/dora-explains.md][56]: selected by [ADR-FLOW-CD-GLOBS][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/flow/durable-sha-globs.md][1]: selected by [ADR-FLOW-CD-GLOBS][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/flow/pipeline-detection.md][57]: selected by [ADR-FLOW-CD-GLOBS][1]: an ADR file of the `flow` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/flow/pipeline-runner-pattern.md][58]: selected by [ADR-FLOW-CD-GLOBS][1]: an ADR file of the `flow` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/flow/pipeline-types.md][59]: selected by [ADR-FLOW-CD-GLOBS][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/index.md][60]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 111 (text).
-- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][61]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 18
+- [docs/adr/flow/dora-explains.md][55]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 94 (text).
+- [docs/adr/flow/durable-sha-globs.md][1]: selected by [ADR-FLOW-CD-GLOBS][1]: the ADR's own file.
+- [docs/adr/index.md][56]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 111 (text).
+- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][57]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 18
   (text).
-- [docs/references/automation/catzc-base-globs.md][62]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 29 (text).
+- [docs/references/automation/catzc-base-globs.md][58]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 29 (text).
 
 ### pipelines × pipeline-yaml (6 lit files)
 
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][2]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [pipelines/cd-apex.yaml][63]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 15 (header).
-- [pipelines/cd-flux.yaml][64]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14 (header).
-- [pipelines/cd-nova.yaml][65]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14 (header).
-- [pipelines/cd-shared.yaml][66]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 29 (header).
-- [pipelines/ci-automation.yaml][67]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 4 (header).
-- [pipelines/ci-infrastructure.yaml][68]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 17 (header).
+- [pipelines/cd-apex.yaml][59]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 15 (header).
+- [pipelines/cd-flux.yaml][60]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14 (header).
+- [pipelines/cd-nova.yaml][61]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 14 (header).
+- [pipelines/cd-shared.yaml][62]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 29 (header).
+- [pipelines/ci-automation.yaml][63]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 4 (header).
+- [pipelines/ci-infrastructure.yaml][64]: selected by [ADR-FLOW-CD-GLOBS][1]: the file cites it at line 17 (header).
 
 ## Keywords
 
-- [world map][69]
-- [track][70]
-- [file language][71]
-- [cell][72]
-- [lit cell][73]
-- [.github][74]: a track
-- [automation][74]: a track
-- [docs][74]: a track
-- [pipelines][74]: a track
-- [csharp][75]: a file language
-- [markdown][75]: a file language
-- [pipeline-yaml][75]: a file language
-- [powershell][75]: a file language
-- [yaml][75]: a file language
+- [world map][65]
+- [track][66]
+- [file language][67]
+- [cell][68]
+- [lit cell][69]
+- [.github][70]: a track
+- [automation][70]: a track
+- [docs][70]: a track
+- [pipelines][70]: a track
+- [csharp][71]: a file language
+- [markdown][71]: a file language
+- [pipeline-yaml][71]: a file language
+- [powershell][71]: a file language
+- [yaml][71]: a file language
 
 [1]: ../../adr/flow/durable-sha-globs.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -254,24 +244,20 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 [52]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
 [53]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
 [54]: ../../../automation/Catzc.Base.Globs/configs/globs.yml
-[55]: ../../adr/flow/cd-discipline-and-promotion-flow.md
-[56]: ../../adr/flow/dora-explains.md
-[57]: ../../adr/flow/pipeline-detection.md
-[58]: ../../adr/flow/pipeline-runner-pattern.md
-[59]: ../../adr/flow/pipeline-types.md
-[60]: ../../adr/index.md
-[61]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
-[62]: ../../references/automation/catzc-base-globs.md
-[63]: ../../../pipelines/cd-apex.yaml
-[64]: ../../../pipelines/cd-flux.yaml
-[65]: ../../../pipelines/cd-nova.yaml
-[66]: ../../../pipelines/cd-shared.yaml
-[67]: ../../../pipelines/ci-automation.yaml
-[68]: ../../../pipelines/ci-infrastructure.yaml
-[69]: ../../adr/glossary.md#world-map
-[70]: ../../adr/glossary.md#track
-[71]: ../../adr/glossary.md#file-language
-[72]: ../../adr/glossary.md#cell
-[73]: ../../adr/glossary.md#lit-cell
-[74]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[75]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[55]: ../../adr/flow/dora-explains.md
+[56]: ../../adr/index.md
+[57]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
+[58]: ../../references/automation/catzc-base-globs.md
+[59]: ../../../pipelines/cd-apex.yaml
+[60]: ../../../pipelines/cd-flux.yaml
+[61]: ../../../pipelines/cd-nova.yaml
+[62]: ../../../pipelines/cd-shared.yaml
+[63]: ../../../pipelines/ci-automation.yaml
+[64]: ../../../pipelines/ci-infrastructure.yaml
+[65]: ../../adr/glossary.md#world-map
+[66]: ../../adr/glossary.md#track
+[67]: ../../adr/glossary.md#file-language
+[68]: ../../adr/glossary.md#cell
+[69]: ../../adr/glossary.md#lit-cell
+[70]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[71]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

@@ -14,13 +14,15 @@ without re-running anything.
 
 ### Rule ADR-AUTO-CONSOLE:3
 
-Log commands, not commentary — log the exact, copy-pasteable command rather than a paraphrase like "Now installing…".
+Log commands, not commentary — log the exact, copy-pasteable command (e.g. `uv python install 3.13 --default`) rather than a paraphrase like
+"Now installing…". A readable description may be added beside the command, never in its place.
 
 - [Output practice](#output-practice)
 
 ### Rule ADR-AUTO-CONSOLE:4
 
-Let tools speak for themselves — let external tool output flow to the console; do not capture and re-format it.
+Let tools speak for themselves — an external tool's own output flows to the console as it arrives, unchanged; the toolset does not capture
+it to re-format it, prefix its lines, or re-write it as its own messages.
 
 - [Output practice](#output-practice)
 
@@ -159,7 +161,8 @@ copy-paste it to reproduce. Do not add "Now installing Poetry..." before the com
 
 **Let tools speak for themselves.** When `poetry install` produces output, let it flow to the console. Do not capture and re-format it. Do
 not prefix each line. The user knows what poetry output looks like — wrapping it in your own formatting makes it harder to read and
-impossible to search for in documentation.
+impossible to search for in documentation. How each engine relays a child's output is its own ADR's concern (for pwsh,
+[announce-state-changes](../pwsh/announce-state-changes.md#rule-adr-pwsh-announce4)).
 
 **Report outcomes, not steps.** "Poetry 2.1 installed successfully" is an outcome. "Checking if poetry is installed... Poetry is
 installed... Checking version... Version matches... Running poetry install... Done" is step-by-step narration that nobody reads. Report the

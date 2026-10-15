@@ -2,7 +2,8 @@
 // ([ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1) places each file in one cell).
 //
 // ADR references (ForAdr) light, through the placements WorldMapBuilder derived in its fixed order per artifact kind:
-// every ADR file of a requested ADR's domain, and every file whose citations a request covers (CitationScanner.Covers).
+// each requested ADR's own file (an ADR-<CODE>#n request lights its ADR's file), and every file whose citations a request
+// covers (CitationScanner.Covers). An ADR's domain never lights a file: it only picks the value-chain row.
 // Then the reviewed overrides of configs/maps.yml apply: an exception a request covers keeps its cell dark, and a pin a
 // request covers lights its cell, so a pin wins over an exception. Files (ForPaths) light the cells they sit in. Every
 // lit file, and every pin, carries its reason (HighlightReason): the basis, the covering request, and the citation
@@ -57,7 +58,6 @@ public sealed class WorldMapHighlight
         if (map == null) { throw new ArgumentNullException(nameof(map)); }
         List<string> errors = new List<string>();
         List<string> requested = new List<string>();
-        HashSet<string> domains = new HashSet<string>(StringComparer.Ordinal);
         foreach (string reference in Strings(references))
         {
             string canonical = CitationScanner.Canonical(reference);
@@ -68,7 +68,6 @@ public sealed class WorldMapHighlight
                 continue;
             }
             if (!requested.Contains(canonical)) { requested.Add(canonical); }
-            domains.Add(domain);
         }
         List<MapsPin> pinList = Pins(pins, "pin", map, errors);
         List<MapsPin> exceptionList = Pins(exceptions, "exception", map, errors);
@@ -77,13 +76,13 @@ public sealed class WorldMapHighlight
         Lit lit = new Lit();
         foreach (MapPlacement placement in map.Placements)
         {
-            if (placement.Domain != null && domains.Contains(placement.Domain))
+            if (placement.Adr != null)
             {
                 foreach (string request in requested)
                 {
-                    if (!string.Equals(CitationScanner.DomainOf(request, map.AdrIndex), placement.Domain, StringComparison.Ordinal)) { continue; }
+                    if (!string.Equals(CitationScanner.CodeOf(request), placement.Adr, StringComparison.Ordinal)) { continue; }
                     lit.Add(placement.Track, placement.FileLanguage, placement.Path, placement.Basis,
-                        new HighlightReason(placement.Path, placement.Basis, request, placement.Domain, null, null));
+                        new HighlightReason(placement.Path, placement.Basis, request, null, null));
                 }
                 continue;
             }
@@ -98,7 +97,7 @@ public sealed class WorldMapHighlight
                     if (CitationScanner.Covers(request, site.Citation)) { sites.Add(site); }
                 }
                 lit.Add(placement.Track, placement.FileLanguage, placement.Path, placement.Basis,
-                    new HighlightReason(placement.Path, placement.Basis, request, null, sites.ToArray(), null));
+                    new HighlightReason(placement.Path, placement.Basis, request, sites.ToArray(), null));
             }
         }
         foreach (MapsPin exception in exceptionList)
@@ -111,7 +110,7 @@ public sealed class WorldMapHighlight
             if (AnyCovers(requested, canonical))
             {
                 lit.Add(pin.track, pin.file_language, null, HighlightedCell.SourcePin,
-                    new HighlightReason(null, HighlightedCell.SourcePin, canonical, null, null, pin.reason));
+                    new HighlightReason(null, HighlightedCell.SourcePin, canonical, null, pin.reason));
             }
         }
         return new WorldMapHighlight(KindAdr, requested.ToArray(), lit.InOrderOf(map));
@@ -134,7 +133,7 @@ public sealed class WorldMapHighlight
             }
             if (!requested.Contains(placement.Path)) { requested.Add(placement.Path); }
             lit.Add(placement.Track, placement.FileLanguage, placement.Path, HighlightedCell.SourcePath,
-                new HighlightReason(placement.Path, HighlightedCell.SourcePath, null, null, null, null));
+                new HighlightReason(placement.Path, HighlightedCell.SourcePath, null, null, null));
         }
         if (errors.Count > 0) { throw new ArgumentException("world-map highlight: " + string.Join("; ", errors)); }
         return new WorldMapHighlight(KindPath, requested.ToArray(), lit.InOrderOf(map));
@@ -184,7 +183,6 @@ public sealed class WorldMapHighlight
         WriteNullable(writer, "path", reason.Path);
         writer.WriteString("basis", reason.Basis);
         WriteNullable(writer, "requested", reason.Requested);
-        WriteNullable(writer, "domain", reason.Domain);
         WriteNullable(writer, "note", reason.Note);
         writer.WriteBoolean("mention", reason.Mention);
         writer.WriteStartArray("sites");

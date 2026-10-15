@@ -10,8 +10,7 @@ One source of truth: named globsets in `globs.yml` (owned by `Catzc.Base.Globs`)
 (`ADR-DSGN-TRACK`), or a scan scope — onto its files under version control. The globset is the mechanism; it plays three roles, all
 **derived** and **none committed per set**: the **trigger** — pipelines, workflows, and build-validation policies path-filter on the
 globset's native projection (`Get-GlobSetTrigger`), never on a committed marker; the **PR area-of-control report** — the sets a change
-touches, computed from git (`Get-ChangedGlobSet`); and **test blast-radius / protection** — scoping derives from the same identities
-(`ADR-REPO-PROTGLOB`).
+touches, computed from git (`Get-ChangedGlobSet`); and **test blast-radius / protection** — scoping derives from the same identities.
 
 - [One configuration point](#one-configuration-point)
 - [How this is enforced](#how-this-is-enforced)
@@ -45,10 +44,10 @@ then its `exclude:` patterns as `-` — excludes come last and win, the include-
 
 A globset's **identity** is its durable SHA: per member file, SHA-256 over the CR-stripped bytes; the per-file digests folded as
 `<repo-relative-path>|<digest>` lines, ordinal-sorted by path, into one combined SHA-256. This identity is computed **live**
-(`Get-GlobSetHash`) and is **never committed**: it keys the session-memory protection map (`ADR-REPO-PROTGLOB`) and answers "did these
-inputs change?" for the local inner loop. It is not a trigger and not a committed artifact — a committed whole-set hash is a lockfile that
-serializes writers and false-reds a busy mainline after a server-side squash merge, which is why triggering projects to native filters
-(ADR-FLOW-CD-GLOBS#6) and reflects git (ADR-FLOW-CD-GLOBS#9) instead.
+(`Get-GlobSetHash`) and is **never committed**: it keys the session-memory protection map and answers "did these inputs change?" for the
+local inner loop. It is not a trigger and not a committed artifact — a committed whole-set hash is a lockfile that serializes writers and
+false-reds a busy mainline after a server-side squash merge, which is why triggering projects to native filters (ADR-FLOW-CD-GLOBS#6) and
+reflects git (ADR-FLOW-CD-GLOBS#9) instead.
 
 - [A live identity](#a-live-identity)
 
@@ -72,10 +71,9 @@ Every globset carries a **layer** — the kind of thing it maps. Two are declare
 ships) and `loose-fileset` (a cross-cutting check surface that deliberately overlaps the boundaries it cuts across — a track's root concern
 (`ADR-DSGN-TRACK`) such as `automation`/`infrastructure`, a scan scope, a reserved umbrella). A loose-fileset must earn its place by a
 **demonstrated use** — a pipeline it triggers, a scan whose scope it sets, a protection it drives (YAGNI: no
-catch-all-for-completeness's-sake). The third, `module`, is **derived-only** (`ADR-REPO-PROTGLOB`): the folders are the registration,
-declaring it is rejected, and the layer carries the per-folder module sets plus the `module-leftovers` catch-all (module-space files no
-module owns); derived sets set the scope of protection and blast-radius through the same `Matches()` machinery as declared sets
-(`ADR-REPO-PROTGLOB#7`), with nothing committed per set.
+catch-all-for-completeness's-sake). The third, `module`, is **derived-only**: the folders are the registration, declaring it is rejected,
+and the layer carries the per-folder module sets plus the `module-leftovers` catch-all (module-space files no module owns); derived sets set
+the scope of protection and blast-radius through the same `Matches()` machinery as declared sets, with nothing committed per set.
 
 A deployable unit takes one of two shapes: a **configured** unit — a base plus its own configuration, e.g. a customer or platform unit — and
 a **base** unit — a shared, un-configured surface that exists only to be composed, e.g. `template-azure-subscription-foundation`, which
@@ -128,7 +126,7 @@ never on effective membership or across layers. The `deployable-unit` and `modul
 `loose-fileset` layer is **exempt** — its sets are cross-cutting surfaces (a track's root concern, scan scopes, the reserved umbrellas
 `internal`/`vendor`/`compiled`/`scriptanalyzer`) that overlap the boundaries they cut across by design. The `module` layer's catch-all
 (`module-leftovers`) is the complement of that layer's explicit sets, so it satisfies the rule by construction. The rule holds across the
-declared registry and the derived module sets (`ADR-REPO-PROTGLOB:7`) alike; a violation names both sets and a shared file.
+declared registry and the derived module sets alike; a violation names both sets and a shared file.
 
 - [Per-layer independence](#per-layer-independence)
 
@@ -154,7 +152,10 @@ committed per set, so there is no whole-set hash to go stale.
 optional `exclude:` list, optional `compose:` references (`ADR-FLOW-CD-GLOBS:8`), an optional `verify:` blast-radius scope, and — on a
 configured deployable-unit — the `pipeline:` it binds (a base unit composed by others binds none, `ADR-FLOW-CD-GLOBS:7`). `Catzc.Base.Globs`
 owns the file, the dialect, the durable SHA, the native projection, and the git-reflection query; nothing else parses the config. Adding or
-removing files from a unit — or adding a whole customer — is a config edit; the projected triggers regenerate from it.
+removing files from a unit — or adding a whole customer — is a config edit; the projected triggers regenerate from it. Test blast-radius and
+protection derive from the same identities ([ADR-REPO-PROTGLOB](../repository/protected-globs.md)), and the `module` layer's sets are
+derived from the module folders, never declared in `globs.yml`
+([ADR-REPO-PROTGLOB#7](../repository/protected-globs.md#rule-adr-repo-protglob7)).
 
 ### The dialect
 
@@ -281,8 +282,9 @@ deployable-unit — three layers, one file. Cross-layer overlap is never a viola
 A catch-all keeps a layer total without breaking disjointness. The `module-leftovers` set is the module-space complement: it should be empty
 in a clean tree, a tripwire for a file dropped at `automation/`'s root or a folder not yet a module. The `loose-fileset` layer is exempt
 because its sets are defined to cut across the boundaries. The gate evaluates OWN membership over the tracked-file universe for the declared
-registry and the derived module sets together, so a mis-scoped module include, a deployable-unit that reaches into another's files, or an
-umbrella mistakenly declared a `module` fails as a named pair.
+registry and the derived module sets ([ADR-REPO-PROTGLOB#7](../repository/protected-globs.md#rule-adr-repo-protglob7)) together, so a
+mis-scoped module include, a deployable-unit that reaches into another's files, or an umbrella mistakenly declared a `module` fails as a
+named pair.
 
 ### How this is enforced
 

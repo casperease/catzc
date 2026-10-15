@@ -19,7 +19,7 @@ synchronisation between stores.
 The repository is the configuration record of everything it delivers. Infrastructure is reproducible from a commit, so no second database is
 kept in parity with it, and nothing about delivery state lives outside it. An **adjacent store** is the one legitimate second store: a
 repository or service, such as a GitOps or configuration repository, that keeps its own history and is driven one way from the trunk's
-pipelines, never edited beside it. ADR-PRIN-EAC#1–3 are the mechanics of this rule.
+pipelines, never edited beside it.
 
 - [The repository is the configuration record](#the-repository-is-the-configuration-record)
 - [Adjacent stores](#adjacent-stores)

@@ -19,7 +19,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 - automation × csharp: 2 lit of 229 files
 - automation × powershell: 36 lit of 1443 files
 - automation × yaml: 3 lit of 97 files
-- docs × markdown: 50 lit of 744 files
+- docs × markdown: 5 lit of 744 files
 - Root files × powershell: 1 lit of 1 file
 - Root files × Unlisted files: 2 lit of 4 files
 
@@ -121,150 +121,57 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.Exporter/configs/exporter.yml][46]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 7 (header).
 - [automation/Catzc.Base.QualityGates/configs/terminology.yml][47]: selected by [ADR-DSGN-RUNMODE][2]: the file cites it at line 596 (text).
 
-### docs × markdown (50 lit files)
+### docs × markdown (5 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [docs/adr/automation/BCL/index.md][48]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/automation/BCL/native-csharp-types.md][49]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/automation/avoid-deep-nesting.md][50]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/bash/bash-test-artifacts.md][51]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/automation/bash/index.md][52]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/automation/caching.md][53]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/automation/console-output-matters.md][54]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/consumer-overlay.md][55]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/controlling-module-dependencies.md][56]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/automation/controlling-systemwide-deps.md][57]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/automation/cross-platform.md][58]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/automation/devbox-pipeline-parity.md][59]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/dora-explains.md][60]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/automation/dry-run.md][61]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/automation/effective-in-enterprises.md][62]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/automation/environment-variables.md][63]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/execution-engines.md][64]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/fail-fast-with-asserts.md][65]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/go/go-test-artifacts.md][66]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/go/index.md][67]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/automation/idempotent-state-functions.md][68]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/automation/internal-asset-dependencies.md][69]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/automation/log-before-invoke.md][70]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/managed-guids.md][71]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/automation/never-depend-on-pwd.md][72]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/open-closed-architecture.md][73]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/automation/path-representation.md][74]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/platform-bundle.md][1]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/automation/python/index.md][75]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/automation/python/python-test-artifacts.md][76]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/automation/retry-as-last-resort.md][77]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/sensible-defaults.md][78]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/single-responsibility-functions.md][79]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/automation/spell-out-names.md][80]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/automation/test-automation.md][81]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/automation/tool-removal-lifecycle.md][82]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/tracked-files-from-the-index.md][83]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/automation/use-proper-package-managers.md][84]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/automation/uv-python-handler.md][85]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/automation/zero-ceremony-poka-yoke.md][86]: selected by [ADR-AUTO-BUNDLE][1]: an ADR file of the `automation` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/design/commit-lifecycle.md][87]: selected by [ADR-DSGN-RUNMODE][2]: an ADR file of the `design` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/design/dora-explains.md][88]: selected by [ADR-DSGN-RUNMODE][2]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/module-aspects.md][89]: selected by [ADR-DSGN-RUNMODE][2]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/run-modes.md][2]: selected by [ADR-DSGN-RUNMODE][2]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/self-service.md][90]: selected by [ADR-DSGN-RUNMODE][2]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/server-remote-integration.md][91]: selected by [ADR-DSGN-RUNMODE][2]: an ADR file of the `design` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/design/thin-platforms.md][92]: selected by [ADR-DSGN-RUNMODE][2]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/tracks.md][93]: selected by [ADR-DSGN-RUNMODE][2]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/visual-design.md][94]: selected by [ADR-DSGN-RUNMODE][2]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/index.md][95]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 149 (text); selected by [ADR-DSGN-RUNMODE][2]: the
+- [docs/adr/automation/dora-explains.md][48]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 421 (text).
+- [docs/adr/automation/platform-bundle.md][1]: selected by [ADR-AUTO-BUNDLE][1]: the ADR's own file.
+- [docs/adr/design/dora-explains.md][49]: selected by [ADR-DSGN-RUNMODE][2]: the file cites it at line 125 (text).
+- [docs/adr/design/run-modes.md][2]: selected by [ADR-DSGN-RUNMODE][2]: the ADR's own file.
+- [docs/adr/index.md][50]: selected by [ADR-AUTO-BUNDLE][1]: the file cites it at line 149 (text); selected by [ADR-DSGN-RUNMODE][2]: the
   file cites it at line 94 (text).
 
 ### Root files × powershell (1 lit file)
 
-Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][96]); the extension `.ps1` names the file
+Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][51]); the extension `.ps1` names the file
 language powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [importer.ps1][97]: selected by [ADR-AUTO-BUNDLE][1]: a root file carries the citations of its owner module's files (files.yml), which
+- [importer.ps1][52]: selected by [ADR-AUTO-BUNDLE][1]: a root file carries the citations of its owner module's files (files.yml), which
   cite it at `automation/.internal/assets/Import-Catzc.ps1` line 6 (header); selected by [ADR-DSGN-RUNMODE][2]: a root file carries the
   citations of its owner module's files (files.yml), which cite it at `automation/.internal/assets/Import-Catzc.ps1` line 5 (header) and
   `automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1` line 1 (text).
 
 ### Root files × Unlisted files (2 lit files)
 
-Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][96]); no extension names no file language,
-so each is an unlisted file ([ADR-DSGN-TRACK#8][98]). Lit ([ADR-DSGN-TRACK#12][5]) by:
+Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][51]); no extension names no file language,
+so each is an unlisted file ([ADR-DSGN-TRACK#8][53]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [.gitattributes][99]: selected by [ADR-DSGN-RUNMODE][2]: a root file carries the citations of its owner module's files (files.yml), which
+- [.gitattributes][54]: selected by [ADR-DSGN-RUNMODE][2]: a root file carries the citations of its owner module's files (files.yml), which
   cite it at `automation/Catzc.Base.Repository/Assert-SourceTree.ps1` line 8 (header),
   `automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1` line 10 (header) and `automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1`
   line 6 (header).
-- [.gitignore][100]: selected by [ADR-DSGN-RUNMODE][2]: a root file carries the citations of its owner module's files (files.yml), which
-  cite it at `automation/Catzc.Base.Repository/Assert-SourceTree.ps1` line 8 (header),
-  `automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1` line 10 (header) and `automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1`
-  line 6 (header).
+- [.gitignore][55]: selected by [ADR-DSGN-RUNMODE][2]: a root file carries the citations of its owner module's files (files.yml), which cite
+  it at `automation/Catzc.Base.Repository/Assert-SourceTree.ps1` line 8 (header), `automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1`
+  line 10 (header) and `automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1` line 6 (header).
 
 ## Keywords
 
-- [world map][101]
-- [track][102]
-- [file language][103]
-- [cell][104]
-- [lit cell][105]
-- [root file][106]
-- [unlisted file][107]
-- [.github][108]: a track
-- [automation][108]: a track
-- [docs][108]: a track
-- [csharp][109]: a file language
-- [markdown][109]: a file language
-- [powershell][109]: a file language
-- [yaml][109]: a file language
+- [world map][56]
+- [track][57]
+- [file language][58]
+- [cell][59]
+- [lit cell][60]
+- [root file][61]
+- [unlisted file][62]
+- [.github][63]: a track
+- [automation][63]: a track
+- [docs][63]: a track
+- [csharp][64]: a file language
+- [markdown][64]: a file language
+- [powershell][64]: a file language
+- [yaml][64]: a file language
 
 [1]: ../../adr/automation/platform-bundle.md
 [2]: ../../adr/design/run-modes.md
@@ -313,65 +220,20 @@ so each is an unlisted file ([ADR-DSGN-TRACK#8][98]). Lit ([ADR-DSGN-TRACK#12][5
 [45]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
 [46]: ../../../automation/Catzc.Base.Exporter/configs/exporter.yml
 [47]: ../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
-[48]: ../../adr/automation/BCL/index.md
-[49]: ../../adr/automation/BCL/native-csharp-types.md
-[50]: ../../adr/automation/avoid-deep-nesting.md
-[51]: ../../adr/automation/bash/bash-test-artifacts.md
-[52]: ../../adr/automation/bash/index.md
-[53]: ../../adr/automation/caching.md
-[54]: ../../adr/automation/console-output-matters.md
-[55]: ../../adr/automation/consumer-overlay.md
-[56]: ../../adr/automation/controlling-module-dependencies.md
-[57]: ../../adr/automation/controlling-systemwide-deps.md
-[58]: ../../adr/automation/cross-platform.md
-[59]: ../../adr/automation/devbox-pipeline-parity.md
-[60]: ../../adr/automation/dora-explains.md
-[61]: ../../adr/automation/dry-run.md
-[62]: ../../adr/automation/effective-in-enterprises.md
-[63]: ../../adr/automation/environment-variables.md
-[64]: ../../adr/automation/execution-engines.md
-[65]: ../../adr/automation/fail-fast-with-asserts.md
-[66]: ../../adr/automation/go/go-test-artifacts.md
-[67]: ../../adr/automation/go/index.md
-[68]: ../../adr/automation/idempotent-state-functions.md
-[69]: ../../adr/automation/internal-asset-dependencies.md
-[70]: ../../adr/automation/log-before-invoke.md
-[71]: ../../adr/automation/managed-guids.md
-[72]: ../../adr/automation/never-depend-on-pwd.md
-[73]: ../../adr/automation/open-closed-architecture.md
-[74]: ../../adr/automation/path-representation.md
-[75]: ../../adr/automation/python/index.md
-[76]: ../../adr/automation/python/python-test-artifacts.md
-[77]: ../../adr/automation/retry-as-last-resort.md
-[78]: ../../adr/automation/sensible-defaults.md
-[79]: ../../adr/automation/single-responsibility-functions.md
-[80]: ../../adr/automation/spell-out-names.md
-[81]: ../../adr/automation/test-automation.md
-[82]: ../../adr/automation/tool-removal-lifecycle.md
-[83]: ../../adr/automation/tracked-files-from-the-index.md
-[84]: ../../adr/automation/use-proper-package-managers.md
-[85]: ../../adr/automation/uv-python-handler.md
-[86]: ../../adr/automation/zero-ceremony-poka-yoke.md
-[87]: ../../adr/design/commit-lifecycle.md
-[88]: ../../adr/design/dora-explains.md
-[89]: ../../adr/design/module-aspects.md
-[90]: ../../adr/design/self-service.md
-[91]: ../../adr/design/server-remote-integration.md
-[92]: ../../adr/design/thin-platforms.md
-[93]: ../../adr/design/tracks.md
-[94]: ../../adr/design/visual-design.md
-[95]: ../../adr/index.md
-[96]: ../../adr/design/tracks.md#rule-adr-dsgn-track7
-[97]: ../../../importer.ps1
-[98]: ../../adr/design/tracks.md#rule-adr-dsgn-track8
-[99]: ../../../.gitattributes
-[100]: ../../../.gitignore
-[101]: ../../adr/glossary.md#world-map
-[102]: ../../adr/glossary.md#track
-[103]: ../../adr/glossary.md#file-language
-[104]: ../../adr/glossary.md#cell
-[105]: ../../adr/glossary.md#lit-cell
-[106]: ../../adr/glossary.md#root-file
-[107]: ../../adr/glossary.md#unlisted-file
-[108]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[109]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[48]: ../../adr/automation/dora-explains.md
+[49]: ../../adr/design/dora-explains.md
+[50]: ../../adr/index.md
+[51]: ../../adr/design/tracks.md#rule-adr-dsgn-track7
+[52]: ../../../importer.ps1
+[53]: ../../adr/design/tracks.md#rule-adr-dsgn-track8
+[54]: ../../../.gitattributes
+[55]: ../../../.gitignore
+[56]: ../../adr/glossary.md#world-map
+[57]: ../../adr/glossary.md#track
+[58]: ../../adr/glossary.md#file-language
+[59]: ../../adr/glossary.md#cell
+[60]: ../../adr/glossary.md#lit-cell
+[61]: ../../adr/glossary.md#root-file
+[62]: ../../adr/glossary.md#unlisted-file
+[63]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[64]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

@@ -14,27 +14,27 @@ almost always needs splitting.
 
 ### Rule ADR-AUTO-NONEST:2
 
-Name the intermediate result — the variable name documents what the value represents (`$active` over a buried `.Where(...)`).
+Name the intermediate result — the variable name documents what the value represents (a variable named `active` over a filter buried inside
+a longer expression).
 
 - [Easier debugging](#easier-debugging)
 
 ### Rule ADR-AUTO-NONEST:3
 
-Assert between steps: once intermediate values have names, inject `Assert-*` calls to verify assumptions before the next step uses the
-value.
+Assert between steps: once intermediate values have names, inject assertions that verify assumptions before the next step uses the value.
 
 - [Room for assertions](#room-for-assertions)
 
 ### Rule ADR-AUTO-NONEST:4
 
-Give conditionals the same treatment — do not bury logic inside `if (...)`. Compute the value, optionally assert it, then test it.
+Give conditionals the same treatment — do not bury logic inside a condition. Compute the value, optionally assert it, then test it.
 
 - [Room for assertions](#room-for-assertions)
 
 ### Rule ADR-AUTO-NONEST:5
 
-Simple expressions are exempt: `Join-Path`, single property access, straightforward casts, and other operations that cannot fail in
-surprising ways do not need their own line.
+Simple expressions are exempt: a path join onto an anchor, a single property access, a straightforward cast, and other operations that
+cannot fail in surprising ways do not need their own line.
 
 - [When nesting is fine](#when-nesting-is-fine)
 
@@ -67,7 +67,9 @@ $scripts = Get-ChildItem $path -Filter '*.ps1' -Recurse | Where-Object { $_.Leng
 if ($scripts.Count -gt 5) {
 ```
 
-This is not about line length or aesthetics. Deep nesting has concrete costs for debugging, assertability, and code review.
+This is not about line length or aesthetics. Deep nesting has concrete costs for debugging, assertability, and code review. The examples
+here are PowerShell; the PowerShell spellings of the step assertions (rule 3) and of the exempt simple expressions (rule 5) are
+[powershell-formatting](../pwsh/powershell-formatting.md) (ADR-PWSH-FORMAT#8, ADR-PWSH-FORMAT#9).
 
 ### No performance cost
 

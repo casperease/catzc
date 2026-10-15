@@ -59,9 +59,8 @@ Docs read present-tense, like the code. An ADR, README, or help block describes 
 Version as a first-class contract is not legacy. Pinning an external tool, vendored module, or API version — or an explicit `schema_version`
 you own and validate — is a deliberate contract value, and versioned coexistence is legitimate there. The line from forbidden back-compat
 (ADR-PRIN-ONELIVE#2): every supported version is **equally live and intended**, owned and tested — not a deprecated shadow kept only to
-defer changing callers. Versioned contracts have a structural home: `contracts/<unit>/<version>/<module>/`
-([conventional-folders](../repository/conventional-folders.md#rule-adr-repo-folders11)), versioned with the deployable-unit that carries
-them, never with the repository as a whole.
+defer changing callers. Versioned contracts have a structural home: `contracts/<unit>/<version>/<module>/`, versioned with the
+deployable-unit that carries them, never with the repository as a whole.
 
 - [Versioned contracts](#versioned-contracts)
 

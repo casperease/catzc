@@ -16,7 +16,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 
 - .claude × markdown: 1 lit of 9 files
 - automation × yaml: 2 lit of 97 files
-- docs × markdown: 11 lit of 744 files
+- docs × markdown: 4 lit of 744 files
 
 ## Key
 
@@ -42,46 +42,32 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.Docs/configs/adrs.yml][6]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 99 (text).
 - [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][7]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 52 (text).
 
-### docs × markdown (11 lit files)
+### docs × markdown (4 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/design/commit-lifecycle.md][1]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/dora-explains.md][8]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/module-aspects.md][9]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/run-modes.md][10]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/self-service.md][11]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/server-remote-integration.md][12]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/design/thin-platforms.md][13]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/tracks.md][14]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/visual-design.md][15]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/glossary.md][16]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 149 (text).
-- [docs/adr/index.md][17]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 92 (text).
+- [docs/adr/design/commit-lifecycle.md][1]: selected by [ADR-DSGN-LIFE][1]: the ADR's own file.
+- [docs/adr/design/dora-explains.md][8]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 84 (text).
+- [docs/adr/glossary.md][9]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 149 (text).
+- [docs/adr/index.md][10]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 92 (text).
 
 ## Keywords
 
-- [world map][18]
-- [track][19]
-- [file language][20]
-- [cell][21]
-- [lit cell][22]
-- [.claude][23]: a track
-- [automation][23]: a track
-- [docs][23]: a track
-- [markdown][24]: a file language
-- [yaml][24]: a file language
+- [world map][11]
+- [track][12]
+- [file language][13]
+- [cell][14]
+- [lit cell][15]
+- [.claude][16]: a track
+- [automation][16]: a track
+- [docs][16]: a track
+- [markdown][17]: a file language
+- [yaml][17]: a file language
 
 Terms the cited ADRs define:
 
-- [occupant][25], defined by [ADR-DSGN-LIFE#5][26]
+- [occupant][18], defined by [ADR-DSGN-LIFE#5][19]
 
 [1]: ../../adr/design/commit-lifecycle.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -91,21 +77,14 @@ Terms the cited ADRs define:
 [6]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
 [7]: ../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
 [8]: ../../adr/design/dora-explains.md
-[9]: ../../adr/design/module-aspects.md
-[10]: ../../adr/design/run-modes.md
-[11]: ../../adr/design/self-service.md
-[12]: ../../adr/design/server-remote-integration.md
-[13]: ../../adr/design/thin-platforms.md
-[14]: ../../adr/design/tracks.md
-[15]: ../../adr/design/visual-design.md
-[16]: ../../adr/glossary.md
-[17]: ../../adr/index.md
-[18]: ../../adr/glossary.md#world-map
-[19]: ../../adr/glossary.md#track
-[20]: ../../adr/glossary.md#file-language
-[21]: ../../adr/glossary.md#cell
-[22]: ../../adr/glossary.md#lit-cell
-[23]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[24]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
-[25]: ../../adr/glossary.md#occupant
-[26]: ../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[9]: ../../adr/glossary.md
+[10]: ../../adr/index.md
+[11]: ../../adr/glossary.md#world-map
+[12]: ../../adr/glossary.md#track
+[13]: ../../adr/glossary.md#file-language
+[14]: ../../adr/glossary.md#cell
+[15]: ../../adr/glossary.md#lit-cell
+[16]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[17]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[18]: ../../adr/glossary.md#occupant
+[19]: ../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5

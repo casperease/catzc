@@ -87,7 +87,8 @@ function Test-IsRunningInPipeline {
 }
 ```
 
-`Test-IsRunningInPipeline` lives in `Catzc.Base.Repository`.
+`Test-IsRunningInPipeline` lives in `Catzc.Internal.Loader`, the `.internal` library that both run modes import first and keep loaded. The
+importer's C#-types pre-pass runs before any `Catzc` module loads, and it calls the same function as every module.
 
 `TF_BUILD` is set by the Azure DevOps agent on every pipeline run, and `GITHUB_ACTIONS` is set by the GitHub Actions runner. Neither is set
 interactively. Together they are the reliable signal that the code is running in CI/CD. Detection is about _which platform is running the

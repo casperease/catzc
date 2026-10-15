@@ -27,9 +27,8 @@ so the knowledge holds and is not relearned ([ADR-PRIN-NOWASTE](../principles/re
 
 ### Rule ADR-PROC-KAIZEN:4
 
-Feedback loops run continuously, at commit cadence. Every push recomputes the gates and the flow state
-([ADR-AUTO-PARITY](../automation/devbox-pipeline-parity.md), [ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)), so
-inspect-and-adapt operates on every change, not only at a sprint boundary.
+Feedback loops run continuously, at commit cadence. Every push recomputes the gates and the flow state, so inspect-and-adapt operates on
+every change, not only at a sprint boundary.
 
 - [How to apply](#how-to-apply)
 
@@ -78,7 +77,9 @@ prevents the class, then encode it where it holds ([ADR-PRIN-POKAYOKE](../princi
 [ADR-AUTO-TEST](../automation/test-automation.md)). Prefer many small adjustments driven by observed signals
 ([ADR-PROC-OBSERVEWIP](observe-work.md)) over occasional large reorganisations. When you learn something worth keeping, capture it as a
 convention, a gate, or an ADR so it is not relearned. Treat the per-push gates as the platform's built-in learning loop and let them run on
-every change, not only at a milestone.
+every change, not only at a milestone: the same gates run on the devbox and in the pipeline
+([ADR-AUTO-PARITY](../automation/devbox-pipeline-parity.md)), and every push recomputes the flow state
+([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)).
 
 ## References
 

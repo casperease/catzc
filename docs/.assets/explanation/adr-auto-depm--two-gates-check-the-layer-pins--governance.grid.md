@@ -19,7 +19,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 - automation × csharp: 15 lit of 229 files
 - automation × powershell: 336 lit of 1443 files
 - automation × yaml: 17 lit of 97 files
-- docs × markdown: 51 lit of 744 files
+- docs × markdown: 14 lit of 744 files
 - pipelines × pipeline-yaml: 1 lit of 9 files, touched
 - Root files × powershell: 1 lit of 1 file
 - Root files × Unlisted files: 2 lit of 4 files
@@ -742,122 +742,46 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml][377]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 120 (body
   comment) (a passing mention only).
 
-### docs × markdown (51 lit files)
+### docs × markdown (14 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [docs/adr/automation/BCL/index.md][378]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain of
-  that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/BCL/native-csharp-types.md][379]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/avoid-deep-nesting.md][380]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/bash/bash-test-artifacts.md][381]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the
-  ADR domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/bash/index.md][382]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain of
-  that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/caching.md][383]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain of that
-  code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/console-output-matters.md][384]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/consumer-overlay.md][385]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain
-  of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/controlling-module-dependencies.md][1]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain,
-  the ADR domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/controlling-systemwide-deps.md][386]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the
-  ADR domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/cross-platform.md][387]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain
-  of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/devbox-pipeline-parity.md][388]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/dora-explains.md][389]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain of
-  that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/dry-run.md][390]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain of that
-  code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/effective-in-enterprises.md][391]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the
-  ADR domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/environment-variables.md][392]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/execution-engines.md][393]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/fail-fast-with-asserts.md][394]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/go/go-test-artifacts.md][395]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/go/index.md][396]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain of that
-  code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/idempotent-state-functions.md][397]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the
-  ADR domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/internal-asset-dependencies.md][398]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the
-  ADR domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/log-before-invoke.md][399]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/managed-guids.md][400]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain of
-  that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/never-depend-on-pwd.md][401]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/open-closed-architecture.md][402]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the
-  ADR domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/path-representation.md][403]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/platform-bundle.md][404]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain
-  of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/python/index.md][405]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain of
-  that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/python/python-test-artifacts.md][406]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain,
-  the ADR domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/retry-as-last-resort.md][407]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/sensible-defaults.md][408]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/single-responsibility-functions.md][409]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain,
-  the ADR domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/spell-out-names.md][410]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain
-  of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/test-automation.md][2]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR domain of
-  that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/tool-removal-lifecycle.md][411]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/tracked-files-from-the-index.md][412]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain,
-  the ADR domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/use-proper-package-managers.md][413]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the
-  ADR domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/uv-python-handler.md][414]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/zero-ceremony-poka-yoke.md][415]: selected by [ADR-AUTO-DEPM][1]: an ADR file of the `automation` ADR domain, the ADR
-  domain of that code; selected by [ADR-AUTO-TEST][2]: an ADR file of the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/glossary.md][416]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 329 (text), line 367 (text), line 378 (text), line
+- [docs/adr/automation/controlling-module-dependencies.md][1]: selected by [ADR-AUTO-DEPM][1]: the ADR's own file.
+- [docs/adr/automation/dora-explains.md][378]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 349 (text); selected by
+  [ADR-AUTO-TEST][2]: the file cites it at line 142 (text).
+- [docs/adr/automation/test-automation.md][2]: selected by [ADR-AUTO-TEST][2]: the ADR's own file.
+- [docs/adr/glossary.md][379]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 329 (text), line 367 (text), line 378 (text), line
   413 (text), line 459 (text), line 477 (text), line 489 (text), line 503 (text), line 525 (text), line 539 (text), line 550 (text) and line
   570 (text).
-- [docs/adr/index.md][417]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 145 (text); selected by [ADR-AUTO-TEST][2]: the file
+- [docs/adr/index.md][380]: selected by [ADR-AUTO-DEPM][1]: the file cites it at line 145 (text); selected by [ADR-AUTO-TEST][2]: the file
   cites it at line 133 (text).
-- [docs/how-to/automation/manual-test-plan.md][418]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 56 (text) and line 62 (text).
-- [docs/how-to/automation/manual-test-plan/azure.md][419]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 17 (text) and line 69
+- [docs/how-to/automation/manual-test-plan.md][381]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 56 (text) and line 62 (text).
+- [docs/how-to/automation/manual-test-plan/azure.md][382]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 17 (text) and line 69
   (text).
-- [docs/how-to/automation/manual-test-plan/test-harness.md][420]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 17 (text).
-- [docs/how-to/getting-started/automation/run-tests-and-checks.md][421]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 33
+- [docs/how-to/automation/manual-test-plan/test-harness.md][383]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 17 (text).
+- [docs/how-to/getting-started/automation/run-tests-and-checks.md][384]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 33
   (text).
-- [docs/references/automation/catzc-base-docs.md][422]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 34 (text).
-- [docs/references/automation/catzc-base-globs.md][423]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 44 (text).
-- [docs/references/automation/catzc-base-languages.md][424]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 39 (text).
-- [docs/references/automation/catzc-base-modulesystem.md][425]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 36 (text).
-- [docs/references/automation/catzc-base-rootconfig.md][426]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 50 (text).
+- [docs/references/automation/catzc-base-docs.md][385]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 34 (text).
+- [docs/references/automation/catzc-base-globs.md][386]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 44 (text).
+- [docs/references/automation/catzc-base-languages.md][387]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 39 (text).
+- [docs/references/automation/catzc-base-modulesystem.md][388]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 36 (text).
+- [docs/references/automation/catzc-base-rootconfig.md][389]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 50 (text).
 
 ### pipelines × pipeline-yaml (1 lit file, touched)
 
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][3]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pipelines/ci-infrastructure.yaml][427]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 68 (body comment) (a passing mention
+- [pipelines/ci-infrastructure.yaml][390]: selected by [ADR-AUTO-TEST][2]: the file cites it at line 68 (body comment) (a passing mention
   only).
 
 ### Root files × powershell (1 lit file)
 
-Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][428]); the extension `.ps1` names the file
+Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][391]); the extension `.ps1` names the file
 language powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [importer.ps1][429]: selected by [ADR-AUTO-TEST][2]: a root file carries the citations of its owner module's files (files.yml), which cite
+- [importer.ps1][392]: selected by [ADR-AUTO-TEST][2]: a root file carries the citations of its owner module's files (files.yml), which cite
   it at `automation/.internal/tests/Import-AllModules.Tests.ps1` line 206 (body comment),
   `automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1` line 1 (text), `automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1` line 80
   (text), `automation/.internal/tests/Restart-ImporterSession.Tests.ps1` line 5 (header) and
@@ -865,49 +789,49 @@ language powershell ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
 ### Root files × Unlisted files (2 lit files)
 
-Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][428]); no extension names no file language,
-so each is an unlisted file ([ADR-DSGN-TRACK#8][430]). Lit ([ADR-DSGN-TRACK#12][5]) by:
+Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][391]); no extension names no file language,
+so each is an unlisted file ([ADR-DSGN-TRACK#8][393]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [.gitattributes][431]: selected by [ADR-AUTO-TEST][2]: a root file carries the citations of its owner module's files (files.yml), which
+- [.gitattributes][394]: selected by [ADR-AUTO-TEST][2]: a root file carries the citations of its owner module's files (files.yml), which
   cite it at `automation/Catzc.Base.Repository/tests/Get-RepositoryFile.Tests.ps1` line 2 (header) and
   `automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1` line 2 (header).
-- [.gitignore][432]: selected by [ADR-AUTO-TEST][2]: a root file carries the citations of its owner module's files (files.yml), which cite
+- [.gitignore][395]: selected by [ADR-AUTO-TEST][2]: a root file carries the citations of its owner module's files (files.yml), which cite
   it at `automation/Catzc.Base.Repository/tests/Get-RepositoryFile.Tests.ps1` line 2 (header) and
   `automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1` line 2 (header).
 
 ## Keywords
 
-- [world map][433]
-- [track][434]
-- [file language][435]
-- [cell][436]
-- [lit cell][437]
-- [root file][438]
-- [unlisted file][439]
-- [.claude][440]: a track
-- [automation][440]: a track
-- [docs][440]: a track
-- [pipelines][440]: a track
-- [csharp][441]: a file language
-- [markdown][441]: a file language
-- [pipeline-yaml][441]: a file language
-- [powershell][441]: a file language
-- [yaml][441]: a file language
+- [world map][396]
+- [track][397]
+- [file language][398]
+- [cell][399]
+- [lit cell][400]
+- [root file][401]
+- [unlisted file][402]
+- [.claude][403]: a track
+- [automation][403]: a track
+- [docs][403]: a track
+- [pipelines][403]: a track
+- [csharp][404]: a file language
+- [markdown][404]: a file language
+- [pipeline-yaml][404]: a file language
+- [powershell][404]: a file language
+- [yaml][404]: a file language
 
 Terms the cited ADRs define:
 
-- [all tests][442], defined by [ADR-AUTO-TEST#36][443]
-- [build verification test][444], defined by [ADR-AUTO-TEST#24][445]
-- [category][446], defined by [ADR-AUTO-TEST#1][447]
-- [phase][448], defined by [ADR-AUTO-TEST#26][449]
-- [quality gate][450], defined by [ADR-AUTO-TEST#35][451]
-- [test][452], defined by [ADR-AUTO-TEST#42][453]
-- [test file][454], defined by [ADR-AUTO-TEST#43][455]
-- [test run][456], defined by [ADR-AUTO-TEST#34][457]
-- [test suite][458], defined by [ADR-AUTO-TEST#37][459]
-- [testing in production][460], defined by [ADR-AUTO-TEST#41][461]
-- [tier][462], defined by [ADR-AUTO-TEST#13][463]
-- [vertical test][464], defined by [ADR-AUTO-TEST#38][465]
+- [all tests][405], defined by [ADR-AUTO-TEST#36][406]
+- [build verification test][407], defined by [ADR-AUTO-TEST#24][408]
+- [category][409], defined by [ADR-AUTO-TEST#1][410]
+- [phase][411], defined by [ADR-AUTO-TEST#26][412]
+- [quality gate][413], defined by [ADR-AUTO-TEST#35][414]
+- [test][415], defined by [ADR-AUTO-TEST#42][416]
+- [test file][417], defined by [ADR-AUTO-TEST#43][418]
+- [test run][419], defined by [ADR-AUTO-TEST#34][420]
+- [test suite][421], defined by [ADR-AUTO-TEST#37][422]
+- [testing in production][423], defined by [ADR-AUTO-TEST#41][424]
+- [tier][425], defined by [ADR-AUTO-TEST#13][426]
+- [vertical test][427], defined by [ADR-AUTO-TEST#38][428]
 
 [1]: ../../adr/automation/controlling-module-dependencies.md
 [2]: ../../adr/automation/test-automation.md
@@ -1286,91 +1210,54 @@ Terms the cited ADRs define:
 [375]: ../../../automation/Catzc.Base.QualityGates/configs/test-policy.yml
 [376]: ../../../automation/Catzc.Base.Reports/configs/reports.yml
 [377]: ../../../automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
-[378]: ../../adr/automation/BCL/index.md
-[379]: ../../adr/automation/BCL/native-csharp-types.md
-[380]: ../../adr/automation/avoid-deep-nesting.md
-[381]: ../../adr/automation/bash/bash-test-artifacts.md
-[382]: ../../adr/automation/bash/index.md
-[383]: ../../adr/automation/caching.md
-[384]: ../../adr/automation/console-output-matters.md
-[385]: ../../adr/automation/consumer-overlay.md
-[386]: ../../adr/automation/controlling-systemwide-deps.md
-[387]: ../../adr/automation/cross-platform.md
-[388]: ../../adr/automation/devbox-pipeline-parity.md
-[389]: ../../adr/automation/dora-explains.md
-[390]: ../../adr/automation/dry-run.md
-[391]: ../../adr/automation/effective-in-enterprises.md
-[392]: ../../adr/automation/environment-variables.md
-[393]: ../../adr/automation/execution-engines.md
-[394]: ../../adr/automation/fail-fast-with-asserts.md
-[395]: ../../adr/automation/go/go-test-artifacts.md
-[396]: ../../adr/automation/go/index.md
-[397]: ../../adr/automation/idempotent-state-functions.md
-[398]: ../../adr/automation/internal-asset-dependencies.md
-[399]: ../../adr/automation/log-before-invoke.md
-[400]: ../../adr/automation/managed-guids.md
-[401]: ../../adr/automation/never-depend-on-pwd.md
-[402]: ../../adr/automation/open-closed-architecture.md
-[403]: ../../adr/automation/path-representation.md
-[404]: ../../adr/automation/platform-bundle.md
-[405]: ../../adr/automation/python/index.md
-[406]: ../../adr/automation/python/python-test-artifacts.md
-[407]: ../../adr/automation/retry-as-last-resort.md
-[408]: ../../adr/automation/sensible-defaults.md
-[409]: ../../adr/automation/single-responsibility-functions.md
-[410]: ../../adr/automation/spell-out-names.md
-[411]: ../../adr/automation/tool-removal-lifecycle.md
-[412]: ../../adr/automation/tracked-files-from-the-index.md
-[413]: ../../adr/automation/use-proper-package-managers.md
-[414]: ../../adr/automation/uv-python-handler.md
-[415]: ../../adr/automation/zero-ceremony-poka-yoke.md
-[416]: ../../adr/glossary.md
-[417]: ../../adr/index.md
-[418]: ../../how-to/automation/manual-test-plan.md
-[419]: ../../how-to/automation/manual-test-plan/azure.md
-[420]: ../../how-to/automation/manual-test-plan/test-harness.md
-[421]: ../../how-to/getting-started/automation/run-tests-and-checks.md
-[422]: ../../references/automation/catzc-base-docs.md
-[423]: ../../references/automation/catzc-base-globs.md
-[424]: ../../references/automation/catzc-base-languages.md
-[425]: ../../references/automation/catzc-base-modulesystem.md
-[426]: ../../references/automation/catzc-base-rootconfig.md
-[427]: ../../../pipelines/ci-infrastructure.yaml
-[428]: ../../adr/design/tracks.md#rule-adr-dsgn-track7
-[429]: ../../../importer.ps1
-[430]: ../../adr/design/tracks.md#rule-adr-dsgn-track8
-[431]: ../../../.gitattributes
-[432]: ../../../.gitignore
-[433]: ../../adr/glossary.md#world-map
-[434]: ../../adr/glossary.md#track
-[435]: ../../adr/glossary.md#file-language
-[436]: ../../adr/glossary.md#cell
-[437]: ../../adr/glossary.md#lit-cell
-[438]: ../../adr/glossary.md#root-file
-[439]: ../../adr/glossary.md#unlisted-file
-[440]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[441]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
-[442]: ../../adr/glossary.md#all-tests
-[443]: ../../adr/automation/test-automation.md#rule-adr-auto-test36
-[444]: ../../adr/glossary.md#build-verification-test
-[445]: ../../adr/automation/test-automation.md#rule-adr-auto-test24
-[446]: ../../adr/glossary.md#category
-[447]: ../../adr/automation/test-automation.md#rule-adr-auto-test1
-[448]: ../../adr/glossary.md#phase
-[449]: ../../adr/automation/test-automation.md#rule-adr-auto-test26
-[450]: ../../adr/glossary.md#quality-gate
-[451]: ../../adr/automation/test-automation.md#rule-adr-auto-test35
-[452]: ../../adr/glossary.md#test
-[453]: ../../adr/automation/test-automation.md#rule-adr-auto-test42
-[454]: ../../adr/glossary.md#test-file
-[455]: ../../adr/automation/test-automation.md#rule-adr-auto-test43
-[456]: ../../adr/glossary.md#test-run
-[457]: ../../adr/automation/test-automation.md#rule-adr-auto-test34
-[458]: ../../adr/glossary.md#test-suite
-[459]: ../../adr/automation/test-automation.md#rule-adr-auto-test37
-[460]: ../../adr/glossary.md#testing-in-production
-[461]: ../../adr/automation/test-automation.md#rule-adr-auto-test41
-[462]: ../../adr/glossary.md#tier
-[463]: ../../adr/automation/test-automation.md#rule-adr-auto-test13
-[464]: ../../adr/glossary.md#vertical-test
-[465]: ../../adr/automation/test-automation.md#rule-adr-auto-test38
+[378]: ../../adr/automation/dora-explains.md
+[379]: ../../adr/glossary.md
+[380]: ../../adr/index.md
+[381]: ../../how-to/automation/manual-test-plan.md
+[382]: ../../how-to/automation/manual-test-plan/azure.md
+[383]: ../../how-to/automation/manual-test-plan/test-harness.md
+[384]: ../../how-to/getting-started/automation/run-tests-and-checks.md
+[385]: ../../references/automation/catzc-base-docs.md
+[386]: ../../references/automation/catzc-base-globs.md
+[387]: ../../references/automation/catzc-base-languages.md
+[388]: ../../references/automation/catzc-base-modulesystem.md
+[389]: ../../references/automation/catzc-base-rootconfig.md
+[390]: ../../../pipelines/ci-infrastructure.yaml
+[391]: ../../adr/design/tracks.md#rule-adr-dsgn-track7
+[392]: ../../../importer.ps1
+[393]: ../../adr/design/tracks.md#rule-adr-dsgn-track8
+[394]: ../../../.gitattributes
+[395]: ../../../.gitignore
+[396]: ../../adr/glossary.md#world-map
+[397]: ../../adr/glossary.md#track
+[398]: ../../adr/glossary.md#file-language
+[399]: ../../adr/glossary.md#cell
+[400]: ../../adr/glossary.md#lit-cell
+[401]: ../../adr/glossary.md#root-file
+[402]: ../../adr/glossary.md#unlisted-file
+[403]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[404]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[405]: ../../adr/glossary.md#all-tests
+[406]: ../../adr/automation/test-automation.md#rule-adr-auto-test36
+[407]: ../../adr/glossary.md#build-verification-test
+[408]: ../../adr/automation/test-automation.md#rule-adr-auto-test24
+[409]: ../../adr/glossary.md#category
+[410]: ../../adr/automation/test-automation.md#rule-adr-auto-test1
+[411]: ../../adr/glossary.md#phase
+[412]: ../../adr/automation/test-automation.md#rule-adr-auto-test26
+[413]: ../../adr/glossary.md#quality-gate
+[414]: ../../adr/automation/test-automation.md#rule-adr-auto-test35
+[415]: ../../adr/glossary.md#test
+[416]: ../../adr/automation/test-automation.md#rule-adr-auto-test42
+[417]: ../../adr/glossary.md#test-file
+[418]: ../../adr/automation/test-automation.md#rule-adr-auto-test43
+[419]: ../../adr/glossary.md#test-run
+[420]: ../../adr/automation/test-automation.md#rule-adr-auto-test34
+[421]: ../../adr/glossary.md#test-suite
+[422]: ../../adr/automation/test-automation.md#rule-adr-auto-test37
+[423]: ../../adr/glossary.md#testing-in-production
+[424]: ../../adr/automation/test-automation.md#rule-adr-auto-test41
+[425]: ../../adr/glossary.md#tier
+[426]: ../../adr/automation/test-automation.md#rule-adr-auto-test13
+[427]: ../../adr/glossary.md#vertical-test
+[428]: ../../adr/automation/test-automation.md#rule-adr-auto-test38

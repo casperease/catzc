@@ -21,8 +21,7 @@ build, or the first line of execution — never at production time and never sil
 ### Rule ADR-PROC-BUILTIN:3
 
 Tests and quality gates are part of producing the work, not a checkpoint bolted on after it. They run identically on the devbox and in the
-pipeline and must agree ([ADR-AUTO-PARITY](../automation/devbox-pipeline-parity.md), [ADR-AUTO-TEST](../automation/test-automation.md)), so
-quality is proven where the work is done.
+pipeline and must agree, so quality is proven where the work is done.
 
 - [How to apply](#how-to-apply)
 

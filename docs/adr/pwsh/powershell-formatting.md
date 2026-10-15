@@ -6,9 +6,8 @@
 
 ### Rule ADR-PWSH-FORMAT:1
 
-PowerShell formatting builds on the repo-wide [uniform-formatting](../repository/uniform-formatting.md) baseline and adds the
-PowerShell-specific rules below, enforced by PSScriptAnalyzer (`PSScriptAnalyzerSettings.psd1`) plus custom analyzer rules, run in the L2
-tests.
+PowerShell formatting builds on the repo-wide uniform-formatting baseline ([Context](#context)) and adds the PowerShell-specific rules
+below, enforced by PSScriptAnalyzer (`PSScriptAnalyzerSettings.psd1`) plus custom analyzer rules, run in the L2 tests.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -56,9 +55,25 @@ The analyzer→ADR mapping — the source for the `pssa-rule` enforcer kind — 
 each enabled analyzer rule (a custom `Measure-*` rule or an enabled built-in) mapped to the citation(s) it enforces. Its shape is validated
 at load (its config type, `AnalyzerAdrMapConfig`); the `Test-AnalyzerAdrMap` quality gate checks that every mapped id resolves to a real
 rule and that **every custom analyzer rule is mapped**, and an **integrity test** runs it, so a new custom rule cannot ship unmapped and a
-renumber breaks the build. Id existence is checked by that gate, not at load, keeping config load hermetic (the ADR-AZ-CUSTOMER#3 pattern).
+renumber breaks the build. Id existence is checked by that gate, not at load, keeping config load hermetic.
 
 - [The analyzer map](#the-analyzer-map)
+
+### Rule ADR-PWSH-FORMAT:8
+
+The step assertions of [ADR-AUTO-NONEST#3](../automation/avoid-deep-nesting.md#rule-adr-auto-nonest3) are `Assert-*` calls on the named
+intermediate, on the line after the step that produced it. Inside a pipeline that must stay one statement, `Assert-PipelineCount` asserts
+mid-pipeline and passes the items through.
+
+- [Flat steps](#flat-steps)
+
+### Rule ADR-PWSH-FORMAT:9
+
+The simple expressions [ADR-AUTO-NONEST#5](../automation/avoid-deep-nesting.md#rule-adr-auto-nonest5) exempts are, in PowerShell, a
+`Join-Path` onto an anchor, a single property access (`$moduleDir.Name`), a straightforward cast, and a short pipeline of two obvious stages
+(`Get-ChildItem … | Select-Object -ExpandProperty FullName`).
+
+- [Flat steps](#flat-steps)
 
 ## Context
 
@@ -137,7 +152,27 @@ A PSScriptAnalyzer rule that fails the build enforces an ADR rule on every run, 
 [test-automation](../automation/test-automation.md#provenance-and-rule-coverage) counts it as an enforcer beside the tagged tests. The map
 from analyzer rule to citation sits with the analyzer quality gate (`Test-ScriptAnalyzer`) that runs those rules, not with the test runner:
 a custom rule is added here, in `automation/.scriptanalyzer/`, and its entry in `analyzer-adr-map.yml` is part of the same change.
-`Test-AnalyzerAdrMap` keeps the two in step — an unmapped custom rule, or a mapped id that no ADR declares, fails it.
+`Test-AnalyzerAdrMap` keeps the two in step — an unmapped custom rule, or a mapped id that no ADR declares, fails it. Checking id existence
+in the gate rather than at config load is the same split the Azure customer catalogue uses
+([azure-customer-model](../azure/azure-customer-model.md#rule-adr-az-customer3)): the load stays hermetic, and the cross-reference is a
+quality gate.
+
+### Flat steps
+
+[avoid-deep-nesting](../automation/avoid-deep-nesting.md) fixes the doctrine: one operation per line, intermediate results named, assertions
+between the steps, and simple expressions exempt. In PowerShell a step's assertion is an `Assert-*` call on the variable the step assigned
+([fail-fast-with-asserts](../automation/fail-fast-with-asserts.md)), and `Assert-PipelineCount` is the one assertion written inside a
+pipeline, because it passes its input through:
+
+```powershell
+$config = Get-Content $path | ConvertFrom-Json
+Assert-HaveProperty $config 'Items'
+
+$active = $config.Items.Where({ $_.Status -eq 'Active' }) | Assert-PipelineCount -Minimum 1
+```
+
+A `Join-Path` onto an anchor, a single property access, a cast, and a two-stage pipeline read naturally inline; they cannot fail in a way a
+named intermediate would explain.
 
 ## Decision
 

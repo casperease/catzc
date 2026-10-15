@@ -17,7 +17,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 - automation × csharp: 3 lit of 229 files
 - automation × powershell: 7 lit of 1443 files
 - automation × yaml: 4 lit of 97 files
-- docs × markdown: 27 lit of 744 files
+- docs × markdown: 4 lit of 744 files
 
 ## Key
 
@@ -71,73 +71,29 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.Docs/configs/adrs.yml][17]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 269 (text).
 - [automation/Catzc.Base.Variants/configs/variants.yml][18]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 7 (header).
 
-### docs × markdown (27 lit files)
+### docs × markdown (4 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/azure/az-session-verification.md][19]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/azure-customer-model.md][20]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/azure-data-model.md][21]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/azure/azure-naming-standard.md][1]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/azure-network-model.md][22]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/azure/caf/billing-and-tenant.md][23]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/caf/design-principles.md][24]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/caf/governance.md][25]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/azure/caf/identity-and-access.md][26]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/caf/landing-zone-security.md][27]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/azure/caf/management.md][28]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/azure/caf/naming-and-tagging.md][29]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/caf/network-connectivity.md][30]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/caf/network-private-access.md][31]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/azure/caf/network-topology.md][32]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/caf/platform-automation-and-devops.md][33]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/azure/caf/resource-organization.md][34]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/azure/dora-explains.md][35]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of that code.
-- [docs/adr/azure/landing-zones.md][36]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of that code.
-- [docs/adr/azure/prefer-az-cli.md][37]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of that code.
-- [docs/adr/azure/waf/cost-optimization.md][38]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/waf/operational-excellence.md][39]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/azure/waf/performance-efficiency.md][40]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/azure/waf/reliability.md][41]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/azure/waf/security.md][42]: selected by [ADR-AZ-NAMING][1]: an ADR file of the `azure` ADR domain, the ADR domain of that code.
-- [docs/adr/index.md][43]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 15 (text) and line 251 (text).
-- [docs/how-to/getting-started/automation/add-a-doc-chapter.md][44]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 69 (text).
+- [docs/adr/azure/azure-naming-standard.md][1]: selected by [ADR-AZ-NAMING][1]: the ADR's own file.
+- [docs/adr/azure/dora-explains.md][19]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 45 (text).
+- [docs/adr/index.md][20]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 15 (text) and line 251 (text).
+- [docs/how-to/getting-started/automation/add-a-doc-chapter.md][21]: selected by [ADR-AZ-NAMING][1]: the file cites it at line 69 (text).
 
 ## Keywords
 
-- [world map][45]
-- [track][46]
-- [file language][47]
-- [cell][48]
-- [lit cell][49]
+- [world map][22]
+- [track][23]
+- [file language][24]
+- [cell][25]
+- [lit cell][26]
 - [automation][18]: a track
 - [docs][18]: a track
-- [csharp][50]: a file language
-- [markdown][50]: a file language
-- [powershell][50]: a file language
-- [yaml][50]: a file language
+- [csharp][27]: a file language
+- [markdown][27]: a file language
+- [powershell][27]: a file language
+- [yaml][27]: a file language
 
 [1]: ../../adr/azure/azure-naming-standard.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -157,35 +113,12 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 [16]: ../../../automation/Catzc.Azure/configs/customer.yml
 [17]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
 [18]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[19]: ../../adr/azure/az-session-verification.md
-[20]: ../../adr/azure/azure-customer-model.md
-[21]: ../../adr/azure/azure-data-model.md
-[22]: ../../adr/azure/azure-network-model.md
-[23]: ../../adr/azure/caf/billing-and-tenant.md
-[24]: ../../adr/azure/caf/design-principles.md
-[25]: ../../adr/azure/caf/governance.md
-[26]: ../../adr/azure/caf/identity-and-access.md
-[27]: ../../adr/azure/caf/landing-zone-security.md
-[28]: ../../adr/azure/caf/management.md
-[29]: ../../adr/azure/caf/naming-and-tagging.md
-[30]: ../../adr/azure/caf/network-connectivity.md
-[31]: ../../adr/azure/caf/network-private-access.md
-[32]: ../../adr/azure/caf/network-topology.md
-[33]: ../../adr/azure/caf/platform-automation-and-devops.md
-[34]: ../../adr/azure/caf/resource-organization.md
-[35]: ../../adr/azure/dora-explains.md
-[36]: ../../adr/azure/landing-zones.md
-[37]: ../../adr/azure/prefer-az-cli.md
-[38]: ../../adr/azure/waf/cost-optimization.md
-[39]: ../../adr/azure/waf/operational-excellence.md
-[40]: ../../adr/azure/waf/performance-efficiency.md
-[41]: ../../adr/azure/waf/reliability.md
-[42]: ../../adr/azure/waf/security.md
-[43]: ../../adr/index.md
-[44]: ../../how-to/getting-started/automation/add-a-doc-chapter.md
-[45]: ../../adr/glossary.md#world-map
-[46]: ../../adr/glossary.md#track
-[47]: ../../adr/glossary.md#file-language
-[48]: ../../adr/glossary.md#cell
-[49]: ../../adr/glossary.md#lit-cell
-[50]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[19]: ../../adr/azure/dora-explains.md
+[20]: ../../adr/index.md
+[21]: ../../how-to/getting-started/automation/add-a-doc-chapter.md
+[22]: ../../adr/glossary.md#world-map
+[23]: ../../adr/glossary.md#track
+[24]: ../../adr/glossary.md#file-language
+[25]: ../../adr/glossary.md#cell
+[26]: ../../adr/glossary.md#lit-cell
+[27]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

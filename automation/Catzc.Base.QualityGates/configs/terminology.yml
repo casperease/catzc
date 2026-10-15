@@ -517,7 +517,7 @@ terms:
     - term: mytem
       meaning: "derived short_name of the 'my-template' example in the naming-standard ADR"
     - term: myvalue
-      meaning: "invented placeholder token cited as a bad example in the spell-out-names ADR (ADR-PWSH-NAMES:4)"
+      meaning: "invented placeholder token cited as a bad example in the spell-out-names ADR (ADR-PWSH-NAMES#4)"
     - term: myvar
       meaning: "placeholder variable name 'myvar' in examples"
     - term: objout
@@ -1095,6 +1095,8 @@ terms:
     - term: mingw
       meaning: "the MinGW toolchain — the mingw64 directory inside a Git for Windows install"
   powershell:
+    - term: csplit
+      meaning: "the PowerShell parser's TokenKind member for the -csplit operator, named in NoUnsafeFirstIndex"
     - term: cmdlet
       meaning: "PowerShell cmdlet"
     - term: cmdlets

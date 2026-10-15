@@ -39,8 +39,8 @@ length budget, and which env/customer form is used.
 
 ### Rule ADR-AZ-NAMING:5
 
-Component order is the `ado_naming` repo variant (`Get-AdoNaming`, default `standard`; see [repo-variants](../repository/repo-variants.md)),
-not a per-name argument; changing it re-spells every derived name.
+Component order is the `ado_naming` repo variant (`Get-AdoNaming`, default `standard`), not a per-name argument; changing it re-spells every
+derived name.
 
 - [Ordering & render forms](#ordering--render-forms)
 

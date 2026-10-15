@@ -21,8 +21,8 @@ clauses with early returns make re-runs seamless and spare callers from handling
 
 ### Rule ADR-AUTO-IDEM:3
 
-Prefer overwrite over append. Use `Set-Content` not `Add-Content`, `PUT` not `POST`, create-or-update over create-only. Appending is
-inherently non-idempotent.
+Prefer overwrite over append. Write the whole desired content rather than adding to what is there, `PUT` not `POST`, create-or-update over
+create-only. Appending is inherently non-idempotent.
 
 - [Idempotency patterns](#idempotency-patterns)
 
@@ -35,8 +35,8 @@ returns the SP object whether it created it or found it already present.
 
 ### Rule ADR-AUTO-IDEM:5
 
-Document the idempotency contract. A function's comment-based help should state that it is idempotent, and note when it wraps a
-non-idempotent external command.
+Document the idempotency contract. A function's help states that it is idempotent, and notes when it wraps a non-idempotent external
+command.
 
 - [Where it applies](#where-it-applies)
 
@@ -162,6 +162,14 @@ function Install-Tool {
 
 All state-changing functions (`Install-*`, `Set-*`, `New-*`, `Remove-*`, `Update-*`) must be idempotent. Running them multiple times with
 the same arguments must produce the same system state as running them once.
+
+### The language layer
+
+`How each engine writes the patterns`
+
+The rules above hold for every execution engine. How one engine writes them — which of its commands overwrite and which append, what a
+switch that redoes the work means, how both paths of a function return the same result, and where the contract is written — is the language
+layer for that engine. For pwsh it is [idempotent-state-mechanics](../pwsh/idempotent-state-mechanics.md) (`ADR-PWSH-IDEM`).
 
 ## Consequences
 

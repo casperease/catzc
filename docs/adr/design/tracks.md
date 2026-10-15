@@ -8,8 +8,8 @@
 
 A **track** is a named repository root concern, mapped onto exactly one root folder and named by that folder: `automation`,
 `infrastructure`, `pipelines`, `docs`, `contracts`, `go`, `python`, `bash`, `.github`, `.cspell`, and `.claude`. Every root folder git
-tracks a file under names a track (`ADR-REPO-FOLDERS`), except `out/`, which holds gitignored output (`ADR-REPO-OUTDIR`); a track never
-spans two roots, and a root never carries two tracks. Tracks are what this mono repository is composed of.
+tracks a file under names a track, except `out/`, which holds gitignored output; a track never spans two roots, and a root never carries two
+tracks. Tracks are what this mono repository is composed of.
 
 - [What a track is](#what-a-track-is)
 
@@ -21,12 +21,11 @@ that read its files, `docs` for its readers, and the dot-roots `.github`, `.cspe
 **adapter** (adapts the core to a delivery target — `infrastructure`, with its Bicep modules and named templates, and `pipelines`, the
 delivery machines the deployable-units bind to), or **verification**. A **verification track** is a test-only track: it verifies the core
 from outside, ships nothing, and is out of every bundle by construction, because it lies outside `automation/`, where the builder reads its
-modules. `go`, the Go black-box tests ([go-test-artifacts](../automation/go/go-test-artifacts.md)), is the first; a repository without a
-`go/` root keeps the same tests in the dot-prefixed `.go`, which is of the same class. `python`, the Python black-box tests
-([python-test-artifacts](../automation/python/python-test-artifacts.md)), is the second, by the same convention: `.python` when the
-repository has no `python/` root. `bash`, the Bash black-box tests ([bash-test-artifacts](../automation/bash/bash-test-artifacts.md)), is
-the third: `.bash` when the repository has no `bash/` root. Cross-cutting slices (e.g. the cats configs — every yml/config file across
-automation) are **scopes over tracks**, not tracks: they select through the roots rather than owning one.
+modules. `go`, the Go black-box tests, is the first; a repository without a `go/` root keeps the same tests in the dot-prefixed `.go`, which
+is of the same class. `python`, the Python black-box tests, is the second, by the same convention: `.python` when the repository has no
+`python/` root. `bash`, the Bash black-box tests, is the third: `.bash` when the repository has no `bash/` root. Cross-cutting slices (e.g.
+the cats configs — every yml/config file across automation) are **scopes over tracks**, not tracks: they select through the roots rather
+than owning one.
 
 - [The taxonomy](#the-taxonomy)
 
@@ -43,9 +42,9 @@ services and C# function apps.
 ### Rule ADR-DSGN-TRACK:4
 
 Tracks are **subscribable, never path-coupled**: a consumer binds to a track through its module dependencies (depm — dependencies between
-modules, never on systems) or through its globset's native trigger projection (`ADR-FLOW-CD-GLOBS`), never by hand-matching the track's
-source paths. The globsets are the source of truth that coordinates "which tracks and deployable-units carry changes in this commit" —
-computed from git, the mechanism that keeps a change in one track from rebuilding every customer of every other track.
+modules, never on systems) or through its globset's native trigger projection, never by hand-matching the track's source paths. The globsets
+are the source of truth that coordinates "which tracks and deployable-units carry changes in this commit" — computed from git, the mechanism
+that keeps a change in one track from rebuilding every customer of every other track.
 
 - [Subscription and coordination](#subscription-and-coordination)
 
@@ -117,10 +116,10 @@ holding one of them is lit; on the value-chain map, an ADR code, or one of its r
 
 ### Rule ADR-DSGN-TRACK:13
 
-Every label the world map prints names a defined term (ADR-REPO-VOCAB#1) in its head, the text before its first colon: each title, each axis
-header, the header of each catch-all row or column, and each legend entry; the row and column names are tracks and file languages. A concept
-the map prints gets its defining rule and its glossary entry before the map prints it, and a label is never reworded to slip past the check.
-The `Test-WorldMap` quality gate checks it.
+Every label the world map prints names a defined term in its head, the text before its first colon: each title, each axis header, the header
+of each catch-all row or column, and each legend entry; the row and column names are tracks and file languages. A concept the map prints
+gets its defining rule and its glossary entry before the map prints it, and a label is never reworded to slip past the check. The
+`Test-WorldMap` quality gate checks it.
 
 - [The world map](#the-world-map)
 
@@ -170,8 +169,9 @@ The unit of "concern" in this repository is the root folder. `automation/` is th
 `pipelines/` holds the delivery pipelines; `docs/` is the documentation; `contracts/` is the repository boundary's binding contracts, in
 both directions; each `.<foldername>` configures exactly one external system (the repository's boundary for that concern). `out/` is a root
 folder but not a concern: it holds the output every run writes, gitignored (`ADR-REPO-OUTDIR`). Naming the concept makes the mapping
-normative: the folder is the registration, the folder name is the track name, and asking "which track does this file belong to?" always has
-exactly one answer. That single-answer property is what every consumer below builds on.
+normative: the folder is the registration (the root folders and their conventions are `ADR-REPO-FOLDERS`), the folder name is the track
+name, and asking "which track does this file belong to?" always has exactly one answer. That single-answer property is what every consumer
+below builds on.
 
 ### The taxonomy
 
@@ -182,7 +182,9 @@ dot-roots (`.github/`, `.cspell/`, `.claude/`) for the tools that read them. **A
 target — `infrastructure/` adapts to Azure through Bicep modules and named templates, and `pipelines/` adapts to Azure DevOps: each pipeline
 is a deployable-unit's delivery machine, and it runs the core through one runner script. **Verification** tracks test the core from outside
 and deliver nothing: `go/` holds black-box tests that start the engine as a process and assert on what it prints, so its files are never
-part of a deployable-unit's output, and no bundle can hold them. The taxonomy earns its keep in review: a proposed root that is none of
+part of a deployable-unit's output, and no bundle can hold them. The three verification tracks have their own ADRs:
+[go-test-artifacts](../automation/go/go-test-artifacts.md), [python-test-artifacts](../automation/python/python-test-artifacts.md), and
+[bash-test-artifacts](../automation/bash/bash-test-artifacts.md). The taxonomy earns its keep in review: a proposed root that is none of
 these is probably a subfolder of an existing track, and a cross-cutting need (all config files, all markdown) is a **scope** — a globset
 selecting through tracks — not a new root.
 
@@ -240,9 +242,10 @@ The rules above make the repository countable, and the world map is the count dr
 languages, so a reader sees at a glance which track holds which kinds of text and how much of each. A cell is where one track meets one file
 language, and its shade says how many files sit there. A stack violation is marked on its cell, because the place is the finding: it says
 which track holds the second stack and in which language. A highlight lights the cells an ADR governs or a change touches, so the same
-picture answers "where does this decision apply" and "where does my change sit". The map prints only defined terms: a label that names an
-undefined concept would teach its reader a word the repository never fixed, so every printed concept carries a rule here and a glossary
-entry, and the quality gate fails a label that names none.
+picture answers "where does this decision apply" and "where does my change sit". The map prints only defined terms
+([ADR-REPO-VOCAB#1](../repository/controlled-vocabulary.md#rule-adr-repo-vocab1)): a label that names an undefined concept would teach its
+reader a word the repository never fixed, so every printed concept carries a rule here and a glossary entry, and the quality gate fails a
+label that names none.
 
 ### The value-chain map
 

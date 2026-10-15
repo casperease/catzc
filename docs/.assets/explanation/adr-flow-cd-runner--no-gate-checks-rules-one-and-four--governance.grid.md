@@ -18,7 +18,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 - .claude × markdown: 1 lit of 9 files
 - automation × powershell: 3 lit of 1443 files
 - automation × yaml: 4 lit of 97 files
-- docs × markdown: 13 lit of 744 files
+- docs × markdown: 6 lit of 744 files
 - pipelines × pipeline-yaml: 2 lit of 9 files
 
 ## Key
@@ -67,56 +67,38 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
   (header).
 - [automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml][13]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 8 (header).
 
-### docs × markdown (13 lit files)
+### docs × markdown (6 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [docs/adr/flow/cd-discipline-and-promotion-flow.md][14]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/flow/dora-explains.md][15]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/flow/durable-sha-globs.md][16]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/flow/pipeline-detection.md][17]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/flow/pipeline-runner-pattern.md][1]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/flow/pipeline-types.md][18]: selected by [ADR-FLOW-CD-RUNNER][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/index.md][19]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 108 (text); selected by [ADR-PIPE-NAME][2]: the
+- [docs/adr/flow/dora-explains.md][14]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 33 (text).
+- [docs/adr/flow/pipeline-runner-pattern.md][1]: selected by [ADR-FLOW-CD-RUNNER][1]: the ADR's own file.
+- [docs/adr/index.md][15]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 108 (text); selected by [ADR-PIPE-NAME][2]: the
   file cites it at line 221 (text).
-- [docs/adr/pipelines/custom-template-discipline.md][20]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/pipelines/dora-explains.md][21]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/pipelines/dual-authentication.md][22]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/pipelines/pipeline-naming-and-placement.md][2]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/pipelines/pipeline-variables.md][23]: selected by [ADR-PIPE-NAME][2]: an ADR file of the `pipelines` ADR domain, the ADR domain
-  of that code.
-- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][24]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 16 (text).
+- [docs/adr/pipelines/dora-explains.md][16]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 47 (text).
+- [docs/adr/pipelines/pipeline-naming-and-placement.md][2]: selected by [ADR-PIPE-NAME][2]: the ADR's own file.
+- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][17]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 16 (text).
 
 ### pipelines × pipeline-yaml (2 lit files)
 
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][3]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pipelines/extends/cd-customer.yaml][25]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 3 (header).
-- [pipelines/steps/invoke-automation.yaml][26]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 18 (header).
+- [pipelines/extends/cd-customer.yaml][18]: selected by [ADR-PIPE-NAME][2]: the file cites it at line 3 (header).
+- [pipelines/steps/invoke-automation.yaml][19]: selected by [ADR-FLOW-CD-RUNNER][1]: the file cites it at line 18 (header).
 
 ## Keywords
 
-- [world map][27]
-- [track][28]
-- [file language][29]
-- [cell][30]
-- [lit cell][31]
-- [.claude][32]: a track
-- [automation][32]: a track
-- [docs][32]: a track
-- [pipelines][32]: a track
+- [world map][20]
+- [track][21]
+- [file language][22]
+- [cell][23]
+- [lit cell][24]
+- [.claude][25]: a track
+- [automation][25]: a track
+- [docs][25]: a track
+- [pipelines][25]: a track
 - [markdown][11]: a file language
 - [pipeline-yaml][11]: a file language
 - [powershell][11]: a file language
@@ -135,22 +117,15 @@ pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 [11]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
 [12]: ../../../automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
 [13]: ../../../automation/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
-[14]: ../../adr/flow/cd-discipline-and-promotion-flow.md
-[15]: ../../adr/flow/dora-explains.md
-[16]: ../../adr/flow/durable-sha-globs.md
-[17]: ../../adr/flow/pipeline-detection.md
-[18]: ../../adr/flow/pipeline-types.md
-[19]: ../../adr/index.md
-[20]: ../../adr/pipelines/custom-template-discipline.md
-[21]: ../../adr/pipelines/dora-explains.md
-[22]: ../../adr/pipelines/dual-authentication.md
-[23]: ../../adr/pipelines/pipeline-variables.md
-[24]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
-[25]: ../../../pipelines/extends/cd-customer.yaml
-[26]: ../../../pipelines/steps/invoke-automation.yaml
-[27]: ../../adr/glossary.md#world-map
-[28]: ../../adr/glossary.md#track
-[29]: ../../adr/glossary.md#file-language
-[30]: ../../adr/glossary.md#cell
-[31]: ../../adr/glossary.md#lit-cell
-[32]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[14]: ../../adr/flow/dora-explains.md
+[15]: ../../adr/index.md
+[16]: ../../adr/pipelines/dora-explains.md
+[17]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
+[18]: ../../../pipelines/extends/cd-customer.yaml
+[19]: ../../../pipelines/steps/invoke-automation.yaml
+[20]: ../../adr/glossary.md#world-map
+[21]: ../../adr/glossary.md#track
+[22]: ../../adr/glossary.md#file-language
+[23]: ../../adr/glossary.md#cell
+[24]: ../../adr/glossary.md#lit-cell
+[25]: ../../../automation/Catzc.Base.Variants/configs/variants.yml

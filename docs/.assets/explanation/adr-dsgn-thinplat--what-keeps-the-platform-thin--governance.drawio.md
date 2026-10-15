@@ -5,7 +5,8 @@
 ```text
 A 1572 x 800 diagram, read top to bottom through four bands.
 Glyphs: 3 gates, 3 ADR-only gates, 1 code unit (slate), 1 external tool; 3 flow and 3 ADR-only edges.
-Marks: 8 rule chips, 8 markers. Sidebar: axis minimap (main cell DSGN x DEPLOY), tree minimap, lens badge GOV, map key.
+Marks: 8 rule chips, 8 markers.
+Sidebar: world-map grid (4 lit cells), tree (9 lit groups), value-chain map (5 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.drawio.png) draws, in the vocabulary of the
@@ -68,8 +69,28 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is DSGN × DEPLOY, framed and filled in the DEPLOY blue with the you-are-here dot. Six touched cells carry
-  a small grey dot: AUTO × LOAD, AUTO × BUILD, AUTO × ACCESS, PIPE × BUILD, CLOUD × DEPLOY and CLOUD × ACCESS.
-- **Tree minimap:** lit tiles labelled Tool.Core, Az.Cli, adr/auto, Repository, Az.Templates, .scriptanalyzer, adr/dsgn and pipelines.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.grid.md),
+[tree](adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.tree.md) and
+[value-chain map](adr-dsgn-thinplat--what-keeps-the-platform-thin--governance.chain.md). A file or ADR lights a minimap when it cites, or
+is, the ADR the slide supports (ADR-AUTO-PARITY, ADR-AZ-CLI, ADR-DSGN-THINPLAT); the explanation articles, these descriptions and the
+drawing tooling never light anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 4 lit cells, `automation × .ps1` (9 files: 9 cite ADR-AUTO-PARITY,
+  ADR-AZ-CLI); `automation × .yml` (3 files: 6 cite ADR-AUTO-PARITY, ADR-AZ-CLI, ADR-DSGN-THINPLAT); `docs × .md` (7 files: 6 cite
+  ADR-AUTO-PARITY, ADR-AZ-CLI, ADR-DSGN-THINPLAT; 3 are the ADR file of ADR-AUTO-PARITY, ADR-AZ-CLI, ADR-DSGN-THINPLAT);
+  `Root files × other` (2 files: 2 are mapped through files.yml to ADR-AUTO-PARITY).
+- **Tree** (the repository's files): 9 lit groups, `Az.Cli` (8 files); `Root files` (2 files); `QualityGates` (2 files); `adr/auto` (2
+  files); `adr/azure` (2 files); `adr/dsgn` (2 files); `Docs` (1 file); `Repository` (1 file); `adr/*` (1 file). The ADR files
+  `docs/adr/automation/devbox-pipeline-parity.md`, `docs/adr/azure/prefer-az-cli.md`, `docs/adr/design/thin-platforms.md` carry the white
+  rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 5 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-THINPLAT:
+  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, deploy is its own value-chain concern
+  (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-THINPLAT: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
+  automation, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × AUTOMA`, because ADR-AUTO-PARITY: its ADR domain
+  `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15);
+  `CLOUD × DEPLOY`, because ADR-AZ-CLI: its ADR domain `azure` sits on the CLOUD row (ADR-DSGN-TRACK#14), and deploy, access is its own
+  value-chain concern (ADR-DSGN-TRACK#15); `CLOUD × ACCESS`, because ADR-AZ-CLI: its ADR domain `azure` sits on the CLOUD row
+  (ADR-DSGN-TRACK#14), and deploy, access is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV, with "Supports ADR-DSGN-THINPLAT · ADR-AZ-CLI" beneath it.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -17,7 +17,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 - automation × csharp: 6 lit of 229 files
 - automation × powershell: 11 lit of 1443 files
 - automation × yaml: 1 lit of 97 files
-- docs × markdown: 6 lit of 744 files
+- docs × markdown: 5 lit of 744 files
 
 ## Key
 
@@ -72,35 +72,31 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][22]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 221 (text).
 
-### docs × markdown (6 lit files)
+### docs × markdown (5 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/configuration/config-value-addressing.md][23]: selected by [ADR-CONF-LOADING][1]: an ADR file of the `configuration` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/configuration/dora-explains.md][24]: selected by [ADR-CONF-LOADING][1]: an ADR file of the `configuration` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/configuration/module-config-loading.md][1]: selected by [ADR-CONF-LOADING][1]: an ADR file of the `configuration` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/index.md][25]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 206 (text).
-- [docs/how-to/automation/manual-test-plan/configs.md][26]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 37 (text) and line
+- [docs/adr/configuration/dora-explains.md][23]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 13 (text).
+- [docs/adr/configuration/module-config-loading.md][1]: selected by [ADR-CONF-LOADING][1]: the ADR's own file.
+- [docs/adr/index.md][24]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 206 (text).
+- [docs/how-to/automation/manual-test-plan/configs.md][25]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 37 (text) and line
   56 (text).
-- [docs/how-to/getting-started/automation/add-a-module.md][27]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 74 (text).
+- [docs/how-to/getting-started/automation/add-a-module.md][26]: selected by [ADR-CONF-LOADING][1]: the file cites it at line 74 (text).
 
 ## Keywords
 
-- [world map][28]
-- [track][29]
-- [file language][30]
-- [cell][31]
-- [lit cell][32]
-- [automation][33]: a track
-- [docs][33]: a track
-- [csharp][34]: a file language
-- [markdown][34]: a file language
-- [powershell][34]: a file language
-- [yaml][34]: a file language
+- [world map][27]
+- [track][28]
+- [file language][29]
+- [cell][30]
+- [lit cell][31]
+- [automation][32]: a track
+- [docs][32]: a track
+- [csharp][33]: a file language
+- [markdown][33]: a file language
+- [powershell][33]: a file language
+- [yaml][33]: a file language
 
 [1]: ../../adr/configuration/module-config-loading.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -124,15 +120,14 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 [20]: ../../../automation/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
 [21]: ../../../automation/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1
 [22]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[23]: ../../adr/configuration/config-value-addressing.md
-[24]: ../../adr/configuration/dora-explains.md
-[25]: ../../adr/index.md
-[26]: ../../how-to/automation/manual-test-plan/configs.md
-[27]: ../../how-to/getting-started/automation/add-a-module.md
-[28]: ../../adr/glossary.md#world-map
-[29]: ../../adr/glossary.md#track
-[30]: ../../adr/glossary.md#file-language
-[31]: ../../adr/glossary.md#cell
-[32]: ../../adr/glossary.md#lit-cell
-[33]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[34]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[23]: ../../adr/configuration/dora-explains.md
+[24]: ../../adr/index.md
+[25]: ../../how-to/automation/manual-test-plan/configs.md
+[26]: ../../how-to/getting-started/automation/add-a-module.md
+[27]: ../../adr/glossary.md#world-map
+[28]: ../../adr/glossary.md#track
+[29]: ../../adr/glossary.md#file-language
+[30]: ../../adr/glossary.md#cell
+[31]: ../../adr/glossary.md#lit-cell
+[32]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[33]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

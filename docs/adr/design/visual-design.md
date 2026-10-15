@@ -47,9 +47,9 @@ The **commit-colour palette is fixed**:
 - **ghost-yellow** (faded, dashed) — a _pre-verified_ BVT result that is **not on main/master**: produced either by the pre-commit
   build-validation / PR-gate pipeline on a brown topic commit, or by a local devbox invocation of the BVT process. It is not the
   version-controlled BVT artifact and confers no promotion.
-- **blue / light-blue / light-green / green** — the post-BVT promotion states owned by `ADR-FLOW-CD`: **blue** is L3-verified on the
-  on-demand environment; **light-blue** is rolled onto the always-on `main-UAT` non-prod environment; **light-green** is release-verified on
-  the release-uat track; **green** is in production.
+- **blue / light-blue / light-green / green** — the post-BVT promotion states: **blue** is L3-verified on the on-demand environment;
+  **light-blue** is rolled onto the always-on `main-UAT` non-prod environment; **light-green** is release-verified on the release-uat track;
+  **green** is in production.
 - **red** — rejected by any process and must not progress further. Red is the one colour allowed on **every** branch (topic, release, or
   mainline), because rejection can happen anywhere.
 
@@ -105,15 +105,14 @@ red.** The contract is what a stage box in the pipeline lane means:
 - **The PR gate / pre-commit build-validation** is human-initiated: a developer opts a **brown** topic commit into pre-commit validation,
   yielding a **ghost-yellow** (pre-verified, off main) — via the build-validation/PR pipeline or a local devbox BVT run.
 - **main-UAT** accepts **blue** and produces **light-blue** (rolled onto the always-on non-prod environment). Its manual release gate is
-  **RC** (Release Certification, ADR-FLOW-CD#9).
+  **RC** (Release Certification).
 - **release-uat** accepts **light-blue** and produces **light-green** (release-verified). Its manual release gate is **RBC** (Release Branch
-  Certification, ADR-FLOW-CD#9).
+  Certification).
 - **DEPLOY-Prod** takes **light-green** (release-verified) through a **pre-prod** staging environment and produces **green** (in
-  production); **DEPLOY-Non-Prod** is the deploy into the earlier non-prod AT environments (ADR-FLOW-CD#11).
+  production); **DEPLOY-Non-Prod** is the deploy into the earlier non-prod AT environments.
 
-Env boxes carry **`-uat`** labels (the environment) and stage/gate boxes carry **`-AT`** labels (the acceptance testing) — two layers, per
-ADR-FLOW-CD#10: `main-AT`/`release-AT` are the testing drawn at the RC/RBC gates, `main-uat`/`release-uat` the environments they run
-against.
+Env boxes carry **`-uat`** labels (the environment) and stage/gate boxes carry **`-AT`** labels (the acceptance testing) — two layers:
+`main-AT`/`release-AT` are the testing drawn at the RC/RBC gates, `main-uat`/`release-uat` the environments they run against.
 
 A stage never emits a colour outside its contract, so the palette doubles as the flow's type system.
 
@@ -198,7 +197,8 @@ colour (red or ghost-grey). The pipeline and discard lanes work on _projections_
 A fixed palette is what makes the diagrams a language rather than a set of one-off pictures. Each hue is bound to exactly one delivery
 state, and the binding is the same in every diagram, so a colour never has to be re-explained. The promotion hues (yellow → blue →
 light-blue → green) share a warm-to-cool progression that reads as forward motion through the flow; brown and grey are the pre-promotion
-states; red is terminal rejection and is the only colour that may appear on any branch.
+states; red is terminal rejection and is the only colour that may appear on any branch. The post-BVT promotion states the hues stand for are
+defined by [ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md); the palette owns only their colours.
 
 ## The BVT boundary and its ghost
 
@@ -246,6 +246,11 @@ and cannot do. The full contract:
 Grey and brown can be _run_ through BVT or L3 by hand, but only yellow is what L3 _validates and continues_; the manual-run cases are the
 exception the contract names rather than hides. Because each stage emits exactly one promotion colour, the palette is the flow's type
 system: an arrow leaving L3 that is any colour but blue or red is a drawing error.
+
+The flow model defines what the stages are: the RC and RBC release gates
+([ADR-FLOW-CD#9](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9)), the `-uat` environments apart from the `-AT` testing drawn
+at those gates ([ADR-FLOW-CD#10](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd10)), and the DEPLOY stages
+([ADR-FLOW-CD#11](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd11)). This rule owns only how they are drawn.
 
 ## Commit numbers
 

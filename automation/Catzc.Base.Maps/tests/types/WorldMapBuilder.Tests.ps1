@@ -59,10 +59,11 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             'README.md'
             'out/.gitkeep'
         )
+        $script:adrFiles = [ordered]@{ 'ADR-WIDGET-GADGET' = 'docs/adr/widgetry/widget-gadget.md' }
         $script:globSets = @([Catzc.Base.Globs.GlobSet]::new('widgets-set', 'The widgets.', 'loose-fileset', @('widgets/**'), @(), @(), @(), -1, 'ci-widgets'))
         $script:build = {
             param([string[]] $Paths = $script:paths, $Tracks = $script:tracks, $Languages = $script:languages)
-            [Catzc.Base.Maps.WorldMapBuilder]::Build($Tracks, $Languages, $Paths, $script:aspects, $script:index, $script:texts,
+            [Catzc.Base.Maps.WorldMapBuilder]::Build($Tracks, $Languages, $Paths, $script:aspects, $script:index, $script:adrFiles, $script:texts,
                 [ordered]@{ 'importer.ps1' = 'widgets/Alpha' }, $script:globSets)
         }
         $script:map = & $script:build
@@ -151,17 +152,17 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
     }
 
     Context 'highlight relation in the fixed order per artifact kind' {
-        It 'gives an ADR file its domain, not its citations' {
+        It 'gives an ADR''s own file that ADR''s code, not its citations' {
             $placement = $script:map.Placement('docs/adr/widgetry/widget-gadget.md')
             $placement.Basis | Should -Be 'adr-file'
-            $placement.Domain | Should -Be 'widgetry'
+            $placement.Adr | Should -Be 'ADR-WIDGET-GADGET'
             $placement.Citations | Should -BeNullOrEmpty
         }
 
-        It 'gives a markdown file outside a domain folder its citations' {
+        It 'gives a markdown file under docs/adr/ that is no ADR''s own file its citations' {
             $placement = $script:map.Placement('docs/adr/index.md')
             $placement.Basis | Should -Be 'citations'
-            $placement.Domain | Should -BeNullOrEmpty
+            $placement.Adr | Should -BeNullOrEmpty
             $placement.Citations | Should -Be @('ADR-WIDGET-SPROCKET')
         }
 
@@ -196,7 +197,7 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
 
         It 'reads no citation from a file a citation_exclude glob matches, and still places the file' {
             $map = [Catzc.Base.Maps.WorldMapBuilder]::Build($script:tracks, $script:languages, $script:paths, $script:aspects, $script:index,
-                $script:texts, [ordered]@{ 'importer.ps1' = 'widgets/Alpha' }, $script:globSets, @('docs/*.md', 'widgets/Alpha/tests/**'))
+                $script:adrFiles, $script:texts, [ordered]@{ 'importer.ps1' = 'widgets/Alpha' }, $script:globSets, @('docs/*.md', 'widgets/Alpha/tests/**'))
             $guide = $map.Placement('docs/guide.md')
             "$($guide.Track) x $($guide.FileLanguage) $($guide.Basis)" | Should -Be 'docs x notes none'
             $guide.Citations | Should -BeNullOrEmpty
@@ -216,7 +217,7 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             $data.file_count | Should -Be $script:paths.Count
             @($data.cells).Count | Should -Be 36
             @($data.cells[0].PSObject.Properties.Name) | Should -Be @('track', 'file_language', 'file_count', 'stack_violation')
-            @($data.files[0].PSObject.Properties.Name) | Should -Be @('path', 'track', 'file_language', 'live', 'stack_violation', 'basis', 'domain', 'citations')
+            @($data.files[0].PSObject.Properties.Name) | Should -Be @('path', 'track', 'file_language', 'live', 'stack_violation', 'basis', 'adr', 'citations')
             ($data.files | Where-Object path -EQ 'importer.ps1').citations | Should -Be @('ADR-GIZMO-COG', 'ADR-GIZMO-COG#9', 'ADR-WIDGET-GADGET#2')
         }
 

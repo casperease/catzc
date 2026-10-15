@@ -26,8 +26,8 @@ command runs inside its module folder, so every editor loads either layout with 
 
 A Go test is a black-box test: it starts the engine from the contract its runner sets (ADR-AUTO-ENGINE#4) — `CATZC_ENGINE_EXECUTABLE`, with
 the `CATZC_ENGINE_START` arguments, which load the run's entry and end in the test's command — runs commands, and asserts on their output
-and exit codes, never on the engine's internals. The entry is the repository's `importer.ps1` in a source run and the build's
-`Import-Catzc.ps1` in a build run; `CATZC_REPOSITORY_ROOT` names the repository root. `Invoke-GoTest` sets them for its go commands only and
+and exit codes, never on the engine's internals. The entry is the repository's importer entry in a source run and the build's entry script
+in a build run (ADR-AUTO-TEST#30); `CATZC_REPOSITORY_ROOT` names the repository root. `Invoke-GoTest` sets them for its go commands only and
 restores them afterwards, so the same Go test proves both run modes unchanged.
 
 - [The black-box contract](#the-black-box-contract)
@@ -36,8 +36,8 @@ restores them afterwards, so the same Go test proves both run modes unchanged.
 
 The Go workspace is generated and gitignored: nothing Go-specific is committed but the `*_test.go` files. `New-GoWorkspace` renders
 `go.work` and every `go.mod` from `go.yml` — pure text, offline, and byte-stable — and `Build-RootConfig` writes them on import through a
-wildcard root-config entry (ADR-REPO-ROOTCFG#8), drift-checked by `Test-GeneratedFiles`. The `go.sum` files come from `go mod download`,
-which a Go test run makes first. A test dependency is declared in `go.yml` with its version, never added by `go get` or `go mod tidy`.
+wildcard root-config entry, drift-checked by `Test-GeneratedFiles`. The `go.sum` files come from `go mod download`, which a Go test run
+makes first. A test dependency is declared in `go.yml` with its version, never added by `go get` or `go mod tidy`.
 
 - [A generated workspace](#a-generated-workspace)
 
@@ -61,11 +61,11 @@ go.dev archive; a machine-wide Go is left in place, and the managed copy is foun
 ### Rule ADR-AUTO-GO:7
 
 `Test-Automation` runs the Go tests through a bridge: discovery maps each Go test module to its catzc module, so ordering, protection,
-`-Modules`, `-Suite`, the tiers, and both runs apply as to its Pester tests, and the bridge turns every top-level Go test into one Pester
-test. Every Go test is tagged `L2` — a real tool and a real engine (ADR-AUTO-TEST#9) — plus a category from its name: `TestIntegrity*` is
-`integrity`, every other test is `logic`. The run's source session locates the managed `go` once and hands its path to the bridge beside the
-engine entry; a worker never locates `go` itself, so a build run tests the build without carrying the tools config. Without the managed
-`go`, the bridge skips with `tool_go_missing` (ADR-AUTO-TEST#8).
+`-Modules`, `-Suite`, the tiers, and both runs apply as to the module's own tests, and the bridge turns every top-level Go test into one
+test of the run (ADR-AUTO-TEST#42). Every Go test is tagged `L2` — a real tool and a real engine (ADR-AUTO-TEST#9) — plus a category from
+its name: `TestIntegrity*` is `integrity`, every other test is `logic`. The run's source session locates the managed `go` once and hands its
+path to the bridge beside the engine entry; a worker never locates `go` itself, so a build run tests the build without carrying the tools
+config. Without the managed `go`, the bridge skips with `tool_go_missing` (ADR-AUTO-TEST#8).
 
 - [The bridge](#the-bridge)
 
@@ -164,7 +164,8 @@ A Go test is a test of the repository like any other, so it runs where every oth
 modes, under the same selection, ordering, protection, tiers, categories, and report
 ([test-automation](../test-automation.md#rule-adr-auto-test40)). The one language bridge every test language shares (Go and Python,
 [python-test-artifacts](../python/python-test-artifacts.md)) runs `Invoke-GoTest` once per mapped module — `go mod download`, `go vet`, then
-`go test -json` — and turns each top-level Go test into a Pester test, with its subtests folded into it.
+`go test -json` — and turns each top-level Go test into one test of the run, with its subtests folded into it. In pwsh that test is a Pester
+`It` ([pester-testing](../../pwsh/pester-testing.md#rule-adr-pwsh-pester20)).
 
 A Go test starts a real engine through a real toolchain, so the bridge tags every one `L2`, with no per-test choice to make. Its category
 comes from its name, decided in one place (the `GoTestResult` type): a `TestIntegrity*` test reads the shipped artifacts and is `integrity`;

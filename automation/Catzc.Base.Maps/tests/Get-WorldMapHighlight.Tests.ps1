@@ -5,7 +5,7 @@ Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
                 [Catzc.Base.Variants.VariantTrack]::new('gadgets', 'gadgets', 'adapter', @('widget-script'))),
             @([Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null)),
             @('widgets/Alpha/Get-Widget.ps1', 'widgets/Beta/Get-Gadget.ps1', 'README.md'),
-            [ordered]@{}, [ordered]@{ 'ADR-WIDGET-GADGET' = 'widgetry' }, [ordered]@{ 'widgets/Alpha/Get-Widget.ps1' = '# ADR-WIDGET-GADGET' },
+            [ordered]@{}, [ordered]@{ 'ADR-WIDGET-GADGET' = 'widgetry' }, [ordered]@{}, [ordered]@{ 'widgets/Alpha/Get-Widget.ps1' = '# ADR-WIDGET-GADGET' },
             [ordered]@{}, @())
         $script:maps = [Catzc.Base.Maps.MapsConfig]::new([ordered]@{
                 highlight = [ordered]@{
@@ -69,6 +69,18 @@ Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
 Describe 'Get-WorldMapHighlight — the real repository' -Tag 'L1', 'integrity', 'source-only' {
     It 'lights at least one cell for ADR-FLOW-CD' {
         @((Get-WorldMapHighlight -Adr 'ADR-FLOW-CD').Cells).Count | Should -BeGreaterThan 0
+    }
+
+    It 'lights, as an ADR file, only the requested ADR''s own file' -Tag 'ADR-DSGN-TRACK#12' {
+        $citations = Get-AdrCitationMap
+        # Codes taken from the registry, not spelled here, so this test cites no ADR and lights no minimap itself.
+        $ruleSets = @(Get-AdrRuleSet | Where-Object { $citations.PathOf($_.External) })
+        $codes = @($ruleSets[0].External, "$($ruleSets[1].External)#1", $ruleSets[-1].External)
+        $reasons = @((Get-WorldMapHighlight -Adr $codes).Cells.Reasons | Where-Object Basis -EQ 'adr-file')
+        @($reasons).Count | Should -Be $codes.Count
+        foreach ($reason in $reasons) {
+            $reason.Path | Should -Be $citations.PathOf([Catzc.Base.Maps.CitationScanner]::CodeOf($reason.Requested)) -Because $reason.Requested
+        }
     }
 
     It 'returns the working tree''s highlight on the zero-argument call without error' {

@@ -83,8 +83,8 @@ in Azure is held by its policy assignments.
 
 ### Rule ADR-AZ-WAFOE:11
 
-A change reaches production as the same build-once artifact, promoted behind gates from non-production through pre-prod
-([ADR-FLOW-CD](../../flow/cd-discipline-and-promotion-flow.md)), with an Azure what-if preview before every deploy.
+A change reaches production as the same build-once artifact, promoted behind gates from non-production through pre-prod, with an Azure
+what-if preview before every deploy.
 
 - [OE:11 — Clearly define your workload's safe deployment practices](#oe11--clearly-define-your-workloads-safe-deployment-practices)
 - [How this is enforced](#how-this-is-enforced)

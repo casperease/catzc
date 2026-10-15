@@ -7,28 +7,22 @@
 ### Rule ADR-AUTO-PRELOG:1
 
 Log the full, resolved command string (all variables expanded, all arguments in place) via `Write-Message` as the last step before
-invocation. The log entry must be copy-pasteable.
+invocation. The log entry must be copy-pasteable: the command itself, never a paraphrase of it
+([ADR-AUTO-CONSOLE#3](console-output-matters.md#rule-adr-auto-console3)).
 
 - [Automatic, not opt-in](#automatic-not-opt-in)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-AUTO-PRELOG:2
 
-`Invoke-Executable` does this automatically; functions using it get logging for free. Functions that bypass it with direct `& $tool` calls
-must add their own logging.
+The toolset's executable runner, `Invoke-Executable`, does this automatically, so a function that runs a tool through it gets the log line
+for free. A function that starts a tool any other way logs the command itself, before it starts it.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-PRELOG:3
-
-Do not paraphrase: log the actual command (e.g. `uv python install 3.13 --default`), not a description like "Installing Python...". A
-readable description may be added but never substituted.
-
-- [Automatic, not opt-in](#automatic-not-opt-in)
-
 ### Rule ADR-AUTO-PRELOG:4
 
-Do not conditionally log: the command is logged on every run, not behind `-Verbose` or `-Debug`.
+Do not conditionally log: the command is logged on every run, on the always-shown status output, never only behind a diagnostic switch.
 
 - [Automatic, not opt-in](#automatic-not-opt-in)
 
@@ -79,7 +73,8 @@ Every function that invokes an external command must log the exact command strin
 ### How this is enforced
 
 - **`Invoke-Executable`** — logs the full command string via `Write-Message` before execution. All `Invoke-*` tool wrappers
-  (`Invoke-Python`, `Invoke-Poetry`, `Invoke-Dotnet`) delegate to `Invoke-Executable` and inherit this behavior automatically.
+  (`Invoke-Python`, `Invoke-Poetry`, `Invoke-Dotnet`) delegate to `Invoke-Executable` and inherit this behavior automatically. How pwsh logs
+  a tool started outside it, and on which stream, is [announce-state-changes](../pwsh/announce-state-changes.md#rule-adr-pwsh-announce10).
 
 ## Consequences
 

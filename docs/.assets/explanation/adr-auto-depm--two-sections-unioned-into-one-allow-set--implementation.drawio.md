@@ -5,7 +5,7 @@
 ```text
 A 1572 x 760 diagram, read top to bottom through four bands.
 Glyphs: 2 files (olive), 4 code units (slate), 1 gate, 2 failures; 6 flow edges, 2 failure paths; 9 markers.
-Sidebar: axis minimap (main cell AUTO x BUILD), tree minimap, lens badge IMPL, map key.
+Sidebar: world-map grid (3 lit cells), tree (4 lit groups), value-chain map (1 lit cell), map key.
 ```
 
 This describes what the [diagram](adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.drawio.png) draws, in the
@@ -66,8 +66,18 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is AUTO × BUILD, framed and filled in the BUILD purple with the you-are-here dot. One touched cell, AUTO ×
-  LOAD, carries a small grey dot. The AUTO and BUILD axis labels carry a purple tick.
-- **Tree minimap:** three lit tiles, labelled ModuleSystem, Reports and adr/auto. The adr/auto file is framed in dark ink as an ADR file.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.grid.md),
+[tree](adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.tree.md) and
+[value-chain map](adr-auto-depm--two-sections-unioned-into-one-allow-set--implementation.chain.md). A file or ADR lights a minimap when it
+cites, or is, the ADR the slide supports (ADR-AUTO-DEPM); the explanation articles, these descriptions and the drawing tooling never light
+anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 3 lit cells, `automation × .cs` (3 files: 3 cite ADR-AUTO-DEPM);
+  `automation × .yml` (1 file: 1 cites ADR-AUTO-DEPM); `docs × .md` (3 files: 2 cite ADR-AUTO-DEPM; 1 is the ADR file of ADR-AUTO-DEPM).
+- **Tree** (the repository's files): 4 lit groups, `ModuleSystem` (3 files); `adr/auto` (2 files); `Docs` (1 file); `adr/*` (1 file). The
+  ADR file `docs/adr/automation/controlling-module-dependencies.md` carries the white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `AUTO × AUTOMA`, because ADR-AUTO-DEPM: its
+  ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** IMPL, with "Supports ADR-AUTO-DEPM" beneath it.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

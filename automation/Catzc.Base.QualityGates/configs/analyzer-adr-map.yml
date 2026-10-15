@@ -23,7 +23,7 @@ analyzers:
   Measure-NoRawPipelineDetection: [ADR-FLOW-CD-DETECT#1]
   Measure-NoRawInformationStream: [ADR-PWSH-ANNOUNCE#7]
   Measure-NoRawConsoleWrite: [ADR-PWSH-ANNOUNCE#1]
-  Measure-AnnounceStateChange: [ADR-AUTO-CONSOLE#11, ADR-AUTO-CONSOLE#12]
+  Measure-AnnounceStateChange: [ADR-PWSH-ANNOUNCE#8, ADR-PWSH-ANNOUNCE#9, ADR-AUTO-CONSOLE#11, ADR-AUTO-CONSOLE#12]
   Measure-PersistentWriteThroughSeam: [ADR-AUTO-TEST#33]
   Measure-SpellOutIdentifiers: [ADR-PWSH-NAMES#1]
   Measure-NoScriptRootAnchor: [ADR-PWSH-PWD#4, ADR-AUTO-ASSETDEP#1]

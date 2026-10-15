@@ -3,7 +3,7 @@
 `Catzc.Base.Repository`
 
 The path-anchor module. It is the **single source of truth for where files live** — locating the repository root, resolving repo-relative
-and absolute paths, pointing to the dedicated output directory, and detecting whether code is running inside a CI pipeline. No other module
+and absolute paths, pointing to the dedicated output directory, and naming whether code runs in a pipeline or on a devbox. No other module
 derives these answers independently; callers depend on `$PWD` nowhere (see
 [never-depend-on-pwd](../../adr/automation/never-depend-on-pwd.md)). What this module deliberately does **not** own is general filesystem
 work (copying trees, checking file locks, reading git facts) — those live in [Catzc.Base.Files](catzc-base-files.md). It is a member of the
@@ -26,11 +26,10 @@ anchors, so no function anywhere in the platform depends on the current working 
 
 ### responsibility:2 — Pipeline context detection
 
-Whether the code is executing inside a CI pipeline. This responsibility answers that one question — and it is the only sanctioned place the
-question is answered (see [pipeline-detection](../../adr/flow/pipeline-detection.md)). Callers branch on its result to suppress interactive
-prompts, skip steps that require a human, or adjust output verbosity; they never probe CI environment variables directly. The same answer,
-named as a run environment (Pipeline or Devbox) that an `-EnvironmentAssertIs` guard can pin, keys environment-dependent settings such as
-the time-safeguard limits.
+Whether the code is executing inside a CI pipeline, named as a run environment (Pipeline or Devbox) that an `-EnvironmentAssertIs` guard can
+pin. The answer keys environment-dependent settings such as the time-safeguard limits. It is read off the one detection seam, which lives in
+the always-loaded [Catzc.Internal.Loader](internal/catzc-internal-loader.md) so the importer's pre-pass can ask it before any module loads
+(see [pipeline-detection](../../adr/flow/pipeline-detection.md)). Callers never probe CI environment variables directly.
 
 ## What the module does
 
@@ -45,8 +44,9 @@ policy (see [dedicated-output-directory](../../adr/repository/dedicated-output-d
 this function, the location is never duplicated or guessed.
 
 Pipeline detection (responsibility 2) is a single boolean question with a single authoritative answer. Scattering the environment-variable
-checks that answer it across modules would mean each could disagree; centralising the logic here means the answer is consistent and the
-detection heuristic can be improved in one place (see [pipeline-detection](../../adr/flow/pipeline-detection.md)).
+checks that answer it across modules would mean each could disagree; `Test-IsRunningInPipeline` in the loader holds the logic once, and
+`Get-RunEnvironment` names its answer, so the detection heuristic can be improved in one place (see
+[pipeline-detection](../../adr/flow/pipeline-detection.md)).
 
 ## Division
 
@@ -60,5 +60,4 @@ The module's public functions, sorted into the responsibilities above.
 |                                                       | `Resolve-RepoPath`           |
 |                                                       | `ConvertTo-RepoRelativePath` |
 |                                                       | `Get-OutputRoot`             |
-| responsibility:2 — Pipeline context detection         | `Test-IsRunningInPipeline`   |
-|                                                       | `Get-RunEnvironment`         |
+| responsibility:2 — Pipeline context detection         | `Get-RunEnvironment`         |

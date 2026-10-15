@@ -5,7 +5,7 @@
 ```text
 A 1572 x 700 diagram, read left to right along one band, down into a second band and back up, then down to a band of failures.
 Glyphs: 3 code units (slate), 1 store (slate), 1 result, 3 failures; 5 flow edges, 3 failure paths; 8 markers.
-Sidebar: axis minimap (main cell AUTO x CONFIG), tree minimap, lens badge OPS, map key.
+Sidebar: world-map grid (4 lit cells), tree (10 lit groups), value-chain map (1 lit cell), map key.
 ```
 
 This describes what the [diagram](adr-conf-loading--ask-by-name-get-the-cached-object--operations.drawio.png) draws, in the vocabulary of
@@ -63,9 +63,21 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is AUTO × CONFIG, framed and filled in the CONFIG orange with the you-are-here dot. One touched cell, AUTO
-  × BUILD, carries a small grey dot. The AUTO and CONFIG axis labels carry an orange tick.
-- **Tree minimap:** lit tiles labelled QualityGates (large, top left), RootConfig, Config, Reports and adr/conf; the last three labels crowd
-  together near the bottom right, where Config is cut to "Co".
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-conf-loading--ask-by-name-get-the-cached-object--operations.grid.md),
+[tree](adr-conf-loading--ask-by-name-get-the-cached-object--operations.tree.md) and
+[value-chain map](adr-conf-loading--ask-by-name-get-the-cached-object--operations.chain.md). A file or ADR lights a minimap when it cites,
+or is, the ADR the slide supports (ADR-CONF-LOADING); the explanation articles, these descriptions and the drawing tooling never light
+anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 4 lit cells, `automation × .cs` (6 files: 6 cite ADR-CONF-LOADING);
+  `automation × .ps1` (11 files: 11 cite ADR-CONF-LOADING); `automation × .yml` (1 file: 1 cites ADR-CONF-LOADING); `docs × .md` (5 files: 4
+  cite ADR-CONF-LOADING; 1 is the ADR file of ADR-CONF-LOADING).
+- **Tree** (the repository's files): 10 lit groups, `Docs` (9 files); `Config` (2 files); `Git` (2 files); `QualityGates` (2 files);
+  `adr/conf` (2 files); `docs` (2 files); `Execution` (1 file); `ModuleSystem` (1 file); `RootConfig` (1 file); `adr/*` (1 file). The ADR
+  file `docs/adr/configuration/module-config-loading.md` carries the white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `AUTO × AUTOMA`, because ADR-CONF-LOADING:
+  its ADR domain `configuration` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern
+  (ADR-DSGN-TRACK#15).
 - **Lens badge:** OPS, with "Supports ADR-CONF-LOADING" and "ADR-CONF-ADDRESSING" beneath it.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

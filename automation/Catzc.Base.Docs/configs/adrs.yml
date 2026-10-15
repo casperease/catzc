@@ -206,6 +206,7 @@ domains:
       script-scope-caching: { external: ADR-PWSH-CACHE }
       pester-testing: { external: ADR-PWSH-PESTER, concern: [quality-control] }
       hosting-csharp-types: { external: ADR-PWSH-TYPES, concern: [automation, build] }
+      idempotent-state-mechanics: { external: ADR-PWSH-IDEM }
 
   configuration:
     code: CONF

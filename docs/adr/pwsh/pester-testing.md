@@ -13,16 +13,18 @@ isolated through seams, integrity bound to the real files — with the mock idio
 
 ### Rule ADR-PWSH-PESTER:2
 
-Isolate logic tests through the seams — in `BeforeEach`, mock `Get-BicepTemplatesRoot` to a fixture template tree, and isolate config either
-by mocking the discovery seam `Resolve-ConfigEntry` (return a fixture `@{ Name; Module; Path }`) or by mocking `Get-Config` itself.
-Redirecting only the template tree leaks the shipped identities back in.
+Isolate logic tests through the seams (ADR-AUTO-TEST#3, ADR-AUTO-TEST#17) — in `BeforeEach`, mock `Get-BicepTemplatesRoot` to a fixture
+template tree, and isolate config either by mocking the discovery seam `Resolve-ConfigEntry` (return a fixture `@{ Name; Module; Path }`) or
+by mocking `Get-Config` itself. Redirecting only the template tree leaks the shipped identities back in.
 
 - [The idioms](#the-idioms)
 
 ### Rule ADR-PWSH-PESTER:3
 
-Mock at module boundaries with `-ModuleName`, and mock the whole boundary function — never its internals. A cached function ignores mocked
-dependencies ([script-scope-caching](script-scope-caching.md)), and reaching into internals couples the test to implementation.
+Mock at module boundaries with `-ModuleName`, and mock the whole boundary function — never its internals (ADR-AUTO-TEST#4). A cached
+function is varied by mocking the function itself (`Mock Get-BicepTemplates`), because a warm cache ignores mocked dependencies, and
+reaching into internals couples the test to implementation. A test of cache population resets its entry in module scope
+(`InModuleScope <Module> { $script:<entry> = $null }`, [script-scope-caching](script-scope-caching.md)), and only such a test does.
 
 - [The idioms](#the-idioms)
 
@@ -159,9 +161,10 @@ PSScriptAnalyzer rule mapped to the rule in `analyzer-adr-map.yml` (ADR-PWSH-FOR
 
 ### Rule ADR-PWSH-PESTER:20
 
-The language bridge of ADR-AUTO-TEST#40 is one Pester container, `Language.Bridge.ps1` in `Catzc.Base.QualityGates/tests/`, run once per
-mapped test folder with the folder, its language, and the engine entry as container data: each test of the folder becomes one `It` tagged
-`L2` and its category, so the tag check, the timing check, and the reports read it like any Pester test.
+The language bridge of ADR-AUTO-TEST#40 (ADR-AUTO-GO#7, ADR-AUTO-PY#7, ADR-AUTO-BASH#5) is one Pester container, `Language.Bridge.ps1` in
+`Catzc.Base.QualityGates/tests/`, run once per mapped test folder with the folder, its language, the engine entry, and the path of the
+language's tool, located once by the run's source session, as container data: each test of the folder becomes one `It` tagged `L2` and its
+category, so the tag check, the timing check, and the reports read it like any Pester test.
 
 - [The harness in Pester](#the-harness-in-pester)
 
@@ -352,7 +355,7 @@ tests.
 - **The seams exist** as mockable functions (`Get-BicepTemplatesRoot` for the template tree; `Resolve-ConfigEntry` and `Get-Config` for
   config), so isolation is a mock away and production has a single pristine default. For config, mock the discovery seam to return a fixture
   `@{ Name; Module; Path }`, or mock `Get-Config` outright — the whole function, never its internals (ADR-PWSH-PESTER#3). When exercising
-  cache behavior directly, reset the cache entry per [script-scope-caching](script-scope-caching.md) (ADR-PWSH-CACHE#3).
+  cache behavior directly, reset the cache entry per [script-scope-caching](script-scope-caching.md) (ADR-PWSH-PESTER#3).
 - **`Test-Automation.Tests.ps1`** validates the `Verb-Noun.Tests.ps1` filename convention — a type test under `tests/types/` is instead
   named for the `types/*.cs` it covers — and the one-function-per-file rules for source (see
   [one-function-per-file](one-function-per-file.md)).

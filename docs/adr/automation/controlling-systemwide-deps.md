@@ -36,8 +36,9 @@ Declare install-order dependencies in config. If a tool must be installed after 
 
 ### Rule ADR-AUTO-DEPS:5
 
-CI and local share the same installers. No separate CI setup scripts — CI calls the same per-tool `Install-*` functions against the same
-`tools.yml`, activating cached toolchains via native ADO version tasks first rather than running `Install-DevBoxTools`.
+CI provisions tools with the same per-tool `Install-*` functions against the same `tools.yml` — the installer side of the one code path
+([ADR-AUTO-PARITY#1](devbox-pipeline-parity.md#rule-adr-auto-parity1)), with no separate CI setup script. It activates the agent's cached
+toolchains through native ADO version tasks first, and calls the per-tool functions rather than the `Install-DevBoxTools` orchestrator.
 
 - [5. CI uses the same functions](#5-ci-uses-the-same-functions)
 

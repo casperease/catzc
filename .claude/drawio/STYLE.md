@@ -214,10 +214,10 @@ states once that every unlit cell is idle and why a cell holds nothing (no file 
 concern lands there), expands the minimap's short codes under **Key**, and gives **every lit cell or lit group its reason**:
 
 - **World map:** the root folder names the track (ADR-DSGN-TRACK#1), or the file is a root file (#7); the extension names the file language
-  (#6), or the file is an unlisted file (#8); then each lit file with the ADR code that selects it, its basis (an ADR file of that code's
-  ADR domain, its own citations, its owner module's files through `files.yml`, its globset) and the citing lines with their kind (header,
-  body comment, text). A reviewed pin of `maps.yml` is its own reason. A file cited only in body comments is a passing mention, and a cell
-  of passing mentions only is marked touched.
+  (#6), or the file is an unlisted file (#8); then each lit file with the ADR code that selects it, its basis (the ADR's own file, only that
+  one file: an ADR's domain picks only its value-chain row, never extra world-map files; its own citations, its owner module's files through
+  `files.yml`, its globset) and the citing lines with their kind (header, body comment, text). A reviewed pin of `maps.yml` is its own
+  reason. A file cited only in body comments is a passing mention, and a cell of passing mentions only is marked touched.
 - **Tree:** each lit group's folder, then each lit file with its cell and its reason as above.
 - **Value chain:** each lit ADR with the code that selects it, its ADR domain's row (#14), its value-chain concerns and whether they are the
   ADR domain's default or the ADR's own override (#15), lit per #12.

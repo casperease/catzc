@@ -106,7 +106,7 @@ function Sync-GeneratedFile {
     $changed = @($generatedPaths.Keys | Where-Object { Test-GitPathChanged $_ })
 
     # .compiled must hold exactly the current build
-    # ([ADR-AUTO-TYPES#6](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types6)). A superseded DLL that
+    # ([ADR-AUTO-CACHE#8](/docs/adr/automation/caching.md#rule-adr-auto-cache8)). A superseded DLL that
     # survived the
     # janitor (a session still holds it) would otherwise be committed next to the new one — the +1 without
     # the -1. Hold the .compiled commit back until it is tidy; any other changed generated path still commits.

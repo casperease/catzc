@@ -16,18 +16,17 @@ Viable Platform** (TVP): the smallest set of APIs, tooling, and docs that measur
 ### Rule ADR-DSGN-THINPLAT:2
 
 Thin is achieved by **delegation, not reimplementation**. The platform adds only what reduces a consumer's cognitive load, and delegates
-everything else to the vendor's own primitives — Bicep for ARM templating, the az CLI for control-plane actions (`ADR-AZ-CLI`). It wraps to
-_harmonize_ (one calling convention, one auth path, one set of defaults), never to hide the substrate or clone its behaviour. In Hohpe's
-terms: build abstractions, not illusions — a thick wrapper that re-implements the cloud is a liability, not a platform.
+everything else to the vendor's own primitives — Bicep for ARM templating, the az CLI for control-plane actions. It wraps to _harmonize_
+(one calling convention, one auth path, one set of defaults), never to hide the substrate or clone its behaviour. In Hohpe's terms: build
+abstractions, not illusions — a thick wrapper that re-implements the cloud is a liability, not a platform.
 
 - [Delegation](#delegation)
 
 ### Rule ADR-DSGN-THINPLAT:3
 
 The consumable surface is a **CLI** — platform-as-a-CLI, offered X-as-a-Service. PowerShell `Verb-Noun` functions plus their configuration
-_are_ the platform's API: a paved road with self-service defaults (`ADR-AUTO-DEFAULT`). Consumers edit configuration and compose functions;
-they never touch the vendor wiring. The CLI is the boundary that lets the platform team change the substrate underneath without breaking the
-teams above.
+_are_ the platform's API: a paved road with self-service defaults. Consumers edit configuration and compose functions; they never touch the
+vendor wiring. The CLI is the boundary that lets the platform team change the substrate underneath without breaking the teams above.
 
 - [The surface is a CLI](#the-surface-is-a-cli)
 
@@ -91,9 +90,9 @@ platform makes the vendor easier to use correctly; a framework tries to replace 
 The platform's API is its CLI: discoverable `Verb-Noun` functions, driven by declarative configuration. This is deliberate. A CLI is the
 narrowest useful contract — it hides the substrate completely while staying scriptable, composable, and equally at home on a developer box
 and in a pipeline (`ADR-AUTO-PARITY`). Consumers get X-as-a-Service: they call `Get-Azure*`/`New-*` verbs and edit
-`azure.yml`/`options.yml`, and the platform resolves, authenticates, and executes. Because the CLI is the only surface anyone binds to, the
-platform team is free to re-wire what happens behind it — swap a Bicep module, change an az invocation, re-pin a tool — without touching a
-single consumer.
+`azure.yml`/`options.yml`, and the platform resolves, authenticates, and executes, filling every unset value from its sensible default
+(`ADR-AUTO-DEFAULT`). Because the CLI is the only surface anyone binds to, the platform team is free to re-wire what happens behind it —
+swap a Bicep module, change an az invocation, re-pin a tool — without touching a single consumer.
 
 ### Everything is code
 

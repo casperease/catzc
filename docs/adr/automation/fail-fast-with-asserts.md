@@ -45,8 +45,8 @@ handler around an assertion means the assertion is wrong or the condition should
 
 ### Rule ADR-AUTO-FAILFAST:6
 
-Treat assertions as documentation. `Assert-PathExist $configPath` both checks at runtime and specifies the function's expectations — more
-reliable than a comment because it executes.
+Treat assertions as documentation. An assertion that a config path exists (`Assert-PathExist`) both checks at runtime and specifies the
+function's expectations — more reliable than a comment because it executes.
 
 - [Why every fifth line](#why-every-fifth-line)
 
@@ -57,9 +57,9 @@ naming the limit instead of waiting forever. The limits live in one config (`tim
 environment (devbox | pipeline) and execution engine ([ADR-AUTO-ENGINE#1](execution-engines.md#rule-adr-auto-engine1)), with sensible
 defaults declared on its config type — deliberately tight on a devbox — plus per-executable entries, and no "no limit" value.
 `Invoke-Executable` kills a child process tree at its executable's limit; `Invoke-WithTimeout` / `Assert-CompletesWithin` /
-`Test-CompletesWithin` stop a script block at its limit. The bash limits bound every shell call an agent makes, foreground and background,
-and a hook denies a call outside them. Work that legitimately runs longer while it is tuned carries an immutable budget GUID and is exempted
-in `timeout-exemptions.yml`, which raises its limit to a ceiling but never lifts it.
+`Test-CompletesWithin` stop a piece of in-process work at its limit. The bash limits bound every shell call an agent makes, foreground and
+background, and a hook denies a call outside them. Work that legitimately runs longer while it is tuned carries an immutable budget GUID and
+is exempted in `timeout-exemptions.yml`, which raises its limit to a ceiling but never lifts it.
 
 - [A hang is the slowest failure](#a-hang-is-the-slowest-failure)
 - [Bounding an agent's shell calls](#bounding-an-agents-shell-calls)
@@ -146,7 +146,8 @@ There is no "no limit" value, because an unbounded wait is exactly the failure t
 Two axes decide a limit, and both are read from the session rather than passed in. The run environment (devbox or pipeline,
 `Get-RunEnvironment`) sets how tight it is: a devbox has a person to tune with, a pipeline has nobody watching and longer ordinary builds.
 The shell (one of the execution engines) sets what it bounds: pwsh code bounds its own script blocks and processes, and the agent hook
-bounds bash calls. A caller can pin the environment with an `-EnvironmentAssertIs` guard, which verifies and never selects.
+bounds bash calls ([assert-idioms](../pwsh/assert-idioms.md#rule-adr-pwsh-assert6) gives the pwsh forms). A caller can pin the environment
+with an `-EnvironmentAssertIs` guard, which verifies and never selects.
 
 An exemption is for work that is known to be slow while it is fixed. It names the work by an immutable budget GUID — registered in the
 managed-GUID registry ([ADR-AUTO-GUIDS](managed-guids.md)), one at a time or as an inclusive range of a minted family — and carries the

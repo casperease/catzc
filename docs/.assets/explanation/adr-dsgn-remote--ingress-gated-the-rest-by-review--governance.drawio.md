@@ -5,7 +5,7 @@
 ```text
 A 1572 x 680 diagram, read top to bottom through three bands: LOCAL CLONE, SERVER REMOTE, OUT.
 Glyphs: 3 stores (slate), 2 gates, 1 ADR-only gate, 1 failure; 2 flow, 1 failure path, 3 ADR-only edges; 4 rule chips; 7 markers.
-Sidebar: axis minimap (main cell DSGN x ACCESS), tree minimap, lens badge GOV, map key.
+Sidebar: world-map grid (5 lit cells), tree (7 lit groups), value-chain map (5 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.drawio.png) draws, in the vocabulary of the
@@ -66,9 +66,29 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is DSGN × ACCESS, framed and filled in the ACCESS pink with the you-are-here dot. Five touched cells carry
-  a small grey dot: DSGN × CONFIG, DSGN × DEPLOY, AUTO × LOAD, AUTO × CONFIG and PIPE × BUILD.
-- **Tree minimap:** lit tiles labelled ModuleSystem, Variants, adr/repo, Az.DevOps.BuildValidation and adr/dsgn; the ADR files are framed in
-  dark ink.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.grid.md),
+[tree](adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.tree.md) and
+[value-chain map](adr-dsgn-remote--ingress-gated-the-rest-by-review--governance.chain.md). A file or ADR lights a minimap when it cites, or
+is, the ADR the slide supports (ADR-DSGN-LIFE, ADR-DSGN-REMOTE, ADR-REPO-VARIANT); the explanation articles, these descriptions and the
+drawing tooling never light anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 5 lit cells, `.claude × .md` (1 file: 1 cites ADR-DSGN-LIFE);
+  `automation × .cs` (1 file: 1 cites ADR-REPO-VARIANT); `automation × .ps1` (1 file: 1 cites ADR-REPO-VARIANT); `automation × .yml` (3
+  files: 5 cite ADR-DSGN-LIFE, ADR-DSGN-REMOTE, ADR-REPO-VARIANT); `docs × .md` (7 files: 7 cite ADR-DSGN-LIFE, ADR-DSGN-REMOTE,
+  ADR-REPO-VARIANT; 3 are the ADR file of ADR-DSGN-LIFE, ADR-DSGN-REMOTE, ADR-REPO-VARIANT).
+- **Tree** (the repository's files): 7 lit groups, `adr/dsgn` (3 files); `ModuleSystem` (2 files); `Variants` (2 files); `adr/*` (2 files);
+  `adr/repo` (2 files); `.claude` (1 file); `Docs` (1 file). The ADR files `docs/adr/design/commit-lifecycle.md`,
+  `docs/adr/design/server-remote-integration.md`, `docs/adr/repository/repo-variants.md` carry the white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 5 lit cells: `DSGN × BUILD`, because ADR-DSGN-REMOTE:
+  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control is its own value-chain concern
+  (ADR-DSGN-TRACK#15); `DSGN × QC`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
+  quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); ADR-DSGN-REMOTE: its ADR domain `design` sits on the
+  DSGN row (ADR-DSGN-TRACK#14), and build, quality-control is its own value-chain concern (ADR-DSGN-TRACK#15); `DSGN × RELEAS`, because
+  ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own
+  value-chain concern (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row
+  (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × AUTOMA`, because
+  ADR-REPO-VARIANT: its ADR domain `repository` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern
+  (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV, with "Supports ADR-DSGN-REMOTE · ADR-DSGN-LIFE / ADR-REPO-VARIANT" beneath it, on two lines.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

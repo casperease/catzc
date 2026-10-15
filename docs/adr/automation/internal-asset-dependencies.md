@@ -8,16 +8,18 @@
 
 An **internal asset dependency** is any read, by a module's own code, of content that ships inside the code tree: the module's `configs/`
 and `assets/`, another module's (a cross-module edge declared in `dependencies.yml`), `.internal/assets/`, `.vendor/`, and `.compiled/`. It
-is located only through `Get-CatzcModuleRoot -ChildPath '<literal>'`, or `Get-CatzcModulesRoot` for the dot-prefixed infrastructure — never
-through `$PSScriptRoot`, `Get-RepositoryRoot`, or a hand-built `automation/...` path.
+is located only through the code-root helper — `Get-CatzcModuleRoot` with a literal child path, or `Get-CatzcModulesRoot` for the
+dot-prefixed infrastructure — never through the folder of the executing file, the working root (`Get-RepositoryRoot`), or a hand-built
+`automation/...` path. It is the code-root anchor of [ADR-AUTO-NOPWD#1](never-depend-on-pwd.md#rule-adr-auto-nopwd1) applied to shipped
+content.
 
 - [One helper](#one-helper)
 
 ### Rule ADR-AUTO-ASSETDEP:2
 
-`-ChildPath` is a string literal at every call site, so the full set of internal asset dependencies — one (module, function, child path)
-entry per call site — is derived from the code by `Get-InternalAssetDependency`. The code is the registration; there is no separate list to
-keep in step.
+The child path is a string literal at every call site of the code-root helper, so the full set of internal asset dependencies — one (module,
+function, child path) entry per call site — is derived from the code by `Get-InternalAssetDependency`. The code is the registration; there
+is no separate list to keep in step.
 
 - [The code is the inventory](#the-code-is-the-inventory)
 
@@ -81,7 +83,8 @@ in `dependencies.yml` ([controlling-module-dependencies](controlling-module-depe
 module — the `.internal` assets, the vendored modules, the compiled types — is located from `Get-CatzcModulesRoot` directly. The analyzer
 rule `Measure-NoScriptRootAnchor` bans `$PSScriptRoot` in module function files
 ([working-directory-mechanics](../pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd4)), which leaves the helper as the only way a
-function can find its content.
+function can find its content. In PowerShell the helper call and that ban are ADR-PWSH-PWD#4, and the literal child path the inventory reads
+is ADR-PWSH-PWD#7.
 
 ### The code is the inventory
 

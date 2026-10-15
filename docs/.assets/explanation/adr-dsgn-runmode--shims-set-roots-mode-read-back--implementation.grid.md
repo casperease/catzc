@@ -16,7 +16,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 
 - automation × powershell: 28 lit of 1443 files
 - automation × yaml: 2 lit of 97 files
-- docs × markdown: 10 lit of 744 files
+- docs × markdown: 3 lit of 744 files
 - Root files × powershell: 1 lit of 1 file
 - Root files × Unlisted files: 2 lit of 4 files
 
@@ -85,65 +85,51 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.Docs/configs/adrs.yml][33]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 101 (text).
 - [automation/Catzc.Base.QualityGates/configs/terminology.yml][34]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 596 (text).
 
-### docs × markdown (10 lit files)
+### docs × markdown (3 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/design/commit-lifecycle.md][35]: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/design/dora-explains.md][36]: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/module-aspects.md][37]: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/run-modes.md][1]: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/self-service.md][38]: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/server-remote-integration.md][39]: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/design/thin-platforms.md][40]: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/tracks.md][41]: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/visual-design.md][42]: selected by [ADR-DSGN-RUNMODE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/index.md][43]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 94 (text).
+- [docs/adr/design/dora-explains.md][35]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 125 (text).
+- [docs/adr/design/run-modes.md][1]: selected by [ADR-DSGN-RUNMODE][1]: the ADR's own file.
+- [docs/adr/index.md][36]: selected by [ADR-DSGN-RUNMODE][1]: the file cites it at line 94 (text).
 
 ### Root files × powershell (1 lit file)
 
-Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][44]); the extension `.ps1` names the file
+Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][37]); the extension `.ps1` names the file
 language powershell ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [importer.ps1][45]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which
+- [importer.ps1][38]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which
   cite it at `automation/.internal/assets/Import-Catzc.ps1` line 5 (header) and
   `automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1` line 1 (text).
 
 ### Root files × Unlisted files (2 lit files)
 
-Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][44]); no extension names no file language,
-so each is an unlisted file ([ADR-DSGN-TRACK#8][46]). Lit ([ADR-DSGN-TRACK#12][4]) by:
+Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][37]); no extension names no file language,
+so each is an unlisted file ([ADR-DSGN-TRACK#8][39]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [.gitattributes][47]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which
+- [.gitattributes][40]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which
   cite it at `automation/Catzc.Base.Repository/Assert-SourceTree.ps1` line 8 (header),
   `automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1` line 10 (header) and `automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1`
   line 6 (header).
-- [.gitignore][48]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which cite
+- [.gitignore][41]: selected by [ADR-DSGN-RUNMODE][1]: a root file carries the citations of its owner module's files (files.yml), which cite
   it at `automation/Catzc.Base.Repository/Assert-SourceTree.ps1` line 8 (header), `automation/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1`
   line 10 (header) and `automation/Catzc.Base.Repository/Get-CatzcRunMode.ps1` line 6 (header).
 
 ## Keywords
 
-- [world map][49]
-- [track][50]
-- [file language][51]
-- [cell][52]
-- [lit cell][53]
-- [root file][54]
-- [unlisted file][55]
-- [automation][56]: a track
-- [docs][56]: a track
-- [markdown][57]: a file language
-- [powershell][57]: a file language
-- [yaml][57]: a file language
+- [world map][42]
+- [track][43]
+- [file language][44]
+- [cell][45]
+- [lit cell][46]
+- [root file][47]
+- [unlisted file][48]
+- [automation][49]: a track
+- [docs][49]: a track
+- [markdown][50]: a file language
+- [powershell][50]: a file language
+- [yaml][50]: a file language
 
 [1]: ../../adr/design/run-modes.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -179,26 +165,19 @@ so each is an unlisted file ([ADR-DSGN-TRACK#8][46]). Lit ([ADR-DSGN-TRACK#12][4
 [32]: ../../../automation/Catzc.Base.Vendor/Remove-VendorModules.ps1
 [33]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
 [34]: ../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
-[35]: ../../adr/design/commit-lifecycle.md
-[36]: ../../adr/design/dora-explains.md
-[37]: ../../adr/design/module-aspects.md
-[38]: ../../adr/design/self-service.md
-[39]: ../../adr/design/server-remote-integration.md
-[40]: ../../adr/design/thin-platforms.md
-[41]: ../../adr/design/tracks.md
-[42]: ../../adr/design/visual-design.md
-[43]: ../../adr/index.md
-[44]: ../../adr/design/tracks.md#rule-adr-dsgn-track7
-[45]: ../../../importer.ps1
-[46]: ../../adr/design/tracks.md#rule-adr-dsgn-track8
-[47]: ../../../.gitattributes
-[48]: ../../../.gitignore
-[49]: ../../adr/glossary.md#world-map
-[50]: ../../adr/glossary.md#track
-[51]: ../../adr/glossary.md#file-language
-[52]: ../../adr/glossary.md#cell
-[53]: ../../adr/glossary.md#lit-cell
-[54]: ../../adr/glossary.md#root-file
-[55]: ../../adr/glossary.md#unlisted-file
-[56]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[57]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[35]: ../../adr/design/dora-explains.md
+[36]: ../../adr/index.md
+[37]: ../../adr/design/tracks.md#rule-adr-dsgn-track7
+[38]: ../../../importer.ps1
+[39]: ../../adr/design/tracks.md#rule-adr-dsgn-track8
+[40]: ../../../.gitattributes
+[41]: ../../../.gitignore
+[42]: ../../adr/glossary.md#world-map
+[43]: ../../adr/glossary.md#track
+[44]: ../../adr/glossary.md#file-language
+[45]: ../../adr/glossary.md#cell
+[46]: ../../adr/glossary.md#lit-cell
+[47]: ../../adr/glossary.md#root-file
+[48]: ../../adr/glossary.md#unlisted-file
+[49]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[50]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

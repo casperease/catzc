@@ -6,9 +6,9 @@
 
 ### Rule ADR-PWSH-CACHE:1
 
-A session cache lives in module `$script:` state, which the [caching](../automation/caching.md) (`ADR-AUTO-CACHE`) boundary maps onto
-exactly: `$script:` state is established at import and destroyed on re-import, so "re-run the importer" is the literal and only
-invalidation.
+A session cache lives in module `$script:` state, which the importer boundary of
+[ADR-AUTO-CACHE#6](../automation/caching.md#rule-adr-auto-cache6) maps onto exactly: `$script:` state is established at import and destroyed
+on re-import, so "re-run the importer" is the literal and only invalidation.
 
 - [The `$script:` scope](#the-script-scope)
 
@@ -20,14 +20,6 @@ session state.
 
 - [The `$script:` scope](#the-script-scope)
 
-### Rule ADR-PWSH-CACHE:3
-
-Tests vary cached behavior by mocking the whole function (`Mock Get-BicepTemplates`), not its internals — a warm cache ignores mocked
-dependencies. A test exercising cache population resets the cache entry in module scope
-(`InModuleScope <Module> { $script:<entry> = $null }`), and only such a test does.
-
-- [Testing cached functions](#testing-cached-functions)
-
 ### Rule ADR-PWSH-CACHE:4
 
 A function probes its cache entry with `$ExecutionContext.SessionState.PSVariable.GetValue('script:<entry>')`, never with a bare
@@ -35,6 +27,16 @@ A function probes its cache entry with `$ExecutionContext.SessionState.PSVariabl
 name falls through to `$global:` when the module's cache entry is unset.
 
 - [Probing an unset cache entry](#probing-an-unset-cache-entry)
+
+### Rule ADR-PWSH-CACHE:5
+
+The compiled-type prebuild of [ADR-AUTO-CACHE#8](../automation/caching.md#rule-adr-auto-cache8) is realised by the bootstrap:
+`Import-CSharpTypes` (`Catzc.Internal.Bootstrap.psm1`) computes the key over every module's `types/*.cs` and loads the committed
+`Catzc.Types.<hash>.dll` whose name matches, compiling with `Add-Type` only when none does; `Import-TypesAssembly`
+(`Catzc.Internal.Types.psm1`) is the one load path, through the per-user shadow copy, for the bootstrap and the `SpellOutIdentifiers`
+analyzer rule alike.
+
+- [The compiled-type prebuild](#the-compiled-type-prebuild)
 
 ## Context
 
@@ -123,13 +125,23 @@ A warm cache short-circuits before any dependency runs, so mocking a cached func
 fires. A test therefore mocks the **whole boundary function** and lets the cache be an implementation detail. The one exception is a test
 whose subject _is_ the cache: it resets the module-scope cache entry first
 (`InModuleScope Catzc.Base.Config { $script:configCache = $null }`) and pays the cold derive deliberately. Resetting per test everywhere
-else defeats the cache and multiplies test-run time (see [test-automation](../automation/test-automation.md)).
+else defeats the cache and multiplies test-run time (see [test-automation](../automation/test-automation.md)). The mocking rule, with this
+one exception, is [ADR-PWSH-PESTER#3](pester-testing.md#rule-adr-pwsh-pester3).
+
+### The compiled-type prebuild
+
+The one cache that outlives a session is the compiled-type assembly, and it lives in no `$script:` variable: the key is its file name. The
+bootstrap's `Import-CSharpTypes` hashes the type sources, finds the committed assembly of that name, and loads it, so a fresh checkout never
+compiles; a source edit changes the name, and only then does `Add-Type` compile. Loading goes through `Import-TypesAssembly`, which copies
+the assembly to a per-user shadow folder first, so no session locks `automation/.compiled`. The compile itself and the stale-types guard are
+[hosting-csharp-types](hosting-csharp-types.md).
 
 ## Decision
 
 Session caches are module `$script:` hashtables keyed by resolved input, populated on first use, discarded by re-import — never `$env:` or
 `$global:` — probed strict-clean through `PSVariable.GetValue('script:<entry>')`, and tests mock the cached function whole, resetting the
-cache entry only to exercise cache behavior itself.
+cache entry only to exercise cache behavior itself. The compiled-type prebuild is the one cross-session cache, keyed by its file name and
+loaded through the shadow copy.
 
 ### How this is enforced
 

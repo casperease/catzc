@@ -21,11 +21,14 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
         }
         $paths = @(
             'widgets/Alpha/Get-Widget.ps1', 'widgets/Alpha/Set-Widget.ps1', 'widgets/Beta/Get-Gizmo.ps1', 'docs/adr/widgetry/widget-gadget.md',
-            'docs/adr/gizmos/gizmo-cog.md', 'docs/guide.md', 'pipelines/ci-widgets.yaml', 'importer.ps1', 'README.md'
+            'docs/adr/widgetry/widget-sprocket.md', 'docs/adr/gizmos/gizmo-cog.md', 'docs/guide.md', 'pipelines/ci-widgets.yaml', 'importer.ps1', 'README.md'
         )
         $globSets = @([Catzc.Base.Globs.GlobSet]::new('widgets-set', 'The widgets.', 'loose-fileset', @('widgets/Beta/**'), @(), @(), @(), -1, 'ci-widgets'))
         $script:map = [Catzc.Base.Maps.WorldMapBuilder]::Build($tracks, $languages, ($paths | Sort-Object -Descending), [ordered]@{},
-            [ordered]@{ 'ADR-WIDGET-GADGET' = 'widgetry'; 'ADR-WIDGET-SPROCKET' = 'widgetry'; 'ADR-GIZMO-COG' = 'gizmos' }, $texts,
+            [ordered]@{ 'ADR-WIDGET-GADGET' = 'widgetry'; 'ADR-WIDGET-SPROCKET' = 'widgetry'; 'ADR-GIZMO-COG' = 'gizmos' },
+            [ordered]@{ 'ADR-WIDGET-GADGET' = 'docs/adr/widgetry/widget-gadget.md'; 'ADR-WIDGET-SPROCKET' = 'docs/adr/widgetry/widget-sprocket.md'
+                'ADR-GIZMO-COG' = 'docs/adr/gizmos/gizmo-cog.md'
+            }, $texts,
             [ordered]@{ 'importer.ps1' = 'widgets/Alpha' }, $globSets)
         $script:pin = { param([string] $Adr, [string] $Track, [string] $FileLanguage) [Catzc.Base.Maps.MapsPin]::new($Adr, $Track, $FileLanguage, 'reviewed') }
         $script:forAdr = {
@@ -36,7 +39,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
     }
 
     Context 'ADR references' {
-        It 'lights the domain''s ADR files and every file the D5 order ties to the code, in the map''s order' {
+        It 'lights the requested ADR''s own file and every file the D5 order ties to the code, in the map''s order' {
             $highlight = & $script:forAdr 'ADR-WIDGET-GADGET'
             $highlight.Kind | Should -Be 'adr'
             $highlight.Requested | Should -Be @('ADR-WIDGET-GADGET')
@@ -56,11 +59,17 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             $highlight.Cells[1].Files | Should -Be @('pipelines/ci-widgets.yaml')
         }
 
-        It 'lights a non-ADR file by its citations only, never by a sibling code of the domain' {
+        It 'lights an ADR''s own file and its citing files, never a sibling ADR''s file of the same domain' {
             $highlight = & $script:forAdr 'ADR-WIDGET-SPROCKET'
             $docs = $highlight.Cells | Where-Object FileLanguage -EQ 'notes' | Where-Object Track -EQ 'docs'
-            $docs.Files | Should -Be @('docs/adr/widgetry/widget-gadget.md', 'docs/guide.md')
+            $docs.Files | Should -Be @('docs/adr/widgetry/widget-sprocket.md', 'docs/guide.md')
             @($highlight.Cells).Count | Should -Be 1
+        }
+
+        It 'lights two ADRs of one domain each on its own file only' -Tag 'ADR-DSGN-TRACK#12' {
+            $docs = (& $script:forAdr 'ADR-WIDGET-GADGET', 'ADR-WIDGET-SPROCKET').Cells | Where-Object Track -EQ 'docs'
+            @($docs.Reasons | Where-Object Basis -EQ 'adr-file' | ForEach-Object { "$($_.Path) $($_.Requested)" }) |
+                Should -Be @('docs/adr/widgetry/widget-gadget.md ADR-WIDGET-GADGET', 'docs/adr/widgetry/widget-sprocket.md ADR-WIDGET-SPROCKET')
         }
 
         It 'narrows a rule request to its rule and the bare citations' {
@@ -105,8 +114,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             $highlight = & $script:forAdr 'ADR-WIDGET-GADGET'
             $docs = $highlight.Cells[0].Reasons
             @($docs).Count | Should -Be 1
-            "$($docs[0].Path) $($docs[0].Basis) $($docs[0].Requested) $($docs[0].Domain)" |
-                Should -Be 'docs/adr/widgetry/widget-gadget.md adr-file ADR-WIDGET-GADGET widgetry'
+            "$($docs[0].Path) $($docs[0].Basis) $($docs[0].Requested)" | Should -Be 'docs/adr/widgetry/widget-gadget.md adr-file ADR-WIDGET-GADGET'
             $widgets = $highlight.Cells[1].Reasons
             @($widgets | ForEach-Object { "$($_.Path) $($_.Basis) $($_.Requested)" }) |
                 Should -Be @('widgets/Alpha/Get-Widget.ps1 citations ADR-WIDGET-GADGET', 'widgets/Alpha/Set-Widget.ps1 citations ADR-WIDGET-GADGET')
@@ -162,7 +170,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             $data.kind | Should -Be 'adr'
             @($data.cells[0].PSObject.Properties.Name) | Should -Be @('track', 'file_language', 'file_count', 'sources', 'files', 'touched', 'reasons')
             $data.cells[0].files | Should -Be @('docs/adr/gizmos/gizmo-cog.md')
-            @($data.cells[0].reasons[0].PSObject.Properties.Name) | Should -Be @('path', 'basis', 'requested', 'domain', 'note', 'mention', 'sites')
+            @($data.cells[0].reasons[0].PSObject.Properties.Name) | Should -Be @('path', 'basis', 'requested', 'note', 'mention', 'sites')
             $site = ($data.cells | Where-Object track -EQ 'widgets').reasons[0].sites[0]
             @($site.PSObject.Properties.Name) | Should -Be @('path', 'line', 'kind', 'citation')
             "$($site.path):$($site.line) $($site.kind)" | Should -Be 'widgets/Beta/Get-Gizmo.ps1:2 comment'

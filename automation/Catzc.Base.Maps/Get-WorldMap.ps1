@@ -6,8 +6,9 @@
     the tracks (Get-Track, [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)), the file languages
     (Get-FileLanguage, [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)), the tracked files from the
     git index (Get-GitTrackedPath, [ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)), each
-    configured track's aspects (Get-Aspect), the adrs index (Get-AdrRuleSet: ADR code to domain), the owners of the
-    repository-root files (files.yml, read through Get-Config), the globsets (Get-GlobSet), and the globs of the files
+    configured track's aspects (Get-Aspect), the adrs index (Get-AdrRuleSet: ADR code to domain), each ADR code's own
+    file (Get-AdrCitationMap, the map the link engine uses; an ADR lights its own file, never its domain's), the
+    owners of the repository-root files (files.yml, read through Get-Config), the globsets (Get-GlobSet), and the globs of the files
     whose citations light nothing (maps.yml highlight.citation_exclude; by default the generated slide descriptions
     under docs/.assets/, the explanation articles under docs/explanation/ and the drawing tooling under .claude/drawio/,
     so a slide's minimap lights the repository's citations of its ADRs, never the slide's own words).
@@ -54,8 +55,14 @@ function Get-WorldMap {
     }
 
     $adrIndex = [ordered]@{}
+    $adrFiles = [ordered]@{}
+    $citationMap = Get-AdrCitationMap
     foreach ($ruleSet in Get-AdrRuleSet) {
         $adrIndex[$ruleSet.External] = $ruleSet.Domain
+        $adrFile = $citationMap.PathOf($ruleSet.External)
+        if ($adrFile) {
+            $adrFiles[$ruleSet.External] = $adrFile
+        }
     }
 
     # A repository-root file's owner is the folder of the module whose files.yml package lists it.
@@ -93,8 +100,8 @@ function Get-WorldMap {
     }
 
     $citationExclude = @((Get-Config -Config maps).highlight.citation_exclude)
-    $map = [Catzc.Base.Maps.WorldMapBuilder]::Build($tracks, @(Get-FileLanguage), $paths, $aspects, $adrIndex, $texts, $rootOwners, @(Get-GlobSet),
-        $citationExclude)
+    $map = [Catzc.Base.Maps.WorldMapBuilder]::Build($tracks, @(Get-FileLanguage), $paths, $aspects, $adrIndex, $adrFiles, $texts, $rootOwners,
+        @(Get-GlobSet), $citationExclude)
     if ($AsJson) {
         return $map.ToJson()
     }

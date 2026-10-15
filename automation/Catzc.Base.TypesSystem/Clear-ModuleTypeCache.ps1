@@ -9,7 +9,7 @@
     version of a type. The current build is never deleted, so the committed file stays put on every platform.
 
     Nothing in catzc holds a .compiled DLL open: every load goes through a per-user shadow copy
-    (Import-TypesAssembly, [ADR-AUTO-TYPES#6](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types6)), so
+    (Import-TypesAssembly, [ADR-AUTO-CACHE#8](/docs/adr/automation/caching.md#rule-adr-auto-cache8)), so
     a superseded build is always expected to delete. A delete that
     still fails means something outside catzc holds the file (an antivirus scan, an indexer, a session started
     before shadow loading). The janitor removes every deletable build first, then throws one error naming each

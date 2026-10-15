@@ -11,12 +11,11 @@ each reason below names the code that selects it.
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
-domain), and lights 445 files in 41 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 397 files in 41 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - QualityGates (automation/Catzc.Base.QualityGates): 132 lit files
 - Docs (automation/Catzc.Base.Docs): 50 lit files
-- adr/auto (docs/adr/automation): 40 lit files
 - Az.Templates (automation/Catzc.Azure.Templates): 29 lit files
 - ModuleSystem (automation/Catzc.Base.ModuleSystem): 20 lit files
 - Globs (automation/Catzc.Base.Globs): 14 lit files
@@ -25,13 +24,11 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 - Maps (automation/Catzc.Base.Maps): 11 lit files
 - Tool.Core (automation/Catzc.Tooling.Core): 11 lit files
 - Execution (automation/Catzc.Base.Execution): 10 lit files
-- adr/dsgn (docs/adr/design): 9 lit files
 - docs (docs/ outside docs/adr/): 9 lit files
 - RootConfig (automation/Catzc.Base.RootConfig): 8 lit files
 - Contracts (automation/Catzc.Base.Contracts): 7 lit files
 - Tool.Provisioning (automation/Catzc.Tooling.Provisioning): 7 lit files
 - .claude: 6 lit files
-- adr/flow (docs/adr/flow): 6 lit files
 - Reports (automation/Catzc.Base.Reports): 5 lit files
 - TypesSystem (automation/Catzc.Base.TypesSystem): 5 lit files
 - .internal (automation/.internal): 4 lit files
@@ -42,10 +39,13 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 - ConfigExtensions (automation/Catzc.Base.ConfigExtensions): 3 lit files
 - Exporter (automation/Catzc.Base.Exporter): 3 lit files
 - Tool.KeyHandler (automation/Catzc.Tooling.KeyHandler): 3 lit files
+- adr/dsgn (docs/adr/design): 3 lit files
 - Objects (automation/Catzc.Base.Objects): 2 lit files
 - Repository (automation/Catzc.Base.Repository): 2 lit files
 - Tool.Toolchain (automation/Catzc.Tooling.Toolchain): 2 lit files
 - adr/* (the files directly in docs/adr/): 2 lit files
+- adr/auto (docs/adr/automation): 2 lit files
+- adr/flow (docs/adr/flow): 2 lit files
 - .scriptanalyzer (automation/.scriptanalyzer): 1 lit file
 - Az.DevOps.BuildValidation (automation/Catzc.Azure.DevOps.BuildValidation): 1 lit file
 - Engines (automation/Catzc.Base.Engines): 1 lit file
@@ -58,7 +58,7 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 ## Why each group is lit
 
-### QualityGates (132 lit files)
+### QualityGates (automation/Catzc.Base.QualityGates, 132 lit files)
 
 The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
@@ -337,7 +337,7 @@ The group holds the files of automation/Catzc.Base.QualityGates; each sits in it
 - [automation/Catzc.Base.QualityGates/types/TestPolicyConfig.cs][136], in the cell automation × csharp: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 2 (header).
 
-### Docs (50 lit files)
+### Docs (automation/Catzc.Base.Docs, 50 lit files)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
@@ -445,791 +445,683 @@ The group holds the files of automation/Catzc.Base.Docs; each sits in its world-
   cites it at line 40 (body comment) (a passing mention only); selected by [ADR-FLOW-CD][4]: the file cites it at line 41 (body comment) (a
   passing mention only).
 
-### adr/auto (40 lit files)
-
-The group holds the files of docs/adr/automation; each sits in its world-map cell and is lit by:
-
-- [docs/adr/automation/BCL/index.md][187], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/automation/BCL/native-csharp-types.md][188], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/avoid-deep-nesting.md][189], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/bash/bash-test-artifacts.md][190], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/bash/index.md][191], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/automation/caching.md][192], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/automation/console-output-matters.md][193], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/consumer-overlay.md][194], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/controlling-module-dependencies.md][195], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of
-  the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/controlling-systemwide-deps.md][196], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/cross-platform.md][197], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation`
-  ADR domain, the ADR domain of that code.
-- [docs/adr/automation/devbox-pipeline-parity.md][198], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/dora-explains.md][199], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation`
-  ADR domain, the ADR domain of that code.
-- [docs/adr/automation/dry-run.md][200], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/automation/effective-in-enterprises.md][201], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/environment-variables.md][202], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/execution-engines.md][203], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/fail-fast-with-asserts.md][204], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/go/go-test-artifacts.md][205], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/go/index.md][206], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/automation/idempotent-state-functions.md][207], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/internal-asset-dependencies.md][208], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/log-before-invoke.md][209], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/managed-guids.md][210], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation`
-  ADR domain, the ADR domain of that code.
-- [docs/adr/automation/never-depend-on-pwd.md][211], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/open-closed-architecture.md][212], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/path-representation.md][213], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/platform-bundle.md][214], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/python/index.md][215], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation`
-  ADR domain, the ADR domain of that code.
-- [docs/adr/automation/python/python-test-artifacts.md][216], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of
-  the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/retry-as-last-resort.md][217], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/sensible-defaults.md][218], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/single-responsibility-functions.md][219], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of
-  the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/spell-out-names.md][220], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/test-automation.md][1], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the `automation`
-  ADR domain, the ADR domain of that code.
-- [docs/adr/automation/tool-removal-lifecycle.md][221], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/tracked-files-from-the-index.md][222], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of
-  the `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/use-proper-package-managers.md][223], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/uv-python-handler.md][224], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-- [docs/adr/automation/zero-ceremony-poka-yoke.md][225], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: an ADR file of the
-  `automation` ADR domain, the ADR domain of that code.
-
-### Az.Templates (29 lit files)
+### Az.Templates (automation/Catzc.Azure.Templates, 29 lit files)
 
 The group holds the files of automation/Catzc.Azure.Templates; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Azure.Templates/Get-BicepTemplatesOutputRoot.ps1][226], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/Get-BicepTemplatesOutputRoot.ps1][187], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 10 (header).
-- [automation/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1][227], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1][188], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 23 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1][228], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1][189], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 8 (header), line 10 (header) and line 13 (header).
-- [automation/Catzc.Azure.Templates/tests/Build-Bicep.L2.Tests.ps1][229], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Build-Bicep.L2.Tests.ps1][190], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 18 (header) and line 26 (header).
-- [automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleCustomer.Tests.ps1][230], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleCustomer.Tests.ps1][191], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (body comment), line 5 (body comment), line 11 (body comment) and line 40 (body comment)
   (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleIndexed.Tests.ps1][231], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleIndexed.Tests.ps1][192], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (body comment), line 5 (body comment) and line 36 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleSubscription.Tests.ps1][232], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleSubscription.Tests.ps1][193], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment), line 4 (body comment), line 10 (body comment) and line 39 (body comment)
   (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithModule.Tests.ps1][233], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithModule.Tests.ps1][194], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (body comment), line 5 (body comment), line 11 (body comment) and line 40 (body comment)
   (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1][234], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1][195], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 32 (body comment) and line 37 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1][235], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1][196], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 5 (body comment), line 5 (body comment), line 9 (body comment) and line 39 (body comment) (a passing mention
   only).
-- [automation/Catzc.Azure.Templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1][236], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1][197], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 34 (body comment), line 124 (body comment) and line 176 (body comment) (a passing mention
   only).
-- [automation/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1][237], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1][198], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 46 (body comment), line 46 (body comment) and line 98 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1][238], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1][199], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 6 (body comment), line 6 (body comment), line 11 (body comment) and line 51 (body comment)
   (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1][239], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1][200], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 9 (header), line 12 (header), line 15 (header), line 20 (header) and line 25 (body comment).
-- [automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1][240], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1][201], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1][241], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1][202], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Azure.Templates/tests/Get-BicepResourceGroupName.Tests.ps1][242], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Get-BicepResourceGroupName.Tests.ps1][203], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment) and line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Get-BicepResourceName.Tests.ps1][243], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Get-BicepResourceName.Tests.ps1][204], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 7 (body comment) and line 7 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Get-BicepTemplate.Tests.ps1][244], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Get-BicepTemplate.Tests.ps1][205], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment) and line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1][245], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1][206], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (body comment) and line 5 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Get-BicepTemplateCustomers.Tests.ps1][246], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Get-BicepTemplateCustomers.Tests.ps1][207], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment), line 4 (body comment), line 42 (body comment) and line 42 (body comment)
   (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Get-BicepTemplateNames.Tests.ps1][247], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Get-BicepTemplateNames.Tests.ps1][208], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment) and line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Get-BicepTemplateSlots.Tests.ps1][248], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Get-BicepTemplateSlots.Tests.ps1][209], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment), line 4 (body comment), line 57 (body comment) and line 57 (body comment)
   (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1][249], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1][210], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 7 (body comment) and line 7 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Get-BicepTrackTagNameSet.Tests.ps1][250], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Get-BicepTrackTagNameSet.Tests.ps1][211], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment) and line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1][251], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1][212], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1][252], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1][213], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 43 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.Templates/tests/assets/Get-AzureResourceName.Content.yml][253], in the cell automation × yaml: selected by
+- [automation/Catzc.Azure.Templates/tests/assets/Get-AzureResourceName.Content.yml][214], in the cell automation × yaml: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 7 (header).
-- [automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1][254], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1][215], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 6 (body comment) (a passing mention only).
 
-### ModuleSystem (20 lit files)
+### ModuleSystem (automation/Catzc.Base.ModuleSystem, 20 lit files)
 
 The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1][255], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1][216], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 34 (body comment) (a passing mention only).
-- [automation/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1][256], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1][217], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 5 (header).
-- [automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1][257], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1][218], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 5 (header).
-- [automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1][258], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1][219], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 15 (header).
-- [automation/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1][259], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1][220], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (header).
-- [automation/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1][260], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1][221], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 5 (header).
-- [automation/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1][261], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1][222], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 8 (header).
-- [automation/Catzc.Base.ModuleSystem/configs/artifacts.yml][262], in the cell automation × yaml: selected by [ADR-AUTO-TEST][1]: the file
+- [automation/Catzc.Base.ModuleSystem/configs/artifacts.yml][223], in the cell automation × yaml: selected by [ADR-AUTO-TEST][1]: the file
   cites it at line 4 (header).
-- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][263], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][2]: the file
+- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][224], in the cell automation × yaml: selected by [ADR-DSGN-LIFE][2]: the file
   cites it at line 52 (text); selected by [ADR-FLOW-CD][4]: the file cites it at line 21 (text).
-- [automation/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1][264], in the cell automation × powershell: selected
+- [automation/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1][225], in the cell automation × powershell: selected
   by [ADR-AUTO-TEST][1]: the file cites it at line 13 (header).
-- [automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1][265], in the cell automation × powershell:
+- [automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1][226], in the cell automation × powershell:
   selected by [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Tests.ps1][266], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Tests.ps1][227], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (header).
-- [automation/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1][267], in the cell automation × powershell:
+- [automation/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1][228], in the cell automation × powershell:
   selected by [ADR-AUTO-TEST][1]: the file cites it at line 7 (header).
-- [automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1][268], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1][229], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header) and line 92 (body comment).
-- [automation/Catzc.Base.ModuleSystem/tests/Test-FolderConventions.Tests.ps1][269], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/tests/Test-FolderConventions.Tests.ps1][230], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1][270], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1][231], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header), line 31 (text), line 37 (text) and line 47 (text).
-- [automation/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1][271], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1][232], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Base.ModuleSystem/tests/Test-ModuleCycles.Tests.ps1][272], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/tests/Test-ModuleCycles.Tests.ps1][233], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
-- [automation/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1][273], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1][234], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header), line 19 (text) and line 31 (text).
-- [automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs][274], in the cell automation × csharp: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs][235], in the cell automation × csharp: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 3 (header).
 
-### Globs (14 lit files)
+### Globs (automation/Catzc.Base.Globs, 14 lit files)
 
 The group holds the files of automation/Catzc.Base.Globs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1][275], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1][236], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 14 (header).
-- [automation/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1][276], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1][237], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 14 (header).
-- [automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1][277], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1][238], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 18 (header).
-- [automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1][278], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1][239], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 5 (header).
-- [automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1][279], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1][240], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 7 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Globs/tests/Get-GlobSet.Tests.ps1][280], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.Globs/tests/Get-GlobSet.Tests.ps1][241], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 6 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1][281], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1][242], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 16 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1][282], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1][243], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1][283], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1][244], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header), line 19 (text), line 30 (text) and line 42 (text).
-- [automation/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1][284], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1][245], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header), line 4 (header), line 18 (text), line 25 (text) and line 36 (text).
-- [automation/Catzc.Base.Globs/tests/Test-GlobSetAffected.Tests.ps1][285], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Globs/tests/Test-GlobSetAffected.Tests.ps1][246], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 7 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1][286], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1][247], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header), line 5 (header), line 29 (text), line 37 (text) and line 50 (text).
-- [automation/Catzc.Base.Globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1][287], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1][248], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
-- [automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1][288], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1][249], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 32 (body comment) and line 50 (body comment) (a passing mention only).
 
-### Azure (11 lit files)
+### Azure (automation/Catzc.Azure, 11 lit files)
 
 The group holds the files of automation/Catzc.Azure; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Azure/Test-AzureNetworkPlan.ps1][289], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the file
+- [automation/Catzc.Azure/Test-AzureNetworkPlan.ps1][250], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the file
   cites it at line 5 (header).
-- [automation/Catzc.Azure/configs/identity-tokens.yml][290], in the cell automation × yaml: selected by [ADR-AUTO-TEST][1]: the file cites
+- [automation/Catzc.Azure/configs/identity-tokens.yml][251], in the cell automation × yaml: selected by [ADR-AUTO-TEST][1]: the file cites
   it at line 3 (header).
-- [automation/Catzc.Azure/tests/Get-AzureBicepMinVersion.Tests.ps1][291], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure/tests/Get-AzureBicepMinVersion.Tests.ps1][252], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment) and line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Azure/tests/Get-AzureCustomer.Tests.ps1][292], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Azure/tests/Get-AzureCustomer.Tests.ps1][253], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Azure/tests/Get-AzureCustomers.Tests.ps1][293], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Azure/tests/Get-AzureCustomers.Tests.ps1][254], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 4 (body comment) and line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Azure/tests/Get-AzureEnvironment.Tests.ps1][294], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Azure/tests/Get-AzureEnvironment.Tests.ps1][255], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 4 (body comment) and line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Azure/tests/Get-AzureSubscription.Tests.ps1][295], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Azure/tests/Get-AzureSubscription.Tests.ps1][256], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 4 (body comment) and line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1][296], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1][257], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment) and line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1][297], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1][258], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 4 (header).
-- [automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1][298], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1][259], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 6 (body comment) and line 7 (body comment) (a passing mention only).
-- [automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1][299], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1][260], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 6 (body comment) and line 7 (body comment) (a passing mention only).
 
-### Languages (11 lit files)
+### Languages (automation/Catzc.Base.Languages, 11 lit files)
 
 The group holds the files of automation/Catzc.Base.Languages; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Languages/tests/ConvertFrom-BatsJunit.Tests.ps1][300], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Languages/tests/ConvertFrom-BatsJunit.Tests.ps1][261], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1][301], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1][262], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
-- [automation/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1][302], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1][263], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1][303], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1][264], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Languages/tests/Invoke-GoTest.Tests.ps1][304], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Base.Languages/tests/Invoke-GoTest.Tests.ps1][265], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 3 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Languages/tests/Invoke-PythonTest.Tests.ps1][305], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Languages/tests/Invoke-PythonTest.Tests.ps1][266], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1][306], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1][267], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 17 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1][307], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1][268], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Base.Languages/types/BashTestResult.cs][308], in the cell automation × csharp: selected by [ADR-AUTO-TEST][1]: the file
+- [automation/Catzc.Base.Languages/types/BashTestResult.cs][269], in the cell automation × csharp: selected by [ADR-AUTO-TEST][1]: the file
   cites it at line 8 (header).
-- [automation/Catzc.Base.Languages/types/GoTestResult.cs][309], in the cell automation × csharp: selected by [ADR-AUTO-TEST][1]: the file
+- [automation/Catzc.Base.Languages/types/GoTestResult.cs][270], in the cell automation × csharp: selected by [ADR-AUTO-TEST][1]: the file
   cites it at line 8 (header).
-- [automation/Catzc.Base.Languages/types/PythonTestResult.cs][310], in the cell automation × csharp: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.Languages/types/PythonTestResult.cs][271], in the cell automation × csharp: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 9 (header).
 
-### Maps (11 lit files)
+### Maps (automation/Catzc.Base.Maps, 11 lit files)
 
 The group holds the files of automation/Catzc.Base.Maps; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1][311], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1][272], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 22 (header); selected by [ADR-FLOW-CD][4]: the file cites it at line 20 (header).
-- [automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1][312], in the cell automation × powershell: selected by [ADR-FLOW-CD][4]: the file
+- [automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1][273], in the cell automation × powershell: selected by [ADR-FLOW-CD][4]: the file
   cites it at line 31 (header).
-- [automation/Catzc.Base.Maps/Test-ValueChainMap.ps1][313], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the file
+- [automation/Catzc.Base.Maps/Test-ValueChainMap.ps1][274], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the file
   cites it at line 6 (header).
-- [automation/Catzc.Base.Maps/Test-WorldMap.ps1][314], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the file cites
+- [automation/Catzc.Base.Maps/Test-WorldMap.ps1][275], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the file cites
   it at line 6 (header).
-- [automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1][315], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1][276], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (header).
-- [automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1][316], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1][277], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 3 (header).
-- [automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][317], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][278], in the cell automation × powershell: selected by
   [ADR-FLOW-CD][4]: the file cites it at line 70 (text) and line 71 (text).
-- [automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1][318], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1][279], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 5 (header), line 7 (header), line 45 (text), line 74 (text), line 80 (text) and line 90 (body comment).
-- [automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1][319], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1][280], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 5 (header), line 7 (header), line 53 (text), line 104 (text), line 111 (text) and line 121 (body comment).
-- [automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1][320], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1][281], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (header).
-- [automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1][321], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1][282], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
 
-### Tool.Core (11 lit files)
+### Tool.Core (automation/Catzc.Tooling.Core, 11 lit files)
 
 The group holds the files of automation/Catzc.Tooling.Core; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Tooling.Core/Remove-SystemInstallation.ps1][322], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Tooling.Core/Remove-SystemInstallation.ps1][283], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 13 (header).
-- [automation/Catzc.Tooling.Core/tests/Assert-Tool.Tests.ps1][323], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Tooling.Core/tests/Assert-Tool.Tests.ps1][284], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1][324], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1][285], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (body comment) (a passing mention only).
-- [automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1][325], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1][286], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 81 (body comment) (a passing mention only).
-- [automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1][326], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1][287], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 7 (body comment) and line 52 (body comment) (a passing mention only).
-- [automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1][327], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1][288], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Tooling.Core/tests/Remove-MacToolInstall.Tests.ps1][328], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Core/tests/Remove-MacToolInstall.Tests.ps1][289], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1][329], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1][290], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (text).
-- [automation/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1][330], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1][291], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 35 (body comment) and line 87 (body comment) (a passing mention only).
-- [automation/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1][331], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1][292], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 82 (body comment) (a passing mention only).
-- [automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1][332], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1][293], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (body comment) (a passing mention only).
 
-### Execution (10 lit files)
+### Execution (automation/Catzc.Base.Execution, 10 lit files)
 
 The group holds the files of automation/Catzc.Base.Execution; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Execution/Invoke-Executable.ps1][333], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.Execution/Invoke-Executable.ps1][294], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 107 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1][334], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1][295], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (header).
-- [automation/Catzc.Base.Execution/tests/Get-ExecutableVersion.Tests.ps1][335], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Execution/tests/Get-ExecutableVersion.Tests.ps1][296], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1][336], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1][297], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 81 (text) and line 81 (body comment).
-- [automation/Catzc.Base.Execution/tests/Resolve-EngineExecutable.Tests.ps1][337], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Execution/tests/Resolve-EngineExecutable.Tests.ps1][298], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1][338], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1][299], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1][339], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1][300], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1][340], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1][301], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1][341], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1][302], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1][342], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1][303], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (body comment), line 13 (body comment) and line 15 (body comment) (a passing mention
   only).
 
-### adr/dsgn (9 lit files)
-
-The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
-
-- [docs/adr/design/commit-lifecycle.md][2], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][2]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code; selected by [ADR-DSGN-VISUAL][3]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/dora-explains.md][343], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][2]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code; selected by [ADR-DSGN-VISUAL][3]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/module-aspects.md][344], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][2]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code; selected by [ADR-DSGN-VISUAL][3]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/run-modes.md][345], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][2]: an ADR file of the `design` ADR domain,
-  the ADR domain of that code; selected by [ADR-DSGN-VISUAL][3]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/self-service.md][346], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][2]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code; selected by [ADR-DSGN-VISUAL][3]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/server-remote-integration.md][347], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][2]: an ADR file of the
-  `design` ADR domain, the ADR domain of that code; selected by [ADR-DSGN-VISUAL][3]: an ADR file of the `design` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/design/thin-platforms.md][348], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][2]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code; selected by [ADR-DSGN-VISUAL][3]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/tracks.md][349], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][2]: an ADR file of the `design` ADR domain, the
-  ADR domain of that code; selected by [ADR-DSGN-VISUAL][3]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/visual-design.md][3], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][2]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code; selected by [ADR-DSGN-VISUAL][3]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-
-### docs (9 lit files)
+### docs (docs/ outside docs/adr/, 9 lit files)
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/how-to/automation/manual-test-plan.md][350], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line
+- [docs/how-to/automation/manual-test-plan.md][304], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line
   56 (text) and line 62 (text).
-- [docs/how-to/automation/manual-test-plan/azure.md][351], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at
+- [docs/how-to/automation/manual-test-plan/azure.md][305], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at
   line 17 (text) and line 69 (text).
-- [docs/how-to/automation/manual-test-plan/test-harness.md][352], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file
+- [docs/how-to/automation/manual-test-plan/test-harness.md][306], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file
   cites it at line 17 (text).
-- [docs/how-to/getting-started/automation/run-tests-and-checks.md][353], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the
+- [docs/how-to/getting-started/automation/run-tests-and-checks.md][307], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 33 (text).
-- [docs/references/automation/catzc-base-docs.md][354], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at
+- [docs/references/automation/catzc-base-docs.md][308], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at
   line 34 (text).
-- [docs/references/automation/catzc-base-globs.md][355], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at
+- [docs/references/automation/catzc-base-globs.md][309], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at
   line 44 (text).
-- [docs/references/automation/catzc-base-languages.md][356], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it
+- [docs/references/automation/catzc-base-languages.md][310], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it
   at line 39 (text).
-- [docs/references/automation/catzc-base-modulesystem.md][357], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites
+- [docs/references/automation/catzc-base-modulesystem.md][311], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites
   it at line 36 (text).
-- [docs/references/automation/catzc-base-rootconfig.md][358], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it
+- [docs/references/automation/catzc-base-rootconfig.md][312], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it
   at line 50 (text).
 
-### RootConfig (8 lit files)
+### RootConfig (automation/Catzc.Base.RootConfig, 8 lit files)
 
 The group holds the files of automation/Catzc.Base.RootConfig; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1][359], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1][313], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (header).
-- [automation/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1][360], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1][314], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 6 (header).
-- [automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml][361], in the cell automation × yaml: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml][315], in the cell automation × yaml: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 120 (body comment) (a passing mention only).
-- [automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1][362], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1][316], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 138 (body comment) and line 228 (body comment) (a passing mention only).
-- [automation/Catzc.Base.RootConfig/tests/Get-RootConfigRenderedFile.Tests.ps1][363], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.RootConfig/tests/Get-RootConfigRenderedFile.Tests.ps1][317], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1][364], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1][318], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
-- [automation/Catzc.Base.RootConfig/tests/Test-RootConfigFiles.Tests.ps1][365], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.RootConfig/tests/Test-RootConfigFiles.Tests.ps1][319], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1][366], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1][320], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
 
-### Contracts (7 lit files)
+### Contracts (automation/Catzc.Base.Contracts, 7 lit files)
 
 The group holds the files of automation/Catzc.Base.Contracts; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Contracts/Test-Contracts.ps1][367], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the file
+- [automation/Catzc.Base.Contracts/Test-Contracts.ps1][321], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the file
   cites it at line 8 (header).
-- [automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1][368], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1][322], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (header).
-- [automation/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1][369], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1][323], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (header).
-- [automation/Catzc.Base.Contracts/tests/Get-ContractAssetNote.Tests.ps1][370], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Contracts/tests/Get-ContractAssetNote.Tests.ps1][324], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (header).
-- [automation/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1][371], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1][325], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Base.Contracts/tests/Publish-ContractRelease.Tests.ps1][372], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Contracts/tests/Publish-ContractRelease.Tests.ps1][326], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (header).
-- [automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1][373], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1][327], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (header), line 7 (header), line 35 (text), line 55 (body comment), line 79 (text) and line
   208 (body comment).
 
-### Tool.Provisioning (7 lit files)
+### Tool.Provisioning (automation/Catzc.Tooling.Provisioning, 7 lit files)
 
 The group holds the files of automation/Catzc.Tooling.Provisioning; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.ps1][374], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.ps1][328], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 45 (body comment) (a passing mention only).
-- [automation/Catzc.Tooling.Provisioning/tests/Get-PackageTreePlan.Tests.ps1][375], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Provisioning/tests/Get-PackageTreePlan.Tests.ps1][329], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
-- [automation/Catzc.Tooling.Provisioning/tests/Get-ToolsStatus.Tests.ps1][376], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Provisioning/tests/Get-ToolsStatus.Tests.ps1][330], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (body comment) (a passing mention only).
-- [automation/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1][377], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1][331], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header) and line 3 (header).
-- [automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1][378], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1][332], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header) and line 4 (header).
-- [automation/Catzc.Tooling.Provisioning/tests/Uninstall-Chocolatey.Tests.ps1][379], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Provisioning/tests/Uninstall-Chocolatey.Tests.ps1][333], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (body comment) (a passing mention only).
-- [automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1][380], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1][334], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header) and line 3 (header).
 
 ### .claude (6 lit files)
 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
-- [.claude/CLAUDE.md][381], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line 50 (text); selected by
+- [.claude/CLAUDE.md][335], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line 50 (text); selected by
   [ADR-FLOW-CD][4]: the file cites it at line 51 (text).
-- [.claude/agents/build-inspiration-module.md][382], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at
+- [.claude/agents/build-inspiration-module.md][336], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at
   line 45 (text).
-- [.claude/agents/catzc-worker.md][383], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line 47
+- [.claude/agents/catzc-worker.md][337], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line 47
   (text).
-- [.claude/agents/drawio-diagram-waves.md][384], in the cell .claude × markdown: selected by [ADR-DSGN-VISUAL][3]: the file cites it at line
+- [.claude/agents/drawio-diagram-waves.md][338], in the cell .claude × markdown: selected by [ADR-DSGN-VISUAL][3]: the file cites it at line
   48 (text).
-- [.claude/agents/test-optimization.md][385], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line 6
+- [.claude/agents/test-optimization.md][339], in the cell .claude × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line 6
   (text), line 21 (text), line 21 (text), line 21 (text), line 22 (text), line 23 (text), line 52 (text), line 57 (text), line 58 (text),
   line 62 (text), line 62 (text), line 67 (text) and line 75 (text).
-- [.claude/agents/write-drawio-files.md][386], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][2]: the file cites it at line 43
+- [.claude/agents/write-drawio-files.md][340], in the cell .claude × markdown: selected by [ADR-DSGN-LIFE][2]: the file cites it at line 43
   (text); selected by [ADR-DSGN-VISUAL][3]: the file cites it at line 43 (text) and line 129 (text).
 
-### adr/flow (6 lit files)
-
-The group holds the files of docs/adr/flow; each sits in its world-map cell and is lit by:
-
-- [docs/adr/flow/cd-discipline-and-promotion-flow.md][4], in the cell docs × markdown: selected by [ADR-FLOW-CD][4]: an ADR file of the
-  `flow` ADR domain, the ADR domain of that code.
-- [docs/adr/flow/dora-explains.md][387], in the cell docs × markdown: selected by [ADR-FLOW-CD][4]: an ADR file of the `flow` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/flow/durable-sha-globs.md][388], in the cell docs × markdown: selected by [ADR-FLOW-CD][4]: an ADR file of the `flow` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/flow/pipeline-detection.md][389], in the cell docs × markdown: selected by [ADR-FLOW-CD][4]: an ADR file of the `flow` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/flow/pipeline-runner-pattern.md][390], in the cell docs × markdown: selected by [ADR-FLOW-CD][4]: an ADR file of the `flow` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/flow/pipeline-types.md][391], in the cell docs × markdown: selected by [ADR-FLOW-CD][4]: an ADR file of the `flow` ADR domain,
-  the ADR domain of that code.
-
-### Reports (5 lit files)
+### Reports (automation/Catzc.Base.Reports, 5 lit files)
 
 The group holds the files of automation/Catzc.Base.Reports; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Reports/Write-QualityGateReport.ps1][392], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.Reports/Write-QualityGateReport.ps1][341], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 6 (header).
-- [automation/Catzc.Base.Reports/configs/reports.yml][393], in the cell automation × yaml: selected by [ADR-AUTO-TEST][1]: the file cites it
+- [automation/Catzc.Base.Reports/configs/reports.yml][342], in the cell automation × yaml: selected by [ADR-AUTO-TEST][1]: the file cites it
   at line 2 (header).
-- [automation/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1][394], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1][343], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header), line 4 (header), line 14 (text), line 24 (text), line 32 (text) and line 42
   (text).
-- [automation/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1][395], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1][344], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (text), line 10 (text) and line 17 (text).
-- [automation/Catzc.Base.Reports/types/ReportsConfig.cs][396], in the cell automation × csharp: selected by [ADR-AUTO-TEST][1]: the file
+- [automation/Catzc.Base.Reports/types/ReportsConfig.cs][345], in the cell automation × csharp: selected by [ADR-AUTO-TEST][1]: the file
   cites it at line 4 (header).
 
-### TypesSystem (5 lit files)
+### TypesSystem (automation/Catzc.Base.TypesSystem, 5 lit files)
 
 The group holds the files of automation/Catzc.Base.TypesSystem; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1][397], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1][346], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 5 (header).
-- [automation/Catzc.Base.TypesSystem/tests/Assert-LoadedTypesCurrent.Tests.ps1][398], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.TypesSystem/tests/Assert-LoadedTypesCurrent.Tests.ps1][347], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header) and line 3 (header).
-- [automation/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1][399], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1][348], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
-- [automation/Catzc.Base.TypesSystem/tests/Test-LoadedTypesCurrent.Tests.ps1][400], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.TypesSystem/tests/Test-LoadedTypesCurrent.Tests.ps1][349], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header) and line 4 (header).
-- [automation/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1][401], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1][350], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
 
-### .internal (4 lit files)
+### .internal (automation/.internal, 4 lit files)
 
 The group holds the files of automation/.internal; each sits in its world-map cell and is lit by:
 
-- [automation/.internal/tests/Import-AllModules.Tests.ps1][402], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/.internal/tests/Import-AllModules.Tests.ps1][351], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 206 (body comment) (a passing mention only).
-- [automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1][403], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1][352], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 1 (text) and line 80 (text).
-- [automation/.internal/tests/Restart-ImporterSession.Tests.ps1][404], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/.internal/tests/Restart-ImporterSession.Tests.ps1][353], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 5 (header).
-- [automation/.internal/tests/Test-FolderConventions.Tests.ps1][405], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/.internal/tests/Test-FolderConventions.Tests.ps1][354], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 2 (header).
 
-### Az.DevOps (4 lit files)
+### Az.DevOps (automation/Catzc.Azure.DevOps, 4 lit files)
 
 The group holds the files of automation/Catzc.Azure.DevOps; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Azure.DevOps/Test-Pipelines.ps1][406], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the file
+- [automation/Catzc.Azure.DevOps/Test-Pipelines.ps1][355], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the file
   cites it at line 9 (header).
-- [automation/Catzc.Azure.DevOps/configs/identity-tokens.yml][407], in the cell automation × yaml: selected by [ADR-AUTO-TEST][1]: the file
+- [automation/Catzc.Azure.DevOps/configs/identity-tokens.yml][356], in the cell automation × yaml: selected by [ADR-AUTO-TEST][1]: the file
   cites it at line 2 (header).
-- [automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1][408], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1][357], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 207 (body comment) (a passing mention only).
-- [automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1][409], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1][358], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 44 (text) and line 53 (text).
 
-### Tool.Inspiration (4 lit files)
+### Tool.Inspiration (automation/Catzc.Tooling.Inspiration, 4 lit files)
 
 The group holds the files of automation/Catzc.Tooling.Inspiration; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1][410], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1][359], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
-- [automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1][411], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1][360], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
-- [automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1][412], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1][361], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
-- [automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1][413], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1][362], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
 
 ### Root files (3 lit files)
 
 The group holds the files of Root files; each sits in its world-map cell and is lit by:
 
-- [.gitattributes][414], in the cell Root files × Unlisted files: selected by [ADR-AUTO-TEST][1]: a root file carries the citations of its
+- [.gitattributes][363], in the cell Root files × Unlisted files: selected by [ADR-AUTO-TEST][1]: a root file carries the citations of its
   owner module's files (files.yml), which cite it at `automation/Catzc.Base.Repository/tests/Get-RepositoryFile.Tests.ps1` line 2 (header)
   and `automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1` line 2 (header).
-- [.gitignore][415], in the cell Root files × Unlisted files: selected by [ADR-AUTO-TEST][1]: a root file carries the citations of its owner
+- [.gitignore][364], in the cell Root files × Unlisted files: selected by [ADR-AUTO-TEST][1]: a root file carries the citations of its owner
   module's files (files.yml), which cite it at `automation/Catzc.Base.Repository/tests/Get-RepositoryFile.Tests.ps1` line 2 (header) and
   `automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1` line 2 (header).
-- [importer.ps1][416], in the cell Root files × powershell: selected by [ADR-AUTO-TEST][1]: a root file carries the citations of its owner
+- [importer.ps1][365], in the cell Root files × powershell: selected by [ADR-AUTO-TEST][1]: a root file carries the citations of its owner
   module's files (files.yml), which cite it at `automation/.internal/tests/Import-AllModules.Tests.ps1` line 206 (body comment),
   `automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1` line 1 (text), `automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1` line 80
   (text), `automation/.internal/tests/Restart-ImporterSession.Tests.ps1` line 5 (header) and
   `automation/.internal/tests/Test-FolderConventions.Tests.ps1` line 2 (header).
 
-### Config (3 lit files)
+### Config (automation/Catzc.Base.Config, 3 lit files)
 
 The group holds the files of automation/Catzc.Base.Config; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1][417], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1][366], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 8 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Config/tests/Get-Config.Tests.ps1][418], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.Config/tests/Get-Config.Tests.ps1][367], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 4 (body comment), line 15 (body comment), line 18 (body comment) and line 188 (body comment) (a passing mention
   only).
-- [automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1][419], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1][368], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 119 (body comment) (a passing mention only).
 
-### ConfigExtensions (3 lit files)
+### ConfigExtensions (automation/Catzc.Base.ConfigExtensions, 3 lit files)
 
 The group holds the files of automation/Catzc.Base.ConfigExtensions; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1][420], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1][369], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (header).
-- [automation/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1][421], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1][370], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
-- [automation/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1][422], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1][371], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
 
-### Exporter (3 lit files)
+### Exporter (automation/Catzc.Base.Exporter, 3 lit files)
 
 The group holds the files of automation/Catzc.Base.Exporter; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1][423], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1][372], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1][424], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
+- [automation/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1][373], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]:
   the file cites it at line 4 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1][425], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1][374], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 6 (body comment) and line 8 (body comment) (a passing mention only).
 
-### Tool.KeyHandler (3 lit files)
+### Tool.KeyHandler (automation/Catzc.Tooling.KeyHandler, 3 lit files)
 
 The group holds the files of automation/Catzc.Tooling.KeyHandler; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1][426], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1][375], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 7 (header).
-- [automation/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1][427], in the cell automation × powershell: selected
+- [automation/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1][376], in the cell automation × powershell: selected
   by [ADR-AUTO-TEST][1]: the file cites it at line 5 (header).
-- [automation/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1][428], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1][377], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header) and line 4 (text).
 
-### Objects (2 lit files)
+### adr/dsgn (docs/adr/design, 3 lit files)
+
+The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
+
+- [docs/adr/design/commit-lifecycle.md][2], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][2]: the ADR's own file.
+- [docs/adr/design/dora-explains.md][378], in the cell docs × markdown: selected by [ADR-DSGN-LIFE][2]: the file cites it at line 84 (text);
+  selected by [ADR-DSGN-VISUAL][3]: the file cites it at line 65 (text).
+- [docs/adr/design/visual-design.md][3], in the cell docs × markdown: selected by [ADR-DSGN-VISUAL][3]: the ADR's own file.
+
+### Objects (automation/Catzc.Base.Objects, 2 lit files)
 
 The group holds the files of automation/Catzc.Base.Objects; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1][429], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1][379], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 4 (header).
-- [automation/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1][430], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1][380], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (header).
 
-### Repository (2 lit files)
+### Repository (automation/Catzc.Base.Repository, 2 lit files)
 
 The group holds the files of automation/Catzc.Base.Repository; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Repository/tests/Get-RepositoryFile.Tests.ps1][431], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Repository/tests/Get-RepositoryFile.Tests.ps1][381], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
-- [automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1][432], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1][382], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
 
-### Tool.Toolchain (2 lit files)
+### Tool.Toolchain (automation/Catzc.Tooling.Toolchain, 2 lit files)
 
 The group holds the files of automation/Catzc.Tooling.Toolchain; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1][433], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1][383], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 2 (header).
-- [automation/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1][434], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1][384], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (header).
 
-### adr/* (2 lit files)
+### adr/* (the files directly in docs/adr/, 2 lit files)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][435], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line 329 (text), line 367
+- [docs/adr/glossary.md][385], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line 329 (text), line 367
   (text), line 378 (text), line 413 (text), line 459 (text), line 477 (text), line 489 (text), line 503 (text), line 525 (text), line 539
   (text), line 550 (text) and line 570 (text); selected by [ADR-DSGN-LIFE][2]: the file cites it at line 149 (text); selected by
   [ADR-FLOW-CD][4]: the file cites it at line 292 (text) and line 305 (text).
-- [docs/adr/index.md][436], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line 133 (text); selected by
+- [docs/adr/index.md][386], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line 133 (text); selected by
   [ADR-DSGN-LIFE][2]: the file cites it at line 92 (text); selected by [ADR-DSGN-VISUAL][3]: the file cites it at line 91 (text); selected
   by [ADR-FLOW-CD][4]: the file cites it at line 107 (text).
 
-### .scriptanalyzer (1 lit file)
+### adr/auto (docs/adr/automation, 2 lit files)
+
+The group holds the files of docs/adr/automation; each sits in its world-map cell and is lit by:
+
+- [docs/adr/automation/dora-explains.md][387], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the file cites it at line 142
+  (text).
+- [docs/adr/automation/test-automation.md][1], in the cell docs × markdown: selected by [ADR-AUTO-TEST][1]: the ADR's own file.
+
+### adr/flow (docs/adr/flow, 2 lit files)
+
+The group holds the files of docs/adr/flow; each sits in its world-map cell and is lit by:
+
+- [docs/adr/flow/cd-discipline-and-promotion-flow.md][4], in the cell docs × markdown: selected by [ADR-FLOW-CD][4]: the ADR's own file.
+- [docs/adr/flow/dora-explains.md][388], in the cell docs × markdown: selected by [ADR-FLOW-CD][4]: the file cites it at line 13 (text).
+
+### .scriptanalyzer (automation/.scriptanalyzer, 1 lit file)
 
 The group holds the files of automation/.scriptanalyzer; each sits in its world-map cell and is lit by:
 
-- [automation/.scriptanalyzer/tests/AnnounceStateChange.Tests.ps1][437], in the cell automation × powershell: selected by
+- [automation/.scriptanalyzer/tests/AnnounceStateChange.Tests.ps1][389], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 154 (text).
 
-### Az.DevOps.BuildValidation (1 lit file)
+### Az.DevOps.BuildValidation (automation/Catzc.Azure.DevOps.BuildValidation, 1 lit file)
 
 The group holds the files of automation/Catzc.Azure.DevOps.BuildValidation; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1][438], in the cell automation × powershell:
+- [automation/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1][390], in the cell automation × powershell:
   selected by [ADR-AUTO-TEST][1]: the file cites it at line 13 (body comment) (a passing mention only).
 
-### Engines (1 lit file)
+### Engines (automation/Catzc.Base.Engines, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Engines; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Engines/tests/assets/engine-cases/engine-start.yml][439], in the cell automation × yaml: selected by
+- [automation/Catzc.Base.Engines/tests/assets/engine-cases/engine-start.yml][391], in the cell automation × yaml: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 5 (header).
 
-### Environment (1 lit file)
+### Environment (automation/Catzc.Base.Environment, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Environment; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1][440], in the cell automation × powershell: selected
+- [automation/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1][392], in the cell automation × powershell: selected
   by [ADR-AUTO-TEST][1]: the file cites it at line 6 (text).
 
-### Files (1 lit file)
+### Files (automation/Catzc.Base.Files, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Files; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1][441], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1][393], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (body comment) (a passing mention only).
 
-### Overlay (1 lit file)
+### Overlay (automation/Catzc.Base.Overlay, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Overlay; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Overlay/tests/Overlay.Fixture.ps1][442], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
+- [automation/Catzc.Base.Overlay/tests/Overlay.Fixture.ps1][394], in the cell automation × powershell: selected by [ADR-AUTO-TEST][1]: the
   file cites it at line 3 (header).
 
-### Timeouts (1 lit file)
+### Timeouts (automation/Catzc.Base.Timeouts, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Timeouts; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Timeouts/types/TestTiers.cs][443], in the cell automation × csharp: selected by [ADR-AUTO-TEST][1]: the file cites
+- [automation/Catzc.Base.Timeouts/types/TestTiers.cs][395], in the cell automation × csharp: selected by [ADR-AUTO-TEST][1]: the file cites
   it at line 2 (header) and line 3 (header).
 
-### Tool.Python (1 lit file)
+### Tool.Python (automation/Catzc.Tooling.Python, 1 lit file)
 
 The group holds the files of automation/Catzc.Tooling.Python; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1][444], in the cell automation × powershell: selected by
+- [automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1][396], in the cell automation × powershell: selected by
   [ADR-AUTO-TEST][1]: the file cites it at line 3 (body comment) (a passing mention only).
 
 ### pipelines (1 lit file)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/ci-infrastructure.yaml][445], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-TEST][1]: the file cites it at line
+- [pipelines/ci-infrastructure.yaml][397], in the cell pipelines × pipeline-yaml: selected by [ADR-AUTO-TEST][1]: the file cites it at line
   68 (body comment) (a passing mention only).
 
 ## Keywords
 
-- [world map][446]
-- [track][447]
-- [file language][448]
-- [cell][449]
-- [lit cell][450]
-- [root file][451]
-- [unlisted file][452]
-- [.claude][453]: a track
-- [automation][453]: a track
-- [docs][453]: a track
-- [pipelines][453]: a track
-- [csharp][454]: a file language
-- [markdown][454]: a file language
-- [pipeline-yaml][454]: a file language
-- [powershell][454]: a file language
-- [yaml][454]: a file language
+- [world map][398]
+- [track][399]
+- [file language][400]
+- [cell][401]
+- [lit cell][402]
+- [root file][403]
+- [unlisted file][404]
+- [.claude][405]: a track
+- [automation][405]: a track
+- [docs][405]: a track
+- [pipelines][405]: a track
+- [csharp][406]: a file language
+- [markdown][406]: a file language
+- [pipeline-yaml][406]: a file language
+- [powershell][406]: a file language
+- [yaml][406]: a file language
 
 Terms the cited ADRs define:
 
-- [all tests][455], defined by [ADR-AUTO-TEST#36][456]
-- [build verification test][457], defined by [ADR-AUTO-TEST#24][458]
-- [category][459], defined by [ADR-AUTO-TEST#1][460]
-- [gate][461], defined by [ADR-FLOW-CD#13][462]
-- [occupant][463], defined by [ADR-DSGN-LIFE#5][464]
-- [phase][465], defined by [ADR-AUTO-TEST#26][466]
-- [quality gate][467], defined by [ADR-AUTO-TEST#35][468]
-- [release candidate][469], defined by [ADR-FLOW-CD#14][470]
-- [test][471], defined by [ADR-AUTO-TEST#42][472]
-- [test file][473], defined by [ADR-AUTO-TEST#43][474]
-- [test run][475], defined by [ADR-AUTO-TEST#34][476]
-- [test suite][477], defined by [ADR-AUTO-TEST#37][478]
-- [testing in production][479], defined by [ADR-AUTO-TEST#41][480]
-- [tier][481], defined by [ADR-AUTO-TEST#13][482]
-- [vertical test][483], defined by [ADR-AUTO-TEST#38][484]
+- [all tests][407], defined by [ADR-AUTO-TEST#36][408]
+- [build verification test][409], defined by [ADR-AUTO-TEST#24][410]
+- [category][411], defined by [ADR-AUTO-TEST#1][412]
+- [gate][413], defined by [ADR-FLOW-CD#13][414]
+- [occupant][415], defined by [ADR-DSGN-LIFE#5][416]
+- [phase][417], defined by [ADR-AUTO-TEST#26][418]
+- [quality gate][419], defined by [ADR-AUTO-TEST#35][420]
+- [release candidate][421], defined by [ADR-FLOW-CD#14][422]
+- [test][423], defined by [ADR-AUTO-TEST#42][424]
+- [test file][425], defined by [ADR-AUTO-TEST#43][426]
+- [test run][427], defined by [ADR-AUTO-TEST#34][428]
+- [test suite][429], defined by [ADR-AUTO-TEST#37][430]
+- [testing in production][431], defined by [ADR-AUTO-TEST#41][432]
+- [tier][433], defined by [ADR-AUTO-TEST#13][434]
+- [vertical test][435], defined by [ADR-AUTO-TEST#38][436]
 
 [1]: ../../adr/automation/test-automation.md
 [2]: ../../adr/design/commit-lifecycle.md
@@ -1417,301 +1309,253 @@ Terms the cited ADRs define:
 [184]: ../../../automation/Catzc.Base.Docs/types/AdrsConfig.cs
 [185]: ../../../automation/Catzc.Base.Docs/types/CheckMode.cs
 [186]: ../../../automation/Catzc.Base.Docs/types/GlossaryConcept.cs
-[187]: ../../adr/automation/BCL/index.md
-[188]: ../../adr/automation/BCL/native-csharp-types.md
-[189]: ../../adr/automation/avoid-deep-nesting.md
-[190]: ../../adr/automation/bash/bash-test-artifacts.md
-[191]: ../../adr/automation/bash/index.md
-[192]: ../../adr/automation/caching.md
-[193]: ../../adr/automation/console-output-matters.md
-[194]: ../../adr/automation/consumer-overlay.md
-[195]: ../../adr/automation/controlling-module-dependencies.md
-[196]: ../../adr/automation/controlling-systemwide-deps.md
-[197]: ../../adr/automation/cross-platform.md
-[198]: ../../adr/automation/devbox-pipeline-parity.md
-[199]: ../../adr/automation/dora-explains.md
-[200]: ../../adr/automation/dry-run.md
-[201]: ../../adr/automation/effective-in-enterprises.md
-[202]: ../../adr/automation/environment-variables.md
-[203]: ../../adr/automation/execution-engines.md
-[204]: ../../adr/automation/fail-fast-with-asserts.md
-[205]: ../../adr/automation/go/go-test-artifacts.md
-[206]: ../../adr/automation/go/index.md
-[207]: ../../adr/automation/idempotent-state-functions.md
-[208]: ../../adr/automation/internal-asset-dependencies.md
-[209]: ../../adr/automation/log-before-invoke.md
-[210]: ../../adr/automation/managed-guids.md
-[211]: ../../adr/automation/never-depend-on-pwd.md
-[212]: ../../adr/automation/open-closed-architecture.md
-[213]: ../../adr/automation/path-representation.md
-[214]: ../../adr/automation/platform-bundle.md
-[215]: ../../adr/automation/python/index.md
-[216]: ../../adr/automation/python/python-test-artifacts.md
-[217]: ../../adr/automation/retry-as-last-resort.md
-[218]: ../../adr/automation/sensible-defaults.md
-[219]: ../../adr/automation/single-responsibility-functions.md
-[220]: ../../adr/automation/spell-out-names.md
-[221]: ../../adr/automation/tool-removal-lifecycle.md
-[222]: ../../adr/automation/tracked-files-from-the-index.md
-[223]: ../../adr/automation/use-proper-package-managers.md
-[224]: ../../adr/automation/uv-python-handler.md
-[225]: ../../adr/automation/zero-ceremony-poka-yoke.md
-[226]: ../../../automation/Catzc.Azure.Templates/Get-BicepTemplatesOutputRoot.ps1
-[227]: ../../../automation/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
-[228]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1
-[229]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.L2.Tests.ps1
-[230]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleCustomer.Tests.ps1
-[231]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleIndexed.Tests.ps1
-[232]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleSubscription.Tests.ps1
-[233]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithModule.Tests.ps1
-[234]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1
-[235]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
-[236]: ../../../automation/Catzc.Azure.Templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1
-[237]: ../../../automation/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1
-[238]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1
-[239]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1
-[240]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
-[241]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1
-[242]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepResourceGroupName.Tests.ps1
-[243]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepResourceName.Tests.ps1
-[244]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTemplate.Tests.ps1
-[245]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
-[246]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTemplateCustomers.Tests.ps1
-[247]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTemplateNames.Tests.ps1
-[248]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTemplateSlots.Tests.ps1
-[249]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
-[250]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTrackTagNameSet.Tests.ps1
-[251]: ../../../automation/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
-[252]: ../../../automation/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
-[253]: ../../../automation/Catzc.Azure.Templates/tests/assets/Get-AzureResourceName.Content.yml
-[254]: ../../../automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
-[255]: ../../../automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
-[256]: ../../../automation/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1
-[257]: ../../../automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
-[258]: ../../../automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
-[259]: ../../../automation/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
-[260]: ../../../automation/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1
-[261]: ../../../automation/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
-[262]: ../../../automation/Catzc.Base.ModuleSystem/configs/artifacts.yml
-[263]: ../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
-[264]: ../../../automation/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1
-[265]: ../../../automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1
-[266]: ../../../automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Tests.ps1
-[267]: ../../../automation/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1
-[268]: ../../../automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
-[269]: ../../../automation/Catzc.Base.ModuleSystem/tests/Test-FolderConventions.Tests.ps1
-[270]: ../../../automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
-[271]: ../../../automation/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1
-[272]: ../../../automation/Catzc.Base.ModuleSystem/tests/Test-ModuleCycles.Tests.ps1
-[273]: ../../../automation/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
-[274]: ../../../automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
-[275]: ../../../automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
-[276]: ../../../automation/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
-[277]: ../../../automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
-[278]: ../../../automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
-[279]: ../../../automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
-[280]: ../../../automation/Catzc.Base.Globs/tests/Get-GlobSet.Tests.ps1
-[281]: ../../../automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
-[282]: ../../../automation/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1
-[283]: ../../../automation/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
-[284]: ../../../automation/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
-[285]: ../../../automation/Catzc.Base.Globs/tests/Test-GlobSetAffected.Tests.ps1
-[286]: ../../../automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
-[287]: ../../../automation/Catzc.Base.Globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1
-[288]: ../../../automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-[289]: ../../../automation/Catzc.Azure/Test-AzureNetworkPlan.ps1
-[290]: ../../../automation/Catzc.Azure/configs/identity-tokens.yml
-[291]: ../../../automation/Catzc.Azure/tests/Get-AzureBicepMinVersion.Tests.ps1
-[292]: ../../../automation/Catzc.Azure/tests/Get-AzureCustomer.Tests.ps1
-[293]: ../../../automation/Catzc.Azure/tests/Get-AzureCustomers.Tests.ps1
-[294]: ../../../automation/Catzc.Azure/tests/Get-AzureEnvironment.Tests.ps1
-[295]: ../../../automation/Catzc.Azure/tests/Get-AzureSubscription.Tests.ps1
-[296]: ../../../automation/Catzc.Azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1
-[297]: ../../../automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
-[298]: ../../../automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
-[299]: ../../../automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
-[300]: ../../../automation/Catzc.Base.Languages/tests/ConvertFrom-BatsJunit.Tests.ps1
-[301]: ../../../automation/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1
-[302]: ../../../automation/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
-[303]: ../../../automation/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1
-[304]: ../../../automation/Catzc.Base.Languages/tests/Invoke-GoTest.Tests.ps1
-[305]: ../../../automation/Catzc.Base.Languages/tests/Invoke-PythonTest.Tests.ps1
-[306]: ../../../automation/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1
-[307]: ../../../automation/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1
-[308]: ../../../automation/Catzc.Base.Languages/types/BashTestResult.cs
-[309]: ../../../automation/Catzc.Base.Languages/types/GoTestResult.cs
-[310]: ../../../automation/Catzc.Base.Languages/types/PythonTestResult.cs
-[311]: ../../../automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
-[312]: ../../../automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-[313]: ../../../automation/Catzc.Base.Maps/Test-ValueChainMap.ps1
-[314]: ../../../automation/Catzc.Base.Maps/Test-WorldMap.ps1
-[315]: ../../../automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
-[316]: ../../../automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
-[317]: ../../../automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-[318]: ../../../automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
-[319]: ../../../automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
-[320]: ../../../automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
-[321]: ../../../automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
-[322]: ../../../automation/Catzc.Tooling.Core/Remove-SystemInstallation.ps1
-[323]: ../../../automation/Catzc.Tooling.Core/tests/Assert-Tool.Tests.ps1
-[324]: ../../../automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
-[325]: ../../../automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1
-[326]: ../../../automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
-[327]: ../../../automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
-[328]: ../../../automation/Catzc.Tooling.Core/tests/Remove-MacToolInstall.Tests.ps1
-[329]: ../../../automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
-[330]: ../../../automation/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
-[331]: ../../../automation/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
-[332]: ../../../automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
-[333]: ../../../automation/Catzc.Base.Execution/Invoke-Executable.ps1
-[334]: ../../../automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1
-[335]: ../../../automation/Catzc.Base.Execution/tests/Get-ExecutableVersion.Tests.ps1
-[336]: ../../../automation/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
-[337]: ../../../automation/Catzc.Base.Execution/tests/Resolve-EngineExecutable.Tests.ps1
-[338]: ../../../automation/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1
-[339]: ../../../automation/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1
-[340]: ../../../automation/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1
-[341]: ../../../automation/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1
-[342]: ../../../automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1
-[343]: ../../adr/design/dora-explains.md
-[344]: ../../adr/design/module-aspects.md
-[345]: ../../adr/design/run-modes.md
-[346]: ../../adr/design/self-service.md
-[347]: ../../adr/design/server-remote-integration.md
-[348]: ../../adr/design/thin-platforms.md
-[349]: ../../adr/design/tracks.md
-[350]: ../../how-to/automation/manual-test-plan.md
-[351]: ../../how-to/automation/manual-test-plan/azure.md
-[352]: ../../how-to/automation/manual-test-plan/test-harness.md
-[353]: ../../how-to/getting-started/automation/run-tests-and-checks.md
-[354]: ../../references/automation/catzc-base-docs.md
-[355]: ../../references/automation/catzc-base-globs.md
-[356]: ../../references/automation/catzc-base-languages.md
-[357]: ../../references/automation/catzc-base-modulesystem.md
-[358]: ../../references/automation/catzc-base-rootconfig.md
-[359]: ../../../automation/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
-[360]: ../../../automation/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
-[361]: ../../../automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
-[362]: ../../../automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
-[363]: ../../../automation/Catzc.Base.RootConfig/tests/Get-RootConfigRenderedFile.Tests.ps1
-[364]: ../../../automation/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1
-[365]: ../../../automation/Catzc.Base.RootConfig/tests/Test-RootConfigFiles.Tests.ps1
-[366]: ../../../automation/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
-[367]: ../../../automation/Catzc.Base.Contracts/Test-Contracts.ps1
-[368]: ../../../automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
-[369]: ../../../automation/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1
-[370]: ../../../automation/Catzc.Base.Contracts/tests/Get-ContractAssetNote.Tests.ps1
-[371]: ../../../automation/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
-[372]: ../../../automation/Catzc.Base.Contracts/tests/Publish-ContractRelease.Tests.ps1
-[373]: ../../../automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-[374]: ../../../automation/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.ps1
-[375]: ../../../automation/Catzc.Tooling.Provisioning/tests/Get-PackageTreePlan.Tests.ps1
-[376]: ../../../automation/Catzc.Tooling.Provisioning/tests/Get-ToolsStatus.Tests.ps1
-[377]: ../../../automation/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1
-[378]: ../../../automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
-[379]: ../../../automation/Catzc.Tooling.Provisioning/tests/Uninstall-Chocolatey.Tests.ps1
-[380]: ../../../automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
-[381]: ../../../.claude/CLAUDE.md
-[382]: ../../../.claude/agents/build-inspiration-module.md
-[383]: ../../../.claude/agents/catzc-worker.md
-[384]: ../../../.claude/agents/drawio-diagram-waves.md
-[385]: ../../../.claude/agents/test-optimization.md
-[386]: ../../../.claude/agents/write-drawio-files.md
-[387]: ../../adr/flow/dora-explains.md
-[388]: ../../adr/flow/durable-sha-globs.md
-[389]: ../../adr/flow/pipeline-detection.md
-[390]: ../../adr/flow/pipeline-runner-pattern.md
-[391]: ../../adr/flow/pipeline-types.md
-[392]: ../../../automation/Catzc.Base.Reports/Write-QualityGateReport.ps1
-[393]: ../../../automation/Catzc.Base.Reports/configs/reports.yml
-[394]: ../../../automation/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
-[395]: ../../../automation/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
-[396]: ../../../automation/Catzc.Base.Reports/types/ReportsConfig.cs
-[397]: ../../../automation/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
-[398]: ../../../automation/Catzc.Base.TypesSystem/tests/Assert-LoadedTypesCurrent.Tests.ps1
-[399]: ../../../automation/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1
-[400]: ../../../automation/Catzc.Base.TypesSystem/tests/Test-LoadedTypesCurrent.Tests.ps1
-[401]: ../../../automation/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1
-[402]: ../../../automation/.internal/tests/Import-AllModules.Tests.ps1
-[403]: ../../../automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1
-[404]: ../../../automation/.internal/tests/Restart-ImporterSession.Tests.ps1
-[405]: ../../../automation/.internal/tests/Test-FolderConventions.Tests.ps1
-[406]: ../../../automation/Catzc.Azure.DevOps/Test-Pipelines.ps1
-[407]: ../../../automation/Catzc.Azure.DevOps/configs/identity-tokens.yml
-[408]: ../../../automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
-[409]: ../../../automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
-[410]: ../../../automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
-[411]: ../../../automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
-[412]: ../../../automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
-[413]: ../../../automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
-[414]: ../../../.gitattributes
-[415]: ../../../.gitignore
-[416]: ../../../importer.ps1
-[417]: ../../../automation/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
-[418]: ../../../automation/Catzc.Base.Config/tests/Get-Config.Tests.ps1
-[419]: ../../../automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
-[420]: ../../../automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-[421]: ../../../automation/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1
-[422]: ../../../automation/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1
-[423]: ../../../automation/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
-[424]: ../../../automation/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1
-[425]: ../../../automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
-[426]: ../../../automation/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
-[427]: ../../../automation/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1
-[428]: ../../../automation/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
-[429]: ../../../automation/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1
-[430]: ../../../automation/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1
-[431]: ../../../automation/Catzc.Base.Repository/tests/Get-RepositoryFile.Tests.ps1
-[432]: ../../../automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1
-[433]: ../../../automation/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1
-[434]: ../../../automation/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
-[435]: ../../adr/glossary.md
-[436]: ../../adr/index.md
-[437]: ../../../automation/.scriptanalyzer/tests/AnnounceStateChange.Tests.ps1
-[438]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
-[439]: ../../../automation/Catzc.Base.Engines/tests/assets/engine-cases/engine-start.yml
-[440]: ../../../automation/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
-[441]: ../../../automation/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1
-[442]: ../../../automation/Catzc.Base.Overlay/tests/Overlay.Fixture.ps1
-[443]: ../../../automation/Catzc.Base.Timeouts/types/TestTiers.cs
-[444]: ../../../automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
-[445]: ../../../pipelines/ci-infrastructure.yaml
-[446]: ../../adr/glossary.md#world-map
-[447]: ../../adr/glossary.md#track
-[448]: ../../adr/glossary.md#file-language
-[449]: ../../adr/glossary.md#cell
-[450]: ../../adr/glossary.md#lit-cell
-[451]: ../../adr/glossary.md#root-file
-[452]: ../../adr/glossary.md#unlisted-file
-[453]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[454]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
-[455]: ../../adr/glossary.md#all-tests
-[456]: ../../adr/automation/test-automation.md#rule-adr-auto-test36
-[457]: ../../adr/glossary.md#build-verification-test
-[458]: ../../adr/automation/test-automation.md#rule-adr-auto-test24
-[459]: ../../adr/glossary.md#category
-[460]: ../../adr/automation/test-automation.md#rule-adr-auto-test1
-[461]: ../../adr/glossary.md#gate
-[462]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
-[463]: ../../adr/glossary.md#occupant
-[464]: ../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
-[465]: ../../adr/glossary.md#phase
-[466]: ../../adr/automation/test-automation.md#rule-adr-auto-test26
-[467]: ../../adr/glossary.md#quality-gate
-[468]: ../../adr/automation/test-automation.md#rule-adr-auto-test35
-[469]: ../../adr/glossary.md#release-candidate
-[470]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
-[471]: ../../adr/glossary.md#test
-[472]: ../../adr/automation/test-automation.md#rule-adr-auto-test42
-[473]: ../../adr/glossary.md#test-file
-[474]: ../../adr/automation/test-automation.md#rule-adr-auto-test43
-[475]: ../../adr/glossary.md#test-run
-[476]: ../../adr/automation/test-automation.md#rule-adr-auto-test34
-[477]: ../../adr/glossary.md#test-suite
-[478]: ../../adr/automation/test-automation.md#rule-adr-auto-test37
-[479]: ../../adr/glossary.md#testing-in-production
-[480]: ../../adr/automation/test-automation.md#rule-adr-auto-test41
-[481]: ../../adr/glossary.md#tier
-[482]: ../../adr/automation/test-automation.md#rule-adr-auto-test13
-[483]: ../../adr/glossary.md#vertical-test
-[484]: ../../adr/automation/test-automation.md#rule-adr-auto-test38
+[187]: ../../../automation/Catzc.Azure.Templates/Get-BicepTemplatesOutputRoot.ps1
+[188]: ../../../automation/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
+[189]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1
+[190]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.L2.Tests.ps1
+[191]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleCustomer.Tests.ps1
+[192]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleIndexed.Tests.ps1
+[193]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleSubscription.Tests.ps1
+[194]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithModule.Tests.ps1
+[195]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1
+[196]: ../../../automation/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
+[197]: ../../../automation/Catzc.Azure.Templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1
+[198]: ../../../automation/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1
+[199]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1
+[200]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1
+[201]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
+[202]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1
+[203]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepResourceGroupName.Tests.ps1
+[204]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepResourceName.Tests.ps1
+[205]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTemplate.Tests.ps1
+[206]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
+[207]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTemplateCustomers.Tests.ps1
+[208]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTemplateNames.Tests.ps1
+[209]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTemplateSlots.Tests.ps1
+[210]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
+[211]: ../../../automation/Catzc.Azure.Templates/tests/Get-BicepTrackTagNameSet.Tests.ps1
+[212]: ../../../automation/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
+[213]: ../../../automation/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
+[214]: ../../../automation/Catzc.Azure.Templates/tests/assets/Get-AzureResourceName.Content.yml
+[215]: ../../../automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
+[216]: ../../../automation/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
+[217]: ../../../automation/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1
+[218]: ../../../automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
+[219]: ../../../automation/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
+[220]: ../../../automation/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
+[221]: ../../../automation/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1
+[222]: ../../../automation/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
+[223]: ../../../automation/Catzc.Base.ModuleSystem/configs/artifacts.yml
+[224]: ../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
+[225]: ../../../automation/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1
+[226]: ../../../automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1
+[227]: ../../../automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Tests.ps1
+[228]: ../../../automation/Catzc.Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1
+[229]: ../../../automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
+[230]: ../../../automation/Catzc.Base.ModuleSystem/tests/Test-FolderConventions.Tests.ps1
+[231]: ../../../automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
+[232]: ../../../automation/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1
+[233]: ../../../automation/Catzc.Base.ModuleSystem/tests/Test-ModuleCycles.Tests.ps1
+[234]: ../../../automation/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
+[235]: ../../../automation/Catzc.Base.ModuleSystem/types/ArtifactsConfig.cs
+[236]: ../../../automation/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
+[237]: ../../../automation/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
+[238]: ../../../automation/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
+[239]: ../../../automation/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+[240]: ../../../automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
+[241]: ../../../automation/Catzc.Base.Globs/tests/Get-GlobSet.Tests.ps1
+[242]: ../../../automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+[243]: ../../../automation/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1
+[244]: ../../../automation/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
+[245]: ../../../automation/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
+[246]: ../../../automation/Catzc.Base.Globs/tests/Test-GlobSetAffected.Tests.ps1
+[247]: ../../../automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
+[248]: ../../../automation/Catzc.Base.Globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1
+[249]: ../../../automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+[250]: ../../../automation/Catzc.Azure/Test-AzureNetworkPlan.ps1
+[251]: ../../../automation/Catzc.Azure/configs/identity-tokens.yml
+[252]: ../../../automation/Catzc.Azure/tests/Get-AzureBicepMinVersion.Tests.ps1
+[253]: ../../../automation/Catzc.Azure/tests/Get-AzureCustomer.Tests.ps1
+[254]: ../../../automation/Catzc.Azure/tests/Get-AzureCustomers.Tests.ps1
+[255]: ../../../automation/Catzc.Azure/tests/Get-AzureEnvironment.Tests.ps1
+[256]: ../../../automation/Catzc.Azure/tests/Get-AzureSubscription.Tests.ps1
+[257]: ../../../automation/Catzc.Azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1
+[258]: ../../../automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
+[259]: ../../../automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
+[260]: ../../../automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
+[261]: ../../../automation/Catzc.Base.Languages/tests/ConvertFrom-BatsJunit.Tests.ps1
+[262]: ../../../automation/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1
+[263]: ../../../automation/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
+[264]: ../../../automation/Catzc.Base.Languages/tests/Invoke-BashTest.Tests.ps1
+[265]: ../../../automation/Catzc.Base.Languages/tests/Invoke-GoTest.Tests.ps1
+[266]: ../../../automation/Catzc.Base.Languages/tests/Invoke-PythonTest.Tests.ps1
+[267]: ../../../automation/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1
+[268]: ../../../automation/Catzc.Base.Languages/tests/New-PythonProject.Tests.ps1
+[269]: ../../../automation/Catzc.Base.Languages/types/BashTestResult.cs
+[270]: ../../../automation/Catzc.Base.Languages/types/GoTestResult.cs
+[271]: ../../../automation/Catzc.Base.Languages/types/PythonTestResult.cs
+[272]: ../../../automation/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+[273]: ../../../automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+[274]: ../../../automation/Catzc.Base.Maps/Test-ValueChainMap.ps1
+[275]: ../../../automation/Catzc.Base.Maps/Test-WorldMap.ps1
+[276]: ../../../automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
+[277]: ../../../automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
+[278]: ../../../automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+[279]: ../../../automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
+[280]: ../../../automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+[281]: ../../../automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
+[282]: ../../../automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
+[283]: ../../../automation/Catzc.Tooling.Core/Remove-SystemInstallation.ps1
+[284]: ../../../automation/Catzc.Tooling.Core/tests/Assert-Tool.Tests.ps1
+[285]: ../../../automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
+[286]: ../../../automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1
+[287]: ../../../automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
+[288]: ../../../automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
+[289]: ../../../automation/Catzc.Tooling.Core/tests/Remove-MacToolInstall.Tests.ps1
+[290]: ../../../automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
+[291]: ../../../automation/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
+[292]: ../../../automation/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
+[293]: ../../../automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
+[294]: ../../../automation/Catzc.Base.Execution/Invoke-Executable.ps1
+[295]: ../../../automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1
+[296]: ../../../automation/Catzc.Base.Execution/tests/Get-ExecutableVersion.Tests.ps1
+[297]: ../../../automation/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
+[298]: ../../../automation/Catzc.Base.Execution/tests/Resolve-EngineExecutable.Tests.ps1
+[299]: ../../../automation/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1
+[300]: ../../../automation/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1
+[301]: ../../../automation/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1
+[302]: ../../../automation/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1
+[303]: ../../../automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1
+[304]: ../../how-to/automation/manual-test-plan.md
+[305]: ../../how-to/automation/manual-test-plan/azure.md
+[306]: ../../how-to/automation/manual-test-plan/test-harness.md
+[307]: ../../how-to/getting-started/automation/run-tests-and-checks.md
+[308]: ../../references/automation/catzc-base-docs.md
+[309]: ../../references/automation/catzc-base-globs.md
+[310]: ../../references/automation/catzc-base-languages.md
+[311]: ../../references/automation/catzc-base-modulesystem.md
+[312]: ../../references/automation/catzc-base-rootconfig.md
+[313]: ../../../automation/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
+[314]: ../../../automation/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
+[315]: ../../../automation/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
+[316]: ../../../automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
+[317]: ../../../automation/Catzc.Base.RootConfig/tests/Get-RootConfigRenderedFile.Tests.ps1
+[318]: ../../../automation/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1
+[319]: ../../../automation/Catzc.Base.RootConfig/tests/Test-RootConfigFiles.Tests.ps1
+[320]: ../../../automation/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
+[321]: ../../../automation/Catzc.Base.Contracts/Test-Contracts.ps1
+[322]: ../../../automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
+[323]: ../../../automation/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1
+[324]: ../../../automation/Catzc.Base.Contracts/tests/Get-ContractAssetNote.Tests.ps1
+[325]: ../../../automation/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
+[326]: ../../../automation/Catzc.Base.Contracts/tests/Publish-ContractRelease.Tests.ps1
+[327]: ../../../automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
+[328]: ../../../automation/Catzc.Tooling.Provisioning/Uninstall-Chocolatey.ps1
+[329]: ../../../automation/Catzc.Tooling.Provisioning/tests/Get-PackageTreePlan.Tests.ps1
+[330]: ../../../automation/Catzc.Tooling.Provisioning/tests/Get-ToolsStatus.Tests.ps1
+[331]: ../../../automation/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1
+[332]: ../../../automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
+[333]: ../../../automation/Catzc.Tooling.Provisioning/tests/Uninstall-Chocolatey.Tests.ps1
+[334]: ../../../automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
+[335]: ../../../.claude/CLAUDE.md
+[336]: ../../../.claude/agents/build-inspiration-module.md
+[337]: ../../../.claude/agents/catzc-worker.md
+[338]: ../../../.claude/agents/drawio-diagram-waves.md
+[339]: ../../../.claude/agents/test-optimization.md
+[340]: ../../../.claude/agents/write-drawio-files.md
+[341]: ../../../automation/Catzc.Base.Reports/Write-QualityGateReport.ps1
+[342]: ../../../automation/Catzc.Base.Reports/configs/reports.yml
+[343]: ../../../automation/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
+[344]: ../../../automation/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
+[345]: ../../../automation/Catzc.Base.Reports/types/ReportsConfig.cs
+[346]: ../../../automation/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
+[347]: ../../../automation/Catzc.Base.TypesSystem/tests/Assert-LoadedTypesCurrent.Tests.ps1
+[348]: ../../../automation/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1
+[349]: ../../../automation/Catzc.Base.TypesSystem/tests/Test-LoadedTypesCurrent.Tests.ps1
+[350]: ../../../automation/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1
+[351]: ../../../automation/.internal/tests/Import-AllModules.Tests.ps1
+[352]: ../../../automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1
+[353]: ../../../automation/.internal/tests/Restart-ImporterSession.Tests.ps1
+[354]: ../../../automation/.internal/tests/Test-FolderConventions.Tests.ps1
+[355]: ../../../automation/Catzc.Azure.DevOps/Test-Pipelines.ps1
+[356]: ../../../automation/Catzc.Azure.DevOps/configs/identity-tokens.yml
+[357]: ../../../automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
+[358]: ../../../automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
+[359]: ../../../automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
+[360]: ../../../automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
+[361]: ../../../automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
+[362]: ../../../automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
+[363]: ../../../.gitattributes
+[364]: ../../../.gitignore
+[365]: ../../../importer.ps1
+[366]: ../../../automation/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
+[367]: ../../../automation/Catzc.Base.Config/tests/Get-Config.Tests.ps1
+[368]: ../../../automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+[369]: ../../../automation/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
+[370]: ../../../automation/Catzc.Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1
+[371]: ../../../automation/Catzc.Base.ConfigExtensions/tests/Test-ConfigValidators.Tests.ps1
+[372]: ../../../automation/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
+[373]: ../../../automation/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1
+[374]: ../../../automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
+[375]: ../../../automation/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
+[376]: ../../../automation/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1
+[377]: ../../../automation/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
+[378]: ../../adr/design/dora-explains.md
+[379]: ../../../automation/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1
+[380]: ../../../automation/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1
+[381]: ../../../automation/Catzc.Base.Repository/tests/Get-RepositoryFile.Tests.ps1
+[382]: ../../../automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1
+[383]: ../../../automation/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1
+[384]: ../../../automation/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
+[385]: ../../adr/glossary.md
+[386]: ../../adr/index.md
+[387]: ../../adr/automation/dora-explains.md
+[388]: ../../adr/flow/dora-explains.md
+[389]: ../../../automation/.scriptanalyzer/tests/AnnounceStateChange.Tests.ps1
+[390]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
+[391]: ../../../automation/Catzc.Base.Engines/tests/assets/engine-cases/engine-start.yml
+[392]: ../../../automation/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
+[393]: ../../../automation/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1
+[394]: ../../../automation/Catzc.Base.Overlay/tests/Overlay.Fixture.ps1
+[395]: ../../../automation/Catzc.Base.Timeouts/types/TestTiers.cs
+[396]: ../../../automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
+[397]: ../../../pipelines/ci-infrastructure.yaml
+[398]: ../../adr/glossary.md#world-map
+[399]: ../../adr/glossary.md#track
+[400]: ../../adr/glossary.md#file-language
+[401]: ../../adr/glossary.md#cell
+[402]: ../../adr/glossary.md#lit-cell
+[403]: ../../adr/glossary.md#root-file
+[404]: ../../adr/glossary.md#unlisted-file
+[405]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[406]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[407]: ../../adr/glossary.md#all-tests
+[408]: ../../adr/automation/test-automation.md#rule-adr-auto-test36
+[409]: ../../adr/glossary.md#build-verification-test
+[410]: ../../adr/automation/test-automation.md#rule-adr-auto-test24
+[411]: ../../adr/glossary.md#category
+[412]: ../../adr/automation/test-automation.md#rule-adr-auto-test1
+[413]: ../../adr/glossary.md#gate
+[414]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
+[415]: ../../adr/glossary.md#occupant
+[416]: ../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[417]: ../../adr/glossary.md#phase
+[418]: ../../adr/automation/test-automation.md#rule-adr-auto-test26
+[419]: ../../adr/glossary.md#quality-gate
+[420]: ../../adr/automation/test-automation.md#rule-adr-auto-test35
+[421]: ../../adr/glossary.md#release-candidate
+[422]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
+[423]: ../../adr/glossary.md#test
+[424]: ../../adr/automation/test-automation.md#rule-adr-auto-test42
+[425]: ../../adr/glossary.md#test-file
+[426]: ../../adr/automation/test-automation.md#rule-adr-auto-test43
+[427]: ../../adr/glossary.md#test-run
+[428]: ../../adr/automation/test-automation.md#rule-adr-auto-test34
+[429]: ../../adr/glossary.md#test-suite
+[430]: ../../adr/automation/test-automation.md#rule-adr-auto-test37
+[431]: ../../adr/glossary.md#testing-in-production
+[432]: ../../adr/automation/test-automation.md#rule-adr-auto-test41
+[433]: ../../adr/glossary.md#tier
+[434]: ../../adr/automation/test-automation.md#rule-adr-auto-test13
+[435]: ../../adr/glossary.md#vertical-test
+[436]: ../../adr/automation/test-automation.md#rule-adr-auto-test38

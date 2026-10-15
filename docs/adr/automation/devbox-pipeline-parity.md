@@ -9,8 +9,8 @@
 The `automation` track **is a CLI**, and every command runs unchanged in two environments: **DEVBOX** — the developer's machine, where you
 _shoot_ (iterate fast; it just has to work) — and **PIPELINE** — CI/CD, where you _verify and deliver_ (deterministic and fast, through a
 few manual approvals to live users). Same code, same commands, same behaviour in both. There is no pipeline-only automation and no
-devbox-only automation: what you run locally is exactly what CI runs. This is the #1 design rule for the track — every other automation rule
-assumes it.
+devbox-only automation: what you run locally is exactly what CI runs — the same importer entry and the same tool installers, no separate CI
+scripts, and no CI-only branches. This is the #1 design rule for the track — every other automation rule assumes it.
 
 ### Rule ADR-AUTO-PARITY:2
 
@@ -20,19 +20,18 @@ pipeline to pass, or cannot run in one, is mis-tiered (`ADR-AUTO-TEST`), never a
 
 ### Rule ADR-AUTO-PARITY:3
 
-The **one seam** between the two is `Test-IsRunningInPipeline` (`ADR-FLOW-CD-DETECT`) — the CI orchestrator (Azure DevOps / GitHub) already
-knows it is CI, so the CLI only asks that one question. A command branches on the seam solely where the environments _genuinely_ differ, and
-those differences are small and already owned: where output goes (`Get-OutputRoot`), skipping the dev-box auto-commit in CI. Concurrent test
-runs are not one of them: a run that finds the working folder busy runs in a snapshot of it, the same way in both environments
-(`ADR-AUTO-TEST`). Never branch on the seam to change _what a command does_ — that is a parity violation.
+The **one seam** between the two is `Test-IsRunningInPipeline` — the CI orchestrator (Azure DevOps / GitHub) already knows it is CI, so the
+CLI only asks that one question. A command branches on the seam solely where the environments _genuinely_ differ, and those differences are
+small and already owned: where output goes (`Get-OutputRoot`), skipping the dev-box auto-commit in CI. Concurrent test runs are not one of
+them: a run that finds the working folder busy runs in a snapshot of it, the same way in both environments (`ADR-AUTO-TEST`). Never branch
+on the seam to change _what a command does_ — that is a parity violation.
 
 ### Rule ADR-AUTO-PARITY:4
 
-The two environments **connect only via the EAC** — the version-controlled globsets and their generated trigger projections
-(`ADR-FLOW-CD-GLOBS`). The devbox shoots: it edits the source and its projected triggers, and commits them. The pipeline verifies: it
-reflects the same globsets against git at the merged commit, decides whether it proceeds, then delivers. Nothing else crosses between devbox
-and pipeline — no shared runtime state, only the committed source. So "did this change" and "what ships" are the same fact on both sides, by
-construction.
+The two environments **connect only via the EAC** — the version-controlled globsets and their generated trigger projections. The devbox
+shoots: it edits the source and its projected triggers, and commits them. The pipeline verifies: it reflects the same globsets against git
+at the merged commit, decides whether it proceeds, then delivers. Nothing else crosses between devbox and pipeline — no shared runtime
+state, only the committed source. So "did this change" and "what ships" are the same fact on both sides, by construction.
 
 ## Context
 

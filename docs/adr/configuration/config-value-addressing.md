@@ -26,7 +26,7 @@ dictionary and a typed (C#/`Assert-…`-validated) object: each segment resolves
 
 An address references **only** version-controlled config (ADR-PRIN-EAC): everything reachable by an address lives in a `configs/*.yml` file
 in git, so anything addressable is non-secret by definition. Secrets never have addresses — they travel out-of-band as `[SecureString]`,
-handed to an external consumer through the one sanctioned seam (ADR-AUTO-ENVVAR#7).
+handed to an external consumer through the one sanctioned seam.
 
 - [Committed config only](#committed-config-only)
 

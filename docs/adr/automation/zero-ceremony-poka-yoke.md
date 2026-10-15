@@ -13,15 +13,16 @@ the author get this wrong (prevent it structurally or catch it immediately)? If 
 
 ### Rule ADR-AUTO-ZERO:2
 
-Adding automation requires zero ceremony — no boilerplate, wiring, or registration: drop a `.ps1` file to get a function, create a folder to
-get a module, dot-source `importer.ps1` to get everything.
+Adding automation requires zero ceremony — no boilerplate, wiring, or registration: a new file named for its function is a function, a new
+folder is a module, and loading the importer entry brings in everything. The conventions that make this work are mandatory
+(ADR-AUTO-EXTEND#4).
 
 - [What zero ceremony looks like](#what-zero-ceremony-looks-like)
 
 ### Rule ADR-AUTO-ZERO:3
 
 The platform makes the common mistakes hard to fail — preventing them structurally (naming conventions, auto-discovery, location-based
-visibility) or catching them immediately (PSScriptAnalyzer rules, the tests).
+visibility) or catching them immediately (static analysis rules, the tests).
 
 - [What hard-to-fail looks like](#what-hard-to-fail-looks-like)
 
@@ -55,7 +56,9 @@ file.
 
 **Running tests:** call `Test-Automation`. It finds all test files across all modules automatically.
 
-Each of these is a single action with no prerequisites and no follow-up steps. The ceremony count is zero.
+Each of these is a single action with no prerequisites and no follow-up steps. The ceremony count is zero. The PowerShell mechanics behind
+it are [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest8): one global function namespace with no import
+statements, and exports derived from file location ([ADR-PWSH-MANIFEST#9](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest9)).
 
 ### What hard-to-fail looks like
 

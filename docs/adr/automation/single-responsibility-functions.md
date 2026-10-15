@@ -42,9 +42,10 @@ not catch-and-retry/log/continue unless error handling is their single stated pu
 ### Rule ADR-AUTO-ONEJOB:6
 
 State changes are explicit. Functions do not mutate ambient global state — error preferences, the working directory, environment variables —
-as a side effect; a temporary change is restored in a `finally` block.
+as a side effect; a temporary change is restored before the function returns, on the failure path as well as the success path.
 
 - [Why PowerShell](#why-powershell)
+- [Violations](#violations)
 
 ## Context
 
@@ -98,6 +99,8 @@ part they need because they cannot use the function without the part they do not
 | Function retries on failure with backoff                   | Retry logic tangles with business logic          | Separate `Invoke-WithRetry` that takes a scriptblock                     |
 | Function creates a resource, then configures it            | Partial failure leaves orphaned resource         | Separate `New-*` and `Set-*`; caller composes them                       |
 | Function logs before/after its work                        | Logging concerns change independently            | Use `Write-Verbose`/`Write-Debug` (built-in), or wrap at the call site   |
+
+The pwsh forms of a temporary state change and of a retry wrapper are in [error-handling](../pwsh/error-handling.md#rule-adr-pwsh-error9).
 
 ### Composition vs mixing
 

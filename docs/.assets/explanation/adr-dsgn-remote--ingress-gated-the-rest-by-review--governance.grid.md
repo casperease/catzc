@@ -19,7 +19,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 - automation × csharp: 1 lit of 229 files
 - automation × powershell: 1 lit of 1443 files
 - automation × yaml: 3 lit of 97 files
-- docs × markdown: 27 lit of 744 files
+- docs × markdown: 7 lit of 744 files
 
 ## Key
 
@@ -64,83 +64,39 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][11]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 52 (text).
 - [automation/Catzc.Base.Variants/configs/variants.yml][12]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line 1 (header).
 
-### docs × markdown (27 lit files)
+### docs × markdown (7 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][4]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][5]). Lit ([ADR-DSGN-TRACK#12][6]) by:
 
-- [docs/adr/design/commit-lifecycle.md][1]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code; selected by [ADR-DSGN-REMOTE][2]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/dora-explains.md][13]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code; selected by [ADR-DSGN-REMOTE][2]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/module-aspects.md][14]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code; selected by [ADR-DSGN-REMOTE][2]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/run-modes.md][15]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that code;
-  selected by [ADR-DSGN-REMOTE][2]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/self-service.md][16]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code; selected by [ADR-DSGN-REMOTE][2]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/server-remote-integration.md][2]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain
-  of that code; selected by [ADR-DSGN-REMOTE][2]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/thin-platforms.md][17]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code; selected by [ADR-DSGN-REMOTE][2]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/tracks.md][18]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that code;
-  selected by [ADR-DSGN-REMOTE][2]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/visual-design.md][19]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code; selected by [ADR-DSGN-REMOTE][2]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/glossary.md][20]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 149 (text).
-- [docs/adr/index.md][21]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 92 (text); selected by [ADR-DSGN-REMOTE][2]: the file
+- [docs/adr/design/commit-lifecycle.md][1]: selected by [ADR-DSGN-LIFE][1]: the ADR's own file.
+- [docs/adr/design/dora-explains.md][13]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 84 (text); selected by
+  [ADR-DSGN-REMOTE][2]: the file cites it at line 105 (text).
+- [docs/adr/design/server-remote-integration.md][2]: selected by [ADR-DSGN-REMOTE][2]: the ADR's own file.
+- [docs/adr/glossary.md][14]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 149 (text).
+- [docs/adr/index.md][15]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 92 (text); selected by [ADR-DSGN-REMOTE][2]: the file
   cites it at line 93 (text); selected by [ADR-REPO-VARIANT][3]: the file cites it at line 294 (text).
-- [docs/adr/repository/agent-definitions.md][22]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/repository/api-contracts.md][23]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/repository/controlled-vocabulary.md][24]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/repository/conventional-folders.md][25]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/repository/dedicated-output-directory.md][26]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/repository/documentation-examples.md][27]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/repository/domain-language-separation.md][28]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/repository/dora-explains.md][29]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/repository/generated-readmes.md][30]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/repository/generated-root-configs.md][31]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/repository/inspiration.md][32]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/repository/markdown-links.md][33]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/repository/output-formats.md][34]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/repository/protected-globs.md][35]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/repository/repo-variants.md][3]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/repository/uniform-formatting.md][36]: selected by [ADR-REPO-VARIANT][3]: an ADR file of the `repository` ADR domain, the ADR
-  domain of that code.
+- [docs/adr/repository/dora-explains.md][16]: selected by [ADR-REPO-VARIANT][3]: the file cites it at line 149 (text).
+- [docs/adr/repository/repo-variants.md][3]: selected by [ADR-REPO-VARIANT][3]: the ADR's own file.
 
 ## Keywords
 
-- [world map][37]
-- [track][38]
-- [file language][39]
-- [cell][40]
-- [lit cell][41]
+- [world map][17]
+- [track][18]
+- [file language][19]
+- [cell][20]
+- [lit cell][21]
 - [.claude][12]: a track
 - [automation][12]: a track
 - [docs][12]: a track
-- [csharp][42]: a file language
-- [markdown][42]: a file language
-- [powershell][42]: a file language
-- [yaml][42]: a file language
+- [csharp][22]: a file language
+- [markdown][22]: a file language
+- [powershell][22]: a file language
+- [yaml][22]: a file language
 
 Terms the cited ADRs define:
 
-- [occupant][43], defined by [ADR-DSGN-LIFE#5][44]
+- [occupant][23], defined by [ADR-DSGN-LIFE#5][24]
 
 [1]: ../../adr/design/commit-lifecycle.md
 [2]: ../../adr/design/server-remote-integration.md
@@ -155,34 +111,14 @@ Terms the cited ADRs define:
 [11]: ../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
 [12]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
 [13]: ../../adr/design/dora-explains.md
-[14]: ../../adr/design/module-aspects.md
-[15]: ../../adr/design/run-modes.md
-[16]: ../../adr/design/self-service.md
-[17]: ../../adr/design/thin-platforms.md
-[18]: ../../adr/design/tracks.md
-[19]: ../../adr/design/visual-design.md
-[20]: ../../adr/glossary.md
-[21]: ../../adr/index.md
-[22]: ../../adr/repository/agent-definitions.md
-[23]: ../../adr/repository/api-contracts.md
-[24]: ../../adr/repository/controlled-vocabulary.md
-[25]: ../../adr/repository/conventional-folders.md
-[26]: ../../adr/repository/dedicated-output-directory.md
-[27]: ../../adr/repository/documentation-examples.md
-[28]: ../../adr/repository/domain-language-separation.md
-[29]: ../../adr/repository/dora-explains.md
-[30]: ../../adr/repository/generated-readmes.md
-[31]: ../../adr/repository/generated-root-configs.md
-[32]: ../../adr/repository/inspiration.md
-[33]: ../../adr/repository/markdown-links.md
-[34]: ../../adr/repository/output-formats.md
-[35]: ../../adr/repository/protected-globs.md
-[36]: ../../adr/repository/uniform-formatting.md
-[37]: ../../adr/glossary.md#world-map
-[38]: ../../adr/glossary.md#track
-[39]: ../../adr/glossary.md#file-language
-[40]: ../../adr/glossary.md#cell
-[41]: ../../adr/glossary.md#lit-cell
-[42]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
-[43]: ../../adr/glossary.md#occupant
-[44]: ../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[14]: ../../adr/glossary.md
+[15]: ../../adr/index.md
+[16]: ../../adr/repository/dora-explains.md
+[17]: ../../adr/glossary.md#world-map
+[18]: ../../adr/glossary.md#track
+[19]: ../../adr/glossary.md#file-language
+[20]: ../../adr/glossary.md#cell
+[21]: ../../adr/glossary.md#lit-cell
+[22]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[23]: ../../adr/glossary.md#occupant
+[24]: ../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5

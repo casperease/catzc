@@ -5,7 +5,7 @@
 ```text
 A 1572 x 600 diagram, read left to right along a FLOW band, with a CHECKS band below it.
 Glyphs: 4 runners (2 slate, 2 ADR-only), 3 gates (1 solid, 2 ADR-only), 1 actor; 7 rule chips; 1 flow and 1 ADR-only edge; 8 markers.
-Sidebar: axis minimap (main cell PIPE x DEPLOY), tree minimap, lens badge GOV, map key.
+Sidebar: world-map grid (6 lit cells), tree (11 lit groups), value-chain map (4 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.drawio.png) draws, in the vocabulary of the
@@ -65,8 +65,12 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is PIPE × DEPLOY, framed and filled in the DEPLOY blue with the you-are-here dot. Two touched cells, AUTO
-  × BUILD and PIPE × BUILD, carry a small grey dot.
-- **Tree minimap:** four lit tiles, labelled QualityGates, Docs, adr/flow and pipelines.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.grid.md), [tree](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.tree.md) and [value-chain map](adr-flow-cd--ci-budget-is-the-only-quality-gate--governance.chain.md).
+A file or ADR lights a minimap when it cites, or is, the ADR the slide supports (ADR-FLOW-CD, ADR-FLOW-CD-TYPE); the explanation articles, these descriptions and the drawing tooling never light anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 6 lit cells, `.claude × .md` (1 file: 1 cites ADR-FLOW-CD); `automation × .cs` (4 files: 4 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE); `automation × .ps1` (8 files: 8 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE); `automation × .yml` (4 files: 5 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE); `docs × .md` (5 files: 5 cite ADR-FLOW-CD, ADR-FLOW-CD-TYPE; 2 are the ADR file of ADR-FLOW-CD, ADR-FLOW-CD-TYPE); `pipelines × .yaml` (2 files: 2 cite ADR-FLOW-CD-TYPE).
+- **Tree** (the repository's files): 11 lit groups, `Az.DevOps.BuildValidation` (6 files); `Docs` (3 files); `Maps` (3 files); `adr/flow` (3 files); `adr/*` (2 files); `pipelines` (2 files); `.claude` (1 file); `Az.DevOps` (1 file); `Az.Templates` (1 file); `ModuleSystem` (1 file); `QualityGates` (1 file). The ADR files `docs/adr/flow/cd-discipline-and-promotion-flow.md`, `docs/adr/flow/pipeline-types.md` carry the white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 4 lit cells: `DSGN × BUILD`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); ADR-FLOW-CD-TYPE: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); `DSGN × QC`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); ADR-FLOW-CD-TYPE: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); `DSGN × RELEAS`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); ADR-FLOW-CD-TYPE: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-FLOW-CD: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); ADR-FLOW-CD-TYPE: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV, with "Supports ADR-FLOW-CD · ADR-FLOW-CD-TYPE" beneath it.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

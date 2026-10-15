@@ -1,7 +1,7 @@
 # The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
 # ScriptBlockAst. The engine-wiring proof (PSScriptAnalyzer discovers and fires this rule via -CustomRulePath)
 # lives once, for all custom rules, in CustomRuleWiring.Tests.ps1.
-Describe 'Measure-AnnounceStateChange' -Tag 'L0', 'logic' {
+Describe 'Measure-AnnounceStateChange' -Tag 'L0', 'logic', 'ADR-PWSH-ANNOUNCE#8' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.scriptanalyzer/AnnounceStateChange.psm1') -Force
         # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly, so load the module

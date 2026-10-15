@@ -7,22 +7,21 @@
 ### Rule ADR-AUTO-ENVVAR:1
 
 Set an environment variable only to meet an external tool's contract. When the consumer is our own code, the value travels as a parameter or
-in module state. The PowerShell mechanics are [ADR-PWSH-ENV#5](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env5).
+in module state.
 
 - [Legitimate uses](#legitimate-uses)
 
 ### Rule ADR-AUTO-ENVVAR:2
 
-Read an environment variable only as an input from outside our boundary — CI detection, OS paths, and user-set toggles. The PowerShell
-mechanics are [ADR-PWSH-ENV#6](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env6).
+Read an environment variable only as an input from outside our boundary — CI detection, OS paths, and user-set toggles. CI detection reads
+its variables in one place, `Test-IsRunningInPipeline`, and every other caller asks that function.
 
 - [Legitimate uses](#legitimate-uses)
 
 ### Rule ADR-AUTO-ENVVAR:3
 
 Never require an environment variable to be set for a function to work. A required input is a mandatory, typed parameter; the function
-signature is the contract, not a hidden environment variable. The PowerShell mechanics are
-[ADR-PWSH-ENV#7](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env7).
+signature is the contract, not a hidden environment variable.
 
 - [Prohibited uses](#prohibited-uses)
 - [Internal state instead](#internal-state-instead)
@@ -30,8 +29,7 @@ signature is the contract, not a hidden environment variable. The PowerShell mec
 ### Rule ADR-AUTO-ENVVAR:4
 
 Never write an environment variable mid-execution to communicate between functions. That is invisible coupling through global state; pass
-values through parameters and return values. The PowerShell mechanics are
-[ADR-PWSH-ENV#8](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env8).
+values through parameters and return values.
 
 - [Global mutable state](#global-mutable-state)
 - [Prohibited uses](#prohibited-uses)
@@ -39,8 +37,7 @@ values through parameters and return values. The PowerShell mechanics are
 ### Rule ADR-AUTO-ENVVAR:5
 
 The bootstrap anchors — the working root and the code root — are set once by the importer entry and never modified. They are treated as
-constants; modifying a bootstrap anchor means the design is wrong. The PowerShell mechanics are
-[ADR-PWSH-ENV#9](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env9).
+constants; modifying a bootstrap anchor means the design is wrong.
 
 - [Legitimate uses](#legitimate-uses)
 
@@ -49,7 +46,7 @@ constants; modifying a bootstrap anchor means the design is wrong. The PowerShel
 Never store a secret in an environment variable as internal state our own code reads back — durable state, config, or a value our own code
 later reads. A secret may cross to a child or external process through the environment only via the single disciplined seam
 `Write-EnvironmentSet` (ADR-AUTO-ENVVAR#7), never written ad hoc. The environment is visible to child processes, process-inspection tools,
-and crash dumps (CWE-526). The PowerShell mechanics are [ADR-PWSH-ENV#10](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env10).
+and crash dumps (CWE-526).
 
 - [They are a security surface](#they-are-a-security-surface)
 - [The secret hand-off](#the-secret-hand-off)
@@ -59,8 +56,7 @@ and crash dumps (CWE-526). The PowerShell mechanics are [ADR-PWSH-ENV#10](../pws
 Handing a secret to a child or external process through the environment is a legitimate external-boundary use (ADR-AUTO-ENVVAR#1), permitted
 only through `Write-EnvironmentSet` (`Catzc.Tooling.Environment`). That seam takes the secret as a protected value, never as plain text;
 never logs or returns the plaintext (it masks it as `***`); decrypts only at the moment it sets the variable; and defaults to a scoped set
-and restore, persisting only on explicit request. An ad-hoc assignment of a plaintext secret stays prohibited. The PowerShell mechanics are
-[ADR-PWSH-ENV#11](../pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env11).
+and restore, persisting only on explicit request. An ad-hoc assignment of a plaintext secret stays prohibited.
 
 - [The secret hand-off](#the-secret-hand-off)
 
@@ -155,7 +151,8 @@ behaves correctly. The key distinction: the _consumer_ of the variable is an ext
 
 **2. Reading variables that external systems set.** CI platforms, container runtimes, and operating systems communicate via environment
 variables — the Azure DevOps and GitHub Actions markers, the Windows system root. Reading these is fine — they are inputs from outside our
-boundary.
+boundary. The two CI markers are read only inside `Test-IsRunningInPipeline`; the related flow rule is
+[ADR-FLOW-CD-DETECT#1](../flow/pipeline-detection.md#rule-adr-flow-cd-detect1).
 
 A small family of `CATZC_*` flags belongs to this category as well. They are deliberate external/diagnostic toggles — signals set by the
 outer environment (a developer's shell, a test harness) that our code _reads_ to alter a presentation or test-isolation behaviour, never to

@@ -53,10 +53,10 @@ Cleaning all output is one command: `Remove-Item (Join-Path (Get-OutputRoot) '*'
 
 ### Rule ADR-REPO-OUTDIR:8
 
-The spell-checker dictionaries generated from the terminology registry (ADR-AUTO-SPELL#5) are NOT committed: like the `.psd1` manifests they
-are generated (one `<category>.txt` per vocabulary category under the root `.cspell/`), gitignored, and regenerated at the importer tail
-from `configs/terminology.yml`. The registry is the single source of truth; the word lists are ephemeral build artifacts cspell resolves at
-a fixed path after an import (a fresh clone must run the importer once before cspell has them). Everything in `.cspell/` is generated — the
+The spell-checker dictionaries generated from the terminology registry are NOT committed: like the `.psd1` manifests they are generated (one
+`<category>.txt` per vocabulary category under the root `.cspell/`), gitignored, and regenerated at the importer tail from
+`configs/terminology.yml`. The registry is the single source of truth; the word lists are ephemeral build artifacts cspell resolves at a
+fixed path after an import (a fresh clone must run the importer once before cspell has them). Everything in `.cspell/` is generated — the
 word lists, the folder's `.gitignore` (a managed root-config copy), and its `README.md` (a generated link); only the `.gitkeep` keeping the
 folder tracked is committed. This is the `.psd1`/generated-README pattern — not the committed-artifact exception of ADR-REPO-OUTDIR#5.
 
@@ -122,8 +122,9 @@ Scratch files use the system temp directory.
 Two classes of generated file live in the source tree rather than under `out/`. One is committed: the combined compiled-type prebuild
 (ADR-REPO-OUTDIR#5), an expensive Roslyn build kept at a fixed path so a fresh checkout and CI load without compiling — the deliberate
 exception to ADR-REPO-OUTDIR#4. The other is gitignored and regenerated on import — the `.psd1` module manifests, the generated READMEs, and
-the spell-checker dictionaries (ADR-REPO-OUTDIR#8) — cheap to reproduce, so they are never committed and the authored source stays the
-single source of truth.
+the spell-checker dictionaries (ADR-REPO-OUTDIR#8; the terminology registry they are generated from is
+[ADR-AUTO-SPELL#5](../automation/spell-out-names.md#rule-adr-auto-spell5)) — cheap to reproduce, so they are never committed and the
+authored source stays the single source of truth.
 
 A PDF is output by its nature: every PDF here is rendered from a source, such as a diagram, a world map or a review bundle. So the ignore
 rule is by file type, not by folder: `*.pdf` is ignored everywhere (ADR-REPO-OUTDIR#11). Committing a PDF is a deliberate exception, made

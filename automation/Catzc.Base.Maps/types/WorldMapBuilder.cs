@@ -1,6 +1,7 @@
 // Builds the world map from plain inputs, so a logic test needs no disk: the tracks (variants.yml), the file languages
 // (languages.yml), the tracked paths (the git index), the aspects per track (the live classification), the adrs index
-// (ADR code -> domain), the text of the files that cite, the repository-root files' owners (files.yml: root file ->
+// (ADR code -> domain), each ADR code's own file (the registry's code -> file map, the one the link engine uses), the
+// text of the files that cite, the repository-root files' owners (files.yml: root file ->
 // the owning module's folder), and the globsets (globs.yml). Get-WorldMap gathers them from the repository.
 //
 // Placement is exact: the root folder gives the track and the extension gives the file language
@@ -16,7 +17,7 @@
 // violation; a file without an extension is never one.
 //
 // The highlight relation follows a fixed order per artifact kind:
-//   1. an ADR file (a .md under docs/adr/<domain>/) carries its domain;
+//   1. an ADR's own file (the file the registry maps its code to) carries that one ADR code, and lights for it alone;
 //   2. a file under no track carries the citations of the files in its owner's folder (files.yml), else its own;
 //   3. a file of the pipelines track carries its own citations, else those of the files of the globset whose
 //      pipeline key names it;
@@ -36,16 +37,13 @@ namespace Catzc.Base.Maps;
 
 public static class WorldMapBuilder
 {
-    // The folder whose markdown files are ADRs: docs/adr/<domain>/...
-    public const string AdrRoot = "docs/adr/";
-
     // The track whose files fall back to their globset's citations.
     public const string PipelinesTrack = "pipelines";
 
-    // citationExclude: the globs of the files whose citations light nothing (maps.yml highlight.citation_exclude); such a
-    // file still sits in its cell. None when null.
+    // adrFiles: each ADR code's own file (ADR-<CODE> -> repository-relative path). citationExclude: the globs of the files
+    // whose citations light nothing (maps.yml highlight.citation_exclude); such a file still sits in its cell. None when null.
     public static WorldMap Build(IEnumerable tracks, IEnumerable fileLanguages, IEnumerable paths, IDictionary aspects, IDictionary adrIndex,
-        IDictionary texts, IDictionary rootOwners, IEnumerable globSets, IEnumerable citationExclude = null)
+        IDictionary adrFiles, IDictionary texts, IDictionary rootOwners, IEnumerable globSets, IEnumerable citationExclude = null)
     {
         List<Catzc.Base.Globs.GlobPattern> excluded = new List<Catzc.Base.Globs.GlobPattern>();
         foreach (object glob in citationExclude ?? Array.Empty<object>())
@@ -75,7 +73,15 @@ public static class WorldMapBuilder
             foreach (string extension in language.extensions) { languageByExtension[extension.ToLowerInvariant()] = language.name; }
         }
 
-        HashSet<string> domains = new HashSet<string>(index.Values, StringComparer.Ordinal);
+        // The ADR code of each ADR file; a file two codes name keeps the first in ordinal code order.
+        Dictionary<string, string> adrByPath = new Dictionary<string, string>(StringComparer.Ordinal);
+        List<string> codes = new List<string>(Strings(adrFiles).Keys);
+        codes.Sort(StringComparer.Ordinal);
+        Dictionary<string, string> fileByCode = Strings(adrFiles);
+        foreach (string code in codes)
+        {
+            if (!adrByPath.ContainsKey(fileByCode[code])) { adrByPath[fileByCode[code]] = code; }
+        }
         Dictionary<string, List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>>> aspectsByTrack = CompileAspects(aspects);
         Dictionary<string, string> ownerByRootFile = Strings(rootOwners);
         Dictionary<string, string> textByPath = Strings(texts);
@@ -111,13 +117,14 @@ public static class WorldMapBuilder
             bool live = track != null && IsLive(path, track, aspectsByTrack);
             bool violation = live && extension != null && !Declares(track, fileLanguage);
 
-            string domain = AdrDomain(path, extension, domains);
+            string adr;
+            adrByPath.TryGetValue(path, out adr);
             Catzc.Base.Globs.GlobSet pipelineSet = track != null && string.Equals(track.name, PipelinesTrack, StringComparison.Ordinal) &&
                 ownCitations[path].Length == 0 ? PipelineSet(path, globSetList) : null;
             string basis;
             string[] citations;
             CitationSite[] sites;
-            if (domain != null)
+            if (adr != null)
             {
                 basis = MapPlacement.BasisAdrFile;
                 citations = Array.Empty<string>();
@@ -144,7 +151,7 @@ public static class WorldMapBuilder
                 basis = citations.Length > 0 ? MapPlacement.BasisCitations : MapPlacement.BasisNone;
             }
 
-            placements.Add(new MapPlacement(path, track == null ? WorldMap.NoTrack : track.name, fileLanguage, live, violation, basis, domain,
+            placements.Add(new MapPlacement(path, track == null ? WorldMap.NoTrack : track.name, fileLanguage, live, violation, basis, adr,
                 citations, sites));
         }
 
@@ -179,17 +186,6 @@ public static class WorldMapBuilder
             if (string.Equals(declared, fileLanguage, StringComparison.Ordinal)) { return true; }
         }
         return false;
-    }
-
-    // The domain of an ADR file: a .md under docs/adr/<domain>/ whose folder is a domain the index knows; else null.
-    private static string AdrDomain(string path, string extension, HashSet<string> domains)
-    {
-        if (!string.Equals(extension, ".md", StringComparison.Ordinal) || !path.StartsWith(AdrRoot, StringComparison.Ordinal)) { return null; }
-        string rest = path.Substring(AdrRoot.Length);
-        int slash = rest.IndexOf('/');
-        if (slash <= 0) { return null; }
-        string folder = rest.Substring(0, slash);
-        return domains.Contains(folder) ? folder : null;
     }
 
     // The globset whose pipeline key is the pipeline file's name without its extension, or null.

@@ -5,7 +5,7 @@
 ```text
 A 1572 x 750 diagram, read top to bottom through four bands down one centre spine.
 Glyphs: 1 actor, 1 code unit (slate), 1 external tool, 1 environment; 3 flow edges; 4 markers.
-Sidebar: axis minimap (main cell DSGN x DEPLOY), tree minimap, lens badge META, map key.
+Sidebar: world-map grid (2 lit cells), tree (4 lit groups), value-chain map (2 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.drawio.png) draws, in the vocabulary of the
@@ -60,8 +60,19 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is DSGN × DEPLOY, framed and filled in the DEPLOY blue with the you-are-here dot. Three touched cells
-  carry a small grey dot: AUTO × LOAD, PIPE × DEPLOY and CLOUD × DEPLOY.
-- **Tree minimap:** lit tiles labelled Azure, Az.Templates, adr/auto, adr/dsgn and pipelines.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.grid.md),
+[tree](adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.tree.md) and
+[value-chain map](adr-dsgn-thinplat--bind-to-one-cli-delegate-the-rest--meta.chain.md). A file or ADR lights a minimap when it cites, or is,
+the ADR the slide supports (ADR-DSGN-THINPLAT); the explanation articles, these descriptions and the drawing tooling never light anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 2 lit cells, `automation × .yml` (2 files: 2 cite ADR-DSGN-THINPLAT);
+  `docs × .md` (3 files: 2 cite ADR-DSGN-THINPLAT; 1 is the ADR file of ADR-DSGN-THINPLAT).
+- **Tree** (the repository's files): 4 lit groups, `adr/dsgn` (2 files); `Docs` (1 file); `QualityGates` (1 file); `adr/*` (1 file). The ADR
+  file `docs/adr/design/thin-platforms.md` carries the white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-THINPLAT:
+  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, deploy is its own value-chain concern
+  (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-THINPLAT: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
+  automation, deploy is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** META, with "Supports ADR-DSGN-THINPLAT" beneath it.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

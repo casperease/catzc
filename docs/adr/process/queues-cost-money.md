@@ -28,8 +28,7 @@ treat a long feedback queue as an ongoing expense rather than a neutral wait.
 ### Rule ADR-PROC-QUEUECOST:4
 
 Machine time is cheap and follows Moore's law; human attention is the constraint. So spend compute to drain the human queue — parallel
-quality gates, eager caches ([ADR-AUTO-CACHE](../automation/caching.md)), ephemeral environments, rebuild-don't-wait. A minute of CPU is
-cheaper than a minute of a person blocked.
+quality gates, eager caches, ephemeral environments, rebuild-don't-wait. A minute of CPU is cheaper than a minute of a person blocked.
 
 - [Decision](#decision)
 

@@ -36,9 +36,8 @@ agent, so a reader of the standard agent knows where each specialised job goes.
 
 ### Rule ADR-REPO-AGENTS:5
 
-`Test-AgentDefinitions` is the quality gate ([ADR-AUTO-TEST#35](../automation/test-automation.md#rule-adr-auto-test35)) for these rules. It
-keeps the agent files, the registry, and the `.claude/CLAUDE.md` list in step, and it resolves every `supported_by` citation to a real rule
-and every `checks` entry to an existing command.
+`Test-AgentDefinitions` is the quality gate for these rules. It keeps the agent files, the registry, and the `.claude/CLAUDE.md` list in
+step, and it resolves every `supported_by` citation to a real rule and every `checks` entry to an existing command.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -84,7 +83,7 @@ guards, and listed in `.claude/CLAUDE.md`. `catzc-worker` is the standard agent;
   type, `AgentsConfig`, with one `AgentEntry` per agent ([ADR-CONF-LOADING](../configuration/module-config-loading.md)). The type rejects an
   unknown key, a malformed or repeated name, an empty `supported_by`, a citation without a rule number, a missing `checks` list, and a
   `standard` that names no entry, and reports every violation at once.
-- **`Test-AgentDefinitions`** is the quality gate. It reports:
+- **`Test-AgentDefinitions`** is the quality gate ([ADR-AUTO-TEST#35](../automation/test-automation.md#rule-adr-auto-test35)). It reports:
   - an agent file with no registry entry, and an entry with no file;
   - front matter that does not parse, a `name` that differs from the file name, and a missing `description`, `Do NOT` clause, or `tools`;
   - a `supported_by` citation that names no rule (resolved through `Get-CatsAdrRuleIds`);

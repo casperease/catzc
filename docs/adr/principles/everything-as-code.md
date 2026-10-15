@@ -7,7 +7,8 @@
 ### Rule ADR-PRIN-EAC:1
 
 Every artifact required to build, test, deploy, or operate the system lives in version control — application code, infrastructure,
-pipelines, environment config, schemas/migrations, specs, tests, container/orchestration, networking/DNS, and governing docs.
+pipelines, environment config, schemas/migrations, specs, tests, container/orchestration, networking/DNS, and governing docs. Rules 1–3 are
+the mechanics of ADR-THES-ONETRUTH#2.
 
 - [Principle](#principle)
 

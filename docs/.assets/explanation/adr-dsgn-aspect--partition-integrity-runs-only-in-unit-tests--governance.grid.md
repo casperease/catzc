@@ -20,7 +20,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 - automation × csharp: 10 lit of 229 files
 - automation × powershell: 50 lit of 1443 files
 - automation × yaml: 7 lit of 97 files
-- docs × markdown: 62 lit of 744 files
+- docs × markdown: 14 lit of 744 files
 - pipelines × pipeline-yaml: 6 lit of 9 files
 - Root files × powershell: 1 lit of 1 file
 
@@ -190,131 +190,29 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.Variants/configs/variants.yml][77]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 30 (body comment)
   (a passing mention only).
 
-### docs × markdown (62 lit files)
+### docs × markdown (14 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][6]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][7]). Lit ([ADR-DSGN-TRACK#12][8]) by:
 
-- [docs/adr/design/commit-lifecycle.md][78]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/design/dora-explains.md][79]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/module-aspects.md][1]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/run-modes.md][80]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/self-service.md][81]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/server-remote-integration.md][82]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/design/thin-platforms.md][83]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/tracks.md][84]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/visual-design.md][85]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/flow/cd-discipline-and-promotion-flow.md][86]: selected by [ADR-FLOW-CD-GLOBS][2]: an ADR file of the `flow` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/flow/dora-explains.md][87]: selected by [ADR-FLOW-CD-GLOBS][2]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/flow/durable-sha-globs.md][2]: selected by [ADR-FLOW-CD-GLOBS][2]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/flow/pipeline-detection.md][88]: selected by [ADR-FLOW-CD-GLOBS][2]: an ADR file of the `flow` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/flow/pipeline-runner-pattern.md][89]: selected by [ADR-FLOW-CD-GLOBS][2]: an ADR file of the `flow` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/flow/pipeline-types.md][90]: selected by [ADR-FLOW-CD-GLOBS][2]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/glossary.md][91]: selected by [ADR-REPO-FOLDERS][5]: the file cites it at line 765 (text).
-- [docs/adr/index.md][92]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 95 (text); selected by [ADR-FLOW-CD-GLOBS][2]: the
+- [docs/adr/design/dora-explains.md][78]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 142 (text).
+- [docs/adr/design/module-aspects.md][1]: selected by [ADR-DSGN-ASPECT][1]: the ADR's own file.
+- [docs/adr/flow/dora-explains.md][79]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 94 (text).
+- [docs/adr/flow/durable-sha-globs.md][2]: selected by [ADR-FLOW-CD-GLOBS][2]: the ADR's own file.
+- [docs/adr/glossary.md][80]: selected by [ADR-REPO-FOLDERS][5]: the file cites it at line 765 (text).
+- [docs/adr/index.md][81]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 95 (text); selected by [ADR-FLOW-CD-GLOBS][2]: the
   file cites it at line 111 (text); selected by [ADR-PWSH-MANIFEST][3]: the file cites it at line 174 (text); selected by
   [ADR-PWSH-ONEFUNC][4]: the file cites it at line 172 (text); selected by [ADR-REPO-FOLDERS][5]: the file cites it at line 286 (text).
-- [docs/adr/pwsh/announce-state-changes.md][93]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of
-  that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/assert-idioms.md][94]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of that
-  code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/automatic-variable-pitfalls.md][95]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR
-  domain of that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/avoid-using-semicolons.md][96]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of
-  that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/cross-platform-powershell.md][97]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain
-  of that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/dora-explains.md][98]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of that
-  code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/dynamic-module-manifests.md][3]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain
-  of that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/environment-variable-mechanics.md][99]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR
-  domain of that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/error-handling.md][100]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of that
-  code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/hosting-csharp-types.md][101]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of
-  that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/identifier-names.md][102]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of that
-  code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/index.md][103]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code;
-  selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/module-path-hygiene.md][104]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of
-  that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/one-function-per-file.md][4]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of
-  that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/parameter-design.md][105]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of that
-  code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/pester-testing.md][106]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of that
-  code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/powershell-formatting.md][107]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of
-  that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/prefer-dryrun-over-shouldprocess.md][108]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the
-  ADR domain of that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/prefer-foreach-over-foreach-object.md][109]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the
-  ADR domain of that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/prepost-extension-modules.md][110]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR
-  domain of that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/pwsh-engine.md][111]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of that
-  code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/respect-pwsh-verb-rules.md][112]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain
-  of that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/script-scope-caching.md][113]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of
-  that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/use-ps1-not-psm1.md][114]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR domain of that
-  code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/vendor-toolset-dependencies.md][115]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR
-  domain of that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/pwsh/working-directory-mechanics.md][116]: selected by [ADR-PWSH-MANIFEST][3]: an ADR file of the `pwsh` ADR domain, the ADR
-  domain of that code; selected by [ADR-PWSH-ONEFUNC][4]: an ADR file of the `pwsh` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/agent-definitions.md][117]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/repository/api-contracts.md][118]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/repository/controlled-vocabulary.md][119]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/repository/conventional-folders.md][5]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/repository/dedicated-output-directory.md][120]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/repository/documentation-examples.md][121]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/repository/domain-language-separation.md][122]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/repository/dora-explains.md][123]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/repository/generated-readmes.md][124]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/repository/generated-root-configs.md][125]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/repository/inspiration.md][126]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/repository/markdown-links.md][127]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/repository/output-formats.md][128]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/repository/protected-globs.md][129]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/repository/repo-variants.md][130]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/repository/uniform-formatting.md][131]: selected by [ADR-REPO-FOLDERS][5]: an ADR file of the `repository` ADR domain, the ADR
-  domain of that code.
-- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][132]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 18
+- [docs/adr/pwsh/dora-explains.md][82]: selected by [ADR-PWSH-MANIFEST][3]: the file cites it at line 63 (text); selected by
+  [ADR-PWSH-ONEFUNC][4]: the file cites it at line 29 (text).
+- [docs/adr/pwsh/dynamic-module-manifests.md][3]: selected by [ADR-PWSH-MANIFEST][3]: the ADR's own file.
+- [docs/adr/pwsh/one-function-per-file.md][4]: selected by [ADR-PWSH-ONEFUNC][4]: the ADR's own file.
+- [docs/adr/repository/conventional-folders.md][5]: selected by [ADR-REPO-FOLDERS][5]: the ADR's own file.
+- [docs/adr/repository/dora-explains.md][83]: selected by [ADR-REPO-FOLDERS][5]: the file cites it at line 13 (text).
+- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][84]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 18
   (text).
-- [docs/references/automation/catzc-base-globs.md][133]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 29 (text).
-- [docs/references/automation/catzc-base-languages.md][134]: selected by [ADR-REPO-FOLDERS][5]: the file cites it at line 47 (text) and line
+- [docs/references/automation/catzc-base-globs.md][85]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 29 (text).
+- [docs/references/automation/catzc-base-languages.md][86]: selected by [ADR-REPO-FOLDERS][5]: the file cites it at line 47 (text) and line
   77 (text).
 
 ### pipelines × pipeline-yaml (6 lit files)
@@ -322,43 +220,43 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][6]); th
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][6]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][7]). Lit ([ADR-DSGN-TRACK#12][8]) by:
 
-- [pipelines/cd-apex.yaml][135]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 15 (header).
-- [pipelines/cd-flux.yaml][136]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 14 (header).
-- [pipelines/cd-nova.yaml][137]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 14 (header).
-- [pipelines/cd-shared.yaml][138]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 29 (header).
-- [pipelines/ci-automation.yaml][139]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 4 (header).
-- [pipelines/ci-infrastructure.yaml][140]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (header).
+- [pipelines/cd-apex.yaml][87]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 15 (header).
+- [pipelines/cd-flux.yaml][88]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 14 (header).
+- [pipelines/cd-nova.yaml][89]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 14 (header).
+- [pipelines/cd-shared.yaml][90]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 29 (header).
+- [pipelines/ci-automation.yaml][91]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 4 (header).
+- [pipelines/ci-infrastructure.yaml][92]: selected by [ADR-FLOW-CD-GLOBS][2]: the file cites it at line 17 (header).
 
 ### Root files × powershell (1 lit file)
 
-Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][141]); the extension `.ps1` names the file
+Placed: each file sits directly in the repository root, so it is a root file ([ADR-DSGN-TRACK#7][93]); the extension `.ps1` names the file
 language powershell ([ADR-DSGN-TRACK#6][7]). Lit ([ADR-DSGN-TRACK#12][8]) by:
 
-- [importer.ps1][142]: selected by [ADR-PWSH-MANIFEST][3]: a root file carries the citations of its owner module's files (files.yml), which
+- [importer.ps1][94]: selected by [ADR-PWSH-MANIFEST][3]: a root file carries the citations of its owner module's files (files.yml), which
   cite it at `automation/.internal/assets/Import-ModuleFiles.ps1` line 1 (header).
 
 ## Keywords
 
-- [world map][143]
-- [track][144]
-- [file language][145]
-- [cell][146]
-- [lit cell][147]
-- [root file][148]
+- [world map][95]
+- [track][96]
+- [file language][97]
+- [cell][98]
+- [lit cell][99]
+- [root file][100]
 - [.claude][77]: a track
 - [.github][77]: a track
 - [automation][77]: a track
 - [docs][77]: a track
 - [pipelines][77]: a track
-- [csharp][149]: a file language
-- [markdown][149]: a file language
-- [pipeline-yaml][149]: a file language
-- [powershell][149]: a file language
-- [yaml][149]: a file language
+- [csharp][101]: a file language
+- [markdown][101]: a file language
+- [pipeline-yaml][101]: a file language
+- [powershell][101]: a file language
+- [yaml][101]: a file language
 
 Terms the cited ADRs define:
 
-- [domain][150], defined by [ADR-REPO-FOLDERS#5][151]
+- [domain][102], defined by [ADR-REPO-FOLDERS#5][103]
 
 [1]: ../../adr/design/module-aspects.md
 [2]: ../../adr/flow/durable-sha-globs.md
@@ -437,77 +335,29 @@ Terms the cited ADRs define:
 [75]: ../../../automation/Catzc.Base.Globs/configs/globs.yml
 [76]: ../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
 [77]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[78]: ../../adr/design/commit-lifecycle.md
-[79]: ../../adr/design/dora-explains.md
-[80]: ../../adr/design/run-modes.md
-[81]: ../../adr/design/self-service.md
-[82]: ../../adr/design/server-remote-integration.md
-[83]: ../../adr/design/thin-platforms.md
-[84]: ../../adr/design/tracks.md
-[85]: ../../adr/design/visual-design.md
-[86]: ../../adr/flow/cd-discipline-and-promotion-flow.md
-[87]: ../../adr/flow/dora-explains.md
-[88]: ../../adr/flow/pipeline-detection.md
-[89]: ../../adr/flow/pipeline-runner-pattern.md
-[90]: ../../adr/flow/pipeline-types.md
-[91]: ../../adr/glossary.md
-[92]: ../../adr/index.md
-[93]: ../../adr/pwsh/announce-state-changes.md
-[94]: ../../adr/pwsh/assert-idioms.md
-[95]: ../../adr/pwsh/automatic-variable-pitfalls.md
-[96]: ../../adr/pwsh/avoid-using-semicolons.md
-[97]: ../../adr/pwsh/cross-platform-powershell.md
-[98]: ../../adr/pwsh/dora-explains.md
-[99]: ../../adr/pwsh/environment-variable-mechanics.md
-[100]: ../../adr/pwsh/error-handling.md
-[101]: ../../adr/pwsh/hosting-csharp-types.md
-[102]: ../../adr/pwsh/identifier-names.md
-[103]: ../../adr/pwsh/index.md
-[104]: ../../adr/pwsh/module-path-hygiene.md
-[105]: ../../adr/pwsh/parameter-design.md
-[106]: ../../adr/pwsh/pester-testing.md
-[107]: ../../adr/pwsh/powershell-formatting.md
-[108]: ../../adr/pwsh/prefer-dryrun-over-shouldprocess.md
-[109]: ../../adr/pwsh/prefer-foreach-over-foreach-object.md
-[110]: ../../adr/pwsh/prepost-extension-modules.md
-[111]: ../../adr/pwsh/pwsh-engine.md
-[112]: ../../adr/pwsh/respect-pwsh-verb-rules.md
-[113]: ../../adr/pwsh/script-scope-caching.md
-[114]: ../../adr/pwsh/use-ps1-not-psm1.md
-[115]: ../../adr/pwsh/vendor-toolset-dependencies.md
-[116]: ../../adr/pwsh/working-directory-mechanics.md
-[117]: ../../adr/repository/agent-definitions.md
-[118]: ../../adr/repository/api-contracts.md
-[119]: ../../adr/repository/controlled-vocabulary.md
-[120]: ../../adr/repository/dedicated-output-directory.md
-[121]: ../../adr/repository/documentation-examples.md
-[122]: ../../adr/repository/domain-language-separation.md
-[123]: ../../adr/repository/dora-explains.md
-[124]: ../../adr/repository/generated-readmes.md
-[125]: ../../adr/repository/generated-root-configs.md
-[126]: ../../adr/repository/inspiration.md
-[127]: ../../adr/repository/markdown-links.md
-[128]: ../../adr/repository/output-formats.md
-[129]: ../../adr/repository/protected-globs.md
-[130]: ../../adr/repository/repo-variants.md
-[131]: ../../adr/repository/uniform-formatting.md
-[132]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
-[133]: ../../references/automation/catzc-base-globs.md
-[134]: ../../references/automation/catzc-base-languages.md
-[135]: ../../../pipelines/cd-apex.yaml
-[136]: ../../../pipelines/cd-flux.yaml
-[137]: ../../../pipelines/cd-nova.yaml
-[138]: ../../../pipelines/cd-shared.yaml
-[139]: ../../../pipelines/ci-automation.yaml
-[140]: ../../../pipelines/ci-infrastructure.yaml
-[141]: ../../adr/design/tracks.md#rule-adr-dsgn-track7
-[142]: ../../../importer.ps1
-[143]: ../../adr/glossary.md#world-map
-[144]: ../../adr/glossary.md#track
-[145]: ../../adr/glossary.md#file-language
-[146]: ../../adr/glossary.md#cell
-[147]: ../../adr/glossary.md#lit-cell
-[148]: ../../adr/glossary.md#root-file
-[149]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
-[150]: ../../adr/glossary.md#domain
-[151]: ../../adr/repository/conventional-folders.md#rule-adr-repo-folders5
+[78]: ../../adr/design/dora-explains.md
+[79]: ../../adr/flow/dora-explains.md
+[80]: ../../adr/glossary.md
+[81]: ../../adr/index.md
+[82]: ../../adr/pwsh/dora-explains.md
+[83]: ../../adr/repository/dora-explains.md
+[84]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
+[85]: ../../references/automation/catzc-base-globs.md
+[86]: ../../references/automation/catzc-base-languages.md
+[87]: ../../../pipelines/cd-apex.yaml
+[88]: ../../../pipelines/cd-flux.yaml
+[89]: ../../../pipelines/cd-nova.yaml
+[90]: ../../../pipelines/cd-shared.yaml
+[91]: ../../../pipelines/ci-automation.yaml
+[92]: ../../../pipelines/ci-infrastructure.yaml
+[93]: ../../adr/design/tracks.md#rule-adr-dsgn-track7
+[94]: ../../../importer.ps1
+[95]: ../../adr/glossary.md#world-map
+[96]: ../../adr/glossary.md#track
+[97]: ../../adr/glossary.md#file-language
+[98]: ../../adr/glossary.md#cell
+[99]: ../../adr/glossary.md#lit-cell
+[100]: ../../adr/glossary.md#root-file
+[101]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[102]: ../../adr/glossary.md#domain
+[103]: ../../adr/repository/conventional-folders.md#rule-adr-repo-folders5

@@ -18,8 +18,9 @@ to UTF-8 (`Set-RedirectedOutputEncoding`), so a captured log carries one encodin
 
 ### Rule ADR-PWSH-ANNOUNCE:4
 
-A child process's own output is the tool speaking (ADR-AUTO-CONSOLE#4): it is relayed to the console as it streams, not re-written through
-the chokepoint. Only what the toolset itself says goes through the information stream.
+In pwsh, the relay ADR-AUTO-CONSOLE#4 requires bypasses the chokepoint: a child process's bytes never become a PowerShell record, and the C#
+relays (`Invoke-ExecutableStreamed`'s runner, the Pester worker pool) write them to the console directly as they arrive, save and restore
+the console encoding around the run, and honour the Pester-run flag. Only what the toolset itself says goes through the information stream.
 
 - [Child-process output](#child-process-output)
 
@@ -66,6 +67,22 @@ change inside `Start-Job`, `Start-ThreadJob`, or `ForEach-Object -Parallel`; Pow
 `$global:__<Name>` bookkeeping; and the state a Pester test sets and restores in `AfterEach`/`AfterAll`.
 
 - [Not a state change](#not-a-state-change)
+
+### Rule ADR-PWSH-ANNOUNCE:10
+
+In pwsh, a native tool runs through `Invoke-Executable`, which writes the resolved command with `Write-Message` before it starts the process
+(ADR-AUTO-PRELOG#2). A function that starts a tool any other way — the call operator (`& $tool`), a bare native command, `Start-Process`, or
+a `[System.Diagnostics.Process]` — writes the resolved command line with `Write-Message` directly before it.
+
+- [Logging a command](#logging-a-command)
+
+### Rule ADR-PWSH-ANNOUNCE:11
+
+In pwsh, the command log of ADR-AUTO-PRELOG#4 is a `Write-Message` line on the information stream: never a `Write-Verbose` or `Write-Debug`
+line, and never inside a branch on `-Verbose`, `-Debug`, `$VerbosePreference`, or a diagnostic switch. The `-Silent` switch of
+ADR-AUTO-PRELOG#5 is the one way a call leaves it out.
+
+- [Logging a command](#logging-a-command)
 
 ## Context
 
@@ -189,6 +206,21 @@ The exemptions of ADR-AUTO-CONSOLE#12, as PowerShell spells them:
   crosses module scopes for the toolset's own use. The state it records is announced where that state changes.
 - **Tests.** A test sets state on purpose and restores it in `AfterEach`/`AfterAll`, and its output belongs to Pester.
 
+### Logging a command
+
+[log-before-invoke](../automation/log-before-invoke.md) decides that every external command is logged, exactly and on every run, before it
+runs. In pwsh that log line is a status line like any other, so it takes the status path: `Write-Message` on the information stream.
+`Invoke-Executable` writes it for every call that goes through it, and the `Invoke-*` tool wrappers inherit it. A function that starts a
+process another way has nothing writing the line for it, so it writes the line itself, with every variable expanded, right before the call:
+
+```powershell
+Write-Message "widget pack $Path --output $outputFolder"
+& widget pack $Path --output $outputFolder
+```
+
+The verbose and debug streams are off by default, so a command logged there is missing from exactly the run that needs it. The command line
+is never routed there, and never written only when a diagnostic switch is set.
+
 ### Child-process output
 
 `Child-process output is relayed, not re-written`
@@ -232,7 +264,8 @@ functions and announce on the information stream like any other caller's. A clea
 Every write to the console goes through the information stream via the writer chokepoint, each kind of output on its stream, and every
 lasting change to the session's state is announced there, where it happens, naming what changed and to what. The pwsh forms of the changes
 that are restored, made elsewhere, or private bookkeeping are not announced; child-process output is relayed as the tool's own; a delegated
-announcement is recorded with a justified suppression.
+announcement is recorded with a justified suppression. Every external command is logged with `Write-Message` before it runs, by
+`Invoke-Executable` or, for a tool started another way, by the function that starts it.
 
 ### How this is enforced
 

@@ -24,9 +24,7 @@ depends on. Know which kind a folder is before renaming it or adding to it.
 ### Rule ADR-REPO-FOLDERS:3
 
 The root set is closed. Adding a top-level directory is a deliberate architectural decision — an amendment to this ADR — not a casual act.
-`go/` and `python/`, the Go and Python roots of the repository's black-box tests
-([go-test-artifacts](../automation/go/go-test-artifacts.md), [python-test-artifacts](../automation/python/python-test-artifacts.md)), are
-such amendments.
+`go/` and `python/`, the Go and Python roots of the repository's black-box tests, are such amendments.
 
 - [Level 1: Repository root](#level-1-repository-root)
 

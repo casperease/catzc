@@ -5,7 +5,9 @@
 # two layers (see
 # [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)). This loader is the one thing the importer loads
 # unconditionally; it stays in the session (it is NOT removed with Bootstrap), so a post-import Catzc cover
-# function can ensure a shared module is present before delegating to it.
+# function can ensure a shared module is present before delegating to it. Because it is loaded first in both run
+# modes, it also carries the one pipeline-detection function, Test-IsRunningInPipeline, which the bootstrap's
+# C#-types pre-pass and the Catzc modules both call.
 
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
@@ -45,4 +47,28 @@ function Import-InternalModule {
     Import-Module (Join-Path $script:internalRoot "$moduleName.psm1") -Scope Global -Force
 }
 
-Export-ModuleMember -Function Import-InternalModule
+function Test-IsRunningInPipeline {
+    <#
+    .SYNOPSIS
+        Returns true if the current session is running inside a CI/CD pipeline.
+    .DESCRIPTION
+        The one pipeline-detection function
+        ([ADR-FLOW-CD-DETECT#1](/docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1)). It detects Azure
+        DevOps Pipelines and GitHub Actions by the environment variables each platform's agent sets. It lives in
+        this loader, which both run modes import first and never remove, so the C#-types pre-pass in the bootstrap
+        and every Catzc module ask the same function.
+    .EXAMPLE
+        Test-IsRunningInPipeline
+    .EXAMPLE
+        if (Test-IsRunningInPipeline) { Write-Verbose 'Running in CI' }
+    #>
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param()
+
+    # Azure DevOps sets TF_BUILD=True
+    # GitHub Actions sets GITHUB_ACTIONS=true
+    [bool]$env:TF_BUILD -or [bool]$env:GITHUB_ACTIONS
+}
+
+Export-ModuleMember -Function Import-InternalModule, Test-IsRunningInPipeline

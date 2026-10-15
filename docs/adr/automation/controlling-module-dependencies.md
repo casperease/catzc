@@ -14,10 +14,9 @@ and an actual edge with no declaration fails the build.
 
 ### Rule ADR-AUTO-DEPM:2
 
-The graph is unified across both kinds of module content. A cross-module `pwsh` function call and a cross-module C# type reference are the
-same relationship — module A needs module B — so they live in one graph, not two: `Get-ModuleDependency` extracts the function-call edges,
-`Get-CSharpTypeDependency` the type-reference edges, and the `Test-ModuleDependency` quality gate checks their union against the single
-`dependencies.yml`.
+The graph is unified across both kinds of module content. A cross-module function call and a cross-module C# type reference are the same
+relationship — module A needs module B — so they live in one graph, not two: each kind has its extractor of actual edges, and the
+`Test-ModuleDependency` quality gate checks their union against the single `dependencies.yml`.
 
 - [One graph, two kinds of edge](#one-graph-two-kinds-of-edge)
 
@@ -66,8 +65,8 @@ against exactly the code that commit holds. An external dependency is pinned to 
 ### Rule ADR-AUTO-DEPM:8
 
 Internal module dependencies are vendored and named. The code is in-tree — the toolset's own modules, and third-party modules vendored under
-`automation/.vendor/` ([vend](../pwsh/vendor-toolset-dependencies.md)) — and every edge is declared by name in `dependencies.yml`
-(ADR-AUTO-DEPM#1). The repository alone is the internal dependency set; there is nothing to fetch.
+`automation/.vendor/` — and every edge is declared by name in `dependencies.yml` (ADR-AUTO-DEPM#1). The repository alone is the internal
+dependency set; there is nothing to fetch.
 
 - [Internal: vendored and named](#internal-vendored-and-named)
 
@@ -122,7 +121,8 @@ which kind carries it. A cross-module function call and a cross-module type refe
 unified in one graph rather than split across two declarations. `Get-ModuleDependency` extracts the function-call edges and
 `Get-CSharpTypeDependency` the type-reference edges (the combined assembly means the C# compiler will not — see
 [native-csharp-types](BCL/native-csharp-types.md#rule-adr-auto-types4)); `Test-ModuleDependency` unions the two sets and checks them against
-the one `dependencies.yml`. There is no separate "type dependency" file to keep in sync.
+the one `dependencies.yml`. There is no separate "type dependency" file to keep in sync. How the PowerShell function-call edges are
+extracted is [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest10).
 
 ### Groups and modules
 

@@ -19,7 +19,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 - automation × csharp: 2 lit of 229 files
 - automation × powershell: 3 lit of 1443 files
 - automation × yaml: 3 lit of 97 files
-- docs × markdown: 17 lit of 744 files
+- docs × markdown: 6 lit of 744 files
 
 ## Key
 
@@ -71,61 +71,40 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
   selected by [ADR-FLOW-CD][2]: the file cites it at line 21 (text).
 - [automation/Catzc.Base.QualityGates/configs/glossary.yml][15]: selected by [ADR-FLOW-CD][2]: the file cites it at line 62 (text).
 
-### docs × markdown (17 lit files)
+### docs × markdown (6 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [docs/adr/design/commit-lifecycle.md][1]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/dora-explains.md][16]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/module-aspects.md][17]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/run-modes.md][18]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/self-service.md][19]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/server-remote-integration.md][20]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/design/thin-platforms.md][21]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/tracks.md][22]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/visual-design.md][23]: selected by [ADR-DSGN-LIFE][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/flow/cd-discipline-and-promotion-flow.md][2]: selected by [ADR-FLOW-CD][2]: an ADR file of the `flow` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/flow/dora-explains.md][24]: selected by [ADR-FLOW-CD][2]: an ADR file of the `flow` ADR domain, the ADR domain of that code.
-- [docs/adr/flow/durable-sha-globs.md][25]: selected by [ADR-FLOW-CD][2]: an ADR file of the `flow` ADR domain, the ADR domain of that code.
-- [docs/adr/flow/pipeline-detection.md][26]: selected by [ADR-FLOW-CD][2]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/flow/pipeline-runner-pattern.md][27]: selected by [ADR-FLOW-CD][2]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/flow/pipeline-types.md][28]: selected by [ADR-FLOW-CD][2]: an ADR file of the `flow` ADR domain, the ADR domain of that code.
-- [docs/adr/glossary.md][29]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 149 (text); selected by [ADR-FLOW-CD][2]: the file
+- [docs/adr/design/commit-lifecycle.md][1]: selected by [ADR-DSGN-LIFE][1]: the ADR's own file.
+- [docs/adr/design/dora-explains.md][16]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 84 (text).
+- [docs/adr/flow/cd-discipline-and-promotion-flow.md][2]: selected by [ADR-FLOW-CD][2]: the ADR's own file.
+- [docs/adr/flow/dora-explains.md][17]: selected by [ADR-FLOW-CD][2]: the file cites it at line 13 (text).
+- [docs/adr/glossary.md][18]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 149 (text); selected by [ADR-FLOW-CD][2]: the file
   cites it at line 292 (text) and line 305 (text).
-- [docs/adr/index.md][30]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 92 (text); selected by [ADR-FLOW-CD][2]: the file cites
+- [docs/adr/index.md][19]: selected by [ADR-DSGN-LIFE][1]: the file cites it at line 92 (text); selected by [ADR-FLOW-CD][2]: the file cites
   it at line 107 (text).
 
 ## Keywords
 
-- [world map][31]
-- [track][32]
-- [file language][33]
-- [cell][34]
-- [lit cell][35]
-- [.claude][36]: a track
-- [automation][36]: a track
-- [docs][36]: a track
-- [csharp][37]: a file language
-- [markdown][37]: a file language
-- [powershell][37]: a file language
-- [yaml][37]: a file language
+- [world map][20]
+- [track][21]
+- [file language][22]
+- [cell][23]
+- [lit cell][24]
+- [.claude][25]: a track
+- [automation][25]: a track
+- [docs][25]: a track
+- [csharp][26]: a file language
+- [markdown][26]: a file language
+- [powershell][26]: a file language
+- [yaml][26]: a file language
 
 Terms the cited ADRs define:
 
-- [gate][38], defined by [ADR-FLOW-CD#13][39]
-- [occupant][40], defined by [ADR-DSGN-LIFE#5][41]
-- [release candidate][42], defined by [ADR-FLOW-CD#14][43]
+- [gate][27], defined by [ADR-FLOW-CD#13][28]
+- [occupant][29], defined by [ADR-DSGN-LIFE#5][30]
+- [release candidate][31], defined by [ADR-FLOW-CD#14][32]
 
 [1]: ../../adr/design/commit-lifecycle.md
 [2]: ../../adr/flow/cd-discipline-and-promotion-flow.md
@@ -143,30 +122,19 @@ Terms the cited ADRs define:
 [14]: ../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
 [15]: ../../../automation/Catzc.Base.QualityGates/configs/glossary.yml
 [16]: ../../adr/design/dora-explains.md
-[17]: ../../adr/design/module-aspects.md
-[18]: ../../adr/design/run-modes.md
-[19]: ../../adr/design/self-service.md
-[20]: ../../adr/design/server-remote-integration.md
-[21]: ../../adr/design/thin-platforms.md
-[22]: ../../adr/design/tracks.md
-[23]: ../../adr/design/visual-design.md
-[24]: ../../adr/flow/dora-explains.md
-[25]: ../../adr/flow/durable-sha-globs.md
-[26]: ../../adr/flow/pipeline-detection.md
-[27]: ../../adr/flow/pipeline-runner-pattern.md
-[28]: ../../adr/flow/pipeline-types.md
-[29]: ../../adr/glossary.md
-[30]: ../../adr/index.md
-[31]: ../../adr/glossary.md#world-map
-[32]: ../../adr/glossary.md#track
-[33]: ../../adr/glossary.md#file-language
-[34]: ../../adr/glossary.md#cell
-[35]: ../../adr/glossary.md#lit-cell
-[36]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[37]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
-[38]: ../../adr/glossary.md#gate
-[39]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
-[40]: ../../adr/glossary.md#occupant
-[41]: ../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
-[42]: ../../adr/glossary.md#release-candidate
-[43]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
+[17]: ../../adr/flow/dora-explains.md
+[18]: ../../adr/glossary.md
+[19]: ../../adr/index.md
+[20]: ../../adr/glossary.md#world-map
+[21]: ../../adr/glossary.md#track
+[22]: ../../adr/glossary.md#file-language
+[23]: ../../adr/glossary.md#cell
+[24]: ../../adr/glossary.md#lit-cell
+[25]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[26]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[27]: ../../adr/glossary.md#gate
+[28]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
+[29]: ../../adr/glossary.md#occupant
+[30]: ../../adr/design/commit-lifecycle.md#rule-adr-dsgn-life5
+[31]: ../../adr/glossary.md#release-candidate
+[32]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14

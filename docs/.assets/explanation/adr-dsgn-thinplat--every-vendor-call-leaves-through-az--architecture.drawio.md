@@ -5,7 +5,7 @@
 ```text
 A 1572 x 802 diagram, read top to bottom through four bands.
 Glyphs: 3 code units (slate), 1 file (olive), 2 external tools, 1 environment; 7 flow edges; 8 markers.
-Sidebar: axis minimap (main cell DSGN x DEPLOY), tree minimap, lens badge ARCH, map key.
+Sidebar: world-map grid (3 lit cells), tree (6 lit groups), value-chain map (4 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.drawio.png) draws, in the vocabulary
@@ -62,8 +62,25 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is DSGN × DEPLOY, framed and filled in the DEPLOY blue with the you-are-here dot. Four touched cells carry
-  a small grey dot: AUTO × BUILD, AUTO × ACCESS, CLOUD × CONFIG and CLOUD × DEPLOY.
-- **Tree minimap:** lit tiles labelled Tool.Core, Azure, Az.Templates, adr/auto, adr/dsgn, .claude and infrastructure.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.grid.md),
+[tree](adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.tree.md) and
+[value-chain map](adr-dsgn-thinplat--every-vendor-call-leaves-through-az--architecture.chain.md). A file or ADR lights a minimap when it
+cites, or is, the ADR the slide supports (ADR-AZ-CLI, ADR-DSGN-THINPLAT); the explanation articles, these descriptions and the drawing
+tooling never light anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 3 lit cells, `automation × .ps1` (8 files: 8 cite ADR-AZ-CLI);
+  `automation × .yml` (3 files: 5 cite ADR-AZ-CLI, ADR-DSGN-THINPLAT); `docs × .md` (5 files: 4 cite ADR-AZ-CLI, ADR-DSGN-THINPLAT; 2 are
+  the ADR file of ADR-AZ-CLI, ADR-DSGN-THINPLAT).
+- **Tree** (the repository's files): 6 lit groups, `Az.Cli` (8 files); `QualityGates` (2 files); `adr/azure` (2 files); `adr/dsgn` (2
+  files); `Docs` (1 file); `adr/*` (1 file). The ADR files `docs/adr/azure/prefer-az-cli.md`, `docs/adr/design/thin-platforms.md` carry the
+  white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 4 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-THINPLAT:
+  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, deploy is its own value-chain concern
+  (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-THINPLAT: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
+  automation, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); `CLOUD × DEPLOY`, because ADR-AZ-CLI: its ADR domain `azure` sits
+  on the CLOUD row (ADR-DSGN-TRACK#14), and deploy, access is its own value-chain concern (ADR-DSGN-TRACK#15); `CLOUD × ACCESS`, because
+  ADR-AZ-CLI: its ADR domain `azure` sits on the CLOUD row (ADR-DSGN-TRACK#14), and deploy, access is its own value-chain concern
+  (ADR-DSGN-TRACK#15).
 - **Lens badge:** ARCH, with "Supports ADR-DSGN-THINPLAT · ADR-AZ-CLI" beneath it.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

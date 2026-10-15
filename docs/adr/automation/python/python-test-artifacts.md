@@ -18,10 +18,10 @@ draw.io scripts) are configuration of the agent tool, outside every track, and o
 ### Rule ADR-AUTO-PY:2
 
 The Python tests live under one Python root, a repository-relative folder declared by `python.yml`'s `root` with the sensible default every
-test language's root takes (ADR-REPO-FOLDERS#7): `python` when the repository has a `python/` folder (the `python` verification track), else
-the dot-prefixed `.python`. A **Python test folder** is the folder `<root>/tests/<module>/`, one per catzc module and named for it in kebab
-case (`Catzc.Base.Repository` → `catzc-base-repository`), holding that module's `test_*.py` files. A Python test is a top-level `test*`
-function; a parametrised test is one test.
+test language's root takes: `python` when the repository has a `python/` folder (the `python` verification track), else the dot-prefixed
+`.python`. A **Python test folder** is the folder `<root>/tests/<module>/`, one per catzc module and named for it in kebab case
+(`Catzc.Base.Repository` → `catzc-base-repository`), holding that module's `test_*.py` files. A Python test is a top-level `test*` function;
+a parametrised test is one test.
 
 - [The layout](#the-layout)
 
@@ -65,9 +65,10 @@ with the remedy `Install-Python`.
 ### Rule ADR-AUTO-PY:7
 
 `Test-Automation` runs the Python tests through the language bridge the Go tests run through (ADR-AUTO-GO#7): discovery maps each Python
-test folder to its catzc module, and the bridge turns every top-level Python test into one Pester test, tagged `L2` (ADR-AUTO-TEST#9) plus a
-category from its name — `test_integrity*` is `integrity`, every other test is `logic`. The run's source session locates uv once and hands
-its path to the bridge; without uv or the interpreter at the pin, the bridge skips with `tool_uv_missing` (ADR-AUTO-TEST#8).
+test folder to its catzc module, and the bridge turns every top-level Python test into one test of the run (ADR-AUTO-TEST#42), tagged `L2`
+(ADR-AUTO-TEST#9) plus a category from its name — `test_integrity*` is `integrity`, every other test is `logic`. The run's source session
+locates uv once and hands its path to the bridge; without uv or the interpreter at the pin, the bridge skips with `tool_uv_missing`
+(ADR-AUTO-TEST#8).
 
 - [The bridge](#the-bridge)
 
@@ -82,10 +83,10 @@ glossary checks read PowerShell and markdown, so Python comments are outside the
 
 ## Context
 
-The engine is verified as a process, from outside, by tests in a second language ([go test artifacts](../go/go-test-artifacts.md)). Python is
-the second such language: it is what most of the people who read this repository write first, pytest needs no ceremony, and uv — already the
-repository's one Python handler ([uv-python-handler](../uv-python-handler.md)) — provisions both the interpreter and the test dependencies
-user-space on every platform.
+The engine is verified as a process, from outside, by tests in a second language ([go test artifacts](../go/go-test-artifacts.md)). Python
+is the second such language: it is what most of the people who read this repository write first, pytest needs no ceremony, and uv — already
+the repository's one Python handler ([uv-python-handler](../uv-python-handler.md)) — provisions both the interpreter and the test
+dependencies user-space on every platform.
 
 The risks are the ones Go carried, and one more. Python projects tend to grow: a package, a virtual environment per folder, a lock file to
 keep in step, a test framework plugin per need. The rules below hold Python to test artifacts, keep one generated workspace with one
@@ -152,8 +153,9 @@ precondition failure with one remedy, `Install-Python`, rather than a silent net
 A Python test runs where every other test runs: in a `Test-Automation` test run, in both run modes, under the same selection, ordering,
 protection, tiers, categories, and report ([test-automation](../test-automation.md)). The one language bridge runs `Invoke-PythonTest` once
 per mapped module — `uv sync`, `ruff check`, then `pytest` with a JUnit report, the test folder as pytest's rootdir — and turns each
-top-level test function into a Pester test, its parametrised cases folded into it, as Go folds subtests. Discovery reads the `test_*.py`
-files without running Python, so it is fast, offline, and works where uv is missing.
+top-level test function into one test of the run, its parametrised cases folded into it, as Go folds subtests; in pwsh that test is a Pester
+`It` ([pester-testing](../../pwsh/pester-testing.md#rule-adr-pwsh-pester20)). Discovery reads the `test_*.py` files without running Python,
+so it is fast, offline, and works where uv is missing.
 
 A Python test starts a real engine through a real toolchain, so every one is `L2`. Its category comes from its name, decided in one place
 (the `PythonTestResult` type). uv is a tool of the harness, not part of what ships: the run's source session locates it, with the

@@ -19,7 +19,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 - automation × csharp: 4 lit of 229 files
 - automation × powershell: 8 lit of 1443 files
 - automation × yaml: 4 lit of 97 files
-- docs × markdown: 8 lit of 744 files
+- docs × markdown: 5 lit of 744 files
 - pipelines × pipeline-yaml: 2 lit of 9 files
 
 ## Key
@@ -86,25 +86,17 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][21]: selected by [ADR-FLOW-CD][1]: the file cites it at line 21 (text).
 - [automation/Catzc.Base.QualityGates/configs/glossary.yml][22]: selected by [ADR-FLOW-CD][1]: the file cites it at line 62 (text).
 
-### docs × markdown (8 lit files)
+### docs × markdown (5 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [docs/adr/flow/cd-discipline-and-promotion-flow.md][1]: selected by [ADR-FLOW-CD][1]: an ADR file of the `flow` ADR domain, the ADR domain
-  of that code; selected by [ADR-FLOW-CD-TYPE][2]: an ADR file of the `flow` ADR domain, the ADR domain of that code.
-- [docs/adr/flow/dora-explains.md][23]: selected by [ADR-FLOW-CD][1]: an ADR file of the `flow` ADR domain, the ADR domain of that code;
-  selected by [ADR-FLOW-CD-TYPE][2]: an ADR file of the `flow` ADR domain, the ADR domain of that code.
-- [docs/adr/flow/durable-sha-globs.md][24]: selected by [ADR-FLOW-CD][1]: an ADR file of the `flow` ADR domain, the ADR domain of that code;
-  selected by [ADR-FLOW-CD-TYPE][2]: an ADR file of the `flow` ADR domain, the ADR domain of that code.
-- [docs/adr/flow/pipeline-detection.md][25]: selected by [ADR-FLOW-CD][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code; selected by [ADR-FLOW-CD-TYPE][2]: an ADR file of the `flow` ADR domain, the ADR domain of that code.
-- [docs/adr/flow/pipeline-runner-pattern.md][26]: selected by [ADR-FLOW-CD][1]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code; selected by [ADR-FLOW-CD-TYPE][2]: an ADR file of the `flow` ADR domain, the ADR domain of that code.
-- [docs/adr/flow/pipeline-types.md][2]: selected by [ADR-FLOW-CD][1]: an ADR file of the `flow` ADR domain, the ADR domain of that code;
-  selected by [ADR-FLOW-CD-TYPE][2]: an ADR file of the `flow` ADR domain, the ADR domain of that code.
-- [docs/adr/glossary.md][27]: selected by [ADR-FLOW-CD][1]: the file cites it at line 292 (text) and line 305 (text).
-- [docs/adr/index.md][28]: selected by [ADR-FLOW-CD][1]: the file cites it at line 107 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file
+- [docs/adr/flow/cd-discipline-and-promotion-flow.md][1]: selected by [ADR-FLOW-CD][1]: the ADR's own file.
+- [docs/adr/flow/dora-explains.md][23]: selected by [ADR-FLOW-CD][1]: the file cites it at line 13 (text); selected by
+  [ADR-FLOW-CD-TYPE][2]: the file cites it at line 69 (text).
+- [docs/adr/flow/pipeline-types.md][2]: selected by [ADR-FLOW-CD-TYPE][2]: the ADR's own file.
+- [docs/adr/glossary.md][24]: selected by [ADR-FLOW-CD][1]: the file cites it at line 292 (text) and line 305 (text).
+- [docs/adr/index.md][25]: selected by [ADR-FLOW-CD][1]: the file cites it at line 107 (text); selected by [ADR-FLOW-CD-TYPE][2]: the file
   cites it at line 110 (text).
 
 ### pipelines × pipeline-yaml (2 lit files)
@@ -112,30 +104,30 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 Placed: the root folder `pipelines/` names the track pipelines ([ADR-DSGN-TRACK#1][3]); the extension `.yaml` names the file language
 pipeline-yaml ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [pipelines/cd-shared.yaml][29]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 3 (header).
-- [pipelines/ci-infrastructure.yaml][30]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 4 (header).
+- [pipelines/cd-shared.yaml][26]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 3 (header).
+- [pipelines/ci-infrastructure.yaml][27]: selected by [ADR-FLOW-CD-TYPE][2]: the file cites it at line 4 (header).
 
 ## Keywords
 
-- [world map][31]
-- [track][32]
-- [file language][33]
-- [cell][34]
-- [lit cell][35]
-- [.claude][36]: a track
-- [automation][36]: a track
-- [docs][36]: a track
-- [pipelines][36]: a track
-- [csharp][37]: a file language
-- [markdown][37]: a file language
-- [pipeline-yaml][37]: a file language
-- [powershell][37]: a file language
-- [yaml][37]: a file language
+- [world map][28]
+- [track][29]
+- [file language][30]
+- [cell][31]
+- [lit cell][32]
+- [.claude][33]: a track
+- [automation][33]: a track
+- [docs][33]: a track
+- [pipelines][33]: a track
+- [csharp][34]: a file language
+- [markdown][34]: a file language
+- [pipeline-yaml][34]: a file language
+- [powershell][34]: a file language
+- [yaml][34]: a file language
 
 Terms the cited ADRs define:
 
-- [gate][38], defined by [ADR-FLOW-CD#13][39]
-- [release candidate][40], defined by [ADR-FLOW-CD#14][41]
+- [gate][35], defined by [ADR-FLOW-CD#13][36]
+- [release candidate][37], defined by [ADR-FLOW-CD#14][38]
 
 [1]: ../../adr/flow/cd-discipline-and-promotion-flow.md
 [2]: ../../adr/flow/pipeline-types.md
@@ -160,21 +152,18 @@ Terms the cited ADRs define:
 [21]: ../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
 [22]: ../../../automation/Catzc.Base.QualityGates/configs/glossary.yml
 [23]: ../../adr/flow/dora-explains.md
-[24]: ../../adr/flow/durable-sha-globs.md
-[25]: ../../adr/flow/pipeline-detection.md
-[26]: ../../adr/flow/pipeline-runner-pattern.md
-[27]: ../../adr/glossary.md
-[28]: ../../adr/index.md
-[29]: ../../../pipelines/cd-shared.yaml
-[30]: ../../../pipelines/ci-infrastructure.yaml
-[31]: ../../adr/glossary.md#world-map
-[32]: ../../adr/glossary.md#track
-[33]: ../../adr/glossary.md#file-language
-[34]: ../../adr/glossary.md#cell
-[35]: ../../adr/glossary.md#lit-cell
-[36]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[37]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
-[38]: ../../adr/glossary.md#gate
-[39]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
-[40]: ../../adr/glossary.md#release-candidate
-[41]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
+[24]: ../../adr/glossary.md
+[25]: ../../adr/index.md
+[26]: ../../../pipelines/cd-shared.yaml
+[27]: ../../../pipelines/ci-infrastructure.yaml
+[28]: ../../adr/glossary.md#world-map
+[29]: ../../adr/glossary.md#track
+[30]: ../../adr/glossary.md#file-language
+[31]: ../../adr/glossary.md#cell
+[32]: ../../adr/glossary.md#lit-cell
+[33]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[34]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[35]: ../../adr/glossary.md#gate
+[36]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
+[37]: ../../adr/glossary.md#release-candidate
+[38]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14

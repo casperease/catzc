@@ -23,6 +23,9 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Maps { 'importer.ps1', 'widgets/Alpha/Get-Widget.ps1', 'widgets/Alpha/widget.json', 'widgets/Alpha/gone.ps1' }
         Mock Get-Aspect -ModuleName Catzc.Base.Maps { $script:variants.aspects[$Track] }
         Mock Get-AdrRuleSet -ModuleName Catzc.Base.Maps { [pscustomobject]@{ External = 'ADR-WIDGET-GADGET'; Domain = 'widgetry' } }
+        Mock Get-AdrCitationMap -ModuleName Catzc.Base.Maps {
+            [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name PathOf -Value { param($Code) "docs/adr/widgetry/$($Code.ToLowerInvariant()).md" } -PassThru
+        }
         Mock Get-GlobSet -ModuleName Catzc.Base.Maps { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Maps { $script:root }
         Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Maps { Join-Path $script:root 'widgets' }

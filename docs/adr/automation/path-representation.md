@@ -33,8 +33,8 @@ tool. Resolve to absolute immediately before that side effect with `Resolve-Repo
 ### Rule ADR-AUTO-PATH:4
 
 Normalization is mandatory and centralized. Cross the boundary through `ConvertTo-RepoRelativePath` and `Resolve-RepoPath` — the only
-sanctioned crossers. Do not hand-build a communicated path with `Join-Path $env:RepositoryRoot …`, and do not normalize separators ad hoc
-with `-replace '\\','/'`; both skip the normalization the converters guarantee and let a `.\` or a backslash leak downstream.
+sanctioned crossers. Do not hand-build a communicated path by joining the working root onto a raw argument, and do not normalize separators
+ad hoc with a string replace; both skip the normalization the converters guarantee and let a `.\` or a backslash leak downstream.
 
 - [Two functions](#two-functions)
 - [How this is enforced](#how-this-is-enforced)
@@ -117,7 +117,7 @@ is wrong the moment resolution depends on `$PWD` (see [never-depend-on-pwd](neve
 known anchor, not the current directory.
 
 The fix is to fix the _form_ a path takes at each boundary, rather than leaving it to each function author. This ADR complements
-[never-depend-on-pwd](never-depend-on-pwd.md) (resolve against `$env:RepositoryRoot`, never `$PWD`),
+[never-depend-on-pwd](never-depend-on-pwd.md) (resolve against the working root, never `$PWD`),
 [cross-platform-powershell](../pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat2) (`Join-Path` and `[IO.Path]::GetFullPath`, forward
 slashes), and [dedicated-output-directory](../repository/dedicated-output-directory.md) (the `out/` root, whose paths take the same relative
 form).
@@ -173,7 +173,8 @@ Every path that crosses a boundary going out goes through `ConvertTo-RepoRelativ
 `Resolve-RepoPath`. The pair round-trips: relativizing a path under the root and resolving it again yields the original absolute path.
 Centralizing on the two functions is what makes normalization a guarantee rather than a hope — a hand-built
 `Join-Path $env:RepositoryRoot $Path` preserves a caller's `.\` and produces `{root}/./sub`, and a hand-rolled `-replace '\\','/'` fixes
-separators but not `..` segments. The converters fix both, in one place, so the rule cannot be half-applied.
+separators but not `..` segments. The converters fix both, in one place, so the rule cannot be half-applied. The PowerShell spellings of the
+two hand-built crossings are ADR-PWSH-XPLAT#10.
 
 ### Degradation
 

@@ -139,8 +139,8 @@ production cutover low-risk. When the new version goes live, the previous produc
 ### Rule ADR-FLOW-CD:13
 
 A **gate** is a check whose verdict decides whether work may proceed past a point in the flow: it clears or holds, never half. A gate gives
-its verdict either by machine — a quality gate (ADR-AUTO-TEST#35), run inside the inner CI gate and its integration budget (ADR-FLOW-CD#2) —
-or by human certification, as a manual gate — RC and RBC (ADR-FLOW-CD#9). A gate decides; the pipeline that acts once a gate clears (DEPLOY,
+its verdict either by machine — a quality gate, run inside the inner CI gate and its integration budget (ADR-FLOW-CD#2) — or by human
+certification, as a manual gate — RC and RBC (ADR-FLOW-CD#9). A gate decides; the pipeline that acts once a gate clears (DEPLOY,
 ADR-FLOW-CD#6) is not a gate.
 
 - [RC and RBC](#rc-and-rbc)
@@ -333,6 +333,9 @@ certified artifact onward once the gate clears. Keeping them distinct is what le
 Continuous **Deployment** (CDe) posture internalize the roll (ADR-FLOW-CD#7) by automating past the point where RC/RBC would otherwise stop
 it. Which gates a unit passes through — and whether a human or the pipeline owns the decision to advance — is the delivery-vs-deployment
 posture of ADR-FLOW-CD#6/ADR-FLOW-CD#7.
+
+RC and RBC are the manual gates. A gate a machine decides is a quality gate, which the automation rules define as a gate in this sense
+([ADR-AUTO-TEST#35](../automation/test-automation.md#rule-adr-auto-test35)).
 
 ### AT and UAT
 

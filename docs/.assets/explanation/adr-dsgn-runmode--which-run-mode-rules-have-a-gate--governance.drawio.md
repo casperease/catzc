@@ -5,7 +5,7 @@
 ```text
 A 1572 x 690 diagram, read top to bottom through three bands.
 Glyphs: 4 gates, 3 code units (slate), 1 ADR-only; 5 flow edges, 1 ADR-only edge; 8 rule chips; 8 markers.
-Sidebar: axis minimap (main cell DSGN x LOAD), tree minimap, lens badge GOV, map key.
+Sidebar: world-map grid (5 lit cells), tree (13 lit groups), value-chain map (2 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.drawio.png) draws, in the vocabulary of the
@@ -66,9 +66,24 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is DSGN × LOAD, framed and filled in the LOAD blue with the you-are-here dot. Three touched cells, AUTO ×
-  LOAD, AUTO × BUILD and AUTO × ACCESS, carry a small grey dot. The DSGN and LOAD axis labels carry a blue tick.
-- **Tree minimap:** lit tiles labelled QualityGates, .internal, Repository, .scriptanalyzer, adr/dsgn and (root). The adr/dsgn file is
-  framed in dark ink as an ADR file.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.grid.md),
+[tree](adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.tree.md) and
+[value-chain map](adr-dsgn-runmode--which-run-mode-rules-have-a-gate--governance.chain.md). A file or ADR lights a minimap when it cites, or
+is, the ADR the slide supports (ADR-DSGN-RUNMODE); the explanation articles, these descriptions and the drawing tooling never light
+anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 5 lit cells, `automation × .ps1` (28 files: 28 cite ADR-DSGN-RUNMODE);
+  `automation × .yml` (2 files: 2 cite ADR-DSGN-RUNMODE); `docs × .md` (3 files: 2 cite ADR-DSGN-RUNMODE; 1 is the ADR file of
+  ADR-DSGN-RUNMODE); `Root files × .ps1` (1 file: 1 is mapped through files.yml to ADR-DSGN-RUNMODE); `Root files × other` (2 files: 2 are
+  mapped through files.yml to ADR-DSGN-RUNMODE).
+- **Tree** (the repository's files): 13 lit groups, `ModuleSystem` (8 files); `QualityGates` (5 files); `TypesSystem` (5 files);
+  `Root files` (3 files); `Repository` (3 files); `.internal` (2 files); `Docs` (2 files); `Vendor` (2 files); `adr/dsgn` (2 files);
+  `ConfigExtensions` (1 file); `Globs` (1 file); `RootConfig` (1 file); `adr/*` (1 file). The ADR file `docs/adr/design/run-modes.md`
+  carries the white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-RUNMODE:
+  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
+  (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-DSGN-RUNMODE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
+  automation, build is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV, with "Supports ADR-DSGN-RUNMODE" beneath it.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

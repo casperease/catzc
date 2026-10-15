@@ -12,9 +12,8 @@ from the bundle's profile (or, for an experiment or a test, explicit names and/o
 loads in a fresh session of its engine **outside the mono repo** — with no git work tree, no compile at load, and no working-tree writes. It
 is build mode's code root ([run-modes](../design/run-modes.md)). `Catzc.Base.Exporter` owns its lifecycle: `Build-Modules` builds it
 (through the `Invoke-ModuleBuild` engine in `Catzc.Internal.Builder`), `Install-Catzc`/`Export-Catzc` place it, `Assert-CatzcBundle`
-verifies it. This is the platform-level form of the build-once artifact
-([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md)) and of a reproducible, content-addressed, self-service
-artifact ([self-service](../design/self-service.md)).
+verifies it. This is the platform-level form of a reproducible, content-addressed, self-service artifact
+([self-service](../design/self-service.md)), built once.
 
 - [What a bundle is](#what-a-bundle-is)
 
@@ -42,15 +41,14 @@ description cannot guarantee.
 ### Rule ADR-AUTO-BUNDLE:5
 
 A build is **immutable and content-addressed**: the same commit yields a byte-identical build on any machine — merged files, manifests, and
-the types DLL — and an identical durable-SHA content hash ([durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)) over
-all of it. A build ships **the files git tracks** — and, on a devbox, the untracked files git does not ignore — never an ignored one, and
-writes each as git stores it: a file git holds with LF-only line endings is written LF-only, whatever line endings the checkout wrote; every
-other file is a byte copy. Every build ships the **full** type set whatever its module selection, so its `typesHash` (the combined hash of
-every `types/*.cs` source, which names the DLL) equals the source tree's; the type sources follow that set, as the DLL does, and the build
-copies the source tree's `Catzc.Types.<typesHash>.dll` instead of compiling — it compiles only when that DLL is missing. Before it writes
-anything the build proves its selection closed against the code itself, not only against `dependencies.yml`: every call a selected module
-makes to a catzc function, and every config it reads by a literal name, lands in a selected module (an owner-scoped read, which reads only
-the owners present, is exempt), and every inventoried internal asset is present
+the types DLL — and an identical durable-SHA content hash over all of it. A build ships **the files git tracks** — and, on a devbox, the
+untracked files git does not ignore — never an ignored one, and writes each as git stores it: a file git holds with LF-only line endings is
+written LF-only, whatever line endings the checkout wrote; every other file is a byte copy. Every build ships the **full** type set whatever
+its module selection, so its `typesHash` (the combined hash of every `types/*.cs` source, which names the DLL) equals the source tree's; the
+type sources follow that set, as the DLL does, and the build copies the source tree's `Catzc.Types.<typesHash>.dll` instead of compiling —
+it compiles only when that DLL is missing. Before it writes anything the build proves its selection closed against the code itself, not only
+against `dependencies.yml`: every call a selected module makes to a catzc function, and every config it reads by a literal name, lands in a
+selected module (an owner-scoped read, which reads only the owners present, is exempt), and every inventoried internal asset is present
 ([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep4)). Each bundle carries a `build.json` provenance
 record (bundle, version, content hash, `typesHash`, the type-source list, source commit, whether the tree differed from that commit,
 modules); a pipeline refuses to build a tree that differs from its commit. `Assert-CatzcBundle` is the integrity guard: it re-verifies the
@@ -89,8 +87,8 @@ test can substitute a fixture config through the same seam.
 
 A bundle is a **session, not a passive library**. Loading it establishes the catzc session — the same session settings the mono importer
 sets, under which every error and every warning terminates, because catzc functions assume terminating semantics — and it writes only under
-the working root's `out/`, never the code it was built from. Publishing a package beyond the local disk is the release workflow's act
-([github-release](../github/github-release.md)), not something loading or building a bundle does.
+the working root's `out/`, never the code it was built from. Publishing a package beyond the local disk is the release workflow's act, not
+something loading or building a bundle does.
 
 - [A session, not a library](#a-session-not-a-library)
 
@@ -125,9 +123,10 @@ root, `out/automation/built/<bundle>/Catzc/<version>/` by default, so two bundle
 **its own module of the same name**: same public functions, same private functions, same configs and assets, its own module state
 ([run-modes](../design/run-modes.md)). Only its on-disk form differs: one manifest and one merged function file instead of a folder of
 function files. It is small (the `tests/` surface is dropped), fast (a few dozen files to open, no compile, no discovery drift), and
-sharable (one versioned folder). It is distinct from the repository it is built from: an install is not a repository, has no `.git`, and
-ships no `infrastructure/`, `pipelines/`, or `.cspell/` — the functions that operate on the source tree assert that they run there
-(`Assert-SourceTree`) and say so in a build, and a trimmed profile can exclude them.
+sharable (one versioned folder). It is the platform-level form of the build-once artifact; the related flow decision is
+[cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md). It is distinct from the repository it is built from: an
+install is not a repository, has no `.git`, and ships no `infrastructure/`, `pipelines/`, or `.cspell/` — the functions that operate on the
+source tree assert that they run there (`Assert-SourceTree`) and say so in a build, and a trimmed profile can exclude them.
 
 ### The two roots
 
@@ -179,8 +178,9 @@ untracked files git does not ignore ship too, because they are the work in progr
 a pipeline refuses a dirty tree, so a released bundle is always exactly its commit. The type sources and the DLL follow the type set the
 DLL's name proves, which on a clean tree is the commit's. `Build-Modules` writes its generated output canonically — UTF-8 without BOM, LF,
 one trailing newline, through `Write-FileIfChanged` — so rebuilding a commit rewrites nothing, the DLL included, because it is the same
-copied file — and computes a durable SHA over the whole payload with the same recipe the globsets use. The same commit therefore hashes the
-same on every OS, which the CI pipeline proves by building on each and comparing.
+copied file — and computes a durable SHA over the whole payload with the same recipe the globsets use (the related flow rule is
+[ADR-FLOW-CD-GLOBS#5](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)). The same commit therefore hashes the same on every OS, which
+the CI pipeline proves by building on each and comparing.
 
 A partial bundle is only as good as its closure. `dependencies.yml` leaves a module it does not list unconstrained, so the build does not
 take the declared closure on trust: before it writes anything it walks the code of the selected modules and fails, with the full list, on a

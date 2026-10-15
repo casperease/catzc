@@ -30,14 +30,14 @@ finishes with the post-import janitors. Two lifetimes fall out of this:
 
 Listed in load order.
 
-| Module                                                  | In one line                                                                               | Lifetime  |
-| ------------------------------------------------------- | ----------------------------------------------------------------------------------------- | --------- |
-| [Catzc.Internal.Loader](catzc-internal-loader.md)       | The always-loaded entry point — `Import-InternalModule` loads the rest on demand          | Resident  |
-| [Catzc.Internal.Importer](catzc-internal-importer.md)   | The importer overlay — `Invoke-Importer` is the single living copy of the load sequence   | Transient |
-| [Catzc.Internal.Bootstrap](catzc-internal-bootstrap.md) | Module discovery, manifest generation, C# type compile/load, and the name-collision guard | Transient |
-| [Catzc.Internal.Vendor](catzc-internal-vendor.md)       | The vendored-module loader shared by the importer and `Catzc.Base.Vendor`                 | Resident  |
-| [Catzc.Internal.Types](catzc-internal-types.md)         | The one combined C# type-source hash both the loader and the cache janitor agree on       | Resident  |
-| [Catzc.Internal.TestKit](catzc-internal-testkit.md)     | An on-demand Pester fixture library — synthetic repository roots and module folders       | On-demand |
+| Module                                                  | In one line                                                                                                             | Lifetime  |
+| ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------- |
+| [Catzc.Internal.Loader](catzc-internal-loader.md)       | The always-loaded entry point — `Import-InternalModule` loads the rest on demand; `Test-IsRunningInPipeline` detects CI | Resident  |
+| [Catzc.Internal.Importer](catzc-internal-importer.md)   | The importer overlay — `Invoke-Importer` is the single living copy of the load sequence                                 | Transient |
+| [Catzc.Internal.Bootstrap](catzc-internal-bootstrap.md) | Module discovery, manifest generation, C# type compile/load, and the name-collision guard                               | Transient |
+| [Catzc.Internal.Vendor](catzc-internal-vendor.md)       | The vendored-module loader shared by the importer and `Catzc.Base.Vendor`                                               | Resident  |
+| [Catzc.Internal.Types](catzc-internal-types.md)         | The one combined C# type-source hash both the loader and the cache janitor agree on                                     | Resident  |
+| [Catzc.Internal.TestKit](catzc-internal-testkit.md)     | An on-demand Pester fixture library — synthetic repository roots and module folders                                     | On-demand |
 
 ## Related
 

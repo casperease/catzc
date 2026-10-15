@@ -40,7 +40,7 @@ Describe 'Find-Executable' -Tag 'L1', 'logic' {
     }
     BeforeEach {
         # Every test here exercises the version cache entry, so each starts cold
-        # ([ADR-PWSH-CACHE#3](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache3)).
+        # ([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3)).
         InModuleScope Catzc.Base.Execution { $script:executableVersionCache = $null }
         Mock Get-SessionActor { 'Person' } -ModuleName Catzc.Base.Execution
         Mock Get-ExecutableVersion { '5.2.37' } -ModuleName Catzc.Base.Execution

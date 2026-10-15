@@ -15,7 +15,7 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - automation × yaml: 2 lit of 97 files
-- docs × markdown: 10 lit of 744 files
+- docs × markdown: 3 lit of 744 files
 
 ## Key
 
@@ -34,41 +34,26 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.Docs/configs/adrs.yml][5]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 96 (text).
 - [automation/Catzc.Base.QualityGates/configs/terminology.yml][6]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 670 (text).
 
-### docs × markdown (10 lit files)
+### docs × markdown (3 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/design/commit-lifecycle.md][7]: selected by [ADR-DSGN-THINPLAT][1]: an ADR file of the `design` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/design/dora-explains.md][8]: selected by [ADR-DSGN-THINPLAT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/module-aspects.md][9]: selected by [ADR-DSGN-THINPLAT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/run-modes.md][10]: selected by [ADR-DSGN-THINPLAT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/self-service.md][11]: selected by [ADR-DSGN-THINPLAT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/server-remote-integration.md][12]: selected by [ADR-DSGN-THINPLAT][1]: an ADR file of the `design` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/design/thin-platforms.md][1]: selected by [ADR-DSGN-THINPLAT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/tracks.md][13]: selected by [ADR-DSGN-THINPLAT][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/visual-design.md][14]: selected by [ADR-DSGN-THINPLAT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/index.md][15]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 89 (text).
+- [docs/adr/design/dora-explains.md][7]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 29 (text).
+- [docs/adr/design/thin-platforms.md][1]: selected by [ADR-DSGN-THINPLAT][1]: the ADR's own file.
+- [docs/adr/index.md][8]: selected by [ADR-DSGN-THINPLAT][1]: the file cites it at line 89 (text).
 
 ## Keywords
 
-- [world map][16]
-- [track][17]
-- [file language][18]
-- [cell][19]
-- [lit cell][20]
-- [automation][21]: a track
-- [docs][21]: a track
-- [markdown][22]: a file language
-- [yaml][22]: a file language
+- [world map][9]
+- [track][10]
+- [file language][11]
+- [cell][12]
+- [lit cell][13]
+- [automation][14]: a track
+- [docs][14]: a track
+- [markdown][15]: a file language
+- [yaml][15]: a file language
 
 [1]: ../../adr/design/thin-platforms.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -76,19 +61,12 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 [4]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
 [5]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
 [6]: ../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
-[7]: ../../adr/design/commit-lifecycle.md
-[8]: ../../adr/design/dora-explains.md
-[9]: ../../adr/design/module-aspects.md
-[10]: ../../adr/design/run-modes.md
-[11]: ../../adr/design/self-service.md
-[12]: ../../adr/design/server-remote-integration.md
-[13]: ../../adr/design/tracks.md
-[14]: ../../adr/design/visual-design.md
-[15]: ../../adr/index.md
-[16]: ../../adr/glossary.md#world-map
-[17]: ../../adr/glossary.md#track
-[18]: ../../adr/glossary.md#file-language
-[19]: ../../adr/glossary.md#cell
-[20]: ../../adr/glossary.md#lit-cell
-[21]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[22]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[7]: ../../adr/design/dora-explains.md
+[8]: ../../adr/index.md
+[9]: ../../adr/glossary.md#world-map
+[10]: ../../adr/glossary.md#track
+[11]: ../../adr/glossary.md#file-language
+[12]: ../../adr/glossary.md#cell
+[13]: ../../adr/glossary.md#lit-cell
+[14]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[15]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

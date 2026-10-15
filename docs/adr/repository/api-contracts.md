@@ -18,16 +18,14 @@ place, no back-compat).
 ### Rule ADR-REPO-CONTRACT:2
 
 Contracts are laid out as `contracts/<unit>/<version>/<module>/<path>`. `<unit>` is the deployable-unit that carries the contracts — today
-only `catzc`, the bundle, the one unit a consumer pins; `<version>` is that unit's version, which `Resolve-CatzcBuildVersion` resolves
-([ADR-AUTO-BUNDLE#7](../automation/platform-bundle.md#rule-adr-auto-bundle7)); `<module>` is the owning catzc module, the one that talks to
-the outside party and holds the tests that prove the contract, with its dependencies governed by `dependencies.yml`; and `<path>` is the
-path of the real file the asset constrains, relative to the module's **target root**. A module's target root is the repository-relative
-folder that `contracts.yml` declares for it, a configured setting whose default, the repository root, is declared once on the contracts
-config type ([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)); so with `Catzc.Tooling.Github`'s target root
-`.github`, the asset `contracts/catzc/0.0.0/Catzc.Tooling.Github/workflows/release-automation.yml` constrains
-`.github/workflows/release-automation.yml` ([conventional-folders](conventional-folders.md#rule-adr-repo-folders11)). Provided and
-depended-on contracts both version with their unit. There is no repository-wide version: another unit that carries contracts gets its own
-`contracts/<unit>/`, with its own versions.
+only `catzc`, the bundle, the one unit a consumer pins; `<version>` is that unit's version, which `Resolve-CatzcBuildVersion` resolves;
+`<module>` is the owning catzc module, the one that talks to the outside party and holds the tests that prove the contract, with its
+dependencies governed by `dependencies.yml`; and `<path>` is the path of the real file the asset constrains, relative to the module's
+**target root**. A module's target root is the repository-relative folder that `contracts.yml` declares for it, a configured setting whose
+default, the repository root, is declared once on the contracts config type; so with `Catzc.Tooling.Github`'s target root `.github`, the
+asset `contracts/catzc/0.0.0/Catzc.Tooling.Github/workflows/release-automation.yml` constrains `.github/workflows/release-automation.yml`
+([conventional-folders](conventional-folders.md#rule-adr-repo-folders11)). Provided and depended-on contracts both version with their unit.
+There is no repository-wide version: another unit that carries contracts gets its own `contracts/<unit>/`, with its own versions.
 
 - [One folder per unit version, one per owning module](#one-folder-per-unit-version-one-per-owning-module)
 - [A target root per module](#a-target-root-per-module)
@@ -81,10 +79,9 @@ provided. A per-version `contract.yml`, at `contracts/<unit>/<version>/contract.
 
 ### Rule ADR-REPO-CONTRACT:8
 
-How one asset addresses many files is a configured setting with a sensible default, declared once on the contracts config type
-([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)). A mode that is not built throws `NotImplemented` when
-configured; a mode is switched on only once it is proven from every engine. The scan for matching files runs only when the configured mode
-says what to match — nothing is enumerated speculatively.
+How one asset addresses many files is a configured setting with a sensible default, declared once on the contracts config type. A mode that
+is not built throws `NotImplemented` when configured; a mode is switched on only once it is proven from every engine. The scan for matching
+files runs only when the configured mode says what to match — nothing is enumerated speculatively.
 
 - [Addressing many files](#addressing-many-files)
 

@@ -4,26 +4,22 @@
 
 ## Rules: ADR-PWSH-PREPOST
 
-### Rule ADR-PWSH-PREPOST:1
-
-`PrePost.psm1` is the only `.psm1` allowed under `infrastructure/`. Under `automation/`, `.psm1` is reserved for genuine module/standalone
-files (the `automation/.internal/*.psm1` shared modules, the analyzer rule modules, the PrePost starter); all other PowerShell uses `.ps1`.
-
-- [No conflict with use-ps1-not-psm1](#no-conflict-with-use-ps1-not-psm1)
-- [One `.psm1`](#one-psm1)
-
 ### Rule ADR-PWSH-PREPOST:2
 
 `Catzc.Azure.Templates/assets/PrePost.psm1` is a starter reference, not loaded by any code. It is one of the few `.psm1` files under
-`automation/`, but it is data authors copy, not an imported module.
+`automation/` (ADR-PWSH-USEPS#2), but it is data authors copy, not an imported module.
 
 - [The copy-in starter](#the-copy-in-starter)
+- [No conflict with use-ps1-not-psm1](#no-conflict-with-use-ps1-not-psm1)
 
 ### Rule ADR-PWSH-PREPOST:3
 
-The file name is exactly `PrePost.psm1` at the template-folder root. Discovery in `Get-BicepTemplates` looks for that exact filename.
+The file name is exactly `PrePost.psm1` at the template-folder root — one `.psm1` holding the template's hooks, the only `.psm1` under
+`infrastructure/` (ADR-PWSH-USEPS#2). Discovery in `Get-BicepTemplates` looks for that exact filename.
 
 - [Per-template hooks](#per-template-hooks)
+- [One `.psm1`](#one-psm1)
+- [Not three `.ps1` files](#not-three-ps1-files)
 
 ### Rule ADR-PWSH-PREPOST:4
 

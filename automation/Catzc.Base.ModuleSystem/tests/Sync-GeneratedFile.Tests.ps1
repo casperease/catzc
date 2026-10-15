@@ -110,7 +110,7 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0 -ParameterFilter { $Message -like 'Synced*' }
     }
 
-    It 'holds back .compiled with a yellow line while a type source differs from HEAD' -Tag 'ADR-AUTO-TYPES#6' {
+    It 'holds back .compiled with a yellow line while a type source differs from HEAD' -Tag 'ADR-AUTO-CACHE#8' {
         Mock Test-GitPathChanged { $true } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Path -contains 'automation/*/types/*.cs' }
 
         Sync-GeneratedFile | Should -BeNullOrEmpty

@@ -1,7 +1,7 @@
 # Get-Glossary merges the glossary sources into GlossaryEntry records. Discovery is mocked at Get-GlossarySources
 # (its own tests cover the config seam and git), and the sources are built from the real GlossaryConfig type.
 # Get-Glossary caches per repository root, so every test resets the cache entry
-# ([ADR-PWSH-CACHE#3](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache3)). Fixture terms
+# ([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3)). Fixture terms
 # are
 # neutral (widget/gadget, [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-Glossary' -Tag 'L0', 'logic' {

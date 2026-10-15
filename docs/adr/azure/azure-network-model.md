@@ -12,7 +12,7 @@ Pairs with [`data-model`](azure-data-model.md) (identity + templating) and [`nam
 
 The IP plan lives only in `network.yml` — never duplicate vnet/subnet ranges into a template's per-slot config. A template that needs ranges
 reads them from `network.yml` at build time — in its prepare hook (`Get-Config -Config network`), or through a config address in its
-parameter file ([config-value-addressing](../configuration/config-value-addressing.md)) — and never copies them.
+parameter file — and never copies them.
 
 > **Status.** The asset, its config type, and the prepare-hook range-merge mechanism are built and exercised by a fixture test (the
 > `sample-with-prepost` template merges `vnet_address_space` / `default_subnet` into its parameter set).
@@ -85,7 +85,9 @@ environment and by subscription.
 `configs/network.yml` declares two entities — a per-environment IP plan, keyed by environment **name** (the same keys as `azure.yml`'s
 `environments`), and a per-subscription network, keyed by subscription **name** (the same keys as `azure.yml`'s `subscriptions`). It is
 loaded by `Get-Config -Config network`, which constructs its C# config type, `NetworkConfig` (every shipped config has one,
-[ADR-CONF-LOADING#4](../configuration/module-config-loading.md#rule-adr-conf-loading4)), so a bad file throws at read time.
+[ADR-CONF-LOADING#4](../configuration/module-config-loading.md#rule-adr-conf-loading4)), so a bad file throws at read time. A template's
+parameter file can reach the same ranges through a config address ([config-value-addressing](../configuration/config-value-addressing.md))
+instead of a prepare hook.
 
 ```mermaid
 erDiagram

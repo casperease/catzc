@@ -5,7 +5,7 @@
 ```text
 A 1572 x 700 diagram, read left to right along one band, down into two bands, with a band of gates at the bottom pointing up.
 Glyphs: 2 code units (slate), 1 store (slate), 3 ADR-only boxes, 2 gates; 7 flow edges; 8 markers; 8 rule chips.
-Sidebar: axis minimap (main cell AUTO x CONFIG), tree minimap, lens badge GOV, map key.
+Sidebar: world-map grid (8 lit cells), tree (41 lit groups), value-chain map (2 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-conf-loading--one-gate-guards-the-read-path--governance.drawio.png) draws, in the vocabulary of the
@@ -66,8 +66,33 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is AUTO × CONFIG, framed and filled in the CONFIG orange with the you-are-here dot. One touched cell, AUTO
-  × BUILD, carries a small grey dot. The AUTO and CONFIG axis labels carry an orange tick.
-- **Tree minimap:** lit tiles labelled QualityGates (large, top left), adr/auto, Config, adr/conf and ConfigExtensions.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-conf-loading--one-gate-guards-the-read-path--governance.grid.md),
+[tree](adr-conf-loading--one-gate-guards-the-read-path--governance.tree.md) and
+[value-chain map](adr-conf-loading--one-gate-guards-the-read-path--governance.chain.md). A file or ADR lights a minimap when it cites, or
+is, the ADR the slide supports (ADR-AUTO-TEST, ADR-CONF-ADDRESSING, ADR-CONF-LOADING); the explanation articles, these descriptions and the
+drawing tooling never light anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 8 lit cells, `.claude × .md` (4 files: 4 cite ADR-AUTO-TEST);
+  `automation × .cs` (17 files: 18 cite ADR-AUTO-TEST, ADR-CONF-LOADING); `automation × .ps1` (347 files: 353 cite ADR-AUTO-TEST,
+  ADR-CONF-ADDRESSING, ADR-CONF-LOADING); `automation × .yml` (17 files: 19 cite ADR-AUTO-TEST, ADR-CONF-ADDRESSING, ADR-CONF-LOADING);
+  `docs × .md` (18 files: 18 cite ADR-AUTO-TEST, ADR-CONF-ADDRESSING, ADR-CONF-LOADING; 3 are the ADR file of ADR-AUTO-TEST,
+  ADR-CONF-ADDRESSING, ADR-CONF-LOADING); `pipelines × .yaml` (1 file, mentions only: 1 cites ADR-AUTO-TEST); `Root files × .ps1` (1 file: 1
+  is mapped through files.yml to ADR-AUTO-TEST); `Root files × other` (2 files: 2 are mapped through files.yml to ADR-AUTO-TEST). 1 cell lit
+  only by passing mentions show at 40 % ink.
+- **Tree** (the repository's files): 41 lit groups, `QualityGates` (132 files); `Docs` (55 files); `Az.Templates` (30 files); `ModuleSystem`
+  (20 files); `Globs` (14 files); `Languages` (13 files); `Azure` (11 files); `Execution` (11 files); `Tool.Core` (11 files); `docs` (11
+  files); `Maps` (9 files); `RootConfig` (9 files); `Contracts` (7 files); `Tool.Provisioning` (7 files); `Config` (5 files); `Reports` (5
+  files); `TypesSystem` (5 files); `.claude` (4 files); `.internal` (4 files); `Az.DevOps` (4 files); `Tool.Inspiration` (4 files);
+  `Root files` (3 files); `ConfigExtensions` (3 files); `Exporter` (3 files); `Tool.KeyHandler` (3 files); `adr/conf` (3 files); `Git` (2
+  files); `Objects` (2 files); `Repository` (2 files); `Tool.Toolchain` (2 files); `adr/*` (2 files); `adr/auto` (2 files);
+  `.scriptanalyzer` (1 file); `Az.DevOps.BuildValidation` (1 file); `Engines` (1 file); `Environment` (1 file); `Files` (1 file); `Overlay`
+  (1 file); `Timeouts` (1 file); `Tool.Python` (1 file); `pipelines` (1 file). The ADR files `docs/adr/automation/test-automation.md`,
+  `docs/adr/configuration/config-value-addressing.md`, `docs/adr/configuration/module-config-loading.md` carry the white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `AUTO × AUTOMA`, because
+  ADR-CONF-ADDRESSING: its ADR domain `configuration` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default
+  concern (ADR-DSGN-TRACK#15); ADR-CONF-LOADING: its ADR domain `configuration` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is
+  its ADR domain's default concern (ADR-DSGN-TRACK#15); `AUTO × QC`, because ADR-AUTO-TEST: its ADR domain `automation` sits on the AUTO row
+  (ADR-DSGN-TRACK#14), and quality-control is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV, with "Supports ADR-CONF-LOADING" and "ADR-CONF-ADDRESSING · ADR-AUTO-TEST" beneath it.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

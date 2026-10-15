@@ -49,7 +49,8 @@ $chainJson = Get-ValueChainMap -AsJson
 $maps = Get-Config -Config maps
 $palette = $maps.palette | Select-Object background, cell, shade, line, text, highlight | ConvertTo-Json
 [System.IO.File]::WriteAllText((Join-Path $dataFolder 'palette.json'), $palette + "`n", $utf8)
-# The printed labels: a bucket key prints as its defined term (ADR-DSGN-TRACK#7, #8, #13), the value-chain map as its
+# The printed labels: a bucket key prints as its defined term
+# ([ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7), #8, #13), the value-chain map as its
 # value_chain_* labels.
 $printed = [ordered]@{
     buckets     = [ordered]@{

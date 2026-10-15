@@ -5,7 +5,7 @@
 ```text
 A 1572 x 600 diagram, read top to bottom, then left to right; no bands.
 Glyphs: 1 ADR-only box, 1 environment (ADR-only, framed), 2 commits; 1 ADR-only flow edge, 1 failure path; 3 markers.
-Sidebar: axis minimap (main cell DSGN x DEPLOY), tree minimap, lens badge META, map key.
+Sidebar: world-map grid (3 lit cells), tree (5 lit groups), value-chain map (3 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-dsgn-life--sync-from-the-last-certified-commit--meta.drawio.png) draws, in the vocabulary of the
@@ -57,8 +57,21 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is DSGN × DEPLOY, framed and filled in the DEPLOY blue with the you-are-here dot. No other cell carries a
-  dot.
-- **Tree minimap:** one lit tile group, labelled `adr/dsgn`, at the right edge.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-dsgn-life--sync-from-the-last-certified-commit--meta.grid.md),
+[tree](adr-dsgn-life--sync-from-the-last-certified-commit--meta.tree.md) and
+[value-chain map](adr-dsgn-life--sync-from-the-last-certified-commit--meta.chain.md). A file or ADR lights a minimap when it cites, or is,
+the ADR the slide supports (ADR-DSGN-LIFE); the explanation articles, these descriptions and the drawing tooling never light anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 3 lit cells, `.claude × .md` (1 file: 1 cites ADR-DSGN-LIFE);
+  `automation × .yml` (2 files: 2 cite ADR-DSGN-LIFE); `docs × .md` (4 files: 3 cite ADR-DSGN-LIFE; 1 is the ADR file of ADR-DSGN-LIFE).
+- **Tree** (the repository's files): 5 lit groups, `adr/*` (2 files); `adr/dsgn` (2 files); `.claude` (1 file); `Docs` (1 file);
+  `ModuleSystem` (1 file). The ADR file `docs/adr/design/commit-lifecycle.md` carries the white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 3 lit cells: `DSGN × QC`, because ADR-DSGN-LIFE: its ADR
+  domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern
+  (ADR-DSGN-TRACK#15); `DSGN × RELEAS`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
+  quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-LIFE: its ADR
+  domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern
+  (ADR-DSGN-TRACK#15).
 - **Lens badge:** META, with "Supports ADR-DSGN-LIFE" beneath it.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

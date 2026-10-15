@@ -39,9 +39,8 @@ resolves, and every shipped config loads.
 
 A config that cannot ship a C# type validates with a **PowerShell validator** through `Invoke-ConfigValidator`
 (`Catzc.Base.ConfigExtensions`): `Assert-<TitleCase(name)>Config` by convention, or a function named with `-Validator`, run in the owning
-module's scope. This is the extension point for the tracks and deployable-units that carry their own configuration (`ADR-DSGN-TRACK:3`);
-core configs never use it. `Test-ConfigValidators` is its gate: every `Assert-<TitleCase(name)>Config` maps to a shipped config of its
-module.
+module's scope. This is the extension point for the tracks and deployable-units that carry their own configuration; core configs never use
+it. `Test-ConfigValidators` is its gate: every `Assert-<TitleCase(name)>Config` maps to a shipped config of its module.
 
 - [The PowerShell extension point](#the-powershell-extension-point)
 

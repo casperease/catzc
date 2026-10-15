@@ -5,7 +5,7 @@
 ```text
 A 1572 x 602 diagram, read left to right through four column bands.
 Glyphs: 4 gates, 2 code units (slate), 2 ADR-only; 6 edges; 11 rule chips; 8 markers.
-Sidebar: axis minimap (main cell DSGN x BUILD), tree minimap, lens badge GOV, map key.
+Sidebar: world-map grid (8 lit cells), tree (21 lit groups), value-chain map (3 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.drawio.png) draws, in the
@@ -67,11 +67,36 @@ A full-width panel at the bottom of the drawing area, in three rows, left to rig
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is DSGN × BUILD, framed and filled in the BUILD purple with the you-are-here dot. Five touched cells carry
-  a small grey dot: AUTO × LOAD, AUTO × CONFIG, AUTO × GLOBS, AUTO × BUILD and PIPE × GLOBS. The DSGN and BUILD axis labels carry a purple
-  tick.
-- **Tree minimap:** lit tiles labelled QualityGates, ModuleSystem, Globs, Variants, internal, adr/auto, adr/repo and adr/flow, the ADR files
-  framed in dark ink.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.grid.md),
+[tree](adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.tree.md) and
+[value-chain map](adr-dsgn-aspect--partition-integrity-runs-only-in-unit-tests--governance.chain.md). A file or ADR lights a minimap when it
+cites, or is, the ADR the slide supports (ADR-DSGN-ASPECT, ADR-FLOW-CD-GLOBS, ADR-PWSH-MANIFEST, ADR-PWSH-ONEFUNC, ADR-REPO-FOLDERS); the
+explanation articles, these descriptions and the drawing tooling never light anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 8 lit cells, `.claude × .md` (1 file: 1 cites ADR-PWSH-ONEFUNC);
+  `.github × .yml` (1 file, mentions only: 1 cites ADR-FLOW-CD-GLOBS); `automation × .cs` (10 files: 11 cite ADR-DSGN-ASPECT,
+  ADR-FLOW-CD-GLOBS, ADR-REPO-FOLDERS); `automation × .ps1` (50 files: 52 cite ADR-DSGN-ASPECT, ADR-FLOW-CD-GLOBS, ADR-PWSH-MANIFEST,
+  ADR-PWSH-ONEFUNC, ADR-REPO-FOLDERS); `automation × .yml` (7 files: 11 cite ADR-DSGN-ASPECT, ADR-FLOW-CD-GLOBS, ADR-PWSH-MANIFEST,
+  ADR-PWSH-ONEFUNC, ADR-REPO-FOLDERS); `docs × .md` (14 files: 14 cite ADR-DSGN-ASPECT, ADR-FLOW-CD-GLOBS, ADR-PWSH-MANIFEST,
+  ADR-PWSH-ONEFUNC, ADR-REPO-FOLDERS; 5 are the ADR file of ADR-DSGN-ASPECT, ADR-FLOW-CD-GLOBS, ADR-PWSH-MANIFEST, ADR-PWSH-ONEFUNC,
+  ADR-REPO-FOLDERS); `pipelines × .yaml` (6 files: 6 cite ADR-FLOW-CD-GLOBS); `Root files × .ps1` (1 file: 1 is mapped through files.yml to
+  ADR-PWSH-MANIFEST). 1 cell lit only by passing mentions show at 40 % ink.
+- **Tree** (the repository's files): 21 lit groups, `Globs` (40 files); `QualityGates` (6 files); `pipelines` (6 files);
+  `Az.DevOps.BuildValidation` (5 files); `Docs` (4 files); `Variants` (4 files); `Languages` (3 files); `adr/pwsh` (3 files); `docs` (3
+  files); `adr/*` (2 files); `adr/dsgn` (2 files); `adr/flow` (2 files); `adr/repo` (2 files); `Root files` (1 file); `.claude` (1 file);
+  `.github` (1 file); `.internal` (1 file); `Contracts` (1 file); `Exporter` (1 file); `ModuleSystem` (1 file); `Overlay` (1 file). The ADR
+  files `docs/adr/design/module-aspects.md`, `docs/adr/flow/durable-sha-globs.md`, `docs/adr/pwsh/dynamic-module-manifests.md`,
+  `docs/adr/pwsh/one-function-per-file.md`, `docs/adr/repository/conventional-folders.md` carry the white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 3 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-ASPECT:
+  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
+  (ADR-DSGN-TRACK#15); ADR-FLOW-CD-GLOBS: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its own
+  value-chain concern (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-DSGN-ASPECT: its ADR domain `design` sits on the DSGN row
+  (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × AUTOMA`, because ADR-PWSH-MANIFEST:
+  its ADR domain `pwsh` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15);
+  ADR-PWSH-ONEFUNC: its ADR domain `pwsh` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern
+  (ADR-DSGN-TRACK#15); ADR-REPO-FOLDERS: its ADR domain `repository` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR
+  domain's default concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV. Beneath it, three tight lines: "Supports ADR-DSGN-ASPECT", "ADR-PWSH-MANIFEST · ADR-PWSH-ONEFUNC" and
   "ADR-REPO-FOLDERS · ADR-FLOW-CD-GLOBS".
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

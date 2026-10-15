@@ -192,6 +192,7 @@ analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one 
 | `ADR-PWSH-CACHE`    | [script-scope-caching](pwsh/script-scope-caching.md)                             |
 | `ADR-PWSH-PESTER`   | [pester-testing](pwsh/pester-testing.md)                                         |
 | `ADR-PWSH-TYPES`    | [hosting-csharp-types](pwsh/hosting-csharp-types.md)                             |
+| `ADR-PWSH-IDEM`     | [idempotent-state-mechanics](pwsh/idempotent-state-mechanics.md)                 |
 
 ### configuration/
 

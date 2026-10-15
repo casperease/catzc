@@ -14,8 +14,8 @@ whether a path is tracked. A domain function that names a tracked universe of it
 
 ### Rule ADR-AUTO-TRACKED:2
 
-The seam reads the git index file in-process (`[Catzc.Base.Files.GitIndex]`) and launches no process. Code that scopes itself by tracked
-files is therefore pure file reading, which a logic test at L0 or L1 may run (ADR-AUTO-TEST#10).
+The seam reads the git index file in-process (the native type `Catzc.Base.Files.GitIndex`) and launches no process. Code that scopes itself
+by tracked files is therefore pure file reading, which a logic test at L0 or L1 may run (ADR-AUTO-TEST#10).
 
 - [Plain git ls-files is the index](#plain-git-ls-files-is-the-index)
 - [Why not launch git](#why-not-launch-git)
@@ -67,18 +67,18 @@ are real process launches, so a test that runs one is L2.
 
 ### Rule ADR-AUTO-TRACKED:9
 
-Git's refs are read in-process too, through `[Catzc.Base.Git.GitRefs]`: a checkout's git directory (following a `gitdir:` pointer and a
-linked worktree's `commondir`), the index path, the commit `HEAD`, a branch or a tag names, and the branch `HEAD` is on. No code launches
-`git rev-parse` for those. A revision expression (`HEAD~3`, `--all`) stays with git. A ref store the reader cannot read correctly, a
-reftable or a loose annotated tag, is refused by name (ADR-AUTO-TRACKED#5).
+Git's refs are read in-process too, through the native type `Catzc.Base.Git.GitRefs`: a checkout's git directory (following a `gitdir:`
+pointer and a linked worktree's `commondir`), the index path, the commit `HEAD`, a branch or a tag names, and the branch `HEAD` is on. No
+code launches `git rev-parse` for those. A revision expression (`HEAD~3`, `--all`) stays with git. A ref store the reader cannot read
+correctly, a reftable or a loose annotated tag, is refused by name (ADR-AUTO-TRACKED#5).
 
 - [Small formats in-process, objects through one pass](#small-formats-in-process-objects-through-one-pass)
 
 ### Rule ADR-AUTO-TRACKED:10
 
-A scan over a history reads every object once, from one `git cat-file --batch-all-objects --batch` stream, through
-`[Catzc.Base.Git.GitHistoryScan]`. It never reads an object once per revision that contains it, as `git grep <revisions>` or a per-commit
-loop does. The stream is git's own decompression: catzc carries no reader of git's compressed object store.
+A scan over a history reads every object once, from one `git cat-file --batch-all-objects --batch` stream, through the native type
+`Catzc.Base.Git.GitHistoryScan`. It never reads an object once per revision that contains it, as `git grep <revisions>` or a per-commit loop
+does. The stream is git's own decompression: catzc carries no reader of git's compressed object store.
 
 - [Small formats in-process, objects through one pass](#small-formats-in-process-objects-through-one-pass)
 

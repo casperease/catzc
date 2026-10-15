@@ -8,8 +8,8 @@
 
 Every module (and, at track granularity, every delivery package) **partitions** its tracked files into named **aspects** that are pairwise
 **disjoint** and jointly **exhaustive** — a true partition, no file in two aspects and no file in none. The aspect set is the `aspects`
-repo-wide variant (`Catzc.Base.Variants`, `ADR-REPO-VARIANT`): an ordered first-match ("fallthrough") classification, defaulting to `live`
-then `tests` — the prod-going artifacts (`live`, what ships) and the means to verify them (`tests`).
+repo-wide variant (`Catzc.Base.Variants`): an ordered first-match ("fallthrough") classification, defaulting to `live` then `tests` — the
+prod-going artifacts (`live`, what ships) and the means to verify them (`tests`).
 
 - [Context](#context)
 - [Decision](#decision)
@@ -20,7 +20,7 @@ Aspects are **auto-derived** from folder conventions, never hand-declared. `live
 `*.ps1`, `private/**`, `types/**`, `configs/**`, `assets/**` — that never reach `tests/`, and are what the builder ships); the **last**
 aspect is the `**` catch-all remainder. Ordered first-match makes the partition disjoint and exhaustive _by construction_:
 `AspectPartition.Compile` gives aspect _k_ the leaf scan program `+ (its own patterns) − (every earlier aspect's patterns)`, all prefixed by
-the unit root (`ADR-FLOW-CD-GLOBS:4`).
+the unit root.
 
 - [Decision](#decision)
 
@@ -37,11 +37,11 @@ and only an explicit `tests/` folder is non-live. The `VariantsConfig` config ty
 
 ### Rule ADR-DSGN-ASPECT:4
 
-Each aspect is an immutable sha lock (`ADR-FLOW-CD-GLOBS:9`), marker `<unit>-<aspect>.yml`. A shipped unit is therefore **1 + 1 = 2
-immutable, versioned artifacts** — one `live`, one `tests` — stored and versioned independently: a `tests`-only change never re-keys `live`,
-and a runtime change never re-keys `tests`. A unit's rolled-up identity is the _set_ of its aspect locks, not a separate whole-unit marker
-(such a marker's sha would re-key on any change, defeating the isolation). Single-file units (internal `.psm1` modules) have no `tests/`, so
-they carry the degenerate one-artifact partition.
+Each aspect is an immutable sha lock, marker `<unit>-<aspect>.yml`. A shipped unit is therefore **1 + 1 = 2 immutable, versioned artifacts**
+— one `live`, one `tests` — stored and versioned independently: a `tests`-only change never re-keys `live`, and a runtime change never
+re-keys `tests`. A unit's rolled-up identity is the _set_ of its aspect locks, not a separate whole-unit marker (such a marker's sha would
+re-key on any change, defeating the isolation). Single-file units (internal `.psm1` modules) have no `tests/`, so they carry the degenerate
+one-artifact partition.
 
 - [Context](#context)
 - [Consequences](#consequences)
@@ -49,8 +49,8 @@ they carry the degenerate one-artifact partition.
 ### Rule ADR-DSGN-ASPECT:5
 
 The partition invariant — disjoint + exhaustive over `git ls-files` — is an integrity check: a file claimed by two aspects, or by none,
-fails it (`AspectPartition.Validate`). The `module-leftovers` catch-all (`ADR-REPO-PROTGLOB`) is the module-space complement — files under
-`automation/` that no module partition claims — and stays empty in a clean tree.
+fails it (`AspectPartition.Validate`). The `module-leftovers` catch-all is the module-space complement — files under `automation/` that no
+module partition claims — and stays empty in a clean tree.
 
 - [Decision](#decision)
 
@@ -86,7 +86,8 @@ unit root with `AspectPartition`; `Get-ModuleGlobSet` derives `<module>-live` / 
 ## Related
 
 - [durable-sha-globs](../flow/durable-sha-globs.md) — the marker mechanism, the scan program (`ADR-FLOW-CD-GLOBS:4`), the layers
-  (`ADR-FLOW-CD-GLOBS:7`)
+  (`ADR-FLOW-CD-GLOBS:7`), and the immutable sha lock each aspect is (`ADR-FLOW-CD-GLOBS#9`)
 - [repo-variants](../repository/repo-variants.md) — the `aspects` variant's home (`ADR-REPO-VARIANT`)
+- [protected-globs](../repository/protected-globs.md) — the `module-leftovers` catch-all (`ADR-REPO-PROTGLOB`)
 - [test-automation](../automation/test-automation.md) — logic vs integrity tests, the `tests/` surface aspects isolate
 - [platform-bundle](../automation/platform-bundle.md) — the build's runtime payload, deliberately broader than `live`

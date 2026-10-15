@@ -17,20 +17,19 @@ lifecycle states and the upstream/downstream sync semantics.
 **A commit holds one lifecycle state at a time; the state advances one rung along the promotion ladder or leaves it, and never moves
 backward.** The ladder is: topic (brown) → landed on main (grey) → BVT-verified (yellow) → L3-verified (blue) → main-UAT / main-AT-verified
 (light-blue) → release-uat / release-AT-verified (light-green) → **pre-prod** (staged, not yet live) → in production (green). The `main-UAT`
-and `release-uat` rungs are reached by clearing their **acceptance testing** — `main-AT` and `release-AT` — at the RC and RBC gates
-(ADR-FLOW-CD#9/ADR-FLOW-CD#10). At any rung a commit may advance, **hold** as an environment's occupant, or **leave the ladder** into a
-terminal state (discarded, retired, or superseded). It never regresses to an earlier rung — a commit is not "re-verified" downward; a new
-attempt is a new commit.
+and `release-uat` rungs are reached by clearing their **acceptance testing** — `main-AT` and `release-AT` — at the RC and RBC gates. At any
+rung a commit may advance, **hold** as an environment's occupant, or **leave the ladder** into a terminal state (discarded, retired, or
+superseded). It never regresses to an earlier rung — a commit is not "re-verified" downward; a new attempt is a new commit.
 
 - [The ladder](#the-ladder)
 
 ### Rule ADR-DSGN-LIFE:2
 
 **Discard is terminal rejection at a named stage, and the discarded commit stays in history.** A process rejects a candidate: **BVT** and
-**L3** discard automatically, **release-uat** discards through its manual gate (**RBC**, ADR-FLOW-CD#9), and **main-UAT** can kill a commit
-that fails there or hold it at its manual gate (**RC**, ADR-FLOW-CD#9). A discarded commit is coloured red, remains on the line where it was
-committed (history is never rewritten), and can never progress. The diagram records _where_ it died, because "discarded at BVT" and
-"discarded at release-uat" are different facts about the same outcome.
+**L3** discard automatically, **release-uat** discards through its manual gate (**RBC**), and **main-UAT** can kill a commit that fails
+there or hold it at its manual gate (**RC**). A discarded commit is coloured red, remains on the line where it was committed (history is
+never rewritten), and can never progress. The diagram records _where_ it died, because "discarded at BVT" and "discarded at release-uat" are
+different facts about the same outcome.
 
 - [Discard](#discard)
 
@@ -55,9 +54,9 @@ and "delivered then retired": valid, but not chosen.
 ### Rule ADR-DSGN-LIFE:5
 
 **Each always-on environment hosts exactly one commit, plus a history.** `main-UAT`, `release-uat`, `pre-prod`, and `production` are
-stateful, not pass-through: at any moment each holds one **occupant** — the commit deployed there, as the release candidate built from it
-(ADR-FLOW-CD#14) — and a trail of the commits it held before. An environment box in the diagram is a neutral container naming its occupant,
-drawn in that commit's state colour (ADR-DSGN-VISUAL#13), so reading the occupant tells you the true state of that environment right now.
+stateful, not pass-through: at any moment each holds one **occupant** — the commit deployed there, as the release candidate built from it —
+and a trail of the commits it held before. An environment box in the diagram is a neutral container naming its occupant, drawn in that
+commit's state colour (ADR-DSGN-VISUAL#13), so reading the occupant tells you the true state of that environment right now.
 
 - [One occupant per environment](#one-occupant-per-environment)
 
@@ -115,6 +114,11 @@ and a _new_ commit carries the fix forward. Modelling the ladder as one-directio
 is L3-verified") rather than a mutable label, and it is why the three ways off the ladder — discard, retirement, supersession — are all
 terminal.
 
+The RC and RBC gates and the acceptance testing that clears them belong to the flow model:
+[ADR-FLOW-CD#9](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9) defines the gates, and
+[ADR-FLOW-CD#10](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd10) separates the acceptance testing from the environment it
+runs in.
+
 ![A commit only climbs — it ends discarded, retired or superseded](../../.assets/commits-quality/commit-lifecycle-states.drawio.png)
 
 ## Discard
@@ -125,7 +129,7 @@ Every gate exists to reject, and the diagram records not just that a commit was 
 diagnosis. BVT and L3 reject automatically the moment their checks fail; release-uat rejects only when a human opens its manual gate (RBC)
 the wrong way; `main-UAT` rejects a commit that cannot stand up on the always-on environment, or that a human holds at its gate (RC).
 Keeping the rejection point in the record turns "it was discarded" into "it was discarded at L3", which is the difference between a shrug
-and a lead.
+and a lead. The RC and RBC gates are defined by [ADR-FLOW-CD#9](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd9).
 
 ## Retirement
 
@@ -152,7 +156,8 @@ pipeline was _moving fast_, whereas a discarded commit tells you the pipeline _c
 An always-on environment is a place, and a place holds one thing at a time. `main-UAT`, `release-uat`, `pre-prod`, and `production` each
 have exactly one current commit deployed, and treating them as stateful — occupant plus history — is what makes questions like "what is in
 production right now" and "what should I sync from" answerable by pointing at a single dot. A pass-through mental model, where commits
-merely flow through, cannot answer those questions; the occupant model can.
+merely flow through, cannot answer those questions; the occupant model can. What is deployed as the occupant is the release candidate built
+from its commit ([ADR-FLOW-CD#14](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14)).
 
 ## Sync from main-UAT, not HEAD
 

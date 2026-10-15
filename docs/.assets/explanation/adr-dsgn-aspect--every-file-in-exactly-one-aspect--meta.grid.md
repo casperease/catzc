@@ -17,7 +17,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 - automation × csharp: 3 lit of 229 files
 - automation × powershell: 5 lit of 1443 files
 - automation × yaml: 2 lit of 97 files
-- docs × markdown: 10 lit of 744 files
+- docs × markdown: 3 lit of 744 files
 
 ## Key
 
@@ -62,42 +62,28 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.Variants/configs/variants.yml][14]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 30 (body comment)
   (a passing mention only).
 
-### docs × markdown (10 lit files)
+### docs × markdown (3 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
-- [docs/adr/design/commit-lifecycle.md][15]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/design/dora-explains.md][16]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/module-aspects.md][1]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/run-modes.md][17]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/self-service.md][18]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/server-remote-integration.md][19]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/design/thin-platforms.md][20]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/tracks.md][21]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/visual-design.md][22]: selected by [ADR-DSGN-ASPECT][1]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/index.md][23]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 95 (text).
+- [docs/adr/design/dora-explains.md][15]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 142 (text).
+- [docs/adr/design/module-aspects.md][1]: selected by [ADR-DSGN-ASPECT][1]: the ADR's own file.
+- [docs/adr/index.md][16]: selected by [ADR-DSGN-ASPECT][1]: the file cites it at line 95 (text).
 
 ## Keywords
 
-- [world map][24]
-- [track][25]
-- [file language][26]
-- [cell][27]
-- [lit cell][28]
+- [world map][17]
+- [track][18]
+- [file language][19]
+- [cell][20]
+- [lit cell][21]
 - [automation][14]: a track
 - [docs][14]: a track
-- [csharp][29]: a file language
-- [markdown][29]: a file language
-- [powershell][29]: a file language
-- [yaml][29]: a file language
+- [csharp][22]: a file language
+- [markdown][22]: a file language
+- [powershell][22]: a file language
+- [yaml][22]: a file language
 
 [1]: ../../adr/design/module-aspects.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -113,18 +99,11 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 [12]: ../../../automation/Catzc.Base.Variants/Get-Aspect.ps1
 [13]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
 [14]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[15]: ../../adr/design/commit-lifecycle.md
-[16]: ../../adr/design/dora-explains.md
-[17]: ../../adr/design/run-modes.md
-[18]: ../../adr/design/self-service.md
-[19]: ../../adr/design/server-remote-integration.md
-[20]: ../../adr/design/thin-platforms.md
-[21]: ../../adr/design/tracks.md
-[22]: ../../adr/design/visual-design.md
-[23]: ../../adr/index.md
-[24]: ../../adr/glossary.md#world-map
-[25]: ../../adr/glossary.md#track
-[26]: ../../adr/glossary.md#file-language
-[27]: ../../adr/glossary.md#cell
-[28]: ../../adr/glossary.md#lit-cell
-[29]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[15]: ../../adr/design/dora-explains.md
+[16]: ../../adr/index.md
+[17]: ../../adr/glossary.md#world-map
+[18]: ../../adr/glossary.md#track
+[19]: ../../adr/glossary.md#file-language
+[20]: ../../adr/glossary.md#cell
+[21]: ../../adr/glossary.md#lit-cell
+[22]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

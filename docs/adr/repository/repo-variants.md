@@ -37,8 +37,7 @@ Config layer** (all of `AzureExt`, `Tooling`, and the upper `Base` modules) — 
 
 `ado_naming` (`standard` | `classic`) selects the Azure resource-name component order — the key of `Get-AzureNameOrderSet` that
 `Get-BicepResourceName` passes to the name assembler. It is a **variant, not a code constant**: `Get-AdoNaming` reads it (default
-`standard`). Changing it re-spells every generated resource name, so it is a deliberate, one-time repo decision, not a runtime toggle (see
-[naming-standard](../azure/azure-naming-standard.md)).
+`standard`). Changing it re-spells every generated resource name, so it is a deliberate, one-time repo decision, not a runtime toggle.
 
 - [The three variants](#the-three-variants)
 
@@ -46,9 +45,9 @@ Config layer** (all of `AzureExt`, `Tooling`, and the upper `Base` modules) — 
 
 `have_customers` is **tri-state** — `false` (no customer deployments; only non-customer templates), `all` (every customer in `customer.yml`
 is enabled), or a **list of customer names** (only those). `Get-EnabledCustomers` normalizes it; the plural `Test-`/`Assert-HaveCustomers`
-answer the repo-wide question (with an optional `-Name` list), and the singular `Test-`/`Assert-HaveCustomer` cover one customer
-(`ADR-PWSH-VERBS#6` cardinality). The **enabled set lives in the variant**, not in `customer.yml`, precisely so these primitives can live in
-`Base` while `customer.yml` stays an Azure-layer catalogue (see [customer-model](../azure/azure-customer-model.md)).
+answer the repo-wide question (with an optional `-Name` list), and the singular `Test-`/`Assert-HaveCustomer` cover one customer. The
+**enabled set lives in the variant**, not in `customer.yml`, precisely so these primitives can live in `Base` while `customer.yml` stays an
+Azure-layer catalogue.
 
 - [The three variants](#the-three-variants)
 
@@ -108,7 +107,7 @@ variant that needed to cross-check another asset would belong to that asset's la
 
 - **`ado_naming`** — the resource-name component order (`ADR-REPO-VARIANT:4`). One repo-wide choice of `standard` vs `classic`, read by
   `Get-AdoNaming` and applied by the name assembler; the order data itself is `Get-AzureNameOrderSet` in the Azure templating layer, and the
-  variant only picks which key it uses.
+  variant only picks which key it uses (see [naming-standard](../azure/azure-naming-standard.md)).
 - **`git_workspace`** — how changes reach main (`ADR-REPO-VARIANT:6`), `main-direct | main-via-pr`, default `main-direct`. Committing is
   always allowed in both modes — a solo trunk commits to main directly, and PR-mode work lives on branches where committing is equally fine;
   the variant exists for the one asymmetry, `main-via-pr` **and** standing on main/master locally, which is the only stop condition
@@ -117,7 +116,8 @@ variant that needed to cross-check another asset would belong to that asset's la
 - **`have_customers`** — the enabled-customer set (`ADR-REPO-VARIANT:5`), tri-state `false | all | [names]`. It is the guard for customer
   deployments and the source of the per-template `customer_deployment` default (see [customer-model](../azure/azure-customer-model.md)).
   Keeping the enabled set in the variant (rather than deriving it from `customer.yml`) is what lets the `HaveCustomer(s)` primitives answer
-  "is this customer enabled" from `Base` without reaching up into the Azure-layer catalogue.
+  "is this customer enabled" from `Base` without reaching up into the Azure-layer catalogue. The plural and singular primitives split by the
+  cardinality rule of [ADR-PWSH-VERBS#6](../pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs6).
 
 ## Decision
 

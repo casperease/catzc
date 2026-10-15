@@ -16,15 +16,15 @@ real-customer-shaped names the demo deployment maps to). A token from one zone a
 ### Rule ADR-REPO-LANG:2
 
 A **logic** test names **fixture** identities, never **live** ones. Using a real customer, subscription, org, template, or ADO-project name
-as a value in a logic test couples it to the shipped config (ADR-AUTO-TEST#3) and blurs the test/live vocabulary; it uses `acme`/`globex`,
-`alpha`/`beta`, `tst`, `sample`, `widget` instead.
+as a value in a logic test couples it to the shipped config and blurs the test/live vocabulary; it uses `acme`/`globex`, `alpha`/`beta`,
+`tst`, `sample`, `widget` instead.
 
 - [The test/live boundary](#the-testlive-boundary)
 
 ### Rule ADR-REPO-LANG:3
 
-An **integrity** test is the one sanctioned bridge: it binds the real shipped assets and therefore names live identities by design
-(ADR-AUTO-TEST#1). Live identities are legitimate inside an `integrity`-tagged block and nowhere else in a logic-bearing test file.
+An **integrity** test is the one sanctioned bridge: it binds the real shipped assets and therefore names live identities by design. Live
+identities are legitimate inside an `integrity`-tagged block and nowhere else in a logic-bearing test file.
 
 - [The test/live boundary](#the-testlive-boundary)
 
@@ -50,8 +50,8 @@ separation.
 
 The forbidden live-identity set is **derived from the shipped config** (`Get-LiveIdentityTokens` reads `customer.yml`, `azure.yml`,
 `ado.yml`, and the shipped templates), never hand-listed, so it is always current — add a customer and it is immediately banned from logic
-tests. The terminology registry's per-category `scope` (ADR-AUTO-SPELL) is the machine-readable **zone map** the gate reads to know which
-category is `fixture` vs `azure-live` vs `adr-example`; it is a declaration of zone membership, not itself a cspell rule.
+tests. The terminology registry's per-category `scope` is the machine-readable **zone map** the gate reads to know which category is
+`fixture` vs `azure-live` vs `adr-example`; it is a declaration of zone membership, not itself a cspell rule.
 
 - [The forbidden set](#the-forbidden-set)
 
@@ -112,6 +112,9 @@ can silently violate — hardcoding a real customer name reads fine and passes, 
 therefore sharp: a live identity is legitimate **only** inside an `integrity`-tagged block (where binding the real config is the whole
 point), and a leak anywhere else in a logic-bearing test file is a violation. This makes a mixed file — one `Describe` with both a `logic`
 and an `integrity` Context — work without being split: the integrity block's identities are carved out, and the rest is held to fixtures.
+The two test kinds are the automation rules': a logic test keeps to neutral fixtures
+([ADR-AUTO-TEST#3](../automation/test-automation.md#rule-adr-auto-test3)), and an integrity test binds the shipped assets
+([ADR-AUTO-TEST#1](../automation/test-automation.md#rule-adr-auto-test1)).
 
 ### The design zone
 

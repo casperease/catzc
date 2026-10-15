@@ -10,23 +10,16 @@ Use `.ps1` for all module function files — dot-sourced into the module's sessi
 private functions see each other without imports.
 
 - [Decision](#decision)
+- [Source and the generated build](#source-and-the-generated-build)
 
 ### Rule ADR-PWSH-USEPS:2
 
 Reserve `.psm1` for genuine module or standalone files only — the `automation/.internal/*.psm1` shared modules, the
-`automation/.scriptanalyzer/*.psm1` analyzer rules, and per-template `PrePost.psm1` — never for a per-function file inside a module.
+`automation/.scriptanalyzer/*.psm1` analyzer rules, the `PrePost.psm1` starter, and per-template `PrePost.psm1`, the only `.psm1` under
+`infrastructure/` — never for a per-function file inside a module. All other PowerShell code is in `.ps1` files.
 
 - [Decision](#decision)
 - [How this is enforced](#how-this-is-enforced)
-
-### Rule ADR-PWSH-USEPS:3
-
-These rules govern **source** — the `automation/<Module>/` tree a developer edits. The installed build's merged `<Module>.functions.ps1`
-(every function of one module in one file, listed as that module's single `NestedModules` entry) is a **generated artifact** written by
-`Build-Modules`; it is never edited, never checked in, and keeps the `.ps1` extension so the module's functions share one session state
-exactly as they do in source.
-
-- [Source and the generated build](#source-and-the-generated-build)
 
 ## Context
 
@@ -88,7 +81,8 @@ parses each file in memory and dot-sources it into the module's session state
 ([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest5)). The merged file is a `.ps1` too, so the module's public
 and private functions share one session state in both modes, and it is one module per folder, so each module keeps its own `$script:` scope.
 It is output, not source: it exists only in a build under `out/automation/built/` and the installs copied from it, is rewritten on every
-build, and the rules of this ADR apply to the files it is generated from.
+build, and the rules of this ADR apply to the files it is generated from
+([one-function-per-file](one-function-per-file.md#rule-adr-pwsh-onefunc3)).
 
 ### How this is enforced
 

@@ -26,10 +26,10 @@ reproduce, or review what is not written down.
 ### Rule ADR-DSGN-SELFSERV:3
 
 What ships is an **immutable, content-addressed artifact** built **reproducibly** from a source commit that is known and carrying
-**provenance** from source to deployed state. The globset durable-SHA identities (`ADR-FLOW-CD-GLOBS`) content-address each shippable unit;
-a build is a verifiable path from that commit to its output, not a one-off act that cannot be repeated. This is what makes self-service
-_auditable_: every deployed thing traces to one exact, reviewed commit, and anyone can independently rebuild it and confirm the match.
-(Primary sources: the Reproducible Builds project on the source-to-binary verification path, and SLSA on build provenance and attestation.)
+**provenance** from source to deployed state. The globset durable-SHA identities content-address each shippable unit; a build is a
+verifiable path from that commit to its output, not a one-off act that cannot be repeated. This is what makes self-service _auditable_:
+every deployed thing traces to one exact, reviewed commit, and anyone can independently rebuild it and confirm the match. (Primary sources:
+the Reproducible Builds project on the source-to-binary verification path, and SLSA on build provenance and attestation.)
 
 - [Immutable artifacts and provenance](#immutable-artifacts-and-provenance)
 
@@ -37,9 +37,9 @@ _auditable_: every deployed thing traces to one exact, reviewed commit, and anyo
 
 Changes reach production through **trunk-based development with automated guardrails**. Work lands on trunk in small batches behind
 short-lived branches that must pass the CI gate and are deleted after merge; there are no long-lived divergent branches and no legacy
-variants of our own code (`ADR-PRIN-ONELIVE`). The guardrails — asserts (`ADR-AUTO-FAILFAST`), the quality gates, the freshness/marker
-checks, and code review — are **automated and mandatory**, so self-service cannot merge a change that skips them. Speed and control are the
-same mechanism here, not a trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
+variants of our own code (`ADR-PRIN-ONELIVE`). The guardrails — asserts, the quality gates, the freshness/marker checks, and code review —
+are **automated and mandatory**, so self-service cannot merge a change that skips them. Speed and control are the same mechanism here, not a
+trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
 
 - [Trunk-based development](#trunk-based-development)
 
@@ -98,9 +98,9 @@ Trunk-based development is what keeps the single source of truth actually single
 as "a source-control branching model where developers collaborate on code in a single branch called 'trunk' and resist any pressure to
 create other long-lived development branches". The practices that matter here are its guardrails: small, frequent commits to trunk;
 short-lived branches used only for review and CI, then deleted; and a mandatory CI gate that a commit must pass. Because those gates are
-automated and stand between every change and trunk, self-service cannot merge something that skips review, fails an assert, or leaves a
-stale marker. The branching discipline and the no-legacy rule (`ADR-PRIN-ONELIVE`) are two faces of the same commitment: one living version,
-on trunk, always releasable.
+automated and stand between every change and trunk, self-service cannot merge something that skips review, fails an assert
+(`ADR-AUTO-FAILFAST`), or leaves a stale marker. The branching discipline and the no-legacy rule (`ADR-PRIN-ONELIVE`) are two faces of the
+same commitment: one living version, on trunk, always releasable.
 
 ### Safe where control matters
 

@@ -6,9 +6,9 @@
 
 ### Rule ADR-AUTO-EXTEND:1
 
-Extend by adding, not editing: new functions, modules, and dependencies are new files and folders. Never modify infrastructure files
-(`importer.ps1`, `Bootstrap.psm1`) to accommodate new content. The same shape holds one level up: a new root concern is a new **track** — a
-new root folder with its own tech-stack — never an edit smuggled into an existing one (see [tracks](../design/tracks.md), code
+Extend by adding, not editing: new functions, modules, and dependencies are new files and folders. Never modify the infrastructure — the
+importer entries and the bootstrap loader — to accommodate new content. The same shape holds one level up: a new root concern is a new
+**track** — a new root folder with its own tech-stack — never an edit smuggled into an existing one (see [tracks](../design/tracks.md), code
 `ADR-DSGN-TRACK`).
 
 - [How the platform does it](#how-the-platform-does-it)
@@ -78,6 +78,9 @@ The open/closed guarantee rests on conventions:
 - **File name = function name.** `Get-Foo.ps1` exports `Get-Foo`. No mapping table needed.
 - **Folder = module.** A directory under `automation/` with `.ps1` files is a module. No registration needed.
 - **Root = public, `private/` = private.** Export visibility is determined by file location. No attribute or annotation needed.
+
+In PowerShell these conventions are [one-function-per-file](../pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc1) and the location-based
+exports of [dynamic-module-manifests](../pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest9).
 
 These conventions are rigid by design. Rigidity is what makes the system predictable and extensible. If every module followed its own
 structure, the bootstrap module could not derive registrations automatically, and you would be back to hand-maintained configuration.

@@ -10,78 +10,56 @@ The tree minimap of the slide `adr-dsgn-remote--one-door-in-one-stable-point-out
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
-domain), and lights 11 files in 3 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 4 files in 3 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
-- adr/dsgn (docs/adr/design): 9 lit files
+- adr/dsgn (docs/adr/design): 2 lit files
 - Docs (automation/Catzc.Base.Docs): 1 lit file
 - adr/* (the files directly in docs/adr/): 1 lit file
 
 ## Why each group is lit
 
-### adr/dsgn (9 lit files)
+### adr/dsgn (docs/adr/design, 2 lit files)
 
 The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
 
-- [docs/adr/design/commit-lifecycle.md][2], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/design/dora-explains.md][3], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/design/module-aspects.md][4], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/design/run-modes.md][5], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: an ADR file of the `design` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/design/self-service.md][6], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/design/server-remote-integration.md][1], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: an ADR file of the
-  `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/thin-platforms.md][7], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/design/tracks.md][8], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: an ADR file of the `design` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/design/visual-design.md][9], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code.
+- [docs/adr/design/dora-explains.md][2], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 105
+  (text).
+- [docs/adr/design/server-remote-integration.md][1], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the ADR's own file.
 
-### Docs (1 lit file)
+### Docs (automation/Catzc.Base.Docs, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][10], in the cell automation × yaml: selected by [ADR-DSGN-REMOTE][1]: the file cites it at
+- [automation/Catzc.Base.Docs/configs/adrs.yml][3], in the cell automation × yaml: selected by [ADR-DSGN-REMOTE][1]: the file cites it at
   line 100 (text).
 
-### adr/* (1 lit file)
+### adr/* (the files directly in docs/adr/, 1 lit file)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/index.md][11], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 93 (text).
+- [docs/adr/index.md][4], in the cell docs × markdown: selected by [ADR-DSGN-REMOTE][1]: the file cites it at line 93 (text).
 
 ## Keywords
 
-- [world map][12]
-- [track][13]
-- [file language][14]
-- [cell][15]
-- [lit cell][16]
-- [automation][17]: a track
-- [docs][17]: a track
-- [markdown][18]: a file language
-- [yaml][18]: a file language
+- [world map][5]
+- [track][6]
+- [file language][7]
+- [cell][8]
+- [lit cell][9]
+- [automation][10]: a track
+- [docs][10]: a track
+- [markdown][11]: a file language
+- [yaml][11]: a file language
 
 [1]: ../../adr/design/server-remote-integration.md
-[2]: ../../adr/design/commit-lifecycle.md
-[3]: ../../adr/design/dora-explains.md
-[4]: ../../adr/design/module-aspects.md
-[5]: ../../adr/design/run-modes.md
-[6]: ../../adr/design/self-service.md
-[7]: ../../adr/design/thin-platforms.md
-[8]: ../../adr/design/tracks.md
-[9]: ../../adr/design/visual-design.md
-[10]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[11]: ../../adr/index.md
-[12]: ../../adr/glossary.md#world-map
-[13]: ../../adr/glossary.md#track
-[14]: ../../adr/glossary.md#file-language
-[15]: ../../adr/glossary.md#cell
-[16]: ../../adr/glossary.md#lit-cell
-[17]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[18]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[2]: ../../adr/design/dora-explains.md
+[3]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[4]: ../../adr/index.md
+[5]: ../../adr/glossary.md#world-map
+[6]: ../../adr/glossary.md#track
+[7]: ../../adr/glossary.md#file-language
+[8]: ../../adr/glossary.md#cell
+[9]: ../../adr/glossary.md#lit-cell
+[10]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[11]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

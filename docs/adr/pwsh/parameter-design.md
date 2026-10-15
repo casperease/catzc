@@ -27,13 +27,13 @@ Use `[switch]`, not `[bool]`, for opt-in behavior that is off by default. Switch
 
 ### Rule ADR-PWSH-PARAM:4
 
-A configurable parameter declares its default as the resolved setting — `[LinkWrap] $Wrap = (Get-Config -Config links).wrap` — so the
-zero-argument call follows the resolution order of `ADR-AUTO-DEFAULT#6`, an explicit argument wins, and `Get-Help` shows where the default
-comes from. The parameter never restates the value, and the function body never fills an empty parameter in. A default may derive from a
-parameter declared before it (`[string] $Label = (Split-Path $Path -Leaf)`). The body fills in only what a declaration cannot express, and
-says why at the fill-in: a value derived from pipeline-bound input (bound after defaults are evaluated), a value relative to a parameter
-declared after it, or a pass-through parameter many callers forward empty (`Write-QualityGateReport -OutputFolder`), where an explicit empty
-argument would override a declared default.
+The resolution order of [ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6) is, in PowerShell, one parameter
+declaration: the default expression reads the configured value — `[LinkWrap] $Wrap = (Get-Config -Config links).wrap` — which PowerShell
+evaluates only when the caller omits the parameter, and which `Get-Help` shows. The function body never fills an empty parameter in. A
+default may derive from a parameter declared before it (`[string] $Label = (Split-Path $Path -Leaf)`). The body fills in only what a
+declaration cannot express, and says why at the fill-in: a value derived from pipeline-bound input (bound after defaults are evaluated), a
+value relative to a parameter declared after it, or a pass-through parameter many callers forward empty
+(`Write-QualityGateReport -OutputFolder`), where an explicit empty argument would override a declared default.
 
 - [Configurable parameters](#configurable-parameters)
 

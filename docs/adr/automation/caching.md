@@ -9,8 +9,7 @@
 Cache static config reads: a function that loads + parses (+ validates) a checked-in file returns the parsed object from a session cache on
 repeat calls.
 
-Exemplar: `Get-Config` — every config read routes through it, keyed on the resolved file path, so every config inherits one cache (see
-[module-config-loading](../configuration/module-config-loading.md)).
+Exemplar: `Get-Config` — every config read routes through it, keyed on the resolved file path, so every config inherits one cache.
 
 - [The storage idiom](#the-storage-idiom)
 
@@ -37,7 +36,7 @@ immutable. A result intended to be mutated downstream is not a caching candidate
 
 ### Rule ADR-AUTO-CACHE:6
 
-The only invalidation is re-running the importer — no mtime/hash checks, TTLs, file watchers, or `-Refresh` switch. The runtime contract
+The only invalidation is re-running the importer — no mtime/hash checks, TTLs, file watchers, or refresh parameter. The runtime contract
 makes the importer the single sufficient knob. Git state that changes inside a session is not invalidated at all: it is keyed on its own
 content (ADR-AUTO-CACHE#9).
 
@@ -53,11 +52,13 @@ cache entry on first call, never at import, because importer time is a protected
 
 ### Rule ADR-AUTO-CACHE:8
 
-The compiled-type prebuild is the one committed, cross-session cache: `Import-CSharpTypes` keys one committed
-`automation/.compiled/Catzc.Types.<hash>.dll` for the whole repository (the combined hash of every module's sources), loaded without Roslyn
-on a fresh checkout and self-invalidating on any source change. Sessions load it through a per-user, content-addressed shadow copy
-(`Import-TypesAssembly`), an uncommitted derivative of the committed DLL that keeps `.compiled` unlocked. See
-[native-csharp-types](BCL/native-csharp-types.md) for the full contract.
+The compiled-type prebuild is the one committed, cross-session cache: one assembly for the whole repository, committed as
+`automation/.compiled/Catzc.Types.<hash>.dll` and named for the combined hash of every module's type sources, so a fresh checkout and CI
+load it without compiling, and editing any source re-keys it. The hash material is, per source file,
+`<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move between modules or a rename re-keys even when the
+content is byte-identical, and the key does not depend on the repository root. Every process loads the assembly from a per-user,
+content-addressed shadow copy (`%LOCALAPPDATA%\catzc\types` on Windows, `~/.local/share/catzc/types` on Unix), never in place: an
+uncommitted derivative of the committed assembly, so no session ever locks `automation/.compiled`.
 
 - [What is NOT cacheable](#what-is-not-cacheable)
 
@@ -141,9 +142,10 @@ result. This is pure [waste](../principles/reduce-waste.md), and on enterprise m
 also latency that compounds (see [effective-in-enterprises](effective-in-enterprises.md)).
 
 Config caching is centralized in `Get-Config`, which caches every config read lazily in `$script:configCache` keyed on the resolved file
-path (so every config read inherits one cache); `Get-BicepTemplates` caches filesystem information per resolved root in
-`$script:bicepTemplatesCache`; and the bootstrap module computes module information once at import (eagerly, because it must — see the rule
-below). Computing-once applies to all filesystem-derived information; the default is **lazy** so the importer stays fast.
+path, so every config read inherits one cache ([module-config-loading](../configuration/module-config-loading.md)); `Get-BicepTemplates`
+caches filesystem information per resolved root in `$script:bicepTemplatesCache`; and the bootstrap module computes module information once
+at import (eagerly, because it must — see the rule below). Computing-once applies to all filesystem-derived information; the default is
+**lazy** so the importer stays fast.
 
 ### What is NOT cacheable
 
@@ -197,8 +199,10 @@ keyed on the file's content and every declared input of the check (ADR-AUTO-CACH
 
 Where a cache lives, the keyed-hashtable code shape, and how tests interact with a cached function are the PowerShell layer,
 [script-scope-caching](../pwsh/script-scope-caching.md) (`ADR-PWSH-CACHE`): module `$script:` state — never `$env:` or `$global:` — with
-`Get-Config` and `Get-BicepTemplates` as the exemplars. The compiled-type prebuild's own cache-key and staleness-guard rules live with the
-type system, [native-csharp-types](BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`).
+`Get-Config` and `Get-BicepTemplates` as the exemplars. Its rules map onto the ones here: the importer as the only invalidation
+(ADR-AUTO-CACHE#6) is module state discarded on re-import (ADR-PWSH-CACHE#1), and the compiled-type prebuild (ADR-AUTO-CACHE#8) is loaded by
+the bootstrap functions of ADR-PWSH-CACHE#5. How the prebuild is compiled and when a session must restart because a source changed live with
+the type system, [native-csharp-types](BCL/native-csharp-types.md) (`ADR-AUTO-TYPES`).
 
 ### How this is enforced
 

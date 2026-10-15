@@ -8,39 +8,28 @@
 
 Never hardcode a platform-specific path: a drive letter (`C:\`), a Unix-only directory (`/tmp/`), or a variable that one platform alone sets
 (a Windows profile folder). Resolve every path from a known anchor — the working root, the code root, or the platform's temp directory — and
-build it with the engine's path-joining primitive, never by writing a separator. The PowerShell mechanics are
-[ADR-PWSH-XPLAT#6](../pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat6).
+build it with the engine's path-joining primitive, never by writing a separator.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
 ### Rule ADR-AUTO-XPLAT:6
 
 Format and parse machine-bound strings (timestamps, numbers, dates) in the invariant culture, named explicitly at each format and parse,
-never in the current culture. Converting to UTC fixes the instant, not the rendering. The PowerShell mechanics are
-[ADR-PWSH-XPLAT#7](../pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat7).
+never in the current culture. Converting to UTC fixes the instant, not the rendering.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
 ### Rule ADR-AUTO-XPLAT:7
 
 Respect case sensitivity in file operations — Linux filesystems are case-sensitive. A path comparison states its case rule explicitly, or
-compares canonical full paths; it never relies on a default that behaves differently per platform. The PowerShell mechanics are
-[ADR-PWSH-XPLAT#8](../pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat8).
+compares canonical full paths; it never relies on a default that behaves differently per platform.
 
 - [What breaks in practice](#what-breaks-in-practice)
-
-### Rule ADR-AUTO-XPLAT:8
-
-CI and local use the same code path: the same provisioning command and the same importer entry run on workstations and in CI. No separate
-scripts, no "CI-only" branches. The PowerShell mechanics are [ADR-PWSH-XPLAT#9](../pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat9).
-
-- [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-AUTO-XPLAT:9
 
 Never shell out to a platform's own shell or a binary only one platform ships (`cmd /c`, `/bin/sh -c`). Use the engine's own operations, or
-a tool that exists on every platform. The PowerShell mechanics are
-[ADR-PWSH-XPLAT#4](../pwsh/cross-platform-powershell.md#rule-adr-pwsh-xplat4).
+a tool that exists on every platform.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
@@ -73,7 +62,9 @@ Four failure axes are platform-independent facts every language obeys:
   on one platform only. A tool that ships on every platform, started directly, works on both.
 
 The concrete PowerShell breakage tables — Windows-isms that fail on Unix and Unix-isms that fail on Windows — live in
-[cross-platform-powershell](../pwsh/cross-platform-powershell.md).
+[cross-platform-powershell](../pwsh/cross-platform-powershell.md), whose rules carry the PowerShell mechanics of each rule here: the path
+anchors and joins of rule 3 (ADR-PWSH-XPLAT#2, ADR-PWSH-XPLAT#6), the invariant culture of rule 6 (ADR-PWSH-XPLAT#7), the path comparison of
+rule 7 (ADR-PWSH-XPLAT#8), and the shell-outs of rule 9 (ADR-PWSH-XPLAT#4).
 
 ### How we enforce this
 
@@ -97,8 +88,8 @@ on Linux.
 - **L2 tests run locally.** Developers run the same analyzer test file that CI runs. Platform compatibility violations are caught before
   push, not after.
 
-- **One entry, everywhere.** A pipeline step calls the same provisioning command and importer entry a developer runs, never a script of its
-  own.
+- **One entry, everywhere.** A pipeline step calls the same tool installers and importer entry a developer runs, never a script of its own —
+  the one code path of [devbox-pipeline-parity](devbox-pipeline-parity.md#rule-adr-auto-parity1) (ADR-AUTO-PARITY#1).
 
 ## Consequences
 

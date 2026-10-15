@@ -15,7 +15,7 @@ grey box: it holds files the slide's ADR codes do not select, or no file at all 
 the slide sits, not how many files a cell holds; the world-map PDFs show the counts.
 
 - automation × yaml: 1 lit of 97 files
-- docs × markdown: 6 lit of 744 files
+- docs × markdown: 3 lit of 744 files
 
 ## Key
 
@@ -33,34 +33,26 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 
 - [automation/Catzc.Base.Docs/configs/adrs.yml][5]: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 235 (text).
 
-### docs × markdown (6 lit files)
+### docs × markdown (3 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][3]). Lit ([ADR-DSGN-TRACK#12][4]) by:
 
 - [docs/adr/index.md][6]: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 219 (text).
-- [docs/adr/pipelines/custom-template-discipline.md][7]: selected by [ADR-PIPE-AUTH][1]: an ADR file of the `pipelines` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/pipelines/dora-explains.md][8]: selected by [ADR-PIPE-AUTH][1]: an ADR file of the `pipelines` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/pipelines/dual-authentication.md][1]: selected by [ADR-PIPE-AUTH][1]: an ADR file of the `pipelines` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/pipelines/pipeline-naming-and-placement.md][9]: selected by [ADR-PIPE-AUTH][1]: an ADR file of the `pipelines` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/pipelines/pipeline-variables.md][10]: selected by [ADR-PIPE-AUTH][1]: an ADR file of the `pipelines` ADR domain, the ADR domain
-  of that code.
+- [docs/adr/pipelines/dora-explains.md][7]: selected by [ADR-PIPE-AUTH][1]: the file cites it at line 13 (text).
+- [docs/adr/pipelines/dual-authentication.md][1]: selected by [ADR-PIPE-AUTH][1]: the ADR's own file.
 
 ## Keywords
 
-- [world map][11]
-- [track][12]
-- [file language][13]
-- [cell][14]
-- [lit cell][15]
-- [automation][16]: a track
-- [docs][16]: a track
-- [markdown][17]: a file language
-- [yaml][17]: a file language
+- [world map][8]
+- [track][9]
+- [file language][10]
+- [cell][11]
+- [lit cell][12]
+- [automation][13]: a track
+- [docs][13]: a track
+- [markdown][14]: a file language
+- [yaml][14]: a file language
 
 [1]: ../../adr/pipelines/dual-authentication.md
 [2]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
@@ -68,14 +60,11 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][2]); th
 [4]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
 [5]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
 [6]: ../../adr/index.md
-[7]: ../../adr/pipelines/custom-template-discipline.md
-[8]: ../../adr/pipelines/dora-explains.md
-[9]: ../../adr/pipelines/pipeline-naming-and-placement.md
-[10]: ../../adr/pipelines/pipeline-variables.md
-[11]: ../../adr/glossary.md#world-map
-[12]: ../../adr/glossary.md#track
-[13]: ../../adr/glossary.md#file-language
-[14]: ../../adr/glossary.md#cell
-[15]: ../../adr/glossary.md#lit-cell
-[16]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[17]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[7]: ../../adr/pipelines/dora-explains.md
+[8]: ../../adr/glossary.md#world-map
+[9]: ../../adr/glossary.md#track
+[10]: ../../adr/glossary.md#file-language
+[11]: ../../adr/glossary.md#cell
+[12]: ../../adr/glossary.md#lit-cell
+[13]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[14]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

@@ -43,6 +43,15 @@ fires with `Should -Throw`, which is the one place an assertion failure is caugh
 
 - [Catching an assertion](#catching-an-assertion)
 
+### Rule ADR-PWSH-ASSERT:6
+
+In pwsh, the waits ADR-AUTO-FAILFAST#7 bounds are bounded in two ways. A native tool runs through `Invoke-Executable`, which kills the child
+process tree at its executable's limit. In-process work runs as a script block passed to `Invoke-WithTimeout`, `Assert-CompletesWithin`, or
+`Test-CompletesWithin`, with `-Budget <guid>` when it carries an exempted budget. No wait is left open: no `Wait-Job`, `WaitForExit()`, or
+polling loop without a limit.
+
+- [Bounding a wait](#bounding-a-wait)
+
 ## Context
 
 [fail-fast-with-asserts](../automation/fail-fast-with-asserts.md) decides that every assumption is asserted where it is made, through the
@@ -118,11 +127,29 @@ exemption for the decoration's `Budget` GUID while the work is tuned, a `command
 decoration otherwise, and the environment's pwsh default for a function that declares nothing. The attribute checks its values when it is
 created: whole seconds above zero, and a pipeline limit at least the devbox one.
 
+### Bounding a wait
+
+[fail-fast-with-asserts](../automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7) bounds every wait. In pwsh the two kinds of wait
+have one helper each. A native tool is a child process, so `Invoke-Executable` owns its limit and kills the whole process tree when it is
+reached. Work inside the session — a long loop, a scan, a call into a module — is passed as a script block:
+
+```powershell
+$report = Invoke-WithTimeout { Get-WidgetReport -Path $Path } -Activity 'widget report'
+Assert-CompletesWithin { Sync-Gadget } -Budget $gadgetBudget
+```
+
+With no `-Seconds`, the limit is the run environment's pwsh limit in `timeouts.yml`, or the budget's exemption ceiling. `Invoke-WithTimeout`
+returns the block's output and, past the limit, stops it and throws an error naming the limit; `Assert-CompletesWithin` is the assertion
+form, and `Test-CompletesWithin` returns whether the block finished in time. A `Wait-Job`, a `WaitForExit()`, or a `while` loop polling for
+a condition, each with no limit of its own, is the unbounded wait the rule exists to remove.
+
 ## Decision
 
 In pwsh, assumptions are asserted with the `Assert-*` functions: input guards directly after the `param` block, output guards on the line
 after an external call, never an inline `if`/`throw` for a precondition, and never a `try`/`catch` around an assertion outside a test. A
-function that bounds its own long work declares its limit with the `TimeLimit` attribute and reads it through `Get-TimeoutSeconds`.
+function that bounds its own long work declares its limit with the `TimeLimit` attribute and reads it through `Get-TimeoutSeconds`. A native
+tool is bounded by `Invoke-Executable`, and in-process work by passing it as a script block to `Invoke-WithTimeout` or its assertion and
+test forms.
 
 ### How this is enforced
 

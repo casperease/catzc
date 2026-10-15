@@ -47,14 +47,14 @@ for a limit and points at the catalogue; it never restates the value.
 ### Rule ADR-REPO-OUTFMT:6
 
 A **review page** is a page published to claude.ai that bundles output files for a person to review. It is never called an artifact: a
-published artifact is a file that crosses a stage boundary (ADR-AUTO-PATH#10), and a review page crosses none.
+published artifact is a file that crosses a stage boundary, and a review page crosses none.
 
 - [Formats for people](#formats-for-people)
 
 ### Rule ADR-REPO-OUTFMT:7
 
-A producer written in Python ships in its owning module's `assets/`, runs through uv (ADR-AUTO-UVPY), and declares each package it needs
-with a pinned version, once. A public function runs it; no caller reaches a producer script by its path.
+A producer written in Python ships in its owning module's `assets/`, runs through uv, and declares each package it needs with a pinned
+version, once. A public function runs it; no caller reaches a producer script by its path.
 
 - [Producers](#producers)
 
@@ -88,7 +88,8 @@ entry, not code, as long as an existing validator kind fits it.
 
 A person reviews PNG, PDF, and Markdown with the tools every machine has. HTML needs a browser opened on a local file, which not every
 reader has or wants; a page that needs a browser is published as a review page, where it opens from a link. A review page has its own name
-because "artifact" already means a file handed between pipeline stages, and one word carries one meaning
+because "artifact" already means a file handed between pipeline stages
+([ADR-AUTO-PATH#10](../automation/path-representation.md#rule-adr-auto-path10)), and one word carries one meaning
 ([controlled-vocabulary](controlled-vocabulary.md)).
 
 ### Validators
@@ -106,8 +107,8 @@ result, and a reviewer can regenerate any file instead of trusting it. A produce
 overwrite each other.
 
 A Python producer is product code: it ships in `Catzc.Base.Reports/assets/` and runs through a public function that resolves the script and
-starts it through uv with its pinned packages. The caller names the producer, never a path, so moving or renaming a script changes one
-function.
+starts it through uv with its pinned packages ([ADR-AUTO-UVPY](../automation/uv-python-handler.md)). The caller names the producer, never a
+path, so moving or renaming a script changes one function.
 
 ## Consequences
 

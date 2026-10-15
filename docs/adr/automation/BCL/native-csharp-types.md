@@ -42,18 +42,6 @@ extracts the C# edges and the `Test-ModuleDependency` quality gate fails its L1 
 - [The `DictionaryRecord` base](#the-dictionaryrecord-base)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-AUTO-TYPES:6
-
-The assembly is named for the combined hash of every module's sources and committed to `automation/.compiled/Catzc.Types.<hash>.dll`, so a
-fresh checkout and CI load it without Roslyn; editing any source re-keys it. The hash material is per file
-`<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally — so a move between modules (new namespace) or a rename (new
-type) re-keys even when content is byte-identical, with no dependence on the repo root. Every process loads the assembly from a **per-user
-shadow copy** (`Import-TypesAssembly`: `%LOCALAPPDATA%\catzc\types` on Windows, `~/.local/share/catzc/types` on Unix), never in place, so no
-session ever locks `automation/.compiled`.
-
-- [The cache-state contract](#the-cache-state-contract)
-- [Why a shadow copy](#why-a-shadow-copy)
-
 ### Rule ADR-AUTO-TYPES:7
 
 Handle changed-after-load by context — a loaded assembly cannot be swapped in a running process. In a **pipeline** the loader throws (CI
@@ -61,8 +49,8 @@ must never run on stale types). On a **devbox** a changed or removed type degrad
 the old cached types until the session restarts, and keeps the already-loaded types this session, so a dev editing a type mid-session is
 never blocked. It returns without recording the new hash, so the warning repeats on every re-import until you restart. A type the loaded
 assembly lacks (added since load, or not loaded on behalf of another root) throws on a devbox too: the old types cannot serve code that uses
-it, so continuing would only move the failure to a confusing cast error far from the cause. The pipeline check reads the CI variables
-(`TF_BUILD`, `GITHUB_ACTIONS`) directly, because this pre-pass runs before `Catzc.Base.Repository` (`Test-IsRunningInPipeline`) loads.
+it, so continuing would only move the failure to a confusing cast error far from the cause. The loader tells a pipeline from a devbox by
+asking `Test-IsRunningInPipeline`, like every other caller.
 
 - [The cache-state contract](#the-cache-state-contract)
 
@@ -219,20 +207,27 @@ below). The [poka-yoke](../../principles/poka-yoke.md) is preserved because the 
 `Test-Formatting`, not a second source of truth, maintained by hand, that could drift.
 
 To keep that IDE artifact honest, the project **stamps its version from the committed `Catzc.Types.<hash>.dll`** — the runtime assembly's
-own identity (Rule ADR-AUTO-TYPES#6) — so its build metadata (the `deps.json` project entry) reads `Catzc.Types/1.0.0-<hash>`, not the
-accidental default `1.0.0`. It is trust-but-verify: the build recomputes the combined source hash with the loader's algorithm and **fails
-when the committed DLL is stale, missing, or ambiguous**, so the editor's project can never present a version that outruns the sources it
-claims to describe. That makes the hashing a fourth mirror of the same algorithm (loader, `Clear-ModuleTypeCache`, the drift-guard tests)
-that must stay in step.
+own identity ([ADR-AUTO-CACHE#8](../caching.md#rule-adr-auto-cache8)) — so its build metadata (the `deps.json` project entry) reads
+`Catzc.Types/1.0.0-<hash>`, not the accidental default `1.0.0`. It is trust-but-verify: the build recomputes the combined source hash with
+the loader's algorithm and **fails when the committed DLL is stale, missing, or ambiguous**, so the editor's project can never present a
+version that outruns the sources it claims to describe. That makes the hashing a fourth mirror of the same algorithm (loader,
+`Clear-ModuleTypeCache`, the drift-guard tests) that must stay in step.
 
 That editor build is the second of two pathways over the same sources: the host's compiler builds the runtime assembly (Rule
 ADR-AUTO-TYPES#3), and `dotnet build` compiles for the editor, which makes every `types/*.cs` a navigable Go-to-Symbol target.
 `Invoke-BuildForVSCode` drives the editor half — a `dotnet build` of `Catzc.Types.csproj` — and it doubles as a gate: the project's stamp
-task fails when the committed `Catzc.Types.<hash>.dll` is stale versus the sources (Rule ADR-AUTO-TYPES#6), so a green build also proves the
-IDE project matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable`, not the Tooling layer's `Invoke-Dotnet`, which a
-`Base` module must not depend on.
+task fails when the committed `Catzc.Types.<hash>.dll` is stale versus the sources (ADR-AUTO-CACHE#8), so a green build also proves the IDE
+project matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable`, not the Tooling layer's `Invoke-Dotnet`, which a `Base`
+module must not depend on.
 
 ### The cache-state contract
+
+The assembly is the one committed, cross-session cache of [caching](../caching.md#rule-adr-auto-cache8) (ADR-AUTO-CACHE#8): it is named for
+the combined hash of every module's sources and committed to `automation/.compiled/Catzc.Types.<hash>.dll`, so a fresh checkout and CI load
+it without Roslyn. The hash material is per file `<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move
+between modules (new namespace) or a rename (new type) re-keys even when content is byte-identical, with no dependence on the repository
+root. Every process loads the assembly from a per-user shadow copy (`Import-TypesAssembly`: `%LOCALAPPDATA%\catzc\types` on Windows,
+`~/.local/share/catzc/types` on Unix), never in place, so no session ever locks `automation/.compiled` ([why](#why-a-shadow-copy)).
 
 Because the DLL filename _is_ the combined source hash, there is no "present but stale" state — a source that changes has a different
 filename, so the current-hash DLL is simply absent until built. The loader resolves every state:
@@ -277,6 +272,10 @@ process that asks.
 That limit is measured once, so every caller agrees on it. `Get-LoadedTypeDrift` compares the session record of what was loaded with the
 sources on disk and names each drifted type; the loader reads it to warn or throw, and `Test-LoadedTypesCurrent` /
 `Assert-LoadedTypesCurrent` give the same answer to any code that needs current types, such as a test of a type just edited.
+
+Whether a stale load warns or throws depends on where the process runs, and the loader asks `Test-IsRunningInPipeline`, the one reader of
+the pipeline variables ([pipeline-detection](../../flow/pipeline-detection.md#rule-adr-flow-cd-detect1)), like every other caller (Rule
+ADR-AUTO-TYPES#7). The detection function is therefore loaded before the types pre-pass runs.
 
 A person who edits a type and imports again wants the new types, so the importer gives them a new process instead of an instruction, in the
 same window and with the same switches ([hosting-csharp-types](../../pwsh/hosting-csharp-types.md#rule-adr-pwsh-types5)). The old session

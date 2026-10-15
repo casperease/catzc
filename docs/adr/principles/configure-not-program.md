@@ -21,8 +21,8 @@ mechanism is missing or wrong: fix the mechanism, then add the instance as confi
 
 ### Rule ADR-PRIN-CONFIG:3
 
-Every setting has a sensible default, declared once on its config type (ADR-AUTO-DEFAULT#6). A config file states only what deviates from
-the default, so the shortest config is the common case and every line in it is a decision someone made.
+Every setting has a sensible default, declared once on its config type. A config file states only what deviates from the default, so the
+shortest config is the common case and every line in it is a decision someone made.
 
 - [Defaults carry the common case](#defaults-carry-the-common-case)
 

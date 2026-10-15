@@ -6,8 +6,8 @@
 
 ### Rule ADR-AUTO-RETRY:1
 
-Never retry in a test. A flake must surface; make the dependency deterministic (mock it) or move it behind an explicit tier (e.g.
-`-Tag 'L3'`, skipped when unavailable). Non-L3 tests must not depend on external connectivity.
+Never retry in a test. A flake must surface; make the dependency deterministic (mock it) or move the test behind an explicit tier (L3,
+skipped when its dependency is unavailable). A test below L3 does not depend on external connectivity.
 
 - [Decision](#decision)
 
@@ -40,8 +40,8 @@ breadcrumb. Never silent or unbounded.
 
 ### Rule ADR-AUTO-RETRY:6
 
-Isolate retry in a dedicated scriptblock-taking wrapper (an `Invoke-WithRetry`-style helper), never inlined into a function that also does
-work.
+Isolate retry in a dedicated wrapper that takes the operation to repeat as its argument (an `Invoke-WithRetry`-style helper), never inlined
+into a function that also does work.
 
 - [Decision](#decision)
 
@@ -56,7 +56,8 @@ rarely justified.
 The codebase leans the other way. [Fail fast with assertions](fail-fast-with-asserts.md) says assert and fail at the source.
 [Error handling](../pwsh/error-handling.md) and [single-responsibility-functions](single-responsibility-functions.md) say functions
 **throw** on failure and never catch-and-continue; whether to retry is the _caller's_ decision, isolated in a dedicated wrapper, never
-tangled into business logic. This ADR sets the policy for when a retry is permitted at all.
+tangled into business logic. This ADR sets the policy for when a retry is permitted at all; how pwsh spells the test tier and the wrapper is
+[error-handling](../pwsh/error-handling.md#rule-adr-pwsh-error10).
 
 ## Decision
 

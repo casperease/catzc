@@ -9,7 +9,7 @@
 Identifiers — variable names, parameter names, the keys of a map, and the nouns in command names — use full, spelled-out words. Write
 `protocols`, not `protos`; `ruleCollectionGroup`, not `rcg`; `templateFolderPath`, not `tfPath`; `stringBuilder`, not `sb`. No truncated
 words, no dropped vowels, and no locally-invented acronyms. (A short list of conventional abbreviations — `ctx`, `cfg`, `cmd`, … — is
-exempt; see ADR-AUTO-SPELL#2.) The PowerShell mechanics are [ADR-PWSH-NAMES#5](../pwsh/identifier-names.md#rule-adr-pwsh-names5).
+exempt; see ADR-AUTO-SPELL#2.)
 
 - [Why this matters](#why-this-matters)
 - [How this is enforced](#how-this-is-enforced)
@@ -22,7 +22,7 @@ GUID, regex, UTF, BOM); the engine's own automatic variables; and a short, curat
 developer reads fluently (`ctx`, `cfg`, `cmd`, `params`, `env`, `repo`, …). That allow-list — each term mapped to its full word — is the
 authoritative set, authored as `abbreviation` entries in the terminology registry (ADR-AUTO-SPELL#5, ADR-AUTO-SPELL#6). Everything else is
 spelled out, and an invented local shorthand (`tfPath`, `perSubEnvs`, `expectedMgr`) is never added to the registry to silence the gate
-(ADR-AUTO-SPELL#3). The PowerShell mechanics are [ADR-PWSH-NAMES#6](../pwsh/identifier-names.md#rule-adr-pwsh-names6).
+(ADR-AUTO-SPELL#3).
 
 - [Allowed exceptions](#allowed-exceptions)
 

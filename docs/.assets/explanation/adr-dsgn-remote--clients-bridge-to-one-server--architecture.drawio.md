@@ -5,7 +5,7 @@
 ```text
 A 1572 x 900 diagram, read top to bottom through four bands: IN, PULL REQUEST, SERVER REMOTE, OUT.
 Glyphs: 2 stores (slate), 1 gate, 1 ADR-only gate, 2 commits (locked palette); 1 flow edge, 3 ADR-only edges; 6 markers.
-Sidebar: axis minimap (main cell DSGN x ACCESS), tree minimap, lens badge ARCH, map key.
+Sidebar: world-map grid (3 lit cells), tree (5 lit groups), value-chain map (4 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-dsgn-remote--clients-bridge-to-one-server--architecture.drawio.png) draws, in the vocabulary of the
@@ -64,8 +64,26 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is DSGN × ACCESS, framed and filled in the ACCESS pink with the you-are-here dot. One touched cell, DSGN ×
-  DEPLOY, carries a small grey dot. The DSGN and ACCESS axis labels carry a pink tick.
-- **Tree minimap:** one lit tile, labelled adr/dsgn, with its two ADR files framed in dark ink.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-dsgn-remote--clients-bridge-to-one-server--architecture.grid.md),
+[tree](adr-dsgn-remote--clients-bridge-to-one-server--architecture.tree.md) and
+[value-chain map](adr-dsgn-remote--clients-bridge-to-one-server--architecture.chain.md). A file or ADR lights a minimap when it cites, or
+is, the ADR the slide supports (ADR-DSGN-LIFE, ADR-DSGN-REMOTE); the explanation articles, these descriptions and the drawing tooling never
+light anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 3 lit cells, `.claude × .md` (1 file: 1 cites ADR-DSGN-LIFE);
+  `automation × .yml` (2 files: 3 cite ADR-DSGN-LIFE, ADR-DSGN-REMOTE); `docs × .md` (5 files: 5 cite ADR-DSGN-LIFE, ADR-DSGN-REMOTE; 2 are
+  the ADR file of ADR-DSGN-LIFE, ADR-DSGN-REMOTE).
+- **Tree** (the repository's files): 5 lit groups, `adr/dsgn` (3 files); `adr/*` (2 files); `.claude` (1 file); `Docs` (1 file);
+  `ModuleSystem` (1 file). The ADR files `docs/adr/design/commit-lifecycle.md`, `docs/adr/design/server-remote-integration.md` carry the
+  white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 4 lit cells: `DSGN × BUILD`, because ADR-DSGN-REMOTE:
+  its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control is its own value-chain concern
+  (ADR-DSGN-TRACK#15); `DSGN × QC`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
+  quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); ADR-DSGN-REMOTE: its ADR domain `design` sits on the
+  DSGN row (ADR-DSGN-TRACK#14), and build, quality-control is its own value-chain concern (ADR-DSGN-TRACK#15); `DSGN × RELEAS`, because
+  ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own
+  value-chain concern (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row
+  (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** ARCH, with "Supports ADR-DSGN-REMOTE · ADR-DSGN-LIFE" beneath it.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

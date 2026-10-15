@@ -36,10 +36,6 @@ engine_neutrality:
     should-process: '\b(?:SupportsShouldProcess|ShouldProcess|WhatIf)\b'
     script-block: '\b(?:Script|script) ?block'
 
-citation_graph:
-  mode: report
-
 dora_coverage:
-  mode: report
   exempt:
     research: Each research ADR is the record of one DORA capability and ends with its own Dora explains section.

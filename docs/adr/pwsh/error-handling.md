@@ -47,6 +47,32 @@ key through `.Contains()`, an indexer, or the typed config record, never as a ba
 
 - [How this is enforced](#how-this-is-enforced)
 
+### Rule ADR-PWSH-ERROR:9
+
+In pwsh, the ambient state ADR-AUTO-ONEJOB#6 protects is the preference variables (`$ErrorActionPreference` first), the location, `$env:`
+variables, and `$global:` variables. A function that needs a different error behaviour for one call passes `-ErrorAction` to that call. A
+temporary change is made inside `try` and undone in its `finally` — `Push-Location` paired with `Pop-Location`, a saved value written back —
+so it is restored when the body throws too.
+
+- [Temporary state](#temporary-state)
+
+### Rule ADR-PWSH-ERROR:10
+
+In pwsh, a test never retries (ADR-AUTO-RETRY#1): no loop or retry wrapper around a call inside an `It`, and no re-run of a failed Pester
+run. An external dependency is replaced with `Mock`, or the test is tagged `L3` and marks itself skipped with
+`Set-ItResult -Skipped -Because '<reason>'` when its dependency is unavailable.
+
+- [Retry](#retry)
+
+### Rule ADR-PWSH-ERROR:11
+
+In pwsh, the retry wrapper of ADR-AUTO-RETRY#6 is its own function that takes the one operation to repeat as a `[scriptblock]` parameter,
+with an explicit attempt count and delay, writes each retry with `Write-Message -Warning` (ADR-AUTO-RETRY#5; never `Write-Warning`,
+ADR-PWSH-ERROR#5), and rethrows the last error unchanged when the attempts run out. The function that does the work holds no retry loop and
+no `catch` that repeats a call.
+
+- [Retry](#retry)
+
 ## Context
 
 PowerShell has a complex error handling model: terminating errors, non-terminating errors, `$ErrorActionPreference`, `$WarningPreference`,
@@ -122,6 +148,40 @@ catch {
 Functions never catch-and-continue internally. If `Invoke-Poetry` fails, it throws. Whether to retry, fall back, or abort is the caller's
 decision ([single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob5)).
 
+### Temporary state
+
+[single-responsibility-functions](../automation/single-responsibility-functions.md#rule-adr-auto-onejob6) rules out a function that changes
+ambient state as a side effect. In pwsh that state is mostly variables the caller cannot see being changed: `$ErrorActionPreference` and the
+other preferences, the location, `$env:` and `$global:` variables. Setting `$ErrorActionPreference` inside a function changes error handling
+for every call it makes and, in a dot-sourced script, for its caller too; the per-call `-ErrorAction` parameter changes it for the one call
+that needs it.
+
+A change that has to hold for a stretch of work is undone in `finally`, because a `finally` block runs whether the body returns or throws:
+
+```powershell
+Push-Location $workFolder
+try {
+    Invoke-Executable 'widget pack'
+}
+finally {
+    Pop-Location
+}
+```
+
+A restore written after the work, outside `finally`, is skipped by the first error the work throws, and the caller inherits the change.
+
+### Retry
+
+[retry-as-last-resort](../automation/retry-as-last-resort.md) allows a retry only for a transient external failure, never in a test, and
+only in a dedicated wrapper. In a Pester test, a dependency that can flake is mocked (`Mock`), or the test is an `L3` test that marks itself
+skipped with `Set-ItResult -Skipped -Because '<reason>'` when its dependency is unavailable; a loop around the call, or a re-run of the
+failed suite, would turn a real failure green.
+
+Outside tests, the wrapper is a function of its own that takes the operation as a `[scriptblock]`, so the work and the retry policy change
+independently. It repeats only that one call, a small fixed number of times, writes each retry as a yellow `Write-Message -Warning` line so
+a degrading dependency leaves a trace, and rethrows the last error unchanged when the attempts are spent, so the caller sees the real
+failure.
+
 ### Interactive error diagnostics
 
 In interactive mode, the importer installs a prompt hook that calls `Write-Exception` after every failed command. This provides a full stack
@@ -137,7 +197,8 @@ it, first check whether the warning can be fixed or the call can use `-WarningAc
 ## Decision
 
 All errors are terminating. All warnings are terminating. Functions use `throw` and `Assert-*` for failures, never `Write-Error` or
-`Write-Warning`. Error recovery is the caller's responsibility.
+`Write-Warning`. Error recovery is the caller's responsibility. A temporary change of ambient state is undone in `finally`; a retry lives in
+its own scriptblock-taking wrapper and never in a test.
 
 ### How this is enforced
 

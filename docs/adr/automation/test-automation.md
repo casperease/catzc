@@ -22,8 +22,9 @@ org `tst`) so they cannot collide with production.
 ### Rule ADR-AUTO-TEST:4
 
 Seam swaps are safe because `Get-Config` and `Get-BicepTemplates` key their session caches on the resolved path/root, so a fixture path and
-the real path get separate cache entries. A test that exercises cache behavior itself resets the cache entry per
-[script-scope-caching](../pwsh/script-scope-caching.md) (ADR-PWSH-CACHE#3).
+the real path get separate cache entries. A test varies a cached function's behaviour by replacing the whole function, never its internals,
+because a warm cache ignores a replaced dependency; only a test that exercises cache behaviour itself resets the cache, and it resets the
+one entry it exercises.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -107,8 +108,8 @@ and assert invariants that hold for _every_ template. It must **never** bind to 
 production-derived magic value (a rendered secret name, resource name, or parameter-file name). Binding a test to a production identity
 makes that test veto the identity's rename or removal — a test must never block a production refactor. Positive, template-specific behaviour
 (e.g. a PrePost hook injecting a particular Key Vault reference) is verified as a **logic** test against a **fixture** template
-(ADR-PWSH-PESTER#2, ADR-AUTO-TEST#3), not against the shipped one; the generic integrity test asserts only the structural invariant — "any
-reference present is well-formed" — across all shipped templates.
+(ADR-AUTO-TEST#3), not against the shipped one; the generic integrity test asserts only the structural invariant — "any reference present is
+well-formed" — across all shipped templates.
 
 - [Generic integrity tests](#generic-integrity-tests)
 
@@ -288,15 +289,15 @@ selection — in a block under its banner and under `context` in `run.json`, so 
 
 ### Rule ADR-AUTO-TEST:35
 
-A **quality gate** is a gate ([ADR-FLOW-CD#13](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13)), decided automatically, that
-checks one property of the whole repository (or its declared scope): one public `Test-<subject>` function that collects every issue, writes
-its report through `Write-QualityGateReport` (`out/test-<subject>/`, settings in `reports.yml`), and throws once listing them all;
-`-PassThru` returns the result instead. Every repository check is a quality gate — a generator's drift (`Test-GeneratedFiles`), formatting
-(`Test-Formatting`), the shipped configs (`Test-ShippedConfigs`), and the built artifact (`Test-BuildArtifact`) included — and an integrity
-test runs it at its tier, so every default test run and every CI run (`-Level 2`, the BVT) includes it; a gate whose answer cannot differ by
-run mode is `source-only`, and the tag axes are the run's own check. No gate runs at import: the import stays cheap, so a gate's cost — a
-full call-graph scan for `Test-ModuleDependency` — is paid in a test run, never on every load. A `Test-*`/`Assert-*` pair over **one value
-or session state** (`Test-IsGuid`, `Test-AzCliConnected`) is not a quality gate: its `Test-*` answers a bool and its `Assert-*` throws.
+A **quality gate** is a gate, decided automatically, that checks one property of the whole repository (or its declared scope): one public
+`Test-<subject>` function that collects every issue, writes its report through `Write-QualityGateReport` (`out/test-<subject>/`, settings in
+`reports.yml`), and throws once listing them all; `-PassThru` returns the result instead. Every repository check is a quality gate — a
+generator's drift (`Test-GeneratedFiles`), formatting (`Test-Formatting`), the shipped configs (`Test-ShippedConfigs`), and the built
+artifact (`Test-BuildArtifact`) included — and an integrity test runs it at its tier, so every default test run and every CI run
+(`-Level 2`, the BVT) includes it; a gate whose answer cannot differ by run mode is `source-only`, and the tag axes are the run's own check.
+No gate runs at import: the import stays cheap, so a gate's cost — a full call-graph scan for `Test-ModuleDependency` — is paid in a test
+run, never on every load. A `Test-*`/`Assert-*` pair over **one value or session state** (`Test-IsGuid`, `Test-AzCliConnected`) is not a
+quality gate: its `Test-*` answers a bool and its `Assert-*` throws.
 
 - [Build Verification Test](#build-verification-test)
 
@@ -311,20 +312,19 @@ narrower selection — some modules, some tiers, one test file — is named by w
 ### Rule ADR-AUTO-TEST:37
 
 A **test suite** is a named, declared selection of tests that runs as one unit: a set of modules and a top tier, declared in configuration
-rather than typed at a prompt. A test suite is a globset's `verify:` scope in `globs.yml` (`modules` + `level`, the test blast-radius scope
-of [ADR-FLOW-CD-GLOBS#7](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)), named by its globset and run with
-`Test-Automation -Suite <globset>`; a pipeline runs it when that set changes. A test suite is configuration at rest: executing it is a test
-run (ADR-AUTO-TEST#34), and it is narrower than all tests (ADR-AUTO-TEST#36) unless it names every module. Not every test run executes a
-test suite: an ad-hoc selection is named by what it selects.
+rather than typed at a prompt. A test suite is a globset's `verify:` scope in `globs.yml` (`modules` + `level`, the globset's test
+blast-radius scope), named by its globset and run with `Test-Automation -Suite <globset>`; a pipeline runs it when that set changes. A test
+suite is configuration at rest: executing it is a test run (ADR-AUTO-TEST#34), and it is narrower than all tests (ADR-AUTO-TEST#36) unless
+it names every module. Not every test run executes a test suite: an ad-hoc selection is named by what it selects.
 
 - [Source and build runs](#source-and-build-runs)
 
 ### Rule ADR-AUTO-TEST:38
 
 Tests sit in an onion of rings around the code. The **core** is the code alone — L0/L1, every boundary mocked; the L2 ring adds the local
-tools the code drives (`git`, `az bicep build`, `python`, `dotnet`, Pester); the L3 ring adds the state outside the repository (the cloud,
-the user's environment, installed tools); the L4 ring is the released system itself (ADR-AUTO-TEST#41). A **vertical test** cuts from an
-outer ring through to the core: an L2 vertical test crosses the local-tool ring, an L3 vertical system test crosses both inner rings. A
+tools the code drives (`git`, `az bicep build`, `python`, `dotnet`, the test runner); the L3 ring adds the state outside the repository (the
+cloud, the user's environment, installed tools); the L4 ring is the released system itself (ADR-AUTO-TEST#41). A **vertical test** cuts from
+an outer ring through to the core: an L2 vertical test crosses the local-tool ring, an L3 vertical system test crosses both inner rings. A
 test's tier is its outermost ring, and a run's top tier is the outermost ring it includes — the BVT includes the core and the L2 ring, the
 in-place devbox run the core and the L2 and L3 rings, and only a run that asks for L4 includes the released system.
 
@@ -353,13 +353,13 @@ ADR-AUTO-BASH#5).
 ### Rule ADR-AUTO-TEST:41
 
 **Testing in production** is the L4 tier: tests of the released system itself, after final approval — the release-candidate artifact that
-cleared the RBC gate, where it runs: pre-prod, then production once activated ([ADR-FLOW-CD](../flow/cd-discipline-and-promotion-flow.md)
-owns those stages). It is the only tier that reaches a serving environment, and it creates nothing of its own there: an L4 test observes the
-system, or, where `test-policy.yml` lets that environment take them, drives synthetic transactions the system is built to accept and clean
-up (`read-only` is the default). L4 is opt-in: a run includes it only when asked (`-Level 4`). It may run anywhere — the only limit is the
-security context of the console running it — so each L4 test self-skips through `Get-TestTargetSkipReason` when the console cannot reach its
-target or the target does not allow the mode the test needs (ADR-AUTO-TEST#8). A gate exists only in a pipeline: an L4 run from a console is
-a run of that gate outside its pipeline, and its result is information, never a gate verdict.
+cleared the RBC gate, where it runs: pre-prod, then production once activated. It is the only tier that reaches a serving environment, and
+it creates nothing of its own there: an L4 test observes the system, or, where `test-policy.yml` lets that environment take them, drives
+synthetic transactions the system is built to accept and clean up (`read-only` is the default). L4 is opt-in: a run includes it only when
+asked (`-Level 4`). It may run anywhere — the only limit is the security context of the console running it — so each L4 test self-skips
+through `Get-TestTargetSkipReason` when the console cannot reach its target or the target does not allow the mode the test needs
+(ADR-AUTO-TEST#8). A gate exists only in a pipeline: an L4 run from a console is a run of that gate outside its pipeline, and its result is
+information, never a gate verdict.
 
 - [Test tiers: the test onion](#test-tiers-the-test-onion)
 
@@ -542,11 +542,11 @@ flowchart TB
   rely on alone — kept thin, one test per distinct outside boundary, each a worked example of its kind (the persistent-environment seam's
   real round trip, `Set-PermanentEnvironmentVariable.Tests.ps1`, is one). A test that only drives a local tool inside the repository is L2.
 - **L4 — the released system, after final approval.** Checks the RBC-cleared artifact where it runs: pre-prod, then production
-  (ADR-AUTO-TEST#41). L3 creates and removes its own scratch resources; L4 creates nothing of its own and only observes, or drives the
-  synthetic transactions `test-policy.yml` allows for that environment. It runs only when a run asks for it (`-Level 4`), in the DEPLOY-Prod
-  pipeline after the RBC gate, or from any console whose identity can reach the target. Each test self-skips through
-  `Get-TestTargetSkipReason` when it cannot reach its target or the target does not allow its mode. A console run of L4 is information,
-  never a gate verdict: gates exist only in pipelines.
+  (ADR-AUTO-TEST#41), the stages [cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md) owns. L3 creates and
+  removes its own scratch resources; L4 creates nothing of its own and only observes, or drives the synthetic transactions `test-policy.yml`
+  allows for that environment. It runs only when a run asks for it (`-Level 4`), in the DEPLOY-Prod pipeline after the RBC gate, or from any
+  console whose identity can reach the target. Each test self-skips through `Get-TestTargetSkipReason` when it cannot reach its target or
+  the target does not allow its mode. A console run of L4 is information, never a gate verdict: gates exist only in pipelines.
 
 ### Fast logic tests
 
@@ -719,6 +719,9 @@ loaded modules. Running it twice is waste ([reduce-waste](../principles/reduce-w
 skips it — and lists it, so a reader sees exactly what the build run does not execute. Everything that exercises loaded code runs in both.
 Both runs execute in CI on every push, so "works in both modes" is checked before anything merges.
 
+A test suite (ADR-AUTO-TEST#37) is the `verify:` scope a globset declares: the test blast-radius of a change to that globset, as
+[durable-sha-globs](../flow/durable-sha-globs.md#rule-adr-flow-cd-globs7) defines it for the pipelines that run it.
+
 ### Go test modules
 
 `A second kind of test file, the same run`
@@ -771,6 +774,9 @@ folder's public functions and defines exactly its private ones), and **`Manifest
 published manifest never churns). The L2 integrity tests run it one facet each, so the BVT includes every facet. Because everything is a
 static, hermetic property of the committed artifacts (ADR-AUTO-TEST#22), that verdict is reproducible: the same commit yields the same
 result on a devbox and in CI.
+
+Each check the BVT includes is a quality gate (ADR-AUTO-TEST#35): a gate in the delivery flow's sense
+([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13)) that a machine decides.
 
 In trunk-based development ([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive4)) the commit gate runs the BVT
 on both sides of master — a change integrates only when its BVT is green, and master stays green because nothing merges that has not passed

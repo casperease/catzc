@@ -36,9 +36,8 @@ An idea that is taken is rebuilt here to catzc's rules, never ported alongside t
 ### Rule ADR-REPO-INSPIRE:5
 
 An **inspiration** is a sibling repository declared in `configs/inspiration.yml` of `Catzc.Tooling.Inspiration`, with its id, its root on
-the workspace anchor ([ADR-AUTO-PATH#11](../automation/path-representation.md#rule-adr-auto-path11)), what it is, and the folders worth
-reading. `Get-Inspiration` lists the inspirations and reports whether each is available on this machine; one that is absent is reported,
-never thrown on.
+the workspace anchor, what it is, and the folders worth reading. `Get-Inspiration` lists the inspirations and reports whether each is
+available on this machine; one that is absent is reported, never thrown on.
 
 - [Declared, not described](#declared-not-described)
 
@@ -78,8 +77,9 @@ version, so the idea lands as if catzc had always had it.
 
 ### Declared, not described
 
-A path written into prose drifts and differs per machine. Declaring each inspiration in config gives one checked place to find it, and
-reporting availability as a value keeps the work going on a machine where the sibling is absent.
+A path written into prose drifts and differs per machine. Declaring each inspiration in config, its root on the workspace anchor
+([ADR-AUTO-PATH#11](../automation/path-representation.md#rule-adr-auto-path11)), gives one checked place to find it, and reporting
+availability as a value keeps the work going on a machine where the sibling is absent.
 
 ## Decision
 

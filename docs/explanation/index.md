@@ -31,12 +31,23 @@ Each diagram is drawn five times, through five lenses, so the same idea can be r
 ## How to read the diagrams
 
 Every diagram uses the same glyphs. The shape says what kind of thing an element is, and the colour says whether it is structure (dark, with
-white text) or state and outcome (light). Every diagram also carries its own legend panel, and the sidebar places it on two maps, each a
-minimap: the stack × domain grid, and a treemap of the repository's files.
+white text) or state and outcome (light). Every diagram also carries its own legend panel.
 
 ![The glyph library: one kind, one shape, one colour, one legend phrase](../.assets/explanation/glyphs.drawio.png)
 
 The glyph library is described element by element in [its asset description](../.assets/explanation/glyphs.drawio.md).
+
+The sidebar of every diagram places it on three maps, each drawn small as a minimap:
+
+- The **world map** is the repository drawn as its tracks crossed with its file languages
+  ([ADR-DSGN-TRACK#9](../adr/design/tracks.md#rule-adr-dsgn-track9)). It shows where the files the diagram concerns are.
+- The **tree** is the repository's files, grouped by folder. It shows the same files in the folders that hold them.
+- The **value-chain map** is the ADRs drawn as the value-chain stack crossed with the value-chain concerns
+  ([ADR-DSGN-TRACK#16](../adr/design/tracks.md#rule-adr-dsgn-track16)). It shows where the decision sits in delivery.
+
+On each map, a **lit cell** ([ADR-DSGN-TRACK#12](../adr/design/tracks.md#rule-adr-dsgn-track12)) is one the diagram's ADR selects; a cell
+lit only by passing mentions is drawn lighter, and every other cell is idle. The map key below the minimaps names the four swatches, and
+each minimap's own description, beside the diagram, gives the reason for every lit cell.
 
 ## Domains
 

@@ -94,8 +94,8 @@ In order of preference:
 
 2. **Convention.** Output verbosity defaults to `Detailed`. Test level defaults to `2`. These are values that are right 90% of the time.
 
-3. **The environment.** `$env:RepositoryRoot` provides the repo root. `Get-CatzcModuleRoot` provides the module's own folder. The function
-   uses these anchors instead of requiring a path parameter.
+3. **The environment.** `Get-RepositoryRoot` provides the working root ([never-depend-on-pwd](never-depend-on-pwd.md)).
+   `Get-CatzcModuleRoot` provides the module's own folder. The function uses these anchors instead of requiring a path parameter.
 
 4. **Off, for opt-in behavior.** `-PassThru`, `-DryRun`, `-Silent`, `-NoAssert` — these default to off because the common case does not need
    them; the caller opts in explicitly when needed (expressed as a `[switch]` — see [parameter-design](../pwsh/parameter-design.md)).

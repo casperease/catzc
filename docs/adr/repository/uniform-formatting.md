@@ -28,8 +28,7 @@ line endings, indentation kind, trailing-whitespace handling, and final newline)
 ### Rule ADR-REPO-FORMAT:4
 
 The baseline is the floor, not the ceiling. Indent width and line-length limits are per-language `.editorconfig` sections, and each language
-layers its own formatting rules on top — PowerShell in [powershell-formatting](../pwsh/powershell-formatting.md). No file falls below the
-baseline.
+layers its own formatting rules on top. No file falls below the baseline.
 
 - [Per-language layers](#per-language-layers)
 

@@ -38,9 +38,8 @@ layer reads the customer catalogue, never the reverse.
 
 Whether the repo does customer deployments — and for which customers — is the `have_customers` **variant** (`false` | `all` | `[names]`),
 not `customer.yml`. `customer.yml` is the catalogue of who exists; the variant is which of them this repo actually deploys for. The variant
-holds the enabled set so its `Test-`/`Assert-HaveCustomer(s)` primitives can live in `Base` (see
-[repo-variants](../repository/repo-variants.md)); an integrity test confirms every name in a `have_customers` list is defined in
-`customer.yml`.
+holds the enabled set so its `Test-`/`Assert-HaveCustomer(s)` primitives can live in `Base`; an integrity test confirms every name in a
+`have_customers` list is defined in `customer.yml`.
 
 - [Catalogue vs enabled set](#catalogue-vs-enabled-set)
 

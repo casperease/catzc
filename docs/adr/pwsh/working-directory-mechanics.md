@@ -32,9 +32,12 @@ guarantee restoration.
 ### Rule ADR-PWSH-PWD:4
 
 Module code locates its own content — its `configs/`, its `assets/`, another module's, and the dot-prefixed infrastructure (`.internal/`,
-`.vendor/`, `.compiled/`) — only through `Get-CatzcModuleRoot` (or `Get-CatzcModulesRoot` for the infrastructure). `$PSScriptRoot` is banned
-in module function files (a module's root and `private/` `.ps1` files); tests, `assets/`, and `.internal` keep it. The analyzer rule
-`Measure-NoScriptRootAnchor` enforces the ban.
+`.vendor/`, `.compiled/`), the internal asset dependencies of
+[ADR-AUTO-ASSETDEP#1](../automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1) — only through
+`Get-CatzcModuleRoot -ChildPath '<literal>'` (or `Get-CatzcModulesRoot` for the infrastructure), never through `$PSScriptRoot`,
+`Get-RepositoryRoot`, or a `Join-Path` over a hand-built `automation/...` path. `$PSScriptRoot` is banned in module function files (a
+module's root and `private/` `.ps1` files); tests, `assets/`, and `.internal` keep it. The analyzer rule `Measure-NoScriptRootAnchor`
+enforces the ban.
 
 - [The code root](#the-code-root)
 - [How this is enforced](#how-this-is-enforced)
@@ -55,6 +58,15 @@ analyzer rule `Measure-NoEnvRepositoryRoot` enforces it.
 
 - [The anchors](#the-anchors)
 - [How this is enforced](#how-this-is-enforced)
+
+### Rule ADR-PWSH-PWD:7
+
+The child path of [ADR-AUTO-ASSETDEP#2](../automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2) is the `-ChildPath` argument
+of `Get-CatzcModuleRoot`, written as one string literal at the call site — never a variable, an expression, or a `Join-Path` around the
+call. `Get-InternalAssetDependency` reads that literal from the syntax trees of the module function files, so a computed child path is a
+dependency the inventory cannot see.
+
+- [The code root](#the-code-root)
 
 ## Context
 
@@ -113,9 +125,9 @@ restored on every path out, including a throw.
 
 ## Decision
 
-Paths resolve from the code root (`Get-CatzcModuleRoot`) or the working root (`Get-RepositoryRoot`) with `Join-Path`; module function files
-use neither `$PSScriptRoot` nor `$env:RepositoryRoot`; a required working directory is set with `Push-Location`/`Pop-Location` in
-`try`/`finally`; a bare `Set-Location`/`cd` never appears.
+Paths resolve from the code root (`Get-CatzcModuleRoot`, with a literal `-ChildPath`) or the working root (`Get-RepositoryRoot`) with
+`Join-Path`; module function files use neither `$PSScriptRoot` nor `$env:RepositoryRoot`; a required working directory is set with
+`Push-Location`/`Pop-Location` in `try`/`finally`; a bare `Set-Location`/`cd` never appears.
 
 ### How this is enforced
 

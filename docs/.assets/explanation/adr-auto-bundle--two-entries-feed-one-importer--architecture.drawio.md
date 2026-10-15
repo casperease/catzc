@@ -5,7 +5,7 @@
 ```text
 A 1572 x 700 diagram, read top to bottom, then left to right, through three bands.
 Glyphs: 4 code units (slate), 4 named sets (mauve); 7 edges; 9 markers.
-Sidebar: axis minimap (main cell AUTO x LOAD), tree minimap, lens badge ARCH, map key.
+Sidebar: world-map grid (6 lit cells), tree (8 lit groups), value-chain map (2 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-auto-bundle--two-entries-feed-one-importer--architecture.drawio.png) draws, in the vocabulary of the
@@ -60,8 +60,23 @@ A full-width panel at the bottom of the drawing area, in three columns, left to 
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is AUTO × LOAD, framed and filled in the LOAD indigo with the you-are-here dot. Two touched cells, AUTO ×
-  CONFIG and AUTO × BUILD, carry a small grey dot.
-- **Tree minimap:** lit tiles labelled .internal, RootConfig, adr/auto and (root); the adr/auto file is framed in dark ink as an ADR file.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-auto-bundle--two-entries-feed-one-importer--architecture.grid.md),
+[tree](adr-auto-bundle--two-entries-feed-one-importer--architecture.tree.md) and
+[value-chain map](adr-auto-bundle--two-entries-feed-one-importer--architecture.chain.md). A file or ADR lights a minimap when it cites, or
+is, the ADR the slide supports (ADR-AUTO-BUNDLE); the explanation articles, these descriptions and the drawing tooling never light anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 6 lit cells, `.github × .yml` (1 file, mentions only: 1 cites
+  ADR-AUTO-BUNDLE); `automation × .cs` (2 files: 2 cite ADR-AUTO-BUNDLE); `automation × .ps1` (9 files: 9 cite ADR-AUTO-BUNDLE);
+  `automation × .yml` (2 files: 2 cite ADR-AUTO-BUNDLE); `docs × .md` (3 files: 2 cite ADR-AUTO-BUNDLE; 1 is the ADR file of
+  ADR-AUTO-BUNDLE); `Root files × .ps1` (1 file: 1 is mapped through files.yml to ADR-AUTO-BUNDLE). 1 cell lit only by passing mentions show
+  at 40 % ink.
+- **Tree** (the repository's files): 8 lit groups, `Exporter` (10 files); `adr/auto` (2 files); `Root files` (1 file); `.github` (1 file);
+  `.internal` (1 file); `Contracts` (1 file); `Docs` (1 file); `adr/*` (1 file). The ADR file `docs/adr/automation/platform-bundle.md`
+  carries the white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `AUTO × BUILD`, because ADR-AUTO-BUNDLE:
+  its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and build, release is its own value-chain concern
+  (ADR-DSGN-TRACK#15); `AUTO × RELEAS`, because ADR-AUTO-BUNDLE: its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and
+  build, release is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** ARCH, with "Supports ADR-AUTO-BUNDLE" beneath it.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

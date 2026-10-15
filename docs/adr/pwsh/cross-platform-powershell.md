@@ -14,15 +14,15 @@ code ever runs on the other OS.
 
 ### Rule ADR-PWSH-XPLAT:2
 
-Use `Join-Path` for all path construction; never concatenate strings with `/` or `\`. It uses the correct separator for the current
-platform.
+The path-joining primitive of [ADR-AUTO-XPLAT#3](../automation/cross-platform.md#rule-adr-auto-xplat3) is `Join-Path`: use it for all path
+construction, and never concatenate strings with `/` or `\`. It uses the correct separator for the current platform.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
 ### Rule ADR-PWSH-XPLAT:3
 
 Never use platform-specific cmdlets (`Get-Service`, `Get-WmiObject`, …) without a cross-platform alternative. If platform-specific behavior
-is unavoidable, branch on `$IsWindows` / `$IsLinux` and implement both.
+is unavoidable, branch on the built-in `$IsWindows` / `$IsLinux` automatic variables and always implement both branches.
 
 - [What breaks in practice](#what-breaks-in-practice)
 
@@ -33,17 +33,11 @@ PowerShell code meets [ADR-AUTO-XPLAT#9](../automation/cross-platform.md#rule-ad
 
 - [What breaks the other way](#what-breaks-the-other-way)
 
-### Rule ADR-PWSH-XPLAT:5
-
-Branch unavoidable platform-specific logic on the built-in `$IsWindows` / `$IsLinux` automatic variables, and always provide both branches.
-
-- [What breaks in practice](#what-breaks-in-practice)
-
 ### Rule ADR-PWSH-XPLAT:6
 
 PowerShell code resolves a path from the anchors of [ADR-AUTO-XPLAT#3](../automation/cross-platform.md#rule-adr-auto-xplat3): the working
 root through `Get-RepositoryRoot`, the code root through `Get-CatzcModuleRoot`, or the temp directory through `[IO.Path]::GetTempPath()`,
-joined with `Join-Path`. It never writes a literal `C:\` or `/tmp/`, and never reads a variable that one platform alone sets
+then joined by ADR-PWSH-XPLAT#2. It never writes a literal `C:\` or `/tmp/`, and never reads a variable that one platform alone sets
 (`$env:APPDATA`, `$env:USERPROFILE`).
 
 - [What breaks in practice](#what-breaks-in-practice)
@@ -67,10 +61,21 @@ normalised.
 
 ### Rule ADR-PWSH-XPLAT:9
 
-The one code path of [ADR-AUTO-XPLAT#8](../automation/cross-platform.md#rule-adr-auto-xplat8) is, in PowerShell, `Install-DevBoxTools` for
-the tools and the dot-sourced `importer.ps1` for the session, run unchanged on a workstation and in CI.
+The one code path of [ADR-AUTO-PARITY#1](../automation/devbox-pipeline-parity.md#rule-adr-auto-parity1) is, in PowerShell, the dot-sourced
+`importer.ps1` for the session and the per-tool `Install-*` functions over `tools.yml` for the tools
+([ADR-AUTO-DEPS#5](../automation/controlling-systemwide-deps.md#rule-adr-auto-deps5)), run unchanged on a workstation and in CI.
+`Install-DevBoxTools` orchestrates those functions on a devbox; a pipeline calls the same functions directly.
 
 - [How this is enforced](#how-this-is-enforced)
+
+### Rule ADR-PWSH-XPLAT:10
+
+The hand-built crossings [ADR-AUTO-PATH#4](../automation/path-representation.md#rule-adr-auto-path4) forbids are, in PowerShell, a
+`Join-Path $env:RepositoryRoot …` (or `Join-Path (Get-RepositoryRoot) …`) whose result is stored, returned, or logged, and a
+`-replace '\\','/'` separator fix. A path leaves through `ConvertTo-RepoRelativePath` and binds through `Resolve-RepoPath`; `Join-Path` onto
+an anchor is correct only on the line that binds the result.
+
+- [What breaks in practice](#what-breaks-in-practice)
 
 ## Context
 
@@ -146,8 +151,8 @@ profiles before push.
   on all target platforms. The rules, their profiles, and their on/off state live in `PSScriptAnalyzerSettings.psd1`.
 - **L2 tests run locally** — developers run the same `Test-ScriptAnalyzer.Tests.ps1` test file that CI runs, so platform violations are
   caught before push, not in the pipeline queue.
-- **One entry, everywhere** — `Install-DevBoxTools` and `importer.ps1` are the same files on a workstation and in CI; a pipeline step calls
-  them, never a CI-only script.
+- **One entry, everywhere** — `importer.ps1` and the per-tool `Install-*` functions are the same files on a workstation and in CI; a
+  pipeline step calls them, never a CI-only script (ADR-PWSH-XPLAT#9).
 
 ## Consequences
 

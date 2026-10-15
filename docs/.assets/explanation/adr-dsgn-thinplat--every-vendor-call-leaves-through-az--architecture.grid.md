@@ -17,7 +17,7 @@ the slide sits, not how many files a cell holds; the world-map PDFs show the cou
 
 - automation × powershell: 8 lit of 1443 files
 - automation × yaml: 3 lit of 97 files
-- docs × markdown: 35 lit of 744 files
+- docs × markdown: 5 lit of 744 files
 
 ## Key
 
@@ -55,85 +55,30 @@ Placed: the root folder `automation/` names the track automation ([ADR-DSGN-TRAC
 - [automation/Catzc.Base.QualityGates/configs/terminology.yml][16]: selected by [ADR-AZ-CLI][1]: the file cites it at line 586 (text);
   selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 670 (text).
 
-### docs × markdown (35 lit files)
+### docs × markdown (5 lit files)
 
 Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); the extension `.md` names the file language markdown
 ([ADR-DSGN-TRACK#6][4]). Lit ([ADR-DSGN-TRACK#12][5]) by:
 
-- [docs/adr/azure/az-session-verification.md][17]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/azure-customer-model.md][18]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/azure/azure-data-model.md][19]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that code.
-- [docs/adr/azure/azure-naming-standard.md][20]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/azure/azure-network-model.md][21]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/azure/caf/billing-and-tenant.md][22]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/azure/caf/design-principles.md][23]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/azure/caf/governance.md][24]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that code.
-- [docs/adr/azure/caf/identity-and-access.md][25]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/caf/landing-zone-security.md][26]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/caf/management.md][27]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that code.
-- [docs/adr/azure/caf/naming-and-tagging.md][28]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/azure/caf/network-connectivity.md][29]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/caf/network-private-access.md][30]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/caf/network-topology.md][31]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/azure/caf/platform-automation-and-devops.md][32]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/azure/caf/resource-organization.md][33]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/dora-explains.md][34]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that code.
-- [docs/adr/azure/landing-zones.md][35]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that code.
-- [docs/adr/azure/prefer-az-cli.md][1]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that code.
-- [docs/adr/azure/waf/cost-optimization.md][36]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/azure/waf/operational-excellence.md][37]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/waf/performance-efficiency.md][38]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/azure/waf/reliability.md][39]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that code.
-- [docs/adr/azure/waf/security.md][40]: selected by [ADR-AZ-CLI][1]: an ADR file of the `azure` ADR domain, the ADR domain of that code.
-- [docs/adr/design/commit-lifecycle.md][41]: selected by [ADR-DSGN-THINPLAT][2]: an ADR file of the `design` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/design/dora-explains.md][42]: selected by [ADR-DSGN-THINPLAT][2]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/module-aspects.md][43]: selected by [ADR-DSGN-THINPLAT][2]: an ADR file of the `design` ADR domain, the ADR domain of
-  that code.
-- [docs/adr/design/run-modes.md][44]: selected by [ADR-DSGN-THINPLAT][2]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/self-service.md][45]: selected by [ADR-DSGN-THINPLAT][2]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/server-remote-integration.md][46]: selected by [ADR-DSGN-THINPLAT][2]: an ADR file of the `design` ADR domain, the ADR
-  domain of that code.
-- [docs/adr/design/thin-platforms.md][2]: selected by [ADR-DSGN-THINPLAT][2]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/design/tracks.md][47]: selected by [ADR-DSGN-THINPLAT][2]: an ADR file of the `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/visual-design.md][48]: selected by [ADR-DSGN-THINPLAT][2]: an ADR file of the `design` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/index.md][49]: selected by [ADR-AZ-CLI][1]: the file cites it at line 252 (text); selected by [ADR-DSGN-THINPLAT][2]: the file
+- [docs/adr/azure/dora-explains.md][17]: selected by [ADR-AZ-CLI][1]: the file cites it at line 342 (text).
+- [docs/adr/azure/prefer-az-cli.md][1]: selected by [ADR-AZ-CLI][1]: the ADR's own file.
+- [docs/adr/design/dora-explains.md][18]: selected by [ADR-DSGN-THINPLAT][2]: the file cites it at line 29 (text).
+- [docs/adr/design/thin-platforms.md][2]: selected by [ADR-DSGN-THINPLAT][2]: the ADR's own file.
+- [docs/adr/index.md][19]: selected by [ADR-AZ-CLI][1]: the file cites it at line 252 (text); selected by [ADR-DSGN-THINPLAT][2]: the file
   cites it at line 89 (text).
 
 ## Keywords
 
-- [world map][50]
-- [track][51]
-- [file language][52]
-- [cell][53]
-- [lit cell][54]
-- [automation][55]: a track
-- [docs][55]: a track
-- [markdown][56]: a file language
-- [powershell][56]: a file language
-- [yaml][56]: a file language
+- [world map][20]
+- [track][21]
+- [file language][22]
+- [cell][23]
+- [lit cell][24]
+- [automation][25]: a track
+- [docs][25]: a track
+- [markdown][26]: a file language
+- [powershell][26]: a file language
+- [yaml][26]: a file language
 
 [1]: ../../adr/azure/prefer-az-cli.md
 [2]: ../../adr/design/thin-platforms.md
@@ -151,43 +96,13 @@ Placed: the root folder `docs/` names the track docs ([ADR-DSGN-TRACK#1][3]); th
 [14]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
 [15]: ../../../automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
 [16]: ../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
-[17]: ../../adr/azure/az-session-verification.md
-[18]: ../../adr/azure/azure-customer-model.md
-[19]: ../../adr/azure/azure-data-model.md
-[20]: ../../adr/azure/azure-naming-standard.md
-[21]: ../../adr/azure/azure-network-model.md
-[22]: ../../adr/azure/caf/billing-and-tenant.md
-[23]: ../../adr/azure/caf/design-principles.md
-[24]: ../../adr/azure/caf/governance.md
-[25]: ../../adr/azure/caf/identity-and-access.md
-[26]: ../../adr/azure/caf/landing-zone-security.md
-[27]: ../../adr/azure/caf/management.md
-[28]: ../../adr/azure/caf/naming-and-tagging.md
-[29]: ../../adr/azure/caf/network-connectivity.md
-[30]: ../../adr/azure/caf/network-private-access.md
-[31]: ../../adr/azure/caf/network-topology.md
-[32]: ../../adr/azure/caf/platform-automation-and-devops.md
-[33]: ../../adr/azure/caf/resource-organization.md
-[34]: ../../adr/azure/dora-explains.md
-[35]: ../../adr/azure/landing-zones.md
-[36]: ../../adr/azure/waf/cost-optimization.md
-[37]: ../../adr/azure/waf/operational-excellence.md
-[38]: ../../adr/azure/waf/performance-efficiency.md
-[39]: ../../adr/azure/waf/reliability.md
-[40]: ../../adr/azure/waf/security.md
-[41]: ../../adr/design/commit-lifecycle.md
-[42]: ../../adr/design/dora-explains.md
-[43]: ../../adr/design/module-aspects.md
-[44]: ../../adr/design/run-modes.md
-[45]: ../../adr/design/self-service.md
-[46]: ../../adr/design/server-remote-integration.md
-[47]: ../../adr/design/tracks.md
-[48]: ../../adr/design/visual-design.md
-[49]: ../../adr/index.md
-[50]: ../../adr/glossary.md#world-map
-[51]: ../../adr/glossary.md#track
-[52]: ../../adr/glossary.md#file-language
-[53]: ../../adr/glossary.md#cell
-[54]: ../../adr/glossary.md#lit-cell
-[55]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[56]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[17]: ../../adr/azure/dora-explains.md
+[18]: ../../adr/design/dora-explains.md
+[19]: ../../adr/index.md
+[20]: ../../adr/glossary.md#world-map
+[21]: ../../adr/glossary.md#track
+[22]: ../../adr/glossary.md#file-language
+[23]: ../../adr/glossary.md#cell
+[24]: ../../adr/glossary.md#lit-cell
+[25]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[26]: ../../../automation/Catzc.Base.Languages/configs/languages.yml

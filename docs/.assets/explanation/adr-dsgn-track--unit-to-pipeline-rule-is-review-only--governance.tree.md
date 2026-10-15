@@ -11,23 +11,23 @@ lit, and each reason below names the code that selects it.
 ## What the minimap shows
 
 The tree draws every file of the world map as a tile, grouped by top-level folder (under `automation/` by module, under `docs/adr/` by ADR
-domain), and lights 151 files in 18 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
+domain), and lights 127 files in 18 groups, filled in ink. A lit ADR file has a white rim; a file lit only by passing mentions is a lighter
 ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not select.
 
 - Globs (automation/Catzc.Base.Globs): 38 lit files
 - Maps (automation/Catzc.Base.Maps): 29 lit files
-- adr/repo (docs/adr/repository): 16 lit files
 - Docs (automation/Catzc.Base.Docs): 9 lit files
 - Languages (automation/Catzc.Base.Languages): 9 lit files
-- adr/dsgn (docs/adr/design): 9 lit files
 - QualityGates (automation/Catzc.Base.QualityGates): 7 lit files
-- adr/flow (docs/adr/flow): 6 lit files
 - pipelines: 6 lit files
 - Az.DevOps.BuildValidation (automation/Catzc.Azure.DevOps.BuildValidation): 5 lit files
 - docs (docs/ outside docs/adr/): 5 lit files
 - Variants (automation/Catzc.Base.Variants): 4 lit files
+- adr/flow (docs/adr/flow): 3 lit files
 - ModuleSystem (automation/Catzc.Base.ModuleSystem): 2 lit files
 - adr/* (the files directly in docs/adr/): 2 lit files
+- adr/dsgn (docs/adr/design): 2 lit files
+- adr/repo (docs/adr/repository): 2 lit files
 - .claude: 1 lit file
 - .github: 1 lit file
 - Contracts (automation/Catzc.Base.Contracts): 1 lit file
@@ -35,7 +35,7 @@ ink. Every other tile is idle, a grey box: a file the slide's ADR codes do not s
 
 ## Why each group is lit
 
-### Globs (38 lit files)
+### Globs (automation/Catzc.Base.Globs, 38 lit files)
 
 The group holds the files of automation/Catzc.Base.Globs; each sits in its world-map cell and is lit by:
 
@@ -122,7 +122,7 @@ The group holds the files of automation/Catzc.Base.Globs; each sits in its world
   cites it at line 3 (header), line 7 (header), line 10 (header), line 88 (text), line 143 (body comment), line 154 (text), line 158 (text)
   and line 172 (text).
 
-### Maps (29 lit files)
+### Maps (automation/Catzc.Base.Maps, 29 lit files)
 
 The group holds the files of automation/Catzc.Base.Maps; each sits in its world-map cell and is lit by:
 
@@ -134,7 +134,7 @@ The group holds the files of automation/Catzc.Base.Maps; each sits in its world-
 - [automation/Catzc.Base.Maps/Get-ValueChainMap.ps1][45], in the cell automation × powershell: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 6 (header), line 8 (header) and line 10 (header).
 - [automation/Catzc.Base.Maps/Get-WorldMap.ps1][46], in the cell automation × powershell: selected by [ADR-DSGN-TRACK][1]: the file cites it
-  at line 6 (header), line 7 (header) and line 18 (header).
+  at line 6 (header), line 7 (header) and line 19 (header).
 - [automation/Catzc.Base.Maps/Get-WorldMapHighlight.ps1][47], in the cell automation × powershell: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 12 (header) and line 33 (header); selected by [ADR-FLOW-CD][2]: the file cites it at line 31 (header).
 - [automation/Catzc.Base.Maps/Test-ValueChainMap.ps1][48], in the cell automation × powershell: selected by [ADR-DSGN-TRACK][1]: the file
@@ -152,9 +152,10 @@ The group holds the files of automation/Catzc.Base.Maps; each sits in its world-
 - [automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1][53], in the cell automation × powershell: selected by [ADR-DSGN-TRACK][1]:
   the file cites it at line 2 (header), line 21 (text), line 42 (text) and line 42 (body comment).
 - [automation/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1][54], in the cell automation × powershell: selected by [ADR-DSGN-TRACK][1]: the
-  file cites it at line 72 (body comment) and line 88 (text).
-- [automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][55], in the cell automation × powershell: selected by [ADR-FLOW-CD][2]:
-  the file cites it at line 70 (text) and line 71 (text).
+  file cites it at line 75 (body comment) and line 91 (text).
+- [automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1][55], in the cell automation × powershell: selected by
+  [ADR-DSGN-TRACK][1]: the file cites it at line 74 (text); selected by [ADR-FLOW-CD][2]: the file cites it at line 70 (text) and line 71
+  (text).
 - [automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1][56], in the cell automation × powershell: selected by [ADR-DSGN-TRACK][1]:
   the file cites it at line 2 (header), line 3 (header), line 4 (header), line 57 (text), line 57 (body comment), line 61 (text), line 62
   (text), line 63 (text), line 64 (text), line 68 (text), line 71 (text), line 90 (text), line 90 (body comment) and line 90 (body comment).
@@ -168,7 +169,7 @@ The group holds the files of automation/Catzc.Base.Maps; each sits in its world-
 - [automation/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1][59], in the cell automation × powershell: selected by
   [ADR-DSGN-TRACK][1]: the file cites it at line 2 (header), line 20 (text), line 29 (text), line 34 (text) and line 42 (text).
 - [automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1][60], in the cell automation × powershell: selected by
-  [ADR-DSGN-TRACK][1]: the file cites it at line 104 (text) and line 119 (text).
+  [ADR-DSGN-TRACK][1]: the file cites it at line 68 (text), line 112 (text) and line 126 (text).
 - [automation/Catzc.Base.Maps/types/MapCell.cs][61], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 2 (header), line 3 (header) and line 4 (header).
 - [automation/Catzc.Base.Maps/types/MapsLabels.cs][62], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it
@@ -184,7 +185,7 @@ The group holds the files of automation/Catzc.Base.Maps; each sits in its world-
 - [automation/Catzc.Base.Maps/types/WorldMap.cs][67], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 3 (header) and line 4 (header).
 - [automation/Catzc.Base.Maps/types/WorldMapBuilder.cs][68], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file
-  cites it at line 7 (header), line 8 (header) and line 11 (header).
+  cites it at line 8 (header), line 9 (header) and line 12 (header).
 - [automation/Catzc.Base.Maps/types/WorldMapGridLayout.cs][69], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 3 (header) and line 4 (header).
 - [automation/Catzc.Base.Maps/types/WorldMapHighlight.cs][70], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file
@@ -192,301 +193,246 @@ The group holds the files of automation/Catzc.Base.Maps; each sits in its world-
 - [automation/Catzc.Base.Maps/types/WorldMapPdf.cs][71], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it
   at line 4 (header), line 5 (header) and line 6 (header).
 
-### adr/repo (16 lit files)
-
-The group holds the files of docs/adr/repository; each sits in its world-map cell and is lit by:
-
-- [docs/adr/repository/agent-definitions.md][72], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the
-  `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/api-contracts.md][73], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the
-  `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/controlled-vocabulary.md][74], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the
-  `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/conventional-folders.md][4], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the
-  `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/dedicated-output-directory.md][75], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of
-  the `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/documentation-examples.md][76], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the
-  `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/domain-language-separation.md][77], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of
-  the `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/dora-explains.md][78], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the
-  `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/generated-readmes.md][79], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the
-  `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/generated-root-configs.md][80], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the
-  `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/inspiration.md][81], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the `repository`
-  ADR domain, the ADR domain of that code.
-- [docs/adr/repository/markdown-links.md][82], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the
-  `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/output-formats.md][83], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the
-  `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/protected-globs.md][84], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the
-  `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/repo-variants.md][85], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the
-  `repository` ADR domain, the ADR domain of that code.
-- [docs/adr/repository/uniform-formatting.md][86], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: an ADR file of the
-  `repository` ADR domain, the ADR domain of that code.
-
-### Docs (9 lit files)
+### Docs (automation/Catzc.Base.Docs, 9 lit files)
 
 The group holds the files of automation/Catzc.Base.Docs; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Docs/configs/adrs.yml][87], in the cell automation × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [automation/Catzc.Base.Docs/configs/adrs.yml][72], in the cell automation × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 11 (header), line 12 (header) and line 95 (text); selected by [ADR-FLOW-CD][2]: the file cites it at line 105 (body comment) and line
   118 (text); selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 122 (text); selected by [ADR-REPO-FOLDERS][4]: the file cites it
   at line 308 (text).
-- [automation/Catzc.Base.Docs/configs/agents.yml][88], in the cell automation × yaml: selected by [ADR-REPO-FOLDERS][4]: the file cites it
+- [automation/Catzc.Base.Docs/configs/agents.yml][73], in the cell automation × yaml: selected by [ADR-REPO-FOLDERS][4]: the file cites it
   at line 32 (body comment) and line 37 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Docs/configs/glossary.yml][89], in the cell automation × yaml: selected by [ADR-REPO-FOLDERS][4]: the file cites it
+- [automation/Catzc.Base.Docs/configs/glossary.yml][74], in the cell automation × yaml: selected by [ADR-REPO-FOLDERS][4]: the file cites it
   at line 17 (text).
-- [automation/Catzc.Base.Docs/private/Get-CatsModules.ps1][90], in the cell automation × powershell: selected by [ADR-REPO-FOLDERS][4]: the
+- [automation/Catzc.Base.Docs/private/Get-CatsModules.ps1][75], in the cell automation × powershell: selected by [ADR-REPO-FOLDERS][4]: the
   file cites it at line 7 (header).
-- [automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1][91], in the cell automation × powershell: selected by [ADR-DSGN-TRACK][1]:
+- [automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1][76], in the cell automation × powershell: selected by [ADR-DSGN-TRACK][1]:
   the file cites it at line 99 (text) and line 99 (body comment).
-- [automation/Catzc.Base.Docs/types/AdrDomain.cs][92], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it
+- [automation/Catzc.Base.Docs/types/AdrDomain.cs][77], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it
   at line 6 (header) and line 7 (header).
-- [automation/Catzc.Base.Docs/types/AdrRuleSet.cs][93], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it
+- [automation/Catzc.Base.Docs/types/AdrRuleSet.cs][78], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it
   at line 8 (header).
-- [automation/Catzc.Base.Docs/types/AdrsConfig.cs][94], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it
+- [automation/Catzc.Base.Docs/types/AdrsConfig.cs][79], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file cites it
   at line 21 (header), line 24 (header), line 43 (body comment) and line 47 (body comment); selected by [ADR-FLOW-CD][2]: the file cites it
   at line 17 (header), line 18 (header), line 194 (body comment) and line 195 (body comment).
-- [automation/Catzc.Base.Docs/types/GlossaryConcept.cs][95], in the cell automation × csharp: selected by [ADR-FLOW-CD][2]: the file cites
+- [automation/Catzc.Base.Docs/types/GlossaryConcept.cs][80], in the cell automation × csharp: selected by [ADR-FLOW-CD][2]: the file cites
   it at line 41 (body comment) (a passing mention only).
 
-### Languages (9 lit files)
+### Languages (automation/Catzc.Base.Languages, 9 lit files)
 
 The group holds the files of automation/Catzc.Base.Languages; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Languages/Get-FileLanguage.ps1][96], in the cell automation × powershell: selected by [ADR-DSGN-TRACK][1]: the file
+- [automation/Catzc.Base.Languages/Get-FileLanguage.ps1][81], in the cell automation × powershell: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 6 (header).
-- [automation/Catzc.Base.Languages/configs/glossary.yml][97], in the cell automation × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites
+- [automation/Catzc.Base.Languages/configs/glossary.yml][82], in the cell automation × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites
   it at line 10 (text).
-- [automation/Catzc.Base.Languages/configs/languages.yml][98], in the cell automation × yaml: selected by [ADR-DSGN-TRACK][1]: the file
+- [automation/Catzc.Base.Languages/configs/languages.yml][83], in the cell automation × yaml: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 2 (header).
-- [automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1][99], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1][84], in the cell automation × powershell: selected by
   [ADR-DSGN-TRACK][1]: the file cites it at line 47 (body comment), line 124 (text), line 136 (text) and line 178 (text).
-- [automation/Catzc.Base.Languages/types/BashConfig.cs][100], in the cell automation × csharp: selected by [ADR-REPO-FOLDERS][4]: the file
+- [automation/Catzc.Base.Languages/types/BashConfig.cs][85], in the cell automation × csharp: selected by [ADR-REPO-FOLDERS][4]: the file
   cites it at line 12 (header).
-- [automation/Catzc.Base.Languages/types/FileLanguage.cs][101], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file
+- [automation/Catzc.Base.Languages/types/FileLanguage.cs][86], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 2 (header).
-- [automation/Catzc.Base.Languages/types/GoConfig.cs][102], in the cell automation × csharp: selected by [ADR-REPO-FOLDERS][4]: the file
+- [automation/Catzc.Base.Languages/types/GoConfig.cs][87], in the cell automation × csharp: selected by [ADR-REPO-FOLDERS][4]: the file
   cites it at line 15 (header).
-- [automation/Catzc.Base.Languages/types/LanguagesConfig.cs][103], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the
-  file cites it at line 2 (header).
-- [automation/Catzc.Base.Languages/types/PythonConfig.cs][104], in the cell automation × csharp: selected by [ADR-REPO-FOLDERS][4]: the file
+- [automation/Catzc.Base.Languages/types/LanguagesConfig.cs][88], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file
+  cites it at line 2 (header).
+- [automation/Catzc.Base.Languages/types/PythonConfig.cs][89], in the cell automation × csharp: selected by [ADR-REPO-FOLDERS][4]: the file
   cites it at line 15 (header).
 
-### adr/dsgn (9 lit files)
-
-The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
-
-- [docs/adr/design/commit-lifecycle.md][105], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/design/dora-explains.md][106], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/design/module-aspects.md][107], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/design/run-modes.md][108], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: an ADR file of the `design` ADR domain,
-  the ADR domain of that code.
-- [docs/adr/design/self-service.md][109], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/design/server-remote-integration.md][110], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: an ADR file of the
-  `design` ADR domain, the ADR domain of that code.
-- [docs/adr/design/thin-platforms.md][111], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code.
-- [docs/adr/design/tracks.md][1], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: an ADR file of the `design` ADR domain, the
-  ADR domain of that code.
-- [docs/adr/design/visual-design.md][112], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: an ADR file of the `design` ADR
-  domain, the ADR domain of that code.
-
-### QualityGates (7 lit files)
+### QualityGates (automation/Catzc.Base.QualityGates, 7 lit files)
 
 The group holds the files of automation/Catzc.Base.QualityGates; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.QualityGates/Test-Automation.ps1][113], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][3]:
-  the file cites it at line 72 (header).
-- [automation/Catzc.Base.QualityGates/configs/glossary.yml][114], in the cell automation × yaml: selected by [ADR-FLOW-CD][2]: the file
-  cites it at line 62 (text).
-- [automation/Catzc.Base.QualityGates/configs/terminology.yml][115], in the cell automation × yaml: selected by [ADR-DSGN-TRACK][1]: the
-  file cites it at line 318 (text) and line 321 (text).
-- [automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1][116], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.QualityGates/Test-Automation.ps1][90], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][3]: the
+  file cites it at line 72 (header).
+- [automation/Catzc.Base.QualityGates/configs/glossary.yml][91], in the cell automation × yaml: selected by [ADR-FLOW-CD][2]: the file cites
+  it at line 62 (text).
+- [automation/Catzc.Base.QualityGates/configs/terminology.yml][92], in the cell automation × yaml: selected by [ADR-DSGN-TRACK][1]: the file
+  cites it at line 318 (text) and line 321 (text).
+- [automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1][93], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 7 (header).
-- [automation/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1][117], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1][94], in the cell automation × powershell: selected by
   [ADR-DSGN-TRACK][1]: the file cites it at line 7 (header).
-- [automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1][118], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1][95], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 143 (body comment) (a passing mention only).
-- [automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1][119], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1][96], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 9 (header).
-
-### adr/flow (6 lit files)
-
-The group holds the files of docs/adr/flow; each sits in its world-map cell and is lit by:
-
-- [docs/adr/flow/cd-discipline-and-promotion-flow.md][2], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: an ADR file of the
-  `flow` ADR domain, the ADR domain of that code; selected by [ADR-FLOW-CD-GLOBS][3]: an ADR file of the `flow` ADR domain, the ADR domain
-  of that code.
-- [docs/adr/flow/dora-explains.md][120], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: an ADR file of the `flow` ADR domain,
-  the ADR domain of that code; selected by [ADR-FLOW-CD-GLOBS][3]: an ADR file of the `flow` ADR domain, the ADR domain of that code.
-- [docs/adr/flow/durable-sha-globs.md][3], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: an ADR file of the `flow` ADR domain,
-  the ADR domain of that code; selected by [ADR-FLOW-CD-GLOBS][3]: an ADR file of the `flow` ADR domain, the ADR domain of that code.
-- [docs/adr/flow/pipeline-detection.md][121], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: an ADR file of the `flow` ADR
-  domain, the ADR domain of that code; selected by [ADR-FLOW-CD-GLOBS][3]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/flow/pipeline-runner-pattern.md][122], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: an ADR file of the `flow` ADR
-  domain, the ADR domain of that code; selected by [ADR-FLOW-CD-GLOBS][3]: an ADR file of the `flow` ADR domain, the ADR domain of that
-  code.
-- [docs/adr/flow/pipeline-types.md][123], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: an ADR file of the `flow` ADR domain,
-  the ADR domain of that code; selected by [ADR-FLOW-CD-GLOBS][3]: an ADR file of the `flow` ADR domain, the ADR domain of that code.
 
 ### pipelines (6 lit files)
 
 The group holds the files of pipelines; each sits in its world-map cell and is lit by:
 
-- [pipelines/cd-apex.yaml][124], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 15
+- [pipelines/cd-apex.yaml][97], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 15
   (header).
-- [pipelines/cd-flux.yaml][125], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 14
+- [pipelines/cd-flux.yaml][98], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 14
   (header).
-- [pipelines/cd-nova.yaml][126], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 14
+- [pipelines/cd-nova.yaml][99], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 14
   (header).
-- [pipelines/cd-shared.yaml][127], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 29
+- [pipelines/cd-shared.yaml][100], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 29
   (header).
-- [pipelines/ci-automation.yaml][128], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 6
+- [pipelines/ci-automation.yaml][101], in the cell pipelines × pipeline-yaml: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 6
   (header); selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 4 (header).
-- [pipelines/ci-infrastructure.yaml][129], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at
+- [pipelines/ci-infrastructure.yaml][102], in the cell pipelines × pipeline-yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at
   line 17 (header).
 
-### Az.DevOps.BuildValidation (5 lit files)
+### Az.DevOps.BuildValidation (automation/Catzc.Azure.DevOps.BuildValidation, 5 lit files)
 
 The group holds the files of automation/Catzc.Azure.DevOps.BuildValidation; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1][130], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1][103], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 10 (header).
-- [automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1][131], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1][104], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 6 (header) and line 98 (body comment).
-- [automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1][132], in the cell automation × powershell: selected by
+- [automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1][105], in the cell automation × powershell: selected by
   [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 6 (header).
-- [automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml][133], in the cell automation × yaml: selected by
+- [automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml][106], in the cell automation × yaml: selected by
   [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 5 (header).
-- [automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1][134], in the cell automation × powershell:
+- [automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1][107], in the cell automation × powershell:
   selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 8 (header).
 
-### docs (5 lit files)
+### docs (docs/ outside docs/adr/, 5 lit files)
 
 The group holds the files of docs/ outside docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][135], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][3]:
+- [docs/how-to/automation/manual-test-plan/pipelines-and-globs.md][108], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][3]:
   the file cites it at line 18 (text).
-- [docs/how-to/automation/manual-test-plan/repository-conventions.md][136], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]:
+- [docs/how-to/automation/manual-test-plan/repository-conventions.md][109], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]:
   the file cites it at line 19 (text), line 25 (text), line 25 (text), line 28 (text), line 28 (text), line 30 (text), line 30 (text), line
   30 (text), line 31 (text) and line 32 (text).
-- [docs/references/automation/catzc-base-globs.md][137], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it
+- [docs/references/automation/catzc-base-globs.md][110], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it
   at line 29 (text).
-- [docs/references/automation/catzc-base-languages.md][138], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: the file cites
+- [docs/references/automation/catzc-base-languages.md][111], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: the file cites
   it at line 47 (text) and line 77 (text).
-- [docs/references/automation/catzc-base-maps.md][139], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites it at
+- [docs/references/automation/catzc-base-maps.md][112], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites it at
   line 68 (text), line 70 (text) and line 82 (text).
 
-### Variants (4 lit files)
+### Variants (automation/Catzc.Base.Variants, 4 lit files)
 
 The group holds the files of automation/Catzc.Base.Variants; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Variants/Get-Track.ps1][140], in the cell automation × powershell: selected by [ADR-DSGN-TRACK][1]: the file cites
+- [automation/Catzc.Base.Variants/Get-Track.ps1][113], in the cell automation × powershell: selected by [ADR-DSGN-TRACK][1]: the file cites
   it at line 5 (header), line 7 (header), line 8 (header) and line 12 (header).
-- [automation/Catzc.Base.Variants/configs/variants.yml][141], in the cell automation × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites
+- [automation/Catzc.Base.Variants/configs/variants.yml][114], in the cell automation × yaml: selected by [ADR-DSGN-TRACK][1]: the file cites
   it at line 45 (body comment), line 48 (body comment) and line 50 (body comment) (a passing mention only).
-- [automation/Catzc.Base.Variants/types/VariantTrack.cs][142], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file
+- [automation/Catzc.Base.Variants/types/VariantTrack.cs][115], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 1 (header), line 3 (header) and line 17 (body comment).
-- [automation/Catzc.Base.Variants/types/VariantsConfig.cs][143], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file
+- [automation/Catzc.Base.Variants/types/VariantsConfig.cs][116], in the cell automation × csharp: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 22 (header), line 25 (header), line 27 (header) and line 270 (text).
 
-### ModuleSystem (2 lit files)
+### adr/flow (docs/adr/flow, 3 lit files)
+
+The group holds the files of docs/adr/flow; each sits in its world-map cell and is lit by:
+
+- [docs/adr/flow/cd-discipline-and-promotion-flow.md][2], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the ADR's own file.
+- [docs/adr/flow/dora-explains.md][117], in the cell docs × markdown: selected by [ADR-FLOW-CD][2]: the file cites it at line 13 (text);
+  selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 94 (text).
+- [docs/adr/flow/durable-sha-globs.md][3], in the cell docs × markdown: selected by [ADR-FLOW-CD-GLOBS][3]: the ADR's own file.
+
+### ModuleSystem (automation/Catzc.Base.ModuleSystem, 2 lit files)
 
 The group holds the files of automation/Catzc.Base.ModuleSystem; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1][144], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1][118], in the cell automation × powershell: selected by
   [ADR-REPO-FOLDERS][4]: the file cites it at line 8 (header) and line 89 (body comment).
-- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][145], in the cell automation × yaml: selected by [ADR-DSGN-TRACK][1]: the file
+- [automation/Catzc.Base.ModuleSystem/configs/glossary.yml][119], in the cell automation × yaml: selected by [ADR-DSGN-TRACK][1]: the file
   cites it at line 9 (text), line 65 (text), line 84 (text), line 95 (text), line 110 (text), line 123 (text), line 137 (text), line 152
   (text), line 165 (text), line 177 (text), line 190 (text), line 192 (text) and line 204 (text); selected by [ADR-FLOW-CD][2]: the file
   cites it at line 21 (text).
 
-### adr/* (2 lit files)
+### adr/* (the files directly in docs/adr/, 2 lit files)
 
 The group holds the files of the files directly in docs/adr/; each sits in its world-map cell and is lit by:
 
-- [docs/adr/glossary.md][146], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 91 (text), line 107
+- [docs/adr/glossary.md][120], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 91 (text), line 107
   (text), line 121 (text), line 137 (text), line 166 (text), line 176 (text), line 178 (text), line 192 (text), line 211 (text), line 225
   (text), line 239 (text), line 252 (text), line 265 (text) and line 277 (text); selected by [ADR-FLOW-CD][2]: the file cites it at line 292
   (text) and line 305 (text); selected by [ADR-REPO-FOLDERS][4]: the file cites it at line 765 (text).
-- [docs/adr/index.md][147], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 88 (text); selected by
+- [docs/adr/index.md][121], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 88 (text); selected by
   [ADR-FLOW-CD][2]: the file cites it at line 107 (text); selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 111 (text); selected
   by [ADR-REPO-FOLDERS][4]: the file cites it at line 286 (text).
+
+### adr/dsgn (docs/adr/design, 2 lit files)
+
+The group holds the files of docs/adr/design; each sits in its world-map cell and is lit by:
+
+- [docs/adr/design/dora-explains.md][122], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the file cites it at line 13
+  (text).
+- [docs/adr/design/tracks.md][1], in the cell docs × markdown: selected by [ADR-DSGN-TRACK][1]: the ADR's own file.
+
+### adr/repo (docs/adr/repository, 2 lit files)
+
+The group holds the files of docs/adr/repository; each sits in its world-map cell and is lit by:
+
+- [docs/adr/repository/conventional-folders.md][4], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: the ADR's own file.
+- [docs/adr/repository/dora-explains.md][123], in the cell docs × markdown: selected by [ADR-REPO-FOLDERS][4]: the file cites it at line 13
+  (text).
 
 ### .claude (1 lit file)
 
 The group holds the files of .claude; each sits in its world-map cell and is lit by:
 
-- [.claude/CLAUDE.md][148], in the cell .claude × markdown: selected by [ADR-FLOW-CD][2]: the file cites it at line 51 (text).
+- [.claude/CLAUDE.md][124], in the cell .claude × markdown: selected by [ADR-FLOW-CD][2]: the file cites it at line 51 (text).
 
 ### .github (1 lit file)
 
 The group holds the files of .github; each sits in its world-map cell and is lit by:
 
-- [.github/workflows/ci-automation.yml][149], in the cell .github × yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 4
+- [.github/workflows/ci-automation.yml][125], in the cell .github × yaml: selected by [ADR-FLOW-CD-GLOBS][3]: the file cites it at line 4
   (body comment) (a passing mention only).
 
-### Contracts (1 lit file)
+### Contracts (automation/Catzc.Base.Contracts, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Contracts; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Contracts/private/Get-ContractDotFolderFindings.ps1][150], in the cell automation × powershell: selected by
+- [automation/Catzc.Base.Contracts/private/Get-ContractDotFolderFindings.ps1][126], in the cell automation × powershell: selected by
   [ADR-REPO-FOLDERS][4]: the file cites it at line 7 (header).
 
-### Exporter (1 lit file)
+### Exporter (automation/Catzc.Base.Exporter, 1 lit file)
 
 The group holds the files of automation/Catzc.Base.Exporter; each sits in its world-map cell and is lit by:
 
-- [automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1][151], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][3]:
+- [automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1][127], in the cell automation × powershell: selected by [ADR-FLOW-CD-GLOBS][3]:
   the file cites it at line 6 (header).
 
 ## Keywords
 
-- [world map][152]
-- [track][153]
-- [file language][154]
-- [cell][155]
-- [lit cell][156]
-- [.claude][141]: a track
-- [.github][141]: a track
-- [automation][141]: a track
-- [docs][141]: a track
-- [pipelines][141]: a track
-- [csharp][98]: a file language
-- [markdown][98]: a file language
-- [pipeline-yaml][98]: a file language
-- [powershell][98]: a file language
-- [yaml][98]: a file language
+- [world map][128]
+- [track][129]
+- [file language][130]
+- [cell][131]
+- [lit cell][132]
+- [.claude][114]: a track
+- [.github][114]: a track
+- [automation][114]: a track
+- [docs][114]: a track
+- [pipelines][114]: a track
+- [csharp][83]: a file language
+- [markdown][83]: a file language
+- [pipeline-yaml][83]: a file language
+- [powershell][83]: a file language
+- [yaml][83]: a file language
 
 Terms the cited ADRs define:
 
-- [cell][155], defined by [ADR-DSGN-TRACK#10][157]
-- [deployable-unit][158], defined by [ADR-DSGN-TRACK#5][159]
-- [domain][160], defined by [ADR-REPO-FOLDERS#5][161]
-- [file language][154], defined by [ADR-DSGN-TRACK#6][162]
-- [gate][163], defined by [ADR-FLOW-CD#13][164]
-- [lit cell][156], defined by [ADR-DSGN-TRACK#12][165]
-- [release candidate][166], defined by [ADR-FLOW-CD#14][167]
-- [root file][168], defined by [ADR-DSGN-TRACK#7][169]
-- [stack violation][170], defined by [ADR-DSGN-TRACK#11][171]
-- [track][153], defined by [ADR-DSGN-TRACK#1][172]
-- [unlisted file][173], defined by [ADR-DSGN-TRACK#8][174]
-- [value-chain concern][175], defined by [ADR-DSGN-TRACK#15][176]
-- [value-chain map][177], defined by [ADR-DSGN-TRACK#16][178]
-- [value-chain stack][179], defined by [ADR-DSGN-TRACK#14][180]
-- [verification track][181], defined by [ADR-DSGN-TRACK#2][182]
-- [world map][152], defined by [ADR-DSGN-TRACK#9][183]
+- [cell][131], defined by [ADR-DSGN-TRACK#10][133]
+- [deployable-unit][134], defined by [ADR-DSGN-TRACK#5][135]
+- [domain][136], defined by [ADR-REPO-FOLDERS#5][137]
+- [file language][130], defined by [ADR-DSGN-TRACK#6][138]
+- [gate][139], defined by [ADR-FLOW-CD#13][140]
+- [lit cell][132], defined by [ADR-DSGN-TRACK#12][141]
+- [release candidate][142], defined by [ADR-FLOW-CD#14][143]
+- [root file][144], defined by [ADR-DSGN-TRACK#7][145]
+- [stack violation][146], defined by [ADR-DSGN-TRACK#11][147]
+- [track][129], defined by [ADR-DSGN-TRACK#1][148]
+- [unlisted file][149], defined by [ADR-DSGN-TRACK#8][150]
+- [value-chain concern][151], defined by [ADR-DSGN-TRACK#15][152]
+- [value-chain map][153], defined by [ADR-DSGN-TRACK#16][154]
+- [value-chain stack][155], defined by [ADR-DSGN-TRACK#14][156]
+- [verification track][157], defined by [ADR-DSGN-TRACK#2][158]
+- [world map][128], defined by [ADR-DSGN-TRACK#9][159]
 
 [1]: ../../adr/design/tracks.md
 [2]: ../../adr/flow/cd-discipline-and-promotion-flow.md
@@ -559,115 +505,91 @@ Terms the cited ADRs define:
 [69]: ../../../automation/Catzc.Base.Maps/types/WorldMapGridLayout.cs
 [70]: ../../../automation/Catzc.Base.Maps/types/WorldMapHighlight.cs
 [71]: ../../../automation/Catzc.Base.Maps/types/WorldMapPdf.cs
-[72]: ../../adr/repository/agent-definitions.md
-[73]: ../../adr/repository/api-contracts.md
-[74]: ../../adr/repository/controlled-vocabulary.md
-[75]: ../../adr/repository/dedicated-output-directory.md
-[76]: ../../adr/repository/documentation-examples.md
-[77]: ../../adr/repository/domain-language-separation.md
-[78]: ../../adr/repository/dora-explains.md
-[79]: ../../adr/repository/generated-readmes.md
-[80]: ../../adr/repository/generated-root-configs.md
-[81]: ../../adr/repository/inspiration.md
-[82]: ../../adr/repository/markdown-links.md
-[83]: ../../adr/repository/output-formats.md
-[84]: ../../adr/repository/protected-globs.md
-[85]: ../../adr/repository/repo-variants.md
-[86]: ../../adr/repository/uniform-formatting.md
-[87]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
-[88]: ../../../automation/Catzc.Base.Docs/configs/agents.yml
-[89]: ../../../automation/Catzc.Base.Docs/configs/glossary.yml
-[90]: ../../../automation/Catzc.Base.Docs/private/Get-CatsModules.ps1
-[91]: ../../../automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
-[92]: ../../../automation/Catzc.Base.Docs/types/AdrDomain.cs
-[93]: ../../../automation/Catzc.Base.Docs/types/AdrRuleSet.cs
-[94]: ../../../automation/Catzc.Base.Docs/types/AdrsConfig.cs
-[95]: ../../../automation/Catzc.Base.Docs/types/GlossaryConcept.cs
-[96]: ../../../automation/Catzc.Base.Languages/Get-FileLanguage.ps1
-[97]: ../../../automation/Catzc.Base.Languages/configs/glossary.yml
-[98]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
-[99]: ../../../automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
-[100]: ../../../automation/Catzc.Base.Languages/types/BashConfig.cs
-[101]: ../../../automation/Catzc.Base.Languages/types/FileLanguage.cs
-[102]: ../../../automation/Catzc.Base.Languages/types/GoConfig.cs
-[103]: ../../../automation/Catzc.Base.Languages/types/LanguagesConfig.cs
-[104]: ../../../automation/Catzc.Base.Languages/types/PythonConfig.cs
-[105]: ../../adr/design/commit-lifecycle.md
-[106]: ../../adr/design/dora-explains.md
-[107]: ../../adr/design/module-aspects.md
-[108]: ../../adr/design/run-modes.md
-[109]: ../../adr/design/self-service.md
-[110]: ../../adr/design/server-remote-integration.md
-[111]: ../../adr/design/thin-platforms.md
-[112]: ../../adr/design/visual-design.md
-[113]: ../../../automation/Catzc.Base.QualityGates/Test-Automation.ps1
-[114]: ../../../automation/Catzc.Base.QualityGates/configs/glossary.yml
-[115]: ../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
-[116]: ../../../automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
-[117]: ../../../automation/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1
-[118]: ../../../automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
-[119]: ../../../automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
-[120]: ../../adr/flow/dora-explains.md
-[121]: ../../adr/flow/pipeline-detection.md
-[122]: ../../adr/flow/pipeline-runner-pattern.md
-[123]: ../../adr/flow/pipeline-types.md
-[124]: ../../../pipelines/cd-apex.yaml
-[125]: ../../../pipelines/cd-flux.yaml
-[126]: ../../../pipelines/cd-nova.yaml
-[127]: ../../../pipelines/cd-shared.yaml
-[128]: ../../../pipelines/ci-automation.yaml
-[129]: ../../../pipelines/ci-infrastructure.yaml
-[130]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
-[131]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
-[132]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
-[133]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-[134]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-[135]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
-[136]: ../../how-to/automation/manual-test-plan/repository-conventions.md
-[137]: ../../references/automation/catzc-base-globs.md
-[138]: ../../references/automation/catzc-base-languages.md
-[139]: ../../references/automation/catzc-base-maps.md
-[140]: ../../../automation/Catzc.Base.Variants/Get-Track.ps1
-[141]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
-[142]: ../../../automation/Catzc.Base.Variants/types/VariantTrack.cs
-[143]: ../../../automation/Catzc.Base.Variants/types/VariantsConfig.cs
-[144]: ../../../automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
-[145]: ../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
-[146]: ../../adr/glossary.md
-[147]: ../../adr/index.md
-[148]: ../../../.claude/CLAUDE.md
-[149]: ../../../.github/workflows/ci-automation.yml
-[150]: ../../../automation/Catzc.Base.Contracts/private/Get-ContractDotFolderFindings.ps1
-[151]: ../../../automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-[152]: ../../adr/glossary.md#world-map
-[153]: ../../adr/glossary.md#track
-[154]: ../../adr/glossary.md#file-language
-[155]: ../../adr/glossary.md#cell
-[156]: ../../adr/glossary.md#lit-cell
-[157]: ../../adr/design/tracks.md#rule-adr-dsgn-track10
-[158]: ../../adr/glossary.md#deployable-unit
-[159]: ../../adr/design/tracks.md#rule-adr-dsgn-track5
-[160]: ../../adr/glossary.md#domain
-[161]: ../../adr/repository/conventional-folders.md#rule-adr-repo-folders5
-[162]: ../../adr/design/tracks.md#rule-adr-dsgn-track6
-[163]: ../../adr/glossary.md#gate
-[164]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
-[165]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
-[166]: ../../adr/glossary.md#release-candidate
-[167]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
-[168]: ../../adr/glossary.md#root-file
-[169]: ../../adr/design/tracks.md#rule-adr-dsgn-track7
-[170]: ../../adr/glossary.md#stack-violation
-[171]: ../../adr/design/tracks.md#rule-adr-dsgn-track11
-[172]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
-[173]: ../../adr/glossary.md#unlisted-file
-[174]: ../../adr/design/tracks.md#rule-adr-dsgn-track8
-[175]: ../../adr/glossary.md#value-chain-concern
-[176]: ../../adr/design/tracks.md#rule-adr-dsgn-track15
-[177]: ../../adr/glossary.md#value-chain-map
-[178]: ../../adr/design/tracks.md#rule-adr-dsgn-track16
-[179]: ../../adr/glossary.md#value-chain-stack
-[180]: ../../adr/design/tracks.md#rule-adr-dsgn-track14
-[181]: ../../adr/glossary.md#verification-track
-[182]: ../../adr/design/tracks.md#rule-adr-dsgn-track2
-[183]: ../../adr/design/tracks.md#rule-adr-dsgn-track9
+[72]: ../../../automation/Catzc.Base.Docs/configs/adrs.yml
+[73]: ../../../automation/Catzc.Base.Docs/configs/agents.yml
+[74]: ../../../automation/Catzc.Base.Docs/configs/glossary.yml
+[75]: ../../../automation/Catzc.Base.Docs/private/Get-CatsModules.ps1
+[76]: ../../../automation/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
+[77]: ../../../automation/Catzc.Base.Docs/types/AdrDomain.cs
+[78]: ../../../automation/Catzc.Base.Docs/types/AdrRuleSet.cs
+[79]: ../../../automation/Catzc.Base.Docs/types/AdrsConfig.cs
+[80]: ../../../automation/Catzc.Base.Docs/types/GlossaryConcept.cs
+[81]: ../../../automation/Catzc.Base.Languages/Get-FileLanguage.ps1
+[82]: ../../../automation/Catzc.Base.Languages/configs/glossary.yml
+[83]: ../../../automation/Catzc.Base.Languages/configs/languages.yml
+[84]: ../../../automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
+[85]: ../../../automation/Catzc.Base.Languages/types/BashConfig.cs
+[86]: ../../../automation/Catzc.Base.Languages/types/FileLanguage.cs
+[87]: ../../../automation/Catzc.Base.Languages/types/GoConfig.cs
+[88]: ../../../automation/Catzc.Base.Languages/types/LanguagesConfig.cs
+[89]: ../../../automation/Catzc.Base.Languages/types/PythonConfig.cs
+[90]: ../../../automation/Catzc.Base.QualityGates/Test-Automation.ps1
+[91]: ../../../automation/Catzc.Base.QualityGates/configs/glossary.yml
+[92]: ../../../automation/Catzc.Base.QualityGates/configs/terminology.yml
+[93]: ../../../automation/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
+[94]: ../../../automation/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1
+[95]: ../../../automation/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+[96]: ../../../automation/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
+[97]: ../../../pipelines/cd-apex.yaml
+[98]: ../../../pipelines/cd-flux.yaml
+[99]: ../../../pipelines/cd-nova.yaml
+[100]: ../../../pipelines/cd-shared.yaml
+[101]: ../../../pipelines/ci-automation.yaml
+[102]: ../../../pipelines/ci-infrastructure.yaml
+[103]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
+[104]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+[105]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
+[106]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+[107]: ../../../automation/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
+[108]: ../../how-to/automation/manual-test-plan/pipelines-and-globs.md
+[109]: ../../how-to/automation/manual-test-plan/repository-conventions.md
+[110]: ../../references/automation/catzc-base-globs.md
+[111]: ../../references/automation/catzc-base-languages.md
+[112]: ../../references/automation/catzc-base-maps.md
+[113]: ../../../automation/Catzc.Base.Variants/Get-Track.ps1
+[114]: ../../../automation/Catzc.Base.Variants/configs/variants.yml
+[115]: ../../../automation/Catzc.Base.Variants/types/VariantTrack.cs
+[116]: ../../../automation/Catzc.Base.Variants/types/VariantsConfig.cs
+[117]: ../../adr/flow/dora-explains.md
+[118]: ../../../automation/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
+[119]: ../../../automation/Catzc.Base.ModuleSystem/configs/glossary.yml
+[120]: ../../adr/glossary.md
+[121]: ../../adr/index.md
+[122]: ../../adr/design/dora-explains.md
+[123]: ../../adr/repository/dora-explains.md
+[124]: ../../../.claude/CLAUDE.md
+[125]: ../../../.github/workflows/ci-automation.yml
+[126]: ../../../automation/Catzc.Base.Contracts/private/Get-ContractDotFolderFindings.ps1
+[127]: ../../../automation/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
+[128]: ../../adr/glossary.md#world-map
+[129]: ../../adr/glossary.md#track
+[130]: ../../adr/glossary.md#file-language
+[131]: ../../adr/glossary.md#cell
+[132]: ../../adr/glossary.md#lit-cell
+[133]: ../../adr/design/tracks.md#rule-adr-dsgn-track10
+[134]: ../../adr/glossary.md#deployable-unit
+[135]: ../../adr/design/tracks.md#rule-adr-dsgn-track5
+[136]: ../../adr/glossary.md#domain
+[137]: ../../adr/repository/conventional-folders.md#rule-adr-repo-folders5
+[138]: ../../adr/design/tracks.md#rule-adr-dsgn-track6
+[139]: ../../adr/glossary.md#gate
+[140]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd13
+[141]: ../../adr/design/tracks.md#rule-adr-dsgn-track12
+[142]: ../../adr/glossary.md#release-candidate
+[143]: ../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd14
+[144]: ../../adr/glossary.md#root-file
+[145]: ../../adr/design/tracks.md#rule-adr-dsgn-track7
+[146]: ../../adr/glossary.md#stack-violation
+[147]: ../../adr/design/tracks.md#rule-adr-dsgn-track11
+[148]: ../../adr/design/tracks.md#rule-adr-dsgn-track1
+[149]: ../../adr/glossary.md#unlisted-file
+[150]: ../../adr/design/tracks.md#rule-adr-dsgn-track8
+[151]: ../../adr/glossary.md#value-chain-concern
+[152]: ../../adr/design/tracks.md#rule-adr-dsgn-track15
+[153]: ../../adr/glossary.md#value-chain-map
+[154]: ../../adr/design/tracks.md#rule-adr-dsgn-track16
+[155]: ../../adr/glossary.md#value-chain-stack
+[156]: ../../adr/design/tracks.md#rule-adr-dsgn-track14
+[157]: ../../adr/glossary.md#verification-track
+[158]: ../../adr/design/tracks.md#rule-adr-dsgn-track2
+[159]: ../../adr/design/tracks.md#rule-adr-dsgn-track9

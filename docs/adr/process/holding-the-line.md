@@ -14,23 +14,21 @@ andon cord — anyone, or any gate, can and must halt the flow the moment a defe
 ### Rule ADR-PROC-ANDON:2
 
 Never build on a known-broken baseline. A red mainline is fixed or reverted before new work integrates on top of it; stacking work on a
-defect multiplies its blast radius and hides which change was at fault ([ADR-DSGN-LIFE](../design/commit-lifecycle.md)).
+defect multiplies its blast radius and hides which change was at fault.
 
 - [Decision](#decision)
 
 ### Rule ADR-PROC-ANDON:3
 
-Stopping the line is cheap and expected, not a failure event. The best stop is the earliest and smallest — a gate on the devbox
-([ADR-AUTO-PARITY](../automation/devbox-pipeline-parity.md)); the worst is a stop discovered in production. Optimise for stopping furthest
-left, not for never stopping.
+Stopping the line is cheap and expected, not a failure event. The best stop is the earliest and smallest — a gate on the devbox; the worst
+is a stop discovered in production. Optimise for stopping furthest left, not for never stopping.
 
 - [Why](#why)
 
 ### Rule ADR-PROC-ANDON:4
 
-The stop is automatic and unambiguous: the gate throws ([ADR-PWSH-ERROR](../pwsh/error-handling.md)), the commit is coloured red
-([ADR-DSGN-VISUAL](../design/visual-design.md)), and there is no "warn and continue" path. A warning that does not stop the line is not
-holding the line.
+The stop is automatic and unambiguous: the gate throws, the commit is coloured red, and there is no "warn and continue" path. A warning that
+does not stop the line is not holding the line.
 
 - [How to apply](#how-to-apply)
 
@@ -74,9 +72,10 @@ to route around the cord, which is how defects reach production.
 ## How to apply
 
 Make the stop automatic and total. A gate that detects a problem throws ([ADR-PWSH-ERROR](../pwsh/error-handling.md)) — it does not
-`Write-Warning` and carry on, because a warning that does not stop is a defect waved through. When the mainline is red, treat restoring it
-as the top priority and do not integrate new work onto it. When a gate goes red on your own machine, that is the system working: fix it
-there, where it is a one-line change, rather than pushing and letting the pipeline catch it.
+`Write-Warning` and carry on, because a warning that does not stop is a defect waved through. The commit it stopped shows red in the history
+view ([ADR-DSGN-VISUAL](../design/visual-design.md)). When the mainline is red, treat restoring it as the top priority and do not integrate
+new work onto it. When a gate goes red on your own machine, that is the system working: fix it there, where it is a one-line change, rather
+than pushing and letting the pipeline catch it.
 
 ## References
 

@@ -7,7 +7,7 @@
 ### Rule ADR-PROC-OBSERVEWIP:1
 
 Make the state of the work visible at all times. Where each commit sits in the flow — and what state it has reached — is rendered, not
-inferred from memory or a status meeting ([ADR-DSGN-VISUAL](../design/visual-design.md), [ADR-DSGN-LIFE](../design/commit-lifecycle.md)).
+inferred from memory or a status meeting.
 
 - [Decision](#decision)
 
@@ -20,8 +20,8 @@ not on proxies like tasks-marked-done or hours spent; working software is the me
 
 ### Rule ADR-PROC-OBSERVEWIP:3
 
-Surface problems loudly, at their origin. Console output is a first-class concern that reports outcomes and announces work before it blocks
-([ADR-AUTO-CONSOLE](../automation/console-output-matters.md)); a problem is made visible where it happens, never buried or deferred.
+Surface problems loudly, at their origin. Console output is a first-class concern that reports outcomes and announces work before it blocks;
+a problem is made visible where it happens, never buried or deferred.
 
 - [How to apply](#how-to-apply)
 
@@ -49,7 +49,8 @@ Treat visibility of the work as a requirement, not a nicety, and treat direct ob
 
 - **Render the flow.** The position and state of every commit is shown by construction, not reconstructed on demand
   ([ADR-DSGN-VISUAL](../design/visual-design.md)): position is time, colour is the furthest state reached, and a glance decodes where a
-  change is. The value stream is the visual factory.
+  change is. The states rendered are the commit's lifecycle states ([ADR-DSGN-LIFE](../design/commit-lifecycle.md)). The value stream is the
+  visual factory.
 - **Go and see.** Judge progress from the real running artifact and real signals — a gate that passed, a deployed environment, a monitored
   metric — not from a proxy. "Done" means the software does the thing, observed, not a task ticked ([ADR-PRIN-PROCESS](agile-principles.md),
   working software is the measure).

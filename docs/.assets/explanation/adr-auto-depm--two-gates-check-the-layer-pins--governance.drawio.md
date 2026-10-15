@@ -5,7 +5,7 @@
 ```text
 A 1572 x 700 diagram in two columns, each read top to bottom through three bands.
 Glyphs: 3 named sets (mauve), 2 gates, 1 ADR-only; 3 thick edges, 1 flow edge; 6 rule chips; 6 markers.
-Sidebar: axis minimap (main cell AUTO x BUILD), tree minimap, lens badge GOV, map key.
+Sidebar: world-map grid (8 lit cells), tree (39 lit groups), value-chain map (2 lit cells), map key.
 ```
 
 This describes what the [diagram](adr-auto-depm--two-gates-check-the-layer-pins--governance.drawio.png) draws, in the vocabulary of the
@@ -62,8 +62,31 @@ A full-width panel at the bottom of the drawing area, in four columns, left to r
 
 ## Sidebar
 
-- **Axis minimap:** the main cell is AUTO × BUILD, framed and filled in the BUILD purple with the you-are-here dot. One touched cell, AUTO ×
-  LOAD, carries a small grey dot. The AUTO and BUILD axis labels carry a purple tick.
-- **Tree minimap:** two lit tiles, labelled ModuleSystem and adr/auto. Two files inside adr/auto are framed in dark ink as ADR files.
+The sidebar places the slide on three minimaps. Each has its own description, which gives the reason for every lit cell or group:
+[world map](adr-auto-depm--two-gates-check-the-layer-pins--governance.grid.md),
+[tree](adr-auto-depm--two-gates-check-the-layer-pins--governance.tree.md) and
+[value-chain map](adr-auto-depm--two-gates-check-the-layer-pins--governance.chain.md). A file or ADR lights a minimap when it cites, or is,
+the ADR the slide supports (ADR-AUTO-DEPM, ADR-AUTO-TEST); the explanation articles, these descriptions and the drawing tooling never light
+anything.
+
+- **World-map grid** (tracks × file languages, ADR-DSGN-TRACK#9): 8 lit cells, `.claude × .md` (4 files: 4 cite ADR-AUTO-TEST);
+  `automation × .cs` (15 files: 15 cite ADR-AUTO-DEPM, ADR-AUTO-TEST); `automation × .ps1` (336 files: 336 cite ADR-AUTO-TEST);
+  `automation × .yml` (17 files: 18 cite ADR-AUTO-DEPM, ADR-AUTO-TEST); `docs × .md` (14 files: 14 cite ADR-AUTO-DEPM, ADR-AUTO-TEST; 2 are
+  the ADR file of ADR-AUTO-DEPM, ADR-AUTO-TEST); `pipelines × .yaml` (1 file, mentions only: 1 cites ADR-AUTO-TEST); `Root files × .ps1` (1
+  file: 1 is mapped through files.yml to ADR-AUTO-TEST); `Root files × other` (2 files: 2 are mapped through files.yml to ADR-AUTO-TEST). 1
+  cell lit only by passing mentions show at 40 % ink.
+- **Tree** (the repository's files): 39 lit groups, `QualityGates` (132 files); `Docs` (49 files); `Az.Templates` (29 files); `ModuleSystem`
+  (22 files); `Globs` (14 files); `Azure` (11 files); `Languages` (11 files); `Tool.Core` (11 files); `Execution` (10 files); `Maps` (9
+  files); `docs` (9 files); `RootConfig` (8 files); `Contracts` (7 files); `Tool.Provisioning` (7 files); `Reports` (5 files); `TypesSystem`
+  (5 files); `.claude` (4 files); `.internal` (4 files); `Az.DevOps` (4 files); `Tool.Inspiration` (4 files); `Root files` (3 files);
+  `Config` (3 files); `ConfigExtensions` (3 files); `Exporter` (3 files); `Tool.KeyHandler` (3 files); `adr/auto` (3 files); `Objects` (2
+  files); `Repository` (2 files); `Tool.Toolchain` (2 files); `adr/*` (2 files); `.scriptanalyzer` (1 file); `Az.DevOps.BuildValidation` (1
+  file); `Engines` (1 file); `Environment` (1 file); `Files` (1 file); `Overlay` (1 file); `Timeouts` (1 file); `Tool.Python` (1 file);
+  `pipelines` (1 file). The ADR files `docs/adr/automation/controlling-module-dependencies.md`, `docs/adr/automation/test-automation.md`
+  carry the white rim.
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `AUTO × AUTOMA`, because ADR-AUTO-DEPM: its
+  ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15);
+  `AUTO × QC`, because ADR-AUTO-TEST: its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and quality-control is its own
+  value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV, with "Supports ADR-AUTO-DEPM · ADR-AUTO-TEST" beneath it.
-- **Map key:** three swatches, for this slide's cell, a touched cell, and a lit file.
+- **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

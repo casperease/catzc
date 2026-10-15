@@ -7,7 +7,7 @@
 ### Rule ADR-PWSH-VENDOR:1
 
 Vendor modules into `automation/.vendor/<ModuleName>/<Version>/`; the version folder fixes the load path and makes upgrades visible in
-diffs.
+diffs. This is how a third-party PowerShell module becomes an internal module dependency, vendored and named (ADR-AUTO-DEPM#8).
 
 - [Vendoring solves all three](#vendoring-solves-all-three)
 

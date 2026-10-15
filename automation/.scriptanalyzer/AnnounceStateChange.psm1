@@ -7,7 +7,8 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .DESCRIPTION
     Every lasting change a function makes to the state of the console session is announced on the information
     stream, through the writer chokepoint
-    ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)). This
+    ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11), in pwsh
+    [ADR-PWSH-ANNOUNCE#8](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce8)). This
     rule flags a state change in a function (or
     in a script's top-level code) that never calls a writer. The changes it recognises:
 
@@ -34,7 +35,8 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     rule checks that the change is announced; what the line says is a review concern (it must name what changed).
 
     These are not changes of this session and pass
-    ([ADR-AUTO-CONSOLE#12](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console12)):
+    ([ADR-AUTO-CONSOLE#12](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console12), in pwsh
+    [ADR-PWSH-ANNOUNCE#9](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce9)):
 
       - a change the function undoes before it returns: when a finally block in the same function changes the
         same target (the same env var or global, any Remove-Module for an Import-Module, Pop-Location for
@@ -53,7 +55,10 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 
     See ADR: [ADR-AUTO-CONSOLE](/docs/adr/automation/console-output-matters.md)
     ([ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11),
-    [ADR-AUTO-CONSOLE#12](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console12)).
+    [ADR-AUTO-CONSOLE#12](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console12)) and its pwsh
+    mechanism [ADR-PWSH-ANNOUNCE](/docs/adr/pwsh/announce-state-changes.md)
+    ([ADR-PWSH-ANNOUNCE#8](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce8),
+    [ADR-PWSH-ANNOUNCE#9](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce9)).
 #>
 
 # Whether a command binds the named parameter.
@@ -366,7 +371,7 @@ function Measure-AnnounceStateChange {
                 continue
             }
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "This changes the session state ($($change.Target)), but $where does not announce it where it happens. Announce every lasting state change with Write-Message, naming what changed (ADR-AUTO-CONSOLE#11) — or restore it in a finally block if it is temporary (ADR-AUTO-CONSOLE#12)."
+                    Message  = "This changes the session state ($($change.Target)), but $where does not announce it where it happens. Announce every lasting state change with Write-Message, naming what changed (ADR-PWSH-ANNOUNCE#8) — or restore it in a finally block if it is temporary (ADR-PWSH-ANNOUNCE#9)."
                     Extent   = $change.Node.Extent
                     RuleName = $ruleName
                     Severity = 'Warning'

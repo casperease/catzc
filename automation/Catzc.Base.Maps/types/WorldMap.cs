@@ -156,7 +156,7 @@ public sealed class WorldMap
                     writer.WriteBoolean("live", placement.Live);
                     writer.WriteBoolean("stack_violation", placement.StackViolation);
                     writer.WriteString("basis", placement.Basis);
-                    if (placement.Domain == null) { writer.WriteNull("domain"); } else { writer.WriteString("domain", placement.Domain); }
+                    if (placement.Adr == null) { writer.WriteNull("adr"); } else { writer.WriteString("adr", placement.Adr); }
                     writer.WriteStartArray("citations");
                     foreach (string citation in placement.Citations) { writer.WriteStringValue(citation); }
                     writer.WriteEndArray();

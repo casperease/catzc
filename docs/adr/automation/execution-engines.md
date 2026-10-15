@@ -24,9 +24,9 @@ prefix. A caller reads the property; it never restates a flag, a quote rule, or 
 
 ### Rule ADR-AUTO-ENGINE:3
 
-An engine's executable is located the way its model says, by `Resolve-EngineExecutable`: pwsh beside the running PowerShell (`$PSHOME`), so
-a started engine is the caller's own PowerShell and never another one first on `PATH`; each POSIX engine (ADR-AUTO-ENGINE#6) through its
-`tools.yml` entry and the existence check (ADR-AUTO-DEPS#3), never the WSL launcher.
+An engine's executable is located the way its model says, by `Resolve-EngineExecutable`: pwsh from the home folder of the running
+PowerShell, so a started engine is the caller's own PowerShell and never another one first on `PATH`; each POSIX engine (ADR-AUTO-ENGINE#6)
+through its `tools.yml` entry and the existence check (ADR-AUTO-DEPS#3), never the WSL launcher.
 
 - [Locating an engine](#locating-an-engine)
 
@@ -53,10 +53,10 @@ A behaviour that differs between the engines is tested side by side, in a per-en
 Each engine reaches catzc through its importer entry at the repository root. The **POSIX engine**s are the engines whose importer entry is
 `importer.sh`, read from the model's `ImporterEntry` and never listed; they share that one generated, committed root file, which each of
 them loads into its session, and there is no copy per shell. It defines one dispatcher, `cats`: with no arguments it lists the catzc
-commands; otherwise it runs its first argument as a catzc command in pwsh with the PowerShell entry loaded — `CATZC_IMPORTER`, else the
-repository's `importer.ps1` — passing an argument that starts with `-` as a parameter name and every other argument as one PowerShell
-literal. The model's `CommandPrefix` (`cats` and a space for the POSIX engines, none for pwsh) is how a command text reaches catzc in that
-engine, so one test's command text is the same under every engine.
+commands; otherwise it runs its first argument as a catzc command in pwsh with the PowerShell entry loaded — `CATZC_IMPORTER`, else pwsh's
+own importer entry at the repository root — passing an argument that starts with `-` as a parameter name and every other argument as one
+PowerShell literal. The model's `CommandPrefix` (`cats` and a space for the POSIX engines, none for pwsh) is how a command text reaches
+catzc in that engine, so one test's command text is the same under every engine.
 
 - [The cats dispatcher](#the-cats-dispatcher)
 
@@ -122,7 +122,7 @@ The engine a test starts should be the engine the caller runs, so pwsh comes fro
 than from `PATH`, where an older or a second PowerShell may come first. The POSIX engines have no such anchor: each is a tool, declared in
 `tools.yml` with sensible defaults per platform and found by the existence check, which excludes the WSL launcher that would run a different
 system's shell. On Windows the bash engine is Git Bash's, and zsh is the MSYS2 package installed into Git Bash's tree in user space
-(`Install-Zsh`), so the POSIX engines share one runtime and one code path (ADR-AUTO-XPLAT#8); elsewhere each is the system's own.
+(`Install-Zsh`), so the POSIX engines share one runtime and one code path (ADR-AUTO-PARITY#1); elsewhere each is the system's own.
 
 ### The black-box contract
 

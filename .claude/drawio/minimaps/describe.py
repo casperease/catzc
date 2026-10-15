@@ -139,7 +139,10 @@ def file_reason(links, reason):
     request = links.adr(reason["requested"]) if reason["requested"] else None
     basis = reason["basis"]
     if basis == "adr-file":
-        text = f"selected by {request}: an ADR file of the `{reason['domain']}` ADR domain, the ADR domain of that code"
+        own = links.ctx.adr_files.get(reason["requested"].partition("#")[0])
+        if reason["path"] != own:
+            raise SystemExit(f"describe: {reason['path']} is lit as the ADR file of {reason['requested']}, whose file is {own}")
+        text = f"selected by {request}: the ADR's own file"
     elif basis == "citations":
         text = f"selected by {request}: the file cites it at {site_words(reason['sites'], reason['path'])}"
     elif basis == "files.yml":
@@ -280,7 +283,9 @@ def tree_why(ctx, links, highlight, extras):
                 by_path[path] = (cell, reasons)
     lines = ["## Why each group is lit"]
     for g in extras["groups"]:
-        lines += ["", f"### {g['label']} ({plural(len(g['files']), 'lit file')})", ""]
+        # The folder keeps the heading unique: two groups may print the same label (Docs, the module; docs, the folder).
+        where = "" if g["label"] == g["folder"] else f"{g['folder']}, "
+        lines += ["", f"### {g['label']} ({where}{plural(len(g['files']), 'lit file')})", ""]
         lines += para(f"The group holds the files of {g['folder']}; each sits in its world-map cell and is lit by:")
         lines.append("")
         for path in g["files"]:
@@ -410,7 +415,6 @@ def file_facts(reasons):
         {
             "requested": r["requested"],
             "basis": r["basis"],
-            "domain": r["domain"],
             "note": r["note"],
             "mention": r["mention"],
             "sites": [f"{s['path']}:{s['line']} ({KIND_WORDS[s['kind']]})" for s in r["sites"]],
