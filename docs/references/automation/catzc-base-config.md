@@ -65,10 +65,10 @@ address-sourced value as non-secret.
 The module is a member of the `Base` group and depends on [Catzc.Base.Repository](catzc-base-repository.md) for file-path resolution and on
 [Catzc.Base.Asserts](catzc-base-asserts.md) for fail-fast assertions.
 
-The diagram below draws one configuration read from the source. The name resolves to its config file, an overlay fragment is merged
-unless the configuration is sealed, and the registered type is built from the result. The cache key carries the fragment's timestamp, so
-an edited fragment is read again. Its [description](../../.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md)
-walks it step by step.
+The diagram below draws one configuration read from the source. The name resolves to its config file, an overlay fragment is merged unless
+the configuration is sealed, and the registered type is built from the result. The cache key carries the fragment's timestamp, so an edited
+fragment is read again. Its [description](../../.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.md) walks
+it step by step.
 
 ![Overlay merges unless sealed; the registered type builds it](../../.assets/references/automation/catzc-base-config/get-config-merge-seal-type.drawio.png)
 

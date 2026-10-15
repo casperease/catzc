@@ -1,4 +1,4 @@
-// The two kinds of link, fixed by the file a link lives in: a markdown link lives in a rendered.md file, a code link in a comment of any...
+// A flags enum, so Both is Code | Markdown and the engine tests HasFlag instead of special-casing Both.
 // [ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinkKind.cs.md#comment1)
 

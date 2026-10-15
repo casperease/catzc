@@ -2,10 +2,10 @@
 .SYNOPSIS
     Writes the end-of-run worker table — one row per worker, on the run's wall-clock timeline.
 .DESCRIPTION
-    Renders a framed section (Write-Header / Write-Footer) with one table row per worker, ordered by each worker's...
+    Rows sort by start time, not queue number, so a pool that starts workers out of order still reads truthfully.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationWorkerSummary.ps1.md#comment1)
 .PARAMETER WorkerSummaries
-    The per-worker summary objects from Invoke-TestAutomationWorkers (QueueNumber, Label, Files, Tests, Passed,...
+    Every field is required: the table sorts on StartSeconds and the summation row adds up the tallies.
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationWorkerSummary.ps1.md#comment2)
 .PARAMETER DurationSeconds
     The run's total wall clock across both phases, for the summation row.

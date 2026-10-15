@@ -1,4 +1,4 @@
-// One identity-tokens source (a module's configs/identity-tokens.yml): the live production identities that module's own configs carry,...
+// Only shape is checked at load; that a rule's config belongs to the declaring module is checked later, where both are known.
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/IdentityTokensConfig.cs.md#comment1)
 
 using System;

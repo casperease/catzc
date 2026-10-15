@@ -116,7 +116,7 @@ function Test-SourceConventions {
             }
         }
 
-        # Type tests have no verb, so each must name a real types/*.cs; misplaced or misnamed tests cannot collect.
+        # Type tests have no verb, so each must name a real type file of its module; misnamed tests cannot collect.
         # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md#comment3)
         $typesTestDirectory = Join-Path $testsDirectory 'types'
         if ([System.IO.Directory]::Exists($typesTestDirectory)) {

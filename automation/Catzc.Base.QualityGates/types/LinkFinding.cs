@@ -1,4 +1,4 @@
-// One finding of the link engine: where (repository-relative file, 1-based line and column), which link kind, what was found, a human...
+// The replacement is empty when the aligner cannot fix the finding, so an empty one marks a finding for a person.
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinkFinding.cs.md#comment1)
 
 using System.Globalization;

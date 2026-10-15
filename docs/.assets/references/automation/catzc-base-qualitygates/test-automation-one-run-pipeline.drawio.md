@@ -13,21 +13,21 @@ module. The module's reference article embeds it and gives the responsibility in
 
 ## At a glance
 
-Every test run of cats goes through one private function, `Invoke-TestRun`, whichever public entry point starts it. It discovers the
-tests once and checks their tags before it creates a run directory. Inside a `try` it splits the files into three phases, drops the
-modules that are already protected, runs the workers and derives one verdict. The `finally` stamps `run.json` on every exit from that
-`try`, so the record of a run is truthful whether the run passes, fails or crashes.
+Every test run of cats goes through one private function, `Invoke-TestRun`, whichever public entry point starts it. It discovers the tests
+once and checks their tags before it creates a run directory. Inside a `try` it splits the files into three phases, drops the modules that
+are already protected, runs the workers and derives one verdict. The `finally` stamps `run.json` on every exit from that `try`, so the
+record of a run is truthful whether the run passes, fails or crashes.
 
 ## Walkthrough
 
-1. **`Invoke-TestRun`** is the shared core of `Test-Automation` and `Test-CatzcBuild`, the two kinds of test run (ADR-AUTO-TEST#30).
-   Each entry point passes its own name as `-EntryPoint`.
-2. **`Get-TestDiscovery`** runs one discovery-only pass. The count chip says it feeds four later steps: the tag gate, the file
-   selection, the phase split and the protection decision. No step discovers the tests again.
-3. **`Assert-TestTagGate`** enforces the two mandatory tag axes on every test, whatever the level (ADR-AUTO-TEST#13). It runs before the
-   run directory exists, so a tag failure stops the run without writing `run.json`.
-4. **`Split-TestAutomationFiles`** cuts the selected files into the three phases, `Parallel`, `Greedy` and `Serial`, which run in that
-   order (ADR-AUTO-TEST#26). `Select-TestRunFiles` narrows the files just before this step; it is cut from the drawing.
+1. **`Invoke-TestRun`** is the shared core of `Test-Automation` and `Test-CatzcBuild`, the two kinds of test run (ADR-AUTO-TEST#30). Each
+   entry point passes its own name as `-EntryPoint`.
+2. **`Get-TestDiscovery`** runs one discovery-only pass. The count chip says it feeds four later steps: the tag gate, the file selection,
+   the phase split and the protection decision. No step discovers the tests again.
+3. **`Assert-TestTagGate`** enforces the two mandatory tag axes on every test, whatever the level (ADR-AUTO-TEST#13). It runs before the run
+   directory exists, so a tag failure stops the run without writing `run.json`.
+4. **`Split-TestAutomationFiles`** cuts the selected files into the three phases, `Parallel`, `Greedy` and `Serial`, which run in that order
+   (ADR-AUTO-TEST#26). `Select-TestRunFiles` narrows the files just before this step; it is cut from the drawing.
 5. **`Select-ProtectedTestFile`** drops the test files of every module whose composite identity is unchanged since its last green run in
    this session (ADR-REPO-PROTGLOB#9). When every module in scope is protected, nothing runs.
 6. **`Invoke-TestAutomationWorkers`** shards the files, runs the parallel pool and then the greedy and serial phases, and collects the
@@ -38,10 +38,10 @@ modules that are already protected, runs the workers and derives one verdict. Th
 
 ## Reading path
 
-Start at the two code units on the left, outside the bands. Their edges join and enter `Invoke-TestRun` in the BEFORE TRY band. Follow
-the flow right through `Get-TestDiscovery` to the `Assert-TestTagGate` gate. From the gate, one edge drops out of the band and runs left
-to `Split-TestAutomationFiles` at the start of the TRY band. Follow the TRY band right to `Get-TestAutomationVerdict`. The FINALLY band
-below holds the `run.json` file alone.
+Start at the two code units on the left, outside the bands. Their edges join and enter `Invoke-TestRun` in the BEFORE TRY band. Follow the
+flow right through `Get-TestDiscovery` to the `Assert-TestTagGate` gate. From the gate, one edge drops out of the band and runs left to
+`Split-TestAutomationFiles` at the start of the TRY band. Follow the TRY band right to `Get-TestAutomationVerdict`. The FINALLY band below
+holds the `run.json` file alone.
 
 ## Glyphs
 
@@ -77,8 +77,8 @@ Every edge is a flow edge meaning "runs next, in code order". Each is backed by 
 | `Select-ProtectedTestFile`     | `Invoke-TestAutomationWorkers` | `private/Invoke-TestRun.ps1`                                |
 | `Invoke-TestAutomationWorkers` | `Get-TestAutomationVerdict`    | `private/Invoke-TestRun.ps1`                                |
 
-The two entry edges meet at a junction left of the BEFORE TRY band and enter `Invoke-TestRun` as one arrow. No edge enters `run.json`.
-The FINALLY band places it.
+The two entry edges meet at a junction left of the BEFORE TRY band and enter `Invoke-TestRun` as one arrow. No edge enters `run.json`. The
+FINALLY band places it.
 
 ## Legend
 
@@ -95,8 +95,8 @@ The legend panel spans the bottom of the drawing area in four columns:
 
 ## Sidebar
 
-A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-TEST#13, #26 and #30, and ADR-REPO-PROTGLOB#9:
-the rules the drawn code cites. Source-lens slides carry no minimaps.
+A lens badge reading `SRC · source lens`. Below it is a Supports panel listing ADR-AUTO-TEST#13, #26 and #30, and ADR-REPO-PROTGLOB#9: the
+rules the drawn code cites. Source-lens slides carry no minimaps.
 
 ## Where the code and the ADR differ
 

@@ -1,4 +1,4 @@
-// The outcome of one link-engine run (LinkEngine.Run): every finding in file/line order, the aligned text of each file the aligner would...
+// The engine never writes: Format-Links writes Changed, and Test-Links only reports Findings.
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinkEngineResult.cs.md#comment1)
 
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-// The link engine behind Format-Links and Test-Links: runs over a list of repository files in parallel and, per file, by kind: Code —...
+// The engine only reads: each changed file's new text rides in the result, and findings keep line numbers of the original text.
 // [ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8),
 // [ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1),
 // [ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6),
@@ -37,7 +37,7 @@ public sealed class LinkEngine
     readonly CodeLinkRewriter rewriter;
     readonly MarkdownLinkScanner scanner;
 
-    // lineLimits: extension ('.ps1') -> line limit; an extension not listed takes defaultLineLimit.
+    // Null selfUrlPrefix or trackedFiles skips that check, so a caller without a git or web context still gets a run.
     // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md#comment2)
     public LinkEngine(string repositoryRoot, AdrCitationMap map, LinkWrap wrap, IDictionary<string, int> lineLimits, int defaultLineLimit, string selfUrlPrefix,
         IEnumerable<string> trackedFiles, SourceCheck stringCitations)
@@ -132,7 +132,7 @@ public sealed class LinkEngine
             string codeBefore = text.Substring(lineStart, column);
             bool trailing = marker != null && codeBefore.Trim().Length > 0;
 
-            // A trailing comment may already have been continued on the following lines, indented under its marker (`$x = 1 # text` then...
+            // Lines indented under a trailing comment's marker belong to it, so they are merged back before the comment is aligned.
             // [comment:3](/docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md#comment3)
             int end = start + length;
             string logical = comment;
@@ -153,7 +153,7 @@ public sealed class LinkEngine
             var local = new List<CodeLinkRewriter.Hit>();
             string rewritten = rewriter.Rewrite(logical, isTestFile, local, new List<string>());
 
-            // Continuation lines are merged only to repair a code link wrapped under its marker; any other aligned comment block is left...
+            // Merging is only to repair a wrapped code link; any other aligned comment block stays as written.
             // [comment:4](/docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md#comment4)
             if (continuations > 0 && !InsertedLink.IsMatch(rewritten))
             {
@@ -169,7 +169,7 @@ public sealed class LinkEngine
             }
             bool rewrote = !string.Equals(rewritten, logical, StringComparison.Ordinal);
 
-            // A trailing comment that no longer fits beside its code — or that had been continued under its marker — moves onto its own...
+            // A trailing comment that outgrows its line moves above the statement at the statement indent, and wraps there.
             // [comment:5](/docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md#comment5)
             if (trailing && (continuations > 0 || (rewrote && column + rewritten.Length > limit)))
             {
@@ -197,7 +197,7 @@ public sealed class LinkEngine
         return output.ToString();
     }
 
-    // Respells every `:n` in the file's string literals as `#n`, outside a `### Rule` heading the string builds, and reports each as...
+    // A string that builds a Rule heading keeps its colon, and a file the string-citation check exempts is returned as written.
     // [comment:6](/docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md#comment6)
     string AlignStringCitations(string text, string file, string extension, List<CodeLinkRewriter.Hit> hits)
     {
@@ -222,7 +222,7 @@ public sealed class LinkEngine
         return output == null ? text : new string(output);
     }
 
-    // Wraps the lines of a rewritten comment that carry an inserted code link and outgrow the limit: the line is broken before the...
+    // The break comes before the link word, never inside the link; a line that still cannot fit is reported Overlong.
     // [comment:7](/docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md#comment7)
     string Wrap(string comment, int column, string marker, string newline, int limit, int commentOffset, List<CodeLinkRewriter.Hit> hits)
     {
@@ -271,7 +271,7 @@ public sealed class LinkEngine
         return string.Join("\n", result);
     }
 
-    // Where to break an overlong line.
+    // Breaks before an inserted link so the link and its sentence tail move down together; zero means no break helps.
     // [comment:8](/docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md#comment8)
     static int BreakPoint(string line, int room, int tailRoom)
     {
@@ -304,7 +304,7 @@ public sealed class LinkEngine
         {
             if (char.IsWhiteSpace(line[k]) && !unbreakable[k]) { return k; }
         }
-        // The first word (a link longer than the room left) crosses the limit by itself: moving the rest down would only strand a few...
+        // A first word longer than the room stays put: moving the rest down would only strand a few words, so Overlong is reported.
         // [comment:9](/docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md#comment9)
         return 0;
     }
@@ -316,7 +316,7 @@ public sealed class LinkEngine
     // Index of the first content character after the indent and comment marker.
     static int ContentStart(string line) => CommentLead.Match(line).Length;
 
-    // The text a continuation line starts with: a line comment repeats its marker at the comment's column; a block comment line repeats...
+    // A line comment repeats its marker at the comment column, while a block comment repeats its own indent.
     // [comment:10](/docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md#comment10)
     static string ContinuationPrefix(string body, int index, int column, string marker, string[] lines)
     {

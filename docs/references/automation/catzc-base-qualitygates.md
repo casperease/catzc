@@ -112,10 +112,9 @@ The module's neighbours are the rest of the `Base` group, which supply the primi
 reports, and assertions) this module composes. It does not depend on any feature module.
 
 The diagram below draws one test run of responsibility 1 from the source. Both kinds of run share one harness. It discovers the tests once
-and checks their tags before any run directory exists, then splits the files into the parallel, greedy and serial phases, drops the
-modules that are already protected, and derives one verdict. A `finally` stamps the run's `run.json` record on every exit from the run.
-Its [description](../../.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md) walks it step by
-step.
+and checks their tags before any run directory exists, then splits the files into the parallel, greedy and serial phases, drops the modules
+that are already protected, and derives one verdict. A `finally` stamps the run's `run.json` record on every exit from the run. Its
+[description](../../.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.md) walks it step by step.
 
 ![One discovery feeds three phases; finally stamps run.json](../../.assets/references/automation/catzc-base-qualitygates/test-automation-one-run-pipeline.drawio.png)
 

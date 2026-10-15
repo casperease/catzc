@@ -1,4 +1,4 @@
-// What the link engine found at one place in a file.
+// Overlong is informational: a line still over its limit after the aligner did what it can, with no mechanical fix.
 // [ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinkFindingType.cs.md#comment1)
 

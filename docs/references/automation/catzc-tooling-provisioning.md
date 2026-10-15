@@ -52,9 +52,9 @@ its repositories can be mirrored and pinned behind a private proxy; Homebrew is 
 `HOMEBREW_BOTTLE_DOMAIN` but formula metadata still resolves upstream; and winget has none, so the practical options are to store the
 installers in a Generic repository and point at a private REST feed, or to pre-install the tools in the base image.
 
-The diagram below draws the devbox install from the source. `tools.yml` is the one locked list of tools. The install walks it in
-dependency order and dispatches each key by name to the install function whose name it derives, in whichever tooling module defines it.
-Keys the system provides are checked and skipped before the dispatch. Its
+The diagram below draws the devbox install from the source. `tools.yml` is the one locked list of tools. The install walks it in dependency
+order and dispatches each key by name to the install function whose name it derives, in whichever tooling module defines it. Keys the system
+provides are checked and skipped before the dispatch. Its
 [description](../../.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.md) walks it step by step.
 
 ![tools.yml is the one locked list; dispatch is by key name](../../.assets/references/automation/catzc-tooling-provisioning/tools-yml-install-dispatch.drawio.png)

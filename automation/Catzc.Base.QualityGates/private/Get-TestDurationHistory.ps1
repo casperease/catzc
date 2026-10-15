@@ -2,7 +2,7 @@
 .SYNOPSIS
     Reads the per-file test durations the last runs measured on this machine.
 .DESCRIPTION
-    The history is a per-machine file, durations.json, beside the run folders under out/ (gitignored, never...
+    A missing or unreadable history is empty, so the run falls back to an even split and writes a fresh one.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestDurationHistory.ps1.md#comment1)
 .PARAMETER Path
     The history file.

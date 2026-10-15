@@ -2,7 +2,7 @@
 .SYNOPSIS
     Resolves the tags of one axis for a Pester test — nearest contributing block wins.
 .DESCRIPTION
-    Returns the matching tags from the FIRST level that carries any tag of the axis: the test's own It-tags, else the...
+    Two returned tags mean one block carries two tags of the axis, which callers treat as a tagging violation.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestBlockTag.ps1.md#comment1)
 .PARAMETER Test
     A Pester test object (an item of $result.Tests). Its .Tag and .Block chain carry the tags.
@@ -29,7 +29,7 @@ function Get-TestBlockTag {
         $block = $block.Parent
     }
 
-    # The nearest level carrying any tag of this axis wins; return its canonical matches ('-eq' is case-insensitive).
+    # The -eq match ignores case, so the canonical casing from Valid is returned, not the casing written on the test.
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TestBlockTag.ps1.md#comment2)
     foreach ($levelTags in $levels) {
         $ret = @(

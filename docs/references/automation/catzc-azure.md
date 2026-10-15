@@ -61,10 +61,10 @@ exactly one home. Adding a tenant, customer, environment, or subscription is an 
 a standard environment or a subscription: a hub for a shared one, a spoke for a customer's); the validation on load and the quality gate are
 what stop the two assets from drifting apart.
 
-The diagram below draws identity resolution from the source. Every Azure identity resolves from `azure.yml` and `customer.yml` through
-the configuration loader, each into its own registered type. The live az session is matched back to the declared subscriptions and must
-match exactly one. Its [description](../../.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md) walks
-it step by step.
+The diagram below draws identity resolution from the source. Every Azure identity resolves from `azure.yml` and `customer.yml` through the
+configuration loader, each into its own registered type. The live az session is matched back to the declared subscriptions and must match
+exactly one. Its [description](../../.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.md) walks it step
+by step.
 
 ![Azure identities resolve from config; session must match one](../../.assets/references/automation/catzc-azure/azure-identity-resolves-from-config.drawio.png)
 

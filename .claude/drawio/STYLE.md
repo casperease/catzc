@@ -199,45 +199,42 @@ doesn't need. It never adds claims the source or its sources don't support.
 
 A sixth lens, drawn from the code alone rather than split from an ADR diagram. It draws one responsibility of one module.
 
-- **`source`** (≤ 10 boxes) shows the module's real public functions, private helpers, `configs/*.yml`, C# types and the other catzc
-  modules they call, in call order. Every box is a name that exists today (a Glob hit). Every edge is a call site (`file:line`) in the
+- **`source`** (≤ 10 boxes) shows the module's real public functions, private helpers, `configs/*.yml`, C# types and the other catzc modules
+  they call, in call order. Every box is a name that exists today (a Glob hit). Every edge is a call site (`file:line`) in the
   `.drawio.verify.md`, and an edge without one is not drawn. It drops ADR wording and rationale.
 - **Subtitle:** `Module <Name> · source lens`. The **Supports** chips name the ADRs the drawn code cites (ADR codes in its comments and
   error messages), found by grep, not guessed.
 - **Stem:** `<finding-slug>` (3–7 kebab words, ≤ 48 chars), with no ADR prefix and no lens suffix. It lands at
   `docs/.assets/references/automation/<module-kebab>/<stem>.drawio.png` with `<stem>.drawio.md` and `<stem>.drawio.verify.md`. There is no
-  `docs/explanation/` article: the module's reference article embeds the slide under `## What the module does` with a one-paragraph
-  lead-in, and the `.drawio.md` carries the words (At a glance, Reading path, Glyphs, Edges, Legend, Where the code and the ADR differ).
-- **No minimaps** on source slides yet (wave 9 decision D4). The sidebar holds only the lens badge (`SRC`) and the Supports chips. With
-  no minimaps the panel has room, so put one ADR code per line: two codes joined by ` · ` (about 40 characters) overflow the 240 px panel at
-  11 px. Grow the `supports` cell's height to fit.
+  `docs/explanation/` article: the module's reference article embeds the slide under `## What the module does` with a one-paragraph lead-in,
+  and the `.drawio.md` carries the words (At a glance, Reading path, Glyphs, Edges, Legend, Where the code and the ADR differ).
+- **No minimaps** on source slides yet (wave 9 decision D4). The sidebar holds only the lens badge (`SRC`) and the Supports chips. With no
+  minimaps the panel has room, so put one ADR code per line: two codes joined by `·` (about 40 characters) overflow the 240 px panel at 11
+  px. Grow the `supports` cell's height to fit.
 - **Save legend rows.** Source slides reach the 8-entry legend cap fast (code unit, private helper, C# type, catzc module, file, failure,
-  flow, marker). A glyph and its own edge kind share one row (`failure, and its failure path`). The `catzc module` frame needs no row
-  when its label names the module.
+  flow, marker). A glyph and its own edge kind share one row (`failure, and its failure path`). The `catzc module` frame needs no row when
+  its label names the module.
 - **A gate rhombus holds a name of about 25 characters at 11 px when it is 280 px wide.** Size the rhombus to its name, not to the boxes.
-- **A file the code reads has no edge** when the slide's flow means "calls" (the run.json and options.yml precedents). Place the file
-  under the code unit that reads it, and say so in the description's Edges section.
+- **A file the code reads has no edge** when the slide's flow means "calls" (the run.json and options.yml precedents). Place the file under
+  the code unit that reads it, and say so in the description's Edges section.
 - **Name the direction when results flow back.** If the arrows run from a callee to its caller (a result handed up), the legend says
   `flow: feeds (a result to its caller)`, so the reader doesn't take it for a call.
-- **Store access is its own edge kind.** A read or write of a store (a `$script:` map, a cache) is not a call. Draw it as a plain line
-  with `endArrow=none`, legend `store access (reads or writes)`, and keep the flow edge for calls only. Don't stretch the flow phrase
-  to "uses".
-- **`catzc module` covers `Catzc.Internal.*` too.** The `.psm1` modules under `automation/.internal/` get the same frame, labelled
-  with the module name (`Catzc.Internal.Loader`).
+- **Store access is its own edge kind.** A read or write of a store (a `$script:` map, a cache) is not a call. Draw it as a plain line with
+  `endArrow=none`, legend `store access (reads or writes)`, and keep the flow edge for calls only. Don't stretch the flow phrase to "uses".
+- **`catzc module` covers `Catzc.Internal.*` too.** The `.psm1` modules under `automation/.internal/` get the same frame, labelled with the
+  module name (`Catzc.Internal.Loader`).
 - **Escaping and encoding.** A literal `<Tool>` inside an HTML value is double-escaped (`&amp;lt;Tool&amp;gt;`). A generator script reads
   and writes UTF-8 explicitly (`encoding="utf-8"`), or a replace on `·` silently misses on Windows.
-- **One input, many readers.** When one config type feeds three or more readers, frame the readers on one row and end a single edge
-  on the frame. Put a second input band (such as the live session) above that row, so its edge drops in without a crossing.
-- **Supports holds only the ADRs that govern what is drawn.** Leave out codes the drawn code cites only for parts the slide doesn't
-  draw, and list them in the verify file.
-- **A module whose members fall in two bands** gets one tall `catzc module` frame spanning both bands, never two frames with the same
-  name.
+- **One input, many readers.** When one config type feeds three or more readers, frame the readers on one row and end a single edge on the
+  frame. Put a second input band (such as the live session) above that row, so its edge drops in without a crossing.
+- **Supports holds only the ADRs that govern what is drawn.** Leave out codes the drawn code cites only for parts the slide doesn't draw,
+  and list them in the verify file.
+- **A module whose members fall in two bands** gets one tall `catzc module` frame spanning both bands, never two frames with the same name.
 - **The Supports panel sets only the word `Supports` bold** (`<b>Supports</b>`), with the codes in regular weight at 11 px. Don't set
   `fontStyle=1` on the cell.
 - **Fan-in from three or more columns** ends on a wide target box with one port cell above each column, so every edge stays a straight
   vertical in the preview and in draw.io.
-- **A named set is named for its members, not for a type** (`access checks`, not `SubscriptionAccessState`), so it isn't read as a C#
-  type.
+- **A named set is named for its members, not for a type** (`access checks`, not `SubscriptionAccessState`), so it isn't read as a C# type.
 - **A PowerShell built-in** (`Invoke-Expression`, `Start-Process`) is a code unit, not an `external tool`, which means a vendor tool.
 - **A computed type is not a box name.** When the code builds a type it looks up at run time (`$type::new($raw)`), draw a `C# type` glyph
   named for the role (`registered type`) and say in the description that the name varies per config. Don't invent a class name.
@@ -287,8 +284,8 @@ capitals, never truncated (`BUILD`, `QC`, `RELEASE`, `DEPLOY`, `ACCESS`). The co
 The `automation` concern has **no column**: the stack's `AUTO` row already names it, so the minimap prints five columns, and the sister
 `.md` and the map key describe those five. `describe.py` (`HIDDEN_CONCERNS`, `shown_chain`) hides it in one place, so the picture, the
 sister `.md` and the key never disagree; the concern stays declared in `adrs.yml` and is lit on the full maps. The lit rows and columns are
-named in ink with a tick, the others in the label grey. Every cell is an idle grey box, empty ones included; a lit cell is filled in the lit colour. The axis titles are not
-printed on the minimap: the map key and the sister `.md` name the axes and expand the codes.
+named in ink with a tick, the others in the label grey. Every cell is an idle grey box, empty ones included; a lit cell is filled in the lit
+colour. The axis titles are not printed on the minimap: the map key and the sister `.md` name the axes and expand the codes.
 
 ### The sister `.md` of each minimap
 

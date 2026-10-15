@@ -82,9 +82,9 @@ The module depends on [Catzc.Base.Writers](catzc-base-writers.md) for the pre-in
 [Catzc.Base.Asserts](catzc-base-asserts.md) for argument validation. Its one configuration file is `tools.yml`, the tool lock file the
 tooling modules read as well.
 
-The diagram below draws process invocation from the source. It has two paths. The default streamed path runs through the C# runner under
-the executable's time limit from `timeouts.yml`, and kills the process tree when the limit runs out. The direct path, for interactive use,
-hands the command to the console with no time limit. Its
+The diagram below draws process invocation from the source. It has two paths. The default streamed path runs through the C# runner under the
+executable's time limit from `timeouts.yml`, and kills the process tree when the limit runs out. The direct path, for interactive use, hands
+the command to the console with no time limit. Its
 [description](../../.assets/references/automation/catzc-base-execution/invoke-executable-two-paths-one-bounded.drawio.md) walks it step by
 step.
 

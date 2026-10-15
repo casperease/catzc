@@ -2,7 +2,7 @@
 .SYNOPSIS
     Prints a test run's context block under its banner: one line per fact.
 .DESCRIPTION
-    Renders Get-TestRunContext's record so a reader sees, before any test output, what the run is and where it runs —...
+    The block comes before any test output, so a reader knows where the run runs and why tiers were skipped.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestRunContext.ps1.md#comment1)
 .PARAMETER Context
     The record Get-TestRunContext returned.

@@ -1,4 +1,4 @@
-// One live-identity declaration of an identity-tokens source: which values of one of the declaring module's own configs are live...
+// Match mode position flags a token only beside an identity parameter, so ambiguous words such as test do not trip the gate.
 // [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/IdentityTokenRule.cs.md#comment1)
 

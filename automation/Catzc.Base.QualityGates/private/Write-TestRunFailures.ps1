@@ -3,7 +3,7 @@
     Writes every failure of a finished test run to the console: each failed test with its message, and each test
     file that failed before any of its tests ran.
 .DESCRIPTION
-    The one place a test run's failures reach the console, shared by Invoke-TestFile and Test-Automation, at every...
+    A quiet run must still show failures, and the worker's Pester output never reaches a redirected console.
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestRunFailures.ps1.md#comment1)
 .PARAMETER Rows
     The run's test rows (ConvertTo-TestAutomationRowSet's shape: Result, ExpandedPath, ErrorMessage).
