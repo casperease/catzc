@@ -65,7 +65,8 @@ function Get-LanguageTestFolders {
             if ($name.StartsWith('.')) {
                 continue
             }
-            if (-not @([System.IO.Directory]::GetFiles($folder, $language.Pattern, [System.IO.SearchOption]::AllDirectories)).Count) {
+            # A module folder holds its test files directly or in a package one level down; the third level is headroom.
+            if (-not @(Get-ChildPath $folder -File -Filter $language.Pattern -Depth 3).Count) {
                 continue
             }
             if (-not $modulesByKebab.ContainsKey($name)) {
