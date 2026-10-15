@@ -200,13 +200,13 @@ domains:
       by its global name, caches it per file, and validates it in its owning module's scope, plus `global.<config>.<key>` addresses that
       point into committed config by reference, and config values a tracked Markdown file contributes to a config that opted in. It gives
       every implementation domain its single way to read configuration.
-    depends_on: [research, principles]
+    depends_on: [research, principles, automation]
     stack: AUTO
     concern: [automation] # reading configuration
     rulesets:
       module-config-loading: { external: ADR-CONF-LOADING }
       config-value-addressing: { external: ADR-CONF-ADDRESSING }
-      markdown-config-contributions: { external: ADR-CONF-MDCONTRIB }
+      markdown-config-contributions: { external: ADR-CONF-MDCONTRIB, terminology: mdcontrib }
 
   pipelines:
     code: PIPE
@@ -285,11 +285,10 @@ domains:
       How the repository tree is laid out, formatted, and generated: conventional folder names at every level, the single `out/` output
       directory, one formatting standard for every file type, contracts at the repository boundary, in both directions, under `contracts/`,
       READMEs and root configs generated from one source, fictional documentation examples, the separation of design, test, and live
-      vocabulary, the controlled vocabulary of defined terms, the reserved meta block in a Markdown file's front matter, repo-wide
-      variants, the sub-agent definitions and the rules behind each, and
-      sibling repositories read for ideas, never as a reference implementation, and the session-memory protection that skips a repeated scan
-      over an unchanged globset.
-    depends_on: [research, principles, design]
+      vocabulary, the controlled vocabulary of defined terms, the reserved meta block in a Markdown file's front matter, repo-wide variants,
+      the sub-agent definitions and the rules behind each, and sibling repositories read for ideas, never as a reference implementation, and
+      the session-memory protection that skips a repeated scan over an unchanged globset.
+    depends_on: [research, principles, design, automation, configuration]
     stack: AUTO
     concern: [automation] # the repository tree the tooling lays out and generates
     rulesets:
@@ -306,7 +305,7 @@ domains:
       controlled-vocabulary: { external: ADR-REPO-VOCAB, concern: [quality-control] }
       markdown-links: { external: ADR-REPO-LINK, concern: [quality-control] }
       comments-in-docs: { external: ADR-REPO-COMMENTS, concern: [quality-control] }
-      markdown-meta: { external: ADR-REPO-MDMETA, concern: [quality-control] }
+      markdown-meta: { external: ADR-REPO-MDMETA, terminology: mdmeta, concern: [quality-control] }
       agent-definitions: { external: ADR-REPO-AGENTS }
       inspiration: { external: ADR-REPO-INSPIRE }
       protected-globs: { external: ADR-REPO-PROTGLOB, terminology: protglob }

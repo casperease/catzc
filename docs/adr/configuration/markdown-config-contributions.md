@@ -7,7 +7,7 @@
 ### Rule ADR-CONF-MDCONTRIB:1
 
 A **config contribution** is one config value, a key path and its value, that an author states in the `config` part of a tracked Markdown
-file's meta block ([markdown-meta](../repository/markdown-meta.md#rule-adr-repo-mdmeta1)) and that `Get-Config` gathers into the named
+file's meta block and that `Get-Config` gathers into the named
 config. A contribution is authored and source-controlled; a derived value is never a contribution. The value lives beside the prose it
 describes, and the config is the one place a reader looks it up.
 
@@ -19,8 +19,7 @@ describes, and the config is the one place a reader looks it up.
 Contributions are gathered inside the one reader, never beside it ([ADR-CONF-LOADING#1](module-config-loading.md#rule-adr-conf-loading1)).
 `Get-Config` merges them key by key with the same merge an overlay fragment uses, so one mechanism joins every source. A setting resolves in
 this order: the caller's explicit value; the consumer overlay fragment; the contributions, in ordinal order of their file paths; the bundled
-`configs/<name>.yml`; the setting's declared default
-([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)).
+`configs/<name>.yml`; the setting's declared default ([ADR-AUTO-DEFAULT#6](../automation/sensible-defaults.md#rule-adr-auto-default6)).
 
 - [One reader, one order](#one-reader-one-order)
 
@@ -44,8 +43,8 @@ is replaced whole and never appended to, as for an overlay fragment
 ### Rule ADR-CONF-MDCONTRIB:5
 
 The config's own type validates the merged result, exactly as for a config without contributions
-([ADR-CONF-LOADING#4](module-config-loading.md#rule-adr-conf-loading4)). A rejected value reports the file, the line and the key path of
-the contribution that carries it. A contribution never bypasses the type.
+([ADR-CONF-LOADING#4](module-config-loading.md#rule-adr-conf-loading4)). A rejected value reports the file, the line and the key path of the
+contribution that carries it. A contribution never bypasses the type.
 
 - [Validated by the config's type](#validated-by-the-configs-type)
 
@@ -59,23 +58,23 @@ states is a secret ([ADR-CONF-ADDRESSING#3](config-value-addressing.md#rule-adr-
 
 ### Rule ADR-CONF-MDCONTRIB:7
 
-A contribution belongs to a gather meta kind, and the kind names the config it feeds
-([ADR-REPO-MDMETA#2](../repository/markdown-meta.md#rule-adr-repo-mdmeta2)). A module subscribes a reader for a kind by shipping a function
-named for it, found by convention
-([ADR-REPO-MDMETA#4](../repository/markdown-meta.md#rule-adr-repo-mdmeta4)). `Get-Config` names no kind and no module.
+A contribution belongs to a gather meta kind, and the kind names the config it feeds. A module subscribes a reader for a kind by shipping a
+function named for it, found by convention, as a config validator is
+([ADR-CONF-LOADING#5](module-config-loading.md#rule-adr-conf-loading5)). `Get-Config` names no kind
+and no module.
 
 - [Kinds and readers](#kinds-and-readers)
 
 ## Context
 
-Several configs are lists of things that have a Markdown file of their own. An agent definition is a file, and the agent registry
-lists the same agent a second time. An ADR is a file, and a few of its settings sit in `adrs.yml`. Two files that state one fact drift: the
-registry gains an entry the file does not have, or the file changes and the registry keeps the old line. A gate can report the drift, but
-the cheaper fix is one statement, made where the thing is.
+Several configs are lists of things that have a Markdown file of their own. An agent definition is a file, and the agent registry lists the
+same agent a second time. An ADR is a file, and a few of its settings sit in `adrs.yml`. Two files that state one fact drift: the registry
+gains an entry the file does not have, or the file changes and the registry keeps the old line. A gate can report the drift, but the cheaper
+fix is one statement, made where the thing is.
 
-A Markdown file carries structured front matter for other tools, so the statement has a natural home. What it lacks is a way into
-the config system that keeps the rules of that system: one reader, one resolution order, typed validation, a cache that never serves a
-stale value, and nothing secret.
+A Markdown file carries structured front matter for other tools, so the statement has a natural home. What it lacks is a way into the config
+system that keeps the rules of that system: one reader, one resolution order, typed validation, a cache that never serves a stale value, and
+nothing secret.
 
 ## Decision
 
@@ -87,18 +86,17 @@ that opted in to it.
 `A contribution is a key path and a value`
 
 A contribution names a config, a key path inside it, and a value. It is data an author wrote, in a file a reviewer reads with the prose it
-belongs to. It is not a command and carries no logic. The meta block, its two parts, and the kinds that shape a contribution are defined in
-[markdown-meta](../repository/markdown-meta.md).
+belongs to. It is not a command and carries no logic. The meta block, its two parts, and the kinds that shape a contribution are the
+meta-block decision's to define; this decision defines only what happens to a contribution once it is gathered.
 
 ### One reader, one order
 
 `Contributions join the existing merge`
 
 The overlay fragment merges onto the bundled config key by key before the config's type validates the result
-([consumer-overlay](../automation/consumer-overlay.md#rule-adr-auto-overlay4)). Contributions use the same merge, placed between the
-bundled file and the overlay, so a consumer's overlay has the last word and the bundled file is the base. The order is fixed and
-written once, so a value never depends on which file the reader happened to open first: contributions apply in the ordinal order of their
-repository paths.
+([consumer-overlay](../automation/consumer-overlay.md#rule-adr-auto-overlay4)). Contributions use the same merge, placed between the bundled
+file and the overlay, so a consumer's overlay has the last word and the bundled file is the base. The order is fixed and written once, so a
+value never depends on which file the reader happened to open first: contributions apply in the ordinal order of their repository paths.
 
 ### Opt in, by glob
 
@@ -136,7 +134,8 @@ for addresses: nothing a contribution states is secret.
 `The reader for a kind is a function a module ships`
 
 A kind is declared in the meta-kind registry, and its reader is a function found by convention, so a new kind is a registry entry and a
-function file, with no edit to `Get-Config`. The loader stays content-agnostic ([ADR-AUTO-EXTEND#3](../automation/open-closed-architecture.md#rule-adr-auto-extend3)).
+function file, with no edit to `Get-Config`. The loader stays content-agnostic
+([ADR-AUTO-EXTEND#3](../automation/open-closed-architecture.md#rule-adr-auto-extend3)).
 
 ### How this is enforced
 
@@ -147,10 +146,10 @@ function file, with no edit to `Get-Config`. The loader stays content-agnostic (
 
 ## Consequences
 
-- A fact about a thing is stated once, in the file of the thing, and the config that needs it reads it from there. A registry that mirrors
-  a set of files needs no gate to keep it in step.
+- A fact about a thing is stated once, in the file of the thing, and the config that needs it reads it from there. A registry that mirrors a
+  set of files needs no gate to keep it in step.
 - The resolution order of a setting has a named step for contributions, written in one place. A consumer's overlay overrides it.
-- A Markdown file can change a config, so the set of files that may do so is declared per config and bounded by globs. A reviewer reads
-  the glob list, not the repository.
-- A contribution is only as safe as the config's type: a config whose type accepts anything accepts anything from prose too, which is
-  why the registry requires a typed config to opt in.
+- A Markdown file can change a config, so the set of files that may do so is declared per config and bounded by globs. A reviewer reads the
+  glob list, not the repository.
+- A contribution is only as safe as the config's type: a config whose type accepts anything accepts anything from prose too, which is why
+  the registry requires a typed config to opt in.

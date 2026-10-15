@@ -203,7 +203,7 @@ its global name, caches it per file, and validates it in its owning module's sco
 committed config by reference, and config values a tracked Markdown file contributes to a config that opted in. It gives every
 implementation domain its single way to read configuration.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`.
+**Role:** `implementation` — **depends on:** `research`, `principles`, `automation`.
 
 | Code                  | ADR                                                                             |
 | --------------------- | ------------------------------------------------------------------------------- |
@@ -285,7 +285,7 @@ vocabulary of defined terms, the reserved meta block in a Markdown file's front 
 the rules behind each, and sibling repositories read for ideas, never as a reference implementation, and the session-memory protection that
 skips a repeated scan over an unchanged globset.
 
-**Role:** `implementation` — **depends on:** `research`, `principles`, `design`.
+**Role:** `implementation` — **depends on:** `research`, `principles`, `design`, `automation`, `configuration`.
 
 | Code                | ADR                                                                    |
 | ------------------- | ---------------------------------------------------------------------- |

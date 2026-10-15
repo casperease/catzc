@@ -596,6 +596,10 @@ terms:
       meaning: "body of the ADR-PWSH-MODPATH code (module-path-hygiene)"
     - term: protglob
       meaning: "body of the ADR-REPO-PROTGLOB code (protected-globs)"
+    - term: mdcontrib
+      meaning: "body of the ADR-CONF-MDCONTRIB code (markdown-config-contributions)"
+    - term: mdmeta
+      meaning: "body of the ADR-REPO-MDMETA code (markdown-meta)"
     - term: rootcfg
       meaning: "body of the ADR-REPO-ROOTCFG code (generated-root-configs)"
     - term: uvpy

@@ -27,9 +27,9 @@ owns and their order, and, for a gather kind, the config it feeds. Which kinds e
 ### Rule ADR-REPO-MDMETA:3
 
 The `derived` part is imprinted by `Format-MarkdownMeta` and is byte-identical on every run: keys in the registry's order, values in
-canonical form, no timestamp and no run identifier. A hash is allowed only as a hash of the file's body, so it changes exactly when the
-file changes. A second run changes no file. The output is prettier-stable ([ADR-REPO-FORMAT#5](uniform-formatting.md#rule-adr-repo-format5)),
-so the formatter and prettier never undo each other.
+canonical form, no timestamp and no run identifier. A hash is allowed only as a hash of the file's body, so it changes exactly when the file
+changes. A second run changes no file. The output is prettier-stable ([ADR-REPO-FORMAT#5](uniform-formatting.md#rule-adr-repo-format5)), so
+the formatter and prettier never undo each other.
 
 - [Imprinted, never hand-edited](#imprinted-never-hand-edited)
 
@@ -37,8 +37,8 @@ so the formatter and prettier never undo each other.
 
 A module subscribes to a meta kind by shipping a function named for it, found by convention as `Assert-<Name>Config` is
 ([ADR-CONF-LOADING#5](../configuration/module-config-loading.md#rule-adr-conf-loading5)): `Get-<Kind>MarkdownMetaFact` for an imprint kind
-and `Get-<Kind>MarkdownConfigContribution` for a gather kind, or a function the entry names. `Test-MarkdownMetaProcessors` fails a kind
-with no function and a function no kind names. A new kind is a registry entry and a function file, never an edit to the engine
+and `Get-<Kind>MarkdownConfigContribution` for a gather kind, or a function the entry names. `Test-MarkdownMetaProcessors` fails a kind with
+no function and a function no kind names. A new kind is a registry entry and a function file, never an edit to the engine
 ([ADR-AUTO-EXTEND#1](../automation/open-closed-architecture.md#rule-adr-auto-extend1)).
 
 - [Subscribing a kind](#subscribing-a-kind)
@@ -46,10 +46,9 @@ with no function and a function no kind names. A new kind is a registry entry an
 ### Rule ADR-REPO-MDMETA:5
 
 The scope is the file class of the Markdown title ([ADR-REPO-FORMAT#6](uniform-formatting.md#rule-adr-repo-format6)): every tracked `.md`
-file except those `.gitattributes` marks `linguist-vendored`, `linguist-generated`, `catzc-fixture` or `catzc-contract`, and those it
-marks `-catzc-meta`. A new exception is declared in the `.gitattributes` source, never in a list of the gate's own. A `derived` key an
-author wrote is a finding the author fixes, never overwritten silently, and a `config` part is validated against its kind and kept as
-written.
+file except those `.gitattributes` marks `linguist-vendored`, `linguist-generated`, `catzc-fixture` or `catzc-contract`, and those it marks
+`-catzc-meta`. A new exception is declared in the `.gitattributes` source, never in a list of the gate's own. A `derived` key an author
+wrote is a finding the author fixes, never overwritten silently, and a `config` part is validated against its kind and kept as written.
 
 - [Scope](#scope)
 
@@ -58,18 +57,16 @@ written.
 The pure parts, the C# types, the block parser and renderer and the file scanner, live in a module below `Catzc.Base.Config` that declares
 only `Catzc.Base.Repository` and `Catzc.Base.Asserts`. That module reads no config: every declaration reaches it as a parameter. The
 registry, the processors and the commands that read the registry live in a module above `Catzc.Base.Config`, which reads the registry
-through `Get-Config` and passes it down. `Get-Config` calls the scanner with the globs from the config registry, so the reader never
-depends on the module that reads the meta-kind registry
-([controlling-module-dependencies](../automation/controlling-module-dependencies.md)).
+through `Get-Config` and passes it down. `Get-Config` calls the scanner with the globs from the config registry, so the reader never depends
+on the module that reads the meta-kind registry ([controlling-module-dependencies](../automation/controlling-module-dependencies.md)).
 
 - [Layers](#layers)
 
 ## Context
 
 A Markdown file in this repository is more than prose. An agent definition declares a name, a description and its tools. An ADR sits in a
-domain with a concern. A reference page belongs to a module. Some of these facts are stated twice, once in the file and once in a
-registry that has to be kept in step, and some can be computed from the file and the repository but are not written anywhere a reader
-could see them.
+domain with a concern. A reference page belongs to a module. Some of these facts are stated twice, once in the file and once in a registry
+that has to be kept in step, and some can be computed from the file and the repository but are not written anywhere a reader could see them.
 
 Two needs follow. Facts that can be computed belong in the file, written by a formatter, so a reader and a tool see them without running
 anything. Values an author states belong where the thing is, and a config can read them from there
@@ -116,9 +113,9 @@ timestamp is allowed, because a value that changes on every run makes every run 
 
 `The function is the subscription`
 
-A module subscribes by adding a file. The convention names the function from the kind's id, as a config validator is named from its
-config. The gate lists the orphans in both directions: a kind whose function is missing fails when the registry is read, and a function that
-matches no kind is reported, so a rename cannot leave either side behind.
+A module subscribes by adding a file. The convention names the function from the kind's id, as a config validator is named from its config.
+The gate lists the orphans in both directions: a kind whose function is missing fails when the registry is read, and a function that matches
+no kind is reported, so a rename cannot leave either side behind.
 
 ### Scope
 

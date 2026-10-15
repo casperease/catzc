@@ -349,10 +349,6 @@ concepts:
       One config value, a key path and its value, that an author states in the config part of a tracked Markdown file's meta block and that
       the config reader gathers into the config that opted in to it.
     realized_by: { kind: prose-only }
-    contrasts:
-      contract asset:
-        A contract asset is a checked-in file that states part of a repository boundary; a config contribution is one value inside a
-        Markdown file that changes a config of this repository.
   meta block:
     key: meta_block
     domain: repository
@@ -361,13 +357,15 @@ concepts:
       The one reserved front-matter key, catzc, of a tracked Markdown file, holding its derived facts and its authored config contributions
       and nothing else the tooling owns.
     realized_by: { kind: prose-only }
+    contrasts:
+      meta kind: The meta block is the key in one file; a meta kind is the registry entry that says what goes in that key across files.
   meta kind:
     key: meta_kind
     domain: repository
     defined_by: ADR-REPO-MDMETA#2
     short:
-      One entry of the meta-kind registry, naming a kind of derived fact imprinted into Markdown files, or of config contribution gathered out
-      of them, with the files it applies to, the keys it owns and, for a gather kind, the config it feeds.
+      One entry of the meta-kind registry, naming a kind of derived fact imprinted into Markdown files, or of config contribution gathered
+      out of them, with the files it applies to, the keys it owns and, for a gather kind, the config it feeds.
     realized_by: { kind: prose-only }
     contrasts:
       meta block: The meta block is the key in one file; a meta kind is the registry entry that says what goes in that key across files.

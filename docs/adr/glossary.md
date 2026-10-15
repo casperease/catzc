@@ -590,6 +590,17 @@ A Describe or Context in a test file — a named group of tests whose tags and s
   - [test](#test): A test is one It that passes or fails; a test block groups tests and carries their shared tags and setup.
   - [test file](#test-file): A test file is the *.Tests.ps1 file; a test block is a Describe or Context inside it.
 
+## configuration
+
+### config contribution
+
+One config value, a key path and its value, that an author states in the config part of a tracked Markdown file's meta block and that the
+config reader gathers into the config that opted in to it.
+
+- **Defined by:** [ADR-CONF-MDCONTRIB#1](configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+
 ## azure
 
 ### break-glass login
@@ -869,6 +880,30 @@ A link inside a rendered .md file, written relative to that file so it resolves 
 - **Contrasts:**
   - [code link](#code-link): A code link lives in a comment of a non-markdown file and is repository-rooted; a markdown link lives in a .md
     file and is relative to it.
+
+### meta block
+
+The one reserved front-matter key, catzc, of a tracked Markdown file, holding its derived facts and its authored config contributions and
+nothing else the tooling owns.
+
+- **Defined by:** [ADR-REPO-MDMETA#1](repository/markdown-meta.md#rule-adr-repo-mdmeta1)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [meta kind](#meta-kind): The meta block is the key in one file; a meta kind is the registry entry that says what goes in that key across
+    files.
+
+### meta kind
+
+One entry of the meta-kind registry, naming a kind of derived fact imprinted into Markdown files, or of config contribution gathered out of
+them, with the files it applies to, the keys it owns and, for a gather kind, the config it feeds.
+
+- **Defined by:** [ADR-REPO-MDMETA#2](repository/markdown-meta.md#rule-adr-repo-mdmeta2)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `automation/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [meta block](#meta-block): The meta block is the key in one file; a meta kind is the registry entry that says what goes in that key
+    across files.
 
 ### provided contract
 

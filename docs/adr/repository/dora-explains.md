@@ -236,9 +236,9 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-REPO-MDMETA](markdown-meta.md)
 
-> DORA's research ties maintainable systems to a single source of truth and to checks that catch drift early. Computable facts written by
-> a formatter in one fixed form, and authored values stated once beside the thing they describe, keep files and registries from drifting
-> apart without a manual step.
+> DORA's research ties maintainable systems to a single source of truth and to checks that catch drift early. Computable facts written by a
+> formatter in one fixed form, and authored values stated once beside the thing they describe, keep files and registries from drifting apart
+> without a manual step.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a fact is stated once, so a file and the registry
   that mirrors it cannot disagree.

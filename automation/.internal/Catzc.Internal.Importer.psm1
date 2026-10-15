@@ -517,10 +517,12 @@ function Invoke-ImporterJanitors {
     # installer layer (e.g. nvm-managed node) — and report any running from a non-owned location on one line.
     # Session-only, self-skips in CI. The importer is dot-sourced, so its PATH nudges land in the caller's live
     # session. The janitor announces each nudge like any function, but at every shell open the same nudges are part
-    # of the load record (ADR-PWSH-ANNOUNCE#6): the importer's -Verbose decides whether they are shown, so a plain
-    # import prints only the Loaded line. The quieting is the session-wide information preference, restored in the
-    # finally (ADR-PWSH-ANNOUNCE#9): a common parameter would reach only the janitor's own scope, not the writer
-    # chokepoint in Catzc.Base.Writers. Guarded: absent in the bootstrap sandbox (Catzc.Tooling.Core).
+    # of the load record ([ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)):
+    # the importer's -Verbose decides whether they are shown, so a plain import prints only the Loaded line. The
+    # quieting is the session-wide information preference, restored in the finally
+    # ([ADR-PWSH-ANNOUNCE#9](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce9)): a common parameter
+    # would reach only the janitor's own scope, not the writer chokepoint in Catzc.Base.Writers. Guarded: absent in
+    # the bootstrap sandbox (Catzc.Tooling.Core).
     if (Get-Command Sync-SessionTools -ErrorAction Ignore) {
         $informationPreference = $global:InformationPreference
         if (-not $ShowStateChanges) {
