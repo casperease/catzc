@@ -94,7 +94,7 @@ Describe 'FolderWalker' -Tag 'L0', 'logic' {
             $false
         }
         if (-not $made) {
-            Set-ItResult -Skipped -Because 'this account cannot create a link'; return
+            Set-ItResult -Skipped -Because 'link_creation_not_permitted'; return
         }
 
         # The link goes before the test ends: Pester's own TestDrive cleanup follows a link, and a cycle never ends.

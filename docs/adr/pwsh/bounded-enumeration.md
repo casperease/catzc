@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/pwsh/bounded-enumeration.md
     kind: adr
-    body_sha: "3b388e56003a"
+    body_sha: dec8e94642cc
     defines:
       - ADR-PWSH-ENUM#1
       - ADR-PWSH-ENUM#2
@@ -24,9 +24,9 @@ catzc:
 ### Rule ADR-PWSH-ENUM:1
 
 List the children of a folder, and anything deeper, with raw .NET only, through `Get-ChildPath` (the `Catzc.Base.Folders` module, backed by
-the compiled `FolderWalker` type). `Get-ChildItem`, `gci`, `dir`, and `ls` never enumerate the filesystem. A probe that asks only whether a folder holds any entry is not a
-listing: it calls `[System.IO.Directory]::EnumerateFileSystemEntries` and stops at the first entry, so no name is pruned and nothing is
-collected.
+the compiled `FolderWalker` type). `Get-ChildItem`, `gci`, `dir`, and `ls` never enumerate the filesystem. A probe that asks only whether a
+folder holds any entry is not a listing: it calls `[System.IO.Directory]::EnumerateFileSystemEntries` and stops at the first entry, so no
+name is pruned and nothing is collected.
 
 - [Raw .NET, one way](#raw-net-one-way)
 - [Emptiness probes](#emptiness-probes)
@@ -146,8 +146,8 @@ pruned and links never entered. Back it with a compiled type. Code that loads be
 - **Custom PSScriptAnalyzer rule `Measure-NoUnboundedEnumeration`** (`automation/.scriptanalyzer/NoUnboundedEnumeration.psm1`, severity:
   Error) — flags `Get-ChildItem` and its aliases on a filesystem path (ADR-PWSH-ENUM#1) and `[System.IO.SearchOption]::AllDirectories`
   (ADR-PWSH-ENUM#3). A literal provider path (`env:`, `function:`, `HKLM:`) is left alone, a provider listing through a variable carries a
-  justified suppression, and test files are outside its scope.
-- **Code review** — a listing in a test file, and a whole-tree walk whose depth or comment is not justified, are checked against this ADR.
+  justified suppression. Test files are covered like any other code.
+- **Code review** — a whole-tree walk whose depth or comment is not justified is checked against this ADR.
 
 ## Consequences
 

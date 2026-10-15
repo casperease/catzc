@@ -3,15 +3,15 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/types/MarkdownLinkRebaser.Tests.ps1.md
     kind: test-asset
-    body_sha: b8d43021580b
+    body_sha: "0c9a736dad8a"
     adrs:
       - ADR-REPO-README#6
 ---
 
 # automation/Catzc.Base.Docs/tests/types/MarkdownLinkRebaser.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

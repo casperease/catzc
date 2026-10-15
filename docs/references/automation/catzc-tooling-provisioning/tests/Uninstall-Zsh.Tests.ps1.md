@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md
     kind: test-asset
-    body_sha: d71b6d27e11b
+    body_sha: "6f0e577b40b0"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-AUTO-TEST#9
@@ -11,8 +11,8 @@ catzc:
 
 # automation/Catzc.Tooling.Provisioning/tests/Uninstall-Zsh.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

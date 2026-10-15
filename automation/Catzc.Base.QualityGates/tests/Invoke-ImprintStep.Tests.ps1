@@ -15,7 +15,7 @@ catzc:
 Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'step-adapter-repo'))
-        $script:carriers = [Catzc.Base.Languages.FileCarriersConfig]::new(@{ carriers = [ordered]@{ markdown = @{ carrier = 'front-matter' } } })
+        $script:carriers = [Catzc.Base.Languages.FileCarriersConfig]::new(@{ carriers = [ordered]@{ markdown = @{ carrier = 'front-matter' }; powershell = @{ carrier = 'comment-head'; block = @('<#', '#>') } } })
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new(@{ languages = [ordered]@{ markdown = @{ extensions = @('.md'); formatter = 'prettier' } } })
         $script:meta = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'file-path' = @{ keys = @('path') } } })
         $script:widget = Join-Path $script:root 'docs/widget.md'
@@ -87,37 +87,41 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
         BeforeEach {
             $script:helpFile = Join-Path $script:root 'automation/Widget/Get-Gadget.ps1'
             $null = New-Item -ItemType Directory -Path (Split-Path $script:helpFile) -Force
-            $script:helpText = (@('<#', '.SYNOPSIS', '    Gets a gadget.', '.OUTPUTS', '    [string] The gadget.', '.PARAMETER Widget', '    The widget.', '#>', 'function Get-Gadget {', '    [OutputType([string])]', '    param(', '        [string] $Widget', '    )', '}') -join "`n") + "`n"
+            $head = @('<#', '---', 'catzc:', '  derived:', '    path: automation/Widget/Get-Gadget.ps1', '    kind: automation-function', '  config:', '    synopsis: Gets a gadget.', '    parameters:', '      Widget: The widget.', '    outputs: ''[string] The gadget.''', '---', '#>', '')
+            $function = @('function Get-Gadget {', '    [OutputType([string])]', '    param(', '        [string] $Widget', '    )', '}')
+            $script:helpText = (($head + $function) -join "`n") + "`n"
             [System.IO.File]::WriteAllText($script:helpFile, $script:helpText)
         }
 
-        It 'writes the normal form of a help block and returns the absolute path it changed' {
-            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
-                param($Root, $File)
-                Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root
-            }
-            $outcome.Changed | Should -Be @($script:helpFile)
-            $outcome.Unfixable.Count | Should -Be 0
-            [System.IO.File]::ReadAllText($script:helpFile) | Should -BeLike '*.PARAMETER Widget*.OUTPUTS*'
-        }
-
-        It 'changes nothing under -DryRun, and still names the file it would change' {
-            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
-                param($Root, $File)
-                Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root -DryRun
-            }
-            $outcome.Changed | Should -Be @($script:helpFile)
-            [System.IO.File]::ReadAllText($script:helpFile) | Should -BeExactly $script:helpText
-        }
-
-        It 'returns a problem only a person can settle as a file to repair' {
-            [System.IO.File]::WriteAllText($script:helpFile, (@('<#', '.SYNOPSIS', '    Gets a gadget.', '#>', 'function Get-Gadget {', '    param(', '        [string] $Widget', '    )', '}') -join "`n") + "`n")
+        It 'finds nothing in help that is in order, and writes no file' {
             $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
                 param($Root, $File)
                 Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root
             }
             $outcome.Changed.Count | Should -Be 0
-            $outcome.Unfixable[$script:helpFile] | Should -BeLike '*parameter Widget has no .PARAMETER section*'
+            $outcome.Unfixable.Count | Should -Be 0
+            [System.IO.File]::ReadAllText($script:helpFile) | Should -BeExactly $script:helpText
+        }
+
+        It 'returns a finding only a person can settle as a file to repair, and still writes no file' {
+            $broken = $script:helpText.Replace("      Widget: The widget.`n", '')
+            [System.IO.File]::WriteAllText($script:helpFile, $broken)
+            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
+                param($Root, $File)
+                Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root
+            }
+            $outcome.Changed.Count | Should -Be 0
+            $outcome.Unfixable[$script:helpFile] | Should -BeLike '*the parameter Widget is declared but has no entry in parameters*'
+            [System.IO.File]::ReadAllText($script:helpFile) | Should -BeExactly $broken
+        }
+
+        It 'reports a comment-based help block as a file to repair' {
+            [System.IO.File]::WriteAllText($script:helpFile, ($script:helpText.Replace('function Get-Gadget', "<#`n.SYNOPSIS`n    Old.`n#>`n" + 'function Get-Gadget')))
+            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $script:helpFile } {
+                param($Root, $File)
+                Invoke-ImprintStep -Step ps-help -File $File -RepositoryRoot $Root
+            }
+            $outcome.Unfixable[$script:helpFile] | Should -BeLike '*comment-based help is not used*'
         }
     }
 

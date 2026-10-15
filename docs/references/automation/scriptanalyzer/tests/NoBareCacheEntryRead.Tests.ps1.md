@@ -3,15 +3,15 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1.md
     kind: test-asset
-    body_sha: "32f421e22dea"
+    body_sha: "514a9895d0fb"
     adrs:
       - ADR-PWSH-CACHE#4
 ---
 
 # automation/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

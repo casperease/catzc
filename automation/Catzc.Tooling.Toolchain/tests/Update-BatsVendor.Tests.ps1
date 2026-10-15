@@ -6,6 +6,7 @@ catzc:
     kind: pester-test
     adrs:
       - ADR-AUTO-TEST#3
+      - ADR-PWSH-ENUM#3
 ---
 #>
 
@@ -42,7 +43,8 @@ Describe 'Update-BatsVendor' -Tag 'L0', 'logic' {
 
     It 'replaces the vendored folder with the runner''s files only, and removes the staging folder' {
         Update-BatsVendor
-        # A whole-tree walk (ADR-PWSH-ENUM#3): the vendored runner is compared file for file, so nothing is pruned.
+        # A whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the vendored
+        # runner is compared file for file, so nothing is pruned.
         $files = @(Get-ChildPath $script:target -File -Depth 64 -Exclude @() -PruneVendor $false | ForEach-Object {
                 [System.IO.Path]::GetRelativePath($script:target, $_).Replace('\', '/')
             } | Sort-Object)

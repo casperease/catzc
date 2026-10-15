@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/types/AgentEntry.Tests.ps1.md
     kind: test-asset
-    body_sha: "92aae2dcce6b"
+    body_sha: "8ae7418aa599"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-AGENTS#2
@@ -11,8 +11,8 @@ catzc:
 
 # automation/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

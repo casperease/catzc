@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/types/CommentEngine.Tests.ps1.md
     kind: test-asset
-    body_sha: "7e71a7cd17f6"
+    body_sha: "0d69e450011e"
     adrs:
       - ADR-PRIN-CONFIG#1
       - ADR-PRIN-ONELIVE#1
@@ -13,8 +13,8 @@ catzc:
 
 <!-- cspell:ignore nwidgets npublic nvar nwidget ngadget gadgt wdgt -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

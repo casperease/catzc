@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure/tests/Get-AzureEnvironment.Tests.ps1.md
     kind: test-asset
-    body_sha: a18b29122291
+    body_sha: "975e56c79dd2"
     adrs:
       - ADR-AUTO-TEST#19
       - ADR-AUTO-TEST#4
@@ -11,8 +11,8 @@ catzc:
 
 # automation/Catzc.Azure/tests/Get-AzureEnvironment.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

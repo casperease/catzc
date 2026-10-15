@@ -3,13 +3,13 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-typessystem/tests/Clear-ModuleTypeCache.Tests.ps1.md
     kind: test-asset
-    body_sha: c98edf846293
+    body_sha: "65e58ab864cd"
 ---
 
 # automation/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

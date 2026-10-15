@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/function-help.md
     kind: adr
-    body_sha: "870eb02ba38a"
+    body_sha: "3c30ae3e63b3"
     defines:
       - ADR-REPO-HELP#1
       - ADR-REPO-HELP#2
@@ -28,9 +28,10 @@ catzc:
 
 ### Rule ADR-REPO-HELP:1
 
-The help of a PowerShell function file or script is the `config` part of its meta head ([ADR-REPO-CODEMETA#1](code-file-meta.md#rule-adr-repo-codemeta1)),
-and the file carries no comment-based help block: no `.SYNOPSIS`, `.DESCRIPTION`, `.PARAMETER`, `.INPUTS`, `.OUTPUTS`, `.EXAMPLE` or `.NOTES`
-section anywhere. The keys are `synopsis`, `description`, `parameters`, `inputs`, `outputs`, `examples` and `notes`, always in that order.
+The help of a PowerShell function file or script is the `config` part of its meta head
+([ADR-REPO-CODEMETA#1](code-file-meta.md#rule-adr-repo-codemeta1)), and the file carries no comment-based help block: no `.SYNOPSIS`,
+`.DESCRIPTION`, `.PARAMETER`, `.INPUTS`, `.OUTPUTS`, `.EXAMPLE` or `.NOTES` section anywhere. The keys are `synopsis`, `description`,
+`parameters`, `inputs`, `outputs`, `examples` and `notes`, always in that order.
 
 - [The head holds the help](#the-head-holds-the-help)
 
@@ -82,8 +83,8 @@ The help is data in the head, with one shape, and a check reads it as data.
 `One place for what a file says about itself`
 
 The synopsis, the description, the parameters, the outputs and the examples are keys of the head's `config` part, so a tool that reads the
-head reads the help, and `Get-Help` is not the way to read a catzc function. A file has no comment block that a person must keep in step with
-the head.
+head reads the help, and `Get-Help` is not the way to read a catzc function. A file has no comment block that a person must keep in step
+with the head.
 
 ### Strings, written once
 

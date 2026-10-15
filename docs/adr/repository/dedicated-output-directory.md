@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/dedicated-output-directory.md
     kind: adr
-    body_sha: "516222c7fb6c"
+    body_sha: f8ee280ed047
     defines:
       - ADR-REPO-OUTDIR#1
       - ADR-REPO-OUTDIR#2
@@ -71,8 +71,8 @@ vendored artifact (one assembly for the whole repository) and lives there on pur
 
 ### Rule ADR-REPO-OUTDIR:7
 
-Cleaning all output is one command: `Clear-Output -All`, which keeps only the folder's `.gitkeep` and the plan files
-(ADR-REPO-OUTDIR#10). CI and developers use the same command.
+Cleaning all output is one command: `Clear-Output -All`, which keeps only the folder's `.gitkeep` and the plan files (ADR-REPO-OUTDIR#10).
+CI and developers use the same command.
 
 - [Decision](#decision)
 
@@ -189,11 +189,11 @@ lands whole: it is never committed half-done, and its citation never aliases an 
 
 A run folder that only grows is noise: a person reads the latest run and compares a few, and two hundred stamps of one gate help no one. So
 every file under the output root is a format, and the format's area says how long it stays. A run keeps its newest stamps, as whole stamp
-folders, so a run's report, rows and results go together. A build keeps its newest version, because the build is regenerated from source.
-A cache stays, because its own keys decide when an entry is stale, and age is not staleness. A review artifact and a plan stay until a person
+folders, so a run's report, rows and results go together. A build keeps its newest version, because the build is regenerated from source. A
+cache stays, because its own keys decide when an entry is stale, and age is not staleness. A review artifact and a plan stay until a person
 retires them. A session's scripts, dumps and logs go after a week, and an appended log stays while it is written. The defaults sit once on
-the format type and a format states only what differs, so retention is configured, not programmed (ADR-PRIN-CONFIG). A file no format
-covers is reported and left alone: removing what nobody declared would guess at its owner.
+the format type and a format states only what differs, so retention is configured, not programmed (ADR-PRIN-CONFIG). A file no format covers
+is reported and left alone: removing what nobody declared would guess at its owner.
 
 ## Consequences
 

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-azure-templates/tests/Get-BicepParameterViolations.Tests.ps1.md
     kind: test-asset
-    body_sha: b18bec96ed23
+    body_sha: "142508de53d4"
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-PWSH-PESTER#2
@@ -11,8 +11,8 @@ catzc:
 
 # automation/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

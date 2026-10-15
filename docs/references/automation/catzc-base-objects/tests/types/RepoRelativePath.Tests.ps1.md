@@ -3,13 +3,13 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-objects/tests/types/RepoRelativePath.Tests.ps1.md
     kind: test-asset
-    body_sha: e31c84f9de0d
+    body_sha: b51309b4e796
 ---
 
 # automation/Catzc.Base.Objects/tests/types/RepoRelativePath.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

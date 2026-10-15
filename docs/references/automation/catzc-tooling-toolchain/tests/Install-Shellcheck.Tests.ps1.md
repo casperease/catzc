@@ -3,13 +3,13 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/tests/Install-Shellcheck.Tests.ps1.md
     kind: test-asset
-    body_sha: cd10e98731c9
+    body_sha: "075691e21614"
 ---
 
 # automation/Catzc.Tooling.Toolchain/tests/Install-Shellcheck.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

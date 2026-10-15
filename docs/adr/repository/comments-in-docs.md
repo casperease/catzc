@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/comments-in-docs.md
     kind: adr
-    body_sha: "87e19ba1fae7"
+    body_sha: "821e3f810c7b"
     defines:
       - ADR-REPO-COMMENTS#1
       - ADR-REPO-COMMENTS#2
@@ -34,8 +34,9 @@ A comment in a code or configuration file is at most one line of insight: what t
 order it depends on, the edge it guards, the reason a branch exists. A comment that needs more than one line of prose moves, verbatim, to
 the file's **comment page**, and the file keeps in its place a **residue**: the insight line, then the docs link to its section
 (ADR-REPO-LINK#9). A residue in a help section is the insight line alone when its section's name occurs once in the file and once on the
-page: the page section names the help section (`.PARAMETER Path`), and that name pairs them, so `Get-Help` shows no link. The comment's
-ADR citations move to the page with the rest of its prose, and the file's meta head lists them (ADR-REPO-CODEMETA#2). The comment-based help sections a reader and the help system need in place stay whole.
+page: the page section names the help section (`.PARAMETER Path`), and that name pairs them, so `Get-Help` shows no link. The comment's ADR
+citations move to the page with the rest of its prose, and the file's meta head lists them (ADR-REPO-CODEMETA#2). The comment-based help
+sections a reader and the help system need in place stay whole.
 
 - [One line in the file](#one-line-in-the-file)
 
@@ -72,11 +73,10 @@ file changes nothing.
 
 The move is made by tool and checked by a gate: `Export-Comments` moves every long comment in scope, and `Format-Code` runs it as its
 `comments` imprint step ([ADR-REPO-FORMAT#8](uniform-formatting.md#rule-adr-repo-format8)), so formatting a file also moves its prose.
-`Format-Comments` keeps each insight line one line within the file's limit and free of links and of phrasings that state the obvious,
-drops the docs link of a help residue its page names uniquely, and
-`Test-Comments` fails on a long comment left in a file, a residue whose section is missing, a section no residue links, and a residue that
-links another file's page. A comment page is marked as one in its meta block, whose `kind` is `comment-page`
-([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)).
+`Format-Comments` keeps each insight line one line within the file's limit and free of links and of phrasings that state the obvious, drops
+the docs link of a help residue its page names uniquely, and `Test-Comments` fails on a long comment left in a file, a residue whose section
+is missing, a section no residue links, and a residue that links another file's page. A comment page is marked as one in its meta block,
+whose `kind` is `comment-page` ([ADR-REPO-FILEMETA#1](file-meta.md#rule-adr-repo-filemeta1)).
 
 - [How this is enforced](#how-this-is-enforced)
 

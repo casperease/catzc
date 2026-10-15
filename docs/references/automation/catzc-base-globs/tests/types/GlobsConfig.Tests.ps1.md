@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
     kind: test-asset
-    body_sha: "5abcfcc8baac"
+    body_sha: cd9950da5dee
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-FLOW-CD-GLOBS#4
@@ -15,8 +15,8 @@ catzc:
 
 <!-- cspell:ignore dedupe -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

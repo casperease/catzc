@@ -3,15 +3,15 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/types/PesterRunner.Tests.ps1.md
     kind: test-asset
-    body_sha: "16e43d720ae8"
+    body_sha: "1655e29523da"
 ---
 
 # automation/Catzc.Base.QualityGates/tests/types/PesterRunner.Tests.ps1
 
 <!-- cspell:ignore nexit -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

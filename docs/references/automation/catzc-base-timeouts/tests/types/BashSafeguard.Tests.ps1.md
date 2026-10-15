@@ -3,15 +3,15 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-timeouts/tests/types/BashSafeguard.Tests.ps1.md
     kind: test-asset
-    body_sha: ad23816a21b1
+    body_sha: "31d7a7f8cd4a"
 ---
 
 # automation/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1
 
 <!-- cspell:ignore tmain tforeground tbackground tsleep tsubagent tpipeline -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

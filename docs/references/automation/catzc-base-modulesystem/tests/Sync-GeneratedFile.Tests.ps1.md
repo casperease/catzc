@@ -3,13 +3,13 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-modulesystem/tests/Sync-GeneratedFile.Tests.ps1.md
     kind: test-asset
-    body_sha: e79fb010a4f1
+    body_sha: "4d6ff1dfbc6a"
 ---
 
 # automation/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

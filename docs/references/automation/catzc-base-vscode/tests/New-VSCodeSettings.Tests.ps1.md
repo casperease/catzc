@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-vscode/tests/New-VSCodeSettings.Tests.ps1.md
     kind: test-asset
-    body_sha: fa94973cd7dc
+    body_sha: fcc94a0953a0
     adrs:
       - ADR-PWSH-PESTER#2
 ---
@@ -12,8 +12,8 @@ catzc:
 
 <!-- cspell:ignore gopls -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

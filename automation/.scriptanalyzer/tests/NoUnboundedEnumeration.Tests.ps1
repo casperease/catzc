@@ -39,7 +39,7 @@ Describe 'Measure-NoUnboundedEnumeration' -Tag 'L0', 'logic', 'ADR-PWSH-ENUM#1',
         $diagnostics = @(Test-EnumerationFile -Code "function Get-Widget { $Command `$widgetFolder -Recurse }")
         $diagnostics.Count | Should -Be 1
         $diagnostics | ForEach-Object { $_.RuleName } | Should -Be 'Measure-NoUnboundedEnumeration'
-        $diagnostics | ForEach-Object { $_.Message } | Should -BeLike '*ADR-PWSH-ENUM#1*'
+        $diagnostics | ForEach-Object { $_.Message } | Should -BeLike '*Get-ChildPath*'
     }
 
     It 'flags a drive-letter path as a filesystem path' {
@@ -52,7 +52,7 @@ Describe 'Measure-NoUnboundedEnumeration' -Tag 'L0', 'logic', 'ADR-PWSH-ENUM#1',
     ) {
         $diagnostics = @(Test-EnumerationFile -Code $Code)
         $diagnostics.Count | Should -Be 1
-        $diagnostics | ForEach-Object { $_.Message } | Should -BeLike '*ADR-PWSH-ENUM#3*'
+        $diagnostics | ForEach-Object { $_.Message } | Should -BeLike '*-Depth*'
         $diagnostics | ForEach-Object { $_.Extent.Text } | Should -BeLike '*AllDirectories'
     }
 
@@ -65,8 +65,16 @@ Describe 'Measure-NoUnboundedEnumeration' -Tag 'L0', 'logic', 'ADR-PWSH-ENUM#1',
         @(Test-EnumerationFile -Code "function Get-Widget { Get-ChildItem $Path }").Count | Should -Be 0
     }
 
-    It 'leaves a test file alone' {
+    It 'flags a listing in a test file as well' {
         $code = 'function Get-Widget { Get-ChildItem $widgetFolder -Recurse }'
+        @(Test-EnumerationFile -Code $code -RelativePath 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 1
+    }
+
+    It 'leaves a Mock of the cmdlet and the cmdlet name in a string alone' {
+        $code = @'
+Mock Get-ChildItem { } -ModuleName Catzc.Widget
+$text = 'Get-ChildItem is the cmdlet'
+'@
         @(Test-EnumerationFile -Code $code -RelativePath 'automation/Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 0
     }
 

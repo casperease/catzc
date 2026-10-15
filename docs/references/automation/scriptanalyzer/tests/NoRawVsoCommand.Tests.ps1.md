@@ -3,13 +3,13 @@ catzc:
   derived:
     path: docs/references/automation/scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1.md
     kind: test-asset
-    body_sha: "2b1311167ebf"
+    body_sha: "2ce963b4a0da"
 ---
 
 # automation/.scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

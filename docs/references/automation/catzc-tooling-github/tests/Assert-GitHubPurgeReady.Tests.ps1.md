@@ -3,13 +3,13 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md
     kind: test-asset
-    body_sha: "3bfda7952584"
+    body_sha: "6e88b1d237f4"
 ---
 
 # automation/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

@@ -3,15 +3,15 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md
     kind: test-asset
-    body_sha: "83f91db28a0b"
+    body_sha: "461b41e8bad9"
     adrs:
       - ADR-PWSH-ENV#4
 ---
 
 # automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

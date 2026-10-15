@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-core/tests/Assert-ToolVersion.Tests.ps1.md
     kind: test-asset
-    body_sha: bc681ac68e66
+    body_sha: "28c54d1ca2a0"
     adrs:
       - ADR-AUTO-TEST#3
 ---
@@ -12,8 +12,8 @@ catzc:
 
 <!-- cspell:ignore lockedtool -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

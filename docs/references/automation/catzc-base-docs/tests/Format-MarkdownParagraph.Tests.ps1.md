@@ -3,15 +3,15 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Format-MarkdownParagraph.Tests.ps1.md
     kind: test-asset
-    body_sha: ab23da84e9e4
+    body_sha: "285bcd6c2a85"
     adrs:
       - ADR-REPO-FORMAT#5
 ---
 
 # automation/Catzc.Base.Docs/tests/Format-MarkdownParagraph.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

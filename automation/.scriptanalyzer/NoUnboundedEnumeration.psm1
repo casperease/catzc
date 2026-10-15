@@ -13,7 +13,7 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
 .SYNOPSIS
     Custom PSScriptAnalyzer rule: folders and files are listed through Get-ChildPath, never by a filesystem cmdlet or an unbounded walk.
 .DESCRIPTION
-    Flags Get-ChildItem and its aliases on a filesystem path, and [System.IO.SearchOption]::AllDirectories; test files are left alone.
+    Flags Get-ChildItem and its aliases on a filesystem path, and [System.IO.SearchOption]::AllDirectories; test files are covered too.
 #>
 
 function Measure-NoUnboundedEnumeration {
@@ -29,11 +29,6 @@ function Measure-NoUnboundedEnumeration {
     if (-not $file) {
         return @()
     }
-    $normalizedPath = $file.Replace('\', '/')
-    if ($normalizedPath -match '/tests/' -or $normalizedPath -match '\.Tests\.ps1$') {
-        return @()
-    }
-
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoUnboundedEnumeration'
     $listingCommands = 'Get-ChildItem', 'gci', 'dir', 'ls'

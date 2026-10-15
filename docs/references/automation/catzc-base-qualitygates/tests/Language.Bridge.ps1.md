@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Language.Bridge.ps1.md
     kind: test-asset
-    body_sha: "425aacc1f2c0"
+    body_sha: ae064b884f92
     adrs:
       - ADR-AUTO-ENGINE#4
       - ADR-AUTO-TEST#26
@@ -13,8 +13,8 @@ catzc:
 
 # automation/Catzc.Base.QualityGates/tests/Language.Bridge.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

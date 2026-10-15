@@ -3,15 +3,15 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md
     kind: test-asset
-    body_sha: "0c6cabb9f0ac"
+    body_sha: "39d8a9c8eabc"
     adrs:
       - ADR-DSGN-RUNMODE#3
 ---
 
 # automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

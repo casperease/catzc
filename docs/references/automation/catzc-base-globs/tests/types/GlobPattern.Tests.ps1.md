@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md
     kind: test-asset
-    body_sha: a0aed4574e5a
+    body_sha: "9fc09e336ac5"
     adrs:
       - ADR-FLOW-CD-GLOBS#2
       - ADR-FLOW-CD-GLOBS#3
@@ -11,8 +11,8 @@ catzc:
 
 # automation/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md
     kind: test-asset
-    body_sha: "11df64c48cb8"
+    body_sha: aab7c4c4953d
     adrs:
       - ADR-AUTO-PATH#11
       - ADR-AUTO-TEST#3
@@ -11,8 +11,8 @@ catzc:
 
 # automation/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 

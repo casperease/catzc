@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-docs/tests/Resolve-AdrLinkTarget.Tests.ps1.md
     kind: test-asset
-    body_sha: "74855a9de3d4"
+    body_sha: f3a95d80503d
     adrs:
       - ADR-AUTO-TEST#3
       - ADR-REPO-LINK#2
@@ -11,8 +11,8 @@ catzc:
 
 # automation/Catzc.Base.Docs/tests/Resolve-AdrLinkTarget.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per
-section (Export-Comments), and Build-CommentView puts them back for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
+(Export-Comments), and Build-CommentView puts them back for reading.
 
 ## comment:1
 
