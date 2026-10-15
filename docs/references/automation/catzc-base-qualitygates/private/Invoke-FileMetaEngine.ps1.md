@@ -3,14 +3,12 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/private/Invoke-FileMetaEngine.ps1.md
     kind: reference
-    body_sha: b75338f1f4ae
+    body_sha: abb257ace7eb
     adrs:
       - ADR-REPO-FILEMETA#5
 ---
 
-# docs/references/automation/catzc-base-qualitygates/private/Invoke-FileMetaEngine.ps1.md
-
-`automation/Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1`
+# automation/Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

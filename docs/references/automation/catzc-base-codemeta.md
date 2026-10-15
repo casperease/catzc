@@ -1,0 +1,43 @@
+# Catzc.Base.CodeMeta
+
+The pure core of the code meta head: the leading comment run of a C# type file, a PowerShell function file or any other code file whose
+carrier is a comment head, holding the file's derived facts ([code-file-meta](../../adr/repository/code-file-meta.md)). The module reads no
+config and no file: every text, and the comment syntax of the head, reaches it as a parameter, so it sits below
+[Catzc.Base.Config](catzc-base-config.md) beside [Catzc.Base.MarkdownMeta](catzc-base-markdownmeta.md), its Markdown counterpart. The
+registry of meta kinds, the file-carrier registry that names each file class's comment syntax, and the commands that read them live above
+`Catzc.Base.Config`.
+
+## Responsibilities
+
+| Responsibility   | Area       | Name                                                                   |
+| ---------------- | ---------- | ---------------------------------------------------------------------- |
+| responsibility:1 | reading    | [Reading a text's head](#responsibility1--reading-a-texts-head)        |
+| responsibility:2 | imprinting | [Imprinting derived facts](#responsibility2--imprinting-derived-facts) |
+
+### responsibility:1 — Reading a text's head
+
+What a code text says about its own meta head: whether it has one, its keys and values in the order written, the text that stays above it (a
+byte order mark, a shebang, an XML prolog or fixed preamble lines) and the rest of the text below it. A comment directly under the head is
+not part of it, and a block head that never closes is no head.
+
+### responsibility:2 — Imprinting derived facts
+
+Returning a text with its head written from the facts given, in one canonical form and in the order given, so the same facts always give the
+same bytes. The head follows the language's anchor, a blank line separates it from the rest, the text's own line endings are kept, and no
+facts removes the head and its blank line.
+
+## What the module does
+
+A code file has no front matter, but it has comments, and the leading comment run is where a reader looks first. This module is that run's
+reader and writer, written as pure functions over text and three C# types: the head's comment syntax (`HeadForm`), where it may stand
+(`HeadAnchor`) and the head itself (`CodeMetaHead`). A value is a plain path or name, never a quoted string, because a head holds only facts
+the repository can compute.
+
+## Division
+
+Each function belongs to one responsibility.
+
+| Responsibility                              | Function              |
+| ------------------------------------------- | --------------------- |
+| responsibility:1 — Reading a text's head    | `Get-CodeMetaState`   |
+| responsibility:2 — Imprinting derived facts | `Format-CodeMetaHead` |

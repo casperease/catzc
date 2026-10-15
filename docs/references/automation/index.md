@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/index.md
     kind: reference
-    body_sha: d48f7be7ed28
+    body_sha: "2f67b77363e6"
     adrs: []
 ---
 
@@ -42,6 +42,7 @@ Modules are layered — a module may only call into the modules it declares in `
 | [Catzc.Base.Objects](catzc-base-objects.md)                                 | Object shaping & serialization, and the shared `DictionaryRecord` base                                                                                       |
 | [Catzc.Base.Writers](catzc-base-writers.md)                                 | Console output and diagnostics — the colour-aware writer family                                                                                              |
 | [Catzc.Base.MarkdownMeta](catzc-base-markdownmeta.md)                       | The pure reader and writer of a Markdown file's `catzc` meta block — derived facts, authored config, front matter left out of a copy                         |
+| [Catzc.Base.CodeMeta](catzc-base-codemeta.md)                               | The pure reader and writer of a code file's meta head — derived facts in a leading comment run, in the file's own comment syntax                             |
 | [Catzc.Base.Config](catzc-base-config.md)                                   | The single config reader (`Get-Config`) and the `configs.yml` registry                                                                                       |
 | [Catzc.Base.ConfigExtensions](catzc-base-configextensions.md)               | The PowerShell config-validator extension point, for owners without a C# config type                                                                         |
 | [Catzc.Base.Reports](catzc-base-reports.md)                                 | The shared quality-gate report — one report, one printed summary, one verdict                                                                                |

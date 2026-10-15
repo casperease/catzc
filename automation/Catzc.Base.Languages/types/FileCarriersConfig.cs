@@ -1,4 +1,4 @@
-// Every file class names where its meta block lives or why it has none, so a gap is a visible, reviewed entry.,,
+// Every file class names where its meta block lives or why it has none, so a gap is a visible, reviewed entry.
 // [ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1),
 // [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
 // [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)

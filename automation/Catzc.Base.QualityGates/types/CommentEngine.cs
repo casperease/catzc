@@ -263,7 +263,7 @@ public static class CommentEngine
         for (int i = next; i < lines.Count; i++) { output.Add(lines[i]); }
 
         string newText = lines.Join(output);
-        string newPage = page.With(sections, pagePath, repoRelativePath, IgnoredWords(text, extension));
+        string newPage = page.With(sections, repoRelativePath, IgnoredWords(text, extension));
         return new CommentFileResult(repoRelativePath, pagePath, newText, newPage, blocks);
     }
 
@@ -560,12 +560,12 @@ public static class CommentEngine
         }
 
         // The page text with the new sections appended: an existing page keeps its text as written.
-        public string With(IEnumerable<string> newSections, string pagePath, string repoRelativePath, IReadOnlyList<string> ignoredWords)
+        public string With(IEnumerable<string> newSections, string repoRelativePath, IReadOnlyList<string> ignoredWords)
         {
             var builder = new StringBuilder();
             bool fresh = Sections.Count == 0 && Prefix.Trim().Length == 0;
             string prefix = fresh
-                ? "# " + pagePath + "\n\n`" + repoRelativePath + "`\n\n"
+                ? "# " + repoRelativePath + "\n\n"
                     + "The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per\n"
                     + "section (Export-Comments), and Build-CommentView puts them back for reading.\n"
                 : Prefix.TrimEnd('\n') + "\n";
@@ -610,7 +610,7 @@ public static class CommentEngine
                 builder.Append(prefix, copied, prefix.Length - copied);
                 return Regex.Replace(builder.ToString(), @"\n{3,}", "\n\n");
             }
-            string pathLine = "`" + repoRelativePath + "`\n";
+            string pathLine = "# " + repoRelativePath + "\n";
             int at = prefix.IndexOf(pathLine, StringComparison.Ordinal);
             if (at < 0) { return prefix.TrimEnd('\n') + "\n\n" + block + "\n"; }
             int after = at + pathLine.Length;

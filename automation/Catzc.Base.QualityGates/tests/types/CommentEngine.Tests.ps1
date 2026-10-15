@@ -61,7 +61,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $lines | Should -Contain "    # [comment:2](/$page#comment2)"
         $lines | Should -Contain '    The widget name.'
         $lines | Should -Contain '    $widgets = Get-Gadget | Sort-Object   # a trailing note stays'
-        $result.PageText.StartsWith("# $page`n") | Should -BeTrue
+        $result.PageText.StartsWith("# automation/Catzc.Widget/Get-Widget.ps1`n`nThe comments of the file that outgrew one line") | Should -BeTrue -Because 'the title is the file the page belongs to'
         $section = "## comment:1`n`nSection ``.DESCRIPTION`` of the comment-based help.`n`n" + '```text' + "`nReads the widget from the gadget store first"
         $result.PageText.Contains($section) | Should -BeTrue -Because 'a section names its context and fences the prose, indent stripped'
         $result.PageText.Contains("`n`nA missing widget is created.`n" + '```') | Should -BeTrue -Because 'the blank line inside the comment is kept'
@@ -151,7 +151,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         $result = & $export $yaml '.yml' 'yaml'
         $result.MovedCount | Should -Be 2
         ($result.Text -split "`n")[2] | Should -BeExactly '# cspell:ignore gadgt'
-        $result.PageText.Contains("``automation/Catzc.Widget/Get-Widget.ps1```n`n<!-- cspell:ignore gadgt -->`n") | Should -BeTrue -Because 'the page ignores what the file ignores'
+        $result.PageText.Contains("# automation/Catzc.Widget/Get-Widget.ps1`n`n<!-- cspell:ignore gadgt -->`n") | Should -BeTrue -Because 'the page ignores what the file ignores'
         [Catzc.Base.QualityGates.CommentEngine]::View($result.Text, '.yml', $result.PageText) | Should -BeExactly $yaml
     }
 

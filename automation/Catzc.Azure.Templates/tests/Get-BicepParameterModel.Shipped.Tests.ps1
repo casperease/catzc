@@ -25,6 +25,14 @@ BeforeDiscovery {
 Describe 'Shipped template parameter model' -Tag 'L2', 'integrity', 'greedy', 'ADR-AZ-DATAMOD#9', 'ADR-AUTO-TEST#37' {
     BeforeAll {
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
+
+        # The Bicep CLI is verified once here for the whole template set, not once per Build-Bicep call
+        # ([ADR-AUTO-TEST#19](/docs/adr/automation/test-automation.md#rule-adr-auto-test19)): each probe is a 2 s `az bicep version`
+        # child process, and every build still compiles with the real `az bicep build`.
+        if (Get-Command az -ErrorAction Ignore) {
+            Assert-AzCliBicep
+            Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
+        }
     }
 
     It 'every rendered parameters file of template <_> satisfies its compiled parameter model' -ForEach $script:templateNames {

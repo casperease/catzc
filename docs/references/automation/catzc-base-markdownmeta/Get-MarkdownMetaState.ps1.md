@@ -3,14 +3,12 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-markdownmeta/Get-MarkdownMetaState.ps1.md
     kind: reference
-    body_sha: aa22ec7c5c14
+    body_sha: ae572d032cde
     adrs:
       - ADR-REPO-FILEMETA#3
 ---
 
-# docs/references/automation/catzc-base-markdownmeta/Get-MarkdownMetaState.ps1.md
-
-`automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1`
+# automation/Catzc.Base.MarkdownMeta/Get-MarkdownMetaState.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.

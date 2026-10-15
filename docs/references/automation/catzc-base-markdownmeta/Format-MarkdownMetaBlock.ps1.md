@@ -3,13 +3,11 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-markdownmeta/Format-MarkdownMetaBlock.ps1.md
     kind: reference
-    body_sha: "973f5a98e922"
+    body_sha: "4fce42414409"
     adrs: []
 ---
 
-# docs/references/automation/catzc-base-markdownmeta/Format-MarkdownMetaBlock.ps1.md
-
-`automation/Catzc.Base.MarkdownMeta/Format-MarkdownMetaBlock.ps1`
+# automation/Catzc.Base.MarkdownMeta/Format-MarkdownMetaBlock.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.
