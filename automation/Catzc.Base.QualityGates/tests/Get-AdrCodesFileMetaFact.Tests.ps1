@@ -152,6 +152,6 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
             param($State, $Kind)
             Get-AdrCodesFileMetaFact -State $State -Path 'automation/Catzc.Widget/types/Widget.cs' -Kind $Kind
         }
-        , @($fact['adrs']) | Should -Be @('ADR-GADGET#4', 'ADR-HEAD#1', 'ADR-WIDGET')
+        $fact['adrs'] | Should -Be @('ADR-GADGET#4', 'ADR-HEAD#1', 'ADR-WIDGET')
     }
 }
