@@ -16,7 +16,6 @@ catzc:
     Merges a consumer overlay's config fragment onto a bundled config, key by key.
 .DESCRIPTION
     A list is replaced whole, never appended to, so the merged result is predictable and neither input changes.
-    [comment:1](/docs/references/automation/catzc-base-config/private/Merge-ConfigFragment.ps1.md#comment1)
 .PARAMETER Base
     The parsed bundled config.
 .PARAMETER Fragment

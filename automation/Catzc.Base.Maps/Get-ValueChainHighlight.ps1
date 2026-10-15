@@ -21,12 +21,10 @@ catzc:
     Returns the value-chain map cells that ADR codes light.
 .DESCRIPTION
     A rule sits where its ADR sits, so one rule lights the same cells as its whole ADR, not the files that cite it.
-    [comment:1](/docs/references/automation/catzc-base-maps/Get-ValueChainHighlight.ps1.md#comment1)
 .PARAMETER Adr
     The ADR codes, each optionally narrowed to one rule (#n or :n). An unknown code throws.
 .PARAMETER AsJson
     JSON carries the request and the lit cells, so a tool reads the highlight without PowerShell.
-    [comment:2](/docs/references/automation/catzc-base-maps/Get-ValueChainHighlight.ps1.md#comment2)
 .OUTPUTS
     [Catzc.Base.Maps.ValueChainHighlight], or [string] with -AsJson.
 .EXAMPLE

@@ -16,7 +16,6 @@ catzc:
     Picks a contract asset's kind from its file name alone.
 .DESCRIPTION
     The schema suffix is checked first, so a schema is never read as a sample; an empty asset is Presence, not Fragment.
-    [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractAssetKind.ps1.md#comment1)
 .PARAMETER Name
     The asset's file name (its last path segment).
 .PARAMETER IsEmpty

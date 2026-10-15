@@ -15,7 +15,6 @@ catzc:
     Runs pip through uv (`uv pip`).
 .DESCRIPTION
     Installs aimed at the global interpreter must pass --system, since uv pip otherwise expects a virtual environment.
-    [comment:1](/docs/references/automation/catzc-tooling-python/Invoke-Pip.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to `uv pip`.
 .PARAMETER PassThru

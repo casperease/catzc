@@ -15,7 +15,6 @@ catzc:
     Returns a Markdown text without its YAML front matter.
 .DESCRIPTION
     A generated README copies the content but not the source's meta block, so a reader opens it at its title.
-    [comment:1](/docs/references/automation/catzc-base-markdownmeta/Remove-MarkdownFrontMatter.ps1.md#comment1)
 .PARAMETER Text
     The whole Markdown file as text.
 .OUTPUTS

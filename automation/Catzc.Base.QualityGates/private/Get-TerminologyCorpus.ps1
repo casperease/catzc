@@ -18,7 +18,6 @@ catzc:
     per term.
 .DESCRIPTION
     The net is wider than Test-Spelling's scope, since narrowing it would manufacture false orphans.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment1)
 .PARAMETER Root
     The repository root to scan under.
 .PARAMETER Exclude

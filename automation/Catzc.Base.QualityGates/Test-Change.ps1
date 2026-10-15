@@ -17,19 +17,16 @@ catzc:
     Quality gate over what changed: runs the tests and the checks of the changed files, and reports only their issues.
 .DESCRIPTION
     Gates that take a -Path get the changed files; other gates run whole and count only issues naming a changed file.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Change.ps1.md#comment1)
 .PARAMETER Path
     The changed repo-relative, '/'-separated paths. Default: the working tree's changes (Get-GitChangedPath).
 .PARAMETER WholeModule
     The default runs only the test files that cover the changed files by convention.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-Change.ps1.md#comment2)
 .PARAMETER DryRun
     Plan only: return { Path; Tests; Checks } and run nothing.
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-change).
 .PARAMETER PassThru
     Without it the gate throws on issues, so the result object is how a caller reads them instead.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Change.ps1.md#comment3)
 .OUTPUTS
     [pscustomobject] With -PassThru or -DryRun only.
 .EXAMPLE

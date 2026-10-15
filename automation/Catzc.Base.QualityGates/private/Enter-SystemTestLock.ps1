@@ -17,7 +17,6 @@ catzc:
     Tries, without waiting, to take the user's system-test lock — the right to run L3 on this account.
 .DESCRIPTION
     L3 changes per-user state, so a per-checkout lock cannot guard it: this lock is keyed on the user.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Enter-SystemTestLock.ps1.md#comment1)
 .PARAMETER EntryPoint
     The entry point taking the lock — written to the lock record.
 .PARAMETER RunDirectory
@@ -28,7 +27,6 @@ catzc:
     The mutex name. Defaults to the current user's: Global\catzc-system-tests-<hash of domain\user>.
 .PARAMETER LockPath
     Defaults to the per-user catzc folder, so a run from any checkout finds the same record.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Enter-SystemTestLock.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] Acquired ([bool]), Mutex (owned, or $null), LockPath (the record this run wrote, or $null),
     and Holder (Get-TestRunLockHolder's description of who holds it, or $null).

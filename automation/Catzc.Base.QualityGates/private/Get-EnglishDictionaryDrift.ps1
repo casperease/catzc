@@ -15,7 +15,6 @@ catzc:
     Reports why the committed English word list is stale, from its stamp alone — no node round-trip.
 .DESCRIPTION
     The stamp is read instead of re-flattening the tries, which would need node, npx and cspell on every run.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-EnglishDictionaryDrift.ps1.md#comment1)
 .PARAMETER AssetsFolder
     The folder holding english.txt.gz and english.stamp (the QualityGates module's assets/ in the repository).
 .PARAMETER PinnedCspell

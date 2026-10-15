@@ -18,7 +18,6 @@ catzc:
     counterpart to Remove-SystemInstallation (Windows).
 .DESCRIPTION
     Detection ignores the configured manager, so an apt azure-cli is caught though az_cli installs through uv.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md#comment1)
 .PARAMETER Config
     The tool's parsed tools.yml entry (from Get-ToolConfig).
 .OUTPUTS

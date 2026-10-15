@@ -18,7 +18,6 @@ catzc:
     drift. Parallels Get-BicepConfigClassViolations.
 .DESCRIPTION
     The caller prepends the template identifier, and an empty result means the config conforms.
-    [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepSubscriptionConfigViolations.ps1.md#comment1)
 .PARAMETER Customer
     The configuration subfolder name, or '' for a configuration-root config.
 .PARAMETER Environment

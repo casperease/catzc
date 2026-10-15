@@ -16,7 +16,6 @@ catzc:
     Throws when a build holds more files or bytes than its bundle's footprint limits allow.
 .DESCRIPTION
     A limit the bundle does not state is not checked; every exceeded limit is reported in one throw.
-    [comment:1](/docs/references/automation/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md#comment1)
 .PARAMETER Path
     The build root (the Catzc/<version>/ folder).
 .PARAMETER Bundle

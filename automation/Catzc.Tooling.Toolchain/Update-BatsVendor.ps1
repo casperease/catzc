@@ -16,7 +16,6 @@ catzc:
     Refreshes the vendored bats-core test runner from the release bash.yml pins.
 .DESCRIPTION
     The runner is checked in so a test run needs no install or network; this rebuilds it from the bash.yml pins.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Update-BatsVendor.ps1.md#comment1)
 .EXAMPLE
     Update-BatsVendor
 #>

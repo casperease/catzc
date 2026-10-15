@@ -15,7 +15,6 @@ catzc:
     Converts a sentence into a valid GUID whose hex digits best-effort spell the sentence.
 .DESCRIPTION
     Total and deterministic: any non-empty input gives a valid GUID; unmappable characters become 0.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/ConvertTo-Guid.ps1.md#comment1)
 .PARAMETER Sentence
     The sentence to convert. Case-insensitive; must be non-empty and non-whitespace.
 .OUTPUTS

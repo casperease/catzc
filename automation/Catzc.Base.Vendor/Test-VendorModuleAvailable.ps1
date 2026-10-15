@@ -15,7 +15,6 @@ catzc:
     Tests whether a module (optionally at a specific version) is available from the configured vendor source.
 .DESCRIPTION
     The query half of the restorability check: Remove-VendorModules asks it before deleting a vendored module.
-    [comment:1](/docs/references/automation/catzc-base-vendor/Test-VendorModuleAvailable.ps1.md#comment1)
 .PARAMETER Name
     The module name to look for on the source.
 .PARAMETER Version

@@ -18,7 +18,6 @@ catzc:
     Quality gate: every long comment lives in its file's comment page, and every residue and page section pair up.
 .DESCRIPTION
     The shape of the insight line is Format-Comments' to fix, not this gate's.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Comments.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to check. Default: every file in scope.
 .PARAMETER RepositoryRoot

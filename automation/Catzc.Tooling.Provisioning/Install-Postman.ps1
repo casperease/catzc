@@ -15,7 +15,6 @@ catzc:
     Installs the Postman desktop app (user-space, no admin required).
 .DESCRIPTION
     Installs per user with no admin on Windows and Linux; an existing install makes it a no-op.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Install-Postman.ps1.md#comment1)
 .PARAMETER Force
     Remove an existing installation before reinstalling.
 .EXAMPLE

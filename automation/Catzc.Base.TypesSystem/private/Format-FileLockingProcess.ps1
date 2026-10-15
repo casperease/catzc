@@ -15,7 +15,6 @@ catzc:
     Formats the processes holding a file as one human-readable phrase.
 .DESCRIPTION
     Returns null for no holders, so the caller can fall back to holder-free wording.
-    [comment:1](/docs/references/automation/catzc-base-typessystem/private/Format-FileLockingProcess.ps1.md#comment1)
 .PARAMETER Holder
     The holders, as returned by Get-FileLockingProcess.
 .EXAMPLE

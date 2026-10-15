@@ -16,7 +16,6 @@ catzc:
     Writes the PATH environment variable at the scope given (the Windows registry for User/Machine).
 .DESCRIPTION
     The one write seam for the persistent PATH, so tests mock it; it announces each change and skips an equal value.
-    [comment:1](/docs/references/automation/catzc-base-environment/Set-EnvironmentPath.ps1.md#comment1)
 .PARAMETER Value
     The full PATH string to persist.
 .PARAMETER Scope

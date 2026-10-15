@@ -20,10 +20,8 @@ catzc:
     flattened from cspell's own bundled dictionaries so the two checks agree on "what is a word".
 .DESCRIPTION
     Committed, not built at import: regeneration needs node and cspell, yet a fresh checkout needs the list.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment1)
 .PARAMETER DryRun
     The returned content is the same in either mode; -DryRun only skips the write.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment2)
 .PARAMETER PassThru
     Return a result object ({ Path, WordCount, Changed, DryRun }) instead of the path string.
 .OUTPUTS

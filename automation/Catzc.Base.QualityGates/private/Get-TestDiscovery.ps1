@@ -15,7 +15,6 @@ catzc:
     Runs a discovery-only Pester pass over the given test paths and returns the result.
 .DESCRIPTION
     One shared pass discovers the tree once per run, not once per question; SkipRun inspects every test and runs none.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestDiscovery.ps1.md#comment1)
 .PARAMETER TestPath
     One or more 'tests' folders, or Go test folders, to discover.
 .OUTPUTS

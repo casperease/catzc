@@ -17,7 +17,6 @@ catzc:
     The object to inspect.
 .PARAMETER PropertyName
     A dotted path is walked level by level, and a failure names the deepest segment reached before the chain broke.
-    [comment:1](/docs/references/automation/catzc-base-asserts/Assert-HaveProperty.ps1.md#comment1)
 .EXAMPLE
     Assert-HaveProperty $response 'StatusCode'
 .EXAMPLE

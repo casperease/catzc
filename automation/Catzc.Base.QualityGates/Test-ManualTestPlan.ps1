@@ -17,12 +17,10 @@ catzc:
     Quality gate: the manual test plan lists every integrity check, once.
 .DESCRIPTION
     Blocks are found by parsing, never Pester discovery: a nested Invoke-Pester inside a run is unsafe.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ManualTestPlan.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-manual-test-plan/ (Write-QualityGateReport).
 .PARAMETER PassThru
     IntegrityBlocks and PlanRows are the two counts the gate compares; a mismatch means a stale or duplicate row.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-ManualTestPlan.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.
 .EXAMPLE
@@ -47,8 +45,8 @@ function Test-ManualTestPlan {
     $isString = { param($node) $node -is [System.Management.Automation.Language.StringConstantExpressionAst] }
 
     $blocks = [System.Collections.Generic.List[object]]::new()
-    $testFiles = [System.IO.Directory]::EnumerateFiles($automationRoot, '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories) |
-        Where-Object { $_ -notmatch '[\\/]\.vendor[\\/]' } |
+    # Test files reach four levels below automation (module, tests, types, file); vendored modules are pruned by the walk.
+    $testFiles = Get-ChildPath $automationRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
         Sort-Object
     foreach ($file in $testFiles) {
         $tokens = $null; $parseErrors = $null

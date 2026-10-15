@@ -18,7 +18,6 @@ catzc:
     trigger-drift quality gate for GitHub Actions.
 .DESCRIPTION
     Paths compare element by element, since GitHub is last-match-wins; the globset-to-workflow pairing is passed in.
-    [comment:1](/docs/references/automation/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md#comment1)
 .PARAMETER Name
     The globset the workflow should trigger on.
 .PARAMETER WorkflowPath

@@ -18,13 +18,10 @@ catzc:
     Composes a module's protection identity — the durable SHA of everything its test results depend on.
 .DESCRIPTION
     Fail-safe: an unconstrained module or one with integrity tests widens the fold to the whole repository.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment1)
 .PARAMETER Module
     The dot-prefixed infra test units .internal and .scriptanalyzer are accepted too, and always widen the fold.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment2)
 .PARAMETER HasIntegrityTests
     Integrity tests read the real repository beyond the module, so this folds in the repository-wide set.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment3)
 .PARAMETER HashCache
     A caller-owned hashtable memoizing set-name -> durable SHA across one Test-Automation run.
 #>

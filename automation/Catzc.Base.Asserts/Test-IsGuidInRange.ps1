@@ -15,7 +15,6 @@ catzc:
     Tests whether a GUID lies inside an inclusive GUID range.
 .DESCRIPTION
     Order follows the canonical lowercase text compared ordinally, so the case or braces of an input never matter.
-    [comment:1](/docs/references/automation/catzc-base-asserts/Test-IsGuidInRange.ps1.md#comment1)
 .PARAMETER ObjectGuid
     The GUID to test.
 .PARAMETER From

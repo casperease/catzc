@@ -16,7 +16,6 @@ catzc:
     main.json.
 .DESCRIPTION
     A reference is checked for shape alone, whatever the declared type, since it resolves only at deploy time.
-    [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md#comment1)
 .PARAMETER Parameter
     The parameter's declaration, from Get-BicepParameterModel.
 .PARAMETER Entry

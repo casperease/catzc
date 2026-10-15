@@ -17,7 +17,6 @@ catzc:
     Returns the config registry (this module's configs/configs.yml), keyed by config name.
 .DESCRIPTION
     Loaded directly, not through Get-Config, to avoid circularity: Get-Config itself needs this registry.
-    [comment:1](/docs/references/automation/catzc-base-config/private/Get-ConfigRegistry.ps1.md#comment1)
 #>
 function Get-ConfigRegistry {
     [OutputType([System.Collections.IDictionary])]

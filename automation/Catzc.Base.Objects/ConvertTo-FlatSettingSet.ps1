@@ -15,7 +15,6 @@ catzc:
     Flattens a nested object into an ordered dictionary of dot-notation key/value pairs.
 .DESCRIPTION
     Only leaves become entries, keyed by their full dot path, and a null leaf is stored as an empty string.
-    [comment:1](/docs/references/automation/catzc-base-objects/ConvertTo-FlatSettingSet.ps1.md#comment1)
 .PARAMETER InputObject
     One or more objects to flatten.
 .PARAMETER MaxDepth

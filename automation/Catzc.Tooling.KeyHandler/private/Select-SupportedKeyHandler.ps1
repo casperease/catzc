@@ -17,7 +17,6 @@ catzc:
     Classifies captured key bindings by whether their function is supported on the target platform.
 .DESCRIPTION
     Pure on purpose: testable without a PSReadLine session, and it never mutates the cached configs.
-    [comment:1](/docs/references/automation/catzc-tooling-keyhandler/private/Select-SupportedKeyHandler.ps1.md#comment1)
 .PARAMETER Binding
     The captured bindings — a sequence of { key, function } mappings (from key-handler-bindings.yml).
 .PARAMETER SupportedFunction

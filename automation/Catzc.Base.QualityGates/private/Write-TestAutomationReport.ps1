@@ -16,7 +16,6 @@ catzc:
     Renders a human-readable run report (summary.md + tests.csv) from the run's row set.
 .DESCRIPTION
     Rows are the input, not a live Pester object, because only the rows survive the worker process boundary.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment1)
 .PARAMETER Rows
     The aggregated per-test rows (ConvertTo-TestAutomationRowSet output, merged across shards).
 .PARAMETER OutputFolder
@@ -29,10 +28,8 @@ catzc:
     The run's wall-clock duration in seconds, recorded in the header.
 .PARAMETER Limits
     Defaults to the tests.level_ms limits in timeouts.yml, so one source of truth sets every over-limit threshold.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment2)
 .PARAMETER RunBudgetSeconds
     Defaults to tests.run_seconds in timeouts.yml; a devbox run over it fails, and the header records the verdict.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment3)
 .PARAMETER SlowestCount
     How many slowest passed tests to list. Defaults to 20.
 .PARAMETER TimingsEnforced

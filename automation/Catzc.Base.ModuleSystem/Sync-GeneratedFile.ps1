@@ -19,10 +19,8 @@ catzc:
     Commits the importer-maintained generated files to git — the dev-box janitor.
 .DESCRIPTION
     Only a person's session commits: a pipeline must fail loudly and an agent leaves the commit to the person.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md#comment1)
 .PARAMETER DryRun
     Changed paths are still probed, so a dry run returns the exact git commands a real run would issue.
-    [comment:2](/docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md#comment2)
 .OUTPUTS
     [string] The new commit's SHA (or the planned commands with -DryRun); nothing when a guard skipped
     or no generated path changed.

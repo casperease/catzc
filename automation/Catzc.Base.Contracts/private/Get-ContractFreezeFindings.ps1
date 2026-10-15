@@ -16,7 +16,6 @@ catzc:
     Checks that one released contract version folder still holds exactly what its release froze.
 .DESCRIPTION
     The draft 0.0.0 is never frozen, so it is never given here; no finding means the folder is intact.
-    [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractFreezeFindings.ps1.md#comment1)
 .PARAMETER Folder
     The released version folder's absolute path.
 .PARAMETER Name

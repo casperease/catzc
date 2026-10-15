@@ -16,17 +16,14 @@ catzc:
     Composes the immutable deployment-context object Deploy-Bicep operates on.
 .DESCRIPTION
     A DoNotRun template returns null, the signal to skip, unless -OverrideDoNotRunAndRun is set.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment1)
 .PARAMETER Environment
     Environment shortname (must be in azure.yml and in the template's environment list).
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .PARAMETER Slot
     Omitted selects the environment's base slot, the index-0 one.
-    [comment:2](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment2)
 .PARAMETER SubscriptionIdAssertIs
     A mismatch in a pipeline means a mis-wired service connection; this is a guard, never a selector.
-    [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment3)
 .PARAMETER ArtifactsFolder
     Required on a build agent. Points at the downloaded build output.
 .PARAMETER DoNotRebuild

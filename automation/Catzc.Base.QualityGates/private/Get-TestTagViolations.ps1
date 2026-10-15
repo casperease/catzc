@@ -16,7 +16,6 @@ catzc:
     Lists every Pester test that is missing — or ambiguous on — a required tag axis.
 .DESCRIPTION
     A missing citation is never a violation, but a present one must be well-formed and name a real ADR rule.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestTagViolations.ps1.md#comment1)
 .PARAMETER Discovery
     The discovery-only Pester run object (Get-TestDiscovery output) whose tests are inspected.
 #>

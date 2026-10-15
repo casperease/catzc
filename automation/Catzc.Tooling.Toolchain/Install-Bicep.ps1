@@ -17,7 +17,6 @@ catzc:
     Installs the Bicep CLI, the formatter engine for the infrastructure templates, at the tools.yml pin.
 .DESCRIPTION
     Linux has no distribution package, so it gets the SHA-256 verified release binary instead of a package manager.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Bicep.ps1.md#comment1)
 .PARAMETER Version
     The version prefix to install. Default: the tools.yml pin.
 .PARAMETER Force

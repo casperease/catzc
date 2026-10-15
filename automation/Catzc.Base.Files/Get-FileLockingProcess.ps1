@@ -15,7 +15,6 @@ catzc:
     Lists the processes that hold a file open (lock it).
 .DESCRIPTION
     Sees mapped DLLs as well as open handles, so it names the session holding a stale assembly; no admin needed.
-    [comment:1](/docs/references/automation/catzc-base-files/Get-FileLockingProcess.ps1.md#comment1)
 .PARAMETER Path
     Path to the file whose holders to list.
 .OUTPUTS

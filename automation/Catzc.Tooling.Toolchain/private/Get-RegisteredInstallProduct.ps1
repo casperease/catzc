@@ -16,7 +16,6 @@ catzc:
     Lists the Windows-registered products (Apps & features entries) that own an install folder.
 .DESCRIPTION
     Matched by DisplayName because MSI and bundle products often lack an InstallLocation; entries differ by ProductCode.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/private/Get-RegisteredInstallProduct.ps1.md#comment1)
 .PARAMETER NamePattern
     A regular expression the product's DisplayName must match.
 .OUTPUTS

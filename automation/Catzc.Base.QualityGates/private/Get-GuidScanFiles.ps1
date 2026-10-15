@@ -17,7 +17,6 @@ catzc:
     Returns the repo-relative tracked files the managed-GUID scan reads — the scan's file universe.
 .DESCRIPTION
     The registry file is excluded: it defines the managed set, and scanning it would defeat the liveness check.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-GuidScanFiles.ps1.md#comment1)
 #>
 function Get-GuidScanFiles {
     [CmdletBinding()]

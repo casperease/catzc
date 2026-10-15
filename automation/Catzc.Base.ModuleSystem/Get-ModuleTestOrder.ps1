@@ -16,7 +16,6 @@ catzc:
     dependency graph (configs/dependencies.yml), so a module is ordered after every module it may depend on.
 .DESCRIPTION
     Foundation-first, so a broken base module's failures surface before the dependents that cascade from it.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-ModuleTestOrder.ps1.md#comment1)
 .EXAMPLE
     Get-ModuleTestOrder
     # -> Catzc.Base.Asserts, Catzc.Base.Environment, Catzc.Base.Objects, Catzc.Base.Repository, ...

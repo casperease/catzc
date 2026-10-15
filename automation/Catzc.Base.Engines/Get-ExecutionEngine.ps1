@@ -16,7 +16,6 @@ catzc:
     Returns the repository's execution engines, or one by name.
 .DESCRIPTION
     Read what differs between the engines here, not in a caller: flags, quoting and file rules are declared once.
-    [comment:1](/docs/references/automation/catzc-base-engines/Get-ExecutionEngine.ps1.md#comment1)
 .PARAMETER Name
     The engine's name (pwsh, bash or zsh). Omit for every engine, pwsh first.
 .OUTPUTS

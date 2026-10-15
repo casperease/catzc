@@ -17,10 +17,8 @@ catzc:
     Maps every indexed ADR rule id to the text of its normative summary that can define a term.
 .DESCRIPTION
     Code spans are stripped first, so an example of a definition in a code span neither anchors nor defines a term.
-    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md#comment1)
 .PARAMETER IndexPath
     ADR paths resolve against the index's own folder, so a test can point this at a fixture index.
-    [comment:2](/docs/references/automation/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md#comment2)
 .OUTPUTS
     [System.Collections.Generic.Dictionary[string, string]] Rule id in registry form ('ADR-AUTO-TEST:13') ->
     statement text, ordinal keys.

@@ -16,7 +16,6 @@ catzc:
     The adr-defines meta kind's fact: the rules an ADR defines itself, spelled as citations.
 .DESCRIPTION
     The rules come from the file's own rule headings, so the list is what the file declares and not what it cites.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-AdrDefinesFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What Get-MarkdownMetaState read from the file.
 .PARAMETER Path

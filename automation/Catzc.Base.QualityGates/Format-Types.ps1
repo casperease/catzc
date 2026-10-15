@@ -16,7 +16,6 @@ catzc:
     Maintains the file-scoped namespace on each C# type source, derived from its module folder.
 .DESCRIPTION
     The folder is the single source of the namespace, so moving a type between modules is a safe refactor.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md#comment1)
 .PARAMETER Path
     One or more files or directories to process. Defaults to every automation/<Module>/types/*.cs file.
 .PARAMETER DryRun

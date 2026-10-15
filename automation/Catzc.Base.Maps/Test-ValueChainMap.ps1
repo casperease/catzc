@@ -21,12 +21,10 @@ catzc:
     glossary term.
 .DESCRIPTION
     Separate from Test-WorldMap: this map reads adrs.yml alone, the world map reads the git index.
-    [comment:1](/docs/references/automation/catzc-base-maps/Test-ValueChainMap.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-value-chain-map/ (Write-QualityGateReport).
 .PARAMETER PassThru
     NonEmptyCells counts cells holding at least one ADR; Labels counts the printed labels checked.
-    [comment:2](/docs/references/automation/catzc-base-maps/Test-ValueChainMap.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.
 .EXAMPLE

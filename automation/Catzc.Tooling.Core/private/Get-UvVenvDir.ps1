@@ -15,7 +15,6 @@ catzc:
     Returns the dedicated uv-venv directory for a tool installed via `uv_venv`.
 .DESCRIPTION
     One subfolder per tool under a user-space root; its Scripts or bin folder, not the venv itself, goes on PATH.
-    [comment:1](/docs/references/automation/catzc-tooling-core/private/Get-UvVenvDir.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key.
 #>

@@ -16,7 +16,6 @@ catzc:
     profile — shared by Write-Header and Write-Footer.
 .DESCRIPTION
     A rainbow gives a gradient plan whose text uses the base colour; a plain colour or name gives a solid plan.
-    [comment:1](/docs/references/automation/catzc-base-writers/private/Resolve-WriterColor.ps1.md#comment1)
 .PARAMETER ForegroundColor
     The raw argument (a ConsoleColor, its string name, or a RainbowColor). Ignored when -Bound is not set.
 .PARAMETER Bound

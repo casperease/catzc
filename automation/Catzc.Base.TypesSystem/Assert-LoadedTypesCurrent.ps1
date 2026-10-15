@@ -17,7 +17,6 @@ catzc:
     Asserts that the C# types loaded in this PowerShell process are current with their sources.
 .DESCRIPTION
     A loaded type cannot be swapped in place, so the only remedy it names is a fresh process.
-    [comment:1](/docs/references/automation/catzc-base-typessystem/Assert-LoadedTypesCurrent.ps1.md#comment1)
 .PARAMETER ModulesRoot
     The code root whose type sources to compare. Default: the loaded code root (Get-CatzcModulesRoot).
 .EXAMPLE

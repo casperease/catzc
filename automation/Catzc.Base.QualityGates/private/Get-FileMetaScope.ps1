@@ -15,7 +15,6 @@ catzc:
     Lists the tracked files that carry a meta block, each with the carrier entry that says where it goes.
 .DESCRIPTION
     Exempt files, opt-outs, a class's own excludes and a path no imprint kind names all stay out.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FileMetaScope.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the returned paths are relative to.
 .PARAMETER Path

@@ -15,7 +15,6 @@ catzc:
     Tests whether the current session runs inside WSL (Windows Subsystem for Linux).
 .DESCRIPTION
     Either signal proves a Windows host behind the Linux session, so Windows-side tools are reachable under /mnt/c.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/private/Test-IsWslSession.ps1.md#comment1)
 .OUTPUTS
     [bool]
 #>

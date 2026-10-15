@@ -19,7 +19,6 @@ catzc:
     Freezes a unit's contract draft as a released version folder, with the .frozen record that keeps it unchanged.
 .DESCRIPTION
     It refuses before writing anything, and a failed copy removes the target, so no half-frozen folder stays.
-    [comment:1](/docs/references/automation/catzc-base-contracts/Publish-ContractRelease.ps1.md#comment1)
 .PARAMETER Unit
     The deployable-unit whose draft to freeze, by folder name: today catzc, the bundle.
 .PARAMETER Version

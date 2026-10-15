@@ -16,7 +16,6 @@ catzc:
     Tests whether the C# types loaded in this PowerShell process are current with their sources.
 .DESCRIPTION
     True when no type is loaded yet; false when a source changed since the load or another code root's types loaded.
-    [comment:1](/docs/references/automation/catzc-base-typessystem/Test-LoadedTypesCurrent.ps1.md#comment1)
 .PARAMETER ModulesRoot
     The code root whose type sources to compare. Default: the loaded code root (Get-CatzcModulesRoot).
 .OUTPUTS

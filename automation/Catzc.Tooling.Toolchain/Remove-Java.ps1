@@ -17,7 +17,6 @@ catzc:
     Removes a manually installed Java JDK and cleans up system PATH.
 .DESCRIPTION
     For JDKs that winget, brew and apt do not manage; a managed Java goes through Uninstall-Java instead.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment1)
 .PARAMETER InstallDir
     Path to the JDK installation folder. Auto-detected from PATH if omitted.
 .PARAMETER Force

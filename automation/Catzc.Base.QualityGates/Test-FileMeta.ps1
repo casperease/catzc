@@ -16,7 +16,6 @@ catzc:
     The file meta quality gate: fails on any in-scope file whose meta block differs from what Format-FileMeta would write.
 .DESCRIPTION
     A key no meta kind owns is reported too: the author decides whether it belongs in `config` or goes.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-FileMeta.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to check. Default: every in-scope file.
 .PARAMETER RepositoryRoot

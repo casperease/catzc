@@ -15,10 +15,8 @@ catzc:
     Captures the current session's PSReadLine key bindings to configs/key-handler-bindings.yml.
 .DESCRIPTION
     Writes canonically through Write-FileIfChanged, so re-capturing an unchanged session leaves the file untouched.
-    [comment:1](/docs/references/automation/catzc-tooling-keyhandler/Save-PSReadLineKeyHandlerSet.ps1.md#comment1)
 .PARAMETER Path
     The default needs the source tree session, so a capture is never written into a built package.
-    [comment:2](/docs/references/automation/catzc-tooling-keyhandler/Save-PSReadLineKeyHandlerSet.ps1.md#comment2)
 .EXAMPLE
     Save-PSReadLineKeyHandlerSet
 .EXAMPLE

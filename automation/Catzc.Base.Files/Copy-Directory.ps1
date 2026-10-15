@@ -15,7 +15,6 @@ catzc:
     Recursively copies the contents of a directory into a destination directory.
 .DESCRIPTION
     The PowerShell file cmdlets cost about 15x more per item on Windows, which dominates a tree of many small files.
-    [comment:1](/docs/references/automation/catzc-base-files/Copy-Directory.ps1.md#comment1)
 .PARAMETER Path
     The source directory whose contents are copied. Must exist.
 .PARAMETER Destination

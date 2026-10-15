@@ -20,7 +20,6 @@ catzc:
     Invoke-Formatter and the .editorconfig rules, and returns the files it changed.
 .DESCRIPTION
     Invoke-Formatter ignores .editorconfig, so line endings, trailing space and the final newline are a second step.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-PSScriptAnalyzerFormat.ps1.md#comment1)
 .PARAMETER File
     Absolute paths of the PowerShell files to format.
 .PARAMETER DryRun

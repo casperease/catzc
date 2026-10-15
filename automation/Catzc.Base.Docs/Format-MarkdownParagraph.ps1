@@ -16,7 +16,6 @@ catzc:
     Wraps one paragraph or list item of generated markdown at the 140-column prose width, the way Prettier fills it.
 .DESCRIPTION
     The fill matches Prettier's prose wrap, and a code span or a link counts as one unbreakable word.
-    [comment:1](/docs/references/automation/catzc-base-docs/Format-MarkdownParagraph.ps1.md#comment1)
 .PARAMETER Text
     The paragraph text; runs of whitespace outside code spans and links collapse to one space.
 .PARAMETER FirstPrefix

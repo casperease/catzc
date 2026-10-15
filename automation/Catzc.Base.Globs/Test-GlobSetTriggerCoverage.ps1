@@ -17,7 +17,6 @@ catzc:
     Quality gate: every member of a pipeline-bound globset matches one of its ADO trigger include patterns.
 .DESCRIPTION
     An include-only ADO trigger must be a superset of exact membership, so it can over-trigger but never miss a deploy.
-    [comment:1](/docs/references/automation/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-glob-set-trigger-coverage/ (Write-QualityGateReport).
 .PARAMETER PassThru

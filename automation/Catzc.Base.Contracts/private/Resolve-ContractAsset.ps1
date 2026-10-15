@@ -19,7 +19,6 @@ catzc:
     Derives one contract asset's facts from its name and place, and returns them as a ContractAsset.
 .DESCRIPTION
     A schema targets the sample payload of its name beside it, else the real file at its path under the target root.
-    [comment:1](/docs/references/automation/catzc-base-contracts/private/Resolve-ContractAsset.ps1.md#comment1)
 .PARAMETER Unit
     The deployable-unit folder name.
 .PARAMETER Version
@@ -32,7 +31,6 @@ catzc:
     The asset's absolute path, read to tell an empty fragment and to find a sample beside a schema.
 .PARAMETER TargetRoot
     The empty path is the repository root, the default for a module with no target_roots entry.
-    [comment:2](/docs/references/automation/catzc-base-contracts/private/Resolve-ContractAsset.ps1.md#comment2)
 .PARAMETER Override
     The version's contract.yml direction overrides, keyed by `<module>/<path>`. Default: none.
 .OUTPUTS

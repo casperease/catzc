@@ -17,7 +17,6 @@ catzc:
     The file-path meta kind's fact: the file's repository-relative path.
 .DESCRIPTION
     The path is derived, so a moved file drifts and the formatter rewrites it, while a Markdown H1 stays the title.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FilePathFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What Get-MarkdownMetaState read from the file.
 .PARAMETER Path

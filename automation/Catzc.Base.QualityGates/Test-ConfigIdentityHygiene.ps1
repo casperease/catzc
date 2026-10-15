@@ -18,10 +18,8 @@ catzc:
     Test-LogicTestIdentity, closing the other half of the language-zone separation.
 .DESCRIPTION
     The forbidden set is derived from the fixture configs, and the scan reads parsed keys and values, never raw text.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md#comment1)
 .PARAMETER Path
     The terminology registry is skipped by default, since it defines the fixture tokens it would be flagged for.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-ConfigIdentityHygiene.ps1.md#comment2)
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-config-identity-hygiene.
 .PARAMETER PassThru

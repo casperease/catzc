@@ -15,7 +15,6 @@ catzc:
     Installs a CLI into a dedicated uv venv.
 .DESCRIPTION
     A uv tool shim would put the launcher beside uv's default python, but az.bat needs its own python.exe next to it.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Install-UvVenvTool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key (must declare uv_venv).
 .PARAMETER Version

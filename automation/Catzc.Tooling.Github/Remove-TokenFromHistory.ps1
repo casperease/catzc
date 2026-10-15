@@ -16,7 +16,6 @@ catzc:
     git-filter-repo. The fallback route — prefer New-SyntheticHistory.
 .DESCRIPTION
     Second choice: old commits stay as unreachable objects, and a token in a file path is not touched.
-    [comment:1](/docs/references/automation/catzc-tooling-github/Remove-TokenFromHistory.ps1.md#comment1)
 .PARAMETER Token
     The literal token to replace across the history.
 .PARAMETER ReplaceWith

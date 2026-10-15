@@ -15,7 +15,6 @@ catzc:
     Runs npm with the given arguments.
 .DESCRIPTION
     The version check runs before every call except a dry run, so an npm at the wrong version never executes.
-    [comment:1](/docs/references/automation/catzc-tooling-node/Invoke-Npm.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to npm.
 .PARAMETER PassThru

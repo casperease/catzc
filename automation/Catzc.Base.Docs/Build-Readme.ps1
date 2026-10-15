@@ -19,16 +19,12 @@ catzc:
     "READMEs are generated" contract.
 .DESCRIPTION
     READMEs are gitignored copies, and the write is source-mode only, so a built package stops with a named error.
-    [comment:1](/docs/references/automation/catzc-base-docs/Build-Readme.ps1.md#comment1)
 .PARAMETER Folder
     A folder that matches no mapping throws, so a mistyped path cannot pass as an empty, successful run.
-    [comment:2](/docs/references/automation/catzc-base-docs/Build-Readme.ps1.md#comment2)
 .PARAMETER DryRun
     The same mappings are composed as in a real run, so the report names exactly the READMEs that would be rewritten.
-    [comment:3](/docs/references/automation/catzc-base-docs/Build-Readme.ps1.md#comment3)
 .PARAMETER Silent
     Silent wins over -Verbose, so an importer run in a verbose session stays quiet during import.
-    [comment:4](/docs/references/automation/catzc-base-docs/Build-Readme.ps1.md#comment4)
 .PARAMETER PassThru
     Return one result object per README ({ Folder, Source, Readme, Changed, DryRun }) instead of the paths.
 .OUTPUTS

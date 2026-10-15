@@ -18,12 +18,10 @@ catzc:
     Quality gate: every guid in tracked text is registered in guids.yml, none is denied, and every entry is live.
 .DESCRIPTION
     Scanned files and the registry must lie in the repository globset, so the scan's protection identity covers them.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ManagedGuids.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-managed-guids/ (Write-QualityGateReport).
 .PARAMETER PassThru
     Registered and Occurrences let a caller assert on the registry and the scan without parsing the report.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-ManagedGuids.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.
 .EXAMPLE

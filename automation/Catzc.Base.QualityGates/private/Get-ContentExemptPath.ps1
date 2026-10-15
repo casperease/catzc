@@ -17,7 +17,6 @@ catzc:
     Lists which of the given paths the content tools leave as written.
 .DESCRIPTION
     Exemption comes only from the gitattributes classes, never from a tool's own list; this names which classes count.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ContentExemptPath.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the paths are relative to.
 .PARAMETER Path

@@ -25,10 +25,8 @@ catzc:
     module, the reserved infra umbrellas, and the 'module-leftovers' catch-all.
 .DESCRIPTION
     A declared globset may not shadow a derived name; the collision throws, naming both sides.
-    [comment:1](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment1)
 .PARAMETER Name
     Folder, internal module, kebab or reserved infra name all resolve to the same derived set; omit for every set.
-    [comment:2](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment2)
 .EXAMPLE
     Get-ModuleGlobSet -Name Catzc.Base.Globs
 .EXAMPLE

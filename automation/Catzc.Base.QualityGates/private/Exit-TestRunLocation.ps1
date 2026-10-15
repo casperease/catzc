@@ -16,7 +16,6 @@ catzc:
     Releases a test run's location claimed by Enter-TestRunLocation.
 .DESCRIPTION
     The record goes before the mutex so the next holder's record survives; a lock-free worker location frees nothing.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md#comment1)
 .PARAMETER Location
     The location Enter-TestRunLocation returned.
 .OUTPUTS

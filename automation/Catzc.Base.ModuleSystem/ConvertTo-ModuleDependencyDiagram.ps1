@@ -15,7 +15,6 @@ catzc:
     Renders module dependency edges to JSON, YAML, Markdown, or PlantUML.
 .DESCRIPTION
     -As is a typed enum, so TAB validates the format; Puml draws actual edges solid and declared ones dashed.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/ConvertTo-ModuleDependencyDiagram.ps1.md#comment1)
 .PARAMETER Edge
     The edges to render (pipeline). Produced by Get-ModuleDependencyEdges.
 .PARAMETER As

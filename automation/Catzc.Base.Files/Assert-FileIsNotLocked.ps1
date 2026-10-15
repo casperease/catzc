@@ -15,7 +15,6 @@ catzc:
     Asserts that a file is free to open (not locked by another handle); throws otherwise.
 .DESCRIPTION
     Locks are mandatory on Windows but advisory on Unix, where nothing counts as locked, so this never throws there.
-    [comment:1](/docs/references/automation/catzc-base-files/Assert-FileIsNotLocked.ps1.md#comment1)
 .PARAMETER Path
     Path to the file to assert is not locked.
 .PARAMETER ErrorText

@@ -15,7 +15,6 @@ catzc:
     Turns the bats JUnit report into one BashTestResult per Bash test.
 .DESCRIPTION
     A case whose classname is no .bats path is not a test result, so the call throws with its text.
-    [comment:1](/docs/references/automation/catzc-base-languages/private/ConvertFrom-BatsJunit.ps1.md#comment1)
 .PARAMETER Text
     The JUnit XML report bats wrote.
 .OUTPUTS

@@ -15,7 +15,6 @@ catzc:
     Maps a snake_case tool key from tools.yml to its PascalCase command suffix.
 .DESCRIPTION
     Config keys are snake_case but commands are Verb-Noun, so name-based dispatch and Run Install messages need this.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Get-ToolCommandSuffix.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key (e.g. 'py_spark').
 .EXAMPLE

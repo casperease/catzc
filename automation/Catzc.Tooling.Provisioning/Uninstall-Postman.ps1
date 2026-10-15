@@ -15,7 +15,6 @@ catzc:
     Uninstalls the Postman desktop app.
 .DESCRIPTION
     Safe to run when Postman is not installed; it removes only the per-user directory, never a system path.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Postman.ps1.md#comment1)
 .EXAMPLE
     Uninstall-Postman
 #>

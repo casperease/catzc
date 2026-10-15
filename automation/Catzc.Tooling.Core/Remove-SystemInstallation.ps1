@@ -16,12 +16,10 @@ catzc:
     Removes an installation directory and cleans it from system PATH.
 .DESCRIPTION
     Every persistent write goes through its seam, which announces it, so a change to the Machine PATH is never silent.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Remove-SystemInstallation.ps1.md#comment1)
 .PARAMETER InstallDir
     Resolved absolute path to the installation directory.
 .PARAMETER ExtraPathDirs
     Sub-folders such as Scripts or wbin leave the Machine PATH too, not only the install directory itself.
-    [comment:2](/docs/references/automation/catzc-tooling-core/Remove-SystemInstallation.ps1.md#comment2)
 .PARAMETER EnvironmentVariables
     System-level environment variable names to clear.
 .OUTPUTS

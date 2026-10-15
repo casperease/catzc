@@ -21,22 +21,18 @@ catzc:
     mutation.
 .DESCRIPTION
     Idempotent: existing parameters and keys are preserved, a missing config is created, and nothing is deployed.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .PARAMETER Environment
     The template may have no config for it yet; creating that config is how a slot is added.
-    [comment:2](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment2)
 .PARAMETER Parameters
     Hashtable of ARM parameter name -> value. Each becomes `parameters.<name>.value = <value>`.
 .PARAMETER Slot
     Optional special-slot discriminator (1-3 lowercase alphanumeric). Omitted ⇒ the base / index-0 slot.
 .PARAMETER Customer
     Omitted writes the configuration-root config; the coordinate must resolve to exactly one subscription.
-    [comment:3](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment3)
 .PARAMETER DryRun
     Nothing is written, so the preview shows exactly the path and content a real run would use.
-    [comment:4](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment4)
 .EXAMPLE
     Set-BicepTemplateConfiguration discovery dev -Parameters @{ sqlAdminLogin = 'admin' }
 .EXAMPLE

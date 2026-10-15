@@ -23,7 +23,6 @@ catzc:
     and contracts/ holds no dot-prefixed folder.
 .DESCRIPTION
     Depended-on assets of older releases are not checked: they follow their outside platform, so only the current binds.
-    [comment:1](/docs/references/automation/catzc-base-contracts/Test-Contracts.ps1.md#comment1)
 .PARAMETER Version
     The current version folder of every unit, <major>.<minor>.<patch>. Default: 0.0.0, each unit's draft.
 .PARAMETER RepositoryRoot
@@ -32,7 +31,6 @@ catzc:
     The report base folder. Defaults to out/test-contracts/ (Write-QualityGateReport).
 .PARAMETER PassThru
     Without it the gate throws on issues; Assets counts every checked asset, PinnedAssets those of older releases.
-    [comment:2](/docs/references/automation/catzc-base-contracts/Test-Contracts.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.
 .EXAMPLE

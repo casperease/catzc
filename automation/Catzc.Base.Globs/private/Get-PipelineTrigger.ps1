@@ -16,7 +16,6 @@ catzc:
     Reads a pipeline or workflow YAML's trigger path filters — the actual, on-disk trigger globs.
 .DESCRIPTION
     A missing section comes back as an empty array, never null, so a caller compares without null guards.
-    [comment:1](/docs/references/automation/catzc-base-globs/private/Get-PipelineTrigger.ps1.md#comment1)
 .PARAMETER Path
     The pipeline/workflow YAML file to read (absolute path).
 .PARAMETER Vendor

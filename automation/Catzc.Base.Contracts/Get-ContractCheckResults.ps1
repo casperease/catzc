@@ -19,7 +19,6 @@ catzc:
     Checks contract assets against the real repository and returns one result per asset.
 .DESCRIPTION
     A failed check is a result with Passed false, never an exception; only misuse throws.
-    [comment:1](/docs/references/automation/catzc-base-contracts/Get-ContractCheckResults.ps1.md#comment1)
 .PARAMETER Asset
     The assets to check. Default: Get-Contract's assets, every unit's draft.
 .PARAMETER RepositoryRoot

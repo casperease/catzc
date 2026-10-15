@@ -18,16 +18,12 @@ catzc:
     Records a green scan against its globset's identity, so an unchanged repeat run can be skipped.
 .DESCRIPTION
     Call it only after the scan passes, so a red scan is never cached away; in a pipeline it records nothing.
-    [comment:1](/docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md#comment1)
 .PARAMETER Test
     Part of the protection key, so each scan keeps its own record per scope and skips independently of the others.
-    [comment:2](/docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md#comment2)
 .PARAMETER Name
     Need not be a declared globset: any caller-chosen key works when a -Hash was queried or is given here.
-    [comment:3](/docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md#comment3)
 .PARAMETER Hash
     A pending pre-scan hash always wins over this, so the identity recorded is the one taken before the scan.
-    [comment:4](/docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md#comment4)
 .EXAMPLE
     Test-Markdownlint
     Protect-GlobSet -Test 'markdown' -Name 'markdown-scope'

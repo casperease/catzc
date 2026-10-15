@@ -18,7 +18,6 @@ catzc:
     Quality gate: every module folder under automation/ follows the folder and file conventions.
 .DESCRIPTION
     Lives with the module system, not in .internal: the folder convention is its contract, and .internal is no module.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-folder-conventions/ (Write-QualityGateReport).
 .PARAMETER PassThru

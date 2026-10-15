@@ -15,7 +15,6 @@ catzc:
     Writes a run's report artifacts and the skip report — best-effort, never masking the run outcome.
 .DESCRIPTION
     Each part is guarded alone, so a reporting error is swallowed and a failing run throws for its own reason.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationArtifacts.ps1.md#comment1)
 .PARAMETER Rows
     The run's aggregated per-test rows.
 .PARAMETER RunDirectory

@@ -17,7 +17,6 @@ catzc:
     Bootstraps uv on Linux from Astral's standalone GitHub release — user-space, hash-verified, no root.
 .DESCRIPTION
     The standalone build is also the one uv self update serves, so later upgrades stay in place.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment1)
 .PARAMETER Version
     The locked uv version prefix from tools.yml (e.g. '0.11').
 #>

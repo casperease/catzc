@@ -18,14 +18,12 @@ catzc:
     Commits the changes under the given repository paths as one git commit.
 .DESCRIPTION
     All policy (branch guards, CI detection, which paths to commit) belongs to the caller, never to this wrapper.
-    [comment:1](/docs/references/automation/catzc-base-files/Invoke-GitCommit.ps1.md#comment1)
 .PARAMETER Path
     The repository-relative, '/'-separated paths (files or folders) whose changes make up the commit.
 .PARAMETER Message
     The commit message. Double quotes are rejected — the message is embedded in a quoted command string.
 .PARAMETER DryRun
     Skips even the status check, so a dry run lists both commands whether or not anything changed.
-    [comment:2](/docs/references/automation/catzc-base-files/Invoke-GitCommit.ps1.md#comment2)
 .OUTPUTS
     [string] The new commit's full SHA; the planned commands with -DryRun; nothing when there was
     nothing to commit.

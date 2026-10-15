@@ -22,28 +22,22 @@ catzc:
     Runs one or more test files by hand as a single worker shard — the blessed single-check entry point.
 .DESCRIPTION
     The manual path cannot drift from the harness: it is the harness path, one shard wide, in a fresh child process.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment1)
 .PARAMETER Path
     A relative path always means repository-root-relative, never relative to the current directory.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment2)
 .PARAMETER FullNameFilter
     Pass the manual-test-plan row's FullNameFilter column verbatim; it is wrapped in wildcards.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment3)
 .PARAMETER Output
     Pester output verbosity inside the worker. Defaults to 'Detailed' — a hand-run wants one line per test.
 .PARAMETER MaxLevel
     L4 tests are opt-in: the default of 3 skips them, and only 4 runs the file's L4 tests.
-    [comment:4](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment4)
 .PARAMETER TimeoutSeconds
     Defaults to this function's own time limit unless timeouts.yml overrides it; a worker past it is killed.
-    [comment:5](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment5)
 .PARAMETER Isolated
     Run in a snapshot of the working folder even when it is free — immune to edits made while it runs.
 .PARAMETER KeepSandbox
     Keep the snapshot (when the run used one) after the run instead of deleting it, for a post-mortem.
 .PARAMETER PassThru
     Rows are the worker's per-test rows, as the live Pester object cannot cross the process boundary.
-    [comment:6](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment6)
 .OUTPUTS
     None by default; the result object with -PassThru. The worker's Pester output streams either way, and a failed
     run ends with every failure's message (Write-TestRunFailures): each failed test, and each file that failed before

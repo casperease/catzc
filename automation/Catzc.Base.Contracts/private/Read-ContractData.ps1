@@ -16,7 +16,6 @@ catzc:
     Reads and parses a JSON or YAML file for a contract check, throwing a finding-ready message when it cannot.
 .DESCRIPTION
     An array is returned whole, never enumerated; a file of another format, or one that does not parse, throws its name.
-    [comment:1](/docs/references/automation/catzc-base-contracts/private/Read-ContractData.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the path is relative to.
 .PARAMETER Path

@@ -19,12 +19,10 @@ catzc:
     for its tool's commands.
 .DESCRIPTION
     How to start the engine comes from the engine model, never the test, so one test runs under every engine.
-    [comment:1](/docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md#comment1)
 .PARAMETER Engine
     The execution engine: pwsh (default), or any other of ExecutionEngines.Names.
 .PARAMETER EngineExecutable
     A build run's engine has no tools.yml entry to locate a POSIX engine by, so the caller hands it down.
-    [comment:2](/docs/references/automation/catzc-base-languages/private/Get-EngineContract.ps1.md#comment2)
 .PARAMETER EntryScript
     The PowerShell entry for a build run. Default: the repository's importer.ps1 (the source run).
 .OUTPUTS

@@ -19,13 +19,10 @@ catzc:
     mirrors the scope header the run opens with.
 .DESCRIPTION
     Printed on every exit path as the close of the cyan opener, so a run is always visibly bracketed.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md#comment1)
 .PARAMETER Result
     Anything but Passed or Failed is rejected at binding; the value picks the gradient anchor, green or red.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md#comment2)
 .PARAMETER Summary
     The caller builds it, so the run's existing pass and failure wording stays verbatim in the title.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md#comment3)
 .PARAMETER PassedCount
     Passed-test count, rendered on the default-coloured detail line under the title.
 .PARAMETER FailedCount
@@ -36,7 +33,6 @@ catzc:
     Wall-clock duration, rendered on the detail line.
 .PARAMETER ReportPath
     Printed inside the bracket so the pointer to the full report travels with the verdict; empty prints no line.
-    [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md#comment4)
 #>
 function Write-TestAutomationVerdict {
     [CmdletBinding()]

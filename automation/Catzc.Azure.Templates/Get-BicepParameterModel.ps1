@@ -16,7 +16,6 @@ catzc:
     default, allowed values, and bounds.
 .DESCRIPTION
     Edits to a reusable module under infrastructure/modules/ do not mark the build stale; rebuild by hand.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepParameterModel.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .OUTPUTS

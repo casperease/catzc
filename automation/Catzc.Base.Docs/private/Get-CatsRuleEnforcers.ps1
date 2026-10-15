@@ -19,7 +19,6 @@ catzc:
     Show-Cats.
 .DESCRIPTION
     Tags are read by parsing the AST, never by text scan, so a citation-shaped fixture string is not counted.
-    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md#comment1)
 .OUTPUTS
     [hashtable] citation ('#' form) -> [pscustomobject]{ Analyzers; Tests } (both sorted sets, possibly empty).
 #>
@@ -63,10 +62,8 @@ function Get-CatsRuleEnforcers {
     $isCommand = { param($node) $node -is [System.Management.Automation.Language.CommandAst] }
     $isString = { param($node) $node -is [System.Management.Automation.Language.StringConstantExpressionAst] }
     $automationRoot = Resolve-RepoPath 'automation'
-    foreach ($file in [System.IO.Directory]::EnumerateFiles($automationRoot, '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories)) {
-        if ($file -match '[\\/]\.vendor[\\/]') {
-            continue
-        }
+    # Test files reach four levels below automation (module, tests, types, file); vendored modules are pruned by the walk.
+    foreach ($file in Get-ChildPath $automationRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true) {
         $tokens = $null
         $parseErrors = $null
         $ast = [System.Management.Automation.Language.Parser]::ParseFile($file, [ref]$tokens, [ref]$parseErrors)

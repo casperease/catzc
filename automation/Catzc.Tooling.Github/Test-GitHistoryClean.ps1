@@ -16,18 +16,14 @@ catzc:
     it can hide in: file content (blobs), file paths, and commit messages.
 .DESCRIPTION
     A secret can outlive the working tree in an old blob, a renamed path or a commit message, so all three are scanned.
-    [comment:1](/docs/references/automation/catzc-tooling-github/Test-GitHistoryClean.ps1.md#comment1)
 .PARAMETER Token
     Matched as a literal substring ignoring ASCII case; a binary file is skipped, as git grep -I skips it.
-    [comment:2](/docs/references/automation/catzc-tooling-github/Test-GitHistoryClean.ps1.md#comment2)
 .PARAMETER Ref
     Scan the local pushed ref, never a stale tracking ref: it still points at un-purged history and false-alarms.
-    [comment:3](/docs/references/automation/catzc-tooling-github/Test-GitHistoryClean.ps1.md#comment3)
 .PARAMETER RepositoryPath
     The git repository to scan. Defaults to the current repository root.
 .PARAMETER ExcludePath
     A file content is ignored only when every path it appears under is excluded.
-    [comment:4](/docs/references/automation/catzc-tooling-github/Test-GitHistoryClean.ps1.md#comment4)
 .OUTPUTS
     A Catzc.Tooling.Github result object with:
       .Clean    — $true when no surface contains the token

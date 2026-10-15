@@ -17,7 +17,6 @@ catzc:
     changed.
 .DESCRIPTION
     The CLI starts slowly, so one process formats copies of all files and each copy is compared byte for byte.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-BicepFormat.ps1.md#comment1)
 .PARAMETER File
     Absolute paths of the .bicep files to format.
 .PARAMETER DryRun

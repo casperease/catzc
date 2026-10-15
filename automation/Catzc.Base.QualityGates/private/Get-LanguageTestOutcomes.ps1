@@ -20,7 +20,6 @@ catzc:
     Runs a module's tests in one test language once and returns the Pester outcome of every discovered test.
 .DESCRIPTION
     A test the runner reports but discovery did not list throws, so no result goes unreported.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md#comment1)
 .PARAMETER Language
     The test language: go, python or bash.
 .PARAMETER Module
@@ -31,13 +30,10 @@ catzc:
     The engine entry of a build run (the build's Import-Catzc.ps1); empty for the source run.
 .PARAMETER Executable
     The worker never locates the tool, as a build run's engine does not carry the tools.yml entry.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md#comment2)
 .PARAMETER Engine
     Every test runs once per engine, so pwsh as the default is only one of several runs of a case.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md#comment3)
 .PARAMETER EngineExecutable
     pwsh runs the harness itself and needs none; an empty executable for any other engine skips that engine's run.
-    [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestOutcomes.ps1.md#comment4)
 .OUTPUTS
     [hashtable] Case key -> [pscustomobject] { Outcome (pass|fail|skip); Reason (the skip key, or empty); Message
     (the failure text, or the test output of a skip) }.

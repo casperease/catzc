@@ -15,7 +15,6 @@ catzc:
     Turns pytest's JUnit XML report into one PythonTestResult per top-level test function.
 .DESCRIPTION
     The cases of one function fold into one result; a case outside any function throws with its message.
-    [comment:1](/docs/references/automation/catzc-base-languages/private/ConvertFrom-PytestJunit.ps1.md#comment1)
 .PARAMETER Text
     The JUnit XML report pytest wrote with --junitxml.
 .OUTPUTS

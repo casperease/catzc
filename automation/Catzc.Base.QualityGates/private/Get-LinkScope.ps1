@@ -15,7 +15,6 @@ catzc:
     Lists the repository-relative files the link engine reads.
 .DESCRIPTION
     Without -Path only git-tracked files count, so untracked files are never aligned; exempt classes: .gitattributes.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LinkScope.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the returned paths are relative to.
 .PARAMETER Path

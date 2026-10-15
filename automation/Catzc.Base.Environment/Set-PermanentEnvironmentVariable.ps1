@@ -16,7 +16,6 @@ catzc:
     Writes, or removes, an environment variable in a persistent scope (the Windows registry for User/Machine).
 .DESCRIPTION
     The one write seam for persistent variables other than PATH, so tests spare the shared user environment.
-    [comment:1](/docs/references/automation/catzc-base-environment/Set-PermanentEnvironmentVariable.ps1.md#comment1)
 .PARAMETER Name
     The variable's name.
 .PARAMETER Value

@@ -26,10 +26,8 @@ catzc:
     of truth for the ADR domain structure.
 .DESCRIPTION
     index.md is projected from adrs.yml alone, so a hand-edit to it is overwritten on the next import.
-    [comment:1](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment1)
 .PARAMETER DryRun
     The index is still rendered in full, so a dry run also throws on an ADR with no file.
-    [comment:2](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment2)
 .PARAMETER Silent
     The wrote / would-write status line is verbose-level — -Silent suppresses it (used by the importer tail).
 .PARAMETER PassThru

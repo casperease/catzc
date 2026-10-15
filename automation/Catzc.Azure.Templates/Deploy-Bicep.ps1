@@ -20,17 +20,14 @@ catzc:
     Deploys a bicep template to Azure (resolves context, runs hooks, calls az, sets tags).
 .DESCRIPTION
     The session picks the slot: a customer subscription deploys the customer config, otherwise the root config.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment1)
 .PARAMETER Environment
     Environment shortname.
 .PARAMETER Template
     Template name.
 .PARAMETER Slot
     Omitted selects the environment's base slot, the index-0 one.
-    [comment:2](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment2)
 .PARAMETER SubscriptionIdAssertIs
     Mandatory in a pipeline so a re-wired service connection cannot silently retarget a deploy; never a selector.
-    [comment:3](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment3)
 .PARAMETER ArtifactsFolder
     Required in a pipeline. Devbox callers can pass it with -DoNotRebuild to skip the local build.
 .PARAMETER DoNotRebuild
@@ -39,7 +36,6 @@ catzc:
     Devbox-only. Bypass the template's DoNotRun mode.
 .PARAMETER DryRun
     The preview is Azure's server-side what-if, so it shows what Azure itself would change, not a local guess.
-    [comment:4](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment4)
 .EXAMPLE
     Deploy-Bicep dev sample            # deploys into the az session's subscription
 .EXAMPLE

@@ -18,12 +18,10 @@ catzc:
     Uninstalls Node.js via the platform package manager.
 .DESCRIPTION
     It cannot remove a Node.js the configured manager does not own; -Remove -Force escalates to Remove-NodeJs.
-    [comment:1](/docs/references/automation/catzc-tooling-node/Uninstall-NodeJs.ps1.md#comment1)
 .PARAMETER Version
     Node.js version to uninstall. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Remove
     Without -Force this only reports the plan; the eviction of an off-config install needs both switches.
-    [comment:2](/docs/references/automation/catzc-tooling-node/Uninstall-NodeJs.ps1.md#comment2)
 .PARAMETER Force
     Confirm the destructive Remove-NodeJs step of the escalation. Ignored without -Remove.
 .EXAMPLE

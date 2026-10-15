@@ -18,7 +18,6 @@ catzc:
     changed.
 .DESCRIPTION
     The gofmt is the one beside the managed go at the pin, never the first on PATH; an off-pin go throws.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-Gofmt.ps1.md#comment1)
 .PARAMETER File
     Absolute paths of the .go files to format.
 .PARAMETER DryRun

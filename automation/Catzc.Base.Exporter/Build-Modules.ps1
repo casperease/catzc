@@ -17,7 +17,6 @@ catzc:
     Builds the selected modules into one installable, versioned Catzc module — build mode's code root.
 .DESCRIPTION
     A build that overrides the selection or vendor policy is an experiment, so the footprint limits skip it.
-    [comment:1](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment1)
 .PARAMETER Module
     Module names to build (closure-expanded by the engine), in place of the bundle's profile.
 .PARAMETER Bundle
@@ -35,7 +34,6 @@ catzc:
     'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH — see Resolve-CatzcBuildVersion.
 .PARAMETER Destination
     The default is per bundle, so two bundles built side by side never share a folder.
-    [comment:4](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment4)
 .PARAMETER DryRun
     Return the build plan without writing anything.
 .PARAMETER Silent

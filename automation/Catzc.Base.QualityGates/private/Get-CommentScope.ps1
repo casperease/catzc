@@ -16,7 +16,6 @@ catzc:
     Lists the files whose long comments live in a comment page, each with its file language and page.
 .DESCRIPTION
     One shared scope, so the converter, the view and the gate cannot disagree on which files hold comments.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-CommentScope.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the paths are relative to.
 .PARAMETER Path

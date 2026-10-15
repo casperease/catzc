@@ -15,7 +15,6 @@ catzc:
     Installs the Go toolchain from the official go.dev archive into a user-space home.
 .DESCRIPTION
     A Go at the locked version found elsewhere, such as a pipeline tool cache, satisfies the contract and is left alone.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Go.ps1.md#comment1)
 .PARAMETER Version
     Go version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force

@@ -16,10 +16,8 @@ catzc:
     history committed from the current (already-clean) working tree.
 .DESCRIPTION
     Commits rebuilt from the clean tree hold the token in no blob, path or message, so nothing is left to scrub.
-    [comment:1](/docs/references/automation/catzc-tooling-github/New-SyntheticHistory.ps1.md#comment1)
 .PARAMETER Layer
     A layer that stages no change is skipped, so it adds no commit and no timestamp of its own.
-    [comment:2](/docs/references/automation/catzc-tooling-github/New-SyntheticHistory.ps1.md#comment2)
 .PARAMETER RepositoryPath
     The repository to rebuild. Defaults to the repository root.
 .PARAMETER AuthorName
@@ -34,7 +32,6 @@ catzc:
     The branch the synthetic history becomes. Defaults to main.
 .PARAMETER WorkingBranch
     Holds the orphan history only while it builds, then it is swapped in as the default branch.
-    [comment:3](/docs/references/automation/catzc-tooling-github/New-SyntheticHistory.ps1.md#comment3)
 .PARAMETER DryRun
     Return the plan (layer and timestamp count) without touching git.
 .EXAMPLE

@@ -17,7 +17,6 @@ catzc:
     Returns the automation modules as typed BaseModule objects, by kind — the native model type.
 .DESCRIPTION
     Classifies against the code root, not the repository root, so build mode (the built package) answers right.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-BaseModule.ps1.md#comment1)
 .PARAMETER Kind
     One or more of named, hidden, imported, vendored, builtin, residue. Default: named, hidden.
 .EXAMPLE

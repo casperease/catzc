@@ -16,7 +16,6 @@ catzc:
     isolation) or the current session (fast) — so a subset of the toolset is verified deterministically.
 .DESCRIPTION
     Integrity tests need the whole real repo, so a subset sandbox defaults to Logic and the L0 and L1 unit tiers.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md#comment1)
 .PARAMETER ModuleProfile
     A profile from configs/profiles.yml (minimal, base, azure, tooling, full). Default: minimal.
 .PARAMETER Modules
@@ -31,7 +30,6 @@ catzc:
     Lowest tier to run (0-4). Default 0.
 .PARAMETER Destination
     A given Destination is never auto-removed; only the fresh temporary directory is, unless -KeepSandbox.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-InIsolation.ps1.md#comment2)
 .PARAMETER KeepSandbox
     Keep the sandbox (and its results.xml) after the run instead of deleting it.
 .PARAMETER PassThru

@@ -18,7 +18,6 @@ catzc:
     parameters.
 .DESCRIPTION
     A globset without a verify scope is not a test suite, so it throws and tells you to declare one in globs.yml.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Resolve-TestSuite.ps1.md#comment1)
 .PARAMETER Name
     The name of a test suite — its globset's name (globs.yml).
 .OUTPUTS

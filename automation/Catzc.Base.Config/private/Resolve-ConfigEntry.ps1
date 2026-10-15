@@ -17,7 +17,6 @@ catzc:
     Resolves a config name to its owning module and file path (the discovery seam).
 .DESCRIPTION
     In build mode the scan also covers overlay-local modules, so their configs are found like any module's.
-    [comment:1](/docs/references/automation/catzc-base-config/private/Resolve-ConfigEntry.ps1.md#comment1)
 .PARAMETER Config
     The config name (without the .yml extension).
 .PARAMETER Module

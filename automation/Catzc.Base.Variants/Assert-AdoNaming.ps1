@@ -15,7 +15,6 @@ catzc:
     Asserts the repo's Azure resource-name order (the `ado_naming` variant) is the one named, else throws.
 .DESCRIPTION
     Guards a path valid under one naming order only; the error names the actual order and the file to edit.
-    [comment:1](/docs/references/automation/catzc-base-variants/Assert-AdoNaming.ps1.md#comment1)
 .PARAMETER Standard
     Require the 'standard' order.
 .PARAMETER Classic

@@ -15,7 +15,6 @@ catzc:
     Returns the install scope of a tool based on its binary location.
 .DESCRIPTION
     Only the path decides, never the privileges used to install; unknown means no platform branch matched.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Get-InstallScope.ps1.md#comment1)
 .PARAMETER Config
     Tool configuration hashtable from Get-ToolConfig / tools.yml.
 .PARAMETER Location

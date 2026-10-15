@@ -15,7 +15,6 @@ catzc:
     Returns tool names from tools.yml in dependency-safe install order.
 .DESCRIPTION
     Dependencies come before their dependents, and a circular DependsOn chain throws instead of looping.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Get-ToolInstallOrder.ps1.md#comment1)
 .EXAMPLE
     Get-ToolInstallOrder
     # Returns @('python', 'java', 'dotnet', 'node_js', 'terraform', 'poetry', 'az_cli', 'py_spark')

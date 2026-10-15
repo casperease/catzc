@@ -19,7 +19,6 @@ catzc:
     Writes the normal form of a function file's help block and reports what only a person can settle.
 .DESCRIPTION
     Sections move and citations are ordered, but no prose is written: text a person authored is left as it is.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Format-FunctionHelpText.ps1.md#comment1)
 .PARAMETER Text
     The text of one function file.
 .OUTPUTS

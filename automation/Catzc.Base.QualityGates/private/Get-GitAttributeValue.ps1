@@ -15,7 +15,6 @@ catzc:
     Reads the given .gitattributes attributes for many repository paths at once.
 .DESCRIPTION
     Every scope reads the gitattributes classes through here, so they all read the same classes the same way.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-GitAttributeValue.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the paths are relative to.
 .PARAMETER Path

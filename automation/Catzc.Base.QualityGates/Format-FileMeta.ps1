@@ -18,7 +18,6 @@ catzc:
     Imprints the derived facts into the meta block of every in-scope Markdown file.
 .DESCRIPTION
     The output is byte-identical on every run, so a second run changes no file.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to format. Default: every in-scope file.
 .PARAMETER RepositoryRoot

@@ -19,7 +19,6 @@ catzc:
     Returns the managed tool a test run hands to each test language's tests: a path per language, or an empty string.
 .DESCRIPTION
     Workers never locate tools, as a build run's engine has no tools.yml entries; paths come from the source session.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestExecutable.ps1.md#comment1)
 .OUTPUTS
     [hashtable] @{ go = <path or ''>; python = <path or ''>; <engine> = <path or ''> per engine other than pwsh }.
 .EXAMPLE

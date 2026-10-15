@@ -19,17 +19,14 @@ catzc:
     Runs a build run: the same tests as Test-Automation, against a fresh build of the selected modules.
 .DESCRIPTION
     The one seam: workers import the build, not the repository, so tests run against the built modules.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md#comment1)
 .PARAMETER Module
     Giving neither -Module nor -ModuleProfile selects the default bundle's profile.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md#comment2)
 .PARAMETER ModuleProfile
     A module profile (profiles.yml) to build and test.
 .PARAMETER MinLevel
     Minimum test tier. Defaults to 0.
 .PARAMETER MaxLevel
     A snapshot run skips L3 and says so; 4 adds the opt-in L4 tier.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md#comment3)
 .PARAMETER Category
     Logic, Integrity, or Both (the default) — as in Test-Automation.
 .PARAMETER Workers
@@ -38,7 +35,6 @@ catzc:
     Pester output verbosity inside each worker. Defaults to 'Detailed'.
 .PARAMETER PassThru
     ExcludedTests lists the source-only rows that were left out, and Build holds the Build-Modules result.
-    [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md#comment4)
 .EXAMPLE
     Test-CatzcBuild
 .EXAMPLE

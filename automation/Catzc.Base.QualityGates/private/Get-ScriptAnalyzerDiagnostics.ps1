@@ -22,7 +22,6 @@ catzc:
     Runs PSScriptAnalyzer over a file list, sharded across background processes, returning diagnostics.
 .DESCRIPTION
     Shards are separate processes, not runspaces, because the analyzer's helper initialization is not thread-safe.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment1)
 .PARAMETER Path
     The files to analyze.
 .PARAMETER SettingsPath

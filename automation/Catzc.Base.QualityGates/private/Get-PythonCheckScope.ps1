@@ -16,7 +16,6 @@ catzc:
     Lists what the Python checks read: every Python test folder, and every tracked .py file outside the Python root.
 .DESCRIPTION
     Test folders count as folders, so a new test file is checked before commit; other .py files come from the index.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-PythonCheckScope.ps1.md#comment1)
 .OUTPUTS
     [string] Full paths: the test folders first, in their order, then the other files in ordinal order. Nothing when
     the repository holds no Python.

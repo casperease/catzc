@@ -15,7 +15,6 @@ catzc:
     Reads the test-run lock record and describes who holds the working folder.
 .DESCRIPTION
     A mutex names no owner, so this reads the record beside it and never guesses past what the record says.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLockHolder.ps1.md#comment1)
 .PARAMETER Path
     The lock record's path (out/.test-run-lock.json).
 .OUTPUTS

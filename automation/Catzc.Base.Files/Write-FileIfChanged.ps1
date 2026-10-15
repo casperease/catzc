@@ -19,15 +19,12 @@ catzc:
     every idempotent "keep this generated file current" writer.
 .DESCRIPTION
     The compare ignores CR, so a CRLF working tree never triggers a spurious rewrite.
-    [comment:1](/docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md#comment1)
 .PARAMETER Path
     Path of the target file to write.
 .PARAMETER Content
     Compared after canonicalising, so CRLF input or extra trailing newlines never count as a change.
-    [comment:2](/docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md#comment2)
 .PARAMETER DryRun
     A missing file counts as changed, so a dry run reports true for a first write.
-    [comment:3](/docs/references/automation/catzc-base-files/Write-FileIfChanged.ps1.md#comment3)
 .OUTPUTS
     [bool] $true when the file was written (or would be, under -DryRun); $false when already current.
 .EXAMPLE

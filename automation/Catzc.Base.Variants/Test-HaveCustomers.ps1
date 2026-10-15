@@ -15,7 +15,6 @@ catzc:
     Tests whether the repo has customer deployments enabled — for all customers, or for specific names.
 .DESCRIPTION
     Enabled means by repo policy only; whether a name is a defined customer is left to customer.yml.
-    [comment:1](/docs/references/automation/catzc-base-variants/Test-HaveCustomers.ps1.md#comment1)
 .PARAMETER Name
     Zero or more customer names to test for enablement. Omit to test the repo-wide capability.
 .EXAMPLE

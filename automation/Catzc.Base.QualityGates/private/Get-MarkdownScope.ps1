@@ -17,7 +17,6 @@ catzc:
     Lists the repository-relative Markdown files in the file class the title and the meta block share.
 .DESCRIPTION
     A gitignored generated README is out of scope while its tracked source is in, because only tracked files count.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownScope.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the returned paths are relative to.
 .PARAMETER Path

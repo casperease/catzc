@@ -15,7 +15,6 @@ catzc:
     Installs or upgrades uv, Astral's Python handler.
 .DESCRIPTION
     Only a uv installed by Astral's own script can self-update; every other source upgrades through its installer.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Uv.ps1.md#comment1)
 .PARAMETER Version
     uv version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force

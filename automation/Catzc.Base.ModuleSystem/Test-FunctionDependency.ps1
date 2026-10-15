@@ -18,7 +18,6 @@ catzc:
     The function dependency quality gate: every function-to-function call resolves to a defined command.
 .DESCRIPTION
     Two modules defining one public name fail the gate, as exports must be unique; duplicate private names pass.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
 .PARAMETER OutputFolder

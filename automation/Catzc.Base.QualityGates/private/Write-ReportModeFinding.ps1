@@ -16,7 +16,6 @@ catzc:
     Prints the findings of a source check in report mode: every finding, then its count, and never a failure.
 .DESCRIPTION
     Findings are a work list printed under the check's name, never passed to the gate report as issues.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-ReportModeFinding.ps1.md#comment1)
 .PARAMETER Check
     The check's name as its config spells it ('string_citations', 'engine_set').
 .PARAMETER Finding

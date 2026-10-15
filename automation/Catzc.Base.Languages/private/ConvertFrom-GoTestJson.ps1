@@ -15,7 +15,6 @@ catzc:
     Turns a `go test -json` event stream (the test2json format) into one GoTestResult per top-level Go test.
 .DESCRIPTION
     A test that started but reached no outcome means the test binary crashed, so it counts as a failure.
-    [comment:1](/docs/references/automation/catzc-base-languages/private/ConvertFrom-GoTestJson.ps1.md#comment1)
 .PARAMETER Text
     The stdout of `go test -json`.
 .OUTPUTS

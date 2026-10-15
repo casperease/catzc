@@ -16,7 +16,6 @@ catzc:
     Resolves the per-extension comment line limits the link aligner wraps to.
 .DESCRIPTION
     links.yml overrides beat .editorconfig, and an extension in neither is absent, so the caller's default applies.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LinkLineLimit.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root whose .editorconfig is read; a missing file yields only the overrides.
 .PARAMETER Override

@@ -16,7 +16,6 @@ catzc:
     Installs a tool using the platform package manager.
 .DESCRIPTION
     A wrong installed version throws unless -Force, which uninstalls first; a correct one is a no-op.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml.
 .PARAMETER Version

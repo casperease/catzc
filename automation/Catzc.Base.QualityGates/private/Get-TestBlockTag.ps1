@@ -15,7 +15,6 @@ catzc:
     Resolves the tags of one axis for a Pester test — nearest contributing block wins.
 .DESCRIPTION
     Two returned tags mean one block carries two tags of the axis, which callers treat as a tagging violation.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestBlockTag.ps1.md#comment1)
 .PARAMETER Test
     A Pester test object (an item of $result.Tests). Its .Tag and .Block chain carry the tags.
 .PARAMETER Valid

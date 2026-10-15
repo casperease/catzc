@@ -19,10 +19,8 @@ catzc:
     Evicts an off-config .NET install — one the tooling's managed user-space install does not own.
 .DESCRIPTION
     Managed is judged for the target folder, not PATH: in a catzc session PATH always leads to the managed install.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment1)
 .PARAMETER InstallDir
     Defaults to the dotnet on PATH, or the machine-wide Program Files folder when PATH leads to the managed install.
-    [comment:2](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment2)
 .PARAMETER Force
     Actually perform the removal. Without this, shows what would be removed.
 .EXAMPLE

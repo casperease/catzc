@@ -15,7 +15,6 @@ catzc:
     Lists a run's test files, path by path in the given order, each tests folder's files in ordinal order.
 .DESCRIPTION
     Throws when no test file is found, since a run with nothing to run is a scoping mistake, never a green.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestFiles.ps1.md#comment1)
 .PARAMETER TestPath
     The run's tests/ folders and language test folders, in run order.
 .OUTPUTS
@@ -42,7 +41,8 @@ function Get-TestAutomationTestFiles {
             $testFiles.Add($testsPath)
             continue
         }
-        $files = @([System.IO.Directory]::GetFiles($testsPath, '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories))
+        # Test files sit at most two levels below a tests folder (tests/types/); the third level is headroom.
+        $files = @(Get-ChildPath $testsPath -File -Filter '*.Tests.ps1' -Depth 3)
         [Array]::Sort($files, [System.StringComparer]::Ordinal)
         foreach ($file in $files) {
             $testFiles.Add($file)

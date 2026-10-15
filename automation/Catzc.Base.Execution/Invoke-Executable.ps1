@@ -18,32 +18,24 @@ catzc:
     optional structured output capture.
 .DESCRIPTION
     Streamed runs lose ANSI colors, since a piped child disables them; use -Direct when colors matter.
-    [comment:1](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment1)
 .PARAMETER Command
     The command string to execute.
 .PARAMETER Direct
     Direct output also flows into the pipeline, so it leaks into the caller's return value.
-    [comment:2](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment2)
 .PARAMETER PassThru
     Without it the output only streams to the console and the caller gets nothing to read back.
-    [comment:3](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment3)
 .PARAMETER AsBytes
     Read .Bytes, not .Output: .Output stays empty, so a text reader of a binary stream gets an empty string.
-    [comment:4](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment4)
 .PARAMETER TimeoutSeconds
     Overrides the timeouts.yml limit for one call; -Direct has no limit, since a person at the prompt is its safeguard.
-    [comment:8](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment8)
 .PARAMETER InputText
     Written to the child's stdin, which is then closed: how one process reads a list that would overflow the command line.
 .PARAMETER NoAssert
     With -PassThru the ExitCode stays readable on the result, so the caller can judge it instead.
-    [comment:5](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment5)
 .PARAMETER Silent
     A silent run also closes stdin, so a prompt in the child fails at once instead of waiting unseen.
-    [comment:6](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment6)
 .PARAMETER WorkingDirectory
     Defaults to the repository root, not $PWD, so pass a directory whenever the command depends on one.
-    [comment:7](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment7)
 .PARAMETER DryRun
     Return the command string without executing. Used for testing.
 .EXAMPLE

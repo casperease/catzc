@@ -16,7 +16,6 @@ catzc:
     Runs a tool from the Python test workspace's pinned environment (ruff), against any .py files in the repository.
 .DESCRIPTION
     The explicit --config gives every file the workspace's ruff settings, wherever the file lives.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-PythonWorkspaceTool.ps1.md#comment1)
 .PARAMETER Tool
     The tool and its subcommand words, e.g. 'ruff format --check' or 'ruff check'.
 .PARAMETER File

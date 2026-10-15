@@ -15,7 +15,6 @@ catzc:
     Uninstalls a tool using the platform package manager.
 .DESCRIPTION
     A tool that is missing or not functional is a no-op, not an error, so the call is safe to repeat.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Uninstall-Tool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml.
 .PARAMETER Version

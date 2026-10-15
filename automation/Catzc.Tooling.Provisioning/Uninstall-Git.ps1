@@ -15,7 +15,6 @@ catzc:
     Uninstalls Git installed by Install-Git.
 .DESCRIPTION
     Safe to run when git is not installed; Linux removal needs root, Windows removal needs no admin.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Git.ps1.md#comment1)
 .EXAMPLE
     Uninstall-Git
 #>

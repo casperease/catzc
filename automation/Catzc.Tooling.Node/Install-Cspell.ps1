@@ -15,7 +15,6 @@ catzc:
     Installs cspell (the Code Spell Checker CLI) globally via npm.
 .DESCRIPTION
     A wrong installed version is replaced only with -Force; the right one is left alone.
-    [comment:1](/docs/references/automation/catzc-tooling-node/Install-Cspell.ps1.md#comment1)
 .PARAMETER Version
     cspell version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force

@@ -17,12 +17,10 @@ catzc:
     Runs the test files through the parallel worker pool (and the serial phase) and aggregates the rows.
 .DESCRIPTION
     A run never waits for another: it runs in place when the folder is free, else in a verified snapshot of it.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment1)
 .PARAMETER ParallelFiles
     The test files to shard across the pool (may be empty when only tagged files are in scope).
 .PARAMETER GreedyFiles
     Greedy files overlap each other but never the parallel phase, which is why each gets a single-file shard.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment2)
 .PARAMETER SerialFiles
     The serial-tagged test files for the final one-worker phase (may be empty).
 .PARAMETER Location
@@ -41,12 +39,10 @@ catzc:
     Greedy files run side by side in groups of this size, one group after another; 0 reads greedy_group_size from test-policy.yml.
 .PARAMETER TimeoutSeconds
     Hard ceiling per execution phase; on expiry the pool is killed and the run throws.
-    [comment:16](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment16)
 .PARAMETER WorkerEnvironment
     Extra environment variables for each worker's process (the L0/L1 tripwire) — never the parent's $env:.
 .PARAMETER EntryScript
     Empty loads the source importer; only a build run passes its own Import-Catzc.ps1 here.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment3)
 .PARAMETER EntryParameter
     Named arguments for -EntryScript (the build run's @{ RepositoryRoot = <repo> }).
 .OUTPUTS

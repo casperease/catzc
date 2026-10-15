@@ -15,7 +15,6 @@ catzc:
     Provisions the local development environment with all required tools.
 .DESCRIPTION
     A tool at the right version but outside the expected manager is left untouched with a message, not replaced.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md#comment1)
 .PARAMETER Force
     Replace existing installations that are at the wrong version.
 .EXAMPLE

@@ -17,12 +17,10 @@ catzc:
     Lists the realized glossary concepts whose defining rule nothing enforces (check G5) — one message per violation.
 .DESCRIPTION
     A prose-only concept has nothing in code to enforce, so it is exempt from the enforcer requirement.
-    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryEnforcementViolations.ps1.md#comment1)
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.
 .PARAMETER Enforcer
     Defaults to the repository's enforcers, which exist in the source tree only.
-    [comment:2](/docs/references/automation/catzc-base-docs/private/Get-GlossaryEnforcementViolations.ps1.md#comment2)
 .OUTPUTS
     [string[]] One message per unenforced concept, in glossary order; empty when every realized concept is enforced.
 .EXAMPLE

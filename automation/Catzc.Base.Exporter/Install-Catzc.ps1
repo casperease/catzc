@@ -18,17 +18,14 @@ catzc:
     Installs a Catzc build — two-part beside a working root, or into the current user's module path.
 .DESCRIPTION
     The build is verified before the destination is touched, and an unchanged content hash skips the copy.
-    [comment:1](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment1)
 .PARAMETER Root
     The destination working root for a two-part install. Not the mono repo.
 .PARAMETER Scope
     CurrentUser — install into the user's PowerShell module path instead of beside a working root.
 .PARAMETER Bundle
     Ignored when -Source names a build directly; otherwise it picks which devbox build is installed.
-    [comment:2](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment2)
 .PARAMETER Source
     The default is a devbox build, which sits under the placeholder version, never a pipeline version.
-    [comment:3](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment3)
 .PARAMETER Force
     Copy the build even when the target already holds the same content hash.
 .PARAMETER DryRun

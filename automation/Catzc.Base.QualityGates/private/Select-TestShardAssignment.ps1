@@ -16,7 +16,6 @@ catzc:
     finish together.
 .DESCRIPTION
     A file with no recorded duration counts as the median, so a first run is a fair even split; ties keep their order.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Select-TestShardAssignment.ps1.md#comment1)
 .PARAMETER File
     The parallel test files, absolute paths.
 .PARAMETER WorkerCount

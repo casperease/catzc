@@ -17,10 +17,8 @@ catzc:
     Returns the names of all automation modules (the non-dot directories under the loaded code root).
 .DESCRIPTION
     The platform's single source of the module name list, so it is always the filesystem, never hand-kept.
-    [comment:1](/docs/references/automation/catzc-base-typessystem/Get-AutomationModules.ps1.md#comment1)
 .PARAMETER AutomationRoot
     Pass a fixture tree to isolate a logic test from the real module set.
-    [comment:2](/docs/references/automation/catzc-base-typessystem/Get-AutomationModules.ps1.md#comment2)
 .EXAMPLE
     Get-AutomationModules
 .EXAMPLE

@@ -17,8 +17,6 @@ catzc:
     handing a secret to an external consumer through the environment.
 .DESCRIPTION
     A bare literal in -Set is rejected, so a literal is never mistaken for a secret or an address; use -Value.
-    [ADR-AUTO-ENVVAR#7](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar7)
-    [comment:1](/docs/references/automation/catzc-tooling-environment/Write-EnvironmentSet.ps1.md#comment1)
 .PARAMETER Set
     Map of env name (or subtree prefix) to a [SecureString] secret or a 'global.<config>...' config address.
 .PARAMETER Value

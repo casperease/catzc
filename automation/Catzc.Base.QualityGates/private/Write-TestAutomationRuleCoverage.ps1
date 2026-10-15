@@ -16,10 +16,8 @@ catzc:
     Renders the ADR-rule enforcement coverage report (rule-coverage.md + rule-coverage.csv) from a run's rows.
 .DESCRIPTION
     Report-only: it never throws on an uncovered rule, since many rules are enforced by review, not a mechanism.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationRuleCoverage.ps1.md#comment1)
 .PARAMETER Rows
     Rows cover only this run's scope, so a -Modules or -Level filter narrows the by-test figures.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationRuleCoverage.ps1.md#comment2)
 .PARAMETER AnalyzerCoverage
     The (AdrId, Enforcer, Kind='pssa-rule') rows from Get-AnalyzerAdrCoverage. AdrId is '#' citation form.
 .PARAMETER AllRuleIds

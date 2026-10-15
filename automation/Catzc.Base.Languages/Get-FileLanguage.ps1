@@ -16,7 +16,6 @@ catzc:
     Returns the repository's file languages — all of them, the named ones, or the one a file is written in.
 .DESCRIPTION
     -Path never throws: an unlisted extension, no extension, or a dotfile such as .gitkeep returns nothing.
-    [comment:1](/docs/references/automation/catzc-base-languages/Get-FileLanguage.ps1.md#comment1)
 .PARAMETER Name
     The file-language name(s) to return. An unknown name throws, naming the config file.
 .PARAMETER Path

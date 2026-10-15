@@ -15,7 +15,6 @@ catzc:
     Locates the Windows Git Credential Manager from inside a WSL session.
 .DESCRIPTION
     Older Git for Windows releases name the executable with a -core suffix; the first existing path wins, else null.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/private/Find-WindowsGitCredentialManager.ps1.md#comment1)
 .OUTPUTS
     [string] The Windows-side executable path as WSL sees it, or $null.
 #>

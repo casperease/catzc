@@ -16,7 +16,6 @@ catzc:
     The visibility meta kind's fact: whether a module's function file is public or private, from its folder.
 .DESCRIPTION
     A file in the module's private folder is private, and any other file of the module is public.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-VisibilityFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What the file's carrier reader returned.
 .PARAMETER Path

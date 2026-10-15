@@ -18,7 +18,6 @@ catzc:
     provided assets of every released version folder still in the tree.
 .DESCRIPTION
     Depended-on assets of older releases are skipped: they follow their outside platform, so only the current binds.
-    [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractBindingAssets.ps1.md#comment1)
 .PARAMETER Version
     The current version folder of every unit, <major>.<minor>.<patch>.
 .PARAMETER RepositoryRoot

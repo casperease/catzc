@@ -17,7 +17,6 @@ catzc:
     Lists all exported automation functions.
 .DESCRIPTION
     Lists loaded modules, so it works in both run modes; -NotUsedInternally needs the per-function files and fails in...
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-AutomationFunctions.ps1.md#comment1)
 .PARAMETER NotUsedInternally
     Only return functions that have no incoming calls from other automation functions.
 .PARAMETER AutomationRoot

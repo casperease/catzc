@@ -17,14 +17,12 @@ catzc:
     Checks one Markdown file's H2–H6 headings against their normal form and returns the fixed text.
 .DESCRIPTION
     Only a trailing group of code spans and separators moves below the heading; prose groups and code subjects stay.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md#comment1)
 .PARAMETER RelativePath
     The file's repository-relative, '/'-separated path.
 .PARAMETER Text
     The file's content.
 .PARAMETER Citation
     A citation code missing from this map stays a code span instead of becoming a relative link.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] @{ Path; Findings; Fixed } — each finding is @{ Line; Kind; Actual; Expected; From; To }.
 #>

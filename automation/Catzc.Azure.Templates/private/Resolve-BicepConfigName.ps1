@@ -16,7 +16,6 @@ catzc:
     Parses a config / resource-group identity name into its (environment, slot) parts.
 .DESCRIPTION
     Env names contain no hyphen, so splitting on the first hyphen cleanly separates the env from the slot.
-    [comment:1](/docs/references/automation/catzc-azure-templates/private/Resolve-BicepConfigName.ps1.md#comment1)
 .PARAMETER ConfigName
     The config-name (a config filename without extension), e.g. `dev` or `dev-001`.
 .EXAMPLE

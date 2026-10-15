@@ -16,7 +16,6 @@ catzc:
     Runs one formatter engine over the given files and returns the files it changed.
 .DESCRIPTION
     A language is never named here: which language uses which engine is configuration, not code.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-FormatterEngine.ps1.md#comment1)
 .PARAMETER Engine
     The engine name, as languages.yml spells it.
 .PARAMETER File

@@ -18,10 +18,8 @@ catzc:
     Uninstalls the Azure CLI.
 .DESCRIPTION
     A foreign install, such as a machine MSI, an apt package or a pip install, needs -Remove -Force to be evicted.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md#comment1)
 .PARAMETER Remove
     Alone it only reports the plan; pair it with -Force so Remove-AzCli actually evicts the off-config install.
-    [comment:2](/docs/references/automation/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md#comment2)
 .PARAMETER Force
     Confirm the destructive Remove-AzCli step of the escalation. Ignored without -Remove.
 .EXAMPLE

@@ -15,7 +15,6 @@ catzc:
     Runs a tool's version command and extracts the installed version string.
 .DESCRIPTION
     Reads stdout and stderr merged, since some tools such as java print their version to stderr; a miss returns null.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Get-ToolVersion.ps1.md#comment1)
 .PARAMETER Config
     The tool configuration hashtable from Get-ToolConfig.
 .EXAMPLE

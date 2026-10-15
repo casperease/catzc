@@ -18,7 +18,6 @@ catzc:
     Walks a key path into an already-loaded config node and returns the addressed node.
 .DESCRIPTION
     A segment is a dictionary key first, else a property, so raw and typed configs traverse alike.
-    [comment:1](/docs/references/automation/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md#comment1)
 .PARAMETER Node
     The config node to walk into — the object Get-Config returned for the config name.
 .PARAMETER Segment

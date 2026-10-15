@@ -15,7 +15,6 @@ catzc:
     Provisions Python via uv.
 .DESCRIPTION
     Developer workstations only: in CI pipelines the native UsePythonVersion task activates cached versions instead.
-    [comment:1](/docs/references/automation/catzc-tooling-python/Install-Python.ps1.md#comment1)
 .PARAMETER Version
     Python version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force

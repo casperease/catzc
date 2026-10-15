@@ -18,7 +18,6 @@ catzc:
     generates and owns, and leaves everything else in place, reported.
 .DESCRIPTION
     Unlike a raw clean, untracked work not on the whitelist survives and is reported, never deleted.
-    [comment:1](/docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md#comment1)
 .PARAMETER DryRun
     Classify without deleting: return the plan as an object with the Remove and Keep lists.
 .OUTPUTS

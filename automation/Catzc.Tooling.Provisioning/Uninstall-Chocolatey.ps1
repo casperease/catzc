@@ -16,7 +16,6 @@ catzc:
     Uninstalls Chocolatey from the current machine.
 .DESCRIPTION
     Safe to run when Chocolatey is absent, and it returns at once on any platform but Windows.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md#comment1)
 .EXAMPLE
     Uninstall-Chocolatey
 #>

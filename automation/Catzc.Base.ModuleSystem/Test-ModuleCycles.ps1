@@ -16,7 +16,6 @@ catzc:
     Quality gate: the real module-to-module call graph has no cycle.
 .DESCRIPTION
     Covers every module, unconstrained ones included, so a cycle outside the declared allow-list is caught only here.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-ModuleCycles.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-module-cycles/ (Write-QualityGateReport).
 .PARAMETER PassThru

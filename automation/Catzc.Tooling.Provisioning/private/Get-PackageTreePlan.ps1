@@ -16,7 +16,6 @@ catzc:
     Plans copying an extracted package tree into a destination tree without touching a file the destination already has.
 .DESCRIPTION
     Read-only, so the plan can be recorded before the copy starts and an interrupted copy is still covered by it.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md#comment1)
 .PARAMETER Source
     The extracted package tree.
 .PARAMETER Destination

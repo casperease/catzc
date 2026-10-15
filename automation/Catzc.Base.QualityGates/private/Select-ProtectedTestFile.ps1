@@ -18,7 +18,6 @@ catzc:
     unchanged since its last green run this session.
 .DESCRIPTION
     In a pipeline the input returns unchanged with no identity computed, so CI pays nothing and skips nothing.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Select-ProtectedTestFile.ps1.md#comment1)
 .PARAMETER ParallelFiles
     The parallel-phase test files.
 .PARAMETER GreedyFiles

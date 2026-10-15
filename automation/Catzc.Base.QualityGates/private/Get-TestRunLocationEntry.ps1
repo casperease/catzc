@@ -17,7 +17,6 @@ catzc:
     Resolves the entry script a test run's workers load, for the location the run executes in.
 .DESCRIPTION
     A snapshot run must load from the snapshot, so every path a worker resolves lands inside the snapshot.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestRunLocationEntry.ps1.md#comment1)
 .PARAMETER Location
     The location Enter-TestRunLocation returned.
 .PARAMETER EntryScript

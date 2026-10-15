@@ -20,7 +20,6 @@ catzc:
     globsets select a common file on their OWN contribution.
 .DESCRIPTION
     Layers are checked one by one, never across: a unit contains the base it composes, so that overlap is expected.
-    [comment:1](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-globset-independence).
 .PARAMETER PassThru

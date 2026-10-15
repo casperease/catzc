@@ -16,7 +16,6 @@ catzc:
     Prints and records the tests a test run's opt-out tag excluded — the visible half of the opt-out rule.
 .DESCRIPTION
     With nothing excluded it still prints its count and writes a header-only CSV, so the check is seen to have run.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestOptOutExclusion.ps1.md#comment1)
 .PARAMETER Tests
     The excluded test rows from Get-TestOptOutExclusion.
 .PARAMETER Tag

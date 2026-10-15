@@ -15,7 +15,6 @@ catzc:
     Tests whether anything under the given repository paths differs from HEAD.
 .DESCRIPTION
     The one changed-paths question that the committer's no-op and its policy callers both ask, so it lives once.
-    [comment:1](/docs/references/automation/catzc-base-files/Test-GitPathChanged.ps1.md#comment1)
 .PARAMETER Path
     The repository-relative, '/'-separated paths (files or folders) to check.
 .OUTPUTS

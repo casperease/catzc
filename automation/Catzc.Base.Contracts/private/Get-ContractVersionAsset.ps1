@@ -18,7 +18,6 @@ catzc:
     Lists every contract asset of one unit version folder, with its contract.yml overrides applied.
 .DESCRIPTION
     A file at version level, a .frozen in the draft 0.0.0, or a manifest entry naming no asset throws, naming it.
-    [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractVersionAsset.ps1.md#comment1)
 .PARAMETER Unit
     The deployable-unit folder name.
 .PARAMETER Version

@@ -17,15 +17,12 @@ catzc:
     Computes a globset's durable SHA — the deployable unit's identity.
 .DESCRIPTION
     CR bytes are stripped and the path is in the fold: CRLF or LF agree, while a rename or deletion re-keys the set.
-    [comment:1](/docs/references/automation/catzc-base-globs/Get-GlobSetHash.ps1.md#comment1)
 .PARAMETER Name
     The declared globset (from globs.yml) whose identity to compute.
 .PARAMETER GlobSet
     Derived module sets must come through here, since they are not in the declared registry that Name looks up.
-    [comment:2](/docs/references/automation/catzc-base-globs/Get-GlobSetHash.ps1.md#comment2)
 .PARAMETER TrackedFile
     Passing it in saves one git index read per set when hashing many; omitted, it is fetched for this call.
-    [comment:3](/docs/references/automation/catzc-base-globs/Get-GlobSetHash.ps1.md#comment3)
 .EXAMPLE
     Get-GlobSetHash -Name automation
 .EXAMPLE

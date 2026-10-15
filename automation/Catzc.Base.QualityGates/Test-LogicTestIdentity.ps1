@@ -20,10 +20,8 @@ catzc:
     separation.
 .DESCRIPTION
     Adding a customer to customer.yml bans it from logic tests at once: the forbidden set is derived, not listed.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md#comment1)
 .PARAMETER Path
     The default needs the source tree (Assert-SourceTree); an explicit list works in either mode.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-LogicTestIdentity.ps1.md#comment2)
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-logic-test-identity.
 .PARAMETER PassThru
@@ -55,8 +53,8 @@ function Test-LogicTestIdentity {
         # The default set is every test file of the catzc source tree — tests never ship in a build.
         Assert-SourceTree
         $automationRoot = Join-Path (Get-RepositoryRoot) 'automation'
-        $Path = [System.IO.Directory]::EnumerateFiles($automationRoot, '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories) |
-            Where-Object { $_ -notmatch '[\\/]\.vendor[\\/]' } |
+        # Test files reach four levels below automation (module, tests, types, file); vendored modules are pruned by the walk.
+        $Path = Get-ChildPath $automationRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
             Sort-Object
     }
 

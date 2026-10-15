@@ -18,17 +18,14 @@ catzc:
     Claims where a test run executes — its location: in place in the working folder, or in an isolated snapshot of it.
 .DESCRIPTION
     Runs share a checkout's real state, so only one may use the working folder; a busy folder gets a snapshot.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment1)
 .PARAMETER EntryPoint
     Written to the lock record, so a concurrent run that finds the folder busy can name who holds it.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment2)
 .PARAMETER RunDirectory
     The run's report folder — written to the lock record so a concurrent run can name it.
 .PARAMETER Isolated
     Run in a snapshot even when the working folder is free.
 .PARAMETER KeepSandbox
     Only a snapshot is kept: an in-place run has nothing to delete, so the switch changes nothing for it.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment3)
 .OUTPUTS
     [pscustomobject] the location: Mode ('in-place'|'snapshot'), SourceRoot (the working folder), Root (where
     the run executes — the working folder, or the snapshot), Mutex (owned, or $null), LockPath (the lock record

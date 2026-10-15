@@ -16,7 +16,6 @@ catzc:
     file that failed before any of its tests ran.
 .DESCRIPTION
     A quiet run must still show failures, and the worker's Pester output never reaches a redirected console.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestRunFailures.ps1.md#comment1)
 .PARAMETER Rows
     The run's test rows (ConvertTo-TestAutomationRowSet's shape: Result, ExpandedPath, ErrorMessage).
 .PARAMETER Files

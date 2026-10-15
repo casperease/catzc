@@ -16,13 +16,10 @@ catzc:
     Deletes the contents of the user's temp folder(s).
 .DESCRIPTION
     Safe to re-run: entries locked by a running process are skipped, never an error, and the folders themselves stay.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md#comment1)
 .PARAMETER Path
     Defaults to the de-duplicated user temp locations; pass a path to target one specific folder instead.
-    [comment:2](/docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md#comment2)
 .PARAMETER DryRun
     Removed counts every top-level entry as deleted, since a lock shows only on a real delete attempt.
-    [comment:3](/docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md#comment3)
 .EXAMPLE
     Clear-TempFolders
     Clears the current user's temp folder(s).

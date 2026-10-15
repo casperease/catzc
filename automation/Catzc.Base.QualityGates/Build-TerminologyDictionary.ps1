@@ -21,16 +21,12 @@ catzc:
     Test-Terminology.
 .DESCRIPTION
     The lists are gitignored and regenerated at import, so the registry stays the only copy of the vocabulary.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment1)
 .PARAMETER DryRun
     The returned content is the same in either mode; -DryRun only skips the write.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment2)
 .PARAMETER Silent
     Wins over -Verbose, so the importer tail stays quiet even in a session that has -Verbose on.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment3)
 .PARAMETER PassThru
     Changed tells which lists differ from disk, which makes this the way to read a -DryRun outcome.
-    [comment:4](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment4)
 .OUTPUTS
     [string[]] The paths to the generated dictionaries (with -PassThru, one result object per category
     instead).

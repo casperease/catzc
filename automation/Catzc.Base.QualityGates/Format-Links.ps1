@@ -18,7 +18,6 @@ catzc:
     Aligns the repository's links in place: code links repository-rooted, markdown links relative.
 .DESCRIPTION
     The citation code is the source of truth, so a link to a moved ADR is re-pointed, not kept.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-Links.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to align. Default: every git-tracked file.
 .PARAMETER Kind
@@ -31,7 +30,6 @@ catzc:
     Report what would change without writing any file.
 .PARAMETER PassThru
     Read Unfixable here: a dangling path or unknown citation shows in that list, not in the changed paths.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Format-Links.ps1.md#comment2)
 .OUTPUTS
     [string[]] the repository-relative paths changed (or, under -DryRun, that would change); with -PassThru, the result object.
 .EXAMPLE

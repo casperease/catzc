@@ -16,7 +16,6 @@ catzc:
     Returns a JSON text with its meta property imprinted from the given facts.
 .DESCRIPTION
     The same facts always give the same bytes, so a second run changes no file.
-    [comment:1](/docs/references/automation/catzc-base-codemeta/Format-PropertyMetaHead.ps1.md#comment1)
 .PARAMETER Text
     The whole JSON file as text.
 .PARAMETER Property

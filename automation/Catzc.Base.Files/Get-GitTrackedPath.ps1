@@ -18,12 +18,10 @@ catzc:
     Returns the subset of the given repository paths that git tracks.
 .DESCRIPTION
     A tracked file deleted from the working tree is still listed, because it is still in the index.
-    [comment:1](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment1)
 .PARAMETER Path
     The literal repository-relative, '/'-separated paths (files or folders) to look up; '.' for all.
 .PARAMETER ExecutableOnly
     Same index, order and form as without the switch, so the result is a plain subset of the full listing.
-    [comment:2](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment2)
 .OUTPUTS
     [string]
 .EXAMPLE

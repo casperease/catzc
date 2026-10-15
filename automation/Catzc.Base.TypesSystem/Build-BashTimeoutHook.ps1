@@ -17,7 +17,6 @@ catzc:
     Publishes the Claude Code Bash time-safeguard hook (a small C# program) when its source has changed.
 .DESCRIPTION
     Compiled, not scripted, because it runs before every Bash call and starts in a third of pwsh's time.
-    [comment:1](/docs/references/automation/catzc-base-typessystem/Build-BashTimeoutHook.ps1.md#comment1)
 .PARAMETER OutputDirectory
     Where to publish the hook. Defaults to .claude/hooks/bin/ — the path .claude/settings.json runs it from.
 .PARAMETER Force

@@ -18,7 +18,6 @@ catzc:
     sources — the editor-facing build pathway, separate from the runtime's Add-Type compile.
 .DESCRIPTION
     Unlike the runtime Add-Type compile, this runs the analyzers and fails when the committed DLL is stale.
-    [comment:1](/docs/references/automation/catzc-base-typessystem/Invoke-BuildForVSCode.ps1.md#comment1)
 .PARAMETER Configuration
     The MSBuild configuration to build. Defaults to Debug.
 .PARAMETER PassThru

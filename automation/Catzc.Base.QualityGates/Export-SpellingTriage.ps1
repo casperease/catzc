@@ -20,10 +20,8 @@ catzc:
     terminology registry, never an automatic acceptance.
 .DESCRIPTION
     The queue is a to-do list: cspell never reads it, so a token stays flagged until a human promotes it.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment1)
 .PARAMETER Path
     The default scope equals Test-Spelling's, though cspell still applies the ignorePaths from cspell.yml.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment2)
 .PARAMETER Exclude
     The defaults match Test-Spelling, so the tokens queued are exactly the tokens the gate flags.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment3)
@@ -31,7 +29,6 @@ catzc:
     [comment:5](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment5)
 .PARAMETER DryRun
     The returned list is the same in either mode; -DryRun only skips the write.
-    [comment:4](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment4)
 .OUTPUTS
     [string[]] The flagged tokens queued for triage (or, under -DryRun, that would be queued), ordinal-sorted.
 .EXAMPLE

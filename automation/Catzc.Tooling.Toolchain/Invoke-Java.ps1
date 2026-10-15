@@ -15,7 +15,6 @@ catzc:
     Runs java with the given arguments.
 .DESCRIPTION
     A drifted Java fails the assertion before the command starts, so nothing runs on a version other than the lock.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Invoke-Java.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to java.
 .PARAMETER PassThru

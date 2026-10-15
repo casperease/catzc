@@ -16,7 +16,6 @@ catzc:
     Rebuilds the session PATH from the registry on Windows. No-op on Unix.
 .DESCRIPTION
     Registry entries win: a session-only entry survives only while its directory exists, so uninstalled tools drop out.
-    [comment:1](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment1)
 .EXAMPLE
     Sync-SessionPath
 #>

@@ -17,10 +17,8 @@ catzc:
     Parses the ADR index ([index](/docs/adr/index.md)) into the code -> ADR entries that Show-Cats presents.
 .DESCRIPTION
     Memoized per index path for the session, so an edited index shows only after the importer reruns.
-    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-CatsAdrIndex.ps1.md#comment1)
 .PARAMETER IndexPath
     A test points this at a fixture index; the cache keys on the path, so fixture and real index never collide.
-    [comment:2](/docs/references/automation/catzc-base-docs/private/Get-CatsAdrIndex.ps1.md#comment2)
 .OUTPUTS
     [object[]] One { Code; Title; Path } per ADR row in the index.
 #>

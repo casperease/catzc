@@ -18,7 +18,6 @@ catzc:
     Generates one parallel worker's runner script and returns its shard descriptor.
 .DESCRIPTION
     The worker sets strict mode itself, as test scopes chain to it; exit 1 is a failed run, any other code a crash.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment1)
 .PARAMETER ShardIndex
     The shard's zero-based index — names the script, results, and rows files.
 .PARAMETER TestPath
@@ -36,13 +35,10 @@ catzc:
     [comment:5](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment5)
 .PARAMETER EntryScript
     Empty loads the source importer; a build run passes its Import-Catzc.ps1, which the Go tests then reuse.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment2)
 .PARAMETER EntryParameter
     Ignored without -EntryScript; the build run passes RepositoryRoot so out/ paths still resolve in the repo.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment3)
 .PARAMETER LanguageExecutable
     The worker never locates a tool, because a build's engine has no tools.yml entry; an empty entry means none.
-    [comment:4](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment4)
 .OUTPUTS
     [pscustomobject] with ShardIndex, Label, ScriptPath, ResultsPath, RowsPath, FilesPath.
 #>

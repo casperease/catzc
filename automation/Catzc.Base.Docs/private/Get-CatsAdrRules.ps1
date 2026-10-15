@@ -16,7 +16,6 @@ catzc:
     Extracts the id, one-line summary, and normative statement of each rule in a single ADR file.
 .DESCRIPTION
     Statement ends at the blank line before the linked bullets, so a term bolded on a wrapped line still counts.
-    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-CatsAdrRules.ps1.md#comment1)
 .PARAMETER AdrPath
     Absolute path to the ADR markdown file.
 .OUTPUTS

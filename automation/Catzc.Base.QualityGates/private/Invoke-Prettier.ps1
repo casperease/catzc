@@ -16,7 +16,6 @@ catzc:
     The prettier formatter engine: formats the given files with Prettier and returns the files it changed.
 .DESCRIPTION
     Exit 1 means files differ and is expected; a higher exit is a tool error, for example an unparsable file.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-Prettier.ps1.md#comment1)
 .PARAMETER File
     Absolute paths of the files to format.
 .PARAMETER DryRun

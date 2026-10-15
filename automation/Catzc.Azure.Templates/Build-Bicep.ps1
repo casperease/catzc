@@ -18,17 +18,14 @@ catzc:
     Builds a bicep template: renders per-slot parameter files and compiles main.bicep.
 .DESCRIPTION
     The output folder is wiped on every call, so no render from an earlier run survives.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .PARAMETER Environments
     Omitted means every slot configured for the template, one parameters file per non-default config.
-    [comment:2](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment2)
 .PARAMETER Customers
     Optional filter — build only the named customers' slots (their configuration subfolders).
 .PARAMETER Shared
     Combines with -Customers as a union, never an intersection; with neither filter every slot builds.
-    [comment:3](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment3)
 .EXAMPLE
     Build-Bicep discovery
 .EXAMPLE

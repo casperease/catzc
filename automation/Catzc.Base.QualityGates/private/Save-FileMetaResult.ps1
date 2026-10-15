@@ -16,7 +16,6 @@ catzc:
     Writes the files an engine run found drifted, and names the findings no tool can repair.
 .DESCRIPTION
     The one writer behind Format-FileMeta and the file-meta imprint step, so the two cannot disagree.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Save-FileMetaResult.ps1.md#comment1)
 .PARAMETER Result
     What Invoke-FileMetaEngine returned.
 .PARAMETER RepositoryRoot

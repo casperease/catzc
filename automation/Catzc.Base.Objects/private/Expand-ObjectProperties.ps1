@@ -15,7 +15,6 @@ catzc:
     Recursively flattens a nested object into dot-notation key/value pairs.
 .DESCRIPTION
     Array items are keyed with an [index] suffix, not a dot, so a path tells a list item from a property.
-    [comment:1](/docs/references/automation/catzc-base-objects/private/Expand-ObjectProperties.ps1.md#comment1)
 .PARAMETER Value
     The object, or the nested value, to flatten.
 .PARAMETER Target

@@ -20,7 +20,6 @@ catzc:
     engine.
 .DESCRIPTION
     Test files are parsed, never run: a test counts only if its block chain cites the rule and is not source-only.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/private/Get-UncoveredInternalAssetDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to <RepositoryRoot>/automation.
 .PARAMETER Dependency

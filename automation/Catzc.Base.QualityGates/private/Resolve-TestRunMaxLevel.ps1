@@ -18,15 +18,12 @@ catzc:
     Resolves the highest tier a test run executes, from the location it runs in.
 .DESCRIPTION
     L3 runs only in place with the user's system-test lock, since a snapshot cannot isolate state outside the repo.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md#comment1)
 .PARAMETER Location
     The location Enter-TestRunLocation returned.
 .PARAMETER Requested
     Default 3 means every tier the location allows with L4 excluded; the location may cap it lower.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md#comment2)
 .PARAMETER MinLevel
     A run asking only for tiers its location skips has nothing to run, so it throws and names why.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md#comment3)
 .OUTPUTS
     [int] the highest tier to run.
 .EXAMPLE

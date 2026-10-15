@@ -16,7 +16,6 @@ catzc:
     outside the installer layer. Registered as a post-import janitor.
 .DESCRIPTION
     Session-only and advisory: it never writes the registry and prints nothing when every tool is installer-owned.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Sync-SessionTools.ps1.md#comment1)
 .PARAMETER Silent
     Suppress both advisory lines outright (even under -Verbose).
 .EXAMPLE

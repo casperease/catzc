@@ -17,14 +17,12 @@ catzc:
     Lists every internal asset dependency in the module code — one record per Get-CatzcModuleRoot call site.
 .DESCRIPTION
     A call with a computed -ChildPath or -Module cannot be inventoried, so by default it throws, never listing...
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
     Path to the automation directory to scan. Defaults to the loaded code root (Get-CatzcModulesRoot).
 .PARAMETER Module
     Scan only these module folders. Default: every module folder (non-dot) under the automation root.
 .PARAMETER Violation
     Lists the non-literal call sites without throwing, so a caller can report every violation at once.
-    [comment:2](/docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md#comment2)
 .PARAMETER ParsedScripts
     The call's shared parse of each script; a caller running several checks over the same files passes one so a file is parsed once.
 .OUTPUTS

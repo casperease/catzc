@@ -20,7 +20,6 @@ catzc:
     it tests.
 .DESCRIPTION
     A folder matching no catzc module throws and is named, since an unmapped test folder would otherwise never run.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LanguageTestFolders.ps1.md#comment1)
 .OUTPUTS
     [pscustomobject] One record per test folder ({ Language; Module; Folder; Name }), by language (go, python, then
     bash) and ordinal by folder name within it: Language is go, python or bash, Module the catzc module name, Folder the

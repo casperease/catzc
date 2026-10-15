@@ -18,12 +18,10 @@ catzc:
     explicit MAJOR.MINOR.PATCH.
 .DESCRIPTION
     A pipeline version derives from the commit count, so one commit always yields one version.
-    [comment:1](/docs/references/automation/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md#comment1)
 .PARAMETER Version
     'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH.
 .PARAMETER Bundle
     Only a pipeline build reads it; a devbox build takes the placeholder version whatever the bundle.
-    [comment:2](/docs/references/automation/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md#comment2)
 .PARAMETER Silent
     Suppress the local-build notice.
 .EXAMPLE

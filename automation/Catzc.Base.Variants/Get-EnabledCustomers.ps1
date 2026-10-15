@@ -15,7 +15,6 @@ catzc:
     Returns the repo's enabled-customer set from the `have_customers` variant.
 .DESCRIPTION
     The one interpreter of the tri-state: false or empty gives @(), true or 'all' gives 'all', a list gives names.
-    [comment:1](/docs/references/automation/catzc-base-variants/Get-EnabledCustomers.ps1.md#comment1)
 .EXAMPLE
     Get-EnabledCustomers   # -> @()  (default: customers disabled)
 #>

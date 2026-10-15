@@ -16,7 +16,6 @@ catzc:
     Writes the opening banner for a Test-Automation run — the framed header that brackets the run's output.
 .DESCRIPTION
     Called before the writers' suppression flag is set, so the banner shows and the run's later output sits under it.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md#comment1)
 .PARAMETER MinLevel
     The run's minimum tier (0-3), as Test-Automation resolved it.
 .PARAMETER MaxLevel
@@ -27,7 +26,6 @@ catzc:
     The modules the run was scoped to; named in the scope only when non-empty.
 .PARAMETER Title
     The build run passes its own name here, so its banner is told apart from the source run's default.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md#comment2)
 #>
 function Write-TestAutomationHeader {
     [CmdletBinding()]

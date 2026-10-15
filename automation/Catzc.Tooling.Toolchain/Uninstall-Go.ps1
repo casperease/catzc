@@ -15,7 +15,6 @@ catzc:
     Uninstalls the Go toolchain installed by Install-Go.
 .DESCRIPTION
     Go's module and build caches (GOPATH, GOCACHE) are its own data, not the install, so they are kept.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Go.ps1.md#comment1)
 .EXAMPLE
     Uninstall-Go
 #>

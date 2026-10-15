@@ -15,7 +15,6 @@ catzc:
     Displays exception details for use in catch blocks.
 .DESCRIPTION
     With no ErrorRecord given it falls back to the last global error, so a bare call in a catch block works.
-    [comment:1](/docs/references/automation/catzc-base-writers/Write-Exception.ps1.md#comment1)
 .PARAMETER ErrorRecord
     The ErrorRecord to display. If omitted, uses $global:Error.
 .PARAMETER GlobalErrorIndex

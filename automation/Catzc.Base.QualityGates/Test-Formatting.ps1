@@ -17,7 +17,6 @@ catzc:
     Quality gate: checks that formatting would leave the repository unchanged.
 .DESCRIPTION
     No formatter list lives here: Format-Code -DryRun runs whichever engines languages.yml names.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Formatting.ps1.md#comment1)
 .PARAMETER Language
     Check only these file languages (default: every one).
 .PARAMETER OutputFolder

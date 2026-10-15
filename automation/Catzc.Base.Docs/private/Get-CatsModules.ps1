@@ -17,10 +17,8 @@ catzc:
     Lists the loaded catzc modules and the public functions each exports, for Show-Cats.
 .DESCRIPTION
     Reads what is loaded, not the per-function files, so both run modes give the same answer.
-    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-CatsModules.ps1.md#comment1)
 .PARAMETER ModulesRoot
     A test points this at a fixture root from which it loaded fixture modules.
-    [comment:2](/docs/references/automation/catzc-base-docs/private/Get-CatsModules.ps1.md#comment2)
 .OUTPUTS
     [object[]] One { Module; Functions } per module, sorted by module name, each Functions list sorted.
 #>

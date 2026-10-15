@@ -16,7 +16,6 @@ catzc:
     The fingerprint of a set of input files: one SHA-256 over a label and each file's path and content hash.
 .DESCRIPTION
     A missing input hashes as missing, so adding or removing an input changes the stamp and re-checks every file.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ContentStamp.ps1.md#comment1)
 .PARAMETER Label
     What the stamp is for (an engine or check name); two checks never share a stamp.
 .PARAMETER File

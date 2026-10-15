@@ -16,7 +16,6 @@ catzc:
     Checks that a fragment asset's target exists and contains the fragment, and returns the findings.
 .DESCRIPTION
     A missing target is the only finding, since there is nothing to compare; Json and Yaml compare as a key subset.
-    [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractFragmentFindings.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the asset and its target are relative to.
 .PARAMETER Asset

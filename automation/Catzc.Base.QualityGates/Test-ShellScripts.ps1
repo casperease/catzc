@@ -18,10 +18,8 @@ catzc:
     zsh's syntax check on the repository's own.
 .DESCRIPTION
     A CRLF script does not run on the POSIX engines, since the carriage return becomes part of the command.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md#comment1)
 .PARAMETER ShellCheckExclude
     Excluded vendored scripts still take the LF check; only ShellCheck skips them, and a zsh file never reaches it.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md#comment2)
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-shell-scripts).
 .PARAMETER PassThru

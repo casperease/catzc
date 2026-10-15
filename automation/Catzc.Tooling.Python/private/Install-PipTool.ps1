@@ -16,7 +16,6 @@ catzc:
     Installs a Python-library tool into the uv-managed Python via `uv pip`.
 .DESCRIPTION
     Unlike an isolated uv tool, the package lands in the shared managed Python, so it stays importable.
-    [comment:1](/docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (must declare pip_package).
 .PARAMETER Version

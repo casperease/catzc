@@ -15,7 +15,6 @@ catzc:
     Maps paths between a test run's working folder and the root of the location it runs in.
 .DESCRIPTION
     A path outside the root and every path of an in-place location pass through unchanged.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Convert-TestRunLocationPath.ps1.md#comment1)
 .PARAMETER Location
     The location Enter-TestRunLocation returned.
 .PARAMETER Path

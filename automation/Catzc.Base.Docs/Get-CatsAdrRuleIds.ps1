@@ -19,10 +19,8 @@ catzc:
     The flat set of every declared ADR rule id across all ADRs (registry form, e.g. 'ADR-PWSH-ERROR:3').
 .DESCRIPTION
     Ids come back in colon form, so a citation in hash form needs its separator swapped before the lookup.
-    [comment:1](/docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md#comment1)
 .PARAMETER IndexPath
     ADR paths resolve against the index's own folder, so a test can pair a fixture index with fixture ADRs.
-    [comment:2](/docs/references/automation/catzc-base-docs/Get-CatsAdrRuleIds.ps1.md#comment2)
 .OUTPUTS
     [string[]] the distinct rule ids in registry form (e.g. 'ADR-PWSH-ERROR:3'), ordinally sorted.
 #>

@@ -15,7 +15,6 @@ catzc:
     Lists the processes that hold a .NET install open.
 .DESCRIPTION
     Holders of the hostfxr file are the ones that would fail a delete part-way; off Windows locking is advisory.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/private/Get-DotnetInstallHolder.ps1.md#comment1)
 .PARAMETER InstallDir
     The .NET install directory.
 .OUTPUTS

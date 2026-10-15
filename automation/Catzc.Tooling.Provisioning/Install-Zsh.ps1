@@ -21,10 +21,8 @@ catzc:
     Installs zsh (user-space on Windows, into Git Bash's tree; apt-get on Linux; the system's on macOS).
 .DESCRIPTION
     Windows needs Install-Git first and never runs it; a manifest of copied files lets Uninstall-Zsh remove them all.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md#comment1)
 .PARAMETER Force
     Install-Git -Force wipes Git's whole tree, zsh included, so run Install-Zsh again after it.
-    [comment:2](/docs/references/automation/catzc-tooling-provisioning/Install-Zsh.ps1.md#comment2)
 .EXAMPLE
     Install-Zsh
 .EXAMPLE

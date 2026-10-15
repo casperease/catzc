@@ -19,12 +19,10 @@ catzc:
     Uninstalls Java via the platform package manager.
 .DESCRIPTION
     A foreign JDK, or an apt package on a uv-first box, needs -Remove -Force to be evicted.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Java.ps1.md#comment1)
 .PARAMETER Version
     Java version to uninstall. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Remove
     Alone it only reports the plan; pair it with -Force so Remove-Java actually evicts the off-config install.
-    [comment:2](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Java.ps1.md#comment2)
 .PARAMETER Force
     Confirm the destructive Remove-Java step of the escalation. Ignored without -Remove.
 .EXAMPLE

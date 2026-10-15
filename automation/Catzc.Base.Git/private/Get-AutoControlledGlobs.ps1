@@ -18,7 +18,6 @@ catzc:
     Computes, in memory, the whitelist of paths the automation itself generates and owns.
 .DESCRIPTION
     Derived fresh on every call and never persisted, so the whitelist cannot drift from what the owners generate.
-    [comment:1](/docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md#comment1)
 .OUTPUTS
     [string[]] The -like patterns of the auto-controlled set; a '!'-prefixed pattern is an exclusion.
 #>

@@ -17,7 +17,6 @@ catzc:
     Lists the uses of avoided phrasings within each glossary source's scope (check G4) — one message per use.
 .DESCRIPTION
     A phrase in backticks or quotes is a mention and exempt, so the vocabulary can talk about itself.
-    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md#comment1)
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.
 .PARAMETER TrackedFile
@@ -26,7 +25,6 @@ catzc:
     The directory the tracked files are relative to. Defaults to the repository root.
 .PARAMETER SurfaceCache
     Test-Glossary shares one table with the forms check, so a run reads each file's prose only once.
-    [comment:2](/docs/references/automation/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md#comment2)
 .OUTPUTS
     [string[]] One message per use — `<file>:<line> says "<phrase>" — say "<say>" (<defined_by>)` — in file then
     line order; empty when prose avoids every avoided phrasing.

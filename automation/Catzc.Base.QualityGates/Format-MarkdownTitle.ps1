@@ -18,7 +18,6 @@ catzc:
     Makes the H1 of every in-scope Markdown file its title and brings its headings into normal form.
 .DESCRIPTION
     A duplicate heading anchor and a file with no title are reported, not fixed, since only the author can reword or...
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-MarkdownTitle.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to title. Default: every in-scope file.
 .PARAMETER RepositoryRoot

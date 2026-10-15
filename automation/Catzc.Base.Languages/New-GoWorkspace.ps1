@@ -18,10 +18,8 @@ catzc:
     configs/go.yml.
 .DESCRIPTION
     Rendering is pure text, identical on every machine; Build-RootConfig owns the write, so this writes nothing.
-    [comment:1](/docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md#comment1)
 .PARAMETER Target
     The match is case-sensitive, so a pattern in the wrong case returns no files.
-    [comment:2](/docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md#comment2)
 .OUTPUTS
     [Catzc.Base.Languages.GoWorkspaceFile] One record per rendered file ({ Target; Content }): go.work first,
     then each go.mod in folder order.

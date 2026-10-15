@@ -16,7 +16,6 @@ catzc:
     The body-sha meta kind's fact: the hash of the file's body below its front matter.
 .DESCRIPTION
     The hash changes exactly when the body does; front matter and line endings never move it.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-BodyShaFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What Get-MarkdownMetaState read from the file.
 .PARAMETER Path

@@ -15,14 +15,12 @@ catzc:
     Returns a template's configured (non-base) slot discriminators as a flat string array.
 .DESCRIPTION
     The base slot has an empty discriminator and is never offered; completion lists only the special slots.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .PARAMETER Environment
     Optional filter — return only slots configured for this environment name.
 .PARAMETER Customer
     Omitted or empty means the configuration-root, shared-platform slots, not every customer's.
-    [comment:2](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateSlots.ps1.md#comment2)
 .EXAMPLE
     Get-BicepTemplateSlots sample-indexed            # -> 001, 002
 .EXAMPLE

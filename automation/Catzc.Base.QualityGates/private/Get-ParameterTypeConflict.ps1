@@ -15,7 +15,6 @@ catzc:
     Finds the parameter names that carry more than one type across the given function files.
 .DESCRIPTION
     Untyped and object-typed parameters accept anything, so they never conflict; a scalar and its array are one type.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ParameterTypeConflict.ps1.md#comment1)
 .PARAMETER Path
     The .ps1 files to read (absolute paths).
 .OUTPUTS

@@ -15,7 +15,6 @@ catzc:
     Runs pyspark with the given arguments.
 .DESCRIPTION
     The Java check comes from DependsOn in tools.yml, not from this function; a dry run skips both asserts.
-    [comment:1](/docs/references/automation/catzc-tooling-python/Invoke-PySpark.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to pyspark.
 .PARAMETER PassThru

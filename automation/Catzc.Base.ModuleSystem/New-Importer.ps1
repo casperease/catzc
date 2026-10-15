@@ -18,7 +18,6 @@ catzc:
     (Re)generates a repository's importer.ps1 shim from the Invoke-Importer overlay.
 .DESCRIPTION
     Parameters are read from the overlay's source, so the shim cannot drift; a test checks the committed copy.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root to generate importer.ps1 into (and whose overlay is read). Defaults to this repository.
 .PARAMETER Force
@@ -112,7 +111,7 @@ finally {
 }
 '@
 
-    # Must match the committed importer.ps1 below its head byte for byte, because the drift test compares it with this output.
+    # Must match the committed importer.ps1 below its head byte for byte, because the drift test compares it with...
     # [comment:6](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment6)
     $content = $explanation + "`n" + $paramBlock + "`n`n" + $body + "`n"
 

@@ -23,7 +23,6 @@ catzc:
     Compiles a list of function-to-function calls across all automation modules using AST.
 .DESCRIPTION
     Reads per-function source files that exist only in the source tree, so build mode stops with a named error.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
 .PARAMETER ParsedScripts

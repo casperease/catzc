@@ -16,7 +16,6 @@ catzc:
     dictionaries (default) or PSCustomObjects (-AsPSObject).
 .DESCRIPTION
     The result is a fresh mutable copy, so a frozen typed object can be changed without touching its source.
-    [comment:1](/docs/references/automation/catzc-base-objects/ConvertTo-Dictionary.ps1.md#comment1)
 .PARAMETER InputObject
     The object to convert.
 .PARAMETER AsPSObject

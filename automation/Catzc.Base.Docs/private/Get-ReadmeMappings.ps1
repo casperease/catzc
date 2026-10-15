@@ -17,7 +17,6 @@ catzc:
     Resolves the readme config into the concrete folder -> source README copy-in list Build-Readme generates.
 .DESCRIPTION
     A folder with no source file is skipped, so the importer's Build-Readme never throws on a missing article.
-    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-ReadmeMappings.ps1.md#comment1)
 .PARAMETER Config
     The parsed readme config (Get-Config -Config readme): a `{ patterns; mappings }` object.
 .PARAMETER RepositoryRoot

@@ -15,7 +15,6 @@ catzc:
     Returns the repo's git workspace mode ('main-direct' or 'main-via-pr').
 .DESCRIPTION
     In main-via-pr mode the one forbidden act is a direct commit while standing on main; branches are free.
-    [comment:1](/docs/references/automation/catzc-base-variants/Get-GitWorkspace.ps1.md#comment1)
 .EXAMPLE
     Get-GitWorkspace   # -> 'main-direct'
 #>

@@ -15,7 +15,6 @@ catzc:
     Checks one Markdown file's title and returns the fixed text.
 .DESCRIPTION
     Only the first non-blank line after front matter is the title, so a hash line in a later code fence never counts.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownTitleFinding.ps1.md#comment1)
 .PARAMETER RelativePath
     The file's repository-relative, '/'-separated path — the H1 that is no title.
 .PARAMETER Text

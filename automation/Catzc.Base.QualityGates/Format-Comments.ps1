@@ -19,7 +19,6 @@ catzc:
     Puts every comment residue of the repository's code and config files into its one-liner shape, in place.
 .DESCRIPTION
     Fixes only the mechanical cases; an obvious insight or a residue without a page section is listed unfixable.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-Comments.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to format. Default: every file in scope (Get-CommentScope).
 .PARAMETER RepositoryRoot
@@ -28,7 +27,6 @@ catzc:
     Report what would change without writing any file.
 .PARAMETER PassThru
     Read Unfixable here: the changed paths alone hide the residues that still need a person.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Format-Comments.ps1.md#comment2)
 .OUTPUTS
     [string[]] the repository-relative paths changed (or, under -DryRun, that would change); with -PassThru, the result object.
 .EXAMPLE

@@ -15,7 +15,6 @@ catzc:
     Reads an environment variable from a persistent scope (the Windows registry for User/Machine).
 .DESCRIPTION
     The one read seam for persistent variables other than PATH, so tests mock it; the scopes are Windows only.
-    [comment:1](/docs/references/automation/catzc-base-environment/Get-PermanentEnvironmentVariable.ps1.md#comment1)
 .PARAMETER Name
     The variable's name.
 .PARAMETER Scope

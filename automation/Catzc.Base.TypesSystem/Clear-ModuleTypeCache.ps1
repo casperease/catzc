@@ -17,18 +17,14 @@ catzc:
     Removes superseded compiled C# type assemblies, keeping the current combined build.
 .DESCRIPTION
     A delete that still fails means something outside catzc holds the file, and it is named in a thrown error.
-    [comment:1](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment1)
 .PARAMETER AutomationRoot
     An explicit root other than the loaded code root is cleaned even in build mode, where the default is a no-op.
-    [comment:2](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment2)
 .PARAMETER DryRun
     Return the list of cache files that would be deleted, without deleting anything.
 .PARAMETER Silent
     The importer passes this to keep a normal load quiet; a failed delete still throws.
-    [comment:3](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment3)
 .PARAMETER StopLockingProcesses
     Off by default, because stopping a process can lose its unsaved work; it is asked for, never assumed.
-    [comment:4](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment4)
 .EXAMPLE
     Clear-ModuleTypeCache
 .EXAMPLE

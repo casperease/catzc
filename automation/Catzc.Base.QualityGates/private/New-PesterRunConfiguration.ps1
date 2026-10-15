@@ -17,14 +17,12 @@ catzc:
     single-check entry point alike.
 .DESCRIPTION
     The caller sets strict mode, not this function: strict mode is scope-dynamic, so only the Pester caller can set it.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md#comment1)
 .PARAMETER Path
     The test file(s) or folder(s) to run. A Go test folder runs through the Go bridge (ConvertTo-PesterRunTarget).
 .PARAMETER ExcludeTag
     Tags excluded from the run (from Get-TestExcludeTag). Empty means no tag filter.
 .PARAMETER IncludeTag
     Empty means no include filter, but a test still has to clear ExcludeTag to run.
-    [comment:4](/docs/references/automation/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md#comment4)
 .PARAMETER Verbosity
     Pester output verbosity.
 .PARAMETER ResultsPath
@@ -33,10 +31,8 @@ catzc:
     When given, filters the run to tests whose full name matches (the manual single-check path).
 .PARAMETER EntryScript
     Empty for the source run; a build run sets it so the Go and Python tests start the build, not the source.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md#comment2)
 .PARAMETER LanguageExecutable
     The run's source session located these once, so the bridge reuses them; an empty entry means there is none.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md#comment3)
 .OUTPUTS
     [object] A PesterConfiguration, the configured, ready-to-invoke configuration, typed object because Pester is vendored and loads later.
 #>

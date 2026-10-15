@@ -17,7 +17,6 @@ catzc:
     Generates an Azure resource name for a template's slot from the naming standard.
 .DESCRIPTION
     Serves two uses: validating a configured name against the generated one, and generating one to inject.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment1)
 .PARAMETER Template
     Template name.
 .PARAMETER Environment
@@ -28,7 +27,6 @@ catzc:
     Optional special-slot discriminator; omitted selects the env's base / index-0 slot.
 .PARAMETER Customer
     The readable key renders in generous names and the 2-char shortcode in restricted ones, both resolved here.
-    [comment:2](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment2)
 .PARAMETER Role
     Optional 2-3 char sibling discriminator among same-type resources (per resource).
 .EXAMPLE

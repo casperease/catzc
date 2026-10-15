@@ -17,7 +17,6 @@ catzc:
     Returns the tracked files a globset matches — the deployable unit's actual members.
 .DESCRIPTION
     A member deleted on disk but still tracked stays listed, so the durable SHA sees the deletion.
-    [comment:1](/docs/references/automation/catzc-base-globs/Get-GlobSetFile.ps1.md#comment1)
 .PARAMETER Name
     The globset whose members to list.
 .EXAMPLE

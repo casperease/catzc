@@ -17,7 +17,6 @@ catzc:
     Compiles module-to-module edges from cross-module C# type references in types/*.cs.
 .DESCRIPTION
     One shared assembly means the compiler no longer forbids cross-module type references, so this scan does.
-    [comment:1](/docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
 .EXAMPLE

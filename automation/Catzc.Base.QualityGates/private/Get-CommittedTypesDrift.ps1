@@ -15,7 +15,6 @@ catzc:
     Reports why the committed combined types assembly is not the current one.
 .DESCRIPTION
     The build copies the committed dll, so a rebuild left uncommitted would ship a stale assembly.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-CommittedTypesDrift.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository whose automation/.compiled is checked.
 .OUTPUTS

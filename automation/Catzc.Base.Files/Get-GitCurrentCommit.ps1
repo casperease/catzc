@@ -15,7 +15,6 @@ catzc:
     Returns the current git commit hash (full 40-char SHA).
 .DESCRIPTION
     Resolves HEAD from the ref files in-process, so no git process starts.
-    [comment:1](/docs/references/automation/catzc-base-files/Get-GitCurrentCommit.ps1.md#comment1)
 .EXAMPLE
     Get-GitCurrentCommit
 #>

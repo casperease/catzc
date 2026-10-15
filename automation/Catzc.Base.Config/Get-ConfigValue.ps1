@@ -21,10 +21,8 @@ catzc:
     Resolves a global config address to the value at that node (a leaf or a subtree).
 .DESCRIPTION
     The returned node may be a live reference into the config cache, so treat it as read-only.
-    [comment:1](/docs/references/automation/catzc-base-config/Get-ConfigValue.ps1.md#comment1)
 .PARAMETER Address
     The key path is optional: the address global.<config> alone returns the whole config as a subtree.
-    [comment:2](/docs/references/automation/catzc-base-config/Get-ConfigValue.ps1.md#comment2)
 .PARAMETER Module
     Passthrough to Get-Config to disambiguate the rare config name present in more than one module.
 .EXAMPLE

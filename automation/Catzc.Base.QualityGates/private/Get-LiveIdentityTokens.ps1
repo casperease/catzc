@@ -19,7 +19,6 @@ catzc:
     template names, and ADO project the shipped config maps to — that a hermetic LOGIC test must never name.
 .DESCRIPTION
     Reading the shipped config, not a hand-kept list, keeps the banned set current: a new customer is banned at once.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LiveIdentityTokens.ps1.md#comment1)
 .OUTPUTS
     [object[]] One record per token: @{ Token; Kind; Source; Suggest }.
 #>

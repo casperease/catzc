@@ -15,7 +15,6 @@ catzc:
     Keeps the test files with a test inside the run's tier and category scope, and returns the dropped files' tests.
 .DESCRIPTION
     A file is dropped only when every discovered test is out of scope; one with none found stays to report its failure.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Select-InScopeTestFiles.ps1.md#comment1)
 .PARAMETER Discovery
     The run's discovery-only Pester result (Get-TestDiscovery).
 .PARAMETER ExcludeTag

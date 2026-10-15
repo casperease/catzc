@@ -18,21 +18,18 @@ catzc:
     Awaits a mutex reliably, announcing itself only when the wait is actually noticeable.
 .DESCRIPTION
     A short wait leaves only a verbose trace; the console speaks up only once the wait is a real halt.
-    [comment:1](/docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md#comment1)
 .PARAMETER Mutex
     The mutex to await. On return the current thread owns it.
 .PARAMETER Name
     Short noun for the messages (e.g. 'test-run mutex'). Defaults to 'mutex'.
 .PARAMETER AnnounceText
     The default names the mutex, so pass -Name rather than rewriting this text.
-    [comment:2](/docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md#comment2)
 .PARAMETER AnnounceAfterSeconds
     How long a wait may take before it is announced (and dots begin). Defaults to 2.
 .PARAMETER DotIntervalSeconds
     Seconds between liveness dots once the wait is announced. Defaults to 5.
 .PARAMETER TimeoutSeconds
     The default 0 waits forever, so a stuck holder hangs the caller unless a ceiling is set.
-    [comment:3](/docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md#comment3)
 .OUTPUTS
     None. Ownership is expressed on the mutex object itself.
 .EXAMPLE

@@ -15,7 +15,6 @@ catzc:
     Points the current session at a tool installed outside the installer layer, using its declared hints.
 .DESCRIPTION
     Session-only, never persistent, since the installer layer owns the registry PATH; null when no hint resolves.
-    [comment:1](/docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHint.ps1.md#comment1)
 .PARAMETER Config
     The tool's ToolConfig (from Get-ToolConfig).
 #>

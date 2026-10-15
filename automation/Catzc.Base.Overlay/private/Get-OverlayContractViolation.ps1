@@ -16,8 +16,6 @@ catzc:
     Returns every way an override file breaks the contract of the function it replaces.
 .DESCRIPTION
     The bundle keeps calling the function as before, so an override may add optional parameters but no mandatory one.
-    [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
-    [comment:1](/docs/references/automation/catzc-base-overlay/private/Get-OverlayContractViolation.ps1.md#comment1)
 .PARAMETER Original
     The loaded function the override replaces.
 .PARAMETER Path

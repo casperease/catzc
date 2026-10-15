@@ -17,15 +17,12 @@ catzc:
     Says why an L4 test must skip against its target environment, or nothing when it may run.
 .DESCRIPTION
     The only limit on an L4 run is the console's security context, so each test asks here first and self-skips.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md#comment1)
 .PARAMETER Environment
     The target environment the test reaches, e.g. pre-prod or production.
 .PARAMETER Mode
     A Synthetic test skips on an environment that test-policy.yml limits to read-only, which is the default.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md#comment2)
 .PARAMETER Probe
     A probe that throws counts as unreachable, so the test skips instead of failing.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md#comment3)
 .OUTPUTS
     [string] the skip key, or nothing when the test may run.
 .EXAMPLE

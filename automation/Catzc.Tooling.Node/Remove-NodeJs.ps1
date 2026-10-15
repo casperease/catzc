@@ -17,7 +17,6 @@ catzc:
     Removes a manually installed Node.js and cleans up system PATH.
 .DESCRIPTION
     Meant for installs absent from Apps and Features or winget; a winget-managed Node.js belongs to Uninstall-NodeJs.
-    [comment:1](/docs/references/automation/catzc-tooling-node/Remove-NodeJs.ps1.md#comment1)
 .PARAMETER InstallDir
     Path to the Node.js installation folder. Auto-detected from PATH if omitted.
 .PARAMETER Force

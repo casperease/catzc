@@ -16,7 +16,6 @@ catzc:
     solid colour, or a rainbow gradient on the rule (border) lines with the base colour on any titled line.
 .DESCRIPTION
     All lines go out as one Write-InformationColored call, so a header stays a single information record.
-    [comment:1](/docs/references/automation/catzc-base-writers/private/Write-FramedLine.ps1.md#comment1)
 .PARAMETER Segment
     Ordered line segments: @( @{ Text = '...'; Rule = $true|$false }, ... ), in render order.
 .PARAMETER Color

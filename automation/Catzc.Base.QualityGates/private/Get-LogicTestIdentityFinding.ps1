@@ -19,7 +19,6 @@ catzc:
     integrity-tagged block — the comment-blind, tag-aware check cspell cannot do.
 .DESCRIPTION
     Only literals outside integrity-tagged blocks count, and the AST skips comments and help, so docs never trigger.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment1)
 .PARAMETER Path
     The test file to scan.
 .PARAMETER LiveToken

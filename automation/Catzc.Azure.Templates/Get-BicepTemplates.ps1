@@ -21,7 +21,6 @@ catzc:
     Discovers all bicep templates under $(Get-RepositoryRoot)/infrastructure/templates.
 .DESCRIPTION
     Reusable modules in infrastructure/modules/ are not discovered; one config file maps to one resource group.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment1)
 .EXAMPLE
     Get-BicepTemplates | Format-Table name, deployment_target, environments
 #>

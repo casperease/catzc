@@ -16,7 +16,6 @@ catzc:
     Returns the text of a generated file with the meta head that says which generator or source wrote it.
 .DESCRIPTION
     A writer composes its content bare and this adds the one head, so no generator hand-words a banner.
-    [comment:1](/docs/references/automation/catzc-base-languages/Format-GeneratedFileHead.ps1.md#comment1)
 .PARAMETER Text
     The whole content the generator composed, without any head.
 .PARAMETER Path

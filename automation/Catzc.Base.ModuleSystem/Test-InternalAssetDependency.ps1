@@ -19,7 +19,6 @@ catzc:
     Quality gate: every internal asset dependency is inventoried and covered by a test that runs in both run modes.
 .DESCRIPTION
     A test must cite the rule and not be source-only, so the read is exercised in both the source and build run.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-InternalAssetDependency.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-internal-asset-dependency/ (Write-QualityGateReport).
 .PARAMETER PassThru

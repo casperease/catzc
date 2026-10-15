@@ -15,15 +15,12 @@ catzc:
     Tests whether a tool is installed at the expected version.
 .DESCRIPTION
     A tool with declared candidate paths is found by the executable probe, which starts no process; others by PATH name.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml.
 .PARAMETER SkipVersionCheck
     A parseable version is still needed, so a Store stub fails, but a version that is not the locked one passes.
-    [comment:2](/docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md#comment2)
 .PARAMETER PassThru
     The record works for any tool, probed or not, and carries the timings and actor that Write-ToolProbeReport shows.
-    [comment:3](/docs/references/automation/catzc-tooling-core/Test-Tool.ps1.md#comment3)
 .EXAMPLE
     Test-Tool 'python'
 .EXAMPLE

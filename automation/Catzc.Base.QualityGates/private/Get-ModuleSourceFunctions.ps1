@@ -15,7 +15,6 @@ catzc:
     Lists a source module's public and private function names, from its files.
 .DESCRIPTION
     Names come from file names, so a build can be compared with the source folder it was built from.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleSourceFunctions.ps1.md#comment1)
 .PARAMETER AutomationRoot
     The automation folder of the source tree.
 .PARAMETER Name

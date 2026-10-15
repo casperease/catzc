@@ -15,7 +15,6 @@ catzc:
     Removes all tools installed by Install-DevBoxTools.
 .DESCRIPTION
     Dependents go first so their uninstallers can still use the dependency; winget is never removed.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md#comment1)
 .EXAMPLE
     Uninstall-DevBoxTools
 #>

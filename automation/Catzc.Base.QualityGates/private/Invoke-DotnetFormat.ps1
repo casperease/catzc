@@ -17,7 +17,6 @@ catzc:
     files it changed.
 .DESCRIPTION
     Exit 2 means files differ and is expected; any other non-zero exit is a tool error and throws with the output.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-DotnetFormat.ps1.md#comment1)
 .PARAMETER File
     Absolute paths of the .cs files to format.
 .PARAMETER DryRun

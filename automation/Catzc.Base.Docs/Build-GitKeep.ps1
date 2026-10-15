@@ -19,13 +19,10 @@ catzc:
     are generated, README-backed" contract.
 .DESCRIPTION
     A new .gitkeep demands a reference article: its pointer to README.md is true only for readme-mapped folders.
-    [comment:1](/docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md#comment1)
 .PARAMETER DryRun
     The same walk and compare run as a real run, so the report lists exactly the files a real run would rewrite.
-    [comment:2](/docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md#comment2)
 .PARAMETER Silent
     Silent wins over -Verbose: the status lines stay hidden even when verbose output is switched on.
-    [comment:3](/docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md#comment3)
 .PARAMETER PassThru
     Return one result object per .gitkeep ({ Path, Changed, DryRun }) instead of the paths.
 .OUTPUTS

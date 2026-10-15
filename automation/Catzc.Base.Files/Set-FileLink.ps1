@@ -18,14 +18,12 @@ catzc:
     Materialises a file as a filesystem link to a source of truth — the link sibling of Write-FileIfChanged.
 .DESCRIPTION
     Never degrades to a content copy, which would silently reintroduce the drift the link exists to remove.
-    [comment:1](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment1)
 .PARAMETER Path
     Path of the link file to create or verify.
 .PARAMETER Target
     Path of the source file, which must exist, that the link must resolve to.
 .PARAMETER DryRun
     A plain file with identical content still reports true, since only a link counts as current.
-    [comment:2](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment2)
 .OUTPUTS
     [bool] $true when the link was (re)created (or would be, under -DryRun); $false when already current.
 .EXAMPLE

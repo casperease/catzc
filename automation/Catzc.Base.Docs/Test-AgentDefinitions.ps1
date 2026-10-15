@@ -21,7 +21,6 @@ catzc:
     Quality gate: the sub-agent definitions, their registry (agents.yml), and the .claude/CLAUDE.md list agree.
 .DESCRIPTION
     AgentsConfig already rules on spelling and distinct names, so this gate checks only agreement across the files.
-    [comment:1](/docs/references/automation/catzc-base-docs/Test-AgentDefinitions.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-agent-definitions/ (Write-QualityGateReport).
 .PARAMETER PassThru

@@ -20,7 +20,6 @@ catzc:
     asset of every version folder with its note.
 .DESCRIPTION
     A page is removed only when it carries this writer's marker line, so a hand-written page is never touched.
-    [comment:1](/docs/references/automation/catzc-base-contracts/Build-ContractReference.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root that holds contracts/ and docs/references/contracts/. Default: the loaded repository root.
 .PARAMETER DryRun

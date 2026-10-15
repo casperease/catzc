@@ -15,7 +15,6 @@ catzc:
     Scans every tracked text file for GUID literals and returns one record per occurrence.
 .DESCRIPTION
     Only hyphenated GUIDs match, never bare 32-hex, which would false-positive on hashes.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Get-RepositoryGuids.ps1.md#comment1)
 .OUTPUTS
     One ordered dictionary per occurrence: @{ file; line; guid }.
 .EXAMPLE

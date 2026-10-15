@@ -17,12 +17,10 @@ catzc:
     Ask the catzc docs — a deterministic browser over the ADRs, modules, and approved verbs.
 .DESCRIPTION
     Output is presentation only on the information stream; the function returns nothing for a caller to use.
-    [comment:1](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment1)
 .PARAMETER Area
     What to ask about: adr, module, or verbs. Omitted (the default) prints the overview.
 .PARAMETER Query
     Ignored by verbs and the overview, which have nothing to narrow.
-    [comment:2](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment2)
 .EXAMPLE
     Show-Cats
     Prints the overview of what you can ask.

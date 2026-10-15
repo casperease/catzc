@@ -20,12 +20,10 @@ catzc:
     Quality gate: every source and test file under automation/ follows the naming and one-function conventions.
 .DESCRIPTION
     Report-mode checks print their work list and never fail the run; only gate-mode findings are issues.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-source-conventions/ (Write-QualityGateReport).
 .PARAMETER PassThru
     EngineSet and NeutralCodes list each check's findings whatever its mode, so report-mode findings stay visible.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.
 .EXAMPLE
@@ -149,8 +147,8 @@ function Test-SourceConventions {
         }
     }
 
-    $allTestFiles = [System.IO.Directory]::EnumerateFiles($automationRoot, '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories) |
-        Where-Object { $_ -notmatch '[\\/]\.vendor[\\/]' } |
+    # Test files reach four levels below automation (module, tests, types, file); vendored modules are pruned by the walk.
+    $allTestFiles = Get-ChildPath $automationRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
         Sort-Object
     foreach ($testFile in $allTestFiles) {
         $relative = $testFile.Substring($automationRoot.Length + 1) -replace '\\', '/'

@@ -18,7 +18,6 @@ catzc:
     Renders the content of a generator-produced managed root file — the registry's generator dispatch.
 .DESCRIPTION
     An unknown generator name throws instead of invoking an arbitrary command: this dispatch is the only binding.
-    [comment:1](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment1)
 .PARAMETER Name
     The generator function name from the registry entry (e.g. 'New-Importer').
 .PARAMETER Target

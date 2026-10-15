@@ -15,7 +15,6 @@ catzc:
     Returns a template's configured customer names as a flat string array.
 .DESCRIPTION
     Completers must degrade quietly, so an omitted, unknown or core-only template returns an empty array.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateCustomers.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .EXAMPLE

@@ -21,7 +21,6 @@ catzc:
     Lists the repository's contract assets, with every fact derived from each asset's name.
 .DESCRIPTION
     Nothing is registered: every fact comes from folder and file names, and the real files are never read.
-    [comment:1](/docs/references/automation/catzc-base-contracts/Get-Contract.ps1.md#comment1)
 .PARAMETER Unit
     The deployable-units to list, by folder name; wildcards allowed. Default: every unit.
 .PARAMETER Version
@@ -34,7 +33,6 @@ catzc:
     How an asset addresses many files. Default: contracts.yml's addressing.
 .PARAMETER TargetRoot
     A module the map does not name takes the repository root, so an empty map puts every target at the root.
-    [comment:2](/docs/references/automation/catzc-base-contracts/Get-Contract.ps1.md#comment2)
 .PARAMETER RepositoryRoot
     The repository root that holds contracts/. Default: the loaded repository root.
 .OUTPUTS

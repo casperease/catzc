@@ -20,7 +20,6 @@ catzc:
     Destructively evicts an off-config Azure CLI so the managed (uv-venv) build can win.
 .DESCRIPTION
     Without -Force the plan is only reported and nothing changes; it is usually reached through Uninstall-AzCli -Remove.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md#comment1)
 .PARAMETER InstallDir
     Path to the Azure CLI installation folder. Auto-detected from PATH if omitted.
 .PARAMETER Force

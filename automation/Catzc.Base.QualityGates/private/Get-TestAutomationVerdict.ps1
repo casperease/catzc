@@ -16,7 +16,6 @@ catzc:
     Derives a completed run's verdict — the Passed/Failed result and its one-line reason — from the run facts.
 .DESCRIPTION
     The closing banner and the failure throw both read this one result, so the reason wording lives in one place.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationVerdict.ps1.md#comment1)
 .PARAMETER Rows
     The run's aggregated per-test rows — the over-limit count is recomputed from these on the timing path.
 .PARAMETER Limits

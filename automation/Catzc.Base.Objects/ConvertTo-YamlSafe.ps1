@@ -16,7 +16,6 @@ catzc:
     dictionaries, arrays, and scalar values.
 .DESCRIPTION
     Every level becomes ordered dicts, arrays or scalars, so ConvertTo-Yaml never falls back to ToString.
-    [comment:1](/docs/references/automation/catzc-base-objects/ConvertTo-YamlSafe.ps1.md#comment1)
 .PARAMETER Value
     The object to convert; null stays null.
 .PARAMETER MaxDepth

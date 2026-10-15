@@ -16,7 +16,6 @@ catzc:
     Returns this repository's GitHub web URL (https://github.com/<owner>/<repo>), or $null when it has none.
 .DESCRIPTION
     A root without .git/config or with a non-GitHub remote yields null, and the absolute-URL link check is skipped.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-RepositoryWebUrl.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root.
 .OUTPUTS

@@ -19,7 +19,6 @@ catzc:
     Returns the repository's tracks — all of them, the named ones, or the track that owns a path.
 .DESCRIPTION
     -Path matches the first path segment to a root; root files, out/ and undeclared folders return nothing.
-    [comment:1](/docs/references/automation/catzc-base-variants/Get-Track.ps1.md#comment1)
 .PARAMETER Name
     The track name(s) to return. An unknown name throws, naming the config file.
 .PARAMETER Path

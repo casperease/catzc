@@ -18,7 +18,6 @@ catzc:
     Uninstalls the zsh Install-Zsh placed: in Git Bash's tree on Windows, the apt-get package on Linux.
 .DESCRIPTION
     Only manifest-listed files go, so a file Git's tree had before Install-Zsh stays; apt must own a Linux zsh.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md#comment1)
 .EXAMPLE
     Uninstall-Zsh
 #>

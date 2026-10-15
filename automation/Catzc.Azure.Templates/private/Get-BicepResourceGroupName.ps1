@@ -15,7 +15,6 @@ catzc:
     Derives a template slot's resource-group name from the Azure naming standard.
 .DESCRIPTION
     The name is derived from the naming standard, never hand-typed in config, so deploy and tag scope agree.
-    [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepResourceGroupName.ps1.md#comment1)
 .PARAMETER Template
     Template name.
 .PARAMETER Environment

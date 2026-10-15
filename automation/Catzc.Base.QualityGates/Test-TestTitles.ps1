@@ -17,7 +17,6 @@ catzc:
     Quality gate: no test title carries an angle-bracket template token unless its block is data-driven.
 .DESCRIPTION
     An angle-bracket word in a title throws under strict mode when no -ForEach data exists, far from the cause.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-TestTitles.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-test-titles/ (Write-QualityGateReport).
 .PARAMETER PassThru
@@ -38,8 +37,8 @@ function Test-TestTitles {
 
     Assert-SourceTree
     $repositoryRoot = Get-RepositoryRoot
-    $testFiles = @([System.IO.Directory]::GetFiles((Join-Path $repositoryRoot 'automation'), '*.Tests.ps1', [System.IO.SearchOption]::AllDirectories) |
-            Where-Object { $_ -notmatch '[\\/]\.vendor[\\/]' } |
+    # Test files reach four levels below automation (module, tests, types, file); vendored modules are pruned by the walk.
+    $testFiles = @(Get-ChildPath (Join-Path $repositoryRoot 'automation') -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
             Sort-Object)
     $isBlock = {
         param($node)

@@ -15,7 +15,6 @@ catzc:
     Writes the record that names who holds a test-run lock.
 .DESCRIPTION
     The lock says only that it is held, so this record names the holder and a blocked run need not guess.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestRunLockRecord.ps1.md#comment1)
 .PARAMETER Path
     The record file. Its folder is created when missing.
 .PARAMETER EntryPoint

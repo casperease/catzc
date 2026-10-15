@@ -15,7 +15,6 @@ catzc:
     Returns the active Azure resource-name component order for this repo ('standard' or 'classic').
 .DESCRIPTION
     Changing it re-spells every resource name, so all typed names in template configs need re-editing.
-    [comment:1](/docs/references/automation/catzc-base-variants/Get-AdoNaming.ps1.md#comment1)
 .EXAMPLE
     Get-AdoNaming   # -> 'standard'
 #>

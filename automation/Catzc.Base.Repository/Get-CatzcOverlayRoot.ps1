@@ -16,8 +16,6 @@ catzc:
     Returns the consumer's overlay root — <RepositoryRoot>/.catzc/automation — or nothing when there is none.
 .DESCRIPTION
     Build mode only: in source mode automation/ is edited directly, so a .catzc/ folder there is ignored.
-    [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
-    [comment:1](/docs/references/automation/catzc-base-repository/Get-CatzcOverlayRoot.ps1.md#comment1)
 .OUTPUTS
     [string] The full path of the overlay root, or nothing.
 .EXAMPLE

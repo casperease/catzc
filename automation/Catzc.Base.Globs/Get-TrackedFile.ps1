@@ -17,7 +17,6 @@ catzc:
     Returns every tracked file as a repo-relative, '/'-separated path — the globset matching universe.
 .DESCRIPTION
     A tracked file deleted on disk is still listed; the hashing code folds a distinct missing marker for it.
-    [comment:1](/docs/references/automation/catzc-base-globs/Get-TrackedFile.ps1.md#comment1)
 .EXAMPLE
     Get-TrackedFile
 #>

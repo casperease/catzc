@@ -16,7 +16,6 @@ catzc:
     Computes the meta block of every in-scope file — the one place Format-FileMeta and Test-FileMeta share.
 .DESCRIPTION
     An unowned key is reported and the file left alone, since writing would drop the author's key.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-FileMetaEngine.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root paths are relative to.
 .PARAMETER Path

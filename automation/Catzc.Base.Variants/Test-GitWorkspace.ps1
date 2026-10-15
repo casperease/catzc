@@ -15,7 +15,6 @@ catzc:
     Tests whether the repo's git workspace mode (the `git_workspace` variant) is the one named.
 .DESCRIPTION
     Canonical use is the stop condition for automated commits: MainViaPr while standing on main locally.
-    [comment:1](/docs/references/automation/catzc-base-variants/Test-GitWorkspace.ps1.md#comment1)
 .PARAMETER MainDirect
     Test for the 'main-direct' mode (solo-author trunk; direct commits to main allowed).
 .PARAMETER MainViaPr

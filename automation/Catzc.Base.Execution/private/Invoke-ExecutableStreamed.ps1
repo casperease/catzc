@@ -16,7 +16,6 @@ catzc:
     optional structured output capture.
 .DESCRIPTION
     Colors are lost: a piped child sees no terminal and disables them, and only a pseudo-terminal would bring them back.
-    [comment:1](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md#comment1)
 .PARAMETER Command
     The command string to execute.
 .PARAMETER WorkingDirectory
@@ -33,7 +32,6 @@ catzc:
     Written to the child's stdin, which is then closed; absent, stdin is left as before.
 .PARAMETER AsBytes
     Returns the CliResult even without -PassThru, since bytes have no other way back to the caller.
-    [comment:2](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md#comment2)
 .PARAMETER DryRun
     Return the command string without executing.
 #>

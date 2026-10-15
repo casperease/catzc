@@ -15,7 +15,6 @@ catzc:
     Extracts the human-readable reason a Pester test was skipped.
 .DESCRIPTION
     A skip with no reason records no error at all, so it reads 'no reason given'; any other message passes verbatim.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestSkipReason.ps1.md#comment1)
 .PARAMETER Test
     A Pester test-result object (an item of $result.Tests). Its .ErrorRecord carries the skip message.
 #>

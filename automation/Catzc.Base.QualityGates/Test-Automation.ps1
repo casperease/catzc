@@ -24,48 +24,34 @@ catzc:
     Runs all Pester tests found across automation modules, sharded across parallel worker processes.
 .DESCRIPTION
     Whole files, never single tests, are the unit of sharding; serial-tagged files run last, alone.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment1)
 .PARAMETER MinLevel
     -MinLevel 2 -MaxLevel 2 runs only the L2 tests; MinLevel must not exceed MaxLevel.
-    [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment3)
 .PARAMETER MaxLevel
     Defaults to 3, the tiers the run's location allows: a snapshot run skips L3 and says so.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment2)
 .PARAMETER Modules
     Dot-prefixed infrastructure (.internal, .scriptanalyzer) runs only when this is left empty.
-    [comment:4](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment4)
 .PARAMETER Category
     Implemented by excluding the other category's tag, so it composes with -Level.
-    [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment5)
 .PARAMETER Workers
     Auto size is max(1, ProcessorCount / 4); past that the box saturates and extra workers inflate per-test time.
-    [comment:6](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment6)
 .PARAMETER GreedyGroupSize
     Greedy files run side by side in groups of this size, one group after another; 0 reads greedy_group_size from test-policy.yml.
 .PARAMETER TimeoutSeconds
     On expiry every worker is killed and the run throws; the default is this function's own time limit.
-    [comment:7](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment7)
 .PARAMETER Output
     Detailed gives one line per test with its duration, Normal one line per file, Minimal only the final tally.
-    [comment:8](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment8)
 .PARAMETER PassThru
     Without it no object comes back; with it the aggregated per-test rows and the shard descriptors do.
-    [comment:9](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment9)
 .PARAMETER EnforceTimings
     Timings depend on the machine, so by default over-limit tests are only reported and the run stays green.
-    [comment:12](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment12)
 .PARAMETER Rule
     The run narrows to the files carrying a matching test, then to the cited tests through a Pester tag include.
-    [comment:10](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment10)
 .PARAMETER Suite
     Mutually exclusive with -Modules; a globset without a verify scope is no suite and throws.
-    [comment:11](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment11)
 .PARAMETER OutputFolder
     Every run writes its own timestamped subfolder, so repeated runs never overwrite each other.
-    [comment:13](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment13)
 .PARAMETER Isolated
     A snapshot run is deterministic and immune to edits made meanwhile; its report still lands in the working out/.
-    [comment:14](/docs/references/automation/catzc-base-qualitygates/Test-Automation.ps1.md#comment14)
 .PARAMETER KeepSandbox
     Keep the snapshot (when the run used one) after the run instead of deleting it, for a post-mortem.
 .EXAMPLE

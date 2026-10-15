@@ -19,7 +19,6 @@ catzc:
     or whose headings are not in normal form.
 .DESCRIPTION
     Format-MarkdownTitle fixes every finding but a Duplicate anchor, an Untitled file and a Missing title, which the...
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-MarkdownTitle.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to check. Default: every in-scope file.
 .PARAMETER RepositoryRoot

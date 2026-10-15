@@ -15,14 +15,12 @@ catzc:
     Prints the end-of-run skip report — what was skipped or not run, and why.
 .DESCRIPTION
     A skipped test ran and stopped itself with a reason; a not-run test never started, so it has no reason to show.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationSkipReport.ps1.md#comment1)
 .PARAMETER Rows
     The aggregated per-test rows (ConvertTo-TestAutomationRowSet output, merged across shards).
 .PARAMETER MinLevel
     The -MinLevel the run was invoked with — names the scope that excluded a test in the "not run" header.
 .PARAMETER MaxLevel
     Also known as -Level; only the not-run header reads it, to name the ceiling that kept a test out.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationSkipReport.ps1.md#comment2)
 .PARAMETER Category
     The -Category the run was invoked with (Logic/Integrity/Both) — named in the scope when not Both.
 #>

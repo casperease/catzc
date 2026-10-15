@@ -22,12 +22,10 @@ catzc:
     is a glossary term.
 .DESCRIPTION
     It reads the map's placements and never places a file itself, so it judges the map, not the placing rules.
-    [comment:1](/docs/references/automation/catzc-base-maps/Test-WorldMap.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-world-map/ (Write-QualityGateReport).
 .PARAMETER PassThru
     StackViolations counts files that break their track's tech-stack; Labels counts the printed labels checked.
-    [comment:2](/docs/references/automation/catzc-base-maps/Test-WorldMap.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] With -PassThru only.
 .EXAMPLE

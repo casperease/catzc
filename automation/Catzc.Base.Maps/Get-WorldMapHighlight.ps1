@@ -19,14 +19,12 @@ catzc:
     Returns the world-map cells that ADR codes or a drawing's files light.
 .DESCRIPTION
     With no -Adr or -Path, the working-tree changes light cells; a changed file the map lacks lights nothing.
-    [comment:1](/docs/references/automation/catzc-base-maps/Get-WorldMapHighlight.ps1.md#comment1)
 .PARAMETER Adr
     The ADR codes, each optionally narrowed to one rule (#n or :n). An unknown code throws.
 .PARAMETER Path
     The repository-relative paths of tracked files. A path the map does not hold throws.
 .PARAMETER AsJson
     JSON also carries each file's reason (basis, covering request, citation sites), which the object holds too.
-    [comment:2](/docs/references/automation/catzc-base-maps/Get-WorldMapHighlight.ps1.md#comment2)
 .OUTPUTS
     [Catzc.Base.Maps.WorldMapHighlight], or [string] with -AsJson.
 .EXAMPLE

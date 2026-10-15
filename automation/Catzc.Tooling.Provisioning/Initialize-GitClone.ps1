@@ -16,10 +16,8 @@ catzc:
     Configures a fresh git clone with the local git settings this repository's workflow needs.
 .DESCRIPTION
     Writes only to the clone's local config, never the global one, and skips settings that already hold the value.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md#comment1)
 .PARAMETER Repository
     Defaults to this repository's root, so a call with no argument configures the clone the session runs from.
-    [comment:2](/docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md#comment2)
 .PARAMETER DryRun
     Return the `git config` commands that would run, without executing them.
 .OUTPUTS

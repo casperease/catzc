@@ -16,7 +16,6 @@ catzc:
     The fingerprint of everything besides a file's own bytes that decides what a formatter engine writes.
 .DESCRIPTION
     A `<file>#<key>` entry stamps one key's value, so another tool's pin edit leaves this engine's cache warm.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FormatEngineStamp.ps1.md#comment1)
 .PARAMETER Engine
     The engine name, as languages.yml spells it.
 .PARAMETER Settings

@@ -16,7 +16,6 @@ catzc:
     Lists the tests a test run's opt-out tag removes from a run, so the exclusion is visible, never silent.
 .DESCRIPTION
     A test already out by the tier or category filter is neither listed nor counted, so only real opt-outs show.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestOptOutExclusion.ps1.md#comment1)
 .PARAMETER Discovery
     The run's discovery-only Pester result (Get-TestDiscovery).
 .PARAMETER Tag

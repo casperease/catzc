@@ -18,7 +18,6 @@ catzc:
     Rewrites the ADR citations, codes, anchors, links, and paths in one file through a code map and a rule map.
 .DESCRIPTION
     A citation range spanning a moved rule is left as written and returned Unhandled, for a person to resolve.
-    [comment:1](/docs/references/automation/catzc-base-docs/Update-AdrCitation.ps1.md#comment1)
 .PARAMETER Path
     The one file to rewrite: absolute, or relative to the repository root. It must be inside the repository root.
 .PARAMETER CodeMap
@@ -27,10 +26,8 @@ catzc:
     The rule map file (absolute, repository-relative, or under out/).
 .PARAMETER RepositoryRoot
     Relative links and -Path resolve against this root, so another root changes where a rewritten link lands.
-    [comment:2](/docs/references/automation/catzc-base-docs/Update-AdrCitation.ps1.md#comment2)
 .PARAMETER DryRun
     The returned changes are the ones a real run would make, so a dry run is a safe preview of a migration.
-    [comment:3](/docs/references/automation/catzc-base-docs/Update-AdrCitation.ps1.md#comment3)
 .OUTPUTS
     [Catzc.Base.Docs.AdrCitationChange] One per rewritten (or Unhandled) reference, in file order.
 .EXAMPLE

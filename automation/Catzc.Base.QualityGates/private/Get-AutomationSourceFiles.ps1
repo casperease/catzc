@@ -16,7 +16,6 @@ function Get-AutomationSourceFiles {
         The canonical set of authored PowerShell files the analysis quality gates cover.
     .DESCRIPTION
         Formatting covers a wider set (Format-Code); this set leaves out .vendor, .compiled and generated manifests.
-        [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment1)
     .OUTPUTS
         [string[]] Absolute paths, in discovery order.
     #>
@@ -48,7 +47,7 @@ function Get-AutomationSourceFiles {
 
         $testsPath = Join-Path $moduleDir 'tests'
         if (Test-Path $testsPath) {
-            # Test files sit at most two levels below tests/ (tests/types); the third level is headroom, and tests/assets holds none.
+            # Test files sit at most two levels below tests/ (tests/types); the third level is headroom, and...
             # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-AutomationSourceFiles.ps1.md#comment2)
             foreach ($script in Get-ChildPath $testsPath -File -Filter '*.Tests.ps1' -Depth 3) {
                 $files.Add($script)

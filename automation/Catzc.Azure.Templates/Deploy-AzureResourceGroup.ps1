@@ -15,7 +15,6 @@ catzc:
     Idempotently ensures a resource group exists in a given subscription and region.
 .DESCRIPTION
     The caller passes subscription and region, so the group lands in the subscription the deployment targets.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Deploy-AzureResourceGroup.ps1.md#comment1)
 .PARAMETER SubscriptionId
     The subscription the resource group must live in (from the resolved deployment context).
 .PARAMETER Region

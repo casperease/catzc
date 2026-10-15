@@ -15,7 +15,6 @@ catzc:
     Downloads a file over HTTPS and verifies its SHA-256, rejecting a mismatch.
 .DESCRIPTION
     A mismatch deletes the file before throwing, so an unverified download is never left on disk to be executed.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Save-VerifiedDownload.ps1.md#comment1)
 .PARAMETER Uri
     The download URL.
 .PARAMETER OutFile

@@ -16,7 +16,6 @@ catzc:
     graph), shared by Get-ModuleTestOrder (topological order) and Get-ModuleDependencyClosure (subset closure).
 .DESCRIPTION
     A group target expands to its members except for a member of that group, whose order step 1 already governs.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyMap.ps1.md#comment1)
 .PARAMETER Module
     The module set to build the map over. Defaults to all on-disk modules (Get-AutomationModules).
 .EXAMPLE

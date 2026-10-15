@@ -18,7 +18,6 @@ catzc:
     glossary sources.
 .DESCRIPTION
     The page is emitted already formatted and sorted by term, so output is deterministic and Format-Code is a no-op.
-    [comment:1](/docs/references/automation/catzc-base-docs/Build-Glossary.ps1.md#comment1)
 .PARAMETER Path
     The page to write. Defaults to the [glossary](/docs/adr/glossary.md); a test points it at a fixture path.
 .PARAMETER DryRun

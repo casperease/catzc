@@ -19,12 +19,10 @@ catzc:
     Assembles a deterministic Azure resource name from the standard component set.
 .DESCRIPTION
     Restricted types render the 2-char shortcode, so a long env name never costs a tight name a byte.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment1)
 .PARAMETER Env
     Environment name (azure.yml env key, e.g. `develop`). The env-segment of generous (`long`) types.
 .PARAMETER Shortcode
     Required when Type is restricted; the long pattern uses the readable Env name instead.
-    [comment:2](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment2)
 .PARAMETER RegionCode
     3-letter region code (azure.yml env `region_code`, e.g. `weu`).
 .PARAMETER Org
@@ -39,7 +37,6 @@ catzc:
     Optional customer / sub-tenant. The readable key (the customer-segment of generous `long` types).
 .PARAMETER CustomerShortcode
     Required only when -Customer is set and Type is restricted; long types use the readable customer key.
-    [comment:3](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment3)
 .PARAMETER Role
     Optional 2-3 char sibling discriminator among same-type resources (per resource).
 .PARAMETER Order

@@ -17,7 +17,6 @@ catzc:
     Quality gate: one parameter name means one type across the public functions.
 .DESCRIPTION
     An exempt name that no longer conflicts is itself reported, so the exempt list holds only what is real.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ParameterConsistency.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-parameter-consistency).
 .PARAMETER PassThru

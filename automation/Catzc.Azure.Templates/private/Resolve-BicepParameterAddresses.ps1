@@ -18,7 +18,6 @@ catzc:
     Resolves the config-addressed entries of a template config's parameters into ARM `value` entries.
 .DESCRIPTION
     An address reaches only version-controlled config, so a secure parameter takes a reference, never an address.
-    [comment:1](/docs/references/automation/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md#comment1)
 .PARAMETER Parameters
     The `ParametersFile.parameters` map of one template config, as parsed from its YAML.
 .PARAMETER ConfigFile

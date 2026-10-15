@@ -20,7 +20,6 @@ catzc:
     assets.
 .DESCRIPTION
     Vendored code and contract assets stay out, so a formatter upgrade can never rewrite their frozen bytes.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FormatScope.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root.
 .PARAMETER Path

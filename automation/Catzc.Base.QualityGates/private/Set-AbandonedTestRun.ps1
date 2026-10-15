@@ -15,7 +15,6 @@ catzc:
     Marks every run under a report folder that says 'running' but whose owning process is gone as 'abandoned'.
 .DESCRIPTION
     A killed owner never reaches its finally, so a manifest stuck on running is swept to abandoned by the next run.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Set-AbandonedTestRun.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder whose run directories (<OutputFolder>/<stamp>/run.json) are swept.
 .OUTPUTS

@@ -16,7 +16,6 @@ catzc:
     Tests whether a tool is managed by the expected package manager.
 .DESCRIPTION
     Check order decides who judges: an MSYS2 tool that also declares apt_package is judged by apt on Linux.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment1)
 .PARAMETER Config
     Tool configuration hashtable from Get-ToolConfig / tools.yml.
 .PARAMETER WingetListCache

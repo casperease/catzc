@@ -16,7 +16,6 @@ catzc:
     Returns a Markdown text with its meta block imprinted from the given facts.
 .DESCRIPTION
     The same facts always give the same bytes, so a second run changes no file and prettier never undoes the block.
-    [comment:1](/docs/references/automation/catzc-base-markdownmeta/Format-MarkdownMetaBlock.ps1.md#comment1)
 .PARAMETER Text
     The whole Markdown file as text.
 .PARAMETER Fact

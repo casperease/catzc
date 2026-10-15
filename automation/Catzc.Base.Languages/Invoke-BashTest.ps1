@@ -15,15 +15,12 @@ catzc:
     Runs a catzc module's Bash tests and returns one result per Bash test.
 .DESCRIPTION
     The tests are black-box: they reach catzc only through an environment contract set for this call and restored.
-    [comment:1](/docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md#comment1)
 .PARAMETER Module
     The catzc module whose Bash tests to run (e.g. Catzc.Base.Repository).
 .PARAMETER EntryScript
     Leave it out for a source run: it then defaults to the repository's importer.ps1.
-    [comment:2](/docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md#comment2)
 .PARAMETER EngineExecutable
     A build run's engine has no tools.yml entry, so the caller must pass the bash its source session resolved.
-    [comment:3](/docs/references/automation/catzc-base-languages/Invoke-BashTest.ps1.md#comment3)
 .OUTPUTS
     [Catzc.Base.Languages.BashTestResult] One record per Bash test.
 .EXAMPLE

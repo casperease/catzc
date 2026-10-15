@@ -17,7 +17,6 @@ catzc:
     per use.
 .DESCRIPTION
     Function words and a keyword after a dot never count as a qualifier; the bare head word is always allowed.
-    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryFormViolations.ps1.md#comment1)
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.
 .PARAMETER TrackedFile
@@ -26,7 +25,6 @@ catzc:
     The directory the tracked files are relative to. Defaults to the repository root.
 .PARAMETER SurfaceCache
     Test-Glossary shares one table with the phrasing check, so a run reads each file's prose only once.
-    [comment:2](/docs/references/automation/catzc-base-docs/private/Get-GlossaryFormViolations.ps1.md#comment2)
 .OUTPUTS
     [string[]] One message per use — `<file>:<line> says "<use>" — "<term>" takes only: <forms> (<defined_by>)` — in
     file then line order; empty when every use is a declared form.

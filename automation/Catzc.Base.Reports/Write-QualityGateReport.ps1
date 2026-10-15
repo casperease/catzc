@@ -17,7 +17,6 @@ catzc:
     Writes a quality gate's report, prints it, and ends the gate: throws once with every issue, or returns the result.
 .DESCRIPTION
     A gate calls this last with the issues it collected and never writes its own report, so all gates report alike.
-    [comment:1](/docs/references/automation/catzc-base-reports/Write-QualityGateReport.ps1.md#comment1)
 .PARAMETER Subject
     The gate's subject, kebab-case ('spelling', 'shipped-configs'); names the report folder and file.
 .PARAMETER Title

@@ -17,7 +17,6 @@ catzc:
     Returns the glossary term a printed map label names, or nothing when it names none.
 .DESCRIPTION
     A plural head resolves too, so the label Root files names the singular glossary term root file.
-    [comment:1](/docs/references/automation/catzc-base-maps/private/Resolve-MapLabelTerm.ps1.md#comment1)
 .PARAMETER Label
     The printed label.
 .PARAMETER Term

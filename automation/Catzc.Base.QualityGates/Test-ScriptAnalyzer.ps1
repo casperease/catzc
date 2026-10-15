@@ -18,10 +18,8 @@ catzc:
     Analyzes the automation PowerShell with PSScriptAnalyzer and writes a report under out/.
 .DESCRIPTION
     Uses the rule set from the loaded code root, so a local run matches what the editor and CI see.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment1)
 .PARAMETER Path
     The default is the catzc source tree, so it needs the source mode; an explicit -Path works in either run mode.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment2)
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-script-analyzer.
 .PARAMETER NoCache

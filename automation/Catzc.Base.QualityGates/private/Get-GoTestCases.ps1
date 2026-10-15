@@ -15,7 +15,6 @@ catzc:
     Lists the Go tests a Go test folder declares, read from its *_test.go files without running go.
 .DESCRIPTION
     Reads the _test.go source text, not go, so discovery stays fast and offline and works where go is missing.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-GoTestCases.ps1.md#comment1)
 .PARAMETER Folder
     The absolute path of the Go test folder (a Get-LanguageTestFolders Folder of language go).
 .OUTPUTS

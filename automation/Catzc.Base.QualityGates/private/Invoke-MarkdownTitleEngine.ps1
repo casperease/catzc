@@ -15,7 +15,6 @@ catzc:
     Checks every in-scope Markdown file's title and headings — the one place Format-MarkdownTitle and Test-MarkdownTitle share.
 .DESCRIPTION
     A changed heading anchor re-points links across the whole scope, even when Path narrows the check.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-MarkdownTitleEngine.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root titles are relative to.
 .PARAMETER Path

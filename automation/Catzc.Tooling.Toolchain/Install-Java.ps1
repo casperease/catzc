@@ -16,7 +16,6 @@ catzc:
     Installs Microsoft OpenJDK via the platform package manager.
 .DESCRIPTION
     Modeled on Install-Dotnet and DOTNET_ROOT: persistence is the user registry on Windows, the profile on Unix.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Java.ps1.md#comment1)
 .PARAMETER Version
     Java version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force

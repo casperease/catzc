@@ -17,7 +17,6 @@ catzc:
     Compares two glob-pattern lists for equality — ordered for GitHub, as a set for Azure DevOps.
 .DESCRIPTION
     Matching is case-sensitive and the set sort is ordinal, since Sort-Object is culture-aware and would vary by host.
-    [comment:1](/docs/references/automation/catzc-base-globs/private/Test-GlobListEqual.ps1.md#comment1)
 .PARAMETER Reference
     The expected pattern list.
 .PARAMETER Difference

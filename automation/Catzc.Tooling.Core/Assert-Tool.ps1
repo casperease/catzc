@@ -15,12 +15,10 @@ catzc:
     Asserts that a tool is installed and at the expected version.
 .DESCRIPTION
     DependsOn is not checked: those are install-time needs, and a probed tool is found by its candidate paths first.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (e.g., 'python', 'az_cli').
 .PARAMETER SkipVersionCheck
     A wrong version still passes, so use it where presence is enough, such as before an uninstall.
-    [comment:2](/docs/references/automation/catzc-tooling-core/Assert-Tool.ps1.md#comment2)
 .EXAMPLE
     Assert-Tool 'python'
 .EXAMPLE

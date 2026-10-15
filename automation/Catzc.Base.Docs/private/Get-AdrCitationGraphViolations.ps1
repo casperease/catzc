@@ -15,7 +15,6 @@ catzc:
     Lists every rule-summary citation that leaves its domain for a domain the registry does not declare it depends on.
 .DESCRIPTION
     The list is read as declared, not transitively, so a domain that cites another must name it directly.
-    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-AdrCitationGraphViolations.ps1.md#comment1)
 .PARAMETER Adrs
     The ADR registry (Get-Config -Config adrs).
 .PARAMETER Index

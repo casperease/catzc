@@ -17,7 +17,6 @@ catzc:
     Runs one imprint step over the given files and returns what it changed and what it cannot repair.
 .DESCRIPTION
     A language is never named here: which language runs which step is configuration, not code.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md#comment1)
 .PARAMETER Step
     The step name, as languages.yml spells it.
 .PARAMETER File

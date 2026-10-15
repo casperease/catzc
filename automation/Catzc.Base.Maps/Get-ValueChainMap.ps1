@@ -20,10 +20,8 @@ catzc:
     in each cell.
 .DESCRIPTION
     Every row meets every column, so empty cells are kept: the map is the full grid, not only where ADRs sit.
-    [comment:1](/docs/references/automation/catzc-base-maps/Get-ValueChainMap.ps1.md#comment1)
 .PARAMETER AsJson
     JSON carries rows, columns and every cell, so a tool reads the map without PowerShell.
-    [comment:2](/docs/references/automation/catzc-base-maps/Get-ValueChainMap.ps1.md#comment2)
 .OUTPUTS
     [Catzc.Base.Maps.ValueChainMap], or [string] with -AsJson.
 .EXAMPLE

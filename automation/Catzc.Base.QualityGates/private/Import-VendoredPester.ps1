@@ -18,7 +18,6 @@ catzc:
     Loads the vendored Pester into the session on first use, and makes sure it is the one in use.
 .DESCRIPTION
     Any other Pester in the session, a system install or another version, is removed and replaced, and named.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Import-VendoredPester.ps1.md#comment1)
 .OUTPUTS
     None.
 #>

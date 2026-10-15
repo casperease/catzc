@@ -15,7 +15,6 @@ catzc:
     Tests whether a tool's install home satisfies one session_host_probes entry at the locked version.
 .DESCRIPTION
     The match is a dotted prefix: version 10.0 fits sdk/10.0.201 but not sdk/10.01 or sdk/6.0.428.
-    [comment:1](/docs/references/automation/catzc-tooling-core/private/Test-ToolHomeProbe.ps1.md#comment1)
 .PARAMETER ToolHome
     The install home to probe (the directory holding the tool's executable).
 .PARAMETER Probe

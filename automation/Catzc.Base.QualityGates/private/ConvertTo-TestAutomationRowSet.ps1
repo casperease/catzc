@@ -15,7 +15,6 @@ catzc:
     Reduces a live Pester run object to plain per-test rows that survive a process boundary.
 .DESCRIPTION
     The live Block chain does not survive serialization, so each worker resolves tier and category into rows itself.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/ConvertTo-TestAutomationRowSet.ps1.md#comment1)
 .PARAMETER Result
     The live Pester run object (Invoke-Pester -Configuration <with Run.PassThru>), in the process that ran it.
 .OUTPUTS

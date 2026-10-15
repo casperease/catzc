@@ -15,7 +15,6 @@ catzc:
     Installs a CLI as an isolated uv tool.
 .DESCRIPTION
     Each tool gets its own isolated uv environment in user space, so installs never pollute a shared one.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Install-UvTool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (must declare uv_tool).
 .PARAMETER Version

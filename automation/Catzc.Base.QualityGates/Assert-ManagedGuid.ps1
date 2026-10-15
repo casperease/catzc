@@ -15,7 +15,6 @@ catzc:
     Asserts a GUID is registered in the managed-GUID registry (configs/guids.yml); throws when it is not.
 .DESCRIPTION
     Shares one lookup with Test-ManagedGuid, so the two never disagree; success is silent, the throw is the output.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Assert-ManagedGuid.ps1.md#comment1)
 .PARAMETER Guid
     The GUID to assert.
 .EXAMPLE

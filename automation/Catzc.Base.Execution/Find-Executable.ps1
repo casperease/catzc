@@ -16,7 +16,6 @@ catzc:
     Locates an executable without starting a process, then confirms its version once per session.
 .DESCRIPTION
     Locating never starts a process, and a version is run once per file per session, so a reinstall shows at once.
-    [comment:1](/docs/references/automation/catzc-base-execution/Find-Executable.ps1.md#comment1)
 .PARAMETER Name
     The name the record carries (a tools.yml key, for a tool).
 .PARAMETER Command

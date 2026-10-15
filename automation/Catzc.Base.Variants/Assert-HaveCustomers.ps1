@@ -15,7 +15,6 @@ catzc:
     Asserts the repo has customer deployments enabled — for all customers, or for specific names — else throws.
 .DESCRIPTION
     No -Name requires any customer enabled; with -Name every name must be, and the error lists the missing ones.
-    [comment:1](/docs/references/automation/catzc-base-variants/Assert-HaveCustomers.ps1.md#comment1)
 .PARAMETER Name
     Zero or more customer names to require. Omit to require the repo-wide capability.
 .EXAMPLE

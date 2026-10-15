@@ -20,7 +20,6 @@ catzc:
     Checks the terminology registry: no drift, no orphans, no unjustified entries. Writes a report under out/.
 .DESCRIPTION
     Dictionaries are gitignored and regenerated on import, so a drift finding means a hand-edited word list.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Terminology.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-terminology.
 .PARAMETER PassThru

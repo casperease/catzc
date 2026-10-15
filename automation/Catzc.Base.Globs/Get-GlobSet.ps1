@@ -16,7 +16,6 @@ catzc:
     Returns globsets from the globs.yml registry — all of them, or the named ones.
 .DESCRIPTION
     An unknown name throws and names the config file, so a typo fails loudly instead of returning nothing.
-    [comment:1](/docs/references/automation/catzc-base-globs/Get-GlobSet.ps1.md#comment1)
 .PARAMETER Name
     The globset name(s) to return. Omit for every globset, in registry order.
 .EXAMPLE

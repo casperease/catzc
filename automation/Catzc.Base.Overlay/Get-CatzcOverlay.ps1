@@ -16,8 +16,6 @@ catzc:
     Lists everything in the consumer overlay, each entry classified by where it sits.
 .DESCRIPTION
     Only classifies: nothing is loaded or checked here, and no overlay (source mode) returns nothing.
-    [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
-    [comment:1](/docs/references/automation/catzc-base-overlay/Get-CatzcOverlay.ps1.md#comment1)
 .OUTPUTS
     [pscustomobject] Kind, Module, Target, Visibility, File, RelativePath — in ordinal path order.
 .EXAMPLE

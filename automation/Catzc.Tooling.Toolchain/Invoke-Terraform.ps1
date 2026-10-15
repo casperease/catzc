@@ -15,7 +15,6 @@ catzc:
     Runs terraform with the given arguments.
 .DESCRIPTION
     A drifted Terraform fails the assertion before the command starts, so no plan or apply runs on another version.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Invoke-Terraform.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to terraform.
 .PARAMETER PassThru

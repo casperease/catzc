@@ -15,7 +15,6 @@ catzc:
     Fast, subprocess-free check: does a resolved tool location belong to the installer layer?
 .DESCRIPTION
     Advisory only: a false foreign flag is acceptable, as Get-ToolsStatus stays the precise, process-backed classifier.
-    [comment:1](/docs/references/automation/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md#comment1)
 .PARAMETER Config
     The tool's ToolConfig (from Get-ToolConfig).
 .PARAMETER Location

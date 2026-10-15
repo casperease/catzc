@@ -15,7 +15,6 @@ catzc:
     Uninstalls a Python-library tool from the uv-managed Python via `uv pip`.
 .DESCRIPTION
     A missing tool or a missing Python both mean nothing to remove, so reruns end quietly.
-    [comment:1](/docs/references/automation/catzc-tooling-python/private/Uninstall-PipTool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml.
 #>

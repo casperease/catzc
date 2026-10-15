@@ -15,7 +15,6 @@ catzc:
     Resolves the official Go archive for a locked version from the go.dev release feed.
 .DESCRIPTION
     A major.minor pin such as 1.27 matches go1.27 and every go1.27.N, and the newest stable release wins.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/private/Get-GoRelease.ps1.md#comment1)
 .PARAMETER Version
     The locked Go version (major.minor, or an exact major.minor.patch).
 .PARAMETER Os

@@ -17,7 +17,6 @@ catzc:
     The ruff formatter engine: formats the given Python files with the pinned ruff and returns the files it changed.
 .DESCRIPTION
     Runs in the Python workspace's environment with its settings, so a file gets the same rules wherever it lives.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-RuffFormat.ps1.md#comment1)
 .PARAMETER File
     Absolute paths of the .py files to format.
 .PARAMETER DryRun

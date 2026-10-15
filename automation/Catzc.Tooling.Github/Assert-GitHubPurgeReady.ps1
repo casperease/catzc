@@ -16,17 +16,14 @@ catzc:
     throwing on the first gap. Nothing here mutates anything.
 .DESCRIPTION
     A purge erases the old objects only if every check holds, so all run before the irreversible delete.
-    [comment:1](/docs/references/automation/catzc-tooling-github/Assert-GitHubPurgeReady.ps1.md#comment1)
 .PARAMETER Repo
     The GitHub repository as owner/name (e.g. 'contoso/hello-world').
 .PARAMETER BackupBundle
     The bundle must pass git bundle verify, not merely exist, or the purge refuses to proceed.
-    [comment:2](/docs/references/automation/catzc-tooling-github/Assert-GitHubPurgeReady.ps1.md#comment2)
 .PARAMETER RepositoryPath
     The local clone whose origin is checked. Defaults to the repository root.
 .PARAMETER AllowForks
     Off by default: a fork keeps the old objects alive, so deleting this repo would not purge them.
-    [comment:3](/docs/references/automation/catzc-tooling-github/Assert-GitHubPurgeReady.ps1.md#comment3)
 .EXAMPLE
     Assert-GitHubPurgeReady -Repo 'contoso/hello-world' -BackupBundle $bundle
 #>

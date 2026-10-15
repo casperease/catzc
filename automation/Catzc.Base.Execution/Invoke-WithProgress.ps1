@@ -16,12 +16,10 @@ catzc:
     Runs a scriptblock while writing progress dots to the console.
 .DESCRIPTION
     The dots come from a thread job, so the scriptblock's return value reaches the caller uncontaminated.
-    [comment:1](/docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md#comment1)
 .PARAMETER ScriptBlock
     The work to execute. Runs on the current thread (module scope preserved).
 .PARAMETER Message
     The prefix is written without a newline, so it shares one line with the dots.
-    [comment:2](/docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md#comment2)
 .PARAMETER IntervalMs
     Milliseconds between dots. Defaults to 1000.
 .EXAMPLE

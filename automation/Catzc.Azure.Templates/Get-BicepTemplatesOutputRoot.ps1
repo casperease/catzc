@@ -17,7 +17,6 @@ catzc:
     Returns the root folder Build-Bicep writes template build output under.
 .DESCRIPTION
     A build test mocks this root to its own folder, so no two test files ever write the same build folder.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTemplatesOutputRoot.ps1.md#comment1)
 .OUTPUTS
     [string] the absolute output root path.
 .EXAMPLE

@@ -16,17 +16,14 @@ catzc:
     Loads a template's per-slot config and returns the ordered dictionary.
 .DESCRIPTION
     No merge with global config happens here; the PrePost prepare hook is the merge seam.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
 .PARAMETER Environment
     Environment shortname. Must be configured for the template.
 .PARAMETER Slot
     Omitted selects the env's base slot file; the selected config must exist or the call throws.
-    [comment:2](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md#comment2)
 .PARAMETER Customer
     Omitted selects the shared-platform config at the configuration root, never a customer's.
-    [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md#comment3)
 .EXAMPLE
     $configuration = Get-BicepTemplateConfiguration sample dev
 .EXAMPLE

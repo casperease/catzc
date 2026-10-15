@@ -16,15 +16,12 @@ catzc:
     Removes a directory from PATH persistently and in the current session.
 .DESCRIPTION
     Removes from the User registry PATH on Windows and the marked profile block on Unix; an absent path is no error.
-    [comment:1](/docs/references/automation/catzc-base-environment/Remove-PermanentPath.ps1.md#comment1)
 .PARAMETER Path
     The directory to remove.
 .PARAMETER Label
     Must equal the Label Add-PermanentPath was given, or no block matches and nothing is removed.
-    [comment:2](/docs/references/automation/catzc-base-environment/Remove-PermanentPath.ps1.md#comment2)
 .PARAMETER Sync
     Rebuilds the session PATH from the registry, so entries other tools changed are picked up too; Windows only.
-    [comment:3](/docs/references/automation/catzc-base-environment/Remove-PermanentPath.ps1.md#comment3)
 .EXAMPLE
     Remove-PermanentPath '/usr/local/go/bin'
 .EXAMPLE

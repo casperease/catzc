@@ -17,13 +17,10 @@ catzc:
     Quality gate: the ADR registry (adrs.yml) and the ADR rule files under docs/adr/ agree.
 .DESCRIPTION
     Unique codes and acyclic links between domains are AdrsConfig construction rules, so this gate does not recheck...
-    [comment:1](/docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md#comment1)
 .PARAMETER OutputFolder
     A report-mode check writes under this folder only when it is given, else under its own default folder.
-    [comment:2](/docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md#comment2)
 .PARAMETER PassThru
     CitationGraph and DoraCoverage list each check's findings in either mode, so a report-mode check can be read.
-    [comment:3](/docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md#comment3)
 .OUTPUTS
     [pscustomobject] With -PassThru only.
 .EXAMPLE

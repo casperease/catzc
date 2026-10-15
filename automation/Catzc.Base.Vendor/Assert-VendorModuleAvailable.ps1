@@ -15,7 +15,6 @@ catzc:
     Asserts a module (optionally at a specific version) is available from the configured vendor source.
 .DESCRIPTION
     Throws so a caller never deletes a committed binary that the network cannot restore.
-    [comment:1](/docs/references/automation/catzc-base-vendor/Assert-VendorModuleAvailable.ps1.md#comment1)
 .PARAMETER Name
     The module name that must be available on the source.
 .PARAMETER Version

@@ -15,12 +15,10 @@ catzc:
     Validates that all property keys in a parsed YAML object use snake_case.
 .DESCRIPTION
     Only keys are checked: list items and values may be any case, so a value never fails the naming rule.
-    [comment:1](/docs/references/automation/catzc-base-asserts/Assert-YmlNaming.ps1.md#comment1)
 .PARAMETER Yaml
     The parsed YAML object (from ConvertFrom-Yaml -Ordered).
 .PARAMETER PropertyPath
     For a subtree it makes errors report the full path, as customers.blue.details rather than blue.details.
-    [comment:2](/docs/references/automation/catzc-base-asserts/Assert-YmlNaming.ps1.md#comment2)
 .EXAMPLE
     $config = Get-Content config.yml -Raw | ConvertFrom-Yaml -Ordered
     Assert-YmlNaming $config

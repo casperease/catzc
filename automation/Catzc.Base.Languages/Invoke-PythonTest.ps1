@@ -18,18 +18,14 @@ catzc:
     Runs a catzc module's Python tests and returns one result per Python test.
 .DESCRIPTION
     The uv commands run from the Python root, the uv workspace root, so one environment and lock serve every module.
-    [comment:1](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment1)
 .PARAMETER Module
     The catzc module whose Python tests to run (e.g. Catzc.Base.Repository).
 .PARAMETER EntryScript
     Leave it out for a source run: it then defaults to the repository's importer.ps1.
-    [comment:2](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment2)
 .PARAMETER UvExecutable
     A build run's engine has no tools.yml entry, so the caller must pass the uv its source session resolved.
-    [comment:3](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment3)
 .PARAMETER Engine
     The tests are the same under either engine; only the environment contract they read changes.
-    [comment:4](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment4)
 .PARAMETER EngineExecutable
     The engine's executable, already located by the caller. Default: located here by Resolve-EngineExecutable.
 .OUTPUTS

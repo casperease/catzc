@@ -16,7 +16,6 @@ catzc:
     Collects the derived facts of one Markdown file from every imprint kind whose globs match it.
 .DESCRIPTION
     A processor must return exactly its kind's keys, so a kind can never write a key another kind owns.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What Get-MarkdownMetaState read from the file.
 .PARAMETER Path

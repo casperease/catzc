@@ -16,8 +16,6 @@ catzc:
     Throws when the session runs a built Catzc package instead of the catzc source tree.
 .DESCRIPTION
     In build mode the source files are not where the loaded code lives, so a source-tree tool fails by name.
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
-    [comment:1](/docs/references/automation/catzc-base-repository/Assert-SourceTree.ps1.md#comment1)
 .PARAMETER Command
     The name of the guarded tool, used in the error message. Defaults to the calling command's name.
 .EXAMPLE

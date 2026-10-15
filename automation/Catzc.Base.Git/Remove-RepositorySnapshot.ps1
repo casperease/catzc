@@ -15,7 +15,6 @@ catzc:
     Deletes a repository snapshot made by New-RepositorySnapshot.
 .DESCRIPTION
     Refuses any folder without New-RepositorySnapshot's marker, so a wrong path never deletes a real checkout.
-    [comment:1](/docs/references/automation/catzc-base-git/Remove-RepositorySnapshot.ps1.md#comment1)
 .PARAMETER Path
     The snapshot folder (the Path of New-RepositorySnapshot's result).
 .OUTPUTS

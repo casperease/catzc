@@ -18,7 +18,6 @@ catzc:
     Returns the controlled vocabulary: every concept of every glossary source, merged and sorted by term.
 .DESCRIPTION
     Cross-source facts such as a duplicate term are not checked here, so a reader gets the vocabulary as declared.
-    [comment:1](/docs/references/automation/catzc-base-docs/Get-Glossary.ps1.md#comment1)
 .OUTPUTS
     [Catzc.Base.Docs.GlossaryEntry[]] Empty when no module ships a glossary.
 .EXAMPLE

@@ -15,7 +15,6 @@ catzc:
     Writes all bound parameters of the calling function to the console.
 .DESCRIPTION
     Only parameters the caller actually bound are listed, and -HiddenKeys masks the sensitive ones.
-    [comment:1](/docs/references/automation/catzc-base-writers/Write-CmdletParameterSet.ps1.md#comment1)
 .PARAMETER Invocation
     The $MyInvocation from the calling function.
 .PARAMETER HiddenKeys

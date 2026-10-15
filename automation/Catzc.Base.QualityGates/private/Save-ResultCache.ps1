@@ -17,7 +17,6 @@ catzc:
     Get-ResultCache.
 .DESCRIPTION
     The save re-reads the file and keeps other processes' entries, so a plain overwrite cannot drop their saves.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Save-ResultCache.ps1.md#comment1)
 .PARAMETER Path
     The cache file.
 .PARAMETER Cache

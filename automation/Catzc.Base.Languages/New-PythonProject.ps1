@@ -18,7 +18,6 @@ catzc:
     test folder.
 .DESCRIPTION
     Python here is test artifacts only, and its tests form one uv workspace, the Python form of go.work.
-    [comment:1](/docs/references/automation/catzc-base-languages/New-PythonProject.ps1.md#comment1)
 .PARAMETER Target
     The files to render, as a repository-relative wildcard over their paths. Default: every file.
 .OUTPUTS

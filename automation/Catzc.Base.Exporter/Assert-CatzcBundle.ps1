@@ -17,7 +17,6 @@ catzc:
     violation.
 .DESCRIPTION
     The content hash proves nothing drifted after the build, and the types hash proves the DLL matches its sources.
-    [comment:1](/docs/references/automation/catzc-base-exporter/Assert-CatzcBundle.ps1.md#comment1)
 .PARAMETER Path
     The build root to verify (the Catzc/<version>/ folder).
 .EXAMPLE

@@ -20,10 +20,8 @@ catzc:
     Lists the glossary facts that span more than one source (check G1, cross-source) — one message per violation.
 .DESCRIPTION
     The first source in owner order keeps a duplicated term or key; every later one is reported.
-    [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossarySourceViolations.ps1.md#comment1)
 .PARAMETER Source
     Defaults to every source in the repository, in owner order, which decides who keeps a duplicated term.
-    [comment:2](/docs/references/automation/catzc-base-docs/private/Get-GlossarySourceViolations.ps1.md#comment2)
 .OUTPUTS
     [string[]] One message per violation, in source and concept order; empty when the sources agree.
 .EXAMPLE

@@ -15,7 +15,6 @@ catzc:
     Installs markdownlint-cli2 (the Markdown linter CLI) globally via npm.
 .DESCRIPTION
     A wrong installed version is replaced only with -Force; the right one is left alone.
-    [comment:1](/docs/references/automation/catzc-tooling-node/Install-Markdownlint.ps1.md#comment1)
 .PARAMETER Version
     markdownlint-cli2 version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force

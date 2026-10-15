@@ -15,7 +15,6 @@ catzc:
     Installs Node.js via the platform package manager.
 .DESCRIPTION
     The package manager differs per platform, and CI is refused: the pipeline UseNode task is the way there.
-    [comment:1](/docs/references/automation/catzc-tooling-node/Install-NodeJs.ps1.md#comment1)
 .PARAMETER Version
     Node.js major version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force

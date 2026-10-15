@@ -18,7 +18,6 @@ catzc:
     back where its residue stands.
 .DESCRIPTION
     The view is generated and gitignored: the comment page stays the one living copy, so never edit the view.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Build-CommentView.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to build the view of. Default: every file in scope.
 .PARAMETER RepositoryRoot

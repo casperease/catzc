@@ -17,10 +17,8 @@ catzc:
     Lints the repository's Markdown with markdownlint-cli2 and writes a report under out/.
 .DESCRIPTION
     markdownlint-cli2 ignores .markdownlintignore for command-line globs, so the exclusions are passed explicitly.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment1)
 .PARAMETER Path
     The default is the in-scope Markdown, with out-of-scope trees excluded by negation globs.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment2)
 .PARAMETER OutputFolder
     The report base folder. Defaults to <out>/test-markdownlint.
 .PARAMETER PassThru

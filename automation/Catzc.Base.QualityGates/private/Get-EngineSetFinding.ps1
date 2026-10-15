@@ -16,7 +16,6 @@ catzc:
     Lists every place one file restates the engine set instead of reading it from the model.
 .DESCRIPTION
     Engines are declared once in the model, so an engine count or literal engine list restated elsewhere is drift.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-EngineSetFinding.ps1.md#comment1)
 .PARAMETER Path
     The file's repository-relative, '/'-separated path, which leads each finding.
 .PARAMETER Text

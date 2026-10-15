@@ -19,7 +19,6 @@ catzc:
     to process?" check.
 .DESCRIPTION
     Fails open: an unresolvable range returns true, since a redundant run is safe and a wrong skip is not.
-    [comment:1](/docs/references/automation/catzc-base-globs/Test-GlobSetAffected.ps1.md#comment1)
 .PARAMETER Name
     The globset — typically a deployable unit — to test.
 .OUTPUTS

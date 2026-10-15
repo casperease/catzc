@@ -18,16 +18,12 @@ catzc:
     editor's behaviour in sync with the tooling.
 .DESCRIPTION
     Only search.exclude is completed at render time, so find-all lands on the source and never on a generated copy.
-    [comment:1](/docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md#comment1)
 .PARAMETER ManagedTarget
     An empty list renders the authored search.exclude alone; the generator dispatch supplies the targets.
-    [comment:2](/docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md#comment2)
 .PARAMETER MachineSetting
     A machine path is safe here because settings.json is a gitignored per-machine copy, never shared.
-    [comment:3](/docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md#comment3)
 .PARAMETER LanguageFormatter
     An authored defaultFormatter in a language block wins over this value, and the rest of that block is kept.
-    [comment:4](/docs/references/automation/catzc-base-vscode/New-VSCodeSettings.ps1.md#comment4)
 .OUTPUTS
     [string] The rendered settings.json content (LF-joined; the writer canonicalises).
 .EXAMPLE

@@ -19,7 +19,6 @@ catzc:
     The link quality gate: fails on any off-form, dangling, or dead link or citation.
 .DESCRIPTION
     Read-only twin of Format-Links: each issue says whether Format-Links can fix it or a person must.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Links.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to check. Default: every git-tracked file.
 .PARAMETER Kind
@@ -30,7 +29,6 @@ catzc:
     The report base folder. Defaults to <out>/test-links.
 .PARAMETER PassThru
     Report-mode string citations show up in Reported and never fail the gate.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-Links.ps1.md#comment2)
 .OUTPUTS
     Throws on any violation; with -PassThru, returns the result object.
 .EXAMPLE

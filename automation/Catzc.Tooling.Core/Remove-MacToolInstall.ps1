@@ -18,7 +18,6 @@ catzc:
     tool-removal lifecycle.
 .DESCRIPTION
     Every macOS removal step is user-space, so nothing here asserts elevation, unlike the Linux apt step.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Remove-MacToolInstall.ps1.md#comment1)
 .PARAMETER Config
     The tool's parsed tools.yml entry (from Get-ToolConfig).
 .OUTPUTS

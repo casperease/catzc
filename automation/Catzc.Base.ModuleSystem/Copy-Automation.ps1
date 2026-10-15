@@ -20,14 +20,12 @@ catzc:
     repository root — for testing in a tmp folder, or vendoring the toolset as a package.
 .DESCRIPTION
     Never clobbers: an existing file at the destination aborts the copy before any write, unless -Force.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md#comment1)
 .PARAMETER Destination
     The target root the selected paths are mirrored into (created if missing).
 .PARAMETER ModuleNames
     Disk module names to copy (named + hidden). Default: all ((Get-BaseModule).Name).
 .PARAMETER ModuleProfile
     Alternative to -ModuleNames: the profile is widened to its dependency closure plus infrastructure first.
-    [comment:2](/docs/references/automation/catzc-base-modulesystem/Copy-Automation.ps1.md#comment2)
 .PARAMETER ExcludePackages
     Package names to drop (keys under any module's packages in files.yml). Default: none.
 .PARAMETER EmptyDestination

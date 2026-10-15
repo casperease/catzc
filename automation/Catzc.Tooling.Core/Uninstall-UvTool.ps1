@@ -15,7 +15,6 @@ catzc:
     Uninstalls a uv-managed tool.
 .DESCRIPTION
     A tool that is not installed is a no-op, not an error, and uv is only reached when something is to remove.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Uninstall-UvTool.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml (must declare uv_tool).
 #>

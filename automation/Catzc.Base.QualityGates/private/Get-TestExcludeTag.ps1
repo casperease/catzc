@@ -16,7 +16,6 @@ catzc:
     Test-InIsolation so the tier/category filter has one definition.
 .DESCRIPTION
     Tags are lowercase to match the files, and ExcludeTag matches an item's own tag, so mixed files filter per Context.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestExcludeTag.ps1.md#comment1)
 .PARAMETER MinLevel
     Lowest tier to keep (0-4). Tiers below it are excluded.
 .PARAMETER MaxLevel

@@ -15,7 +15,6 @@ catzc:
     Applies the captured Windows PSReadLine key bindings on Linux, filtered to Linux-supported functions.
 .DESCRIPTION
     Linux only: Windows bindings would clobber a Windows session's native handlers, so the apply asserts it.
-    [comment:1](/docs/references/automation/catzc-tooling-keyhandler/Import-PSReadLineKeyHandlerSet.ps1.md#comment1)
 .PARAMETER DryRun
     Return the classified plan (one record per binding with Key, Function, Supported) and change nothing.
 .EXAMPLE

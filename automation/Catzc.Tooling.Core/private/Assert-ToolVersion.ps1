@@ -16,7 +16,6 @@ catzc:
     Asserts the installed version of a tool matches its locked version.
 .DESCRIPTION
     A pipeline enforces the locked version alone, so main builds stay locked; only a devbox may use devbox_version.
-    [comment:1](/docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml.
 #>

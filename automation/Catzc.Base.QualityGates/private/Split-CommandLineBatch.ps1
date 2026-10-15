@@ -15,7 +15,6 @@ catzc:
     Splits a list of command-line arguments into batches whose joined length stays under a limit.
 .DESCRIPTION
     The default limit leaves room for cmd.exe's 8191 characters, as npm .cmd shims prepend the node path.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Split-CommandLineBatch.ps1.md#comment1)
 .PARAMETER Item
     The arguments, in order.
 .PARAMETER MaxLength

@@ -19,7 +19,6 @@ catzc:
     Writes the world map as PDFs: the grid view, the tree view, or both, optionally with a highlight.
 .DESCRIPTION
     One file per view, so each opens or is replaced alone; an unchanged repository writes byte-identical files.
-    [comment:1](/docs/references/automation/catzc-base-maps/Export-WorldMapPdf.ps1.md#comment1)
 .PARAMETER View
     The views to write: Grid, Tree, or both (the default).
 .PARAMETER Adr

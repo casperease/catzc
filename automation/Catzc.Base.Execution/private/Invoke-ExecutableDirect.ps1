@@ -15,14 +15,12 @@ catzc:
     Runs a CLI command directly with no output capture or stream separation.
 .DESCRIPTION
     Output reaches the pipeline as well as the console, so a caller that wants quiet must suppress it.
-    [comment:1](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md#comment1)
 .PARAMETER Command
     The command string to execute.
 .PARAMETER WorkingDirectory
     The directory to run the command in.
 .PARAMETER PassThru
     Ignored: Direct mode captures nothing, so there is no result to hand back.
-    [comment:2](/docs/references/automation/catzc-base-execution/private/Invoke-ExecutableDirect.ps1.md#comment2)
 .PARAMETER NoAssert
     Skip the exit code assertion.
 .PARAMETER Silent

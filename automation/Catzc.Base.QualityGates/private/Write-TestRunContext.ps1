@@ -15,7 +15,6 @@ catzc:
     Prints a test run's context block under its banner: one line per fact.
 .DESCRIPTION
     The block comes before any test output, so a reader knows where the run runs and why tiers were skipped.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestRunContext.ps1.md#comment1)
 .PARAMETER Context
     The record Get-TestRunContext returned.
 .EXAMPLE

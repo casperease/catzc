@@ -18,7 +18,6 @@ catzc:
     Installs the .NET SDK via official Microsoft install scripts (user-space).
 .DESCRIPTION
     A right-version install in our dir still converges PATH and DOTNET_ROOT, so re-running repairs lost persistence.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment1)
 .PARAMETER Version
     .NET SDK version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force

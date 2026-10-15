@@ -22,10 +22,8 @@ catzc:
     Performs one test run through the parallel harness — the shared core of Test-Automation and Test-CatzcBuild.
 .DESCRIPTION
     The two test runs differ only in what they pass in: entry script, opt-out tag, entry point name and banner title.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment1)
 .PARAMETER EntryPoint
     Its key names the default report folder under out/ and prefixes the protection key.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment2)
 .PARAMETER Title
     The banner title (Write-TestAutomationHeader).
 .PARAMETER MinLevel

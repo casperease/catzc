@@ -15,12 +15,10 @@ catzc:
     Runs uv with the given arguments.
 .DESCRIPTION
     The uv version lock is checked on every call, except a dry run, which needs no uv on the machine.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to uv.
 .PARAMETER Prerelease
     Opt in only: it pulls dev-marked packages into a version-locked install, so it always emits a message.
-    [comment:2](/docs/references/automation/catzc-tooling-core/Invoke-Uv.ps1.md#comment2)
 .PARAMETER PassThru
     Return a CliResult object with Output, Errors, Full, and ExitCode.
 .PARAMETER NoAssert

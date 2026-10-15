@@ -17,7 +17,6 @@ catzc:
     Returns the consumer overlay root Get-Config merges fragments from, cached per pair of session anchors.
 .DESCRIPTION
     A change of either anchor is a new cache key, so the answer never outlives the roots it came from.
-    [comment:1](/docs/references/automation/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md#comment1)
 .OUTPUTS
     [string] The overlay root, or nothing.
 #>

@@ -15,7 +15,6 @@ catzc:
     Collects conformance violations of the real code against the declared dependency graph.
 .DESCRIPTION
     Function calls and cross-module C# type references are checked against one and the same group-aware allow-list.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/private/Get-ModuleDependencyViolations.ps1.md#comment1)
 .OUTPUTS
     [string[]] One message per violation.
 .EXAMPLE

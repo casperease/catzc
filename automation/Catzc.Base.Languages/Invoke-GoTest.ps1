@@ -18,18 +18,14 @@ catzc:
     Runs a catzc module's Go tests and returns one result per Go test.
 .DESCRIPTION
     The commands run from inside the module folder, so ./... expands below the module root whatever the root is named.
-    [comment:1](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment1)
 .PARAMETER Module
     The catzc module whose Go tests to run (e.g. Catzc.Base.Repository).
 .PARAMETER EntryScript
     Leave it out for a source run: it then defaults to the repository's importer.ps1.
-    [comment:2](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment2)
 .PARAMETER GoExecutable
     A build run's engine has no tools.yml entry, so the caller must pass the go its source session resolved.
-    [comment:3](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment3)
 .PARAMETER Engine
     The tests are the same under either engine; only the environment contract they read changes.
-    [comment:4](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment4)
 .PARAMETER EngineExecutable
     The engine's executable, already located by the caller. Default: located here by Resolve-EngineExecutable.
 .OUTPUTS

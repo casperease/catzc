@@ -16,20 +16,16 @@ catzc:
     new name), pushes the local history, and verifies the result is token-free.
 .DESCRIPTION
     Deleting the repo is the only way to erase old commits remotely: a force-push leaves them fetchable by SHA.
-    [comment:1](/docs/references/automation/catzc-tooling-github/Reset-GitHubRepository.ps1.md#comment1)
 .PARAMETER Repo
     The GitHub repository to delete, as owner/name.
 .PARAMETER NewName
     Defaults to -Repo, which recreates in place; a different value deletes and renames in one step.
-    [comment:2](/docs/references/automation/catzc-tooling-github/Reset-GitHubRepository.ps1.md#comment2)
 .PARAMETER Branch
     The local branch to push as the new default. Defaults to main.
 .PARAMETER Token
     A hit or a foreign ref on the new remote aborts with a do-not-make-public warning.
-    [comment:3](/docs/references/automation/catzc-tooling-github/Reset-GitHubRepository.ps1.md#comment3)
 .PARAMETER BackupBundle
     The purge refuses to run without a bundle that verifies, as Assert-GitHubPurgeReady checks.
-    [comment:4](/docs/references/automation/catzc-tooling-github/Reset-GitHubRepository.ps1.md#comment4)
 .PARAMETER RepositoryPath
     The local clone to push from. Defaults to the repository root.
 .PARAMETER Visibility
@@ -38,7 +34,6 @@ catzc:
     Proceed even if the repo has forks (they defeat the purge). Off by default.
 .PARAMETER ConfirmRepo
     Any other value, or none, keeps the run a dry run, so a typo can never delete a repo.
-    [comment:5](/docs/references/automation/catzc-tooling-github/Reset-GitHubRepository.ps1.md#comment5)
 .PARAMETER DryRun
     Force a dry run even when -ConfirmRepo matches.
 .EXAMPLE

@@ -17,7 +17,6 @@ catzc:
     Moves every long comment of the repository's code and config files into the file's comment page, one-way.
 .DESCRIPTION
     A second run changes nothing, and page numbers are never reused, so an exported file stays stable.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Export-Comments.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to export. Default: every file in scope.
 .PARAMETER RepositoryRoot

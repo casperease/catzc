@@ -17,7 +17,6 @@ catzc:
     The object to inspect.
 .PARAMETER PropertyName
     A missing or null-valued level in a dotted path returns false at once instead of throwing.
-    [comment:1](/docs/references/automation/catzc-base-asserts/Test-HaveProperty.ps1.md#comment1)
 .EXAMPLE
     Test-HaveProperty $object 'Name'
 .EXAMPLE

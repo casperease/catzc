@@ -17,7 +17,6 @@ catzc:
     Projects a globset's scan program into vendor-native pipeline path filters — the no-start trigger.
 .DESCRIPTION
     Only a mechanical projection: an ADO set it cannot reproduce exactly is caught by the superset test, not here.
-    [comment:1](/docs/references/automation/catzc-base-globs/Get-GlobSetTrigger.ps1.md#comment1)
 .PARAMETER Name
     The declared globset to project.
 .PARAMETER GlobSet

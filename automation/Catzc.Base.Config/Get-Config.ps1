@@ -17,7 +17,6 @@ catzc:
     Loads, validates, and caches a module's config by its global lowercase name.
 .DESCRIPTION
     The parsed config is cached per path for the session, so every repeat call returns the same reference.
-    [comment:1](/docs/references/automation/catzc-base-config/Get-Config.ps1.md#comment1)
 .PARAMETER Config
     The config's global lowercase name (kebab-case), without the .yml extension — e.g. 'ado', 'pipeline-env'.
 .PARAMETER Module

@@ -17,7 +17,6 @@ catzc:
     Turns a contract asset's note into the markdown text of its list item on a generated page.
 .DESCRIPTION
     A note is a comment where a citation is a repository-rooted link, so on a page each link becomes page-relative.
-    [comment:1](/docs/references/automation/catzc-base-contracts/private/ConvertTo-ContractNoteMarkdown.ps1.md#comment1)
 .PARAMETER Note
     The note, one line.
 .PARAMETER PageFolder

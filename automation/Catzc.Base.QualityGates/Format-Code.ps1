@@ -19,10 +19,8 @@ catzc:
     Formats the repository's files, each with the formatter engine languages.yml names for its file language.
 .DESCRIPTION
     Adding a language on an existing engine is one line in languages.yml; a new engine is one adapter.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment1)
 .PARAMETER Language
     Defaults to every language with a formatter; an undeclared or formatter-less language throws.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment2)
 .PARAMETER Path
     Files or folders to format (a folder: its tracked files). Defaults to every tracked file.
 .PARAMETER DryRun

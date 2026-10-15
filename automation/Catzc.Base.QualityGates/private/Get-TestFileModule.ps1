@@ -17,7 +17,6 @@ catzc:
     test folder.
 .DESCRIPTION
     A Go or Python test folder belongs to the module it is named for, so its tests protect that module.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestFileModule.ps1.md#comment1)
 .PARAMETER Path
     The absolute path of a file under <repo>/automation/, or of a language test folder.
 #>

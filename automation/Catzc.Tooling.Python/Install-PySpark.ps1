@@ -15,7 +15,6 @@ catzc:
     Installs PySpark into the uv-managed Python via `uv pip`.
 .DESCRIPTION
     Java is a runtime dependency that this install does not provide; Invoke-PySpark asserts it before each use.
-    [comment:1](/docs/references/automation/catzc-tooling-python/Install-PySpark.ps1.md#comment1)
 .PARAMETER Version
     PySpark version to install. Defaults to the locked version in Get-ToolConfig.
 .PARAMETER Force

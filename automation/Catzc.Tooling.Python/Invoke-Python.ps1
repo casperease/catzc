@@ -15,7 +15,6 @@ catzc:
     Runs python with the given arguments.
 .DESCRIPTION
     A dry run skips the version assert, so command strings can be tested without Python installed.
-    [comment:1](/docs/references/automation/catzc-tooling-python/Invoke-Python.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to python.
 .PARAMETER PassThru

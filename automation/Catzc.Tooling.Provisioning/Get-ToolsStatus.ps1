@@ -15,7 +15,6 @@ catzc:
     Reports the installation status of all registered tools.
 .DESCRIPTION
     Read-only and idempotent: it only observes the machine, so it is safe to run at any time.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md#comment1)
 .EXAMPLE
     Get-ToolsStatus
 .EXAMPLE

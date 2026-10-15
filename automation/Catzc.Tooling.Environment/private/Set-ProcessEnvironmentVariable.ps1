@@ -15,7 +15,6 @@ catzc:
     Sets or removes a process-scope environment variable — the mockable I/O boundary for Write-EnvironmentSet.
 .DESCRIPTION
     A null value removes the variable, which is how a scoped restore returns an unset variable to unset.
-    [comment:1](/docs/references/automation/catzc-tooling-environment/private/Set-ProcessEnvironmentVariable.ps1.md#comment1)
 .PARAMETER Name
     The environment variable name to write.
 .PARAMETER Value

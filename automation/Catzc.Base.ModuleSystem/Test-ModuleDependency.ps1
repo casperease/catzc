@@ -16,7 +16,6 @@ catzc:
     Quality gate: checks that the actual module dependencies conform to the declared graph.
 .DESCRIPTION
     A malformed config throws at load, before any check runs: it is a bug to fix, not a conformance result.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-ModuleDependency.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-module-dependency).
 .PARAMETER PassThru

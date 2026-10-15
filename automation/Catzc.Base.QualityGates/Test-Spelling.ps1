@@ -18,10 +18,8 @@ catzc:
     Spell-checks the repository's known file types with cspell and writes a report under out/.
 .DESCRIPTION
     A scan that matched no files throws before the report, since there is no verdict to report.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment1)
 .PARAMETER Path
     cspell still applies ignorePaths from cspell.yml, so an explicit path can still be skipped.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment2)
 .PARAMETER Exclude
     Content scope only: non-authored noise such as vendor or compiled output belongs in cspell.yml ignorePaths.
     [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment3)

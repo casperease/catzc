@@ -19,19 +19,14 @@ catzc:
     "root configs are managed" contract.
 .DESCRIPTION
     In build mode this skips instead of throwing, because the importer calls it on every load and must not fail.
-    [comment:1](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment1)
 .PARAMETER Target
     A wildcard entry is selected by its own pattern, or one of its files by a path the pattern matches.
-    [comment:2](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment2)
 .PARAMETER DryRun
     The composed content is the same either way; -DryRun only skips the write.
-    [comment:3](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment3)
 .PARAMETER Silent
     -Silent beats -Verbose, so the importer tail does not chatter during import in a verbose session.
-    [comment:4](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment4)
 .PARAMETER PassThru
     A wildcard entry reports one object per rendered file, each carrying that file's own Target.
-    [comment:5](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment5)
 .OUTPUTS
     [string[]] The paths to the managed files (with -PassThru, one result object per file instead).
 .EXAMPLE

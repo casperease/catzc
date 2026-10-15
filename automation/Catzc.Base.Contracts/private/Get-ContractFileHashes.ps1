@@ -17,7 +17,6 @@ catzc:
     Hashes every file of one contract version folder, the content a release freezes.
 .DESCRIPTION
     CRLF is read as LF before hashing, so a core.autocrlf checkout and an LF checkout of one commit hash the same.
-    [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md#comment1)
 .PARAMETER Folder
     The version folder's absolute path.
 .OUTPUTS

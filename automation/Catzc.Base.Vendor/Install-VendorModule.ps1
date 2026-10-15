@@ -18,7 +18,6 @@ catzc:
     Saves a PowerShell module into the automation/.vendor directory from the configured source.
 .DESCRIPTION
     Run it in a fresh session: a loaded module locks its files, and build mode stops with a named error.
-    [comment:1](/docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md#comment1)
 .PARAMETER Name
     The module name to install from the vendor source.
 .PARAMETER RequiredVersion

@@ -15,7 +15,6 @@ catzc:
     Lists the Python tests a Python test folder declares, read from its test_*.py files without running Python.
 .DESCRIPTION
     Tests are read from source text, not pytest, so discovery stays fast and offline and works where uv is missing.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-PythonTestCases.ps1.md#comment1)
 .PARAMETER Folder
     The absolute path of the Python test folder (a Get-LanguageTestFolders Folder).
 .OUTPUTS

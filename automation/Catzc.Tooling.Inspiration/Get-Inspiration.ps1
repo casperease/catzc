@@ -18,7 +18,6 @@ catzc:
     Lists the inspirations catzc reads for ideas, and whether each is available on this machine.
 .DESCRIPTION
     An absent inspiration is reported with Available false, never thrown on, so the work carries on without it.
-    [comment:1](/docs/references/automation/catzc-tooling-inspiration/Get-Inspiration.ps1.md#comment1)
 .PARAMETER Id
     The id of one inspiration (its inspiration.yml entry).
 .PARAMETER Count

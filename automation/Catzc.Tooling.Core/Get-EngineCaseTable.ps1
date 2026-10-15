@@ -16,7 +16,6 @@ catzc:
     Loads a per-engine fixture table: one row per case and execution engine (ExecutionEngines), validated.
 .DESCRIPTION
     A case that skips an engine must say why ("n/a: reason"), so a missing engine cell can never hide a parity gap.
-    [comment:1](/docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md#comment1)
 .PARAMETER Path
     The table file: absolute, or relative to the repository root (never to the current directory).
 .PARAMETER Engine

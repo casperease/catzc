@@ -17,9 +17,6 @@ catzc:
     Normalizes a path to its communication form: out/-anchored, then repo-root-relative, else absolute.
 .DESCRIPTION
     No hybrid form: a path under neither root stays absolute, and the out/ anchor is tried first.
-    [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md),
-    [ADR-AUTO-PATH#5](/docs/adr/automation/path-representation.md#rule-adr-auto-path5)
-    [comment:1](/docs/references/automation/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md#comment1)
 .PARAMETER Path
     The path to normalize. Need not exist.
 .EXAMPLE

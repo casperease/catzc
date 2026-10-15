@@ -16,10 +16,8 @@ catzc:
     order, infrastructure last.
 .DESCRIPTION
     If the dependency graph cannot be sorted, the order falls back to ordinal so the run still proceeds.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md#comment1)
 .PARAMETER Modules
     Dot-prefixed infrastructure is never a named module, so it appears only when unfiltered.
-    [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationTestPaths.ps1.md#comment2)
 .OUTPUTS
     [string[]] the test paths, foundation-first, infrastructure last. Empty when nothing matches.
 #>

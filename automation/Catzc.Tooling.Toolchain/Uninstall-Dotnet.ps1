@@ -18,13 +18,10 @@ catzc:
     Uninstalls the .NET SDK installed by Install-Dotnet.
 .DESCRIPTION
     A holder process makes the uninstall throw, naming it, so a locked file never leaves a half-deleted install.
-    [comment:1](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md#comment1)
 .PARAMETER Remove
     Alone it only reports the plan; pair it with -Force so Remove-Dotnet actually evicts the off-config install.
-    [comment:2](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md#comment2)
 .PARAMETER Force
     Stops exactly the processes named as holding the install open; with -Remove it also confirms the eviction.
-    [comment:3](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md#comment3)
 .EXAMPLE
     Uninstall-Dotnet
 .EXAMPLE

@@ -17,12 +17,10 @@ catzc:
     Answers "which areas-of-control do these changes touch?" — one row per matched globset.
 .DESCRIPTION
     Derived module rows name the modules to test; a declared row carries its configured verify scope instead.
-    [comment:1](/docs/references/automation/catzc-base-globs/Get-MarkerBlastRadius.ps1.md#comment1)
 .PARAMETER ChangedFile
     The changed files, repo-relative and '/'-separated (backslashes are normalized).
 .PARAMETER Ref
     The ref is diffed against the working tree, so uncommitted edits count: main answers what my branch touches.
-    [comment:2](/docs/references/automation/catzc-base-globs/Get-MarkerBlastRadius.ps1.md#comment2)
 .OUTPUTS
     [pscustomobject] per matched set: Name, Layer, Pipeline, VerifyModules, VerifyLevel — declared sets
     first (registry order), then the derived module sets, each set at most once.

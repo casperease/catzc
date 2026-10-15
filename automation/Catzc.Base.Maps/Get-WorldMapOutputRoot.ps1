@@ -17,7 +17,6 @@ catzc:
     Returns the folder the world-map PDFs are written to.
 .DESCRIPTION
     This is the seam a test mocks to a folder of its own, so a run never writes into the real world-map folder.
-    [comment:1](/docs/references/automation/catzc-base-maps/Get-WorldMapOutputRoot.ps1.md#comment1)
 .PARAMETER EnsureExists
     Create the folder (and the output root) when it does not exist.
 .OUTPUTS

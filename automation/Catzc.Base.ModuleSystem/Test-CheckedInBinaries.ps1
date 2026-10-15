@@ -16,7 +16,6 @@ catzc:
     Quality gate: every checked-in binary in the repository is stored byte-exact.
 .DESCRIPTION
     Binary means a NUL byte in the first 8000 bytes, as git decides, so no extension list can go stale.
-    [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-CheckedInBinaries.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-checked-in-binaries/ (Write-QualityGateReport).
 .PARAMETER PassThru

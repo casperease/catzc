@@ -16,12 +16,10 @@ catzc:
     Creates a verified, isolated snapshot of a repository's working tree as it is right now.
 .DESCRIPTION
     Copies working-tree bytes, not a checkout, so core.autocrlf cannot alter them; ignored content stays out.
-    [comment:1](/docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md#comment1)
 .PARAMETER SourceRoot
     The repository to snapshot. Defaults to the repository root (Get-RepositoryRoot).
 .PARAMETER Destination
     Must not exist yet, so a snapshot never mixes into a folder it did not create.
-    [comment:2](/docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md#comment2)
 .PARAMETER Attempts
     How many times to build the snapshot when verification finds it differs from its source. Default 3.
 .OUTPUTS

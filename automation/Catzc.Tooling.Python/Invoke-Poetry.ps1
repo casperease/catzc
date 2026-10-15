@@ -15,7 +15,6 @@ catzc:
     Runs poetry with the given arguments.
 .DESCRIPTION
     A dry run skips the version assert, so command strings can be tested without Poetry installed.
-    [comment:1](/docs/references/automation/catzc-tooling-python/Invoke-Poetry.ps1.md#comment1)
 .PARAMETER Arguments
     Arguments to pass to poetry.
 .PARAMETER PassThru

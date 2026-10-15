@@ -22,10 +22,8 @@ catzc:
     Returns the world map: every tracked file placed in one cell of tracks by file languages.
 .DESCRIPTION
     File text is read only for kinds that cite ADRs, once per session, so the map costs one pass over the index.
-    [comment:1](/docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md#comment1)
 .PARAMETER AsJson
     JSON carries axes, cells and per-file placements, so a tool reads the map without PowerShell.
-    [comment:2](/docs/references/automation/catzc-base-maps/Get-WorldMap.ps1.md#comment2)
 .OUTPUTS
     [Catzc.Base.Maps.WorldMap], or [string] with -AsJson.
 .EXAMPLE

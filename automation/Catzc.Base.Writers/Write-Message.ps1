@@ -17,20 +17,16 @@ catzc:
     Writes a status message with calling function name prefix.
 .DESCRIPTION
     Silent in Pester runs through the guard in Write-InformationColored, so this function needs no test plumbing.
-    [comment:1](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment1)
 .PARAMETER Message
     The message text to write.
 .PARAMETER NoHeader
     Omits the [caller] prefix.
 .PARAMETER NoNewline
     The next write continues the same line, so this serves the inline liveness dot; it has no effect on verbose output.
-    [comment:4](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment4)
 .PARAMETER ForegroundColor
     A rainbow value is flattened to its base colour, because a status line is solid and a gradient is for rules.
-    [comment:2](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment2)
 .PARAMETER Warning
     Not the Write-Warning stream: the importer makes a real warning halt, so use throw to stop and this to notify.
-    [comment:3](/docs/references/automation/catzc-base-writers/Write-Message.ps1.md#comment3)
 .EXAMPLE
     Write-Message '.' -NoHeader -NoNewline
 .EXAMPLE

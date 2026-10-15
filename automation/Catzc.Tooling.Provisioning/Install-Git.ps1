@@ -15,7 +15,6 @@ catzc:
     Installs Git (user-space on Windows, package manager elsewhere).
 .DESCRIPTION
     Windows needs no admin and persists PATH; Linux needs root; an existing git makes it a no-op.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Install-Git.ps1.md#comment1)
 .PARAMETER Force
     Remove an existing installation before reinstalling.
 .EXAMPLE

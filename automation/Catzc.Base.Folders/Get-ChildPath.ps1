@@ -15,14 +15,12 @@ catzc:
     Lists the files and folders below a folder, to a bounded depth, without loading the tree.
 .DESCRIPTION
     The one way to enumerate children and deeper.
-    [comment:1](/docs/references/automation/catzc-base-folders/Get-ChildPath.ps1.md#comment1)
 .PARAMETER Path
     The folder to list below. It must exist.
 .PARAMETER Depth
     How many levels to list: 1 is the direct children only. The default is the folder-walk config's depth.
 .PARAMETER Filter
     Simple wildcard patterns matched against each name; an entry is listed when any pattern matches.
-    [comment:2](/docs/references/automation/catzc-base-folders/Get-ChildPath.ps1.md#comment2)
 .PARAMETER Directory
     List folders only. With -File, or with neither, both are listed.
 .PARAMETER File
@@ -31,7 +29,6 @@ catzc:
     Folder names to prune. The default is the folder-walk config's exclude list.
 .PARAMETER PruneVendor
     Whether the vendor folder is pruned as well.
-    [comment:3](/docs/references/automation/catzc-base-folders/Get-ChildPath.ps1.md#comment3)
 .OUTPUTS
     [string[]] Full paths of the matching entries.
 .EXAMPLE

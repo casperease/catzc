@@ -18,7 +18,6 @@ catzc:
     trigger-drift quality gate.
 .DESCRIPTION
     Filters compare as sets, since ADO path filters are order-independent; a missing pipeline file is an issue too.
-    [comment:1](/docs/references/automation/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md#comment1)
 .PARAMETER Name
     The globset(s) to check — a declared, pipeline-bound name. Omit for every pipeline-bound globset.
 .PARAMETER OutputFolder

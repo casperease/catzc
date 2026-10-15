@@ -15,7 +15,6 @@ catzc:
     Runs one located executable's version command and returns the parsed version — the probe's only process start.
 .DESCRIPTION
     Output that misses the pattern yields null, not an error, so the caller decides what no version means.
-    [comment:1](/docs/references/automation/catzc-base-execution/private/Get-ExecutableVersion.ps1.md#comment1)
 .PARAMETER Path
     The located executable's full path.
 .PARAMETER Arguments

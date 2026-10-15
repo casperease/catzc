@@ -15,7 +15,6 @@ catzc:
     Asserts all tools are available at the correct version.
 .DESCRIPTION
     Usable passes like OK and Chocolatey status is ignored: a tool counts if it works, however it was installed.
-    [comment:1](/docs/references/automation/catzc-tooling-provisioning/Assert-DevBoxToolsStatus.ps1.md#comment1)
 .EXAMPLE
     Assert-DevBoxToolsStatus
 #>

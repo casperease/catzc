@@ -17,12 +17,10 @@ catzc:
     on-PATH binary. Both steps are user-space.
 .DESCRIPTION
     Neither step needs elevation: the pip removal is uv-scoped, and the delete touches only the resolved binary.
-    [comment:1](/docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md#comment1)
 .PARAMETER Config
     The tool's parsed tools.yml entry (from Get-ToolConfig).
 .PARAMETER Source
     Passed in, never looked up again, so the file deleted is exactly the one the caller judged.
-    [comment:2](/docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md#comment2)
 .OUTPUTS
     [bool] — $true when an off-config install was removed, $false when there was nothing to remove.
 #>

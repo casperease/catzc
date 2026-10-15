@@ -15,17 +15,14 @@ catzc:
     Adds a directory to PATH persistently and in the current session.
 .DESCRIPTION
     Windows persists in the User registry PATH, Unix in a marked profile block; a path already present is skipped.
-    [comment:1](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment1)
 .PARAMETER Path
     The directory to add. Must exist.
 .PARAMETER Prepend
     Place the path at the beginning instead of the end.
 .PARAMETER Label
     Must equal the Label given to Remove-PermanentPath, or that call cannot find the block to remove.
-    [comment:2](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment2)
 .PARAMETER Sync
     Also brings in registry entries that other installers added, not only this path; it has no effect on Unix.
-    [comment:3](/docs/references/automation/catzc-base-environment/Add-PermanentPath.ps1.md#comment3)
 .EXAMPLE
     Add-PermanentPath '/usr/local/go/bin'
 .EXAMPLE

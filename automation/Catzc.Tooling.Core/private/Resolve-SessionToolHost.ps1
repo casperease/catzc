@@ -15,7 +15,6 @@ catzc:
     Points the current session at the best install home of a tool, chosen by its session_host_probes.
 .DESCRIPTION
     PATH order is not trusted: a machine-wide, runtime-only dotnet can precede the user PATH and shadow the managed SDK.
-    [comment:1](/docs/references/automation/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md#comment1)
 .PARAMETER Config
     The tool's ToolConfig (from Get-ToolConfig).
 #>

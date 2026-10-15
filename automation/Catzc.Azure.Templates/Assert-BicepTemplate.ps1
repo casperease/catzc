@@ -18,12 +18,10 @@ catzc:
     counterpart to the fail-fast checks Get-BicepTemplates runs at discovery.
 .DESCRIPTION
     Unlike discovery, which stops at the first violation, this reports all of a template's problems in one throw.
-    [comment:1](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment1)
 .PARAMETER Template
     Template name to validate. Omit to validate every template under infrastructure/templates/.
 .PARAMETER Build
     Opt-in because it needs az and writes the template's build output folder; the default checks need neither.
-    [comment:2](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment2)
 .EXAMPLE
     Assert-BicepTemplate my-template
 .EXAMPLE

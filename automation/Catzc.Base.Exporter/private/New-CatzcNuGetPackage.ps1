@@ -17,7 +17,6 @@ catzc:
     Packs a Catzc build into a NuGet package (.nupkg) for a local-path Install-PSResource.
 .DESCRIPTION
     The build folder is packed as is, since it already is an installable module; pack only, no publish.
-    [comment:1](/docs/references/automation/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md#comment1)
 .PARAMETER Source
     The build root (Build-Modules' BuildRoot — the Catzc/<version>/ folder).
 .PARAMETER DestinationPath

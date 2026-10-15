@@ -16,7 +16,6 @@ catzc:
     Times quality gates (or analyzer rules), to find what makes a check slow.
 .DESCRIPTION
     Each gate runs once with its report in a throwaway folder, so a measurement leaves no report behind.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/Measure-QualityGates.ps1.md#comment1)
 .PARAMETER Name
     The quality gates to time. Default: every gate a language's `checks` names in languages.yml.
 .PARAMETER AnalyzerRules

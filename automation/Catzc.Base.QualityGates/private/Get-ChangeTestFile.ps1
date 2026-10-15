@@ -16,7 +16,6 @@ catzc:
     Maps changed repository paths to the test files that cover them.
 .DESCRIPTION
     Naming convention only: a change with no existing test file beside its convention adds nothing, never a guess.
-    [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ChangeTestFile.ps1.md#comment1)
 .PARAMETER Path
     The changed repo-relative, '/'-separated paths.
 .PARAMETER RepositoryRoot
