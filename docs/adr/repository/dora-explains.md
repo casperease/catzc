@@ -230,6 +230,24 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   not say, so a change is made against what matters.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## Markdown meta
+
+`Markdown meta — one reserved block of derived facts and authored config in a file's front matter`
+
+[ADR-REPO-MDMETA](markdown-meta.md)
+
+> DORA's research ties maintainable systems to a single source of truth and to checks that catch drift early. Computable facts written by
+> a formatter in one fixed form, and authored values stated once beside the thing they describe, keep files and registries from drifting
+> apart without a manual step.
+
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a fact is stated once, so a file and the registry
+  that mirrors it cannot disagree.
+- [Version control](../../references/dora/capabilities.md#version-control) — derived values are byte-identical on every run, so a diff
+  carries only real change.
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — the meta check fails a drifted file in the
+  pipeline, before it reaches the trunk.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Agent definitions
 
 `Agent definitions — every sub-agent rests on a rule and maps to its checks`

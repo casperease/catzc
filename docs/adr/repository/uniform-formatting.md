@@ -72,6 +72,14 @@ command per language and no list of formatters in a check (ADR-PRIN-CONFIG#1).
 
 - [Formatting is configured per language](#formatting-is-configured-per-language)
 
+### Rule ADR-REPO-FORMAT:9
+
+The `derived` part of a Markdown file's meta block ([ADR-REPO-MDMETA#1](markdown-meta.md#rule-adr-repo-mdmeta1)) is formatter output like
+the title: `Format-MarkdownMeta` writes it in canonical, prettier-stable form, byte-identical on every run, and `Test-MarkdownMeta` checks
+it, over the same file class as the title (ADR-REPO-FORMAT#6). A hand edit to a derived value is overwritten.
+
+- [Markdown meta is imprinted](#markdown-meta-is-imprinted)
+
 ## Context
 
 The repository holds many file types — PowerShell (`.ps1`/`.psm1`/`.psd1`), Bicep, YAML pipelines, Markdown, JSON, C#. When formatting is
@@ -116,6 +124,14 @@ line in the registry — `formatter: prettier` — so supporting a language on a
 reviewed as such, and the editor, the formatting command, and the `Test-Formatting` check all read the same line. A language with nothing to
 format says why in `no_formatter:`, so a gap is a visible entry rather than a missing command. Adding a language means adding its registry
 entry and its `.editorconfig` section — not a new command, and not a new formatting philosophy.
+
+### Markdown meta is imprinted
+
+`Derived front matter is written, not typed`
+
+A fact that can be computed from a Markdown file and the repository sits in the file's meta block, where a reader and a tool both see it.
+Because the formatter writes it in one fixed form, a rerun changes nothing and a diff never carries it as noise. The kinds of fact, the
+reserved key and the subscription of each kind are in [markdown-meta](markdown-meta.md).
 
 ### `.gitattributes` and binary files
 
@@ -189,6 +205,8 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - **Markdown titles** — `Format-MarkdownTitle` titles every in-scope Markdown file with its repository path, brings its headings into normal
   form (moving trailing reference groups out, quoting `dora-explains` paragraphs, and re-pointing every link to a heading whose anchor
   changed), and `Test-MarkdownTitle` checks both, including duplicate anchors; an L1 test asserts the tracked tree has no finding.
+- **Markdown meta** — `Format-MarkdownMeta` imprints the `derived` part of every in-scope Markdown file's meta block, and
+  `Test-MarkdownMeta` fails any file that differs from what the formatter would write ([markdown-meta](markdown-meta.md)).
 
 ## Consequences
 

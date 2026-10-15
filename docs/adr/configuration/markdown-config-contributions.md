@@ -68,12 +68,12 @@ named for it, found by convention
 
 ## Context
 
-Several configs are lists of things that already have a Markdown file of their own. An agent definition is a file, and the agent registry
+Several configs are lists of things that have a Markdown file of their own. An agent definition is a file, and the agent registry
 lists the same agent a second time. An ADR is a file, and a few of its settings sit in `adrs.yml`. Two files that state one fact drift: the
 registry gains an entry the file does not have, or the file changes and the registry keeps the old line. A gate can report the drift, but
 the cheaper fix is one statement, made where the thing is.
 
-A Markdown file already carries structured front matter for other tools, so the statement has a natural home. What it lacks is a way into
+A Markdown file carries structured front matter for other tools, so the statement has a natural home. What it lacks is a way into
 the config system that keeps the rules of that system: one reader, one resolution order, typed validation, a cache that never serves a
 stale value, and nothing secret.
 
@@ -94,9 +94,9 @@ belongs to. It is not a command and carries no logic. The meta block, its two pa
 
 `Contributions join the existing merge`
 
-The overlay fragment already merges onto the bundled config key by key before the config's type validates the result
+The overlay fragment merges onto the bundled config key by key before the config's type validates the result
 ([consumer-overlay](../automation/consumer-overlay.md#rule-adr-auto-overlay4)). Contributions use the same merge, placed between the
-bundled file and the overlay, so a consumer's overlay still has the last word and the bundled file is still the base. The order is fixed and
+bundled file and the overlay, so a consumer's overlay has the last word and the bundled file is the base. The order is fixed and
 written once, so a value never depends on which file the reader happened to open first: contributions apply in the ordinal order of their
 repository paths.
 
@@ -148,8 +148,8 @@ function file, with no edit to `Get-Config`. The loader stays content-agnostic (
 ## Consequences
 
 - A fact about a thing is stated once, in the file of the thing, and the config that needs it reads it from there. A registry that mirrors
-  a set of files no longer needs a gate to keep it in step.
-- The resolution order of a setting has one more named step, and it is written in one place. A consumer's overlay still overrides it.
+  a set of files needs no gate to keep it in step.
+- The resolution order of a setting has a named step for contributions, written in one place. A consumer's overlay overrides it.
 - A Markdown file can change a config, so the set of files that may do so is declared per config and bounded by globs. A reviewer reads
   the glob list, not the repository.
 - A contribution is only as safe as the config's type: a config whose type accepts anything accepts anything from prose too, which is
