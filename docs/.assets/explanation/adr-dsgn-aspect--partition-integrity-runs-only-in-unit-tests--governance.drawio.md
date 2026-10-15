@@ -99,11 +99,11 @@ explanation articles, these descriptions and the drawing tooling never light any
   `.github` (1 file); `.internal` (1 file); `Contracts` (1 file); `Exporter` (1 file); `ModuleSystem` (1 file); `Overlay` (1 file). The ADR
   files `docs/adr/design/module-aspects.md`, `docs/adr/flow/durable-sha-globs.md`, `docs/adr/pwsh/dynamic-module-manifests.md`,
   `docs/adr/pwsh/one-function-per-file.md`, `docs/adr/repository/conventional-folders.md` carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 3 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-ASPECT:
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 3 lit cells: `DSGN × LOCAL`, because ADR-DSGN-ASPECT:
   its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
   (ADR-DSGN-TRACK#15); ADR-FLOW-CD-GLOBS: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its own
   value-chain concern (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-DSGN-ASPECT: its ADR domain `design` sits on the DSGN row
-  (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × AUTOMA`, because ADR-PWSH-MANIFEST:
+  (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × LOCAL`, because ADR-PWSH-MANIFEST:
   its ADR domain `pwsh` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15);
   ADR-PWSH-ONEFUNC: its ADR domain `pwsh` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern
   (ADR-DSGN-TRACK#15); ADR-REPO-FOLDERS: its ADR domain `repository` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR

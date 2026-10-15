@@ -103,9 +103,9 @@ drawing tooling never light anything.
   file); `Files` (1 file); `Overlay` (1 file); `Timeouts` (1 file); `Tool.Python` (1 file). The ADR files
   `docs/adr/automation/test-automation.md`, `docs/adr/flow/durable-sha-globs.md`, `docs/adr/repository/protected-globs.md` carry the white
   rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 3 lit cells: `DSGN × AUTOMA`, because ADR-FLOW-CD-GLOBS:
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 3 lit cells: `DSGN × LOCAL`, because ADR-FLOW-CD-GLOBS:
   its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its own value-chain concern (ADR-DSGN-TRACK#15);
-  `AUTO × AUTOMA`, because ADR-REPO-PROTGLOB: its ADR domain `repository` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its
+  `AUTO × LOCAL`, because ADR-REPO-PROTGLOB: its ADR domain `repository` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its
   ADR domain's default concern (ADR-DSGN-TRACK#15); `AUTO × QC`, because ADR-AUTO-TEST: its ADR domain `automation` sits on the AUTO row
   (ADR-DSGN-TRACK#14), and quality-control is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV, with "Supports ADR-FLOW-CD-GLOBS" and "ADR-AUTO-TEST · ADR-REPO-PROTGLOB" beneath it.

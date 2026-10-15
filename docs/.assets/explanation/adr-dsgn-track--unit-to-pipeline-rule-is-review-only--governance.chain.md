@@ -28,10 +28,10 @@ Rows are the value-chain stack and columns the value-chain concerns, each printe
 - `AUTO`: the AUTO row of the value-chain stack
 - `PIPE`: the PIPE row of the value-chain stack
 - `CLOUD`: the CLOUD row of the value-chain stack
-- `AUTOMA`: automation
+- `LOCAL`: the LOCAL row of the value-chain stack
 - `BUILD`: build
 - `QC`: quality-control
-- `RELEAS`: release
+- `RELEASE`: release
 - `DEPLOY`: deploy
 - `ACCESS`: access
 

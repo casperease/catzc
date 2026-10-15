@@ -222,7 +222,7 @@ update and the gallery until then.
 
 - **K5 (the user-approved redesign):** no density shading on any minimap; idle grey boxes everywhere; one lit encoding, ink #37474F, with
   40% for passing mentions and a white rim on a lit ADR file. `MapsPalette.DefaultHighlight` follows it, so the PDFs match. Labels are short
-  and horizontal; the value-chain column codes AUTOMA, BUILD, QC, RELEAS, DEPLOY and ACCESS, with AUTOMA and RELEAS registered as
+  and horizontal; the value-chain column codes LOCAL, BUILD, QC, RELEASE, DEPLOY and ACCESS, with LOCAL and RELEASE registered as
   abbreviations. Axis titles live in the map key and in each sister `.md`'s "Key" section. Every check reports 0; I checked the user's
   example slide by eye.
 - **K6:** `MapsHighlight.citation_exclude`, default `[docs/.assets/**]`, keeps the generated slide descriptions from lighting minimaps, so a

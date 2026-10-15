@@ -85,7 +85,7 @@ anything.
   `docs × .md` (3 files: 2 cite ADR-DSGN-THINPLAT; 1 is the ADR file of ADR-DSGN-THINPLAT).
 - **Tree** (the repository's files): 4 lit groups, `adr/dsgn` (2 files); `Docs` (1 file); `QualityGates` (1 file); `adr/*` (1 file). The ADR
   file `docs/adr/design/thin-platforms.md` carries the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-THINPLAT:
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `DSGN × LOCAL`, because ADR-DSGN-THINPLAT:
   its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, deploy is its own value-chain concern
   (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-THINPLAT: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
   automation, deploy is its own value-chain concern (ADR-DSGN-TRACK#15).

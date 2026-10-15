@@ -81,7 +81,7 @@ the ADR the slide supports (ADR-DSGN-ASPECT); the explanation articles, these de
   cite ADR-DSGN-ASPECT; 1 is the ADR file of ADR-DSGN-ASPECT).
 - **Tree** (the repository's files): 6 lit groups, `Globs` (4 files); `Variants` (4 files); `adr/dsgn` (2 files); `Docs` (1 file);
   `QualityGates` (1 file); `adr/*` (1 file). The ADR file `docs/adr/design/module-aspects.md` carries the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-ASPECT:
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `DSGN × LOCAL`, because ADR-DSGN-ASPECT:
   its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
   (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-DSGN-ASPECT: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
   automation, build is its own value-chain concern (ADR-DSGN-TRACK#15).

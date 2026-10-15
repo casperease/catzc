@@ -104,14 +104,14 @@ descriptions and the drawing tooling never light anything.
   `Engines` (1 file); `Environment` (1 file); `Files` (1 file); `Timeouts` (1 file); `Tool.Python` (1 file); `pipelines` (1 file). The ADR
   files `docs/adr/automation/platform-bundle.md`, `docs/adr/automation/test-automation.md`, `docs/adr/design/run-modes.md`,
   `docs/adr/pwsh/dynamic-module-manifests.md` carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 6 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-RUNMODE:
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 6 lit cells: `DSGN × LOCAL`, because ADR-DSGN-RUNMODE:
   its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
   (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-DSGN-RUNMODE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
-  automation, build is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × AUTOMA`, because ADR-PWSH-MANIFEST: its ADR domain `pwsh`
+  automation, build is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × LOCAL`, because ADR-PWSH-MANIFEST: its ADR domain `pwsh`
   sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15); `AUTO × BUILD`, because
   ADR-AUTO-BUNDLE: its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and build, release is its own value-chain concern
   (ADR-DSGN-TRACK#15); `AUTO × QC`, because ADR-AUTO-TEST: its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and
-  quality-control is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × RELEAS`, because ADR-AUTO-BUNDLE: its ADR domain `automation`
+  quality-control is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × RELEASE`, because ADR-AUTO-BUNDLE: its ADR domain `automation`
   sits on the AUTO row (ADR-DSGN-TRACK#14), and build, release is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV, with "Supports ADR-AUTO-BUNDLE · ADR-PWSH-MANIFEST" and "ADR-AUTO-TEST · ADR-DSGN-RUNMODE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

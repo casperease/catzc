@@ -87,7 +87,7 @@ is, the ADR the slide supports (ADR-AUTO-BUNDLE); the explanation articles, thes
   carries the white rim.
 - **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `AUTO × BUILD`, because ADR-AUTO-BUNDLE:
   its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and build, release is its own value-chain concern
-  (ADR-DSGN-TRACK#15); `AUTO × RELEAS`, because ADR-AUTO-BUNDLE: its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and
+  (ADR-DSGN-TRACK#15); `AUTO × RELEASE`, because ADR-AUTO-BUNDLE: its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and
   build, release is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** ARCH, with "Supports ADR-AUTO-BUNDLE" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

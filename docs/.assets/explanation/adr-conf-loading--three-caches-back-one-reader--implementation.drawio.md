@@ -87,7 +87,7 @@ anything.
 - **Tree** (the repository's files): 10 lit groups, `Docs` (9 files); `Config` (2 files); `Git` (2 files); `QualityGates` (2 files);
   `adr/conf` (2 files); `docs` (2 files); `Execution` (1 file); `ModuleSystem` (1 file); `RootConfig` (1 file); `adr/*` (1 file). The ADR
   file `docs/adr/configuration/module-config-loading.md` carries the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `AUTO × AUTOMA`, because ADR-CONF-LOADING:
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `AUTO × LOCAL`, because ADR-CONF-LOADING:
   its ADR domain `configuration` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern
   (ADR-DSGN-TRACK#15).
 - **Lens badge:** IMPL, with "Supports ADR-CONF-LOADING" beneath it.

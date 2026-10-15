@@ -95,11 +95,11 @@ ADR-REPO-ROOTCFG); the explanation articles, these descriptions and the drawing 
   file). The ADR files `docs/adr/automation/BCL/native-csharp-types.md`, `docs/adr/automation/platform-bundle.md`,
   `docs/adr/design/run-modes.md`, `docs/adr/principles/one-living-version.md`, `docs/adr/pwsh/error-handling.md` and 2 more (listed in the
   tree description) carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 6 lit cells: `PRIN × RELEAS`, because ADR-PRIN-ONELIVE:
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 6 lit cells: `PRIN × RELEASE`, because ADR-PRIN-ONELIVE:
   its ADR domain `principles` sits on the PRIN row (ADR-DSGN-TRACK#14), and release is its own value-chain concern (ADR-DSGN-TRACK#15);
-  `DSGN × AUTOMA`, because ADR-DSGN-RUNMODE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, build is its
+  `DSGN × LOCAL`, because ADR-DSGN-RUNMODE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, build is its
   own value-chain concern (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-DSGN-RUNMODE: its ADR domain `design` sits on the DSGN row
-  (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × AUTOMA`, because ADR-AUTO-TYPES:
+  (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × LOCAL`, because ADR-AUTO-TYPES:
   its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
   (ADR-DSGN-TRACK#15); ADR-PWSH-ERROR: its ADR domain `pwsh` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's
   default concern (ADR-DSGN-TRACK#15); ADR-PWSH-TYPES: its ADR domain `pwsh` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation, build
@@ -108,7 +108,7 @@ ADR-REPO-ROOTCFG); the explanation articles, these descriptions and the drawing 
   ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and build, release is its own value-chain concern (ADR-DSGN-TRACK#15);
   ADR-AUTO-TYPES: its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
   (ADR-DSGN-TRACK#15); ADR-PWSH-TYPES: its ADR domain `pwsh` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation, build is its own
-  value-chain concern (ADR-DSGN-TRACK#15); `AUTO × RELEAS`, because ADR-AUTO-BUNDLE: its ADR domain `automation` sits on the AUTO row
+  value-chain concern (ADR-DSGN-TRACK#15); `AUTO × RELEASE`, because ADR-AUTO-BUNDLE: its ADR domain `automation` sits on the AUTO row
   (ADR-DSGN-TRACK#14), and build, release is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV. Beneath it, four lines at 10.5 px read "Supports ADR-AUTO-BUNDLE · ADR-PWSH-ERROR", "ADR-AUTO-TYPES ·
   ADR-PWSH-TYPES", "ADR-DSGN-RUNMODE · ADR-PRIN-ONELIVE" and "ADR-REPO-ROOTCFG".

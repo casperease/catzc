@@ -86,7 +86,7 @@ anything.
 - **Tree** (the repository's files): 11 lit groups, `Maps` (29 files); `Languages` (6 files); `Docs` (5 files); `Variants` (4 files);
   `Globs` (2 files); `QualityGates` (2 files); `adr/*` (2 files); `adr/dsgn` (2 files); `docs` (2 files); `ModuleSystem` (1 file);
   `pipelines` (1 file). The ADR file `docs/adr/design/tracks.md` carries the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `DSGN × AUTOMA`, because ADR-DSGN-TRACK: its
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `DSGN × LOCAL`, because ADR-DSGN-TRACK: its
   ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** IMPL, with "Supports ADR-DSGN-TRACK" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

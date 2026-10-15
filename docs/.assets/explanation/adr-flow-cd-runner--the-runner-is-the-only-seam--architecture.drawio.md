@@ -85,7 +85,7 @@ anything.
   ADR-FLOW-CD-RUNNER); `pipelines × .yaml` (1 file: 1 cites ADR-FLOW-CD-RUNNER).
 - **Tree** (the repository's files): 5 lit groups, `adr/flow` (2 files); `.claude` (1 file); `Docs` (1 file); `adr/*` (1 file); `pipelines`
   (1 file). The ADR file `docs/adr/flow/pipeline-runner-pattern.md` carries the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `DSGN × AUTOMA`, because ADR-FLOW-CD-RUNNER:
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 1 lit cell: `DSGN × LOCAL`, because ADR-FLOW-CD-RUNNER:
   its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its own value-chain concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** ARCH, with "Supports ADR-FLOW-CD-RUNNER" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

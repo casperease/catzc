@@ -26,7 +26,7 @@ and tooling that made them live only in gitignored `out/`; (B) the value-chain m
 cross-cutting layer underneath every other concern. It is not a step along delivery, so it must never appear as a concern column ("not in
 the top at all").
 
-**Today:** ADR-DSGN-TRACK#15 makes `automation` the first of six value-chain concerns (AUTOMA on the minimap):
+**Today:** ADR-DSGN-TRACK#15 makes `automation` the first of six value-chain concerns (LOCAL on the minimap):
 
 - five ADR domains (design, automation, pwsh, configuration, repository) default to `[automation]` only;
 - about a dozen ADRs carry it in their own `concern:` (configure-not-program, thin-platforms, run-modes, module-aspects,
@@ -47,7 +47,7 @@ the top at all").
    that is cross-cutting lights its row's band, so AUTO, DSGN, PRIN… can each show "underneath everything" without a column header.
    Alternative: one shared band under the whole grid, lit with the row label.
 4. **Code and words:** Catzc.Base.Maps value-chain model and `maps.yml` labels; `.claude/drawio/minimaps/{render,describe}.py`;
-   `terminology.yml` (drop AUTOMA, add the cross-cutting term), the glossary source and its defining rule, the tests (L0 config shapes, the
+   `terminology.yml` (drop LOCAL, add the cross-cutting term), the glossary source and its defining rule, the tests (L0 config shapes, the
    L1 integrity of `adrs.yml`, Test-ValueChainMap).
 5. **Words in docs:** the explanation index ("How to read the diagrams"), the minimap sister files, the slide descriptions' Sidebar
    sections, and any article that says "automation concern". The world-map grid's `automation` row is the automation _track_

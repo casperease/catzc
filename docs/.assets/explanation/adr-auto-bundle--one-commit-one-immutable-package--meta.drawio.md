@@ -91,11 +91,11 @@ light anything.
   (5 files); `Root files` (3 files); `Repository` (3 files); `.internal` (2 files); `Docs` (2 files); `Vendor` (2 files); `adr/auto` (2
   files); `adr/dsgn` (2 files); `.github` (1 file); `ConfigExtensions` (1 file); `Contracts` (1 file); `Globs` (1 file); `RootConfig` (1
   file); `adr/*` (1 file). The ADR files `docs/adr/automation/platform-bundle.md`, `docs/adr/design/run-modes.md` carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 4 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-RUNMODE:
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 4 lit cells: `DSGN × LOCAL`, because ADR-DSGN-RUNMODE:
   its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, build is its own value-chain concern
   (ADR-DSGN-TRACK#15); `DSGN × BUILD`, because ADR-DSGN-RUNMODE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
   automation, build is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × BUILD`, because ADR-AUTO-BUNDLE: its ADR domain `automation`
-  sits on the AUTO row (ADR-DSGN-TRACK#14), and build, release is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × RELEAS`, because
+  sits on the AUTO row (ADR-DSGN-TRACK#14), and build, release is its own value-chain concern (ADR-DSGN-TRACK#15); `AUTO × RELEASE`, because
   ADR-AUTO-BUNDLE: its ADR domain `automation` sits on the AUTO row (ADR-DSGN-TRACK#14), and build, release is its own value-chain concern
   (ADR-DSGN-TRACK#15).
 - **Lens badge:** META, with "Supports ADR-AUTO-BUNDLE, ADR-DSGN-RUNMODE" beneath it on two lines.

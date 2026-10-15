@@ -91,10 +91,10 @@ the drawing tooling never light anything.
   `ModuleSystem` (2 files); `adr/*` (2 files); `adr/dsgn` (2 files); `adr/flow` (2 files); `adr/repo` (2 files); `.github` (1 file);
   `Contracts` (1 file); `Exporter` (1 file). The ADR files `docs/adr/design/tracks.md`, `docs/adr/flow/durable-sha-globs.md`,
   `docs/adr/repository/conventional-folders.md` carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-TRACK:
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `DSGN × LOCAL`, because ADR-DSGN-TRACK:
   its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default concern (ADR-DSGN-TRACK#15);
   ADR-FLOW-CD-GLOBS: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its own value-chain concern
-  (ADR-DSGN-TRACK#15); `AUTO × AUTOMA`, because ADR-REPO-FOLDERS: its ADR domain `repository` sits on the AUTO row (ADR-DSGN-TRACK#14), and
+  (ADR-DSGN-TRACK#15); `AUTO × LOCAL`, because ADR-REPO-FOLDERS: its ADR domain `repository` sits on the AUTO row (ADR-DSGN-TRACK#14), and
   automation is its ADR domain's default concern (ADR-DSGN-TRACK#15).
 - **Lens badge:** GOV, with "Supports ADR-DSGN-TRACK · ADR-FLOW-CD-GLOBS · ADR-REPO-FOLDERS" beneath it.
 - **Map key:** four swatches (lit, mentions only, lit ADR file, idle) and the code key for the short column labels.

@@ -93,7 +93,7 @@ light anything.
 - **Tree** (the repository's files): 6 lit groups, `Az.Cli` (8 files); `QualityGates` (2 files); `adr/azure` (2 files); `adr/dsgn` (2
   files); `Docs` (1 file); `adr/*` (1 file). The ADR files `docs/adr/azure/prefer-az-cli.md`, `docs/adr/design/thin-platforms.md` carry the
   white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 4 lit cells: `DSGN × AUTOMA`, because ADR-DSGN-THINPLAT:
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 4 lit cells: `DSGN × LOCAL`, because ADR-DSGN-THINPLAT:
   its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation, deploy is its own value-chain concern
   (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-THINPLAT: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
   automation, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); `CLOUD × DEPLOY`, because ADR-AZ-CLI: its ADR domain `azure` sits

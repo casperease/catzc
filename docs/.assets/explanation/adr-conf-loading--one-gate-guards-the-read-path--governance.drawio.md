@@ -100,7 +100,7 @@ drawing tooling never light anything.
   `.scriptanalyzer` (1 file); `Az.DevOps.BuildValidation` (1 file); `Engines` (1 file); `Environment` (1 file); `Files` (1 file); `Overlay`
   (1 file); `Timeouts` (1 file); `Tool.Python` (1 file); `pipelines` (1 file). The ADR files `docs/adr/automation/test-automation.md`,
   `docs/adr/configuration/config-value-addressing.md`, `docs/adr/configuration/module-config-loading.md` carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `AUTO × AUTOMA`, because
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 2 lit cells: `AUTO × LOCAL`, because
   ADR-CONF-ADDRESSING: its ADR domain `configuration` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is its ADR domain's default
   concern (ADR-DSGN-TRACK#15); ADR-CONF-LOADING: its ADR domain `configuration` sits on the AUTO row (ADR-DSGN-TRACK#14), and automation is
   its ADR domain's default concern (ADR-DSGN-TRACK#15); `AUTO × QC`, because ADR-AUTO-TEST: its ADR domain `automation` sits on the AUTO row

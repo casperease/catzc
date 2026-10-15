@@ -92,7 +92,7 @@ light anything.
   its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and build, quality-control is its own value-chain concern
   (ADR-DSGN-TRACK#15); `DSGN × QC`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
   quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); ADR-DSGN-REMOTE: its ADR domain `design` sits on the
-  DSGN row (ADR-DSGN-TRACK#14), and build, quality-control is its own value-chain concern (ADR-DSGN-TRACK#15); `DSGN × RELEAS`, because
+  DSGN row (ADR-DSGN-TRACK#14), and build, quality-control is its own value-chain concern (ADR-DSGN-TRACK#15); `DSGN × RELEASE`, because
   ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own
   value-chain concern (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row
   (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15).

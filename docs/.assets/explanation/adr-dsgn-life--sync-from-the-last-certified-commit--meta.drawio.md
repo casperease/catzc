@@ -80,7 +80,7 @@ the ADR the slide supports (ADR-DSGN-LIFE); the explanation articles, these desc
   `ModuleSystem` (1 file). The ADR file `docs/adr/design/commit-lifecycle.md` carries the white rim.
 - **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 3 lit cells: `DSGN × QC`, because ADR-DSGN-LIFE: its ADR
   domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern
-  (ADR-DSGN-TRACK#15); `DSGN × RELEAS`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
+  (ADR-DSGN-TRACK#15); `DSGN × RELEASE`, because ADR-DSGN-LIFE: its ADR domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and
   quality-control, release, deploy is its own value-chain concern (ADR-DSGN-TRACK#15); `DSGN × DEPLOY`, because ADR-DSGN-LIFE: its ADR
   domain `design` sits on the DSGN row (ADR-DSGN-TRACK#14), and quality-control, release, deploy is its own value-chain concern
   (ADR-DSGN-TRACK#15).

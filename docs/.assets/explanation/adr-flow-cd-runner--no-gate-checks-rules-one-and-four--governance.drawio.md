@@ -90,12 +90,12 @@ never light anything.
 - **Tree** (the repository's files): 10 lit groups, `Az.DevOps` (3 files); `RootConfig` (2 files); `adr/flow` (2 files); `adr/pipe` (2
   files); `pipelines` (2 files); `.claude` (1 file); `Docs` (1 file); `Languages` (1 file); `adr/*` (1 file); `docs` (1 file). The ADR files
   `docs/adr/flow/pipeline-runner-pattern.md`, `docs/adr/pipelines/pipeline-naming-and-placement.md` carry the white rim.
-- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 5 lit cells: `DSGN × AUTOMA`, because
+- **Value-chain map** (value-chain stack × value-chain concern, ADR-DSGN-TRACK#16): 5 lit cells: `DSGN × LOCAL`, because
   ADR-FLOW-CD-RUNNER: its ADR domain `flow` sits on the DSGN row (ADR-DSGN-TRACK#14), and automation is its own value-chain concern
   (ADR-DSGN-TRACK#15); `PIPE × BUILD`, because ADR-PIPE-NAME: its ADR domain `pipelines` sits on the PIPE row (ADR-DSGN-TRACK#14), and
   build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); `PIPE × QC`, because ADR-PIPE-NAME: its
   ADR domain `pipelines` sits on the PIPE row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR domain's default
-  concern (ADR-DSGN-TRACK#15); `PIPE × RELEAS`, because ADR-PIPE-NAME: its ADR domain `pipelines` sits on the PIPE row (ADR-DSGN-TRACK#14),
+  concern (ADR-DSGN-TRACK#15); `PIPE × RELEASE`, because ADR-PIPE-NAME: its ADR domain `pipelines` sits on the PIPE row (ADR-DSGN-TRACK#14),
   and build, quality-control, release, deploy is its ADR domain's default concern (ADR-DSGN-TRACK#15); `PIPE × DEPLOY`, because
   ADR-PIPE-NAME: its ADR domain `pipelines` sits on the PIPE row (ADR-DSGN-TRACK#14), and build, quality-control, release, deploy is its ADR
   domain's default concern (ADR-DSGN-TRACK#15).
