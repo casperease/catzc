@@ -56,7 +56,12 @@ public static class MarkdownMetaBlock
             foreach (DictionaryEntry fact in present)
             {
                 string key = Key(fact.Key as string);
-                if (fact.Value is IEnumerable items && !(fact.Value is string))
+                if (fact.Value is IDictionary map)
+                {
+                    lines.Add("    " + key + ":");
+                    foreach (DictionaryEntry slot in map) { lines.Add("      " + Key(slot.Key as string) + ": " + Scalar(slot.Value)); }
+                }
+                else if (fact.Value is IEnumerable items && !(fact.Value is string))
                 {
                     var list = new List<string>();
                     foreach (object item in items) { list.Add(Scalar(item)); }
@@ -77,11 +82,12 @@ public static class MarkdownMetaBlock
         return lines;
     }
 
-    // Nothing, an empty string or an empty list: the value a key has when it is absent.
+    // Nothing, an empty string, an empty list or an empty map: the value a key has when it is absent.
     static bool IsEmpty(object value)
     {
         if (value == null) { return true; }
         if (value is string text) { return text.Length == 0; }
+        if (value is IDictionary map) { return map.Count == 0; }
         if (value is IEnumerable items) { return !items.GetEnumerator().MoveNext(); }
         return false;
     }

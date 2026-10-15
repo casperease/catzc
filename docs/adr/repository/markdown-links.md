@@ -13,7 +13,6 @@ catzc:
       - ADR-REPO-LINK#6
       - ADR-REPO-LINK#7
       - ADR-REPO-LINK#8
-      - ADR-REPO-LINK#9
     adrs:
       - ADR-AUTO-DEFAULT#6
       - ADR-PWSH-ERROR#3
@@ -57,9 +56,8 @@ derived from it, so the same checked-in text resolves from any file depth wherev
 
 ### Rule ADR-REPO-LINK:4
 
-Code links point one way: out of code, into an ADR. A comment never links to a reference article or how-to — its one exception is the docs
-link to its own file's comment page (ADR-REPO-LINK#9) — and an ADR never links into code: its "How this is enforced" section names the
-enforcing functions in code spans.
+Code links point one way: out of code, into an ADR. A comment never links to a reference article or how-to, and an ADR never links into code: its "How this is
+enforced" section names the enforcing functions in code spans.
 
 - [References point one way](#references-point-one-way)
 
@@ -93,16 +91,6 @@ configured setting with a sensible default.
 
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-REPO-LINK:9
-
-A **docs link** is the third kind: a comment's link from its file to the one section of the file's own comment page that holds the prose it
-stands for ([comments-in-docs](comments-in-docs.md)). It is spelled `[comment:<n>](/docs/<page>.md#comment<n>)` — repository-rooted, the
-text the comment number, the anchor that number's section — and it never points at any other document. It lives where code links live, so
-the link tools handle it under the `Code` kind; it has one spelling, so they check it and never rewrite it. A help section whose name occurs
-once in its file and once on its page carries no docs link: the page section names it, and the name is the pairing.
-
-- [Docs links](#docs-links)
-
 ## Context
 
 The repository's rationale lives in its ADRs, and code points at that rationale constantly — a function's help names the ADR it implements,
@@ -124,7 +112,6 @@ The kind of a link follows from where it lives, never from the author's choice:
 | ----------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
 | **Markdown link** | a tracked `*.md` file                                                                      | relative to the file: `[reduce-variability](../principles/reduce-variability.md)`                      |
 | **Code link**     | a comment in `*.ps1`, `*.psm1`, `*.psd1`, `*.cs`, `*.bicep`, `*.yml`, `*.yaml`, `*.csproj` | repository-rooted, text = citation: `[ADR-PRIN-REDUCEVAR](/docs/adr/principles/reduce-variability.md)` |
-| **Docs link**     | a comment residue in the same files                                                        | repository-rooted, text = comment number: `[comment:3](/docs/<page>.md#comment3)`                      |
 
 A comment is found per language family — the PowerShell tokenizer's comments, C-style `//` and `/* */` outside string literals, YAML `#`
 outside quoted and block scalars, XML `<!-- -->`. Inline code spans and a help block's `.EXAMPLE` sections are literal text, never links.
@@ -190,17 +177,8 @@ reference links. The editor feedback is early warning only; `Test-Links` stays t
 
 Code cites the decisions it implements; the decisions do not track their implementations. An ADR's "How this is enforced" section names the
 enforcing functions in code spans, and a comment links only into `docs/adr/` — reference articles and how-tos are written for readers, not
-cited by code. The one exception is the docs link below, which is not a citation but the other half of the comment itself.
-
-### Docs links
-
-A file whose long comments live in its comment page keeps, per comment, an insight line and a docs link to the section holding the prose
-([comments-in-docs](comments-in-docs.md)). The link is the comment's address, not a reference to an article: it points at exactly one
-section of exactly one page, the page that belongs to this file, so it carries the same one-way direction as a code link — from code into
-the docs, never back. Its text is `comment:<n>`, the number the section keeps for life, and its anchor `#comment<n>` is GitHub's slug of the
-section heading `## comment:<n>`. It is repository-rooted for the same reason a code link is: one string from any file depth. A link with
-another destination, a missing page, or an anchor that is not its own number's is reported as dangling or as a bad anchor; nothing about it
-is aligned, because it has no older spelling to bring into form.
+cited by code. A file's way to its comment page is no link in the code either: the page is derived into the file's meta head
+([comments-in-docs](comments-in-docs.md)).
 
 ### One citation spelling
 
@@ -233,8 +211,7 @@ both kinds mechanically and `Test-Links` checks them.
   rewrites every git-tracked file in place: every ADR reference in a comment, in any older spelling, becomes a canonical code link; a rooted
   link in a `.md` file becomes relative; a prose `ADR-<CODE>:<n>` becomes `ADR-<CODE>#<n>`. `-Kind` takes the fixed `LinkKind` set.
 - **Wrapping is configured** — `configs/links.yml` sets how a comment line that outgrows its limit is wrapped (`break` or `off`, default
-  `break`); the limit itself comes from `.editorconfig`'s `max_line_length`. A docs link is checked by the same engine — its page exists and
-  holds its own section — and never rewritten. The defaults are declared once on the config type, per
+  `break`); the limit itself comes from `.editorconfig`'s `max_line_length`. The defaults are declared once on the config type, per
   [sensible-defaults](../automation/sensible-defaults.md) (`ADR-AUTO-DEFAULT#6`).
 - **`Test-Links`** — the gate. It runs the same engine read-only and fails on any off-form link, dangling target, bad anchor, unknown
   citation code or rule, link that climbs above the root, self-URL outside `.github/`, or missing docs path in a PowerShell string.

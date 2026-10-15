@@ -736,7 +736,6 @@ An ADR citation in a code comment, written as a repository-rooted markdown link 
 - **Realized by:** function `Format-Links`
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
-  - [docs link](#docs-link): A docs link points at the file's own comment page section; a code link cites an ADR.
   - [markdown link](#markdown-link): A markdown link lives in a .md file and is relative to it; a code link lives in a comment of a
     non-markdown file and is repository-rooted.
 
@@ -747,8 +746,6 @@ The Markdown page under docs/references that holds a file's long comments verbat
 - **Defined by:** [ADR-REPO-COMMENTS#1](repository/comments-in-docs.md#rule-adr-repo-comments1)
 - **Realized by:** function `Export-Comments`
 - **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
-- **Contrasts:**
-  - [residue](#residue): The residue is the one line and link left in the file; the comment page holds the prose it stands for.
 
 ### contract
 
@@ -787,16 +784,6 @@ platform change is a new draft.
 - **Contrasts:**
   - [provided contract](#provided-contract): A provided contract is a promise to an outside consumer, kept while the consumer pins that
     version of its unit; a depended-on contract records what a platform requires and follows the platform.
-
-### docs link
-
-A residue's link from its file to the one section of the file's comment page that holds the prose, `[comment:<n>](…#comment<n>)`.
-
-- **Defined by:** [ADR-REPO-LINK#9](repository/markdown-links.md#rule-adr-repo-link9)
-- **Realized by:** function `Test-Links`
-- **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
-- **Contrasts:**
-  - [code link](#code-link): A code link cites an ADR rule; a docs link addresses one section of the file's own comment page.
 
 ### domain
 
@@ -946,16 +933,6 @@ A contract an outside consumer may rely on — the repository's only public API,
     follows that platform; a provided contract is a promise to a consumer, kept while the consumer pins that version of its unit.
   - [pin](#pin): A pin is the consumer's explicit choice of a version that crosses the repository boundary; a provided contract is the
     promise catzc keeps under that pin.
-
-### residue
-
-What stays in a file where a long comment moved out — the insight line, then the citations and the docs link.
-
-- **Defined by:** [ADR-REPO-COMMENTS#1](repository/comments-in-docs.md#rule-adr-repo-comments1)
-- **Realized by:** function `Test-Comments`
-- **Source:** `automation/Catzc.Base.QualityGates/configs/glossary.yml`
-- **Contrasts:**
-  - [comment page](#comment-page): The comment page holds the prose; the residue is the one line and link left in the file.
 
 ### scope
 

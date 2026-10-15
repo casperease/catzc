@@ -92,6 +92,35 @@ kinds:
       - "automation/Catzc.*/*.ps1"
       - "automation/Catzc.*/private/*.ps1"
 
+  # The few files a code file points at, in at most eight static slots; a slot is written only when its file exists.
+  relatives:
+    files:
+      - "automation/**/types/*.cs"
+      - "automation/**/*.ps1"
+      - "automation/**/*.yml"
+      - "pipelines/**/*.yaml"
+      - "infrastructure/**/*.bicep"
+      - ".claude/hooks/**/*.cs"
+    settings:
+      slots:
+        - name: page
+          rules:
+            - { files: ["**/*"], paths: ["{page}"] }
+        - name: test
+          rules:
+            - { files: ["automation/Catzc.*/types/*.cs"], paths: ["automation/{module}/tests/types/{stem}.Tests.ps1"] }
+            - {
+                files: ["automation/Catzc.*/*.ps1", "automation/Catzc.*/private/*.ps1"],
+                paths: ["automation/{module}/tests/{stem}.Tests.ps1"],
+              }
+        - name: source
+          rules:
+            - { files: ["automation/Catzc.*/tests/types/*.Tests.ps1"], paths: ["automation/{module}/types/{stem}.cs"] }
+            - {
+                files: ["automation/Catzc.*/tests/*.Tests.ps1"],
+                paths: ["automation/{module}/{stem}.ps1", "automation/{module}/private/{stem}.ps1"],
+              }
+
   # The rules an ADR defines in its own rule headings, spelled as citations; they are no citation of the ADR, so adrs never lists them.
   adr-defines:
     keys: [defines]

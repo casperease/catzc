@@ -108,8 +108,7 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
 - **Two kinds of link (ADR-REPO-LINK).** A markdown link, in a `.md` file, is relative to its own file
   (`[reduce-variability](../principles/reduce-variability.md)`). A code link, in a comment of any other file, is repository-rooted with the
   citation as its text (`[ADR-AZ-DATAMOD#2](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2)`); `Format-Links` writes it from the
-  citation, and `Test-Links` checks both kinds. A comment that stands for prose moved to its file's comment page also carries a docs link,
-  `[comment:<n>](/docs/<page>.md#comment<n>)`, its one exception to linking only into `docs/adr/` (ADR-REPO-LINK#9).
+  citation, and `Test-Links` checks both kinds.
 
 - **Defined terms live in the glossary.** A defined term means what the one rule that bolds it says
   ([controlled-vocabulary](repository/controlled-vocabulary.md)); [glossary](glossary.md) lists every term with its defining rule, its

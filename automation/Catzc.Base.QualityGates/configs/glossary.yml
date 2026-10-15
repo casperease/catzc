@@ -199,28 +199,9 @@ concepts:
       markdown link:
         A markdown link lives in a .md file and is relative to it; a code link lives in a comment of a non-markdown file and is
         repository-rooted.
-      docs link: A docs link points at the file's own comment page section; a code link cites an ADR.
-  docs link:
-    key: docs_link
-    domain: repository
-    defined_by: ADR-REPO-LINK#9
-    short: A residue's link from its file to the one section of the file's comment page that holds the prose, `[comment:<n>](…#comment<n>)`.
-    realized_by: { kind: function, pattern: Test-Links }
-    contrasts:
-      code link: A code link cites an ADR rule; a docs link addresses one section of the file's own comment page.
   comment page:
     key: comment_page
     domain: repository
     defined_by: ADR-REPO-COMMENTS#1
     short: The Markdown page under docs/references that holds a file's long comments verbatim, one numbered section per comment.
     realized_by: { kind: function, pattern: Export-Comments }
-    contrasts:
-      residue: The residue is the one line and link left in the file; the comment page holds the prose it stands for.
-  residue:
-    key: residue
-    domain: repository
-    defined_by: ADR-REPO-COMMENTS#1
-    short: What stays in a file where a long comment moved out — the insight line, then the citations and the docs link.
-    realized_by: { kind: function, pattern: Test-Comments }
-    contrasts:
-      comment page: The comment page holds the prose; the residue is the one line and link left in the file.

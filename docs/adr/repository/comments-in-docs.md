@@ -33,7 +33,7 @@ A comment in a code or configuration file is at most one line of insight: what t
 order it depends on, the edge it guards, the reason a branch exists. A comment that needs more than one line of prose moves, verbatim, to
 the file's **comment page** and leaves **nothing** in the file: no marker, no insight line, no link. The comment's ADR citations move with
 the rest of its prose, and the file's meta head lists them (ADR-REPO-CODEMETA#2). The file's meta head names the page as its
-`relatives.page` (ADR-REPO-FILEMETA#9), so the way from a file to its prose is derived front matter, never a line of code.
+`relatives.page` (ADR-REPO-FILEMETA#10), so the way from a file to its prose is derived front matter, never a line of code.
 
 - [Nothing in the file](#nothing-in-the-file)
 
