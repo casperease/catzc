@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Core/private/Resolve-SessionToolHost.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Tooling.Core
     visibility: private
   config:

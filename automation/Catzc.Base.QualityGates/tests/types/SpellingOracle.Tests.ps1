@@ -46,7 +46,7 @@ Describe 'SpellingOracle.CoinedFragments (shipped dictionary)' -Tag 'L1', 'integ
         # Binds to the shipped English list + the generated term lists — an integrity test by construction: it...
         # [comment:2](/docs/references/automation/catzc-base-qualitygates/tests/types/SpellingOracle.Tests.ps1.md#comment2)
         $englishPath = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Base.QualityGates/assets/english.txt.gz'
-        $allTermPaths = @(Get-ChildItem (Join-Path (Get-RepositoryRoot) '.cspell/*.txt') | ForEach-Object FullName)
+        $allTermPaths = @(Get-ChildPath (Join-Path (Get-RepositoryRoot) '.cspell') -File -Filter '*.txt' -Depth 1)
         $fixturePaths = @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -eq 'fixture.txt' })
         $termPaths = @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -ne 'fixture.txt' })
         [Catzc.Base.QualityGates.SpellingOracle]::Initialize($englishPath, [string[]] $termPaths, [string[]] $fixturePaths)

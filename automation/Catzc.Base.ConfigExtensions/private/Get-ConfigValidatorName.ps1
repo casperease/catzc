@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ConfigExtensions/private/Get-ConfigValidatorName.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.ConfigExtensions
     visibility: private
   config:

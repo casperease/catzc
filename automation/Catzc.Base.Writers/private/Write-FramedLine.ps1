@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Writers/private/Write-FramedLine.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.Writers
     visibility: private
   config:

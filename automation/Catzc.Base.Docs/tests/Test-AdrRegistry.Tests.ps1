@@ -121,7 +121,8 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35' {
             )
             Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -ParameterFilter { $Message -eq '1 adr-citation-graph issue(s).' }
             Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -ParameterFilter { $Message -eq '3 adr-dora-coverage issue(s).' }
-            Get-ChildItem -LiteralPath (Join-Path $out 'adr-citation-graph') -Recurse -Filter 'adr-citation-graph.md' | Should -Not -BeNullOrEmpty
+            # The report sits in a run folder below its subject folder; the deeper levels are headroom.
+            Get-ChildPath (Join-Path $out 'adr-citation-graph') -File -Filter 'adr-citation-graph.md' -Depth 3 -Exclude @() | Should -Not -BeNullOrEmpty
             { Test-AdrRegistry -OutputFolder $out } | Should -Not -Throw
         }
 

@@ -3,21 +3,17 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Get-AutomationSourceFiles.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
+  config:
+    synopsis: The canonical set of authored PowerShell files the analysis quality gates cover.
+    description: Formatting covers a wider set (Format-Code); this set leaves out .vendor, .compiled and generated manifests.
+    outputs: '[string[]] Absolute paths, in discovery order.'
 ---
 #>
 
 function Get-AutomationSourceFiles {
-    <#
-    .SYNOPSIS
-        The canonical set of authored PowerShell files the analysis quality gates cover.
-    .DESCRIPTION
-        Formatting covers a wider set (Format-Code); this set leaves out .vendor, .compiled and generated manifests.
-    .OUTPUTS
-        [string[]] Absolute paths, in discovery order.
-    #>
     [CmdletBinding()]
     [OutputType([string[]])]
     param()

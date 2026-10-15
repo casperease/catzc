@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Docs/private/Get-GlossaryRuleStatements.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.Docs
     visibility: private
     adrs:

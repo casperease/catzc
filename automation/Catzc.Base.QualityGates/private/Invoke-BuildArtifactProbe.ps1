@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Invoke-BuildArtifactProbe.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
     adrs:
@@ -101,7 +101,6 @@ $inModuleScope = InModuleScope $ScopeModule { $true }
     ConfigFailures = @($configFailures)
     Repository     = Get-RepositoryRoot
     ModuleRoot     = if ($hasConfig) { Get-CatzcModuleRoot 'configs/configs.yml' -Module 'Catzc.Base.Config' }
-    HelpSynopsis   = if ($hasConfig) { (Get-Help Get-Config).Synopsis }
     Private        = [bool] (Get-Command Resolve-ConfigEntry -ErrorAction Ignore)
     InModuleScope  = $inModuleScope
 } | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $ObservationPath -Encoding utf8NoBOM

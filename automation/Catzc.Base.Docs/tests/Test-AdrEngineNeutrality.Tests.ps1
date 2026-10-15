@@ -105,7 +105,8 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#35', 'ADR
         { Test-AdrEngineNeutrality -OutputFolder $out } | Should -Not -Throw
         Test-AdrEngineNeutrality -OutputFolder $out | Should -BeNullOrEmpty
         Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -ParameterFilter { $Message -eq '2 adr-engine-neutrality issue(s).' }
-        Get-ChildItem -LiteralPath $out -Recurse -Filter 'adr-engine-neutrality.md' | Should -Not -BeNullOrEmpty
+        # The report sits in a run folder below the output folder; the deeper levels are headroom.
+        Get-ChildPath $out -File -Filter 'adr-engine-neutrality.md' -Depth 4 -Exclude @() | Should -Not -BeNullOrEmpty
     }
 
     It 'throws once listing every finding in gate mode' -Tag 'ADR-PRIN-CONFIG#1' {

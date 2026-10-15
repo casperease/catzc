@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: private
     adrs:

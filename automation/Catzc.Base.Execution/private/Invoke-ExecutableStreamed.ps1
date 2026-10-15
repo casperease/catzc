@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/private/Invoke-ExecutableStreamed.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.Execution
     visibility: private
   config:
@@ -31,10 +31,10 @@ catzc:
       NoAssert: Skip the exit code assertion.
       Silent: Suppress all console output. Output is still captured for -PassThru.
       TimeoutSeconds: The run's time limit. Past it CliRunner kills the process tree and throws a TimeoutException.
-      InputText: Written to the child's stdin, which is then closed; absent, stdin is left as before.
       AsBytes: |-
         Capture stdout as its exact bytes (CliResult.Bytes) instead of text, with no console echo — for a binary
         stream. Returns the CliResult as -PassThru does.
+      InputText: Written to the child's stdin, which is then closed; absent, stdin is left as before.
       DryRun: Return the command string without executing.
 ---
 #>

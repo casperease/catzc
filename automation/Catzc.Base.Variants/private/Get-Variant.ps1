@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Variants/private/Get-Variant.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.Variants
     visibility: private
     adrs:

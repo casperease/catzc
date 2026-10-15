@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Invoke-ImprintStep.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
     adrs:
@@ -77,22 +77,14 @@ function Invoke-ImprintStep {
             if ($File.Count -eq 0) {
                 return $outcome
             }
-            $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
-            $changed = [System.Collections.Generic.List[string]]::new()
+            # The help is data in the head, so the step only reports what a person must settle and changes no file.
+            $form = (Get-Config -Config file-carriers).Find('powershell').Form()
             foreach ($path in $File) {
-                $original = [System.IO.File]::ReadAllText($path)
-                $formatted = Format-FunctionHelpText -Text $original
-                if ($formatted.Text -cne $original) {
-                    if (-not $DryRun) {
-                        [System.IO.File]::WriteAllText($path, $formatted.Text, $utf8NoBom)
-                    }
-                    $changed.Add($path)
-                }
-                if ($formatted.Problems.Count -gt 0) {
-                    $outcome.Unfixable[$path] = "function help needs a hand edit: $($formatted.Problems -join '; ')"
+                $findings = @(Get-HelpHeadFinding -Text ([System.IO.File]::ReadAllText($path)) -Form $form)
+                if ($findings.Count -gt 0) {
+                    $outcome.Unfixable[$path] = "function help needs a hand edit: $($findings -join '; ')"
                 }
             }
-            $outcome.Changed = $changed.ToArray()
         }
         'comments' {
             if ($File.Count -eq 0) {

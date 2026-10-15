@@ -64,9 +64,13 @@ Describe 'Get-EngineCaseTable — every shipped engine case table' -Tag 'L1', 'i
     BeforeDiscovery {
         # Every per-engine fixture table in the repository: tests/assets/engine-cases/*.yml in any module.
         $root = Get-CatzcModulesRoot
-        $script:tables = @(Get-ChildItem -Path $root -Recurse -File -Filter '*.yml' |
-                Where-Object { $_.Directory.Name -eq 'engine-cases' -and $_.Directory.Parent.Name -eq 'assets' -and $_.FullName -notmatch '[\\/]\.vendor[\\/]' } |
-                ForEach-Object { @{ Name = $_.Name; Path = $_.FullName } })
+        # A case table sits five levels below automation (module, tests, assets, engine-cases, file); vendored modules are pruned by the walk.
+        $script:tables = @(Get-ChildPath $root -File -Filter '*.yml' -Depth 5 |
+                Where-Object {
+                    $folder = [System.IO.Path]::GetDirectoryName($_)
+                    [System.IO.Path]::GetFileName($folder) -eq 'engine-cases' -and [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName($folder)) -eq 'assets'
+                } |
+                ForEach-Object { @{ Name = [System.IO.Path]::GetFileName($_); Path = $_ } })
     }
 
     It 'finds at least one table' -ForEach @(@{ Found = $tables.Count }) {

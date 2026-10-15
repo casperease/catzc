@@ -32,7 +32,6 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
                 ConfigCount    = 2
                 ConfigFailures = @()
                 ModuleRoot     = (Join-Path $BuildRoot 'Catzc.Base.Config/configs/configs.yml')
-                HelpSynopsis   = 'Gets a widget.'
                 Private        = $false
                 InModuleScope  = $true
             }

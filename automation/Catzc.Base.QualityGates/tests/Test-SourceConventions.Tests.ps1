@@ -45,7 +45,8 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates {
             $root = Join-Path $TestDrive 'repo'
-            foreach ($file in [System.IO.Directory]::EnumerateFiles($root, '*', [System.IO.SearchOption]::AllDirectories)) {
+            # A whole-tree walk (ADR-PWSH-ENUM#3): the fixture repository stands in for the tracked files, so nothing is pruned.
+            foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @() -PruneVendor $false) {
                 [System.IO.Path]::GetRelativePath($root, $file) -replace '\\', '/'
             }
         }

@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Tooling.Inspiration
     visibility: private
     adrs:

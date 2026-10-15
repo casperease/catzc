@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Maps/private/Resolve-MapLabelTerm.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.Maps
     visibility: private
     adrs:

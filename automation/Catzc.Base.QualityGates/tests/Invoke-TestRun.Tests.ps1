@@ -252,7 +252,7 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
                 $Title -eq 'Test Automation'
             }
             $summary.PSObject.Properties['ExcludedTests'] | Should -BeNullOrEmpty
-            Get-ChildItem -LiteralPath $summary.RunDirectory -Filter 'excluded-tests.csv' | Should -BeNullOrEmpty
+            [System.IO.File]::Exists((Join-Path $summary.RunDirectory 'excluded-tests.csv')) | Should -BeFalse
         }
     }
 

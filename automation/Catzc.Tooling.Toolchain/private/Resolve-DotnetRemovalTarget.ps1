@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Toolchain/private/Resolve-DotnetRemovalTarget.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Tooling.Toolchain
     visibility: private
     adrs:

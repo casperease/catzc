@@ -3,9 +3,8 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md
     kind: comment-page
-    body_sha: "1e20b0fba4f3"
+    body_sha: "285f9cb49eaa"
     adrs:
-      - ADR-AUTO-TEST#35
       - ADR-REPO-README#7
 ---
 
@@ -13,65 +12,6 @@ catzc:
 
 The comments of the file that outgrew one line, one section per comment, verbatim. The file keeps one line and a link per section
 (Export-Comments), and Build-CommentView puts them back for reading.
-
-## comment:1
-
-Section `.DESCRIPTION` of the comment-based help.
-
-```text
-Runs markdownlint-cli2 over the repository's in-scope Markdown, applying the single root rule set at
-/.markdownlint.yml (auto-discovered by markdownlint-cli2). Excludes transient and out-of-scope trees
-(out/, automation/.vendor/ and every other .vendor/ tree, node_modules/, docs/notes/) and the generated README copy-ins (**/README.md,
-a derived artifact linted at its docs/ source instead) via negation globs — markdownlint-cli2 does not
-apply .markdownlintignore to globs passed on the command line, so the exclusions are passed explicitly.
-The root .markdownlintignore mirrors these for the editor extension's benefit.
-
-A quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): every
-violation line ('<path>:<line>:<col> <rule id>/<rule name> …') is an issue, and the gate ends through
-Write-QualityGateReport, which writes out/test-markdownlint/, prints every issue, and throws once listing them
-all; -PassThru returns the result object instead. A tool error (exit > 1) throws before the report.
-
-markdownlint-cli2 must be on PATH — install it once with Install-Markdownlint (or: npm install -g
-markdownlint-cli2).
-```
-
-## comment:2
-
-Section `.PARAMETER Path` of the comment-based help.
-
-```text
-Repository-relative paths or globs to lint (markdownlint-cli2 expands a glob). Defaults to the repository's
-in-scope Markdown, with the out-of-scope trees excluded via '!'-negation globs.
-```
-
-## comment:3
-
-Above `'!**/README.md'`.
-
-```text
-Generated READMEs (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored
-copies whose authored source under docs/ is what is linted — linting the copy would
-double-report the source. See
-[ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7).
-```
-
-## comment:4
-
-Above `'!docs/adr/index.md'`.
-
-```text
-[index](/docs/adr/index.md) is generated from adrs.yml (Build-AdrIndex) — a derived artifact whose source
-(adrs.yml + the generator's prose) is what is linted, not the projection.
-```
-
-## comment:5
-
-Above `'!docs/adr/glossary.md'`.
-
-```text
-[glossary](/docs/adr/glossary.md) is generated from the configs/glossary.yml sources (Build-Glossary) — likewise
-derived; the generator emits it already formatted.
-```
 
 ## comment:6
 

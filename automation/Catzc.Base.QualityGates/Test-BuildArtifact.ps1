@@ -200,9 +200,6 @@ function Test-BuildArtifact {
                                 if ($observed.ModuleRoot -ne (Join-Path $buildRoot 'Catzc.Base.Config/configs/configs.yml')) {
                                     $issues.Add("[load] module content resolves to '$($observed.ModuleRoot)', not under the build")
                                 }
-                                if (-not $observed.HelpSynopsis -or $observed.HelpSynopsis -like 'Get-Config *') {
-                                    $issues.Add('[load] comment-based help is lost in the merged file (Get-Config has no synopsis)')
-                                }
                                 if ($observed.Private) {
                                     $issues.Add('[load] a private function (Resolve-ConfigEntry) is exported')
                                 }

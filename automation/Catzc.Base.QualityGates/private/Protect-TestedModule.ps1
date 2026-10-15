@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.QualityGates/private/Protect-TestedModule.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.QualityGates
     visibility: private
     adrs:

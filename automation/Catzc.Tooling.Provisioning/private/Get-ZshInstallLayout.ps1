@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Provisioning/private/Get-ZshInstallLayout.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Tooling.Provisioning
     visibility: private
     adrs:

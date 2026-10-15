@@ -67,7 +67,8 @@ Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
 
         { Invoke-TestFile $testFile } | Should -Throw '*stop before spawning*'
 
-        $manifests = @([System.IO.Directory]::GetFiles((Join-Path $outputRoot 'test-file'), 'run.json', 'AllDirectories'))
+        # A run folder holds its manifest directly, one level below test-file; the third level is headroom.
+        $manifests = @(Get-ChildPath (Join-Path $outputRoot 'test-file') -File -Filter 'run.json' -Depth 3)
         $manifests | Should -HaveCount 1
         ([System.IO.File]::ReadAllText($manifests[0]) | ConvertFrom-Json).status | Should -Be 'crashed'
     }

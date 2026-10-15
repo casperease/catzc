@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Objects/private/Expand-ObjectProperties.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.Objects
     visibility: private
   config:

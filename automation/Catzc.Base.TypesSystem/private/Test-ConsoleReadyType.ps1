@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.TypesSystem/private/Test-ConsoleReadyType.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.TypesSystem
     visibility: private
   config:

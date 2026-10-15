@@ -19,7 +19,7 @@ Describe 'Clear-TempFolders' -Tag 'L0', 'logic' {
 
         $result = Clear-TempFolders -Path $folder
 
-        @(Get-ChildItem -LiteralPath $folder -Force) | Should -HaveCount 0
+        [System.IO.Directory]::EnumerateFileSystemEntries($folder).GetEnumerator().MoveNext() | Should -BeFalse
         $result.Removed | Should -Be 4   # 3 files + 1 dir
         $result.Skipped | Should -Be 0
     }

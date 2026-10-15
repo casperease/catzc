@@ -88,7 +88,8 @@ Describe 'Test-InIsolation (vendored Pester)' -Tag 'L1', 'integrity', 'ADR-AUTO-
             "$Name" -eq $expected
         }
 
-        $manifests = @([System.IO.Directory]::GetFiles($expected, 'Pester.psd1', [System.IO.SearchOption]::AllDirectories))
+        # The manifest sits one version folder into the vendored Pester; the third level is headroom.
+        $manifests = @(Get-ChildPath $expected -File -Filter 'Pester.psd1' -Depth 3 -PruneVendor $false)
         $manifests | Should -HaveCount 1
         $shipped = Import-PowerShellDataFile -LiteralPath $manifests[0]
         [version] $shipped.ModuleVersion | Should -Be (Get-Module Pester).Version

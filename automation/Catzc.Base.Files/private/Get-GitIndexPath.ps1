@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Files/private/Get-GitIndexPath.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.Files
     visibility: private
   config:

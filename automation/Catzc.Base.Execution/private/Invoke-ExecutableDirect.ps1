@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Execution/private/Invoke-ExecutableDirect.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.Execution
     visibility: private
   config:

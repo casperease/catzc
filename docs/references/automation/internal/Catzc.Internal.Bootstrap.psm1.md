@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md
     kind: comment-page
-    body_sha: "22b74abfd220"
+    body_sha: "5177b120af56"
     adrs:
       - ADR-AUTO-CONSOLE#11
       - ADR-AUTO-TYPES#15
@@ -335,17 +335,6 @@ sole compiler; the editor-facing MSBuild pathway is Invoke-BuildForVSCode. The a
 the decorated types/*.cs, so a workspace search for it lands on the source. Idempotent
 (Remove-then-Add) so a re-import never throws on a duplicate key; the Catzc.-namespaced names mean this
 only ever reclaims our own accelerator, never another module's.
-```
-
-## comment:25
-
-Above `$displayAttrType =...`.
-
-```text
-Publish [ConsoleDisplay(...)] identity properties as each type's DefaultDisplayPropertySet, so typing
-`$x` at the prompt shows those columns instead of every property. The same attribute narrows the type's
-ToString (ConsoleText). Formatting honours ETS type data, where interpolation does not, so this half is
-registered here and the text half is the C# override. -Force makes a re-registration idempotent.
 ```
 
 ## comment:26

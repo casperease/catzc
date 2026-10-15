@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Cli/private/Get-AzCliBicepState.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Azure.Cli
     visibility: private
     adrs:

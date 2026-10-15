@@ -4,6 +4,8 @@ catzc:
   derived:
     path: automation/.internal/tests/Invoke-ModuleBuild.Tests.ps1
     kind: pester-test
+    adrs:
+      - ADR-PWSH-ENUM#3
 ---
 #>
 
@@ -128,7 +130,9 @@ BeforeAll {
     function script:Get-FileSnapshot {
         param([string] $Root)
         $snapshot = @{}
-        foreach ($file in [System.IO.Directory]::EnumerateFiles($Root, '*', [System.IO.SearchOption]::AllDirectories)) {
+        # A whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): a snapshot
+        # compares every file of a build, so nothing is pruned.
+        foreach ($file in Get-ChildPath $Root -File -Depth 64 -Exclude @() -PruneVendor $false) {
             $snapshot[[System.IO.Path]::GetRelativePath($Root, $file).Replace('\', '/')] = [System.IO.File]::GetLastWriteTimeUtc($file).Ticks
         }
         $snapshot
@@ -159,7 +163,9 @@ Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
             $script:destination = Join-Path $TestDrive 'build'
             $script:result = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Module 'Catzc.Base.Gadget' -Destination $destination
             $script:root = $result.BuildRoot
-            $script:files = @(foreach ($file in [System.IO.Directory]::EnumerateFiles($root, '*', [System.IO.SearchOption]::AllDirectories)) {
+            # A whole-tree walk ([ADR-PWSH-ENUM#3](/docs/adr/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum3)): the
+            # assertions cover every file of the build, so nothing is pruned.
+            $script:files = @(foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @() -PruneVendor $false) {
                     [System.IO.Path]::GetRelativePath($root, $file).Replace('\', '/')
                 })
         }

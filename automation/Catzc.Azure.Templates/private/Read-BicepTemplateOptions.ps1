@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Azure.Templates/private/Read-BicepTemplateOptions.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Azure.Templates
     visibility: private
   config:

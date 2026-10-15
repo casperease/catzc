@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.Config
     visibility: private
     adrs:

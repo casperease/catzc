@@ -61,14 +61,10 @@ catzc:
 
         # ── On by default in PSScriptAnalyzer ───────────────────────
 
-        # Requires comment-based help (.SYNOPSIS etc.) on exported functions.
-        # ExportedOnly limits this to public functions only.
+        # Comment-based help is not used: a function's help is the config part of its meta head
+        # ([ADR-REPO-HELP](/docs/adr/repository/function-help.md)).
         PSProvideCommentHelp                      = @{
-            Enable                  = $true
-            ExportedOnly            = $true
-            BlockComment            = $true
-            VSCodeSnippetCorrection = $false
-            Placement               = 'before'
+            Enable = $false
         }
 
         # Flags function parameters that are declared but never used in the body.

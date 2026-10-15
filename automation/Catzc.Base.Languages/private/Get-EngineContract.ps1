@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Languages/private/Get-EngineContract.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.Languages
     visibility: private
     adrs:

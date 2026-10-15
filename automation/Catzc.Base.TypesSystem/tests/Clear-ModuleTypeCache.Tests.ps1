@@ -68,7 +68,7 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         Remove-Item (Join-Path $fakeRoot 'Mod.One/types/Alpha.cs') -Force
         Remove-Item (Join-Path $fakeRoot 'Mod.Two/types/Beta.cs') -Force
         Clear-ModuleTypeCache -AutomationRoot $fakeRoot
-        @(Get-ChildItem $compiled -Filter '*.dll').Count | Should -Be 0
+        @(Get-ChildPath $compiled -File -Filter '*.dll' -Depth 1).Count | Should -Be 0
     }
 
     It 'with -DryRun lists the superseded build, never the current one, and deletes nothing' -Tag 'logic' {

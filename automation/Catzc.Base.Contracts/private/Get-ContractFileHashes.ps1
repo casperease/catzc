@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.Contracts
     visibility: private
     adrs:

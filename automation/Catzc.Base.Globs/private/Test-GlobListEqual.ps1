@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Globs/private/Test-GlobListEqual.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.Globs
     visibility: private
     adrs:

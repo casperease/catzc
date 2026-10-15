@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Vendor/private/Resolve-VendorRepository.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.Vendor
     visibility: private
   config:

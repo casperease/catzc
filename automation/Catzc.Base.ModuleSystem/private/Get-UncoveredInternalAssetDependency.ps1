@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.ModuleSystem/private/Get-UncoveredInternalAssetDependency.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Base.ModuleSystem
     visibility: private
     adrs:

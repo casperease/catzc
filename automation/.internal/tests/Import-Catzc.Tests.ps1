@@ -23,7 +23,7 @@ Describe 'Import-Catzc loads a reduced build' -Tag 'L2', 'integrity', 'greedy', 
     # [comment:2](/docs/references/automation/internal/tests/Import-Catzc.Tests.ps1.md#comment2)
     It 'a reduced build ships the full type set and loads exactly its modules (Test-BuildArtifact)' {
         $result = Test-BuildArtifact -Module 'Catzc.Base.Config' -Facet Load -PassThru -OutputFolder (Join-Path $TestDrive 'build-artifact')
-        $result.Modules | Should -BeLessThan (Get-ChildItem -Directory (Join-Path (Get-RepositoryRoot) 'automation') | Where-Object Name -NotLike '.*').Count
+        $result.Modules | Should -BeLessThan (Get-ChildPath (Join-Path (Get-RepositoryRoot) 'automation') -Directory -Depth 1 | Where-Object { -not [System.IO.Path]::GetFileName($_).StartsWith('.') }).Count
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

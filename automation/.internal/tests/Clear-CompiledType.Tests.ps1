@@ -31,12 +31,12 @@ Describe 'Clear-CompiledType' -Tag 'L0', 'logic' {
 
     It 'deletes every compiled DLL under .compiled' {
         InModuleScope Catzc.Internal.Bootstrap -Parameters @{ Root = $root } { param($Root) Clear-CompiledType -ModulesRoot $Root }
-        @(Get-ChildItem $compiled -Filter '*.dll').Count | Should -Be 0
+        @(Get-ChildPath $compiled -File -Filter '*.dll' -Depth 1).Count | Should -Be 0
     }
 
     It 'deletes each DLL''s manifest with it' {
         InModuleScope Catzc.Internal.Bootstrap -Parameters @{ Root = $root } { param($Root) Clear-CompiledType -ModulesRoot $Root }
-        @(Get-ChildItem $compiled -Filter '*.json').Count | Should -Be 0
+        @(Get-ChildPath $compiled -File -Filter '*.json' -Depth 1).Count | Should -Be 0
     }
 
     It 'does not throw when .compiled is absent' {

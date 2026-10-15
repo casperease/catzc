@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Python/private/Install-PipTool.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Tooling.Python
     visibility: private
     adrs:

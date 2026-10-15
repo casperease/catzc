@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Tooling.Github/private/Assert-RemoteMatchesBranch.ps1
-    kind: private-function
+    kind: automation-function
     module: Catzc.Tooling.Github
     visibility: private
   config:
