@@ -79,11 +79,11 @@ their shapes (box, cylinder, pill) tell them apart.
 **Source-lens phrases** (the `source` lens, below) are variants of the code unit. They stay in slate, so they add no colour to the budget.
 Copy them from `glyphs.xml` (`g-private`, `g-type` + `g-type-tag`, `g-module`):
 
-| Phrase         | Shape                                                    | Fill / stroke                      | Use it for                                                                    |
-| -------------- | -------------------------------------------------------- | ---------------------------------- | ----------------------------------------------------------------------------- |
-| private helper | code unit, 36 px tall, `strokeWidth=0.5`, 11 px name     | `#4E6378` / `#7D90A4`              | a function in the module's `private/` folder; never dashed; text `#CDD3DC`     |
-| C# type        | code unit with a `C#` tag (26 × 16) on its top-right     | `#4E6378` / `#9FB3C8`, tag on page | a class or record under `types/*.cs`                                           |
-| catzc module   | slate frame, no fill, `strokeWidth=1.5`, name top-left   | none / `#9FB3C8`                   | another `Catzc.*` module the drawn code calls; its members sit inside it      |
+| Phrase         | Shape                                                  | Fill / stroke                      | Use it for                                                                 |
+| -------------- | ------------------------------------------------------ | ---------------------------------- | -------------------------------------------------------------------------- |
+| private helper | code unit, 36 px tall, `strokeWidth=0.5`, 11 px name   | `#4E6378` / `#7D90A4`              | a function in the module's `private/` folder; never dashed; text `#CDD3DC` |
+| C# type        | code unit with a `C#` tag (26 × 16) on its top-right   | `#4E6378` / `#9FB3C8`, tag on page | a class or record under `types/*.cs`                                       |
+| catzc module   | slate frame, no fill, `strokeWidth=1.5`, name top-left | none / `#9FB3C8`                   | another `Catzc.*` module the drawn code calls; its members sit inside it   |
 
 The slide's own module is a band (chrome), not a `catzc module` frame. `external tool` stays a vendor tool (az, git, dotnet), never a catzc
 module.
@@ -139,8 +139,9 @@ The user's standard, from the wave-1 review: the information must be **verified 
 picture must be **simple**. A diagram that is only true to the ADR prose is not done.
 
 1. **Verify first.** For every claim in the picture (each box, edge, order, name, parameter, path and number), find its source in the ADR,
-   the code (`automation/**`, `importer.ps1`, root scripts) and the configs (`configs/*.yml`, pipeline YAML). Write `<name>.drawio.verify.md`
-   next to the XML: a table with the columns claim → source (`file:line`) → **confirmed / contradicted / ADR-only**.
+   the code (`automation/**`, `importer.ps1`, root scripts) and the configs (`configs/*.yml`, pipeline YAML). Write
+   `<name>.drawio.verify.md` next to the XML: a table with the columns claim → source (`file:line`) → **confirmed / contradicted /
+   ADR-only**.
 2. **Code wins on facts. The ADR wins on intent.**
    - If the code contradicts the drawing, fix the drawing and report the contradiction.
    - If the ADR states something the code doesn't do yet, keep it only when it's essential to the finding, and mark it ADR-only in the
@@ -242,8 +243,11 @@ under `docs/.assets/` (the slide descriptions and the minimaps' sister files), `
 `Get-ValueChainHighlight -Adr <the slide's ADR codes>`: rows are the **value-chain stack** (`PRIN`, `DSGN`, `AUTO`, `PIPE`, `CLOUD`,
 ADR-DSGN-TRACK#14) and columns the **value-chain concerns** (ADR-DSGN-TRACK#15), both closed sets in their declared order and always all
 named by capital codes, horizontal: a row by its code, a column by the initials of a hyphenated concern or else the whole concern in
-capitals, never truncated (`BUILD`, `QC`, `RELEASE`, `DEPLOY`, `ACCESS`). The lit rows and columns are named in ink with a tick, the others
-in the label grey. Every cell is an idle grey box, empty ones included; a lit cell is filled in the lit colour. The axis titles are not
+capitals, never truncated (`BUILD`, `QC`, `RELEASE`, `DEPLOY`, `ACCESS`). The column codes sit on **one line**, centred over their columns.
+The `automation` concern has **no column**: the stack's `AUTO` row already names it, so the minimap prints five columns, and the sister
+`.md` and the map key describe those five. `describe.py` (`HIDDEN_CONCERNS`, `shown_chain`) hides it in one place, so the picture, the
+sister `.md` and the key never disagree; the concern stays declared in `adrs.yml` and is lit on the full maps. The lit rows and columns are
+named in ink with a tick, the others in the label grey. Every cell is an idle grey box, empty ones included; a lit cell is filled in the lit colour. The axis titles are not
 printed on the minimap: the map key and the sister `.md` name the axes and expand the codes.
 
 ### The sister `.md` of each minimap
@@ -340,12 +344,12 @@ view adds its sections in `describe.py`'s `VIEWS`.
 
 A fan-out drawing is a **slide**: glyphs on the picture, words in prose. Every slide ships as four files with one stem, side by side:
 
-| File                      | Reader                                | Holds                                                                                                     |
-| ------------------------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `<stem>.drawio.png`       | everyone                              | the slide: glyphs, names, markers, chips, the legend, and the sidebar (three minimaps and the map key)    |
-| `<stem>.md`               | a newcomer                            | the **article**: what the slide shows and why it holds, as well-written prose                             |
-| `<stem>.drawio.md`        | anyone who can't see it, or checks it | the **visual description**, landed as the asset description: what is drawn, in this kit's terms, no meaning |
-| `<stem>.drawio.verify.md` | the lead and reviewers                | the claim → `file:line` → status table, the corrections, and the drift                                    |
+| File                      | Reader                                | Holds                                                                                                  |
+| ------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `<stem>.drawio.png`       | everyone                              | the slide: glyphs, names, markers, chips, the legend, and the sidebar (three minimaps and the map key) |
+| `<stem>.md`               | a newcomer                            | the **article**: what the slide shows and why it holds, as well-written prose                          |
+| `<stem>.drawio.md`        | anyone who can't see it, or checks it | the **visual description** (landed as the asset description): what is drawn, with no meaning           |
+| `<stem>.drawio.verify.md` | the lead and reviewers                | the claim → `file:line` → status table, the corrections, and the drift                                 |
 
 A `source` lens slide (below) has no `<stem>.md` article: its words go into the module's reference article and its `<stem>.drawio.md`.
 

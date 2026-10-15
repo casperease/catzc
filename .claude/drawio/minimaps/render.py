@@ -124,11 +124,12 @@ def draw_cell(d, box, state):
         d.rectangle(box, fill=IDLE, outline=BORDER, width=1)
 
 
-def draw_codes(d, items, f, top, low, high):
-    """Short horizontal column labels: each centred over its column where the others allow, alternating between two lines
-    so neighbours never touch; a tick under each lit column marks its exact place."""
-    for line in (0, 1):
-        row = [(x, text, fill) for i, (x, text, fill) in enumerate(items) if i % 2 == line]
+def draw_codes(d, items, f, top, low, high, lines=2):
+    """Short horizontal column labels: each centred over its column where the others allow, alternating between `lines`
+    lines (two by default; one when they all fit) so neighbours never touch; a tick under each lit column marks its
+    exact place."""
+    for line in range(lines):
+        row = [(x, text, fill) for i, (x, text, fill) in enumerate(items) if i % lines == line]
         if not row:
             continue
         pitch = max(text_w(d, text, f) for _, text, _ in row) + 8
@@ -193,7 +194,7 @@ def render_grid(world, highlight, extensions, badge, path):
 # ---------------------------------------------------------------- value-chain minimap (stack x concern)
 
 CHAIN_W, CHAIN_H = 480, 300
-CHAIN_LEFT, CHAIN_TOP, CHAIN_PAD = 76, 58, 3  # the top holds two lines of capital column codes at 18 px
+CHAIN_LEFT, CHAIN_TOP, CHAIN_PAD = 76, 36, 3  # the top holds one line of capital column codes at 18 px
 
 
 def render_chain(chain, highlight, path):
@@ -228,7 +229,7 @@ def render_chain(chain, highlight, path):
         codes.append((x, describe.concern_code(concern), INK if on else LABEL))
         if on:
             d.rectangle((x - cw / 2 + gap, CHAIN_TOP - 5, x + cw / 2 - gap, CHAIN_TOP - 2), fill=lit())
-    draw_codes(d, codes, f, 4, CHAIN_LEFT + 4, CHAIN_W - 2)
+    draw_codes(d, codes, f, 4, CHAIN_LEFT + 4, CHAIN_W - 2, lines=1)
     im.save(path, optimize=True)
 
 
@@ -482,7 +483,7 @@ def main():
     labels = configure(data)
     slides = json.loads((REPO / args.slides).read_text(encoding="utf-8"))["slides"]
     world = json.loads((data / "world-map.json").read_text(encoding="utf-8"))
-    chain = json.loads((data / "value-chain-map.json").read_text(encoding="utf-8"))
+    chain = describe.shown_chain(json.loads((data / "value-chain-map.json").read_text(encoding="utf-8")))
     highlights = json.loads((data / "highlights.json").read_text(encoding="utf-8"))
     missing = [s["id"] for s in slides if s["id"] not in highlights]
     if missing:
@@ -495,7 +496,7 @@ def main():
     ctx = describe.Context(world, chain, labels, json.loads((data / "references.json").read_text(encoding="utf-8")), extensions)
     facts = {}
     for slide in slides:
-        world_lit, chain_lit = highlights[slide["id"]]["world"], highlights[slide["id"]]["chain"]
+        world_lit, chain_lit = highlights[slide["id"]]["world"], describe.shown_chain(highlights[slide["id"]]["chain"])
         stem = slide["stem"]
         files = lit_files(world_lit)
         groups = lit_groups(layout, files)

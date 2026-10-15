@@ -161,7 +161,7 @@ def main():
     args = parser.parse_args()
     target = REPO / args.target
     palette = json.loads((REPO / args.data / "palette.json").read_text(encoding="utf-8"))
-    concerns = json.loads((REPO / args.data / "value-chain-map.json").read_text(encoding="utf-8"))["concerns"]
+    concerns = describe.shown_chain(json.loads((REPO / args.data / "value-chain-map.json").read_text(encoding="utf-8")))["concerns"]
     slides = json.loads((REPO / args.slides).read_text(encoding="utf-8"))["slides"][args.start : args.end]
     missing = []
     for slide in slides:

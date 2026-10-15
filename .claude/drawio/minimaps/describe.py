@@ -26,6 +26,17 @@ WORLD_TERMS = ["world map", "track", "file language", "cell", "lit cell"]
 # The defined terms the value-chain map is built on (ADR-DSGN-TRACK#10, #12, #14-#16).
 CHAIN_TERMS = ["value-chain map", "value-chain stack", "value-chain concern", "cell", "lit cell"]
 KIND_WORDS = {"help": "header", "comment": "body comment", "text": "text"}
+# The value-chain concerns the minimap prints no column for: the stack's AUTO row already names `automation`.
+HIDDEN_CONCERNS = {"automation"}
+
+
+def shown_chain(chain):
+    """A value-chain map or highlight without the hidden concerns: its concern list and its cells, so the picture, its sister
+    .md and the map key all describe the same columns."""
+    shown = {**chain, "cells": [c for c in chain["cells"] if c["concern"] not in HIDDEN_CONCERNS]}
+    if "concerns" in chain:
+        shown["concerns"] = [c for c in chain["concerns"] if c not in HIDDEN_CONCERNS]
+    return shown
 
 
 class Context:
