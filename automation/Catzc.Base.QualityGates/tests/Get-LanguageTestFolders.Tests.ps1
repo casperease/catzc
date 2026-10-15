@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestFolders.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-LanguageTestFolders over a fixture repository in $TestDrive (Get-RepositoryRoot and the go config mocked): catzc
 # modules under automation/, Go test folders under the go/ root, Python test folders under python/ and Bash test folders
 # under bash/. Neutral

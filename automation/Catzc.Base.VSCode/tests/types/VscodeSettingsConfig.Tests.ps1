@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.VSCode/tests/types/VscodeSettingsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # The vscode-settings.yml type: constructing it maps and validates the parsed YAML, so a malformed settings
 # registry never loads through Get-Config -Config vscode-settings.
 Describe 'Catzc.Base.VSCode.VscodeSettingsConfig' -Tag 'L0' {

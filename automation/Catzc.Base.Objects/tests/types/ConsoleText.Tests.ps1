@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/tests/types/ConsoleText.Tests.ps1
+    kind: test
+---
+#>
+
 # ConsoleText — the shared console rendering behind every catzc type's ToString(), so an object held in pwsh reads
 # as one line in "$x", [string]$x and a table cell. Exercised through probe types compiled by Add-Type against the
 # loaded combined assembly. Neutral fixture names

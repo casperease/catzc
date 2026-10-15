@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
+    kind: test
+---
+#>
+
 # CheckModes — the one parser of a check's mode setting, shared by every check config: an omitted mode is the default declared
 # once on CheckMode, and an unknown one gets the one error text. Neutral fixture values
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

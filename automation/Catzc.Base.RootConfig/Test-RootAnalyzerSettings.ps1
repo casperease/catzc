@@ -17,8 +17,6 @@ catzc:
     Quality gate: the root PSScriptAnalyzerSettings.psd1 parses as a settings hashtable through its link.
 .DESCRIPTION
     Content equality holds by construction via the link, so only parsing a non-empty hashtable at the root remains.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-rootconfig/Test-RootAnalyzerSettings.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-root-analyzer-settings/ (Write-QualityGateReport).

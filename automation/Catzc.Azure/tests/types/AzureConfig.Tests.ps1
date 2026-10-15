@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore toolong
 Describe 'AzureConfig' -Tag 'L0' {
     BeforeAll {

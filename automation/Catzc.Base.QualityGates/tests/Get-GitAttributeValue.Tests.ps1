@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-GitAttributeValue.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-GitAttributeValue' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'

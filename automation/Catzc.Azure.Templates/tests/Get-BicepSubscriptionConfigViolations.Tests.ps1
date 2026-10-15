@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-BicepSubscriptionConfigViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fixture azure: a non-customer pair (the shared platform) + a customer pair (acme) + a second

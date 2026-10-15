@@ -16,7 +16,6 @@ catzc:
     Lists the glossary terms that a second ADR rule defines (check G3) — one message per violation.
 .DESCRIPTION
     Only a bold term followed by "is" counts as a definition, so a rule that merely bolds the term is not flagged.
-    [ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryDefinitionViolations.ps1.md#comment1)
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.

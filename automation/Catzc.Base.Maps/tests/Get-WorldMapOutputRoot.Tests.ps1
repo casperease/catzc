@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/Get-WorldMapOutputRoot.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-WorldMapOutputRoot' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:outputRoot = Join-Path $TestDrive 'widget-out'

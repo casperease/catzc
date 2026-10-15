@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/tests/ConvertTo-RepoRelativePath.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ConvertTo-RepoRelativePath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = [IO.Path]::GetFullPath((Join-Path ([IO.Path]::GetTempPath()) ('catzc-root-' + [Guid]::NewGuid())))

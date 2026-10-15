@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/tests/Get-AdoRepositoryName.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AdoRepositoryName' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM#4' {
     BeforeEach {
         $script:originalName = $env:BUILD_REPOSITORY_NAME

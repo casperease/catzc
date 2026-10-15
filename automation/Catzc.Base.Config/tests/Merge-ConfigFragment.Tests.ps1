@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Config/tests/Merge-ConfigFragment.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Merge-ConfigFragment' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:merge = {

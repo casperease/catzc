@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Invoke-BicepFormat.Tests.ps1
+    kind: test
+---
+#>
+
 # The bicep engine with the tool boundary mocked ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)):
 # the probe finds a managed Bicep CLI, and the mock writes the --outfile copy the engine compares. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

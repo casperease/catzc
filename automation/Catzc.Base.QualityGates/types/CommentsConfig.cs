@@ -15,11 +15,6 @@ catzc:
 */
 
 // Every key is optional and a fresh checkout without the file behaves like the defaults, so no function restates a value.
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
-// [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),
-// [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
-// [ADR-REPO-OUTDIR#1](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir1),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentsConfig.cs.md#comment1)
 
 using System;

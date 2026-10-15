@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/modules/sql-database.bicep
+//     kind: other
+// ---
+
 // Zone redundancy and geo-redundant backup are the defaults; a serverless SKU also takes an auto-pause delay and a minimum capacity.
 // [comment:1](/docs/references/infrastructure/modules/sql-database.bicep.md#comment1)
 

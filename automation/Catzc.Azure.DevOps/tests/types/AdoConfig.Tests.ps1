@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/tests/types/AdoConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'AdoConfig' -Tag 'L0' {
     BeforeAll {
         $script:baseConfig = @{

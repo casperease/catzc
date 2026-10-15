@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $tracks = @(

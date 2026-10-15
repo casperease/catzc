@@ -18,11 +18,9 @@ catzc:
     list the editor offers on workspace open.
 .DESCRIPTION
     Pure renderer: it returns the content and writes nothing, since Build-RootConfig owns the file write.
-    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-vscode/New-VSCodeExtensions.ps1.md#comment1)
 .PARAMETER EngineExtension
     An id already in the authored list is skipped, so an engine extension never shows twice in the recommendations.
-    [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)
     [comment:2](/docs/references/automation/catzc-base-vscode/New-VSCodeExtensions.ps1.md#comment2)
 .OUTPUTS
     [string] The rendered extensions.json content (LF-joined; the writer canonicalises).

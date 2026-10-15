@@ -1,6 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.QualityGates/configs/file-meta.yml
+#     kind: config
+# ---
+
 # The meta-kind registry: each entry is one kind of derived fact imprinted into a file's meta block, with defaults on FileMetaKind.
-# [ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2),
-# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md#comment1)
 kinds:
   # The repository-relative path of every file that carries a block, first so it is written first; a Markdown H1 is the title.
@@ -17,12 +22,13 @@ kinds:
         - { class: function, files: ["automation/Catzc.*/*.ps1", "automation/Catzc.*/private/*.ps1"] }
         - { class: template, files: ["infrastructure/templates/**/*.bicep"] }
         - { class: template-config, files: ["infrastructure/templates/**/configuration/**/*.yml"] }
+        - { class: config, files: ["automation/**/configs/*.yml"] }
         - { class: script, files: ["**/*.py", "**/*.sh"] }
         - { class: agent, files: [".claude/agents/**"] }
         - { class: skill, files: [".claude/skills/**"] }
         - { class: adr, files: ["docs/adr/**"] }
         # A comment page keeps its source file's name and extension plus.md, so the name marks it; it wins over reference.
-        # [ADR-REPO-COMMENTS#3](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments3) [comment:2](/docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md#comment2)
+        # [comment:2](/docs/references/automation/catzc-base-qualitygates/configs/file-meta.yml.md#comment2)
         - {
             class: comment-page,
             files:

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Vendor/tests/Remove-VendorModules.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Remove-VendorModules' -Tag 'L0', 'logic' {
     BeforeEach {
         # The run-mode guard is its own boundary (covered in the build-mode block below).

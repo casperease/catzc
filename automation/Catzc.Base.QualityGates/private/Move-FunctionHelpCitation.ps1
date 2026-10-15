@@ -16,7 +16,6 @@ catzc:
     Moves a function's ADR citations out of the synopsis and onto the sorted tail of the description.
 .DESCRIPTION
     Only a parenthesised citation is moved out of the synopsis and only a line made of citations out of the...
-    [ADR-REPO-HELP#2](/docs/adr/repository/function-help.md#rule-adr-repo-help2)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Move-FunctionHelpCitation.ps1.md#comment1)
 .PARAMETER Section
     The help sections, each @{ Name; Arg; Lines }. The synopsis and description sections are changed in place.

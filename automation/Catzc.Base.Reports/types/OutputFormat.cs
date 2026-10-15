@@ -14,10 +14,6 @@ catzc:
 */
 
 // Construction collects every violation into one throw; that no two formats overlap spans entries, so the catalogue checks it.
-// [ADR-REPO-OUTFMT#1](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt1),
-// [ADR-REPO-OUTFMT#3](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt3),
-// [ADR-REPO-OUTFMT#5](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt5),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-reports/types/OutputFormat.cs.md#comment1)
 
 using System;

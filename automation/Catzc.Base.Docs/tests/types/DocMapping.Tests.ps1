@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/types/DocMapping.Tests.ps1
+    kind: test
+---
+#>
+
 # Validates the compiled DocMapping type directly — the constructor is the gate that stops a malformed
 # readme.yml mapping entry from ever producing an instance.
 Describe 'DocMapping' -Tag 'L0', 'logic' {

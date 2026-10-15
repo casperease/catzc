@@ -11,7 +11,6 @@ catzc:
 */
 
 // Heaviest first with ordinal key ties, so the same weights give the same rectangles in whatever order they arrive.
-// [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/SquarifiedTreemap.cs.md#comment1)
 
 using System;

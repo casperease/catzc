@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-TestTitles.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-TestTitles over fixture test files in $TestDrive (the repository root is mocked). The fixture titles are built
 # from string pieces, so this file's own titles never carry the very token the gate bans. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

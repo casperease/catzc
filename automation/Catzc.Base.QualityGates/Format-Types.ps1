@@ -62,7 +62,6 @@ function Format-Types {
     }
     else {
         # [System.IO] enumeration: each cmdlet call on this path adds about 20ms.
-        # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
         # [comment:3](/docs/references/automation/catzc-base-qualitygates/Format-Types.ps1.md#comment3)
         $automationRoot = [System.IO.Path]::GetFullPath((Join-Path $root 'automation'))
         foreach ($moduleDirectory in [System.IO.Directory]::EnumerateDirectories($automationRoot)) {

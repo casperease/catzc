@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
+    kind: test
+---
+#>
+
 # Integrity test for managed root config files, through the quality gates Test-RootConfigFiles and
 # Test-RootAnalyzerSettings ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
 #

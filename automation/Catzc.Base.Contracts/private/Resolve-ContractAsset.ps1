@@ -19,10 +19,6 @@ catzc:
     Derives one contract asset's facts from its name and place, and returns them as a ContractAsset.
 .DESCRIPTION
     A schema targets the sample payload of its name beside it, else the real file at its path under the target root.
-    [ADR-AUTO-ZERO](/docs/adr/automation/zero-ceremony-poka-yoke.md),
-    [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),
-    [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
-    [ADR-REPO-CONTRACT#7](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract7)
     [comment:1](/docs/references/automation/catzc-base-contracts/private/Resolve-ContractAsset.ps1.md#comment1)
 .PARAMETER Unit
     The deployable-unit folder name.

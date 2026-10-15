@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/Invoke-PythonTest.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolate through the seams ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)): a

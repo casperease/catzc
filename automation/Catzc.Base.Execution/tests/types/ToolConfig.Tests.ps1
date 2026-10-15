@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ToolConfig' -Tag 'L0', 'logic' {
     # The typed record over one tools.yml entry. It rejects keys it does not map (a dropped key would be invisible
     # to every caller), and these pin the optional flags the provisioning loops branch on. Fixture tokens are

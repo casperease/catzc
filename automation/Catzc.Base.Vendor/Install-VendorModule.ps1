@@ -18,8 +18,6 @@ catzc:
     Saves a PowerShell module into the automation/.vendor directory from the configured source.
 .DESCRIPTION
     Run it in a fresh session: a loaded module locks its files, and build mode stops with a named error.
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
-    [ADR-PWSH-VENDOR](/docs/adr/pwsh/vendor-toolset-dependencies.md)
     [comment:1](/docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md#comment1)
 .PARAMETER Name
     The module name to install from the vendor source.
@@ -68,7 +66,6 @@ function Install-VendorModule {
     Save-PSResource @saveParams
 
     # Drops legacy .NET Framework builds and the 280 MB compatibility_profiles, which no enabled rule reads.
-    # [ADR-PWSH-VENDOR#7](/docs/adr/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor7)
     # [comment:2](/docs/references/automation/catzc-base-vendor/Install-VendorModule.ps1.md#comment2)
     $moduleDir = Join-Path $vendorRoot $Name
     $prunedFolders = @('net20', 'net35', 'net40', 'net45', 'net451', 'net452',

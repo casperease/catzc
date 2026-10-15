@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Node/tests/Invoke-Npm.L2.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-Npm' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:available = Test-Tool 'node_js'

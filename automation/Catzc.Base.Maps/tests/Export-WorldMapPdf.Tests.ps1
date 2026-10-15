@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/Export-WorldMapPdf.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore startxref
 BeforeAll {
     # The PDF structure every written file must have: the header, an xref table where startxref points, and %%EOF.

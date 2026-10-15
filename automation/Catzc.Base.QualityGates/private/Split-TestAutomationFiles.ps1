@@ -17,8 +17,6 @@ catzc:
     Splits the run's test files into the three execution phases: parallel, greedy, and serial.
 .DESCRIPTION
     The unit is the file, so one serial or greedy test moves its whole file; a file with both tags is serial.
-    [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26),
-    [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Split-TestAutomationFiles.ps1.md#comment1)
 .PARAMETER Discovery
     The discovery-only Pester run object (Get-TestDiscovery output) whose tests are inspected.

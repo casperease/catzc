@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/tests/Get-RunEnvironment.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-RunEnvironment' -Tag 'L0', 'logic' {
     It 'is a devbox outside a pipeline' {
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.Repository

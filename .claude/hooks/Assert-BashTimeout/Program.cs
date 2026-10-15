@@ -1,3 +1,12 @@
+/*
+---
+catzc:
+  derived:
+    path: ".claude/hooks/Assert-BashTimeout/Program.cs"
+    kind: other
+---
+*/
+
 // The verdict is compiled from the module's own sources, so the hook, Get-TimeoutSeconds and the L0 tests share one parser and verdict.
 // [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)
 // [comment:1](/docs/references/automation/claude-hooks/Assert-BashTimeout/Program.cs.md#comment1)

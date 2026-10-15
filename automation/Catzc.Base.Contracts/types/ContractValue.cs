@@ -11,7 +11,6 @@ catzc:
 */
 
 // A CLR type outside the seven JSON kinds makes Kind throw: the parsers never produce one, so meeting one is a misuse.
-// [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)
 // [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractValue.cs.md#comment1)
 
 using System;

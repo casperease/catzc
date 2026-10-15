@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/tests/Get-AzureCustomer.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AzureCustomer' -Tag 'L0', 'logic' {
     # Redirect the 'customer' config to the fixture catalogue (acme/ac, globex/gx). Read-only resolver, so
     # the mock + cache reset run once

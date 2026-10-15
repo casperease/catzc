@@ -1,6 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.QualityGates/configs/parameter-consistency.yml
+#     kind: config
+# ---
+
 # An exempt name that no longer conflicts is reported, so the list only shrinks to what is real.
-# [ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md),
-# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/parameter-consistency.yml.md#comment1)
 exempt:
   As: the output format of a diagram converter, typed per diagram (an enum where the format set is closed, text where it is open)

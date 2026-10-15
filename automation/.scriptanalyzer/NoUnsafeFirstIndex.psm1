@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/NoUnsafeFirstIndex.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 <#
@@ -5,7 +14,6 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: forbid taking the first element of a collected result by index.
 .DESCRIPTION
     Under strict mode an empty result throws an engine error before the null check written after it can run.
-    [ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)
     [comment:1](/docs/references/automation/scriptanalyzer/NoUnsafeFirstIndex.psm1.md#comment1)
 #>
 
@@ -21,7 +29,6 @@ function Measure-NoUnsafeFirstIndex {
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
 
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:2](/docs/references/automation/scriptanalyzer/NoUnsafeFirstIndex.psm1.md#comment2)
     $isFirstIndex = {
         param($node)

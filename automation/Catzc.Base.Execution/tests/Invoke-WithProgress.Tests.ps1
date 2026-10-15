@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/tests/Invoke-WithProgress.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-WithProgress' -Tag 'L0', 'logic' {
     It 'returns the scriptblock''s value untouched by the dots' {
         $result = Invoke-WithProgress { Start-Sleep -Milliseconds 150; 'widget' } -Message 'Working' -IntervalMs 20

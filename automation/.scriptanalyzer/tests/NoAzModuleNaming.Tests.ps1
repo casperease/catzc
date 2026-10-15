@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1
+    kind: test
+---
+#>
+
 # The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
 # ScriptBlockAst. The engine-wiring proof (PSScriptAnalyzer discovers and fires this rule via -CustomRulePath)
 # lives once, for all custom rules, in CustomRuleWiring.Tests.ps1 — re-running the whole engine per naming case

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/tests/types/ExecutableProbe.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ExecutableProbe' -Tag 'L0', 'logic' {
     # The existence-check record. Fixture tokens are neutral
     # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

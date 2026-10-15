@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Remove-AzCli.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Remove-AzCli' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Get-ToolConfig { [pscustomobject]@{ command = 'widget' } } -ModuleName Catzc.Tooling.Toolchain

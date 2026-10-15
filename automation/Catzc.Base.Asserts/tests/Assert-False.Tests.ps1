@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Assert-False.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-False' -Tag 'L0', 'logic' {
     It 'passes when value is $false' {
         { Assert-False $false } | Should -Not -Throw

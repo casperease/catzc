@@ -18,8 +18,6 @@ catzc:
     The function dependency quality gate: every function-to-function call resolves to a defined command.
 .DESCRIPTION
     Two modules defining one public name fail the gate, as exports must be unique; duplicate private names pass.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
@@ -48,7 +46,6 @@ function Test-FunctionDependency {
     Assert-SourceTree
 
     # One parse per file, shared by the definition map and the call walk; System.IO avoids provider overhead.
-    # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
     # [comment:2](/docs/references/automation/catzc-base-modulesystem/Test-FunctionDependency.ps1.md#comment2)
     $parsed = [System.Collections.Generic.List[object]]::new()
     $definitions = @{}

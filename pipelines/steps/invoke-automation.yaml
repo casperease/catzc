@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: pipelines/steps/invoke-automation.yaml
+#     kind: other
+# ---
+
 # Every flag defaults to off and is an explicit escalation; no credentials reach environment variables in any mode.
 # [ADR-FLOW-CD-RUNNER](/docs/adr/flow/pipeline-runner-pattern.md)
 # [comment:1](/docs/references/pipelines/steps/invoke-automation.yaml.md#comment1)

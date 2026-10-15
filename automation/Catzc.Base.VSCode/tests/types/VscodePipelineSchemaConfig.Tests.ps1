@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.VSCode/tests/types/VscodePipelineSchemaConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # The vscode-pipeline-schema.yml type: constructing it maps and validates the parsed YAML, so a schema that would
 # reintroduce the false positives it exists to remove never loads through Get-Config -Config vscode-pipeline-schema.
 Describe 'Catzc.Base.VSCode.VscodePipelineSchemaConfig' -Tag 'L0' {

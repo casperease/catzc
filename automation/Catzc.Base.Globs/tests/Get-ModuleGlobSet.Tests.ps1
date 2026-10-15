@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+    kind: test
+---
+#>
+
 # The derived globsets ([ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)): folder
 # = module = set (readme-kebab name), one single-file set per
 # internal .psm1 module, reserved infra scopes, one shared name space with the declared registry. Derived

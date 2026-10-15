@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Go.Tests.ps1
+    kind: test
+---
+#>
+
 # Hermetic logic (L1): the managed home is a fixture folder under $TestDrive; the persistent PATH seam is mocked.
 Describe 'Uninstall-Go' -Tag 'L1', 'logic' {
     BeforeAll {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1
+    kind: test
+---
+#>
+
 # Format-Types maintains each C# type source's file-scoped namespace from its module folder; its -DryRun is the C#
 # part of Test-Formatting ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
 # A fixture tree in $TestDrive stands in for the repository (neutral widget/gadget names,

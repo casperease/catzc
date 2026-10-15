@@ -75,11 +75,7 @@ function Get-FunctionFileViolation {
         "${RelativePath}: defines function '$($functions[0].Name)', but the file is named for '$expectedName'"
     }
 
-    $isScriptRootRead = {
-        param($node)
-        $node -is [System.Management.Automation.Language.VariableExpressionAst] -and $node.VariablePath.UserPath -ieq 'PSScriptRoot'
-    }
-    foreach ($read in $syntaxTree.FindAll($isScriptRootRead, $true)) {
+    foreach ($read in [Catzc.Base.Repository.SyntaxSearch]::VariableReads($syntaxTree, 'PSScriptRoot')) {
         "${RelativePath}:$($read.Extent.StartLineNumber): reads `$PSScriptRoot, which names the merged file's folder in a build; locate content with Get-CatzcModuleRoot (ADR-AUTO-ASSETDEP#1)"
     }
 }

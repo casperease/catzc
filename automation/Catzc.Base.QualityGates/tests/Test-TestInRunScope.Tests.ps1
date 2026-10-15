@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-TestInRunScope.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-TestInRunScope' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fake discovery tests — the Pester test shape Get-TestBlockTag walks (own It-tags, then the block chain).

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/tests/Get-FileLockingProcess.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-FileLockingProcess' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:f = Join-Path $TestDrive ([guid]::NewGuid().ToString('N') + '.bin')

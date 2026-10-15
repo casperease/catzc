@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
+    kind: test
+---
+#>
+
 # Build-CommentView writes the inverse of Export-Comments: the annotated copy of every file that carries residues,
 # under the view folder in out/ ([ADR-REPO-OUTDIR#1](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir1)),
 # equal to the file before its comments moved

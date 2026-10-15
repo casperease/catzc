@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-GlossarySources.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-GlossarySources is private, so it is exercised through the module (InModuleScope, per
 # [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).
 # Discovery is redirected to the fixture sources under tests/assets/glossary/ through the Resolve-ConfigEntry seam,

@@ -19,11 +19,9 @@ catzc:
     mirrors the scope header the run opens with.
 .DESCRIPTION
     Printed on every exit path as the close of the cyan opener, so a run is always visibly bracketed.
-    [ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md#comment1)
 .PARAMETER Result
     Anything but Passed or Failed is rejected at binding; the value picks the gradient anchor, green or red.
-    [ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md#comment2)
 .PARAMETER Summary
     The caller builds it, so the run's existing pass and failure wording stays verbatim in the title.
@@ -62,7 +60,6 @@ function Write-TestAutomationVerdict {
     )
 
     # The gradient is reserved for this one end-of-run verdict, so it appears nowhere else in the console output.
-    # [ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)
     # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md#comment5)
     $anchor = if ($Result -eq 'Passed') {
         'Green'
@@ -75,7 +72,6 @@ function Write-TestAutomationVerdict {
     Write-Message '' -NoHeader
     Write-Header "Test Automation $($Result.ToUpperInvariant()) — $Summary" -ForegroundColor $rainbow
     # Invariant so the duration reads the same on any devbox culture, matching the title's summary.
-    # [ADR-AUTO-XPLAT#6](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat6)
     # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationVerdict.ps1.md#comment6)
     $detail = [string]::Format([System.Globalization.CultureInfo]::InvariantCulture,
         '{0} passed · {1} skipped · {2} failed · {3:N1}s wall clock', $PassedCount, $SkippedCount, $FailedCount, $DurationSeconds)

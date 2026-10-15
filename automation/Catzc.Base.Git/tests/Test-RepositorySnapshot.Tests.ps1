@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/tests/Test-RepositorySnapshot.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-RepositorySnapshot' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

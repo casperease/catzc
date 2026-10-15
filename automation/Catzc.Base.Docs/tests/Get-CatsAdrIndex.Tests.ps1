@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-CatsAdrIndex.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-CatsAdrIndex' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:indexPath = Join-Path $TestDrive 'index.md'

@@ -14,10 +14,6 @@ catzc:
 */
 
 // A second run changes nothing: obvious insights and prose on the link line go to a person, never rewritten here.
-// [ADR-REPO-COMMENTS#1](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1),
-// [ADR-REPO-COMMENTS#5](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5),
-// [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
-// [ADR-AUTO-IDEM#1](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem1)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentFormatter.cs.md#comment1)
 
 using System;

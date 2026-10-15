@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownTable.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-FirewallMarkdownTable is a private (non-exported) function, so it is invoked via InModuleScope.
 Describe 'Get-FirewallMarkdownTable' -Tag 'L0', 'logic' {
     BeforeAll {

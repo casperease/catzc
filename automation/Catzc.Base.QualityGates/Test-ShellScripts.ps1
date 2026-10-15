@@ -18,8 +18,6 @@ catzc:
     zsh's syntax check on the repository's own.
 .DESCRIPTION
     A CRLF script does not run on the POSIX engines, since the carriage return becomes part of the command.
-    [ADR-AUTO-BASH#6](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash6),
-    [ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ShellScripts.ps1.md#comment1)
 .PARAMETER ShellCheckExclude
     Excluded vendored scripts still take the LF check; only ShellCheck skips them, and a zsh file never reaches it.

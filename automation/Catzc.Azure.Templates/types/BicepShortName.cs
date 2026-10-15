@@ -14,8 +14,6 @@ catzc:
 */
 
 // Only the short_name is Azure-facing; the kebab-case folder name never reaches a resource name.
-// [ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2),
-// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md#comment1)
 
 using System;
@@ -28,7 +26,6 @@ public sealed class BicepShortName
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     // Five keeps the worst-case tight storage name at 23 of 24 characters, with a byte to spare.
-    // [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)
     // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md#comment2)
     public const int MaxLength = 5;
 
@@ -94,7 +91,6 @@ public sealed class BicepShortName
     }
 
     // Mirrors the options.yml schema regex, so a name that passes here also passes Read-BicepTemplateOptions.
-    // [ADR-AZ-NAMING#6](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming6)
     // [comment:5](/docs/references/automation/catzc-azure-templates/types/BicepShortName.cs.md#comment5)
     public static bool IsValid(string value)
     {

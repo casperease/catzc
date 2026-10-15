@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-ShellScripts is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
 # the L0 cases run over a fixture repository in $TestDrive with the index, the tool probe, and ShellCheck mocked, and
 # read the collected issues; the report goes to $TestDrive. Neutral fixture names

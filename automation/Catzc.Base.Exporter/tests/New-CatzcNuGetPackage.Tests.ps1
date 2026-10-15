@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Exporter/tests/New-CatzcNuGetPackage.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 InModuleScope Catzc.Base.Exporter {
     Describe 'New-CatzcNuGetPackage' -Tag 'L0', 'logic' {

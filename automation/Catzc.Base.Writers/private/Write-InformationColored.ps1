@@ -17,8 +17,6 @@ catzc:
     Writes colored messages to the information stream.
 .DESCRIPTION
     ANSI in the text survives CI redirection and keeps the information stream, so preferences and 6> still apply.
-    [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8),
-    [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
     [comment:1](/docs/references/automation/catzc-base-writers/private/Write-InformationColored.ps1.md#comment1)
 .PARAMETER MessageData
     The message to write.

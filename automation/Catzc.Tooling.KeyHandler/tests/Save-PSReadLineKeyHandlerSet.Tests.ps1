@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.KeyHandler/tests/Save-PSReadLineKeyHandlerSet.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Save-PSReadLineKeyHandlerSet' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-PsModule { } -ModuleName Catzc.Tooling.KeyHandler

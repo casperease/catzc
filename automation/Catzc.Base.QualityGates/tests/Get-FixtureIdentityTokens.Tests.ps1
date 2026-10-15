@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-FixtureIdentityTokens.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-FixtureIdentityTokens over a fixture automation tree in $TestDrive (Get-RepositoryRoot mocked): the fixture
 # azure.yml / customer.yml are constructed as their registered C# config types, so the YAML below is a valid instance
 # of each. L1: it reads files and constructs the registered types. Neutral fixture names

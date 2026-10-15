@@ -22,8 +22,6 @@ catzc:
     Performs one test run through the parallel harness — the shared core of Test-Automation and Test-CatzcBuild.
 .DESCRIPTION
     The two test runs differ only in what they pass in: entry script, opt-out tag, entry point name and banner title.
-    [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30),
-    [ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment1)
 .PARAMETER EntryPoint
     Its key names the default report folder under out/ and prefixes the protection key.
@@ -130,7 +128,6 @@ function Invoke-TestRun {
     # The parent needs Pester only for the discovery pass; each worker imports its own copy for the actual run.
     Import-VendoredPester
     # Discovery runs before the banner and takes a while, so each stage prints a dot to show the run is alive.
-    # [ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)
     # [comment:25](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment25)
     Write-Message '.' -NoHeader -NoNewline
 
@@ -213,7 +210,6 @@ function Invoke-TestRun {
         $optOutExcludedTests = @($selection.OptOutExcludedTests)
 
         # Greedy files overlap only each other, and serial files run last and alone.
-        # [ADR-AUTO-TEST#26](/docs/adr/automation/test-automation.md#rule-adr-auto-test26)
         # [comment:13](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment13)
         $phases = Split-TestAutomationFiles -Discovery $discovery -TestFiles $testFiles
         $parallelFiles = @($phases.Parallel)
@@ -221,7 +217,6 @@ function Invoke-TestRun {
         $serialFiles = @($phases.Serial)
 
         # The key carries entry point and parameters, so an L0-L1 green never skips an L2 run or the build run.
-        # [ADR-REPO-PROTGLOB#9](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob9)
         # [comment:14](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment14)
         $protectionKey = "$entryPointKey|L$MinLevel-L$MaxLevel|$Category|$($Rule -join ',')"
         $protectionPlan = Select-ProtectedTestFile -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
@@ -294,7 +289,6 @@ function Invoke-TestRun {
         $limits = $testTimeLimits.LevelMs
         $timingFailure = Write-TestAutomationTimingReport -Rows $rows -Limits $limits -EnforceTimings:$EnforceTimings
         # The budget check is separate from the timings and fails the run even when timings are report-only.
-        # [ADR-AUTO-TEST#44](/docs/adr/automation/test-automation.md#rule-adr-auto-test44)
         # [comment:21](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestRun.ps1.md#comment21)
         $budgetFailure = Test-TestRunOverBudget -DurationSeconds $workerRun.DurationSeconds -BudgetSeconds $testTimeLimits.RunSeconds
         if ($timingFailure -or $budgetFailure) {

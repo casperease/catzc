@@ -17,8 +17,6 @@ catzc:
     Returns the Azure resource-type registry used by Get-AzureResourceName.
 .DESCRIPTION
     Only long types carry their own limit; kv, storage and vm take their cap from the pattern.
-    [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md),
-    [ADR-AZ-NAMING#4](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming4)
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md#comment1)
 .EXAMPLE
     (Get-AzureResourceTypeSet).st   # -> @{ pattern = 'storage' }

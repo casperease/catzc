@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/LinksConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # LinksConfig maps links.yml and is the one declaration of its sensible defaults
 # ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key
 # behaves exactly like the default, and a malformed value fails at construction with the allowed set.

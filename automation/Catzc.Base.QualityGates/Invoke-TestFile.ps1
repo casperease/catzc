@@ -22,15 +22,9 @@ catzc:
     Runs one or more test files by hand as a single worker shard — the blessed single-check entry point.
 .DESCRIPTION
     The manual path cannot drift from the harness: it is the harness path, one shard wide, in a fresh child process.
-    [ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25),
-    [ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32),
-    [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33),
-    [ADR-AUTO-TEST#34](/docs/adr/automation/test-automation.md#rule-adr-auto-test34),
-    [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment1)
 .PARAMETER Path
     A relative path always means repository-root-relative, never relative to the current directory.
-    [ADR-AUTO-NOPWD](/docs/adr/automation/never-depend-on-pwd.md)
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment2)
 .PARAMETER FullNameFilter
     Pass the manual-test-plan row's FullNameFilter column verbatim; it is wrapped in wildcards.
@@ -42,7 +36,6 @@ catzc:
     [comment:4](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment4)
 .PARAMETER TimeoutSeconds
     Defaults to this function's own time limit unless timeouts.yml overrides it; a worker past it is killed.
-    [ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)
     [comment:5](/docs/references/automation/catzc-base-qualitygates/Invoke-TestFile.ps1.md#comment5)
 .PARAMETER Isolated
     Run in a snapshot of the working folder even when it is free — immune to edits made while it runs.

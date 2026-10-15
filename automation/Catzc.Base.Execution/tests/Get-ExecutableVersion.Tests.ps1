@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/tests/Get-ExecutableVersion.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ExecutableVersion' -Tag 'L0', 'logic' {
     # The probe's only process start, with Invoke-Executable mocked: the located path is run (quoted), never a
     # bare name, and the version is the pattern's named group. Fixture tokens are neutral

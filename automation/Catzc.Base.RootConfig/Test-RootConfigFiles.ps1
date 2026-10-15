@@ -18,8 +18,6 @@ catzc:
     mechanism.
 .DESCRIPTION
     Ignore rules use check-ignore --no-index: the default consults the index and would mask a wrongly tracked file.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-rootconfig/Test-RootConfigFiles.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-root-config-files/ (Write-QualityGateReport).

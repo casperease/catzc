@@ -21,7 +21,6 @@ catzc:
     Discovers all bicep templates under $(Get-RepositoryRoot)/infrastructure/templates.
 .DESCRIPTION
     Reusable modules in infrastructure/modules/ are not discovered; one config file maps to one resource group.
-    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment1)
 .EXAMPLE
     Get-BicepTemplates | Format-Table name, deployment_target, environments
@@ -33,11 +32,9 @@ function Get-BicepTemplates {
     $outputRoot = Get-BicepTemplatesOutputRoot
 
     # Keyed on the discovery and output roots, so tests can redirect either without touching the real entry.
-    # [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)
     # [comment:2](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment2)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:bicepTemplatesCache')) {
         # GetValue probes the entry because a plain script: read would throw under strict mode before first use.
-        # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment3)
         $script:bicepTemplatesCache = @{}
     }
@@ -68,7 +65,6 @@ function Get-BicepTemplates {
 
         $options = Read-BicepTemplateOptions $folderPath
         # Every config below must match this bit; the slot is per-config, not a template bit.
-        # [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
         # [comment:6](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment6)
         $environmentKind = if ($options.Contains('environment_kind')) {
             "$($options.environment_kind)"
@@ -78,7 +74,6 @@ function Get-BicepTemplates {
         }
 
         # An explicit customer_deployment: true is only allowed when customers are enabled, the repo-level guard.
-        # [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
         # [comment:7](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment7)
         $customerDeploymentOption = if ($options.Contains('customer_deployment')) {
             [bool]$options.customer_deployment
@@ -97,7 +92,6 @@ function Get-BicepTemplates {
         }
 
         # A malformed override, or a folder that cannot derive a short_name, throws here naming the template.
-        # [ADR-AZ-NAMING#2](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming2)
         # [comment:8](/docs/references/automation/catzc-azure-templates/Get-BicepTemplates.ps1.md#comment8)
         $shortNameOverride = if ($options.Contains('short_name')) {
             "$($options.short_name)"

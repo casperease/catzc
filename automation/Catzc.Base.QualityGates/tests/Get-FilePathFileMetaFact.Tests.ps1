@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-FilePathFileMetaFact.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-FilePathFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {
         $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'file-path' = @{ keys = @('path') } } }).kinds[0]

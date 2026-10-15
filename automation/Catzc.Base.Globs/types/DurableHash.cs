@@ -12,8 +12,6 @@ catzc:
 */
 
 // Native code because a per-byte PowerShell pipeline over a tracked binary takes minutes; CR stripping keeps CRLF and LF equal.
-// [ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5),
-// [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
 // [comment:1](/docs/references/automation/catzc-base-globs/types/DurableHash.cs.md#comment1)
 
 using System;

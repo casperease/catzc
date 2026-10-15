@@ -17,8 +17,6 @@ catzc:
     Answers "which areas-of-control do these changes touch?" — one row per matched globset.
 .DESCRIPTION
     Derived module rows name the modules to test; a declared row carries its configured verify scope instead.
-    [ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1),
-    [ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)
     [comment:1](/docs/references/automation/catzc-base-globs/Get-MarkerBlastRadius.ps1.md#comment1)
 .PARAMETER ChangedFile
     The changed files, repo-relative and '/'-separated (backslashes are normalized).

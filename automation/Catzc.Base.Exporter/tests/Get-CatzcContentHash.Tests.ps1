@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Exporter/tests/Get-CatzcContentHash.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-CatzcContentHash' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:tree = Join-Path $TestDrive ([System.Guid]::NewGuid())

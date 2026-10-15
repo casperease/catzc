@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/Get-ContractFreezeFindings.Tests.ps1
+    kind: test
+---
+#>
+
 # A released version folder is immutable ([ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)):
 # Get-ContractFreezeFindings compares its files with the .frozen record Get-ContractFileHashes wrote at the freeze.
 # Fixtures are a widget version folder in TestDrive ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

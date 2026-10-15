@@ -18,9 +18,6 @@ catzc:
     Resolves the highest tier a test run executes, from the location it runs in.
 .DESCRIPTION
     L3 runs only in place with the user's system-test lock, since a snapshot cannot isolate state outside the repo.
-    [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10),
-    [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33),
-    [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Resolve-TestRunMaxLevel.ps1.md#comment1)
 .PARAMETER Location
     The location Enter-TestRunLocation returned.

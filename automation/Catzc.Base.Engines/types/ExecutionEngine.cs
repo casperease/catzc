@@ -13,8 +13,6 @@ catzc:
 */
 
 // No public constructor, so the three instances in ExecutionEngines are the only engines and no caller invents a fourth.
-// [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment1)
 
 using System;
@@ -58,7 +56,6 @@ public sealed class ExecutionEngine
     public string StrictMode { get; }
 
     // The mechanism differs per engine: a pwsh function, the timeout command prefix in bash and zsh.
-    // [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)
     // [comment:3](/docs/references/automation/catzc-base-engines/types/ExecutionEngine.cs.md#comment3)
     public string TimeSafeguard { get; }
 

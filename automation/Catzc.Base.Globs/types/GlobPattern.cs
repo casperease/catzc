@@ -13,9 +13,6 @@ catzc:
 */
 
 // The constructor is the gate: a malformed pattern never yields an instance, and the dialect has no escape character.
-// [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
-// [ADR-FLOW-CD-GLOBS#2](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs2),
-// [ADR-FLOW-CD-GLOBS#3](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs3)
 // [comment:1](/docs/references/automation/catzc-base-globs/types/GlobPattern.cs.md#comment1)
 
 using System;

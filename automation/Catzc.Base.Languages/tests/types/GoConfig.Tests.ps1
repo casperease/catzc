@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/types/GoConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'GoConfig' -Tag 'L0' {
 
     Context 'integrity (shipped go.yml)' -Tag 'integrity' {

@@ -18,8 +18,6 @@ catzc:
 .DESCRIPTION
     A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation. A file the kind's `domain_files`
     setting names also lists a bare `ADR-<CODE>`.
-    [ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3),
-    [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-AdrCodesFileMetaFact.ps1.md#comment1)
 .PARAMETER State
     What Get-MarkdownMetaState read from the file.

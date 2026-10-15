@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/tests/Resolve-ToolExecutable.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
     # The mapping from a tools.yml entry to the probe's plain inputs: the tools config is a fixture dictionary
     # (Get-Config mocked) and Find-Executable is mocked whole, so the assertions bind to which inputs each platform

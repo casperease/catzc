@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore ntwo  -- the escape-sequence artifact in the "one`ntwo" CRLF/LF fixture strings
 # The durable SHA ([ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)):
 # 64-hex-lowercase, EOL-insensitive, path-folded, ordinal, with the

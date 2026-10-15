@@ -13,9 +13,6 @@ catzc:
 */
 
 // An abbreviation carries its full-word expansion; the entries of the other categories do not.
-// [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
-// [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5),
-// [ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/TerminologyTerm.cs.md#comment1)
 
 using System;

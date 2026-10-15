@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-SourceConventions over fixture trees in $TestDrive: the repository root is mocked, so each test writes the
 # source and test files it needs and pins one convention. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): widget, gadget and sprocket stand

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-CheckedInBinaries over fixture files in $TestDrive with the git CLI mocked: `ls-files --eol` and
 # `check-attr binary` answer from each test's listing, so each test pins one storage rule. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

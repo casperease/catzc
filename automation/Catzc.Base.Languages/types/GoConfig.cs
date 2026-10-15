@@ -13,9 +13,6 @@ catzc:
 */
 
 // An omitted key behaves exactly like its default, so no function restates a value.
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-REPO-FOLDERS#4](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders4)
 // [comment:1](/docs/references/automation/catzc-base-languages/types/GoConfig.cs.md#comment1)
 
 using System;

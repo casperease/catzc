@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Github/tests/Publish-CleanHistory.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Publish-CleanHistory' -Tag 'L1', 'logic' {
     BeforeAll {
         # A local checkout written by hand: main at a made-up commit, read in-process by the remote check.

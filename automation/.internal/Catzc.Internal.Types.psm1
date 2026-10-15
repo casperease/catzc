@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/Catzc.Internal.Types.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
 <#
@@ -44,7 +53,6 @@ function Get-CombinedTypeHash {
     }
 
     # Raw System.IO instead of Get-ChildItem avoids about 20 ms of provider overhead per call.
-    # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
     # [comment:4](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment4)
     $files = [System.Collections.Generic.List[object]]::new()
     foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($AutomationRoot)) {
@@ -128,8 +136,6 @@ function Get-LoadedTypeDrift {
         current.
     .DESCRIPTION
         A loaded assembly cannot be swapped in a running process, so a source edited after loading stays stale.
-        [ADR-AUTO-TYPES#7](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types7),
-        [ADR-AUTO-TYPES#12](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types12)
         [comment:8](/docs/references/automation/internal/Catzc.Internal.Types.psm1.md#comment8)
     .PARAMETER ModulesRoot
         The code root (an automation/ folder) whose type sources to compare.
@@ -471,4 +477,124 @@ function Import-TypesAssembly {
     $shadow
 }
 
-Export-ModuleMember -Function Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Import-TypesAssembly
+# The default row and the allowed values live here, not on a C# type: the policy is read while the types assembly is still unloaded.
+$script:TypesLoadDefault = [ordered]@{ Load = 'lazy'; Trigger = 'lookup-hook'; EagerTypes = @(); ShadowCopy = $true }
+$script:TypesLoadHosts = 'console', 'headless'
+$script:TypesLoadSystems = 'windows', 'unix'
+$script:TypesLoadRunModes = 'source', 'build'
+$script:TypesLoadLoads = 'lazy', 'eager'
+$script:TypesLoadTriggers = 'lookup-hook', 'none'
+$script:TypesLoadKeys = 'load', 'trigger', 'shadowCopy', 'eagerTypes'
+
+function Get-TypesLoadPolicy {
+    <#
+    .SYNOPSIS
+        Says whether, when, and how the combined types assembly is loaded in one mode.
+    .DESCRIPTION
+        A setting resolves in the one fixed order: the caller's explicit value, else the mode's row in types-load.yml, else the default row.
+        Only pwsh can load a C# assembly, so any other engine answers Load 'never' without reading the table.
+    .PARAMETER Engine
+        The execution engine's name. Anything but pwsh answers Load 'never'.
+    .PARAMETER HostKind
+        console or headless. Defaults to headless inside a pipeline, else console.
+    .PARAMETER Os
+        windows or unix. Defaults to the running system.
+    .PARAMETER RunMode
+        source or build (Get-CatzcRunMode is not loaded yet when the importer asks, so the caller passes it). Defaults to source.
+    .PARAMETER Load
+        An explicit load, outranking the config.
+    .PARAMETER Trigger
+        An explicit trigger, outranking the config.
+    .PARAMETER ShadowCopy
+        An explicit shadow-copy choice, outranking the config.
+    .PARAMETER EagerType
+        Explicit type names to load at import, outranking the config.
+    .PARAMETER ConfigPath
+        The types-load.yml to read. Defaults to the one beside this module in assets/.
+    .OUTPUTS
+        [pscustomobject] Cell, Engine, Load, Trigger, EagerTypes, ShadowCopy.
+    .EXAMPLE
+        Get-TypesLoadPolicy -HostKind headless -Os unix -RunMode build
+    #>
+    [CmdletBinding()]
+    [OutputType([pscustomobject])]
+    param(
+        [string] $Engine = 'pwsh',
+
+        [ValidateSet('console', 'headless')]
+        [string] $HostKind = $(if (Test-IsRunningInPipeline) { 'headless' } else { 'console' }),
+
+        [ValidateSet('windows', 'unix')]
+        [string] $Os = $(if ($IsWindows) { 'windows' } else { 'unix' }),
+
+        [ValidateSet('source', 'build')]
+        [string] $RunMode = 'source',
+
+        [ValidateSet('lazy', 'eager')]
+        [string] $Load,
+
+        [ValidateSet('lookup-hook', 'none')]
+        [string] $Trigger,
+
+        [bool] $ShadowCopy,
+
+        [string[]] $EagerType,
+
+        [string] $ConfigPath = [System.IO.Path]::Combine($PSScriptRoot, 'assets', 'types-load.yml')
+    )
+
+    if ($Engine -ne 'pwsh') {
+        return [pscustomobject]@{ Cell = $null; Engine = $Engine; Load = 'never'; Trigger = 'none'; EagerTypes = @(); ShadowCopy = $false }
+    }
+
+    if (-not [System.IO.File]::Exists($ConfigPath)) {
+        throw "The types-load config '$ConfigPath' does not exist."
+    }
+    $config = ConvertFrom-Yaml ([System.IO.File]::ReadAllText($ConfigPath))
+    if ($null -eq $config -or -not $config.ContainsKey('cells')) {
+        throw "The types-load config '$ConfigPath' has no 'cells' map."
+    }
+
+    $valid = foreach ($h in $script:TypesLoadHosts) { foreach ($o in $script:TypesLoadSystems) { foreach ($r in $script:TypesLoadRunModes) { "$h.$o.$r" } } }
+    foreach ($key in $config['cells'].Keys) {
+        if ($key -cnotin $valid) {
+            throw "The types-load config has a row '$key' that is no mode. The modes are: $($valid -join ', ')."
+        }
+        foreach ($setting in $config['cells'][$key].Keys) {
+            if ($setting -cnotin $script:TypesLoadKeys) {
+                throw "The types-load row '$key' has an unknown setting '$setting'. The settings are: $($script:TypesLoadKeys -join ', ')."
+            }
+        }
+    }
+
+    $cell = "$HostKind.$Os.$RunMode"
+    $row = if ($config['cells'].ContainsKey($cell)) { $config['cells'][$cell] } else { @{} }
+    $policy = [ordered]@{ Cell = $cell; Engine = $Engine }
+    foreach ($name in 'Load', 'Trigger', 'ShadowCopy') {
+        $fromConfig = $name.Substring(0, 1).ToLowerInvariant() + $name.Substring(1)
+        $policy[$name] = if ($PSBoundParameters.ContainsKey($name)) { $PSBoundParameters[$name] }
+        elseif ($row.ContainsKey($fromConfig)) { $row[$fromConfig] }
+        else { $script:TypesLoadDefault[$name] }
+    }
+    $policy['EagerTypes'] = @(
+        if ($PSBoundParameters.ContainsKey('EagerType')) { $EagerType }
+        elseif ($row.ContainsKey('eagerTypes')) { $row['eagerTypes'] }
+        else { $script:TypesLoadDefault['EagerTypes'] }
+    )
+
+    if ($policy.Load -cnotin $script:TypesLoadLoads) {
+        throw "Row '$cell' has load '$($policy.Load)'; the values are: $($script:TypesLoadLoads -join ', ')."
+    }
+    if ($policy.Trigger -cnotin $script:TypesLoadTriggers) {
+        throw "Row '$cell' has trigger '$($policy.Trigger)'; the values are: $($script:TypesLoadTriggers -join ', ')."
+    }
+    if ($policy.ShadowCopy -isnot [bool]) {
+        throw "Row '$cell' has shadowCopy '$($policy.ShadowCopy)'; it is true or false."
+    }
+    if ($policy.Trigger -eq 'none' -and $policy.Load -ne 'eager') {
+        throw "Row '$cell' has trigger 'none' with load '$($policy.Load)'; nothing would ever load the types. 'none' needs load eager."
+    }
+    [pscustomobject]$policy
+}
+
+Export-ModuleMember -Function Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Import-TypesAssembly, Get-TypesLoadPolicy

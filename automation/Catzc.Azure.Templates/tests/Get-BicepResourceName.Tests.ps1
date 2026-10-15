@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-BicepResourceName.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore alweutstsmplst alweutstsmplacst
 Describe 'Get-BicepResourceName' -Tag 'L0', 'logic' {
     # Read-only resolver tests: the boundary mocks and the config-cache reset are set up ONCE, not per test.

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-GlossaryEnforcementViolations is private, so it is exercised through the module (InModuleScope, per
 # [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)). The glossary is built
 # in memory from the real GlossaryEntry/GlossaryConcept/GlossaryOptions

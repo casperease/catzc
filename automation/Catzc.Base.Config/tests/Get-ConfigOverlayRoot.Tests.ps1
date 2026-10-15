@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ConfigOverlayRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:originalRepositoryRoot = $env:RepositoryRoot

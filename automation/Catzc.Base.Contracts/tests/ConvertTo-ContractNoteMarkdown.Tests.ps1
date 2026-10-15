@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1
+    kind: test
+---
+#>
+
 # A note is written as a comment, where a citation is a repository-rooted code link
 # ([ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)); in a list item of a generated page it
 # is markdown, so a rooted link turns relative to the page

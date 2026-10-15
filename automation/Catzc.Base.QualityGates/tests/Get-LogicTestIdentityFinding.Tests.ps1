@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-LogicTestIdentityFinding.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-LogicTestIdentityFinding' -Tag 'L0', 'logic' {
     BeforeAll {
         # A SYNTHETIC live-identity map: 'contoso' stands in for a live customer. It is deliberately NOT a real

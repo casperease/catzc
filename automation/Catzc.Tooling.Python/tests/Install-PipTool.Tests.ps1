@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Python/tests/Install-PipTool.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Install-PipTool' -Tag 'L1', 'logic' {
     BeforeEach {
         # Neutral fixture tool ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) — a

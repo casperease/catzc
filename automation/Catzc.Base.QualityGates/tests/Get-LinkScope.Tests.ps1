@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-LinkScope.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-LinkScope' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:diskRoot = [System.IO.Path]::GetPathRoot($TestDrive)

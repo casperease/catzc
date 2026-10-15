@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/tests/Resolve-RepoPath.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Resolve-RepoPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = [IO.Path]::GetFullPath((Join-Path ([IO.Path]::GetTempPath()) ('catzc-root-' + [Guid]::NewGuid())))

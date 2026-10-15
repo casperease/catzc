@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-VisibilityFileMetaFact.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-VisibilityFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#2' {
     BeforeAll {
         function script:Get-Fact {

@@ -17,8 +17,6 @@ catzc:
     Lists the loaded catzc modules and the public functions each exports, for Show-Cats.
 .DESCRIPTION
     Reads what is loaded, not the per-function files, so both run modes give the same answer.
-    [ADR-DSGN-RUNMODE#2](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode2),
-    [ADR-REPO-FOLDERS#4](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders4)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-CatsModules.ps1.md#comment1)
 .PARAMETER ModulesRoot
     A test points this at a fixture root from which it loaded fixture modules.

@@ -9,12 +9,10 @@ catzc:
       - ADR-REPO-LINK#3
       - ADR-REPO-LINK#9
       - ADR-X
-      - ADR-X#3
 ---
 */
 
 // The citation code is the source of truth: the destination is derived from it, so a stale path is re-pointed.
-// [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment1)
 
 using System;
@@ -393,7 +391,6 @@ public sealed class CodeLinkRewriter
     }
 
     // A docs link has one spelling, so it is checked and never rewritten: rooted under docs, page exists, own anchor.
-    // [ADR-REPO-LINK#9](/docs/adr/repository/markdown-links.md#rule-adr-repo-link9)
     // [comment:8](/docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md#comment8)
     void CheckDocsLink(string number, string pathPart, string fragment, out LinkFindingType problemType, out string problem)
     {

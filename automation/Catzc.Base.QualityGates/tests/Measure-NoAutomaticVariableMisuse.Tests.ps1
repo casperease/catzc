@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Measure-NoAutomaticVariableMisuse.Tests.ps1
+    kind: test
+---
+#>
+
 BeforeAll {
     $rulePath = Join-Path -Path $PSScriptRoot -ChildPath '..\..' -AdditionalChildPath '.scriptanalyzer', 'NoAutomaticVariableMisuse.psm1' | Resolve-Path
     Import-Module $rulePath -Force

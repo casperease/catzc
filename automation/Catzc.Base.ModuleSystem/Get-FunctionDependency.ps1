@@ -23,7 +23,6 @@ catzc:
     Compiles a list of function-to-function calls across all automation modules using AST.
 .DESCRIPTION
     Reads per-function source files that exist only in the source tree, so build mode stops with a named error.
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
@@ -42,15 +41,9 @@ function Get-FunctionDependency {
     Assert-SourceTree
 
     # Cached per root for the session: only a re-import resets it, so callers must treat the result as read-only.
-    # [ADR-AUTO-CACHE#2](/docs/adr/automation/caching.md#rule-adr-auto-cache2),
-    # [ADR-AUTO-CACHE#4](/docs/adr/automation/caching.md#rule-adr-auto-cache4),
-    # [ADR-AUTO-CACHE#6](/docs/adr/automation/caching.md#rule-adr-auto-cache6),
-    # [ADR-AUTO-TEST#4](/docs/adr/automation/test-automation.md#rule-adr-auto-test4),
-    # [ADR-AUTO-CACHE#5](/docs/adr/automation/caching.md#rule-adr-auto-cache5)
     # [comment:2](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment2)
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:functionDependencyCache')) {
         # GetValue probes the entry because reading an unset script variable directly would throw under strict mode.
-        # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:3](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment3)
         $script:functionDependencyCache = @{}
     }
@@ -59,9 +52,7 @@ function Get-FunctionDependency {
     }
 
     # Each file is parsed once, and that AST feeds both the definition map and the call walk.
-    # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
     # [comment:4](/docs/references/automation/catzc-base-modulesystem/Get-FunctionDependency.ps1.md#comment4)
-    $isFunction = { param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] }
     $parsed = [System.Collections.Generic.List[object]]::new()
     $definitions = @{}
 
@@ -81,7 +72,7 @@ function Get-FunctionDependency {
             $tokens = $null
             $errors = $null
             $ast = [System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$tokens, [ref]$errors)
-            $fns = @($ast.FindAll($isFunction, $false) | Where-Object { $_.Parent.Parent -eq $ast })
+            $fns = @([Catzc.Base.Repository.SyntaxSearch]::TopLevelFunctions($ast))
 
             $parsed.Add([pscustomobject]@{ Module = $module; FileName = $name; Functions = $fns })
             foreach ($fn in $fns) {
@@ -91,11 +82,10 @@ function Get-FunctionDependency {
     }
 
     # Walk each already-parsed function body for calls → cross-reference against the full definition map.
-    $isCommand = { param($n) $n -is [System.Management.Automation.Language.CommandAst] }
     $ret = [System.Collections.Generic.List[PSObject]]::new()
     foreach ($entry in $parsed) {
         foreach ($fn in $entry.Functions) {
-            foreach ($call in $fn.Body.FindAll($isCommand, $true)) {
+            foreach ($call in [Catzc.Base.Repository.SyntaxSearch]::Commands($fn.Body)) {
                 $cmdName = $call.GetCommandName()
                 if (-not $cmdName -or -not $definitions.ContainsKey($cmdName)) {
                     continue

@@ -25,13 +25,6 @@ catzc:
     module, the reserved infra umbrellas, and the 'module-leftovers' catch-all.
 .DESCRIPTION
     A declared globset may not shadow a derived name; the collision throws, naming both sides.
-    [ADR-AUTO-BASH#2](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2),
-    [ADR-AUTO-GO#2](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2),
-    [ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2),
-    [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md),
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
-    [ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md),
-    [ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)
     [comment:1](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment1)
 .PARAMETER Name
     Folder, internal module, kebab or reserved infra name all resolve to the same derived set; omit for every set.
@@ -73,8 +66,6 @@ function Get-ModuleGlobSet {
         'scriptanalyzer' = 'automation/.scriptanalyzer/**'
     }
     # Reserved umbrellas are loose-filesets that overlap module sets by design, so they stay out of the module layer.
-    # [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),
-    # [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)
     # [comment:3](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment3)
     foreach ($reservedName in [Catzc.Base.Globs.GlobsConfig]::ReservedNames) {
         $set = [Catzc.Base.Globs.GlobSet]::new(
@@ -84,7 +75,6 @@ function Get-ModuleGlobSet {
     }
 
     # A test-only change must never re-key live, so every module splits into disjoint, exhaustive aspect sets.
-    # [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)
     # [comment:4](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment4)
     $aspectList = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
     foreach ($aspectDef in Get-Aspect -Track automation) {
@@ -93,9 +83,6 @@ function Get-ModuleGlobSet {
     # bare module name/kebab -> its aspect sets, so a caller can ask for "the module" and get both aspects.
     $moduleAspects = @{}
     # Language test folders belong to the tests aspect: editing them re-keys the module they verify, never its live set.
-    # [ADR-AUTO-GO#2](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go2),
-    # [ADR-AUTO-PY#2](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py2),
-    # [ADR-AUTO-BASH#2](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash2)
     # [comment:5](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment5)
     $goRoot = (Get-Config -Config go).ResolveRoot((Get-RepositoryRoot))
     $pythonRoot = (Get-Config -Config python).ResolveRoot((Get-RepositoryRoot))
@@ -155,7 +142,6 @@ function Get-ModuleGlobSet {
     }
 
     # Catch-all so a stray file under automation/ cannot go unmapped; it should be empty in a clean tree.
-    # [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)
     # [comment:7](/docs/references/automation/catzc-base-globs/Get-ModuleGlobSet.ps1.md#comment7)
     if ('module-leftovers' -in $declaredNames) {
         throw "Declared globset 'module-leftovers' in globs.yml shadows the derived module-space catch-all — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."

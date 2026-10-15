@@ -25,7 +25,6 @@ catzc:
     [comment:3](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment3)
 .PARAMETER Path
     A removal passes the folder it will delete, so the managed install's PATH position never judges another folder.
-    [ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)
     [comment:2](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment2)
     The default is the PATH-resolved folder, always the managed install in a catzc session, so removals pass this.
     [comment:4](/docs/references/automation/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md#comment4)

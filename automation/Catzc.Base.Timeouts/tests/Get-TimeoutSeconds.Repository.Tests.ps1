@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1
+    kind: test
+---
+#>
+
 # A function bounds its own long-running work through Get-TimeoutSeconds -Command and its [TimeLimit] decoration, never
 # a number literal as the parameter default
 # ([ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)). Reads the shipped .ps1

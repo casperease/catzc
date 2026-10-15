@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Resolve-SessionToolHint.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Resolve-SessionToolHint' -Tag 'L0', 'logic' {
     # Fixture uses a .cmd shim + PATHEXT resolution — a Windows shape. The Unix path is analogous.
     # Set-ItResult is legal only per-test, so the non-Windows skip lives in BeforeEach, not BeforeAll —

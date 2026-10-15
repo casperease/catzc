@@ -12,7 +12,6 @@ catzc:
 */
 
 // Patterns and mappings are each optional but need at least one entry across both; a malformed shape throws at the first fault.
-// [ADR-CONF-LOADING](/docs/adr/configuration/module-config-loading.md), [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/DocsConfig.cs.md#comment1)
 
 using System;

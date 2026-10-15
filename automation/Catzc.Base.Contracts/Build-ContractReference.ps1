@@ -20,9 +20,6 @@ catzc:
     asset of every version folder with its note.
 .DESCRIPTION
     A page is removed only when it carries this writer's marker line, so a hand-written page is never touched.
-    [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),
-    [ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5),
-    [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)
     [comment:1](/docs/references/automation/catzc-base-contracts/Build-ContractReference.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root that holds contracts/ and docs/references/contracts/. Default: the loaded repository root.

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Split-CommandLineBatch.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Split-CommandLineBatch' -Tag 'L0', 'logic' {
     It 'keeps every batch under the limit, counting the quotes and the separator, in order' {
         $batches = InModuleScope Catzc.Base.QualityGates {

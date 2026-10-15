@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
     BeforeEach {
         # A fixture registry: one gitignored managed target (belongs in the whitelist), one committed

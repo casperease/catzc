@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Java.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-Java' -Tag 'L0', 'logic' {
     It 'builds correct command via -DryRun' {
         Invoke-Java '--version' -DryRun | Should -Be 'java --version'

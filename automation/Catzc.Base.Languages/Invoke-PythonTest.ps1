@@ -29,7 +29,6 @@ catzc:
     [comment:3](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment3)
 .PARAMETER Engine
     The tests are the same under either engine; only the environment contract they read changes.
-    [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)
     [comment:4](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment4)
 .PARAMETER EngineExecutable
     The engine's executable, already located by the caller. Default: located here by Resolve-EngineExecutable.
@@ -95,8 +94,6 @@ function Invoke-PythonTest {
     $report = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-pytest-$([guid]::NewGuid().ToString('N')).xml"
 
     # UV_PYTHON_DOWNLOADS=never keeps uv on the managed interpreter at the pin instead of silently fetching another.
-    # [ADR-AUTO-ENVVAR#1](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar1),
-    # [ADR-AUTO-PY#6](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py6)
     # [comment:7](/docs/references/automation/catzc-base-languages/Invoke-PythonTest.ps1.md#comment7)
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['UV_PYTHON_DOWNLOADS'] = 'never'

@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.VSCode/configs/vscode-launch.yml
+#     kind: config
+# ---
+
 # Edit this file, never launch.json: the editor reads a gitignored copy that Build-RootConfig regenerates from it.
-# [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
 # [comment:1](/docs/references/automation/catzc-base-vscode/configs/vscode-launch.yml.md#comment1)
 version: "0.2.0"
 configurations:

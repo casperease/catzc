@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1
+    kind: test
+---
+#>
+
 # Coverage of the native-trigger projection over THIS repo's real tree
 # ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)), through its quality gate
 # (Test-GlobSetTriggerCoverage — [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). The

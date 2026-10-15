@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Resolve-TestSuite.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Resolve-TestSuite' -Tag 'L0', 'logic' {
     It 'returns the test suite''s verify modules and level' -Tag 'ADR-AUTO-TEST#37' {
         Mock Get-GlobSet {

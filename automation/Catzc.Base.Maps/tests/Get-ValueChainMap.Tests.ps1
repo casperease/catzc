@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-ValueChainMap builds the value-chain map from the registry's closed sets and its ADRs
 # ([ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16)). The logic tests mock the ADRs with
 # widget/gadget fixtures ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); the axes are

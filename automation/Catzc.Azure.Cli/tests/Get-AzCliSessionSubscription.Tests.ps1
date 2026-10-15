@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Cli/tests/Get-AzCliSessionSubscription.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AzCliSessionSubscription' -Tag 'L0', 'logic' {
     # The session read is a whole-function boundary mock
     # ([ADR-PWSH-PESTER#3](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester3)); config discovery

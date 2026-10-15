@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/tests/ConvertTo-YamlSafe.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ConvertTo-YamlSafe' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:module = Get-Module Catzc.Base.Objects

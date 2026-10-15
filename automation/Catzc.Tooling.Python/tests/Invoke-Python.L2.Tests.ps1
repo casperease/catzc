@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Python/tests/Invoke-Python.L2.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-Python' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:available = Test-Tool 'python'

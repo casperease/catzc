@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Azure/configs/network.yml
+#     kind: config
+# ---
+
 # The single source of truth for vnet and subnet ranges: templates read it at build time, never a copy in their own config.
-# [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md)
 # [comment:1](/docs/references/automation/catzc-azure/configs/network.yml.md#comment1)
 
 environments:

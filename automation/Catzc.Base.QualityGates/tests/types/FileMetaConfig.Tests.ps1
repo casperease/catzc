@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # FileMetaConfig maps file-meta.yml and is the one declaration of its defaults
 # ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key behaves exactly like the default,
 # and a malformed value fails at construction with the allowed set.

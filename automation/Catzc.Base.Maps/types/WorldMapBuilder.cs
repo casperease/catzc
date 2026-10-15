@@ -14,9 +14,6 @@ catzc:
 */
 
 // Plain inputs, no disk: a logic test feeds it directly, and the first matching aspect and the fixed highlight order decide placement.
-// [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1), [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
-// [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3),
-// [ADR-AUTO-TYPES#4](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types4)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/WorldMapBuilder.cs.md#comment1)
 
 using System;

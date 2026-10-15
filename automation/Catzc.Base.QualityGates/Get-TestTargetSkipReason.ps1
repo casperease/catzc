@@ -17,8 +17,6 @@ catzc:
     Says why an L4 test must skip against its target environment, or nothing when it may run.
 .DESCRIPTION
     The only limit on an L4 run is the console's security context, so each test asks here first and self-skips.
-    [ADR-AUTO-TEST#8](/docs/adr/automation/test-automation.md#rule-adr-auto-test8),
-    [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Get-TestTargetSkipReason.ps1.md#comment1)
 .PARAMETER Environment
     The target environment the test reaches, e.g. pre-prod or production.

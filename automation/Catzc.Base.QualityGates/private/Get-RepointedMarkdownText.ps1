@@ -16,7 +16,6 @@ catzc:
     Re-points a Markdown file's #fragment links at headings whose anchor changed, and returns the text.
 .DESCRIPTION
     Only the fragment changes; link text, the target as written and all other bytes stay, so no match returns the input.
-    [ADR-REPO-FORMAT#7](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format7)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-RepointedMarkdownText.ps1.md#comment1)
 .PARAMETER RelativePath
     The file's repository-relative, '/'-separated path.

@@ -18,8 +18,6 @@ catzc:
     Computes, in memory, the whitelist of paths the automation itself generates and owns.
 .DESCRIPTION
     Derived fresh on every call and never persisted, so the whitelist cannot drift from what the owners generate.
-    [ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6),
-    [ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10)
     [comment:1](/docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md#comment1)
 .OUTPUTS
     [string[]] The -like patterns of the auto-controlled set; a '!'-prefixed pattern is an exclusion.
@@ -48,13 +46,11 @@ function Get-AutoControlledGlobs {
     $ret.Add('*/README.md')
 
     # Regenerated at the importer tail, so deleting these dictionaries loses nothing.
-    # [ADR-REPO-OUTDIR#8](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8)
     # [comment:3](/docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md#comment3)
     $ret.Add('.cspell')
     $ret.Add('.cspell/*')
 
     # Plan files are authored working notes, not output, so the exclusion keeps them though out/ is transient.
-    # [ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10)
     # [comment:4](/docs/references/automation/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md#comment4)
     $ret.Add('out')
     $ret.Add('out/*')

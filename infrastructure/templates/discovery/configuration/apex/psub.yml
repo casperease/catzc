@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: infrastructure/templates/discovery/configuration/apex/psub.yml
+#     kind: template-config
+# ---
+
 # The kind and ranges come from network.yml by config address; this spoke peers to the prod hub.
 # [comment:1](/docs/references/infrastructure/templates/discovery/configuration/apex/psub.yml.md#comment1)
 ParametersFile:

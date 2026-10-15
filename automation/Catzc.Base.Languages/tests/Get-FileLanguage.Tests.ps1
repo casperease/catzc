@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-FileLanguage' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{

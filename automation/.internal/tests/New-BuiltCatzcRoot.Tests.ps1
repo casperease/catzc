@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/New-BuiltCatzcRoot.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'New-BuiltCatzcRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#30' {
     BeforeAll {
         Import-InternalModule TestKit

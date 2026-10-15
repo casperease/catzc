@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Set-AbandonedTestRun.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Set-AbandonedTestRun' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates

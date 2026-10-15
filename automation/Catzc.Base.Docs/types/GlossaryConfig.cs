@@ -13,9 +13,6 @@ catzc:
 */
 
 // Load reads this one file only; cross-source facts such as term uniqueness and defined_by belong to Test-Glossary.
-// [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
-// [ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3),
-// [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryConfig.cs.md#comment1)
 
 using System;

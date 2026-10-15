@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestDiscovery.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TestDiscovery' -Tag 'L1', 'logic' {
     It 'discovers every test in the given folders without running any' {
         $testsFolder = Join-Path $TestDrive 'tests'

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/tests/Test-GitPathChanged.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-GitPathChanged' -Tag 'L0', 'logic' {
     It 'is true when git status reports an entry under the paths' {
         Mock Invoke-Executable {

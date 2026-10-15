@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Get-AutomationFunctions.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AutomationFunctions' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-AutomationModules -ModuleName Catzc.Base.ModuleSystem { @('Catzc.Base.Widget') }

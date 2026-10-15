@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Write-TestRunContext.Tests.ps1
+    kind: test
+---
+#>
+
 # Write-TestRunContext renders a fixture context record: one line per fact, under the banner.
 Describe 'Write-TestRunContext' -Tag 'L0', 'logic' {
     BeforeEach {

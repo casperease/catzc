@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Catzc.Base.Reports.ReportsConfig' -Tag 'L0', 'logic' {
     It 'defaults every key, so an empty file gives the test-subject folder, the subject report, and latest.txt' -Tag 'ADR-AUTO-TEST#35' {
         $config = [Catzc.Base.Reports.ReportsConfig]::new(@{})

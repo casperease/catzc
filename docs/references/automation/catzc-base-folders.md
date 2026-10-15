@@ -3,6 +3,7 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-folders.md
     kind: reference
+    body_sha: a2fc2bb2cdea
     adrs: []
 ---
 

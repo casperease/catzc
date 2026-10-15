@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Import-VendoredPester.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Import-VendoredPester' -Tag 'L0', 'logic', 'ADR-PWSH-VENDOR#5' {
     BeforeEach {
         # A fake code root with one vendored version; every module operation is mocked, so the Pester running this

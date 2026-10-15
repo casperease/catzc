@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/SourceCheck.Tests.ps1
+    kind: test
+---
+#>
+
 # SourceCheck maps the settings every source check shares — its mode and exempt globs — and is the one declaration of
 # their sensible defaults ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)); an
 # exempt file is a declared entry with its reason

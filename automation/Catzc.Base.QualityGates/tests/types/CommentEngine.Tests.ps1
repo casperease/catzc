@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore nwidgets npublic nvar nwidget ngadget gadgt wdgt nwidget  -- escape-sequence artifacts in the "`n…" fixture strings, and the
 # deliberate misspelling a kept cspell directive covers
 # CommentEngine moves a file's long comments to its comment page and back, losslessly

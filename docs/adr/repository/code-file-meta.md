@@ -3,7 +3,7 @@ catzc:
   derived:
     path: docs/adr/repository/code-file-meta.md
     kind: adr
-    body_sha: ceaf39dd979c
+    body_sha: "41ef545823ec"
     adrs:
       - ADR-REPO-COMMENTS#3
       - ADR-REPO-FILEMETA#1

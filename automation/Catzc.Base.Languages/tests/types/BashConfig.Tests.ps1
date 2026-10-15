@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/types/BashConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'BashConfig' -Tag 'L0' {
 
     Context 'integrity (shipped bash.yml)' -Tag 'integrity' {

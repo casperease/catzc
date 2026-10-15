@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Timeouts/configs/timeouts.yml
+#     kind: config
+# ---
+
 # Every value is a positive whole number of seconds; there is no no-limit value, so every call runs inside a safeguard.
-# [ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)
 # [comment:1](/docs/references/automation/catzc-base-timeouts/configs/timeouts.yml.md#comment1)
 
 # Only tools whose ordinary runs outlast the default belong here; a key is the bare name, so a full path matches it too.

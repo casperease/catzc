@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Get-DotnetInstallHolder.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-DotnetInstallHolder' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:installDir = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

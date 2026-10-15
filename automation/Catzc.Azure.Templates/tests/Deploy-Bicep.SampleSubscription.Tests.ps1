@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-BicepDeploymentContext (sample-subscription)' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-subscription'

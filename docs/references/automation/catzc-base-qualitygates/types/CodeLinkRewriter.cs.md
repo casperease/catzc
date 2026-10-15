@@ -3,11 +3,10 @@ catzc:
   derived:
     path: docs/references/automation/catzc-base-qualitygates/types/CodeLinkRewriter.cs.md
     kind: comment-page
-    body_sha: d17de9863180
+    body_sha: dfc4fc231265
     adrs:
       - ADR-REPO-LINK#3
       - ADR-REPO-LINK#9
-      - ADR-X#3
 ---
 
 # automation/Catzc.Base.QualityGates/types/CodeLinkRewriter.cs
@@ -83,7 +82,7 @@ separator opened it.
 Above `int RepeatedLink(string comment, int at, bool[] literal, string canonical)`.
 
 ```text
-A bracketed link right after a bare citation that names the same ADR or rule — `ADR-X#3 ([x](/docs/adr/x.md#rule-adr-x3))`,
+A bracketed link right after a bare citation that names the same ADR or rule — `ADR-X:3 ([x](/docs/adr/x.md#rule-adr-x3))`,
 the link perhaps on the next line — is the same reference spelled twice. It merges into the citation's one
 canonical link instead of becoming a second copy of it. Returns how many characters it covers (0 when there is
 none, or when the link points elsewhere).

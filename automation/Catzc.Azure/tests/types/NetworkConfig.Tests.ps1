@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/tests/types/NetworkConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'NetworkConfig' -Tag 'L0' {
     BeforeAll {
         # Fixture network plan — deliberately-distinct Greek env names (alpha/beta/gamma/delta) and neutral

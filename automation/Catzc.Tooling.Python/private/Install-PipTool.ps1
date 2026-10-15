@@ -39,7 +39,6 @@ function Install-PipTool {
 
 
     # All three flags are needed: pin the interpreter, allow a non-virtual install, and override uv's PEP-668 marker.
-    # [ADR-AUTO-UVPY#2](/docs/adr/automation/uv-python-handler.md#rule-adr-auto-uvpy2)
     # [comment:2](/docs/references/automation/catzc-tooling-python/private/Install-PipTool.ps1.md#comment2)
     $pythonVersion = (Get-ToolConfig -Tool 'python').version
 

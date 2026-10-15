@@ -13,8 +13,6 @@ catzc:
 */
 
 // Construction validates the whole file at once, and no two entries may cover the same GUID in one environment and shell cell.
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 // [comment:1](/docs/references/automation/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md#comment1)
 
 using System;
@@ -32,7 +30,6 @@ public sealed class TimeoutExemptionsConfig : Catzc.Base.Objects.DictionaryRecor
     private static readonly string[] ScopeKeys = { "environment", "shell" };
     private static readonly string[] Environments = { "devbox", "pipeline" };
     // Taken from the engine model, so a new execution engine needs no edit here to get a ceiling key.
-    // [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
     // [comment:2](/docs/references/automation/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md#comment2)
     private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
     private static readonly Regex CanonicalGuid = new Regex(

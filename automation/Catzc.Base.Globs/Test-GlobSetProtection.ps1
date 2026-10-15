@@ -17,7 +17,6 @@ catzc:
     True when a scan may be skipped: this test already ran green against this globset's current identity.
 .DESCRIPTION
     A false answer records the hash computed now as pending, so a mid-scan edit makes the next run scan again.
-    [ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)
     [comment:1](/docs/references/automation/catzc-base-globs/Test-GlobSetProtection.ps1.md#comment1)
 .PARAMETER Test
     Part of the protection key, so each scan keeps its own record per scope and skips independently of the others.
@@ -53,7 +52,6 @@ function Test-GlobSetProtection {
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:protectedGlobSets')) {
         # Probe through the session state: reading an unset script variable directly would throw under strict mode.
-        # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:5](/docs/references/automation/catzc-base-globs/Test-GlobSetProtection.ps1.md#comment5)
         $script:protectedGlobSets = @{}
         $script:pendingGlobProtections = @{}

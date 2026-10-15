@@ -18,11 +18,9 @@ catzc:
     Uninstalls the .NET SDK installed by Install-Dotnet.
 .DESCRIPTION
     A holder process makes the uninstall throw, naming it, so a locked file never leaves a half-deleted install.
-    [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md#comment1)
 .PARAMETER Remove
     Alone it only reports the plan; pair it with -Force so Remove-Dotnet actually evicts the off-config install.
-    [ADR-AUTO-REMOVE#4](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4)
     [comment:2](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md#comment2)
 .PARAMETER Force
     Stops exactly the processes named as holding the install open; with -Remove it also confirms the eviction.
@@ -42,8 +40,6 @@ function Uninstall-Dotnet {
     )
 
     # A failure is swallowed only under -Remove, where a foreign install the manager cannot touch is expected.
-    # [ADR-AUTO-ONEJOB#5](/docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob5),
-    # [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5)
     # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Uninstall-Dotnet.ps1.md#comment4)
     try {
         $config = Get-ToolConfig -Tool 'dotnet'

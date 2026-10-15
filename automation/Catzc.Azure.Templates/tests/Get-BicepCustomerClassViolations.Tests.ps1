@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-BicepCustomerClassViolations.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-BicepCustomerClassViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         # Invoke the private function in the module's scope. The config's customer is its configuration

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Exit-TestRunLocation.Tests.ps1
+    kind: test
+---
+#>
+
 # L1: a real named mutex, checked from a thread job — the snapshot removal itself is mocked.
 Describe 'Exit-TestRunLocation' -Tag 'L1', 'logic' {
     BeforeEach {

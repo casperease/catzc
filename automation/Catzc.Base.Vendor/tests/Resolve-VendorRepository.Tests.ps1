@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Vendor/tests/Resolve-VendorRepository.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Resolve-VendorRepository' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.Vendor { }

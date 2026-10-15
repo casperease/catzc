@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: ".claude/drawio/gallery.py"
+#     kind: script
+# ---
+
 # cspell:ignore minimaps figcaption minmax
 """Write out/diagrams/index.html: one local page that links every diagram output for review.
 

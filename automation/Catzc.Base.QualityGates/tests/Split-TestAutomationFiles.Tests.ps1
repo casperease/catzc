@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Split-TestAutomationFiles.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Split-TestAutomationFiles' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fake discovery objects — the same Pester test shape Get-TestBlockTag walks.

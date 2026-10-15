@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Remove-SystemInstallation.Tests.ps1
+    kind: test
+---
+#>
+
 # Hermetic logic (L1): every boundary that touches state outside the repository is mocked — the install directory
 # delete (Remove-Item), the Machine PATH (Get-/Set-EnvironmentPath) and the Machine variables
 # (Set-PermanentEnvironmentVariable). The seams' real registry round trips are their own L3 system tests.

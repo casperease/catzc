@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/AnnounceStateChange.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 . (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
@@ -6,13 +15,6 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: a function that changes the session's state must announce it.
 .DESCRIPTION
     The rule checks that a writer runs with the change, not what the line says; that wording stays a review concern.
-    [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11),
-    [ADR-PWSH-ANNOUNCE#8](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce8),
-    [ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6),
-    [ADR-AUTO-CONSOLE#12](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console12),
-    [ADR-PWSH-ANNOUNCE#9](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce9),
-    [ADR-AUTO-CONSOLE](/docs/adr/automation/console-output-matters.md),
-    [ADR-PWSH-ANNOUNCE](/docs/adr/pwsh/announce-state-changes.md)
     [comment:1](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment1)
 #>
 
@@ -260,7 +262,6 @@ function Measure-AnnounceStateChange {
     }
 
     # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:4](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment4)
     $isCandidate = {
         param($node)
@@ -343,7 +344,6 @@ function Measure-AnnounceStateChange {
     Custom PSScriptAnalyzer rule: persistent environment and registry writes go only through their seams.
 .DESCRIPTION
     Persistent environment and registry writes go through one mockable seam, so only its own test touches real state.
-    [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)
     [comment:6](/docs/references/automation/scriptanalyzer/AnnounceStateChange.psm1.md#comment6)
 #>
 function Measure-PersistentWriteThroughSeam {

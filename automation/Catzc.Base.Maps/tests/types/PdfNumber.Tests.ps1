@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/types/PdfNumber.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'PdfNumber' -Tag 'L0', 'logic' {
     It 'writes at most three decimals, without trailing zeros' {
         [Catzc.Base.Maps.PdfNumber]::Format(12) | Should -Be '12'

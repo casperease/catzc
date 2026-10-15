@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/Get-DynamicManifestContent.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-DynamicManifestContent' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path $env:RepositoryRoot 'automation/.internal/Catzc.Internal.Bootstrap.psm1') -Force

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ArtifactRef' -Tag 'L0', 'logic', 'ADR-AUTO-PATH#10' {
     It 'materializes both forms from a raw absolute path under the artifact root' {
         $artifactRoot = [IO.Path]::GetFullPath((Join-Path ([IO.Path]::GetTempPath()) ('catzc-art-' + [Guid]::NewGuid())))

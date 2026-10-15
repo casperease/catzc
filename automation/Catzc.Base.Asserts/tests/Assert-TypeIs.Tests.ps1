@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Assert-TypeIs.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-TypeIs' -Tag 'L0', 'logic' {
     It 'passes when type matches' {
         { Assert-TypeIs 'hello' 'System.String' } | Should -Not -Throw

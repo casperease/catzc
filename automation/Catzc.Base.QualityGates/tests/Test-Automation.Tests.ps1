@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
+    kind: test
+---
+#>
+
 # The source and test file conventions over the real tree, through their quality gate (Test-SourceConventions —
 # [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). The gate scans the tree once,
 # parses each source file once, and lists every offender; this block runs it at its tier and guards it against a

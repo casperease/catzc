@@ -16,8 +16,7 @@ catzc:
 .SYNOPSIS
     Quality gate: the ADR registry (adrs.yml) and the ADR rule files under docs/adr/ agree.
 .DESCRIPTION
-    Unique codes and acyclic links between domains are AdrsConfig construction rules, so this gate does not recheck them.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
+    Unique codes and acyclic links between domains are AdrsConfig construction rules, so this gate does not recheck...
     [comment:1](/docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md#comment1)
 .PARAMETER OutputFolder
     A report-mode check writes under this folder only when it is given, else under its own default folder.
@@ -88,7 +87,6 @@ function Test-AdrRegistry {
     }
 
     # Each check has one mode setting and the same handling, so a new check is an entry here, not new code.
-    # [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)
     # [comment:4](/docs/references/automation/catzc-base-docs/Test-AdrRegistry.ps1.md#comment4)
     $configured = @(
         [pscustomobject]@{

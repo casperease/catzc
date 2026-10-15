@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/types/FunctionCallCollector.Tests.ps1
+    kind: test
+---
+#>
+
 # FunctionCallCollector attributes every statically named call in a file to the top-level function whose body holds
 # it, and lists the functions nested inside each — the walk Test-FunctionDependency resolves calls from. Each case
 # parses the source of a small widget/gadget script.

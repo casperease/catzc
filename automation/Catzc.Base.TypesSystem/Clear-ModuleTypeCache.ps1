@@ -17,8 +17,6 @@ catzc:
     Removes superseded compiled C# type assemblies, keeping the current combined build.
 .DESCRIPTION
     A delete that still fails means something outside catzc holds the file, and it is named in a thrown error.
-    [ADR-AUTO-CACHE#8](/docs/adr/automation/caching.md#rule-adr-auto-cache8),
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-typessystem/Clear-ModuleTypeCache.ps1.md#comment1)
 .PARAMETER AutomationRoot
     An explicit root other than the loaded code root is cleaned even in build mode, where the default is a no-op.

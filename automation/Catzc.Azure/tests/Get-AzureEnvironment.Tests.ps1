@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/tests/Get-AzureEnvironment.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AzureEnvironment' -Tag 'L0', 'logic' {
     # Read-only resolver tests: the config mock + cache reset run ONCE, not per test — the mocked config is
     # identical every test and no test mutates it, so the cache stays warm

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Initialize-GitClone.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Initialize-GitClone' -Tag 'L0', 'logic' {
     # Every git invocation goes through Invoke-Executable, so one mock covers the whole external
     # boundary: rev-parse proves the work tree, `--get` probes report current values, and the

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/types/GlossaryConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # Validates the compiled GlossaryConfig type and the records it builds (GlossaryOptions, GlossaryConcept,
 # GlossaryRealization, GlossaryAvoid) directly — the constructor is the guard that stops a malformed glossary source
 # from ever producing an instance. Only the self-contained load-time rules live here; the cross-source and

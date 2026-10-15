@@ -17,8 +17,6 @@ catzc:
     Lists the contract assets of the selected versions of one unit.
 .DESCRIPTION
     Every version folder name is checked, selected or not, so a misnamed folder throws on any listing.
-    [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),
-    [ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)
     [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractUnitAsset.ps1.md#comment1)
 .PARAMETER Unit
     The deployable-unit folder name.
@@ -28,7 +26,6 @@ catzc:
     The version folder names to list; wildcards allowed.
 .PARAMETER TargetRoot
     A module the map does not name takes the repository root.
-    [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)
     [comment:2](/docs/references/automation/catzc-base-contracts/private/Get-ContractUnitAsset.ps1.md#comment2)
 .OUTPUTS
     [Catzc.Base.Contracts.ContractAsset[]]

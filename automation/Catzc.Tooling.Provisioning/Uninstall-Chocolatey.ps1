@@ -54,7 +54,6 @@ function Uninstall-Chocolatey {
     Set-PermanentEnvironmentVariable ChocolateyInstall $null -Scope User
 
     # PATH changes go through the PATH seams, never straight to the registry, so each change is announced.
-    # [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)
     # [comment:3](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md#comment3)
     foreach ($scope in 'Machine', 'User') {
         $path = Get-EnvironmentPath -Scope $scope

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.KeyHandler/tests/types/KeyHandlerBindingsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Catzc.Tooling.KeyHandler.KeyHandlerBindingsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {

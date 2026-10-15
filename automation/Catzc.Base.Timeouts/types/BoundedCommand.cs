@@ -83,7 +83,6 @@ public static class BoundedCommand
     }
 
     // The engine model declares each time safeguard once, and Get throws, naming the engines, for any other name.
-    // [ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2)
     // [comment:6](/docs/references/automation/catzc-base-timeouts/types/BoundedCommand.cs.md#comment6)
     private static bool IsPosix(string engine)
     {

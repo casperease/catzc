@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Vendor/tests/Assert-VendorModuleAvailable.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-VendorModuleAvailable' -Tag 'L0', 'logic' {
     It 'does not throw when the module is available' {
         Mock Test-VendorModuleAvailable -ModuleName Catzc.Base.Vendor { $true }

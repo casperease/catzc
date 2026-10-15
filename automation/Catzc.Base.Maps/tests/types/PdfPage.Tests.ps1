@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/types/PdfPage.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'PdfPage' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:page = { [Catzc.Base.Maps.PdfPage]::new(200, 100) }

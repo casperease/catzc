@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Write-ToolProbeReport.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Write-ToolProbeReport' -Tag 'L0', 'logic' {
     # The report renders the records it is given as one plain table through Write-Message -NoHeader. Fixture
     # tokens are neutral ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

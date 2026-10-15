@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.MarkdownMeta/tests/Get-MarkdownMetaState.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-MarkdownMetaState' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
     It 'reports no front matter and no meta block for a plain file' {
         $state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nbody`n"

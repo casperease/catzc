@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Get-MarkerBlastRadius.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-MarkerBlastRadius' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{

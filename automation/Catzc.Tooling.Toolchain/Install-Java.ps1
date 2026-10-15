@@ -91,7 +91,6 @@ function Install-Java {
     }
 
     # Announced only when the value changes, so a repeat run prints nothing for the session.
-    # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)
     # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Install-Java.ps1.md#comment2)
     if ($env:JAVA_HOME -ne $javaHome) {
         $env:JAVA_HOME = $javaHome

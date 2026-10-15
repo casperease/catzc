@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
+    kind: test
+---
+#>
+
 # The matching universe ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)): tracked
 # files as `git ls-files` defines them, repo-relative — answered by Get-GitTrackedPath for the whole repository.
 Describe 'Get-TrackedFile' -Tag 'L0', 'logic' {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.RootConfig/tests/Test-RootAnalyzerSettings.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-RootAnalyzerSettings over a fixture root settings file in $TestDrive with the registry entries mocked, so each
 # test pins one outcome. Neutral fixture values ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Test-RootAnalyzerSettings' -Tag 'L0', 'logic' {

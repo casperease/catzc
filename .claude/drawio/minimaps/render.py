@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: ".claude/drawio/minimaps/render.py"
+#     kind: script
+# ---
+
 # cspell:ignore minimaps segoeui segoeuib seguisb textlength squarify Bruls rects cwid gfiles gmap gname maxw tname
 """Render the three minimaps of every slide, each with its sister .md, from the map processors' data.
 

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
+    kind: test
+---
+#>
+
 # Scope isolation ([ADR-DSGN-RUNMODE#3](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode3)): two catzc modules that
 # hold a $script: variable of the same name never see
 # each other's value — in either run mode. The probe variable name is the test's own and is removed afterwards; no

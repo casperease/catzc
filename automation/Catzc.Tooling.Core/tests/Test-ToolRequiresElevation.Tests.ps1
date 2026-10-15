@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Test-ToolRequiresElevation.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-ToolRequiresElevation' -Tag 'L0', 'logic' {
     BeforeAll {
         # The production input is the typed record Get-ToolConfig returns, so the tests build one: a flag the record

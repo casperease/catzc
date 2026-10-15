@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.KeyHandler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1
+    kind: test
+---
+#>
+
 # Import-PSReadLineKeyHandlerSet over fixture configs (Get-Config mocked to the real config types built from fixture
 # data): the plan marks each binding supported exactly when its function is in the allow-list, and -DryRun applies
 # nothing. The shipped configs' load is the quality gate Test-ShippedConfigs; a binding's non-empty key and function

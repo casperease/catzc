@@ -17,8 +17,6 @@ catzc:
     Quality gate: the manual test plan lists every integrity check, once.
 .DESCRIPTION
     Blocks are found by parsing, never Pester discovery: a nested Invoke-Pester inside a run is unsafe.
-    [ADR-AUTO-TEST#16](/docs/adr/automation/test-automation.md#rule-adr-auto-test16),
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ManualTestPlan.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-manual-test-plan/ (Write-QualityGateReport).

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-Terraform' -Tag 'L0', 'logic' {
     It 'builds correct command via -DryRun' {
         Invoke-Terraform 'plan' -DryRun | Should -Be 'terraform plan'

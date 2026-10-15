@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore nbeta nmodule  -- the escape-sequence artifacts in the "alpha`nbeta" and "`nmodule …" fixture strings
 Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     BeforeAll {

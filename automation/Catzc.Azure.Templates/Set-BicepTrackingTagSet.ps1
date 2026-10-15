@@ -32,7 +32,6 @@ catzc:
 #>
 function Set-BicepTrackingTagSet {
     # -DryRun replaces ShouldProcess here, so the analyzer rule for state-changing functions is suppressed.
-    # [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     # [comment:3](/docs/references/automation/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md#comment3)
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]

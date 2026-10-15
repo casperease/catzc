@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1
+    kind: test
+---
+#>
+
 # One test per binding contract asset, generated at discovery, so Test-Automation proves every contract with no
 # hand-written test ([ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4)). The set is
 # the one Test-Contracts checks on a devbox: every asset of each unit's draft, 0.0.0, and the provided assets of every

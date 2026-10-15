@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.TypesSystem/tests/Clear-ModuleTypeCache.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
     # The fixture DLL name (BeforeEach) and the real-repo drift check both use the ONE shared hash
     # (Get-CombinedTypeHash, loaded by the importer) — the same function the janitor under test calls, so there is

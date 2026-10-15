@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/tests/types/TestTiers.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'TestTiers' -Tag 'L0', 'logic' {
     It 'lists the tiers lowest first, L0 to L4' {
         [Catzc.Base.Timeouts.TestTiers]::Names | Should -Be @('L0', 'L1', 'L2', 'L3', 'L4')

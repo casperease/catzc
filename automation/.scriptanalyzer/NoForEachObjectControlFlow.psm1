@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/NoForEachObjectControlFlow.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 <#
@@ -21,7 +30,6 @@ function Measure-NoForEachObjectControlFlow {
     $ruleName = 'Measure-NoForEachObjectControlFlow'
 
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:2](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment2)
     $isForEachObjectCommand = {
         param($node)
@@ -45,7 +53,6 @@ function Measure-NoForEachObjectControlFlow {
 
         foreach ($block in $scriptBlocks) {
             # Only direct children count: inside a nested loop, switch or function the keyword is valid.
-            # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
             # [comment:4](/docs/references/automation/scriptanalyzer/NoForEachObjectControlFlow.psm1.md#comment4)
             $isControlFlowStatement = {
                 param($node)

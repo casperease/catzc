@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Java.Tests.ps1
+    kind: test
+---
+#>
+
 # Hermetic logic (L1): every boundary that touches state outside the repository is mocked — the tool manager
 # (Uninstall-Tool, Remove-Java) and the persistent user environment (Set-PermanentEnvironmentVariable). The real
 # registry round trip is the seam's own L3 system test (Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1).

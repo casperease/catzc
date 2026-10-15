@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/tests/ConvertTo-SortedDictionary.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ConvertTo-SortedDictionary' -Tag 'L0', 'logic' {
     It 'preserves order of OrderedDictionary' {
         $source = [ordered]@{ z = 1; a = 2; m = 3 }

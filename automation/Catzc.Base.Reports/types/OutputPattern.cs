@@ -12,7 +12,6 @@ catzc:
 */
 
 // A stamp segment against a wildcard segment counts as overlapping, so an accepted catalogue is always overlap-free.
-// [ADR-REPO-OUTFMT#1](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt1)
 // [comment:1](/docs/references/automation/catzc-base-reports/types/OutputPattern.cs.md#comment1)
 
 using System;

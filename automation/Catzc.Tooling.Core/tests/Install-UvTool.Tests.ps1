@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Install-UvTool.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Install-UvTool' -Tag 'L0', 'logic' {
     BeforeAll {
         # Get-ToolConfig returns the typed record, so the mocks do too: an optional key the entry omits reads as its

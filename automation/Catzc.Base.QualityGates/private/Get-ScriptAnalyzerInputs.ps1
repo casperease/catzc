@@ -16,7 +16,6 @@ catzc:
     Every file besides the analyzed file itself that decides a PSScriptAnalyzer verdict.
 .DESCRIPTION
     Anything the analysis loads must be listed, or a change to it leaves stale clean entries; a new input is added here.
-    [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerInputs.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root.

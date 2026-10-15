@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/WorkerParentWatch.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'WorkerParentWatch' -Tag 'logic' {
     Context 'liveness check' -Tag 'L0' {
         It 'reports this process alive at its own start time' {

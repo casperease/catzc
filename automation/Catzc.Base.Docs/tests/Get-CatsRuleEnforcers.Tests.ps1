@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-CatsRuleEnforcers over a fixture test tree in $TestDrive and a mocked analyzer map: the AST reader credits
 # only -Tag citations, never a citation-shaped string elsewhere. The repository facts behind it (every cited id is a
 # real rule) are quality gates of their own. Neutral fixture names

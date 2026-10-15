@@ -91,7 +91,6 @@ function Convert-FirewallCsvToYaml {
         }
 
         # Filled in the body, not as a default: in Object mode the value arrives from the pipeline after defaults run.
-        # [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)
         # [comment:3](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToYaml.ps1.md#comment3)
         if (-not $SourceName) {
             $SourceName = Split-Path -Path $CsvPath -Leaf

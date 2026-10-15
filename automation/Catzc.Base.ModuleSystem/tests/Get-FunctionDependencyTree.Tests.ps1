@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependencyTree.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-FunctionDependencyTree' -Tag 'L0', 'logic' {
     BeforeAll {
         # Build a synthetic dependency graph

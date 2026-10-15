@@ -13,9 +13,6 @@ catzc:
 */
 
 // The platform is a parameter, not a probe, so every branch is deterministic and testable on any OS.
-// [ADR-AUTO-PATH#6](/docs/adr/automation/path-representation.md#rule-adr-auto-path6),
-// [ADR-AUTO-PATH#11](/docs/adr/automation/path-representation.md#rule-adr-auto-path11),
-// [ADR-AUTO-PATH#3](/docs/adr/automation/path-representation.md#rule-adr-auto-path3)
 // [comment:1](/docs/references/automation/catzc-tooling-inspiration/types/InspirationRoot.cs.md#comment1)
 
 using System;

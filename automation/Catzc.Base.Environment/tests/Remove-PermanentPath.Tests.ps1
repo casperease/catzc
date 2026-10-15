@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Environment/tests/Remove-PermanentPath.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Remove-PermanentPath' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tempDir = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-test-path-$([guid]::NewGuid().ToString('N').Substring(0,8))"

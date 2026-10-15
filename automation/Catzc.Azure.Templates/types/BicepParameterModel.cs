@@ -11,7 +11,6 @@ catzc:
 */
 
 // Keys compare case-insensitively, as ARM matches parameter names.
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-azure-templates/types/BicepParameterModel.cs.md#comment1)
 
 using System;

@@ -16,7 +16,6 @@ catzc:
     Validates one JSON or YAML file against a JSON Schema file, or checks the schema alone, and returns the findings.
 .DESCRIPTION
     Without -InstancePath only the schema is checked well-formed, so a defect in a sample's schema gives one finding.
-    [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)
     [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractSchemaFindings.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the paths are relative to.

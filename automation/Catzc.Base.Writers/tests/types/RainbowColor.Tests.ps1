@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Writers/tests/types/RainbowColor.Tests.ps1
+    kind: test
+---
+#>
+
 # The <base>-rainbow colour profile
 # ([ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)): char 0 is
 # the anchor, the walk steps a chromatic-only

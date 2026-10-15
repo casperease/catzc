@@ -17,8 +17,6 @@ catzc:
     Returns the resolved Azure subscription identity (id + tenant [+ customer]) for a named subscription.
 .DESCRIPTION
     Lookup is by name alone: no environment, group or customer join happens here, so callers build on it.
-    [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md),
-    [ADR-AZ-DATAMOD#4](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod4)
     [comment:1](/docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md#comment1)
 .PARAMETER Subscription
     Subscription name — a key in azure.yml's `subscriptions`.
@@ -45,7 +43,6 @@ function Get-AzureSubscription {
 
     $tenant = [Catzc.Azure.Tenant]::new($found.tenant, $azure.tenants[$found.tenant].id)
     # Normalized to the canonical key, so the resolved object is identical whichever form the config used.
-    # [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
     # [comment:2](/docs/references/automation/catzc-azure/Get-AzureSubscription.ps1.md#comment2)
     $customerToken = Get-AzureSubscriptionCustomer $found
     $customer = if ([string]::IsNullOrEmpty($customerToken)) {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Sync-SessionTools.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Sync-SessionTools' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:origPath = $env:PATH

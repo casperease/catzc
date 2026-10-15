@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/Get-ContractAssetKind.Tests.ps1
+    kind: test
+---
+#>
+
 # The name rule of a contract asset's kind
 # ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)): the suffix picks schema or sample,
 # and any other name is a fragment, or a presence when empty.

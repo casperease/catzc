@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/New-PesterRunConfiguration.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'New-PesterRunConfiguration' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {}

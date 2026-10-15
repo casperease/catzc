@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-AdrRuleSummaryLines.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-AdrRuleSummaryLines — the normative lines of every `### Rule` entry in one ADR file, numbered, with the rule in its citation
 # form. Neutral fixture codes ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-AdrRuleSummaryLines' -Tag 'L0', 'logic' {

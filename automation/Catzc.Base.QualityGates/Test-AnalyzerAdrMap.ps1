@@ -17,8 +17,6 @@ catzc:
     Quality gate: analyzer-adr-map.yml cites only real ADR rules and maps every custom analyzer rule.
 .DESCRIPTION
     The config load checks only shape to stay hermetic; this gate cross-checks the map against the repository.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-PWSH-FORMAT#7](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format7)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-AnalyzerAdrMap.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-analyzer-adr-map/ (Write-QualityGateReport).

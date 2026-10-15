@@ -13,9 +13,6 @@ catzc:
 */
 
 // Passed is derived from Findings, never set apart from them; a blank finding is rejected, and no findings at all is a pass.
-// [ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4),
-// [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractCheckResult.cs.md#comment1)
 
 using System;

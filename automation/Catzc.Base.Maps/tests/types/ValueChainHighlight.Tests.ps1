@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
+    kind: test
+---
+#>
+
 # ValueChainHighlight lights the value-chain map cells an ADR, or one of its rules, sits in
 # ([ADR-DSGN-TRACK#12](/docs/adr/design/tracks.md#rule-adr-dsgn-track12),
 # [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16)), with widget/gadget fixtures

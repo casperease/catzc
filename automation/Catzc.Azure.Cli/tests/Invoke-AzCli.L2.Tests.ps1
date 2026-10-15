@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Cli/tests/Invoke-AzCli.L2.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-AzCli' -Tag 'L2', 'logic' {
     It 'returns version as JSON with accessible properties' {
         # Gate on presence, not the locked version: this thread proves Invoke-AzCli shells out to a working

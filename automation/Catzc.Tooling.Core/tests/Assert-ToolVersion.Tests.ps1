@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Assert-ToolVersion.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore lockedtool
 Describe 'Assert-ToolVersion' -Tag 'L0', 'logic' {
     # Hermetic: every collaborator is mocked in the module scope, so the assertion binds to the version-check

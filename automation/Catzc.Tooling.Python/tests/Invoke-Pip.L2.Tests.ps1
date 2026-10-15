@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Python/tests/Invoke-Pip.L2.Tests.ps1
+    kind: test
+---
+#>
+
 # The chain is Invoke-Pip → Invoke-Uv → uv pip <args>: uv is the tool that must exist, and it needs a
 # discoverable interpreter. There is no `uv pip --version` — `uv pip` is a subcommand group — so the
 # end-to-end contract is carried by a real subcommand.

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Test-ToolLocationManaged.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
     # Prefix logic keyed on Windows paths; the Unix branches are analogous and not exercised here.
     # Set-ItResult is legal only in a per-test scope, so the non-Windows skip must run in BeforeEach, not

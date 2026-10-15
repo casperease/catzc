@@ -16,7 +16,6 @@ catzc:
     Returns how many seconds a call may run before its time safeguard stops it.
 .DESCRIPTION
     Every safeguard consumer asks here, so tuning a limit is one config edit; a command's exemption outranks its entry.
-    [ADR-PWSH-ASSERT#1](/docs/adr/pwsh/assert-idioms.md#rule-adr-pwsh-assert1)
     [comment:1](/docs/references/automation/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md#comment1)
 .PARAMETER Executable
     Directory and extension are ignored, so a full path to dotnet.exe resolves the same as plain dotnet.

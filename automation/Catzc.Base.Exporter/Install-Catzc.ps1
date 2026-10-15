@@ -18,7 +18,6 @@ catzc:
     Installs a Catzc build — two-part beside a working root, or into the current user's module path.
 .DESCRIPTION
     The build is verified before the destination is touched, and an unchanged content hash skips the copy.
-    [ADR-AUTO-BUNDLE#6](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle6)
     [comment:1](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment1)
 .PARAMETER Root
     The destination working root for a two-part install. Not the mono repo.
@@ -42,7 +41,6 @@ catzc:
     Install-Catzc -Scope CurrentUser
 #>
 # -WhatIf narrates to the host and returns no plan, so a test can neither capture nor assert on it.
-# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
 # [comment:4](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment4)
 function Install-Catzc {
     [CmdletBinding(DefaultParameterSetName = 'Root')]
@@ -92,7 +90,6 @@ function Install-Catzc {
             }
             Copy-Directory -Path $Source -Destination $moduleTarget
             # Unix only: the copy drops the executable bit, so shebang scripts of bash-like engines are re-marked.
-            # [ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2)
             # [comment:5](/docs/references/automation/catzc-base-exporter/Install-Catzc.ps1.md#comment5)
             if (-not $IsWindows) {
                 $execute = [System.IO.UnixFileMode]::UserExecute -bor [System.IO.UnixFileMode]::GroupExecute -bor [System.IO.UnixFileMode]::OtherExecute

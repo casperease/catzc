@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.CodeMeta/tests/types/HeadForm.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'HeadForm' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1' {
     It 'is a line-comment form or a block-comment form, anchored at the start by default' {
         $line = [Catzc.Base.CodeMeta.HeadForm]::ForLine('#')

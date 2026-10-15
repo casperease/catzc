@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-MarkdownTitleFinding.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-MarkdownTitleFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6' {
     BeforeAll {
         # Fixture text is built from lines, so every escape stays apart from the words around it.

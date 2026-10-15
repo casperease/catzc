@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/modules/subscription-diagnostic-setting.bicep
+//     kind: other
+// ---
+
 // The workspace may live in another subscription; resource-level diagnostics belong to the separate diagnostic-setting module.
 // [comment:1](/docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md#comment1)
 

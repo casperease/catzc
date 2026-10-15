@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Resolve-BicepParameterAddresses' -Tag 'L0', 'logic' {
     BeforeAll {
         # Invoke the private function in the module's scope; the config reader is mocked at its boundary with neutral

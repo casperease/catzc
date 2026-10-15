@@ -26,11 +26,9 @@ catzc:
     of truth for the ADR domain structure.
 .DESCRIPTION
     index.md is projected from adrs.yml alone, so a hand-edit to it is overwritten on the next import.
-    [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment1)
 .PARAMETER DryRun
     The index is still rendered in full, so a dry run also throws on an ADR with no file.
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:2](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment2)
 .PARAMETER Silent
     The wrote / would-write status line is verbose-level — -Silent suppresses it (used by the importer tail).
@@ -149,7 +147,6 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
 '@
 
     # Reflow here so the generated page already equals the formatter's fill and never shows drift afterwards.
-    # [ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)
     # [comment:3](/docs/references/automation/catzc-base-docs/Build-AdrIndex.ps1.md#comment3)
     $reflow = {
         param([string] $Markdown)

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-ShippedConfigs.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-ShippedConfigs over a fixture code root in $TestDrive, with the registry and Get-Config mocked in the gate's
 # scope. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Test-ShippedConfigs' -Tag 'L0', 'logic' {

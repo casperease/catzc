@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/ConvertFrom-GoTestJson.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ConvertFrom-GoTestJson' -Tag 'L0', 'logic' {
     BeforeAll {
         # Canned `go test -json` streams (tests/assets), recorded from a widget package (pass, fail, skip, and a

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Build-Bicep.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore alweutstsmplst
 Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the

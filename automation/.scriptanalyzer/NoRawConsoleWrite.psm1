@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/NoRawConsoleWrite.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 <#
@@ -5,7 +14,6 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: forbid writing to the console past the information stream.
 .DESCRIPTION
     A raw write bypasses the stream, so it escapes output control, Pester silencing and the caller header.
-    [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
     [comment:1](/docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md#comment1)
 #>
 
@@ -42,7 +50,6 @@ function Measure-NoRawConsoleWrite {
     }
 
     # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:3](/docs/references/automation/scriptanalyzer/NoRawConsoleWrite.psm1.md#comment3)
     $isCandidate = {
         param($node)

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/tests/Invoke-AdoRestMethod.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-AdoRestMethod' -Tag 'L0', 'logic' {
     Context 'parameter validation' {
         It 'requires Uri parameter' {

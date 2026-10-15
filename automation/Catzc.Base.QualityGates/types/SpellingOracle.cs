@@ -21,13 +21,10 @@ using System.IO;
 using System.Text;
 
 /// <summary> Deliberately dumb and fast: the rule picks the identifiers and exemptions, this type only tokenizes and looks up.
-/// [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
-/// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 /// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment1)
 public static class SpellingOracle
 {
     // Single letters are loop indices and type variables, so only fragments of two or more letters can be flagged.
-    // [ADR-AUTO-SPELL#2](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell2)
     // [comment:2](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment2)
     public const int MinFragmentLength = 2;
 
@@ -40,7 +37,6 @@ public static class SpellingOracle
     public static int WordCount => _words?.Count ?? 0;
 
     /// <summary> A second call is a no-op, so each analyzer shard pays the load once; fixture terms stay separate.
-    /// [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)
     /// [comment:3](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment3)
     public static void Initialize(string englishGzPath, IEnumerable<string> termListPaths, IEnumerable<string> fixtureListPaths)
     {
@@ -109,7 +105,6 @@ public static class SpellingOracle
     }
 
     /// <summary> Fixture terms count as known only when includeFixtures is set, so a fixture token never blesses production code.
-    /// [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)
     /// [comment:4](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment4)
     public static string[] CoinedFragments(string identifier, bool includeFixtures)
     {
@@ -140,7 +135,6 @@ public static class SpellingOracle
     }
 
     /// <summary>Production scope never accepts fixture terms, so a fixture token cannot bless a real identifier.</summary>
-    /// [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)
     /// [comment:5](/docs/references/automation/catzc-base-qualitygates/types/SpellingOracle.cs.md#comment5)
     public static string[] CoinedFragments(string identifier)
     {

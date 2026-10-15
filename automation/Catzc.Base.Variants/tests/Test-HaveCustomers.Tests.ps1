@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/tests/Test-HaveCustomers.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-HaveCustomers' -Tag 'L0', 'logic' {
 
     Context 'no -Name (repo-wide capability)' {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-ScriptAnalyzerDiagnostics is a private (non-exported) function, so it is invoked via InModuleScope.
 Describe 'Get-ScriptAnalyzerDiagnostics' -Tag 'L0', 'logic' {
     It 'returns empty for an empty file list (no shards spawned)' {

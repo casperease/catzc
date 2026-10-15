@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/VariableCasing.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 . (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
@@ -42,7 +51,6 @@ function Measure-VariableCasing {
     # Collect all parameter names (for excluding from local-variable check)
     $paramNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:2](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment2)
     $isParameter = {
         param($node)
@@ -73,7 +81,6 @@ function Measure-VariableCasing {
     }
 
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:4](/docs/references/automation/scriptanalyzer/VariableCasing.psm1.md#comment4)
     $isAssignment = {
         param($node)

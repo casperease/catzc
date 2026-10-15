@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleSubscription.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Build-Bicep (sample-subscription)' -Tag 'L0', 'logic' {
     # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
     # build output folder is wiped per test, since the build tests write into it

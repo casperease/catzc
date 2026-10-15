@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationReport.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Write-TestAutomationReport' -Tag 'L0', 'logic' {
     BeforeAll {
         # Rows are the plain per-test shape ConvertTo-TestAutomationRowSet produces — built directly here,

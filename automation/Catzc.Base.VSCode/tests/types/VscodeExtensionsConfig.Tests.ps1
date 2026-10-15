@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.VSCode/tests/types/VscodeExtensionsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Catzc.Base.VSCode.VscodeExtensionsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {

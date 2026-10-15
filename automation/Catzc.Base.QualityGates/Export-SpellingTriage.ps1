@@ -20,8 +20,6 @@ catzc:
     terminology registry, never an automatic acceptance.
 .DESCRIPTION
     The queue is a to-do list: cspell never reads it, so a token stays flagged until a human promotes it.
-    [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5),
-    [ADR-AUTO-SPELL#7](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell7)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment1)
 .PARAMETER Path
     The default scope equals Test-Spelling's, though cspell still applies the ignorePaths from cspell.yml.
@@ -33,7 +31,6 @@ catzc:
     [comment:5](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment5)
 .PARAMETER DryRun
     The returned list is the same in either mode; -DryRun only skips the write.
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:4](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment4)
 .OUTPUTS
     [string[]] The flagged tokens queued for triage (or, under -DryRun, that would be queued), ordinal-sorted.
@@ -139,8 +136,6 @@ function Export-SpellingTriage {
 
     if (-not $DryRun) {
         # The blank meaning is deliberate: a pasted stub fails Test-Terminology until a human classifies it.
-        # [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6),
-        # [ADR-AUTO-SPELL#7](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell7)
         # [comment:8](/docs/references/automation/catzc-base-qualitygates/Export-SpellingTriage.ps1.md#comment8)
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add('# Terminology triage queue — spell-checker-flagged tokens awaiting classification.')

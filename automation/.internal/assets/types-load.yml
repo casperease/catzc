@@ -1,0 +1,39 @@
+# How the combined C# types assembly is loaded, one row per mode: <host>.<os>.<run mode>.
+# host: console (interactive) | headless (pipeline, test worker, analyzer, pwsh -File). os: windows | unix. run mode: source | build.
+# load: lazy = unloaded after verification, loaded by the first use | eager = loaded right after verification.
+# trigger: lookup-hook = the command-lookup hook that loads before a typed parameter binds | none (only with eager).
+# shadowCopy: load from the per-user shadow copy (Windows locks a loaded DLL) instead of in place.
+# eagerTypes: type names loaded at import even when lazy. A key left out takes the default declared in Get-TypesLoadPolicy.
+cells:
+  console.windows.source:
+    load: lazy
+    trigger: lookup-hook
+    shadowCopy: true
+  console.windows.build:
+    load: lazy
+    trigger: lookup-hook
+    shadowCopy: true
+  console.unix.source:
+    load: lazy
+    trigger: lookup-hook
+    shadowCopy: false
+  console.unix.build:
+    load: lazy
+    trigger: lookup-hook
+    shadowCopy: false
+  headless.windows.source:
+    load: eager
+    trigger: none
+    shadowCopy: true
+  headless.windows.build:
+    load: eager
+    trigger: none
+    shadowCopy: true
+  headless.unix.source:
+    load: eager
+    trigger: none
+    shadowCopy: false
+  headless.unix.build:
+    load: eager
+    trigger: none
+    shadowCopy: false

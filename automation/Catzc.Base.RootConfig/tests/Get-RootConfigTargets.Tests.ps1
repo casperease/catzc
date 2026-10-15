@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.RootConfig/tests/Get-RootConfigTargets.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-RootConfigTargets' -Tag 'L0', 'logic' {
     It 'returns only the opted-in entries, in registry order' {
         $config = [pscustomobject]@{

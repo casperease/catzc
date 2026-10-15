@@ -30,7 +30,7 @@ catzc:
 .PARAMETER Exclude
     Folder names to prune. The default is the folder-walk config's exclude list.
 .PARAMETER PruneVendor
-    Whether the.vendor folder is pruned as well.
+    Whether the vendor folder is pruned as well.
     [comment:3](/docs/references/automation/catzc-base-folders/Get-ChildPath.ps1.md#comment3)
 .OUTPUTS
     [string[]] Full paths of the matching entries.

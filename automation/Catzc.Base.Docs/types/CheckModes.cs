@@ -12,8 +12,6 @@ catzc:
 */
 
 // One parser keeps one accepted spelling and one error text for every check config, and an omitted mode means Gate.
-// [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/CheckModes.cs.md#comment1)
 
 using System;

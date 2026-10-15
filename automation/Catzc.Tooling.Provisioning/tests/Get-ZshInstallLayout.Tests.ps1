@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Get-ZshInstallLayout.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-ZshInstallLayout over a fixture zsh entry: Get-ToolConfig is mocked, so the shipped tools.yml is never read
 # ([ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1)), and nothing on disk is touched.
 # Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

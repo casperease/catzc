@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/tests/types/ToolsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ToolsConfig' -Tag 'L0' {
     # Reads the shipped tools.yml — guards real repository content
     # ([ADR-AUTO-TEST#14](/docs/adr/automation/test-automation.md#rule-adr-auto-test14)).

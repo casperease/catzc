@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.MarkdownMeta/tests/Format-MarkdownMetaBlock.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Format-MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     It 'creates front matter above a text with none' {
         Format-MarkdownMetaBlock -Text "# docs/widget.md`n" -Fact ([ordered]@{ kind = 'gadget' }) |

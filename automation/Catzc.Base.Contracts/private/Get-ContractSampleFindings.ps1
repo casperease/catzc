@@ -16,7 +16,6 @@ catzc:
     Checks that a sample payload parses, and validates against the schema beside it when one exists; returns the findings.
 .DESCRIPTION
     That the owning module produces or parses the sample is its own tests' work, not this check's.
-    [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)
     [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractSampleFindings.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the asset is relative to.

@@ -17,7 +17,6 @@ catzc:
     Runs the test files through the parallel worker pool (and the serial phase) and aggregates the rows.
 .DESCRIPTION
     A run never waits for another: it runs in place when the folder is free, else in a verified snapshot of it.
-    [ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment1)
 .PARAMETER ParallelFiles
     The test files to shard across the pool (may be empty when only tagged files are in scope).
@@ -213,7 +212,6 @@ function Invoke-TestAutomationWorkers {
     $WorkerEnvironment['CATZC_TEST_RUN_LOCATION_HELD'] = '1'
 
     # Silence here would read as a hang: each worker pays its own importer and Pester load before its first line.
-    # [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)
     # [comment:10](/docs/references/automation/catzc-base-qualitygates/private/Invoke-TestAutomationWorkers.ps1.md#comment10)
     Write-Message "Running $($ParallelFiles.Count) test file(s) across $($shards.Count) parallel worker(s)$(if ($greedyShards.Count) { ", then $($GreedyFiles.Count) greedy file(s) in groups of $greedyGroupSize" })$(if ($serialShard) { ", then $($SerialFiles.Count) serial-tagged file(s)" })..." -NoHeader
 

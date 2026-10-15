@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/CommentFormatter.Tests.ps1
+    kind: test
+---
+#>
+
 # CommentFormatter keeps a comment residue in its one-liner shape — one insight line, then the citations and the docs
 # link ([ADR-REPO-COMMENTS#5](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5),
 # [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1)) — fixing what is

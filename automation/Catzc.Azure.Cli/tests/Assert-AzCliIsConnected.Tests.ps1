@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Cli/tests/Assert-AzCliIsConnected.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-AzCliIsConnected' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolate from the shipped azure.yml: resolve identity from the test config fixture.

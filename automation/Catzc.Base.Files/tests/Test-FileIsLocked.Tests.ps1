@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/tests/Test-FileIsLocked.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-FileIsLocked / Test-FileIsNotLocked' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:f = Join-Path $TestDrive ([guid]::NewGuid().ToString('N') + '.bin')

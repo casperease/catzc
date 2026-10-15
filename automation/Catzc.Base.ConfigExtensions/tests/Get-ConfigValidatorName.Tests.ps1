@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ConfigExtensions/tests/Get-ConfigValidatorName.Tests.ps1
+    kind: test
+---
+#>
+
 # The validator naming convention, on literal names.
 Describe 'Get-ConfigValidatorName' -Tag 'L0', 'logic' {
     It 'title-cases each kebab segment' {

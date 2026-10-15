@@ -1,5 +1,13 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/Catzc.Internal.Builder.psm1
+    kind: other
+---
+#>
+
 # It reads the per-function source tree, so it is loaded on demand after a source import and never ships in a build.
-# [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md), [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
 # [comment:1](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment1)
 
 Set-StrictMode -Version Latest
@@ -41,7 +49,6 @@ function Get-BuildSourceIndex {
         marked with whether git stores it with LF-only line endings.
     .DESCRIPTION
         An untracked file that is not ignored ships and dirties the tree, which a pipeline refuses.
-        [ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)
         [comment:7](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment7)
     .OUTPUTS
         [System.Collections.Generic.Dictionary[string, bool]] source-root-relative, forward-slashed path -> LF-only.
@@ -181,7 +188,6 @@ function Get-BuildClosureViolation {
         Returns every call and config read of the selected modules that lands outside the selection.
     .DESCRIPTION
         Proves the closure from the code, because dependencies.yml leaves an unlisted module unconstrained.
-        [ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)
         [comment:9](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment9)
     #>
     [CmdletBinding()]
@@ -206,10 +212,6 @@ function Get-BuildClosureViolation {
         }
     }
 
-    $isConfigRead = {
-        param($node)
-        $node -is [System.Management.Automation.Language.CommandAst] -and $node.GetCommandName() -ieq 'Get-Config'
-    }
     foreach ($name in $Module) {
         $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, $name)
         if (-not [System.IO.Directory]::Exists($moduleDirectory)) {
@@ -225,7 +227,7 @@ function Get-BuildClosureViolation {
             $tokens = $null
             $parseErrors = $null
             $syntaxTree = [System.Management.Automation.Language.Parser]::ParseFile($file, [ref] $tokens, [ref] $parseErrors)
-            foreach ($read in $syntaxTree.FindAll($isConfigRead, $true)) {
+            foreach ($read in [Catzc.Base.Repository.SyntaxSearch]::CommandsNamed($syntaxTree, 'Get-Config', $false)) {
                 $elements = $read.CommandElements
                 # Only the owners present are read, so an owner missing from the build is not a gap.
                 # [comment:10](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment10)
@@ -407,7 +409,6 @@ function Get-ModuleBuildPlan {
         Computes every file a build writes, from the source tree alone, and collects every reason it cannot.
     .DESCRIPTION
         Reads sources and writes nothing, so the plan can be checked or returned before any write.
-        [ADR-PWSH-MANIFEST#5](/docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5)
         [comment:14](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment14)
     #>
     [CmdletBinding()]
@@ -573,7 +574,6 @@ function Format-CatzcPackageManifest {
         Renders the package manifest Catzc.psd1 as canonical, deterministic text.
     .DESCRIPTION
         Not New-ModuleManifest, whose generation date would make the same commit yield different bytes.
-        [ADR-AUTO-BUNDLE#5](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle5)
         [comment:17](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment17)
     #>
     [CmdletBinding()]
@@ -814,9 +814,6 @@ function Invoke-ModuleBuild {
         Builds the selected modules into one installable, versioned Catzc package — build mode's code root.
     .DESCRIPTION
         The engine writes no console output; its caller reports the result.
-        [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md),
-        [ADR-PWSH-MANIFEST#5](/docs/adr/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest5),
-        [ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)
         [comment:22](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment22)
     .PARAMETER Module
         Explicit module names. Combined with -ModuleProfile; at least one of the two is required.
@@ -835,7 +832,6 @@ function Invoke-ModuleBuild {
         Catzc.psd1 metadata: Guid, Author, CompanyName, Description, Tags, ProjectUri, LicenseUri.
     .PARAMETER DryRun
         A dry run still runs every check, since all checks run before anything is written.
-        [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
         [comment:24](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment24)
     .OUTPUTS
         [pscustomobject] BuildRoot, Version, Modules, TypesHash, ContentHash ($null under -DryRun), FileCount,
@@ -911,7 +907,6 @@ function Invoke-ModuleBuild {
     }
 
     # Checked against the plan, not the disk, so a missing asset fails before any write.
-    # [ADR-AUTO-ASSETDEP#4](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep4)
     # [comment:25](/docs/references/automation/internal/Catzc.Internal.Builder.psm1.md#comment25)
     $plannedPaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($entry in $plan.Entries) {

@@ -12,8 +12,6 @@ catzc:
 */
 
 // The Python version is not a setting here: it is the tools.yml pin, the one Python version.
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-REPO-FOLDERS#7](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders7)
 // [comment:1](/docs/references/automation/catzc-base-languages/types/PythonConfig.cs.md#comment1)
 
 using System;

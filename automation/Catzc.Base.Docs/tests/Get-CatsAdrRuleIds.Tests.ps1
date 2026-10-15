@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-CatsAdrRuleIds.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-CatsAdrRuleIds' -Tag 'L0', 'logic' {
     BeforeAll {
         # A fixture ADR tree: an index beside two ADR files it lists (paths relative to the index folder),

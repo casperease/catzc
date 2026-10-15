@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Languages/configs/go.yml
+#     kind: config
+# ---
+
 # Every key is optional: an omitted key takes the default declared once on GoConfig.
-# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 # [comment:1](/docs/references/automation/catzc-base-languages/configs/go.yml.md#comment1)
 
 # Left undeclared, root takes the shared default: go/ when the repository has one, else the dot-prefixed .go.

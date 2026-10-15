@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/tests/Reset-LastExitCode.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Reset-LastExitCode' -Tag 'L0', 'logic' {
     It 'removes LASTEXITCODE when it exists' {
         $global:LASTEXITCODE = 42

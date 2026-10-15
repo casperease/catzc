@@ -18,7 +18,6 @@ catzc:
     configs/go.yml.
 .DESCRIPTION
     Rendering is pure text, identical on every machine; Build-RootConfig owns the write, so this writes nothing.
-    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md#comment1)
 .PARAMETER Target
     The match is case-sensitive, so a pattern in the wrong case returns no files.
@@ -40,7 +39,6 @@ function New-GoWorkspace {
 
     $config = Get-Config -Config go
     # Reading the tools.yml pin keeps the go directive from asking for a newer toolchain than the managed go.
-    # [ADR-CONF-ADDRESSING](/docs/adr/configuration/config-value-addressing.md)
     # [comment:3](/docs/references/automation/catzc-base-languages/New-GoWorkspace.ps1.md#comment3)
     $goVersion = "$(Get-ConfigValue -Address 'global.tools.go.version')"
     if ($goVersion -cnotmatch '^1\.(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*))?$') {

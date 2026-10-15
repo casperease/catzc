@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/tests/Test-CompletesWithin.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-CompletesWithin' -Tag 'L0', 'logic' {
     It 'returns $true, with no other output, when the block finishes in time' {
         $result = @(Test-CompletesWithin { 'widget' } -Seconds 5)

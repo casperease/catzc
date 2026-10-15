@@ -19,10 +19,6 @@ catzc:
     Writes the world map as PDFs: the grid view, the tree view, or both, optionally with a highlight.
 .DESCRIPTION
     One file per view, so each opens or is replaced alone; an unchanged repository writes byte-identical files.
-    [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3),
-    [ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7),
-    [ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8),
-    [ADR-REPO-OUTDIR#2](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2)
     [comment:1](/docs/references/automation/catzc-base-maps/Export-WorldMapPdf.ps1.md#comment1)
 .PARAMETER View
     The views to write: Grid, Tree, or both (the default).

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-AzCli.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Uninstall-AzCli' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Uninstall-UvVenvTool { } -ModuleName Catzc.Tooling.Toolchain

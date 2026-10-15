@@ -18,7 +18,6 @@ catzc:
     never drift.
 .DESCRIPTION
     The slot is per-config, not a template bit, so a template may mix slotted and non-slotted configs.
-    [ADR-AZ-DATAMOD#8](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod8)
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepConfigClassViolations.ps1.md#comment1)
 .PARAMETER Environment
     The config's resolved environment name.

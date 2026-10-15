@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-ContractCheckResults checks each contract asset against the real tree by its kind
 # ([ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4),
 # [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)) and returns one result per asset; a

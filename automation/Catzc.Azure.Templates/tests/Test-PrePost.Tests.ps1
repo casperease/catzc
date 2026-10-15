@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Test-PrePost.Tests.ps1
+    kind: test
+---
+#>
+
 # Tests for the PrePost starter (Catzc.Azure.Templates/assets/PrePost.psm1) — the copy-in template that
 # authors clone into infrastructure/templates/<name>/PrePost.psm1. Production code does NOT load it;
 # these tests import it explicitly to verify the starter is a working no-op baseline.

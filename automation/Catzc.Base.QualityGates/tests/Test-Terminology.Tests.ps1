@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-Terminology' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }

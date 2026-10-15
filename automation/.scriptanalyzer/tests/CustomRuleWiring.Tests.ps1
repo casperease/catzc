@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/tests/CustomRuleWiring.Tests.ps1
+    kind: test
+---
+#>
+
 # Shared wiring check for the repo's AST-direct custom rules. Each check's per-case behaviour is proven at L0 by
 # calling its Measure-* function directly (see the sibling <Rule>.Tests.ps1 files); the one thing those L0 tests
 # cannot prove is that PSScriptAnalyzer loads the settings' one entry rule (CatzcRules.psm1) and surfaces each check's

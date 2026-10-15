@@ -20,10 +20,6 @@ catzc:
     assets.
 .DESCRIPTION
     Vendored code and contract assets stay out, so a formatter upgrade can never rewrite their frozen bytes.
-    [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
-    [ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4),
-    [ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5),
-    [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FormatScope.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root.

@@ -22,10 +22,6 @@ catzc:
     Runs PSScriptAnalyzer over a file list, sharded across background processes, returning diagnostics.
 .DESCRIPTION
     Shards are separate processes, not runspaces, because the analyzer's helper initialization is not thread-safe.
-    [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10),
-    [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8),
-    [ADR-PWSH-PWD#2](/docs/adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd2),
-    [ADR-PWSH-PWD#3](/docs/adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd3)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment1)
 .PARAMETER Path
     The files to analyze.
@@ -58,12 +54,10 @@ function Get-ScriptAnalyzerDiagnostics {
     }
 
     # The shards still run from the repository root, because the settings' CustomRulePath entries are relative to it.
-    # [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment2)
     $root = Get-RepositoryRoot
 
     # Only clean files are cached, so a cached run reports exactly the diagnostics a full run would.
-    # [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment3)
     $fullRoot = [System.IO.Path]::GetFullPath($root)
     $stamp = Get-ContentStamp -Label 'script-analyzer' -File (Get-ScriptAnalyzerInputs -RepositoryRoot $fullRoot -SettingsPath $SettingsPath) -RepositoryRoot $fullRoot
@@ -102,13 +96,11 @@ function Get-ScriptAnalyzerDiagnostics {
 
         Push-Location $root
         # The analyzer draws its own progress bar, which is banned here, so it is silenced and restored in finally.
-        # [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8)
         # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment5)
         $savedProgress = $ProgressPreference
         $ProgressPreference = 'SilentlyContinue'
         try {
             # Every analyzer error is real, as the flaky rule is excluded in settings, so none is retried or tolerated.
-            # [ADR-AUTO-RETRY#1](/docs/adr/automation/retry-as-last-resort.md#rule-adr-auto-retry1)
             # [comment:6](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment6)
             $err = $null
             $diagnostics = $shardFiles | Invoke-ScriptAnalyzer -Settings $settings -ErrorVariable err -ErrorAction SilentlyContinue
@@ -128,8 +120,6 @@ function Get-ScriptAnalyzerDiagnostics {
     }
 
     # The dots go through the writer chokepoint, so a Pester run silences them with everything else.
-    # [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8),
-    # [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
     # [comment:7](/docs/references/automation/catzc-base-qualitygates/private/Get-ScriptAnalyzerDiagnostics.ps1.md#comment7)
     $dotted = $false
     try {

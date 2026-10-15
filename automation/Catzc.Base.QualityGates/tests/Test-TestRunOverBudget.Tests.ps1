@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-TestRunOverBudget.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-TestRunOverBudget' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#44' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }

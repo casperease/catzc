@@ -12,8 +12,6 @@ catzc:
 */
 
 // Whether a listed domain is declared in adrs.yml is the check's own finding, not a load error: this type reads no other config.
-// [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AdrNeutralityCheck.cs.md#comment1)
 
 using System;

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
+    kind: test
+---
+#>
+
 # The reference-commit resolver ([ADR-FLOW-CD-DETECT](/docs/adr/flow/pipeline-detection.md)): the diff range per
 # execution context — local working tree,
 # post-commit first-parent (squash-proof), or the PR merge-base — with a fail-open null.

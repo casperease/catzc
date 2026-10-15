@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-ModuleProtectionIdentity.Tests.ps1
+    kind: test
+---
+#>
+
 # The composite protection identity
 # ([ADR-REPO-PROTGLOB#8](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob8)): own set + declared
 # dependency closure + infra scopes

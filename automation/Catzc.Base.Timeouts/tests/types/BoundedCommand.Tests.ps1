@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/tests/types/BoundedCommand.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'BoundedCommand' -Tag 'L0', 'logic' {
     BeforeDiscovery {
         # Every case, every engine, from the per-engine fixture table: a case that does not apply to an engine says why

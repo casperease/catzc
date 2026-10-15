@@ -16,7 +16,6 @@ catzc:
     Quality gate: every shipped C# type resolves in the session as <module>.<basename>.
 .DESCRIPTION
     A concrete class that still renders as its full name in pwsh is an issue too, not only a missing type.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-typessystem/Test-ShippedTypes.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-shipped-types/ (Write-QualityGateReport).

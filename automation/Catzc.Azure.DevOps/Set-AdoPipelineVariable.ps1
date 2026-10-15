@@ -16,7 +16,6 @@ catzc:
     Sets an Azure DevOps pipeline variable via the ##vso logging command.
 .DESCRIPTION
     Outside a pipeline nothing is emitted, so a local or test run never sets a real pipeline variable.
-    [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
     [comment:1](/docs/references/automation/catzc-azure-devops/Set-AdoPipelineVariable.ps1.md#comment1)
 .PARAMETER Name
     The variable name. Must not contain . - ' unless -SanitizeName is set.

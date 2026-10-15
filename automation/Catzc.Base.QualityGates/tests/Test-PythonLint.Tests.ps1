@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-PythonLint is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
 # the L0 cases mock the scope and ruff at the module boundary and read the collected issues; the report goes to
 # $TestDrive. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

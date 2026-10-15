@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestRunLocationSummary.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TestRunLocationSummary' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:summarize = {

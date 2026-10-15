@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
+    kind: test
+---
+#>
+
 # The single 'what is IN the package' source
 # ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)): `git ls-files` ∩
 # GlobSet.Matches, ordinal-sorted.

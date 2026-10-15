@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Azure.DevOps/configs/pipeline-env.yml
+#     kind: config
+# ---
+
 # Build context
 - BUILD_BUILDID
 - BUILD_BUILDNUMBER

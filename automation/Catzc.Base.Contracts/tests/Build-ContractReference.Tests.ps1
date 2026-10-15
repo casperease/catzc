@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
+    kind: test
+---
+#>
+
 # Build-ContractReference writes one page per unit, docs/references/contracts/<unit>.md, listing each version folder's
 # assets with their notes ([ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2)), as a
 # committed generated page ([ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)).

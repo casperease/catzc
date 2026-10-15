@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: ".github/workflows/release-automation.yml"
+#     kind: other
+# ---
+
 name: Release
 
 # Manual only — the trigger is intentionally NOT wired to push/tag/globset. A release is a deliberate act, so

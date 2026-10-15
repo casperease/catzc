@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/NeverDependOnPwd.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 <#
@@ -5,8 +14,6 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: never depend on $PWD.
 .DESCRIPTION
     Push-Location and Pop-Location pass: they restore the caller's directory, a bare Set-Location does not.
-    [ADR-AUTO-NOPWD#1](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1),
-    [ADR-PWSH-PWD#2](/docs/adr/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd2)
     [comment:1](/docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md#comment1)
 #>
 
@@ -23,7 +30,6 @@ function Measure-NeverDependOnPwd {
     $ruleName = 'Measure-NeverDependOnPwd'
 
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:2](/docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md#comment2)
     $isVariable = {
         param($node)
@@ -43,7 +49,6 @@ function Measure-NeverDependOnPwd {
     }
 
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:3](/docs/references/automation/scriptanalyzer/NeverDependOnPwd.psm1.md#comment3)
     $isCommand = {
         param($node)

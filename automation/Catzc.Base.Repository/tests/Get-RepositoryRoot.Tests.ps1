@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/tests/Get-RepositoryRoot.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-RepositoryRoot reads $env:RepositoryRoot (set by importer.ps1); pinned against a $TestDrive root and restored.
 Describe 'Get-RepositoryRoot' -Tag 'L0', 'logic' {
     It 'returns the repository root the importer set in $env:RepositoryRoot' {

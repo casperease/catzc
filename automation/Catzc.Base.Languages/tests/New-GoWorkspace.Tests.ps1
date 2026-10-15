@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/New-GoWorkspace.Tests.ps1
+    kind: test
+---
+#>
+
 BeforeAll {
     # The generated-file header every rendered file starts with, naming the tests folder of the Go root.
     $script:headerFor = {

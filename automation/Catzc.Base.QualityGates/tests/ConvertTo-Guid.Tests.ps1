@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/ConvertTo-Guid.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ConvertTo-Guid' -Tag 'L0', 'logic' {
     It 'returns a [guid], positionally' {
         $result = ConvertTo-Guid 'sample test data'

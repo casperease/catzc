@@ -50,7 +50,6 @@ function Get-AdoYamlFiles {
     Write-Message "Scanning for YAML files in: $scanRoot"
 
     # Prune excluded directories while walking, as Get-ChildItem -Recurse enumerated them all before filtering.
-    # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
     # [comment:3](/docs/references/automation/catzc-azure-devops/Get-AdoYamlFiles.ps1.md#comment3)
     $excludeSet = [System.Collections.Generic.HashSet[string]]::new(
         [string[]]$Exclude, [System.StringComparer]::OrdinalIgnoreCase)

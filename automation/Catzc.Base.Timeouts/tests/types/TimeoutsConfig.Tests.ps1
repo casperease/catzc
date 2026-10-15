@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'TimeoutsConfig' -Tag 'L0' {
 
     Context 'integrity (shipped timeouts.yml)' -Tag 'integrity' {

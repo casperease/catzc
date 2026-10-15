@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/types/DocPattern.Tests.ps1
+    kind: test
+---
+#>
+
 # Validates the compiled DocPattern type directly — the constructor is the gate that stops a malformed
 # readme.yml patterns entry from ever producing an instance.
 Describe 'DocPattern' -Tag 'L0', 'logic' {

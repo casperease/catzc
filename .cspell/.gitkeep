@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Docs/assets/gitkeep
+#     kind: other
+# ---
+
 This .gitkeep keeps its otherwise-empty (or content-ignored) folder tracked in git.
 
 GENERATED — every .gitkeep is reproduced from automation/Catzc.Base.Docs/assets/gitkeep on import

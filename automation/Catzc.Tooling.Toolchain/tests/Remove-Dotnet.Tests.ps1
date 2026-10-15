@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Remove-Dotnet.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Remove-Dotnet' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#3' {
     BeforeEach {
         if (-not $IsWindows) {

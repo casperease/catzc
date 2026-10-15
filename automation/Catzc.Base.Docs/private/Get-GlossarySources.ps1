@@ -18,9 +18,6 @@ catzc:
     Lists every glossary source — each opting-in module's configs/glossary.yml — with its validated config.
 .DESCRIPTION
     Sources are discovered, not declared: a module opts in by shipping the file, and this runs in source mode only.
-    [ADR-CONF-LOADING#1](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading1),
-    [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2),
-    [ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossarySources.ps1.md#comment1)
 .OUTPUTS
     [pscustomobject] One { Owner; Path; Config; Tracked } per source, sorted by owner (ordinal): Path is

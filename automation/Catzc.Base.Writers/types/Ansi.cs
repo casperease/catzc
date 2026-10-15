@@ -11,7 +11,6 @@ catzc:
 */
 
 // The one colour-to-escape table: Write-InformationColored and RainbowColor both read it, so no inline switch can drift.
-// [ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)
 // [comment:1](/docs/references/automation/catzc-base-writers/types/Ansi.cs.md#comment1)
 
 using System;

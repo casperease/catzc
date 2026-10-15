@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/types/ContractCheckResult.Tests.ps1
+    kind: test
+---
+#>
+
 # ContractCheckResult is the result of checking one contract asset
 # ([ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4)): Passed is derived from the findings,
 # and it renders console-ready ([ADR-AUTO-TYPES#14](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types14)).

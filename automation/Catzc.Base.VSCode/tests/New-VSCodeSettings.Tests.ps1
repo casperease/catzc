@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.VSCode/tests/New-VSCodeSettings.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore gopls  -- the Go language server and its VS Code settings key
 Describe 'New-VSCodeSettings' -Tag 'L0', 'logic' {
     BeforeAll {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/tests/Test-IsTimeoutExempt.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-IsTimeoutExempt' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fixture GUIDs are built at runtime (not literals), so they need no managed-GUID registry entry.

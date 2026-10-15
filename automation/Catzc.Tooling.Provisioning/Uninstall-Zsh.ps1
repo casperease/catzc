@@ -18,9 +18,6 @@ catzc:
     Uninstalls the zsh Install-Zsh placed: in Git Bash's tree on Windows, the apt-get package on Linux.
 .DESCRIPTION
     Only manifest-listed files go, so a file Git's tree had before Install-Zsh stays; apt must own a Linux zsh.
-    [ADR-AUTO-IDEM#2](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem2),
-    [ADR-AUTO-REMOVE#2](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove2),
-    [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
     [comment:1](/docs/references/automation/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md#comment1)
 .EXAMPLE
     Uninstall-Zsh

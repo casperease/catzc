@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Save-TestDurationHistory.Tests.ps1
+    kind: test
+---
+#>
+
 # The per-machine test duration history: Save-TestDurationHistory merges a run's measurements, Get-TestDurationHistory
 # reads them back. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Save-TestDurationHistory' -Tag 'L0', 'logic' {

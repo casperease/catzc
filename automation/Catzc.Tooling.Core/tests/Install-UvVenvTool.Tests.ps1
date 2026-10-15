@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Install-UvVenvTool.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Install-UvVenvTool' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-ToolConfig {

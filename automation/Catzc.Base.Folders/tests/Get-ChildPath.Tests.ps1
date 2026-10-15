@@ -3,7 +3,7 @@
 catzc:
   derived:
     path: automation/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
-    kind: other
+    kind: test
 ---
 #>
 

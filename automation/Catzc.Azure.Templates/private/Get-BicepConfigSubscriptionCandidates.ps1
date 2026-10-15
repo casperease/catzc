@@ -16,7 +16,6 @@ catzc:
     Returns the subscriptions a config coordinate (customer?, environment) can resolve to.
 .DESCRIPTION
     A conforming azure.yml yields exactly one candidate; callers assert that so the rule cannot drift.
-    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md#comment1)
 .PARAMETER Customer
     The configuration subfolder name (a customer key), or '' for a configuration-root config.

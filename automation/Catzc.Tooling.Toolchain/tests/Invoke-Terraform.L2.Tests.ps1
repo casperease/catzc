@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Terraform.L2.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-Terraform' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:available = Test-Tool 'terraform'

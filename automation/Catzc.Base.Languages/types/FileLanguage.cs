@@ -12,8 +12,6 @@ catzc:
 */
 
 // The properties are snake_case because they mirror the YAML keys; LanguagesConfig validates an entry and builds one.
-// [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-languages/types/FileLanguage.cs.md#comment1)
 
 using System;

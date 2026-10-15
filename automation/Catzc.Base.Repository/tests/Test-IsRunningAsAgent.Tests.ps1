@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/tests/Test-IsRunningAsAgent.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-IsRunningAsAgent' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:originalClaudeCode = $env:CLAUDECODE

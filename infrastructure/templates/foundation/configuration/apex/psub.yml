@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: infrastructure/templates/foundation/configuration/apex/psub.yml
+#     kind: template-config
+# ---
+
 # foundation, apex prod subscription (env psub, customer apex).
 ParametersFile:
   parameters:

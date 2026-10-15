@@ -16,7 +16,6 @@ catzc:
     Lists the files whose long comments live in a comment page, each with its file language and page.
 .DESCRIPTION
     One shared scope, so the converter, the view and the gate cannot disagree on which files hold comments.
-    [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-CommentScope.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the paths are relative to.
@@ -64,12 +63,14 @@ function Get-CommentScope {
         $candidates = @($candidates | Where-Object { -not $ignored.Contains($_) })
     }
 
+    # The registry's own ForPath, once: a function call per file costs more than the lookup, and the language test is cheaper than the globs.
+    $languageRegistry = Get-Config -Config languages
     foreach ($file in $candidates) {
-        if ($config.IsExcluded($file)) {
+        $language = $languageRegistry.ForPath($file)
+        if (-not $language -or -not $languages.Contains($language.name)) {
             continue
         }
-        $language = Get-FileLanguage -Path $file
-        if (-not $language -or -not $languages.Contains($language.name)) {
+        if ($config.IsExcluded($file)) {
             continue
         }
         $page = $config.PageFor($file)

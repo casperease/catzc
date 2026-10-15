@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Format-FunctionHelpText.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Format-FunctionHelpText' -Tag 'L0', 'logic', 'ADR-REPO-HELP#1', 'ADR-REPO-HELP#2', 'ADR-REPO-HELP#3', 'ADR-REPO-HELP#4' {
     BeforeAll {
         $script:format = {

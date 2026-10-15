@@ -17,8 +17,6 @@ catzc:
     Quality gate over what changed: runs the tests and the checks of the changed files, and reports only their issues.
 .DESCRIPTION
     Gates that take a -Path get the changed files; other gates run whole and count only issues naming a changed file.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Change.ps1.md#comment1)
 .PARAMETER Path
     The changed repo-relative, '/'-separated paths. Default: the working tree's changes (Get-GitChangedPath).

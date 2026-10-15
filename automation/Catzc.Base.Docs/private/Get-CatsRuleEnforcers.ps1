@@ -19,8 +19,6 @@ catzc:
     Show-Cats.
 .DESCRIPTION
     Tags are read by parsing the AST, never by text scan, so a citation-shaped fixture string is not counted.
-    [ADR-AUTO-NOPWD#1](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1),
-    [ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md#comment1)
 .OUTPUTS
     [hashtable] citation ('#' form) -> [pscustomobject]{ Analyzers; Tests } (both sorted sets, possibly empty).
@@ -34,7 +32,6 @@ function Get-CatsRuleEnforcers {
     Assert-SourceTree
 
     # Strict-clean probe: a plain read of the not-yet-created cache variable would throw under strict mode.
-    # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
     # [comment:2](/docs/references/automation/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md#comment2)
     $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:catsRuleEnforcersCache')
     if ($null -ne $cached) {

@@ -17,8 +17,6 @@ catzc:
     Reads what a Markdown text says about its own meta block, without changing it.
 .DESCRIPTION
     Pure: it takes the text, reads no file and no config.
-    [ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1),
-    [ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3)
     [comment:1](/docs/references/automation/catzc-base-markdownmeta/Get-MarkdownMetaState.ps1.md#comment1)
 .PARAMETER Text
     The whole Markdown file as text.

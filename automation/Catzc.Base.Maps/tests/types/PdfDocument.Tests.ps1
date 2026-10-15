@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/types/PdfDocument.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore startxref nstartxref nstream endstream  -- PDF keywords, some behind a "`n" escape
 Describe 'PdfDocument' -Tag 'L0', 'logic' {
     BeforeAll {

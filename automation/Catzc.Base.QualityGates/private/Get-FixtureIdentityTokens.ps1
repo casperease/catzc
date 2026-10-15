@@ -18,7 +18,6 @@ catzc:
     — the reverse of Get-LiveIdentityTokens.
 .DESCRIPTION
     Read from the fixture configs, so a fixture customer added to a test config is banned from shipped config at once.
-    [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-FixtureIdentityTokens.ps1.md#comment1)
 .OUTPUTS
     [string[]] the distinct fixture identity tokens.

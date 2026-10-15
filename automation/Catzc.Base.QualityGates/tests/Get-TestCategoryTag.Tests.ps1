@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestCategoryTag.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TestCategoryTag' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FakeTest {

@@ -17,7 +17,6 @@ catzc:
     Builds the selected modules into one installable, versioned Catzc module — build mode's code root.
 .DESCRIPTION
     A build that overrides the selection or vendor policy is an experiment, so the footprint limits skip it.
-    [ADR-AUTO-BUNDLE#1](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle1)
     [comment:1](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment1)
 .PARAMETER Module
     Module names to build (closure-expanded by the engine), in place of the bundle's profile.
@@ -49,7 +48,6 @@ catzc:
     Build-Modules Catzc.Base.Config -DryRun
 #>
 # -WhatIf narrates to the host and returns no plan, so a test can neither capture nor assert on it.
-# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
 # [comment:5](/docs/references/automation/catzc-base-exporter/Build-Modules.ps1.md#comment5)
 function Build-Modules {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '', Justification = 'Builds a set of modules; the plural is the contract name (ADR-AUTO-BUNDLE#1)')]

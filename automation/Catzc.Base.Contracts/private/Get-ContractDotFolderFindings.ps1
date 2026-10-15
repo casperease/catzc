@@ -18,9 +18,6 @@ catzc:
     Finds every dot-prefixed folder under contracts/, and returns one finding per folder.
 .DESCRIPTION
     Only the outermost dot-prefixed folder is a finding, since moving it moves what it holds; dot-prefixed files pass.
-    [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),
-    [ADR-REPO-CONTRACT#10](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract10),
-    [ADR-REPO-FOLDERS#4](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders4)
     [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root that holds contracts/.

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/AnalyzerAdrMapConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Catzc.Base.QualityGates.AnalyzerAdrMapConfig' -Tag 'L0', 'logic', 'ADR-PWSH-FORMAT#7' {
     BeforeAll {
         function Get-ViolationMessage {

@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/modules/private-endpoint.bicep
+//     kind: other
+// ---
+
 // The DNS zone group registers the endpoint address, and the zones may live in the hub's subscription, not this one.
 // [comment:1](/docs/references/infrastructure/modules/private-endpoint.bicep.md#comment1)
 

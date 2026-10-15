@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-ChangedGlobSet: the computed area-of-control of a diff
 # ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)) — the declared sets whose scan
 # program selects a changed path, reflected from git at real refs instead of from a committed marker hash.

@@ -12,8 +12,6 @@ catzc:
 */
 
 // The phrase is stored lower-cased and its replacement is required, so a violation can always name the fix.
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryAvoid.cs.md#comment1)
 
 using System;

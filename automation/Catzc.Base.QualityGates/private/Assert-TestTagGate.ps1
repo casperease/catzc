@@ -16,7 +16,6 @@ catzc:
     Fails the run when any discovered test is missing — or ambiguous on — a mandatory tag axis.
 .DESCRIPTION
     Discovery ignores -Level, so a missing or ambiguous tag fails the run even for a tier that would be excluded.
-    [ADR-AUTO-TEST#13](/docs/adr/automation/test-automation.md#rule-adr-auto-test13)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Assert-TestTagGate.ps1.md#comment1)
 .PARAMETER Discovery
     The run's discovery-only Pester result (Get-TestDiscovery).

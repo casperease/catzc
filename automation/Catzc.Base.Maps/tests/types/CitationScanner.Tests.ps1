@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/types/CitationScanner.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'CitationScanner' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:index = [Catzc.Base.Maps.CitationScanner]::Index([ordered]@{

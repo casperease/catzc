@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Find-WindowsGitCredentialManager.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Find-WindowsGitCredentialManager' -Tag 'L0', 'logic' {
     It 'returns the first candidate path that exists' {
         InModuleScope Catzc.Tooling.Provisioning {

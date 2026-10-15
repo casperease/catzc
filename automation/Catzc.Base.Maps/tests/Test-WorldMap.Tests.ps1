@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-WorldMap reads the world map Get-WorldMap returns and reports its stack violations
 # ([ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3)), its undeclared root folders
 # ([ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1)) and the printed labels that name no glossary

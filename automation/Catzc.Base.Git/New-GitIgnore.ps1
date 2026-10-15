@@ -17,7 +17,6 @@ catzc:
     "what git ignores is declared, explained, and generated".
 .DESCRIPTION
     Never reads rootconfig.yml: the ignored-copies list arrives through -Inject, so .gitignore cannot drift from it.
-    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-git/New-GitIgnore.ps1.md#comment1)
 .PARAMETER Inject
     A provider the registry names but -Inject omits throws; an empty list gives a titled, empty section.

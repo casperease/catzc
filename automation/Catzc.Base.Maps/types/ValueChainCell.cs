@@ -15,9 +15,6 @@ catzc:
 */
 
 // On the map Adrs holds every ADR of the cell; on a highlight only the requested ADRs that light it.
-// [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16),
-// [ADR-DSGN-TRACK#10](/docs/adr/design/tracks.md#rule-adr-dsgn-track10),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/ValueChainCell.cs.md#comment1)
 
 using System;

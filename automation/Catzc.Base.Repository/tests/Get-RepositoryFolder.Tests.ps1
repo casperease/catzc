@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/tests/Get-RepositoryFolder.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-RepositoryFolder over a $TestDrive root (Get-RepositoryRoot mocked): path normalization against the root, never
 # $PWD. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-RepositoryFolder' -Tag 'L0', 'logic' {

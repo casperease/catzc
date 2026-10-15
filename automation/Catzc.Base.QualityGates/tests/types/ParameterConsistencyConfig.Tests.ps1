@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/ParameterConsistencyConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ParameterConsistencyConfig' -Tag 'L0' {
     Context 'integrity (shipped parameter-consistency.yml)' -Tag 'integrity' {
         It 'loads, and gives every exempt name a reason' {

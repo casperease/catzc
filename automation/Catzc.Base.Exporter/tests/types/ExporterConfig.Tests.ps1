@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Exporter/tests/types/ExporterConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ExporterConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         # One valid config; each case breaks exactly one thing in a copy of it.

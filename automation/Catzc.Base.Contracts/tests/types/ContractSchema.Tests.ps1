@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/types/ContractSchema.Tests.ps1
+    kind: test
+---
+#>
+
 # ContractSchema validates a parsed value against a bounded JSON Schema subset
 # ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)): type, required, properties,
 # additionalProperties (a boolean), enum, items (one schema) and const; the annotations $schema, $id, $comment, title,

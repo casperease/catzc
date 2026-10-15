@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/tests/ParameterDesign.Tests.ps1
+    kind: test
+---
+#>
+
 # The per-case assertions run the rule functions directly on a parsed AST (L0). Their scope is decided by the file path,
 # so each case writes a fixture file into $TestDrive under a fake automation/ layout. The engine-wiring proof lives once,
 # for all custom rules, in CustomRuleWiring.Tests.ps1.

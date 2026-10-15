@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/types/PythonConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'PythonConfig' -Tag 'L0' {
 
     Context 'integrity (shipped python.yml)' -Tag 'integrity' {

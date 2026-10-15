@@ -17,8 +17,6 @@ catzc:
     Lists the uses of avoided phrasings within each glossary source's scope (check G4) — one message per use.
 .DESCRIPTION
     A phrase in backticks or quotes is a mention and exempt, so the vocabulary can talk about itself.
-    [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2),
-    [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md#comment1)
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.

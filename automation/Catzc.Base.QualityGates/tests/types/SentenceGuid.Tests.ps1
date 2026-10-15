@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/SentenceGuid.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore oilzstgq
 Describe 'SentenceGuid' -Tag 'L0', 'logic' {
     It 'is deterministic — the same sentence yields the same GUID' {

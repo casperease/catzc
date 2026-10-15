@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-GlobSetTrigger: project a globset's scan program into vendor-native path filters
 # ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)) — GitHub
 # ordered '!'-negation paths (exact), ADO order-independent include/exclude (last-select-per-pattern).

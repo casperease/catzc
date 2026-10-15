@@ -16,7 +16,6 @@ catzc:
     Writes a compact table of tool existence checks: where each tool was found, its version, and the timings.
 .DESCRIPTION
     The header line names the session actor the checks ran as, and no records means nothing is written.
-    [ADR-PWSH-ANNOUNCE#7](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce7)
     [comment:1](/docs/references/automation/catzc-tooling-core/Write-ToolProbeReport.ps1.md#comment1)
 .PARAMETER Probe
     With none given and nothing piped, every tool in tools.yml is checked; an explicit empty list renders nothing.

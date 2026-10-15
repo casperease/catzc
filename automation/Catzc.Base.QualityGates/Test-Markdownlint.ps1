@@ -17,7 +17,6 @@ catzc:
     Lints the repository's Markdown with markdownlint-cli2 and writes a report under out/.
 .DESCRIPTION
     markdownlint-cli2 ignores .markdownlintignore for command-line globs, so the exclusions are passed explicitly.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment1)
 .PARAMETER Path
     The default is the in-scope Markdown, with out-of-scope trees excluded by negation globs.
@@ -44,7 +43,6 @@ function Test-Markdownlint {
             '!.unordered'
             '!**/node_modules'
             # Skipped because the gitignored copy would double-report the docs/ source that is linted instead.
-            # [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)
             # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-Markdownlint.ps1.md#comment3)
             '!**/README.md'
             # Derived from adrs.yml, so the source and the generator prose are linted, not the projection.

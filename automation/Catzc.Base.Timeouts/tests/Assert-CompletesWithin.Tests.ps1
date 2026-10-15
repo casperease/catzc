@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/tests/Assert-CompletesWithin.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-CompletesWithin' -Tag 'L0', 'logic' {
     It 'passes, with no output, when the block finishes in time' {
         Assert-CompletesWithin { 'widget' } -Seconds 5 | Should -BeNullOrEmpty

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/Catzc.Internal.TestKit.psm1
+    kind: other
+---
+#>
+
 # Not loaded at startup: a test loads it on demand through the loader in BeforeAll, and it stays for the session.
 # [comment:1](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment1)
 
@@ -102,7 +111,6 @@ function New-FakeRepositoryRoot {
     }
 
     # Both roots move together: run mode is read by comparing them, so moving one alone would not read as source mode.
-    # [ADR-DSGN-RUNMODE#4](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode4)
     # [comment:2](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment2)
     $saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot = $env:CatzcModulesRoot }
     $automation = Join-Path $root 'automation'
@@ -141,7 +149,6 @@ function New-BuiltCatzcRoot {
         Remove-BuiltCatzcRoot.
     .DESCRIPTION
         The build is never loaded here: assemblies and env vars are process-global, so only a child pwsh reaches it.
-        [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)
         [comment:3](/docs/references/automation/internal/Catzc.Internal.TestKit.psm1.md#comment3)
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: builds into a temp folder inside one test''s lifecycle and Remove-BuiltCatzcRoot removes it; its output belongs to Pester')]

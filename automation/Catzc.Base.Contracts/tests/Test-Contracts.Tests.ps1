@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-Contracts runs every asset of each unit's current version folder, and the provided assets of every released
 # folder, through its kind's check, checks every released folder against its .frozen record, and reports every finding
 # as one issue ([ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4),

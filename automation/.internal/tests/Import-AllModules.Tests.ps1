@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/Import-AllModules.Tests.ps1
+    kind: test
+---
+#>
+
 BeforeAll {
     # Build an isolated sandbox = importer + the .internal shared modules (loader, bootstrap, …) + vendor, with
     # NO application modules. Each test populates it and runs the importer in a fresh child pwsh process (a cold,

@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Languages/configs/bash.yml
+#     kind: config
+# ---
+
 # Black-box Bash tests of the engine; BashConfig validates the shape of this file.
-# [ADR-AUTO-BASH](/docs/adr/automation/bash/bash-test-artifacts.md)
 # [comment:1](/docs/references/automation/catzc-base-languages/configs/bash.yml.md#comment1)
 
 # Left undeclared, root takes the shared default: bash/ when the repository has one, else the dot-prefixed .bash.

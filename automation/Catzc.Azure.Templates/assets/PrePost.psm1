@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/assets/PrePost.psm1
+    kind: other
+---
+#>
+
 # hooks run strict (Build-Bicep / Deploy-Bicep also set it on import) —
 # [ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)
 Set-StrictMode -Version Latest

@@ -1,6 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+#     kind: config
+# ---
+
 # Entries are a list, not a map, because globset names are kebab-case and map keys must be snake_case.
-# [ADR-FLOW-CD-TYPE#4](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4), [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
-# [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)
 # [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/configs/build-validation.yml.md#comment1)
 branch: main
 validations:

@@ -18,8 +18,6 @@ catzc:
     Quality gate: every module folder under automation/ follows the folder and file conventions.
 .DESCRIPTION
     Lives with the module system, not in .internal: the folder convention is its contract, and .internal is no module.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-REPO-FOLDERS](/docs/adr/repository/conventional-folders.md)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-folder-conventions/ (Write-QualityGateReport).
@@ -90,7 +88,6 @@ function Test-FolderConventions {
             foreach ($entry in ([System.IO.Directory]::EnumerateFileSystemEntries($configsDirectory) | Sort-Object)) {
                 $name = [System.IO.Path]::GetFileName($entry)
                 # Dot-prefixed entries are tooling (a schema sidecar, an editor dotfile), not module config.
-                # [ADR-REPO-FOLDERS#4](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders4)
                 # [comment:3](/docs/references/automation/catzc-base-modulesystem/Test-FolderConventions.ps1.md#comment3)
                 if ($name -match '^\.') {
                     continue

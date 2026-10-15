@@ -18,8 +18,6 @@ catzc:
     Spell-checks the repository's known file types with cspell and writes a report under out/.
 .DESCRIPTION
     A scan that matched no files throws before the report, since there is no verdict to report.
-    [ADR-AUTO-CONSOLE#6](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console6),
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment1)
 .PARAMETER Path
     cspell still applies ignorePaths from cspell.yml, so an explicit path can still be skipped.
@@ -62,7 +60,6 @@ function Test-Spelling {
             '.unordered/**'
             'infrastructure/templates/**/configuration/**'
             # The gitignored copy double-reports its docs/ source, and its banner holds a kebab filename, not a word.
-            # [ADR-REPO-README#7](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme7)
             # [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-Spelling.ps1.md#comment5)
             '**/README.md'
             # Derived from adrs.yml, so its source and the generator prose are reviewed, not the projection.

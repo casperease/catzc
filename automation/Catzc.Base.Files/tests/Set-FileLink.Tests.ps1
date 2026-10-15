@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/tests/Set-FileLink.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Set-FileLink' -Tag 'L1', 'logic' {
     BeforeAll {
         # Capability probe: symbolic links need a privilege on Windows (Developer Mode / admin); hard links do

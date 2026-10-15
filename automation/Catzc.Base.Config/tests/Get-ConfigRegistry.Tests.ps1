@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Config/tests/Get-ConfigRegistry.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-ConfigRegistry is private, so it is exercised through the module (InModuleScope, per
 # [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).
 # Each test resets the session's cache entry before and after

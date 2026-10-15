@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Test-Tool.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-Tool' -Tag 'L0', 'logic' {
     # Hermetic: every collaborator mocked in module scope, so the assertion binds to the version-check LOGIC
     # (pin vs devbox lever vs pipeline), never to the shipped tools.yml or the installed toolchain.

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-GitHubPurgeReady' -Tag 'L1', 'logic' {
     BeforeAll {
         # Calls the function under test with the standard-good arguments, plus any override.

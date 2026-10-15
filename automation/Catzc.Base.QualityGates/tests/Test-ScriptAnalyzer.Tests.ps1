@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
     BeforeAll {
         # A real file so the -Path collection (Resolve-Path) resolves; the analysis helper is mocked, so the

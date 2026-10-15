@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/tests/Resolve-EngineExecutable.Tests.ps1
+    kind: test
+---
+#>
+
 # Resolve-EngineExecutable with the tool probe mocked for the tool-located engines; pwsh is located beside the running
 # PowerShell for real, which needs nothing but the session itself. Neutral fixture paths
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

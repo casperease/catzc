@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/tests/Get-TimeoutSeconds.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TimeoutSeconds' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ModuleName Catzc.Base.Timeouts {

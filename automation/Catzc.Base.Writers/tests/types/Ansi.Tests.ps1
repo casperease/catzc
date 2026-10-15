@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Writers/tests/types/Ansi.Tests.ps1
+    kind: test
+---
+#>
+
 # The single ConsoleColor -> ANSI SGR map
 # ([ADR-AUTO-CONSOLE#7](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console7)): the escape
 # codes Write-InformationColored and

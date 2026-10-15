@@ -64,7 +64,6 @@ function Sync-SessionPath {
     }
 
     # Rewriting only on a real change keeps the import quiet on a clean devbox, where nothing arrives or leaves.
-    # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)
     # [comment:3](/docs/references/automation/catzc-base-environment/Sync-SessionPath.ps1.md#comment3)
     $added = @($newPaths)
     $dropped = @($currentPaths | Where-Object { $_ -notin @($kept) })

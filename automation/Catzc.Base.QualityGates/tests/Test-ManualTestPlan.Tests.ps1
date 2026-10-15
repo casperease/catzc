@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-ManualTestPlan.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-ManualTestPlan over a fixture repository in $TestDrive: the repository root is mocked, and each test writes the
 # test files and the plan rows it needs. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

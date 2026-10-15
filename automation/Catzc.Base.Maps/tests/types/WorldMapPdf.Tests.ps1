@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/types/WorldMapPdf.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore startxref
 Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
     BeforeAll {

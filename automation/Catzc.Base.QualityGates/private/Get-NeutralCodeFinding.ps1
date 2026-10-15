@@ -17,7 +17,6 @@ catzc:
     Lists every real ADR code one test file uses as fixture data inside an L0 block.
 .DESCRIPTION
     Tag values, block titles and comments never count, since they are citations or names, not fixture data.
-    [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-NeutralCodeFinding.ps1.md#comment1)
 .PARAMETER Path
     The test file's repository-relative, '/'-separated path, which leads each finding.

@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: ".github/workflows/ci-automation.yml"
+#     kind: other
+# ---
+
 name: CI
 
 # Trigger = the 'automation' globset projected into GitHub-native path filters (Get-GlobSetTrigger,

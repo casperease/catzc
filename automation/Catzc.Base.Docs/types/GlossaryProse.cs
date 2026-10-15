@@ -12,8 +12,6 @@ catzc:
 */
 
 // PowerShell is read through the real parser's tokens and AST, never a regex, so comments, help and messages stay distinct.
-// [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5),
-// [ADR-REPO-FORMAT#6](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format6)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryProse.cs.md#comment1)
 
 using System;

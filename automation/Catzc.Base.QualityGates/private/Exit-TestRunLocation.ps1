@@ -60,7 +60,6 @@ function Exit-TestRunLocation {
 
     if ($Location.Snapshot) {
         # Content-keyed entries stay valid in the working folder, so the snapshot's checks are not lost with it.
-        # [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
         # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Exit-TestRunLocation.ps1.md#comment2)
         $snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'
         if ([System.IO.Directory]::Exists($snapshotCache)) {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.TypesSystem/tests/Invoke-BuildForVSCode.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-BuildForVSCode' -Tag 'L0', 'logic' {
     BeforeEach {
         # The guard is the boundary to the run mode; these cases exercise the build itself.

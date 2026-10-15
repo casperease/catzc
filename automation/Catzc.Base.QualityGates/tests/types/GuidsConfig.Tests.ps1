@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/GuidsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Catzc.Base.QualityGates.GuidsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         # The all-zeros GUID is itself denied (it must not appear as a tracked literal), so build it at

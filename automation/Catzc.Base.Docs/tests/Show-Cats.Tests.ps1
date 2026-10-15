@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Show-Cats.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Show-Cats' -Tag 'L0', 'logic' {
     It 'prints the overview with no argument, without reading the getters' {
         Mock Get-CatsAdrIndex -ModuleName Catzc.Base.Docs

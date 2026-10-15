@@ -18,7 +18,6 @@ catzc:
     Claims where a test run executes — its location: in place in the working folder, or in an isolated snapshot of it.
 .DESCRIPTION
     Runs share a checkout's real state, so only one may use the working folder; a busy folder gets a snapshot.
-    [ADR-AUTO-TEST#32](/docs/adr/automation/test-automation.md#rule-adr-auto-test32)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment1)
 .PARAMETER EntryPoint
     Written to the lock record, so a concurrent run that finds the folder busy can name who holds it.
@@ -117,7 +116,6 @@ function Enter-TestRunLocation {
     $location.Snapshot = New-RepositorySnapshot -SourceRoot $sourceRoot -Destination $destination
 
     # Cache keys are content-based, so they hold in the copy; without them every snapshot run starts from cold.
-    # [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment4)
     $sourceCache = Join-Path (Get-OutputRoot) 'cache'
     if ([System.IO.Directory]::Exists($sourceCache)) {
@@ -125,7 +123,6 @@ function Enter-TestRunLocation {
     }
 
     # Import once before any worker starts: workers skip the janitors and would find the generated files missing.
-    # [ADR-AUTO-ENGINE#2](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine2)
     # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md#comment5)
     Write-Message 'Priming the snapshot: one import materialises its generated files...'
     $start = ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.NonInteractiveArguments) -join ' '

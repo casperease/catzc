@@ -16,7 +16,6 @@ catzc:
     Creates an Azure DevOps pull request via the Git REST API.
 .DESCRIPTION
     The PR gate runs before the CD pipeline deploys, so a config change from an INPUT step never lands unreviewed.
-    [ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md)
     [comment:1](/docs/references/automation/catzc-azure-devops/New-AdoPullRequest.ps1.md#comment1)
 .PARAMETER Title
     PR title.

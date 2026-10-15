@@ -11,7 +11,6 @@ catzc:
 */
 
 // Construction alone enforces the registry shape, so a malformed registry can never produce an instance.
-// [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
 // [comment:1](/docs/references/automation/catzc-base-config/types/ConfigsConfig.cs.md#comment1)
 
 using System;

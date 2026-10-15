@@ -60,7 +60,6 @@ function Get-TerminologyCorpus {
     ) -join '|'
 
     # Anchored at the root, so a nested authored configuration folder stays in the corpus instead of being swallowed.
-    # [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment3)
     $configurationRegex = @(
         '^[\\/]configuration[\\/]'
@@ -74,7 +73,6 @@ function Get-TerminologyCorpus {
     }
 
     # Raw System.IO enumeration avoids per-file object wrapping, which makes a whole-tree scan markedly faster.
-    # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
     # [comment:4](/docs/references/automation/catzc-base-qualitygates/private/Get-TerminologyCorpus.ps1.md#comment4)
     $ret = [System.Text.StringBuilder]::new()
     foreach ($path in [System.IO.Directory]::EnumerateFiles($Root, '*', [System.IO.SearchOption]::AllDirectories)) {

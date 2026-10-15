@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Engines/tests/Get-ExecutionEngine.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ExecutionEngine' -Tag 'L0', 'logic' {
     It 'returns every engine, pwsh first, when no name is given' {
         @(Get-ExecutionEngine).Name | Should -Be @('pwsh', 'bash', 'zsh')

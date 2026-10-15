@@ -1,6 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.QualityGates/configs/test-policy.yml
+#     kind: config
+# ---
+
 # Every key is optional: an omitted key takes the default declared once on TestPolicyConfig.
-# [ADR-AUTO-TEST#41](/docs/adr/automation/test-automation.md#rule-adr-auto-test41),
-# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/test-policy.yml.md#comment1)
 
 # An environment not listed is read-only, so a test changes nothing there unless it is named here.

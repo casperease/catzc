@@ -18,8 +18,6 @@ catzc:
     explicit MAJOR.MINOR.PATCH.
 .DESCRIPTION
     A pipeline version derives from the commit count, so one commit always yields one version.
-    [ADR-AUTO-BUNDLE#7](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle7),
-    [ADR-PWSH-ERROR#2](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error2)
     [comment:1](/docs/references/automation/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md#comment1)
 .PARAMETER Version
     'auto' (default) or an explicit numeric MAJOR.MINOR.PATCH.

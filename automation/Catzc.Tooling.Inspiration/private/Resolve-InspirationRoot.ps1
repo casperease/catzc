@@ -18,9 +18,6 @@ catzc:
     Resolves an inspiration's stored root to its binding form, a normalized absolute path.
 .DESCRIPTION
     Both pwsh and Git Bash views resolve alike: on Windows '/c/projects' is read as 'C:/projects'.
-    [ADR-AUTO-PATH#3](/docs/adr/automation/path-representation.md#rule-adr-auto-path3),
-    [ADR-AUTO-PATH#6](/docs/adr/automation/path-representation.md#rule-adr-auto-path6),
-    [ADR-AUTO-PATH#11](/docs/adr/automation/path-representation.md#rule-adr-auto-path11)
     [comment:1](/docs/references/automation/catzc-tooling-inspiration/private/Resolve-InspirationRoot.ps1.md#comment1)
 .PARAMETER Root
     The stored root: '{workspace}/<folder>', a repository-relative path, or an absolute path in either shell's view.

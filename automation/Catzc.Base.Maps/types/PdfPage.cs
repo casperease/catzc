@@ -11,7 +11,6 @@ catzc:
 */
 
 // A character outside WinAnsi throws instead of printing a wrong glyph; the origin is the bottom-left corner.
-// [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/PdfPage.cs.md#comment1)
 
 using System;

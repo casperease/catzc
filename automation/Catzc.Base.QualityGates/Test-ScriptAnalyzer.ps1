@@ -18,7 +18,6 @@ catzc:
     Analyzes the automation PowerShell with PSScriptAnalyzer and writes a report under out/.
 .DESCRIPTION
     Uses the rule set from the loaded code root, so a local run matches what the editor and CI see.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment1)
 .PARAMETER Path
     The default is the catzc source tree, so it needs the source mode; an explicit -Path works in either run mode.
@@ -53,7 +52,6 @@ function Test-ScriptAnalyzer {
 
     $root = Get-RepositoryRoot
     # The settings ship inside the code tree, so they resolve from the code root, not the repository root.
-    # [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
     # [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment3)
     $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
     Assert-PathExist $settingsPath
@@ -64,7 +62,6 @@ function Test-ScriptAnalyzer {
     if ($Path) {
         foreach ($item in $Path) {
             # Resolving against the current directory would make results depend on where the caller stood.
-            # [ADR-AUTO-NOPWD#1](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd1)
             # [comment:5](/docs/references/automation/catzc-base-qualitygates/Test-ScriptAnalyzer.ps1.md#comment5)
             $full = if ([System.IO.Path]::IsPathRooted($item)) {
                 $item

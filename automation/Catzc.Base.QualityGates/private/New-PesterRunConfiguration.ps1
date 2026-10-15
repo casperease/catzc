@@ -17,7 +17,6 @@ catzc:
     single-check entry point alike.
 .DESCRIPTION
     The caller sets strict mode, not this function: strict mode is scope-dynamic, so only the Pester caller can set it.
-    [ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/New-PesterRunConfiguration.ps1.md#comment1)
 .PARAMETER Path
     The test file(s) or folder(s) to run. A Go test folder runs through the Go bridge (ConvertTo-PesterRunTarget).

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/New-TestRunFinalManifest.Tests.ps1
+    kind: test
+---
+#>
+
 # New-TestRunFinalManifest over fixture inputs: the terminal run.json record, with and without a context, a worker
 # run, and an opt-out tag.
 Describe 'New-TestRunFinalManifest' -Tag 'L0', 'logic' {

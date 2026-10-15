@@ -27,7 +27,6 @@ catzc:
     The modules the run was scoped to; named in the scope only when non-empty.
 .PARAMETER Title
     The build run passes its own name here, so its banner is told apart from the source run's default.
-    [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationHeader.ps1.md#comment2)
 #>
 function Write-TestAutomationHeader {

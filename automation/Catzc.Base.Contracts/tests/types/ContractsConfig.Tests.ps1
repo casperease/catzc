@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/types/ContractsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # ContractsConfig maps contracts.yml and is the one declaration of its sensible defaults
 # ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key behaves exactly
 # like the default, a declared but unbuilt addressing mode is a valid value, and anything else fails at construction.

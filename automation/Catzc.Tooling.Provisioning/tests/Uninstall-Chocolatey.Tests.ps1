@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Chocolatey.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Uninstall-Chocolatey' -Tag 'L0', 'logic' {
     # Hermetic: every boundary outside the repository is mocked — the admin check, the directory delete, the
     # persistent variable (Set-PermanentEnvironmentVariable) and the persistent PATH (Get-/Set-EnvironmentPath).

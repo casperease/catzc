@@ -12,8 +12,6 @@ catzc:
 */
 
 // An unknown key would be invisible to every caller, so the constructor rejects it and lists all violations at once.
-// [ADR-AUTO-DEPS#1](/docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps1),
-// [ADR-AUTO-PKGMGR#6](/docs/adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr6)
 // [comment:1](/docs/references/automation/catzc-base-execution/types/ToolConfig.cs.md#comment1)
 
 using System;

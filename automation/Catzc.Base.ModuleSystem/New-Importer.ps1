@@ -18,7 +18,6 @@ catzc:
     (Re)generates a repository's importer.ps1 shim from the Invoke-Importer overlay.
 .DESCRIPTION
     Parameters are read from the overlay's source, so the shim cannot drift; a test checks the committed copy.
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root to generate importer.ps1 into (and whose overlay is read). Defaults to this repository.
@@ -79,12 +78,10 @@ function New-Importer {
         "    [$typeText] `$$($parameter.Name.VariablePath.UserPath)"
     }
     # The shim announces nothing itself: Invoke-Importer names RepositoryRoot on its Roots line, once a writer loads.
-    # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)
     # [comment:3](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment3)
     $suppression = "[Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', " +
     "Justification = 'Invoke-Importer announces RepositoryRoot on its Roots line, the first point a writer is loaded')]"
     # CmdletBinding lets -Verbose reach Invoke-Importer without the preference leaking into the caller's session.
-    # [ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)
     # [comment:4](/docs/references/automation/catzc-base-modulesystem/New-Importer.ps1.md#comment4)
     $paramBlock = "$suppression`n" + "[CmdletBinding()]`n" + "param(`n" + ($paramLines -join ",`n") + "`n)"
 

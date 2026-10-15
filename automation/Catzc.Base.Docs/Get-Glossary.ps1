@@ -18,8 +18,6 @@ catzc:
     Returns the controlled vocabulary: every concept of every glossary source, merged and sorted by term.
 .DESCRIPTION
     Cross-source facts such as a duplicate term are not checked here, so a reader gets the vocabulary as declared.
-    [ADR-PWSH-CACHE](/docs/adr/pwsh/script-scope-caching.md),
-    [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2)
     [comment:1](/docs/references/automation/catzc-base-docs/Get-Glossary.ps1.md#comment1)
 .OUTPUTS
     [Catzc.Base.Docs.GlossaryEntry[]] Empty when no module ships a glossary.
@@ -33,7 +31,6 @@ function Get-Glossary {
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:glossaryCache')) {
         # GetValue gives null for an unset script variable, where a plain read would throw under strict mode.
-        # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:2](/docs/references/automation/catzc-base-docs/Get-Glossary.ps1.md#comment2)
         $script:glossaryCache = @{}
     }

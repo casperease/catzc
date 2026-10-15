@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps.BuildValidation/tests/Get-AdoBuildValidations.Tests.ps1
+    kind: test
+---
+#>
+
 # The read side: policy configurations filtered to build-validation policies of THIS repository,
 # optionally one branch, flattened to one row per policy.
 Describe 'Get-AdoBuildValidations' -Tag 'L0', 'logic' {

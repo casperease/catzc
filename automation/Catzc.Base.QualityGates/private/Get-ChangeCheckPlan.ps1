@@ -16,7 +16,6 @@ catzc:
     Maps changed repository files to the quality gates that check them, by file language.
 .DESCRIPTION
     Gates come from each language's checks list in languages.yml, so a new check is a config edit, not code.
-    [ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ChangeCheckPlan.ps1.md#comment1)
 .PARAMETER Path
     The changed repo-relative, '/'-separated paths.

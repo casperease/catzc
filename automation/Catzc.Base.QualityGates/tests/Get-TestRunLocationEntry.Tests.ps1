@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestRunLocationEntry.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TestRunLocationEntry' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:inPlace = [pscustomobject]@{ Mode = 'in-place'; SourceRoot = 'C:\widget'; Root = 'C:\widget' }

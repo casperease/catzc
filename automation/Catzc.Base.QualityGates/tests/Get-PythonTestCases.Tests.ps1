@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-PythonTestCases.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-PythonTestCases over fixture test files in $TestDrive: the top-level test functions of every test_*.py file,
 # with the package pytest reports for them. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

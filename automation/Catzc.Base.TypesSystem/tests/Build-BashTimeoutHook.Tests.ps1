@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.TypesSystem/tests/Build-BashTimeoutHook.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Build-BashTimeoutHook' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem {

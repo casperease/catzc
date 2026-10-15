@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Test-IsGuidInRange.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-IsGuidInRange' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fixture GUIDs are built at runtime (not literals), so they need no managed-GUID registry entry.

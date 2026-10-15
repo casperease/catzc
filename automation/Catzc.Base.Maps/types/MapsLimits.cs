@@ -12,8 +12,6 @@ catzc:
 */
 
 // The defaults are an A4 landscape page, and the header length limits cut a name before it overflows its row or column.
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/MapsLimits.cs.md#comment1)
 
 namespace Catzc.Base.Maps;

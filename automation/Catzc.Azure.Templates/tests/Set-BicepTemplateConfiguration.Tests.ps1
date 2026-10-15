@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore toolong gmweutstsmplst alweutstsmplst
 # These are L0 'logic' tests (mocked config/discovery, no real az/cspell) — they are NOT L2 and should not
 # be: nothing here launches an external tool. They were merely SLOW for an L0 tier, because the original

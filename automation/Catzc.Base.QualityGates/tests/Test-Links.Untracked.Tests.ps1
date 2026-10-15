@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-Links.Untracked.Tests.ps1
+    kind: test
+---
+#>
+
 # A markdown link must resolve on GitHub, which has only what git tracks
 # ([ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)). A fixture repository in $TestDrive stands
 # in for the loaded repository; its tracked set is mocked (neutral widget/gadget names,

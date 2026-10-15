@@ -21,8 +21,6 @@ catzc:
     mutation.
 .DESCRIPTION
     Idempotent: existing parameters and keys are preserved, a missing config is created, and nothing is deployed.
-    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),
-    [ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).
@@ -38,7 +36,6 @@ catzc:
     [comment:3](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment3)
 .PARAMETER DryRun
     Nothing is written, so the preview shows exactly the path and content a real run would use.
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:4](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment4)
 .EXAMPLE
     Set-BicepTemplateConfiguration discovery dev -Parameters @{ sqlAdminLogin = 'admin' }
@@ -47,7 +44,6 @@ catzc:
 #>
 function Set-BicepTemplateConfiguration {
     # -DryRun replaces ShouldProcess here, so the analyzer rule for state-changing functions is suppressed.
-    # [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     # [comment:5](/docs/references/automation/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md#comment5)
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]

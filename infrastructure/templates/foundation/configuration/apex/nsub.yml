@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: infrastructure/templates/foundation/configuration/apex/nsub.yml
+#     kind: template-config
+# ---
+
 # foundation, apex nonprod subscription (env nsub, customer apex).
 ParametersFile:
   parameters:

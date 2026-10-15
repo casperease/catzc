@@ -18,7 +18,6 @@ catzc:
     Returns the subset of the given repository paths that git tracks.
 .DESCRIPTION
     A tracked file deleted from the working tree is still listed, because it is still in the index.
-    [ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)
     [comment:1](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment1)
 .PARAMETER Path
     The literal repository-relative, '/'-separated paths (files or folders) to look up; '.' for all.
@@ -54,13 +53,11 @@ function Get-GitTrackedPath {
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:gitIndexCache')) {
         # Reading the unset cache variable directly would throw under strict mode, so probe the session state.
-        # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:3](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment3)
         $script:gitIndexCache = @{}
     }
 
     # Keyed on content, not session: a commit or git add changes the index mid-session, so no stale listing is reused.
-    # [ADR-AUTO-CACHE#9](/docs/adr/automation/caching.md#rule-adr-auto-cache9)
     # [comment:4](/docs/references/automation/catzc-base-files/Get-GitTrackedPath.ps1.md#comment4)
     $content = [System.IO.File]::ReadAllBytes($indexPath)
     $index = $script:gitIndexCache[$indexPath]

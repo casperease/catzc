@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ConfigValue' -Tag 'L0' {
     Context 'address resolution over a raw dictionary' -Tag 'logic' {
         BeforeAll {

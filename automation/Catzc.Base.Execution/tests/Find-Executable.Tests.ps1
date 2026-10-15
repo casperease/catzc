@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/tests/Find-Executable.Tests.ps1
+    kind: test
+---
+#>
+
 # Hermetic logic (L1): the candidate executables are fixture files under $TestDrive, reached through a fixture
 # environment variable so the %VAR% expansion is exercised; the session actor, the PATH lookup and the version run
 # (Get-ExecutableVersion, the probe's only process start) are mocked. Fixture tokens are neutral

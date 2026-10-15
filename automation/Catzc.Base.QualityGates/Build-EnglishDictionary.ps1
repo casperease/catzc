@@ -20,12 +20,9 @@ catzc:
     flattened from cspell's own bundled dictionaries so the two checks agree on "what is a word".
 .DESCRIPTION
     Committed, not built at import: regeneration needs node and cspell, yet a fresh checkout needs the list.
-    [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
-    [ADR-REPO-OUTDIR#5](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir5)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment1)
 .PARAMETER DryRun
     The returned content is the same in either mode; -DryRun only skips the write.
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment2)
 .PARAMETER PassThru
     Return a result object ({ Path, WordCount, Changed, DryRun }) instead of the path string.
@@ -77,7 +74,6 @@ function Build-EnglishDictionary {
     }
 
     # Pinned to cspell-trie 10 to match the installed tries; a cold npx run downloads it, so announce the wait.
-    # [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)
     # [comment:6](/docs/references/automation/catzc-base-qualitygates/Build-EnglishDictionary.ps1.md#comment6)
     Write-Message 'Flattening cspell English dictionaries (en_US, en_GB) via cspell-trie — this can take a while...'
 

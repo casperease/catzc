@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-BicepParameterViolations.Tests.ps1
+    kind: test
+---
+#>
+
 # Logic tests for Get-BicepParameterViolations (with its per-entry and Key Vault reference checks): each violation kind
 # against a fixture main.json (tests/assets/parameter-model/main.json, widget/gadget parameters —
 # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) and a rendered parameters file each

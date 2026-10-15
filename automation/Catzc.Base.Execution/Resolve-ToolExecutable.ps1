@@ -16,7 +16,6 @@ catzc:
     Locates a managed tool's executable from its tools.yml entry and returns the probe record.
 .DESCRIPTION
     Run the tool by this path, never by a bare name that PATH could resolve to some other file.
-    [ADR-CONF-LOADING#6](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading6)
     [comment:1](/docs/references/automation/catzc-base-execution/Resolve-ToolExecutable.ps1.md#comment1)
 .PARAMETER Tool
     The snake_case tool key as defined in tools.yml.

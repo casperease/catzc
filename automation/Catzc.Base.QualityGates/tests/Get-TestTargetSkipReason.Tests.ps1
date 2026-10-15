@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestTargetSkipReason.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TestTargetSkipReason' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#41' {
     BeforeEach {
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'test-policy' } {

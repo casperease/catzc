@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Git/configs/gitignore.yml
+#     kind: config
+# ---
+
 # Sections render in order; an inject section takes its patterns from rootconfig.yml, so that list lives only there.
-# [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
 # [comment:1](/docs/references/automation/catzc-base-git/configs/gitignore.yml.md#comment1)
 sections:
   - id: local

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-AdoPipelineTriggerGlob is a quality gate
 # ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35), drift detection): each pipeline's
 # actual trigger vs its globset's projection, compared as sets (ADO path filters are order-independent). A drifted

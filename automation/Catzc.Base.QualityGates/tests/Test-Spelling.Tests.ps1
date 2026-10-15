@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore mispeld
 Describe 'Test-Spelling' -Tag 'L0', 'logic' {
     BeforeEach {

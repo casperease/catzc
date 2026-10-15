@@ -16,7 +16,6 @@ catzc:
     Computes the durable content hash of a directory tree — the bundle's content-addressed identity.
 .DESCRIPTION
     CRs are stripped before hashing, so a CRLF and an LF checkout of one tree give the same identity.
-    [ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)
     [comment:1](/docs/references/automation/catzc-base-exporter/Get-CatzcContentHash.ps1.md#comment1)
 .PARAMETER Path
     The root directory whose file tree to hash (recursively).

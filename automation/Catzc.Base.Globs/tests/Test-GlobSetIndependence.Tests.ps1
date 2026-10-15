@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-GlobSetIndependence is a quality gate
 # ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) over per-layer independence
 # ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)). The registry, the derived

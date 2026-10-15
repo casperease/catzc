@@ -14,9 +14,6 @@ catzc:
 */
 
 // Construction validates the whole registry and collects every error before throwing, so one run shows all faults.
-// [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),
-// [ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8),
-// [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
 // [comment:1](/docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md#comment1)
 
 using System;
@@ -33,7 +30,6 @@ public sealed class GlobsConfig
     public const string ConfigPath = "automation/Catzc.Base.Globs/configs/globs.yml";
 
     // Declared and derived sets share one name space, so a declared set may not take a reserved name.
-    // [ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)
     // [comment:2](/docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md#comment2)
     public static readonly string[] ReservedNames = { "internal", "vendor", "compiled", "scriptanalyzer" };
 
@@ -150,7 +146,6 @@ public sealed class GlobsConfig
         }
 
         // Effective membership is the union through the references, so each must name another declared set, acyclically.
-        // [ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8)
         // [comment:3](/docs/references/automation/catzc-base-globs/types/GlobsConfig.cs.md#comment3)
         foreach (GlobSet set in sets)
         {

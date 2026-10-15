@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestExcludeTag.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-TestExcludeTag is private (the tier/category -> ExcludeTag logic shared by Test-Automation and
 # Test-InIsolation). Tested via InModuleScope.
 Describe 'Get-TestExcludeTag' -Tag 'L0', 'logic' {

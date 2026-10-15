@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/tests/Reset-GitCleanFxd.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Reset-GitCleanFxd' -Tag 'L0', 'logic' {
     # git's own dry-run listing is the one external boundary (plus the deleting clean calls); the
     # whitelist itself is mocked to a fixed set so these tests exercise pure classification logic.

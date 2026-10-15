@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Install-Git.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Install-Git' -Tag 'L0', 'logic' {
     # Install-Git is mostly a live-download integration (GitHub API + verified download + self-extracting
     # installer); per fail-fast-with-asserts that path earns its confidence from an L2/manual run, not from

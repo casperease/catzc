@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
     BeforeAll {
         # Build a classifier record like Get-AdoYamlFiles emits (string props stand in for the C# record).

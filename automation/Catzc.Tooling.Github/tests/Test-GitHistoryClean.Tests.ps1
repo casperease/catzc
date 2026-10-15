@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Github/tests/Test-GitHistoryClean.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-GitHistoryClean' -Tag 'L2', 'logic' {
     BeforeAll {
         # A throwaway git repo whose history plants the token on all three surfaces:

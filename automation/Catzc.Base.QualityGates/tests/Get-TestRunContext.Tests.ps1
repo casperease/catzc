@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestRunContext.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-TestRunContext over fixture locations; the session actor and the tool lookup are mocked, so no real process or
 # PATH state decides the outcome ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-TestRunContext' -Tag 'L0', 'logic' {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/tests/types/CustomerConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'CustomerConfig' -Tag 'L0' {
     BeforeAll {
         $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Azure.CustomerConfig]::new($raw) }

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/tests/Get-CatzcModulesRoot.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-CatzcModulesRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:originalModulesRoot = $env:CatzcModulesRoot

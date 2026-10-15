@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
+    kind: test
+---
+#>
+
 # Source-tree tooling (Assert-SourceTree): its scans need the per-module types/*.cs, so this test file is source-only.
 Describe 'Get-CSharpTypeDependency' -Tag 'L0', 'source-only' {
     BeforeEach {

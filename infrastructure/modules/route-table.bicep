@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/modules/route-table.bicep
+//     kind: other
+// ---
+
 // Routes are passed in the ARM routes shape, where nextHopIpAddress is optional.
 // [comment:1](/docs/references/infrastructure/modules/route-table.bicep.md#comment1)
 

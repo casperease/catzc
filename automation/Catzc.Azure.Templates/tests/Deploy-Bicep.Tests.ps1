@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Deploy-Bicep.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Deploy-Bicep' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tempArtifacts = Join-Path ([IO.Path]::GetTempPath()) ('catzc-deploy-' + [Guid]::NewGuid())

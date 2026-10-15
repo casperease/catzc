@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore nproperties
 Describe 'Deploy-AzureResourceGroup' -Tag 'L0', 'logic' {
     BeforeAll {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-GlossaryRuleStatements.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-GlossaryRuleStatements is private, so it is exercised through the module (InModuleScope, per
 # [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4))
 # over a fixture ADR index and two ADRs in $TestDrive. Fixture rule codes are neutral (tst —

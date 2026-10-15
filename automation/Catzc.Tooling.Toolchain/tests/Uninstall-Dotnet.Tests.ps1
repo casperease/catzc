@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Uninstall-Dotnet.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Uninstall-Dotnet' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Get-ToolConfig { [pscustomobject]@{ command = 'dotnet' } } -ModuleName Catzc.Tooling.Toolchain

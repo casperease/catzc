@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/tests/Get-GitWorkspace.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-GitWorkspace' -Tag 'L0', 'logic' {
 
     It 'returns the configured mode' {

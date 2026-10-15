@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-EngineContract with the engines' executables mocked: the start arguments come from the execution engine model and
 # load the run's entry — directly in pwsh, through importer.sh and CATZC_IMPORTER in the POSIX engines. Neutral fixture paths
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

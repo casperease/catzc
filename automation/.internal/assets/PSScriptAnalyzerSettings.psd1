@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/assets/PSScriptAnalyzerSettings.psd1
+    kind: other
+---
+#>
+
 @{
     Severity            = @('Error', 'Warning', 'Information')
 

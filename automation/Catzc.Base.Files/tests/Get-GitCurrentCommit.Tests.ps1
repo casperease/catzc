@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/tests/Get-GitCurrentCommit.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-GitCurrentCommit' -Tag 'L0', 'logic' {
     BeforeEach {
         # A checkout written by hand: HEAD on main, main at a made-up commit. No git process starts.

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-GlossaryFormViolations.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-GlossaryFormViolations is private, so it is exercised through the module (InModuleScope, per
 # [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)). Each test writes its
 # own fixture file under $TestDrive and passes it as the only tracked file (-TrackedFile, -Root), so no git process

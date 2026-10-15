@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.TypesSystem/tests/Test-ConsoleReadyType.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-ConsoleReadyType — whether a shipped type renders as a readable line in pwsh: it overrides ToString(), or it is
 # a kind never held as a value. Probed with BCL types and Add-Type probes. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

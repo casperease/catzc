@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1
+    kind: test
+---
+#>
+
 # The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
 # ScriptBlockAst. Its scope is decided by the file path, so each case writes a fixture file into $TestDrive under
 # a fake automation/ layout and parses it from there (ParseInput leaves Extent.File empty). The engine-wiring proof

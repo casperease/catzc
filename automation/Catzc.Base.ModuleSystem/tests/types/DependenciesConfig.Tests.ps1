@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/types/DependenciesConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Catzc.Base.ModuleSystem.DependenciesConfig' -Tag 'L0' {
     BeforeAll {
         # Constructs the type; a violation surfaces as the inner ArgumentException's message.

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/TestPolicyConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'TestPolicyConfig' -Tag 'L0', 'logic' {
     It 'defaults every environment to read-only' {
         $config = [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{})

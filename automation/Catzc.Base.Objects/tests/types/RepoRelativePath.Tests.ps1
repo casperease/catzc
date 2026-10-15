@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/tests/types/RepoRelativePath.Tests.ps1
+    kind: test
+---
+#>
+
 # Neutral, non-reserved path segments only. 'out' is deliberately avoided here: it is the reserved output
 # anchor (Get-OutputRoot — {root}/out locally, the external staging dir in a pipeline), a different anchor
 # from repo-root-relative, so it does not belong in a test of generic repo-relative normalization.

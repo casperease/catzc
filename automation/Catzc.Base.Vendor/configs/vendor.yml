@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Vendor/configs/vendor.yml
+#     kind: config
+# ---
+
 # Read only through the module's functions; the VendorConfig type validates this file on load.
-# [ADR-PWSH-VENDOR](/docs/adr/pwsh/vendor-toolset-dependencies.md)
 # [comment:1](/docs/references/automation/catzc-base-vendor/configs/vendor.yml.md#comment1)
 
 # PSGallery is the built-in default and needs no url.

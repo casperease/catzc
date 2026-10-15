@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Get-GlobSet.Tests.ps1
+    kind: test
+---
+#>
+
 # The typed read of globs.yml: all sets in registry order, named lookup, throwing on an unknown name.
 Describe 'Get-GlobSet' -Tag 'L0', 'logic' {
     BeforeAll {

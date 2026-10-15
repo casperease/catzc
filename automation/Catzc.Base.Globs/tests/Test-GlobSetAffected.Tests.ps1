@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Test-GlobSetAffected.Tests.ps1
+    kind: test
+---
+#>
+
 # The in-pipeline "is there anything here for us to process?" check — reflects the context's diff and reports
 # whether the named unit is touched, fail-open on any doubt
 # ([ADR-REPO-PROTGLOB#5](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob5)), fail-fast on a typo'd name.

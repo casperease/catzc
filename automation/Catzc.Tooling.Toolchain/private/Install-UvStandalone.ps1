@@ -17,8 +17,6 @@ catzc:
     Bootstraps uv on Linux from Astral's standalone GitHub release — user-space, hash-verified, no root.
 .DESCRIPTION
     The standalone build is also the one uv self update serves, so later upgrades stay in place.
-    [ADR-AUTO-PKGMGR](/docs/adr/automation/use-proper-package-managers.md),
-    [ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment1)
 .PARAMETER Version
     The locked uv version prefix from tools.yml (e.g. '0.11').
@@ -85,7 +83,6 @@ function Install-UvStandalone {
     }
 
     # The tool bin is normally on the persistent PATH already; this only makes it resolve in this session.
-    # [ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)
     # [comment:3](/docs/references/automation/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md#comment3)
     if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains $binDirectory) {
         $env:PATH = "$binDirectory$([System.IO.Path]::PathSeparator)$env:PATH"

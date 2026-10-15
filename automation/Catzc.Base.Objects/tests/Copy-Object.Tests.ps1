@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/tests/Copy-Object.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Copy-Object' -Tag 'L0', 'logic' {
 
     Context 'null and scalar values' {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/tests/Get-GitIndexPath.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-GitIndexPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

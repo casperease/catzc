@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Tests.ps1
+    kind: test
+---
+#>
+
 # Logic tests for Get-BicepParameterModel and the BicepParameterModel/BicepParameter types it returns: the model parsed
 # from a fixture main.json (tests/assets/parameter-model/main.json, widget/gadget parameters —
 # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)), and the build-when-not-current

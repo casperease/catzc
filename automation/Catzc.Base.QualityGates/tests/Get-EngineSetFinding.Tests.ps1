@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-EngineSetFinding.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-EngineSetFinding over fixture texts, with a fixture engine set — widget, gadget and sprocket stand in for the
 # model's engines ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)), so the finder is
 # proven to read the names and their count from its caller, never from a literal of its own.

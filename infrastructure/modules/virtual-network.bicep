@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/modules/virtual-network.bicep
+//     kind: other
+// ---
+
 // List every subnet here: redeploying a VNet whose subnet list omits one tries to delete that subnet.
 // [comment:1](/docs/references/infrastructure/modules/virtual-network.bicep.md#comment1)
 

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/tests/Copy-Directory.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Copy-Directory' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:src = Join-Path $TestDrive ([Guid]::NewGuid())

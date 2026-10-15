@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/tests/Get-Aspect.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-Aspect' -Tag 'L0', 'logic' {
 
     It 'defaults to the automation convention (live closed, tests catch-all) when unset' {

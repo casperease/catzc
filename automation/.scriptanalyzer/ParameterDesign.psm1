@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/ParameterDesign.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rules run strict inside the analyzer engine
 
 <#
@@ -6,9 +15,6 @@ Set-StrictMode -Version Latest   # this module's scope: the rules run strict ins
     ([ADR-PWSH-PARAM](/docs/adr/pwsh/parameter-design.md)).
 .DESCRIPTION
     Two checks over the functions in a module function file — a.ps1 directly under automation/<Module>/ (public) or...
-    [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4),
-    [ADR-PWSH-PARAM#2](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param2),
-    [ADR-PWSH-PARAM#3](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param3)
     [comment:1](/docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md#comment1)
 #>
 
@@ -24,7 +30,6 @@ function Test-ModuleFunctionFile {
 function Get-ParameterFunction {
     param([System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst)
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:2](/docs/references/automation/scriptanalyzer/ParameterDesign.psm1.md#comment2)
     $isFunction = {
         param($node)

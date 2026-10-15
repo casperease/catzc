@@ -14,10 +14,6 @@ catzc:
 */
 
 // Strays and Unplaced record what the axes cannot place instead of dropping it, so Test-ValueChainMap can report it.
-// [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16),
-// [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14),
-// [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15),
-// [ADR-THES-ONETRUTH#3](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth3)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/ValueChainMap.cs.md#comment1)
 
 using System;

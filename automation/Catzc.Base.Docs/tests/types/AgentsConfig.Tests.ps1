@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # Validates the compiled AgentsConfig type directly — the constructor stops a malformed agents.yml from ever
 # producing an instance. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

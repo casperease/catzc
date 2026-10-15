@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/tests/types/DictionaryRecord.Tests.ps1
+    kind: test
+---
+#>
+
 # DictionaryRecord — the shared base of the YAML-mirror records: a dictionary view over a derived record's own
 # data properties, and the protected extraction helpers (Req / OptStr / StrArr / Flag) a derived constructor uses.
 # Exercised through a probe record compiled by Add-Type against the loaded combined assembly, which also shows a

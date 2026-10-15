@@ -16,7 +16,6 @@ catzc:
     Runs a scriptblock while writing progress dots to the console.
 .DESCRIPTION
     The dots come from a thread job, so the scriptblock's return value reaches the caller uncontaminated.
-    [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
     [comment:1](/docs/references/automation/catzc-base-execution/Invoke-WithProgress.ps1.md#comment1)
 .PARAMETER ScriptBlock
     The work to execute. Runs on the current thread (module scope preserved).

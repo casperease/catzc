@@ -17,8 +17,6 @@ catzc:
     Lists the realized glossary concepts whose defining rule nothing enforces (check G5) — one message per violation.
 .DESCRIPTION
     A prose-only concept has nothing in code to enforce, so it is exempt from the enforcer requirement.
-    [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md),
-    [ADR-REPO-VOCAB#6](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab6)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryEnforcementViolations.ps1.md#comment1)
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.

@@ -20,8 +20,6 @@ catzc:
     Deploys a bicep template to Azure (resolves context, runs hooks, calls az, sets tags).
 .DESCRIPTION
     The session picks the slot: a customer subscription deploys the customer config, otherwise the root config.
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md),
-    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment1)
 .PARAMETER Environment
     Environment shortname.
@@ -51,7 +49,6 @@ catzc:
 #>
 function Deploy-Bicep {
     # -DryRun replaces ShouldProcess here, so the analyzer rule for state-changing functions is suppressed.
-    # [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     # [comment:5](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment5)
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Uses -DryRun instead of ShouldProcess — see ADR-PWSH-DRYRUN#1')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'ArgumentCompleter scriptblocks require PowerShell''s fixed 5-parameter completer signature; only $fakeBoundParameters is used, but the other four are mandatory and cannot be removed')]
@@ -82,7 +79,6 @@ function Deploy-Bicep {
     )
 
     # The assert guard is the pipeline's declared expectation, so a re-wired service connection cannot retarget it.
-    # [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     # [comment:6](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment6)
     if ((Test-IsRunningInPipeline) -and [string]::IsNullOrEmpty($SubscriptionIdAssertIs)) {
         throw "Deploy-Bicep requires -SubscriptionIdAssertIs in a pipeline — the pipeline must pin the subscription GUID its service connection is expected to target, for template '$Template' ($Environment)."
@@ -124,7 +120,6 @@ function Deploy-Bicep {
         Write-Message "Importing per-template PrePost: $($context.artifacts.prepost_module)"
         $prepostModule = Import-Module (Resolve-RepoPath $context.artifacts.prepost_module) -Scope Local -Force -PassThru
         # The template's hooks run strict like every catzc module, whoever wrote them.
-        # [ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)
         # [comment:9](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment9)
         . $prepostModule { Set-StrictMode -Version Latest }
         if ($prepostModule.ExportedCommands.ContainsKey('Invoke-BicepPreDeploy')) {
@@ -136,7 +131,6 @@ function Deploy-Bicep {
     }
 
     # DryRun goes to PreDeploy as its own parameter: it is the side-effect kill switch, too special for the bag.
-    # [ADR-PWSH-PREPOST](/docs/adr/pwsh/prepost-extension-modules.md)
     # [comment:10](/docs/references/automation/catzc-azure-templates/Deploy-Bicep.ps1.md#comment10)
     $deployInvocation = [ordered]@{
         Template     = $Template

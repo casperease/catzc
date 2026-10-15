@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/tests/Test-AzureNetworkPlan.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-AzureNetworkPlan and its join (Get-NetworkPlanViolations) over typed fixture configs with Greek environment
 # names and neutral subscription names (core_lower, a hub; widget_lower, a spoke for customer widget), not the shipped
 # ones, so editing azure.yml can never change the logic outcome

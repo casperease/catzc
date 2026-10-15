@@ -72,7 +72,6 @@ function Get-BicepResourceName {
     $templateDescriptor = Get-BicepTemplate $Template
     $azure = Get-Config -Config azure
     # The subscription group is a resolution axis only, never a name component, so azure.yml is read directly.
-    # [ADR-AZ-NAMING#8](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming8)
     # [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepResourceName.ps1.md#comment3)
     $envEntry = $azure.environments[$Environment]
 

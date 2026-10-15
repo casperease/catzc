@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.KeyHandler/tests/Select-SupportedKeyHandler.Tests.ps1
+    kind: test
+---
+#>
+
 # Neutral fixture function names (widget/gadget) — Select-SupportedKeyHandler is pure classification logic,
 # so a logic fixture must not borrow real PSReadLine function names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

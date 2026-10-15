@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-Glossary.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-Glossary merges the glossary sources into GlossaryEntry records. Discovery is mocked at Get-GlossarySources
 # (its own tests cover the config seam and git), and the sources are built from the real GlossaryConfig type.
 # Get-Glossary caches per repository root, so every test resets the cache entry

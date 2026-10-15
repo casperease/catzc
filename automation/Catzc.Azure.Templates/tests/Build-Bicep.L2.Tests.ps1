@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Build-Bicep.L2.Tests.ps1
+    kind: test
+---
+#>
+
 # Walking-skeleton L2 coverage for Build-Bicep: the few real `az bicep build` threads that exercise something
 # the mocked-az L0 logic tests cannot. The per-template RULE checks — parameter-file names, customer prefixes,
 # indexed slots, merged vnet ranges, injected Key Vault references, resource-group/deployment names — are

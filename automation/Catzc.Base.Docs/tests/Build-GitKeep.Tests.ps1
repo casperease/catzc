@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.RootConfig/tests/types/RootConfigFile.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'RootConfigFile' -Tag 'L0', 'logic' {
     It 'constructs a source copy-in and exposes its fields with defaults' {
         $f = [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = '.editorconfig'; source = 'a/b/.editorconfig' })

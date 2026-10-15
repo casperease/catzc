@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Firewall/tests/Get-FirewallMarkdownColumns.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-FirewallMarkdownColumns is a private (non-exported) function, so it is invoked via InModuleScope.
 Describe 'Get-FirewallMarkdownColumns' -Tag 'L0', 'logic' {
     BeforeAll {

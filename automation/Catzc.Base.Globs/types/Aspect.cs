@@ -13,7 +13,6 @@ catzc:
 */
 
 // The last aspect is the non-live catch-all, so a file live does not explicitly claim can never silently ship.
-// [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md), [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
 // [comment:1](/docs/references/automation/catzc-base-globs/types/Aspect.cs.md#comment1)
 
 using System;
@@ -91,7 +90,6 @@ public static class AspectPartition
     }
 
     // A file claimed by two aspects breaks disjointness, and one claimed by none breaks exhaustiveness.
-    // [ADR-DSGN-ASPECT#5](/docs/adr/design/module-aspects.md#rule-adr-dsgn-aspect5)
     // [comment:4](/docs/references/automation/catzc-base-globs/types/Aspect.cs.md#comment4)
     public static IReadOnlyList<string> Validate(IReadOnlyList<GlobSet> aspectSets, IEnumerable<string> universe)
     {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.TypesSystem/tests/Get-AutomationModules.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AutomationModules' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fixture automation tree: two real modules + dot-prefixed infrastructure (must be excluded).

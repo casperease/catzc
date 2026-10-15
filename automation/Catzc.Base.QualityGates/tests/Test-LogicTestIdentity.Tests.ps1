@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
+    kind: test
+---
+#>
+
 # The integrity block binds the REAL shipped config (the live-identity set is derived from it), so it also names
 # live identities (e.g. 'apex') as fixture data; the integrity tag is both correct
 # ([ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1))

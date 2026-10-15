@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.VSCode/configs/vscode-settings.yml
+#     kind: config
+# ---
+
 # Edit this file, never settings.json: the editor reads a gitignored copy that Build-RootConfig regenerates from it.
-# [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
 # [comment:1](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment1)
 settings:
   # Markdown settings (built-in preview)
@@ -13,7 +19,6 @@ settings:
   markdown.preview.markEditorSelection: true
 
   # These are warnings only and http or https links are never checked, so Test-Links stays the real gate.
-  # [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)
   # [comment:2](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment2)
   markdown.validate.enabled: true
   markdown.validate.fileLinks.enabled: warning
@@ -71,7 +76,6 @@ settings:
     "**/node_modules/**": true
 
   # Format-on-save stays off: formatting runs on demand and Test-Formatting enforces it; the formatter itself is injected.
-  # [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)
   # [comment:9](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment9)
   "[markdown]":
     editor.quickSuggestions:
@@ -104,7 +108,6 @@ settings:
   azure-pipelines.customSchemaFile: ./.vscode/azure-pipelines-schema.json
 
   # The rule drops the heading fragment when it opens the ADR file, because the editor opens files by line, not heading.
-  # [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)
   # [comment:14](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment14)
   regexrobin.rules:
     - regex: '\[[^\]\r\n]+\]\(/(docs/adr/[^)#\s]+\.md)(#[^)\s]*)?\)'
@@ -113,13 +116,11 @@ settings:
           hoverMessage: "Open $1$2"
 
   # GOTOOLCHAIN=local stops the editor downloading the toolchain go.work asks for; the managed go comes from go.goroot.
-  # [ADR-AUTO-GO#6](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go6)
   # [comment:15](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment15)
   go.toolsEnvVars:
     GOTOOLCHAIN: local
 
   # No terminal is activated into the venv: it stays the catzc pwsh session, and tests run through Test-Automation.
-  # [ADR-AUTO-PY#4](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py4)
   # [comment:16](/docs/references/automation/catzc-base-vscode/configs/vscode-settings.yml.md#comment16)
   python.terminal.activateEnvironment: false
   python-envs.terminal.autoActivationType: "off"

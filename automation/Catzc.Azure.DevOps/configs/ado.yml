@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Azure.DevOps/configs/ado.yml
+#     kind: config
+# ---
+
 # The tenant lets Get-AdoAuthorizationHeader keep its az login fallback from minting a token in another directory.
 # [comment:1](/docs/references/automation/catzc-azure-devops/configs/ado.yml.md#comment1)
 

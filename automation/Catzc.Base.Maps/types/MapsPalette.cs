@@ -12,8 +12,6 @@ catzc:
 */
 
 // The defaults are the diagram kit's dark tokens, so the slide minimaps share one look with the PDFs.
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/MapsPalette.cs.md#comment1)
 
 namespace Catzc.Base.Maps;

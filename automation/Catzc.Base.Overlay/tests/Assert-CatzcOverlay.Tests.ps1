@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-CatzcOverlay' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Overlay.Fixture.ps1')

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1
+    kind: test
+---
+#>
+
 # EngineSetCheck maps the engine-set check's settings and matches its phrases against the engine names it is given —
 # widget, gadget and sprocket stand in for the model's engines
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) — so no engine name or count is a

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/tests/ConvertFrom-AdoPipelineCommand.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore nline
 Describe 'ConvertFrom-AdoPipelineCommand' -Tag 'L0', 'logic' {
     Context 'line ending normalization' {

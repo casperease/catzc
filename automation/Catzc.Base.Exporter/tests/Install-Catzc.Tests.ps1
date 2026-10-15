@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Exporter/tests/Install-Catzc.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Install-Catzc' -Tag 'L0', 'logic' {
     BeforeEach {
         # A fixture build (neutral names,

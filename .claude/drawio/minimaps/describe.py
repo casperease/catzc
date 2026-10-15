@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: ".claude/drawio/minimaps/describe.py"
+#     kind: script
+# ---
+
 # cspell:ignore minimaps
 """The sister .md of every minimap PNG, written by render.py from the same data the PNG is drawn from.
 

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Build-Readme.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Build-Readme' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

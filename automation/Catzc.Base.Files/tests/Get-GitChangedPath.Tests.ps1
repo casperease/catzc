@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/tests/Get-GitChangedPath.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-GitChangedPath' -Tag 'L0', 'logic' {
     # git status is the mocked boundary: the -z porcelain it would print, NUL-separated. Neutral fixture names
     # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

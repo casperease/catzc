@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/types/MarkdownLinkRebaser.Tests.ps1
+    kind: test
+---
+#>
+
 # A generated README copies an article into another folder; its relative links are rebased so they resolve there
 # ([ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)).
 Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README#6' {

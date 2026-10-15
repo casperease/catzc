@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Get-ToolCommandSuffix.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ToolCommandSuffix' -Tag 'L0', 'logic' {
     # Each snake_case tools.yml key must map to the PascalCase suffix of its
     # Install-/Uninstall-/Invoke- commands. (Existence of those commands per

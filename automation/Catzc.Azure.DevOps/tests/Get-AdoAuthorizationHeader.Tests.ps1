@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/tests/Get-AdoAuthorizationHeader.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AdoAuthorizationHeader' -Tag 'L0', 'logic' {
     Context 'in pipeline' {
         BeforeEach {

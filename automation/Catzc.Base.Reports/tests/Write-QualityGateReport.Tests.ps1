@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
+    kind: test
+---
+#>
+
 # Write-QualityGateReport is every quality gate's output. The settings come from the real ReportsConfig type over a
 # mocked reports config, and the report goes to $TestDrive, so each test pins one part of the uniform shape
 # ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). Neutral fixture subjects

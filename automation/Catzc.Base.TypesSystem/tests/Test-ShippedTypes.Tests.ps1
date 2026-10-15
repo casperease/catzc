@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.TypesSystem/tests/Test-ShippedTypes.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-ShippedTypes over a fixture code root in $TestDrive: one file named for a type the session has (System.String
 # under a 'System' module folder), one named for a type that never loaded. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

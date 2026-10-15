@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-ParameterConsistency.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-ParameterConsistency is a quality gate ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)):
 # the logic block mocks the file set, the conflict finder (its own unit), and the exemption config; the integrity block
 # runs the gate over the real public functions. Neutral fixture names

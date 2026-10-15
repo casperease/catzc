@@ -17,7 +17,6 @@ catzc:
     ancestor blocks, unioned.
 .DESCRIPTION
     Provenance is a set, not nearest-wins like tier and category: a Describe rule and an inner It rule both hold.
-    [ADR-PWSH-ERROR#3](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error3)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-TestRuleTags.ps1.md#comment1)
 .PARAMETER Test
     Pass the whole test object: the tags sit on .Tag and up the .Block chain, not on the test alone.

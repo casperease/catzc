@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/tests/types/PipelineEnvConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # The pipeline-env.yml type: constructing it maps and validates the parsed YAML, so a malformed whitelist never
 # loads through Get-Config -Config pipeline-env.
 Describe 'Catzc.Azure.DevOps.PipelineEnvConfig' -Tag 'L0' {

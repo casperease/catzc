@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Install-Uv.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Install-Uv' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Get-ToolConfig { [pscustomobject]@{ command = 'uv'; version = '0.11' } } -ModuleName Catzc.Tooling.Toolchain

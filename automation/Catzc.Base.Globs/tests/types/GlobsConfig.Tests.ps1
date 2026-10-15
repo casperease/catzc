@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore dedupe
 # The globs.yml registry guard: strict shape (unknown keys rejected), every entry a valid GlobSet with a
 # layer declared ([ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)), and compose

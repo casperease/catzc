@@ -18,9 +18,6 @@ catzc:
     Quality gate: builds the selected modules once into a temporary destination and verifies the built artifact.
 .DESCRIPTION
     Every issue is prefixed with its facet and all are collected, so one run shows every broken part.
-    [ADR-AUTO-TEST#24](/docs/adr/automation/test-automation.md#rule-adr-auto-test24),
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-DSGN-RUNMODE#2](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode2)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-BuildArtifact.ps1.md#comment1)
 .PARAMETER Module
     Giving neither -Module nor -ModuleProfile builds the default bundle's profile.

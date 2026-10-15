@@ -17,11 +17,6 @@ catzc:
 */
 
 // A language carries exactly one of formatter and no_formatter, so a gap in formatting is a visible, reviewed entry.
-// [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
-// [ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4),
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 // [comment:1](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment1)
 
 using System;
@@ -53,7 +48,6 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     private readonly Dictionary<string, string> claimedBy = new Dictionary<string, string>(StringComparer.Ordinal);
 
     // A new engine is new mechanism: its Format-Code adapter and its name here must land together.
-    // [ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)
     // [comment:2](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment2)
     private static readonly string[] Engines = { "prettier", "gofmt", "ruff", "psscriptanalyzer", "dotnet-format", "bicep" };
     public static IReadOnlyList<string> FormatterEngines => Engines;
@@ -236,7 +230,6 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     }
 
     // The editor's Format Document runs the same engine as Format-Code, so the two cannot disagree.
-    // [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)
     // [comment:4](/docs/references/automation/catzc-base-languages/types/LanguagesConfig.cs.md#comment4)
     public IReadOnlyDictionary<string, string> EditorFormatters()
     {

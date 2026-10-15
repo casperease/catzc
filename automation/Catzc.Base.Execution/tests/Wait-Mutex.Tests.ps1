@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/tests/Wait-Mutex.Tests.ps1
+    kind: test
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The contended-hold helper''s Mutex/HeldSignal/HoldMilliseconds parameters are consumed via $using: inside its Start-ThreadJob scriptblock, which this rule does not trace')]
 param()
 

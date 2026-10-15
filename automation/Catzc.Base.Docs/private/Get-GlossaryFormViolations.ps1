@@ -17,7 +17,6 @@ catzc:
     per use.
 .DESCRIPTION
     Function words and a keyword after a dot never count as a qualifier; the bare head word is always allowed.
-    [ADR-REPO-VOCAB#8](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab8)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryFormViolations.ps1.md#comment1)
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.

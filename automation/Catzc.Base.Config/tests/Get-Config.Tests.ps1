@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Config/tests/Get-Config.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-Config' -Tag 'L0' {
     Context 'discovery + raw default' -Tag 'integrity' {
         # Reads the shipped tools.yml — guards that a real config is discovered in its owning module and loads

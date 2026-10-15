@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Install-DevBoxTools.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Install-DevBoxTools' -Tag 'L0', 'logic' {
     # Pure orchestration over mocked seams. With an empty install order the version-locked loop is a no-op,
     # so the test focuses on the fixed sequence (de-choco, status, additional installers) and the two

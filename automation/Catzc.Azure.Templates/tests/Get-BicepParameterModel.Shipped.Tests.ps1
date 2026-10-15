@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1
+    kind: test
+---
+#>
+
 # L2 integrity for the SHIPPED bicep templates' parameter contract
 # ([ADR-AZ-DATAMOD#9](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9)): every template is built with the
 # real `az bicep build`, and every parameters file it renders must satisfy the parameter model of its compiled main.json

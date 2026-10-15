@@ -91,7 +91,6 @@ function Install-Tool {
     elseif ($IsLinux) {
         Assert-NotNullOrWhitespace $config.apt_package -ErrorText "$Tool has no AptPackage — use Install-$command directly"
         # Only apt-get tools reach this root check; the uv-based CLIs install in user space and never come here.
-        # [ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)
         # [comment:4](/docs/references/automation/catzc-tooling-core/Install-Tool.ps1.md#comment4)
         Assert-IsAdministrator -ErrorText "Install-$command on Linux requires root (apt-get). Run as root or install $Tool manually."
         Assert-Command apt-get

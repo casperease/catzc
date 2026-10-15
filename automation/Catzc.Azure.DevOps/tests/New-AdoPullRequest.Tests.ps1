@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/tests/New-AdoPullRequest.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'New-AdoPullRequest' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ParameterFilter { $Config -eq 'ado' } -MockWith {

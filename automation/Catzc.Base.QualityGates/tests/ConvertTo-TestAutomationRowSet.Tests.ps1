@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
     BeforeAll {
         # Build a Pester-shaped test-result object without running Pester — just the members the reducer

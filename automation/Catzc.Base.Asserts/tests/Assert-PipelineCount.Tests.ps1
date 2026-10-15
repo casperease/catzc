@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Assert-PipelineCount.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-PipelineCount' -Tag 'L0', 'logic' {
     Context 'Equals' {
         It 'passes when count matches' {

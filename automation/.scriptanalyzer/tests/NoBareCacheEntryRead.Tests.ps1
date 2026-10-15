@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1
+    kind: test
+---
+#>
+
 # The per-case assertions run the rule function directly on a parsed AST (L0). The engine-wiring proof lives once,
 # for all custom rules, in CustomRuleWiring.Tests.ps1.
 Describe 'Measure-NoBareCacheEntryRead' -Tag 'L0', 'logic', 'ADR-PWSH-CACHE#4' {

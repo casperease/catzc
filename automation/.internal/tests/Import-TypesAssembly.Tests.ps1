@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/Import-TypesAssembly.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Import-TypesAssembly' -Tag 'L1', 'logic' {
     # L1: the fixture DLL is compiled once with Add-Type (Roslyn's cold start). The source DLL lives in TestDrive —
     # it is never loaded, which is the property under test. The shadow folder lives OUTSIDE TestDrive: the loaded

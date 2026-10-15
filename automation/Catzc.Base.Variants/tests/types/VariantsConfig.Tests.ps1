@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'VariantsConfig' -Tag 'L0' {
     BeforeAll {
         $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Variants.VariantsConfig]::new($raw) }

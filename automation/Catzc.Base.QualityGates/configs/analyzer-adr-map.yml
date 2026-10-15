@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
+#     kind: config
+# ---
+
 # Every custom analyzer rule must be listed; ids are checked by an integrity test, so config load stays hermetic.
-# [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/analyzer-adr-map.yml.md#comment1)
 analyzers:
   # Custom rules (automation/.scriptanalyzer)

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Select-InScopeTestFiles.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Select-InScopeTestFiles' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fake discovery tests — the Pester test shape Get-TestBlockTag walks.

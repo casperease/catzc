@@ -1,9 +1,14 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Variants/configs/variants.yml
+#     kind: config
+# ---
+
 # Edit a value and re-run the importer to apply it; read only through the module's Get-, Test- and Assert- primitives.
-# [ADR-REPO-VARIANT](/docs/adr/repository/repo-variants.md)
 # [comment:1](/docs/references/automation/catzc-base-variants/configs/variants.yml.md#comment1)
 
 # Changing this re-spells every resource name, so every typed name in each template's configuration needs re-editing.
-# [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)
 # [comment:2](/docs/references/automation/catzc-base-variants/configs/variants.yml.md#comment2)
 ado_naming: standard
 
@@ -12,12 +17,10 @@ ado_naming: standard
 git_workspace: main-direct
 
 # This repo ships per-customer templates so it enables all; a repo without customer templates leaves this false.
-# [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
 # [comment:4](/docs/references/automation/catzc-base-variants/configs/variants.yml.md#comment4)
 have_customers: all
 
 # First match wins and the last aspect is the catch-all: automation closes live, infrastructure makes live the catch-all.
-# [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)
 # [comment:5](/docs/references/automation/catzc-base-variants/configs/variants.yml.md#comment5)
 aspects:
   automation:
@@ -28,8 +31,6 @@ aspects:
     - live: ["**"]
 
 # Every root folder git tracks a file under is a track, except out/; read through Get-Track.
-# [ADR-DSGN-TRACK](/docs/adr/design/tracks.md), [ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2),
-# [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)
 # [comment:6](/docs/references/automation/catzc-base-variants/configs/variants.yml.md#comment6)
 tracks:
   automation: { root: automation, class: core, languages: [powershell, csharp, yaml, json, jsonl, bash, xml, css, solution, stamp, asset] }

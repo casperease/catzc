@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Set-BicepTrackingTagSet.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Set-BicepTrackingTagSet' -Tag 'L0', 'logic' {
     BeforeEach {
         # Discover from the test fixtures, never the shipped infrastructure/templates.

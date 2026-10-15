@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Shipped.Tests.ps1
+    kind: test
+---
+#>
+
 # The shipped inspiration.yml through the real Get-Config and the real repository root. It asserts consistency, never
 # presence: on a machine without eac the default inspiration is reported unavailable, and the test still passes
 # ([ADR-REPO-INSPIRE#1](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire1)).

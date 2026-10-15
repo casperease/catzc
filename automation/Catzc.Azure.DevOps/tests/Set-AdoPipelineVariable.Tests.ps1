@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/tests/Set-AdoPipelineVariable.Tests.ps1
+    kind: test
+---
+#>
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests lift $global:__PesterRunning to capture the ##vso line, which goes through the writer chokepoint; that flag is the writers'' test-suppression interface, set by Test-Automation')]
 param()
 

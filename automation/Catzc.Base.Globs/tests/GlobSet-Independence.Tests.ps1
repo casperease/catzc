@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
+    kind: test
+---
+#>
+
 # Integrity: per-layer independence
 # ([ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)) holds in the REAL repository —
 # within every non-loose

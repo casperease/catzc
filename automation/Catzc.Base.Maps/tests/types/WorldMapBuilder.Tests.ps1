@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/types/WorldMapBuilder.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tracks = @(

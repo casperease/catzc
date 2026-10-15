@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/ConvertTo-TestRunManifestEntry.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ConvertTo-TestRunManifestEntry' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:convert = {

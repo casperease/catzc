@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Git.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Uninstall-Git' -Tag 'L0', 'logic' {
     # Every filesystem/PATH/CLI boundary is mocked so nothing is removed for real and no process launches
     # (the L0 tripwire would throw on a real Invoke-Executable). Platform branches self-skip off-platform.

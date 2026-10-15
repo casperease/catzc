@@ -1,4 +1,13 @@
 <#
+---
+catzc:
+  derived:
+    path: pipelines/Invoke-AdoScript.ps1
+    kind: other
+---
+#>
+
+<#
 .SYNOPSIS
     Universal pipeline entry point. Bootstraps the module system and executes a command.
 .DESCRIPTION

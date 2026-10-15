@@ -17,7 +17,6 @@ catzc:
     Compiles module-to-module edges from cross-module C# type references in types/*.cs.
 .DESCRIPTION
     One shared assembly means the compiler no longer forbids cross-module type references, so this scan does.
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
     Path to the automation directory. Defaults to the loaded code root (Get-CatzcModulesRoot).
@@ -50,7 +49,6 @@ function Get-CSharpTypeDependency {
         }
 
         # Raw .NET, not Get-ChildItem or Get-Content: each cmdlet call adds about 20ms of overhead.
-        # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
         # [comment:2](/docs/references/automation/catzc-base-typessystem/Get-CSharpTypeDependency.ps1.md#comment2)
         foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs') | Sort-Object)) {
             $csName = [System.IO.Path]::GetFileName($cs)

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Build-TerminologyDictionary' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/TerminologyConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # Validates the compiled TerminologyConfig / TerminologyTerm types directly — the constructor is the gate
 # that stops an unjustified or malformed registry entry from ever producing an instance
 # ([ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)). The

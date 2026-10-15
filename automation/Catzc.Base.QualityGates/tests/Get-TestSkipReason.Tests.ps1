@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestSkipReason.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TestSkipReason' -Tag 'L0', 'logic' {
     BeforeAll {
         # A Pester test-result object carries .ErrorRecord (a collection of records each exposing

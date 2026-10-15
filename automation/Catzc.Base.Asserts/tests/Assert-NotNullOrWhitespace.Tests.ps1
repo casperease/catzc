@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Assert-NotNullOrWhitespace.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-NotNullOrWhitespace' -Tag 'L0', 'logic' {
     It 'passes when value is a non-empty string' {
         { Assert-NotNullOrWhitespace 'hello' } | Should -Not -Throw

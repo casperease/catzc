@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Exporter/tests/Build-Modules.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Build-Modules' -Tag 'L0', 'logic' {
     BeforeAll {
         # The engine (Catzc.Internal.Builder) is loaded on demand and is a mocked boundary here; a stub makes the

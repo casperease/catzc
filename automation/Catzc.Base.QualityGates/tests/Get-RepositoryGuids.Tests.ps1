@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
     BeforeAll {
         # Unique sandbox per run; the seam mock returns ABSOLUTE fixture paths, which Resolve-RepoPath

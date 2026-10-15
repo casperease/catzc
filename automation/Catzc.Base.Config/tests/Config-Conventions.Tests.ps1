@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
+    kind: test
+---
+#>
+
 # Poka-yoke backstop for the config registry (see ADR module-config-loading): every shipped config has a
 # registered C# config type and loads through it (Test-ShippedConfigs).
 

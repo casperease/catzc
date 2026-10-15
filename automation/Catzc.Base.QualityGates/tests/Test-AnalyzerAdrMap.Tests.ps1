@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-AnalyzerAdrMap.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-AnalyzerAdrMap over a mocked map, a mocked ADR rule-id set, and fixture rule files in $TestDrive. Neutral
 # fixture names and rule codes ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {

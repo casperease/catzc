@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: pipelines/ci-automation-expected-failures.yaml
+#     kind: other
+# ---
+
 # Every step must fail yet uses continueOnError, so the job succeeds overall while each guardrail step shows amber.
 # [comment:1](/docs/references/pipelines/ci-automation-expected-failures.yaml.md#comment1)
 

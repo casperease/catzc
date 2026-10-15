@@ -16,7 +16,6 @@ catzc:
     Removes an installation directory and cleans it from system PATH.
 .DESCRIPTION
     Every persistent write goes through its seam, which announces it, so a change to the Machine PATH is never silent.
-    [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)
     [comment:1](/docs/references/automation/catzc-tooling-core/Remove-SystemInstallation.ps1.md#comment1)
 .PARAMETER InstallDir
     Resolved absolute path to the installation directory.

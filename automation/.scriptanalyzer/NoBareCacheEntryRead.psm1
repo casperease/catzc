@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/NoBareCacheEntryRead.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 . (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
@@ -6,8 +15,6 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: a function file reads a lazy $script: cache entry only after probing or assigning it.
 .DESCRIPTION
     Nothing declares a cache entry at import, so the first read of an unset entry throws under strict mode.
-    [ADR-PWSH-ONEFUNC](/docs/adr/pwsh/one-function-per-file.md),
-    [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
     [comment:1](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment1)
 #>
 
@@ -31,7 +38,6 @@ function Measure-NoBareCacheEntryRead {
     }
 
     # Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:3](/docs/references/automation/scriptanalyzer/NoBareCacheEntryRead.psm1.md#comment3)
     $isFunction = {
         param($node)

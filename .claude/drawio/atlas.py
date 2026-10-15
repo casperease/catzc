@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: ".claude/drawio/atlas.py"
+#     kind: script
+# ---
+
 # cspell:ignore minimaps lightbox
 """Build the clickable review page for claude.ai: out/atlas.html plus the list of files it references.
 

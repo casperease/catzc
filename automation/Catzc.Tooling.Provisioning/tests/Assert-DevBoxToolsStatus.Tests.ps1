@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-DevBoxToolsStatus' -Tag 'L0', 'logic' {
     # Get-ToolsStatus is the only boundary — mock it to return fabricated ToolStatus rows and assert the
     # pass/throw decision. The rows use deliberately non-production tool names.

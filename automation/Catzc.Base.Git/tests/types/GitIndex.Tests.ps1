@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/tests/types/GitIndex.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore blåbær  -- the non-ASCII fixture path
 # The index reader against hand-built index bytes in git's on-disk layout (DIRC v2-v4) — every shape a real
 # repository writes, without launching git. The equivalence with real `git ls-files` is the L2 test in

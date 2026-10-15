@@ -16,12 +16,6 @@ catzc:
 */
 
 // Every key is optional and an omitted one behaves as its default, so the file states only what deviates from it.
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
-// [ADR-PRIN-CONFIG#3](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config3),
-// [ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
-// [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AdrChecksConfig.cs.md#comment1)
 
 using System;

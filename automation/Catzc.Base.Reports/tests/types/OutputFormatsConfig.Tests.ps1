@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Reports/tests/types/OutputFormatsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Catzc.Base.Reports.OutputFormatsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function script:New-Format {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-RepointedMarkdownText.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-RepointedMarkdownText' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#7' {
     BeforeAll {
         function script:Get-Repointed {

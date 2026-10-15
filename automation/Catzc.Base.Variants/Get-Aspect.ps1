@@ -16,7 +16,6 @@ catzc:
     Returns a track/container's ordered aspect classification — the named parts its units partition into.
 .DESCRIPTION
     First match wins and the last aspect is the catch-all: automation leaves it to tests, infrastructure to live.
-    [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)
     [comment:1](/docs/references/automation/catzc-base-variants/Get-Aspect.ps1.md#comment1)
 .PARAMETER Track
     An unknown track silently gets the automation aspects instead of an error.

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Cli/tests/Assert-AzCliBicep.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-AzCliBicep' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-AzureBicepMinVersion { [version]'0.30.0' } -ModuleName Catzc.Azure.Cli

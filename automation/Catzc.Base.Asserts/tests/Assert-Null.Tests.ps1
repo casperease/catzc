@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Assert-Null.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-Null' -Tag 'L0', 'logic' {
     It 'passes when value is $null' {
         { Assert-Null $null } | Should -Not -Throw

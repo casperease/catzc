@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/templates/discovery/main.bicep
+//     kind: template
+// ---
+
 // Kind, address space and subnets are read from network.yml by config address, never copied, so the IP plan has one source.
 // [ADR-AZ-NETWORK#1](/docs/adr/azure/azure-network-model.md#rule-adr-az-network1)
 // [comment:1](/docs/references/infrastructure/templates/discovery/main.bicep.md#comment1)

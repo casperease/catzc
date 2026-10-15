@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/types/GoWorkspaceFile.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'GoWorkspaceFile' -Tag 'L0', 'logic' {
     It 'carries its target and content' {
         $file = [Catzc.Base.Languages.GoWorkspaceFile]::new('go/tests/catzc-widget/go.mod', "module widget`n")

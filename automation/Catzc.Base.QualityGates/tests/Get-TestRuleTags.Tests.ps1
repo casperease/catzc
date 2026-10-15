@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#27' {
     BeforeAll {
         # A fake Pester test: own It-tags, an inner block, and an optional outer block (the same shape

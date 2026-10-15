@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
+    kind: test
+---
+#>
+
 # The protected-glob skip ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): session-memory skip of a
 # repeated green scan over an unchanged
 # globset; hash-before-scan via the pending-promote handshake; completely ignored in pipelines.

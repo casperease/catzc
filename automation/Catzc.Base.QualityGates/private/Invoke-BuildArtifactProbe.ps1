@@ -16,7 +16,6 @@ catzc:
     Loads a build cold in a fresh pwsh and returns what that build-mode session observed.
 .DESCRIPTION
     The child writes its observation to a JSON file, never stdout, so the importer's console lines cannot mix into it.
-    [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-BuildArtifactProbe.ps1.md#comment1)
 .PARAMETER BuildRoot
     The build root (Catzc/<version>/).

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Assert-Command.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-Command' -Tag 'L0', 'logic' {
     It 'passes for an installed command' {
         { Assert-Command 'pwsh' } | Should -Not -Throw

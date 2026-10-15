@@ -16,7 +16,6 @@ catzc:
     Renders a generator entry of the root-config registry into one { Target; Content } record per file.
 .DESCRIPTION
     A wildcard target may render no file, but a literal target must render exactly one; any other shape throws.
-    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-rootconfig/private/Get-RootConfigRenderedFile.ps1.md#comment1)
 .PARAMETER Entry
     An opted-in generator entry of rootconfig.yml (a RootConfigFile, or any object with target and generator).

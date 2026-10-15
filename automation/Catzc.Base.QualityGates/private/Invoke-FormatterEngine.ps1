@@ -16,7 +16,6 @@ catzc:
     Runs one formatter engine over the given files and returns the files it changed.
 .DESCRIPTION
     A language is never named here: which language uses which engine is configuration, not code.
-    [ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-FormatterEngine.ps1.md#comment1)
 .PARAMETER Engine
     The engine name, as languages.yml spells it.

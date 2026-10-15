@@ -14,9 +14,6 @@ catzc:
 */
 
 // The cell only carries the stack-violation result: WorldMapBuilder decides it per file, never the cell itself.
-// [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1), [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
-// [ADR-DSGN-TRACK#3](/docs/adr/design/tracks.md#rule-adr-dsgn-track3),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/MapCell.cs.md#comment1)
 
 namespace Catzc.Base.Maps;

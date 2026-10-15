@@ -17,8 +17,6 @@ catzc:
     Quality gate: the rule summaries of the configured ADR domains carry no engine-specific syntax.
 .DESCRIPTION
     Tokens list engine built-ins only, since naming a catzc command in a rule summary is allowed.
-    [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1),
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)
     [comment:1](/docs/references/automation/catzc-base-docs/Test-AdrEngineNeutrality.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-adr-engine-neutrality/ (Write-QualityGateReport).

@@ -14,10 +14,6 @@ catzc:
 */
 
 // Only the relative string is persisted; the absolute form is derived at the bind, so a value stays machine-independent.
-// [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md),
-// [ADR-AUTO-PATH#8](/docs/adr/automation/path-representation.md#rule-adr-auto-path8),
-// [ADR-AUTO-PATH#3](/docs/adr/automation/path-representation.md#rule-adr-auto-path3),
-// [ADR-AUTO-PATH#5](/docs/adr/automation/path-representation.md#rule-adr-auto-path5)
 // [comment:1](/docs/references/automation/catzc-base-objects/types/RepoRelativePath.cs.md#comment1)
 
 using System;
@@ -33,7 +29,6 @@ public sealed class RepoRelativePath
     public string Relative { get; }
 
     // A rooted value is never re-based, so a consumer must not treat Relative as repo-relative when this is set.
-    // [ADR-AUTO-PATH#5](/docs/adr/automation/path-representation.md#rule-adr-auto-path5)
     // [comment:3](/docs/references/automation/catzc-base-objects/types/RepoRelativePath.cs.md#comment3)
     public bool IsRooted { get; }
 

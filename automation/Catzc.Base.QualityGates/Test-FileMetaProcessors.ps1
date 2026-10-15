@@ -17,8 +17,6 @@ catzc:
     Quality gate: every meta kind resolves to a processor function, and every convention-named processor function belongs to a kind.
 .DESCRIPTION
     Orphans are listed both ways, because neither a missing function nor a missing kind fails alone.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-REPO-FILEMETA#4](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta4)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-FileMetaProcessors.ps1.md#comment1)
 .PARAMETER Config
     The meta-kind registry. Default: the shipped one.

@@ -39,14 +39,12 @@ function Remove-Java {
     $config = Get-ToolConfig -Tool 'java'
 
     # Removal never touches a managed install: only Uninstall-Java deletes what the tooling owns.
-    # [ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)
     # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment2)
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Java is managed by the tooling system. Use Uninstall-Java instead.'
     }
 
     # Elevation is scoped to the placing mechanism, so unlike the Windows folder delete there is no admin assert here.
-    # [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
     # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Remove-Java.ps1.md#comment3)
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {

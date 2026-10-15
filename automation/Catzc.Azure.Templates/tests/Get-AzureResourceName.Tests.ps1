@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-AzureResourceName.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore alweutstsmplst weuwkspvm sttstsmplalweu alweusmplvm vmsmplalweu weutstsmplst
 Describe 'Get-AzureResourceName' -Tag 'L0', 'logic' {
     It 'renders the env NAME for a generous (long) type' {

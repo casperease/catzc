@@ -18,9 +18,6 @@ catzc:
     Awaits a mutex reliably, announcing itself only when the wait is actually noticeable.
 .DESCRIPTION
     A short wait leaves only a verbose trace; the console speaks up only once the wait is a real halt.
-    [ADR-AUTO-CONSOLE#8](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console8),
-    [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10),
-    [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1)
     [comment:1](/docs/references/automation/catzc-base-execution/Wait-Mutex.ps1.md#comment1)
 .PARAMETER Mutex
     The mutex to await. On return the current thread owns it.

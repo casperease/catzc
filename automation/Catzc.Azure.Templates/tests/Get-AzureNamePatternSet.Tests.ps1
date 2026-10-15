@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-AzureNamePatternSet.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AzureNamePatternSet' -Tag 'L0', 'logic' {
     It 'defines the four patterns: long, kv, storage, vm' {
         $p = Get-AzureNamePatternSet

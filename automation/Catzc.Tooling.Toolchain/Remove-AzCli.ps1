@@ -20,11 +20,6 @@ catzc:
     Destructively evicts an off-config Azure CLI so the managed (uv-venv) build can win.
 .DESCRIPTION
     Without -Force the plan is only reported and nothing changes; it is usually reached through Uninstall-AzCli -Remove.
-    [ADR-AUTO-REMOVE](/docs/adr/automation/tool-removal-lifecycle.md),
-    [ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3),
-    [ADR-AUTO-REMOVE#4](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove4),
-    [ADR-AUTO-REMOVE#5](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove5),
-    [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md#comment1)
 .PARAMETER InstallDir
     Path to the Azure CLI installation folder. Auto-detected from PATH if omitted.
@@ -47,14 +42,12 @@ function Remove-AzCli {
     $config = Get-ToolConfig -Tool 'az_cli'
 
     # Removal never touches a managed install: only Uninstall-AzCli deletes what the tooling owns.
-    # [ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)
     # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md#comment2)
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Azure CLI is managed by the tooling system. Use Uninstall-AzCli instead.'
     }
 
     # Elevation is scoped to the placing mechanism, so unlike the Windows folder delete there is no admin assert here.
-    # [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
     # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Remove-AzCli.ps1.md#comment3)
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {

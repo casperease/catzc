@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Install-Postman.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Install-Postman' -Tag 'L0', 'logic' {
     # Like Install-Git, the actual install is a live download (dl.pstmn.io) best proven by an L2/manual run.
     # These L0 tests cover the hermetic idempotent-skip decision on every platform, with all download/CLI

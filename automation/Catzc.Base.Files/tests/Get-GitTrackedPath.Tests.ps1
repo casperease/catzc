@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/tests/Get-GitTrackedPath.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-GitTrackedPath' -Tag 'L0', 'logic' {
     BeforeAll {
         # A minimal version-2 index of stage-0 regular files — the reader's own shapes are pinned in

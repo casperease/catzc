@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/New-TestAutomationShardScript.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'New-TestAutomationShardScript' {
     Context 'script generation' -Tag 'L0', 'logic' {
         BeforeAll {

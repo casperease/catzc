@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Test-ToolHomeProbe.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-ToolHomeProbe' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:toolHome = Join-Path $TestDrive ([Guid]::NewGuid())

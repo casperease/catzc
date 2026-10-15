@@ -19,8 +19,6 @@ catzc:
     Evicts an off-config .NET install — one the tooling's managed user-space install does not own.
 .DESCRIPTION
     Managed is judged for the target folder, not PATH: in a catzc session PATH always leads to the managed install.
-    [ADR-AUTO-REMOVE](/docs/adr/automation/tool-removal-lifecycle.md),
-    [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
     [comment:1](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment1)
 .PARAMETER InstallDir
     Defaults to the dotnet on PATH, or the machine-wide Program Files folder when PATH leads to the managed install.
@@ -44,7 +42,6 @@ function Remove-Dotnet {
     $config = Get-ToolConfig -Tool 'dotnet'
 
     # The off-config install here is the one on PATH, so the managed check asks about PATH.
-    # [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
     # [comment:3](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment3)
     if ($IsLinux -or $IsMacOS) {
         if (Test-ExpectedPackageManager -Config $config) {
@@ -69,14 +66,12 @@ function Remove-Dotnet {
     $resolvedDir = [System.IO.Path]::GetFullPath($InstallDir).TrimEnd('\', '/')
 
     # Judged for this folder, since PATH always leads to the managed install and would refuse every stray one.
-    # [ADR-AUTO-REMOVE#3](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove3)
     # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment4)
     if (Test-ExpectedPackageManager -Config $config -Path $resolvedDir) {
         throw "'$resolvedDir' is the managed .NET install. Use Uninstall-Dotnet instead."
     }
 
     # Checked before the folder itself, so registrations whose files are already gone are still reported.
-    # [ADR-AUTO-REMOVE#7](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove7)
     # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment5)
     $machineFolders = @('C:\Program Files\dotnet', 'C:\Program Files (x86)\dotnet')
     # Assigned in the branch: an `if` expression would turn an empty @() into $null.
@@ -113,7 +108,6 @@ function Remove-Dotnet {
     }
 
     # Asserted after the preview and registered-product exits, so a dry run never needs an elevated shell.
-    # [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
     # [comment:7](/docs/references/automation/catzc-tooling-toolchain/Remove-Dotnet.ps1.md#comment7)
     Assert-IsAdministrator
     Write-Message "Removing: $resolvedDir"

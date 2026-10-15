@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/ConvertTo-ModuleDependencyDiagram.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ConvertTo-ModuleDependencyDiagram' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:edges = @(

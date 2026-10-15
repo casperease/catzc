@@ -11,7 +11,6 @@ catzc:
 */
 
 // The engine never writes: a null text means nothing changes, and the caller decides whether to touch file or page.
-// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentFileResult.cs.md#comment1)
 
 using System;

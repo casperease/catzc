@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Set-CSharpFileScopedNamespace.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore nnamespace npublic nusing
 # Set-CSharpFileScopedNamespace is private (non-exported), so it is invoked via InModuleScope.
 Describe 'Set-CSharpFileScopedNamespace' -Tag 'L0', 'logic' {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'CliRunner.ExecutableName' -Tag 'L0', 'logic' {
     # The name a command's time limit is looked up by (Get-TimeoutSeconds -Executable), so a wrong parse gives the
     # command another executable's limit. Fixture tokens are neutral

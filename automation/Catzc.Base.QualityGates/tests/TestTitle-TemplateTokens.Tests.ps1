@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1
+    kind: test
+---
+#>
+
 # Poka-yoke backstop: no <token>-shaped text in a non-data-driven test title, over the real tree through its quality
 # gate (Test-TestTitles — [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)).
 #

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Assert-BicepTemplate.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore brkn
 Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
     BeforeAll {

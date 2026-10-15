@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Read-BicepTemplateOptions.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore ndeployment nresource nsubscription toolong
 Describe 'Read-BicepTemplateOptions' -Tag 'L0', 'logic' {
     BeforeAll {

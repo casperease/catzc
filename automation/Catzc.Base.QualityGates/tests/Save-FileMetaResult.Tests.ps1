@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Save-FileMetaResult.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Save-FileMetaResult' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'save-repository'

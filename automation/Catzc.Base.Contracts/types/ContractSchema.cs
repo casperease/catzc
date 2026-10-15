@@ -12,8 +12,6 @@ catzc:
 */
 
 // The BCL has no JSON Schema validator and no package may be added, so this is a bounded subset; any other keyword is a finding.
-// [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6),
-// [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)
 // [comment:1](/docs/references/automation/catzc-base-contracts/types/ContractSchema.cs.md#comment1)
 
 using System;

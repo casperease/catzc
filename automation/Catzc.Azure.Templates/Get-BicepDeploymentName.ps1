@@ -58,7 +58,6 @@ function Get-BicepDeploymentName {
 
     if (Test-IsRunningInPipeline) {
         # Only run-id and commit vars are read; TF_BUILD and GITHUB_ACTIONS are detection vars, off limits here.
-        # [ADR-FLOW-CD-DETECT#1](/docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1)
         # [comment:3](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentName.ps1.md#comment3)
         if ($env:GITHUB_RUN_ID) {
             Assert-NotNullOrWhitespace $env:GITHUB_SHA

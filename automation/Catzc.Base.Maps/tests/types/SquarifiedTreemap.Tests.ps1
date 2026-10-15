@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/types/SquarifiedTreemap.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'SquarifiedTreemap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:keys = @('widget-a', 'widget-b', 'gadget-c', 'gadget-d', 'widget-e', 'gadget-f', 'widget-g', 'gadget-h', 'widget-i')

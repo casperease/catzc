@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps.BuildValidation/tests/Unregister-AdoBuildValidation.Tests.ps1
+    kind: test
+---
+#>
+
 # Removal by the globset tie (the native path-filter projection): deletes the matched policy, no-ops when
 # absent ([ADR-AUTO-IDEM#2](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem2)), and -DryRun
 # returns the plan ([ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)).

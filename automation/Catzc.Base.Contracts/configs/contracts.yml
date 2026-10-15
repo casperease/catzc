@@ -1,17 +1,18 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Contracts/configs/contracts.yml
+#     kind: config
+# ---
+
 # Every key is optional: an omitted key takes the default declared once in ContractsConfig.
-# [ADR-REPO-CONTRACT](/docs/adr/repository/api-contracts.md),
-# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
-# [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)
 # [comment:1](/docs/references/automation/catzc-base-contracts/configs/contracts.yml.md#comment1)
 
 # Only full-path is built: selecting manifest-glob or per-folder throws NotImplemented, as a mode needs proof from every engine.
-# [ADR-REPO-CONTRACT#8](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract8)
 # [comment:2](/docs/references/automation/catzc-base-contracts/configs/contracts.yml.md#comment2)
 addressing: full-path
 
 # A dot-prefixed root is named here because contracts/ holds no dot-prefixed folder; an unnamed module takes the repository root.
-# [ADR-REPO-CONTRACT#2](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract2),
-# [ADR-REPO-CONTRACT#10](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract10)
 # [comment:3](/docs/references/automation/catzc-base-contracts/configs/contracts.yml.md#comment3)
 target_roots:
   Catzc.Tooling.Github: .github

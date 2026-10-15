@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:markdownlintExit = 0

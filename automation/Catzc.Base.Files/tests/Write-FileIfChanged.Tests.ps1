@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/tests/Write-FileIfChanged.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore nbeta  -- the escape-sequence artifact in the "alpha`nbeta" fixture strings
 Describe 'Write-FileIfChanged' -Tag 'L0', 'logic' {
     BeforeEach {

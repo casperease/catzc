@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Timeouts/configs/timeout-exemptions.yml
+#     kind: config
+# ---
+
 # An exemption never removes the limit: an exempt budget runs up to its scope's ceiling, only while the work is tuned.
 # [comment:1](/docs/references/automation/catzc-base-timeouts/configs/timeout-exemptions.yml.md#comment1)
 

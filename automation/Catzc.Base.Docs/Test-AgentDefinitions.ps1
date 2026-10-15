@@ -21,12 +21,6 @@ catzc:
     Quality gate: the sub-agent definitions, their registry (agents.yml), and the .claude/CLAUDE.md list agree.
 .DESCRIPTION
     AgentsConfig already rules on spelling and distinct names, so this gate checks only agreement across the files.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-REPO-AGENTS](/docs/adr/repository/agent-definitions.md),
-    [ADR-REPO-AGENTS#1](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents1),
-    [ADR-REPO-AGENTS#2](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents2),
-    [ADR-REPO-AGENTS#3](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents3),
-    [ADR-REPO-AGENTS#4](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents4)
     [comment:1](/docs/references/automation/catzc-base-docs/Test-AgentDefinitions.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-agent-definitions/ (Write-QualityGateReport).

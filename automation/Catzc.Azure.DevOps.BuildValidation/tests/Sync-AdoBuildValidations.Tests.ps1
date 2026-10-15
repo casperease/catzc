@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps.BuildValidation/tests/Sync-AdoBuildValidations.Tests.ps1
+    kind: test
+---
+#>
+
 # The config-driven reconcile: one Register-AdoBuildValidation per build-validation.yml entry, with
 # overrides and -DryRun passed through.
 Describe 'Sync-AdoBuildValidations' -Tag 'L0', 'logic' {

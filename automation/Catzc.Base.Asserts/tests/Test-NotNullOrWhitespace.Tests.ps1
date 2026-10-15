@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Test-NotNullOrWhitespace.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-NotNullOrWhitespace' -Tag 'L0', 'logic' {
     It 'returns $true for non-empty string' {
         Test-NotNullOrWhitespace 'hello' | Should -BeTrue

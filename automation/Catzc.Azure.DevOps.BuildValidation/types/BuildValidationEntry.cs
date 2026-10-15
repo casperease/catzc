@@ -13,9 +13,6 @@ catzc:
 */
 
 // Globset existence is not checked here, so loading the config stays hermetic; runtime and an integrity test enforce it.
-// [ADR-FLOW-CD-TYPE#4](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type4),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)
 // [comment:1](/docs/references/automation/catzc-azure-devops-buildvalidation/types/BuildValidationEntry.cs.md#comment1)
 
 using System;

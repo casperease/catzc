@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Python/tests/Invoke-Python.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-Python' -Tag 'L0', 'logic' {
     It 'builds correct command via -DryRun' {
         Invoke-Python '-c "print(42)"' -DryRun | Should -Be 'python -c "print(42)"'

@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Config/configs/configs.yml
+#     kind: config
+# ---
+
 # The registry validates itself: the configs entry is checked by the C# type below, built on load by Get-ConfigRegistry.
-# [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
 # [comment:1](/docs/references/automation/catzc-base-config/configs/configs.yml.md#comment1)
 configs:
   configs:

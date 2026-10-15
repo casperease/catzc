@@ -11,7 +11,6 @@ catzc:
 */
 
 // Identity is artifact-relative because ADO strips the out/template/ prefix on publish, so only the artifact root survives.
-// [ADR-AUTO-PATH#10](/docs/adr/automation/path-representation.md#rule-adr-auto-path10)
 // [comment:1](/docs/references/automation/catzc-base-objects/types/ArtifactRef.cs.md#comment1)
 
 using System;

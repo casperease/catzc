@@ -17,7 +17,6 @@ catzc:
     Resolves the readme config into the concrete folder -> source README copy-in list Build-Readme generates.
 .DESCRIPTION
     A folder with no source file is skipped, so the importer's Build-Readme never throws on a missing article.
-    [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-ReadmeMappings.ps1.md#comment1)
 .PARAMETER Config
     The parsed readme config (Get-Config -Config readme): a `{ patterns; mappings }` object.
@@ -60,7 +59,6 @@ function Get-ReadmeMappings {
         }
 
         # Sorted .NET enumeration, since Get-ChildItem carries about 20ms of provider overhead per call.
-        # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
         # [comment:2](/docs/references/automation/catzc-base-docs/private/Get-ReadmeMappings.ps1.md#comment2)
         foreach ($dir in ([System.IO.Directory]::EnumerateDirectories($prefixPath) | Sort-Object)) {
             $leaf = [System.IO.Path]::GetFileName($dir)

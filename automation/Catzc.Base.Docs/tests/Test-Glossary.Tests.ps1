@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-Glossary orchestrates the six checks; here every check and the glossary readers are mocked, so the tests pin
 # the order, the report, the PassThru shape, and the single aggregate throw
 # ([ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)). The checks

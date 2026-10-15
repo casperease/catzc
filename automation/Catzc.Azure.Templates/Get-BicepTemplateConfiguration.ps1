@@ -16,7 +16,6 @@ catzc:
     Loads a template's per-slot config and returns the ordered dictionary.
 .DESCRIPTION
     No merge with global config happens here; the PrePost prepare hook is the merge seam.
-    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md#comment1)
 .PARAMETER Template
     Template name (folder under infrastructure/templates/).

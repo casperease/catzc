@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore sampl deriv
 Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
     # Read-only discovery tests: boundary mocks + config-cache reset run ONCE, not per test. Discovery

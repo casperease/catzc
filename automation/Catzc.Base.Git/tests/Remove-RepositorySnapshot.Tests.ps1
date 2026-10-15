@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/tests/Remove-RepositorySnapshot.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Remove-RepositorySnapshot' -Tag 'L0', 'logic' {
     It 'refuses a folder that carries no snapshot marker and leaves it in place' {
         $folder = Join-Path $TestDrive 'not-a-snapshot'

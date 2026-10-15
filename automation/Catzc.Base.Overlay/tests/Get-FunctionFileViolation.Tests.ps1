@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Overlay/tests/Get-FunctionFileViolation.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-FunctionFileViolation' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:check = {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/tests/Invoke-GitCommit.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-GitCommit' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Invoke-Executable {

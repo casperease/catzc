@@ -15,10 +15,6 @@ catzc:
 */
 
 // The engine only reads: each changed file's new text rides in the result, and findings keep line numbers of the original text.
-// [ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8),
-// [ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1),
-// [ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6),
-// [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinkEngine.cs.md#comment1)
 
 using System;

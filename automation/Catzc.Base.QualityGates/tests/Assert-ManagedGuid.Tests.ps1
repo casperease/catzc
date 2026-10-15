@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Assert-ManagedGuid.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-ManagedGuid' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Vendor/tests/types/VendorConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'VendorConfig' -Tag 'L0' {
 
     Context 'integrity (shipped vendor.yml)' -Tag 'integrity' {

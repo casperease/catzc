@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Test-ExpectedPackageManager.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-ExpectedPackageManager — script-installed tools' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#3' {
     BeforeEach {
         $script:managedDir = Join-Path $TestDrive 'widget-managed'

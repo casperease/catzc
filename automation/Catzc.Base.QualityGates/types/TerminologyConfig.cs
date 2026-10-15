@@ -13,9 +13,6 @@ catzc:
 */
 
 // A category with no scope is global; a scoped one is zone-bound, and cspell enforces that its terms stay under the scope.
-// [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
-// [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5),
-// [ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/TerminologyConfig.cs.md#comment1)
 
 using System;

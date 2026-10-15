@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/tests/types/BashSafeguard.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore tmain tforeground tbackground tsleep tsubagent tpipeline  -- "`t" escape artifacts in the tab-separated log lines
 Describe 'BashSafeguard' -Tag 'L0', 'logic' {
     BeforeAll {

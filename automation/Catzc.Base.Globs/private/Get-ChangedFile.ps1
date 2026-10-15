@@ -17,7 +17,6 @@ catzc:
     universe.
 .DESCRIPTION
     Renames are split into delete plus add so a file moving into or out of a globset re-triggers it.
-    [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
     [comment:1](/docs/references/automation/catzc-base-globs/private/Get-ChangedFile.ps1.md#comment1)
 .PARAMETER Range
     A range reaching a commit missing from a shallow clone fails in git, so a pipeline must fetch full depth.

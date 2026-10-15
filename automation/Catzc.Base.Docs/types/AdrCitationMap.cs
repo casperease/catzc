@@ -13,7 +13,6 @@ catzc:
 */
 
 // The code is the source of truth for every link destination, so a moved ADR re-points every link to it.
-// [ADR-REPO-LINK#3](/docs/adr/repository/markdown-links.md#rule-adr-repo-link3)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md#comment1)
 
 using System;
@@ -67,7 +66,6 @@ public sealed class AdrCitationMap
             rulesByCode[code] = rules;
 
             // Every hyphen-prefix of a code names its domain, so a domain code or wildcard is a valid mention, not an unknown ADR.
-            // ADR-AUTO, [ADR-PWSH-ERROR](/docs/adr/pwsh/error-handling.md)
             // [comment:3](/docs/references/automation/catzc-base-docs/types/AdrCitationMap.cs.md#comment3)
             int dash = code.IndexOf('-', 4);
             while (dash > 0)

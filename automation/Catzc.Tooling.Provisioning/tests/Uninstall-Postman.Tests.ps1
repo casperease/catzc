@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-Postman.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Uninstall-Postman' -Tag 'L0', 'logic' {
     # All filesystem/CLI boundaries are mocked: nothing is removed for real and no process launches (the L0
     # tripwire throws on a real Invoke-Executable). Platform branches self-skip off-platform.

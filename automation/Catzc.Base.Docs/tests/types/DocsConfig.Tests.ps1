@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/types/DocsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # Validates the compiled DocsConfig / DocMapping / DocPattern types directly — the constructor is the gate
 # that stops a malformed or duplicated readme.yml registry from ever producing an instance.
 Describe 'DocsConfig' -Tag 'L0', 'logic' {

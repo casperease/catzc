@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-FormatScope.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-FormatScope with git mocked: the tracked files (Get-GitTrackedPath) and the .gitattributes classes
 # (Get-GitAttributeValue). Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-FormatScope' -Tag 'L0', 'logic' {

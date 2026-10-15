@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationTestFiles.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TestAutomationTestFiles' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:widget = Join-Path $TestDrive 'widget/tests'

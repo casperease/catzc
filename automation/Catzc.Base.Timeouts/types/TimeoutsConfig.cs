@@ -13,8 +13,6 @@ catzc:
 */
 
 // The hook compiles this same file, so the Bash hook and the pwsh side share one parser and one set of defaults.
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 // [comment:1](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment1)
 
 using System;
@@ -43,7 +41,6 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     private const int TestRunDefaultSeconds = 180;
     private static readonly string[] Environments = { "devbox", "pipeline" };
     // Taken from the engine model, so a new execution engine needs no edit here to get a limit key.
-    // [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
     // [comment:3](/docs/references/automation/catzc-base-timeouts/types/TimeoutsConfig.cs.md#comment3)
     private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
     private static readonly string[] BashKeys = { "foreground", "background" };

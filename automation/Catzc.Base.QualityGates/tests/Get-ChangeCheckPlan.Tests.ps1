@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-ChangeCheckPlan.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-ChangeCheckPlan over fixture files, with the file-language registry mocked to fixture languages. Neutral fixture
 # names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-ChangeCheckPlan' -Tag 'L0', 'logic' {

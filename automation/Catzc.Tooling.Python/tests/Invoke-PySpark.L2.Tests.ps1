@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Python/tests/Invoke-PySpark.L2.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-PySpark' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:available = Test-Tool 'py_spark'

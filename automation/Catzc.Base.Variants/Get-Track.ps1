@@ -19,10 +19,6 @@ catzc:
     Returns the repository's tracks — all of them, the named ones, or the track that owns a path.
 .DESCRIPTION
     -Path matches the first path segment to a root; root files, out/ and undeclared folders return nothing.
-    [ADR-DSGN-TRACK](/docs/adr/design/tracks.md),
-    [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1),
-    [ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2),
-    [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6)
     [comment:1](/docs/references/automation/catzc-base-variants/Get-Track.ps1.md#comment1)
 .PARAMETER Name
     The track name(s) to return. An unknown name throws, naming the config file.

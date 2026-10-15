@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-LiveIdentityTokens.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:run = { & (Get-Module Catzc.Base.QualityGates) { Get-LiveIdentityTokens } }

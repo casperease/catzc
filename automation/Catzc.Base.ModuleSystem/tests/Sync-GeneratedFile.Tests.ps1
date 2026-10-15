@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
     BeforeEach {
         # Source mode unless a test flips it, so the cases run the same in the source and build runs.

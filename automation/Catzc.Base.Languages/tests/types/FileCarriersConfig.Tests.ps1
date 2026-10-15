@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'FileCarriersConfig' -Tag 'L0' {
     BeforeAll {
         $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Languages.FileCarriersConfig]::new($raw) }

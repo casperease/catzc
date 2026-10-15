@@ -16,7 +16,6 @@ catzc:
     Returns the full path of an execution engine's executable on this machine.
 .DESCRIPTION
     The pwsh engine is the running PowerShell's own, never another pwsh that comes first on PATH.
-    [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)
     [comment:1](/docs/references/automation/catzc-base-execution/Resolve-EngineExecutable.ps1.md#comment1)
 .PARAMETER Engine
     The engine's name (pwsh, bash or zsh).

@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Tooling.KeyHandler/configs/key-handler-supported.yml
+#     kind: config
+# ---
+
 # Allow-list: a Windows-only function absent here is skipped on import rather than throwing.
 # [comment:1](/docs/references/automation/catzc-tooling-keyhandler/configs/key-handler-supported.yml.md#comment1)
 # cspell:ignore begining

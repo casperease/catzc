@@ -19,9 +19,6 @@ catzc:
     Formats the repository's files, each with the formatter engine languages.yml names for its file language.
 .DESCRIPTION
     Adding a language on an existing engine is one line in languages.yml; a new engine is one adapter.
-    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md),
-    [ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md),
-    [ADR-REPO-FORMAT#4](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format4)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment1)
 .PARAMETER Language
     Defaults to every language with a formatter; an undeclared or formatter-less language throws.
@@ -124,7 +121,6 @@ function Format-Code {
         $pending = @($split.Pending)
 
         # The engine is silent for seconds on a whole-repository pass, hence this line before it starts.
-        # [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)
         # [comment:3](/docs/references/automation/catzc-base-qualitygates/Format-Code.ps1.md#comment3)
         Write-Message "$verb $($pending.Count) $(@($engineGroup.Group | ForEach-Object name) -join ', ') file(s) with $engine ($($split.CachedCount) unchanged since their last check)..."
         $changed = @(Invoke-FormatterEngine -Engine $engine -File $pending -DryRun:$DryRun | ForEach-Object { $_ })

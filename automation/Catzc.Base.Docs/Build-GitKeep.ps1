@@ -19,11 +19,9 @@ catzc:
     are generated, README-backed" contract.
 .DESCRIPTION
     A new .gitkeep demands a reference article: its pointer to README.md is true only for readme-mapped folders.
-    [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md#comment1)
 .PARAMETER DryRun
     The same walk and compare run as a real run, so the report lists exactly the files a real run would rewrite.
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:2](/docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md#comment2)
 .PARAMETER Silent
     Silent wins over -Verbose: the status lines stay hidden even when verbose output is switched on.
@@ -58,7 +56,6 @@ function Build-GitKeep {
     $repositoryRoot = Get-RepositoryRoot
 
     # The out/ root is checked but never descended into: its artifacts may carry fixture copies of .gitkeep.
-    # [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
     # [comment:4](/docs/references/automation/catzc-base-docs/Build-GitKeep.ps1.md#comment4)
     $outputRoot = [System.IO.Path]::Combine($repositoryRoot, 'out')
     $found = [System.Collections.Generic.List[string]]::new()

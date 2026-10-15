@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: infrastructure/templates/foundation/configuration/flux/nsub.yml
+#     kind: template-config
+# ---
+
 # foundation, flux nonprod subscription (env nsub, customer flux). flux is dev-only -> nonprod only.
 ParametersFile:
   parameters:

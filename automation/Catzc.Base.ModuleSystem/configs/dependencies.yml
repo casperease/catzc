@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.ModuleSystem/configs/dependencies.yml
+#     kind: config
+# ---
+
 # A module not listed under modules is unconstrained, and a group target permits an edge to any member of that group.
 # [comment:1](/docs/references/automation/catzc-base-modulesystem/configs/dependencies.yml.md#comment1)
 

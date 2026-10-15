@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Get-EngineCaseTable.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-EngineCaseTable' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:table = Join-Path $TestDrive 'widget-cases.yml'

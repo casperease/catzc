@@ -17,8 +17,6 @@ catzc:
     Quality gate: every generated README is gitignored, untracked, and current with its source.
 .DESCRIPTION
     The ignore check uses git check-ignore --no-index, so a wrongly tracked README is judged on the rules alone.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Test-GeneratedReadmes.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-generated-readmes/ (Write-QualityGateReport).

@@ -61,7 +61,6 @@ function Invoke-RootConfigGenerator {
                     $entry.target
                 })
             # On Windows a machine-wide Go precedes the managed one on PATH, so the pin is set explicitly.
-            # [ADR-AUTO-GO#6](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go6)
             # [comment:5](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment5)
             $machineSetting = @{}
             $go = Resolve-ToolExecutable -Tool go
@@ -69,7 +68,6 @@ function Invoke-RootConfigGenerator {
                 $machineSetting['go.goroot'] = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($go.Path))
             }
             # The Python extension resolves test imports in this one environment, whose path differs per platform.
-            # [ADR-AUTO-PY#4](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py4)
             # [comment:6](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment6)
             $pythonRoot = (Get-Config -Config python).ResolveRoot((Get-RepositoryRoot))
             $machineSetting['python.defaultInterpreterPath'] = if ($IsWindows) {
@@ -79,7 +77,6 @@ function Invoke-RootConfigGenerator {
                 "`${workspaceFolder}/$pythonRoot/.venv/bin/python"
             }
             # Format Document runs the same engine as Format-Code, so the editor and the gate never disagree.
-            # [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)
             # [comment:7](/docs/references/automation/catzc-base-rootconfig/private/Invoke-RootConfigGenerator.ps1.md#comment7)
             $languageFormatter = [ordered]@{}
             $editorFormatters = (Get-Config -Config languages).EditorFormatters()

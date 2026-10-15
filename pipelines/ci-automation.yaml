@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: pipelines/ci-automation.yaml
+#     kind: other
+# ---
+
 # Fires exactly, and only, when the module system changes: the track is its own root folder, with no committed marker to go stale.
 # [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
 # [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1) [comment:1](/docs/references/pipelines/ci-automation.yaml.md#comment1)

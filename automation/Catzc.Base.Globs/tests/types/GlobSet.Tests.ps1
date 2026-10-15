@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
+    kind: test
+---
+#>
+
 # The globset record: membership is decided by the scan program — an ordered +/- rule list, last-match-wins
 # ([ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)), flattened through compose with
 # own-rules-last

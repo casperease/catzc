@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Install-BicepStandalone.Tests.ps1
+    kind: test
+---
+#>
+
 # Install-BicepStandalone (the Linux path of Install-Bicep) with its seams mocked
 # ([ADR-AUTO-TEST#6](/docs/adr/automation/test-automation.md#rule-adr-auto-test6)): the GitHub releases API
 # (Invoke-RestMethod), the verified download (Save-VerifiedDownload, which writes the file), and chmod

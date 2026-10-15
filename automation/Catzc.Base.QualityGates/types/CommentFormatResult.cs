@@ -11,7 +11,6 @@ catzc:
 */
 
 // A null text means nothing changes, and findings include the unfixed ones, so the caller sees what was left.
-// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentFormatResult.cs.md#comment1)
 
 using System;

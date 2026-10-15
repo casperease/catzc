@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/Test-AnalyzedFileIsTest.ps1
+    kind: other
+---
+#>
+
 function Test-AnalyzedFileIsTest {
     <#
     .SYNOPSIS

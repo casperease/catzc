@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.ModuleSystem/configs/artifacts.yml
+#     kind: config
+# ---
+
 # Inert config surface: nothing reads these keys yet, as the CI publish step and the BVT promotion are still to come.
-# [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md)
 # [comment:1](/docs/references/automation/catzc-base-modulesystem/configs/artifacts.yml.md#comment1)
 ado: { enabled: false, organization: "", project: "", feed: "" }
 github: { enabled: false, owner: "", repository: "", feed: "" }

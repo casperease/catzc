@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Invoke-PythonWorkspaceTool.Tests.ps1
+    kind: test
+---
+#>
+
 # Invoke-PythonWorkspaceTool with uv mocked (Resolve-ToolExecutable, Invoke-Executable) over a fixture workspace in
 # $TestDrive. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Invoke-PythonWorkspaceTool' -Tag 'L0', 'logic' {

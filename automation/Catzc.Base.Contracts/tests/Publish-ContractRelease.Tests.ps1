@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/Publish-ContractRelease.Tests.ps1
+    kind: test
+---
+#>
+
 # Publish-ContractRelease freezes a unit's draft as a released version folder
 # ([ADR-REPO-CONTRACT#5](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract5)): an exact copy plus its .frozen
 # record, refusing the draft itself, the devbox build version, and a folder that exists. Fixtures are a widget

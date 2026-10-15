@@ -16,7 +16,6 @@ catzc:
     Builds a config / resource-group identity name from an (environment, slot) pair.
 .DESCRIPTION
     The name is 1:1 with the resource group and also names the config file and the build parameters artifact.
-    [ADR-AZ-DATAMOD#2](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod2)
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepConfigName.ps1.md#comment1)
 .PARAMETER Environment
     Environment name (a key in azure.yml's environments map).

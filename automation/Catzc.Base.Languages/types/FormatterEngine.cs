@@ -12,8 +12,6 @@ catzc:
 */
 
 // The settings files are listed so Format-Code's result cache is invalidated when one of them changes the engine's output.
-// [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-languages/types/FormatterEngine.cs.md#comment1)
 
 using System;

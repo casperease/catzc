@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/tests/Get-EnabledCustomers.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-EnabledCustomers' -Tag 'L0', 'logic' {
 
     It 'returns an empty set when have_customers is false' {

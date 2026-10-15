@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/tests/Test-AdoNaming.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-AdoNaming' -Tag 'L0', 'logic' {
 
     It 'returns true for -Standard when the repo is standard' {

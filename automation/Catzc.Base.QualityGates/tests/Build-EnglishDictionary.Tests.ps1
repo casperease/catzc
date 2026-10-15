@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Build-EnglishDictionary.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Build-EnglishDictionary' -Tag 'L0', 'logic' {
     It 'refuses to run outside the source tree before touching node (Assert-SourceTree)' {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { throw 'operates on the catzc source tree' }

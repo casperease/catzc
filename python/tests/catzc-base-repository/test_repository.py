@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: python/tests/catzc-base-repository/test_repository.py
+#     kind: test
+# ---
+
 """Black-box tests of Catzc.Base.Repository.
 
 Each test starts the engine as its own process the way the run's engine contract says — CATZC_ENGINE_EXECUTABLE, with

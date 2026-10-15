@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyEdges.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ModuleDependencyEdges' -Tag 'L0', 'logic' {
     It 'returns typed actual edges from Get-ModuleDependency' {
         Mock Get-ModuleDependency {

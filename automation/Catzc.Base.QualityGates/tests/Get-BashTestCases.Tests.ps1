@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-BashTestCases.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-BashTestCases over fixture .bats files in $TestDrive: the @test declarations of every .bats file, with the file
 # path bats reports as their package. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

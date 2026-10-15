@@ -16,7 +16,6 @@ catzc:
     Composes the immutable deployment-context object Deploy-Bicep operates on.
 .DESCRIPTION
     A DoNotRun template returns null, the signal to skip, unless -OverrideDoNotRunAndRun is set.
-    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md#comment1)
 .PARAMETER Environment
     Environment shortname (must be in azure.yml and in the template's environment list).

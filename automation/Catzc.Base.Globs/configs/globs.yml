@@ -1,14 +1,15 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Globs/configs/globs.yml
+#     kind: config
+# ---
+
 # Nothing is committed per set: each set projects to native path filters and a git-reflected blast radius at run time.
-# [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
-# [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),
-# [ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7),
-# [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10),
-# [ADR-FLOW-CD-GLOBS#8](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs8)
 # [comment:1](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment1)
 
 globsets:
   # A loose-fileset that overlaps the derived module sets it spans, which that layer exempts by design.
-  # [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)
   # [comment:2](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment2)
   automation:
     description: The automation track - the automation module system under automation/.
@@ -41,7 +42,6 @@ globsets:
       - infrastructure/templates/*/configuration/*/**
 
   # Binds no pipeline: it ships only through a unit that composes it, and a change here re-keys every such unit.
-  # [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)
   # [comment:5](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment5)
   template-azure-subscription-foundation:
     description: Deployable unit - the foundation infrastructure template plus the shared Bicep modules. Not including any configs!
@@ -57,7 +57,6 @@ globsets:
       - infrastructure/templates/foundation/configuration/*/**
 
   # Binds no pipeline, and leaves the shared Bicep modules to the foundation base it composes: a unit owns only its files.
-  # [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)
   # [comment:6](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment6)
   template-azure-subscription-discovery:
     description: Deployable unit - the discovery landing-zone template plus the foundation base it builds on. Not including any configs!
@@ -88,7 +87,6 @@ globsets:
       - infrastructure/templates/expedition/configuration/*/**
 
   # The folder name is the customer key, so adding a customer is adding an entry here: config, never code.
-  # [ADR-DSGN-TRACK#5](/docs/adr/design/tracks.md#rule-adr-dsgn-track5)
   # [comment:8](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment8)
   nova:
     description: Deployable unit - customer nova's foundation (shared surface + the nova configuration folder).
@@ -145,7 +143,6 @@ globsets:
       - automation/.vendor/**
 
   # A covering superset is safe: it can only cause a redundant run, never a wrong skip, so scans whose reads span the repo use it.
-  # [ADR-REPO-PROTGLOB#6](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob6)
   # [comment:11](/docs/references/automation/catzc-base-globs/configs/globs.yml.md#comment11)
   repository:
     description: The whole repository - every tracked file under every named root.

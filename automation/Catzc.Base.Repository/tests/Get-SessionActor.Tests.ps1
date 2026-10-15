@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/tests/Get-SessionActor.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-SessionActor' -Tag 'L0', 'logic', 'ADR-AUTO-TYPES#13' {
     It 'is a person when neither a pipeline nor an agent is detected' {
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Base.Repository

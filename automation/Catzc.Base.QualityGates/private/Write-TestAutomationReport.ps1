@@ -32,7 +32,6 @@ catzc:
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment2)
 .PARAMETER RunBudgetSeconds
     Defaults to tests.run_seconds in timeouts.yml; a devbox run over it fails, and the header records the verdict.
-    [ADR-AUTO-TEST#44](/docs/adr/automation/test-automation.md#rule-adr-auto-test44)
     [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Write-TestAutomationReport.ps1.md#comment3)
 .PARAMETER SlowestCount
     How many slowest passed tests to list. Defaults to 20.

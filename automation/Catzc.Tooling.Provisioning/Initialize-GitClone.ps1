@@ -30,7 +30,6 @@ catzc:
     Initialize-GitClone ~/catzc -DryRun
 #>
 # The preview is a -DryRun switch that returns the git config commands, not ShouldProcess and -WhatIf.
-# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
 # [comment:3](/docs/references/automation/catzc-tooling-provisioning/Initialize-GitClone.ps1.md#comment3)
 function Initialize-GitClone {
     [CmdletBinding()]

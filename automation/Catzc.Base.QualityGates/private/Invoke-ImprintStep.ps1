@@ -17,8 +17,6 @@ catzc:
     Runs one imprint step over the given files and returns what it changed and what it cannot repair.
 .DESCRIPTION
     A language is never named here: which language runs which step is configuration, not code.
-    [ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2),
-    [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-ImprintStep.ps1.md#comment1)
 .PARAMETER Step
     The step name, as languages.yml spells it.

@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: ".claude/drawio/migrate_dark.py"
+#     kind: script
+# ---
+
 # cspell:ignore mxfile pnginfo IEND FAFAFA
 """Migrate a light-era slide to the dark tokens and re-render it, keeping the raster and the embedded model honest to each other.
 

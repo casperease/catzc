@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-GitHubWorkflowTriggerGlob is a quality gate
 # ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35), drift detection): a workflow's
 # actual paths vs the globset's ordered projection (GitHub paths are last-match-wins). Neutral fixtures (widget,

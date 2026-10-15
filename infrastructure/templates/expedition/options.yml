@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: infrastructure/templates/expedition/options.yml
+#     kind: other
+# ---
+
 # Standard environment kind: configs use dev, test, preprod and prod, and each config is slotted in its own resource group.
 # [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
 # [comment:1](/docs/references/infrastructure/templates/expedition/options.yml.md#comment1)

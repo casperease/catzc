@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore tpols
 # Test-ModuleDependency is a quality gate
 # ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): each L0 case runs it with

@@ -11,7 +11,6 @@ catzc:
 */
 
 // Pure and repository-relative, so the result never depends on OS or disk; code, URLs, anchors and rooted links stay as written.
-// [ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/MarkdownLinkRebaser.cs.md#comment1)
 
 using System;

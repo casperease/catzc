@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/tests/types/GitIgnoreSection.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'GitIgnoreSection' -Tag 'L0', 'logic' {
     It 'constructs a static section with mixed bare and noted patterns' {
         $s = [Catzc.Base.Git.GitIgnoreSection]::new(@{

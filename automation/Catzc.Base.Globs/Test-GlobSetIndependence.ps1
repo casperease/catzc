@@ -20,10 +20,6 @@ catzc:
     globsets select a common file on their OWN contribution.
 .DESCRIPTION
     Layers are checked one by one, never across: a unit contains the base it composes, so that overlap is expected.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7),
-    [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10),
-    [ADR-REPO-PROTGLOB#7](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob7)
     [comment:1](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-globset-independence).
@@ -46,7 +42,6 @@ function Test-GlobSetIndependence {
     )
 
     # Loose-filesets cut across other boundaries and overlap by design, so only they are exempt.
-    # [ADR-FLOW-CD-GLOBS#7](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs7)
     # [comment:2](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment2)
     $exemptLayer = 'loose-fileset'
 
@@ -54,7 +49,6 @@ function Test-GlobSetIndependence {
     $tracked = [string[]] @(Get-TrackedFile)
 
     # Compose is ignored here: a set that selects its base's files is a deliberate overlap, not a peer one.
-    # [ADR-FLOW-CD-GLOBS#10](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs10)
     # [comment:3](/docs/references/automation/catzc-base-globs/Test-GlobSetIndependence.ps1.md#comment3)
     $own = @{}
     foreach ($set in $sets) {

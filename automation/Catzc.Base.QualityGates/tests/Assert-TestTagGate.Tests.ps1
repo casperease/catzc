@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Assert-TestTagGate.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-TestTagGate' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#15' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }

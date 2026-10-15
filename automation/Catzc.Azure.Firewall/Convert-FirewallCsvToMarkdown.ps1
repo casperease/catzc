@@ -39,7 +39,7 @@ catzc:
 .PARAMETER CellListSeparator
     Separator joining multiple values within a cell. Default ', '.
 .PARAMETER GroupPriority
-    Rule collection group -> group priority (lower evaluated first). Not in the export, so supplied here, and a group not listed sorts last.
+    Rule collection group -> group priority (lower evaluated first).
     [comment:3](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment3)
 .PARAMETER DoNotCutIpgNames
     Keep full IP-group resource IDs instead of trimming to the simple name.
@@ -159,7 +159,6 @@ function Convert-FirewallCsvToMarkdown {
         }
 
         # Filled in the body, not as a default: in Object mode the value arrives from the pipeline after defaults run.
-        # [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)
         # [comment:4](/docs/references/automation/catzc-azure-firewall/Convert-FirewallCsvToMarkdown.ps1.md#comment4)
         if (-not $SourceName) {
             $SourceName = Split-Path -Path $CsvPath -Leaf

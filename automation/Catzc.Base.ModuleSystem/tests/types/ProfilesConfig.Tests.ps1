@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/types/ProfilesConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # The profiles.yml type: constructing it maps and validates the parsed YAML, so a malformed profile map never
 # loads through Get-Config -Config profiles.
 Describe 'Catzc.Base.ModuleSystem.ProfilesConfig' -Tag 'L0', 'logic' {

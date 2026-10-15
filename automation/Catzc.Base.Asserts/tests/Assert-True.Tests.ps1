@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Assert-True.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-True' -Tag 'L0', 'logic' {
     It 'passes when value is $true' {
         { Assert-True $true } | Should -Not -Throw

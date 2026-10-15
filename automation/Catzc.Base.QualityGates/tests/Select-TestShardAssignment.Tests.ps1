@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Select-TestShardAssignment.Tests.ps1
+    kind: test
+---
+#>
+
 # Longest-first scheduling of the parallel test files over the worker shards. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Select-TestShardAssignment' -Tag 'L0', 'logic' {

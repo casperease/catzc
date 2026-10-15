@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Assert-Tool.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-Tool' -Tag 'L0', 'logic' {
     # The probed branch: a tool with candidate paths is asserted from the probe record, never by its bare name on
     # PATH. The probe is mocked whole. Fixture tokens are neutral

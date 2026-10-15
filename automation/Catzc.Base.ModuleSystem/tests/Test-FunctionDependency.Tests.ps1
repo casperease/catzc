@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
+    kind: test
+---
+#>
+
 # The integrity invariant — the real repository's function dependency graph is satisfied — needs exactly one
 # scan of the real automation tree. The gate's uniform shape
 # ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)) is pure logic, so it is proven at

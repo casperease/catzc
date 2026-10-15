@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1
+    kind: test
+---
+#>
+
 # Build-Glossary renders the merged glossary into one markdown page. The logic tests mock the three inputs — the
 # glossary (real GlossaryEntry/GlossaryConcept/GlossaryOptions types), the ADR citation map (a real AdrCitationMap
 # over a fixture ADR), and the adrs.yml domains — and write into $TestDrive. Fixture terms and codes are neutral

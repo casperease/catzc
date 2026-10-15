@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/template/sample-with-prepost'

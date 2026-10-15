@@ -18,7 +18,6 @@ catzc:
     Records a green scan against its globset's identity, so an unchanged repeat run can be skipped.
 .DESCRIPTION
     Call it only after the scan passes, so a red scan is never cached away; in a pipeline it records nothing.
-    [ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)
     [comment:1](/docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md#comment1)
 .PARAMETER Test
     Part of the protection key, so each scan keeps its own record per scope and skips independently of the others.
@@ -28,7 +27,6 @@ catzc:
     [comment:3](/docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md#comment3)
 .PARAMETER Hash
     A pending pre-scan hash always wins over this, so the identity recorded is the one taken before the scan.
-    [ADR-REPO-PROTGLOB#4](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob4)
     [comment:4](/docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md#comment4)
 .EXAMPLE
     Test-Markdownlint
@@ -53,7 +51,6 @@ function Protect-GlobSet {
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:protectedGlobSets')) {
         # Probe through the session state: reading an unset script variable directly would throw under strict mode.
-        # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:5](/docs/references/automation/catzc-base-globs/Protect-GlobSet.ps1.md#comment5)
         $script:protectedGlobSets = @{}
         $script:pendingGlobProtections = @{}

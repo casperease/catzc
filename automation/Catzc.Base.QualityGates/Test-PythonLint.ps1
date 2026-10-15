@@ -16,7 +16,6 @@ catzc:
     Quality gate: lints every Python file the repository holds with ruff.
 .DESCRIPTION
     Covers the .py files no test run reads; the Python test bridge already runs the same check on a test folder.
-    [ADR-AUTO-PY#8](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py8)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-PythonLint.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to Write-QualityGateReport's (out/test-python-lint).

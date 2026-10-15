@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Get-ToolsStatus.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
     # The probed branch: a tool with candidate paths takes its location and version from the probe record
     # (Test-Tool -PassThru) and never starts a version job on its bare name. The probe, the package-manager oracle,

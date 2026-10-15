@@ -29,7 +29,6 @@ catzc:
     [comment:3](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment3)
 .PARAMETER Engine
     The tests are the same under either engine; only the environment contract they read changes.
-    [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)
     [comment:4](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment4)
 .PARAMETER EngineExecutable
     The engine's executable, already located by the caller. Default: located here by Resolve-EngineExecutable.
@@ -88,8 +87,6 @@ function Invoke-GoTest {
     $goCommand = "`"$goPath`""
 
     # GOTOOLCHAIN=local stops go.work's go directive from silently downloading a toolchain over the checked go.
-    # [ADR-AUTO-ENVVAR#1](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar1),
-    # [ADR-AUTO-GO#6](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go6)
     # [comment:6](/docs/references/automation/catzc-base-languages/Invoke-GoTest.ps1.md#comment6)
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['GOTOOLCHAIN'] = 'local'

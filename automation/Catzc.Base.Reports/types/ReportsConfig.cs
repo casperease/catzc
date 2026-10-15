@@ -12,8 +12,6 @@ catzc:
 */
 
 // Every key has a default, so an empty reports.yml is valid and the file overrides only what differs.
-// [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-reports/types/ReportsConfig.cs.md#comment1)
 using System;
 using System.Collections;

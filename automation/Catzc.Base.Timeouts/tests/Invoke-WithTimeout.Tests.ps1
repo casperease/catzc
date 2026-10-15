@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/tests/Invoke-WithTimeout.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-WithTimeout' -Tag 'L0', 'logic' {
     It "returns the block's output and sees the caller's variables" {
         $widget = 'widget'

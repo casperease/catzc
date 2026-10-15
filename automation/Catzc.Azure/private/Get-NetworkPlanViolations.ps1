@@ -18,9 +18,6 @@ catzc:
     Returns every way a network plan is out of sync with the azure config's environments and subscriptions.
 .DESCRIPTION
     Per-subscription environments (nsub, psub) are exempt because they carry no vnet, so they need no network entry.
-    [ADR-AZ-NETWORK#2](/docs/adr/azure/azure-network-model.md#rule-adr-az-network2),
-    [ADR-AZ-NETWORK#4](/docs/adr/azure/azure-network-model.md#rule-adr-az-network4),
-    [ADR-AZ-NETWORK#5](/docs/adr/azure/azure-network-model.md#rule-adr-az-network5)
     [comment:1](/docs/references/automation/catzc-azure/private/Get-NetworkPlanViolations.ps1.md#comment1)
 .PARAMETER Network
     The network plan (Get-Config -Config network).

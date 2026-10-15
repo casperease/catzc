@@ -17,7 +17,6 @@ catzc:
     manifest of the files Install-Zsh added.
 .DESCRIPTION
     One shared layout keeps Install-Zsh and Uninstall-Zsh on the same paths; the manifest dies with a replaced Git tree.
-    [ADR-AUTO-ENTERP#4](/docs/adr/automation/effective-in-enterprises.md#rule-adr-auto-enterp4)
     [comment:1](/docs/references/automation/catzc-tooling-provisioning/private/Get-ZshInstallLayout.ps1.md#comment1)
 .OUTPUTS
     [pscustomobject] { GitHome; Runtime; Executable; Manifest }

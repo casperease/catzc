@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Uninstall-DevBoxTools.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Uninstall-DevBoxTools' -Tag 'L0', 'logic' {
     # Pure orchestration: assert it delegates to the per-tool uninstallers. Get-ToolInstallOrder is mocked to a
     # small, realistic order — a single-word key (python) and a multi-word key (node_js) — and the real per-tool

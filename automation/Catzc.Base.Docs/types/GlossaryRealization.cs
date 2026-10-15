@@ -13,9 +13,6 @@ catzc:
 */
 
 // Every kind except prose-only needs a locating pattern, and a pattern is never a URL; a prose-only term carries none.
-// [ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3),
-// [ADR-REPO-VOCAB#6](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab6),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryRealization.cs.md#comment1)
 
 using System;

@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Exporter/configs/exporter.yml
+#     kind: config
+# ---
+
 # Tests swap in a fixture exporter.yml through the Get-Config seam, so the repo keeps exactly one real export config.
-# [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md)
 # [comment:1](/docs/references/automation/catzc-base-exporter/configs/exporter.yml.md#comment1)
 
 # A devbox build always carries this obviously fake version, so a rebuild overwrites it in place; a pipeline never uses it.
@@ -27,7 +33,6 @@ bundles:
 default_bundle: full
 
 # module_guid is the module's stable identity across versions; the package block feeds the top-level Catzc.psd1.
-# [ADR-AUTO-GUIDS](/docs/adr/automation/managed-guids.md)
 # [comment:4](/docs/references/automation/catzc-base-exporter/configs/exporter.yml.md#comment4)
 module_guid: 211b36c7-f7eb-4f3c-93f5-9132b535fa56
 package:

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-Links.Repository.Tests.ps1
+    kind: test
+---
+#>
+
 # The real repository keeps its links aligned and resolving
 # ([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)). Integrity checks over the shipped tree, in two tiers: L1 is the
 # fast structural pass over the automation code's comments; L2 is the full pass over every git-tracked file — every markdown

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/tests/Get-PipelineTemplateReference.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-PipelineTemplateReference' -Tag 'L0', 'logic' {
     # Get-PipelineTemplateReference is private, so it is exercised through the module
     # ([ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).

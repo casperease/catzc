@@ -1,7 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Languages/configs/file-carriers.yml
+#     kind: config
+# ---
+
 # Where each file class keeps its meta block, or the reason it has none; a class with files: wins over a language of the same file.,,
-# [ADR-REPO-FILEMETA#1](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta1),
-# [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
-# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 # [comment:1](/docs/references/automation/catzc-base-languages/configs/file-carriers.yml.md#comment1)
 carriers:
   # Front matter is the Markdown convention, and the reserved catzc key is the block.
@@ -20,7 +24,7 @@ carriers:
   bash: { carrier: comment-head, line: "#", anchor: after-shebang }
 
   # A block comment, below the XML declaration or the doctype, which must stay first.
-  xml: { carrier: comment-head, block: ["<!--", "-->"], anchor: after-prolog }
+  xml: { carrier: none, reason: "an XML comment may not contain '--', so the front matter fence would make the file invalid" }
   html: { carrier: comment-head, block: ["<!--", "-->"], anchor: after-prolog }
   css: { carrier: comment-head, block: ["/*", "*/"] }
 

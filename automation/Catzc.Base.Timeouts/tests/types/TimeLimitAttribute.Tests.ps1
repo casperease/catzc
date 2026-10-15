@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/tests/types/TimeLimitAttribute.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'TimeLimitAttribute' -Tag 'L0', 'logic', 'ADR-PWSH-ASSERT#1' {
     It 'carries a devbox limit and defaults the pipeline limit to it' {
         $limit = [Catzc.Base.Timeouts.TimeLimitAttribute]::new(360)

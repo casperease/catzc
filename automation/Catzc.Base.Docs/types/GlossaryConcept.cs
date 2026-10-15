@@ -18,12 +18,6 @@ catzc:
 */
 
 // Only the entry's own shape is checked on load; defined_by, domain and relation targets are cross-file facts for Test-Glossary.
-// [ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1),
-// [ADR-REPO-VOCAB#4](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab4),
-// [ADR-REPO-VOCAB#5](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab5),
-// [ADR-REPO-VOCAB#8](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab8),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md#comment1)
 
 using System;
@@ -50,8 +44,6 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     public static readonly Regex KeyRe = new Regex("^[a-z][a-z0-9]*(_[a-z0-9]+)*$", RegexOptions.Compiled);
 
     // Only the hash form with a rule number passes, so a bare domain or ADR citation is not accepted as a defining rule.
-    // [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30),
-    // [ADR-FLOW-CD#2](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd2)
     // [comment:2](/docs/references/automation/catzc-base-docs/types/GlossaryConcept.cs.md#comment2)
     public static readonly Regex CitationRe = new Regex("^ADR-[A-Z]{2,4}(-[A-Z]+)+#[1-9][0-9]*$", RegexOptions.Compiled);
 

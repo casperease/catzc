@@ -12,8 +12,6 @@ catzc:
 */
 
 // The meta-kind registry (file-meta.yml): which kinds of derived fact and of config contribution exist is data, never a list in an engine.
-// [ADR-REPO-FILEMETA#2](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta2),
-// [ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/FileMetaConfig.cs.md#comment1)
 
 using System;

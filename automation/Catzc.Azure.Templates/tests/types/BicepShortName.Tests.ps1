@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/types/BicepShortName.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore deriv abcdef gadge gadgetry getry gadg
 Describe 'BicepShortName' -Tag 'L0', 'logic' {
     # The C# type that owns short_name derivation + validation

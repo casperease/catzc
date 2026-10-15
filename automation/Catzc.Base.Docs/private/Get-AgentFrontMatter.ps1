@@ -16,7 +16,6 @@ catzc:
     Parses the YAML front matter of one sub-agent definition file.
 .DESCRIPTION
     Every unreadable shape throws, so the caller records exactly one issue per broken agent file.
-    [ADR-REPO-AGENTS#1](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents1)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-AgentFrontMatter.ps1.md#comment1)
 .PARAMETER Path
     Absolute path to the agent definition file.

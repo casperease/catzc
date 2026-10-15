@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: ".claude/drawio/contact_sheet.py"
+#     kind: script
+# ---
+
 # cspell:ignore textbbox arialbd
 """Tile every lens variant of a diagram into one review image.
 

@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: pipelines/cd-flux.yaml
+#     kind: other
+# ---
+
 # Dev-only, with no expedition config: the Expeditions list is empty, so Deploy_Expedition runs no job.
 # [comment:1](/docs/references/pipelines/cd-flux.yaml.md#comment1)
 

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1
+    kind: test
+---
+#>
+
 # ContractAsset holds every derived fact of one contract asset, with its paths in communication form
 # ([ADR-AUTO-PATH#2](/docs/adr/automation/path-representation.md#rule-adr-auto-path2)).
 Describe 'ContractAsset' -Tag 'L0', 'logic' {

@@ -17,8 +17,6 @@ catzc:
     Quality gate: every shipped config has a registered C# config type and loads through it.
 .DESCRIPTION
     The loaded code root may be a built package, so the walk checks what ships, not only the source tree.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-ShippedConfigs.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-shipped-configs/ (Write-QualityGateReport).

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/types/WinAnsi.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'WinAnsi' -Tag 'L0', 'logic' {
     It 'gives ASCII and Latin-1 characters their own code' {
         [Catzc.Base.Maps.WinAnsi]::CodeOf('W') | Should -Be 0x57

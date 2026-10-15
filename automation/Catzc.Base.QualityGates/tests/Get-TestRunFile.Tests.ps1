@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestRunFile.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-TestRunFile over fake Pester test objects (the shape the harness reads: .Block.BlockContainer.Data and
 # .ScriptBlock.File). Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Get-TestRunFile' -Tag 'L0', 'logic' {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/types/GlossaryEntry.Tests.ps1
+    kind: test
+---
+#>
+
 # Validates the compiled GlossaryEntry result type — one merged concept with its owning module, source path, and
 # options. Fixture terms are neutral (widget/gadget,
 # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

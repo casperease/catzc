@@ -18,8 +18,6 @@ catzc:
     Generates one parallel worker's runner script and returns its shard descriptor.
 .DESCRIPTION
     The worker sets strict mode itself, as test scopes chain to it; exit 1 is a failed run, any other code a crash.
-    [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1),
-    [ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment1)
 .PARAMETER ShardIndex
     The shard's zero-based index — names the script, results, and rows files.
@@ -38,7 +36,6 @@ catzc:
     [comment:5](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment5)
 .PARAMETER EntryScript
     Empty loads the source importer; a build run passes its Import-Catzc.ps1, which the Go tests then reuse.
-    [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30)
     [comment:2](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment2)
 .PARAMETER EntryParameter
     Ignored without -EntryScript; the build run passes RepositoryRoot so out/ paths still resolve in the repo.
@@ -122,7 +119,6 @@ function New-TestAutomationShardScript {
     $languageLiteral = '@{ ' + ($languageEntries -join '; ') + ' }'
 
     # Strict mode stays inline: it is scope-dynamic, and test scopes chain to the process top scope.
-    # [ADR-AUTO-TEST#25](/docs/adr/automation/test-automation.md#rule-adr-auto-test25)
     # [comment:9](/docs/references/automation/catzc-base-qualitygates/private/New-TestAutomationShardScript.ps1.md#comment9)
     $content = @"
 `$ErrorActionPreference = 'Stop'

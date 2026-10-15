@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-AgentDefinitions over a fixture .claude/ tree in $TestDrive and a fixture AgentsConfig (Get-Config,
 # Resolve-RepoPath, and Get-CatsAdrRuleIds mocked), so each test pins one rule. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)); the real-tree run is the

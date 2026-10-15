@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/modules/vnet-peering.bicep
+//     kind: other
+// ---
+
 // A peering is two-sided: the hub deploys hub to spoke and the spoke deploys spoke to hub, each with this module.
 // [comment:1](/docs/references/infrastructure/modules/vnet-peering.bicep.md#comment1)
 

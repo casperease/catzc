@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Exporter/tests/Export-Catzc.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Export-Catzc' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:buildRoot = Join-Path $TestDrive 'out/automation/built/widgets/Catzc/6.6.666'

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/NoRawVsoCommand.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 <#
@@ -5,7 +14,6 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: forbid raw ##vso[task.…] logging commands.
 .DESCRIPTION
     A raw logging command is error-prone (silent name rewrites, forgotten flags), so one validating setter emits it.
-    [ADR-PIPE-VAR#1](/docs/adr/pipelines/pipeline-variables.md#rule-adr-pipe-var1)
     [comment:1](/docs/references/automation/scriptanalyzer/NoRawVsoCommand.psm1.md#comment1)
 #>
 

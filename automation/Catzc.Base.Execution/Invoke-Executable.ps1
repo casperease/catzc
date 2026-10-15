@@ -58,7 +58,6 @@ catzc:
     Invoke-Executable 'python --version' -DryRun
 #>
 # -DryRun, not ShouldProcess or -WhatIf: it hands back the command string, so a caller can inspect it.
-# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
 # [comment:9](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment9)
 function Invoke-Executable {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingInvokeExpression', '', Justification = 'By design — executes CLI commands via private helpers')]
@@ -88,7 +87,6 @@ function Invoke-Executable {
     )
 
     # A real launch in a unit test means a Mock missed, usually a wrong -ModuleName, so fail loudly.
-    # [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md)
     # [comment:10](/docs/references/automation/catzc-base-execution/Invoke-Executable.ps1.md#comment10)
     if ($env:CATZC_BLOCK_REAL_PROCESS -and -not $DryRun) {
         throw (

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # The build-validation.yml type (collect-all-then-throw), plus the shipped-config integrity check: every entry
 # ties to a declared globset and resolves a pipeline (the
 # [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3) pattern — the cross-config

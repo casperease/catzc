@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Cli/tests/Get-AzCliSubscriptionAccessState.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AzCliSubscriptionAccessState' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:sub = '50a0ed00-de00-50b0-0000-000000000000'

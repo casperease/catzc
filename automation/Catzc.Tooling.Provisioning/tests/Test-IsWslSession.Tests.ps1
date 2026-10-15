@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Test-IsWslSession.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-IsWslSession' -Tag 'L0', 'logic' {
     It 'is false outside Linux' {
         if ($IsLinux) {

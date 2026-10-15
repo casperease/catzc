@@ -81,7 +81,6 @@ function Get-TestAutomationVerdict {
     }
 
     # Invariant culture keeps the duration identical on any devbox: a da-DK box would render a comma against CI's dot.
-    # [ADR-AUTO-XPLAT#6](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat6)
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-TestAutomationVerdict.ps1.md#comment2)
     $seconds = [math]::Round($DurationSeconds, 1).ToString([System.Globalization.CultureInfo]::InvariantCulture)
     $summary = if ($result -eq 'Passed') {

@@ -21,12 +21,6 @@ catzc:
     Resolves a global config address to the value at that node (a leaf or a subtree).
 .DESCRIPTION
     The returned node may be a live reference into the config cache, so treat it as read-only.
-    [ADR-AUTO-ENVVAR#7](/docs/adr/automation/environment-variables.md#rule-adr-auto-envvar7),
-    [ADR-CONF-ADDRESSING#3](/docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing3),
-    [ADR-CONF-ADDRESSING#4](/docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing4),
-    [ADR-CONF-ADDRESSING#5](/docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing5),
-    [ADR-CONF-LOADING#1](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading1),
-    [ADR-CONF-LOADING#2](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading2)
     [comment:1](/docs/references/automation/catzc-base-config/Get-ConfigValue.ps1.md#comment1)
 .PARAMETER Address
     The key path is optional: the address global.<config> alone returns the whole config as a subtree.

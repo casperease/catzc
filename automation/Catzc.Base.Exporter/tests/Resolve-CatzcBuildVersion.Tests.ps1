@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Exporter/tests/Resolve-CatzcBuildVersion.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Resolve-CatzcBuildVersion' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config {

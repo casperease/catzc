@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Select-RuleTaggedFiles.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Select-RuleTaggedFiles' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#27' {
     BeforeAll {
         # Fake discovery tests keyed by file, each with a block-chain the resolver walks. Built here (plain

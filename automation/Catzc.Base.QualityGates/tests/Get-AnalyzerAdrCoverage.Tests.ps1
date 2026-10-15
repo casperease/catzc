@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-AnalyzerAdrCoverage.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AnalyzerAdrCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#28' {
     It 'flattens the map into one pssa-rule row per (analyzer, ADR id)' {
         InModuleScope Catzc.Base.QualityGates {

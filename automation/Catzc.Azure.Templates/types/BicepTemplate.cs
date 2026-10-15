@@ -64,7 +64,6 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     public string environment_kind { get; }
 
     // Defaults to the have_customers repo variant, and is always present as a bool.
-    // [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
     // [comment:2](/docs/references/automation/catzc-azure-templates/types/BicepTemplate.cs.md#comment2)
     public bool customer_deployment { get; }
 

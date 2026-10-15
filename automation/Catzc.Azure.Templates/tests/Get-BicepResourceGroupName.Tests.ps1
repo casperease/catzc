@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-BicepResourceGroupName.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-BicepResourceGroupName' -Tag 'L0', 'logic' {
     # Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked
     # config is identical every test and no test mutates it, so the cache stays warm

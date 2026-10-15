@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Exporter/tests/Assert-BundleFootprint.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-BundleFootprint' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:run = {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore alweutstscusacst alweutstscusst
 Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     # Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked

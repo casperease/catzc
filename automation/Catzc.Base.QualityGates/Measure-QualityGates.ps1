@@ -51,7 +51,6 @@ function Measure-QualityGates {
         if ($AnalyzerRules) {
             if (-not (Get-Module PSScriptAnalyzer)) {
                 # The vendored import takes several seconds on first use in a session, so say so before it.
-                # [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)
                 # [comment:2](/docs/references/automation/catzc-base-qualitygates/Measure-QualityGates.ps1.md#comment2)
                 Write-Message 'Loading PSScriptAnalyzer (first use this session)...'
                 Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force

@@ -17,8 +17,6 @@ catzc:
     Lists every internal asset dependency in the module code — one record per Get-CatzcModuleRoot call site.
 .DESCRIPTION
     A call with a computed -ChildPath or -Module cannot be inventoried, so by default it throws, never listing...
-    [ADR-AUTO-ASSETDEP#2](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2),
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Get-InternalAssetDependency.ps1.md#comment1)
 .PARAMETER AutomationRoot
     Path to the automation directory to scan. Defaults to the loaded code root (Get-CatzcModulesRoot).
@@ -72,15 +70,6 @@ function Get-InternalAssetDependency {
     )
     [System.Array]::Sort($moduleNames, [System.StringComparer]::Ordinal)
 
-    $isHelperCall = {
-        param($node)
-        if ($node -isnot [System.Management.Automation.Language.CommandAst]) {
-            return $false
-        }
-        $commandName = $node.GetCommandName()
-        $commandName -and ($commandName -ieq $helperName -or $commandName -like "*\$helperName")
-    }
-
     $records = [System.Collections.Generic.List[object]]::new()
     $violations = [System.Collections.Generic.List[object]]::new()
 
@@ -102,7 +91,7 @@ function Get-InternalAssetDependency {
             $parseErrors = $null
             $syntaxTree = [System.Management.Automation.Language.Parser]::ParseFile($file.Path, [ref] $tokens, [ref] $parseErrors)
 
-            foreach ($call in $syntaxTree.FindAll($isHelperCall, $true)) {
+            foreach ($call in [Catzc.Base.Repository.SyntaxSearch]::CommandsNamed($syntaxTree, $helperName, $true)) {
                 # The enclosing function (one function per file); a top-level call falls back to the file name.
                 $owner = $call.Parent
                 while ($owner -and $owner -isnot [System.Management.Automation.Language.FunctionDefinitionAst]) {

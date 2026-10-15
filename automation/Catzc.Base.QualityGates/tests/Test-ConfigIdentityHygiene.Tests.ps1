@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
+    kind: test
+---
+#>
+
 # Integrity — it reads the real shipped config (and derives from the real fixture configs). source-only: those are
 # repository files, which give the same answer in both run modes. The logic block mocks the fixture set with a
 # neutral token ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) and pins the gate's

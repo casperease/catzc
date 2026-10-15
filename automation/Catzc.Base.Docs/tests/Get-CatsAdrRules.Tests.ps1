@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-CatsAdrRules.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-CatsAdrRules' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:adrPath = Join-Path $TestDrive 'alpha-thing.md'

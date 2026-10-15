@@ -207,7 +207,6 @@ function Assert-BicepTemplate {
             }
             else {
                 # Both render and compile run, so the parameters files can be checked against the compiled model.
-                # [ADR-AZ-DATAMOD#9](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod9)
                 # [comment:6](/docs/references/automation/catzc-azure-templates/Assert-BicepTemplate.ps1.md#comment6)
                 $built = $false
                 try {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1
+    kind: test
+---
+#>
+
 # Parity ([ADR-DSGN-RUNMODE#2](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode2)): every built module is the same
 # module as its source folder — its exported command set equals the folder's public function files, and its private
 # function set equals the folder's private/ files. Test-BuildArtifact reads the source side from the files and the

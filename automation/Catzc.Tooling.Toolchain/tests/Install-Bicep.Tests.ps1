@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Install-Bicep.Tests.ps1
+    kind: test
+---
+#>
+
 # Install-Bicep and Uninstall-Bicep with the generic engine mocked: on Windows and macOS both delegate to the tools.yml
 # `bicep` entry (winget user scope, brew). On Linux, Install-Bicep installs the verified release binary
 # (Install-BicepStandalone, tested on its own) and Uninstall-Bicep removes it from ~/.local/bin.

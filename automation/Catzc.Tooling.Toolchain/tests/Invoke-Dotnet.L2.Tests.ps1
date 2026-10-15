@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Dotnet.L2.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-Dotnet' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:available = Test-Tool 'dotnet'

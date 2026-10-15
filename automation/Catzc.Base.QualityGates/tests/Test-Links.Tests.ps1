@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-Links is the link quality gate ([ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)):
 # the same engine as Format-Links, read-only, ending through Write-QualityGateReport
 # ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)). A fixture repository in

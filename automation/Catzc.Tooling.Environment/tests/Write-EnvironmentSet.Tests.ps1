@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Environment/tests/Write-EnvironmentSet.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Write-EnvironmentSet' -Tag 'L0' {
     BeforeEach {
         # Mock the I/O boundary so tests never mutate the real process environment.

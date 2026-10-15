@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/tests/Assert-SourceTree.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-SourceTree' -Tag 'L0', 'logic' {
     It 'is silent in source mode' {
         Mock Get-CatzcRunMode { 'source' } -ModuleName Catzc.Base.Repository

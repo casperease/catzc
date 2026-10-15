@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestOptOutExclusion.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TestOptOutExclusion' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#31' {
     BeforeAll {
         # Fake discovery objects — the same Pester test shape Get-TestBlockTag walks.

@@ -87,7 +87,6 @@ function Get-AzureResourceName {
     $pattern = $patterns[$specification.pattern]
 
     # The type segment is never omitted; vm drops org, customer and role since the resource group encodes them.
-    # [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)
     # [comment:4](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment4)
     $omit = if ($specification.Contains('omit')) {
         @($specification.omit)
@@ -97,7 +96,6 @@ function Get-AzureResourceName {
     }
 
     # Only restricted patterns get the 2-char shortcode, so the readable env name never costs a tight name a byte.
-    # [ADR-AZ-NAMING#4](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming4)
     # [comment:5](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment5)
     $envValue = if ($specification.pattern -eq 'long') {
         $Env
@@ -125,7 +123,6 @@ function Get-AzureResourceName {
     }
 
     # The match is case-sensitive, so any capital letter in a component is a violation.
-    # [ADR-AZ-NAMING#6](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming6)
     # [comment:7](/docs/references/automation/catzc-azure-templates/Get-AzureResourceName.ps1.md#comment7)
     $checks = [ordered]@{
         Env        = @{ value = $Env; pattern = '^[a-z][a-z0-9]+$'; desc = '2+ alphanumeric, leading letter' }

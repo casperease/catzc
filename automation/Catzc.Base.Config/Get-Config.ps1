@@ -52,7 +52,6 @@ function Get-Config {
     $entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name; Module; Path }
 
     # The cache key carries the fragment's stamp, so an edited fragment is never served from a stale merge.
-    # [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)
     # [comment:2](/docs/references/automation/catzc-base-config/Get-Config.ps1.md#comment2)
     $fragmentPath = $null
     $cacheKey = $entry.Path
@@ -68,7 +67,6 @@ function Get-Config {
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configCache')) {
         # Probe through session state, not the bare variable, so strict mode does not throw before the first load.
-        # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:3](/docs/references/automation/catzc-base-config/Get-Config.ps1.md#comment3)
         $script:configCache = @{}
     }

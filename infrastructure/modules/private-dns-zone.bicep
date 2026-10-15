@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/modules/private-dns-zone.bicep
+//     kind: other
+// ---
+
 // The hub owns the zones and links every spoke, so an endpoint registered in a zone resolves from any linked VNet.
 // [comment:1](/docs/references/infrastructure/modules/private-dns-zone.bicep.md#comment1)
 

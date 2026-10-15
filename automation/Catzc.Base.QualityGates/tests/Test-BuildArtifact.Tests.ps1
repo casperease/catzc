@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-BuildArtifact is a quality gate
 # ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): each L0 case mocks the build, the
 # child-pwsh probe, the source reads, and the formatter at the module boundary, and reads the collected issues; the

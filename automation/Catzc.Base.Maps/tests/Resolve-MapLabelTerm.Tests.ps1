@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/Resolve-MapLabelTerm.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Resolve-MapLabelTerm' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:terms = @('widget', 'gadget box', 'sprocket')

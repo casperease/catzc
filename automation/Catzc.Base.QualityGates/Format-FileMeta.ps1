@@ -18,8 +18,6 @@ catzc:
     Imprints the derived facts into the meta block of every in-scope Markdown file.
 .DESCRIPTION
     The output is byte-identical on every run, so a second run changes no file.
-    [ADR-REPO-FILEMETA#3](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta3),
-    [ADR-REPO-FORMAT#9](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format9)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to format. Default: every in-scope file.
@@ -40,7 +38,6 @@ catzc:
     Format-FileMeta -Path docs/references
 #>
 # The repository's preview switch is -DryRun, so ShouldProcess and -WhatIf are deliberately absent.
-# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
 # [comment:2](/docs/references/automation/catzc-base-qualitygates/Format-FileMeta.ps1.md#comment2)
 function Format-FileMeta {
     [CmdletBinding()]

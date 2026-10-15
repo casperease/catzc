@@ -51,7 +51,6 @@ function Install-Dotnet {
     }
 
     # Our own dir wins the check; a right-version hit skips the download only, never the environment convergence below.
-    # [ADR-AUTO-IDEM#1](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem1)
     # [comment:2](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment2)
     $needsInstall = $true
     if (Test-Path $ourBinary) {
@@ -87,7 +86,6 @@ function Install-Dotnet {
 
     if ($needsInstall) {
         # The script comes from the module's assets via Get-CatzcModuleRoot, so both run modes resolve alike.
-        # [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
         # [comment:4](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment4)
         if ($IsWindows) {
             $scriptPath = Get-CatzcModuleRoot 'assets/scripts/dotnet-install.ps1'
@@ -104,7 +102,6 @@ function Install-Dotnet {
     }
 
     # This PATH is what non-repo processes, such as an editor's language server, resolve dotnet through.
-    # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11)
     # [comment:5](/docs/references/automation/catzc-tooling-toolchain/Install-Dotnet.ps1.md#comment5)
     if ($env:DOTNET_ROOT -ne $installDir) {
         $env:DOTNET_ROOT = $installDir

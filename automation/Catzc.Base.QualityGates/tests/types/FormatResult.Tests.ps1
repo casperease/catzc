@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/FormatResult.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'FormatResult' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#8' {
     It 'carries the language, engine, checked and changed files, and the dry-run flag' {
         $result = [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @('a.wdg', 'b.wdg'), [string[]] @('a.wdg'), $true)

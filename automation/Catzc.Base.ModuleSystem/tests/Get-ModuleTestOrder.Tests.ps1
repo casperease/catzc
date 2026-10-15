@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleTestOrder.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ModuleTestOrder' -Tag 'L0', 'logic' {
     It 'orders each module after its declared module dependencies (dependencies-first)' {
         Mock Get-AutomationModules { @('Catzc.A', 'Catzc.B', 'Catzc.C') } -ModuleName Catzc.Base.ModuleSystem

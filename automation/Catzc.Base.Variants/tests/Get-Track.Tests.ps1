@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-Track' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{

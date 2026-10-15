@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleProfile.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ModuleProfile' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.ModuleSystem {

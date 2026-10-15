@@ -1,5 +1,13 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/Catzc.Internal.Loader.psm1
+    kind: other
+---
+#>
+
 # Never removed with Bootstrap: it stays loaded so a post-import cover function can still ensure a shared module.
-# [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)
 # [comment:1](/docs/references/automation/internal/Catzc.Internal.Loader.psm1.md#comment1)
 
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
@@ -43,7 +51,6 @@ function Test-IsRunningInPipeline {
         Returns true if the current session is running inside a CI/CD pipeline.
     .DESCRIPTION
         It lives in the always-loaded loader so the bootstrap pre-pass and every module ask the same function.
-        [ADR-FLOW-CD-DETECT#1](/docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1)
         [comment:3](/docs/references/automation/internal/Catzc.Internal.Loader.psm1.md#comment3)
     .EXAMPLE
         Test-IsRunningInPipeline

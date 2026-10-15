@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Invoke-Go.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-Go' -Tag 'L0', 'logic' {
     It 'builds the command via -DryRun' {
         Invoke-Go 'version' -DryRun | Should -Be 'go version'

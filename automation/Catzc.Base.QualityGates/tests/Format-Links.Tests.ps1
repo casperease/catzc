@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
+    kind: test
+---
+#>
+
 # Format-Links is the link aligner and the repository-wide migration
 # ([ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8)), tested in isolation: every test
 # builds its own fixture repository in $TestDrive — a two-ADR index with neutral widget/gadget codes

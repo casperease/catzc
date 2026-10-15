@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
     BeforeAll {
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new(@{

@@ -13,8 +13,6 @@ catzc:
 */
 
 // File-language names take two header lines, so a name that wraps leaves every column the same height; row 0 is the top row.
-// [ADR-DSGN-TRACK#7](/docs/adr/design/tracks.md#rule-adr-dsgn-track7), [ADR-DSGN-TRACK#8](/docs/adr/design/tracks.md#rule-adr-dsgn-track8),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/WorldMapGridLayout.cs.md#comment1)
 
 using System;

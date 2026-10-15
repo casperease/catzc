@@ -13,9 +13,6 @@ catzc:
 */
 
 // Override is true when the ADR declares its own concerns instead of taking its ADR domain's default.
-// [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14),
-// [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/ValueChainReason.cs.md#comment1)
 
 using System;

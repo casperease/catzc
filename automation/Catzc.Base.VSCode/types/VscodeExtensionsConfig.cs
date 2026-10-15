@@ -12,8 +12,6 @@ catzc:
 */
 
 // Every load-time violation is collected into one throw, so a bad registry reports all its problems at once.
-// [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-vscode/types/VscodeExtensionsConfig.cs.md#comment1)
 
 using System;

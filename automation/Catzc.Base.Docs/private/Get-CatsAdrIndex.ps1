@@ -17,7 +17,6 @@ catzc:
     Parses the ADR index ([index](/docs/adr/index.md)) into the code -> ADR entries that Show-Cats presents.
 .DESCRIPTION
     Memoized per index path for the session, so an edited index shows only after the importer reruns.
-    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-CatsAdrIndex.ps1.md#comment1)
 .PARAMETER IndexPath
     A test points this at a fixture index; the cache keys on the path, so fixture and real index never collide.
@@ -34,7 +33,6 @@ function Get-CatsAdrIndex {
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrIndexCache')) {
         # strict-clean probe of the lazy cache entry
-        # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:3](/docs/references/automation/catzc-base-docs/private/Get-CatsAdrIndex.ps1.md#comment3)
         $script:catsAdrIndexCache = @{}
     }

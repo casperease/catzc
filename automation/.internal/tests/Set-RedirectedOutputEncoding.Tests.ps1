@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/Set-RedirectedOutputEncoding.Tests.ps1
+    kind: test
+---
+#>
+
 BeforeAll {
     # An isolated sandbox = importer + the .internal shared modules + vendor, with no application modules, imported in a
     # fresh child pwsh (the same shape as Import-AllModules.Tests.ps1). Capturing the child's output redirects its

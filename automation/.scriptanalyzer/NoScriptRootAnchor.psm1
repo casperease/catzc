@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/NoScriptRootAnchor.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 <#
@@ -5,7 +14,6 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: forbid $PSScriptRoot anchors in module function files.
 .DESCRIPTION
     In build mode the functions merge into one file, so the script root no longer names the module folder.
-    [ADR-AUTO-ASSETDEP#1](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep1)
     [comment:1](/docs/references/automation/scriptanalyzer/NoScriptRootAnchor.psm1.md#comment1)
 #>
 
@@ -34,7 +42,6 @@ function Measure-NoScriptRootAnchor {
     $ruleName = 'Measure-NoScriptRootAnchor'
 
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:3](/docs/references/automation/scriptanalyzer/NoScriptRootAnchor.psm1.md#comment3)
     $isVariable = {
         param($node)

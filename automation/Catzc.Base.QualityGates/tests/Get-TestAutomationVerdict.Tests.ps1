@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestAutomationVerdict.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TestAutomationVerdict' -Tag 'L0', 'logic' {
     It 'reads Passed with an invariant counts-in-time summary when nothing failed' {
         $verdict = InModuleScope Catzc.Base.QualityGates {

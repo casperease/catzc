@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Inspiration/tests/types/InspirationRoot.Tests.ps1
+    kind: test
+---
+#>
+
 # InspirationRoot over neutral fixture paths (widget/gadget,
 # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): the {workspace} anchor resolves to
 # the parent of the repository root ([ADR-AUTO-PATH#11](/docs/adr/automation/path-representation.md#rule-adr-auto-path11)),

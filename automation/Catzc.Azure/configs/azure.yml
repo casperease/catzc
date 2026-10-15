@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Azure/configs/azure.yml
+#     kind: config
+# ---
+
 # yaml-language-server: $schema=.not-azure-schema.json
 # The empty schema pin stops the editor matching the Azure Developer CLI schema by filename and demanding a name key.
 # [comment:1](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment1)
@@ -6,7 +13,6 @@
 # [comment:2](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment2)
 
 # The resource-name component order is not set here; it lives in code, so changing it means re-editing every typed name.
-# [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)
 # [comment:3](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment3)
 org: zct
 
@@ -15,7 +21,6 @@ org: zct
 bicep_min_version: "0.43.8"
 
 # Omitted keys take the default declared on AzureConfig: production enforces its policies, nonproduction only audits them.
-# [ADR-AZ-DATAMOD#11](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod11)
 # [comment:5](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment5)
 
 tenants:
@@ -23,11 +28,9 @@ tenants:
     id: fa0e0000-7e0a-0700-1d00-000000000000
 
 # A subscription binds a customer by key or shortcode; which customers deploy is the have_customers variant in variants.yml.
-# [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
 # [comment:6](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment6)
 
 # The map key is the deploy handle, the config file name and the env segment of relaxed resource names, so it must be unique.
-# [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)
 # [comment:7](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment7)
 environments:
   dev:
@@ -60,7 +63,6 @@ environments:
     per_subscription: true
 
 # A subscription is resolved from a config's location, never spelled into a path, and verified against the az session at deploy.
-# [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md), [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)
 # [comment:9](/docs/references/automation/catzc-azure/configs/azure.yml.md#comment9)
 subscriptions:
   # The only non-customer subscriptions, so every root config's env resolves to exactly one of them.

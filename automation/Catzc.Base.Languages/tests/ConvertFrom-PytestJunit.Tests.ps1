@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/ConvertFrom-PytestJunit.Tests.ps1
+    kind: test
+---
+#>
+
 # ConvertFrom-PytestJunit over a canned pytest JUnit report in tests/assets: one result per top-level test function,
 # parametrised cases folded in. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'ConvertFrom-PytestJunit' -Tag 'L0', 'logic' {

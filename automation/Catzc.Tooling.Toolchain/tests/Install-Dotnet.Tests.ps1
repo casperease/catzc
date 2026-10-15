@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Install-Dotnet.Tests.ps1
+    kind: test
+---
+#>
+
 # Drives Install-Dotnet to the point where it resolves the vendored install script, then reads the REAL script
 # shipped in the loaded module (the lookup is not mocked), so it runs in both the source run and the build run
 # ([ADR-AUTO-ASSETDEP#3](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep3)). The environment

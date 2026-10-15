@@ -17,8 +17,6 @@ catzc:
     Classifies captured key bindings by whether their function is supported on the target platform.
 .DESCRIPTION
     Pure on purpose: testable without a PSReadLine session, and it never mutates the cached configs.
-    [ADR-AUTO-CACHE#5](/docs/adr/automation/caching.md#rule-adr-auto-cache5),
-    [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md)
     [comment:1](/docs/references/automation/catzc-tooling-keyhandler/private/Select-SupportedKeyHandler.ps1.md#comment1)
 .PARAMETER Binding
     The captured bindings — a sequence of { key, function } mappings (from key-handler-bindings.yml).

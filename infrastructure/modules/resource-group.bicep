@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/modules/resource-group.bicep
+//     kind: other
+// ---
+
 // Deploys at subscription scope; resources then go in through modules scoped to the new resource group.
 // [comment:1](/docs/references/infrastructure/modules/resource-group.bicep.md#comment1)
 

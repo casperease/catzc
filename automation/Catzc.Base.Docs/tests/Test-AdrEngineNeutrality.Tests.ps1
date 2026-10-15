@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-AdrEngineNeutrality over a fixture docs/adr tree in $TestDrive, a fixture AdrsConfig, and a fixture AdrChecksConfig
 # (Get-Config and Resolve-RepoPath mocked). Neutral fixture names and tokens
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

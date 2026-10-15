@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-ValueChainHighlight lights the value-chain map cells of ADR codes
 # ([ADR-DSGN-TRACK#12](/docs/adr/design/tracks.md#rule-adr-dsgn-track12),
 # [ADR-DSGN-TRACK#16](/docs/adr/design/tracks.md#rule-adr-dsgn-track16)). The logic tests mock the map with

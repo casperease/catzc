@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
     # The config/template boundary is mocked ONCE for the whole block and the config cache reset ONCE: every
     # test reads the same fixture config, and Get-Config keys its cache on the resolved (fixture) path, so the

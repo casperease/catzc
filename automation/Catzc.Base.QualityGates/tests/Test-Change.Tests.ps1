@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-Change.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-Change wiring: the plan's two halves (Get-ChangeTestFile, Get-ChangeCheckPlan) are their own units and are mocked
 # here; Invoke-TestFile is the mocked test-run boundary; the gates are fixture functions, so the real Get-Command lookup
 # and the [string[]] -Path test decide how each is called. Neutral fixture names

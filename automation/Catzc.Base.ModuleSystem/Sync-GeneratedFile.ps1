@@ -19,9 +19,6 @@ catzc:
     Commits the importer-maintained generated files to git — the dev-box janitor.
 .DESCRIPTION
     Only a person's session commits: a pipeline must fail loudly and an agent leaves the commit to the person.
-    [ADR-AUTO-TYPES#13](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types13),
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
-    [ADR-REPO-VARIANT#6](/docs/adr/repository/repo-variants.md#rule-adr-repo-variant6)
     [comment:1](/docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md#comment1)
 .PARAMETER DryRun
     Changed paths are still probed, so a dry run returns the exact git commands a real run would issue.
@@ -84,7 +81,6 @@ function Sync-GeneratedFile {
     $changed = @($generatedPaths.Keys | Where-Object { Test-GitPathChanged $_ })
 
     # A superseded DLL that a live session still locks would otherwise be committed next to the new one.
-    # [ADR-AUTO-CACHE#8](/docs/adr/automation/caching.md#rule-adr-auto-cache8)
     # [comment:4](/docs/references/automation/catzc-base-modulesystem/Sync-GeneratedFile.ps1.md#comment4)
     if ($changed -contains 'automation/.compiled') {
         $surplus = @(Clear-ModuleTypeCache -DryRun -Silent)

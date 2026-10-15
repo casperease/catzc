@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Stop-DotnetInstallHolder.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Stop-DotnetInstallHolder' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:installDir = Join-Path $TestDrive 'widget-dotnet'

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Install-Go.Tests.ps1
+    kind: test
+---
+#>
+
 # Hermetic logic (L1): the release feed (Get-GoRelease), the verified download, the version and tar runs
 # (Invoke-Executable), the persistent PATH seam and the final check (Test-Tool) are mocked; the managed home is a
 # fixture folder under $TestDrive. The mocked download writes a real fixture .zip (extracted in-process), and the

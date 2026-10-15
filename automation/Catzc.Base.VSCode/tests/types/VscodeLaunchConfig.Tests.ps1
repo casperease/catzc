@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.VSCode/tests/types/VscodeLaunchConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Catzc.Base.VSCode.VscodeLaunchConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:valid = {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Invoke-TestRun.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
     BeforeAll {
         # A fixture tests/ folder with two files: widget mixes a source-only test with a runnable one; gadget is

@@ -11,7 +11,6 @@ catzc:
 */
 
 // Key and function are the only two keys the capture writes, so any other key is a violation, reported with the position.
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-tooling-keyhandler/types/KeyHandlerBinding.cs.md#comment1)
 
 using System;

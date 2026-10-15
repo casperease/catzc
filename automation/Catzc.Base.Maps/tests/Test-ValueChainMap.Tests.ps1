@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-ValueChainMap reads the value-chain map Get-ValueChainMap returns and reports axes that are not the registry's
 # closed sets ([ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14),
 # [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)), ADRs it cannot place, and value_chain_

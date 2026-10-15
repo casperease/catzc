@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:map = [Catzc.Base.Maps.WorldMapBuilder]::Build(

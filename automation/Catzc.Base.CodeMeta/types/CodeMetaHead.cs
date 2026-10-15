@@ -12,8 +12,6 @@ catzc:
 */
 
 // Reads and writes a code file's meta head as pure text work, so every behaviour is proved on strings and no file is touched.
-// [ADR-REPO-CODEMETA#1](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta1),
-// [ADR-REPO-FILEMETA#6](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta6)
 // [comment:1](/docs/references/automation/catzc-base-codemeta/types/CodeMetaHead.cs.md#comment1)
 
 using System;

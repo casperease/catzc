@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/tests/Test-HaveCustomer.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-HaveCustomer' -Tag 'L0', 'logic' {
 
     It 'is true when the single customer is enabled' {

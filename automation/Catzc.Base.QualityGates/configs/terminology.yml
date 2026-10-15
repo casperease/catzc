@@ -1,12 +1,14 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.QualityGates/configs/terminology.yml
+#     kind: config
+# ---
+
 # Generated cspell word lists derive from this file, so never hand-edit them; every term category must be defined here.
-# [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
-# [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5),
-# [ADR-AUTO-SPELL#8](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell8)
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/terminology.yml.md#comment1)
 
 # The optional scope only declares a language zone; cspell reads words, not meaning, so every category acts global today.
-# [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md), [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md),
-# [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md)
 # [comment:2](/docs/references/automation/catzc-base-qualitygates/configs/terminology.yml.md#comment2)
 categories:
   product:

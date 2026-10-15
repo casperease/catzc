@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/tests/ConvertTo-Dictionary.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'ConvertTo-Dictionary' -Tag 'L0', 'logic' {
     It 'converts a typed class into a mutable nested ordered dictionary' {
         $result = [Catzc.Base.Execution.CliResult]::new("hello`r`n", 'oops', 3)

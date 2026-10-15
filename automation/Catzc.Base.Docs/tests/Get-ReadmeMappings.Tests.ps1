@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-ReadmeMappings.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-ReadmeMappings is private, so it is exercised through the module (InModuleScope, per
 # [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).
 Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {

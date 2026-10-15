@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-AzureResourceName.Content.Tests.ps1
+    kind: test
+---
+#>
+
 # Data-driven coverage for Get-AzureResourceName, sourced from tests/assets/Get-AzureResourceName.Content.yml.
 # Each case is an input splat + an expected name (or an expected error). `input` is read via
 # $case.input (NOT bound as a -ForEach variable) because $input is a PowerShell automatic variable.

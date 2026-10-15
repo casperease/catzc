@@ -40,7 +40,6 @@ function Get-EngineCaseTable {
     )
 
     # Validate the filter first: a mistyped engine name throws and lists the valid ones, not an empty result.
-    # [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
     # [comment:2](/docs/references/automation/catzc-tooling-core/Get-EngineCaseTable.ps1.md#comment2)
     if ($Engine) {
         $null = [Catzc.Base.Engines.ExecutionEngines]::Get($Engine)

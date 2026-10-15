@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: ".claude/drawio/minimaps/join.py"
+#     kind: script
+# ---
+
 # cspell:ignore minimaps mapkey
 """Join the three minimaps into each slide: lay out the sidebar, embed the PNGs, and rebuild the slide.
 

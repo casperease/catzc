@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/Get-ContractAssetNote.Tests.ps1
+    kind: test
+---
+#>
+
 # A contract asset's note is the header comment its file can carry without changing what its check compares
 # ([ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)): a YAML asset's leading '#' lines,
 # a schema's "$comment", and nothing for every other asset. Fixtures are a widget repository in TestDrive

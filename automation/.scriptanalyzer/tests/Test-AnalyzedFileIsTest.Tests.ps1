@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-AnalyzedFileIsTest is the one test-file scope check the custom analyzer rules share: by file name when the
 # analyzer reads a file (the gate), by Pester structure when it reads an editor buffer with no file name (VS Code).
 Describe 'Test-AnalyzedFileIsTest' -Tag 'L0', 'logic' {

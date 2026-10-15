@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-MarkdownScope.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-MarkdownScope' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT#6', 'ADR-REPO-FILEMETA#5' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/Import-Catzc.Tests.ps1
+    kind: test
+---
+#>
+
 # Import-Catzc loads a build: Test-BuildArtifact builds the selection once into a temporary destination (Build-Modules,
 # which verifies the bundle with Assert-CatzcBundle), loads it cold in a child pwsh (loaded assemblies and $env: are
 # process-global), and checks the load facet by facet — build mode, both roots, every built module once and from

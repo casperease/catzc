@@ -18,7 +18,6 @@ catzc:
     generates and owns, and leaves everything else in place, reported.
 .DESCRIPTION
     Unlike a raw clean, untracked work not on the whitelist survives and is reported, never deleted.
-    [ADR-REPO-OUTDIR#10](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir10)
     [comment:1](/docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md#comment1)
 .PARAMETER DryRun
     Classify without deleting: return the plan as an object with the Remove and Keep lists.
@@ -31,7 +30,6 @@ catzc:
     Reset-GitCleanFxd
 #>
 # The dry run is a plain -DryRun switch returning the plan, not ShouldProcess/-WhatIf.
-# [ADR-AUTO-DRYRUN#2](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun2)
 # [comment:2](/docs/references/automation/catzc-base-git/Reset-GitCleanFxd.ps1.md#comment2)
 function Reset-GitCleanFxd {
     [CmdletBinding()]

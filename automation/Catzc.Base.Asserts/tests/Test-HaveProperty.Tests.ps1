@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Test-HaveProperty.Tests.ps1
+    kind: test
+---
+#>
+
 BeforeAll {
     $script:object = [pscustomobject]@{ Name = 'test'; Value = 42 }
     $script:nested = [pscustomobject]@{

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Get-GoRelease.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-GoRelease' -Tag 'L0', 'logic' {
     # The go.dev release feed is mocked with a fixture shaped like the real one (version, stable, files[] with
     # filename/os/arch/kind/sha256).

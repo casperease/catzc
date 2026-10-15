@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # CommentsConfig maps comments.yml and is the one declaration of its sensible defaults
 # ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)): an omitted key
 # behaves exactly like the default, and a malformed value fails at construction naming the key.

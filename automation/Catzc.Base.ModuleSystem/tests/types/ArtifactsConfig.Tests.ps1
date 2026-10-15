@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/types/ArtifactsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # The artifacts.yml type: constructing it maps and validates the parsed YAML, so a malformed publish-target map
 # never loads through Get-Config -Config artifacts.
 Describe 'Catzc.Base.ModuleSystem.ArtifactsConfig' -Tag 'L0' {

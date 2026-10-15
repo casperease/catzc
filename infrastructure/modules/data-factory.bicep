@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/modules/data-factory.bicep
+//     kind: other
+// ---
+
 @description('Data Factory name (3-24 lowercase alphanumeric, globally unique).')
 param name string
 

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Measure-QualityGates.Tests.ps1
+    kind: test
+---
+#>
+
 # Measure-QualityGates over fixture quality gates: the real Get-Command lookup and the -OutputFolder probe decide each call; the
 # timing itself is only read for its order. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

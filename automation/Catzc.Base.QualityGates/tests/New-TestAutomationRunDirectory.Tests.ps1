@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/New-TestAutomationRunDirectory.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'New-TestAutomationRunDirectory' -Tag 'L0', 'logic' {
     It 'creates a timestamped run directory under the base' {
         $base = Join-Path $TestDrive 'reports'

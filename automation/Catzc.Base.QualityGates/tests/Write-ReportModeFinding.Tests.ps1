@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Write-ReportModeFinding.Tests.ps1
+    kind: test
+---
+#>
+
 # Write-ReportModeFinding prints a report-mode check's work list and never fails the run
 # ([ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4)).
 Describe 'Write-ReportModeFinding' -Tag 'L0', 'logic' {

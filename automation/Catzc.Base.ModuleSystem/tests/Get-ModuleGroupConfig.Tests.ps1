@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleGroupConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ModuleGroupConfig' {
     Context 'logic (mocked Get-Config)' -Tag 'L0', 'logic' {
         It 'returns the groups map when the config declares groups' {

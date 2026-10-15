@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/SourceConventionsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # SourceConventionsConfig maps source-conventions.yml: an omitted check takes every default of its type
 # ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), and an unknown key fails at
 # construction.

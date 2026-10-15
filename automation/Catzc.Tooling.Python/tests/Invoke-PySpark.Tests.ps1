@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Python/tests/Invoke-PySpark.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-PySpark' -Tag 'L0', 'logic' {
     It 'builds correct command via -DryRun' {
         Invoke-PySpark '--version' -DryRun | Should -Be 'pyspark --version'

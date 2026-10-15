@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: ".claude/drawio/minimaps/highlights.ps1"
+    kind: other
+---
+#>
+
 # cspell:ignore minimaps
 <#
 .SYNOPSIS

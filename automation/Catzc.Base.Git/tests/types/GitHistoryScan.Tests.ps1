@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/tests/types/GitHistoryScan.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'GitHistoryScan' -Tag 'L0', 'logic' {
     BeforeAll {
         # Builds a `git cat-file --batch` stream by hand. Object ids are made up (any 40 hex digits): the scan

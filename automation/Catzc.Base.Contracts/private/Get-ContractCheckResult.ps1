@@ -16,7 +16,6 @@ catzc:
     Checks one contract asset against the repository by its kind, and returns the result.
 .DESCRIPTION
     A schema aimed at a sample is only checked well-formed here, so a defect gives one finding on one result.
-    [ADR-REPO-CONTRACT#6](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract6)
     [comment:1](/docs/references/automation/catzc-base-contracts/private/Get-ContractCheckResult.ps1.md#comment1)
 .PARAMETER RepositoryRoot
     The repository root the asset and its target are relative to.

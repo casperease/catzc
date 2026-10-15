@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Github/tests/New-SyntheticHistory.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'New-SyntheticHistory' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:repo = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-synth-' + [guid]::NewGuid().ToString('N').Substring(0, 12))

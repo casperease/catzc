@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Assert-PathExist.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-PathExist' -Tag 'L0', 'logic' {
     It 'passes for an existing path' {
         { Assert-PathExist $PSScriptRoot } | Should -Not -Throw

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.RootConfig/tests/types/RootConfigFiles.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'RootConfigFiles' -Tag 'L0', 'logic' {
     It 'constructs and exposes valid entries in registry order' {
         $c = [Catzc.Base.RootConfig.RootConfigFiles]::new(@{

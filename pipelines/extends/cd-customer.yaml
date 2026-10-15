@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: pipelines/extends/cd-customer.yaml
+#     kind: other
+# ---
+
 # Every entry pins its subscription with subscriptionIdAssertIs, so a mis-wired service connection fails loudly, not silently.
 # [ADR-PIPE-NAME](/docs/adr/pipelines/pipeline-naming-and-placement.md),
 # [ADR-PIPE-TEMPLATE](/docs/adr/pipelines/custom-template-discipline.md), [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md),

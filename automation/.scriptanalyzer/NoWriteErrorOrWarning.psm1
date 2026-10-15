@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/NoWriteErrorOrWarning.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 
 <#
@@ -21,7 +30,6 @@ function Measure-NoWriteErrorOrWarning {
     $ruleName = 'Measure-NoWriteErrorOrWarning'
 
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:2](/docs/references/automation/scriptanalyzer/NoWriteErrorOrWarning.psm1.md#comment2)
     $isCommand = {
         param($node)

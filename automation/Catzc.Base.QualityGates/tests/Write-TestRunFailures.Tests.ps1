@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Write-TestRunFailures.Tests.ps1
+    kind: test
+---
+#>
+
 # Write-TestRunFailures over fixture rows and file entries, with the console seam (Write-Message / Write-Header /
 # Write-Footer) mocked and its lines collected. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

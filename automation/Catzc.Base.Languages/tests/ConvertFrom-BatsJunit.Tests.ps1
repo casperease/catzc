@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Languages/tests/ConvertFrom-BatsJunit.Tests.ps1
+    kind: test
+---
+#>
+
 # ConvertFrom-BatsJunit over a canned bats JUnit report (tests/assets/bats-widget.xml, written in the shape bats 1.14
 # writes with --report-formatter junit). Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

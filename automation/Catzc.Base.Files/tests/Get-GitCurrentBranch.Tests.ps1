@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Files/tests/Get-GitCurrentBranch.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-GitCurrentBranch' -Tag 'L0', 'logic' {
     BeforeEach {
         # A checkout written by hand. No git process starts.

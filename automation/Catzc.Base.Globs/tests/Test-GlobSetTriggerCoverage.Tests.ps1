@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/Test-GlobSetTriggerCoverage.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-GlobSetTriggerCoverage over mocked globsets, projections, and members; the include patterns are real
 # GlobPattern instances. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Test-GlobSetTriggerCoverage' -Tag 'L0', 'logic' {

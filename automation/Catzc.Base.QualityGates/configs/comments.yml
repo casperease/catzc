@@ -1,7 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.QualityGates/configs/comments.yml
+#     kind: config
+# ---
+
 # Every key is optional: an omitted key takes the default declared once on CommentsConfig, so this file lists only deviations.
-# [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),
-# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
-# [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1)
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md#comment1)
 
 # A language CommentLexer cannot read (python, bash) stays out until the lexer learns it.
@@ -21,7 +25,6 @@ keep:
   bicep: ["// cspell:"]
 
 # A head listed here keeps the whole run of comment lines it opens, or the whole block comment whose front matter opens with it.
-# [ADR-REPO-CODEMETA#5](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta5)
 # [comment:7](/docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md#comment7)
 keep_run:
   powershell: ["# catzc:"]
@@ -69,6 +72,5 @@ obvious_phrases:
   - as the name says
 
 # The view is a derived copy under out/ and is never committed, so editing it changes nothing.
-# [ADR-REPO-OUTDIR#1](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir1)
 # [comment:6](/docs/references/automation/catzc-base-qualitygates/configs/comments.yml.md#comment6)
 view: out/annotated

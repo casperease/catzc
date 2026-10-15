@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure/tests/Get-AzureSubscriptionCustomer.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AzureSubscriptionCustomer' -Tag 'L0', 'logic' {
     It 'returns the customer field for a customer subscription' {
         $subscription = [ordered]@{ name = 's'; customer = 'acme'; environments = @('alpha') }

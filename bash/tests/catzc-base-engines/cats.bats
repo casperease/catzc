@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: bash/tests/catzc-base-engines/cats.bats
+#     kind: test
+# ---
+
 # Black-box tests of the bash engine's entry, importer.sh, and its cats dispatcher (Catzc.Base.Engines).
 #
 # Each test uses importer.sh the way a Bash user does (ADR-AUTO-BASH#3): setup sources the engine's entry

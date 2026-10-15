@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Firewall/tests/Get-FirewallCsv.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore etwork
 Describe 'Get-FirewallCsv' -Tag 'L2', 'logic' {
     BeforeAll {

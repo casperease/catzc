@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Environment/tests/Sync-SessionPath.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore machinebin userbin
 Describe 'Sync-SessionPath' -Tag 'L0', 'logic' {
     BeforeEach {

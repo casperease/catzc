@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/modules/vm.bicep
+//     kind: other
+// ---
+
 // The default SKU is the cheapest available because this is a proof-of-concept VM, not a sized workload host.
 // [comment:1](/docs/references/infrastructure/modules/vm.bicep.md#comment1)
 

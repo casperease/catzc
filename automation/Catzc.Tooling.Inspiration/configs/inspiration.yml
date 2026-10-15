@@ -1,6 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Tooling.Inspiration/configs/inspiration.yml
+#     kind: config
+# ---
+
 # An empty file or an omitted inspirations key takes the one eac default; set the key only to change it.
-# [ADR-REPO-INSPIRE](/docs/adr/repository/inspiration.md),
-# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
-# [ADR-AUTO-PATH#11](/docs/adr/automation/path-representation.md#rule-adr-auto-path11)
 # [comment:1](/docs/references/automation/catzc-tooling-inspiration/configs/inspiration.yml.md#comment1)
 {}

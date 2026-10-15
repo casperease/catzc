@@ -16,7 +16,6 @@ catzc:
     Reads one tab-separated ADR map (a code map or a rule map) into one hashtable per row, keyed by the header.
 .DESCRIPTION
     A bad header or row throws with file and line before any reference is rewritten, so a map never half-applies.
-    [ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Import-AdrCitationMapFile.ps1.md#comment1)
 .PARAMETER Path
     The absolute path of the map file.

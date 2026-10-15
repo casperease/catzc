@@ -17,7 +17,6 @@ catzc:
     naming/placement quality gate checks for absoluteness.
 .DESCRIPTION
     A line scan, not a YAML parse, so it survives the template expressions that ADO YAML carries.
-    [ADR-PIPE-NAME#4](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name4)
     [comment:1](/docs/references/automation/catzc-azure-devops/private/Get-PipelineTemplateReference.ps1.md#comment1)
 .PARAMETER Path
     The pipeline YAML file to scan.

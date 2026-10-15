@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Inspiration/tests/Get-Inspiration.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-Inspiration over a fixture config (Get-Config mocked to the real InspirationConfig built from neutral widget/gadget
 # data, [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) and a TestDrive workspace in
 # which widget and gadget exist and gizmo does not. An inspiration that is absent is reported, never thrown on

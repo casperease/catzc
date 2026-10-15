@@ -17,7 +17,6 @@ catzc:
     by the run's opt-out tag.
 .DESCRIPTION
     Throws when -Rule or the opt-out tag leaves nothing to run; an empty tier is vacuously green instead.
-    [ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Select-TestRunFiles.ps1.md#comment1)
 .PARAMETER TestPath
     The run's 'tests' folders.

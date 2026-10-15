@@ -17,8 +17,6 @@ catzc:
     The globsets a diff touches — the computed area-of-control of a change.
 .DESCRIPTION
     Matching real refs, not a frozen hash, makes squash and concurrent merges harmless; a rename counts both paths.
-    [ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1),
-    [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
     [comment:1](/docs/references/automation/catzc-base-globs/Get-ChangedGlobSet.ps1.md#comment1)
 .PARAMETER ChangedFile
     The changed repo-relative, '/'-separated paths to reflect (e.g. a diff's file list). May be empty.

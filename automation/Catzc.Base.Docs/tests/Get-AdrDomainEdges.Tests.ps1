@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-AdrDomainEdges.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-AdrDomainEdges over a fixture AdrsConfig (Get-Config mocked): the registry's own construction holds the
 # edge invariants (declared ends, no self-edge, acyclic), so this pins only the projection. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

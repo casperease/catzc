@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: bash/tests/catzc-base-repository/repository.bats
+#     kind: test
+# ---
+
 # Black-box tests of Catzc.Base.Repository, in Bash.
 #
 # Each test calls catzc the way a Bash user does: setup loads the engine's entry, the repository's importer.sh

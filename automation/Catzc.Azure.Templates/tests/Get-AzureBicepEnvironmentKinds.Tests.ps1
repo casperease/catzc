@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-AzureBicepEnvironmentKinds.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AzureBicepEnvironmentKinds' -Tag 'L0', 'logic' {
     It 'returns standard and subscription' {
         $kinds = Get-AzureBicepEnvironmentKinds

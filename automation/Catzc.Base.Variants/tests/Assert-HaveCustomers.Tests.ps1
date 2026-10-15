@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/tests/Assert-HaveCustomers.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-HaveCustomers' -Tag 'L0', 'logic' {
 
     It 'passes (no -Name) when enabled' {

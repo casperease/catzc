@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'MapsConfig' -Tag 'L0' {
     BeforeAll {
         $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Maps.MapsConfig]::new($raw) }

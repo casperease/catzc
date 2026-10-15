@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/tests/types/GitRefs.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'GitRefs' -Tag 'L0', 'logic' {
     BeforeAll {
         # A git directory written by hand: the reader only reads ref files, so no git is needed.

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Assert-PipelineEmpty.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-PipelineEmpty' -Tag 'L0', 'logic' {
     It 'passes when pipeline is empty' {
         { @() | Assert-PipelineEmpty } | Should -Not -Throw

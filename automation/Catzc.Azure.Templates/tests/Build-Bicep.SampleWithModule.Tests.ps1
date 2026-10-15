@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleWithModule.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore alweutstsmodst
 Describe 'sample-with-module (reusable module consumer)' -Tag 'L0', 'logic' {
     # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the

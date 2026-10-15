@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationWorkerSummary.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Write-TestAutomationWorkerSummary' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Write-Header -ModuleName Catzc.Base.QualityGates { }

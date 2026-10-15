@@ -18,7 +18,6 @@ catzc:
     Composes a module's protection identity — the durable SHA of everything its test results depend on.
 .DESCRIPTION
     Fail-safe: an unconstrained module or one with integrity tests widens the fold to the whole repository.
-    [ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment1)
 .PARAMETER Module
     The dot-prefixed infra test units .internal and .scriptanalyzer are accepted too, and always widen the fold.
@@ -58,7 +57,6 @@ function Get-ModuleProtectionIdentity {
             }
             else {
                 # Folding the aspect hashes covers the module's whole content, as the pre-aspect whole-module set did.
-                # [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)
                 # [comment:5](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment5)
                 $sets = @(Get-ModuleGlobSet -Name $setName) | Sort-Object Name
                 $fold = [System.Text.StringBuilder]::new()
@@ -145,7 +143,6 @@ function Get-ModuleProtectionIdentity {
     }
 
     # Ordinal name order keeps the fold byte-identical on every machine and culture.
-    # [ADR-FLOW-CD-GLOBS#5](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs5)
     # [comment:8](/docs/references/automation/catzc-base-qualitygates/private/Get-ModuleProtectionIdentity.ps1.md#comment8)
     $names = [string[]]$constituents
     [System.Array]::Sort($names, [System.StringComparer]::Ordinal)

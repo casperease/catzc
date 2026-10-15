@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1
+    kind: test
+---
+#>
+
 # The per-case assertions run the rule function directly on a parsed AST (L0) — the rule is pure logic over a
 # ScriptBlockAst (the SpellingOracle it consults is loaded once, warmed in BeforeAll below). The engine-wiring
 # proof (PSScriptAnalyzer discovers and fires this rule via -CustomRulePath, which also exercises the oracle

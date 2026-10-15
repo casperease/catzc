@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Cli/tests/Invoke-AzCli.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-AzCli' -Tag 'L0', 'logic' {
     It 'builds correct command via -DryRun' {
         Invoke-AzCli 'account show' -DryRun | Should -Be 'az account show'

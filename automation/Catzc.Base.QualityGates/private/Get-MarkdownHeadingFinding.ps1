@@ -17,7 +17,6 @@ catzc:
     Checks one Markdown file's H2–H6 headings against their normal form and returns the fixed text.
 .DESCRIPTION
     Only a trailing group of code spans and separators moves below the heading; prose groups and code subjects stay.
-    [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md#comment1)
 .PARAMETER RelativePath
     The file's repository-relative, '/'-separated path.
@@ -98,7 +97,6 @@ function Get-MarkdownHeadingFinding {
         $groups = [System.Collections.Generic.List[string]]::new()
         while ($words -match '^(?<head>.*?)\s*\((?<inner>[^()]*`[^()]*)\)\s*$') {
             # The -notmatch just below replaces the match result, so both groups are read before it.
-            # [ADR-PWSH-AUTOVAR](/docs/adr/pwsh/automatic-variable-pitfalls.md)
             # [comment:3](/docs/references/automation/catzc-base-qualitygates/private/Get-MarkdownHeadingFinding.ps1.md#comment3)
             $head = $Matches['head']
             $inner = $Matches['inner']

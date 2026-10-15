@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/PesterRunner.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore nexit  -- the escape-sequence artifact in the "`nexit" fixture strings
 Describe 'PesterRunner' -Tag 'logic' {
     Context 'argument validation' -Tag 'L0' {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-AzureNameOrderSet.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AzureNameOrderSet' -Tag 'L0', 'logic' {
     It 'exposes the standard and classic orders' {
         $orders = Get-AzureNameOrderSet

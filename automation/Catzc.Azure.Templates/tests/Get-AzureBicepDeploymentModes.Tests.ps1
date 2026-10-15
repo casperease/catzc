@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-AzureBicepDeploymentModes.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AzureBicepDeploymentModes' -Tag 'L0', 'logic' {
     It 'returns Incremental, Complete, DoNotRun' {
         $modes = Get-AzureBicepDeploymentModes

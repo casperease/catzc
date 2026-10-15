@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-LanguageTestOutcomes.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-LanguageTestOutcomes with the language runners mocked: every discovered test takes the outcome of its result,
 # or skips with tool_<tool>_missing when the run's source session handed down no managed tool. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

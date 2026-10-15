@@ -19,9 +19,6 @@ catzc:
     Runs a build run: the same tests as Test-Automation, against a fresh build of the selected modules.
 .DESCRIPTION
     The one seam: workers import the build, not the repository, so tests run against the built modules.
-    [ADR-AUTO-TEST#30](/docs/adr/automation/test-automation.md#rule-adr-auto-test30),
-    [ADR-AUTO-TEST#31](/docs/adr/automation/test-automation.md#rule-adr-auto-test31),
-    [ADR-DSGN-RUNMODE#6](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode6)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md#comment1)
 .PARAMETER Module
     Giving neither -Module nor -ModuleProfile selects the default bundle's profile.
@@ -32,7 +29,6 @@ catzc:
     Minimum test tier. Defaults to 0.
 .PARAMETER MaxLevel
     A snapshot run skips L3 and says so; 4 adds the opt-in L4 tier.
-    [ADR-AUTO-TEST#33](/docs/adr/automation/test-automation.md#rule-adr-auto-test33)
     [comment:3](/docs/references/automation/catzc-base-qualitygates/Test-CatzcBuild.ps1.md#comment3)
 .PARAMETER Category
     Logic, Integrity, or Both (the default) — as in Test-Automation.

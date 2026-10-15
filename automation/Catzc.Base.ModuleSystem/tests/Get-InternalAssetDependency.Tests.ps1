@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Tests.ps1
+    kind: test
+---
+#>
+
 # The inventory of internal asset dependencies
 # ([ADR-AUTO-ASSETDEP#2](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep2)) — one record per
 # Get-CatzcModuleRoot call

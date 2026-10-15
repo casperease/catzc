@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Invoke-TestFile.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
     BeforeAll {
         # The seams every case below shares, mocked once; a case that differs re-mocks its own.

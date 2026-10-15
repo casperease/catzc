@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # InspirationConfig and its InspirationEntry over neutral fixtures (widget/gadget,
 # [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)): the mapping, the one declared default
 # ([ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)), and every load-time rejection,

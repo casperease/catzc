@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/modules/budget.bicep
+//     kind: other
+// ---
+
 // Alerts reach the holders of subscription roles (Owner by default), so no email address lives in configuration.
 // [comment:1](/docs/references/infrastructure/modules/budget.bicep.md#comment1)
 

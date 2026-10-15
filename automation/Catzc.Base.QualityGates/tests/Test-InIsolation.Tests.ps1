@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-InIsolation.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-InIsolation' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.QualityGates {

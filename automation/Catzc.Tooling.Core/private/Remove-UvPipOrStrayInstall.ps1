@@ -17,7 +17,6 @@ catzc:
     on-PATH binary. Both steps are user-space.
 .DESCRIPTION
     Neither step needs elevation: the pip removal is uv-scoped, and the delete touches only the resolved binary.
-    [ADR-AUTO-REMOVE#6](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove6)
     [comment:1](/docs/references/automation/catzc-tooling-core/private/Remove-UvPipOrStrayInstall.ps1.md#comment1)
 .PARAMETER Config
     The tool's parsed tools.yml entry (from Get-ToolConfig).

@@ -1,9 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Languages/configs/languages.yml
+#     kind: config
+# ---
+
 # Every extension belongs to exactly one file language; an extension no entry lists has no file language.
-# [ADR-DSGN-TRACK#6](/docs/adr/design/tracks.md#rule-adr-dsgn-track6),
-# [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
-# [ADR-REPO-FORMAT#8](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format8),
-# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
-# [ADR-PIPE-NAME#6](/docs/adr/pipelines/pipeline-naming-and-placement.md#rule-adr-pipe-name6)
 # [comment:1](/docs/references/automation/catzc-base-languages/configs/languages.yml.md#comment1)
 engines:
   # Prettier, for every language that names it; the extension reads the same .prettierrc.yml and .editorconfig.

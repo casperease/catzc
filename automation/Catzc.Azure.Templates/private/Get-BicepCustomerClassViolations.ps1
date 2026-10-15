@@ -18,7 +18,6 @@ catzc:
     drift. Parallels Get-BicepConfigClassViolations.
 .DESCRIPTION
     The rule is asymmetric: a false template allows root configs only, a true one allows customer folders too.
-    [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)
     [comment:1](/docs/references/automation/catzc-azure-templates/private/Get-BicepCustomerClassViolations.ps1.md#comment1)
 .PARAMETER Customer
     The configuration subfolder name (a customer key), or '' for a configuration-root config.

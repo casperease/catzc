@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps/tests/Get-AdoYamlFiles.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Resolve-AdoYamlClassification' -Tag 'L0' {
     InModuleScope 'Catzc.Azure.DevOps' {
         Context 'null and non-dictionary input' -Tag 'logic' {

@@ -16,7 +16,6 @@ catzc:
     Lists the glossary terms that are not anchored on their defining rule (check G2) — one message per violation.
 .DESCRIPTION
     Only the normative summary anchors a term; bold in the ADR body, rule bullets or code spans does not.
-    [ADR-REPO-VOCAB#1](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab1)
     [comment:1](/docs/references/automation/catzc-base-docs/private/Get-GlossaryAnchorViolations.ps1.md#comment1)
 .PARAMETER Entry
     The merged glossary, as Get-Glossary returns it. Defaults to the repository's glossary.

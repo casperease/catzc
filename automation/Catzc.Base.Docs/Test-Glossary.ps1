@@ -18,9 +18,6 @@ catzc:
     Checks the controlled vocabulary against the repository: every glossary check, every issue in one report.
 .DESCRIPTION
     G4 and G6 share one surface table, so each tracked file's prose is read once per run, not once per check.
-    [ADR-AUTO-FAILFAST](/docs/adr/automation/fail-fast-with-asserts.md),
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Test-Glossary.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-glossary under the repository output root.

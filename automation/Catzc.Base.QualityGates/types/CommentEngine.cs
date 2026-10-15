@@ -15,9 +15,6 @@ catzc:
 
 // cspell:ignore EXTERNALHELP FORWARDHELPTARGETNAME FORWARDHELPCATEGORY REMOTEHELPRUNSPACE  -- PowerShell help keywords
 // Pure functions over text, so the move and its inverse are provable on fixtures and each comment keeps one living copy.
-// [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),
-// [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
-// [ADR-REPO-FORMAT#5](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format5)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentEngine.cs.md#comment1)
 
 using System;

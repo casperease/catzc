@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/New-Importer.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'New-Importer' -Tag 'L0', 'logic', 'source-only' {
     BeforeAll {
         $script:realOverlay = Join-Path (Get-RepositoryRoot) 'automation/.internal/Catzc.Internal.Importer.psm1'

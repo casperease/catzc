@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Export-SpellingTriage.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Export-SpellingTriage' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:queuePath = Join-Path $TestDrive 'terminology-triage.yml'

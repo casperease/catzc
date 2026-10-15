@@ -1,12 +1,17 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Docs/configs/readme.yml
+#     kind: config
+# ---
+
 # A folder not covered here keeps a hand-authored, committed README, and is un-ignored in .gitignore.
-# [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md), [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
 # [comment:1](/docs/references/automation/catzc-base-docs/configs/readme.yml.md#comment1)
 patterns:
   - glob: automation/*
     source: docs/references/automation/{kebab}.md
 mappings:
   # Source and README share a folder, so no link is rebased and index.md's relative links hold as written.
-  # [ADR-REPO-README#6](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme6)
   # [comment:2](/docs/references/automation/catzc-base-docs/configs/readme.yml.md#comment2)
   - folder: docs/adr
     source: docs/adr/index.md

@@ -93,7 +93,6 @@ function Build-Bicep {
         Write-Message "Importing per-template PrePost module: $($templateDescriptor.prepost_module)"
         $prepostModule = Import-Module $templateDescriptor.prepost_module -Scope Local -Force -PassThru
         # The template's hooks run strict like every catzc module, whoever wrote them.
-        # [ADR-PWSH-ERROR#8](/docs/adr/pwsh/error-handling.md#rule-adr-pwsh-error8)
         # [comment:7](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment7)
         . $prepostModule { Set-StrictMode -Version Latest }
         if ($prepostModule.ExportedCommands.ContainsKey('Invoke-BicepPrepareParameterSet')) {
@@ -115,7 +114,6 @@ function Build-Bicep {
         }
 
         # Resolved before the PrePost hook, so the hook and the parameters file see only ARM entries.
-        # [ADR-AZ-DATAMOD#10](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod10)
         # [comment:9](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment9)
         if ($configurationDescriptor.Contains('ParametersFile') -and $configurationDescriptor.ParametersFile -is [System.Collections.IDictionary] -and
             $configurationDescriptor.ParametersFile.Contains('parameters') -and $configurationDescriptor.ParametersFile.parameters -is [System.Collections.IDictionary]) {
@@ -129,7 +127,6 @@ function Build-Bicep {
         }
 
         # Hooks read from this bag, so adding a dimension never changes the hook signature.
-        # [ADR-PWSH-PREPOST](/docs/adr/pwsh/prepost-extension-modules.md)
         # [comment:10](/docs/references/automation/catzc-azure-templates/Build-Bicep.ps1.md#comment10)
         $buildInvocation = [ordered]@{
             Template     = $Template

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Get-BaseModule.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-BaseModule' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

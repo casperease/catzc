@@ -19,15 +19,12 @@ catzc:
     "root configs are managed" contract.
 .DESCRIPTION
     In build mode this skips instead of throwing, because the importer calls it on every load and must not fail.
-    [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md),
-    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment1)
 .PARAMETER Target
     A wildcard entry is selected by its own pattern, or one of its files by a path the pattern matches.
     [comment:2](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment2)
 .PARAMETER DryRun
     The composed content is the same either way; -DryRun only skips the write.
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:3](/docs/references/automation/catzc-base-rootconfig/Build-RootConfig.ps1.md#comment3)
 .PARAMETER Silent
     -Silent beats -Verbose, so the importer tail does not chatter during import in a verbose session.

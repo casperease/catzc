@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Assert-PsModule.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-PsModule' -Tag 'L0', 'logic' {
     It 'passes for an available module' {
         { Assert-PsModule 'Microsoft.PowerShell.Utility' } | Should -Not -Throw

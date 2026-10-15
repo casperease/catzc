@@ -13,9 +13,6 @@ catzc:
 */
 
 // No engine name or count is a literal here: each phrase carries a placeholder the matcher fills from the engines model.
-// [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1),
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/EngineSetCheck.cs.md#comment1)
 
 using System;

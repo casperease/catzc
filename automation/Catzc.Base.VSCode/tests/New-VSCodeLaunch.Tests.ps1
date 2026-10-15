@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.VSCode/tests/New-VSCodeLaunch.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'New-VSCodeLaunch' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolate through the config seam

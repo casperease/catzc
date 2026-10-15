@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/tests/Get-LastExitCode.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-LastExitCode' -Tag 'L0', 'logic' {
     It 'returns the exit code value' {
         $global:LASTEXITCODE = 42

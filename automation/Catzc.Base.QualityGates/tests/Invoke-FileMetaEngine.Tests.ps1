@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3', 'ADR-REPO-CODEMETA#3' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'engine-repository'

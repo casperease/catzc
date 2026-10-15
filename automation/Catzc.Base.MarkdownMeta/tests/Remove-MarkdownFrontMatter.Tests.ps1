@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.MarkdownMeta/tests/Remove-MarkdownFrontMatter.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Remove-MarkdownFrontMatter' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#1' {
     It 'returns the text from its first body line, dropping the blank line after written front matter' {
         Remove-MarkdownFrontMatter -Text "---`ncatzc:`n  derived:`n    kind: gadget`n---`n`n# docs/widget.md`n`nbody`n" |

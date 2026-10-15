@@ -21,14 +21,9 @@ catzc:
     Test-Terminology.
 .DESCRIPTION
     The lists are gitignored and regenerated at import, so the registry stays the only copy of the vocabulary.
-    [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md),
-    [ADR-AUTO-SPELL#5](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell5),
-    [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6),
-    [ADR-REPO-OUTDIR#8](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment1)
 .PARAMETER DryRun
     The returned content is the same in either mode; -DryRun only skips the write.
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:2](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment2)
 .PARAMETER Silent
     Wins over -Verbose, so the importer tail stays quiet even in a session that has -Verbose on.
@@ -60,7 +55,6 @@ function Build-TerminologyDictionary {
     $config = Get-Config -Config terminology
 
     # Every category always gets its file, even with no terms, so the generated file set and cspell.yml stay stable.
-    # [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)
     # [comment:5](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment5)
     $categories = @($config.categories)
 
@@ -96,7 +90,6 @@ function Build-TerminologyDictionary {
         $content = (($header + $words) -join "`n") + "`n"
 
         # The path is fixed because cspell.yml references it, so there is no committed second copy.
-        # [ADR-REPO-OUTDIR#8](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir8)
         # [comment:9](/docs/references/automation/catzc-base-qualitygates/Build-TerminologyDictionary.ps1.md#comment9)
         $dictPath = Join-Path $cspellDir "$category.txt"
 

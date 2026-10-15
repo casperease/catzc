@@ -17,12 +17,6 @@ catzc:
 */
 
 // Loading reads no other file and throws once with every violation; folder and token cross-checks live in Test-AdrRegistry.
-// [ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4),
-// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9),
-// [ADR-AZ-CUSTOMER#3](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer3),
-// [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md), [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14),
-// [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15),
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md#comment1)
 
 using System;
@@ -43,7 +37,6 @@ public sealed class AdrsConfig
     public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });
 
     // Declared once, in value-chain order; domain and ruleset concern lists may only name entries from this list.
-    // [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15)
     // [comment:2](/docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md#comment2)
     public static readonly IReadOnlyList<string> Concerns = Array.AsReadOnly(new[] { "automation", "build", "quality-control", "release", "deploy", "access" });
 
@@ -190,7 +183,6 @@ public sealed class AdrsConfig
                     string terminology = r.Contains("terminology") && r["terminology"] != null ? r["terminology"].ToString() : null;
 
                     // A prefix test is enough for a compound code such as FLOW-CD, so no dash position is needed to split it.
-                    // [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)
                     // [comment:3](/docs/references/automation/catzc-base-docs/types/AdrsConfig.cs.md#comment3)
                     string expectedPrefix = "ADR-" + effective;
                     bool domainSegmentMatches = string.Equals(external, expectedPrefix, StringComparison.Ordinal)

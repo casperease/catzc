@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.RootConfig/tests/Get-RootConfigRenderedFile.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-RootConfigRenderedFile over a mocked generator dispatch: a single-file generator's string and a multi-file
 # generator's { Target; Content } records normalise to the same records, and every shape that would write a file the
 # entry does not name throws. Neutral fixture names ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Get-ToolConfig.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ToolConfig' -Tag 'L0' {
     # Discovery-time: populates -ForEach data before tests run. tools.yml is located through its registered owner
     # (Catzc.Base.Execution owns it; this module reads it).

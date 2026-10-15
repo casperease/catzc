@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-AzureResourceTypeSet.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AzureResourceTypeSet' -Tag 'L0', 'logic' {
     It 'exposes the starter resource types' {
         $types = Get-AzureResourceTypeSet

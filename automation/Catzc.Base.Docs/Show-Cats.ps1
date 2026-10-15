@@ -17,8 +17,6 @@ catzc:
     Ask the catzc docs — a deterministic browser over the ADRs, modules, and approved verbs.
 .DESCRIPTION
     Output is presentation only on the information stream; the function returns nothing for a caller to use.
-    [ADR-AUTO-CACHE](/docs/adr/automation/caching.md),
-    [ADR-AUTO-CONSOLE](/docs/adr/automation/console-output-matters.md)
     [comment:1](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment1)
 .PARAMETER Area
     What to ask about: adr, module, or verbs. Omitted (the default) prints the overview.
@@ -61,7 +59,6 @@ function Show-Cats {
         }
         'adr' {
             # Not wrapped in @(): the getter's array is comma-wrapped, and @() would nest it one level too deep.
-            # [ADR-AUTO-CACHE](/docs/adr/automation/caching.md)
             # [comment:3](/docs/references/automation/catzc-base-docs/Show-Cats.ps1.md#comment3)
             $entries = Get-CatsAdrIndex
             if ($Query) {

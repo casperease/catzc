@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
     BeforeAll {

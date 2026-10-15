@@ -16,7 +16,6 @@ catzc:
     Creates a verified, isolated snapshot of a repository's working tree as it is right now.
 .DESCRIPTION
     Copies working-tree bytes, not a checkout, so core.autocrlf cannot alter them; ignored content stays out.
-    [ADR-AUTO-CONSOLE#10](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console10)
     [comment:1](/docs/references/automation/catzc-base-git/New-RepositorySnapshot.ps1.md#comment1)
 .PARAMETER SourceRoot
     The repository to snapshot. Defaults to the repository root (Get-RepositoryRoot).

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Contracts/tests/Get-ContractCheckResults.Repository.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-ContractCheckResults runs on the repository's own contracts/ tree
 # ([ADR-REPO-CONTRACT#4](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract4)): checking every asset of every
 # unit's draft returns one result per asset, without error. That every asset passes is the contracts quality gate's work.

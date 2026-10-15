@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-RegisteredInstallProduct' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE#7' {
     BeforeEach {
         # Two uninstall-registry views: the bundle registers only in the 32-bit one, its MSI in the 64-bit one, under the

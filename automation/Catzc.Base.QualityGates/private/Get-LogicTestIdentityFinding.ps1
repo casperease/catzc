@@ -19,8 +19,6 @@ catzc:
     integrity-tagged block — the comment-blind, tag-aware check cspell cannot do.
 .DESCRIPTION
     Only literals outside integrity-tagged blocks count, and the AST skips comments and help, so docs never trigger.
-    [ADR-AUTO-TEST#1](/docs/adr/automation/test-automation.md#rule-adr-auto-test1),
-    [ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment1)
 .PARAMETER Path
     The test file to scan.
@@ -54,7 +52,6 @@ function Get-LogicTestIdentityFinding {
     $ast = [System.Management.Automation.Language.Parser]::ParseFile($Path, [ref]$parseTokens, [ref]$parseErrors)
 
     # Predicates live in locals and are passed by name to FindAll, never written inline in the call.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:2](/docs/references/automation/catzc-base-qualitygates/private/Get-LogicTestIdentityFinding.ps1.md#comment2)
     $isCommandNode = {
         param($node)

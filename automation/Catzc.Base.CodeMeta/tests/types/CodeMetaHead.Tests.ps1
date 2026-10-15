@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1
+    kind: test
+---
+#>
+
 # CodeMetaHead over short widget/gadget texts: the proofs are the byte-identical second run and the lossless removal.
 Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA#1', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {

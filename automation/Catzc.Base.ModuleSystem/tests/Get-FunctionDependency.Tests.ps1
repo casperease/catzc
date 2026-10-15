@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Get-FunctionDependency.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-FunctionDependency' -Tag 'L0', 'integrity', 'source-only' {
     BeforeAll {
         $script:dependencies = Get-FunctionDependency

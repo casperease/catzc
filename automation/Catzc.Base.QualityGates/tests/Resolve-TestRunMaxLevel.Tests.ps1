@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Resolve-TestRunMaxLevel.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Resolve-TestRunMaxLevel' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates

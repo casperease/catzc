@@ -17,7 +17,6 @@ using System.Collections.Generic;
 using System.Text;
 
 /// <summary> Never called by production code: it mints readable placeholder GUIDs for the managed-GUID registry.
-/// [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)
 /// [comment:1](/docs/references/automation/catzc-base-qualitygates/types/SentenceGuid.cs.md#comment1)
 public static class SentenceGuid
 {

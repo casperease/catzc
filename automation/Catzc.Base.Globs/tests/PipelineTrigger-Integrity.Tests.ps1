@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1
+    kind: test
+---
+#>
+
 # Integrity: every pipeline-bound globset's ADO pipeline (and the GitHub CI workflow) declares the trigger
 # path filters its projection computes — the drift quality gates over THIS repo's real pipeline files
 # ([ADR-FLOW-CD-GLOBS#1](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs1)).

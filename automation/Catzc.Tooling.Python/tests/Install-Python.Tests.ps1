@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Python/tests/Install-Python.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Install-Python' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Tooling.Python

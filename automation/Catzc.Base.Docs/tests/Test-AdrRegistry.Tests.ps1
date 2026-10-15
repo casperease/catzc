@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-AdrRegistry over a fixture docs/adr tree in $TestDrive, a fixture AdrsConfig, and a fixture AdrChecksConfig (Get-Config and
 # Resolve-RepoPath mocked), so each test pins one rule. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

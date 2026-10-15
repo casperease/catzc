@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Build-Bicep.SampleCustomer.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore alweutstscusst alweutstscusacst
 Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic' {
     # Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the

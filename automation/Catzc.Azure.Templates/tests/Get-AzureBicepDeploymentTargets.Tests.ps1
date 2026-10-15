@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-AzureBicepDeploymentTargets.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-AzureBicepDeploymentTargets' -Tag 'L0', 'logic' {
     It 'returns Subscription and ResourceGroup' {
         $targets = Get-AzureBicepDeploymentTargets

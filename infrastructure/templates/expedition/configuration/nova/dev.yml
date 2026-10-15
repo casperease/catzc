@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: infrastructure/templates/expedition/configuration/nova/dev.yml
+#     kind: template-config
+# ---
+
 # Nonprod class: a serverless database that pauses when idle, in the nova spoke and registered in the nonprod hub's DNS.
 # [comment:1](/docs/references/infrastructure/templates/expedition/configuration/nova/dev.yml.md#comment1)
 ParametersFile:

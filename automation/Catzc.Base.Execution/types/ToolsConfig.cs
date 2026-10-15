@@ -11,7 +11,6 @@ catzc:
 */
 
 // The YAML root is the tool map itself, and validation collects every violation into one exception.
-// [ADR-AUTO-DEPS#4](/docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps4)
 // [comment:1](/docs/references/automation/catzc-base-execution/types/ToolsConfig.cs.md#comment1)
 
 using System;

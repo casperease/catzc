@@ -18,7 +18,6 @@ catzc:
     Materialises a file as a filesystem link to a source of truth — the link sibling of Write-FileIfChanged.
 .DESCRIPTION
     Never degrades to a content copy, which would silently reintroduce the drift the link exists to remove.
-    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment1)
 .PARAMETER Path
     Path of the link file to create or verify.
@@ -26,7 +25,6 @@ catzc:
     Path of the source file, which must exist, that the link must resolve to.
 .PARAMETER DryRun
     A plain file with identical content still reports true, since only a link counts as current.
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:2](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment2)
 .OUTPUTS
     [bool] $true when the link was (re)created (or would be, under -DryRun); $false when already current.
@@ -59,7 +57,6 @@ function Set-FileLink {
         if ($resolved) {
             $resolvedActual = [System.IO.Path]::GetFullPath($resolved.FullName)
             # The same file may differ only by case on Windows, while Unix treats such paths as two files.
-            # [ADR-AUTO-XPLAT#7](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat7)
             # [comment:4](/docs/references/automation/catzc-base-files/Set-FileLink.ps1.md#comment4)
             $current = if ($IsWindows) {
                 $resolvedActual -ieq $resolvedTarget

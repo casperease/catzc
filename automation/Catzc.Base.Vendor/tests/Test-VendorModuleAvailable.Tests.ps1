@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Vendor/tests/Test-VendorModuleAvailable.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-VendorModuleAvailable' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Resolve-VendorRepository -ModuleName Catzc.Base.Vendor { 'PSGallery' }

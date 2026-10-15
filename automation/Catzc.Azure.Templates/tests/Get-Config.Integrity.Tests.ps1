@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-Config.Integrity.Tests.ps1
+    kind: test
+---
+#>
+
 # Integrity tests for the SHIPPED config assets + real templates. Unlike the logic unit tests, these
 # deliberately bind to the real configs/azure.yml, configs/network.yml, and infrastructure/templates/ —
 # they are the contract that "what ships is internally consistent". They do NOT mock the

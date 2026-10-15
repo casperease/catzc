@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: ".claude/drawio/drawio_png.py"
+#     kind: script
+# ---
+
 # cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo segoeui segoeuib textbbox
 """Build a .drawio.png from an mxGraphModel XML file, or re-render one from the model it already carries.
 

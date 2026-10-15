@@ -20,11 +20,6 @@ catzc:
     Quality gate: every source and test file under automation/ follows the naming and one-function conventions.
 .DESCRIPTION
     Report-mode checks print their work list and never fail the run; only gate-mode findings are issues.
-    [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1),
-    [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3),
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-PWSH-PESTER#5](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester5),
-    [ADR-PWSH-PESTER#9](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester9)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Test-SourceConventions.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-source-conventions/ (Write-QualityGateReport).

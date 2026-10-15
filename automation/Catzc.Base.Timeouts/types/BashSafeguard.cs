@@ -11,7 +11,6 @@ catzc:
 */
 
 // The hook only ever denies and never rewrites a command, since an allow skips the prompt and a rewrite can dodge deny rules.
-// [ADR-AUTO-FAILFAST#7](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast7)
 // [comment:1](/docs/references/automation/catzc-base-timeouts/types/BashSafeguard.cs.md#comment1)
 
 using System;

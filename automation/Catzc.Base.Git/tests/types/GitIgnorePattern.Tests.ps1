@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/tests/types/GitIgnorePattern.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'GitIgnorePattern' -Tag 'L0', 'logic' {
     It 'constructs from a bare string' {
         $p = [Catzc.Base.Git.GitIgnorePattern]::new('out/*')

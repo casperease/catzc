@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-ManagedGuids.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-ManagedGuids over a mocked scan, registry, and 'repository' globset, so each test pins one rule. Neutral
 # fixture names and test-shaped guids ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).
 Describe 'Test-ManagedGuids' -Tag 'L0', 'logic' {

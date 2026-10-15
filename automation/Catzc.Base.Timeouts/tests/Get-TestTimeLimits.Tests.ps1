@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Timeouts/tests/Get-TestTimeLimits.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TestTimeLimits' -Tag 'L0', 'logic' {
     It 'returns the configured tier limits and run budget' {
         Mock Get-Config -ModuleName Catzc.Base.Timeouts {

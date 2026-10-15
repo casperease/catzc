@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.VSCode/tests/New-VSCodePipelineSchema.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'New-VSCodePipelineSchema' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolate through the config seam

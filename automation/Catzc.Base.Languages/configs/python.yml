@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Languages/configs/python.yml
+#     kind: config
+# ---
+
 # Every key but the dependencies is optional; the Python version is the tools.yml pin, never declared here.
-# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 # [comment:1](/docs/references/automation/catzc-base-languages/configs/python.yml.md#comment1)
 
 # Left undeclared, root takes the shared default: python/ when the repository has one, else the dot-prefixed .python.

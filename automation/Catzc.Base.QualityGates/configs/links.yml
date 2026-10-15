@@ -1,7 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.QualityGates/configs/links.yml
+#     kind: config
+# ---
+
 # Every key is optional: an omitted key takes the default declared once on LinksConfig, and a Format-Links parameter overrides it.
-# [ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8),
-# [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
-# [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4)
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/links.yml.md#comment1)
 
 # With break the link is never split from its comment; with off a long line is left alone and only reported.
@@ -16,7 +20,6 @@ line_limit: {}
 default_line_limit: 140
 
 # In gate mode a colon-form citation fails Test-Links; in report mode it is only listed, and exempt globs may keep it on purpose.
-# [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5)
 # [comment:4](/docs/references/automation/catzc-base-qualitygates/configs/links.yml.md#comment4)
 string_citations:
   exempt:

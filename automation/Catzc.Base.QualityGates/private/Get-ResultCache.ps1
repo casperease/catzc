@@ -16,7 +16,6 @@ catzc:
     Reads a quality check's result cache: which files the check last found clean, keyed on their content.
 .DESCRIPTION
     A missing or unreadable cache reads as empty, so losing it costs only one full check; a pipeline starts with none.
-    [ADR-AUTO-CACHE#10](/docs/adr/automation/caching.md#rule-adr-auto-cache10)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Get-ResultCache.ps1.md#comment1)
 .PARAMETER Path
     The cache file.

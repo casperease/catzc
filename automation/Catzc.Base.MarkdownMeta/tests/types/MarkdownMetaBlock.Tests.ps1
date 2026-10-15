@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.MarkdownMeta/tests/types/MarkdownMetaBlock.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     It 'renders the derived facts in the order given, one fixed form' {
         $facts = [ordered]@{ kind = 'gadget'; body_sha = '3fa91c0d2b7e'; adrs = @('ADR-WIDGET-GADGET#2', 'ADR-WIDGET-GADGET#3'); count = 2; ok = $true }

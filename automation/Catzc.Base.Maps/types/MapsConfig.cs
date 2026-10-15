@@ -14,9 +14,6 @@ catzc:
 */
 
 // Construction collects every violation into one ArgumentException, and an unknown key (a typo) fails at load.
-// [ADR-REPO-OUTDIR#2](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir2),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/MapsConfig.cs.md#comment1)
 
 using System;

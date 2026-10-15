@@ -19,10 +19,6 @@ catzc:
     Puts every comment residue of the repository's code and config files into its one-liner shape, in place.
 .DESCRIPTION
     Fixes only the mechanical cases; an obvious insight or a residue without a page section is listed unfixable.
-    [ADR-PRIN-CONFIG#1](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config1),
-    [ADR-PRIN-ONELIVE#1](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive1),
-    [ADR-REPO-COMMENTS#1](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments1),
-    [ADR-REPO-COMMENTS#5](/docs/adr/repository/comments-in-docs.md#rule-adr-repo-comments5)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/Format-Comments.ps1.md#comment1)
 .PARAMETER Path
     Files or folders to format. Default: every file in scope (Get-CommentScope).

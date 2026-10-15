@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1
+    kind: test
+---
+#>
+
 # Integrity for the SHIPPED bicep templates (infrastructure/templates/): that they are NAMED so discovery
 # finds them, and that their CONTENTS meet easily-verifiable structural constraints — WITHOUT building them.
 # Actually compiling a production template is the PIPELINE'S build step, not an integrity test; e2e build

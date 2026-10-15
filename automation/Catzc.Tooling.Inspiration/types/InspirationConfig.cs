@@ -13,9 +13,6 @@ catzc:
 */
 
 // An empty file and an omitted inspirations key take the eac default; an explicit empty list declares none.
-// [ADR-REPO-INSPIRE](/docs/adr/repository/inspiration.md),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6)
 // [comment:1](/docs/references/automation/catzc-tooling-inspiration/types/InspirationConfig.cs.md#comment1)
 
 using System;

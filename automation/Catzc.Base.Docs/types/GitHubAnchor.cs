@@ -11,7 +11,6 @@ catzc:
 */
 
 // A fragment resolves only if it matches GitHub's rendered slug, which drops every character but letters, digits, space, - and _.
-// [ADR-REPO-LINK#2](/docs/adr/repository/markdown-links.md#rule-adr-repo-link2)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GitHubAnchor.cs.md#comment1)
 
 using System;

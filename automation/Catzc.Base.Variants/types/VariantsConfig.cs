@@ -16,10 +16,6 @@ catzc:
 */
 
 // Every key is optional and an unknown key throws, so a typo fails fast at load; an absent key is null.
-// [ADR-REPO-VARIANT](/docs/adr/repository/repo-variants.md),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8),
-// [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md), [ADR-DSGN-TRACK](/docs/adr/design/tracks.md),
-// [ADR-DSGN-TRACK#1](/docs/adr/design/tracks.md#rule-adr-dsgn-track1), [ADR-DSGN-TRACK#2](/docs/adr/design/tracks.md#rule-adr-dsgn-track2)
 // [comment:1](/docs/references/automation/catzc-base-variants/types/VariantsConfig.cs.md#comment1)
 
 using System;

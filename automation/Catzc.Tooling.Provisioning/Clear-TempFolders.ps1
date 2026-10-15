@@ -22,7 +22,6 @@ catzc:
     [comment:2](/docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md#comment2)
 .PARAMETER DryRun
     Removed counts every top-level entry as deleted, since a lock shows only on a real delete attempt.
-    [ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)
     [comment:3](/docs/references/automation/catzc-tooling-provisioning/Clear-TempFolders.ps1.md#comment3)
 .EXAMPLE
     Clear-TempFolders

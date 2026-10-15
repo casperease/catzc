@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/templates/expedition/main.bicep
+//     kind: template
+// ---
+
 // Reached only through private endpoints in a discovery network, and registered in the hub's private DNS zones.
 // [comment:1](/docs/references/infrastructure/templates/expedition/main.bicep.md#comment1)
 

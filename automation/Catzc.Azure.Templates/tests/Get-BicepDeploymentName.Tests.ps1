@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Templates/tests/Get-BicepDeploymentName.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-BicepDeploymentName' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-BicepTemplatesRoot {

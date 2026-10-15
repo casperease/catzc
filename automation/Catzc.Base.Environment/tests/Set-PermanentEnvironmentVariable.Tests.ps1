@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1
+    kind: test
+---
+#>
+
 # Vertical system test (L3): the persistent-environment seam against the REAL user environment — state outside the
 # repository that every process and every concurrent run on the machine shares, so it runs only in the
 # working folder itself, never in a snapshot location. It is the one test that proves the registry round trip; every caller's logic is covered at

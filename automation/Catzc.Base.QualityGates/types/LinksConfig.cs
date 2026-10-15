@@ -15,11 +15,6 @@ catzc:
 */
 
 // The one declaration of the defaults: every key is optional, so no function restates a value and a missing file acts the same.
-// [ADR-REPO-LINK#8](/docs/adr/repository/markdown-links.md#rule-adr-repo-link8),
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
-// [ADR-PWSH-PARAM#4](/docs/adr/pwsh/parameter-design.md#rule-adr-pwsh-param4),
-// [ADR-REPO-LINK#5](/docs/adr/repository/markdown-links.md#rule-adr-repo-link5),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/LinksConfig.cs.md#comment1)
 
 using System;

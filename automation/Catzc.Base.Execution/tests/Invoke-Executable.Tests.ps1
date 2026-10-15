@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
     # Use where.exe/which as the test command — real executables on all platforms.
     # 'echo' is a shell builtin on Windows (no echo.exe) and breaks Stream mode.

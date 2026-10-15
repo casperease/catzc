@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/Test-ScriptAnalyzer.Tests.ps1
+    kind: test
+---
+#>
+
 # greedy: the analysis shards across min(ProcessorCount - 1, 10) background pwsh processes of its own —
 # stacked on the parallel worker pool that fan-out oversubscribes the machine (and inflates neighbouring
 # tests' wall clock against the level time limits); the greedy phase runs it after the pool instead.

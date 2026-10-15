@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/types/SpellingOracle.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'SpellingOracle.Tokenize' -Tag 'L0', 'logic' {
     # Tokenize is a pure function of its input — no dictionary, no Initialize required.
     It 'splits camelCase into lower-cased fragments' {

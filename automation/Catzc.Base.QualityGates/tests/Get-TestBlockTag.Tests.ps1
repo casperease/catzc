@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-TestBlockTag.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-TestBlockTag' -Tag 'L0', 'logic' {
     BeforeAll {
         # A fake Pester test: own It-tags, an inner block, and an optional outer block. The test's .Block is

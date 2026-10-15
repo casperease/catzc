@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/tests/Test-GitWorkspace.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Test-GitWorkspace' -Tag 'L0', 'logic' {
 
     It 'returns true for -MainDirect when the repo is main-direct' {

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Write-TestRunManifest.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Write-TestRunManifest' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:runDirectory = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

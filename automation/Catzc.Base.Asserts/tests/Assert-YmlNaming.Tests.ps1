@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Assert-YmlNaming.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-YmlNaming' -Tag 'L0', 'logic' {
     It 'passes for valid snake_case keys' {
         $yaml = [ordered]@{ foo_bar = 'value'; baz = [ordered]@{ nested_key = 1 } }

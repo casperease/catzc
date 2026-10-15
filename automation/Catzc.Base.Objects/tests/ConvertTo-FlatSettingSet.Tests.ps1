@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Objects/tests/ConvertTo-FlatSettingSet.Tests.ps1
+    kind: test
+---
+#>
+
 # Real CLR types (PowerShell classes are genuine .NET types, parsed by PowerShell — no Roslyn compile) used to
 # prove the reflect-over-public-members path with a nested typed member. Avoids Add-Type, whose Roslyn compile
 # was the entire cost of this L0 file.

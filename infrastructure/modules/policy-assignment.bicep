@@ -1,3 +1,10 @@
+// ---
+// catzc:
+//   derived:
+//     path: infrastructure/modules/policy-assignment.bicep
+//     kind: other
+// ---
+
 // Enforcement mode has no default here: the template reads it from the repository-wide policy setting.
 // [comment:1](/docs/references/infrastructure/modules/policy-assignment.bicep.md#comment1)
 

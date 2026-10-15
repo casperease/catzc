@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/SpellOutIdentifiers.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 . (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
@@ -6,7 +15,6 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: enforce spelled-out identifier names — no invented local abbreviations.
 .DESCRIPTION
     Tokenizing with no length floor catches short coined names that the spelling check lets pass.
-    [ADR-AUTO-SPELL#1](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell1)
     [comment:1](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment1)
 #>
 
@@ -44,7 +52,6 @@ function Initialize-SpellingOracle {
         [string[]] @()
     }
     # Kept apart from the main vocabulary so the oracle accepts fixture terms only when analysing a test file.
-    # [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)
     # [comment:4](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment4)
     $fixturePaths = [string[]] @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -eq 'fixture.txt' })
     $termPaths = [string[]] @($allTermPaths | Where-Object { [System.IO.Path]::GetFileName($_) -ne 'fixture.txt' })
@@ -83,7 +90,6 @@ function Measure-SpellOutIdentifiers {
     Initialize-SpellingOracle
 
     # A test file may use fixture vocabulary; production code may not.
-    # [ADR-AUTO-SPELL#6](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell6)
     # [comment:6](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment6)
     $isTestScope = Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst -IncludeTestsFolder
 
@@ -94,7 +100,6 @@ function Measure-SpellOutIdentifiers {
     $reported = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
     # Every reference, not only definitions, so a coined name is caught wherever it is defined; predicate as a local.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:8](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment8)
     $isVariable = {
         param($node)
@@ -103,7 +108,6 @@ function Measure-SpellOutIdentifiers {
     foreach ($variable in $ScriptBlockAst.FindAll($isVariable, $true)) {
         $variablePath = $variable.VariablePath
         # $env:, $function:, $variable: … — an external/special drive, not an identifier we choose.
-        # [ADR-AUTO-SPELL#4](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell4)
         # [comment:9](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment9)
         if ($variablePath.DriveName) {
             continue
@@ -129,7 +133,6 @@ function Measure-SpellOutIdentifiers {
     }
 
     # The noun of each function name (the verb is checked by PSUseApprovedVerbs).
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:10](/docs/references/automation/scriptanalyzer/SpellOutIdentifiers.psm1.md#comment10)
     $isFunction = {
         param($node)

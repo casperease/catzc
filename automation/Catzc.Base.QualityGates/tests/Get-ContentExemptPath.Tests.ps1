@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-ContentExemptPath.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ContentExemptPath' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT#6' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'

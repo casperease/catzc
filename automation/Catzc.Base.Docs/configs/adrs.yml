@@ -1,6 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Docs/configs/adrs.yml
+#     kind: config
+# ---
+
 # The only place the registry is edited: index.md is regenerated from it, and a leaf code overrides the domain default.
-# [ADR-DSGN-TRACK#14](/docs/adr/design/tracks.md#rule-adr-dsgn-track14),
-# [ADR-DSGN-TRACK#15](/docs/adr/design/tracks.md#rule-adr-dsgn-track15), [ADR-REPO-README](/docs/adr/repository/generated-readmes.md)
 # [comment:1](/docs/references/automation/catzc-base-docs/configs/adrs.yml.md#comment1)
 
 domains:
@@ -86,7 +91,6 @@ domains:
 
   flow:
     # Compound domain code: the root ADR cites the bare code, and every other flow ADR extends it with its own name.
-    # [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)
     # [comment:2](/docs/references/automation/catzc-base-docs/configs/adrs.yml.md#comment2)
     code: FLOW-CD
     role: architecture # the platform-agnostic flow model that ADO (PIPE) and GitHub (GH) implement

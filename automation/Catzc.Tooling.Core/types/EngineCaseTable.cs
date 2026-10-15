@@ -11,7 +11,6 @@ catzc:
 */
 
 // Construction collects every violation into one ArgumentException, so a case can never silently skip an engine.
-// [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
 // [comment:1](/docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md#comment1)
 
 using System;
@@ -23,7 +22,6 @@ namespace Catzc.Tooling.Core;
 public sealed class EngineCaseTable
 {
     // Read from the one engine declaration, so a table cannot invent a column of its own.
-    // [ADR-AUTO-ENGINE#1](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine1)
     // [comment:2](/docs/references/automation/catzc-tooling-core/types/EngineCaseTable.cs.md#comment2)
     private static readonly IReadOnlyList<string> Engines = Catzc.Base.Engines.ExecutionEngines.Names;
 

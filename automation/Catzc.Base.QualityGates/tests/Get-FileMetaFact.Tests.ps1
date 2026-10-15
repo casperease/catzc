@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-FileMetaFact.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#4' {
     BeforeAll {
         $script:state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nSee ADR-GADGET#1.`n"

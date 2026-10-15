@@ -12,8 +12,6 @@ catzc:
 */
 
 // Comment spans are the only places a code link lives; string-literal spans hold docs paths and citations as data.
-// [ADR-REPO-LINK#1](/docs/adr/repository/markdown-links.md#rule-adr-repo-link1),
-// [ADR-REPO-LINK#6](/docs/adr/repository/markdown-links.md#rule-adr-repo-link6)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentLexer.cs.md#comment1)
 
 using System;

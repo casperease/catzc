@@ -11,7 +11,6 @@ catzc:
 */
 
 // Lines are 0-based and inclusive; any mechanical lines between insight and docs link hold citations and links only.
-// [ADR-AUTO-TYPES#9](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types9)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/CommentResidue.cs.md#comment1)
 
 using System;

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.CodeMeta/tests/Format-CodeMetaHead.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Format-CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#3' {
     BeforeAll {
         $script:form = [Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')

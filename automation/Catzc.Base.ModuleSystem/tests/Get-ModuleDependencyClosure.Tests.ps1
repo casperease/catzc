@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependencyClosure.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-ModuleDependencyClosure is private (breadth-first over the declared dependency map). Tested via InModuleScope with
 # the map mocked to a small fixture graph, so the breadth-first/closure logic is exercised independent of the real graph.
 Describe 'Get-ModuleDependencyClosure' -Tag 'L0', 'logic' {

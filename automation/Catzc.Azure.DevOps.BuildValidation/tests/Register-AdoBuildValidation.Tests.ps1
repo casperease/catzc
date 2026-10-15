@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.DevOps.BuildValidation/tests/Register-AdoBuildValidation.Tests.ps1
+    kind: test
+---
+#>
+
 # The write side: idempotent create-or-update of one globset's build-validation policy, everything
 # defaulted from build-validation.yml, globs.yml, and ado.yml; -DryRun returns the plan
 # ([ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)).

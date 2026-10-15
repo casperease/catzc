@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Get-ToolInstallOrder.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ToolInstallOrder' -Tag 'L0' {
     Context 'topological sort (fixture graph)' -Tag 'logic' {
         # Isolate the sort from the shipped tools.yml by mocking the config seam to a controlled graph: this

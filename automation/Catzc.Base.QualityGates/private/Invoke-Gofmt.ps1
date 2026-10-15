@@ -18,8 +18,6 @@ catzc:
     changed.
 .DESCRIPTION
     The gofmt is the one beside the managed go at the pin, never the first on PATH; an off-pin go throws.
-    [ADR-AUTO-GO](/docs/adr/automation/go/go-test-artifacts.md),
-    [ADR-PRIN-CONFIG#2](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config2)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Invoke-Gofmt.ps1.md#comment1)
 .PARAMETER File
     Absolute paths of the .go files to format.

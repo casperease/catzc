@@ -1,5 +1,11 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Azure.DevOps/configs/identity-tokens.yml
+#     kind: config
+# ---
+
 # The ADO project is a live production identity, so a hermetic logic test must never name it.
-# [ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)
 # [comment:1](/docs/references/automation/catzc-azure-devops/configs/identity-tokens.yml.md#comment1)
 tokens:
   - config: ado

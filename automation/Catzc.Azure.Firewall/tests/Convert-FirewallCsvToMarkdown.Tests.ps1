@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Convert-FirewallCsvToMarkdown' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:assets = Join-Path (Get-RepositoryRoot) 'automation/Catzc.Azure.Firewall/tests/assets'

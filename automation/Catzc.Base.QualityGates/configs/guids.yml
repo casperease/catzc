@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.QualityGates/configs/guids.yml
+#     kind: config
+# ---
+
 # A placeholder guid is minted with ConvertTo-Guid so its value spells its sentence; an external guid is registered as-is.
 # [comment:1](/docs/references/automation/catzc-base-qualitygates/configs/guids.yml.md#comment1)
 # cspell:ignore oilzstgq

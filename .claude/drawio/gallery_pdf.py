@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: ".claude/drawio/gallery_pdf.py"
+#     kind: script
+# ---
+
 # cspell:ignore minimaps consola cour arialbd textlength
 """Write a gallery PDF: every diagram output as image pages, for readers without an HTML viewer.
 

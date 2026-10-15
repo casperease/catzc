@@ -17,8 +17,6 @@ catzc:
     Promotes protection for every candidate unit that came back green from a Test-Automation run.
 .DESCRIPTION
     A unit with no rows is never promoted, so a shard that died before producing rows cannot protect its module.
-    [ADR-REPO-PROTGLOB#4](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob4),
-    [ADR-REPO-PROTGLOB#9](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob9)
     [comment:1](/docs/references/automation/catzc-base-qualitygates/private/Protect-TestedModule.ps1.md#comment1)
 .PARAMETER Candidates
     The units Select-ProtectedTestFile queried and found unprotected — the only ones with a pending identity.

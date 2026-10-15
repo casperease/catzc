@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.scriptanalyzer/NoRawPipelineDetection.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: the rule runs strict inside the analyzer engine
 . (Join-Path $PSScriptRoot 'Test-AnalyzedFileIsTest.ps1')   # the shared test-file scope check, in this module's scope
 
@@ -6,7 +15,6 @@ Set-StrictMode -Version Latest   # this module's scope: the rule runs strict ins
     Custom PSScriptAnalyzer rule: forbid raw pipeline-detection env reads.
 .DESCRIPTION
     One detector owns the agent variables, so the checked set stays hidden and both platforms are always covered.
-    [ADR-FLOW-CD-DETECT#1](/docs/adr/flow/pipeline-detection.md#rule-adr-flow-cd-detect1)
     [comment:1](/docs/references/automation/scriptanalyzer/NoRawPipelineDetection.psm1.md#comment1)
 #>
 
@@ -30,7 +38,6 @@ function Measure-NoRawPipelineDetection {
     $detectionVars = @('env:TF_BUILD', 'env:GITHUB_ACTIONS')
 
     # Predicate as a local, not inlined in FindAll's parens — dodges a cross-version indent skew.
-    # [ADR-PWSH-FORMAT#6](/docs/adr/pwsh/powershell-formatting.md#rule-adr-pwsh-format6)
     # [comment:2](/docs/references/automation/scriptanalyzer/NoRawPipelineDetection.psm1.md#comment2)
     $isVariable = {
         param($node)

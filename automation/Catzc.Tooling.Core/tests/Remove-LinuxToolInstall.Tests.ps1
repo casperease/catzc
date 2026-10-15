@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Core/tests/Remove-LinuxToolInstall.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Remove-LinuxToolInstall' -Tag 'L1', 'logic' {
     BeforeEach {
         # A neutral fixture tool

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Write-TestAutomationRuleCoverage.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Write-TestAutomationRuleCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST#28' {
     BeforeAll {
         # A fake rule universe (not the real docs) keeps this hermetic — the writer is a pure function of its

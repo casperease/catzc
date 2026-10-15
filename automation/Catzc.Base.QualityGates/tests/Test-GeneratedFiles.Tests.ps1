@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-GeneratedFiles is a quality gate
 # ([ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35)): each L0 case mocks every generator
 # at the module boundary and reads the collected issues; the report goes to $TestDrive. The integrity blocks that run it

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Asserts/tests/Assert-LastExitCodeWasZero.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-LastExitCodeWasZero' -Tag 'L0', 'logic' {
     It 'passes when LASTEXITCODE is 0' {
         $global:LASTEXITCODE = 0

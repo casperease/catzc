@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: pipelines/cd-nova.yaml
+#     kind: other
+# ---
+
 # Dev-only until the prod tier is added: the lists name exactly nova's configs, with expedition at its base slot dev.
 # [comment:1](/docs/references/pipelines/cd-nova.yaml.md#comment1)
 

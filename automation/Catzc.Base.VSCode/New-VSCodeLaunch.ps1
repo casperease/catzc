@@ -17,7 +17,6 @@ catzc:
     editor offers.
 .DESCRIPTION
     Pure renderer: it returns the content and writes nothing, since Build-RootConfig owns the file write.
-    [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)
     [comment:1](/docs/references/automation/catzc-base-vscode/New-VSCodeLaunch.ps1.md#comment1)
 .OUTPUTS
     [string] The rendered launch.json content (LF-joined; the writer canonicalises).

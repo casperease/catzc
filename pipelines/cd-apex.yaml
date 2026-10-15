@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: pipelines/cd-apex.yaml
+#     kind: other
+# ---
+
 # Structure lives in the shared template; this root holds only selection data and triggers, which ADO honors only at the root.
 # [comment:1](/docs/references/pipelines/cd-apex.yaml.md#comment1)
 

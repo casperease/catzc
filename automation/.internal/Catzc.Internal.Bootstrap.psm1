@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/Catzc.Internal.Bootstrap.psm1
+    kind: other
+---
+#>
+
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
 <#
@@ -5,8 +14,6 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
     Writes a bootstrap/importer console message, prefixed to match Write-Message's [Caller] style.
 .DESCRIPTION
     Runs before Write-Message exists, so this is the bootstrap's one writer chokepoint, silent during a Pester run.
-    [ADR-PWSH-ANNOUNCE#1](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce1),
-    [ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)
     [comment:1](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment1)
 .PARAMETER Message
     The message text.
@@ -199,7 +206,6 @@ function New-DynamicManifest {
     [System.Array]::Sort($exportNames, [System.StringComparer]::Ordinal)
 
     # Formatter-stable text with no hand-padded alignment; the L2 tests guard that invariant.
-    # [ADR-REPO-FORMAT#1](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format1)
     # [comment:8](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment8)
     $content = Get-DynamicManifestContent -NestedModule $script:moduleFilesLoader -ModuleFile $moduleFiles -FunctionToExport $exportNames -ExportAll:$ExportPrivates
     Write-DynamicManifest -Path $manifestPath -Content $content
@@ -241,7 +247,6 @@ function Get-DynamicManifestContent {
         Renders a module manifest hashtable as canonical .psd1 text.
     .DESCRIPTION
         Canonical by construction: the alignment column derives from the longest key and the text is formatter-stable.
-        [ADR-REPO-FORMAT#1](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format1)
         [comment:11](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment11)
     #>
     [CmdletBinding()]
@@ -280,7 +285,6 @@ function Get-DynamicManifestContent {
     }
 
     # A new field re-aligns the equals column automatically, so no alignment is kept by hand.
-    # [ADR-REPO-FORMAT#1](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format1)
     # [comment:12](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment12)
     $fields = [ordered]@{
         RootModule        = "''"
@@ -390,7 +394,6 @@ function Import-CSharpTypes {
             $changeSummary += ' Drifted: ' + ($typeState.Drift -join '; ') + '.'
         }
         # A changed or removed type only warns and skips recording the hash, so the warning repeats until restart.
-        # [ADR-AUTO-TYPES#15](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types15)
         # [comment:18](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment18)
         if ((Test-IsRunningInPipeline) -or $typeState.MissingTypes.Count) {
             throw "$changeSummary Restart PowerShell to pick up the change."
@@ -449,8 +452,6 @@ function Import-CSharpTypes {
     }
 
     # Loads go through a per-user shadow copy, so no session ever locks a build inside the repository.
-    # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11),
-    # [ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)
     # [comment:23](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment23)
     if (-not $loaded) {
         Import-TypesAssembly -Path $dll | Out-Null
@@ -667,7 +668,6 @@ function Get-ForeignCatzcModule {
     Imports all module directories under a given root path.
 .DESCRIPTION
     Running importer modules are never touched mid-load; the exclusivity assert reports any that are foreign.
-    [ADR-DSGN-RUNMODE#5](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode5)
     [comment:30](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment30)
 .PARAMETER ModulesRoot
     Path to the directory containing module folders.
@@ -789,7 +789,6 @@ function Import-AllModules {
             }
             $importedModule = Import-Module $manifestPath -Scope Global -Force -PassThru | Select-Object -First 1
             # A session-level strict mode does not reach module code, so each module sets its own script scope.
-            # [ADR-PWSH-ERROR](/docs/adr/pwsh/error-handling.md)
             # [comment:38](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment38)
             . $importedModule { Set-StrictMode -Version Latest }
             $imported.Add($dir.Name)
@@ -812,8 +811,6 @@ function Import-AllModules {
     }
 
     # A re-import's remove then reload of the same modules is not a departure and is not listed.
-    # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11),
-    # [ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)
     # [comment:39](/docs/references/automation/internal/Catzc.Internal.Bootstrap.psm1.md#comment39)
     $summary = "Loaded $($imported.Count) modules from '$ModulesRoot'"
     if ($evicted.Count) {

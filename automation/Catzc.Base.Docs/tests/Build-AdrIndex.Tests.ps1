@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Build-AdrIndex.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README#7' {
     BeforeAll {
         $script:indexEntries = & (Get-Module Catzc.Base.Docs) { Get-CatsAdrIndex }

@@ -1,5 +1,13 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/Catzc.Internal.Vendor.psm1
+    kind: other
+---
+#>
+
 # Vendor loading runs before any Catzc module exists and again after import, so it lives here and stays loaded.
-# [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)
 # [comment:1](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment1)
 
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
@@ -100,8 +108,6 @@ function Import-VendorModules {
         }
 
         # The load, the replaced system copy and the dropped path entries are one state change, so one verbose line.
-        # [ADR-AUTO-CONSOLE#11](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console11),
-        # [ADR-PWSH-ANNOUNCE#6](/docs/adr/pwsh/announce-state-changes.md#rule-adr-pwsh-announce6)
         # [comment:7](/docs/references/automation/internal/Catzc.Internal.Vendor.psm1.md#comment7)
         if ($existing) {
             $line += "; replaced $($existing.Name) $($existing.Version) from '$($existing.ModuleBase)'"

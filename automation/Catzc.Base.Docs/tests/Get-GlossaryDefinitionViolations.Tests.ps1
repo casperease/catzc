@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-GlossaryDefinitionViolations.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-GlossaryDefinitionViolations is private, so it is exercised through the module (InModuleScope, per
 # [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)). A fixture ADR index and
 # two ADRs live in $TestDrive, and the glossary is built in memory from

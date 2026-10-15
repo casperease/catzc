@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
+    kind: test
+---
+#>
+
 # Aspects ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)): the ordered first-match partition of a unit's tracked
 # files. Compile encodes each
 # aspect as a leaf scan program (own patterns as include, earlier aspects' patterns as exclude); the last

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Git/tests/New-GitIgnore.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'New-GitIgnore' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolate through the config seam

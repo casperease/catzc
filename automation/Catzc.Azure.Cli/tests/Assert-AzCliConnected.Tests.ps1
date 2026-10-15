@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Cli/tests/Assert-AzCliConnected.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-AzCliConnected' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:sub = '50a0ed00-de00-50b0-0000-000000000000'

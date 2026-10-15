@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Node/tests/Uninstall-NodeJs.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Uninstall-NodeJs' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Uninstall-Tool { } -ModuleName Catzc.Tooling.Node

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Variants/tests/Assert-AdoNaming.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Assert-AdoNaming' -Tag 'L0', 'logic' {
 
     It 'passes when the repo matches the asserted order' {

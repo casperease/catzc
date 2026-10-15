@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Github/tests/Remove-TokenFromHistory.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Remove-TokenFromHistory' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock -ModuleName Catzc.Tooling.Github Assert-Command {}

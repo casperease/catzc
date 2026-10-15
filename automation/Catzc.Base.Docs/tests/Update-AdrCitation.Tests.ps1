@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
+    kind: test
+---
+#>
+
 # Update-AdrCitation rewrites one file's ADR references through a code map and a rule map. Every test writes its own
 # file into one shared fixture repository in $TestDrive: an ADR index of neutral widget/gizmo codes
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)) and the two fixture maps under

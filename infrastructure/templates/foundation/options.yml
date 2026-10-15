@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: infrastructure/templates/foundation/options.yml
+#     kind: other
+# ---
+
 # Subscription environment kind: configs use nsub and psub, once per subscription, and carry no slot.
 # [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)
 # [comment:1](/docs/references/infrastructure/templates/foundation/options.yml.md#comment1)

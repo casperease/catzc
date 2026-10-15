@@ -13,9 +13,6 @@ catzc:
 */
 
 // Report mode lasts only while a check's work list is drained; gate is the one declared default, and every exempt entry needs a reason.
-// [ADR-AUTO-DEFAULT#6](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default6),
-// [ADR-PRIN-CONFIG#4](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config4),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-qualitygates/types/SourceCheck.cs.md#comment1)
 
 using System;

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Azure.Cli/tests/Install-AzCliBicep.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Install-AzCliBicep' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-Tool { } -ModuleName Catzc.Azure.Cli

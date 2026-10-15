@@ -18,9 +18,6 @@ catzc:
     Quality gate: the network plan (network.yml) and the azure config's environments and subscriptions are in sync.
 .DESCRIPTION
     Checks only the join between the two files, since each config validates its own shape on load; lists all violations.
-    [ADR-AUTO-TEST#35](/docs/adr/automation/test-automation.md#rule-adr-auto-test35),
-    [ADR-AZ-NETWORK#2](/docs/adr/azure/azure-network-model.md#rule-adr-az-network2),
-    [ADR-AZ-NETWORK#5](/docs/adr/azure/azure-network-model.md#rule-adr-az-network5)
     [comment:1](/docs/references/automation/catzc-azure/Test-AzureNetworkPlan.ps1.md#comment1)
 .PARAMETER OutputFolder
     The report base folder. Defaults to out/test-azure-network-plan/ (Write-QualityGateReport).

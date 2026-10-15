@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Repository/tests/Get-OutputRoot.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-OutputRoot' -Tag 'L0', 'logic' {
     Context 'outside pipeline' {
         BeforeAll {

@@ -1,3 +1,10 @@
+# ---
+# catzc:
+#   derived:
+#     path: automation/Catzc.Base.Execution/configs/tools.yml
+#     kind: config
+# ---
+
 winget:
   version: "1"
   command: winget
@@ -40,8 +47,6 @@ bash:
 
 zsh:
   # zsh is the third execution engine, and the checker of the repository's zsh scripts.
-  # [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md),
-  # [ADR-AUTO-BASH#6](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash6)
   # [comment:4](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment4)
   version: "5"
   command: zsh
@@ -222,7 +227,6 @@ go:
 
 shellcheck:
   # Bash scripts take the checks that read them, so Test-ShellScripts runs this over every shell script.
-  # [ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)
   # [comment:25](/docs/references/automation/catzc-base-execution/configs/tools.yml.md#comment25)
   version: "0.11"
   command: shellcheck

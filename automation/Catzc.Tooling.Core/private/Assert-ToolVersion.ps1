@@ -30,7 +30,6 @@ function Assert-ToolVersion {
     # Cached for session lifetime. Reset by reimporting (.\importer.ps1).
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:toolVersionCache')) {
         # GetValue gives null for an unset cache, where a direct variable read would throw under strict mode.
-        # [ADR-PWSH-CACHE#4](/docs/adr/pwsh/script-scope-caching.md#rule-adr-pwsh-cache4)
         # [comment:2](/docs/references/automation/catzc-tooling-core/private/Assert-ToolVersion.ps1.md#comment2)
         $script:toolVersionCache = @{}
     }

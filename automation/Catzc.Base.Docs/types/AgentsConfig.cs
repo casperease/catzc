@@ -14,10 +14,6 @@ catzc:
 */
 
 // Load checks only the file's own shape; agent files, rule ids, commands and CLAUDE.md are cross-checked by Test-AgentDefinitions.
-// [ADR-REPO-AGENTS#2](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents2),
-// [ADR-REPO-AGENTS#4](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents4),
-// [ADR-CONF-LOADING#4](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading4),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AgentsConfig.cs.md#comment1)
 
 using System;

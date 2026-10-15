@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.Docs/tests/Get-CatsModules.Tests.ps1
+    kind: test
+---
+#>
+
 # Get-CatsModules is private, so it is exercised through the module (& (Get-Module …), per
 # [ADR-PWSH-PESTER#4](/docs/adr/pwsh/pester-testing.md#rule-adr-pwsh-pester4)).
 Describe 'Get-CatsModules' -Tag 'L0', 'logic' {

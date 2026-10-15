@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.QualityGates/tests/Get-FileMetaScope.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA#5' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'

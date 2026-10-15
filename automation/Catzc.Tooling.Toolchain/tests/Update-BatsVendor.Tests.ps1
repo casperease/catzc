@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Toolchain/tests/Update-BatsVendor.Tests.ps1
+    kind: test
+---
+#>
+
 # Update-BatsVendor with the download and tar mocked: the mocked tar lays out a fixture release in the staging folder,
 # and the vendored folder of a fixture repository in $TestDrive is rebuilt from it. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

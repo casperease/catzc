@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Test-InternalAssetDependency.Tests.ps1
+    kind: test
+---
+#>
+
 # Test-InternalAssetDependency over a mocked inventory: the violation and coverage engines have their own tests, so
 # this pins how the gate turns their records into issues. Neutral fixture names
 # ([ADR-AUTO-TEST#3](/docs/adr/automation/test-automation.md#rule-adr-auto-test3)).

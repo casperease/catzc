@@ -11,7 +11,6 @@ catzc:
 */
 
 // An unlisted character is measured at the widest Latin letter, so a measured label is never narrower than the drawn one.
-// [ADR-PWSH-TYPES#1](/docs/adr/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types1)
 // [comment:1](/docs/references/automation/catzc-base-maps/types/HelveticaMetrics.cs.md#comment1)
 
 using System;

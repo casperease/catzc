@@ -13,9 +13,6 @@ catzc:
 */
 
 // Default excludes are always added to a source's own, so no source can scan research text, generated output or vendored code.
-// [ADR-REPO-VOCAB#2](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab2),
-// [ADR-REPO-VOCAB#3](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab3),
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/GlossaryOptions.cs.md#comment1)
 
 using System;

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/Get-ModuleDependency.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Get-ModuleDependency' -Tag 'integrity', 'source-only' {
     BeforeAll {
         $script:edges = Get-ModuleDependency

@@ -11,7 +11,6 @@ catzc:
 */
 
 // AdrNeutralityCheck rejects a name that is not kebab-case and a pattern that does not compile; matching is case-sensitive.
-// [ADR-AUTO-TYPES#8](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types8)
 // [comment:1](/docs/references/automation/catzc-base-docs/types/AdrNeutralityToken.cs.md#comment1)
 
 using System.Collections.Generic;

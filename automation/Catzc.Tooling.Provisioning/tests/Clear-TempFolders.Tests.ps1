@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Clear-TempFolders.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'Clear-TempFolders' -Tag 'L0', 'logic' {
     # Always target a fixture folder under $TestDrive via -Path — never the real temp.
 

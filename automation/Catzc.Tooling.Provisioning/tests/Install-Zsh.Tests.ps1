@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Tooling.Provisioning/tests/Install-Zsh.Tests.ps1
+    kind: test
+---
+#>
+
 # Install-Zsh on a fixture Git tree in $TestDrive: the layout, the tool config, the verified download, and the tar
 # extraction are mocked, so nothing downloads, no process starts, and nothing outside $TestDrive changes
 # ([ADR-AUTO-TEST#9](/docs/adr/automation/test-automation.md#rule-adr-auto-test9)). The extraction mock writes a

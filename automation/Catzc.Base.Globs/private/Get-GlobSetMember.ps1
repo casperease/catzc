@@ -16,7 +16,6 @@ catzc:
     The tracked files a globset finally selects — the single source of a set's included members.
 .DESCRIPTION
     The hash and the public file list both route through here, so the scoped member list cannot drift between them.
-    [ADR-FLOW-CD-GLOBS#4](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs4)
     [comment:1](/docs/references/automation/catzc-base-globs/private/Get-GlobSetMember.ps1.md#comment1)
 .PARAMETER GlobSet
     The globset instance to resolve (declared or derived).

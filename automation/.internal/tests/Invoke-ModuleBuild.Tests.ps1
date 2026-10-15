@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/Invoke-ModuleBuild.Tests.ps1
+    kind: test
+---
+#>
+
 # cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 BeforeAll {
     Import-InternalModule TestKit

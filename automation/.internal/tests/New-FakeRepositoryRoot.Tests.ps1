@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
+    kind: test
+---
+#>
+
 Describe 'New-FakeRepositoryRoot' -Tag 'L0', 'logic', 'ADR-DSGN-RUNMODE#4' {
     BeforeAll {
         Import-InternalModule TestKit

@@ -1,3 +1,12 @@
+<#
+---
+catzc:
+  derived:
+    path: automation/Catzc.Base.ModuleSystem/tests/types/FilesConfig.Tests.ps1
+    kind: test
+---
+#>
+
 # The files.yml type (module -> packages, for Copy-Automation): constructing it maps and validates the parsed
 # YAML, so a malformed module->packages manifest never loads through Get-Config -Config files.
 Describe 'Catzc.Base.ModuleSystem.FilesConfig' -Tag 'L0', 'logic' {
